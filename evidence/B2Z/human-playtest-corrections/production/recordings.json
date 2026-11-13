@@ -1,0 +1,70 @@
+[
+  {
+    "file": "desktop-fire-outage-recovery.webm",
+    "source": ".work/human-frontend-deploy/live-desktop-fire-first/1440x900/video/page@903a862c5ba04b5bb1c18259612a020c.webm",
+    "nominal_source_start_seconds": 170.70410000000894,
+    "duration_requested_seconds": 77.27420000000298,
+    "method": "Stream copy of actual production-browser recording; no synthetic frames",
+    "baseline_ms": 172704.10000000894,
+    "disabled_ms": 210010.40000000596,
+    "recovered_ms": 243978.30000001192,
+    "sha256": "69be09ba7008693a2f08c798b785d971058c647b6faa31b7be1518fd14dfe440",
+    "bytes": 1188829
+  },
+  {
+    "file": "desktop-move-outage-recovery.webm",
+    "source": ".work/human-frontend-deploy/live/1440x900/video/page@3221aa4df5a14684df0ae1f5237e52f2.webm",
+    "nominal_source_start_seconds": 277.55109999999405,
+    "duration_requested_seconds": 90.60770000000298,
+    "method": "Stream copy of actual production-browser recording; no synthetic frames",
+    "baseline_ms": 279551.09999999404,
+    "disabled_ms": 318827.299999997,
+    "recovered_ms": 364158.799999997,
+    "sha256": "1ad68dd5e6656365d9b0ec2ee8e020fc1e5cbe8ac51b9d60bc4b61cc816e1e9d",
+    "bytes": 1861978
+  },
+  {
+    "file": "desktop-build-outage-recovery.webm",
+    "source": ".work/human-frontend-deploy/live/1440x900/video/page@3221aa4df5a14684df0ae1f5237e52f2.webm",
+    "nominal_source_start_seconds": 448.638599999994,
+    "duration_requested_seconds": 50.184700000002984,
+    "method": "Stream copy of actual production-browser recording; no synthetic frames",
+    "baseline_ms": 450638.59999999404,
+    "disabled_ms": 487862.200000003,
+    "recovered_ms": 494823.299999997,
+    "sha256": "730ec2dc2be62c9f04267c253f3a353c6c75c385f956052d01c43b41b0797227",
+    "bytes": 834823
+  },
+  {
+    "file": "390x844-build-recovery.webm",
+    "source": ".work/human-frontend-deploy/live/390x844/video/page@ac5b91a3b25c20c3b372799eebe49182.webm",
+    "nominal_source_start_seconds": 345.0035,
+    "duration_requested_seconds": 70.92470000000299,
+    "method": "Unmodified stream copy of actual production browser recording",
+    "baseline_ms": 347003.5,
+    "disabled_ms": 382514.700000003,
+    "recovered_ms": 411928.200000003,
+    "sha256": "c45568e5cf6d68e0c964221bb5e7d55e2b37eb4f86af164fbb761aaefa8d6180",
+    "bytes": 1285645
+  },
+  {
+    "file": "320x640-build-recovery.webm",
+    "source": ".work/human-frontend-deploy/live/320x640/video/page@4edd56e5ae1ac4edeb1b2162bd928571.webm",
+    "nominal_source_start_seconds": 305.50009999999406,
+    "duration_requested_seconds": 51.68310000000894,
+    "method": "Unmodified stream copy of actual production browser recording",
+    "baseline_ms": 307500.09999999404,
+    "disabled_ms": 343378.299999997,
+    "recovered_ms": 353183.200000003,
+    "sha256": "87ff5ebf164809a848159b52742a278588605f1703b0e86ce694e39426b362d0",
+    "bytes": 714621
+  },
+  {
+    "file": "native-moving-ball.webm",
+    "source": ".work/human-frontend-deploy/live-moving-ball/video/page@3a590926c44cfb5c2328abe1a661e8de.webm",
+    "duration_requested_seconds": 75,
+    "method": "Unmodified stream copy; normal verified movement, native ball selection/follow and away-click",
+    "sha256": "3b90cda87df0833f0f3d6cc86b7999ae5fb4f45464d7284075d756676bb6cd77",
+    "bytes": 625471
+  }
+]

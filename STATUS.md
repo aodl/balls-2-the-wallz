@@ -1,4 +1,4 @@
-# Human-playtest panel correction — all six hosted gates PASS; not deployed
+# Human-playtest corrective frontend — deployed, byte-verified and live acceptance PASS
 
 Qualified source `7d6c8f690ca371c14e347c9dd454502a92f7fc2d` passes all six substantive
 gates in [run 43384453868](https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868).
@@ -13,9 +13,19 @@ in source provenance. Runtime, builders, dependencies and qualifiers remain unch
 by the final report/evidence updates. Earlier 2fa2673 retains its actual failed CI.
 
 [Closeout, source identities, media and rollback plan](evidence/B2Z/human-playtest-corrections/panel-closeout/REPORT.md).
-No production deployment, backend, financial or ICRC-2 change occurred. The installed
-b0f6c7a frontend remains the rollback candidate. Return these exact frozen assets
-for a separate frontend-only deployment decision; do not rebuild or substitute them.
+On 13 November 2026 the owner authorized the exact frontend assets. Observer-only
+`--no-asset-upgrade` publication completed; all 15 served public files and security
+headers match the frozen candidate. Certified backend/frontend modules, controllers
+and subnet bindings remain unchanged. Backend, financial and ICRC-2 capabilities
+were untouched. The former b0f6c7a frontend is retained byte-for-byte for rollback.
+
+[Production verification and live acceptance](evidence/B2Z/human-playtest-corrections/production/REPORT.md).
+All nine deployed Fire/Move/Build outage journeys pass at 1440×900, 390×844 and
+320×640: **0px drift across 1,477 sampled states**, plus 80 operational-only
+states. Native touch aim/pinch, moving-ball click/follow cancellation and
+contracted payment-scroll checks pass. Startup movement begins under the initial
+verified head. Historical qualification remains distinct from these live checks;
+physical-device/GPU and actual subnet-outage limits are recorded in the report.
 
 ---
 

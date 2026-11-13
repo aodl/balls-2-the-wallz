@@ -1,6 +1,9 @@
-# Human playtest corrections — qualified frontend candidate
+# Human playtest corrections — qualified frontend deployed
 
-**All six substantive hosted gates PASS on `7d6c8f6`. Not deployed.**
+**All six substantive hosted gates PASS on `7d6c8f6`. The exact frozen frontend
+was subsequently owner-authorized, deployed and byte/header-verified on 13 November 2026.**
+[Production acceptance and rollback](production/REPORT.md) records actual deployed
+observations separately from the qualification evidence below.
 [Run 43384453868](https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868)
 qualifies source `7d6c8f690ca371c14e347c9dd454502a92f7fc2d` and the unchanged
 frozen runtime `ca8b1f821932cd3b2bd164c84b07935453d8fb6a`.
@@ -16,10 +19,10 @@ The normal read-only European session independently shows 0px drift at H=7054.
 - Complete 16-file [inventory](panel-closeout/frontend-files.json): `f85e3ddf9b1ed38dd7b441162f7579707b5e7ef1c10c0612d0990795cb46e99c`.
 - [Current qualification](qualification.json) / [CI conclusions and artifact digests](panel-closeout/ci-7d6c8f6.json) / [identity proof](panel-closeout/identity-proof.json).
 
-The installed frontend remains the prior b0f6c7a rollback candidate. Production
+The prior b0f6c7a frontend remains preserved as the rollback candidate. Production
 backend, paid state, prices, Ledger processing and ICRC-2 configuration were untouched.
-A separate owner decision is required for a frontend-only deployment of these
-exact frozen bytes. Later report/evidence updates preserve runtime/build/dependency
+The later explicit owner authorization covered only these exact frontend assets.
+Later report/evidence updates preserve runtime/build/dependency
 and qualifier identities; they do not substitute a new frontend build.
 
 ## Earlier development record — superseded runtime 777fb42

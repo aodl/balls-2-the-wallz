@@ -1,0 +1,1086 @@
+{
+  "source": ".work/human-frontend-deploy/live/1440x900/move/all-status.json",
+  "baseline": {
+    "at": 279551.09999999404,
+    "box": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 411,
+      "top": 334,
+      "right": 1021,
+      "bottom": 745,
+      "left": 661
+    },
+    "body": {
+      "x": 661,
+      "y": 388,
+      "width": 360,
+      "height": 357,
+      "top": 388,
+      "right": 1021,
+      "bottom": 745,
+      "left": 661
+    },
+    "contentHeight": 337,
+    "scrollTop": 0,
+    "bodyHeight": "357px",
+    "space": "440px",
+    "composer": {
+      "mode": "move",
+      "cell": 998998,
+      "degrees": "0",
+      "worldAngle": "225",
+      "quantity": 1
+    },
+    "values": {
+      "transfer-amount": "0.0001 ICP",
+      "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "text-memo": "MOVE 1 998998",
+      "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "payment-fee": "Wallet fee extra.",
+      "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+    },
+    "disabled": false,
+    "camera": [
+      3.2792878051213847,
+      0.22587215908879443,
+      88
+    ],
+    "head": "7443",
+    "status": {
+      "kind": "slow",
+      "label": "Slow \u00b7 delayed",
+      "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+      "canPrepare": true
+    },
+    "playhead": 7437.927878826034,
+    "available": 7440,
+    "clockSame": true,
+    "sessionSame": true,
+    "announcement": "",
+    "sourceCell": 0
+  },
+  "checks": {
+    "same_financial_values": true,
+    "same_composer": true,
+    "same_camera": true,
+    "same_scroll": true,
+    "same_content_height": true,
+    "same_session_and_clock": true,
+    "within_verified_coverage": true,
+    "disabled_on_outage": true,
+    "enabled_after_recovery": true,
+    "stable_geometry": true
+  },
+  "samples": [
+    {
+      "at": 281235.40000000596,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": false,
+      "head": "7443",
+      "playhead": 7437.957878826035,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 283309.5,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": false,
+      "head": "7443",
+      "playhead": 7437.972878826035,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 284740.200000003,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": false,
+      "head": "7443",
+      "playhead": 7437.987878826036,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 286026.200000003,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": false,
+      "head": "7443",
+      "playhead": 7438.002878826036,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 287446.5,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.017878826036,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 288683.40000000596,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.032878826037,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 289769.200000003,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.047878826037,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 291078.40000000596,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.062878826037,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 292321.200000003,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.077878826038,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 293826.299999997,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.092878826038,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 295431.5,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.107878826038,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 297337.700000003,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.122878826039,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 299382.5,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.137878826039,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 300924.5,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.152878826039,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 302322.59999999404,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.16787882604,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 303996.299999997,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.18287882604,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 305812,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.19787882604,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 307994.5,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.212878826041,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 309268.5,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.227878826041,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 310680,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.242878826041,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 312717.799999997,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.257878826042,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 314586.90000000596,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.272878826042,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 315903.09999999404,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.287878826042,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 317366.59999999404,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.302878826043,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 318864.40000000596,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.317878826043,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 321080,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.332878826043,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 322782.5,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.347878826044,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 324815.5,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.362878826044,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 326234.90000000596,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.377878826044,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 327671,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.392878826045,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 329103.5,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.407878826045,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 330707.200000003,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.422878826045,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 332395,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.437878826046,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 333892.299999997,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.451678826045,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 335779.200000003,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.464278826045,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 337535.59999999404,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.475678826046,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 339188.59999999404,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.485878826045,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 340623.200000003,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.494878826045,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 342107.90000000596,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.502678826046,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 344840.799999997,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.509278826045,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 346078.40000000596,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.515334207785,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 348147.799999997,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.521329035707,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 350962.299999997,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.52726391535,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 353827.799999997,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.533139446196,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 356337.700000003,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.538956221734,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 358878.700000003,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": true,
+      "head": "7443",
+      "playhead": 7438.544714829517,
+      "available": 7440,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 362659.09999999404,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": false,
+      "head": "7444",
+      "playhead": 7438.554714829517,
+      "available": 7441,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 364202,
+      "rect": [
+        661,
+        334,
+        360,
+        411
+      ],
+      "disabled": false,
+      "head": "7444",
+      "playhead": 7438.565914829517,
+      "available": 7441,
+      "camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    }
+  ]
+}

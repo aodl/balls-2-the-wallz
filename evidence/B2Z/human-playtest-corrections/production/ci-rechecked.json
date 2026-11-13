@@ -1,0 +1,49 @@
+{
+  "checkedAt": "2026-11-13T10:29:08.885Z",
+  "source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+  "run": 43384453868,
+  "jobs": [
+    {
+      "id": 131749534496,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131749534705,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131749534706,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131749534708,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131749534709,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131749534742,
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success"
+    },
+    {
+      "id": 131749534804,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success"
+    }
+  ]
+}

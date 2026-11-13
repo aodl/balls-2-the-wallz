@@ -1,0 +1,32 @@
+{
+  "status": "PASS",
+  "qualified_source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+  "runtime_source": "ca8b1f821932cd3b2bd164c84b07935453d8fb6a",
+  "changed_tracked_paths_since_qualification": [
+    "STATUS.md",
+    "docs/operations/S14_OPERATOR.md",
+    "evidence/B2Z/human-playtest-corrections/REPORT.md",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/REPORT.md",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/ci-7d6c8f6.json",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/hosted-installed-summary.json",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/hosted-panel-summary.json",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/identity-proof.json",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/qualification.json",
+    "evidence/B2Z/human-playtest-corrections/qualification-777fb42.json",
+    "evidence/B2Z/human-playtest-corrections/qualification.json"
+  ],
+  "runtime_build_dependency_changes": false,
+  "application_rebuilt": false,
+  "live_panel_cases": 9,
+  "live_delivery_samples": 1477,
+  "operational_only_samples": 80,
+  "max_drift_px": 0,
+  "browser_page_errors": 0,
+  "report_links_exist": true,
+  "backend_modified": false,
+  "rollback_required": false,
+  "report_publication": "BLOCKED: Git HTTPS Username unavailable; original 9b7d5bb preserved locally",
+  "staged_files": 80,
+  "all_staged_changes_documentation_or_evidence": true,
+  "live_total_status_samples": 1557
+}

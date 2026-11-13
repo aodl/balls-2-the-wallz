@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "revision": "22358",
+  "callback_count": "7450",
+  "source_cursor": "40180669",
+  "source_bindings_unchanged": true,
+  "generation": "1",
+  "pace": {
+    "admission_open": true,
+    "mode": "Trickle",
+    "nominal_milli": 10,
+    "performance_limited": false,
+    "supported_milli": 10
+  },
+  "run_error": [],
+  "source_error": [],
+  "pending_records": 0,
+  "read_only": "lab_status --query"
+}

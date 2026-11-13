@@ -1,0 +1,5020 @@
+{
+  "scope": "Actual installed production origin; anonymous certified mainnet reads; browser-only delivery injection; viewport emulation and software rendering",
+  "runtime": "ca8b1f821932cd3b2bd164c84b07935453d8fb6a",
+  "javascript_sha256": "9d45b94008d6f417c4d685c76d52b8a869af34c4b950aea395596ef13104014c",
+  "startups": [
+    {
+      "run": "live-selection-assertion-attempt",
+      "viewport": [
+        1440,
+        900
+      ],
+      "startup": {
+        "timings": {
+          "currentAuthorityAt": 10248.70000000298,
+          "firstVerifiedFrameAt": 14340.800000011921,
+          "operatingStateKnownAt": 14340.800000011921,
+          "firstMotionAt": 14772.300000011921,
+          "firstMotionHead": "7434",
+          "initialHead": "7434"
+        },
+        "history": {
+          "requests": 2,
+          "bytes": 16296,
+          "outcome": "interval",
+          "elapsedMs": 801
+        },
+        "samples": [
+          {
+            "at": 1126,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1180.9000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1259,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1474.800000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1561.800000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1661.4000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1759,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1859,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 3432.300000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3478,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3563.4000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3669.6000000089407,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3861.2000000029802,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6945.20000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 7758.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 8769.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 8868.20000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 8960,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 9062,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 9195.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 9279.70000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 9423.10000000894,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 9462.800000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 9559.40000000596,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 9660.300000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 9828,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 9859,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 10016.60000000894,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 14340.800000011921,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7430.001333,
+            "head": "7434",
+            "referenceTime": 7431,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 5.867032100592041,
+                "y": 981.8241876689426
+              }
+            ],
+            "playhead": 7430.001333,
+            "available": 7431
+          },
+          {
+            "at": 14377.20000000298,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7430.001333,
+            "head": "7434",
+            "referenceTime": 7431,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 5.867032100592041,
+                "y": 981.8241876689426
+              }
+            ],
+            "playhead": 7430.001333,
+            "available": 7431
+          },
+          {
+            "at": 14772.300000011921,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7430.011333,
+            "head": "7434",
+            "referenceTime": 7431,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 6.114952022471698,
+                "y": 982.0144318095699
+              }
+            ],
+            "playhead": 7430.011333,
+            "available": 7431
+          },
+          {
+            "at": 15449.90000000596,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7430.017667,
+            "head": "7434",
+            "referenceTime": 7431,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 6.271984500985127,
+                "y": 982.1349324482435
+              }
+            ],
+            "playhead": 7430.017667,
+            "available": 7431
+          },
+          {
+            "at": 15632.10000000894,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7430.021333,
+            "head": "7434",
+            "referenceTime": 7431,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 6.362871944322251,
+                "y": 982.2046759501973
+              }
+            ],
+            "playhead": 7430.021333,
+            "available": 7431
+          },
+          {
+            "at": 16029.20000000298,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7430.025000000001,
+            "head": "7434",
+            "referenceTime": 7431,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 6.4537841796991415,
+                "y": 982.2744384765683
+              }
+            ],
+            "playhead": 7430.025000000001,
+            "available": 7431
+          }
+        ],
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "certificateMode": "certificate-verifier",
+        "cannons": [
+          {
+            "id": 1,
+            "cell": 0,
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+          }
+        ],
+        "balls": 1,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "render": {
+          "time": 7430.029332000001,
+          "draw_calls": 10,
+          "triangles": 616,
+          "tiles": 4,
+          "pieces": 1,
+          "effects": 2,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 9,
+          "motion": {
+            "balls": 1,
+            "tiles": 2,
+            "pathPoints": 9,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "journey_status": "FAIL",
+      "failure": "",
+      "selection": null,
+      "explicit_focus_camera": null,
+      "aim": null,
+      "chosen": null
+    },
+    {
+      "run": "live-desktop-fire-first",
+      "viewport": [
+        1440,
+        900
+      ],
+      "startup": {
+        "timings": {
+          "currentAuthorityAt": 6198,
+          "firstVerifiedFrameAt": 10514.60000000894,
+          "operatingStateKnownAt": 10514.60000000894,
+          "firstMotionAt": 10807.70000000298,
+          "firstMotionHead": "7435",
+          "initialHead": "7435"
+        },
+        "history": {
+          "requests": 2,
+          "bytes": 16291,
+          "outcome": "interval",
+          "elapsedMs": 588.2999999970198
+        },
+        "samples": [
+          {
+            "at": 677.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 789.3000000119209,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 878.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1144.7000000029802,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1177.1000000089407,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1277.6000000089407,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1377.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1478.4000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1579.9000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1677.6000000089407,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 3024.300000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3076.4000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3178.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 4462.100000008941,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 4814,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5176.300000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5277.20000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5383.600000008941,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5477.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5586,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5677.4000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5791,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5895,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5976.70000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 10514.60000000894,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7431.0015,
+            "head": "7435",
+            "referenceTime": 7432,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 30.66316455078777,
+                "y": 0.8517788086028304
+              }
+            ],
+            "playhead": 7431.0015,
+            "available": 7432
+          },
+          {
+            "at": 10807.70000000298,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7431.0115000000005,
+            "head": "7435",
+            "referenceTime": 7432,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 30.911084472667426,
+                "y": 1.0420229492301587
+              }
+            ],
+            "playhead": 7431.0115000000005,
+            "available": 7432
+          },
+          {
+            "at": 11525,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7431.016167000001,
+            "head": "7435",
+            "referenceTime": 7432,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 31.02678870022646,
+                "y": 1.130809889669763
+              }
+            ],
+            "playhead": 7431.016167000001,
+            "available": 7432
+          },
+          {
+            "at": 11963.90000000596,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7431.021168000001,
+            "head": "7435",
+            "referenceTime": 7432,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 31.15077345314785,
+                "y": 1.225950984400697
+              }
+            ],
+            "playhead": 7431.021168000001,
+            "available": 7432
+          }
+        ],
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "certificateMode": "certificate-verifier",
+        "cannons": [
+          {
+            "id": 1,
+            "cell": 0,
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+          }
+        ],
+        "balls": 1,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "render": {
+          "time": 7431.028500000001,
+          "draw_calls": 9,
+          "triangles": 548,
+          "tiles": 4,
+          "pieces": 1,
+          "effects": 3,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 7,
+          "motion": {
+            "balls": 1,
+            "tiles": 3,
+            "pathPoints": 7,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "journey_status": "FAIL",
+      "failure": "Page.wait_for_function: Timeout 5000ms exceeded.",
+      "selection": {
+        "camera_before": [
+          0.5,
+          0.5,
+          48
+        ],
+        "camera_after": [
+          0.5,
+          0.5,
+          48
+        ],
+        "point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 720,
+          "sy": 440.2020410288673,
+          "visible": true,
+          "score": 9.797958971132687
+        }
+      },
+      "explicit_focus_camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "aim": {
+        "fire": {
+          "old": "FIRE 1 37.5 1",
+          "new": "FIRE 1 315 1",
+          "input": "native canvas click and drag"
+        }
+      },
+      "chosen": null
+    },
+    {
+      "run": "live-camera-timeout-attempt",
+      "viewport": [
+        1440,
+        900
+      ],
+      "startup": {
+        "timings": {
+          "currentAuthorityAt": 7836.199999988079,
+          "firstVerifiedFrameAt": 13623.59999999404,
+          "operatingStateKnownAt": 13623.59999999404,
+          "firstMotionAt": 14494,
+          "firstMotionHead": "7438",
+          "initialHead": "7438"
+        },
+        "history": {
+          "requests": 2,
+          "bytes": 16295,
+          "outcome": "interval",
+          "elapsedMs": 966.0999999940395
+        },
+        "samples": [
+          {
+            "at": 754.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 854.3999999910593,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1006.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1052.5999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1151.7999999970198,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1252.8999999910593,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1352.7999999970198,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 2723.7999999970198,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 2780,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 2852.7999999970198,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 2953.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3078.7999999970198,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5010.29999999702,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5742.399999991059,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5752.5999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6286.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6352.5999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6452.5999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6552.5999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6652,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6790.199999988079,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6852.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6956.899999991059,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 7053.199999988079,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 7213.899999991059,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 7296.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 7353.199999988079,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 7453.5999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 13623.59999999404,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7434.001833,
+            "head": "7438",
+            "referenceTime": 7435,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 34.952603153302334,
+                "y": 6.06864387402311
+              }
+            ],
+            "playhead": 7434.001833,
+            "available": 7435
+          },
+          {
+            "at": 13718.59999999404,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7434.001833,
+            "head": "7438",
+            "referenceTime": 7435,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 34.952603153302334,
+                "y": 6.06864387402311
+              }
+            ],
+            "playhead": 7434.001833,
+            "available": 7435
+          },
+          {
+            "at": 13762.59999999404,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7434.001833,
+            "head": "7438",
+            "referenceTime": 7435,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 34.952603153302334,
+                "y": 6.06864387402311
+              }
+            ],
+            "playhead": 7434.001833,
+            "available": 7435
+          },
+          {
+            "at": 14494,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7434.0118330000005,
+            "head": "7438",
+            "referenceTime": 7435,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 34.70468323142268,
+                "y": 5.878399733395781
+              }
+            ],
+            "playhead": 7434.0118330000005,
+            "available": 7435
+          },
+          {
+            "at": 17198.29999999702,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7434.027499,
+            "head": "7438",
+            "referenceTime": 7435,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 34.31629188184161,
+                "y": 5.580363262706669
+              }
+            ],
+            "playhead": 7434.027499,
+            "available": 7435
+          }
+        ],
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "certificateMode": "certificate-verifier",
+        "cannons": [
+          {
+            "id": 1,
+            "cell": 0,
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+          }
+        ],
+        "balls": 1,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "render": {
+          "time": 7434.027499,
+          "draw_calls": 9,
+          "triangles": 452,
+          "tiles": 4,
+          "pieces": 1,
+          "effects": 1,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 4,
+          "motion": {
+            "balls": 1,
+            "tiles": 1,
+            "pathPoints": 4,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "journey_status": "FAIL",
+      "failure": "Page.wait_for_function: Timeout 8000ms exceeded.",
+      "selection": {
+        "camera_before": [
+          0.5,
+          0.5,
+          48
+        ],
+        "camera_after": [
+          0.5,
+          0.5,
+          48
+        ],
+        "point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 720,
+          "sy": 440.2020410288673,
+          "visible": true,
+          "score": 9.797958971132687
+        }
+      },
+      "explicit_focus_camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "aim": null,
+      "chosen": null
+    },
+    {
+      "run": "live",
+      "viewport": [
+        1440,
+        900
+      ],
+      "startup": {
+        "timings": {
+          "currentAuthorityAt": 11877.79999999702,
+          "firstVerifiedFrameAt": 24494.90000000596,
+          "operatingStateKnownAt": 24494.90000000596,
+          "firstMotionAt": 26142.09999999404,
+          "firstMotionHead": "7440",
+          "initialHead": "7440"
+        },
+        "history": {
+          "requests": 2,
+          "bytes": 16296,
+          "outcome": "interval",
+          "elapsedMs": 1026.2000000029802
+        },
+        "samples": [
+          {
+            "at": 589.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 693.4000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 881.4000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 887.7000000029802,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 987.2000000029802,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1089.2000000029802,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1190,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1290.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1391.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 3767.5999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3789.9000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3889.2000000029802,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3996.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 4102.9000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 8928.29999999702,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 8991,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 10098.40000000596,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 10195.29999999702,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 10306.59999999404,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 10396.70000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 10489,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 10587.09999999404,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 10728.90000000596,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 10788.09999999404,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 10890.40000000596,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 11110.20000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 11194.79999999702,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 11287.09999999404,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 11396.59999999404,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 24494.90000000596,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7436.005167,
+            "head": "7440",
+            "referenceTime": 7437,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 985.2859622763644,
+                "y": 967.9563883525261
+              }
+            ],
+            "playhead": 7436.005167,
+            "available": 7437
+          },
+          {
+            "at": 24599,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7436.005167,
+            "head": "7440",
+            "referenceTime": 7437,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 985.2859622763644,
+                "y": 967.9563883525261
+              }
+            ],
+            "playhead": 7436.005167,
+            "available": 7437
+          },
+          {
+            "at": 26142.09999999404,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7436.0151670000005,
+            "head": "7440",
+            "referenceTime": 7437,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 985.0380423544848,
+                "y": 967.7661442118988
+              }
+            ],
+            "playhead": 7436.0151670000005,
+            "available": 7437
+          },
+          {
+            "at": 28998.59999999404,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7436.035167000001,
+            "head": "7440",
+            "referenceTime": 7437,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 984.5422025107255,
+                "y": 967.3856559306441
+              }
+            ],
+            "playhead": 7436.035167000001,
+            "available": 7437
+          },
+          {
+            "at": 30818.5,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7436.045167000001,
+            "head": "7441",
+            "referenceTime": 7438,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 984.2942825888458,
+                "y": 967.1954117900168
+              }
+            ],
+            "playhead": 7436.045167000001,
+            "available": 7438
+          },
+          {
+            "at": 32019.20000000298,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7436.061667000002,
+            "head": "7441",
+            "referenceTime": 7438,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 983.8852147177386,
+                "y": 966.881508957973
+              }
+            ],
+            "playhead": 7436.061667000002,
+            "available": 7438
+          },
+          {
+            "at": 33969.5,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7436.073833000002,
+            "head": "7441",
+            "referenceTime": 7438,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 983.5835953407513,
+                "y": 966.6500579364947
+              }
+            ],
+            "playhead": 7436.073833000002,
+            "available": 7438
+          },
+          {
+            "at": 34553.79999999702,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7436.083833000002,
+            "head": "7441",
+            "referenceTime": 7438,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 983.3356754188717,
+                "y": 966.4598137958383
+              }
+            ],
+            "playhead": 7436.083833000002,
+            "available": 7438
+          },
+          {
+            "at": 35166.29999999702,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7436.089666000003,
+            "head": "7441",
+            "referenceTime": 7438,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 983.1910637284454,
+                "y": 966.3488443886163
+              }
+            ],
+            "playhead": 7436.089666000003,
+            "available": 7438
+          }
+        ],
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "certificateMode": "certificate-verifier",
+        "cannons": [
+          {
+            "id": 1,
+            "cell": 0,
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+          }
+        ],
+        "balls": 1,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "render": {
+          "time": 7436.101166000003,
+          "draw_calls": 9,
+          "triangles": 484,
+          "tiles": 4,
+          "pieces": 1,
+          "effects": 2,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 5,
+          "motion": {
+            "balls": 1,
+            "tiles": 2,
+            "pathPoints": 5,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "journey_status": "PASS",
+      "failure": null,
+      "selection": {
+        "camera_before": [
+          0.5,
+          0.5,
+          48
+        ],
+        "camera_after": [
+          0.5,
+          0.5,
+          48
+        ],
+        "point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 720,
+          "sy": 440.2020410288673,
+          "visible": true,
+          "score": 9.797958971132687
+        }
+      },
+      "explicit_focus_camera": [
+        3.2792878051213847,
+        0.22587215908879443,
+        88
+      ],
+      "aim": {
+        "build": {
+          "old": "NEW 37.5 1 1",
+          "new": "NEW 334.11 1 1",
+          "input": "native canvas click and drag"
+        }
+      },
+      "chosen": {
+        "move": {
+          "cell": 998998,
+          "input": "pointer"
+        },
+        "build": {
+          "cell": 1,
+          "input": "pointer"
+        }
+      }
+    },
+    {
+      "run": "live",
+      "viewport": [
+        320,
+        640
+      ],
+      "startup": {
+        "timings": {
+          "currentAuthorityAt": 7493.899999991059,
+          "firstVerifiedFrameAt": 11004.70000000298,
+          "operatingStateKnownAt": 11004.70000000298,
+          "firstMotionAt": 11257.20000000298,
+          "firstMotionHead": "7449",
+          "initialHead": "7449"
+        },
+        "history": {
+          "requests": 2,
+          "bytes": 16370,
+          "outcome": "interval",
+          "elapsedMs": 692.7999999970198
+        },
+        "samples": [
+          {
+            "at": 520.3999999910593,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 637.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 718.7000000029802,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 840.5999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 917.8999999910593,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1017.5999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1119,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1220.8999999910593,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1318.8999999910593,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1419,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1525.2000000029802,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1619,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 3026.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3118.3999999910593,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3218.5,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3320.7999999970198,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3448,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5114,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5582.70000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6149.70000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6220.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6400.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6439.399999991059,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6585,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6618.5999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6718.399999991059,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6818.70000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 6919.0999999940395,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 7019.29999999702,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 7118.899999991059,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 7219.899999991059,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 11004.70000000298,
+            "label": "Waiting for next on-chain update",
+            "spinner": true,
+            "time": 7445,
+            "head": "7449",
+            "referenceTime": 7446,
+            "kind": "waiting",
+            "balls": [
+              {
+                "id": 1,
+                "x": 965.7138671875,
+                "y": 953.1650390625
+              }
+            ],
+            "playhead": 7445.000166,
+            "available": 7446
+          },
+          {
+            "at": 11257.20000000298,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7445.010166,
+            "head": "7449",
+            "referenceTime": 7446,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 965.9659025800647,
+                "y": 953.3584412558703
+              }
+            ],
+            "playhead": 7445.010166,
+            "available": 7446
+          },
+          {
+            "at": 11422,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7445.012834,
+            "head": "7449",
+            "referenceTime": 7446,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 966.032047615241,
+                "y": 953.40919839259
+              }
+            ],
+            "playhead": 7445.012834,
+            "available": 7446
+          },
+          {
+            "at": 12396.20000000298,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7445.016,
+            "head": "7450",
+            "referenceTime": 7447,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 966.1105390625016,
+                "y": 953.4694296874804
+              }
+            ],
+            "playhead": 7445.016,
+            "available": 7447
+          },
+          {
+            "at": 12648.59999999404,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7445.025167,
+            "head": "7450",
+            "referenceTime": 7447,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 966.3378072548658,
+                "y": 953.6438264911994
+              }
+            ],
+            "playhead": 7445.025167,
+            "available": 7447
+          }
+        ],
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "certificateMode": "certificate-verifier",
+        "cannons": [
+          {
+            "id": 1,
+            "cell": 0,
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+          }
+        ],
+        "balls": 1,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "render": {
+          "time": 7445.025167,
+          "draw_calls": 7,
+          "triangles": 324,
+          "tiles": 4,
+          "pieces": 1,
+          "effects": 0,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 0,
+          "motion": {
+            "balls": 1,
+            "tiles": 0,
+            "pathPoints": 0,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "journey_status": "PASS",
+      "failure": null,
+      "selection": {
+        "camera_before": [
+          0.5,
+          0.5,
+          48
+        ],
+        "camera_after": [
+          0.5,
+          0.5,
+          48
+        ],
+        "point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 160,
+          "sy": 310.2020410288673,
+          "visible": true,
+          "score": 9.797958971132687
+        }
+      },
+      "explicit_focus_camera": [
+        3.389632430939514,
+        3.389632430939514,
+        64
+      ],
+      "aim": {
+        "fire": {
+          "old": "FIRE 1 37.5 1",
+          "new": "FIRE 1 315 1",
+          "input": "native canvas click and drag"
+        },
+        "build": {
+          "old": "NEW 37.5 1 1",
+          "new": "NEW 334.11 1 1",
+          "input": "native canvas click and drag"
+        }
+      },
+      "chosen": {
+        "move": {
+          "cell": 998998,
+          "input": "keyboard"
+        },
+        "build": {
+          "cell": 1,
+          "input": "keyboard"
+        }
+      }
+    },
+    {
+      "run": "live",
+      "viewport": [
+        390,
+        844
+      ],
+      "startup": {
+        "timings": {
+          "currentAuthorityAt": 6150.600000008941,
+          "firstVerifiedFrameAt": 8372.5,
+          "operatingStateKnownAt": 8372.5,
+          "firstMotionAt": 8606.800000011921,
+          "firstMotionHead": "7445",
+          "initialHead": "7445"
+        },
+        "history": {
+          "requests": 2,
+          "bytes": 16374,
+          "outcome": "interval",
+          "elapsedMs": 678.7000000029802
+        },
+        "samples": [
+          {
+            "at": 520.3000000119209,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 573.4000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 676.3000000119209,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 773.3000000119209,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 876.1000000089407,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 973.3000000119209,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 1074,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": false
+          },
+          {
+            "at": 2036,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 2074.2000000029802,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 2175.1000000089407,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 2275.300000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 2374.300000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 3858.300000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 4337.4000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 4835.4000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 4873.4000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 4979.600000008941,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5088,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5174.9000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5277,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5373.300000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5474.9000000059605,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5574.70000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5700.20000000298,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5773.600000008941,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 5874.300000011921,
+            "label": "Catching up with on-chain activity ...",
+            "spinner": true
+          },
+          {
+            "at": 8372.5,
+            "label": "Waiting for next on-chain update",
+            "spinner": true,
+            "time": 7441,
+            "head": "7445",
+            "referenceTime": 7442,
+            "kind": "waiting",
+            "balls": [
+              {
+                "id": 1,
+                "x": 63.4541015625,
+                "y": 28.9326171875
+              }
+            ],
+            "playhead": 7441.000167,
+            "available": 7442
+          },
+          {
+            "at": 8606.800000011921,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7441.010167,
+            "head": "7445",
+            "referenceTime": 7442,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 63.202041377924616,
+                "y": 28.739195969712455
+              }
+            ],
+            "playhead": 7441.010167,
+            "available": 7442
+          },
+          {
+            "at": 8823.10000000894,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7441.012667,
+            "head": "7445",
+            "referenceTime": 7442,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 63.1400613974547,
+                "y": 28.691634934570175
+              }
+            ],
+            "playhead": 7441.012667,
+            "available": 7442
+          },
+          {
+            "at": 8980.70000000298,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7441.0145,
+            "head": "7445",
+            "referenceTime": 7442,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 63.09461767578614,
+                "y": 28.656763183593284
+              }
+            ],
+            "playhead": 7441.0145,
+            "available": 7442
+          },
+          {
+            "at": 9801.800000011921,
+            "label": "Slow \u00b7 delayed",
+            "spinner": false,
+            "time": 7441.017833000001,
+            "head": "7445",
+            "referenceTime": 7442,
+            "kind": "slow",
+            "balls": [
+              {
+                "id": 1,
+                "x": 63.011985965800704,
+                "y": 28.593354811513564
+              }
+            ],
+            "playhead": 7441.017833000001,
+            "available": 7442
+          }
+        ],
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "certificateMode": "certificate-verifier",
+        "cannons": [
+          {
+            "id": 1,
+            "cell": 0,
+            "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+          }
+        ],
+        "balls": 1,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "render": {
+          "time": 7441.0245,
+          "draw_calls": 7,
+          "triangles": 324,
+          "tiles": 4,
+          "pieces": 1,
+          "effects": 0,
+          "geometries": 22,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 0,
+          "tails": 0,
+          "motion": {
+            "balls": 1,
+            "tiles": 0,
+            "pathPoints": 0,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "journey_status": "PASS",
+      "failure": null,
+      "selection": {
+        "camera_before": [
+          0.5,
+          0.5,
+          48
+        ],
+        "camera_after": [
+          0.5,
+          0.5,
+          48
+        ],
+        "point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 195,
+          "sy": 412.2020410288673,
+          "visible": true,
+          "score": 9.797958971132687
+        }
+      },
+      "explicit_focus_camera": [
+        5.341569569719923,
+        5.341569569719923,
+        64
+      ],
+      "aim": {
+        "fire": {
+          "old": "FIRE 1 37.5 1",
+          "new": "FIRE 1 315 1",
+          "input": "native canvas click and drag"
+        },
+        "build": {
+          "old": "NEW 37.5 1 1",
+          "new": "NEW 334.11 1 1",
+          "input": "native canvas click and drag"
+        }
+      },
+      "chosen": {
+        "move": {
+          "cell": 998998,
+          "input": "keyboard"
+        },
+        "build": {
+          "cell": 1,
+          "input": "pointer"
+        }
+      }
+    }
+  ],
+  "panels": [
+    {
+      "baseline": {
+        "at": 172704.10000000894,
+        "box": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 435,
+          "top": 334,
+          "right": 1021,
+          "bottom": 769,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 381,
+          "top": 388,
+          "right": 1021,
+          "bottom": 769,
+          "left": 661
+        },
+        "contentHeight": 361,
+        "scrollTop": 0,
+        "bodyHeight": "381px",
+        "space": "440px",
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.1 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 315 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "disabled": false,
+        "camera": [
+          3.2792878051213847,
+          0.22587215908879443,
+          88
+        ],
+        "head": "7436",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7432.372798000005,
+        "available": 7433,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "unavailable": {
+        "at": 210010.40000000596,
+        "box": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 435,
+          "top": 334,
+          "right": 1021,
+          "bottom": 769,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 381,
+          "top": 388,
+          "right": 1021,
+          "bottom": 769,
+          "left": 661
+        },
+        "contentHeight": 361,
+        "scrollTop": 0,
+        "bodyHeight": "381px",
+        "space": "440px",
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.1 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 315 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "disabled": true,
+        "camera": [
+          3.2792878051213847,
+          0.22587215908879443,
+          88
+        ],
+        "head": "7436",
+        "status": {
+          "kind": "reconnecting",
+          "label": "Reconnecting",
+          "detail": "Temporarily unable to reach the game. Retrying automatically.",
+          "canPrepare": false
+        },
+        "playhead": 7432.721955000006,
+        "available": 7433,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "recovered": {
+        "at": 243978.30000001192,
+        "box": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 435,
+          "top": 334,
+          "right": 1021,
+          "bottom": 769,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 381,
+          "top": 388,
+          "right": 1021,
+          "bottom": 769,
+          "left": 661
+        },
+        "contentHeight": 361,
+        "scrollTop": 0,
+        "bodyHeight": "381px",
+        "space": "440px",
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.1 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 315 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "disabled": false,
+        "camera": [
+          3.2792878051213847,
+          0.22587215908879443,
+          88
+        ],
+        "head": "7437",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7433.011416227988,
+        "available": 7434,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "drift_px": 0,
+      "scope": "all",
+      "seconds": 35,
+      "run": "live-desktop-fire-first",
+      "viewport": "1440x900",
+      "action": "fire",
+      "sample_count": 90,
+      "failed_requests": 14,
+      "checks": {
+        "same_financial_values": true,
+        "same_composer": true,
+        "same_camera": true,
+        "same_scroll": true,
+        "same_content_height": true,
+        "same_session_and_clock": true,
+        "within_verified_coverage": true,
+        "disabled_on_outage": true,
+        "enabled_after_recovery": true,
+        "stable_geometry": true
+      },
+      "status": "PASS"
+    },
+    {
+      "baseline": {
+        "at": 450638.59999999404,
+        "box": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 411,
+          "top": 334,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 357,
+          "top": 388,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "440px",
+        "composer": {
+          "mode": "start",
+          "cell": 1,
+          "degrees": "101.31",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "4 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 334.11 1 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          3.2792878051213847,
+          0.22587215908879443,
+          88
+        ],
+        "head": "7445",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7439.593640599601,
+        "available": 7442,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "unavailable": {
+        "at": 487862.200000003,
+        "box": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 411,
+          "top": 334,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 357,
+          "top": 388,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "440px",
+        "composer": {
+          "mode": "start",
+          "cell": 1,
+          "degrees": "101.31",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "4 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 334.11 1 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": true,
+        "camera": [
+          3.2792878051213847,
+          0.22587215908879443,
+          88
+        ],
+        "head": "7445",
+        "status": {
+          "kind": "reconnecting",
+          "label": "Reconnecting",
+          "detail": "Temporarily unable to reach the game. Retrying automatically.",
+          "canPrepare": false
+        },
+        "playhead": 7440.1436200996,
+        "available": 7442,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "recovered": {
+        "at": 494823.299999997,
+        "box": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 411,
+          "top": 334,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 357,
+          "top": 388,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "440px",
+        "composer": {
+          "mode": "start",
+          "cell": 1,
+          "degrees": "101.31",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "4 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 334.11 1 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          3.2792878051213847,
+          0.22587215908879443,
+          88
+        ],
+        "head": "7445",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7440.2443660996,
+        "available": 7442,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "drift_px": 0,
+      "scope": "all",
+      "seconds": 35,
+      "run": "live",
+      "viewport": "1440x900",
+      "action": "build",
+      "sample_count": 66,
+      "failed_requests": 13,
+      "checks": {
+        "same_financial_values": true,
+        "same_composer": true,
+        "same_camera": true,
+        "same_scroll": true,
+        "same_content_height": true,
+        "same_session_and_clock": true,
+        "within_verified_coverage": true,
+        "disabled_on_outage": true,
+        "enabled_after_recovery": true,
+        "stable_geometry": true
+      },
+      "status": "PASS"
+    },
+    {
+      "baseline": {
+        "at": 279551.09999999404,
+        "box": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 411,
+          "top": 334,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 357,
+          "top": 388,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "440px",
+        "composer": {
+          "mode": "move",
+          "cell": 998998,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 998998",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          3.2792878051213847,
+          0.22587215908879443,
+          88
+        ],
+        "head": "7443",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7437.927878826034,
+        "available": 7440,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "unavailable": {
+        "at": 318827.299999997,
+        "box": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 411,
+          "top": 334,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 357,
+          "top": 388,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "440px",
+        "composer": {
+          "mode": "move",
+          "cell": 998998,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 998998",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": true,
+        "camera": [
+          3.2792878051213847,
+          0.22587215908879443,
+          88
+        ],
+        "head": "7443",
+        "status": {
+          "kind": "reconnecting",
+          "label": "Reconnecting",
+          "detail": "Temporarily unable to reach the game. Retrying automatically.",
+          "canPrepare": false
+        },
+        "playhead": 7438.302878826043,
+        "available": 7440,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "recovered": {
+        "at": 364158.799999997,
+        "box": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 411,
+          "top": 334,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "body": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 357,
+          "top": 388,
+          "right": 1021,
+          "bottom": 745,
+          "left": 661
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "440px",
+        "composer": {
+          "mode": "move",
+          "cell": 998998,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 998998",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          3.2792878051213847,
+          0.22587215908879443,
+          88
+        ],
+        "head": "7444",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7438.554714829517,
+        "available": 7441,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "drift_px": 0,
+      "scope": "all",
+      "seconds": 35,
+      "run": "live",
+      "viewport": "1440x900",
+      "action": "move",
+      "sample_count": 48,
+      "failed_requests": 13,
+      "checks": {
+        "same_financial_values": true,
+        "same_composer": true,
+        "same_camera": true,
+        "same_scroll": true,
+        "same_content_height": true,
+        "same_session_and_clock": true,
+        "within_verified_coverage": true,
+        "disabled_on_outage": true,
+        "enabled_after_recovery": true,
+        "stable_geometry": true
+      },
+      "status": "PASS"
+    },
+    {
+      "baseline": {
+        "at": 307500.09999999404,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "contentHeight": 355,
+        "scrollTop": 0,
+        "bodyHeight": "241px",
+        "space": "241px",
+        "composer": {
+          "mode": "start",
+          "cell": 1,
+          "degrees": "101.31",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "4 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 334.11 1 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          3.7982602686704467,
+          4.980433845567973,
+          59.622959931218155
+        ],
+        "head": "7453",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7447.38188443962,
+        "available": 7450,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "unavailable": {
+        "at": 343378.299999997,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "contentHeight": 355,
+        "scrollTop": 0,
+        "bodyHeight": "241px",
+        "space": "241px",
+        "composer": {
+          "mode": "start",
+          "cell": 1,
+          "degrees": "101.31",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "4 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 334.11 1 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": true,
+        "camera": [
+          3.7982602686704467,
+          4.980433845567973,
+          59.622959931218155
+        ],
+        "head": "7453",
+        "status": {
+          "kind": "reconnecting",
+          "label": "Reconnecting",
+          "detail": "Temporarily unable to reach the game. Retrying automatically.",
+          "canPrepare": false
+        },
+        "playhead": 7447.838773911124,
+        "available": 7450,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "recovered": {
+        "at": 353183.200000003,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "contentHeight": 355,
+        "scrollTop": 0,
+        "bodyHeight": "241px",
+        "space": "241px",
+        "composer": {
+          "mode": "start",
+          "cell": 1,
+          "degrees": "101.31",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "4 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 334.11 1 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          3.7982602686704467,
+          4.980433845567973,
+          59.622959931218155
+        ],
+        "head": "7453",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7447.957484340311,
+        "available": 7450,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "drift_px": 0,
+      "scope": "all",
+      "seconds": 35,
+      "run": "live",
+      "viewport": "320x640",
+      "action": "build",
+      "sample_count": 139,
+      "failed_requests": 13,
+      "checks": {
+        "same_financial_values": true,
+        "same_composer": true,
+        "same_camera": true,
+        "same_scroll": true,
+        "same_content_height": true,
+        "same_session_and_clock": true,
+        "within_verified_coverage": true,
+        "disabled_on_outage": true,
+        "enabled_after_recovery": true,
+        "stable_geometry": true
+      },
+      "status": "PASS"
+    },
+    {
+      "baseline": {
+        "at": 69167.29999999702,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "contentHeight": 379,
+        "scrollTop": 0,
+        "bodyHeight": "241px",
+        "space": "241px",
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.1 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 315 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "disabled": false,
+        "camera": [
+          3.6575453715564663,
+          3.6575453715564663,
+          64
+        ],
+        "head": "7450",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7445.587812000014,
+        "available": 7447,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "unavailable": {
+        "at": 104444,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "contentHeight": 379,
+        "scrollTop": 0,
+        "bodyHeight": "241px",
+        "space": "241px",
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.1 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 315 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "disabled": true,
+        "camera": [
+          3.6575453715564663,
+          3.6575453715564663,
+          64
+        ],
+        "head": "7450",
+        "status": {
+          "kind": "reconnecting",
+          "label": "Reconnecting",
+          "detail": "Temporarily unable to reach the game. Retrying automatically.",
+          "canPrepare": false
+        },
+        "playhead": 7445.940630000051,
+        "available": 7447,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "recovered": {
+        "at": 133856,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "contentHeight": 379,
+        "scrollTop": 0,
+        "bodyHeight": "241px",
+        "space": "241px",
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.1 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 315 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "disabled": false,
+        "camera": [
+          3.6575453715564663,
+          3.6575453715564663,
+          64
+        ],
+        "head": "7451",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7446.21607969129,
+        "available": 7448,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "drift_px": 0,
+      "scope": "all",
+      "seconds": 35,
+      "run": "live",
+      "viewport": "320x640",
+      "action": "fire",
+      "sample_count": 430,
+      "failed_requests": 14,
+      "checks": {
+        "same_financial_values": true,
+        "same_composer": true,
+        "same_camera": true,
+        "same_scroll": true,
+        "same_content_height": true,
+        "same_session_and_clock": true,
+        "within_verified_coverage": true,
+        "disabled_on_outage": true,
+        "enabled_after_recovery": true,
+        "stable_geometry": true
+      },
+      "status": "PASS"
+    },
+    {
+      "baseline": {
+        "at": 177284.59999999404,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "contentHeight": 355,
+        "scrollTop": 0,
+        "bodyHeight": "241px",
+        "space": "241px",
+        "composer": {
+          "mode": "move",
+          "cell": 998998,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 998998",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          2.520210159839621,
+          3.4040936363227274,
+          59.622959931218155
+        ],
+        "head": "7451",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7446.467860140628,
+        "available": 7448,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "unavailable": {
+        "at": 213186.39999999106,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "contentHeight": 355,
+        "scrollTop": 0,
+        "bodyHeight": "241px",
+        "space": "241px",
+        "composer": {
+          "mode": "move",
+          "cell": 998998,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 998998",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": true,
+        "camera": [
+          2.520210159839621,
+          3.4040936363227274,
+          59.622959931218155
+        ],
+        "head": "7451",
+        "status": {
+          "kind": "reconnecting",
+          "label": "Reconnecting",
+          "detail": "Temporarily unable to reach the game. Retrying automatically.",
+          "canPrepare": false
+        },
+        "playhead": 7446.672695095956,
+        "available": 7448,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "recovered": {
+        "at": 249757.5,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "contentHeight": 355,
+        "scrollTop": 0,
+        "bodyHeight": "241px",
+        "space": "241px",
+        "composer": {
+          "mode": "move",
+          "cell": 998998,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 998998",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          2.520210159839621,
+          3.4040936363227274,
+          59.622959931218155
+        ],
+        "head": "7452",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7446.913659776943,
+        "available": 7449,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "drift_px": 0,
+      "scope": "all",
+      "seconds": 35,
+      "run": "live",
+      "viewport": "320x640",
+      "action": "move",
+      "sample_count": 115,
+      "failed_requests": 14,
+      "checks": {
+        "same_financial_values": true,
+        "same_composer": true,
+        "same_camera": true,
+        "same_scroll": true,
+        "same_content_height": true,
+        "same_session_and_clock": true,
+        "within_verified_coverage": true,
+        "disabled_on_outage": true,
+        "enabled_after_recovery": true,
+        "stable_geometry": true
+      },
+      "status": "PASS"
+    },
+    {
+      "baseline": {
+        "at": 347003.5,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 411,
+          "top": 221,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 357,
+          "top": 275,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "445px",
+        "composer": {
+          "mode": "start",
+          "cell": 1,
+          "degrees": "101.31",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "4 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 334.11 1 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          6.042638045096851,
+          6.926521521579957,
+          59.622959931218155
+        ],
+        "head": "7449",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7444.298410681568,
+        "available": 7446,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "unavailable": {
+        "at": 382514.700000003,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 411,
+          "top": 221,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 357,
+          "top": 275,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "445px",
+        "composer": {
+          "mode": "start",
+          "cell": 1,
+          "degrees": "101.31",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "4 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 334.11 1 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": true,
+        "camera": [
+          6.042638045096851,
+          6.926521521579957,
+          59.622959931218155
+        ],
+        "head": "7449",
+        "status": {
+          "kind": "reconnecting",
+          "label": "Reconnecting",
+          "detail": "Temporarily unable to reach the game. Retrying automatically.",
+          "canPrepare": false
+        },
+        "playhead": 7444.667726280411,
+        "available": 7446,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "recovered": {
+        "at": 411928.200000003,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 411,
+          "top": 221,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 357,
+          "top": 275,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "445px",
+        "composer": {
+          "mode": "start",
+          "cell": 1,
+          "degrees": "101.31",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "4 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "NEW 334.11 1 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          6.042638045096851,
+          6.926521521579957,
+          59.622959931218155
+        ],
+        "head": "7449",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7444.972052723229,
+        "available": 7446,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "drift_px": 0,
+      "scope": "all",
+      "seconds": 35,
+      "run": "live",
+      "viewport": "390x844",
+      "action": "build",
+      "sample_count": 299,
+      "failed_requests": 15,
+      "checks": {
+        "same_financial_values": true,
+        "same_composer": true,
+        "same_camera": true,
+        "same_scroll": true,
+        "same_content_height": true,
+        "same_session_and_clock": true,
+        "within_verified_coverage": true,
+        "disabled_on_outage": true,
+        "enabled_after_recovery": true,
+        "stable_geometry": true
+      },
+      "status": "PASS"
+    },
+    {
+      "baseline": {
+        "at": 61224.5,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 435,
+          "top": 221,
+          "right": 368,
+          "bottom": 656,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 381,
+          "top": 275,
+          "right": 368,
+          "bottom": 656,
+          "left": 8
+        },
+        "contentHeight": 361,
+        "scrollTop": 0,
+        "bodyHeight": "381px",
+        "space": "445px",
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.1 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 315 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "disabled": false,
+        "camera": [
+          5.609482510336761,
+          5.609482510336761,
+          64
+        ],
+        "head": "7446",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7441.536646000011,
+        "available": 7443,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "unavailable": {
+        "at": 97585.80000001192,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 435,
+          "top": 221,
+          "right": 368,
+          "bottom": 656,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 381,
+          "top": 275,
+          "right": 368,
+          "bottom": 656,
+          "left": 8
+        },
+        "contentHeight": 361,
+        "scrollTop": 0,
+        "bodyHeight": "381px",
+        "space": "445px",
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.1 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 315 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "disabled": true,
+        "camera": [
+          5.609482510336761,
+          5.609482510336761,
+          64
+        ],
+        "head": "7446",
+        "status": {
+          "kind": "reconnecting",
+          "label": "Reconnecting",
+          "detail": "Temporarily unable to reach the game. Retrying automatically.",
+          "canPrepare": false
+        },
+        "playhead": 7441.898464,
+        "available": 7443,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "recovered": {
+        "at": 132517.60000000894,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 435,
+          "top": 221,
+          "right": 368,
+          "bottom": 656,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 381,
+          "top": 275,
+          "right": 368,
+          "bottom": 656,
+          "left": 8
+        },
+        "contentHeight": 361,
+        "scrollTop": 0,
+        "bodyHeight": "381px",
+        "space": "445px",
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.1 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "FIRE 1 315 1",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "Payments and unused ICP are kept; no automatic refunds."
+        },
+        "disabled": false,
+        "camera": [
+          5.609482510336761,
+          5.609482510336761,
+          64
+        ],
+        "head": "7447",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7442.236151194836,
+        "available": 7444,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "drift_px": 0,
+      "scope": "all",
+      "seconds": 35,
+      "run": "live",
+      "viewport": "390x844",
+      "action": "fire",
+      "sample_count": 230,
+      "failed_requests": 15,
+      "checks": {
+        "same_financial_values": true,
+        "same_composer": true,
+        "same_camera": true,
+        "same_scroll": true,
+        "same_content_height": true,
+        "same_session_and_clock": true,
+        "within_verified_coverage": true,
+        "disabled_on_outage": true,
+        "enabled_after_recovery": true,
+        "stable_geometry": true
+      },
+      "status": "PASS"
+    },
+    {
+      "baseline": {
+        "at": 237760.80000001192,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 411,
+          "top": 221,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 357,
+          "top": 275,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "445px",
+        "composer": {
+          "mode": "move",
+          "cell": 998998,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 998998",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          4.615442886058759,
+          5.499326362541865,
+          59.622959931218155
+        ],
+        "head": "7448",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7443.0887847231215,
+        "available": 7445,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "unavailable": {
+        "at": 274991.60000000894,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 411,
+          "top": 221,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 357,
+          "top": 275,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "445px",
+        "composer": {
+          "mode": "move",
+          "cell": 998998,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 998998",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": true,
+        "camera": [
+          4.615442886058759,
+          5.499326362541865,
+          59.622959931218155
+        ],
+        "head": "7448",
+        "status": {
+          "kind": "reconnecting",
+          "label": "Reconnecting",
+          "detail": "Temporarily unable to reach the game. Retrying automatically.",
+          "canPrepare": false
+        },
+        "playhead": 7443.451999355867,
+        "available": 7445,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "recovered": {
+        "at": 302690,
+        "box": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 411,
+          "top": 221,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "body": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 357,
+          "top": 275,
+          "right": 368,
+          "bottom": 632,
+          "left": 8
+        },
+        "contentHeight": 337,
+        "scrollTop": 0,
+        "bodyHeight": "357px",
+        "space": "445px",
+        "composer": {
+          "mode": "move",
+          "cell": 998998,
+          "degrees": "90",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "values": {
+          "transfer-amount": "0.0001 ICP",
+          "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "text-memo": "MOVE 1 998998",
+          "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "payment-fee": "Wallet fee extra.",
+          "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+        },
+        "disabled": false,
+        "camera": [
+          4.615442886058759,
+          5.499326362541865,
+          59.622959931218155
+        ],
+        "head": "7448",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "playhead": 7443.766512664874,
+        "available": 7445,
+        "clockSame": true,
+        "sessionSame": true,
+        "announcement": "",
+        "sourceCell": 0
+      },
+      "drift_px": 0,
+      "scope": "all",
+      "seconds": 35,
+      "run": "live",
+      "viewport": "390x844",
+      "action": "move",
+      "sample_count": 60,
+      "failed_requests": 13,
+      "checks": {
+        "same_financial_values": true,
+        "same_composer": true,
+        "same_camera": true,
+        "same_scroll": true,
+        "same_content_height": true,
+        "same_session_and_clock": true,
+        "within_verified_coverage": true,
+        "disabled_on_outage": true,
+        "enabled_after_recovery": true,
+        "stable_geometry": true
+      },
+      "status": "PASS"
+    }
+  ],
+  "screenshots": [
+    {
+      "file": "media/live-selection-assertion-attempt-1440x900-01-cold-load.png",
+      "sha256": "d06d69937b199c8e18726f5e9465d76c6915368f57952e1d11fb31719a5fa72e",
+      "raw": ".work/human-frontend-deploy/live-selection-assertion-attempt/1440x900/01-cold-load.png"
+    },
+    {
+      "file": "media/live-selection-assertion-attempt-1440x900-02-verified-world.png",
+      "sha256": "225103c3a07ac0a33e532563d255891bb0616472347044e879f16905a053c00b",
+      "raw": ".work/human-frontend-deploy/live-selection-assertion-attempt/1440x900/02-verified-world.png"
+    },
+    {
+      "file": "media/live-desktop-fire-first-1440x900-01-cold-load.png",
+      "sha256": "2cc530362a29b56dc29e0c7ce4596c60b7dca48d01077dd0fef0debb0b53229e",
+      "raw": ".work/human-frontend-deploy/live-desktop-fire-first/1440x900/01-cold-load.png"
+    },
+    {
+      "file": "media/live-desktop-fire-first-1440x900-02-verified-world.png",
+      "sha256": "225103c3a07ac0a33e532563d255891bb0616472347044e879f16905a053c00b",
+      "raw": ".work/human-frontend-deploy/live-desktop-fire-first/1440x900/02-verified-world.png"
+    },
+    {
+      "file": "media/live-desktop-fire-first-1440x900-03-selection.png",
+      "sha256": "adf2b9a8ba9bf6e37e83536977b97454d05461417b94c06865ffdeea8cdc4064",
+      "raw": ".work/human-frontend-deploy/live-desktop-fire-first/1440x900/03-selection.png"
+    },
+    {
+      "file": "media/live-desktop-fire-first-1440x900-04-fire.png",
+      "sha256": "1a58d148bb0787bd4d7cc7888a74312999bdd2c61e811178e29047039133d281",
+      "raw": ".work/human-frontend-deploy/live-desktop-fire-first/1440x900/04-fire.png"
+    },
+    {
+      "file": "media/live-camera-timeout-attempt-1440x900-01-cold-load.png",
+      "sha256": "935281f81c73307a7ff2652e9f74e6e80b47d9565eccfcd319997f590742d1cb",
+      "raw": ".work/human-frontend-deploy/live-camera-timeout-attempt/1440x900/01-cold-load.png"
+    },
+    {
+      "file": "media/live-camera-timeout-attempt-1440x900-02-verified-world.png",
+      "sha256": "225103c3a07ac0a33e532563d255891bb0616472347044e879f16905a053c00b",
+      "raw": ".work/human-frontend-deploy/live-camera-timeout-attempt/1440x900/02-verified-world.png"
+    },
+    {
+      "file": "media/live-camera-timeout-attempt-1440x900-03-selection.png",
+      "sha256": "adf2b9a8ba9bf6e37e83536977b97454d05461417b94c06865ffdeea8cdc4064",
+      "raw": ".work/human-frontend-deploy/live-camera-timeout-attempt/1440x900/03-selection.png"
+    },
+    {
+      "file": "media/live-1440x900-01-cold-load.png",
+      "sha256": "fc827865df379ea57e20cc18c7146b8e58dfb73f69e6206b4bd3e8e2253d1099",
+      "raw": ".work/human-frontend-deploy/live/1440x900/01-cold-load.png"
+    },
+    {
+      "file": "media/live-1440x900-02-verified-world.png",
+      "sha256": "225103c3a07ac0a33e532563d255891bb0616472347044e879f16905a053c00b",
+      "raw": ".work/human-frontend-deploy/live/1440x900/02-verified-world.png"
+    },
+    {
+      "file": "media/live-1440x900-03-selection.png",
+      "sha256": "adf2b9a8ba9bf6e37e83536977b97454d05461417b94c06865ffdeea8cdc4064",
+      "raw": ".work/human-frontend-deploy/live/1440x900/03-selection.png"
+    },
+    {
+      "file": "media/live-1440x900-04-build.png",
+      "sha256": "645c1591eb9c52e3293b7fc4d7ea53a573f33c7d209707d22152b6de4144b0a4",
+      "raw": ".work/human-frontend-deploy/live/1440x900/04-build.png"
+    },
+    {
+      "file": "media/live-1440x900-04-move.png",
+      "sha256": "51a0dacf88a3b35e90d3c93071b44a0321a6f24c5137e42d9899659e3e4ffc01",
+      "raw": ".work/human-frontend-deploy/live/1440x900/04-move.png"
+    },
+    {
+      "file": "media/live-320x640-01-cold-load.png",
+      "sha256": "0c9099cb58e7d1f9a4cf5935ef1e21b39598ce7f5ca09db4040f9fde07e6a37d",
+      "raw": ".work/human-frontend-deploy/live/320x640/01-cold-load.png"
+    },
+    {
+      "file": "media/live-320x640-02-verified-world.png",
+      "sha256": "61e926abbe5700cea93953576a84d833d37ddd9f4e108282f2364b086b5e33ac",
+      "raw": ".work/human-frontend-deploy/live/320x640/02-verified-world.png"
+    },
+    {
+      "file": "media/live-320x640-03-selection.png",
+      "sha256": "d4e8071c304fadc90e0f3651ba26b66e5fe5428ca0d953c3a065bc41bab34aa8",
+      "raw": ".work/human-frontend-deploy/live/320x640/03-selection.png"
+    },
+    {
+      "file": "media/live-320x640-04-build.png",
+      "sha256": "c849121537f395c127dd211e9f2cc4bfd29ccc730c4fe30aa264fa706fd267b8",
+      "raw": ".work/human-frontend-deploy/live/320x640/04-build.png"
+    },
+    {
+      "file": "media/live-320x640-04-fire.png",
+      "sha256": "136b31827fa1b19d4729921f3209aadb1f5cdc4b1892966c4598d9ac84ca4a34",
+      "raw": ".work/human-frontend-deploy/live/320x640/04-fire.png"
+    },
+    {
+      "file": "media/live-320x640-04-move.png",
+      "sha256": "1e1b01f8efacb8811f02db051b9a74d6b5be151b262f3ac209d1ea6a8d778180",
+      "raw": ".work/human-frontend-deploy/live/320x640/04-move.png"
+    },
+    {
+      "file": "media/live-390x844-01-cold-load.png",
+      "sha256": "0dc51be998d587a50e354f7979fd13378901fef193ceb351cb1c3aee1bdfb666",
+      "raw": ".work/human-frontend-deploy/live/390x844/01-cold-load.png"
+    },
+    {
+      "file": "media/live-390x844-02-verified-world.png",
+      "sha256": "982eee0d6bae619c9145b9b0e7073c01fb3f55f4080cc032310574c2ab9518b1",
+      "raw": ".work/human-frontend-deploy/live/390x844/02-verified-world.png"
+    },
+    {
+      "file": "media/live-390x844-03-selection.png",
+      "sha256": "cc948d6a7b9d6c4339c99cba99a6f71570cd1b7890047ce8b03609059f2c0183",
+      "raw": ".work/human-frontend-deploy/live/390x844/03-selection.png"
+    },
+    {
+      "file": "media/live-390x844-04-build.png",
+      "sha256": "2bdaad259b48d01ec32302c229f8f1dbc78ce22609fd081383af6a4fd40da555",
+      "raw": ".work/human-frontend-deploy/live/390x844/04-build.png"
+    },
+    {
+      "file": "media/live-390x844-04-fire.png",
+      "sha256": "4982d2633d2b560efb1162d5eeee1dece4f1a3e99c03804fab54906aba054ade",
+      "raw": ".work/human-frontend-deploy/live/390x844/04-fire.png"
+    },
+    {
+      "file": "media/live-390x844-04-move.png",
+      "sha256": "012cfcf10185ccd297d76006a95b96dec5b856955233e4eeb9bb36167799d7a4",
+      "raw": ".work/human-frontend-deploy/live/390x844/04-move.png"
+    },
+    {
+      "file": "media/live-supplement-first-minimap-navigation.png",
+      "sha256": "825910833f654a3ce7ed3a3765cf4fb1b91c2c492c6282c9369cb4235708bf5a",
+      "raw": ".work/human-frontend-deploy/live-supplement-first/minimap-navigation.png"
+    },
+    {
+      "file": "media/live-supplement-first-outside-aim-pan.png",
+      "sha256": "cad066190f003c6444c3961f9b3350d7cc0d51fc80b6c81d493c9c664919bece",
+      "raw": ".work/human-frontend-deploy/live-supplement-first/outside-aim-pan.png"
+    },
+    {
+      "file": "media/live-supplement-first-reduced-motion-acquisition.png",
+      "sha256": "9c3e3d55356c6646ba15e467f93246103a5a504243e7f71443fd122adc71b382",
+      "raw": ".work/human-frontend-deploy/live-supplement-first/reduced-motion-acquisition.png"
+    },
+    {
+      "file": "media/live-supplement-first-toroidal-overview.png",
+      "sha256": "4d220c054529606b2df52076f9921165e4095ee8ed4b6adcd38d52519c64795c",
+      "raw": ".work/human-frontend-deploy/live-supplement-first/toroidal-overview.png"
+    },
+    {
+      "file": "media/live-supplement-ball-following.png",
+      "sha256": "f817d01a464c480261bfab81973a7533a21f51f60a97fc0b59499af294135494",
+      "raw": ".work/human-frontend-deploy/live-supplement/ball-following.png"
+    },
+    {
+      "file": "media/live-supplement-reduced-motion-acquisition.png",
+      "sha256": "9c3e3d55356c6646ba15e467f93246103a5a504243e7f71443fd122adc71b382",
+      "raw": ".work/human-frontend-deploy/live-supplement/reduced-motion-acquisition.png"
+    },
+    {
+      "file": "media/live-supplement-verified-history-fallback-waiting.png",
+      "sha256": "210bceb5f787577b30cc6e2a646d1a569d1e913a052c981c23d246b33678a895",
+      "raw": ".work/human-frontend-deploy/live-supplement/verified-history-fallback-waiting.png"
+    },
+    {
+      "file": "media/live-endpoint-ball-native-away-stop.png",
+      "sha256": "18762cfa9f2f3e5cb794b06edde7d35ffc9dd65c2660c3e0272ff4a1a66d747c",
+      "raw": ".work/human-frontend-deploy/live-endpoint-ball/native-away-stop.png"
+    },
+    {
+      "file": "media/live-endpoint-ball-native-ball-follow.png",
+      "sha256": "54228302b843928eb2c5243001b39ba26b0283145f6019c56637ef27241283a1",
+      "raw": ".work/human-frontend-deploy/live-endpoint-ball/native-ball-follow.png"
+    },
+    {
+      "file": "media/live-moving-ball-native-away-stop.png",
+      "sha256": "71dd1442742a136f573a6f68fdf362260cdc3f12c1968a1467c612a9daff9e3d",
+      "raw": ".work/human-frontend-deploy/live-moving-ball/native-away-stop.png"
+    },
+    {
+      "file": "media/live-moving-ball-native-ball-follow.png",
+      "sha256": "81c44b2086f71a8cb464049ffcaa140e61c2e691d6e5fb434838e4a8a8e7d0ff",
+      "raw": ".work/human-frontend-deploy/live-moving-ball/native-ball-follow.png"
+    },
+    {
+      "file": "media/live-contract-320x390-payment-scroll.png",
+      "sha256": "299dccd4b334b356a6e798989b1690de6bf5158db1e034a3a9804a310566f824",
+      "raw": ".work/human-frontend-deploy/live-contract/320x390-payment-scroll.png"
+    },
+    {
+      "file": "media/live-contract-320x640-payment-scroll.png",
+      "sha256": "fc3942d7ea473636c25cfb9e4482350934bbcf4d38190c85be6415490921d610",
+      "raw": ".work/human-frontend-deploy/live-contract/320x640-payment-scroll.png"
+    },
+    {
+      "file": "media/live-contract-640x320-payment-scroll.png",
+      "sha256": "9eddd63d0461d281de98ff1572b43af08cd9f65fe83e626745c9fc5e4c9478a6",
+      "raw": ".work/human-frontend-deploy/live-contract/640x320-payment-scroll.png"
+    },
+    {
+      "file": "media/live-touch-pinch-camera.png",
+      "sha256": "6791a4c16a2316de75557e4f9b39fd64673fdedbc7fa55ea4c4973ee33d94802",
+      "raw": ".work/human-frontend-deploy/live-touch/pinch-camera.png"
+    },
+    {
+      "file": "media/live-touch-touch-aim.png",
+      "sha256": "01b0a57f9d0285c7b7f3d156b099d4d7d48094e198520a6813701d63ee2ed0fe",
+      "raw": ".work/human-frontend-deploy/live-touch/touch-aim.png"
+    },
+    {
+      "file": "media/live-guide-320-upward.png",
+      "sha256": "980ea6211afe32a572a40e632f6175ad2afc8c0bdfd4a7245ea0e64d2222e543",
+      "raw": ".work/human-frontend-deploy/live-guide/320-upward.png"
+    },
+    {
+      "file": "media/live-guide-390-upward.png",
+      "sha256": "932bb42dda67d48d53b59256af457f4c208f61fc647a11c1d19761dfbef36ae9",
+      "raw": ".work/human-frontend-deploy/live-guide/390-upward.png"
+    }
+  ],
+  "additional": [
+    {
+      "run": "live-supplement-first",
+      "results": {
+        "scope": "Actual deployed origin; fresh contexts; only local UI and browser delivery faults",
+        "checks": {
+          "native_copy": {
+            "memo": "FIRE 1 37.5 1",
+            "successful_clipboard_writes": [
+              "FIRE 1 37.5 1"
+            ],
+            "no_payment_sent": true
+          },
+          "outside_aim_pan": {
+            "before": [
+              3.2792878051213847,
+              0.22587215908879443,
+              88
+            ],
+            "after": [
+              2.9844023425062005,
+              1.216635389540329,
+              88
+            ],
+            "memo_unchanged": true
+          },
+          "minimap_navigation": {
+            "navigation_poses": [
+              [
+                906.4905377065083,
+                93.19755948792272,
+                2.03646773346401
+              ],
+              [
+                89.4173669748011,
+                910.2707302196297,
+                2.03646773346401
+              ]
+            ],
+            "visual_evidence": "toroidal-overview.png and minimap-navigation.png",
+            "canonical_cannon_cell": 0
+          }
+        },
+        "errors": [],
+        "failures": [
+          {
+            "check": "ball_follow_native_click_and_away_stop",
+            "error": "Page.wait_for_function: Timeout 30000ms exceeded."
+          },
+          {
+            "check": "controlled_missing_history_truthful_waiting",
+            "error": "Page.evaluate: TypeError: Cannot read properties of null (reading 'hidden')\n    at eval (eval at evaluate (:311:30), <anonymous>:1:308)\n    at UtilityScript.evaluate (<anonymous>:318:18)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)"
+          }
+        ],
+        "all_posts_read_only": true,
+        "read_only_post_count": 156,
+        "status": "INCOMPLETE"
+      }
+    },
+    {
+      "run": "live-supplement",
+      "results": {
+        "scope": "Actual deployed origin; fresh contexts; only local UI and browser delivery faults",
+        "checks": {
+          "controlled_missing_history_truthful_waiting": {
+            "before": {
+              "head": "7440",
+              "time": 7437,
+              "available": 7437,
+              "history": {
+                "requests": 1,
+                "bytes": 0,
+                "outcome": "deadline",
+                "elapsedMs": 2015.0999999940395
+              },
+              "status": {
+                "kind": "waiting",
+                "label": "Waiting for next on-chain update",
+                "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+                "canPrepare": true
+              },
+              "label": "Waiting for next on-chain update",
+              "spinner": true,
+              "balls": 1
+            },
+            "after_late_response": {
+              "head": "7440",
+              "time": 7437
+            },
+            "fault": "Held optional retained_publication; latest head and certificate untouched",
+            "reduced_motion": true
+          }
+        },
+        "errors": [],
+        "failures": [
+          {
+            "check": "ball_follow_native_click_and_away_stop",
+            "error": "Page.wait_for_function: Timeout 4000ms exceeded."
+          }
+        ],
+        "all_posts_read_only": true,
+        "read_only_post_count": 97,
+        "status": "INCOMPLETE"
+      }
+    },
+    {
+      "run": "live-endpoint-ball",
+      "results": {
+        "status": "PASS",
+        "point": {
+          "x": 38.662109375,
+          "y": 9.908203125,
+          "sx": 195.00000000000387,
+          "sy": 414.7531429761658,
+          "visible": true,
+          "score": 7.246857023834195,
+          "time": 7442,
+          "head": "7445"
+        },
+        "camera_after_stop": [
+          38.707016686950965,
+          9.953110436951079,
+          48
+        ],
+        "zoom_unchanged": true,
+        "native_ball_click_begins_follow": true,
+        "native_away_click_stops": true,
+        "persistent_follow_control": false,
+        "errors": [],
+        "limitation": "Native click exercised at a stationary authenticated endpoint after controlled optional history timeout; separate normal session screenshot observes moving-ball following via keyboard shortcut."
+      }
+    },
+    {
+      "run": "live-moving-ball",
+      "results": {
+        "status": "PASS",
+        "point": {
+          "x": 35.48055301755085,
+          "y": 7.466800068330485,
+          "sx": 181.32962509478435,
+          "sy": 356.552943869153,
+          "visible": true,
+          "score": 66.85952666780844,
+          "time": 7442.128330000001,
+          "head": "7446"
+        },
+        "camera_after_stop": [
+          35.397921307594515,
+          7.4033916962798685,
+          48
+        ],
+        "zoom_unchanged": true,
+        "native_ball_click_begins_follow": true,
+        "native_away_click_stops": true,
+        "persistent_follow_control": false,
+        "errors": [],
+        "history": "Normal authenticated retained interval; no interception",
+        "initial_time": 7442.011166,
+        "moving_time": 7442.160497000002,
+        "limitation": "Emulated viewport and software WebGL; not physical-device performance."
+      }
+    },
+    {
+      "run": "live-contract",
+      "results": {
+        "scope": "Actual deployed frontend; emulated viewport contraction, not physical keyboard/device evidence",
+        "checks": [
+          {
+            "viewport": [
+              320,
+              640
+            ],
+            "accessible_fields": [
+              {
+                "id": "transfer-amount",
+                "value": "0.1 ICP",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 362.796875,
+                    "width": 186,
+                    "height": 38.15625,
+                    "top": 362.796875,
+                    "right": 253,
+                    "bottom": 400.953125,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 275,
+                    "width": 304,
+                    "height": 241,
+                    "top": 275,
+                    "right": 312,
+                    "bottom": 516,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "payment-owner",
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 408.875,
+                    "width": 186,
+                    "height": 44.375,
+                    "top": 408.875,
+                    "right": 253,
+                    "bottom": 453.25,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 275,
+                    "width": 304,
+                    "height": 241,
+                    "top": 275,
+                    "right": 312,
+                    "bottom": 516,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "text-memo",
+                "value": "FIRE 1 37.5 1",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 467.15625,
+                    "width": 186,
+                    "height": 26.1875,
+                    "top": 467.15625,
+                    "right": 253,
+                    "bottom": 493.34375,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 275,
+                    "width": 304,
+                    "height": 241,
+                    "top": 275,
+                    "right": 312,
+                    "bottom": 516,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "paying-account",
+                "value": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 435.25,
+                    "width": 186,
+                    "height": 80.75,
+                    "top": 435.25,
+                    "right": 253,
+                    "bottom": 516,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 275,
+                    "width": 304,
+                    "height": 241,
+                    "top": 275,
+                    "right": 312,
+                    "bottom": 516,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "payment-fee",
+                "value": "Wallet fee extra.",
+                "bounds": {
+                  "field": {
+                    "x": 18,
+                    "y": 441,
+                    "width": 284,
+                    "height": 20.296875,
+                    "top": 441,
+                    "right": 302,
+                    "bottom": 461.296875,
+                    "left": 18
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 275,
+                    "width": 304,
+                    "height": 241,
+                    "top": 275,
+                    "right": 312,
+                    "bottom": 516,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "payment-risk",
+                "value": "Payments and unused ICP are kept; no automatic refunds.",
+                "bounds": {
+                  "field": {
+                    "x": 18,
+                    "y": 464.296875,
+                    "width": 284,
+                    "height": 39.1875,
+                    "top": 464.296875,
+                    "right": 302,
+                    "bottom": 503.484375,
+                    "left": 18
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 275,
+                    "width": 304,
+                    "height": 241,
+                    "top": 275,
+                    "right": 312,
+                    "bottom": 516,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              }
+            ],
+            "panel": {
+              "x": 8,
+              "y": 221,
+              "width": 304,
+              "height": 295,
+              "top": 221,
+              "right": 312,
+              "bottom": 516,
+              "left": 8
+            }
+          },
+          {
+            "viewport": [
+              320,
+              390
+            ],
+            "accessible_fields": [
+              {
+                "id": "transfer-amount",
+                "value": "0.1 ICP",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 275.796875,
+                    "width": 186,
+                    "height": 38.15625,
+                    "top": 275.796875,
+                    "right": 253,
+                    "bottom": 313.953125,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 304,
+                    "height": 174,
+                    "top": 208,
+                    "right": 312,
+                    "bottom": 382,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "payment-owner",
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 321.875,
+                    "width": 186,
+                    "height": 44.375,
+                    "top": 321.875,
+                    "right": 253,
+                    "bottom": 366.25,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 304,
+                    "height": 174,
+                    "top": 208,
+                    "right": 312,
+                    "bottom": 382,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "text-memo",
+                "value": "FIRE 1 37.5 1",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 356.15625,
+                    "width": 186,
+                    "height": 26.1875,
+                    "top": 356.15625,
+                    "right": 253,
+                    "bottom": 382.34375,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 304,
+                    "height": 174,
+                    "top": 208,
+                    "right": 312,
+                    "bottom": 382,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "paying-account",
+                "value": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 254.25,
+                    "width": 186,
+                    "height": 80.75,
+                    "top": 254.25,
+                    "right": 253,
+                    "bottom": 335,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 304,
+                    "height": 174,
+                    "top": 208,
+                    "right": 312,
+                    "bottom": 382,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "payment-fee",
+                "value": "Wallet fee extra.",
+                "bounds": {
+                  "field": {
+                    "x": 18,
+                    "y": 344,
+                    "width": 284,
+                    "height": 20.296875,
+                    "top": 344,
+                    "right": 302,
+                    "bottom": 364.296875,
+                    "left": 18
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 304,
+                    "height": 174,
+                    "top": 208,
+                    "right": 312,
+                    "bottom": 382,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "payment-risk",
+                "value": "Payments and unused ICP are kept; no automatic refunds.",
+                "bounds": {
+                  "field": {
+                    "x": 18,
+                    "y": 343.296875,
+                    "width": 284,
+                    "height": 39.1875,
+                    "top": 343.296875,
+                    "right": 302,
+                    "bottom": 382.484375,
+                    "left": 18
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 304,
+                    "height": 174,
+                    "top": 208,
+                    "right": 312,
+                    "bottom": 382,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              }
+            ],
+            "panel": {
+              "x": 8,
+              "y": 154,
+              "width": 304,
+              "height": 228,
+              "top": 154,
+              "right": 312,
+              "bottom": 382,
+              "left": 8
+            }
+          },
+          {
+            "viewport": [
+              640,
+              320
+            ],
+            "accessible_fields": [
+              {
+                "id": "transfer-amount",
+                "value": "0.1 ICP",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 240.796875,
+                    "width": 242,
+                    "height": 38.15625,
+                    "top": 240.796875,
+                    "right": 309,
+                    "bottom": 278.953125,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 360,
+                    "height": 104,
+                    "top": 208,
+                    "right": 368,
+                    "bottom": 312,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "payment-owner",
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 285.78125,
+                    "width": 242,
+                    "height": 26.1875,
+                    "top": 285.78125,
+                    "right": 309,
+                    "bottom": 311.96875,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 360,
+                    "height": 104,
+                    "top": 208,
+                    "right": 368,
+                    "bottom": 312,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "text-memo",
+                "value": "FIRE 1 37.5 1",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 246.78125,
+                    "width": 242,
+                    "height": 26.1875,
+                    "top": 246.78125,
+                    "right": 309,
+                    "bottom": 272.96875,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 360,
+                    "height": 104,
+                    "top": 208,
+                    "right": 368,
+                    "bottom": 312,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "paying-account",
+                "value": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+                "bounds": {
+                  "field": {
+                    "x": 67,
+                    "y": 249.875,
+                    "width": 242,
+                    "height": 62.5625,
+                    "top": 249.875,
+                    "right": 309,
+                    "bottom": 312.4375,
+                    "left": 67
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 360,
+                    "height": 104,
+                    "top": 208,
+                    "right": 368,
+                    "bottom": 312,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "payment-fee",
+                "value": "Wallet fee extra.",
+                "bounds": {
+                  "field": {
+                    "x": 18,
+                    "y": 249.4375,
+                    "width": 340,
+                    "height": 20.296875,
+                    "top": 249.4375,
+                    "right": 358,
+                    "bottom": 269.734375,
+                    "left": 18
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 360,
+                    "height": 104,
+                    "top": 208,
+                    "right": 368,
+                    "bottom": 312,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              },
+              {
+                "id": "payment-risk",
+                "value": "Payments and unused ICP are kept; no automatic refunds.",
+                "bounds": {
+                  "field": {
+                    "x": 18,
+                    "y": 272.734375,
+                    "width": 340,
+                    "height": 39.1875,
+                    "top": 272.734375,
+                    "right": 358,
+                    "bottom": 311.921875,
+                    "left": 18
+                  },
+                  "scrollport": {
+                    "x": 8,
+                    "y": 208,
+                    "width": 360,
+                    "height": 104,
+                    "top": 208,
+                    "right": 368,
+                    "bottom": 312,
+                    "left": 8
+                  },
+                  "visible": true
+                }
+              }
+            ],
+            "panel": {
+              "x": 8,
+              "y": 154,
+              "width": 360,
+              "height": 158,
+              "top": 154,
+              "right": 368,
+              "bottom": 312,
+              "left": 8
+            }
+          }
+        ],
+        "operational_status": {
+          "drift_px": 0,
+          "scope": "operational",
+          "seconds": 20,
+          "samples": 80,
+          "failed_requests": 5,
+          "disabled_status": {
+            "kind": "slow",
+            "label": "Slow \u00b7 delayed",
+            "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+            "canPrepare": false
+          },
+          "recovered_status": {
+            "kind": "slow",
+            "label": "Slow \u00b7 delayed",
+            "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+            "canPrepare": true
+          }
+        },
+        "status": "PASS"
+      }
+    },
+    {
+      "run": "live-touch",
+      "results": {
+        "scope": "Native Chromium touch input in emulated 390x844; no physical-device claim",
+        "touch_selection_camera_unchanged": true,
+        "native_touch_aim": {
+          "before": "FIRE 1 37.5 1",
+          "after": "FIRE 1 279.18 1",
+          "point": [
+            207,
+            150.00000000000125
+          ]
+        },
+        "aim_to_pinch": {
+          "memo_unchanged": true,
+          "zoom_before": 64,
+          "zoom_after": 86.65332507794164
+        },
+        "status": "PASS"
+      }
+    },
+    {
+      "run": "live-guide",
+      "results": {
+        "scope": "Actual production WebGL guide; native touch aim at screen heading 0; viewport emulation",
+        "views": [
+          {
+            "viewport": [
+              390,
+              844
+            ],
+            "origin": {
+              "x": 0.5,
+              "y": 0.5,
+              "sx": 195,
+              "sy": 155.00000000000125,
+              "visible": true,
+              "score": 266.99999999999875
+            },
+            "aim_point": [
+              195,
+              130.00000000000125
+            ],
+            "status_rect": {
+              "x": 163.84375,
+              "y": 12.03125,
+              "width": 114.625,
+              "height": 44
+            },
+            "memo": "FIRE 1 225 1",
+            "screen_heading": 0
+          },
+          {
+            "viewport": [
+              320,
+              640
+            ],
+            "origin": {
+              "x": 0.5,
+              "y": 0.5,
+              "sx": 160,
+              "sy": 124.9999999999973,
+              "visible": true,
+              "score": 195.0000000000027
+            },
+            "aim_point": [
+              160,
+              99.9999999999973
+            ],
+            "status_rect": {
+              "x": 93.84375,
+              "y": 12.03125,
+              "width": 114.625,
+              "height": 44
+            },
+            "memo": "FIRE 1 225 1",
+            "screen_heading": 0
+          }
+        ],
+        "status": "PASS"
+      }
+    }
+  ]
+}

@@ -1,0 +1,2997 @@
+{
+  "source": ".work/human-frontend-deploy/live/320x640/build/all-status.json",
+  "baseline": {
+    "at": 307500.09999999404,
+    "box": {
+      "x": 8,
+      "y": 221,
+      "width": 304,
+      "height": 295,
+      "top": 221,
+      "right": 312,
+      "bottom": 516,
+      "left": 8
+    },
+    "body": {
+      "x": 8,
+      "y": 275,
+      "width": 304,
+      "height": 241,
+      "top": 275,
+      "right": 312,
+      "bottom": 516,
+      "left": 8
+    },
+    "contentHeight": 355,
+    "scrollTop": 0,
+    "bodyHeight": "241px",
+    "space": "241px",
+    "composer": {
+      "mode": "start",
+      "cell": 1,
+      "degrees": "101.31",
+      "worldAngle": null,
+      "quantity": 1
+    },
+    "values": {
+      "transfer-amount": "4 ICP",
+      "payment-owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "text-memo": "NEW 334.11 1 1",
+      "paying-account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "payment-fee": "Wallet fee extra.",
+      "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+    },
+    "disabled": false,
+    "camera": [
+      3.7982602686704467,
+      4.980433845567973,
+      59.622959931218155
+    ],
+    "head": "7453",
+    "status": {
+      "kind": "slow",
+      "label": "Slow \u00b7 delayed",
+      "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+      "canPrepare": true
+    },
+    "playhead": 7447.38188443962,
+    "available": 7450,
+    "clockSame": true,
+    "sessionSame": true,
+    "announcement": "",
+    "sourceCell": 0
+  },
+  "checks": {
+    "same_financial_values": true,
+    "same_composer": true,
+    "same_camera": true,
+    "same_scroll": true,
+    "same_content_height": true,
+    "same_session_and_clock": true,
+    "within_verified_coverage": true,
+    "disabled_on_outage": true,
+    "enabled_after_recovery": true,
+    "stable_geometry": true
+  },
+  "samples": [
+    {
+      "at": 307949.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.390688698291,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 308723.799999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.394506876619,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 309040.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.404732094544,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 309358.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.40897520337,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 309615.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.412155513661,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 310383.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.41533709889,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 310664.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.425347687586,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 310947,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.42895256705,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 311239.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.432771794148,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 311515,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.436588469091,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 311834,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.440406420119,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 312156.89999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.4444362348495,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 312439,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.448254184239,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 312727.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.4520721336285,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 313012,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.455463987003,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 313315,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.4592832153485,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 313637,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.46310116755,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 313939.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.467344208516,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 314237.89999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.47116215714,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 314506.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.474553995569,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 314777.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.478371947093,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 315041.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.481552098569,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 315309.799999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.484945210708,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 315593,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.4885500752,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 315911,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.492794426241,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 316133.799999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.49554883751,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 316397.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.498940669448,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 316667.700000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.501907910345,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 316989.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.506152286325,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 317259.799999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.509332420201,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 317459.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.512299651143,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 317721.799999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.515478511059,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 318000,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.519084659736,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 318167.700000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.521627550788,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 318431.799999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.524594778586,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 318630.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.527137667826,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 318925.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.530955669892,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 319262.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.534560555882,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 319530.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.538378559633,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 319992.89999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.544327719833,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 320206.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.547082060066,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 320583.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.551964139442,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 320940.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.554932582924,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 321198,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.5598134002485,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 321539.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.563631364674,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 321858.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.568087860134,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 322190.89999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.572117742202,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 322392.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.575086143789,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 322720.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.579116033627,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 323025.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.583147200365,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 323440.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.588242927708,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 323717.700000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.5916346635695,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 323969.799999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.595027675078,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 324277.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.598845624278,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 324570,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.6024504288725,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 324943.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.607333923448,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 325326.700000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.612428445328,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 325660.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.616671609371,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 325974.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.620490803706,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 326267.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.62430872145,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 326661.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.628976165709,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 327018.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.633859694991,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 327251.799999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.6368266741265,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 327579,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.641069843608,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 327848.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.644249750733,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 328129.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.647854487254,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 328383.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.651247407879,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 328686.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.65463905272,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 328974.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.65867021068,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 329348,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.663128095132,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 329651.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.667157970512,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 329984.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.67139989811,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 330189.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.674368086002,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 330535.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.678397967927,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 330889.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.683068094709,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 331220.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.687099245118,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 331516.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.690917130186,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 331810.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.694947005734,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 332090.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.698551696605,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 332351,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.7017315108415,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 332609.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.705124364018,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 332898.799999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.708304176513,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 333228.799999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.712759598569,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 333502.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.716365564739,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 333819.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.7203954669285,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 334163.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.724426646527,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 334431.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.7284565487,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 334735.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.731849368824,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 335007.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.734816164465,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 335279.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.738847361187,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 335618.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.743089383811,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 335976.700000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.747120577616,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 336361.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.752003257282,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 336718.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.757313460676,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 337056,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.761344618026,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 337369.799999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.765587893835,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 337690.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.769617770535,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 337925.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.77258444419,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 338314.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.777042504773,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 338872.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.783633740841,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 339259.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.789156660491,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 339548.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.793401144501,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 339864.700000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.797004358645,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 340184,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.80124757321,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 340453.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.805065305736,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 340724,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.8084578947655,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 340977,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.811637401278,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 341216,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.814392274454,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 341501.89999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.818208752238,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 341760.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.821814520313,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 342001.700000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.8247810155235,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 342275.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.828385513261,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 342580.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.831990010999,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 342841.700000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.835382599217,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 343119,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.838773911124,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 343445.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.84280506436,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 343693.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.845984540042,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 344022,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.850440169704,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 344292.700000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.853832735743,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 344607.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.858289660571,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 344834.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.860832855524,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 345186.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.864649362009,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 345471.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.868679260265,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 345740.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.8720730794175,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 346036.200000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.875676282396,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 346427.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.880346960629,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 347449.5,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.884803952831,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 347745,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.897431003299,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 348045.39999999106,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.901248309771,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 348358,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.90527901527,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 349353.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.909734255565,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 349565.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.920630973043,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 350343.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.930878347282,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 351288.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": true,
+      "head": "7453",
+      "playhead": 7447.934482997622,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 351626.59999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.946462022849,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 351845.700000003,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.949851782355,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 352152.09999999404,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.953881402241,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 352989,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.957484340311,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    },
+    {
+      "at": 353279.299999997,
+      "rect": [
+        8,
+        221,
+        304,
+        295
+      ],
+      "disabled": false,
+      "head": "7453",
+      "playhead": 7447.9679491324105,
+      "available": 7450,
+      "camera": [
+        3.7982602686704467,
+        4.980433845567973,
+        59.622959931218155
+      ],
+      "composer_unchanged": true,
+      "financial_values_unchanged": true,
+      "scrollTop": 0
+    }
+  ]
+}

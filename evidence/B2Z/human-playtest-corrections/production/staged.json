@@ -1,0 +1,10 @@
+{
+  "frontend_canister": "s2jxj-liaaa-aaaas-amynq-cai",
+  "backend_canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "approved_files": 16,
+  "stage": ".work/s14/assets",
+  "rollback": ".work/human-frontend-deploy/rollback/frontend",
+  "frozen_bytes_verified": true,
+  "runtime_rebuilt": false,
+  "command": "DFX_IDENTITY=codex_local DFX_WARNING=-mainnet_plaintext_identity NPM_CONFIG_IF_PRESENT=true dfx deploy observer --network ic --no-wallet --no-asset-upgrade"
+}

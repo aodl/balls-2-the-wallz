@@ -1,6 +1,9 @@
 # Stable payment-panel closeout
 
-**Qualified candidate `7d6c8f6`; all six exact-source hosted gates PASS. Not deployed.**
+**Qualified candidate `7d6c8f6`; all six exact-source hosted gates PASS.**
+This qualification record preceded deployment. The later owner-authorized
+[production operation](../production/REPORT.md) independently verifies served
+bytes and actual live acceptance; it does not change the results below.
 Frozen runtime `ca8b1f8`, JavaScript `9d45b940…`, complete inventory `f85e3ddf…`.
 [Final qualification](qualification.json) / [hosted conclusions](ci-7d6c8f6.json).
 

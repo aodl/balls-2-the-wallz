@@ -1,8 +1,14 @@
 # Installed European game — frontend updates
 
-## Human-playtest corrective frontend candidate (12 November 2026)
+## Human-playtest corrective frontend (13 November 2026)
 
-The current correction is frontend-only and not deployed. Use the maintained
+The owner-authorized exact frontend assets are deployed and independently
+byte/header-verified. Source `7d6c8f6`, runtime `ca8b1f8`, JavaScript SHA-256
+`9d45b94008d6f417c4d685c76d52b8a869af34c4b950aea395596ef13104014c`,
+complete 16-file inventory SHA-256
+`f85e3ddf9b1ed38dd7b441162f7579707b5e7ef1c10c0612d0990795cb46e99c`.
+Read [production acceptance](../../evidence/B2Z/human-playtest-corrections/production/REPORT.md)
+for actual live results and limitations. Use the maintained
 [UX contract](../specs/B2Z_HUMAN_EXPERIENCE.md) and
 [correction evidence](../../evidence/B2Z/human-playtest-corrections/REPORT.md).
 Keep production backend `s5ir5-gqaaa-aaaas-amyna-cai`, its paid state, source,
@@ -75,21 +81,22 @@ transition, migration, controller change, ICP/cycle transfer, cycle purchase,
 new canister or former-deployment operation is part of this procedure. Normal
 existing autonomous processing continues. Do not pause gameplay for an asset update.
 
-Read [STATUS](../../STATUS.md), the [current frontend release report](../../evidence/B2Z/player-experience-refinement/visual-closeout/REPORT.md) and the normative
+Read [STATUS](../../STATUS.md), the [current frontend release report](../../evidence/B2Z/human-playtest-corrections/production/REPORT.md) and the normative
 [human-experience contract](../specs/B2Z_HUMAN_EXPERIENCE.md). Changes to controls,
 flows, statuses, handoff, rendering or playback must identify affected UX IDs,
 update intentional contract changes and execute corresponding regressions.
 
-## Deployed ordinary frontend boundary
+## Previous frontend and retained rollback boundary
 
-The final player-experience release uses clean frozen runtime `b0f6c7a…`, qualified
+The previous player-experience release used clean frozen runtime `b0f6c7a…`, qualified
 source `d0d613e…`, served JS `42f30ead…` and exact sixteen-file manifest `216fac29…`.
 All six substantive gates passed in run 43172629735. It was published on
 12 November 2026 with `--no-asset-upgrade`; backend and frontend asset-canister
 Wasm remain unchanged. All fifteen public files and consumed policy were verified.
-The preceding ordinary fluid set (runtime `662f905…`, JS `79acf867…`, manifest
-`68116cee…`) is preserved for bounded frontend rollback. Read the current release
-record for exact hashes, served checks and actual resource/protection state.
+The complete b0f6c7a set is now the immediate frontend-only rollback candidate,
+retained in `.work/human-frontend-deploy/rollback/frontend` with all sixteen
+verified files and consumed policy. The current release record specifies exact
+hashes, served checks and actual resource/protection state.
 A correctly protected backend must never be bypassed to make an asset update look
 playable. No funding, treasury recovery or pacing change is implicit in a frontend
 approval. Future publication still needs release-specific owner authority.

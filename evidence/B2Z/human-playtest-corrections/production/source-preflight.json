@@ -1,0 +1,23 @@
+{
+  "head": "9b7d5bbd1426f23aedde6cb1a8babc65cc140a75",
+  "qualified_source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+  "working_tree_clean": true,
+  "report_commit": "9b7d5bbd1426f23aedde6cb1a8babc65cc140a75",
+  "report_only_files": [
+    "STATUS.md",
+    "evidence/B2Z/human-playtest-corrections/REPORT.md",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/REPORT.md",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/ci-7d6c8f6.json",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/hosted-installed-summary.json",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/hosted-panel-summary.json",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/identity-proof.json",
+    "evidence/B2Z/human-playtest-corrections/panel-closeout/qualification.json",
+    "evidence/B2Z/human-playtest-corrections/qualification-777fb42.json",
+    "evidence/B2Z/human-playtest-corrections/qualification.json"
+  ],
+  "approved_inventory_sha256": "f85e3ddf9b1ed38dd7b441162f7579707b5e7ef1c10c0612d0990795cb46e99c",
+  "approved_files": 16,
+  "rollback_inventory_sha256": "216fac297573ff42e67ca0641c4a169acfa8bb4ea6b82c5e370e88abb2985fa2",
+  "rollback_files": 16,
+  "runtime_rebuilt": false
+}
