@@ -7,6 +7,11 @@
  <div class="arena-chrome"><header class="arena-header"><div class="brand" aria-label="B2Z on ICP">B2Z <small>on ICP</small></div><button id="status-button" aria-controls="workspace"><span id="arena-note">Verifying game</span></button><button id="identify-button" aria-controls="workspace"><i id="identity-color"></i><span id="identity-label">Account</span></button></header>
  <nav class="player-controls" aria-label="Your game"><button id="join-action" hidden>Join</button><button id="centre-cannon" hidden>My cannon</button></nav></div>
  <nav class="camera-controls" aria-label="Camera"><button id="fit" title="Widest arena view" aria-label="Widest arena view"><svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 8V3h5M16 3h5v5M21 16v5h-5M8 21H3v-5" fill="none" stroke="currentColor" stroke-width="2"/></svg></button><button id="zoom-out" title="Zoom out" aria-label="Zoom out">−</button><button id="zoom-in" title="Zoom in" aria-label="Zoom in">+</button></nav>
+ <div class="audio-controls"><button id="audio-button" aria-label="Sound controls" aria-controls="audio-popover" aria-expanded="false" aria-pressed="false">♫</button><section id="audio-popover" aria-label="Sound" hidden>
+ <label><input id="audio-music" type="checkbox">Music</label><label>Music volume<input id="audio-musicVolume" type="range" min="0" max="1" step="0.01" value="0.72"></label>
+ <label><input id="audio-effects" type="checkbox">Effects</label><label>Effects volume<input id="audio-effectsVolume" type="range" min="0" max="1" step="0.01" value="0.58"></label>
+ <label><input id="audio-adaptive" type="checkbox" checked>Adaptive music level</label><small>Off uses original music level. Tempo stays unchanged.</small><label><input id="audio-mute" type="checkbox">Mute all sound</label>
+ <p id="audio-status" role="status">Sound is off.</p><button id="audio-resume">Resume / retry sound</button><button id="audio-clear">Clear downloaded audio</button></section></div>
  <canvas id="minimap" tabindex="0" aria-label="World overview map. Click or drag to navigate; arrow keys also move the camera."></canvas>
  <button id="aim-handle" aria-label="Drag to aim. Arrow keys adjust heading." title="Drag to aim · arrow keys adjust" hidden>⊙</button><div id="aim-ring" aria-hidden="true" hidden></div>
  <span id="follow-announcement" class="sr-only" role="status"></span>

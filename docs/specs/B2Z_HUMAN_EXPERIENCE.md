@@ -934,3 +934,13 @@ fluid-depth and actual-speed motion checks protect the physical presentation.
 Matched populated captures and recordings are required; emulated viewport/DPR and
 SwiftShader evidence do not establish physical-device, hardware or genuine hidden-tab
 coverage. All six substantive exact-source release gates remain required.
+
+## Optional sound (UX-04/05/06/12)
+
+The [audio contract](B2Z_AUDIO.md) adds silent-by-default, explicitly enabled
+lossless music and viewport-filtered displayed-event effects. It does not change
+any gameplay, financial, camera, fixed-toolbar or payment-panel contract. Audio
+errors remain local to the sound controls; mute/unsupported audio cannot impede
+verification, playback, input or copying. Preserve the supplied tempo and baked
+transitions; adaptive level changes presence only. See the separate audio QA
+record for measured gates and hardware/listening limitations.

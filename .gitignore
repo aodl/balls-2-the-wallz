@@ -14,3 +14,5 @@ __pycache__/
 /.dfx/
 /.canbench/
 /canisters/interface-probe/.dfx/
+# Owner-supplied source handoff; only approved runtime assets belong in Git.
+/B2Z-Codex-Audio-Integration-Handoff.zip

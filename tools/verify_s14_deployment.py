@@ -436,7 +436,10 @@ def main():
         # Both modes inspect the generated production policy. The loopback
         # query proxy is not an asset canister and does not serve that header.
         policy=json.loads((production/'.ic-assets.json5').read_text())
-        assert len(policy)==1 and policy[0]['match']=='**/*' and policy[0]['security_policy']=='hardened'
+        assert all(p['headers'].get(k)==v for p in policy[1:] for k,v in policy[0]['headers'].items())
+        assert len(policy)==(3 if 'audio' in manifest else 1)
+        if 'audio' in manifest:assert len(policy)==3 and policy[1]['match']=='audio/b2z-v1/**/*.flac' and policy[1]['encodings']==['identity'] and policy[2]['match']=='audio/b2z-v1/manifest.json' and policy[2]['encodings']==['identity'] and policy[0]['match']=='**/*' and policy[0]['security_policy']=='hardened'
+        assert policy[0]['match']=='**/*' and policy[0]['security_policy']=='hardened'
         permissions=policy[0]['headers']['Permissions-Policy']
         assert 'clipboard-write=(self)' in permissions and 'clipboard-read=()' in permissions
         report['production_permissions_policy']=permissions

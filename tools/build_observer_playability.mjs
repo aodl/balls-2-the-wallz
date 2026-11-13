@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-/** Extend the frozen observer builder with v6 configuration and public docs only.
+import {extendAudioAssets} from './audio_assets.mjs';
+/** Extend the frozen observer builder with v6 configuration, public docs and approved optional audio.
  * Offline asset preparation; no runner, identity, deployment or MCP opt-in. */
 import {parseArgs} from 'node:util';
 import {readFile,writeFile,copyFile,access} from 'node:fs/promises';
@@ -22,4 +23,5 @@ await mkdir(out+'/cursors',{recursive:true});await copyFile('apps/b2z-observer/c
 const manifest=JSON.parse(await readFile(out+'/build-manifest.json','utf8'));
 for(const name of ['cursors/reticle.svg','configuration-playability.bin','configuration-entry.bin','agent-api.md','backend.did']){const bytes=await readFile(out+'/'+name);manifest.files[name]={sha256:sha(bytes),bytes:bytes.length};}
 manifest.supported_configuration_assets=CONFIGURATION_ASSETS;manifest.base_builder_sha256=sha(builder);manifest.playability_wrapper_sha256=sha(await readFile(new URL(import.meta.url)));manifest.mcp_service_discovery='INACTIVE; no architecture manifest or terms opt-in';
+await extendAudioAssets(out,manifest);
 await writeFile(out+'/build-manifest.json',JSON.stringify(manifest,null,2)+'\n');

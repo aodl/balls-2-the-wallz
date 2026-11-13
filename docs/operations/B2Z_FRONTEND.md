@@ -129,3 +129,12 @@ must settle Home navigation, check the actual DOM hit target and use the existin
 keyboard path for an occluded tile, preserving the requested cell. Configuration
 HTTP unavailability must recover on the same page; configuration-hash and certificate
 failures must remain hard errors with disabled copying.
+
+Optional sound follows [B2Z_AUDIO](../specs/B2Z_AUDIO.md). The playability wrapper
+copies only its pinned FLAC/manifest subtree and adds exact hardened identity-only
+cache rules; the frozen base builder remains unchanged. `tools/verify_audio_browser.py`
+exercises actual game modules, native FLAC and security headers on loopback;
+`tools/audio-requirements.txt` locks offline PCM verification dependencies. Sound
+is silent until an explicit gesture, never submits commands, and cannot gate
+financial readiness. New audio artifacts require new exact-source qualification
+and separate production authorization; the previous deployed asset set is rollback.

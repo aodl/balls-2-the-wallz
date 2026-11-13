@@ -40,10 +40,13 @@ def observer_dependency_error(root=ROOT):
     return ('installed DTR observer modules are missing: '+', '.join(missing)
       +'. Run `npm ci --ignore-scripts` from the B2Z repository root before starting the observer.')
 class ObserverHandler(http.server.SimpleHTTPRequestHandler):
-    extensions_map={**http.server.SimpleHTTPRequestHandler.extensions_map,'.mjs':'text/javascript','.bin':'application/octet-stream'}
+    extensions_map={**http.server.SimpleHTTPRequestHandler.extensions_map,'.mjs':'text/javascript','.bin':'application/octet-stream','.flac':'audio/flac'}
     def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(ROOT),**kwargs)
     def do_GET(self):
         raw=unquote(urlsplit(self.path).path)
+        audio_route=bool(re.fullmatch(r'/audio/b2z-v1/(?:manifest\.json|(?:music/[0-9]{3}|sfx/[a-z-]+)-[0-9a-f]{16}\.flac)',raw))
+        if DEPLOYMENT_ASSETS is not None and audio_route:
+            return self.serve_explicit(DEPLOYMENT_ASSETS/raw.removeprefix('/'))
         if DEPLOYMENT_ASSETS is not None:
             name='index.html' if raw=='/' else raw.removeprefix('/')
             if name in {'index.html','app.mjs','style.css','icon.svg','configuration.bin','configuration-legacy.bin','configuration-torus.bin','configuration-million.bin','configuration-playability.bin','configuration-entry.bin','backend.did','agent-api.md','deployment.json','build-manifest.json'}:
@@ -68,9 +71,10 @@ class ObserverHandler(http.server.SimpleHTTPRequestHandler):
         target=(ROOT/raw.lstrip('/')).resolve()
         allowed=[ROOT/'apps/b2z-observer',ROOT/'packages/protocol',ROOT/'packages/kernels/b2z',ROOT/'node_modules/@dtr/timeline-runtime/packages']
         if ('\\' in raw or not target.is_relative_to(ROOT) or not any(target.is_relative_to(d) for d in allowed)
-            or (target.is_file() and target.suffix not in {'.html','.css','.mjs','.json','.bin','.svg'})
+            or (target.is_file() and target.suffix not in {'.html','.css','.mjs','.json','.bin','.svg','.flac'})
             or (target.is_dir() and target!=ROOT/'apps/b2z-observer')):
             self.send_error(404);return
+        if target.suffix=='.flac' and not re.fullmatch(r'/apps/b2z-observer/audio/b2z-v1/(?:music/[0-9]{3}|sfx/[a-z-]+)-[0-9a-f]{16}\.flac',raw):self.send_error(404);return
         super().do_GET()
     def do_POST(self):
         raw=unquote(urlsplit(self.path).path)

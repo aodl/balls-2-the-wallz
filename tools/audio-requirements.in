@@ -1,0 +1,3 @@
+# Offline lossless PCM qualification only, never a browser/runtime dependency.
+numpy==2.3.5
+soundfile==0.13.1

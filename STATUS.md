@@ -1,3 +1,17 @@
+# Optional audio integration — local candidate in progress; not deployed
+
+The approved handoff's lossless assets are verified and integrated through the
+maintained frontend wrapper. Audio remains opt-in presentation only, with no
+backend, financial or gameplay-authority changes. Focused deterministic/audio
+checks pass; native/browser, installed-IC, asset/policy, lifecycle and complete
+regression qualification are still in progress. Earlier deployment qualification
+below applies only to its original bytes. No mainnet action or remote publication
+is authorized for this audio candidate.
+
+[Audio contract](docs/specs/B2Z_AUDIO.md) / [checkpoint evidence](evidence/B2Z/audio-integration/REPORT.md).
+
+---
+
 # Human-playtest corrective frontend — deployed, byte-verified and live acceptance PASS
 
 Qualified source `7d6c8f690ca371c14e347c9dd454502a92f7fc2d` passes all six substantive

@@ -149,7 +149,7 @@ export function createShell(doc,camera,arcade,onPick){
   for(const obstacle of(short?[]:[m.mini,m.cycles,m.buttons]))if(obstacle.width&&x+cw>obstacle.left&&x<obstacle.right)bottom=Math.min(bottom,obstacle.top-8);
   // One natural scroll, with useful space even under a contracted keyboard.
   const room=Math.max(96,bottom-y-m.headerHeight),bodyHeight=context==='inspect'?0:Math.min(room,Math.max(0,m.desired-m.headerHeight)),next=[Math.round(x),Math.round(y),Math.round(cw),Math.round(room),Math.ceil(bodyHeight)].join('/');
-  if(next!==positionKey){positionKey=next;card.style.left=`${Math.round(x)}px`;card.style.top=`${Math.round(y)}px`;card.style.width=`${cw}px`;card.style.maxHeight='none';card.style.setProperty('--body-space',`${Math.floor(room)}px`);card.style.setProperty('--body-height',`${Math.ceil(bodyHeight)}px`);}
+  if(next!==positionKey){audioMask=null;positionKey=next;card.style.left=`${Math.round(x)}px`;card.style.top=`${Math.round(y)}px`;card.style.width=`${cw}px`;card.style.maxHeight='none';card.style.setProperty('--body-space',`${Math.floor(room)}px`);card.style.setProperty('--body-height',`${Math.ceil(bodyHeight)}px`);}
   cardBounds={left:x,right:x+cw,top:y,bottom:y+m.headerHeight+bodyHeight};
   const site=aim?.cannon.cell??arcade.moveSelection()?.cell??c?.cell,compose=[context,arcade.mode(),c?.id,c?.cell,site,W,H,short,locateGeneration].join('/');
   if(compose!==compositionKey){compositionKey=compose;if(narrow&&c&&expanded&&!pointers.size){
@@ -160,7 +160,11 @@ export function createShell(doc,camera,arcade,onPick){
   committedLayoutRevision=layoutRevision;
  }
  listen(doc,'b2z-overlay',()=>{hideHelp();clearHelp();layoutDirty=true;position();});
+ const audioNodes=[doc.querySelector('.arena-chrome'),card,$('minimap'),$('cycles-display'),doc.querySelector('.camera-controls'),doc.querySelector('.audio-controls'),$('audio-popover'),$('motion-wait'),$('render-error'),$('locate-context')].filter(Boolean);
+ let audioMask=null,audioMaskKey='';const dirtyAudio=()=>{audioMask=null;};const audioObserver=new ResizeObserver(dirtyAudio);for(const node of audioNodes)audioObserver.observe(node);
+ const audioMutation=new MutationObserver(dirtyAudio);for(const node of audioNodes)audioMutation.observe(node,{attributes:true,attributeFilter:['hidden','style','class']});listen(doc,'b2z-audio-layout',dirtyAudio);listen(globalThis,'resize',dirtyAudio);
  return{
+  audioOccluders(){const key=audioNodes.map(n=>n.hidden).join('/')+'/'+cardBounds?.bottom;if(key===audioMaskKey&&audioMask)return audioMask;audioMaskKey=key;const canvasRect=canvas.getBoundingClientRect();audioMask=[];for(const node of audioNodes){if(node.hidden||node.closest('[hidden]'))continue;let r=node.getBoundingClientRect();if(node===card&&cardBounds)r={...r.toJSON(),left:Math.min(r.left,cardBounds.left),right:Math.max(r.right,cardBounds.right),top:Math.min(r.top,cardBounds.top),bottom:Math.max(r.bottom,cardBounds.bottom)};if(r.width&&r.height)audioMask.push({left:r.left-canvasRect.left,right:r.right-canvasRect.left,top:r.top-canvasRect.top,bottom:r.bottom-canvasRect.top});}return audioMask;},
   layoutState:()=>({dirty:layoutDirty,pendingFrame:layoutFrame!==null,revision:layoutRevision,committedRevision:committedLayoutRevision,desired:layout?.desired,positionKey,compositionKey,cardBounds:cardBounds&&{...cardBounds}}),
   guideObstacles:()=>measure().guideObstacles,hover:()=>hover,followedBall:()=>selectedBall,controller:motion,mapAnchor:()=>anchor,rebaseFollow(){if(selectedBall!==null)followRebase=true;},invalidateFollow(){cancelTap();stopFollowing();anchorCache.reset();},overlays(){},
   advance(v,time,now=performance.now(),identity=lastIdentity,points=displayedBalls(v,time)){
@@ -173,6 +177,6 @@ export function createShell(doc,camera,arcade,onPick){
    if(selectedBall!==null&&!motion.following)selectedBall=null;const announcement=selectedBall===null?'':`Following ball ${selectedBall}. Click elsewhere or press Escape to stop.`;if($('follow-announcement').textContent!==announcement)$('follow-announcement').textContent=announcement;
   },
   update(v,surface){if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===selectedBall));}},
-  dispose(){disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();contentObserver.disconnect();cancelAnimationFrame(layoutFrame);clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);doc.documentElement.classList.remove('cannon-context');for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
+  dispose(){audioObserver.disconnect();audioMutation.disconnect();disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();contentObserver.disconnect();cancelAnimationFrame(layoutFrame);clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);doc.documentElement.classList.remove('cannon-context');for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
  };
 }

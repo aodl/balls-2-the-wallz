@@ -195,11 +195,18 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
     bytes:initialBytes.length+finalBytes.length+eventBytes.length};
 }
 export class SegmentPlayer {
-  constructor(segment){this.segment=segment;this.view=new B2zView(segment.initial);this.index=0;this.time=segment.start;}
-  advance(time){
+  constructor(segment,provenance=null){this.segment=segment;this.provenance=provenance;this.view=new B2zView(segment.initial);this.index=0;this.time=segment.start;}
+  advance(time,collector=null){
     check(Number.isFinite(time)&&time>=this.time&&time<=this.segment.end,'playhead bounds');this.time=time;
     if(this.view.version===6)this.view.logicalTime=time;
-    while(this.index<this.segment.events.length&&timeNumber(this.segment.events[this.index].time)<=time)this.view.apply(this.segment.events[this.index++]);
+    let due=this.index;if(collector?.enabled){let lo=this.index,hi=this.segment.events.length;while(lo<hi){const mid=(lo+hi)>>>1;if(timeNumber(this.segment.events[mid].time)<=time)lo=mid+1;else hi=mid;}due=lo;}
+    const first=this.index;
+    while(this.index<this.segment.events.length&&timeNumber(this.segment.events[this.index].time)<=time){
+      const e=this.segment.events[this.index++];let cue=null;
+      if(collector?.enabled)try{cue=collector.prepare(e,this.view,this.provenance,this.index-first-1,due-first);}catch{try{collector.fail?.();}catch{}collector=null;}
+      this.view.apply(e); // Never swallow an actual model/validation failure.
+      if(cue)try{collector.accept(cue);}catch{try{collector.fail?.();}catch{}collector=null;}
+    }
     if(this.view.version===6)this.view.logicalTime=time;
     return this.view;
   }

@@ -147,3 +147,13 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 #status-button{height:calc(2.6em + 10px);min-height:44px;padding:5px 9px;line-height:1.15;display:flex;align-items:center}#arena-note{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
 
 #cycles-display{width:150px;height:48px;min-height:48px;justify-content:center}#cycle-unavailable{white-space:normal;line-height:13px;text-align:left}#cycle-values{display:flex;flex-direction:column;gap:5px}
+/* Independent audio surface: no Fire/Move/Build slots or payment geometry. */
+.audio-controls{position:fixed;left:16px;bottom:134px;z-index:40}
+#audio-button{width:44px;height:44px;padding:8px;font-size:22px}
+#audio-popover{position:absolute;left:0;bottom:52px;width:min(280px,calc(100vw - 24px));max-height:calc(100dvh - 210px);overflow:auto;padding:12px;background:#202a2e;border:1px solid #758187;border-radius:8px;box-sizing:border-box;box-shadow:0 4px 12px #0005}
+#audio-popover label{display:flex;align-items:center;gap:8px;margin:8px 0}
+#audio-popover input[type=range]{min-width:0;width:115px;margin-left:auto}
+#audio-popover input[type=checkbox]{width:20px;height:20px}
+#audio-popover p{font-size:12px;margin:8px 0;min-height:2.5em}
+#audio-popover button{font-size:13px;padding:5px 8px}
+@media(max-width:700px){.audio-controls{left:auto;right:10px;top:66px;bottom:auto}#audio-popover{left:auto;right:0;top:52px;bottom:auto;max-height:calc(100dvh - 136px)}}
