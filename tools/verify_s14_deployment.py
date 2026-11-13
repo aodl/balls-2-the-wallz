@@ -579,7 +579,7 @@ def main():
                 if not (a.human_corrections_scene_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)):identify_account(page)
                 if a.human_corrections_scene_only:
                     from human_corrections_browser import verify_certified_lifecycle
-                    verify_certified_lifecycle(page,context,out,configuration,record,report,save)
+                    verify_certified_lifecycle(page,context,out,configuration,record,report,save,stop_wire_capture)
                 elif a.entry_scene_only:
                     from entry_browser import verify_entry_scene
                     verify_entry_scene(page,context,out,configuration,record,report,save)

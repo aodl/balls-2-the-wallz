@@ -186,6 +186,11 @@ jobs:
         run: python -B tools/verify_human_corrections.py --output .work/ci-human-corrections
       - name: Readiness-only panel geometry across actions, viewport contraction and reduced motion
         run: python -B tools/verify_panel_geometry.py --fixture-dir .work/ci-human-corrections/fixture --output .work/ci-panel-geometry --video
+      - name: Approved lossless audio, native scheduler and integrated displayed cues
+        run: |
+          python -m pip install --require-hashes -r tools/audio-requirements.txt
+          python -B tools/verify_audio_browser.py --output .work/ci-audio
+          python -B tools/verify_audio_peak.py --output .work/ci-audio/peaks.json
       - name: Upload browser evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -208,6 +213,11 @@ jobs:
             .work/ci-visual-closeout/**
             .work/ci-human-corrections/**
             .work/ci-panel-geometry/**
+            .work/ci-audio/results.json
+            .work/ci-audio/native-progress.json
+            .work/ci-audio/peaks.json
+            .work/ci-audio/*.png
+            .work/ci-audio/*.wav
           if-no-files-found: warn
           retention-days: 14
 
@@ -217,6 +227,7 @@ jobs:
     runs-on: ubuntu-22.04
     env:
       RUSTUP_TOOLCHAIN: 1.94.1
+      B2Z_AUDIO_QUAL: '1'
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:

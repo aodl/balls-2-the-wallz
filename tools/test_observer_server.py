@@ -38,6 +38,24 @@ class ObserverServerTests(unittest.TestCase):
         path='/node_modules/@dtr/timeline-runtime/packages/client/verification.mjs'
         status,headers,_=self.get(path);self.assertEqual(status,200);self.assertEqual(headers['Content-type'],'text/javascript')
         self.assertEqual(self.get('/node_modules/@icp-sdk/core/package.json')[0],404)
+    def test_approved_audio_source_routes_mime_hash_and_rejections(self):
+        base=serve_observer.ROOT/'apps/b2z-observer/audio/b2z-v1'
+        manifest=json.loads((base/'manifest.json').read_text())
+        for name,expected in [('manifest.json',hashlib.sha256((base/'manifest.json').read_bytes()).hexdigest()),(manifest['segments'][0]['file'],manifest['segments'][0]['sha256']),(manifest['effects']['wall-ripple-a']['file'],manifest['effects']['wall-ripple-a']['sha256'])]:
+            status,headers,body=self.get('/apps/b2z-observer/audio/b2z-v1/'+name)
+            self.assertEqual(status,200);self.assertEqual(hashlib.sha256(body).hexdigest(),expected)
+            self.assertEqual(headers['Content-type'],'audio/flac'if name.endswith('.flac')else'application/json')
+            self.assertEqual(headers['X-Content-Type-Options'],'nosniff');self.assertNotIn('Content-Encoding',headers)
+        for name in ['music/not-hashed.flac','sfx/missing-0000000000000000.flac','%2e%2e/manifest.json','music/000-0000000000000000.flac']:
+            self.assertEqual(self.get('/apps/b2z-observer/audio/b2z-v1/'+name)[0],404)
+    def test_frozen_audio_routes_are_narrow_and_byte_identical(self):
+        base=serve_observer.ROOT/'apps/b2z-observer/audio/b2z-v1';m=json.loads((base/'manifest.json').read_text());spec=m['effects']['wall-ripple-a']
+        with tempfile.TemporaryDirectory(dir=serve_observer.ROOT/'.work')as directory:
+            root=Path(directory);target=root/'audio/b2z-v1'/spec['file'];target.parent.mkdir(parents=True);target.write_bytes((base/spec['file']).read_bytes());(root/'audio/b2z-v1/manifest.json').write_bytes((base/'manifest.json').read_bytes())
+            with patch.object(serve_observer,'DEPLOYMENT_ASSETS',root):
+                status,headers,body=self.get('/audio/b2z-v1/'+spec['file']);self.assertEqual(status,200);self.assertEqual(headers['Content-Type'],'audio/flac');self.assertEqual(hashlib.sha256(body).hexdigest(),spec['sha256']);self.assertEqual(self.get('/audio/b2z-v1/manifest.json')[0],200)
+                for name in ['../manifest.json','sfx/not-hashed.flac','music/000-0000000000000000.flac','private.pem']:
+                    self.assertEqual(self.get('/audio/b2z-v1/'+name)[0],404)
     def test_records(self):self.assertEqual(self.get('/apps/b2z-observer/recordings/index.json')[0],200)
     def test_local_certificate_snapshot_is_disabled_by_default(self):
         for path in ['/s09-local/metadata.json','/s10-live/metadata.json','/s10-live/root-key.der','/s09-assets/ic-certificate.mjs']:

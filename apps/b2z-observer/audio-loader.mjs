@@ -1,7 +1,7 @@
 /** Opt-in, hash-checked same-origin transport. No service worker or API interception. */
 export const AUDIO_MANIFEST_SHA256='d26588b58524710683bd9937a45395ea232eb3a891f4d3a910e1f4283d503db7';
 export const AUDIO_BASE=new URL('./audio/b2z-v1/',import.meta.url);
-export async function clearAudioCache(){try{for(const key of await caches.keys())if(key.startsWith('b2z-audio-'))await caches.delete(key);}catch{}}
+export async function clearAudioCache(){const signal=AbortSignal.timeout(1500);try{const keys=await abortable(caches.keys(),signal);if(keys.length>128)return false;for(const key of keys)if(key.startsWith('b2z-audio-'))await abortable(caches.delete(key),signal);return true;}catch{return false;}}
 const CACHE='b2z-audio-v1-'+AUDIO_MANIFEST_SHA256.slice(0,16),CAP=90*1024*1024;
 const hash=async b=>Array.from(new Uint8Array(await crypto.subtle.digest('SHA-256',b)),n=>n.toString(16).padStart(2,'0')).join('');
 export function validateAudioManifest(m){
@@ -24,7 +24,7 @@ export class AudioLoader{
   if(file!=='manifest.json'&&!/^(music\/[0-9]{3}|sfx\/[a-z-]+)-[0-9a-f]{16}\.flac$/.test(file))throw Error('Audio path');
   if(url.origin!==location.origin||!url.href.startsWith(this.base.href)||file.includes('..'))throw Error('Audio URL binding');
   const release=await this.slot(cap*5,gen);try{
-   let cache=null,response=null;try{cache=!this.cacheDisabled?await abortable(caches.open(CACHE),AbortSignal.timeout(1000)):null;response=cache?await abortable(cache.match(url.href),AbortSignal.timeout(1000)):null;}catch{}
+   let cache=null,response=null;try{cache=!this.cacheDisabled?await abortable(caches.open(CACHE),AbortSignal.timeout(1000)):null;response=cache?await abortable(cache.match(url.href),AbortSignal.timeout(1000)):null;}catch{this.cacheDisabled=true;}
    if(cache&&!this.cacheOpened){this.cacheOpened=true;try{for(const name of await abortable(caches.keys(),AbortSignal.timeout(1000)))if(name.startsWith('b2z-audio-')&&name!==CACHE)await abortable(caches.delete(name),AbortSignal.timeout(1000));}catch{this.cacheDisabled=true;}}
    if(response)this.stats.cacheHits++;else{this.stats.fetches++;response=await abortable(this.fetcher(url,{signal,credentials:'same-origin',cache:file==='manifest.json'?'no-cache':'default'}),signal);}
    const bytes=await boundedBytes(response,cap,signal);if(await hash(bytes)!==expected){if(cache)void cache.delete(url.href).catch(()=>{});throw Error('Audio hash');}if(gen!==this.generation)throw Error('Audio cancelled');

@@ -5,7 +5,7 @@ import hashlib,json,time
 from pathlib import Path
 from playwright.sync_api import expect
 
-def verify_certified_lifecycle(page,context,out,configuration,record,report,save):
+def verify_certified_lifecycle(page,context,out,configuration,record,report,save,stop_wire_capture=None):
  def state(p=page):return p.evaluate('''()=>{const e=__b2zExperience,s=e.session;return{head:String(s.sequence.last.publication.head.segment_id),root:s.root,time:e.visibleTime,available:s.clock.available,history:s.startupHistory,ready:s.ready,error:String(s.error??''),retryFailures:s.retryFailures,status:e.status,balls:[...e.visible.balls.values()].map(b=>({id:b.id,x:(Number(b.x0)+b.vx*e.visibleTime)/1024,y:(Number(b.y0)+b.vy*e.visibleTime)/1024})),firstWorldMs:s.firstWorldAt,resources:performance.getEntriesByType('resource').map(r=>({name:r.name.split('/').at(-1),bytes:r.transferSize,durationMs:r.duration}))}}''')
  # Capture from the first visible frame, rather than waiting for an endpoint.
  initial=state();assert initial['history']['outcome']=='interval',initial
@@ -17,6 +17,11 @@ def verify_certified_lifecycle(page,context,out,configuration,record,report,save
  page.wait_for_function('()=>{const e=__b2zExperience;return e.clock.playhead===e.clock.available&&e.visibleTime===e.clock.available&&e.session.lastRenderedPlayhead===e.clock.available}',timeout=10000);settled=state();page.wait_for_timeout(600);assert state()['time']==settled['time'];assert state()['head']==initial['head'];report['startup_without_H_plus_1']={'status':'PASS','initial':initial,'moving':moving,'exhausted':settled};record('cold-certified-H-plays-without-another-publication',report['startup_without_H_plus_1'])
  if __import__('os').environ.get('B2Z_AUDIO_QUAL')=='1':
   page.locator('#audio-button').click();page.locator('#audio-music').check();page.locator('#audio-effects').check();page.wait_for_function('()=>__b2zAudio().music?.active&&__b2zAudio().fxBuffers===4',timeout=60000);report['audio_at_verified_endpoint']=page.evaluate('__b2zAudio()');assert report['audio_at_verified_endpoint']['stats']['starts']==0,'Old displayed events replayed on audio enable';page.locator('#audio-button').click();record('audio-native-opt-in-at-certified-endpoint',report['audio_at_verified_endpoint'])
+ # Fence the complete healthy H trace before intentionally cancelling delivery.
+ # WireCapture remains strict: failed/incomplete accepted packets still fail.
+ # The fault journey never advances H; its deliveries have separate bounded logs.
+ if stop_wire_capture:
+  fence=stop_wire_capture();assert str(fence)==initial['head'];report['wire_capture_scope']={'complete_through':str(fence),'stage':'Healthy authenticated H before intentional delivery/lifecycle faults','fault_delivery_evidence':'outage-*-requests.json and unchanged verified H assertions'}
  # Native local draft and camera survive every outage in the same session.
  page.locator('#identify-button').click();page.locator('#sending-account').fill(configuration['payer_account']);page.locator('#identity-save').click();page.locator('#close-panel').click();page.locator('#centre-cannon').click();page.wait_for_timeout(700);page.locator('#fire-action').click();page.wait_for_timeout(700)
  page.evaluate('window.retainedIdentity={session:__b2zExperience.session,clock:__b2zExperience.clock,queue:__b2zExperience.queue,camera:[__b2zCamera.x,__b2zCamera.y,__b2zCamera.scale],composer:JSON.stringify(__b2zExperience.composer)}');panel=page.locator('#workspace').bounding_box();rows=[];navigations=[];page.on('framenavigated',lambda f:navigations.append(f.url) if f==page.main_frame else None)

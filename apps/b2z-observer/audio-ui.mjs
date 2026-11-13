@@ -5,5 +5,5 @@ export function createAudioUI(doc){const $=id=>doc.getElementById(id),button=$('
  panel.addEventListener('keydown',e=>{e.stopPropagation();if(e.key==='Escape'){panel.hidden=true;button.focus();button.setAttribute('aria-expanded','false');doc.dispatchEvent(new Event('b2z-audio-layout'));}});
  for(const key of ['music','effects','mute','adaptive'])$('audio-'+key).onchange=e=>audio.set({[key]:e.target.checked},{activate:true});
  for(const key of ['musicVolume','effectsVolume'])$('audio-'+key).oninput=e=>audio.set({[key]:Number(e.target.value)});
- $('audio-resume').onclick=()=>audio.retry();$('audio-clear').onclick=()=>{void audio.clearCache().then(()=>{$('audio-status').textContent='Downloaded audio cleared.';});};audio.status();return audio;
+ $('audio-resume').onclick=()=>audio.retry();$('audio-clear').onclick=()=>{void audio.clearCache().then(cleared=>{$('audio-status').textContent=cleared?'Downloaded audio cleared.':'Unable to clear downloaded audio.';});};audio.status();return audio;
 }

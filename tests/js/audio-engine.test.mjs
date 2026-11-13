@@ -28,3 +28,13 @@ test('suspended output reports resume status, never spins requests; late resume 
 test('clear downloaded audio does not modify preferences or silently re-arm',async t=>{
  const f=setup(t);f.frame();f.engine.set({effects:true},{activate:true});await wait(()=>f.engine.inspect().fxBuffers===4);const settings=f.engine.settings(),count=f.requests();await f.engine.clearCache();assert.deepEqual(f.engine.settings(),settings);assert.equal(f.engine.inspect().unlocked,false);assert.equal(f.frame(),null);assert.equal(f.requests(),count);
 });
+test('adversarial accepted candidates obey engine starts/voices/peak gates and all stop on hide',async t=>{
+ const f=setup(t);f.frame();f.engine.set({effects:true},{activate:true});await wait(()=>f.engine.inspect().fxBuffers===4);
+ let now=1000;t.mock.method(performance,'now',()=>now);const camera={x:0,y:0,scale:60,viewport:{width:720,height:480},screen(x,y){return{x,y};}},pose='0/0/60/720/480';let priorStarts=0;const membership={pose,balls:new Map(),cannons:new Map()};
+ for(let frame=0;frame<24;frame++){
+  now=1000+frame*350;f.context.currentTime=now/1000;const collector=f.engine.begin({previous:frame,time:frame+.1,elapsed:.016,now,ready:true,failed:false,camera});
+  for(let i=0;i<32;i++){const kind=i%6===0?'cannon':'wall',entity=frame*100+i,x=90+i%6*100,y=kind==='cannon'?71:44;membership[kind==='cannon'?'cannons':'balls'].set(entity,{x,y});collector.accept({kind,entity,x,y,torus:false,width:1000,height:1000,time:frame+.1,key:`stress/${frame}/${i}`,volley:`stress/${frame}/${i}`});}
+  f.engine.flush({camera,membership,occluders:[],time:frame+.1,elapsed:.016});const state=f.engine.inspect();assert(state.stats.starts-priorStarts<=2);priorStarts=state.stats.starts;assert(state.activeVoices<=8);assert(state.cooldowns<=512);assert(state.seen<=4096);
+ }
+ assert.equal(f.engine.inspect().stats.maxVoices,8);f.engine.lifecycle(true);assert.equal(f.engine.inspect().activeVoices,0);
+});
