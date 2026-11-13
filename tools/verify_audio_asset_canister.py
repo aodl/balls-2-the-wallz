@@ -5,14 +5,19 @@ from pathlib import Path
 p=argparse.ArgumentParser();p.add_argument('--assets',type=Path,required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args();assets=a.assets.resolve();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
 with socket.socket()as listener:listener.bind(('127.0.0.1',0));port=listener.getsockname()[1]
 shutil.copytree(assets,out/'assets')
-config={'version':1,'canisters':{'observer':{'type':'assets','source':['assets'],'build':[]}},'networks':{'local':{'bind':f'127.0.0.1:{port}','type':'ephemeral'}}};(out/'dfx.json').write_text(json.dumps(config,indent=2));env={**os.environ,'DFX_IDENTITY':'codex_local','NPM_CONFIG_IF_PRESENT':'true'};report={'scope':__doc__,'assets':str(assets),'network':'local','port':port}
+(out/'baseline').mkdir();(out/'baseline/index.html').write_text('<!doctype html><title>Disposable asset baseline</title>');shutil.copyfile(assets/'.ic-assets.json5',out/'baseline/.ic-assets.json5')
+config={'version':1,'canisters':{'observer':{'type':'assets','source':['baseline'],'build':[]}},'networks':{'local':{'bind':f'127.0.0.1:{port}','type':'ephemeral'}}};(out/'dfx.json').write_text(json.dumps(config,indent=2));env={**os.environ,'DFX_IDENTITY':'codex_local','NPM_CONFIG_IF_PRESENT':'true'};report={'scope':__doc__,'assets':str(assets),'network':'local','port':port}
 def run(name,args,timeout=180):
  with (out/(name+'.log')).open('w')as log:
   r=subprocess.run(['dfx',*args],cwd=out,env=env,stdout=log,stderr=subprocess.STDOUT,timeout=timeout)
  if r.returncode:raise RuntimeError(name+' failed; inspect local log')
  return (out/(name+'.log')).read_text()
 try:
- run('start',['start','--background','--host',f'127.0.0.1:{port}']);run('deploy',['deploy','observer','--network','local','--no-wallet'],300);canister=run('id',['canister','id','observer','--network','local']).strip();report['canister']=canister
+ run('start',['start','--background','--host',f'127.0.0.1:{port}']);run('baseline-deploy',['deploy','observer','--network','local','--no-wallet'],300);canister=run('id',['canister','id','observer','--network','local']).strip();report['canister']=canister
+ report['baseline_status']=run('baseline-status',['canister','status','observer','--network','local']);config['canisters']['observer']['source']=['assets'];(out/'dfx.json').write_text(json.dumps(config,indent=2));began=time.monotonic();run('deploy',['deploy','observer','--network','local','--no-wallet','--no-asset-upgrade'],300);report['upload_seconds']=time.monotonic()-began
+ report['after_status']=run('after-status',['canister','status','observer','--network','local']);began=time.monotonic();report['repeat_sync_log']=run('repeat-sync',['deploy','observer','--network','local','--no-wallet','--no-asset-upgrade'],300);report['repeat_sync_seconds']=time.monotonic()-began
+ assert 'Uploading asset' not in report['repeat_sync_log'],'Unchanged content uploaded again'
+
  report['inventory']=json.loads(run('inventory',['canister','call','observer','list','(record {})','--query','--network','local','--output','json']))
  files=report['inventory'];
  if isinstance(files,list)and len(files)==1 and isinstance(files[0],list):files=files[0]

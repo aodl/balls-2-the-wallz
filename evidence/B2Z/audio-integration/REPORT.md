@@ -26,7 +26,7 @@ The baseline and first post-change startup/elastic/player-refinement slice each
 passed 52 tests. The maintained audio tests now include actual prepared segments,
 audio on/off endpoint/index equality, throw containment, rational reflections,
 source provenance, 100,000-event bounds, visibility, native-scheduler arithmetic
-and cancellation. Latest focused run: 47 PASS. Synthetic contexts in unit tests
+and cancellation. Focused transport/event/scheduler/visibility run: 55 PASS; a further three engine lifecycle/control cases pass. Synthetic contexts in unit tests
 are explicitly separate from native browser and listening qualification.
 
 ## B — controls and lossless scheduler
@@ -58,3 +58,5 @@ in progress. PASS/FAIL/BLOCKED/NOT_RUN will be consolidated after execution.
 No physical headphones/speaker listening, iOS/Android device or real Safari result
 is claimed. Hosted six-gate qualification is NOT_RUN because publication is not
 authorized. The previous deployment/rollback asset directory is untouched.
+
+Checkpoint correction: native suspended output is never labelled ready. Native decode completion owns its slot even after cancellation; late chunks cannot be scheduled with shifted starts. Failed/skipped renderer draws clear membership, and UI occluders use canvas-local offsets. The installed recorder now samples for a bounded window after first verified display rather than expiring at page age 20s. These are being requalified on the current candidate.

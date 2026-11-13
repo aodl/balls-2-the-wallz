@@ -13,13 +13,14 @@ export class AudioMusic{
  }
  release(record){record.source.onended=null;record.source.disconnect();record.gain.disconnect();record.source.buffer=null;this.nodes.delete(record);if(this.buffers.get(record.index)===record.buffer&&![...this.nodes].some(n=>n.buffer===record.buffer))this.buffers.delete(record.index);record.buffer=null;}
  tick(){if(!this.active||this.ticking)return;this.ticking=true;const gen=this.generation;
-  try{const now=this.context.currentTime;if(this.scheduledUntil!==undefined&&now>this.scheduledUntil+.02){this.stats.underruns++;this.recover(Error('Music underrun'));return;}
+  try{const now=this.context.currentTime;if(this.scheduledUntil!==undefined&&now>this.scheduledUntil){this.stats.underruns++;this.recover(Error('Music underrun'));return;}
    while([...this.nodes].filter(n=>!n.ending).length<2&&this.nodes.size<4){const index=this.index,spec=this.manifest.segments[index],buffer=this.buffers.get(index);if(!buffer)break;
     const loop=Math.floor(this.nextFrame/this.manifest.totalFrames),local=this.nextFrame-loop*this.manifest.totalFrames,skip=local-spec.startFrame,frames=spec.coreFrames-skip,when=this.epoch+(this.nextFrame-this.phase)/48000;
-    if(when<now-.02){this.stats.underruns++;this.recover(Error('Music underrun'));return;}
+    if(when<now){this.stats.underruns++;this.recover(Error('Music underrun'));return;}
     const source=this.context.createBufferSource(),gain=this.context.createGain(),record={source,gain,buffer,index,when,fade:this.first,ending:false};source.buffer=buffer;source.playbackRate.value=1;source.detune.value=0;source.connect(gain);gain.connect(this.bus);
     if(this.first){gain.gain.setValueAtTime(0,when);gain.gain.linearRampToValueAtTime(1,when+.08);this.first=false;}
-    this.nodes.add(record);source.onended=()=>{if(!record.ending)this.failures=0;this.release(record);};source.start(Math.max(now,when),(spec.coreOffsetFrames+skip)/48000,frames/48000);this.stats.starts++;this.stats.maxNodes=Math.max(this.stats.maxNodes,this.nodes.size);this.nextFrame+=frames;this.index=(index+1)%51;this.scheduledUntil=this.epoch+(this.nextFrame-this.phase)/48000;
+    if(when<this.context.currentTime){source.disconnect();gain.disconnect();this.recover(Error('Music scheduling deadline'));return;}
+    this.nodes.add(record);source.onended=()=>{if(!record.ending)this.failures=0;this.release(record);};source.start(when,(spec.coreOffsetFrames+skip)/48000,frames/48000);this.stats.starts++;this.stats.maxNodes=Math.max(this.stats.maxNodes,this.nodes.size);this.nextFrame+=frames;this.index=(index+1)%51;this.scheduledUntil=this.epoch+(this.nextFrame-this.phase)/48000;
    }
    if(this.buffers.size<3&&!this.prefetch){const index=this.buffers.has(this.index)?(this.index+1)%51:this.index;this.prefetch=this.fill(index,gen).catch(e=>{if(gen===this.generation)this.recover(e);}).finally(()=>{if(gen===this.generation)this.prefetch=null;});}
   }catch(e){this.recover(e);}finally{this.ticking=false;}

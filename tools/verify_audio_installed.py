@@ -11,6 +11,6 @@ for k,f in files.items():assert hashlib.sha256(f.read_bytes()).hexdigest()==hash
 name='playability_installed::human_corrections_certified_startup_and_transient_recovery';assert name in subprocess.check_output([str(a.test_binary),'--list'],text=True)
 server=start_pocketic(files['POCKET_IC_BIN'],out,hard_ttl_seconds=1260,idle_ttl_seconds=1230)
 try:
- env={k:str(f)for k,f in files.items()};env.update(B2Z_S14_WASM=str(a.normal_wasm.resolve()),S14_BROWSER_PYTHON=str(Path(a.browser_python).resolve()),S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),POCKET_IC_SERVER_URL=server[3],DFX_IDENTITY='codex_local',B2Z_AUDIO_QUAL='1')
+ env={k:str(f)for k,f in files.items()};env.update(B2Z_S14_WASM=str(a.normal_wasm.resolve()),S14_BROWSER_PYTHON=str(Path(a.browser_python).absolute()),S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),POCKET_IC_SERVER_URL=server[3],DFX_IDENTITY='codex_local',B2Z_AUDIO_QUAL='1')
  result=execute('certified-audio-browser',[str(a.test_binary),name,'--exact','--nocapture','--test-threads=1'],out,1200,env);result.update(scope=__doc__,normal_sha256=expected,backend_sources_unchanged=True);(out/'results.json').write_text(json.dumps(result,indent=2)+'\n');print(json.dumps(result));sys.exit(0 if result['status']=='PASS'else 1)
 finally:stop_pocketic(*server[:3])

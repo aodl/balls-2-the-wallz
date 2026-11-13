@@ -24,7 +24,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const material=new T.MeshLambertMaterial({flatShading:true});
  const dummy=new T.Object3D(),color=new T.Color(),motion=displayedMotion();let lost=false,terrainKey='',lastView=null,lastDrawKey='',lastStats=null,previewKey='',sizeKey='';
  renderer.debug.onShaderError=(gl,program,vertex,fragment)=>{lost=true;onError('The arena shader could not be compiled.');throw Error('Arena shader compilation failed: '+gl.getShaderInfoLog(vertex)+' '+gl.getShaderInfoLog(fragment)+' '+gl.getProgramInfoLog(program));};
- let audioMembership=null;const groups=[];
+ let audioMembership=null,audioGeneration=0;const groups=[];
  function batch(geometry,max=RENDER_LIMITS.pieces,mat=material){const m=new T.InstancedMesh(geometry,mat,max);m.count=0;m.frustumCulled=false;scene.add(m);groups.push(m);return m;}
  const groundMaterial=new T.ShaderMaterial({toneMapped:false,uniforms:{ownership:{value:null},worldSize:{value:new T.Vector2(1,1)}},vertexShader:`varying vec2 ground;varying float topFace;void main(){vec4 p=instanceMatrix*vec4(position,1.);ground=p.xz;topFace=normal.y;gl_Position=projectionMatrix*modelViewMatrix*p;}`,fragmentShader:`
  uniform sampler2D ownership;uniform vec2 worldSize;varying vec2 ground;varying float topFace;
@@ -78,7 +78,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const lostHandler=e=>{e.preventDefault();lost=true;motion.reset();onError('Graphics context lost. Waiting to restore the arena.');};
  const restoreHandler=()=>{lost=false;terrainKey='';lastDrawKey='';sizeKey='';forceTerrainUpload=true;texture?.clearUpdateRanges();if(texture)texture.needsUpdate=true;motion.reset();onRestore();};
  canvas.addEventListener('webglcontextlost',lostHandler);canvas.addEventListener('webglcontextrestored',restoreHandler);
- function draw(v,camera,{time=0,selected=null,selection=null,hover=null,aim=null,followed=null,points=null,guideObstacles=[],reducedMotion=false,audioEligible=false,wallMs=performance.now()}={}){
+ function renderFrame(v,camera,{time=0,selected=null,selection=null,hover=null,aim=null,followed=null,points=null,guideObstacles=[],reducedMotion=false,audioEligible=false,wallMs=performance.now()}={}){
   if(lost)return;lastHover=hover;lastFollowed=followed;
   const drawKey=[audioEligible,camera.x,camera.y,camera.scale,camera.viewport.width,camera.viewport.height,time,v.territoryRevision,v.entityKey(),selected,followed,hover?.kind,hover?.id,hover?.cell,selection?.key,selection?.cell,selection?.cells?.length,aim?.cannon.cell,aim?.angle,JSON.stringify(guideObstacles),reducedMotion,devicePixelRatio].join('/');
   if(lastView===v&&lastDrawKey===drawKey&&!lastStats?.effects&&!lastStats?.tails)return lastStats;
@@ -102,7 +102,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   const effects=motion.sample(points,{time,wallMs,width:v.width,height:v.height,torus:v.torus,reducedMotion,pixelsPerCell:camera.scale,trajectories:v.balls});
   if(updatePreview)previewData=previewCells(v,camera,selection);
   {
-   const audioBalls=new Map(),audioCannons=new Map();audioMembership=null;
+   const audioBalls=audioEligible?new Map():null,audioCannons=audioEligible?new Map():null;audioMembership=null;
    for(const c of v.cannons.values()){
     const position=camera.cellPoint(c.cell),x=position.x,y=position.y;if(!visible(camera,x,y))continue;
     const tint=v.color(c.id),lod=cannonLod;
@@ -118,7 +118,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
    for(const t of motion.tails(wallMs).slice(-RENDER_LIMITS.pieces)){tails.geometry.attributes.tailAlpha.setX(tails.count,t.alpha);const p=camera.point(t.x,t.y),length=t.distance,theta=Math.atan2(t.dy,t.dx);instance(tails,p.x-Math.cos(theta)*length/2,p.y-Math.sin(theta)*length/2,.14,1,length,1,null,[0,-theta,-Math.PI/2]);instance(tailInner,p.x-Math.cos(theta)*length/2,p.y-Math.sin(theta)*length/2,.14,.60,length,.60,null,[0,-theta,-Math.PI/2]);}
    for(const e of effects){highlights.geometry.attributes.effectAlpha.setX(highlights.count,e.alpha);const p=camera.cellPoint(e.cell),x=p.x,y=p.y;if(visible(camera,x,y))instance(highlights,x,y,.012,1,1,1,null,[-Math.PI/2,0,0]);}
    if(updatePreview)for(const cell of previewData){if(cell===selection?.cell)continue;const p=camera.cellPoint(cell),x=p.x,y=p.y;if(visible(camera,x,y)){const a=selection?.anchor,dx=a===undefined?0:Math.abs(cell%v.width-a%v.width),dy=a===undefined?0:Math.abs(Math.floor(cell/v.width)-Math.floor(a/v.width)),near=a!==undefined&&Math.min(dx,v.width-dx)+Math.min(dy,v.height-dy)===1;instance(preview,x,y,.02,1,1,1,near?previewInk:eligibleInk,[-Math.PI/2,0,0]);}}
-   audioMembership={balls:audioBalls,cannons:audioCannons,pose:audioPose(camera),time};
+   if(audioEligible)audioMembership={balls:audioBalls,cannons:audioCannons,pose:audioPose(camera),time};
   }
   const markCell=aim&&aim.cannon.id!==null&&v.cannons.get(aim.cannon.id)?.cell!==aim.cannon.cell?aim.cannon.cell:null;marker.visible=markCell!==null;
   if(marker.visible){const p=camera.cellPoint(markCell);marker.position.set(p.x,.03,p.y);}
@@ -133,8 +133,9 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
 
   for(const mesh of groups){if((mesh===tiles||mesh===boundedTiles)&&!updateTerrain||mesh===preview&&!updatePreview)continue;if(mesh.count){mesh.instanceMatrix.addUpdateRange(0,mesh.count*16);mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor){mesh.instanceColor.addUpdateRange(0,mesh.count*3);mesh.instanceColor.needsUpdate=true;}}}
   if(tails.count)tails.geometry.attributes.tailAlpha.needsUpdate=true;if(highlights.count)highlights.geometry.attributes.effectAlpha.needsUpdate=true;
-  renderer.render(scene,ortho);
+  renderer.render(scene,ortho);if(audioMembership)audioMembership.generation=++audioGeneration;
   lastStats={time,draw_calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,tiles:tiles.count,pieces:bases.count+balls.count,effects:effects.length,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,terrain_revision:surfaceData?.revision,terrain_bytes:surfaceData?.rgba.byteLength,terrain_dirty_rows:surfaceData?.dirtyRows.length,preview_cells:previewData.length,tails:tails.count,motion:motion.inspect()};return lastStats;
  }
+ function draw(...args){audioMembership=null;try{return renderFrame(...args);}catch(error){audioMembership=null;throw error;}}
  return {audioMembership:()=>lost?null:audioMembership,draw,surface:()=>surfaceData,previews:()=>previewData,inspect(){let span=0;const a=preview.instanceMatrix.array;for(let i=0;i<preview.count;i++)span=Math.max(span,Math.hypot(a[i*16],a[i*16+1],a[i*16+2]),Math.hypot(a[i*16+4],a[i*16+5],a[i*16+6]));return{ghostStyle:{wireframe:ghostMaterial.wireframe,opacity:ghostMaterial.opacity,depthTest:ghostMaterial.depthTest,depthWrite:ghostMaterial.depthWrite,body:ghostMaterial.color.getHexString(),barrel:ghostBarrelMaterial.color.getHexString()},guideDepth:{test:guide.material.depthTest,write:guide.material.depthWrite,height:.028},selectedContours:highlighted.base.count,selectedBodies:highlighted.base.count,cannonParts:Object.fromEntries(Object.entries(parts).map(([k,m])=>[k,[...m.instanceMatrix.array.slice(0,m.count*16)]])),ghostParts:Object.fromEntries(Object.entries(provisional).map(([k,m])=>[k,[...m.instanceMatrix.array.slice(0,m.count*16)]])),followed:lastFollowed, surfaceBound:texture?.image.data===surfaceData?.rgba,previewSpan:span,hover:lastHover,barrels:[...barrels.instanceMatrix.array.slice(0,barrels.count*16)],guideEnd:guide.visible?[guideGeometry.attributes.instanceEnd.getX(0),guideGeometry.attributes.instanceEnd.getZ(0)]:null,guide:guide.visible?[guideGeometry.attributes.instanceStart.getX(0),guideGeometry.attributes.instanceStart.getZ(0)]:null,ghost:ghostBase.count?[ghostBase.instanceMatrix.array[12],ghostBase.instanceMatrix.array[14]]:null};},reset(){audioMembership=null;motion.reset();lastDrawKey='';},dispose(){canvas.removeEventListener('webglcontextlost',lostHandler);canvas.removeEventListener('webglcontextrestored',restoreHandler);const disposedGeometry=new Set(),disposedMaterials=new Set();for(const m of groups){if(!disposedGeometry.has(m.geometry)){m.geometry.dispose();disposedGeometry.add(m.geometry);}if(m.material!==material&&!disposedMaterials.has(m.material)){m.material.dispose();disposedMaterials.add(m.material);}m.dispose();}material.dispose();marker.geometry.dispose();marker.material.dispose();guide.geometry.dispose();guide.material.dispose();guideUnder.material.dispose();texture?.dispose();renderer.dispose();}};
 }
