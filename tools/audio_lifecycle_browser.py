@@ -64,11 +64,12 @@ def verify_audio_lifecycle(page,context,url,out,report):
  before=page.evaluate('__b2zAudio()');page.evaluate('()=>__b2zTools.recording("audio-wall")');page.wait_for_function('()=>__b2zExperience?.session?.ready&&!__b2zExperience?.session?.error',timeout=60000)
  after=page.evaluate('__b2zAudio()');assert after['loader']['maxFetches']<=2 and after['loader']['maxDecodes']<=1;assert page.evaluate('__b2zExperience.visibleTime')is not None
  report['slow_optional_audio']={'scope':'Actual browser pinned recording verified while FLAC requests held; not IC network priority qualification','held_requests':len(held),'before':before,'after':after,'world_ready':True}
- page.locator('#audio-mute').check()
- page.unroute('**/audio/b2z-v1/**/*.flac',hold)
+ # Settle held route handlers before unregistration/page disposal.
  for route in held:
   try:route.abort()
   except Exception:pass
+ page.unroute('**/audio/b2z-v1/**/*.flac',hold)
+ page.locator('#audio-mute').check()
  verify_native_follow(context,url,out,report)
 
 def verify_native_follow(context,url,out,report):

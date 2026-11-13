@@ -125,3 +125,14 @@ Manual headphone/speaker listening and physical iOS/Android/Safari/Firefox cover
 must be marked BLOCKED/NOT_RUN when unavailable. Software/OfflineAudioContext and
 emulated touch are not hardware or listening evidence. New audio bytes require
 fresh exact-source six-gate qualification and a separate deployment decision.
+
+
+The maintained browser matrix additionally uses `verify_audio_spatial.py` for
+actual renderer/DOM/DPR/offset/scroll geometry and single-native-frame publication
+provenance, and `verify_audio_occlusion.py` for native effect fade/stop behind real
+UI nodes in controlled overlap poses. `verify_audio_visibility.py` uses an ordinary
+sandboxed Chromium, loopback-only debugging, actual same-window tabs and native
+lifecycle events; unsupported BFCache/device states remain separately labelled.
+These offline recordings are content-pinned, not IC certificate attestations.
+Recorded verifiers finalize pages before contexts where context-only disposal
+stalled; this does not change scene assertions or financial/layout tolerances.

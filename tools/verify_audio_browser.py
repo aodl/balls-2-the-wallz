@@ -65,5 +65,7 @@ with sync_playwright()as pw:
  finally:
   report['browser']=b.version;report['audio_requests']=sum('/audio/'in u for u in requests);(out/'results.json').write_text(json.dumps(report,indent=2)+'\n');
   if a.trace:c.tracing.stop(path=str(out/'trace.zip'))
+  # Finalize recorded pages before context disposal.
+  for open_page in c.pages:open_page.close()
   c.close();b.close();s.shutdown()
 print(json.dumps({'status':report['status'],'browser':report['browser'],'native48':len(report.get('native48',{}).get('rows',[]))}))

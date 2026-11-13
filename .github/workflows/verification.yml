@@ -192,7 +192,9 @@ jobs:
           python -B tools/verify_audio_browser.py --output .work/ci-audio
           python -B tools/verify_audio_peak.py --output .work/ci-audio/peaks.json
           python -B tools/verify_audio_spatial.py --output .work/ci-audio-spatial
+          python -B tools/verify_audio_occlusion.py --fixture-dir .work/ci-audio/assets --policy-dir .work/ci-audio/policy-build --output .work/ci-audio-occlusion
           python -B tools/verify_audio_browser.py --controls-only --decode-delay-ms 500 --output .work/ci-audio-activation
+          python -B tools/verify_audio_visibility.py --fixture-dir .work/ci-audio/assets --policy-dir .work/ci-audio/policy-build --output .work/ci-audio-visibility
       - name: Upload browser evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -221,6 +223,9 @@ jobs:
             .work/ci-audio/*.png
             .work/ci-audio/*.wav
             .work/ci-audio-spatial/**
+            .work/ci-audio-occlusion/**
+            .work/ci-audio-visibility/results.json
+            .work/ci-audio-visibility/*.png
             .work/ci-audio-activation/results.json
             .work/ci-audio-activation/*.png
           if-no-files-found: warn

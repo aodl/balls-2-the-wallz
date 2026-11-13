@@ -44,7 +44,8 @@ with sync_playwright()as pw:
     row['controlled_expansion']=page.evaluate('''()=>{document.getElementById('fire-action').click();const body=document.querySelector('.panel-body');getComputedStyle(body).height;const animations=document.getAnimations().filter(a=>a.effect?.target===body||a.effect?.target===document.querySelector('.panel-scroll'));animations.forEach(a=>a.pause());const rows=[0,90,180].map(t=>{animations.forEach(a=>a.currentTime=t);const b=body.getBoundingClientRect(),button=document.getElementById('fire-action').getBoundingClientRect();return{at:t,height:b.height,button:[button.x,button.y]}});animations.forEach(a=>a.finish());return{animations:animations.length,rows}}''')
     r=row['controlled_expansion']['rows'];assert row['controlled_expansion']['animations']>0;assert r[0]['height']<2 and r[0]['height']<r[1]['height']<r[-1]['height'];assert all(v['button']==r[0]['button']for v in r)
     (out/'results.json').write_text(json.dumps({'status':'RUNNING','baseline':False,'rows':rows},indent=2)+'\n')
-   ctx.close()
+   # Finalize the page recording before disposing its context.
+   page.close();ctx.close()
  finally:browser.close();server.shutdown()
 
 if not a.baseline:(out/'results.json').write_text(json.dumps({'status':'PASS','baseline':False,'rows':rows},indent=2)+'\n')

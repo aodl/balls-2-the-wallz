@@ -1,5 +1,17 @@
 # Installed European game — frontend updates
 
+## Optional audio candidate — not deployed or release-qualified
+
+The local audio correction uses application runtime `5a66aaf`, with later
+qualification-only changes. Read the [corrective closeout](../../evidence/B2Z/audio-corrective-qualification/REPORT.md),
+[QA matrix](../../evidence/B2Z/audio-corrective-qualification/QA.md) and
+[physical listening/device procedure](../../evidence/B2Z/audio-corrective-qualification/MANUAL_ACCEPTANCE.md).
+The previous published audio source c281828 has four substantive hosted PASS and
+two FAIL; it is not qualified. New frozen bytes require all six exact-source
+hosted PASS, representative performance/listening, rights/provenance and storage
+cost review. No publication, installation or deployment is authorized by the
+corrective qualification task. Keep the existing deployed rollback assets.
+
 ## Human-playtest corrective frontend (13 November 2026)
 
 The owner-authorized exact frontend assets are deployed and independently
