@@ -1,19 +1,24 @@
-# Optional audio integration — local candidate; not deployed or release-qualified
+# Audio corrective qualification — local candidate; NOT release-qualified
 
-Approved lossless audio and opt-in controls are implemented. Actual browser
-playback/cues, native48/44.1 output comparisons, three-loop music and all eight
-panel cases pass in their recorded scopes. Optional cache recovery is bounded.
-Final full local source passes (1907 Node /201 Python), and the focused certified
-startup/outage case and complete local asset-service rehearsal pass. Hardware
-performance/listening and platform qualifications have remaining failures or limits; six hosted gates have not run. No mainnet action,
-remote publication, backend or paid-state change was performed.
+The published starting source is `c2818281219bcfb9979a32ff0d4e5ffbf658e4dc`.
+Its completed hosted run 43458352816 has four substantive PASS and two FAIL:
+Browser (contracted selected-source occlusion) and installed-IC (Music/FX enable
+timeout). The informational inventory guard is excluded. Earlier statements that
+nothing was published or that these gates had not run are superseded.
 
-Frozen runtime source `a2aa9a2`, JS `8e008b16…`, complete74 inventory `31ff97ab…`.
-Later qualification/report commits preserve those application assets. The earlier
-production evidence below continues to refer only to its original bytes.
+This local pass corrects contracted audio-control occlusion and independent-lane
+activation/native-decoder recovery. It preserves approved audio hashes, gameplay,
+verification and financial inputs. Targeted native browser and regression checks
+are being recorded separately from physical listening/hardware qualification.
+No publication, canister installation, deployment or financial operation is
+permitted by this pass. Exact final results and remaining release prerequisites
+belong in [corrective closeout](evidence/B2Z/audio-corrective-qualification/REPORT.md).
+[Audio contract](docs/specs/B2Z_AUDIO.md), [original candidate evidence](evidence/B2Z/audio-integration/REPORT.md)
+and [manual acceptance](evidence/B2Z/audio-corrective-qualification/MANUAL_ACCEPTANCE.md).
 
-[Audio contract](docs/specs/B2Z_AUDIO.md) / [evidence and limitations](evidence/B2Z/audio-integration/REPORT.md)
-/ [QA matrix](evidence/B2Z/audio-integration/QA.md).
+The original runtime `a2aa9a2` / JS `8e008b16…` / inventory `31ff97ab…` remains
+historical evidence, not qualification of the corrected runtime. The previous
+production frontend/rollback assets remain unchanged.
 
 ---
 

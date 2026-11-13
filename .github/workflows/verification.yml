@@ -191,6 +191,8 @@ jobs:
           python -m pip install --require-hashes -r tools/audio-requirements.txt
           python -B tools/verify_audio_browser.py --output .work/ci-audio
           python -B tools/verify_audio_peak.py --output .work/ci-audio/peaks.json
+          python -B tools/verify_audio_spatial.py --output .work/ci-audio-spatial
+          python -B tools/verify_audio_browser.py --controls-only --decode-delay-ms 500 --output .work/ci-audio-activation
       - name: Upload browser evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -218,6 +220,9 @@ jobs:
             .work/ci-audio/peaks.json
             .work/ci-audio/*.png
             .work/ci-audio/*.wav
+            .work/ci-audio-spatial/**
+            .work/ci-audio-activation/results.json
+            .work/ci-audio-activation/*.png
           if-no-files-found: warn
           retention-days: 14
 

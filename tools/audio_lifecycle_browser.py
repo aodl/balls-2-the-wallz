@@ -22,7 +22,19 @@ def verify_audio_lifecycle(page,context,url,out,report):
   other.set_viewport_size({'width':width,'height':height});other.wait_for_timeout(200);camera=other.evaluate('[__b2zCamera.x,__b2zCamera.y,__b2zCamera.scale]');slider=other.locator('#audio-effectsVolume');slider.focus();slider.press('ArrowRight');assert other.evaluate('[__b2zCamera.x,__b2zCamera.y,__b2zCamera.scale]')==camera
   box=other.locator('#audio-popover').bounding_box();assert box and box['x']>=0 and box['x']+box['width']<=width and box['y']+box['height']<=height
   other.screenshot(path=str(out/f'{width}-audio-controls.png'));layouts.append({'viewport':[width,height],'popover':box,'keyboard_did_not_move_camera':True})
- report['controls_layout']=layouts;other.close()
+ report['controls_layout']=layouts
+ # Browser-protocol freeze dispatches Chromium's actual lifecycle, rather than
+ # a synthetic document event. Physical OS suspension remains a separate scope.
+ other.evaluate('globalThis.audioLifecycleEvents=[];for(const name of ["freeze","resume"])document.addEventListener(name,()=>audioLifecycleEvents.push({name,starts:__b2zAudio().stats.starts}),true)')
+ protocol_started=False
+ try:
+  protocol=context.new_cdp_session(other);protocol.send('Page.setWebLifecycleState',{'state':'frozen'});protocol_started=True;page.wait_for_timeout(200);protocol.send('Page.setWebLifecycleState',{'state':'active'});other.wait_for_function('()=>audioLifecycleEvents.some(e=>e.name==="resume")',timeout=10000)
+  events=other.evaluate('audioLifecycleEvents');assert [e['name']for e in events]==['freeze','resume'];assert other.evaluate('__b2zAudio().activeVoices')==0;report['chromium_protocol_freeze_resume']={'status':'PASS','events':events,'scope':'Actual Chromium lifecycle, muted tab; not physical OS suspension'};protocol.detach()
+ except Exception as e:
+  observed=other.evaluate('audioLifecycleEvents')
+  if observed:raise
+  report['chromium_protocol_freeze_resume']={'status':'BLOCKED','reason':str(e),'events':observed,'scope':'Protocol did not dispatch lifecycle events on this visible headless page; no actual freeze assertion qualified'}
+ other.close()
  # Actual RAF spacing on identical pinned movement. This includes host scheduling/GPU;
  # matched CPU-only incremental costs are measured separately by measure_audio.mjs.
  perf=[]
@@ -40,4 +52,19 @@ def verify_audio_lifecycle(page,context,url,out,report):
  if supported:
   page.evaluate('audioQALoss.loseContext()');page.wait_for_timeout(200);assert page.evaluate('__b2zAudio().activeVoices')==0;page.evaluate('audioQALoss.restoreContext()');page.wait_for_timeout(500);assert page.evaluate('__b2zTools.state().error')is None;assert page.evaluate('__b2zAudio().stats.starts')==before;report['native_webgl_context_loss_restore']='PASS (software renderer; no old cue)'
  else:report['native_webgl_context_loss_restore']='BLOCKED (extension unavailable)'
+ # Hold all optional audio transport while the normal application verifies and
+ # renders another pinned recording. This is offline content verification, not IC.
+ page.locator('#audio-clear').click();page.wait_for_function('()=>document.getElementById("audio-status").textContent==="Downloaded audio cleared."')
+ held=[]
+ def hold(route):held.append(route)
+ page.route('**/audio/b2z-v1/**/*.flac',hold)
+ page.locator('#audio-music').check();page.locator('#audio-mute').uncheck();page.locator('#audio-resume').click()
+ page.wait_for_function('()=>__b2zAudio().loader?.pending>0',timeout=30000)
+ before=page.evaluate('__b2zAudio()');page.evaluate('()=>__b2zTools.recording("audio-wall")');page.wait_for_function('()=>__b2zExperience?.session?.ready&&!__b2zExperience?.session?.error',timeout=60000)
+ after=page.evaluate('__b2zAudio()');assert after['loader']['maxFetches']<=2 and after['loader']['maxDecodes']<=1;assert page.evaluate('__b2zExperience.visibleTime')is not None
+ report['slow_optional_audio']={'scope':'Actual browser pinned recording verified while FLAC requests held; not IC network priority qualification','held_requests':len(held),'before':before,'after':after,'world_ready':True}
  page.locator('#audio-mute').check()
+ page.unroute('**/audio/b2z-v1/**/*.flac',hold)
+ for route in held:
+  try:route.abort()
+  except Exception:pass

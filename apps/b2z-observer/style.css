@@ -157,3 +157,5 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 #audio-popover p{font-size:12px;margin:8px 0;min-height:2.5em}
 #audio-popover button{font-size:13px;padding:5px 8px}
 @media(max-width:700px){.audio-controls{left:auto;right:10px;top:66px;bottom:auto}#audio-popover{left:auto;right:0;top:52px;bottom:auto;max-height:calc(100dvh - 136px)}}
+/* Keep the selected source's short-viewport working area clear. */
+@media(max-width:700px){.short-edit .audio-controls{left:10px;right:auto}.short-edit #audio-popover{left:0;right:auto}}

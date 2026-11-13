@@ -6,7 +6,7 @@ import soundfile as sf
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 from audio_lifecycle_browser import verify_audio_lifecycle
-p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--browser',choices=['chromium','firefox','webkit'],default='chromium');p.add_argument('--soak-seconds',type=int,default=0);p.add_argument('--native-only',action='store_true');p.add_argument('--video',action='store_true');p.add_argument('--cuts-only',action='store_true');p.add_argument('--controls-only',action='store_true');a=p.parse_args();out=a.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1];assets=out/'assets';assets.mkdir()
+p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--browser',choices=['chromium','firefox','webkit'],default='chromium');p.add_argument('--soak-seconds',type=int,default=0);p.add_argument('--native-only',action='store_true');p.add_argument('--video',action='store_true');p.add_argument('--trace',action='store_true');p.add_argument('--cuts-only',action='store_true');p.add_argument('--controls-only',action='store_true');p.add_argument('--decode-delay-ms',type=int,default=0);a=p.parse_args();out=a.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1];assets=out/'assets';assets.mkdir()
 for name in ['index.html','style.css','icon.svg']:shutil.copyfile(root/'apps/b2z-observer'/name,assets/name)
 shutil.copytree(root/'apps/b2z-observer/recordings',assets/'recordings');subprocess.run(['node','tools/fixtures/audio-recording.mjs',str(assets/'recordings')],cwd=root,check=True);shutil.copytree(root/'apps/b2z-observer/audio',assets/'audio')
 for source,name in [('apps/b2z-observer/app.mjs','app.mjs'),('tools/fixtures/audio-native-browser.mjs','probe.mjs')]:subprocess.run(['node_modules/.bin/esbuild',source,'--bundle','--format=esm','--platform=browser','--outfile='+str(assets/name)],cwd=root,check=True)
@@ -24,11 +24,18 @@ class H(http.server.SimpleHTTPRequestHandler):
   super().end_headers()
 s=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(H,directory=str(assets)));threading.Thread(target=s.serve_forever,daemon=True).start();url=f'http://127.0.0.1:{s.server_port}';report={'scope':__doc__,'mode':'native-cuts'if a.cuts_only else'native-codec'if a.native_only else'integrated-app','checks':[],'errors':[]}
 with sync_playwright()as pw:
- b=getattr(pw,a.browser).launch(headless=True,**({'chromium_sandbox':True}if a.browser=='chromium'else{}));c=b.new_context(viewport={'width':390,'height':844},**({'record_video_dir':str(out/'video')}if a.video else{}));page=c.new_page();page.expose_function('__audioQATelemetry',lambda value:(out/'latest-state.json').write_text(json.dumps(value,indent=2)+'\n'));page.add_init_script("setInterval(()=>{if(globalThis.__b2zAudio)void __audioQATelemetry({audio:__b2zAudio(),hidden:document.hidden,world:__b2zExperience?.visibleTime,ready:__b2zExperience?.session?.ready,gameError:String(__b2zExperience?.session?.error??'')}).catch(()=>{})},1000)");requests=[];page.on('request',lambda r:requests.append(r.url));page.on('pageerror',lambda e:report['errors'].append(str(e)))
+ b=getattr(pw,a.browser).launch(headless=True,**({'chromium_sandbox':True}if a.browser=='chromium'else{}));c=b.new_context(viewport={'width':390,'height':844},**({'record_video_dir':str(out/'video')}if a.video else{}));
+ if a.trace:c.tracing.start(screenshots=True,snapshots=True,sources=True)
+ page=c.new_page();page.expose_function('__audioQATelemetry',lambda value:(out/'latest-state.json').write_text(json.dumps(value,indent=2)+'\n'));page.add_init_script("setInterval(()=>{if(globalThis.__b2zAudio)void __audioQATelemetry({audio:__b2zAudio(),hidden:document.hidden,world:__b2zExperience?.visibleTime,ready:__b2zExperience?.session?.ready,gameError:String(__b2zExperience?.session?.error??'')}).catch(()=>{})},1000)");
+ if a.decode_delay_ms:
+  assert 0<a.decode_delay_ms<=2000
+  page.add_init_script('const native=AudioContext.prototype.decodeAudioData;AudioContext.prototype.decodeAudioData=function(bytes){return native.call(this,bytes).then(buffer=>new Promise(resolve=>setTimeout(()=>resolve(buffer),'+str(a.decode_delay_ms)+')))}')
+ report['controlled_native_decode_delay_ms']=a.decode_delay_ms
+ requests=[];page.on('request',lambda r:requests.append(r.url));page.on('pageerror',lambda e:report['errors'].append(str(e)))
  try:
   page.goto(url+"/?recording=audio-wall");page.wait_for_function('()=>__b2zExperience?.session?.ready',timeout=60000);page.wait_for_timeout(500);assert not any('/audio/'in u for u in requests);assert page.evaluate('__b2zAudio().sampleRate')is None;report['checks'].append({'id':'L01','status':'PASS','observation':'Actual game boot silent; zero audio requests/context before gesture'})
   if not a.native_only:
-   page.locator('#audio-button').click();page.locator('#audio-music').check();page.wait_for_function('()=>__b2zAudio().music?.active',timeout=60000);page.screenshot(path=str(out/'music-enabled.png'));report['initial']=page.evaluate('__b2zAudio()');assert report['initial']['sampleRate']==48000;assert report['initial']['music']['maxBuffers']<=3;report['checks'].append({'id':'B04/M02','status':'PASS','observation':'Native gesture-started FLAC music under unchanged autoplay=() and exact CSP'})
+   page.locator('#audio-button').click();page.locator('#audio-music').check();page.locator('#audio-effects').check();page.wait_for_function('()=>__b2zAudio().music?.active&&__b2zAudio().fxBuffers===4',timeout=60000);report['initial_simultaneous_enable']=page.evaluate('__b2zAudio()');page.locator('#audio-effects').uncheck();page.screenshot(path=str(out/'music-enabled.png'));report['initial']=page.evaluate('__b2zAudio()');assert report['initial']['sampleRate']==48000;assert report['initial']['music']['maxBuffers']<=3;report['checks'].append({'id':'B04/M02','status':'PASS','observation':'Native gesture-started FLAC music under unchanged autoplay=() and exact CSP'})
    if a.soak_seconds:
     for elapsed in range(0,a.soak_seconds,15):
      page.wait_for_timeout(min(15,a.soak_seconds-elapsed)*1000);sample=page.evaluate('__b2zAudio()');report.setdefault('soak',[]).append({'elapsed':min(elapsed+15,a.soak_seconds),'state':sample});(out/'running.json').write_text(json.dumps(report,indent=2)+'\n');assert sample['music']['nodes']<=2 and sample['music']['maxBuffers']<=3 and sample['music']['maxDecoded']<=32*1024*1024
@@ -56,5 +63,7 @@ with sync_playwright()as pw:
  except Exception as e:
   report.update(status='FAIL',error=str(e),last_audio=page.evaluate('__b2zAudio()'),game=page.evaluate('__b2zTools.state().error'),audio_status=page.locator('#audio-status').inner_text());page.screenshot(path=str(out/'failure.png'));raise
  finally:
-  report['browser']=b.version;report['audio_requests']=sum('/audio/'in u for u in requests);(out/'results.json').write_text(json.dumps(report,indent=2)+'\n');c.close();b.close();s.shutdown()
+  report['browser']=b.version;report['audio_requests']=sum('/audio/'in u for u in requests);(out/'results.json').write_text(json.dumps(report,indent=2)+'\n');
+  if a.trace:c.tracing.stop(path=str(out/'trace.zip'))
+  c.close();b.close();s.shutdown()
 print(json.dumps({'status':report['status'],'browser':report['browser'],'native48':len(report.get('native48',{}).get('rows',[]))}))

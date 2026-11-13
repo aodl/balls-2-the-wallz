@@ -38,3 +38,10 @@ test('adversarial accepted candidates obey engine starts/voices/peak gates and a
  }
  assert.equal(f.engine.inspect().stats.maxVoices,8);f.engine.lifecycle(true);assert.equal(f.engine.inspect().activeVoices,0);
 });
+test('adding FX during a native music decode preserves both lanes without manual retry',async t=>{
+ const f=setup(t),decode=f.context.decodeAudioData.bind(f.context);let release;
+ f.context.decodeAudioData=bytes=>{if(!release)return new Promise(resolve=>{release=()=>resolve(decode(bytes));});return decode(bytes);};
+ f.frame();f.engine.set({music:true},{activate:true});await wait(()=>Boolean(release));
+ f.engine.set({effects:true},{activate:true});await new Promise(r=>setTimeout(r,30));release();
+ await wait(()=>{f.frame();const s=f.engine.inspect();return s.fxBuffers===4&&s.music.active;});assert.equal(f.engine.inspect().lastError,'');
+});

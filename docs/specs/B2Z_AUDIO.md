@@ -93,12 +93,17 @@ it never changes tempo. No beat alignment, filtering, reverb or hit ducking.
 
 New pages are silent even with saved-enabled preferences, until a sound-control
 gesture resumes the context synchronously. Music/effects enable and levels are
-independent; master mute stops both. Defaults: music .72, effects .58, ceiling .8.
+independent; adding a lane must not cancel an in-flight native decode for the
+other lane. Full stop/mute/lifecycle changes still cancel generations. A new
+explicit request waits at most 15s for a cancelled native decoder to settle,
+without fetching or starting another decoder; late completions cannot start sound.
+Master mute stops both. Defaults: music .72, effects .58, ceiling .8.
 Sum-of-effect peak bounds are ≤.20 before master with conservative stereo-panner
 headroom; no compressor is claimed as a true limiter.
 
 The speaker popover is independent of the action panel and its fixed slots. On
-narrow screens its closed control sits below the header, outside payment content.
+narrow screens its closed control sits below the header, outside payment content. A short contracted edit viewport anchors the closed
+control and popover to the left so the selected source stays hit-testable (UXR-03).
 Use one separate versioned preferences key. Audio errors and retry/clear controls
 are separate from verification status; no collision announcements or analytics.
 
