@@ -1,6 +1,10 @@
 # Stable payment-panel closeout
 
-**Qualification in progress; not deployed.** Starting source
+**Qualified candidate `7d6c8f6`; all six exact-source hosted gates PASS. Not deployed.**
+Frozen runtime `ca8b1f8`, JavaScript `9d45b940…`, complete inventory `f85e3ddf…`.
+[Final qualification](qualification.json) / [hosted conclusions](ci-7d6c8f6.json).
+
+Starting source
 `2fa267328173e9c979096f6a56bd2a5a802003b0`, implementation `777fb42`, branch
 `release/btz-prelaunch-playability`. Hosted run
 [43317023567](https://github.com/aodl/balls-2-the-wallz/actions/runs/43317023567)
@@ -249,16 +253,73 @@ state known at 8,682.6ms. These are one software-browser network sample, not a
 performance comparison or production frontend behaviour claim. The installed
 frontend was independently re-fetched and remains JS `42f30ead…`.
 
-Six final hosted conclusions are pending. Local success alone does not qualify
-a release. Normal HTTPS publication failed because no Git username/credentials
-were available; ordinary SSH publication failed with public-key authentication.
-The owner has been asked to push this branch with the normal non-force procedure.
-No remote history was rewritten and no remote commit was manufactured to replace
-the frozen source identity. Source publication is authorized; credentials are the
-external dependency. The latest starting remote remains 2fa2673 until that push. Preserve the currently deployed b0f6c7a assets
+## Exact-source hosted qualification
+
+The owner published `7d6c8f690ca371c14e347c9dd454502a92f7fc2d` through the
+normal non-force procedure. [Run 43384453868](https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868),
+attempt 1, completed **SUCCESS** at 2026-11-13 08:16:44 UTC. All six substantive
+gates passed on that exact source:
+
+| Gate | Conclusion | Job |
+| --- | --- | --- |
+| Source conformance | PASS | 131749534705 |
+| Native conformance | PASS | 131749534496 |
+| Packaged DTR and clean consumers | PASS | 131749534709 |
+| Runtime-lab Wasm | PASS | 131749534706 |
+| Browser HTTP and Web Crypto | PASS | 131749534708 |
+| S14 and million-cell installed-IC qualification | PASS | 131749534804 |
+
+The informational production inventory is excluded. All six downloaded evidence
+ZIPs match their GitHub SHA256 digests and workflow-head metadata. Raw logs/ZIPs
+remain under `.work/panel-closeout/hosted-7d6c8f6/`; reviewed results and artifact
+IDs/digests are in [ci-7d6c8f6.json](ci-7d6c8f6.json).
+
+[Hosted geometry](hosted-panel-summary.json): **3,552 sampled points**, 24
+action/context combinations, 192 status applications, **0px drift**. The original
+Build journey now starts at **(611,364,360,392)** and remains there through every
+readiness transition; it no longer waits for status to repair a 129px panel.
+The rendered fixture SHA256 is byte-identical to the local qualifier. Three
+native-input viewports and all eight panel contexts pass. Nonzero-scroll captures
+intentionally test scroll retention; separate native journeys prove every payment
+field and the complete risk warning are reachable through the bounded scrollport.
+
+[Hosted installed-IC](hosted-installed-summary.json): all **59** runner checks
+pass, including the 20-check deployed-browser journey. The actual pinned-verifier
+fixed-head case begins, moves and exhausts at **H=1**, with no H+1 publication.
+The 5/30/90/180-second interruptions recover automatically with 6/13/17/24
+failed read requests and **0px panel drift**; wrong-root signatures remain rejected.
+Sustained motion has zero stalled samples; production/consumption/backend rates
+1.0360 / 0.9955 / 0.9209 ticks/second satisfy the unchanged original bounds.
+
+The hosted mainnet-target JavaScript is exactly the frozen
+`9d45b94008d6f417c4d685c76d52b8a869af34c4b950aea395596ef13104014c`.
+All 14 public content assets match the frozen bytes. The consumed upload policy's
+hash matches through the hosted build manifest (the hidden file is omitted by the
+CI uploader). The build manifest differs **only** in `source_commit`: qualified
+7d6c8f6 versus frozen runtime ca8b1f8. No runtime/build/dependency input or qualifier
+changed after qualification; [identity proof](identity-proof.json) binds later
+report/evidence updates to this exact candidate. The frozen 16-file set was not
+rebuilt or substituted. Earlier failed runs retain their actual source identities.
+
+The earlier Git credential failures are historical; owner publication resolved them.
+This closeout updates documentation/evidence only and keeps 7d6c8f6 as the qualified
+source. It does not initiate another application build or production operation.
+
+## Separate frontend deployment decision
+Preserve the currently deployed b0f6c7a assets
 (JS `42f30ead0cb709c8a961aa6be1289f37d9a9b103d709eb89edf1aa9ffa888dd5`, complete
 inventory `216fac297573ff42e67ca0641c4a169acfa8bb4ea6b82c5e370e88abb2985fa2`)
 for frontend-only rollback using the existing operator procedure. No deployment
 is authorized by this report. Production backend, paid world, financial authority,
 Ledger accounts, settings, controllers and cycles remain untouched; ICRC-2 stays
 disabled. No payment, allowance or production write was performed.
+
+
+The final report/evidence follow-up is committed locally. Its publication attempt
+was denied by the GitHub integration (HTTP 403, Resource not accessible by
+integration); command-line Git authentication remains unavailable. This is a
+report-publication limitation, not a qualification blocker: source 7d6c8f6 is
+already published and all six substantive gates passed. The follow-up contains
+only Markdown/JSON evidence, preserves all frozen and qualifier input hashes, and
+uses a CI-skip message to avoid rebuilding unchanged artifacts when the owner
+publishes it through the normal non-force procedure.

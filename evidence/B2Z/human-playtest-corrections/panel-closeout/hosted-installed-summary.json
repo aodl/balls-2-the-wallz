@@ -1,0 +1,832 @@
+{
+  "source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+  "status": "PASS",
+  "installed_checks": 59,
+  "all_installed_checks_pass": true,
+  "normal_browser_checks": 20,
+  "normal_browser_status": "PASS",
+  "steady_playback": {
+    "seconds": 34.7485,
+    "produced_ticks_per_second": 1.036015943134236,
+    "consumed_ticks_per_second": 0.9954688351778879,
+    "stalled_samples": 0,
+    "buffer_min": 15.498824175300001,
+    "buffer_max": 18.379159975066543,
+    "fetch_ms_max": 233.80000000004657,
+    "verification_ms_max": 35.09999999997672,
+    "artifact_ms_max": 0.2000000000698492,
+    "backend_reported_ticks_per_second": 0.9209030605637654,
+    "nominal_rate": 1
+  },
+  "certified_browser_status": "PASS",
+  "startup_timings_ms": {
+    "currentAuthorityAt": 635.3000000000466,
+    "firstVerifiedFrameAt": 797.1000000000931,
+    "operatingStateKnownAt": 797.1000000000931,
+    "firstMotionFrameAt": 1093.3000000000466
+  },
+  "startup_without_H_plus_1": {
+    "status": "PASS",
+    "initial": {
+      "head": "1",
+      "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
+      "time": 1.3332000000000002,
+      "available": 2,
+      "history": {
+        "requests": 2,
+        "bytes": 3822,
+        "outcome": "interval",
+        "elapsedMs": 36.89999999990687
+      },
+      "ready": true,
+      "error": "",
+      "retryFailures": 0,
+      "status": {
+        "kind": "stopped",
+        "label": "Game paused",
+        "detail": "Finishing earlier verified motion.",
+        "canPrepare": false
+      },
+      "balls": [
+        {
+          "id": 1,
+          "x": 4.8332,
+          "y": 2.5
+        },
+        {
+          "id": 2,
+          "x": 11.1668,
+          "y": 2.5
+        },
+        {
+          "id": 3,
+          "x": 4.8332,
+          "y": 6.5
+        },
+        {
+          "id": 4,
+          "x": 11.1668,
+          "y": 6.5
+        }
+      ],
+      "firstWorldMs": 635.3000000000466,
+      "resources": [
+        {
+          "name": "style.css",
+          "bytes": 22660,
+          "durationMs": 15.399999999906868
+        },
+        {
+          "name": "app.mjs",
+          "bytes": 2012567,
+          "durationMs": 32.39999999990687
+        },
+        {
+          "name": "query",
+          "bytes": 1029,
+          "durationMs": 41.300000000046566
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 35.699999999953434
+        },
+        {
+          "name": "icon.svg",
+          "bytes": 535,
+          "durationMs": 16.0999999998603
+        },
+        {
+          "name": "read_state",
+          "bytes": 3033,
+          "durationMs": 29.0999999998603
+        },
+        {
+          "name": "read_state",
+          "bytes": 3033,
+          "durationMs": 33.0999999998603
+        },
+        {
+          "name": "query",
+          "bytes": 658,
+          "durationMs": 13.300000000046566
+        },
+        {
+          "name": "configuration.bin",
+          "bytes": 667,
+          "durationMs": 7.5
+        },
+        {
+          "name": "query",
+          "bytes": 2578,
+          "durationMs": 9.299999999813735
+        },
+        {
+          "name": "query",
+          "bytes": 2254,
+          "durationMs": 10.100000000093132
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 14.200000000186265
+        }
+      ]
+    },
+    "moving": {
+      "head": "1",
+      "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
+      "time": 1.8998999999999993,
+      "available": 2,
+      "history": {
+        "requests": 2,
+        "bytes": 3822,
+        "outcome": "interval",
+        "elapsedMs": 36.89999999990687
+      },
+      "ready": true,
+      "error": "",
+      "retryFailures": 0,
+      "status": {
+        "kind": "stopped",
+        "label": "Game paused",
+        "detail": "Finishing earlier verified motion.",
+        "canPrepare": false
+      },
+      "balls": [
+        {
+          "id": 1,
+          "x": 5.399899999999999,
+          "y": 2.5
+        },
+        {
+          "id": 2,
+          "x": 10.600100000000001,
+          "y": 2.5
+        },
+        {
+          "id": 3,
+          "x": 5.399899999999999,
+          "y": 6.5
+        },
+        {
+          "id": 4,
+          "x": 10.600100000000001,
+          "y": 6.5
+        }
+      ],
+      "firstWorldMs": 635.3000000000466,
+      "resources": [
+        {
+          "name": "style.css",
+          "bytes": 22660,
+          "durationMs": 15.399999999906868
+        },
+        {
+          "name": "app.mjs",
+          "bytes": 2012567,
+          "durationMs": 32.39999999990687
+        },
+        {
+          "name": "query",
+          "bytes": 1029,
+          "durationMs": 41.300000000046566
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 35.699999999953434
+        },
+        {
+          "name": "icon.svg",
+          "bytes": 535,
+          "durationMs": 16.0999999998603
+        },
+        {
+          "name": "read_state",
+          "bytes": 3033,
+          "durationMs": 29.0999999998603
+        },
+        {
+          "name": "read_state",
+          "bytes": 3033,
+          "durationMs": 33.0999999998603
+        },
+        {
+          "name": "query",
+          "bytes": 658,
+          "durationMs": 13.300000000046566
+        },
+        {
+          "name": "configuration.bin",
+          "bytes": 667,
+          "durationMs": 7.5
+        },
+        {
+          "name": "query",
+          "bytes": 2578,
+          "durationMs": 9.299999999813735
+        },
+        {
+          "name": "query",
+          "bytes": 2254,
+          "durationMs": 10.100000000093132
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 14.200000000186265
+        }
+      ]
+    },
+    "exhausted": {
+      "head": "1",
+      "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
+      "time": 2,
+      "available": 2,
+      "history": {
+        "requests": 2,
+        "bytes": 3822,
+        "outcome": "interval",
+        "elapsedMs": 36.89999999990687
+      },
+      "ready": true,
+      "error": "",
+      "retryFailures": 0,
+      "status": {
+        "kind": "stopped",
+        "label": "Game paused",
+        "detail": "Paused by the operator.",
+        "canPrepare": false
+      },
+      "balls": [
+        {
+          "id": 1,
+          "x": 5.5,
+          "y": 2.5
+        },
+        {
+          "id": 2,
+          "x": 10.5,
+          "y": 2.5
+        },
+        {
+          "id": 3,
+          "x": 5.5,
+          "y": 6.5
+        },
+        {
+          "id": 4,
+          "x": 10.5,
+          "y": 6.5
+        }
+      ],
+      "firstWorldMs": 635.3000000000466,
+      "resources": [
+        {
+          "name": "style.css",
+          "bytes": 22660,
+          "durationMs": 15.399999999906868
+        },
+        {
+          "name": "app.mjs",
+          "bytes": 2012567,
+          "durationMs": 32.39999999990687
+        },
+        {
+          "name": "query",
+          "bytes": 1029,
+          "durationMs": 41.300000000046566
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 35.699999999953434
+        },
+        {
+          "name": "icon.svg",
+          "bytes": 535,
+          "durationMs": 16.0999999998603
+        },
+        {
+          "name": "read_state",
+          "bytes": 3033,
+          "durationMs": 29.0999999998603
+        },
+        {
+          "name": "read_state",
+          "bytes": 3033,
+          "durationMs": 33.0999999998603
+        },
+        {
+          "name": "query",
+          "bytes": 658,
+          "durationMs": 13.300000000046566
+        },
+        {
+          "name": "configuration.bin",
+          "bytes": 667,
+          "durationMs": 7.5
+        },
+        {
+          "name": "query",
+          "bytes": 2578,
+          "durationMs": 9.299999999813735
+        },
+        {
+          "name": "query",
+          "bytes": 2254,
+          "durationMs": 10.100000000093132
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 14.200000000186265
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 19.5
+        }
+      ]
+    }
+  },
+  "recoveries": [
+    {
+      "seconds": 5,
+      "httpStatus": 503,
+      "requests": 6,
+      "panelDriftPx": 0
+    },
+    {
+      "seconds": 30,
+      "httpStatus": 429,
+      "requests": 13,
+      "panelDriftPx": 0
+    },
+    {
+      "seconds": 90,
+      "httpStatus": 503,
+      "requests": 17,
+      "panelDriftPx": 0
+    },
+    {
+      "seconds": 180,
+      "httpStatus": 503,
+      "requests": 24,
+      "panelDriftPx": 0
+    }
+  ],
+  "wrong_root_status": "PASS",
+  "cold_outage_recovery": {
+    "head": "1",
+    "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
+    "time": 1,
+    "available": 2,
+    "history": {
+      "requests": 2,
+      "bytes": 3822,
+      "outcome": "interval",
+      "elapsedMs": 29.600000000093132
+    },
+    "ready": true,
+    "error": "",
+    "retryFailures": 0,
+    "status": {
+      "kind": "stopped",
+      "label": "Game paused",
+      "detail": "Paused by the operator.",
+      "canPrepare": false
+    },
+    "balls": [
+      {
+        "id": 1,
+        "x": 4.5,
+        "y": 2.5
+      },
+      {
+        "id": 2,
+        "x": 11.5,
+        "y": 2.5
+      },
+      {
+        "id": 3,
+        "x": 4.5,
+        "y": 6.5
+      },
+      {
+        "id": 4,
+        "x": 11.5,
+        "y": 6.5
+      }
+    ],
+    "firstWorldMs": 9116.800000000047,
+    "resources": [
+      {
+        "name": "style.css",
+        "bytes": 22660,
+        "durationMs": 10.300000000046566
+      },
+      {
+        "name": "app.mjs",
+        "bytes": 2012567,
+        "durationMs": 17.5999999998603
+      },
+      {
+        "name": "query",
+        "bytes": 311,
+        "durationMs": 1099.0999999998603
+      },
+      {
+        "name": "query",
+        "bytes": 311,
+        "durationMs": 1100.7999999998137
+      },
+      {
+        "name": "icon.svg",
+        "bytes": 535,
+        "durationMs": 7.199999999953434
+      },
+      {
+        "name": "query",
+        "bytes": 311,
+        "durationMs": 3
+      },
+      {
+        "name": "query",
+        "bytes": 311,
+        "durationMs": 3.5
+      },
+      {
+        "name": "query",
+        "bytes": 311,
+        "durationMs": 2.7000000001862645
+      },
+      {
+        "name": "query",
+        "bytes": 311,
+        "durationMs": 2.8999999999068677
+      },
+      {
+        "name": "query",
+        "bytes": 311,
+        "durationMs": 2.5
+      },
+      {
+        "name": "query",
+        "bytes": 1029,
+        "durationMs": 6.2000000001862645
+      },
+      {
+        "name": "query",
+        "bytes": 7028,
+        "durationMs": 6.899999999906868
+      },
+      {
+        "name": "query",
+        "bytes": 658,
+        "durationMs": 12.5
+      },
+      {
+        "name": "configuration.bin",
+        "bytes": 667,
+        "durationMs": 1.8000000000465661
+      },
+      {
+        "name": "query",
+        "bytes": 2578,
+        "durationMs": 8
+      },
+      {
+        "name": "query",
+        "bytes": 2254,
+        "durationMs": 8.600000000093132
+      }
+    ]
+  },
+  "history_timeout": {
+    "worldSeconds": 5.377401562999921,
+    "before": {
+      "head": "1",
+      "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
+      "time": 2,
+      "available": 2,
+      "history": {
+        "requests": 1,
+        "bytes": 0,
+        "outcome": "deadline",
+        "elapsedMs": 2001.1000000000931
+      },
+      "ready": true,
+      "error": "",
+      "retryFailures": 0,
+      "status": {
+        "kind": "stopped",
+        "label": "Game paused",
+        "detail": "Paused by the operator.",
+        "canPrepare": false
+      },
+      "balls": [
+        {
+          "id": 1,
+          "x": 5.5,
+          "y": 2.5
+        },
+        {
+          "id": 2,
+          "x": 10.5,
+          "y": 2.5
+        },
+        {
+          "id": 3,
+          "x": 5.5,
+          "y": 6.5
+        },
+        {
+          "id": 4,
+          "x": 10.5,
+          "y": 6.5
+        }
+      ],
+      "firstWorldMs": 2385.3000000000466,
+      "resources": [
+        {
+          "name": "style.css",
+          "bytes": 22660,
+          "durationMs": 7.599999999860302
+        },
+        {
+          "name": "app.mjs",
+          "bytes": 2012567,
+          "durationMs": 10.699999999953434
+        },
+        {
+          "name": "query",
+          "bytes": 1029,
+          "durationMs": 32.89999999990687
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 32.699999999953434
+        },
+        {
+          "name": "icon.svg",
+          "bytes": 535,
+          "durationMs": 14.300000000046566
+        },
+        {
+          "name": "query",
+          "bytes": 658,
+          "durationMs": 12.600000000093132
+        },
+        {
+          "name": "configuration.bin",
+          "bytes": 667,
+          "durationMs": 4.5
+        },
+        {
+          "name": "query",
+          "bytes": 1029,
+          "durationMs": 9.699999999953434
+        }
+      ]
+    },
+    "after": {
+      "head": "1",
+      "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
+      "time": 2,
+      "available": 2,
+      "history": {
+        "requests": 1,
+        "bytes": 0,
+        "outcome": "deadline",
+        "elapsedMs": 2001.1000000000931
+      },
+      "ready": true,
+      "error": "",
+      "retryFailures": 0,
+      "status": {
+        "kind": "stopped",
+        "label": "Game paused",
+        "detail": "Paused by the operator.",
+        "canPrepare": false
+      },
+      "balls": [
+        {
+          "id": 1,
+          "x": 5.5,
+          "y": 2.5
+        },
+        {
+          "id": 2,
+          "x": 10.5,
+          "y": 2.5
+        },
+        {
+          "id": 3,
+          "x": 5.5,
+          "y": 6.5
+        },
+        {
+          "id": 4,
+          "x": 10.5,
+          "y": 6.5
+        }
+      ],
+      "firstWorldMs": 2385.3000000000466,
+      "resources": [
+        {
+          "name": "style.css",
+          "bytes": 22660,
+          "durationMs": 7.599999999860302
+        },
+        {
+          "name": "app.mjs",
+          "bytes": 2012567,
+          "durationMs": 10.699999999953434
+        },
+        {
+          "name": "query",
+          "bytes": 1029,
+          "durationMs": 32.89999999990687
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 32.699999999953434
+        },
+        {
+          "name": "icon.svg",
+          "bytes": 535,
+          "durationMs": 14.300000000046566
+        },
+        {
+          "name": "query",
+          "bytes": 658,
+          "durationMs": 12.600000000093132
+        },
+        {
+          "name": "configuration.bin",
+          "bytes": 667,
+          "durationMs": 4.5
+        },
+        {
+          "name": "query",
+          "bytes": 2578,
+          "durationMs": 2506.8000000000466
+        },
+        {
+          "name": "query",
+          "bytes": 1029,
+          "durationMs": 9.699999999953434
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 17.800000000046566
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 8.5
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 10.5
+        },
+        {
+          "name": "query",
+          "bytes": 1029,
+          "durationMs": 11
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 8.600000000093132
+        }
+      ]
+    }
+  },
+  "slow_optional_status": {
+    "status": "PASS",
+    "worldSeconds": 0.5358604810000998,
+    "state": {
+      "head": "1",
+      "root": "85a118137e4606f02e5fc42960221eda33e820a093aafa4b2968486f65d69fa2",
+      "time": 1.3083,
+      "available": 2,
+      "history": {
+        "requests": 2,
+        "bytes": 3822,
+        "outcome": "interval",
+        "elapsedMs": 47.10000000009313
+      },
+      "ready": true,
+      "error": "",
+      "retryFailures": 0,
+      "status": {
+        "kind": "live",
+        "label": "Live",
+        "detail": "Operational confirmation is temporarily unavailable. Payment instructions are disabled.",
+        "canPrepare": false
+      },
+      "balls": [
+        {
+          "id": 1,
+          "x": 4.8083,
+          "y": 2.5
+        },
+        {
+          "id": 2,
+          "x": 11.1917,
+          "y": 2.5
+        },
+        {
+          "id": 3,
+          "x": 4.8083,
+          "y": 6.5
+        },
+        {
+          "id": 4,
+          "x": 11.1917,
+          "y": 6.5
+        }
+      ],
+      "firstWorldMs": 404.10000000009313,
+      "resources": [
+        {
+          "name": "style.css",
+          "bytes": 22660,
+          "durationMs": 8.399999999906868
+        },
+        {
+          "name": "app.mjs",
+          "bytes": 2012567,
+          "durationMs": 11.599999999860302
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 22.200000000186265
+        },
+        {
+          "name": "icon.svg",
+          "bytes": 535,
+          "durationMs": 11.699999999953434
+        },
+        {
+          "name": "query",
+          "bytes": 658,
+          "durationMs": 14
+        },
+        {
+          "name": "configuration.bin",
+          "bytes": 667,
+          "durationMs": 4
+        },
+        {
+          "name": "query",
+          "bytes": 2578,
+          "durationMs": 8.199999999953434
+        },
+        {
+          "name": "query",
+          "bytes": 2254,
+          "durationMs": 13.300000000046566
+        },
+        {
+          "name": "query",
+          "bytes": 7028,
+          "durationMs": 17.899999999906868
+        }
+      ]
+    }
+  },
+  "mainnet_javascript_sha256": "9d45b94008d6f417c4d685c76d52b8a869af34c4b950aea395596ef13104014c",
+  "directly_compared_assets": [
+    "agent-api.md",
+    "app.mjs",
+    "backend.did",
+    "configuration-entry.bin",
+    "configuration-legacy.bin",
+    "configuration-million.bin",
+    "configuration-playability.bin",
+    "configuration-torus.bin",
+    "configuration.bin",
+    "cursors/reticle.svg",
+    "deployment.json",
+    "icon.svg",
+    "index.html",
+    "style.css"
+  ],
+  "consumed_policy_manifest_sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+  "consumed_policy_note": "Hidden consumed policy is omitted by CI upload; its hash matches the frozen bytes via the hosted build manifest and unchanged builder inputs.",
+  "provenance_differences": {
+    "source_commit": {
+      "frozen": "ca8b1f821932cd3b2bd164c84b07935453d8fb6a",
+      "hosted": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d"
+    }
+  }
+}

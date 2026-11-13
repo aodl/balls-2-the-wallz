@@ -1,22 +1,21 @@
-# Human-playtest panel correction — local PASS; hosted qualification pending
+# Human-playtest panel correction — all six hosted gates PASS; not deployed
 
-Frozen runtime `ca8b1f8` fixes the real intermediate-height cache defect behind
-the Build 129px → 392px jump. Final local source passes 1,846 JS / 199 Python;
-24 Fire/Move/Build contexts and a real read-only mainnet operational-expiry/recovery
-session show zero panel drift with correct disabled copying. Both named installed
-browser cases pass, including fixed-H startup, timed recovery and integrity barriers.
+Qualified source `7d6c8f690ca371c14e347c9dd454502a92f7fc2d` passes all six substantive
+gates in [run 43384453868](https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868).
+The actual Build cache defect (129px → 392px on status) is fixed by natural-content
+invalidation. Hosted action/readiness testing records **0px drift over 3,552 sampled
+points**; all 59 installed-IC checks pass. Real read-only status expiry/recovery at
+H=7054 also preserves geometry and exact wallet values while disabling unsafe copies.
 
-JavaScript `9d45b940…`, complete 16-file inventory `f85e3ddf…`; assets are frozen
-clean and runtime/build/dependency inputs remain unchanged by qualifier updates.
-Published 2fa2673 is still unqualified: run 43317023567 finished with four substantive
-PASS and Browser/installed-IC FAIL. The revised source has no hosted qualification
-yet. HTTPS/SSH Git authentication failed; the owner has been asked for a normal
-non-force branch push. The six final-source gates remain required.
+Frozen runtime `ca8b1f8`: JavaScript `9d45b940…`, complete 16-file inventory
+`f85e3ddf…`. Hosted JavaScript/content bytes match; the build manifest differs only
+in source provenance. Runtime, builders, dependencies and qualifiers remain unchanged
+by the final report/evidence updates. Earlier 2fa2673 retains its actual failed CI.
 
-[Closeout, diagnostics and media](evidence/B2Z/human-playtest-corrections/panel-closeout/REPORT.md).
-No production deployment, backend, financial or ICRC-2 change occurred. Existing
-deployed frontend assets remain the rollback candidate. The [full earlier report](evidence/B2Z/human-playtest-corrections/REPORT.md)
-retains source-specific startup/recovery and visual evidence.
+[Closeout, source identities, media and rollback plan](evidence/B2Z/human-playtest-corrections/panel-closeout/REPORT.md).
+No production deployment, backend, financial or ICRC-2 change occurred. The installed
+b0f6c7a frontend remains the rollback candidate. Return these exact frozen assets
+for a separate frontend-only deployment decision; do not rebuild or substitute them.
 
 ---
 

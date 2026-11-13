@@ -1,20 +1,34 @@
-# Human playtest corrections — release qualification
+# Human playtest corrections — qualified frontend candidate
 
-**Not deployed. The final panel correction passes local acceptance; exact-source hosted qualification is blocked on publication.**
-The published `2fa2673` Browser gate failed the Build readiness geometry check
-(129px → 392px); four other substantive gates passed and installed-IC was still
-running at investigation start and subsequently failed two installed-browser
-timing checks. It is not a fully qualified release.
+**All six substantive hosted gates PASS on `7d6c8f6`. Not deployed.**
+[Run 43384453868](https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868)
+qualifies source `7d6c8f690ca371c14e347c9dd454502a92f7fc2d` and the unchanged
+frozen runtime `ca8b1f821932cd3b2bd164c84b07935453d8fb6a`.
 
-The [panel closeout](panel-closeout/REPORT.md) records the actual application cache
-cause, deterministic failing regression, narrow correction, per-frame financial/
-copy/camera/clock invariants, desktop/mobile/contracted evidence and current CI
-state. Earlier local results below remain source-specific development evidence;
-the old animation-only settling helper did not detect the stale sizing defect.
+The [final panel closeout](panel-closeout/REPORT.md) explains the actual 129px →
+392px cache defect and its small shell-only correction. Hosted status transitions
+record **0px drift across 3,552 sampled points**; exact payment values and safe
+copy gating remain intact. All 59 installed-IC runner checks pass, including
+fixed-H playback without H+1, timed automatic recovery and genuine integrity barriers.
+The normal read-only European session independently shows 0px drift at H=7054.
 
-The previous runtime freeze `777fb421479de79d2071e384abfb231d7a60242f` remains
-identifiable below. Only shell layout measurement changes in the closeout runtime;
-startup/recovery, paid backend, prices and Ledger processing are preserved.
+- Frozen JavaScript: `9d45b94008d6f417c4d685c76d52b8a869af34c4b950aea395596ef13104014c`.
+- Complete 16-file [inventory](panel-closeout/frontend-files.json): `f85e3ddf9b1ed38dd7b441162f7579707b5e7ef1c10c0612d0990795cb46e99c`.
+- [Current qualification](qualification.json) / [CI conclusions and artifact digests](panel-closeout/ci-7d6c8f6.json) / [identity proof](panel-closeout/identity-proof.json).
+
+The installed frontend remains the prior b0f6c7a rollback candidate. Production
+backend, paid state, prices, Ledger processing and ICRC-2 configuration were untouched.
+A separate owner decision is required for a frontend-only deployment of these
+exact frozen bytes. Later report/evidence updates preserve runtime/build/dependency
+and qualifier identities; they do not substitute a new frontend build.
+
+## Earlier development record — superseded runtime 777fb42
+
+The following source-specific startup/recovery, interaction and performance
+records remain historical evidence. The earlier qualification JSON is preserved
+at [qualification-777fb42.json](qualification-777fb42.json). Starting run
+43317023567/source 2fa2673 retains its four PASS/two FAIL conclusions; its stale
+panel cache was not detected by the former animation-only settling helper.
 
 ## Source and installed baseline
 

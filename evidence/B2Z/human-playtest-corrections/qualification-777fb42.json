@@ -1,0 +1,113 @@
+{
+  "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f",
+  "qualifier_source": "777fb421479de79d2071e384abfb231d7a60242f",
+  "runtime_inputs_unchanged_since_freeze": true,
+  "tests_js": 1846,
+  "tests_python": 199,
+  "checks": [
+    {
+      "case": "source-exact",
+      "status": "PASS",
+      "raw": ".work/human-corrections/source-final-admission/verification.json",
+      "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f"
+    },
+    {
+      "case": "http-browser",
+      "status": "PASS",
+      "raw": ".work/human-corrections/http-browser/verification.json"
+    },
+    {
+      "case": "wire-capture",
+      "status": "PASS",
+      "raw": ".work/human-corrections/wire-capture/results.json"
+    },
+    {
+      "case": "tactical-journey",
+      "status": "PASS",
+      "raw": ".work/human-corrections/tactical-journey/results.json",
+      "exit_code": 0
+    },
+    {
+      "case": "guide-depth",
+      "status": "PASS",
+      "raw": ".work/human-corrections/guide-depth/results.json"
+    },
+    {
+      "case": "elastic-return",
+      "status": "PASS",
+      "raw": ".work/human-corrections/elastic-return/results.json"
+    },
+    {
+      "case": "native-closeout",
+      "status": "PASS",
+      "raw": ".work/human-corrections/native-final-admission/results.json",
+      "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f"
+    },
+    {
+      "case": "refinement-closeout",
+      "status": "PASS",
+      "raw": ".work/human-corrections/refinement-closeout/results.json"
+    },
+    {
+      "case": "visual-closeout",
+      "status": "PASS",
+      "raw": ".work/human-corrections/visual-closeout/results.json"
+    },
+    {
+      "case": "playability-ci-correction",
+      "status": "PASS",
+      "raw": ".work/human-corrections/playability-ci-correction/results.json"
+    },
+    {
+      "case": "locate-precondition",
+      "status": "PASS",
+      "raw": ".work/human-corrections/locate-precondition/results.json"
+    },
+    {
+      "case": "frozen-read-only",
+      "status": "PASS",
+      "raw": ".work/human-corrections/final-frozen-read-only/results.json",
+      "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f"
+    },
+    {
+      "case": "terrain-grid-seams",
+      "status": "PASS",
+      "comparisons": 96,
+      "raw": ".work/human-corrections/tactical-grid-closeout/comparisons.json"
+    },
+    {
+      "case": "actual-native-hidden-return",
+      "status": "PASS",
+      "raw": ".work/human-corrections/native-hidden-final/acceptance/results.json",
+      "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f"
+    },
+    {
+      "case": "certified-frozen-source",
+      "status": "PASS",
+      "raw": ".work/human-corrections/certified-final-admission/deployment/human-corrections/results.json",
+      "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f"
+    },
+    {
+      "case": "certified-timings",
+      "status": "PASS",
+      "raw": ".work/human-corrections/certified-timings/deployment/human-corrections/results.json"
+    },
+    {
+      "case": "status-viewports-mainnet-read-only",
+      "status": "PASS",
+      "raw": ".work/human-corrections/status-viewports-final/results.json"
+    }
+  ],
+  "hosted_ci": {
+    "status": "AWAITING_OWNER_PUBLICATION",
+    "six_gate_complete": false
+  },
+  "limits": [
+    "Software rendering and emulated viewports/touch do not qualify hardware/physical-device performance",
+    "Original cold Wasm build attempt timed out; focused frontend installed cases reuse exact reviewed module",
+    "Controlled freeze/resume is labelled separately from actual document.hidden evidence"
+  ],
+  "raw_root": ".work/human-corrections",
+  "published_qualification_source": null,
+  "unchanged_renderer_composer_fixture_sha256": "08ee6d806ed51c05ed3d7a12f83994ff19d32de468bcf9e0be160d4c8ffc9fd7"
+}

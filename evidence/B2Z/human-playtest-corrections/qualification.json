@@ -1,113 +1,91 @@
 {
-  "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f",
-  "qualifier_source": "777fb421479de79d2071e384abfb231d7a60242f",
-  "runtime_inputs_unchanged_since_freeze": true,
-  "tests_js": 1846,
-  "tests_python": 199,
-  "checks": [
+  "status": "PASS",
+  "release_qualified": true,
+  "runtime_source": "ca8b1f821932cd3b2bd164c84b07935453d8fb6a",
+  "previous_qualifier_source": "ea27cbb343224190db3bc49c71537e8c0a32dea2",
+  "published_qualification_source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+  "starting_remote_source": "2fa267328173e9c979096f6a56bd2a5a802003b0",
+  "starting_run": 43317023567,
+  "starting_run_results": "ci-starting.json",
+  "local_status": "PASS",
+  "local_complete_source": {
+    "tests_js": 1846,
+    "tests_python": 199,
+    "raw": ".work/panel-closeout/source-release/verification.json"
+  },
+  "panel_matrix": {
+    "contexts": 8,
+    "actions": 3,
+    "state_applications": 192,
+    "samples": 2714,
+    "max_drift_px": 0
+  },
+  "normal_mainnet_read_only": {
+    "head": "7054",
+    "samples": 153,
+    "max_drift_px": 0,
+    "status_copy_transition": "enabled -> disabled -> enabled",
+    "posts_read_only": true
+  },
+  "frozen_javascript_sha256": "9d45b94008d6f417c4d685c76d52b8a869af34c4b950aea395596ef13104014c",
+  "complete_inventory_sha256": "f85e3ddf9b1ed38dd7b441162f7579707b5e7ef1c10c0612d0990795cb46e99c",
+  "build_manifest_sha256": "0200b6b608e54fff7845fee671b0d1e786af1a5083af341a276e987e5cdd1be7",
+  "hosted_six_gate_complete": true,
+  "publication_blocker": null,
+  "production_deployed": false,
+  "backend_or_financial_changes": false,
+  "hosted_run": 43384453868,
+  "hosted_run_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868",
+  "qualifier_source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+  "hosted_run_conclusion": "success",
+  "hosted_gates": [
     {
-      "case": "source-exact",
-      "status": "PASS",
-      "raw": ".work/human-corrections/source-final-admission/verification.json",
-      "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f"
+      "id": 131749534496,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534496"
     },
     {
-      "case": "http-browser",
-      "status": "PASS",
-      "raw": ".work/human-corrections/http-browser/verification.json"
+      "id": 131749534705,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534705"
     },
     {
-      "case": "wire-capture",
-      "status": "PASS",
-      "raw": ".work/human-corrections/wire-capture/results.json"
+      "id": 131749534706,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534706"
     },
     {
-      "case": "tactical-journey",
-      "status": "PASS",
-      "raw": ".work/human-corrections/tactical-journey/results.json",
-      "exit_code": 0
+      "id": 131749534708,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534708"
     },
     {
-      "case": "guide-depth",
-      "status": "PASS",
-      "raw": ".work/human-corrections/guide-depth/results.json"
+      "id": 131749534709,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534709"
     },
     {
-      "case": "elastic-return",
-      "status": "PASS",
-      "raw": ".work/human-corrections/elastic-return/results.json"
-    },
-    {
-      "case": "native-closeout",
-      "status": "PASS",
-      "raw": ".work/human-corrections/native-final-admission/results.json",
-      "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f"
-    },
-    {
-      "case": "refinement-closeout",
-      "status": "PASS",
-      "raw": ".work/human-corrections/refinement-closeout/results.json"
-    },
-    {
-      "case": "visual-closeout",
-      "status": "PASS",
-      "raw": ".work/human-corrections/visual-closeout/results.json"
-    },
-    {
-      "case": "playability-ci-correction",
-      "status": "PASS",
-      "raw": ".work/human-corrections/playability-ci-correction/results.json"
-    },
-    {
-      "case": "locate-precondition",
-      "status": "PASS",
-      "raw": ".work/human-corrections/locate-precondition/results.json"
-    },
-    {
-      "case": "frozen-read-only",
-      "status": "PASS",
-      "raw": ".work/human-corrections/final-frozen-read-only/results.json",
-      "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f"
-    },
-    {
-      "case": "terrain-grid-seams",
-      "status": "PASS",
-      "comparisons": 96,
-      "raw": ".work/human-corrections/tactical-grid-closeout/comparisons.json"
-    },
-    {
-      "case": "actual-native-hidden-return",
-      "status": "PASS",
-      "raw": ".work/human-corrections/native-hidden-final/acceptance/results.json",
-      "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f"
-    },
-    {
-      "case": "certified-frozen-source",
-      "status": "PASS",
-      "raw": ".work/human-corrections/certified-final-admission/deployment/human-corrections/results.json",
-      "runtime_source": "777fb421479de79d2071e384abfb231d7a60242f"
-    },
-    {
-      "case": "certified-timings",
-      "status": "PASS",
-      "raw": ".work/human-corrections/certified-timings/deployment/human-corrections/results.json"
-    },
-    {
-      "case": "status-viewports-mainnet-read-only",
-      "status": "PASS",
-      "raw": ".work/human-corrections/status-viewports-final/results.json"
+      "id": 131749534804,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534804"
     }
   ],
-  "hosted_ci": {
-    "status": "AWAITING_OWNER_PUBLICATION",
-    "six_gate_complete": false
-  },
-  "limits": [
-    "Software rendering and emulated viewports/touch do not qualify hardware/physical-device performance",
-    "Original cold Wasm build attempt timed out; focused frontend installed cases reuse exact reviewed module",
-    "Controlled freeze/resume is labelled separately from actual document.hidden evidence"
-  ],
-  "raw_root": ".work/human-corrections",
-  "published_qualification_source": null,
-  "unchanged_renderer_composer_fixture_sha256": "08ee6d806ed51c05ed3d7a12f83994ff19d32de468bcf9e0be160d4c8ffc9fd7"
+  "exact_source_evidence": "ci-7d6c8f6.json",
+  "frozen_asset_identity_proof": "identity-proof.json",
+  "report_publication": "LOCAL_COMMIT_ONLY",
+  "report_publication_blocker": "GitHub integration denied git/blob publication with HTTP 403 Resource not accessible by integration. HTTPS/SSH Git authentication is unavailable. Qualified source 7d6c8f6 is already published and all six gates pass.",
+  "evidence_directory": "panel-closeout",
+  "previous_runtime_record": "qualification-777fb42.json"
 }

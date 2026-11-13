@@ -1,0 +1,110 @@
+{
+  "status": "PASS",
+  "source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+  "run_id": 43384453868,
+  "run_attempt": 1,
+  "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868",
+  "run_conclusion": "success",
+  "completed_at": "2026-11-13T08:16:44Z",
+  "gates": [
+    {
+      "id": 131749534496,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534496"
+    },
+    {
+      "id": 131749534705,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534705"
+    },
+    {
+      "id": 131749534706,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534706"
+    },
+    {
+      "id": 131749534708,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534708"
+    },
+    {
+      "id": 131749534709,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534709"
+    },
+    {
+      "id": 131749534804,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534804"
+    }
+  ],
+  "informational_inventory": [
+    {
+      "name": "BLOCKED production inventory (not a pass)",
+      "conclusion": "success",
+      "counts_as_gate": false
+    }
+  ],
+  "artifacts": [
+    {
+      "id": 14019969957,
+      "name": "local-ic-evidence",
+      "bytes": 38344924,
+      "digest": "sha256:a696624de3bc26030db5cf70114a319c3fcac7673789efbf99619a5b52b3481e",
+      "source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/artifacts/14019969957"
+    },
+    {
+      "id": 14018495932,
+      "name": "wasm-evidence",
+      "bytes": 5876,
+      "digest": "sha256:810e0a93dfd7b66563e694172dca63598668d01af60fd61b8f9c258b1ea5192a",
+      "source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/artifacts/14018495932"
+    },
+    {
+      "id": 14018281980,
+      "name": "browser-evidence",
+      "bytes": 55005011,
+      "digest": "sha256:8f5c07dc6853f4997f0c5caeea5adb2e3cd79eee8e36de3b3a3495cec2d5f162",
+      "source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/artifacts/14018281980"
+    },
+    {
+      "id": 14017683986,
+      "name": "package-consumer-evidence",
+      "bytes": 15373,
+      "digest": "sha256:7d96c72762f08b4b8ffdbe47c62a05923c132cff89998d46b9bc2c17989a4a80",
+      "source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/artifacts/14017683986"
+    },
+    {
+      "id": 14017534837,
+      "name": "source-evidence",
+      "bytes": 45709,
+      "digest": "sha256:5c70008a6369ebacfe425d0d2fe9b86af8352120f12124d502d9dd3cd810fc6f",
+      "source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/artifacts/14017534837"
+    },
+    {
+      "id": 14017314935,
+      "name": "native-evidence",
+      "bytes": 9473,
+      "digest": "sha256:de19ffbf31392ed77b07c6ea33b5feb6f7124f883837a2a5dfac52ad122df3fb",
+      "source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/artifacts/14017314935"
+    }
+  ]
+}

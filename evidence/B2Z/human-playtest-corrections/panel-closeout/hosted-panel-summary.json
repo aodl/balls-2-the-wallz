@@ -1,0 +1,26 @@
+{
+  "source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+  "status": "PASS",
+  "contexts": 8,
+  "actions": 24,
+  "state_applications": 192,
+  "sampled_points": 3552,
+  "max_drift_px": 0,
+  "native_interaction_status": "PASS",
+  "native_viewports": [
+    [
+      1440,
+      900
+    ],
+    [
+      390,
+      844
+    ],
+    [
+      320,
+      640
+    ]
+  ],
+  "fixture_sha256": "f8d38eb80005e16ed19fe7d452085804f848c74f303638e2a56f974da41bafbd",
+  "fixture_identical_to_local": true
+}

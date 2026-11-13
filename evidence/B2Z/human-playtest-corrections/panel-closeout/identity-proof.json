@@ -1,0 +1,14 @@
+{
+  "qualified_candidate": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+  "frozen_runtime": "ca8b1f821932cd3b2bd164c84b07935453d8fb6a",
+  "frozen_inputs_match": true,
+  "qualifier_inputs_match": true,
+  "runtime_changes_since_start": [
+    "apps/b2z-observer/shell.mjs"
+  ],
+  "backend_changes_since_start": [],
+  "builder_dependency_changes_since_start": [],
+  "production_javascript_sha256": "42f30ead0cb709c8a961aa6be1289f37d9a9b103d709eb89edf1aa9ffa888dd5",
+  "production_verified_utc": "2026-11-13T08:19:10.188195+00:00",
+  "closeout_scope": "Subsequent maintained report/evidence updates only; runtime, builders, dependencies and qualification tools stay byte-identical to qualified source."
+}

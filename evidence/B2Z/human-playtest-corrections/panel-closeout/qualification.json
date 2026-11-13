@@ -1,9 +1,9 @@
 {
-  "status": "PENDING_SOURCE_PUBLICATION_AND_SIX_HOSTED_GATES",
-  "release_qualified": false,
+  "status": "PASS",
+  "release_qualified": true,
   "runtime_source": "ca8b1f821932cd3b2bd164c84b07935453d8fb6a",
   "previous_qualifier_source": "ea27cbb343224190db3bc49c71537e8c0a32dea2",
-  "published_qualification_source": null,
+  "published_qualification_source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
   "starting_remote_source": "2fa267328173e9c979096f6a56bd2a5a802003b0",
   "starting_run": 43317023567,
   "starting_run_results": "ci-starting.json",
@@ -30,8 +30,60 @@
   "frozen_javascript_sha256": "9d45b94008d6f417c4d685c76d52b8a869af34c4b950aea395596ef13104014c",
   "complete_inventory_sha256": "f85e3ddf9b1ed38dd7b441162f7579707b5e7ef1c10c0612d0990795cb46e99c",
   "build_manifest_sha256": "0200b6b608e54fff7845fee671b0d1e786af1a5083af341a276e987e5cdd1be7",
-  "hosted_six_gate_complete": false,
-  "publication_blocker": "Normal HTTPS push lacks Git credentials; normal SSH push rejects public key. Owner normal non-force branch push requested. GitHub connector cannot publish existing local commit objects preserving their identities.",
+  "hosted_six_gate_complete": true,
+  "publication_blocker": null,
   "production_deployed": false,
-  "backend_or_financial_changes": false
+  "backend_or_financial_changes": false,
+  "hosted_run": 43384453868,
+  "hosted_run_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868",
+  "qualifier_source": "7d6c8f690ca371c14e347c9dd454502a92f7fc2d",
+  "hosted_run_conclusion": "success",
+  "hosted_gates": [
+    {
+      "id": 131749534496,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534496"
+    },
+    {
+      "id": 131749534705,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534705"
+    },
+    {
+      "id": 131749534706,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534706"
+    },
+    {
+      "id": 131749534708,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534708"
+    },
+    {
+      "id": 131749534709,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534709"
+    },
+    {
+      "id": 131749534804,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43384453868/job/131749534804"
+    }
+  ],
+  "exact_source_evidence": "ci-7d6c8f6.json",
+  "frozen_asset_identity_proof": "identity-proof.json",
+  "report_publication": "LOCAL_COMMIT_ONLY",
+  "report_publication_blocker": "GitHub integration denied git/blob publication with HTTP 403 Resource not accessible by integration. HTTPS/SSH Git authentication is unavailable. Qualified source 7d6c8f6 is already published and all six gates pass."
 }
