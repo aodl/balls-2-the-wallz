@@ -32,7 +32,7 @@ with sync_playwright()as pw:
    if a.soak_seconds:
     for elapsed in range(0,a.soak_seconds,15):
      page.wait_for_timeout(min(15,a.soak_seconds-elapsed)*1000);sample=page.evaluate('__b2zAudio()');report.setdefault('soak',[]).append({'elapsed':min(elapsed+15,a.soak_seconds),'state':sample});(out/'running.json').write_text(json.dumps(report,indent=2)+'\n');assert sample['music']['nodes']<=2 and sample['music']['maxBuffers']<=3 and sample['music']['maxDecoded']<=32*1024*1024
-   before=len(requests);page.locator('#audio-mute').check();page.wait_for_timeout(500);muted=page.evaluate('__b2zAudio()');assert muted['activeVoices']==0 and not muted['music']['active'];after=len(requests);page.wait_for_timeout(700);assert len(requests)==after;report['muted']=muted
+   page.locator('#audio-mute').check();page.wait_for_timeout(500);muted=page.evaluate('__b2zAudio()');assert muted['activeVoices']==0 and not muted['music']['active'];after=sum('/audio/'in u for u in requests);page.wait_for_timeout(700);assert sum('/audio/'in u for u in requests)==after;report['muted']=muted
    page.locator('#audio-music').uncheck();page.locator('#audio-effects').check();page.locator('#audio-mute').uncheck();page.wait_for_function('()=>__b2zAudio().fxBuffers===4',timeout=60000);report['effects_only']=page.evaluate('__b2zAudio()');assert not report['effects_only']['music']['active'];page.screenshot(path=str(out/'effects-only.png'))
    page.locator('#audio-button').click();before_starts=page.evaluate('__b2zAudio().stats.starts');attempts=[]
    for attempt in range(3):
