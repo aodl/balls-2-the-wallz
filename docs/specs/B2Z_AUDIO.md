@@ -119,7 +119,8 @@ The maintained implementation and acceptance tools must qualify actual game
 playback, native decoder/output, dense bounds, lossless cores, asset policy,
 disposable installed-IC and existing camera/payment/startup regressions. Pure
 reference policy tests alone are insufficient. Source-specific reviewed evidence
-belongs under `evidence/B2Z/audio-integration`; raw work remains under `.work/`.
+belongs under `evidence/B2Z/audio-integration` and its maintained
+`evidence/B2Z/audio-corrective-qualification` closeout; raw work remains under `.work/`.
 Manual headphone/speaker listening and physical iOS/Android/Safari/Firefox coverage
 must be marked BLOCKED/NOT_RUN when unavailable. Software/OfflineAudioContext and
 emulated touch are not hardware or listening evidence. New audio bytes require
