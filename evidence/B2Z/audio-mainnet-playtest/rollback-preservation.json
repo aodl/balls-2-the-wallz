@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "scope": "Exact rollback byte preservation and stage-input verification; no canister restore or upload performed",
+  "directory": ".work/audio-mainnet-playtest/rollback/frontend",
+  "files": 16,
+  "inventory_sha256": "f85e3ddf9b1ed38dd7b441162f7579707b5e7ef1c10c0612d0990795cb46e99c",
+  "javascript_sha256": "9d45b94008d6f417c4d685c76d52b8a869af34c4b950aea395596ef13104014c"
+}

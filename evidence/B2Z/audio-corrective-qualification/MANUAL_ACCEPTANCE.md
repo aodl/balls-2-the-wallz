@@ -1,8 +1,12 @@
 # Listening, device and release prerequisites
 
-This is a frontend-only candidate. Do not install it on production to perform this
-check until a separate deployment decision and exact-source six-gate PASS. No
-payment, allowance, funding, backend change or Ledger mutation is needed.
+This is a frontend-only candidate. The owner subsequently authorized a bounded
+mainnet playtest to obtain physical listening/device feedback, conditional on
+exact-source six-gate PASS, public-hosting rights and demonstrated rollback
+readiness. See the [trial preflight](../audio-mainnet-playtest/REPORT.md). P09 stays
+FAIL, accepted for this trial only; physical listening is not a precondition for
+that trial. No payment, allowance, funding, backend change or Ledger mutation is
+needed. The general-release checklist below remains separate.
 
 Record candidate Git ref, served JS/inventory SHA, browser/OS/device, output
 sample rate, headphones/speakers/Bluetooth, DPR, viewport, and actual results.

@@ -1,6 +1,16 @@
 # Installed European game — frontend updates
 
-## Optional audio candidate — not deployed or release-qualified
+## Optional audio — authorized prelaunch trial; preflight hold
+
+The owner subsequently authorized a reversible frontend-only mainnet audio trial.
+See the [current preflight](../../evidence/B2Z/audio-mainnet-playtest/REPORT.md)
+for exact candidate/assets, actual served rollback bytes and hosted conclusions.
+Physical listening and device checks are trial outcomes; P09 remains FAIL and is
+accepted only for this bounded trial. Six substantive hosted PASS, documented
+public-hosting rights and demonstrated rollback readiness remain conditions.
+No audio upload has been attempted. Never infer private use from prelaunch status.
+
+### Historical corrective qualification
 
 The local audio correction uses application runtime `5a66aaf`, with later
 qualification-only changes. Read the [corrective closeout](../../evidence/B2Z/audio-corrective-qualification/REPORT.md),
@@ -9,8 +19,10 @@ qualification-only changes. Read the [corrective closeout](../../evidence/B2Z/au
 The previous published audio source c281828 has four substantive hosted PASS and
 two FAIL; it is not qualified. New frozen bytes require all six exact-source
 hosted PASS, representative performance/listening, rights/provenance and storage
-cost review. No publication, installation or deployment is authorized by the
-corrective qualification task. Keep the existing deployed rollback assets.
+cost review for general release. The corrective qualification task itself did not
+authorize publication, installation or deployment; the later conditional trial
+authorization above supersedes that deployment boundary only. Keep the existing
+deployed rollback assets.
 
 ## Human-playtest corrective frontend (13 November 2026)
 

@@ -1,4 +1,27 @@
-# Audio correction — local candidate; NOT release-qualified
+# Audio — authorized prelaunch trial; preflight hold, NOT DEPLOYED
+
+The owner now explicitly authorizes a reversible frontend-only mainnet audio
+playtest, conditional on six hosted PASS, public hosting rights and demonstrated
+rollback readiness. Physical listening/device work will be gathered during that
+trial; P09 remains FAIL, accepted for the bounded trial only. General-release
+qualification is not claimed. Backend/financial/settings/funding changes and
+remote Git publication remain outside scope.
+
+Published candidate and preflight starting local head:
+`74f08183b905d97dbfd821ede0a4c2cdc47538f5`.
+[Run 43519301054](https://github.com/aodl/balls-2-the-wallz/actions/runs/43519301054)
+currently has five substantive PASS (including Browser); installed-IC remains
+IN_PROGRESS. Public Suno hosting permission is not established by the handoff;
+owner rights/provenance confirmation is pending. No upload was attempted.
+
+All74 candidate files rehash exactly. Current15 served assets/headers and signed
+inventory match the pre-audio release; certified frontend/backend modules,
+controllers and subnet remain unchanged. Exact16-file rollback bytes are saved.
+Byte preservation passes; an actual rollback rehearsal is not claimed.
+
+[Current trial preflight, identities and stop conditions](evidence/B2Z/audio-mainnet-playtest/REPORT.md).
+
+## Historical corrective qualification closeout
 
 Tested qualifier source `db73806436d124cfb6707873d54004e575a794ae`; frozen
 application runtime `5a66aaf6bd8f83f8bf444ef5ea031ed34f3e260e`.
@@ -16,7 +39,7 @@ routes/devices, commercial-use rights, production costs and all six exact-source
 hosted gates remain release prerequisites. No push, canister installation,
 deployment, mainnet or financial action occurred in this corrective pass.
 
-Published branch remains c281828. Its completed hosted run43458352816 has four
+At corrective closeout the published branch remained c281828. Its completed hosted run43458352816 has four
 substantive PASS/two FAIL; those results do not qualify corrected bytes. The
 informational inventory guard is excluded. No production audio release is claimed.
 
