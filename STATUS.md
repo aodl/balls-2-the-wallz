@@ -1,4 +1,4 @@
-# Audio — authorized prelaunch trial; preflight hold, NOT DEPLOYED
+# Prelaunch mainnet audio playtest — not general-release qualified
 
 The owner now explicitly authorizes a reversible frontend-only mainnet audio
 playtest, conditional on six hosted PASS, public hosting rights and demonstrated
@@ -10,14 +10,21 @@ remote Git publication remain outside scope.
 Published candidate and preflight starting local head:
 `74f08183b905d97dbfd821ede0a4c2cdc47538f5`.
 [Run 43519301054](https://github.com/aodl/balls-2-the-wallz/actions/runs/43519301054)
-currently has five substantive PASS (including Browser); installed-IC remains
-IN_PROGRESS. Public Suno hosting permission is not established by the handoff;
-owner rights/provenance confirmation is pending. No upload was attempted.
+has all six substantive PASS. The owner confirms active Suno Pro generation and
+download using text prompts only, without third-party audio uploads. This is the
+recorded hosting-rights basis; subscription receipts remain project provenance work.
 
 All74 candidate files rehash exactly. Current15 served assets/headers and signed
 inventory match the pre-audio release; certified frontend/backend modules,
 controllers and subnet remain unchanged. Exact16-file rollback bytes are saved.
-Byte preservation passes; an actual rollback rehearsal is not claimed.
+Genuine isolated previous→audio→previous restoration passes HTTP/signed hashes,
+unchanged module and sandboxed browser authentication of normal gameplay.
+The exact frozen frontend assets are installed via observer-only
+`--no-asset-upgrade`; all73 served public hashes/headers and signed inventory pass.
+Fresh desktop/390/320 browser smoke checks pass authentication, silent startup,
+music activation/mute and audio-only fault isolation. No eligible collision/launch
+occurred in the short Trickle window; live trigger causality remains unobserved.
+The candidate is retained for owner listening; no production rollback was needed.
 
 [Current trial preflight, identities and stop conditions](evidence/B2Z/audio-mainnet-playtest/REPORT.md).
 

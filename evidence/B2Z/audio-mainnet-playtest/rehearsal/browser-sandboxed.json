@@ -1,0 +1,33 @@
+{
+  "ready": true,
+  "error": null,
+  "mode": "live",
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "subaccount": 0,
+    "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+  },
+  "head": "undefined",
+  "cannons": 1,
+  "balls": 1,
+  "certificateMode": "certificate-verifier",
+  "status": "PASS",
+  "sandbox": true,
+  "errors": [],
+  "posts": [
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+    "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+  ]
+}

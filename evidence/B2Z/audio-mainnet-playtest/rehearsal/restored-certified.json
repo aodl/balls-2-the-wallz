@@ -1,0 +1,11 @@
+{
+  "local_only": true,
+  "host": "http://127.0.0.1:60239",
+  "id": "uqqxf-5h777-77774-qaaaa-cai",
+  "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+  "certified_data": null,
+  "root_sha256": "e8a47c78b3a7075cc6f0e1e66f9f1b5ba3da8e470f07723eb8cd2b61c6e4bcf2",
+  "certificate_verified": true,
+  "query_signatures_verified": true,
+  "files": 15
+}

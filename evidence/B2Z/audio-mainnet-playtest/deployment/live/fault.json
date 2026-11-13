@@ -1,0 +1,105 @@
+{
+  "audio": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 1,
+    "lastError": "Failed to fetch",
+    "unlocked": true,
+    "hidden": false,
+    "settings": {
+      "music": true,
+      "effects": false,
+      "mute": false,
+      "musicVolume": 0.72,
+      "effectsVolume": 0.58,
+      "adaptive": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 0,
+    "music": {
+      "starts": 0,
+      "underruns": 0,
+      "maxBuffers": 0,
+      "maxNodes": 0,
+      "maxDecoded": 0,
+      "active": false,
+      "nodes": 0,
+      "buffers": 0,
+      "phase": 0
+    },
+    "loader": {
+      "fetches": 1,
+      "cacheHits": 0,
+      "decodes": 0,
+      "maxFetches": 1,
+      "maxEncoded": 327680,
+      "maxDecodes": 0,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 128,
+      "lateFrames": 3,
+      "disabled": 128,
+      "inspected": 0,
+      "classified": 0
+    },
+    "seen": 0,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 0,
+      "candidates": 0,
+      "eligible": 0,
+      "starts": 0,
+      "dropped": 0,
+      "maxVoices": 0,
+      "frames": 99,
+      "maxFrameMs": 0.699999988079071,
+      "inspectionLimit": 128,
+      "flushP95": 0.10000002384185791,
+      "flushP99": 0.699999988079071
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "ready": true,
+  "gameError": null,
+  "head": {
+    "logical_end": 7905,
+    "manifest_hash": "b2f3fafde91b4bb283d8ff7231f954fd5020c028d29cc6d11732bc30be28d6fe",
+    "seal": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+      "input_count": 0,
+      "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+      "logical_end": 7905,
+      "logical_start": 7904,
+      "previous_manifest": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+      "previous_state": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "segment_id": 7908,
+      "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+      "source_from": 40180669,
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+      "source_to_exclusive": 40180669
+    },
+    "segment_id": 7908,
+    "source_to_exclusive": 40180669,
+    "state_hash": "a37078cab4d4b5bc68f2d88d437d1321e3b18381ce254ba519acc672e74b28f3"
+  },
+  "status": "PASS",
+  "fault": "Browser-side audio-only transport abort; no server mutation",
+  "blocked": [
+    "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/audio/b2z-v1/manifest.json"
+  ]
+}

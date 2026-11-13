@@ -1,4 +1,120 @@
-# Controlled mainnet audio playtest — preflight; NOT DEPLOYED
+# Prelaunch mainnet audio playtest — not general-release qualified
+
+## Follow-up: authorized installation
+
+The owner confirms both soundtrack compositions were generated and downloaded
+under an active Suno Pro subscription, using text prompts only and no uploaded
+third-party copyrighted audio. This declaration is the recorded basis for hosting
+the supplied music in this publicly accessible prelaunch trial. No subscription
+receipt/account export was supplied or inspected; retain that provenance evidence
+with the project when available. This does not imply the public canister is private.
+
+All six substantive hosted gates for `74f08183b905d97dbfd821ede0a4c2cdc47538f5`
+now pass: [final conclusions](ci-final.json). The informational inventory guard is
+excluded. The final preflight rehashed all74 frozen files and confirmed no changed
+application/build/dependency bytes since that candidate. Later local changes are
+documentation/evidence only; no new application build occurred.
+
+The [genuine isolated rehearsal](rehearsal/results.json) installed the exact previous
+frontend, uploaded the exact74-file audio candidate, then restored the previous
+frontend using `--no-asset-upgrade`. HTTP bytes, security headers and certificate
+headers matched in every phase (15 →73 →15 public keys). Independent SDK checks
+verified local-root certificates and signed query hashes/lengths:
+[previous](rehearsal/previous-certified.json), [candidate](rehearsal/candidate-certified.json),
+[restored](rehearsal/restored-certified.json). All three module hashes equal the
+production asset-service module. These are isolated local-root checks, not mainnet
+attestations. The optional `certified_data` metadata field returned null and is not
+used as evidence of a verified HTTP witness. Signed inventory hashes independently
+match HTTP bytes; certificate headers are present.
+
+The [sandboxed restored browser](rehearsal/browser-sandboxed.json) authenticated the
+actual mainnet backend in `certificate-verifier` mode: one cannon, one ball, expected
+Ledger/index/recipient, no errors, only `/query` and `/read_state` POSTs.
+[Restored browser screenshot](rehearsal/restored-sandboxed-game.png).
+The head diagnostic mistakenly read a nonexistent field (`undefined`); no exact
+head claim is made from it. The first rehearsal attempt hit DFX's workspace-path
+restriction before asset upload; its [failure](rehearsal/initial-workspace-path-failure.json)
+is retained. Moving copies inside the disposable project fixed setup. An extra
+browser probe initially ran after local shutdown; the restarted sandboxed probe
+passed. No live production mutation was needed for rehearsal. Local instances
+were stopped afterward; none is a replacement production canister.
+
+Immediately before production upload, current public bytes, signed inventory,
+modules/controllers/subnet and exact rollback bytes were rechecked. The complete
+previous staging was additionally retained at `.work/audio-mainnet-playtest/pre-install-staging`.
+The unchanged74-file candidate was copied into `.work/s14/assets`, rehashed and
+published with the exact observer-only command in [installation/rollback procedure](INSTALLATION.md).
+DFX returned success; independent installed-byte and browser verification follows
+in the deployment results section. No backend command or financial mutation was sent.
+
+P09 remains FAIL and is explicitly accepted only for this single-owner trial.
+Physical listening and device acceptance are owner follow-up work after installation.
+
+## Deployment results — candidate retained
+
+Verified installed URL: https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.
+Exact qualified source, runtime, JS, complete inventory and audio manifest hashes
+are the identities in the table below; no rebuild occurred. The only production
+write was the observer-only asset publication in [command output](deployment/deploy.log).
+All73 public files match approved bytes, lengths, MIME/cache/security headers and
+carry certificate headers: [served verification](deployment/served-installed.json).
+Independent mainnet-root verified [signed inventory](deployment/inventory-after.json)
+confirms exact keys/hashes and identity-only encodings on all57 FLACs.
+[Certified metadata after](deployment/metadata-after.json) confirms unchanged
+frontend/backend modules, controllers and European subnet. The diagnostic helper's
+console success text says fifteen assets; its actual assertion and JSON inventory
+check all73 against the complete candidate inventory, not a fifteen-file subset.
+
+The [actual deployed-browser results](deployment/live/results.json) pass the
+bounded smoke journey at1440×900,390×844,320×640, using fresh sandboxed Chromium
+contexts. First authenticated world timings were2.85s,2.77s,3.21s respectively.
+Initial authenticated heads were segment7907/logical7904 on desktop, and
+segment7908/logical7905 on mobile widths; full seals/source bindings are recorded.
+All contexts made zero audio requests and created no audio context before an
+explicit gesture. Music started successfully; FX decoded all four enabled buffers.
+Music disabling/master mute left music inactive and zero FX voices at the300ms
+check. Native output remains digital/software-browser evidence, not owner listening.
+
+| Live check | Result and limit |
+| --- | --- |
+| Authenticated gameplay/source and unchanged recipient | PASS in all three contexts |
+| Silent startup, deliberate Music/FX activation, mute | PASS |
+| Audio controls at desktop/390/320 | PASS; emulated widths, not physical mobile |
+| Overview effects suppression | Zero new starts over10s; no eligible events occurred, so causal event suppression is not proved live |
+| Wall-collision / cannon-launch effects | NOT_OBSERVED: zero eligible events/starts in30s Trickle window; no paid commands manufactured |
+| Audio-only error isolation | PASS in fresh context; browser abort of audio requests yields `Failed to fetch`, authenticated game stays ready/error-free |
+| Serious runtime/renderer regression | None observed; no page errors |
+| Physical listening, continuous-loop subjective quality, hardware performance | Owner follow-up; not claimed PASS |
+
+The separate [audio-fault result](deployment/live/fault.json) and
+[screenshot](deployment/live/audio-fault.png) are controlled browser fault injection,
+not a real subnet interruption. Its context was fresh, avoiding cached files that
+could mask the failure. The earlier same-context fault attempt in the main journey
+is not independently claimed to force a new download failure.
+[Desktop](deployment/live/1440-enabled.png), [390](deployment/live/390-enabled.png),
+[320](deployment/live/320-enabled.png) and [overview](deployment/live/overview.png)
+screenshots are from the installed origin. No historical fixture replaces these.
+
+[Backend status after](deployment/backend-status-after.json) preserves generation1,
+Ledger/index/recipient/subaccount/cursor bindings; pending records remain zero and
+no source/run errors are present. Autonomous callbacks advanced7880→7904 between
+recorded observations. Normal autonomous execution and cycle consumption continue;
+no attempt was made to freeze those balances. No backend installation, gameplay,
+financial/settings/controller/funding mutation or remote Git write was performed.
+
+No serious regression was found and **no production rollback was required**.
+Exact prior16-file assets remain at `.work/audio-mainnet-playtest/rollback/frontend`,
+with the rehearsed [rollback procedure](INSTALLATION.md). The isolated restored
+frontend module matches production. Rehearsal phase times were15.09s previous,
+57.06s candidate and19.21s restore, including their verification work; these are
+not production cost/performance measurements. Public serving/storage/download
+costs are not qualified by this smoke test. No additional funding is authorized.
+
+Reproduction helpers are retained under [verification](verification/rehearse.py);
+they are evidence tooling, not application inputs. P09 remains accepted FAIL.
+The deployed candidate is retained for owner testing, not a general public launch.
+
+## Original preflight snapshot (superseded by follow-up above)
 
 The owner authorized a reversible **frontend-only prelaunch mainnet playtest**,
 conditional on six exact-source hosted gate passes, public audio-hosting rights,
@@ -146,7 +262,8 @@ the frontend assets. No general launch or invitations are authorized.
 ## Owner listening checklist for a successfully installed trial
 
 Use https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/ only after installation is confirmed;
-it currently remains the pre-audio frontend.
+the original snapshot below preceded installation; the installed audio candidate
+is confirmed in the follow-up results above.
 
 - Start with Music only; assess quality, internal transitions and continuous
   looping for at least three 407.36-second loops, during slow and fast gameplay.

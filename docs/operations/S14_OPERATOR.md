@@ -1,6 +1,6 @@
 # Installed European game — frontend updates
 
-## Optional audio — authorized prelaunch trial; preflight hold
+## Audio installed — prelaunch mainnet playtest, not general-release qualified
 
 The owner subsequently authorized a reversible frontend-only mainnet audio trial.
 See the [current preflight](../../evidence/B2Z/audio-mainnet-playtest/REPORT.md)
@@ -8,7 +8,14 @@ for exact candidate/assets, actual served rollback bytes and hosted conclusions.
 Physical listening and device checks are trial outcomes; P09 remains FAIL and is
 accepted only for this bounded trial. Six substantive hosted PASS, documented
 public-hosting rights and demonstrated rollback readiness remain conditions.
-No audio upload has been attempted. Never infer private use from prelaunch status.
+All six gates now pass for74f0818. The owner declares active Suno Pro generation/
+download from text-only prompts, without third-party audio uploads. Genuine local
+rollback and restored browser authentication pass. The frozen74-file candidate is
+installed; all73 public served hashes/headers and signed inventory match. Fresh
+desktop/390/320 music/mute/fault smoke checks pass; live collision/launch events
+were unobserved in the short Trickle window. Exact pre-audio rollback bytes remain
+retained. No backend or financial mutation occurred. Never infer private use from
+prelaunch status. See the linked report for exact hashes, limitations and rollback.
 
 ### Historical corrective qualification
 

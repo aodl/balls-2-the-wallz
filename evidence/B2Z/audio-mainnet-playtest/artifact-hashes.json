@@ -1,0 +1,212 @@
+[
+  {
+    "path": "INSTALLATION.md",
+    "bytes": 2970,
+    "sha256": "4d73da96eabf9c59751128fea191907f913402f055c632066667b8833d7dbccb"
+  },
+  {
+    "path": "REPORT.md",
+    "bytes": 17457,
+    "sha256": "1d2ead5cd4b0cabfdfc140209ec373686857f56539c7d45d523716a9ad12aeed"
+  },
+  {
+    "path": "backend-status-before.json",
+    "bytes": 1656,
+    "sha256": "6ae1348e1df10c2be83cb3fdbc94e911bafa01561870b50a721216534e708b1c"
+  },
+  {
+    "path": "ci-final.json",
+    "bytes": 1209,
+    "sha256": "c090ba8c1677634dea94872c254aa84f36e9c7f6f5c2c4a695fd49c46b4708ec"
+  },
+  {
+    "path": "ci-latest.json",
+    "bytes": 1206,
+    "sha256": "90081f196884dcb7dc441f0c1d5f8a31f9efd0246880704ab53cb7705a3b03ef"
+  },
+  {
+    "path": "ci-preflight.json",
+    "bytes": 1206,
+    "sha256": "679992d1f735ba2bcc908a3e341e91f936dc01d0472d9f94e6ee5435739aa0f0"
+  },
+  {
+    "path": "deployment/backend-status-after.json",
+    "bytes": 1656,
+    "sha256": "6a546f71d6f6790373c0d999e76e187b43502055803f89cbdb4b56c3f8487d81"
+  },
+  {
+    "path": "deployment/deploy.log",
+    "bytes": 520,
+    "sha256": "b71cc5f695f2c3ffc9ab7debc547172f2b611a4629f8bbec101714419907f0f5"
+  },
+  {
+    "path": "deployment/inventory-after.json",
+    "bytes": 23288,
+    "sha256": "c683a77a0155e24cae1ec702bec1ff22eed83c38fb2d367300578322ad6973f6"
+  },
+  {
+    "path": "deployment/live/1440-enabled.png",
+    "bytes": 367977,
+    "sha256": "4550650216252f60b26c99c9ffd2dd7fc301b5f18fbd86e7508b04ebf8934494"
+  },
+  {
+    "path": "deployment/live/1440-silent.png",
+    "bytes": 361271,
+    "sha256": "6a6531174d8d781e9aa7282b2c47e7073f0f9f5bde4be6e2685ff2c23414c197"
+  },
+  {
+    "path": "deployment/live/320-enabled.png",
+    "bytes": 51798,
+    "sha256": "551e9960a94fe30d1ff2965460aaaa95a6eacbc1245d3a8bbf48060af513dafa"
+  },
+  {
+    "path": "deployment/live/320-silent.png",
+    "bytes": 43390,
+    "sha256": "3db1921f23e67434c86c59d310b52de71909bbbedad218d12433d1f315595d66"
+  },
+  {
+    "path": "deployment/live/390-enabled.png",
+    "bytes": 74367,
+    "sha256": "75d358174feec592672df9c4145a1c67f45eb13702a2b821f3f33a36f4182f59"
+  },
+  {
+    "path": "deployment/live/390-silent.png",
+    "bytes": 60271,
+    "sha256": "c7864b365cd5c4e9ee169186a239beecab8e52ab9e1cf612299802944bbf6e78"
+  },
+  {
+    "path": "deployment/live/audio-fault.png",
+    "bytes": 154703,
+    "sha256": "8ce23f7a79d8f7f214ed83e229beb11678a727de8fb78358d927d0918054a56b"
+  },
+  {
+    "path": "deployment/live/fault.json",
+    "bytes": 3048,
+    "sha256": "87cd03c14160c6fbdd53900dd3aea7c8a3a7bfcf5285a16fe51e9e315cb33e22"
+  },
+  {
+    "path": "deployment/live/overview.png",
+    "bytes": 37588,
+    "sha256": "4fb6399075cbf09b22078ed379bfb0c0d7dfb83a572007b26f29eb1944e86c5b"
+  },
+  {
+    "path": "deployment/live/results.json",
+    "bytes": 49823,
+    "sha256": "0522b466c7cea6a748e06b740bbf68984c6f256b5c4d13fdb438b019c76e904c"
+  },
+  {
+    "path": "deployment/metadata-after.json",
+    "bytes": 1000,
+    "sha256": "ed28fd054fa40c12ff42baf3df10d51d922dbf31b0bfe570c81d6f7c42280157"
+  },
+  {
+    "path": "deployment/served-installed.json",
+    "bytes": 463104,
+    "sha256": "c392208877174fc07ae9b51b406da76a4c6c58e2d519c3fa4cf6036c7aeeccd1"
+  },
+  {
+    "path": "inventory-before.json",
+    "bytes": 5147,
+    "sha256": "742dadcf1b52250fdb8aac41fcbf5cb2af6f4b5ffec5285d65cbcbc68c1b23de"
+  },
+  {
+    "path": "metadata-before.json",
+    "bytes": 1000,
+    "sha256": "b889786af104bedea58a28f010b903e2c32b25e5038ce12eede7af16f55b379b"
+  },
+  {
+    "path": "rehearsal/browser-sandboxed.json",
+    "bytes": 1349,
+    "sha256": "6c851542b2e1831700f5cf0d1b28448b5d52615b799971a0b3b522f71ff3fb7e"
+  },
+  {
+    "path": "rehearsal/candidate-certified.json",
+    "bytes": 380,
+    "sha256": "26e8d2a27b6037923142704f972dd1260a2920944014e966b5caad3fa929768e"
+  },
+  {
+    "path": "rehearsal/candidate.log",
+    "bytes": 499,
+    "sha256": "b67605b8098baf9b509950f890a0526f5495aff9181af3f97e8e86d53ee28d04"
+  },
+  {
+    "path": "rehearsal/initial-workspace-path-failure.json",
+    "bytes": 110,
+    "sha256": "40b69a946aa0e9f9506a65112b03ca4f8f884a904e8ac5af1cbf0b2c6b2e7534"
+  },
+  {
+    "path": "rehearsal/previous-certified.json",
+    "bytes": 380,
+    "sha256": "c67d0fc8f65b7bc92b799b3550fbd3d0098dc874c6b5cdfe29699eefddf73835"
+  },
+  {
+    "path": "rehearsal/previous.log",
+    "bytes": 432,
+    "sha256": "668fcb4b4cb1d2bde52b68e9457ae3567028b9a5dfe59d288c63a74e5d1556b4"
+  },
+  {
+    "path": "rehearsal/restored-certified.json",
+    "bytes": 380,
+    "sha256": "c67d0fc8f65b7bc92b799b3550fbd3d0098dc874c6b5cdfe29699eefddf73835"
+  },
+  {
+    "path": "rehearsal/restored-sandboxed-game.png",
+    "bytes": 360454,
+    "sha256": "d9aa6e7e50b34ce38eda41154f79ca5d31a75153008dcba2d58596d51ae5a7b1"
+  },
+  {
+    "path": "rehearsal/restored.log",
+    "bytes": 499,
+    "sha256": "b67605b8098baf9b509950f890a0526f5495aff9181af3f97e8e86d53ee28d04"
+  },
+  {
+    "path": "rehearsal/results.json",
+    "bytes": 24454,
+    "sha256": "0a2cad7ec78b5f1300ca549e1d7caf3e8b2a135e900dc66db12cee10327d02ac"
+  },
+  {
+    "path": "rollback-preservation.json",
+    "bytes": 401,
+    "sha256": "df448f19bda02e1b3cff1f24756b5a5adaaadf2a53ba981c2387244628c7864d"
+  },
+  {
+    "path": "served-before.json",
+    "bytes": 90126,
+    "sha256": "3138448e46bb77627a8f523bf13ecc1bc82b1d5b24e3183a92cb25769edbd5b5"
+  },
+  {
+    "path": "verification/browser-restored.py",
+    "bytes": 1495,
+    "sha256": "5112d8fef9816f107cbf312415a5738e41858b8c4a6599f0674ab48ce5cd0f9d"
+  },
+  {
+    "path": "verification/certify-local.mjs",
+    "bytes": 1426,
+    "sha256": "7162455972c222a6fa76a58d6d5e647c42c08b4d01e27c55bd994ee31d185412"
+  },
+  {
+    "path": "verification/live-audio.py",
+    "bytes": 3310,
+    "sha256": "e68b31f82db247f83abd346309fcbc55101a23947a6cdeda6bbe0cd917b817dd"
+  },
+  {
+    "path": "verification/live-fault.py",
+    "bytes": 1169,
+    "sha256": "e79d7bf8c4888bd1fab01ba4c969538f308088495eeb073c0be213be4b13363d"
+  },
+  {
+    "path": "verification/metadata-after.mjs",
+    "bytes": 2685,
+    "sha256": "2ba69d0bdcf52e6f996cf7025b879e594675e5a4735d61ef7619ea07b7537755"
+  },
+  {
+    "path": "verification/rehearse.py",
+    "bytes": 4227,
+    "sha256": "93e52b19cf4ef8b9b5dd0acbfa586bbc01aec433aaa7f55eea1733bc731ba0d9"
+  },
+  {
+    "path": "verification/verify-installed.py",
+    "bytes": 1678,
+    "sha256": "234003a2567fd65d0ebc455e1b28128c9667c87133b87e598995d439002223dc"
+  }
+]

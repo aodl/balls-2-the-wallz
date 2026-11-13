@@ -1,0 +1,11 @@
+Deploying: observer
+All canisters have already been created.
+Building canister 'observer'.
+Module hash 04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62 is already installed.
+Upgraded code for canister observer, with canister ID s2jxj-liaaa-aaaas-amynq-cai
+Deployed canisters.
+URLs:
+  Frontend canister via browser:
+    observer: https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/
+  Backend canister via Candid interface:
+    b2z: https://a4gq6-oaaaa-aaaab-qaa4q-cai.raw.icp0.io/?id=s5ir5-gqaaa-aaaas-amyna-cai

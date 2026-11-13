@@ -1,0 +1,11 @@
+Deploying: observer
+All canisters have already been created.
+Building canister 'observer'.
+Module hash 04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62 is already installed.
+Upgraded code for canister observer, with canister ID uqqxf-5h777-77774-qaaaa-cai
+Deployed canisters.
+URLs:
+  Frontend canister via browser:
+    observer:
+      - http://uqqxf-5h777-77774-qaaaa-cai.localhost:60239/ (Recommended)
+      - http://127.0.0.1:60239/?canisterId=uqqxf-5h777-77774-qaaaa-cai (Legacy)

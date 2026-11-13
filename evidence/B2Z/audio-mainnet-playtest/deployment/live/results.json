@@ -1,0 +1,1454 @@
+{
+  "status": "PASS",
+  "views": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "first_world_seconds": 2.854352865018882,
+      "initial": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7904,
+          "manifest_hash": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7904,
+            "logical_start": 7903,
+            "previous_manifest": "5c6f16870f06b7289e2a8db7658b8f83f4e1d52bd9df9dbd3ff62dc2607b2c60",
+            "previous_state": "e49fb92a16ce36a92010e3abf64e1516fd1fa0eaae5e22a14524e0b0bc5ec426",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7907,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7907,
+          "source_to_exclusive": 40180669,
+          "state_hash": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": null,
+          "loading": false,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": false,
+          "hidden": false,
+          "settings": {
+            "music": false,
+            "effects": false,
+            "mute": false,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": null,
+          "loader": null,
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 79,
+            "lateFrames": 0,
+            "disabled": 79,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 78,
+            "maxFrameMs": 0.10000002384185791,
+            "inspectionLimit": 128,
+            "flushP95": 0.09999999403953552,
+            "flushP99": 0.10000002384185791
+          },
+          "sampleRate": null,
+          "baseLatency": null,
+          "outputLatency": null
+        },
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "music": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7904,
+          "manifest_hash": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7904,
+            "logical_start": 7903,
+            "previous_manifest": "5c6f16870f06b7289e2a8db7658b8f83f4e1d52bd9df9dbd3ff62dc2607b2c60",
+            "previous_state": "e49fb92a16ce36a92010e3abf64e1516fd1fa0eaae5e22a14524e0b0bc5ec426",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7907,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7907,
+          "source_to_exclusive": 40180669,
+          "state_hash": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 1,
+          "lastError": "",
+          "unlocked": true,
+          "hidden": false,
+          "settings": {
+            "music": true,
+            "effects": false,
+            "mute": false,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": {
+            "starts": 2,
+            "underruns": 0,
+            "maxBuffers": 2,
+            "maxNodes": 2,
+            "maxDecoded": 6220800,
+            "active": true,
+            "nodes": 2,
+            "buffers": 2,
+            "phase": 0
+          },
+          "loader": {
+            "fetches": 3,
+            "cacheHits": 0,
+            "decodes": 2,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": false,
+            "encoded": 6178445,
+            "pending": 1,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 233,
+            "lateFrames": 2,
+            "disabled": 233,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 155,
+            "maxFrameMs": 1.0999999940395355,
+            "inspectionLimit": 128,
+            "flushP95": 0.10000002384185791,
+            "flushP99": 1
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "displayed_fx_observation": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7904,
+          "manifest_hash": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7904,
+            "logical_start": 7903,
+            "previous_manifest": "5c6f16870f06b7289e2a8db7658b8f83f4e1d52bd9df9dbd3ff62dc2607b2c60",
+            "previous_state": "e49fb92a16ce36a92010e3abf64e1516fd1fa0eaae5e22a14524e0b0bc5ec426",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7907,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7907,
+          "source_to_exclusive": 40180669,
+          "state_hash": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 2,
+          "lastError": "",
+          "unlocked": true,
+          "hidden": false,
+          "settings": {
+            "music": true,
+            "effects": true,
+            "mute": false,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 4,
+          "music": {
+            "starts": 6,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": true,
+            "nodes": 2,
+            "buffers": 3,
+            "phase": 1773952
+          },
+          "loader": {
+            "fetches": 12,
+            "cacheHits": 0,
+            "decodes": 11,
+            "maxFetches": 1,
+            "maxEncoded": 7079920,
+            "maxDecodes": 1,
+            "cacheDisabled": false,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 836,
+            "lateFrames": 2,
+            "disabled": 295,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 727,
+            "maxFrameMs": 2.0999999940395355,
+            "inspectionLimit": 96,
+            "flushP95": 0.10000002384185791,
+            "flushP99": 0.19999998807907104
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "overview_before": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7904,
+          "manifest_hash": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7904,
+            "logical_start": 7903,
+            "previous_manifest": "5c6f16870f06b7289e2a8db7658b8f83f4e1d52bd9df9dbd3ff62dc2607b2c60",
+            "previous_state": "e49fb92a16ce36a92010e3abf64e1516fd1fa0eaae5e22a14524e0b0bc5ec426",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7907,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7907,
+          "source_to_exclusive": 40180669,
+          "state_hash": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 2,
+          "lastError": "",
+          "unlocked": true,
+          "hidden": false,
+          "settings": {
+            "music": true,
+            "effects": true,
+            "mute": false,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 4,
+          "music": {
+            "starts": 6,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": true,
+            "nodes": 2,
+            "buffers": 3,
+            "phase": 1882624
+          },
+          "loader": {
+            "fetches": 12,
+            "cacheHits": 0,
+            "decodes": 11,
+            "maxFetches": 1,
+            "maxEncoded": 7079920,
+            "maxDecodes": 1,
+            "cacheDisabled": false,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 868,
+            "lateFrames": 2,
+            "disabled": 315,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 759,
+            "maxFrameMs": 2.0999999940395355,
+            "inspectionLimit": 96,
+            "flushP95": 0.10000002384185791,
+            "flushP99": 0.5
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "camera": [
+          0.5,
+          0.5,
+          2.03646773346401
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "overview_after": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7905,
+          "manifest_hash": "b2f3fafde91b4bb283d8ff7231f954fd5020c028d29cc6d11732bc30be28d6fe",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7905,
+            "logical_start": 7904,
+            "previous_manifest": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+            "previous_state": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7908,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7908,
+          "source_to_exclusive": 40180669,
+          "state_hash": "a37078cab4d4b5bc68f2d88d437d1321e3b18381ce254ba519acc672e74b28f3"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 2,
+          "lastError": "",
+          "unlocked": true,
+          "hidden": false,
+          "settings": {
+            "music": true,
+            "effects": true,
+            "mute": false,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 4,
+          "music": {
+            "starts": 8,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": true,
+            "nodes": 2,
+            "buffers": 3,
+            "phase": 2353536
+          },
+          "loader": {
+            "fetches": 14,
+            "cacheHits": 0,
+            "decodes": 13,
+            "maxFetches": 1,
+            "maxEncoded": 7200365,
+            "maxDecodes": 1,
+            "cacheDisabled": true,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 1002,
+            "lateFrames": 3,
+            "disabled": 449,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 893,
+            "maxFrameMs": 2.0999999940395355,
+            "inspectionLimit": 96,
+            "flushP95": 0.10000002384185791,
+            "flushP99": 0.19999998807907104
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "camera": [
+          0.5,
+          0.5,
+          2.03646773346401
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "muted": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7905,
+          "manifest_hash": "b2f3fafde91b4bb283d8ff7231f954fd5020c028d29cc6d11732bc30be28d6fe",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7905,
+            "logical_start": 7904,
+            "previous_manifest": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+            "previous_state": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7908,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7908,
+          "source_to_exclusive": 40180669,
+          "state_hash": "a37078cab4d4b5bc68f2d88d437d1321e3b18381ce254ba519acc672e74b28f3"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 4,
+          "lastError": "",
+          "unlocked": true,
+          "hidden": false,
+          "settings": {
+            "music": false,
+            "effects": true,
+            "mute": true,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 4,
+          "music": {
+            "starts": 8,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": false,
+            "nodes": 0,
+            "buffers": 0,
+            "phase": 2450688
+          },
+          "loader": {
+            "fetches": 14,
+            "cacheHits": 0,
+            "decodes": 13,
+            "maxFetches": 1,
+            "maxEncoded": 7200365,
+            "maxDecodes": 1,
+            "cacheDisabled": true,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 1056,
+            "lateFrames": 3,
+            "disabled": 503,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 940,
+            "maxFrameMs": 2.0999999940395355,
+            "inspectionLimit": 96,
+            "flushP95": 0.10000002384185791,
+            "flushP99": 0.10000002384185791
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "camera": [
+          0.5,
+          0.5,
+          2.03646773346401
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "audio_fault": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7905,
+          "manifest_hash": "b2f3fafde91b4bb283d8ff7231f954fd5020c028d29cc6d11732bc30be28d6fe",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7905,
+            "logical_start": 7904,
+            "previous_manifest": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+            "previous_state": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7908,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7908,
+          "source_to_exclusive": 40180669,
+          "state_hash": "a37078cab4d4b5bc68f2d88d437d1321e3b18381ce254ba519acc672e74b28f3"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 6,
+          "lastError": "Failed to fetch",
+          "unlocked": true,
+          "hidden": false,
+          "settings": {
+            "music": true,
+            "effects": true,
+            "mute": false,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 4,
+          "music": {
+            "starts": 8,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": false,
+            "nodes": 0,
+            "buffers": 0,
+            "phase": 2450688
+          },
+          "loader": {
+            "fetches": 17,
+            "cacheHits": 0,
+            "decodes": 13,
+            "maxFetches": 1,
+            "maxEncoded": 7200365,
+            "maxDecodes": 1,
+            "cacheDisabled": true,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 1181,
+            "lateFrames": 3,
+            "disabled": 628,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 1053,
+            "maxFrameMs": 3.199999988079071,
+            "inspectionLimit": 72,
+            "flushP95": 0.10000002384185791,
+            "flushP99": 0.30000001192092896
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "camera": [
+          0.5,
+          0.5,
+          2.03646773346401
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "errors": [],
+      "audio_requests": 17,
+      "read_only_posts": 140
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "first_world_seconds": 2.768435665027937,
+      "initial": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7905,
+          "manifest_hash": "b2f3fafde91b4bb283d8ff7231f954fd5020c028d29cc6d11732bc30be28d6fe",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7905,
+            "logical_start": 7904,
+            "previous_manifest": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+            "previous_state": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7908,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7908,
+          "source_to_exclusive": 40180669,
+          "state_hash": "a37078cab4d4b5bc68f2d88d437d1321e3b18381ce254ba519acc672e74b28f3"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": null,
+          "loading": false,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": false,
+          "hidden": false,
+          "settings": {
+            "music": false,
+            "effects": false,
+            "mute": false,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": null,
+          "loader": null,
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 82,
+            "lateFrames": 1,
+            "disabled": 82,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 81,
+            "maxFrameMs": 0.10000002384185791,
+            "inspectionLimit": 128,
+            "flushP95": 0.09999999403953552,
+            "flushP99": 0.10000002384185791
+          },
+          "sampleRate": null,
+          "baseLatency": null,
+          "outputLatency": null
+        },
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "music": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7905,
+          "manifest_hash": "b2f3fafde91b4bb283d8ff7231f954fd5020c028d29cc6d11732bc30be28d6fe",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7905,
+            "logical_start": 7904,
+            "previous_manifest": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+            "previous_state": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7908,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7908,
+          "source_to_exclusive": 40180669,
+          "state_hash": "a37078cab4d4b5bc68f2d88d437d1321e3b18381ce254ba519acc672e74b28f3"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 1,
+          "lastError": "",
+          "unlocked": true,
+          "hidden": false,
+          "settings": {
+            "music": true,
+            "effects": false,
+            "mute": false,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": {
+            "starts": 2,
+            "underruns": 0,
+            "maxBuffers": 2,
+            "maxNodes": 2,
+            "maxDecoded": 6220800,
+            "active": true,
+            "nodes": 2,
+            "buffers": 2,
+            "phase": 0
+          },
+          "loader": {
+            "fetches": 3,
+            "cacheHits": 0,
+            "decodes": 2,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": false,
+            "encoded": 6178445,
+            "pending": 1,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 234,
+            "lateFrames": 3,
+            "disabled": 234,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 157,
+            "maxFrameMs": 0.19999998807907104,
+            "inspectionLimit": 128,
+            "flushP95": 0.10000002384185791,
+            "flushP99": 0.10000002384185791
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "muted": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7905,
+          "manifest_hash": "b2f3fafde91b4bb283d8ff7231f954fd5020c028d29cc6d11732bc30be28d6fe",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7905,
+            "logical_start": 7904,
+            "previous_manifest": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+            "previous_state": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7908,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7908,
+          "source_to_exclusive": 40180669,
+          "state_hash": "a37078cab4d4b5bc68f2d88d437d1321e3b18381ce254ba519acc672e74b28f3"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 4,
+          "lastError": "",
+          "unlocked": true,
+          "hidden": false,
+          "settings": {
+            "music": false,
+            "effects": true,
+            "mute": true,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 4,
+          "music": {
+            "starts": 2,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": false,
+            "nodes": 0,
+            "buffers": 0,
+            "phase": 269312
+          },
+          "loader": {
+            "fetches": 8,
+            "cacheHits": 0,
+            "decodes": 7,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": false,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 441,
+            "lateFrames": 3,
+            "disabled": 334,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 314,
+            "maxFrameMs": 2.699999988079071,
+            "inspectionLimit": 96,
+            "flushP95": 0.10000002384185791,
+            "flushP99": 0.20000001788139343
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "errors": [],
+      "audio_requests": 8,
+      "read_only_posts": 28
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "first_world_seconds": 3.2104294750024565,
+      "initial": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7905,
+          "manifest_hash": "b2f3fafde91b4bb283d8ff7231f954fd5020c028d29cc6d11732bc30be28d6fe",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7905,
+            "logical_start": 7904,
+            "previous_manifest": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+            "previous_state": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7908,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7908,
+          "source_to_exclusive": 40180669,
+          "state_hash": "a37078cab4d4b5bc68f2d88d437d1321e3b18381ce254ba519acc672e74b28f3"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": null,
+          "loading": false,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": false,
+          "hidden": false,
+          "settings": {
+            "music": false,
+            "effects": false,
+            "mute": false,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": null,
+          "loader": null,
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 90,
+            "lateFrames": 0,
+            "disabled": 90,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 89,
+            "maxFrameMs": 0.10000002384185791,
+            "inspectionLimit": 128,
+            "flushP95": 0,
+            "flushP99": 0.10000002384185791
+          },
+          "sampleRate": null,
+          "baseLatency": null,
+          "outputLatency": null
+        },
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "music": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7905,
+          "manifest_hash": "b2f3fafde91b4bb283d8ff7231f954fd5020c028d29cc6d11732bc30be28d6fe",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7905,
+            "logical_start": 7904,
+            "previous_manifest": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+            "previous_state": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7908,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7908,
+          "source_to_exclusive": 40180669,
+          "state_hash": "a37078cab4d4b5bc68f2d88d437d1321e3b18381ce254ba519acc672e74b28f3"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 1,
+          "lastError": "",
+          "unlocked": true,
+          "hidden": false,
+          "settings": {
+            "music": true,
+            "effects": false,
+            "mute": false,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": {
+            "starts": 2,
+            "underruns": 0,
+            "maxBuffers": 2,
+            "maxNodes": 2,
+            "maxDecoded": 6220800,
+            "active": true,
+            "nodes": 2,
+            "buffers": 2,
+            "phase": 0
+          },
+          "loader": {
+            "fetches": 3,
+            "cacheHits": 0,
+            "decodes": 2,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": false,
+            "encoded": 6178445,
+            "pending": 1,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 252,
+            "lateFrames": 2,
+            "disabled": 252,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 170,
+            "maxFrameMs": 1.199999988079071,
+            "inspectionLimit": 128,
+            "flushP95": 0.09999999403953552,
+            "flushP99": 0.29999998211860657
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "muted": {
+        "ready": true,
+        "error": null,
+        "head": {
+          "logical_end": 7905,
+          "manifest_hash": "b2f3fafde91b4bb283d8ff7231f954fd5020c028d29cc6d11732bc30be28d6fe",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": 7905,
+            "logical_start": 7904,
+            "previous_manifest": "da5ecf275452ac49ade2b693ee747149f08ea10cfc2e3d05cd0d4a26fd7df73d",
+            "previous_state": "c29a76e2b07308020097b0d7f98cd2a43aab92812a1511d7858a76fc910871ef",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": 7908,
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": 40180669,
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": 40180669
+          },
+          "segment_id": 7908,
+          "source_to_exclusive": 40180669,
+          "state_hash": "a37078cab4d4b5bc68f2d88d437d1321e3b18381ce254ba519acc672e74b28f3"
+        },
+        "source": {
+          "network": "ic",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "subaccount": 0,
+          "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+        },
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 4,
+          "lastError": "",
+          "unlocked": true,
+          "hidden": false,
+          "settings": {
+            "music": false,
+            "effects": true,
+            "mute": true,
+            "musicVolume": 0.72,
+            "effectsVolume": 0.58,
+            "adaptive": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 4,
+          "music": {
+            "starts": 2,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": false,
+            "nodes": 0,
+            "buffers": 0,
+            "phase": 126464
+          },
+          "loader": {
+            "fetches": 8,
+            "cacheHits": 0,
+            "decodes": 7,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": false,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 466,
+            "lateFrames": 2,
+            "disabled": 356,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 332,
+            "maxFrameMs": 1.199999988079071,
+            "inspectionLimit": 128,
+            "flushP95": 0.10000002384185791,
+            "flushP99": 0.29999998211860657
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "certificateMode": "certificate-verifier"
+      },
+      "errors": [],
+      "audio_requests": 8,
+      "read_only_posts": 19
+    }
+  ]
+}

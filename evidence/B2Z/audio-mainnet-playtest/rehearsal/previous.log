@@ -1,0 +1,10 @@
+Deploying: observer
+observer canister created with canister id: uqqxf-5h777-77774-qaaaa-cai
+Building canister 'observer'.
+Installed code for canister observer, with canister ID uqqxf-5h777-77774-qaaaa-cai
+Deployed canisters.
+URLs:
+  Frontend canister via browser:
+    observer:
+      - http://uqqxf-5h777-77774-qaaaa-cai.localhost:60239/ (Recommended)
+      - http://127.0.0.1:60239/?canisterId=uqqxf-5h777-77774-qaaaa-cai (Legacy)
