@@ -74,3 +74,11 @@ After activation, verify the new authenticated configuration and source continui
 then resume the captured gameplay settings. No reinstall, receiving-account reset,
 controller/subnet change, payment replay or automatic downgrade is permitted.
 This local preparation performs no real-money gameplay or production backend update.
+
+## Clearance successor boundary
+
+The [rules-9 candidate](B2Z_TERRITORY_CLEARANCE_9.md) preserves this exact first-Join
+squared-Euclidean maximin metric and introduces a different, explicitly scoped
+Chebyshev-distance restriction for Move/additional New. These are distinct actions,
+not conflicting definitions of entry distance. v7 history has no retroactive
+four-cell exclusion. Activate only through the separately qualified rules-only epoch.

@@ -165,6 +165,8 @@ struct Root {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     entry_transition: Option<transition::Transition>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    clearance_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_barrier: Option<playability_runtime::Barrier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_error: Option<String>,
@@ -271,6 +273,7 @@ fn active_transition(r: &Root) -> AppResult<Option<&transition::Transition>> {
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
+        r.clearance_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -287,6 +290,7 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
+        r.clearance_transition.as_ref(),
     ]
     .map(|t| t.is_some_and(|t| t.holding()));
     if flags.into_iter().filter(|v| *v).count() > 1 {
@@ -300,6 +304,8 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.playability_transition.as_mut()
     } else if flags[3] {
         r.entry_transition.as_mut()
+    } else if flags[4] {
+        r.clearance_transition.as_mut()
     } else {
         None
     })
@@ -313,6 +319,7 @@ fn transition_evidence<'a>(
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
+        r.clearance_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -445,6 +452,12 @@ fn root() -> AppResult<Root> {
             return Err("entry transition version".into());
         }
     }
+    if let Some(t) = &r.clearance_transition {
+        t.validate()?;
+        if t.version != 5 {
+            return Err("clearance transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -492,6 +505,7 @@ fn root() -> AppResult<Root> {
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
+        r.clearance_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -772,6 +786,7 @@ fn persist_inner(
         million_transition: old.and_then(|r| r.million_transition.clone()),
         playability_transition: old.and_then(|r| r.playability_transition.clone()),
         entry_transition: old.and_then(|r| r.entry_transition.clone()),
+        clearance_transition: old.and_then(|r| r.clearance_transition.clone()),
         lifecycle_context: old.and_then(|r| r.lifecycle_context.clone()),
         lifecycle_barrier: old.and_then(|r| r.lifecycle_barrier.clone()),
         lifecycle_error: old.and_then(|r| r.lifecycle_error.clone()),
@@ -880,6 +895,12 @@ fn save_root_only(r: &Root) -> AppResult<()> {
     r.source.validate()?;
     validate_run(&r.run)?;
     active_transition(r)?;
+    if let Some(t) = &r.clearance_transition {
+        t.validate()?;
+        if t.version != 5 {
+            return Err("clearance transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -2679,6 +2700,135 @@ fn commit_entry_transition(
     request_reconciliation()?;
     encode(&next.entry_transition)
 }
+#[ic_cdk::update]
+fn prepare_clearance_transition() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    let mut r = root()?;
+    let h = host(&r)?;
+    if let Some(t) = &r.clearance_transition {
+        return encode(t);
+    }
+    if r.run.running {
+        return Err("pause autonomous gameplay before rules-9 cutover".into());
+    }
+    if active_transition(&r)?.is_some() {
+        return Err("finish existing world transition first".into());
+    }
+    let expected = b2z_native::entry_v7::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("entry requires exact rules-v7 predecessor".into());
+    }
+    let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
+    if w.version != 6 || r.source.memo_adapter_version != b2z_protocol::v6::MEMO_ADAPTER_VERSION {
+        return Err("only current rules-v7 world can activate rules-9".into());
+    }
+    if r.source.in_flight
+        || r.source.pending.is_some()
+        || r.source.last_error.is_some()
+        || r.run.last_error.is_some()
+        || r.lifecycle_error.is_some()
+        || r.lifecycle_barrier.is_some()
+    {
+        return Err(
+            "finish existing source reconciliation and recover errors before cutover".into(),
+        );
+    }
+    r.clearance_transition = Some(transition::Transition::clearance());
+    save_root_only(&r)?;
+    ARENA_IDLE.with(|f| {
+        f.set(
+            !runtime_needs_simulation(&h, active_transition(&r).expect("validated transition"))
+                .expect("validated runtime"),
+        )
+    });
+    install_run_timer(&r.run);
+    request_reconciliation()?;
+    encode(&r.clearance_transition)
+}
+#[ic_cdk::query]
+fn clearance_transition_status() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    let r = root()?;
+    encode(
+        &serde_json::json!({"transition":r.clearance_transition,"lifecycle_error":r.lifecycle_error,"lifecycle_barrier":r.lifecycle_barrier}),
+    )
+}
+/// Derives the rules-9 metadata once. No caller-supplied world, time or identities.
+#[ic_cdk::update]
+fn commit_clearance_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if unhex(&expected_previous_manifest)?.len() != 32 {
+        return Err("expected manifest hash".into());
+    }
+    let mut r = root()?;
+    let mut h = host(&r)?;
+    let t = r
+        .clearance_transition
+        .as_ref()
+        .ok_or("prepare rules-9 cutover first")?;
+    if t.phase == "complete" {
+        if t.previous_manifest.as_deref() != Some(&expected_previous_manifest) {
+            return Err("conflicting rules-9 transition retry".into());
+        }
+        let expected = b2z_native::clearance_v9::identity()?;
+        let identity =
+            serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+        if ["rules_hash", "config_hash", "schema_hash"]
+            .iter()
+            .any(|k| identity[*k] != expected[*k])
+        {
+            return Err("completed rules-9 transition has been superseded".into());
+        }
+        return encode(t);
+    }
+    if r.run.running
+        || r.run.last_error.is_some()
+        || r.lifecycle_barrier.is_some()
+        || r.lifecycle_error.is_some()
+    {
+        return Err(
+            "rules-9 activation requires paused error-free autonomous configuration".into(),
+        );
+    }
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    if h.record.journal.head.manifest_hash != expected_previous_manifest {
+        return Err("old committed manifest changed".into());
+    }
+    let (output, metadata, identity) =
+        playability_runtime::clearance_candidate(&h, t, &r.source, ic_cdk::api::time())?;
+    let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
+    h.apply(Action::Transition {
+        epoch: Box::new(epoch.clone()),
+        state_hex: hex(&output.state),
+        event_hex: hex(&output.events),
+        score_hex: hex(&output.scores),
+    })?;
+    let t = r.clearance_transition.as_mut().unwrap();
+    t.phase = "complete".into();
+    t.metadata_hex = Some(hex(&metadata));
+    t.transition_hash = Some(epoch.transition_hash);
+    t.previous_manifest = Some(expected_previous_manifest);
+    // The memo adapter remains version 4 across this rules-only cutover.
+    r.source.requested = true;
+    // Preserve existing lifecycle evidence, deadlines and recovery state.
+    let next = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
+    refresh_pace();
+    install_run_timer(&next.run);
+    playability_runtime::install(&next)?;
+    request_reconciliation()?;
+    encode(&next.clearance_transition)
+}
 /// Content-addressed application metadata. Hash against the independently
 /// authenticated epoch.metadata_hash; this convenience reply is not certified.
 #[ic_cdk::query]
@@ -2692,6 +2842,7 @@ fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, Strin
         r.million_transition.as_ref(),
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
+        r.clearance_transition.as_ref(),
     ]
     .into_iter()
     .flatten()

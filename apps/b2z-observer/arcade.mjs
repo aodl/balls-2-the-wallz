@@ -1,3 +1,5 @@
+import {nearestDestination,destinationLegality} from './destination-search.mjs';
+import {cellDistance} from '../../packages/protocol/territory-clearance.mjs';
 /** UX-01..10/13. Local declaration and composer; no payment or game update client. */
 import {describeTextMemo} from '../../packages/protocol/memo.mjs';
 import {parseSendingAccount,paymentDestination,identityStore,accountColor} from './identity.mjs';
@@ -13,6 +15,7 @@ export function paymentWarning(q){return Number.isSafeInteger(q?.cell)&&q.cell>=
 export function createArcade(doc){
  const $=id=>doc.getElementById(id),text=(id,value)=>{if($(id).textContent!==value)$(id).textContent=value;};
  let intentVersion=0;
+ let moveWorld=null,moveConfig=null,moveKey=null,moveSearch=null,moveLegality=null,moveReady=false,defaultMove=null;
  let sitesWorld=null,sitesConfig=null,sitesAccount=null,sitesRevision=null,eligibleSites=[];
  let declaration=null,context=null,store=null,storage,history,world,config,source,destination,revision='',refs=[],id=null,mode='inspect',view=null,degrees='0',worldAngle='225',quantity=1,siteKey='',cell=null,packet=null,keepPrevious=false,quote=null,manual=null,busy=false,pending=null,warning='',status={canPrepare:false,label:'Verifying game'},receipts=[],preferences={},cameraState=null,opener=null,planningBehind=false,activityKey='',rosterKey='',waitingSince=null;
  try{storage=globalThis.localStorage;}catch{}
@@ -25,7 +28,7 @@ export function createArcade(doc){
   for(const n of doc.querySelectorAll('.panel-view'))n.hidden=n.id!==name+'-view';
   text('panel-title',title);refresh();
  }
- function persist(){if(!declaration||!$('remember-account').checked)return;const saved=store?.write({...declaration,cannon:id,camera:cameraState});text('storage-note',saved?'':'Using this visit only; device storage is unavailable.');}
+ function persist(){if(!declaration||!$('remember-account').checked)return;if(id!==null)declaration={...declaration,cannon:id};const saved=store?.write({...declaration,cannon:id??declaration.cannon,camera:cameraState});text('storage-note',saved?'':'Using this visit only; device storage is unavailable.');}
  function identityLabel(){text('identity-label',declaration?'Account':'Account');$('identity-color').style.background=declaration?accountColor(declaration.account):'transparent';text('account-name',declaration?.display??declaration?.principal??declaration?.account??'');$('identity-form').hidden=Boolean(declaration);$('account-summary').hidden=!declaration;}
  function clearDraft(){text('roster-note','');if(!packet){warning='';text('copy-feedback','');manual=null;$('manual-copy').hidden=true;}}
  function candidate(){
@@ -42,20 +45,20 @@ export function createArcade(doc){
    if(world.version===6)q=prepareQuoteV6(world,config,declaration.account,{kind:{start:'new',ball:'fire',move:'move'}[mode],cannon:id,angle,quantity:requested,cell});
    else{if(mode==='start'&&mine().length)throw Error('ACCOUNT_ALREADY_HAS_CANNON');if(mode==='move'&&!c.owns(cell))throw Error('ILLEGAL_MOVE');const memo=mode==='move'?describeTextMemo('move',String(cell)):m;q={amount:mode==='start'?config.join_e8s:mode==='move'?config.move_e8s:c.next_ball_e8s,memo:memo.text,memo_bytes:new TextEncoder().encode(memo.text)};if(q.amount===null)throw Error('BALL_CAPACITY');}
    return {account:declaration.account,payer:declaration.display??declaration.principal??declaration.account,network:source.network,backend:source.owner,action:mode,cannon:mode==='start'?null:id,angle:mode==='move'?null:angle,cell,requested:q.requested??requested,maximum_fill:q.maximum_fill??1,amount:q.amount,memo:q.memo,hex:Array.from(q.memo_bytes,b=>b.toString(16).padStart(2,'0')).join(''),owner:destination.primary,subaccount:String(source.subaccount),recipient:destination.legacy,rules:config.rules_version??world.version,snapshot:revision};
-  }catch(error){const reasons={DIFFERENT_TILE:'Choose a different tile.',BALL_CAPACITY:'Ball capacity reached.',ILLEGAL_MOVE:'Choose a legal highlighted destination.',NOT_OWNER:'Choose one of your cannons.',NO_ADJACENT_SITE:'No adjacent site is currently available.',NO_ELIGIBLE_SPAWN:'No first site is currently available.',PLAYER_CANNON_CAPACITY:'Your cannon capacity is reached.',CANNON_CAPACITY:'Cannon capacity is reached.',QUANTITY_BOUNDS:'Choose between 1 and 64 balls.',CELL_BOUNDS:'Choose a destination cell.',ILLEGAL_ADJACENT_SITE:'That site is no longer eligible. Choose another.',ACCOUNTING_CAPACITY:'Player capacity reached.',HEADING_BOUNDS:'Heading must be between 0 and 359.99°.'};return {reason:reasons[error.message]??(mode==='move'?'Choose a legal destination.':'Enter a heading from 0 to 359.99° and a valid quantity.')};}
+  }catch(error){const reasons={ENEMY_TERRITORY_TOO_CLOSE:'Too close to enemy territory.',DIFFERENT_TILE:'Choose a different tile.',BALL_CAPACITY:'Ball capacity reached.',ILLEGAL_MOVE:'Choose a legal highlighted destination.',NOT_OWNER:'Choose one of your cannons.',NO_ADJACENT_SITE:'No adjacent site is currently available.',NO_ELIGIBLE_SPAWN:'No first site is currently available.',PLAYER_CANNON_CAPACITY:'Your cannon capacity is reached.',CANNON_CAPACITY:'Cannon capacity is reached.',QUANTITY_BOUNDS:'Choose between 1 and 64 balls.',CELL_BOUNDS:'Choose a destination cell.',ILLEGAL_ADJACENT_SITE:'That site is no longer eligible. Choose another.',ACCOUNTING_CAPACITY:'Player capacity reached.',HEADING_BOUNDS:'Heading must be between 0 and 359.99°.'};return {reason:reasons[error.message]??(mode==='move'?'Choose a legal destination.':'Enter a heading from 0 to 359.99° and a valid quantity.')};}
  }
  function renderPacket(q){
   text('transfer-amount',formatIcp(BigInt(q.amount)));text('payment-owner',q.owner);text('text-memo',q.memo);text('paying-account',q.payer??q.account);
-  text('payment-risk',paymentWarning(q));$('amount-detail').hidden=q.action!=='start';text('amount-detail',q.action==='start'?'1 ball':'');
+  text('payment-risk',paymentWarning(q));$('payment-risk').title=config?.rules_version===9&&['move','start'].includes(q.action)&&Number.isSafeInteger(q.cell)?'A new enemy claim within four cells can also invalidate the action.':'';$('amount-detail').hidden=q.action!=='start';text('amount-detail',q.action==='start'?'1 ball':'');
  }
  function refresh(){
   $('transfer-controls').disabled=busy||!status.canPrepare||Boolean(warning);
   const c=selected(),own=Boolean(c&&declaration&&c.account===declaration.account);
   $('join-action').hidden=!world||Boolean(declaration&&mine().length);$('centre-cannon').hidden=!mine().length;text('centre-cannon',mine().length===1?'My cannon':'My cannons');
-  $('context-actions').hidden=!own;$('fire-action').hidden=!own;$('move-action').hidden=!own;$('build-action').hidden=!own||world?.version!==6;$('build-action').disabled=Boolean(own&&world?.version===6&&!buildSites().length);$('build-action').setAttribute('aria-describedby','inspect-note');$('fire-action').setAttribute('aria-label',c?.dormant?'Revive':'Fire');$('fire-action').title=c?.dormant?'Revive':'Fire';$('fire-action').dataset.revive=String(Boolean(c?.dormant));
+  $('context-actions').hidden=!own;$('fire-action').hidden=!own;$('move-action').hidden=!own;$('build-action').hidden=!own||world?.version!==6;$('build-action').disabled=Boolean(own&&world?.version===6&&!buildSites().length);$('build-action').setAttribute('aria-describedby','inspect-note');$('build-action').title=$('build-action').disabled?'No legal build destination':'Build';$('build-action').setAttribute('aria-description',$('build-action').disabled?buildReason():'Build another cannon');$('fire-action').setAttribute('aria-label',c?.dormant?'Revive':'Fire');$('fire-action').title=c?.dormant?'Revive':'Fire';$('fire-action').dataset.revive=String(Boolean(c?.dormant));
   $('fire-action').disabled=Boolean(own&&c.next_ball_e8s===null);$('fire-action').setAttribute('aria-describedby','inspect-note');
-  $('move-action').disabled=Boolean(c?.dormant);$('move-action').setAttribute('aria-describedby','inspect-note');$('move-action').title=c?.dormant?'Revive the island before moving.':'Move';
-  text('cannon-life',c?`${own?'Your cannon':'Opponent cannon'} #${c.id} · ${c.dormant?'Dormant':`Island balls ${c.balls} · ${c.owned_count} tiles`}`:'Cannon no longer present.');text('inspect-note',own&&c.next_ball_e8s===null?'Ball capacity reached.':own&&c?.dormant?'Revive before moving or its on-chain expiry.':own&&world?.version===6&&!buildSites().length?buildReason():'');
+  const move=own?moveDestination():null;$('move-action').disabled=Boolean(!own||!moveReady||move===null);$('move-action').setAttribute('aria-describedby','inspect-note');$('move-action').title=c?.dormant?'Revive the island before moving.':!moveReady?'Checking legal destinations':move===null?'No legal move destination':'Move';$('move-action').setAttribute('aria-description',$('move-action').title);
+  text('cannon-life',c?`${own?'Your cannon':'Opponent cannon'} #${c.id} · ${c.dormant?'Dormant':`Island balls ${c.balls} · ${c.owned_count} tiles`}`:'Cannon no longer present.');text('inspect-note',own&&c.next_ball_e8s===null?'Ball capacity reached.':own&&c?.dormant?'Revive before moving or its on-chain expiry.':'');
   const cannonContext=Boolean(c&&['inspect','action'].includes(view));$('inspect-note').hidden=!cannonContext||!$('inspect-note').textContent;$('workspace').dataset.surface=cannonContext?'context':'global';$('workspace').dataset.expanded=view==='action'?'true':'false';$('workspace').style.setProperty('--tool-count',own?(world?.version===6?5:4):2);$('context-actions').hidden=!cannonContext||!own;
   for(const [name,value]of [['fire-action','ball'],['move-action','move'],['build-action','start']]){const active=view==='action'&&mode===value;$(name).setAttribute('aria-pressed',String(active));$(name).setAttribute('aria-expanded',String(active));}
   text('quantity-label',quantity>1?'Up to':'Balls');$('quantity-controls').hidden=mode!=='ball'||world?.version!==6;$('join-direction').hidden=mode!=='start'||Boolean(mine().length);for(const b of doc.querySelectorAll('[data-heading]'))b.setAttribute('aria-pressed',String(Number(degrees)===Number(b.dataset.heading)));
@@ -87,17 +90,30 @@ export function createArcade(doc){
   if(!entries.length){const p=doc.createElement('p');p.textContent='No retained outcomes for this account. Missing history does not prove failure.';entries.push(p);}$('receipt-list').replaceChildren(...entries);
  }
  function buildReason(){try{quoteV6(world,config,declaration.account,{kind:'new',angle:'0',quantity:1,cell:null});return 'Choose an empty neighbouring tile.';}catch(e){return ({PLAYER_CANNON_CAPACITY:'Your cannon capacity is reached.',CANNON_CAPACITY:'Cannon capacity is reached.',BALL_CAPACITY:'Ball capacity reached.'})[e.message]??(mine().every(c=>c.dormant)?'Revive an island before building.':'No empty eligible neighbour is available.');}}
- function buildSites(){if(world?.version!==6||!declaration)return[];if(sitesWorld===world&&sitesConfig===config&&sitesAccount===declaration.account&&sitesRevision===revision)return eligibleSites;sitesWorld=world;sitesConfig=config;sitesAccount=declaration.account;sitesRevision=revision;eligibleSites=legalAdjacentSites(world,declaration.account).filter(site=>{try{quoteV6(world,config,declaration.account,{kind:'new',angle:'0',quantity:1,cell:site});return true;}catch{return false;}});return eligibleSites;}
+ function buildSites(){if(world?.version!==6||!declaration)return[];if(sitesWorld===world&&sitesConfig===config&&sitesAccount===declaration.account&&sitesRevision===revision)return eligibleSites;sitesWorld=world;sitesConfig=config;sitesAccount=declaration.account;sitesRevision=revision;eligibleSites=legalAdjacentSites(world,declaration.account,config).filter(site=>{try{quoteV6(world,config,declaration.account,{kind:'new',angle:'0',quantity:1,cell:site});return true;}catch{return false;}});return eligibleSites;}
+ function moveDestination(){
+  const c=selected(),key=[context,revision,declaration?.account,id].join('/');if(key===moveKey&&moveWorld===world&&moveConfig===config)return defaultMove;
+  moveSearch?.cancel();moveSearch=null;moveLegality=null;moveWorld=world;moveConfig=config;moveKey=key;moveReady=false;defaultMove=null;
+  if(!c||c.dormant||!declaration||!world){moveReady=true;return null;}
+  const w=world,cfg=config,account=declaration.account,cannon=c.id;
+  moveLegality=destinationLegality(w.width,w.height,cell=>w.version===6?legalMoveDestination(w,account,cannon,cell,cfg):cell!==c.cell&&c.owns(cell));
+  const job=moveSearch=nearestDestination({width:w.width,height:w.height,source:c.cell,legal:moveLegality.test});
+  job.promise.then(cell=>{if(moveSearch!==job||moveKey!==key)return;defaultMove=cell;moveReady=true;refresh();});return null;
+ }
+ function defaultBuild(){const c=selected(),sites=buildSites();if(!c)return sites[0]??null;const near=cell=>cellDistance(c.cell,cell,world.width,world.height)===1&&(c.cell%world.width===cell%world.width||Math.floor(c.cell/world.width)===Math.floor(cell/world.width));return [...sites].sort((a,b)=>Number(near(b))-Number(near(a))||cellDistance(c.cell,a,world.width,world.height)-cellDistance(c.cell,b,world.width,world.height)||a-b)[0]??null;}
  function action(value){
   intentVersion++;
   if(!declaration){pending=value;api.openAccount();return;}
   if(value!=='start'&&selected()?.account!==declaration.account){if(mine().length===1)id=mine()[0].id;else{api.openRoster();return;}}
+  if(value==='move'&&(moveDestination()===null||!moveReady)||value==='start'&&mine().length&&!buildSites().length){refresh();return;}
   if(view==='action'&&mode===value){rememberDraft();show('inspect',`Cannon #${id}`);refresh();return;}
   rememberDraft();const previousMode=mode;clearDraft();keepPrevious=false;mode=value;siteKey='';
   const saved=drafts.get(draftKey(value));
   if(saved){({cell,degrees,worldAngle}=saved);quantity=Number(saved.quantity);$('ball-quantity').value=quantity;}
   else{cell=null;if(value!=='move'&&previousMode!==value){worldAngle=String(Math.round((value==='start'&&!mine().length?40960:selected()?.heading??40960)*360/65536*100)/100%360);degrees=displayHeading(worldAngle);}if(value==='start'){quantity=1;$('ball-quantity').value='1';}}
 
+  if(value==='move'&&(cell===null||!legalMoveDestination(world,declaration.account,id,cell,config)))cell=defaultMove;
+  if(value==='start'&&mine().length&&(cell===null||!buildSites().includes(cell)))cell=defaultBuild();
   show('action',id===null?'New cannon':`Cannon #${id}`);refresh();
  }
  $('identity-form').addEventListener('submit',event=>{event.preventDefault();try{const next=parseSendingAccount($('sending-account').value,$('identity-subaccount').value);if(next.account!==declaration?.account){intentVersion++;packet=null;keepPrevious=false;warning='';id=null;mode='inspect';}declaration=next;persist();if(!$('remember-account').checked)store?.forget();identityLabel();updateRoster();activity();text('identity-note','');if(pending){const p=pending;pending=null;action(p);}else{show('account','Account');refresh();}}catch(error){text('identity-note',error.message);}});
@@ -137,7 +153,8 @@ export function createArcade(doc){
  const api={
   render(w,c,s,root=''){
    const nextContext=`${s.network}:${s.owner}`;
-   if(context!==nextContext){const firstContext=context===null;context=nextContext;if(!firstContext){view=null;$('workspace').hidden=true;}store=identityStore(s.network,s.owner,storage);declaration=(firstContext&&declaration)||store.read();history=createHandoffs(storage,`B2Z-activity-v1:${context}`);packet=null;keepPrevious=false;warning='';id=null;mode='inspect';try{const raw=storage?.getItem(`B2Z-view-v1:${context}`);preferences=raw&&raw.length<4096?JSON.parse(raw):{};}catch{preferences={};}cameraState=declaration?.camera?.projection==='isometric-1'?declaration.camera:null;id=Number.isSafeInteger(declaration?.cannon)?declaration.cannon:null;identityLabel();}
+   if(context!==nextContext){const firstContext=context===null;context=nextContext;if(!firstContext){view=null;$('workspace').hidden=true;}store=identityStore(s.network,s.owner,storage);declaration=(firstContext&&declaration)||store.read();history=createHandoffs(storage,`B2Z-activity-v1:${context}`);packet=null;keepPrevious=false;warning='';id=null;mode='inspect';try{const raw=storage?.getItem(`B2Z-view-v1:${context}`);preferences=raw&&raw.length<4096?JSON.parse(raw):{};}catch{preferences={};}cameraState=declaration?.camera?.projection==='isometric-1'?declaration.camera:null;// Remembered navigation preference is not an explicit session selection.
+ id=null;identityLabel();}
    world=w;config=c;source=s;revision=root;try{destination=paymentDestination(s);}catch(error){destination=null;status={canPrepare:false,label:'Unable to verify destination'};warning=error.message;}
    refs=cannonReference(w,c);
    if(id!==null&&!refs.some(c=>c.id===id)){id=null;mode='inspect';if(packet)warning='The copied target is no longer present. Saved instructions remain in Account.';else{warning='';text('copy-feedback','');}if(view==='action'||view==='inspect'){show('roster','Choose a cannon');text('roster-note','The selected cannon is no longer present. Choose another.');}}
@@ -152,10 +169,11 @@ export function createArcade(doc){
 
   aimAt(dx,dy){if(mode!=='ball'&&mode!=='start')return;degrees=String(Math.round(worldToScreen(Math.atan2(dy,dx)*180/Math.PI)*100)/100%360);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
   setHeading(value){if(!Number.isFinite(value))return;degrees=String((value%360+360)%360);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
+  destinationState:()=>({ready:moveReady,cell:defaultMove,key:moveKey,stats:moveSearch?.stats,cacheBytes:moveLegality?.bytes,cacheInspections:moveLegality?.inspected()}),
   proposedAction:()=>Object.freeze({mode,cell,degrees,worldAngle,quantity}),
   adjustAngle(delta){degrees=((Number(degrees)+delta+360)%360).toFixed(2);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
   aim(){if(view!=='action'||!['ball','start'].includes(mode)||mode==='start'&&!mine().length||mode==='start'&&mine().length&&cell===null)return null;const c=cell!==null&&mode==='start'?{id:null,cell}:selected();if(!c||mode==='start'&&mine().length&&!buildSites().includes(cell))return null;try{const m=transferMemo(worldAngle===null?encodedHeading(degrees):worldAngle);return{cannon:c,angle:m.command.value*360/65536,heading:m.command.value};}catch{return null;}},
-  moveSelection(){const c=selected();if(view!=='action')return null;if(world?.version===6&&mode==='start'&&mine().length)return{kind:'new',width:world.width,height:world.height,key:revision+'/'+siteKey,cells:buildSites(),cell,anchor:selected()?.cell};return mode==='move'&&c?{key:revision+'/'+id,width:world.width,height:world.height,id,cells:[],legal:n=>world.version===6?legalMoveDestination(world,declaration.account,id,n):n!==c.cell&&c.owns(n),cell,reference:world}:null;},
+  moveSelection(){const c=selected();if(view!=='action')return null;if(world?.version===6&&mode==='start'&&mine().length)return{kind:'new',width:world.width,height:world.height,key:revision+'/'+siteKey,cells:buildSites(),cell,anchor:selected()?.cell};return mode==='move'&&c?{key:revision+'/'+id,width:world.width,height:world.height,id,cells:[],legal:n=>moveLegality?.test(n)??false,cell,reference:world}:null;},
   chooseCell(n){const selection=api.moveSelection();if(selection&&n===null){cell=null;keepPrevious=false;clearDraft();refresh();return true;}if(!(selection?.legal?selection.legal(n):selection?.cells.includes(n))){text('preparation-note',mode==='start'?'Choose an empty eligible neighbouring tile.':n===selected()?.cell?'Choose a different tile.':'That move is unavailable: check ownership, occupancy or dormancy.');return false;}keepPrevious=false;cell=n;clearDraft();refresh();return true;},
   selectBall(){intentVersion++;rememberDraft();id=null;view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;emit();},
   openAccount(){identityLabel();activity();updateRoster();show('account','Account');if(!declaration)$('sending-account').focus();},

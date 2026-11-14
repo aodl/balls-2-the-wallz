@@ -16,7 +16,8 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
     wait_until(page,lambda:page.evaluate('__b2zExperience.session.config.rules_version')==7,90000)
     wait_until(page,lambda:page.locator('[data-copy="amount"]').is_enabled(),30000)
     assert page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale})')==camera
-    set_heading(page,'0');assert page.locator('#quantity-controls').is_hidden()
+    # Screen heading120 is canonical world heading0; preserve the exact NEW0 assertion.
+    set_heading(page,'120');assert page.locator('#quantity-controls').is_hidden()
     wait_until(page,lambda:page.locator('#transfer-amount').inner_text()=='1 ICP'and page.locator('#text-memo').inner_text()=='NEW 0 1',15000)
     page.screenshot(path=str(out/'before-join-desktop.png'))
     (out/'browser-entry-ready').write_text('verified rules-7 quote from occupied world\n')
@@ -32,3 +33,11 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
     report['entry']={'status':'PASS','existing_session':True,'navigation_after_initial':len(navigations),'rules6_full_world_quote_blocked':True,'rules7_full_world_quote_amount':'1 ICP','memo':'NEW 0 1','independent_disposable_payment':'Harness independently sends two-ball NEW; UI defaults to one included ball. This receipt is not associated with saved instructions.','receipt':receipt,'position':sent['position'],'receipt_wait_seconds':confirmed-started,'confirmed_to_visible_seconds':time.monotonic()-confirmed,'heads':page.evaluate('__dtrLive.heads'),'camera_preserved_through_rules_handoff':True,'source':'Actual valueless Ledger/Index admission and authenticated artifacts, not inferred from counts'}
     record('rules-7-occupied-world-join-receipt-and-presentation',report['entry']);save()
     (out/'browser-join-seen').write_text('genuine receipt and same-page presentation verified\n')
+    wait_file(page,out/'clearance-activated',180000)
+    wait_until(page,lambda:page.evaluate('__b2zExperience.session.config.rules_version')==9,60000)
+    wait_until(page,lambda:page.locator('#move-action').is_disabled()and page.locator('#build-action').is_disabled()and page.locator('#move-action').get_attribute('title')=='No legal move destination',30000)
+    assert page.locator('#move-action').get_attribute('title')=='No legal move destination'
+    page.screenshot(path=str(out/'rules9-no-safe-destinations.png'))
+    report['clearance']={'status':'PASS','same_page':True,'active_rules':9,'move_disabled':True,'build_disabled':True,'certificate_mode':page.evaluate('__dtrLive.delivery.acceptedHeads.at(-1).mode')}
+    assert report['clearance']['certificate_mode']=='certificate-verifier'
+    record('rules-9-authenticated-handoff-and-no-safe-destinations',report['clearance']);save()

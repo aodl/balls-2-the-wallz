@@ -8,7 +8,7 @@ from playwright.sync_api import sync_playwright,expect
 from fluid_playability_browser import settled_panel,settled,wallet_fields_reachable,TILE_PAYMENT_WARNING,payment_warning
 from human_input import set_heading,choose_cell,chosen_cell
 from panel_geometry_browser import verify_status_geometry
-p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--fixture-dir',type=Path);p.add_argument('--baseline',action='store_true');p.add_argument('--width',type=int);p.add_argument('--seams-only',action='store_true');a=p.parse_args();out=a.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1];fixture=a.fixture_dir.absolute() if a.fixture_dir else out/'fixture'
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--fixture-dir',type=Path);p.add_argument('--baseline',action='store_true');p.add_argument('--width',type=int);p.add_argument('--seams-only',action='store_true');p.add_argument('--reduced-motion',action='store_true');p.add_argument('--forced-colors',action='store_true');a=p.parse_args();out=a.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1];fixture=a.fixture_dir.absolute() if a.fixture_dir else out/'fixture'
 if not a.fixture_dir:
  fixture.mkdir();subprocess.run(['node','tools/fixtures/prepare-playability-actions.mjs',str(fixture/'fixture.json')],check=True);subprocess.run(['node_modules/.bin/esbuild','tools/fixtures/playability-action-browser.mjs','--bundle','--platform=browser','--format=esm','--outfile='+str(fixture/'fixture.mjs')],check=True);(fixture/'index.html').write_text((root/'apps/b2z-observer/index.html').read_text().replace('src="./app.mjs"','src="./fixture.mjs"'));(fixture/'cursors').mkdir()
  for name in ['style.css','icon.svg','cursors/reticle.svg']:(fixture/name).write_bytes((root/'apps/b2z-observer'/name).read_bytes())
@@ -20,7 +20,7 @@ with sync_playwright() as pw:
  b=pw.chromium.launch(headless=True,chromium_sandbox=True)
  try:
   for w,h in [(w,h)for w,h in [(1440,900),(390,844),(320,640)]if (a.width is None or a.width==w)and(not a.seams_only or w==1440)]:
-   c=b.new_context(viewport={'width':w,'height':h},has_touch=w<700,record_video_dir=str(out/'video'),record_video_size={'width':w,'height':h},permissions=['clipboard-write']);page=c.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.goto(f'http://127.0.0.1:{s.server_port}');page.wait_for_function('()=>!!globalThis.fixture');page.locator('#identify-button').click();page.locator('#sending-account').fill('aaaaa-aa');page.locator('#identity-save').click();page.locator('#close-panel').click();row={'viewport':[w,h],'baseline':a.baseline}
+   c=b.new_context(viewport={'width':w,'height':h},has_touch=w<700,reduced_motion='reduce'if a.reduced_motion else'no-preference',forced_colors='active'if a.forced_colors else'none',record_video_dir=str(out/'video'),record_video_size={'width':w,'height':h},permissions=['clipboard-write']);page=c.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.goto(f'http://127.0.0.1:{s.server_port}');page.wait_for_function('()=>!!globalThis.fixture');page.locator('#identify-button').click();page.locator('#sending-account').fill('aaaaa-aa');page.locator('#identity-save').click();page.locator('#close-panel').click();row={'viewport':[w,h],'baseline':a.baseline}
    if a.seams_only:
     values=[page.evaluate('(o)=>fixture.minimapSeamPixels(o)',o)for o in [{'x':500,'y':500},{'x':0,'y':0},{'x':999.8,'y':999.8},{'x':501.25,'y':498.75}]];print(values,flush=True);assert all(v['bad']==0 for v in values),values;rows.append({'viewport':[w,h],'seams':values});c.close();continue
    def setup():
@@ -91,6 +91,9 @@ with sync_playwright() as pw:
    if not a.baseline and w==1440:
     row['minimap_seams']=[page.evaluate('(o)=>fixture.minimapSeamPixels(o)',o)for o in [{'x':500,'y':500},{'x':0,'y':0},{'x':999.8,'y':999.8},{'x':501.25,'y':498.75}]]
     assert all(v['bad']==0 for v in row['minimap_seams']),row['minimap_seams']
+   if not a.baseline:
+    from territory_controls_browser import verify_territory_controls
+    row['territory_controls']=verify_territory_controls(page,out,w)
    row['recording']=str(Path(page.video.path()).relative_to(out));assert not errors,errors;rows.append(row);(out/'results.json').write_text(json.dumps({'status':'BASELINE'if a.baseline else'RUNNING','rows':rows},indent=2)+'\n');c.close();print('PASS'if not a.baseline else'BASELINE',w,flush=True)
  except Exception:
   traceback.print_exc();page.screenshot(path=str(out/'failure.png'));raise

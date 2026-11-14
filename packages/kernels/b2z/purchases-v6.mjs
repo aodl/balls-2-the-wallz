@@ -1,3 +1,4 @@
+import {hasEnemyClearance} from '../../protocol/territory-clearance.mjs';
 import{allocateTerritory,mergeTerritories,territoryForCannon,territoryBalls}from'./territory-v6.mjs';
 /** Versioned pure purchase planning; the enclosing cursor owns receipt admission. */
 import {decodeV6Memo,encodeV6Memo,MAX_QUANTITY} from '../../protocol/memo-v6.mjs';
@@ -57,8 +58,8 @@ export function placeNew(w,account,budget,p,r,entryRules=false){
  return {world:next,cannon,ball,event:{kind:'cannon_spawned',cannon:cloneCanonical(cannon),player,patch,previous_owners,placement_class:r.kind,frontier_other:r.other,ball:cloneCanonical(ball),reactivated_cannons:reactivated,ownership_ops,metadata_delta:metadataDelta(w.playability,next.playability)}};
 }
 export function sitePoolCount(w,player,cell){return [...new Set([cell,...neighbors(cell,w.width,w.height,true)].filter(c=>playerAt(w,c)===player).map(c=>ownerAt(w,c)))].reduce((sum,id)=>sum+territoryBalls(w,id),0);}
-export function chooseAdjacent(w,id,seed){
- if(!/^[0-9a-f]{64}$/.test(seed))throw Error('spawn seed');const ranked=adjacentSites(w,id).filter(cell=>sitePoolCount(w,id,cell)<V6_POLICY.max_purchase_balls_per_island).map(cell=>[sha256(encodeCanonical({domain:'B2Z-ADJACENT-SPAWN-06',seed,cell})),cell]);
+export function chooseAdjacent(w,id,seed,clearance=false){
+ if(!/^[0-9a-f]{64}$/.test(seed))throw Error('spawn seed');const ranked=adjacentSites(w,id).filter(cell=>!clearance||enemyClearance(w,id,cell)).filter(cell=>sitePoolCount(w,id,cell)<V6_POLICY.max_purchase_balls_per_island).map(cell=>[sha256(encodeCanonical({domain:'B2Z-ADJACENT-SPAWN-06',seed,cell})),cell]);
  ranked.sort((a,b)=>a[0]===b[0]?a[1]-b[1]:a[0]<b[0]?-1:1);return ranked[0]?.[1]??null;
 }
 export function preparePurchase(w,account,budget,memo,moved=[]){
@@ -109,4 +110,12 @@ export class PurchaseBatch{
   const stop=this.stop_reason;if(stop===null)throw Error('incomplete purchase');const actual=this.prices.length;
   return {reason:actual?'ACCEPTED':'REJECTED',kind:'purchase_completed',status:!actual?'rejected':actual<this.requested&&(this.explicit||stop!=='insufficient_payment')?'partially_applied':'applied',cannon:this.cannon,new_cannon:this.new_cannon,requested_quantity:this.requested,quantity_explicit:this.explicit,actual_quantity:actual,per_item_prices:this.prices,amount_used:this.used,remainder:this.remainder,stop_reason:stop};
  }
+}
+
+/** Rules-9 admission; historical preparePurchase remains byte-for-byte policy. */
+export function enemyClearance(w,player,cell){return hasEnemyClearance(w.width,w.height,cell,player,c=>playerAt(w,c));}
+
+export function preparePurchaseClearance(w,account,budget,memo,moved=[]){
+ const p=preparePurchase(w,account,budget,memo,moved);if(p.kind==='move'){if(!enemyClearance(w,playerForCannon(w,p.cannon),p.cell))return reject('ENEMY_TERRITORY_TOO_CLOSE');}
+ if(p.kind==='new'&&!p.first){const sites=adjacentSites(w,p.player).filter(cell=>sitePoolCount(w,p.player,cell)<V6_POLICY.max_purchase_balls_per_island);if(p.cell!==null?!enemyClearance(w,p.player,p.cell):!sites.some(cell=>enemyClearance(w,p.player,cell)))return reject('ENEMY_TERRITORY_TOO_CLOSE');}return p;
 }

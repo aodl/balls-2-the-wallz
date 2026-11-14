@@ -313,7 +313,10 @@ fn cannon(w: &World, id: u32) -> Result<Option<CannonView>> {
 }
 pub fn game_info() -> Result<GameInfo> {
     let (r, p, w) = load()?;
-    let configuration = if p.identity.config_hash == hash(b2z_native::entry_v7::configuration()) {
+    let configuration = if p.identity.config_hash == hash(b2z_native::clearance_v9::configuration())
+    {
+        b2z_native::clearance_v9::configuration()
+    } else if p.identity.config_hash == hash(b2z_native::entry_v7::configuration()) {
         b2z_native::entry_v7::configuration()
     } else {
         match w.version {
@@ -487,18 +490,35 @@ fn command(action: &QuoteAction) -> b2z_protocol::v6::Command {
 fn quote_items(w: &World, funding_account: &str, action: &QuoteAction) -> Result<Vec<u64>> {
     quote_items_with_policy(w, funding_account, action, false)
 }
+#[cfg(test)]
 fn quote_items_with_policy(
     w: &World,
     funding_account: &str,
     action: &QuoteAction,
     entry_rules: bool,
 ) -> Result<Vec<u64>> {
+    quote_items_with_rules(w, funding_account, action, entry_rules, false)
+}
+fn quote_items_with_rules(
+    w: &World,
+    funding_account: &str,
+    action: &QuoteAction,
+    entry_rules: bool,
+    clearance_rules: bool,
+) -> Result<Vec<u64>> {
     account(funding_account)?;
     if w.version != 6 {
         return Err("RULES_V6_NOT_ACTIVE".into());
     }
     let memo = b2z_protocol::v6::encode(command(action)).map_err(|_| "COMMAND_BOUNDS")?;
-    let plan = purchases_v6::prepare(w, funding_account, u64::MAX, &memo, &[])?;
+    let plan = purchases_v6::prepare_with_clearance(
+        w,
+        funding_account,
+        u64::MAX,
+        &memo,
+        &[],
+        clearance_rules,
+    )?;
     let free = v6::MAX_BALLS.saturating_sub(w.balls.len());
     match plan {
         purchases_v6::Plan::Rejected { reason } => Err(reason),
@@ -548,6 +568,9 @@ fn quote_items_with_policy(
                 let player = player.ok_or("PLAYER")?;
                 purchases_v6::adjacent_sites(w, player)?
                     .into_iter()
+                    .filter(|cell| {
+                        !clearance_rules || purchases_v6::enemy_clearance(w, player, *cell)
+                    })
                     .map(|cell| purchases_v6::site_pool_count(w, player, cell))
                     .filter(|n| *n < v6::MAX_PURCHASE_BALLS_PER_ISLAND)
                     .collect::<Vec<_>>()
@@ -617,11 +640,13 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
     if !super::PACE.with(|p| p.borrow().hint().admission_open) {
         return Err("ADMISSION_CLOSED".into());
     }
-    let prices = quote_items_with_policy(
+    let prices = quote_items_with_rules(
         &w,
         &funding_account,
         &action,
-        p.identity.config_hash == hash(b2z_native::entry_v7::configuration()),
+        p.identity.config_hash == hash(b2z_native::entry_v7::configuration())
+            || p.identity.config_hash == hash(b2z_native::clearance_v9::configuration()),
+        p.identity.config_hash == hash(b2z_native::clearance_v9::configuration()),
     )?;
     let amount = prices
         .iter()
@@ -987,5 +1012,55 @@ mod tests {
             }
         )
         .is_ok());
+    }
+    #[test]
+    fn clearance_quote_policy_matches_active_rules_and_preserves_fire() {
+        let f: serde_json::Value =
+            serde_json::from_str(include_str!("../../../tests/fixtures/clearance-v9.json"))
+                .unwrap();
+        let mut w =
+            World::decode(&unhex(f["rows"][0]["initial_hex"].as_str().unwrap()).unwrap()).unwrap();
+        let mapping = (1..=2)
+            .map(|i| {
+                (
+                    format!("{i:02x}").repeat(32),
+                    AccountIdentifier::new(
+                        &Principal::self_authenticating([i; 32]),
+                        &DEFAULT_SUBACCOUNT,
+                    )
+                    .to_hex(),
+                )
+            })
+            .collect::<std::collections::BTreeMap<_, _>>();
+        for c in &mut w.cannons {
+            c.account = mapping[&c.account].clone();
+        }
+        for p in &mut w.playability.as_mut().unwrap().players {
+            p.account = mapping[&p.account].clone();
+        }
+        for c in &mut w.credits {
+            c.account = mapping[&c.account].clone();
+        }
+        w.credits.sort_by(|a, b| a.account.cmp(&b.account));
+        w.validate().unwrap();
+        let account = &w.cannons[0].account;
+        let action = QuoteAction::Move { cannon: 1, cell: 3 };
+        assert_eq!(
+            quote_items_with_rules(&w, account, &action, true, false).unwrap(),
+            vec![10000]
+        );
+        assert_eq!(
+            quote_items_with_rules(&w, account, &action, true, true).unwrap_err(),
+            "ENEMY_TERRITORY_TOO_CLOSE"
+        );
+        let action = QuoteAction::Fire {
+            cannon: 1,
+            angle: 0,
+            quantity: 1,
+        };
+        assert_eq!(
+            quote_items_with_rules(&w, account, &action, true, false).unwrap(),
+            quote_items_with_rules(&w, account, &action, true, true).unwrap()
+        );
     }
 }

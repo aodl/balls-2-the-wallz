@@ -2,7 +2,7 @@
 import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {beginSpawn,beginEntrySpawn,spawnStep} from './spawn.mjs';
-import {preparePurchase,PurchaseBatch,chooseAdjacent,placeNew} from './purchases-v6.mjs';
+import {preparePurchaseClearance,preparePurchase,PurchaseBatch,chooseAdjacent,placeNew} from './purchases-v6.mjs';
 import {CaptureJob} from './capture-v6.mjs';
 import {finalizeElapsed,V6_POLICY} from './playability.mjs';
 import {validateWorld} from './world.mjs';
@@ -17,7 +17,7 @@ export function workV6(c,readPayment){
    if(c.inputIndex===c.inputs.length){c.restartSearch();return true;}
    const p=readPayment(c.inputs[c.inputIndex].payload_hex);
    if(c.world.received_e8s+p.amount>=1n<<128n)throw Error('treasury overflow');
-   const plan=preparePurchase(c.world,p.account,p.amount,p.memo,c.moved);c.world.received_e8s+=p.amount;
+   const plan=(c.v6.clearance_rules?preparePurchaseClearance:preparePurchase)(c.world,p.account,p.amount,p.memo,c.moved);c.world.received_e8s+=p.amount;
    const payment={account:p.account,amount:p.amount};
    if(plan.kind==='rejected')rejected(c,payment,plan.reason);
    else if(plan.kind==='move'){
@@ -30,7 +30,7 @@ export function workV6(c,readPayment){
      else{
        c.spawnSearches++;const seed=sha256(encodeCanonical({base:c.seedBase,position:BigInt(c.inputs[c.inputIndex].position),cannon:c.world.next_cannon_id}));
        if(plan.first){c.spawnJob=c.v6.entry_rules?beginEntrySpawn(c.world,seed):beginSpawn(seed);c.spawnAngle=plan.angle;c.v6.payment=payment;c.v6.plan=plan;c.phase='v6_spawn';}
-       else{const cell=plan.cell??chooseAdjacent(c.world,plan.player,seed);if(cell===null)rejected(c,payment,'NO_ADJACENT_SITE');else place(c,payment,plan,{cell,patch:[cell],kind:4,other:-1,checked:1});}
+       else{const cell=plan.cell??chooseAdjacent(c.world,plan.player,seed,!!c.v6.clearance_rules);if(cell===null)rejected(c,payment,'NO_ADJACENT_SITE');else place(c,payment,plan,{cell,patch:[cell],kind:4,other:-1,checked:1});}
      }
    }else throw Error('PURCHASE_PLAN');
  }else if(c.phase==='v6_spawn'){

@@ -18,10 +18,10 @@ if(sha(builder)!=='915e0e0ca6ff6c31a6252832e1dbc03fcab21a3f1763689ec1d5f40c9b610
 const config=await readFile('apps/b2z-observer/configuration-playability.bin');
 if(sha(config)!==PLAYABILITY_IDENTITY.config_hash||CONFIGURATION_ASSETS[sha(config)]!=='configuration-playability.bin')throw Error('v6 configuration binding');
 execFileSync(process.execPath,['tools/build_observer_mainnet.mjs',...process.argv.slice(2)],{stdio:'inherit'});
-for(const [source,name]of[['apps/b2z-observer/configuration-playability.bin','configuration-playability.bin'],['apps/b2z-observer/configuration-entry.bin','configuration-entry.bin'],['docs/operations/B2Z_AGENT_API.md','agent-api.md'],['canisters/runtime-lab/runtime-lab.did','backend.did']])await copyFile(source,out+'/'+name);
+for(const [source,name]of[['apps/b2z-observer/configuration-playability.bin','configuration-playability.bin'],['apps/b2z-observer/configuration-entry.bin','configuration-entry.bin'],['apps/b2z-observer/configuration-clearance.bin','configuration-clearance.bin'],['docs/operations/B2Z_AGENT_API.md','agent-api.md'],['canisters/runtime-lab/runtime-lab.did','backend.did']])await copyFile(source,out+'/'+name);
 await mkdir(out+'/cursors',{recursive:true});await copyFile('apps/b2z-observer/cursors/reticle.svg',out+'/cursors/reticle.svg');
 const manifest=JSON.parse(await readFile(out+'/build-manifest.json','utf8'));
-for(const name of ['cursors/reticle.svg','configuration-playability.bin','configuration-entry.bin','agent-api.md','backend.did']){const bytes=await readFile(out+'/'+name);manifest.files[name]={sha256:sha(bytes),bytes:bytes.length};}
+for(const name of ['cursors/reticle.svg','configuration-playability.bin','configuration-entry.bin','configuration-clearance.bin','agent-api.md','backend.did']){const bytes=await readFile(out+'/'+name);manifest.files[name]={sha256:sha(bytes),bytes:bytes.length};}
 manifest.supported_configuration_assets=CONFIGURATION_ASSETS;manifest.base_builder_sha256=sha(builder);manifest.playability_wrapper_sha256=sha(await readFile(new URL(import.meta.url)));manifest.mcp_service_discovery='INACTIVE; no architecture manifest or terms opt-in';
 await extendAudioAssets(out,manifest);
 await writeFile(out+'/build-manifest.json',JSON.stringify(manifest,null,2)+'\n');

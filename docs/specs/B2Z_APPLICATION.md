@@ -81,3 +81,12 @@ fixed CMC self-top-up route, independently of gameplay and the browser.
 [Policy, recovery and future activation](../operations/PRELAUNCH_SELF_FUNDING.md).
 No player payout or refund feature is added. This task authorizes local
 valueless tests only; value-moving deployment needs separate authorization.
+
+## Proposed territory-clearance successor
+
+[Rules 9](B2Z_TERRITORY_CLEARANCE_9.md) add processing-time toroidal Chebyshev
+clearance for Move/additional New only. This is a distinct rules-only epoch, not a
+frontend upgrade or a change to historical v7 interpretation. No production
+activation is authorized by its implementation task. Experimental delegated-payment
+v8 remains separate. Paid world, accounting, source ordering and first-entry rules
+remain preserved at the proposed cutover.

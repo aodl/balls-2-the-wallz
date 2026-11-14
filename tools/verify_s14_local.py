@@ -64,6 +64,9 @@ def main():
     p.add_argument('--million-prior-wasm',type=Path,help='Exact installed c7c69d pacing module for v4→v5 upgrade and epoch transition')
     p.add_argument('--pacing-prior-wasm',type=Path,help='Exact installed e1e7 torus module for the pacing-only upgrade')
     p.add_argument('--funding-prior-wasm',type=Path,help='Exact installed 53b219 module for funding state-preserving upgrade')
+    p.add_argument('--european-prior-wasm',type=Path,help='Exact retained paid European rules7 module; disposable upgrade qualification only')
+    p.add_argument('--entry-prior-wasm',type=Path,help='Exact historical b618 v6 predecessor for the separate entry upgrade rehearsal')
+    p.add_argument('--entry-fixture-wasm',type=Path,help='Reviewed synthetic setup-only old-root fixture for historical entry rehearsal')
     p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
     result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
@@ -149,6 +152,13 @@ def main():
             if a.test_filter!='pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate':raise ValueError('pacing predecessor requires its exact focused test')
             if hashlib.sha256(a.pacing_prior_wasm.read_bytes()).hexdigest()!='e1e7b491215ba34308d757ec2fc1d59b2c631a9c443674149997f4f146fb3fac':raise ValueError('pacing upgrade requires exact installed e1e7 module')
             env['B2Z_PACING_PRIOR_WASM']=str(a.pacing_prior_wasm.resolve())
+        if a.european_prior_wasm:
+            if hashlib.sha256(a.european_prior_wasm.read_bytes()).hexdigest()!='612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948':raise ValueError('European upgrade requires exact retained installed module')
+            env['B2Z_EUROPEAN_PRIOR_WASM']=str(a.european_prior_wasm.resolve())
+        if a.entry_prior_wasm:
+            if hashlib.sha256(a.entry_prior_wasm.read_bytes()).hexdigest()!='b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e':raise ValueError('Entry upgrade requires exact historical predecessor')
+            env['B2Z_ENTRY_PRIOR_WASM']=str(a.entry_prior_wasm.resolve())
+        if a.entry_fixture_wasm:env['B2Z_ENTRY_FIXTURE_WASM']=str(a.entry_fixture_wasm.resolve())
         if a.asset_canister:env['S14_ASSET_CANISTER']='1'
         if a.prior_wasm:
             if not a.test_filter or hashlib.sha256(a.prior_wasm.read_bytes()).hexdigest()!='15b016b9d156a1b90feeeb9be610fc7ba51d9413509c3c7161ab8e13faacb703':raise ValueError('price-transition probe needs exact reviewed old module and explicit test filter')
@@ -183,7 +193,7 @@ def main():
                     stop_pocketic(*server[:3]);server=None
             (out/'logs'/(identifier+'.log')).write_text('\n'.join(combined))
         million_tests={'million_paid_v4_cutover_preserves_state_and_uses_second_epoch','million_max_population_production_probe','million_browser_normal_lifeline_and_cold_reconnect','million_browser_sustained_normal_and_cold_lifeline'}
-        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or bool(a.pacing_prior_wasm) or a.test_filter in million_tests)
+        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or bool(a.pacing_prior_wasm) or a.test_filter in million_tests or a.test_filter in {'entry_installed::european_rules7_upgrade_and_clearance','entry_installed::full_world_upgrade_and_first_entry'})
         if not a.test_filter:
             installed_suite('installed-million-integration',['million_'],ignored=True)
         if not a.test_filter:

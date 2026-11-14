@@ -340,16 +340,21 @@ impl Cursor {
         let million = million_identity()?;
         let playability = crate::playability::identity()?;
         let entry = crate::entry_v7::identity()?;
+        let clearance = crate::clearance_v9::identity()?;
+        let is_clearance = context.get("config_hash") == clearance.get("config_hash");
         let is_entry = context.get("config_hash") == entry.get("config_hash");
         let is_playability = context.get("config_hash") == playability.get("config_hash");
         let is_million = context.get("config_hash") == million.get("config_hash");
         let is_torus = context.get("config_hash") == torus.get("config_hash");
-        let is_current = is_entry
+        let is_current = is_clearance
+            || is_entry
             || is_playability
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_entry {
+        let expected = if is_clearance {
+            clearance
+        } else if is_entry {
             entry
         } else if is_playability {
             playability
@@ -369,7 +374,7 @@ impl Cursor {
         }
         let world = World::decode(state)?;
         if world.version
-            != if is_entry || is_playability {
+            != if is_entry || is_clearance || is_playability {
                 6
             } else if is_million {
                 5
@@ -405,8 +410,9 @@ impl Cursor {
         let initial_credits = world.credits.clone();
         let next_time = start.clone();
         Ok(Self {
-            v6: (is_entry || is_playability).then(|| crate::cursor_v6::State {
-                entry_rules: is_entry,
+            v6: (is_entry || is_clearance || is_playability).then(|| crate::cursor_v6::State {
+                entry_rules: is_entry || is_clearance,
+                clearance_rules: is_clearance,
                 ..Default::default()
             }),
             join_e8s: is_current.then(|| Int(BigInt::from(JOIN_E8S))),

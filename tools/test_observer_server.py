@@ -84,10 +84,10 @@ class ObserverServerTests(unittest.TestCase):
     def test_v6_assets_and_public_docs_use_the_explicit_deployment_allowlist(self):
         with tempfile.TemporaryDirectory() as directory:
             root=Path(directory)
-            for name in ['configuration-playability.bin','configuration-entry.bin','backend.did','agent-api.md']:(root/name).write_bytes(b'public-test-asset')
+            for name in ['configuration-playability.bin','configuration-entry.bin','configuration-clearance.bin','backend.did','agent-api.md']:(root/name).write_bytes(b'public-test-asset')
             (root/'private-note.txt').write_text('not served')
             with patch.object(serve_observer,'DEPLOYMENT_ASSETS',root):
-                for name in ['configuration-playability.bin','configuration-entry.bin','backend.did','agent-api.md']:
+                for name in ['configuration-playability.bin','configuration-entry.bin','configuration-clearance.bin','backend.did','agent-api.md']:
                     with self.subTest(name=name):self.assertEqual(self.get('/'+name)[::2],(200,b'public-test-asset'))
                 self.assertEqual(self.get('/private-note.txt')[0],404)
                 self.assertEqual(self.get('/.well-known/ic-architecture')[0],404)

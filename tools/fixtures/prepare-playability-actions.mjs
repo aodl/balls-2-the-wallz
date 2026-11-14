@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import {B2zCursor} from '../../packages/kernels/b2z/kernel.mjs';
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {hex,unhex} from '@dtr/timeline-runtime/protocol/bytes';
-import {decodeWorld,encodeWorld} from '../../packages/kernels/b2z/world.mjs';
+import {decodeWorld,encodeWorld,setOwner,validateWorld} from '../../packages/kernels/b2z/world.mjs';
 import {expireV6} from '../../packages/kernels/b2z/lifecycle-v6.mjs';
 import {dueFences} from '../../packages/kernels/b2z/playability.mjs';
 import {V6_POLICY} from '../../packages/kernels/b2z/playability.generated.mjs';
@@ -23,6 +23,8 @@ for(const[name,row]of Object.entries(f.cases)){
  const c=new B2zCursor(initial,[],seal);while(!c.step(512).complete){}c.finalizeElapsed(w.playability.elapsed_ns+1000000000n);const out=c.result();
  cases.wrap={initial:hex(initial),final:hex(out.state),events:hex(out.events),seal:hex(encodeCanonical(seal))};
 }
+// Static, valid one-cell territory for an exhaustive no-Move proof.
+{const w=decodeWorld(bytesHex(cases.idle.initial));if(w.cannons.length!==1||w.balls.some(b=>b.cell!==w.cannons[0].cell))throw Error('no-Move fixture requires one active anchored cell');w.ownership.base.fill(0);w.ownership.overrides=[];w.ownership.counts=[];setOwner(w,w.cannons[0].cell,1);validateWorld(w);const bytes=hex(encodeWorld(w));cases.noMove={initial:bytes,final:bytes};}
 const sequences={};
 for(const name of ['idle','wrap']){
  let initial=bytesHex(cases[name].final);sequences[name]=[];

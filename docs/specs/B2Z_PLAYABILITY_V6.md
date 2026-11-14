@@ -104,3 +104,12 @@ The complete browser-enabled installed rehearsal, independent replay and final C
 passed before the v6 deployment. Historical failed attempts remain preserved.
 See [the deployed release record](../../evidence/BTZ/v6-mainnet-release/REPORT.md).
 Synthetic fixtures remain content tests; they are not IC authentication evidence.
+
+## Versioned successor: territory clearance
+
+The Move/additional-New legality above remains the historical v6/v7 contract.
+The separately identified [rules-9 successor](B2Z_TERRITORY_CLEARANCE_9.md) adds
+processing-time enemy clearance using toroidal Chebyshev distance ≥4. It preserves
+all other restrictions, financial retention and existing receipts. A UI update
+cannot activate this rule. First Join, Fire, Revive and ordinary physics retain
+their original policy; experimental delegated payments remain separate.

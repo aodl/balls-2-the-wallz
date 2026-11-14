@@ -1,9 +1,12 @@
 /** UX-02/12: one cheap displayed-copy resolver for hover and activation. */
+import {aimingArrow} from './guide-clearance.mjs';
 import {heading} from '../../packages/kernels/b2z/math.mjs';
 function segmentDistance(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy||1)));return Math.hypot(p.x-a.x-t*dx,p.y-a.y-t*dy);}
 /** Pointer-down owns the entire gesture. Move never supplies an aim. */
-export function aimingVicinity(camera,aim,p,pointerType='mouse',selection=null){
+export function aimingVicinity(camera,aim,p,pointerType='mouse',selection=null,obstacles=[]){
  if(!aim)return false;
+ const arrow=aimingArrow(camera,aim,obstacles),width=pointerType==='mouse'?9:16;
+ if(arrow&&arrow.screen.some((b,i)=>i>0&&segmentDistance(p,arrow.screen[i-1],b)<=width))return true;
  // An explicitly eligible different Build tile remains a destination target,
  // including a neighbour whose centre falls inside the generous touch halo.
  if(selection?.kind==='new'){const cell=camera.cell(p.x,p.y);if(cell!==selection.cell&&selection.cells.includes(cell))return false;}

@@ -36,24 +36,24 @@ export function wheelZoom({deltaY,deltaMode=0,ctrlKey=false},height=800){
  return{factor:Math.exp(-Math.max(-500,Math.min(500,amount))*.002),discrete:deltaMode!==0||(!ctrlKey&&Number.isInteger(deltaY)&&n>=40&&(n%40===0||n%100===0))};
 }
 export class CameraController{
- constructor(camera,{now=()=>performance.now(),reducedMotion=()=>false,onSettled=()=>{}}={}){this.camera=camera;this.now=now;this.reducedMotion=reducedMotion;this.onSettled=onSettled;this.animation=null;this.following=null;this.lastFrame=null;}
+ constructor(camera,{now=()=>performance.now(),reducedMotion=()=>false,onSettled=()=>{},onChange=()=>{}}={}){this.camera=camera;this.now=now;this.reducedMotion=reducedMotion;this.onSettled=onSettled;this.onChange=onChange;this.animation=null;this.following=null;this.lastFrame=null;}
  target(fn){const c=Object.assign(Object.create(Object.getPrototypeOf(this.camera)),this.camera);fn(c);return pose(c);}
  sample(now){
   const a=this.animation;if(!a)return false;const c=this.camera,p=Math.max(0,Math.min(1,(now-a.start)/a.duration)),e=p*p*(3-2*p);
   c.scale=p===1?a.to.scale:a.from.scale===a.to.scale?a.from.scale:Math.exp(Math.log(a.from.scale)+(Math.log(a.to.scale)-Math.log(a.from.scale))*e);c.constrain();
   c.centre(a.from.x+a.dx*e,a.from.y+a.dy*e);
   if(a.anchor){const q=c.world(a.anchor.sx,a.anchor.sy);c.centre(c.x+a.anchor.x-q.x,c.y+a.anchor.y-q.y);}
-  if(p===1){this.animation=null;this.onSettled(pose(c));}return true;
+  if(p===1){this.animation=null;this.onSettled(pose(c));this.onChange();}return true;
  }
  go(target,{owner='command',duration,keepFollow=false,anchor=null}={}){
   const now=this.now();this.sample(now);this.animation=null;if(!keepFollow)this.stopFollow();const c=this.camera,from=pose(c),to=this.target(d=>{Object.assign(d,target);d.constrain();}),dx=delta(from.x,to.x,c.width,c.torus),dy=delta(from.y,to.y,c.height,c.torus);
   if(![from.x,from.y,from.scale,to.x,to.y,to.scale].every(Number.isFinite)||c.width<=0||c.height<=0)return false;
-  if(!dx&&!dy&&Math.abs(from.scale-to.scale)<1e-10)return false;
+  if(!dx&&!dy&&Math.abs(from.scale-to.scale)<1e-10){this.onChange();return false;}
   duration=this.reducedMotion()?0:duration??Math.min(380,220+Math.hypot(dx,dy)*.12+Math.abs(Math.log(to.scale/from.scale))*35);
-  if(duration<=0){Object.assign(c,to);c.constrain();if(anchor){const q=c.world(anchor.sx,anchor.sy);c.centre(c.x+anchor.x-q.x,c.y+anchor.y-q.y);}this.onSettled(pose(c));return true;}
-  this.animation={owner,from,to,dx,dy,start:now,duration,anchor};return true;
+  if(duration<=0){Object.assign(c,to);c.constrain();if(anchor){const q=c.world(anchor.sx,anchor.sy);c.centre(c.x+anchor.x-q.x,c.y+anchor.y-q.y);}this.onSettled(pose(c));this.onChange();return true;}
+  this.animation={owner,from,to,dx,dy,start:now,duration,anchor};this.onChange();return true;
  }
- cancel({follow=false}={}){this.sample(this.now());this.animation=null;if(follow)this.stopFollow();}
+ cancel({follow=false}={}){this.sample(this.now());this.animation=null;if(follow)this.stopFollow();this.onChange();}
  manual(){this.cancel({follow:true});}
  stopFollow(){this.following=null;if(this.animation?.owner==='follow-entry')this.animation=null;}
  focus(cell,options={}){
@@ -82,5 +82,6 @@ export class CameraController{
   const k=this.reducedMotion()?1:1-Math.exp(-elapsed/.12),fraction=1-radius/Math.hypot(sx,sy),q=c.world(c.viewport.width/2+sx*fraction,c.viewport.height/2+sy*fraction);
   c.centre(c.x+(q.x-c.x)*k,c.y+(q.y-c.y)*k);
  }
+ zoomAvailability(){const c=this.camera,s=Math.max(c.fitScale,Math.min(c.maxScale,this.animation?.to.scale??c.scale)),e=Math.max(1e-10,c.maxScale*1e-9);return{in:s<c.maxScale-e,out:s>c.fitScale+e,overview:s>c.fitScale+e};}
  get active(){return Boolean(this.animation);}
 }

@@ -944,3 +944,48 @@ errors remain local to the sound controls; mute/unsupported audio cannot impede
 verification, playback, input or copying. Preserve the supplied tempo and baked
 transitions; adaptive level changes presence only. See the separate audio QA
 record for measured gates and hardware/listening limitations.
+
+## Territory-and-controls correction (14 November 2026)
+
+This supersedes conflicting older control wording, without changing UX-01..13
+financial/trust/playback boundaries. UX-04/05/12 zoom controls use the intended
+bounded animation destination, with tolerance: at fit scale disable Zoom out and
+Widest; at maximum disable Zoom in. Disabled activation must not interrupt follow.
+
+UX-02/12 aiming hover and pointer-down use the same predicate. It includes the
+visible projected shaft/head with practical stroke width, then Build-site priority,
+then the bounded real/ghost vicinity. Foreground DOM controls own their input;
+clipped guide portions do not acquire hits. A down-owned aim or pan never switches
+mid-drag; pinch/cancel release follows existing policy. Shared heading quantization
+continues to bind barrel, guide and canonical memo.
+
+UX-02/03 clicked cannons retain hover-style ground/contour emphasis and the warm
+full-body overlay. Cold loads restore account/navigation/camera preferences, not
+active clicked selection. Explicit session selection survives tab return and clears
+on close; selecting never Focuses automatically.
+
+UX-07/08 Move is disabled while discovery is unresolved or proves no different legal
+destination. Search is cached by verified world/rules/cannon, exhaustive when needed
+and scheduled cooperatively. Its default is minimum wrapped Chebyshev distance,
+then minimum cell index. Additional Build prefers legal cardinal sites around the
+selected cannon, then nearest global eligible site and cell index. Opening selects
+an explicit site immediately when available; it never promises first Join placement.
+Existing user/copy intent is not silently replaced by a new publication. Invalid
+quotes disable copying through existing Update/Keep safeguards.
+
+UX-12 Move adds a static gold arrow with dark underlay, using shortest wrapped
+displacement and a bounded visible direction for distant targets. It is a relocation
+proposal, not animation or a travel path. Build retains only its aiming guide.
+Invalid/closed Move removes the arrow and provisional cannon.
+
+UX-08/10 Move and explicit additional Build retain exactly: “If another player claims
+your chosen tile before your action is processed, the action fails and your ICP
+remains spent.” Under activated v9, contextual help may add: “A new enemy claim
+within four cells can also invalidate the action.” Fees remain separate. See the
+[rules-9 contract](B2Z_TERRITORY_CLEARANCE_9.md) for activation and historical safety.
+The frontend must not present the new restriction as active under certified v7.
+
+A legal proposed destination also has a small warm diamond marker on the existing
+minimap, making a remote default discoverable without automatically selecting or
+focusing a different real cannon. The marker is presentation only; existing exact
+inverse minimap navigation remains unchanged. It is not an ownership boundary.

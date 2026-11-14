@@ -259,14 +259,22 @@ pub fn site_pool_count(world: &World, player: u32, cell: usize) -> usize {
         .sum()
 }
 pub fn choose_adjacent(world: &World, player: u32, seed: &str) -> Result<Option<usize>> {
+    choose_adjacent_with_clearance(world, player, seed, false)
+}
+pub fn choose_adjacent_with_clearance(
+    world: &World,
+    player: u32,
+    seed: &str,
+    clearance: bool,
+) -> Result<Option<usize>> {
     if !crate::world::account_ok(seed) {
         return Err("spawn seed".into());
     }
     let mut ranked = Vec::new();
-    for cell in adjacent_sites(world, player)?
-        .into_iter()
-        .filter(|cell| site_pool_count(world, player, *cell) < MAX_PURCHASE_BALLS_PER_ISLAND)
-    {
+    for cell in adjacent_sites(world, player)?.into_iter().filter(|cell| {
+        site_pool_count(world, player, *cell) < MAX_PURCHASE_BALLS_PER_ISLAND
+            && (!clearance || enemy_clearance(world, player, *cell))
+    }) {
         ranked.push((
             hash(&encode(
                 &json!({"domain":"B2Z-ADJACENT-SPAWN-06","seed":seed,"cell":cell}),
@@ -643,4 +651,66 @@ impl Batch {
             "cannon":self.cannon,"new_cannon":self.new_cannon,"requested_quantity":self.requested,"quantity_explicit":self.explicit,"actual_quantity":actual,"per_item_prices":self.prices,"amount_used":self.used,"remainder":self.remainder,"stop_reason":stop}),
         )
     }
+}
+
+/// Rules-9: canonical players, toroidal Chebyshev distance strictly below four.
+pub fn enemy_clearance(world: &World, player: u32, cell: usize) -> bool {
+    for dy in -3isize..=3 {
+        for dx in -3isize..=3 {
+            let x = (cell as isize % world.width as isize + dx).rem_euclid(world.width as isize)
+                as usize;
+            let y = (cell as isize / world.width as isize + dy).rem_euclid(world.height as isize)
+                as usize;
+            if !matches!(world.player_at(y * world.width + x), Some(0))
+                && world.player_at(y * world.width + x) != Some(player)
+            {
+                return false;
+            }
+        }
+    }
+    true
+}
+pub fn prepare_with_clearance(
+    world: &World,
+    account: &str,
+    amount: u64,
+    memo: &[u8],
+    moved: &[u32],
+    clearance: bool,
+) -> Result<Plan> {
+    let p = prepare(world, account, amount, memo, moved)?;
+    if !clearance {
+        return Ok(p);
+    }
+    match &p {
+        Plan::Move { cannon, cell, .. } => {
+            if !enemy_clearance(
+                world,
+                world.player_for_cannon(*cannon).ok_or("UNKNOWN_PLAYER")?,
+                *cell,
+            ) {
+                return Ok(reject("ENEMY_TERRITORY_TOO_CLOSE"));
+            }
+        }
+        Plan::New {
+            first: false,
+            player,
+            cell,
+            ..
+        } => {
+            let player = player.ok_or("UNKNOWN_PLAYER")?;
+            let safe = match cell {
+                Some(c) => enemy_clearance(world, player, *c),
+                None => adjacent_sites(world, player)?.into_iter().any(|c| {
+                    site_pool_count(world, player, c) < MAX_PURCHASE_BALLS_PER_ISLAND
+                        && enemy_clearance(world, player, c)
+                }),
+            };
+            if !safe {
+                return Ok(reject("ENEMY_TERRITORY_TOO_CLOSE"));
+            }
+        }
+        _ => {}
+    }
+    Ok(p)
 }

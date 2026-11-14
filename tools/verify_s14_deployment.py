@@ -35,8 +35,16 @@ def select_cannon(page,cannon=None):
     if page.locator('#roster-view').is_visible():
         if cannon is None:page.locator('#own-cannons button').first.click()
         else:page.locator('#own-cannons button').filter(has_text=f'Cannon #{cannon} ·').click()
-    elif cannon is not None and not page.locator('#panel-title').inner_text().endswith('#'+str(cannon)):
-        raise AssertionError('Requested cannon is unavailable')
+    elif cannon is not None:
+        # My cannon performs explicit animated navigation. Selection is immediate;
+        # the contextual panel remains hidden until that source enters the viewport.
+        samples=[]
+        def navigation_ready():
+            value=page.evaluate('()=>({selected:__b2zTools.selection(),offscreen:document.getElementById("workspace").classList.contains("offscreen"),title:document.getElementById("panel-title").textContent,camera:[__b2zCamera.x,__b2zCamera.y,__b2zCamera.scale]})')
+            if len(samples)<40:samples.append(value)
+            return value['selected']==cannon and not value['offscreen'] and value['title'].endswith('#'+str(cannon))
+        wait_until(page,navigation_ready,8000)
+        print('CANNON_NAVIGATION_SETTLED '+__import__('json').dumps(samples),flush=True)
 def choose_action(page,kind,review=True):
     if kind=='start' and page.locator('#join-action').is_visible():page.locator('#join-action').click()
     else:

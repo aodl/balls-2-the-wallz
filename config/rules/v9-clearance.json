@@ -1,0 +1,5 @@
+{
+  "rules_version": 9,
+  "enemy_territory_min_chebyshev": 4,
+  "enemy_clearance_actions": "move-additional-new"
+}

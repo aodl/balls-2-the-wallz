@@ -1,6 +1,6 @@
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -9,7 +9,7 @@ import {projectAnimationEvents} from '../../packages/kernels/b2z/animation-proje
 import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
-const playabilityIdentity=id=>[PLAYABILITY_IDENTITY,ENTRY_IDENTITY].some(expected=>Object.keys(expected).every(k=>id?.[k]===expected[k]));
+const playabilityIdentity=id=>[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY].some(expected=>Object.keys(expected).every(k=>id?.[k]===expected[k]));
 function check(ok,message){if(!ok)throw new Error('observer: '+message);}
 function integer(n,max=4294967295){check(Number.isSafeInteger(n)&&n>=0&&n<=max,'integer bounds');return n;}
 export function timeNumber(r){validRat(r);const n=Number(r[0])/Number(r[1]);check(Number.isFinite(n)&&n>=0&&n<=1e9,'time bounds');return n;}
@@ -301,8 +301,9 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
       check(final.playability.elapsed_ns===context.observed_ns,'rules activation time');
     }else if(events.events[0]?.kind==='rules_activated'){
       check(initial.version===6&&publication.version===(prior.version===6?7:8)&&publication.epoch.version===(prior.version===6?1:2)&&events.events.length===1,'entry checkpoint identity');
-      check(Object.keys(PLAYABILITY_IDENTITY).every(k=>prior.identity[k]===PLAYABILITY_IDENTITY[k])&&Object.keys(ENTRY_IDENTITY).every(k=>publication.identity[k]===ENTRY_IDENTITY[k]),'entry rules identities');
-      const expected={version:4,migration:'B2Z_FARTHEST_ENTRY_RULES_07',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:4,memo_adapter_after:4};
+      const clearance=context.migration==='B2Z_TERRITORY_CLEARANCE_RULES_09',before=clearance?ENTRY_IDENTITY:PLAYABILITY_IDENTITY,after=clearance?CLEARANCE_IDENTITY:ENTRY_IDENTITY;
+      check(Object.keys(before).every(k=>prior.identity[k]===before[k])&&Object.keys(after).every(k=>publication.identity[k]===after[k]),'entry rules identities');
+      const expected={version:clearance?5:4,migration:clearance?'B2Z_TERRITORY_CLEARANCE_RULES_09':'B2Z_FARTHEST_ENTRY_RULES_07',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:4,memo_adapter_after:4};
       check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'entry cutover context');
       check(publication.head.state_hash===prior.head.state_hash&&sameCanonical(initial,final),'entry preserved complete state');
     }else{

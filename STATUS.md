@@ -1,3 +1,22 @@
+# Territory/control successor — implemented, qualification in progress; NOT DEPLOYED
+
+The current source adds bounded intended-zoom controls, shared aim-arrow input,
+explicit session selection, deterministic legal Move/Build defaults, disabled
+unavailable actions and a static Move direction indicator. Rules9 add authoritative
+processing-time toroidal Chebyshev clearance≥4, preserving historical v6/v7 and
+first Join/Fire. Delegated-payment v8 remains separate and inactive.
+
+Production remains the byte-verified audio trial below with certified rules7.
+Exact audio74-file rollback bytes are preserved. No production frontend/backend,
+settings/controllers, funding, Ledger or gameplay mutation is authorized/performed.
+Ordinary non-force source publication is authorized for this corrective task.
+
+[Current development evidence and outstanding qualification](evidence/B2Z/human-playtest-corrections/territory-and-controls/REPORT.md) /
+[versioned rule and activation/rollback contract](docs/specs/B2Z_TERRITORY_CLEARANCE_9.md).
+No earlier green CI is claimed to qualify the new bytes.
+
+---
+
 # Prelaunch mainnet audio playtest — not general-release qualified
 
 The owner now explicitly authorizes a reversible frontend-only mainnet audio

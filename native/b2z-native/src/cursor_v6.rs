@@ -19,6 +19,8 @@ use serde_json::{json, Value};
 pub(crate) struct State {
     #[serde(default, skip_serializing_if = "is_false")]
     pub entry_rules: bool,
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub clearance_rules: bool,
     pub plan: Option<Plan>,
     pub payment: Option<PaymentSaved>,
     pub batch: Option<Batch>,
@@ -73,12 +75,13 @@ impl Cursor {
                 if tally >= BigInt::from(1) << 128usize {
                     return Err("treasury overflow".into());
                 }
-                let plan = purchases_v6::prepare(
+                let plan = purchases_v6::prepare_with_clearance(
                     &self.world,
                     &payment.saved.account,
                     amount,
                     &payment.memo,
                     &self.moved,
+                    self.v6.as_ref().unwrap().clearance_rules,
                 )?;
                 self.world.received_e8s.0 = tally;
                 match &plan {
@@ -133,10 +136,11 @@ impl Cursor {
                             } else {
                                 let site = match cell {
                                     Some(c) => Some(*c),
-                                    None => purchases_v6::choose_adjacent(
+                                    None => purchases_v6::choose_adjacent_with_clearance(
                                         &self.world,
                                         player.ok_or("UNKNOWN_PLAYER")?,
                                         &seed,
+                                        self.v6.as_ref().unwrap().clearance_rules,
                                     )?,
                                 };
                                 if let Some(cell) = site {

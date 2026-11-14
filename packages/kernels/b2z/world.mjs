@@ -1,3 +1,4 @@
+import {CLEARANCE_POLICY} from './clearance.generated.mjs';
 import {ENTRY_POLICY} from './entry.generated.mjs';
 import{territoryPlayer,territoryBalls,territoryForCannon}from'./territory-v6.mjs';
 import {PRICING,LEGACY_JOIN_E8S,LEGACY_BALL_BASE_E8S,LEGACY_MOVE_E8S} from './economics.generated.mjs';
@@ -29,6 +30,9 @@ export const PLAYABILITY_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncod
 // Rules 7 preserve world-schema 6, memo 4, existing economics and event format.
 export const ENTRY_CONFIG=Object.freeze({...PLAYABILITY_CONFIG,...ENTRY_POLICY});
 export const ENTRY_IDENTITY=Object.freeze({...PLAYABILITY_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_ENTRY_RULES_07')),config_hash:sha256(encodeCanonical(ENTRY_CONFIG))});
+// v8 is reserved for experimental delegated payments; no activation is implicit.
+export const CLEARANCE_CONFIG=Object.freeze({...ENTRY_CONFIG,...CLEARANCE_POLICY});
+export const CLEARANCE_IDENTITY=Object.freeze({...ENTRY_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_TERRITORY_CLEARANCE_RULES_09')),config_hash:sha256(encodeCanonical(CLEARANCE_CONFIG))});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{

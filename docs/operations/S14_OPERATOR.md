@@ -239,3 +239,16 @@ coverage precisely. A mobile viewport is not a physical phone.
 The [fresh European installation archive](S14_OPERATOR_FRESH_EUROPE_ARCHIVE.md) and
 [older operator archive](S14_OPERATOR_HISTORICAL.md) are immutable historical
 procedures, not current deployment instructions or authority.
+
+## Territory/control successor — development only, not deployed
+
+The [rules-9 contract](../specs/B2Z_TERRITORY_CLEARANCE_9.md) defines the proposed
+state-preserving v7→v9 cutover and its separate authorization boundary. The current
+paid European game remains v7, and the audio playtest assets remain installed.
+This corrective task permits source/disposable qualification and ordinary non-force
+Git publication; it authorizes no production backend/frontend installation,
+settings/controllers, transfers, funding or gameplay payments. A compatible frontend
+must recognize the active certified identity before applying the new quote policy.
+Keep the exact deployed audio74-file set for a pre-cutover frontend rollback.
+After v9 preparation/activation, neither old backend nor old v7-only frontend is a
+safe blind rollback; qualify a compatible recovery artifact or forward fix.
