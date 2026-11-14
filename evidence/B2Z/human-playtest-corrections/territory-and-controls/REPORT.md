@@ -526,3 +526,15 @@ ZIP hashes, both normal module identities, and differing embedded checkout/Cargo
 paths. These are source-qualified builds with different path-bearing bytes; no
 cross-host byte equality or exclusive explanation for every byte difference is
 claimed. The approved retained candidate is not replaced or relabelled.
+
+
+### Evidence publication housekeeping
+
+The source qualification above is already published and complete for7f5eeed.
+Closeout-only commits `ae32c3c` and `c65af57` contain documentation/reviewed evidence;
+they change no application, build or dependency input. An ordinary non-force push
+of those commits failed locally with `could not read Username for 'https://github.com':
+terminal prompts disabled`. They remain intact locally; this does not undo the
+confirmed published source or its six passing gates. No force push or credential
+inspection was attempted. The owner may publish the evidence-only continuation
+through their normal authenticated route; no rebuild is needed for these reports.
