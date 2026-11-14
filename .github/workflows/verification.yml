@@ -192,6 +192,7 @@ jobs:
         run: |
           python -m pip install --require-hashes -r tools/audio-requirements.txt
           python -B tools/verify_audio_browser.py --output .work/ci-audio
+          python -B tools/verify_contact_meaning.py --output .work/ci-audio-meaning
           python -B tools/verify_audio_peak.py --output .work/ci-audio/peaks.json
           python -B tools/verify_audio_spatial.py --output .work/ci-audio-spatial
           python -B tools/verify_audio_occlusion.py --fixture-dir .work/ci-audio/assets --policy-dir .work/ci-audio/policy-build --output .work/ci-audio-occlusion
@@ -225,10 +226,16 @@ jobs:
             .work/ci-audio/peaks.json
             .work/ci-audio/*.png
             .work/ci-audio/*.wav
+            .work/ci-audio/*.webm
+            .work/ci-audio-meaning/results.json
+            .work/ci-audio-meaning/contact.json
+            .work/ci-audio-meaning/*.webm
+            .work/ci-audio-meaning/*.png
             .work/ci-audio-spatial/**
             .work/ci-audio-occlusion/**
             .work/ci-audio-visibility/results.json
             .work/ci-audio-visibility/*.png
+            .work/ci-audio-visibility/*.webm
             .work/ci-audio-activation/results.json
             .work/ci-audio-activation/*.png
           if-no-files-found: warn

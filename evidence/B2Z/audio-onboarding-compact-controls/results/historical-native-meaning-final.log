@@ -1,0 +1,18 @@
+file:///home/codexdev/src/b2z/tools/fixtures/prepare-audio-contact.mjs:7
+w.balls[2].vx=1;w.balls[2].vy=0;const initial=encodeCanonical(w),cursor=new B2zCursor(initial,[],seal);while(!cursor.step(512).complete){}cursor.finalizeElapsed(BigInt(row.observed_ns));const out=cursor.result(),hex=b=>Buffer.from(b).toString('hex');fs.writeFileSync(process.argv[2],JSON.stringify({expected:{initialBoundaryAccount:w.playability.players.find(p=>p.id===playerAt(w,1103)).account,latestBoundaryAccount:decodeCanonical(out.state).playability.players.find(p=>p.id===playerAt(decodeCanonical(out.state),1103)).account},initial:hex(initial),final:hex(out.state),events:hex(out.events),seal:hex(encodeCanonical(seal)),config:hex(encodeCanonical({...V6_POLICY,...PRICING}))}));
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ^
+
+TypeError: Cannot read properties of undefined (reading 'account')
+    at file:///home/codexdev/src/b2z/tools/fixtures/prepare-audio-contact.mjs:7:522
+    at ModuleJob.run (node:internal/modules/esm/module_job:437:25)
+    at async node:internal/modules/esm/loader:639:26
+    at async asyncRunEntryPointWithESMLoader (node:internal/modules/run_main:101:5)
+
+Node.js v24.15.0
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_contact_meaning.py", line 9, in <module>
+    subprocess.run(['node','tools/fixtures/prepare-audio-contact.mjs',str(out/'contact.json')],check=True);subprocess.run(['node_modules/.bin/esbuild','tools/fixtures/audio-contact-browser.mjs','--bundle','--platform=browser','--format=esm','--outfile='+str(out/'contact.mjs')],check=True)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/.local/share/uv/python/cpython-3.11.14-linux-x86_64-gnu/lib/python3.11/subprocess.py", line 571, in run
+    raise CalledProcessError(retcode, process.args,
+subprocess.CalledProcessError: Command '['node', 'tools/fixtures/prepare-audio-contact.mjs', '/home/codexdev/src/b2z/.work/audio-onboarding-compact-controls/native-meaning-final/contact.json']' returned non-zero exit status 1.

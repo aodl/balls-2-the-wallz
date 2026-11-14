@@ -1,0 +1,1328 @@
+{
+  "status": "PASS",
+  "frozen_source": "d01e8c7d693d2a4718acb5dfefaecda57628ca00",
+  "node": "v24.15.0",
+  "entries": [
+    {
+      "path": "apps/b2z-observer/action-quote-v6.mjs",
+      "sha256": "28e7e1bce45edb7a6c1b8b41f48fdc603104ddc7a5822db7ec99125cf6d5f870",
+      "bytes": 6827,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/app.mjs",
+      "sha256": "6310d067a999e1dc610f5ec42b924c843001e647da95f8ba6cdf58dc73fbd921",
+      "bytes": 44866,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/arcade.mjs",
+      "sha256": "a3c1df9a15fe2cdf7d1c0ff3a7feea8839f721bb0536663f9cb8a4922c339809",
+      "bytes": 32718,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio-contact.mjs",
+      "sha256": "914746e719822c22a2700a441be2aba82eff3f29427abbd50222717571195153",
+      "bytes": 1552,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio-engine.mjs",
+      "sha256": "4d66802ba7b8729f19168eb008ef4076e4b47b6573c698c12db78e2d1da0128c",
+      "bytes": 15048,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio-events.mjs",
+      "sha256": "d764a0cb554f93306b427ce4bf48e7d37103a2bf42cad806d8e8e7c765d48524",
+      "bytes": 4095,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio-loader.mjs",
+      "sha256": "f8ef960e9a6299fb12acadaf285c033f67bd1d850602aad4e95c0c0d2441778f",
+      "bytes": 7706,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio-music.mjs",
+      "sha256": "e0df2ff3a0e6a9feff52b792fb2e8e39444fe97e718ed57caeede26dea99e879",
+      "bytes": 5625,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio-ownership.mjs",
+      "sha256": "e0c4839cb8c9864557ed39383a25a934a365e78f6f586f8d4317e416815d2a00",
+      "bytes": 2173,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio-policy.mjs",
+      "sha256": "a169255504ddb0261f5774f23aee8407d47d5dbdad7c5bf6b7da8d6c430a2959",
+      "bytes": 5019,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio-ui.mjs",
+      "sha256": "2f1818378759defeac7c014ea441297632e73f12b694cd9823b85f3f9d780854",
+      "bytes": 2099,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio-visibility.mjs",
+      "sha256": "06a4d273b5faf43c252b2a4ad6e510633467eacd35f8f16863722f0df1bbfe6b",
+      "bytes": 1013,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/manifest.json",
+      "sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
+      "bytes": 32250,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+      "sha256": "978533bbde679a0d487e5d237eff2c43d2678a2471d4df6f7393b0e60c07b67f",
+      "bytes": 1354668,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+      "sha256": "7ab28b46da414f75d809207f1477c5d015586120ab63d54cfa672f5a790b6da5",
+      "bytes": 1254402,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+      "sha256": "ab9e812cea73ff2d10db8b4a7fbf6cfa47ed1ca27c095916f14b55d64804ccb3",
+      "bytes": 1235689,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/003-5a9a811a71e0dbf5.flac",
+      "sha256": "5a9a811a71e0dbf5a0c944c2d04c65328f588c7a3fffe33b2079c2196b2610d7",
+      "bytes": 1308010,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/004-f3bfe0c913ec1cfd.flac",
+      "sha256": "f3bfe0c913ec1cfd849364079ad2bccfcce530b3402c646d55b06887699fbf60",
+      "bytes": 1393475,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/005-4bf13903e457fd94.flac",
+      "sha256": "4bf13903e457fd940d1038f947f2a0e2d8407678dd53646e2b2a9fad9d25d2e8",
+      "bytes": 1415984,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/006-13c63a85b790037a.flac",
+      "sha256": "13c63a85b790037ab0ec0b137d89feca7bbe84e2fb612b2fda816d37f6c20ac4",
+      "bytes": 1341052,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/007-a3a654ad7e6ccf3b.flac",
+      "sha256": "a3a654ad7e6ccf3b401a4686717b4e2977284ded47fd013c1cae73bb4352e40c",
+      "bytes": 1398802,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/008-6a0965d52f29842d.flac",
+      "sha256": "6a0965d52f29842dedcfcbadc6906de395af399999474a208de5af20450bb75b",
+      "bytes": 1440073,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/009-752cf09ae99741b3.flac",
+      "sha256": "752cf09ae99741b3f798d52c56e61b0c4cb5b7fefbe3cc370688669f05074cce",
+      "bytes": 1447886,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/010-6de1162e34b4268f.flac",
+      "sha256": "6de1162e34b4268f786b579df90abf279bc3575d20fc712f2ca1d8d13518b8c5",
+      "bytes": 1462734,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/011-8a18bb8efc6b46e0.flac",
+      "sha256": "8a18bb8efc6b46e06e226c4ca8a7c4a70b8e699d4d9f61ccc956b1895ce89b13",
+      "bytes": 1519930,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/012-01e06f63ca07d0ae.flac",
+      "sha256": "01e06f63ca07d0ae4bf88ed7b5689efb763e36c5584592bd9f913ab88b0f5fc9",
+      "bytes": 1511800,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/013-f8a6c8b91760e70e.flac",
+      "sha256": "f8a6c8b91760e70e67e97e3493e836f23a190972a87e2248b37da9286b319cdf",
+      "bytes": 1600065,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/014-837b53aa95a943b5.flac",
+      "sha256": "837b53aa95a943b5c83c9ab8e8a9c1cc4265360a6c5d6ff4db709866e00c1b2f",
+      "bytes": 1394585,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/015-e35652430b453d65.flac",
+      "sha256": "e35652430b453d65f625e26a3752ddf134c82bd33029a10127fb8db8e106a7e6",
+      "bytes": 1384312,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/016-2168c415461a767c.flac",
+      "sha256": "2168c415461a767c3a13d2361078439721a7156b2df2cf6e7db3cbc6cc3e1efc",
+      "bytes": 1494257,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/017-7f4e43a4cf5d162b.flac",
+      "sha256": "7f4e43a4cf5d162b2171319aa2ed9697ece111690f1034eaa24a33811ea03c3d",
+      "bytes": 1588032,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/018-cd646c231bb0e032.flac",
+      "sha256": "cd646c231bb0e03281768f42ca6ec8c5170f94b0d1641527d8ca9d2b45212429",
+      "bytes": 1499842,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/019-d9dcce5e55fccf6e.flac",
+      "sha256": "d9dcce5e55fccf6e86e6f9971d0974cf711b78477187f8f5859ad4b30047f1ae",
+      "bytes": 1421552,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/020-e854dac44dcbcd65.flac",
+      "sha256": "e854dac44dcbcd65ed354ed2209bff20e1f6226a9f2a84491cde280a91488342",
+      "bytes": 1474801,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/021-0053cc0eb9d2a475.flac",
+      "sha256": "0053cc0eb9d2a4751ca5cf70b24f82e3d0e7a2e2dfd04abe1074412f714b2d52",
+      "bytes": 1462383,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/022-9ebd709381955bf9.flac",
+      "sha256": "9ebd709381955bf9c739cd81de178f0cb1436317ed8e86f499b39942ba5d6e5d",
+      "bytes": 1482253,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/023-59e1236bb33062e5.flac",
+      "sha256": "59e1236bb33062e557985564d7bf3c90a7e9ef0bc1f2359b870e1744f9c27bf8",
+      "bytes": 1431199,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/024-041c140c3e948c0d.flac",
+      "sha256": "041c140c3e948c0dda47328f7af592935e82d45426bc7a26dd796ee90cc326ec",
+      "bytes": 1404641,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/025-b3d815be06bfb494.flac",
+      "sha256": "b3d815be06bfb49484872e44e98a1d927a92dcc683aae1369e360e7ad5bfcfc1",
+      "bytes": 1242087,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/026-cc3cdb40392b4641.flac",
+      "sha256": "cc3cdb40392b4641eca7f6fd4a55ca7b064f6f4070d7f3049737ffd7fccf8a45",
+      "bytes": 1276315,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/027-64598ff9932ebab9.flac",
+      "sha256": "64598ff9932ebab9ec8b91d60910ddaade31c4724946fbf99beb41ba2e0fdce0",
+      "bytes": 1341801,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/028-24c195f5b8f77c5b.flac",
+      "sha256": "24c195f5b8f77c5b56c96b5a5c9c8a080cfb2428bc758a3e723387f1e7c1f3a4",
+      "bytes": 1323001,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/029-ac52e6b415d35c71.flac",
+      "sha256": "ac52e6b415d35c71e57d38d1a1a6e91b47da69b0e72bd33a49092d2e0e5d0311",
+      "bytes": 1346897,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/030-601ae0b00a50cf31.flac",
+      "sha256": "601ae0b00a50cf31dd77a085ad8ec933772ed666908403ee064688eabfcd139a",
+      "bytes": 1306303,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/031-91fc9d7d00634258.flac",
+      "sha256": "91fc9d7d006342587b09906bc0619c6819e3a3af2cda3d82bb9d3866a168b3f1",
+      "bytes": 1344068,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/032-cd7886d01d110959.flac",
+      "sha256": "cd7886d01d110959288ee2946ee62a964e27f0d1757ec3d85968c4d0c1a0254d",
+      "bytes": 1477670,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/033-57b4a3df81bf24e6.flac",
+      "sha256": "57b4a3df81bf24e6eb73b15c645701c4bedb4ca04125dc5b6b52e9ec757944f5",
+      "bytes": 1524419,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/034-98a099fe7a6eb4a0.flac",
+      "sha256": "98a099fe7a6eb4a06c2180a947d63b7f86d0182171e7ac120539d5824e1d9116",
+      "bytes": 1536526,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/035-9e6aaca300a74182.flac",
+      "sha256": "9e6aaca300a741828e64da529dfef1b2a0250f73d651af4a11a1acdbf9189441",
+      "bytes": 1510429,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/036-6633c68f9f5a1ed6.flac",
+      "sha256": "6633c68f9f5a1ed60b473d3f53747f7fd22d51f01e5564e993fdba6f91819b54",
+      "bytes": 1592760,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/037-e9e76ddc65f4dae0.flac",
+      "sha256": "e9e76ddc65f4dae0d0df119727697ac6953545e44897549fc7d2d9ebca770511",
+      "bytes": 1636180,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/038-3a72de09ed721511.flac",
+      "sha256": "3a72de09ed72151192cf9d7702c4c33258cdf84d878616781aeaaad7c1db9e54",
+      "bytes": 1664812,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/039-4d32d148feef91d2.flac",
+      "sha256": "4d32d148feef91d2e4374fc2680fb79de8bec2756f301611f51f75854a9a92d8",
+      "bytes": 1598669,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/040-f61e4d02b52e2342.flac",
+      "sha256": "f61e4d02b52e23423b4d4259734f42c3492bff22c1f3006ed694a130f8e64834",
+      "bytes": 1429391,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/041-9a8da6cd0a526b32.flac",
+      "sha256": "9a8da6cd0a526b325aebde37c23ddcad2be84dc5bdead209628aca921222f076",
+      "bytes": 1348917,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/042-ac772140522270b4.flac",
+      "sha256": "ac772140522270b4a20ddccbf075cdec09fa190e6d4cfcdfee1d324d527481ad",
+      "bytes": 1464061,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/043-2c460e278e88ab13.flac",
+      "sha256": "2c460e278e88ab138d3297292a04bd817862cdb93e38c5ad4231d6b4ea2f0c65",
+      "bytes": 1432278,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/044-dde8cc578bcf7431.flac",
+      "sha256": "dde8cc578bcf7431ff0fc25804cfb693f760785c7659b5baa6744d831e6b6d03",
+      "bytes": 1546445,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/045-210a3a96ec7e2678.flac",
+      "sha256": "210a3a96ec7e267832201e5bb315c0f2e170ed8629fdcc127445cad06c26c4cf",
+      "bytes": 1564721,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/046-d727238bc1e57a9f.flac",
+      "sha256": "d727238bc1e57a9ffa5e2bcff49711e15b604f872a9a4bcd2e9678c9fb702e38",
+      "bytes": 1561456,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/047-77fb039c12c797d6.flac",
+      "sha256": "77fb039c12c797d6c3697f528f4a9598f6e349680b2d5b258c815222a30e6929",
+      "bytes": 1459258,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/048-53ac1f64316cb328.flac",
+      "sha256": "53ac1f64316cb3283855159eaf14c2dd8fb503fdc0d80d60f8dda855d0917901",
+      "bytes": 1475356,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/049-4e9038e965eb50a8.flac",
+      "sha256": "4e9038e965eb50a896ef0b22bf631ab18d82b2b6708a0e427e647114fff0fa05",
+      "bytes": 1327274,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/050-0bea9a768b71ccb2.flac",
+      "sha256": "0bea9a768b71ccb2a13f4b23b82383254d4ba9135818fe79f2b9fe54f6497a49",
+      "bytes": 1191008,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/cannon-launch-full-726a4bc9aa376db1.flac",
+      "sha256": "726a4bc9aa376db17c3f1c60f27d0ec34c3d8fa18c1d108b8f20540530e2c046",
+      "bytes": 152596,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/cannon-launch-soft-00052a3c9bb1f50d.flac",
+      "sha256": "00052a3c9bb1f50dda6f2aca6aa620f04b6bfdcff3405ebab13039ae503bffac",
+      "bytes": 150941,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+      "sha256": "e561a8e1413e5b8904c236eb3ed33e440f97175903c6de8a57d7b6aa3b25602a",
+      "bytes": 8334,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/friendly-contact-b-c46c20436673ab27.flac",
+      "sha256": "c46c20436673ab275d316bceba07520eba533bf96d29dacf5f862fc65685d737",
+      "bytes": 9518,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/neutral-contact-3c37d8751e36c470.flac",
+      "sha256": "3c37d8751e36c470224d342df0f16ac5bbb969115d215f5eaeea0070e91574ee",
+      "bytes": 3697,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/territory-soft-swell-377399da11d31316.flac",
+      "sha256": "377399da11d313163a84e551b00fb739da60d0f8dcc5b50b175539d6785a0726",
+      "bytes": 189251,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/wall-ripple-a-3644a32147c83a21.flac",
+      "sha256": "3644a32147c83a2111f2eadea9f8003ae81a6ac009b82a9f32c7769698f2bfce",
+      "bytes": 105841,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/wall-ripple-b-b00a94f8e88ec309.flac",
+      "sha256": "b00a94f8e88ec3097ed25a0d290eb1e0bd4ed8c3a0955af3501843280583695e",
+      "bytes": 106109,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/wall-ripple-c-12d52c1290972681.flac",
+      "sha256": "12d52c1290972681fd96cc8de535dc5d7ffc784655cb3a6b541623733cbe5936",
+      "bytes": 107976,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/ball-presentation.mjs",
+      "sha256": "83ce36fe7af1994a8f6dcca390265a0caed6375c6c544838755cc6095c14c0a2",
+      "bytes": 888,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/bounded-observation.mjs",
+      "sha256": "61f1ef6041b9408d32b818315af07916afaa4759138739492c608e665c301027",
+      "bytes": 2733,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/camera-controller.mjs",
+      "sha256": "94413ff2bfccf79dc9f5a51f8e4891b91196b4f497e9f2bbbe1592274ee41112",
+      "bytes": 8024,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/camera.mjs",
+      "sha256": "6014748b92da5d2c1d49b1fb8ded70de4f658d43b459a7df63d04bb17fd81fa3",
+      "bytes": 6334,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/configuration-clearance.bin",
+      "sha256": "0567d064106d26a14791f9d07bd64a2e4f87b26789dbef7167b2ee7e96114153",
+      "bytes": 1245,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/configuration-entry.bin",
+      "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "bytes": 1163,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/configuration-legacy.bin",
+      "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+      "bytes": 368,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/configuration-million.bin",
+      "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+      "bytes": 469,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/configuration-playability.bin",
+      "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+      "bytes": 994,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/configuration-torus.bin",
+      "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+      "bytes": 386,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/configuration.bin",
+      "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+      "bytes": 367,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/configuration.generated.mjs",
+      "sha256": "fbdfca7d1d65f5bf5a33596964b9d61fe00cda776504adc15c54a4e092aef638",
+      "bytes": 804,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/cursors/reticle.svg",
+      "sha256": "9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892",
+      "bytes": 338,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/deployment.mjs",
+      "sha256": "d169ea25dcbbe05cc22ab41b61dece3dc3e9f364782f67a32c916cca8dbba12a",
+      "bytes": 721,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/destination-search.mjs",
+      "sha256": "539a14e18ccf6f6a5d3b163f95e41e93af5368080d1e015ae5fca1aac4f462ae",
+      "bytes": 2920,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/elastic-playback.mjs",
+      "sha256": "4ddab080e901caac23090333872d5722cc3212f4dde06a5b63cb97a3df48131b",
+      "bytes": 2417,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/experience-status.mjs",
+      "sha256": "248a5a0d1d1196d45d09b3c4f704b7bb2efa6db978f5406fdd8b7fdfe2fb6308",
+      "bytes": 4515,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/guide-clearance.mjs",
+      "sha256": "81af1f36bbf86af18a77ee2ce2bbedaf211282b9f6b9c9c9eacaae4686a2e41c",
+      "bytes": 2597,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/handoff.mjs",
+      "sha256": "2e217c715ca8cb8858f77fc087fb46da5dc335b0a6a3422cebe84d5685e52dee",
+      "bytes": 2943,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/headings.mjs",
+      "sha256": "6efacdc002ee0d6966fb73c1e3be0eef87c42aea5c9a9ee29157b907ceca1c78",
+      "bytes": 965,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/icon.svg",
+      "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+      "bytes": 235,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/identity.mjs",
+      "sha256": "02c1b3f5742188ea504f22494f1712025d3b68c3d935a30a32c812ab145a920c",
+      "bytes": 5252,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/index.html",
+      "sha256": "a2b7d50e240924c66470b9c792edf5fac8640d89ffddd027f25074dfb4702ce8",
+      "bytes": 12875,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/interaction.mjs",
+      "sha256": "ab05e63dcae2e20db390a30a706c46db059fc8ee9c89e553f17131a7cc14613f",
+      "bytes": 3111,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/live-delivery.mjs",
+      "sha256": "0503e5598dbba0a7171cdc133964fda91c5f3408482290b45bf655525d7a9641",
+      "bytes": 7510,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/mainnet.mjs",
+      "sha256": "468a45e3c6d227b565ccf0dc36865ce85f83d9bec0d99073ee5159552855a0b0",
+      "bytes": 8243,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/minimap-projection.mjs",
+      "sha256": "5903a87e4cead8676afa37ee2b6bd99db2f1a2260dbfd7ea0989e53801f611d5",
+      "bytes": 1438,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/minimap.mjs",
+      "sha256": "756530ccecb0a4b9c5053f2240d0b877471d77499b9f8107f331544ecdece73e",
+      "bytes": 6044,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/model-v6.mjs",
+      "sha256": "05abc2f6c76a54b1f5d3a216fcfac66067fe95d39acded94a20cf1d3b59239b9",
+      "bytes": 11100,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/model.mjs",
+      "sha256": "8a6e010d99fa14ed4e9b4f6eec81a7584e239c07590003f4597d592d240b09ae",
+      "bytes": 33344,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/motion-effects.mjs",
+      "sha256": "a5fe80413f91f19e10dfea95a617c53bd2096148005e9998fe01e7dc31a9b39c",
+      "bytes": 3901,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/observation-loop.mjs",
+      "sha256": "2ee32afa5e1fc34980423a15606516bceb96df73ec7a51a8a9355a9edd599489",
+      "bytes": 1695,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/payment-presentation.mjs",
+      "sha256": "2fd731260b76e0c01af317b8e523a043b1ca662c7c7e2fc989d592b802e10b87",
+      "bytes": 803,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/play-reference.mjs",
+      "sha256": "b3dc33053a139997a883d76e4c649fad93f80ac0a73cc74af0a9d7513fc30aba",
+      "bytes": 2361,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/player-anchor.mjs",
+      "sha256": "ea14e27079d85404cbc2e11bbec264ea3d828b551af5546408a5bcc031b82fb6",
+      "bytes": 2785,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/public-cycles.mjs",
+      "sha256": "5039893e030cb45ff7a7b8328fcb4f4f69f5ca0d577f0bf309d30c0511e52014",
+      "bytes": 8069,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/quantity-placement.mjs",
+      "sha256": "20066e8aee841fd8deb08ee1afa35af9a12c06ec88ad5807ebe198f5e80a6a5b",
+      "bytes": 2230,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/render.mjs",
+      "sha256": "98bf36aecc47a67624bb5a345ee7d46305728daccf35bfe3f587b3232a1f2f73",
+      "bytes": 24037,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/replay-tools.mjs",
+      "sha256": "c0ea10f9f239c27812aab959ab99b28dcdf83c63efd5be2f3c2c62ae9a887b4c",
+      "bytes": 680,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/shell.mjs",
+      "sha256": "ca386bf1cb7f79ec9f7e32aa68ca5c06101129696d65ab9fadee13148e8357c0",
+      "bytes": 28021,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/startup-playback.mjs",
+      "sha256": "77f345720a8ae8787945a0cdcf58b186b1ec36d089765591e7b902e082a42802",
+      "bytes": 2633,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/style.css",
+      "sha256": "2b3bbaf7d3d0cd4492f7cd831a5b3c287bef12ec475074b776eac78df424cdfe",
+      "bytes": 25088,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/terrain-surface.mjs",
+      "sha256": "2a7db75d2303fadc486ee6fa86c0bf420a4804e950b1351be88cd24fd2ac4137",
+      "bytes": 4565,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/terrain.mjs",
+      "sha256": "8687bf629ea3b44dcbbaf04c8f9ba77103bd0434bd73a66117be19f36709f7b8",
+      "bytes": 4249,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/territory-entry.mjs",
+      "sha256": "cd48d629189094e7b691ea082326c543f10538be164e305f950dc6570d103054",
+      "bytes": 2261,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/torus-identity.generated.mjs",
+      "sha256": "b04a5db70d93a51b8718c0b29a7be162976f35bb53bbf3e6ca48047c7e627f31",
+      "bytes": 2070,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/transport.mjs",
+      "sha256": "d8bf1c93ecae75b209be594f97da4e47216814327ae64bbb5e0760e666776288",
+      "bytes": 3343,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "apps/b2z-observer/warm-return.mjs",
+      "sha256": "0ba7a847f1ed62e3d1e199c5360f50f1262288e32b12c2c74a9dd14c2ae76ab4",
+      "bytes": 3120,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "canister_ids.json",
+      "sha256": "838d16de7c4ccc713442d6220ecb1b6305b6ddc8ca93d93cae0646c731304deb",
+      "bytes": 120,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "canisters/runtime-lab/runtime-lab.did",
+      "sha256": "03799f2cdbe381753be5d89f92c0d258ca7e060d01dfb34af9586eee25b048e5",
+      "bytes": 12328,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "dfx.json",
+      "sha256": "12de00be1b8949cde90eb299ca8f35b010aafcc6d332d66e75db3c8162153ad1",
+      "bytes": 612,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "docs/operations/B2Z_AGENT_API.md",
+      "sha256": "ffbeb51fa266bdf5dc6309a14f6c3666125bd39aea969fd08af4ce1f83924b9a",
+      "bytes": 6076,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "node_modules/@dfinity/cbor/dist/cbor.mjs",
+      "sha256": "cb21ea3a724b3946efd805ccc202ea5c984e57a674cc997505e7cbbcb72193e7",
+      "bytes": 6770,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@dtr/timeline-runtime/packages/client/ic-certificate.mjs",
+      "sha256": "aef2973911e0695ec5c4bd0e6f3f32aa85b5e9aa4607c2ef357aa53c6f4e83fb",
+      "bytes": 6443,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@dtr/timeline-runtime/packages/client/playout.mjs",
+      "sha256": "740adc9112e0b52a16b03c6466372b10f43b1c3a916128dc884bfa4697326b03",
+      "bytes": 2163,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@dtr/timeline-runtime/packages/client/verification.mjs",
+      "sha256": "7023bf35a9fb640cb649315de2a3688445e9ca48738b67e7c5a53eb68c1a3d47",
+      "bytes": 16442,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs",
+      "sha256": "3768a420dc31becc881fdbead97fb04fc1026a46e9b632904f0e28814b8d3510",
+      "bytes": 2497,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@dtr/timeline-runtime/packages/protocol/epoch-codec.mjs",
+      "sha256": "ce00e93d3b2524d125595ca1b56cb1901ba92a671399ea06013cb1adeaaefc02",
+      "bytes": 7076,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@dtr/timeline-runtime/packages/protocol/seal-codec.mjs",
+      "sha256": "57e06fcdb1221ac72109e3b80e3782cb2d8c9ecf5e05c7fbaae9a9fa40b3234c",
+      "bytes": 1416,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs",
+      "sha256": "52e670a9b0116ec572c17db9cc7105a7de5ecb6a0d7b885aa968ca402ecc50e1",
+      "bytes": 2504,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/actor.js",
+      "sha256": "bbe34a44aa588be52040f01d56ee06e00f3562b0536ed926bf696f37bedc8d84",
+      "bytes": 12994,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/agent/api.js",
+      "sha256": "99af267bff28357e9ffba1f3426d26ed77fa9e696b1878382d68c0862269dd35",
+      "bytes": 1605,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/expiry.js",
+      "sha256": "3f626bb453bc575fc959028a2d0400f6d64327389b9d87593c7f7f06055dc756",
+      "bytes": 3664,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/index.js",
+      "sha256": "efc8449124479d3778b25827b4ebd4cde3a7c594712fbc2ba863c6c31518a2d3",
+      "bytes": 60306,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/transforms.js",
+      "sha256": "76da3d6fc99cbc8fb7e0c27e09d4b469693d12ef92adde3191b9b15be02dd66a",
+      "bytes": 1785,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/types.js",
+      "sha256": "0cf0ad77ffe1c13a39348a8718c2555403268c2ed6bb024cabdc282f334ed094",
+      "bytes": 2611,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/agent/index.js",
+      "sha256": "3cc7e33d690671b37e640c0124a2adca0815a224fd789ace0b87722ffd78bcd7",
+      "bytes": 163,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/auth.js",
+      "sha256": "645a8b96080c5c2324db9237e54e4ce0d8fd1f1eb79411c431c277e3020b6751",
+      "bytes": 2013,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/canisterStatus/index.js",
+      "sha256": "6620dff6d4f904993c36a1f2a647887a73b7f81391fdc51580ba7bdd46754c0c",
+      "bytes": 6470,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/cbor.js",
+      "sha256": "3a6268b9b56c0a182f5a11bace83e378b60bdad7d733be0e81383d8635be808d",
+      "bytes": 2010,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/certificate.js",
+      "sha256": "d03dc090ef6b211d0c836fae7f3ab339ef995cd13f930a22e2b62a98e5ef491e",
+      "bytes": 29693,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/constants.js",
+      "sha256": "7a9a90aba719c2bf004d0da0586cde545b53e5ec086acff7a2f1cd13091aff57",
+      "bytes": 916,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/der.js",
+      "sha256": "0d486ec39ebaadc68c176b382c44fd55dad88976262d47a6adcd1f83f91b81f6",
+      "bytes": 5720,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/errors.js",
+      "sha256": "11a1734be67860f85d79537d026d1b6f3fd4eb76828c44917ad3d7978d1addae",
+      "bytes": 28542,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/fetch_candid.js",
+      "sha256": "53a9f2abe93810bf4c7487df77ec556d9d096d2f3ce7f5b836f980cd628dd2ee",
+      "bytes": 1311,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/index.js",
+      "sha256": "bc8ea0dc55f2f8cdf422e82b37543a82feb3c73cf1b9e012ebec2cde66986a88",
+      "bytes": 5961,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/observable.js",
+      "sha256": "911d37a8b6e66fba47107ac60d38d2c036e8efb5153fb366fe80c4c37e3cfbae",
+      "bytes": 785,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/polling/backoff.js",
+      "sha256": "495241a47ffd61190c1e730a1f99f6017c804bec323d4de9970fbe1301c28b7b",
+      "bytes": 2890,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/polling/index.js",
+      "sha256": "d998be42c06758cdf3d78bd175646d6466158d3c6f76c5961dc9bb16a8fca853",
+      "bytes": 6716,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/polling/strategy.js",
+      "sha256": "bc67ce49afd99dbaa8fe34eae63143c46738db1ec010166a71b0d03248348398",
+      "bytes": 3527,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/public_key.js",
+      "sha256": "5a681e7a82b8cc246ccac637a370aa659269d0256d8360cd7fc70c6807bea8ce",
+      "bytes": 1571,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/request_id.js",
+      "sha256": "e1da3524d3032535d9f9ab58e57a54aaaff0af5163f306e89dbcdf39b8156509",
+      "bytes": 3026,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/subnetStatus/index.js",
+      "sha256": "3a29331e6b1252f0c8f0d314ec1379bd90d7ab678119a83e4b8e64cf7fb8b5d4",
+      "bytes": 7258,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/utils/bls.js",
+      "sha256": "f6e3e346b69c7ab0c0878f02ab2702d85722863067de6cea11c177e6a26dfd4a",
+      "bytes": 661,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/utils/buffer.js",
+      "sha256": "fb620d5411c381465d589195a28752a10828277634e350d528ff7327ea6da233",
+      "bytes": 1391,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/utils/certificateReject.js",
+      "sha256": "af4063825b236c9d8ff5f6cc6edd8f8d094df4a7b6f7faf022e58b103841cf84",
+      "bytes": 1054,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/utils/createExpirableStore.js",
+      "sha256": "c3ba88b974dd0fcbfbebcab392dad0120397518768850398f5ca52fdf6da65c2",
+      "bytes": 759,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/utils/expirableStore.js",
+      "sha256": "26e0df017eb4fbce1af8733fff6dcf196f7fd7cc643fa4fc29837eda20395fb9",
+      "bytes": 470,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/utils/inMemoryExpirableStore.js",
+      "sha256": "dad3921a75fc83b48e86c71acacb4b9cded13dfd667673e543bcdc5790ce8a9d",
+      "bytes": 1303,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/utils/indexedDBExpirableStore.js",
+      "sha256": "898c6ccdd62866144e7bf99f5ac45db3c76f11a3373e5c9951a0c682e21ae63b",
+      "bytes": 5190,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/utils/leb.js",
+      "sha256": "3452c4cd5d887d9755e664ab9309212817907fd079a72e4e81028c9a1c7572f5",
+      "bytes": 466,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/utils/random.js",
+      "sha256": "d31b9442f78684f2d2c9204326faf37af516744c28279ebfc256ede4733583e1",
+      "bytes": 972,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/utils/readState.js",
+      "sha256": "414e9b99d107abd864857606940af6909124baaff08c742b976df13fb640aadb",
+      "bytes": 8480,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/agent/utils/target.js",
+      "sha256": "8044e1811f05d0bde12b049a0836cba0703e916e93b53bc1f4101d9fe07cf6a7",
+      "bytes": 740,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/candid/candid-core.js",
+      "sha256": "7eef65ad08bc25f95ebfe33fd57cc0b8d46b5d0c55b8d167c1e7b441334c3562",
+      "bytes": 6844,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/candid/candid-ui.js",
+      "sha256": "cb158ac394eeff06a53561a891c07ff61b55ee716b6c702701e9d8f4a209261a",
+      "bytes": 7537,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/candid/idl.js",
+      "sha256": "944274d5e94c82d980a56de6445fd6fe3370fe298de007eff95255ae054ace5d",
+      "bytes": 74657,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/candid/index.js",
+      "sha256": "5afdd5d61d251e33cf34295020c646f27900ecec40ae84c01146604e63716dbd",
+      "bytes": 736,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/candid/types.js",
+      "sha256": "a17c1c795248eda6aaf68d572600a01ecde90f826916f2ccb9b26e0a34a60a4a",
+      "bytes": 105,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/candid/utils/bigint-math.js",
+      "sha256": "ad04305b07668f9eafae938ab832de560efc01399fb7b6379568150ebd18f1e2",
+      "bytes": 714,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/candid/utils/buffer.js",
+      "sha256": "c814a66136a3435c71dbbe7c406fe4a497c3fe854b6ea7c357c6764d2f93cd16",
+      "bytes": 5667,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/candid/utils/hash.js",
+      "sha256": "1767d6e4c6dc351f1177535e6f32e6dc1202ac07cdb480f7d981349d4f0e6c8e",
+      "bytes": 826,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/candid/utils/leb128.js",
+      "sha256": "8092085bb0a9f1763854f86ddc8845d90b215ca4f8d176b6cb8a0c25a20270ba",
+      "bytes": 6465,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/principal/index.js",
+      "sha256": "402ecd6d7dea6ea0941daf430d84cfca2929f70b1dadb6b0c527414c7db0758e",
+      "bytes": 537,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/principal/principal.js",
+      "sha256": "f2476058b971ef379ff4e4a2402bd9390368b6cb26b9882cbc62d16d827bae43",
+      "bytes": 5623,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/principal/utils/base32.js",
+      "sha256": "5c64c033da33776936ab21535a20a1e9ea3ba2bfd776cecaf7bb3634a1d95f66",
+      "bytes": 2524,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@icp-sdk/core/lib/esm/principal/utils/getCrc.js",
+      "sha256": "57973fdf7e719d39d05fc072aadbbf1ca950d3b8fbbd04568a05c33492d6454d",
+      "bytes": 3736,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/bls.js",
+      "sha256": "9bc37d55fbf294ef99d944950eb58ab5b0330e27aa9dacf73f557a7b88e8930f",
+      "bytes": 26684,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/curve.js",
+      "sha256": "dbaeee3b41ff47efb76b78e14170fe4dda7c7ecdc387c402f16c5118e0bac356",
+      "bytes": 35711,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/der.js",
+      "sha256": "7f80d698611b131368ecf732b8740bb97f72cd42fef77c4b0bb923e2e2d44159",
+      "bytes": 7401,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/edwards.js",
+      "sha256": "f24a9c221a549a8fff259eb8f245ab0dc17679b13c532c3970d91acc4df9fffd",
+      "bytes": 32323,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/fft.js",
+      "sha256": "a4b2ff7ca33f4acc85d61f0e83ec3303c3f6b38ecc19b20d0f6462d820e518cf",
+      "bytes": 26024,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/frost.js",
+      "sha256": "9a95f1fdf7e17b9d93a16049db675ee2967ed2a04cf59b1bd981d4662acbedf5",
+      "bytes": 45399,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/hash-to-curve.js",
+      "sha256": "e3c97e7d0827b728b14e3311ed11d8e386d8a70d8fc77e0b9fd2a3090f19d955",
+      "bytes": 26273,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/modular.js",
+      "sha256": "9ced3aa10598277a735e54f7b61d88e929d565da884ba5385f9006ebb3b6aab2",
+      "bytes": 39844,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/montgomery.js",
+      "sha256": "cdafa8816dad5a24475ec51952c5f71fdd5d1b46880ab982694c4f8ff605fc46",
+      "bytes": 14721,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/oprf.js",
+      "sha256": "2ca36b3e4930092db1f91559410e86975816c036e248067bc65a8055aa1c504c",
+      "bytes": 18336,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/tower.js",
+      "sha256": "6e9f7273af53c06f8124c33b89d0d70d7d46e95effbf46d242e580e9c5aa8137",
+      "bytes": 36374,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/abstract/weierstrass.js",
+      "sha256": "d007e949c0d5b912e8c54132983219c8ff8f69bda058a70563b5cc7a8783331c",
+      "bytes": 53654,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/bls12-381.js",
+      "sha256": "eab0e80c31087656d0a0c2024906418e59ab6e2f02c9e5395406602c25351276",
+      "bytes": 35614,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/ed25519.js",
+      "sha256": "e13f6c50c36feb0d18bf7986d5f881bcefb5f1f5b16de3cc5ee7693254c7a0b5",
+      "bytes": 30058,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/curves/utils.js",
+      "sha256": "be9ff86aef76419376e4d66cf01a134f3117f1f8dd62d81f1b79100145503367",
+      "bytes": 23221,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/hashes/_md.js",
+      "sha256": "60cf3010fda89e3e4d3f0e7ff1ce249e9c467f34b4fd41b6fd6101d9f69be763",
+      "bytes": 9175,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/hashes/_u64.js",
+      "sha256": "b09da8c07fe8187c07649494cdb7cd0bcf13df90b506a9473d19e4d5f8c2e102",
+      "bytes": 4794,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/hashes/hmac.js",
+      "sha256": "fec9f8f3aeda785ea2de91cc4c059d54ef98196261c026c43f48341007ae52c9",
+      "bytes": 3118,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/hashes/sha2.js",
+      "sha256": "471746bba6ec4c6238ca41358d1d3b40b6ff31cf3363f0b4d550c649c1a8e83b",
+      "bytes": 18997,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/@noble/hashes/utils.js",
+      "sha256": "037ad49adb78168b6b699598fd33f85f7877456b1d28b4d032e2a1a16807947c",
+      "bytes": 26035,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/three/build/three.core.js",
+      "sha256": "613e370f76638fdef83926642bf256dc9615684922de1ce1f63a8583e5d78578",
+      "bytes": 1474799,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/three/build/three.module.js",
+      "sha256": "104f56145899722094556490d787aae0617cc2fc3382f31df02d724ea1aee341",
+      "bytes": 658900,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/three/examples/jsm/lines/Line2.js",
+      "sha256": "69dd2120d4df14208796acf199f80a64d37e042cfa65dc2b98286694b2954194",
+      "bytes": 1486,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/three/examples/jsm/lines/LineGeometry.js",
+      "sha256": "b7ec6b0011e3b09dc72e17cfd8e8945295cb2bc8c8aa9aa19e47119680bdad7e",
+      "bytes": 3479,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/three/examples/jsm/lines/LineMaterial.js",
+      "sha256": "5f4ba22891c54d50a51e8bab6c648399e919e6832c0d03060fbe1ec7c771a93f",
+      "bytes": 14529,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/three/examples/jsm/lines/LineSegments2.js",
+      "sha256": "fcbc20f576e88343cea12131f49b7003d7ab44ede422fcb694e567456022f7a0",
+      "bytes": 11477,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "node_modules/three/examples/jsm/lines/LineSegmentsGeometry.js",
+      "sha256": "471f0a954a0c9c59d3d151392f424142a9164a722802f63b371971378a84a1b1",
+      "bytes": 6893,
+      "matches_frozen_source": "locked installed dependency"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "0790f987d17d40b1006646ce39f195975f75186e149f4acf6d71d47e2ac66a6c",
+      "bytes": 19818,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "package.json",
+      "sha256": "0b6e9141835616a3fb66b9f2ec2a757cd139687d7005bc88daa23a7509b1bded",
+      "bytes": 725,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "packages/kernels/b2z/animation-projection.mjs",
+      "sha256": "cc63159ca764a6c6d488313321148333f53bbca9aced0b8470b6a0a8465707ce",
+      "bytes": 2407,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "packages/kernels/b2z/economics.generated.mjs",
+      "sha256": "7f44a0d4628314c9c43f6a19f4fbaf03bd104f3d9ab0f899776618bc36fff804",
+      "bytes": 365,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "packages/kernels/b2z/math.mjs",
+      "sha256": "494678e83107b4e786cff1fbd9f50bfcedd3389e7a86fbaff5a2e2baeab077d0",
+      "bytes": 2228,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "packages/kernels/b2z/playability.generated.mjs",
+      "sha256": "d53a0da258e489c8034bbb4454ed49969c24f993b9607409b5e498a2bafc8413",
+      "bytes": 297,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "packages/kernels/b2z/pricing-v6.mjs",
+      "sha256": "07d469d8241c5d021b39c7d1a733c99eeb2ab1fe605a484c6881f4401d9ecb28",
+      "bytes": 1565,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "packages/protocol/memo-v6.mjs",
+      "sha256": "3324b707ca833a3ff4d1a27a03a493330750d13fe05ad14aefb0d6be00011e16",
+      "bytes": 3304,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "packages/protocol/memo.mjs",
+      "sha256": "15bee929a00560d8eff88c4eeca6dfe651b9c0d97064fe2ac58fc8a768a28a09",
+      "bytes": 4712,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "packages/protocol/territory-clearance.mjs",
+      "sha256": "8e023ba5e0c7d41a421d42f99360f67e17798ca461e75f51775ca6cfe04f995a",
+      "bytes": 765,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "tools/audio_assets.mjs",
+      "sha256": "0bb1df499c184a9f9a617b085d8b07ac6bc434fd4ced0d4e811bc483833943e0",
+      "bytes": 2303,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "tools/build_observer_mainnet.mjs",
+      "sha256": "915e0e0ca6ff6c31a6252832e1dbc03fcab21a3f1763689ec1d5f40c9b610d38",
+      "bytes": 5563,
+      "matches_frozen_source": true
+    },
+    {
+      "path": "tools/build_observer_playability.mjs",
+      "sha256": "15dc5c4a7bf76b5cd6938d2667c0b00c6766af02965500ce025015316614b372",
+      "bytes": 2910,
+      "matches_frozen_source": true
+    }
+  ],
+  "scope": "All bundle metafile inputs and direct build/upload/dependency assets; tracked files byte-identical to frozen commit, installed dependency files hashed under unchanged package-lock/vendor pins."
+}

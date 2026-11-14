@@ -1,17 +1,23 @@
-# Audio, returning-player entry and compact controls — implementation in progress
+# Audio, return entry and compact controls — frozen, hosted qualification pending
 
-The new owner brief in `B2Z_ONE_SELF_CONTAINED_CODEX_PROMPT.zip/CODEX_PROMPT.md`
-supersedes opt-in lanes/sliders, public retry/cache controls and shared Join/Build
-intent. Production remains the exact75-file frontend below on certified Rules7.
-Its complete served bytes/signed inventory and rollback are preserved under
-`.work/audio-onboarding-compact-controls/`. No deployment, backend operation,
-financial action or Rules9 activation is authorized in this task.
+Owner brief implementation is frozen at runtime/build source
+`d01e8c7d693d2a4718acb5dfefaecda57628ca00`. JS
+`0cc1516b2135204b0b7eef2237b88a56ebafb5be71a54c6f57c2e2b100db7ab2`;
+complete78-file inventory
+`1b1ae79e8d21e3d61014c98fabacba7d4302ea06b464d4933fea18ae8108c365`.
+Expanded native test/evidence changes preserve all consumed production inputs.
+Local full source passes1939 Node/201 Python; exact-source final hosted gates
+remain pending. The760e8e4 Browser failure was reproduced and corrected: the
+quantity widget must freeze throughout arena pointer capture so it cannot steal
+a pinch's second touch. Earlier failures remain in evidence.
 
-The baseline retry dead-end is reproduced with a synthetic context, not native
-output evidence. Ten new focused audio tests and three compact territory-fit tests
-pass so far; integrated/native output and final exact-source qualification are
-pending. Do not label this working source qualified. Raw work is under `.work/`;
-maintained closeout will be `evidence/B2Z/audio-onboarding-compact-controls/REPORT.md`.
+[Current report](evidence/B2Z/audio-onboarding-compact-controls/REPORT.md) records
+actual native music return, real displayed friendly/threat/spectator output,
+returning-account and exact-copy journeys,0px status geometry drift, new original
+SFX provenance and frozen identities. P09 remains FAIL/unqualified; physical
+listening and Firefox output are NOT VERIFIED. Production remains the previously
+installed75-file frontend below on certified Rules7. No deployment, backend,
+financial, funding/settings or Rules9 operation is authorized/performed here.
 
 ---
 

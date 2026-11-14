@@ -26,7 +26,7 @@ try:
  for f in files:
   if f['key'].endswith('.flac'):
    assert [e['content_encoding']for e in f['encodings']]==['identity'],f;assert f['content_type']=='audio/flac',f;matched+=1
- assert matched==57,matched
+ assert matched==60,matched
  rows=[]
  public=sorted(p.relative_to(assets).as_posix()for p in assets.rglob('*')if p.is_file()and p.name!='.ic-assets.json5')
  assert {'/'+name for name in public}=={f['key']for f in files}
@@ -42,4 +42,4 @@ finally:
  (out/'results.json').write_text(json.dumps(report,indent=2)+'\n')
  try:run('stop',['stop'],60)
  except Exception:pass
-print('PASS local asset canister: all57 FLACs identity-only; complete public inventory, repeat identity and served hashes/security headers')
+print('PASS local asset canister: all60 FLACs identity-only; complete public inventory, repeat identity and served hashes/security headers')

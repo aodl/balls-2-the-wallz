@@ -14,4 +14,11 @@ def verify_audio_lifecycle(page,context,url,out,report):
  report['audio_hash_rejection']=bad.evaluate('__b2zAudio()');bad.unroute('**/audio/b2z-v1/sfx/*.flac',corrupt)
  # Online is a meaningful recovery signal, no repair button or toggle ritual.
  bad.evaluate('dispatchEvent(new Event("online"))');bad.wait_for_function('()=>__b2zAudio().fxBuffers===7&&__b2zAudio().music.active',timeout=60000);report['audio_hash_recovery']={'status':'PASS verified refetch; game unaffected','state':bad.evaluate('__b2zAudio()')};isolated.close()
+ # Actual native suspension/closure, controlled by the harness. These are not
+ # claims about a physical OS audio-route interruption.
+ identity=page.evaluate('globalThis.nativeGameIdentityQA={session:__b2zExperience.session,clock:__b2zExperience.clock,queue:__b2zExperience.queue};({phase:__b2zAudio().music.phase,contexts:audioContextsQA.length})')
+ page.evaluate('audioContextsQA.at(-1).suspend()');page.wait_for_function('()=>__b2zAudio().music.active&&__b2zAudio().contextState==="running"',timeout=15000)
+ phase=page.evaluate('__b2zAudio().music.phase');assert phase>=identity['phase'];page.evaluate('audioContextsQA.at(-1).close()');page.wait_for_function('()=>__b2zAudio().contextState==="closed"');page.locator('#board').click(position={'x':160,'y':180});page.wait_for_function('()=>__b2zAudio().music.active&&__b2zAudio().fxBuffers===7',timeout=60000)
+ assert page.evaluate('audioContextsQA.length')==identity['contexts']+1;assert page.evaluate('__b2zAudio().music.phase')>=phase;assert page.evaluate('nativeGameIdentityQA.session===__b2zExperience.session&&nativeGameIdentityQA.clock===__b2zExperience.clock&&nativeGameIdentityQA.queue===__b2zExperience.queue')
+ report['native_context_recovery']={'status':'PASS controlled actual native suspend/close; one ordinary gesture, one recreation, phase and game references retained','state':page.evaluate('__b2zAudio()')}
  report['game_error']=page.evaluate('__b2zTools.state().error');assert report['game_error']is None

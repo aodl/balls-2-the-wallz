@@ -1,0 +1,40 @@
+{
+  "rows": [
+    {
+      "event": "pointerdown",
+      "trusted": true,
+      "active": true,
+      "state": "suspended"
+    },
+    {
+      "event": "mousedown",
+      "trusted": true,
+      "active": true,
+      "state": "suspended"
+    },
+    {
+      "event": "pointerup",
+      "trusted": true,
+      "active": true,
+      "state": "suspended"
+    },
+    {
+      "event": "mouseup",
+      "trusted": true,
+      "active": true,
+      "state": "suspended"
+    },
+    {
+      "event": "click",
+      "trusted": true,
+      "active": true,
+      "state": "suspended"
+    }
+  ],
+  "state": "suspended",
+  "sampleRate": 48000,
+  "console": [
+    "[JavaScript Error: \"Content-Security-Policy: The page\u2019s settings blocked the loading of a resource (img-src) at http://127.0.0.1:34085/favicon.ico because it violates the following directive: \u201cdefault-src 'none'\u201d\" {file: \"resource:///modules/FaviconLoader.sys.mjs\" line: 229}]",
+    "[JavaScript Warning: \"An AudioContext was prevented from starting automatically. It must be created or resumed after a user gesture on the page.\" {file: \"http://127.0.0.1:34085/probe.js\" line: 1}]"
+  ]
+}

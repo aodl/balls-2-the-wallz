@@ -1,0 +1,59 @@
+{
+  "first": [
+    "board",
+    "arena",
+    "",
+    "cannon-context"
+  ],
+  "second": [
+    "quantity-minus",
+    "quantity-controls",
+    "board",
+    "arena",
+    "",
+    "cannon-context"
+  ],
+  "quantity": {
+    "x": 249,
+    "y": 133,
+    "width": 128,
+    "height": 44,
+    "top": 133,
+    "right": 377,
+    "bottom": 177,
+    "left": 249
+  },
+  "camera": [
+    583.6094825103369,
+    458.6094825103369,
+    64
+  ],
+  "proposal": {
+    "mode": "ball",
+    "cell": null,
+    "degrees": "312.27",
+    "worldAngle": null,
+    "quantity": 1
+  },
+  "aim": {
+    "cannon": {
+      "id": 1,
+      "account": "2d0e897f7e862d2b57d9bc9ea5c65f9a24ac6c074575f47898314b8d6cb0929d",
+      "cell": 453578,
+      "heading": null,
+      "balls": 1,
+      "next_ball_e8s": 10000000,
+      "owned_count": 125000,
+      "owned_cells": [
+        453578
+      ],
+      "owns": null,
+      "island_id": 1,
+      "player_id": 1,
+      "dormant": false,
+      "deadline_ns": null
+    },
+    "angle": 192.579345703125,
+    "heading": 35058
+  }
+}

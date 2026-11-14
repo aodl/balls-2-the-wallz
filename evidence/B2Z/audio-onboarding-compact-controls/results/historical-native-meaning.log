@@ -1,0 +1,9 @@
+
+  .work/audio-onboarding-compact-controls/native-meaning/contact.mjs  1.5mb ⚠️
+
+⚡ Done in 155ms
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_contact_meaning.py", line 25, in <module>
+    page.wait_for_function('()=>contactQA.audio().music?.active&&contactQA.audio().fxBuffers===7',timeout=60000);page.evaluate('contactQA.start()');page.wait_for_function('()=>contactStarts.length>0',timeout=15000);first=page.evaluate('contactStarts[0]');assert any(abs(first['duration']-v)<.0001 for v in durations),(name,first);assert first['rate']==1;page.wait_for_timeout(1800);state=page.evaluate('contactQA.audio()');assert state['stats']['maxVoices']<=8;endpoint=page.evaluate('contactQA.finish()');assert endpoint['endpointEquality']and endpoint['events']==endpoint['expected']and endpoint['startsBeforeSeek']==endpoint['startsAfterSeek'];page.screenshot(path=str(out/(name+'.png')))
+                                                                                                                                                                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('friendly', {'duration': 0.18, 'rate': 1, 'at': 2.1546666666666665})

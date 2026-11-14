@@ -38,6 +38,22 @@ with sync_playwright() as pw:
     assert page.locator('#quantity-controls').is_visible();r=page.locator('#quantity-controls').bounding_box();assert r['x']>=0 and r['x']+r['width']<=w and r['y']>=0 and r['y']+r['height']<=h
     assert page.locator('#quantity-plus').evaluate('(n)=>{const r=n.getBoundingClientRect();return document.elementFromPoint(r.x+r.width/2,r.y+r.height/2)===n}')
     row['quadrants'].append({'degrees':degrees,'box':r})
+   # Exercise actual shared request bounds with keyboard input, including
+   # disabled-button focus changes; no hidden input or internal setter.
+   page.locator('#quantity-plus').focus()
+   for _ in range(60):page.keyboard.press('ArrowUp')
+   assert page.locator('#quantity-count').text_content()=='64' and page.locator('#quantity-plus').is_disabled();assert page.evaluate('fixture.command().quantity')==64
+   page.locator('#quantity-minus').focus()
+   for _ in range(63):page.keyboard.press('ArrowDown')
+   assert page.locator('#quantity-count').text_content()=='1' and page.locator('#quantity-minus').is_disabled()
+   page.locator('#quantity-plus').focus()
+   for _ in range(3):page.keyboard.press('ArrowUp')
+   assert page.locator('#quantity-count').text_content()=='4';assert page.evaluate('fixture.summary().camera')==before['camera'];row['keyboard_bounds']='PASS 1..64, disabled buttons, no camera movement'
+   if w<700:
+    touch_before={'memo':page.locator('#text-memo').text_content(),'heading':page.evaluate('fixture.aim().heading')}
+    for selector in ['#quantity-plus','#quantity-minus']:
+     r=page.locator(selector).bounding_box();page.touchscreen.tap(r['x']+r['width']/2,r['y']+r['height']/2)
+    assert page.locator('#quantity-count').text_content()=='4';assert page.evaluate('fixture.summary().camera')==before['camera'];assert float(page.evaluate('fixture.proposal().degrees'))==float(before['angle']);assert page.locator('#text-memo').text_content()==touch_before['memo'];assert page.evaluate('fixture.aim().heading')==touch_before['heading'];row['touch_stepper']='PASS native emulated taps, no aim/pan/zoom'
    owner=page.locator('#full-recipient').input_value();assert '…' in page.locator('#payment-owner').text_content();page.locator('[data-copy=owner]').click();assert pasted(ctx,page)==owner;page.locator('#recipient-reveal').click();assert page.locator('#full-recipient').is_visible();page.locator('#full-recipient').focus();page.locator('#full-recipient').select_text();page.keyboard.press('Control+C');assert pasted(ctx,page)==owner;page.locator('#recipient-reveal').click()
    # A copied packet remains coherent through draft edits and Keep/Update.
    memo=page.locator('#text-memo').text_content();page.locator('[data-copy=text]').click();assert pasted(ctx,page)==memo;page.locator('#quantity-plus').click();assert page.locator('#replace-choice').is_visible();page.locator('#keep-instructions').click();assert page.locator('#quantity-count').text_content()=='4' and page.locator('#text-memo').text_content()==memo;page.locator('#quantity-plus').click();page.locator('#replace-instructions').click();assert page.evaluate('fixture.command().quantity')==5

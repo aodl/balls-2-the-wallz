@@ -1,0 +1,9 @@
+
+  ...udio-onboarding-compact-controls/compact-touch-final/fixture.mjs  1.4mb ⚠️
+
+⚡ Done in 205ms
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_compact_controls.py", line 55, in <module>
+    assert page.locator('#quantity-count').text_content()=='4';assert page.evaluate('fixture.summary().camera')==before['camera'];assert page.evaluate('fixture.proposal().degrees')==before['angle'];row['touch_stepper']='PASS native emulated taps, no aim/pan/zoom'
+                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,0 +1,3416 @@
+{
+  "status": "MEASURED_NOT_QUALIFIED",
+  "scope": "Bounded identical populated-source ON/OFF and OFF/OFF controls on shared software-rendered host. No performance PASS.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "variant": "OFF-A",
+      "startup": {
+        "firstVerifiedMs": 2931.5999999940395,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 43.900000005960464
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 82.7000000178814
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 14.400000005960464
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 17
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 5.4000000059604645
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 11.099999994039536
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 48,
+        "p50": 16.699999999999818,
+        "p95": 350,
+        "p99": 566.6999999999998
+      },
+      "state": {
+        "audio": {
+          "contextState": null,
+          "loading": false,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": false,
+          "blocked": false,
+          "hidden": false,
+          "usable": false,
+          "settings": {
+            "version": 2,
+            "enabled": false
+          },
+          "ownership": {
+            "id": "8adb4783-fb30-4d97-938e-0a1e35c5f66b",
+            "owner": null,
+            "owns": false,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": null,
+          "loader": null,
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 140,
+            "lateFrames": 18,
+            "disabled": 140,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 73,
+            "maxFrameMs": 0.09999999403953552,
+            "maxReservedPeak": 0,
+            "reconciliations": 3,
+            "contextCreations": 0,
+            "inspectionLimit": 128,
+            "flushP95": 0.09999999403953552,
+            "flushP99": 0.09999999403953552
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": null,
+          "baseLatency": null,
+          "outputLatency": null
+        },
+        "playhead": {
+          "phase": "DEGRADED_BUFFER",
+          "playhead": 10.646819999999998,
+          "available": 12,
+          "buffer": 1.3531800000000018,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          }
+        ],
+        "heap": 15200000
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "variant": "ON-A",
+      "startup": {
+        "firstVerifiedMs": 2368.9000000059605,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 35.5
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 62.69999998807907
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 15.300000011920929
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 8.700000017881393
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 11.5
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 12.899999976158142
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 56,
+        "p50": 16.700000000000728,
+        "p95": 266.7000000000007,
+        "p99": 316.60000000000036
+      },
+      "state": {
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 2,
+          "lastError": "",
+          "unlocked": true,
+          "blocked": false,
+          "hidden": false,
+          "usable": true,
+          "settings": {
+            "version": 2,
+            "enabled": true
+          },
+          "ownership": {
+            "id": "059a30a5-a172-4813-be42-b8f3a88a6f45",
+            "owner": "059a30a5-a172-4813-be42-b8f3a88a6f45",
+            "owns": true,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 7,
+          "music": {
+            "starts": 5,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": true,
+            "nodes": 2,
+            "queuedNodes": 2,
+            "buffers": 3,
+            "phase": 463232,
+            "coveredSeconds": 14.34933333333333
+          },
+          "loader": {
+            "fetches": 15,
+            "cacheHits": 0,
+            "decodes": 14,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": true,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 143,
+            "lateFrames": 23,
+            "disabled": 52,
+            "inspected": 79,
+            "classified": 41
+          },
+          "seen": 41,
+          "cooldowns": 11,
+          "stats": {
+            "inspections": 79,
+            "candidates": 41,
+            "eligible": 37,
+            "starts": 11,
+            "dropped": 30,
+            "maxVoices": 2,
+            "frames": 121,
+            "maxFrameMs": 13.400000005960464,
+            "maxReservedPeak": 0.13,
+            "reconciliations": 20,
+            "contextCreations": 1,
+            "inspectionLimit": 30,
+            "flushP95": 0.4000000059604645,
+            "flushP99": 6.200000017881393
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "playhead": {
+          "phase": "DEGRADED_BUFFER",
+          "playhead": 10.910000000000002,
+          "available": 12,
+          "buffer": 1.089999999999998,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/audio/b2z-v1/manifest.json",
+            "bytes": 32550
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+            "bytes": 1354968
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-a-3644a32147c83a21.flac",
+            "bytes": 106141
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 1254702
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-b-b00a94f8e88ec309.flac",
+            "bytes": 106409
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 1235989
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-c-12d52c1290972681.flac",
+            "bytes": 108276
+          },
+          {
+            "name": "/recordings/dense/004/state-0.bin",
+            "bytes": 4351
+          },
+          {
+            "name": "/recordings/dense/004/render-0.bin",
+            "bytes": 7837
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/cannon-launch-soft-00052a3c9bb1f50d.flac",
+            "bytes": 151241
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+            "bytes": 8634
+          },
+          {
+            "name": "/recordings/dense/005/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-b-c46c20436673ab27.flac",
+            "bytes": 9818
+          },
+          {
+            "name": "/recordings/dense/005/state-0.bin",
+            "bytes": 4189
+          },
+          {
+            "name": "/recordings/dense/005/render-0.bin",
+            "bytes": 9402
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/neutral-contact-3c37d8751e36c470.flac",
+            "bytes": 3997
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/audio/b2z-v1/music/003-5a9a811a71e0dbf5.flac",
+            "bytes": 1308310
+          }
+        ],
+        "heap": 27600000
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "variant": "OFF-B",
+      "startup": {
+        "firstVerifiedMs": 2113.7000000178814,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 32.19999998807907
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 83.40000000596046
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 12
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 8.799999982118607
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 8.900000005960464
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 10.600000023841858
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 39,
+        "p50": 16.699999999999818,
+        "p95": 416.60000000000036,
+        "p99": 716.5999999999999
+      },
+      "state": {
+        "audio": {
+          "contextState": null,
+          "loading": false,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": false,
+          "blocked": false,
+          "hidden": false,
+          "usable": false,
+          "settings": {
+            "version": 2,
+            "enabled": false
+          },
+          "ownership": {
+            "id": "19d9f06e-5fcc-49e3-8e94-757d27ac71a2",
+            "owner": null,
+            "owns": false,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": null,
+          "loader": null,
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 140,
+            "lateFrames": 22,
+            "disabled": 140,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 74,
+            "maxFrameMs": 0.10000002384185791,
+            "maxReservedPeak": 0,
+            "reconciliations": 3,
+            "contextCreations": 0,
+            "inspectionLimit": 128,
+            "flushP95": 0.09999999403953552,
+            "flushP99": 0.10000002384185791
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": null,
+          "baseLatency": null,
+          "outputLatency": null
+        },
+        "playhead": {
+          "phase": "PLAYING",
+          "playhead": 9.818055999999999,
+          "available": 12,
+          "buffer": 2.1819440000000014,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          }
+        ],
+        "heap": 15200000
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "variant": "ON-B",
+      "startup": {
+        "firstVerifiedMs": 3238.5,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 58.599999994039536
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 115
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 24.200000017881393
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 18.700000017881393
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 13.099999994039536
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 12.300000011920929
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 49,
+        "p50": 16.700000000000728,
+        "p95": 350,
+        "p99": 400
+      },
+      "state": {
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 2,
+          "lastError": "",
+          "unlocked": true,
+          "blocked": false,
+          "hidden": false,
+          "usable": true,
+          "settings": {
+            "version": 2,
+            "enabled": true
+          },
+          "ownership": {
+            "id": "9be442bb-c331-42eb-ab5f-741765e11c77",
+            "owner": "9be442bb-c331-42eb-ab5f-741765e11c77",
+            "owns": true,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 7,
+          "music": {
+            "starts": 4,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": true,
+            "nodes": 2,
+            "queuedNodes": 2,
+            "buffers": 3,
+            "phase": 581120,
+            "coveredSeconds": 11.89333333333333
+          },
+          "loader": {
+            "fetches": 14,
+            "cacheHits": 0,
+            "decodes": 13,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": true,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 135,
+            "lateFrames": 28,
+            "disabled": 41,
+            "inspected": 39,
+            "classified": 27
+          },
+          "seen": 27,
+          "cooldowns": 4,
+          "stats": {
+            "inspections": 39,
+            "candidates": 27,
+            "eligible": 25,
+            "starts": 4,
+            "dropped": 23,
+            "maxVoices": 2,
+            "frames": 118,
+            "maxFrameMs": 5.4000000059604645,
+            "maxReservedPeak": 0.13,
+            "reconciliations": 22,
+            "contextCreations": 1,
+            "inspectionLimit": 40,
+            "flushP95": 0.20000001788139343,
+            "flushP99": 3.5
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "playhead": {
+          "phase": "DEGRADED_BUFFER",
+          "playhead": 10.194400000000018,
+          "available": 12,
+          "buffer": 1.8055999999999823,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/audio/b2z-v1/manifest.json",
+            "bytes": 32550
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+            "bytes": 1354968
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-a-3644a32147c83a21.flac",
+            "bytes": 106141
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 1254702
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-b-b00a94f8e88ec309.flac",
+            "bytes": 106409
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/004/state-0.bin",
+            "bytes": 4351
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 1235989
+          },
+          {
+            "name": "/recordings/dense/004/render-0.bin",
+            "bytes": 7837
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-c-12d52c1290972681.flac",
+            "bytes": 108276
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/cannon-launch-soft-00052a3c9bb1f50d.flac",
+            "bytes": 151241
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+            "bytes": 8634
+          },
+          {
+            "name": "/recordings/dense/005/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-b-c46c20436673ab27.flac",
+            "bytes": 9818
+          },
+          {
+            "name": "/recordings/dense/005/state-0.bin",
+            "bytes": 4189
+          },
+          {
+            "name": "/recordings/dense/005/render-0.bin",
+            "bytes": 9402
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/neutral-contact-3c37d8751e36c470.flac",
+            "bytes": 3997
+          },
+          {
+            "name": "/recordings/dense/006/catalog.bin",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/audio/b2z-v1/music/003-5a9a811a71e0dbf5.flac",
+            "bytes": 1308310
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          }
+        ],
+        "heap": 26000000
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "variant": "OFF-A",
+      "startup": {
+        "firstVerifiedMs": 2544.199999988079,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 27
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 87.7999999821186
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 17.099999994039536
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 9.800000011920929
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 12.400000005960464
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 12.800000011920929
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 45,
+        "p50": 16.699999999999818,
+        "p95": 416.6999999999998,
+        "p99": 583.3000000000002
+      },
+      "state": {
+        "audio": {
+          "contextState": null,
+          "loading": false,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": false,
+          "blocked": false,
+          "hidden": false,
+          "usable": false,
+          "settings": {
+            "version": 2,
+            "enabled": false
+          },
+          "ownership": {
+            "id": "759785d9-fef8-41a8-a5ed-567f63d5e262",
+            "owner": null,
+            "owns": false,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": null,
+          "loader": null,
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 164,
+            "lateFrames": 18,
+            "disabled": 164,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 86,
+            "maxFrameMs": 0.10000002384185791,
+            "maxReservedPeak": 0,
+            "reconciliations": 3,
+            "contextCreations": 0,
+            "inspectionLimit": 128,
+            "flushP95": 0.09999999403953552,
+            "flushP99": 0.10000002384185791
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": null,
+          "baseLatency": null,
+          "outputLatency": null
+        },
+        "playhead": {
+          "phase": "DEGRADED_BUFFER",
+          "playhead": 10.129615999999999,
+          "available": 12,
+          "buffer": 1.8703840000000014,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          }
+        ],
+        "heap": 16100000
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "variant": "ON-A",
+      "startup": {
+        "firstVerifiedMs": 3422.5,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 42.099999994039536
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 128.19999998807907
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 12.100000023841858
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 11.099999994039536
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 7.800000011920929
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 9.700000017881393
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 59,
+        "p50": 16.700000000000728,
+        "p95": 333.2000000000007,
+        "p99": 500
+      },
+      "state": {
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 2,
+          "lastError": "",
+          "unlocked": true,
+          "blocked": false,
+          "hidden": false,
+          "usable": true,
+          "settings": {
+            "version": 2,
+            "enabled": true
+          },
+          "ownership": {
+            "id": "4df08403-76ef-4833-babc-e354d42b96a2",
+            "owner": "4df08403-76ef-4833-babc-e354d42b96a2",
+            "owns": true,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 7,
+          "music": {
+            "starts": 5,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": true,
+            "nodes": 2,
+            "queuedNodes": 2,
+            "buffers": 2,
+            "phase": 415103,
+            "coveredSeconds": 15.352020833333334
+          },
+          "loader": {
+            "fetches": 15,
+            "cacheHits": 0,
+            "decodes": 14,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": true,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 1
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 176,
+            "lateFrames": 33,
+            "disabled": 88,
+            "inspected": 68,
+            "classified": 36
+          },
+          "seen": 36,
+          "cooldowns": 11,
+          "stats": {
+            "inspections": 68,
+            "candidates": 36,
+            "eligible": 29,
+            "starts": 11,
+            "dropped": 25,
+            "maxVoices": 2,
+            "frames": 138,
+            "maxFrameMs": 6.0999999940395355,
+            "maxReservedPeak": 0.13,
+            "reconciliations": 22,
+            "contextCreations": 1,
+            "inspectionLimit": 54,
+            "flushP95": 0.5,
+            "flushP99": 4.4000000059604645
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "playhead": {
+          "phase": "DEGRADED_BUFFER",
+          "playhead": 10.380986486399992,
+          "available": 12,
+          "buffer": 1.6190135136000077,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/audio/b2z-v1/manifest.json",
+            "bytes": 32550
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+            "bytes": 1354968
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-a-3644a32147c83a21.flac",
+            "bytes": 106141
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 1254702
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/004/state-0.bin",
+            "bytes": 4351
+          },
+          {
+            "name": "/recordings/dense/004/render-0.bin",
+            "bytes": 7837
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-b-b00a94f8e88ec309.flac",
+            "bytes": 106409
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 1235989
+          },
+          {
+            "name": "/recordings/dense/005/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/005/state-0.bin",
+            "bytes": 4189
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-c-12d52c1290972681.flac",
+            "bytes": 108276
+          },
+          {
+            "name": "/recordings/dense/005/render-0.bin",
+            "bytes": 9402
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/cannon-launch-soft-00052a3c9bb1f50d.flac",
+            "bytes": 151241
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+            "bytes": 8634
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-b-c46c20436673ab27.flac",
+            "bytes": 9818
+          },
+          {
+            "name": "/recordings/dense/006/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/006/state-0.bin",
+            "bytes": 4218
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/neutral-contact-3c37d8751e36c470.flac",
+            "bytes": 3997
+          },
+          {
+            "name": "/recordings/dense/006/render-0.bin",
+            "bytes": 6299
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/audio/b2z-v1/music/003-5a9a811a71e0dbf5.flac",
+            "bytes": 1308310
+          }
+        ],
+        "heap": 29400000
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "variant": "OFF-B",
+      "startup": {
+        "firstVerifiedMs": 2981.699999988079,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 34
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 79.5
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 12.400000005960464
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 7.699999988079071
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 7.299999982118607
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 9.5
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 50,
+        "p50": 16.699999999999818,
+        "p95": 366.6999999999998,
+        "p99": 683.3000000000002
+      },
+      "state": {
+        "audio": {
+          "contextState": null,
+          "loading": false,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": false,
+          "blocked": false,
+          "hidden": false,
+          "usable": false,
+          "settings": {
+            "version": 2,
+            "enabled": false
+          },
+          "ownership": {
+            "id": "4ad792d1-9b6e-4d36-90d9-95b61c465334",
+            "owner": null,
+            "owns": false,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": null,
+          "loader": null,
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 179,
+            "lateFrames": 16,
+            "disabled": 179,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 96,
+            "maxFrameMs": 0.19999998807907104,
+            "maxReservedPeak": 0,
+            "reconciliations": 3,
+            "contextCreations": 0,
+            "inspectionLimit": 128,
+            "flushP95": 0.09999999403953552,
+            "flushP99": 0.19999998807907104
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": null,
+          "baseLatency": null,
+          "outputLatency": null
+        },
+        "playhead": {
+          "phase": "PLAYING",
+          "playhead": 10.672486212169762,
+          "available": 16,
+          "buffer": 5.327513787830238,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/004/state-0.bin",
+            "bytes": 4351
+          },
+          {
+            "name": "/recordings/dense/004/render-0.bin",
+            "bytes": 7837
+          }
+        ],
+        "heap": 18200000
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "variant": "ON-B",
+      "startup": {
+        "firstVerifiedMs": 2807.300000011921,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 55.10000002384186
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 104.10000002384186
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 8.299999982118607
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 16.299999982118607
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 10.800000011920929
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 9.900000005960464
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 47,
+        "p50": 16.700000000000728,
+        "p95": 366.6999999999989,
+        "p99": 516.6000000000004
+      },
+      "state": {
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 2,
+          "lastError": "",
+          "unlocked": true,
+          "blocked": false,
+          "hidden": false,
+          "usable": true,
+          "settings": {
+            "version": 2,
+            "enabled": true
+          },
+          "ownership": {
+            "id": "968070bf-a6ce-4992-a451-84c072a3e3c2",
+            "owner": "968070bf-a6ce-4992-a451-84c072a3e3c2",
+            "owns": true,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 7,
+          "music": {
+            "starts": 5,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": true,
+            "nodes": 2,
+            "queuedNodes": 2,
+            "buffers": 3,
+            "phase": 478592,
+            "coveredSeconds": 14.029333333333334
+          },
+          "loader": {
+            "fetches": 15,
+            "cacheHits": 0,
+            "decodes": 14,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": true,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 164,
+            "lateFrames": 26,
+            "disabled": 74,
+            "inspected": 81,
+            "classified": 52
+          },
+          "seen": 44,
+          "cooldowns": 5,
+          "stats": {
+            "inspections": 81,
+            "candidates": 44,
+            "eligible": 40,
+            "starts": 6,
+            "dropped": 38,
+            "maxVoices": 2,
+            "frames": 132,
+            "maxFrameMs": 10.699999988079071,
+            "maxReservedPeak": 0.13,
+            "reconciliations": 20,
+            "contextCreations": 1,
+            "inspectionLimit": 54,
+            "flushP95": 0.699999988079071,
+            "flushP99": 7.100000023841858
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "playhead": {
+          "phase": "STALLED",
+          "playhead": 12,
+          "available": 12,
+          "buffer": 0,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/audio/b2z-v1/manifest.json",
+            "bytes": 32550
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+            "bytes": 1354968
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-a-3644a32147c83a21.flac",
+            "bytes": 106141
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 1254702
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/004/state-0.bin",
+            "bytes": 4351
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-b-b00a94f8e88ec309.flac",
+            "bytes": 106409
+          },
+          {
+            "name": "/recordings/dense/004/render-0.bin",
+            "bytes": 7837
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 1235989
+          },
+          {
+            "name": "/recordings/dense/005/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-c-12d52c1290972681.flac",
+            "bytes": 108276
+          },
+          {
+            "name": "/recordings/dense/005/state-0.bin",
+            "bytes": 4189
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/cannon-launch-soft-00052a3c9bb1f50d.flac",
+            "bytes": 151241
+          },
+          {
+            "name": "/recordings/dense/005/render-0.bin",
+            "bytes": 9402
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+            "bytes": 8634
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-b-c46c20436673ab27.flac",
+            "bytes": 9818
+          },
+          {
+            "name": "/recordings/dense/006/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/neutral-contact-3c37d8751e36c470.flac",
+            "bytes": 3997
+          },
+          {
+            "name": "/recordings/dense/006/state-0.bin",
+            "bytes": 4218
+          },
+          {
+            "name": "/recordings/dense/006/render-0.bin",
+            "bytes": 6299
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/audio/b2z-v1/music/003-5a9a811a71e0dbf5.flac",
+            "bytes": 1308310
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/004/state-0.bin",
+            "bytes": 4351
+          }
+        ],
+        "heap": 29400000
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "variant": "OFF-A",
+      "startup": {
+        "firstVerifiedMs": 4343.0999999940395,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 82.2999999821186
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 177.19999998807907
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 8.900000005960464
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 14.300000011920929
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 18.5
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 18.599999994039536
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 53,
+        "p50": 16.699999999999818,
+        "p95": 366.60000000000036,
+        "p99": 866.6999999999998
+      },
+      "state": {
+        "audio": {
+          "contextState": null,
+          "loading": false,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": false,
+          "blocked": false,
+          "hidden": false,
+          "usable": false,
+          "settings": {
+            "version": 2,
+            "enabled": false
+          },
+          "ownership": {
+            "id": "7a035f05-682a-47e1-8f90-36cc12704a51",
+            "owner": null,
+            "owns": false,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": null,
+          "loader": null,
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 170,
+            "lateFrames": 20,
+            "disabled": 170,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 91,
+            "maxFrameMs": 9.099999994039536,
+            "maxReservedPeak": 0,
+            "reconciliations": 3,
+            "contextCreations": 0,
+            "inspectionLimit": 96,
+            "flushP95": 0.09999999403953552,
+            "flushP99": 9.099999994039536
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": null,
+          "baseLatency": null,
+          "outputLatency": null
+        },
+        "playhead": {
+          "phase": "PLAYING",
+          "playhead": 8.63917106943242,
+          "available": 12,
+          "buffer": 3.36082893056758,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/004/state-0.bin",
+            "bytes": 4351
+          }
+        ],
+        "heap": 16100000
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "variant": "ON-A",
+      "startup": {
+        "firstVerifiedMs": 4255.0999999940395,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 46
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 108.7999999821186
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 24.099999994039536
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 8.799999982118607
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 13
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 11.799999982118607
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 53,
+        "p50": 16.700000000000728,
+        "p95": 416.59999999999854,
+        "p99": 466.59999999999854
+      },
+      "state": {
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 2,
+          "lastError": "",
+          "unlocked": true,
+          "blocked": false,
+          "hidden": false,
+          "usable": true,
+          "settings": {
+            "version": 2,
+            "enabled": true
+          },
+          "ownership": {
+            "id": "399d2bbe-339f-4d0d-ac48-8f281330510a",
+            "owner": "399d2bbe-339f-4d0d-ac48-8f281330510a",
+            "owns": true,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 7,
+          "music": {
+            "starts": 5,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": true,
+            "nodes": 2,
+            "queuedNodes": 2,
+            "buffers": 2,
+            "phase": 433408.0000000002,
+            "coveredSeconds": 14.970666666666663
+          },
+          "loader": {
+            "fetches": 15,
+            "cacheHits": 0,
+            "decodes": 14,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": true,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 1
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 169,
+            "lateFrames": 40,
+            "disabled": 89,
+            "inspected": 43,
+            "classified": 27
+          },
+          "seen": 27,
+          "cooldowns": 4,
+          "stats": {
+            "inspections": 43,
+            "candidates": 27,
+            "eligible": 18,
+            "starts": 4,
+            "dropped": 23,
+            "maxVoices": 2,
+            "frames": 131,
+            "maxFrameMs": 15.199999988079071,
+            "maxReservedPeak": 0.13,
+            "reconciliations": 22,
+            "contextCreations": 1,
+            "inspectionLimit": 16,
+            "flushP95": 2.7000000178813934,
+            "flushP99": 12.400000005960464
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "playhead": {
+          "phase": "PLAYING",
+          "playhead": 9.875204000000013,
+          "available": 12,
+          "buffer": 2.1247959999999875,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/audio/b2z-v1/manifest.json",
+            "bytes": 32550
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+            "bytes": 1354968
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-a-3644a32147c83a21.flac",
+            "bytes": 106141
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 1254702
+          },
+          {
+            "name": "/recordings/dense/004/state-0.bin",
+            "bytes": 4351
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-b-b00a94f8e88ec309.flac",
+            "bytes": 106409
+          },
+          {
+            "name": "/recordings/dense/004/render-0.bin",
+            "bytes": 7837
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 1235989
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-c-12d52c1290972681.flac",
+            "bytes": 108276
+          },
+          {
+            "name": "/recordings/dense/005/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/005/state-0.bin",
+            "bytes": 4189
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/cannon-launch-soft-00052a3c9bb1f50d.flac",
+            "bytes": 151241
+          },
+          {
+            "name": "/recordings/dense/005/render-0.bin",
+            "bytes": 9402
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+            "bytes": 8634
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-b-c46c20436673ab27.flac",
+            "bytes": 9818
+          },
+          {
+            "name": "/recordings/dense/006/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/006/state-0.bin",
+            "bytes": 4218
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/neutral-contact-3c37d8751e36c470.flac",
+            "bytes": 3997
+          },
+          {
+            "name": "/recordings/dense/006/render-0.bin",
+            "bytes": 6299
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/audio/b2z-v1/music/003-5a9a811a71e0dbf5.flac",
+            "bytes": 1308310
+          }
+        ],
+        "heap": 27600000
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "variant": "OFF-B",
+      "startup": {
+        "firstVerifiedMs": 2535.9000000059605,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 52.599999994039536
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 129
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 20.599999994039536
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 5.200000017881393
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 13.099999994039536
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 8.200000017881393
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 48,
+        "p50": 16.699999999999818,
+        "p95": 316.7000000000007,
+        "p99": 616.6000000000004
+      },
+      "state": {
+        "audio": {
+          "contextState": null,
+          "loading": false,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": false,
+          "blocked": false,
+          "hidden": false,
+          "usable": false,
+          "settings": {
+            "version": 2,
+            "enabled": false
+          },
+          "ownership": {
+            "id": "c381a012-7378-4738-8268-4e9b2f11a1a3",
+            "owner": null,
+            "owns": false,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 0,
+          "music": null,
+          "loader": null,
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 163,
+            "lateFrames": 12,
+            "disabled": 163,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 86,
+            "maxFrameMs": 0.10000002384185791,
+            "maxReservedPeak": 0,
+            "reconciliations": 3,
+            "contextCreations": 0,
+            "inspectionLimit": 128,
+            "flushP95": 0.09999999403953552,
+            "flushP99": 0.10000002384185791
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": null,
+          "baseLatency": null,
+          "outputLatency": null
+        },
+        "playhead": {
+          "phase": "PLAYING",
+          "playhead": 11.341997999362942,
+          "available": 16,
+          "buffer": 4.658002000637058,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/004/state-0.bin",
+            "bytes": 4351
+          },
+          {
+            "name": "/recordings/dense/004/render-0.bin",
+            "bytes": 7837
+          }
+        ],
+        "heap": 17100000
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "variant": "ON-B",
+      "startup": {
+        "firstVerifiedMs": 1595.8999999761581,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388,
+            "duration": 32.5
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148,
+            "duration": 58
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068,
+            "duration": 6.600000023841858
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591,
+            "duration": 8.399999976158142
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152,
+            "duration": 6.5999999940395355
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542,
+            "duration": 3.399999976158142
+          }
+        ]
+      },
+      "frame_ms": {
+        "frames": 79,
+        "p50": 50,
+        "p95": 133.39999999999964,
+        "p99": 166.60000000000036
+      },
+      "state": {
+        "audio": {
+          "contextState": "running",
+          "loading": false,
+          "gameReady": true,
+          "generation": 2,
+          "lastError": "",
+          "unlocked": true,
+          "blocked": false,
+          "hidden": false,
+          "usable": true,
+          "settings": {
+            "version": 2,
+            "enabled": true
+          },
+          "ownership": {
+            "id": "af63fe81-e1c1-4733-beba-77e96f4eb9c4",
+            "owner": "af63fe81-e1c1-4733-beba-77e96f4eb9c4",
+            "owns": true,
+            "coordinated": true
+          },
+          "activeVoices": 1,
+          "fxBuffers": 7,
+          "music": {
+            "starts": 4,
+            "underruns": 0,
+            "maxBuffers": 3,
+            "maxNodes": 2,
+            "maxDecoded": 9331200,
+            "active": true,
+            "nodes": 2,
+            "queuedNodes": 2,
+            "buffers": 3,
+            "phase": 365056,
+            "coveredSeconds": 8.394666666666668
+          },
+          "loader": {
+            "fetches": 14,
+            "cacheHits": 0,
+            "decodes": 13,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": true,
+            "encoded": 0,
+            "pending": 0,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 2,
+            "retained": 2,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 210,
+            "lateFrames": 4,
+            "disabled": 60,
+            "inspected": 138,
+            "classified": 118
+          },
+          "seen": 78,
+          "cooldowns": 11,
+          "stats": {
+            "inspections": 138,
+            "candidates": 78,
+            "eligible": 63,
+            "starts": 13,
+            "dropped": 65,
+            "maxVoices": 2,
+            "frames": 184,
+            "maxFrameMs": 6.199999988079071,
+            "maxReservedPeak": 0.13,
+            "reconciliations": 18,
+            "contextCreations": 1,
+            "inspectionLimit": 72,
+            "flushP95": 0.30000001192092896,
+            "flushP99": 4.700000017881393
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "playhead": {
+          "phase": "PLAYING",
+          "playhead": 14.52218480892042,
+          "available": 20,
+          "buffer": 5.47781519107958,
+          "rate": 0.97
+        },
+        "gameError": null,
+        "resources": [
+          {
+            "name": "/style.css",
+            "bytes": 25388
+          },
+          {
+            "name": "/app.mjs",
+            "bytes": 2098148
+          },
+          {
+            "name": "/recordings/index.json",
+            "bytes": 4068
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/audio/b2z-v1/manifest.json",
+            "bytes": 32550
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+            "bytes": 1354968
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-a-3644a32147c83a21.flac",
+            "bytes": 106141
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 1254702
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-b-b00a94f8e88ec309.flac",
+            "bytes": 106409
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 1235989
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/wall-ripple-c-12d52c1290972681.flac",
+            "bytes": 108276
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/cannon-launch-soft-00052a3c9bb1f50d.flac",
+            "bytes": 151241
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+            "bytes": 8634
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/friendly-contact-b-c46c20436673ab27.flac",
+            "bytes": 9818
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/audio/b2z-v1/sfx/neutral-contact-3c37d8751e36c470.flac",
+            "bytes": 3997
+          },
+          {
+            "name": "/recordings/dense/004/state-0.bin",
+            "bytes": 4351
+          },
+          {
+            "name": "/recordings/dense/004/render-0.bin",
+            "bytes": 7837
+          },
+          {
+            "name": "/recordings/dense/000/catalog.bin",
+            "bytes": 1591
+          },
+          {
+            "name": "/recordings/dense/000/state-0.bin",
+            "bytes": 4152
+          },
+          {
+            "name": "/recordings/dense/000/render-0.bin",
+            "bytes": 542
+          },
+          {
+            "name": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/001/catalog.bin",
+            "bytes": 2708
+          },
+          {
+            "name": "/recordings/dense/001/state-0.bin",
+            "bytes": 4429
+          },
+          {
+            "name": "/recordings/dense/001/render-0.bin",
+            "bytes": 4802
+          },
+          {
+            "name": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+            "bytes": 0
+          },
+          {
+            "name": "/recordings/dense/002/catalog.bin",
+            "bytes": 2709
+          },
+          {
+            "name": "/recordings/dense/002/state-0.bin",
+            "bytes": 4409
+          },
+          {
+            "name": "/recordings/dense/002/render-0.bin",
+            "bytes": 11457
+          },
+          {
+            "name": "/recordings/dense/003/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/003/state-0.bin",
+            "bytes": 4305
+          },
+          {
+            "name": "/recordings/dense/003/render-0.bin",
+            "bytes": 10690
+          },
+          {
+            "name": "/recordings/dense/004/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/004/state-0.bin",
+            "bytes": 4351
+          },
+          {
+            "name": "/recordings/dense/004/render-0.bin",
+            "bytes": 7837
+          },
+          {
+            "name": "/recordings/dense/005/catalog.bin",
+            "bytes": 2711
+          },
+          {
+            "name": "/recordings/dense/005/state-0.bin",
+            "bytes": 4189
+          },
+          {
+            "name": "/recordings/dense/005/render-0.bin",
+            "bytes": 9402
+          }
+        ],
+        "heap": 24500000
+      }
+    }
+  ]
+}

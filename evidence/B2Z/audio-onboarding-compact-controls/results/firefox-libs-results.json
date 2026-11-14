@@ -1,0 +1,106 @@
+{
+  "scope": "Actual game modules, native Web Audio/FLAC, production-equivalent headers. No IC network.",
+  "mode": "integrated-app",
+  "checks": [
+    {
+      "id": "L01",
+      "status": "PASS",
+      "observation": "Enabled intent by default; browser permission remains independent"
+    }
+  ],
+  "errors": [],
+  "controlled_native_decode_delay_ms": 0,
+  "status": "FAIL",
+  "error": "Page.wait_for_function: Timeout 60000ms exceeded.",
+  "last_audio": {
+    "contextState": "suspended",
+    "loading": false,
+    "gameReady": true,
+    "generation": 0,
+    "lastError": "",
+    "unlocked": false,
+    "blocked": false,
+    "hidden": false,
+    "usable": false,
+    "settings": {
+      "version": 2,
+      "enabled": true
+    },
+    "ownership": {
+      "id": "8f0520a0-bcb6-41e1-8e3f-f91ff793d3c2",
+      "owner": "8f0520a0-bcb6-41e1-8e3f-f91ff793d3c2",
+      "owns": true,
+      "coordinated": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 0,
+    "music": {
+      "starts": 0,
+      "underruns": 0,
+      "maxBuffers": 0,
+      "maxNodes": 0,
+      "maxDecoded": 0,
+      "active": false,
+      "nodes": 0,
+      "queuedNodes": 0,
+      "buffers": 0,
+      "phase": 0,
+      "coveredSeconds": 0
+    },
+    "loader": {
+      "fetches": 0,
+      "cacheHits": 0,
+      "decodes": 0,
+      "maxFetches": 0,
+      "maxEncoded": 0,
+      "maxDecodes": 0,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 7321,
+      "lateFrames": 2,
+      "disabled": 7321,
+      "inspected": 0,
+      "classified": 0
+    },
+    "seen": 0,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 0,
+      "candidates": 0,
+      "eligible": 0,
+      "starts": 0,
+      "dropped": 0,
+      "maxVoices": 0,
+      "frames": 3689,
+      "maxFrameMs": 1,
+      "maxReservedPeak": 0,
+      "reconciliations": 63,
+      "contextCreations": 1,
+      "inspectionLimit": 128,
+      "flushP95": 0,
+      "flushP99": 0
+    },
+    "mix": {
+      "master": 0.8,
+      "music": 1,
+      "effects": 1,
+      "effectsReservedPeak": 0.2
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0,
+    "outputLatency": 0
+  },
+  "game": null,
+  "audio_status": "Sound enabled; the next game interaction can activate it.",
+  "browser": "155.0",
+  "audio_requests": 0
+}
