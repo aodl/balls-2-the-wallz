@@ -2,6 +2,20 @@
 //! use the real valueless Ledger/Index under the frozen normal production predecessor.
 use super::*;
 use b2z_native::world::World;
+#[derive(serde::Deserialize, serde::Serialize)]
+struct ClearanceReceipt {
+    position: Int,
+    account: String,
+    amount: Int,
+    amount_used: Int,
+    remainder: Int,
+    reason: String,
+    status: String,
+}
+#[derive(serde::Deserialize)]
+struct ClearanceEvents {
+    receipts: Vec<ClearanceReceipt>,
+}
 fn pause(pic: &PocketIc, id: Principal) {
     get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
 }
@@ -560,19 +574,14 @@ fn run_entry_and_clearance(
         live_record(&pic, id, &mut rows, &out);
         for p in rows.iter().skip(checked) {
             let n = p.head.segment_id.as_ref().unwrap().0.to_string();
-            let events: serde_json::Value = decode(
+            let events: ClearanceEvents = decode(
                 &std::fs::read(out.join(format!("publication-{n}-artifact-1.bin"))).unwrap(),
             )
             .unwrap();
-            for receipt in events["receipts"].as_array().unwrap() {
-                if let Ok(pos) = receipt["position"]
-                    .to_string()
-                    .trim_matches('"')
-                    .parse::<u64>()
-                {
-                    if expected.contains(&pos) {
-                        receipts.insert(pos, receipt.clone());
-                    }
+            for receipt in events.receipts {
+                let pos = receipt.position.0.to_string().parse::<u64>().unwrap();
+                if expected.contains(&pos) {
+                    receipts.insert(pos, receipt);
                 }
             }
         }
@@ -584,8 +593,11 @@ fn run_entry_and_clearance(
     pause(&pic, id);
     assert_eq!(receipts.len(), 2, "both real valueless receipts observed");
     for receipt in receipts.values() {
-        assert_eq!(receipt["reason"], "ENEMY_TERRITORY_TOO_CLOSE");
-        assert_eq!(receipt["amount_used"], serde_json::json!(0));
+        assert_eq!(receipt.reason, "ENEMY_TERRITORY_TOO_CLOSE");
+        assert_eq!(receipt.status, "rejected");
+        assert_eq!(receipt.account, account);
+        assert_eq!(receipt.amount_used.0.to_string(), "0");
+        assert_eq!(receipt.remainder, receipt.amount);
     }
     let after = arena_world(&pic, id);
     for c in &after.cannons {
