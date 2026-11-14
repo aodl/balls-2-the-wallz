@@ -1,0 +1,76 @@
+{
+  "status": "PASS",
+  "scope": "Real account/Join input; canonical fixture world, not a new IC authentication claim.",
+  "rows": [
+    {
+      "case": "multiple",
+      "status": "PASS no unsolicited NEW; once-only returning navigation",
+      "camera": [
+        527.8435991113747,
+        527.8435991113747,
+        1.0336847748229683
+      ],
+      "selected": null
+    },
+    {
+      "case": "dormant",
+      "status": "PASS no unsolicited NEW; once-only returning navigation",
+      "camera": [
+        104.10229541704098,
+        1.1022954170409776,
+        47.78635809500484
+      ],
+      "selected": null
+    },
+    {
+      "case": "wrapped",
+      "status": "PASS no unsolicited NEW; once-only returning navigation",
+      "camera": [
+        527.8435991113747,
+        527.8435991113747,
+        1.0336847748229683
+      ],
+      "selected": null
+    },
+    {
+      "case": "wrong-subaccount",
+      "status": "PASS exact absent account enters first Join",
+      "camera": [
+        578.5,
+        453.5,
+        48
+      ],
+      "selected": null
+    },
+    {
+      "case": "new-account",
+      "status": "PASS exact absent account enters first Join",
+      "camera": [
+        578.5,
+        453.5,
+        48
+      ],
+      "selected": null
+    },
+    {
+      "case": "delayed",
+      "status": "PASS no unsolicited NEW; once-only returning navigation",
+      "camera": [
+        527.8435991113747,
+        527.8435991113747,
+        1.0336847748229683
+      ],
+      "selected": null
+    },
+    {
+      "case": "cancel-delayed",
+      "status": "PASS close cancels pending navigation",
+      "camera": [
+        578.5,
+        453.5,
+        48
+      ],
+      "selected": null
+    }
+  ]
+}

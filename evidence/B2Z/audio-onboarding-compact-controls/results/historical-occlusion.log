@@ -1,0 +1,21 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_audio_occlusion.py", line 27, in <module>
+    row=page.evaluate('''sel=>new Promise((resolve,reject)=>{const start=performance.now();let masked=false,point,rect;function sample(){const audio=__b2zAudio();if(!masked&&audio.activeVoices){const ball=__b2zExperience.visible.balls.values().next().value,t=__b2zExperience.visibleTime,p=__b2zCamera.point((Number(ball.x0)+ball.vx*t)/1024,(Number(ball.y0)+ball.vy*t)/1024,.14),canvas=document.getElementById('board').getBoundingClientRect(),node=document.querySelector(sel);point={x:canvas.left+p.sx,y:canvas.top+p.sy};node.hidden=false;node.style.setProperty('--qa-x',(point.x-80)+'px');node.style.setProperty('--qa-y',(point.y-80)+'px');node.classList.add('native-audio-mask');rect=node.getBoundingClientRect().toJSON();masked=true;}if(masked&&audioStopQA.some(s=>s.when!==null&&s.when>s.at&&s.when-s.at<=.1))return resolve({selector:sel,point,rect,stops:audioStopQA,audio:__b2zAudio(),gameError:__b2zTools.state().error});if(performance.now()-start>20000)return reject(Error('No native mask fade stop for '+sel));requestAnimationFrame(sample)}requestAnimationFrame(sample)})''',selector)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/sync_api/_generated.py", line 9413, in evaluate
+    self._sync(
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_page.py", line 474, in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_frame.py", line 346, in evaluate
+    await self._channel.send(
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.evaluate: Error: No native mask fade stop for .audio-controls
+    at sample (eval at evaluate (:311:30), <anonymous>:1:949)

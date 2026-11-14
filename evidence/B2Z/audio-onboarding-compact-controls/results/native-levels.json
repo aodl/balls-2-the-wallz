@@ -1,0 +1,61 @@
+{
+  "scope": "Decode/measure an already recorded real native output stream, not offline-synthesised output",
+  "frames": 455040,
+  "sampleRate": 48000,
+  "rows": [
+    {
+      "scale": 60,
+      "effect": "friendly",
+      "rms": 0.006423624357673348,
+      "peak": 0.06824871897697449
+    },
+    {
+      "scale": 60,
+      "effect": "threat",
+      "rms": 0.00731036254312054,
+      "peak": 0.06384074687957764
+    },
+    {
+      "scale": 60,
+      "effect": "neutral",
+      "rms": 0.003966218511009946,
+      "peak": 0.03617669269442558
+    },
+    {
+      "scale": 24,
+      "effect": "friendly",
+      "rms": 0.00434612281471801,
+      "peak": 0.0461917482316494
+    },
+    {
+      "scale": 24,
+      "effect": "threat",
+      "rms": 0.004930001666341315,
+      "peak": 0.0437907800078392
+    },
+    {
+      "scale": 24,
+      "effect": "neutral",
+      "rms": 0.0026861195822218,
+      "peak": 0.02432960644364357
+    },
+    {
+      "scale": 5,
+      "effect": "friendly",
+      "rms": 2.034586948377138e-34,
+      "peak": 2.0345869483764863e-34
+    },
+    {
+      "scale": 5,
+      "effect": "threat",
+      "rms": 2.034586948377138e-34,
+      "peak": 2.0345869483764863e-34
+    },
+    {
+      "scale": 5,
+      "effect": "neutral",
+      "rms": 2.034586948377138e-34,
+      "peak": 2.0345869483764863e-34
+    }
+  ]
+}

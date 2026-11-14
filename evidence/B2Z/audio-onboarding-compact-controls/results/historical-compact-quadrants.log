@@ -1,0 +1,9 @@
+
+  .../audio-onboarding-compact-controls/compact-quadrants/fixture.mjs  1.4mb ⚠️
+
+⚡ Done in 1262ms
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_compact_controls.py", line 37, in <module>
+    assert page.locator('#quantity-controls').is_visible();r=page.locator('#quantity-controls').bounding_box();assert r['x']>=0 and r['x']+r['width']<=w and r['y']>=0 and r['y']+r['height']<=h
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

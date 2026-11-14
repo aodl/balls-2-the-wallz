@@ -1,0 +1,18 @@
+
+  .work/audio-onboarding-compact-controls/refinement/fixture.mjs  1.4mb ⚠️
+
+⚡ Done in 757ms
+{"viewport": [1440, 900], "toolbar_drift": [0.0, 0.0, 0.0, 0.0, 0.0], "panel": {"height": 277, "content": 277, "workspace": {"x": 661, "y": 334, "width": 360, "height": 331, "top": 334, "right": 1021, "bottom": 665, "left": 661}}, "errors": [], "move_panel": {"height": 297, "content": 297}, "deferred_target": {"original": 452577, "chosen": "452577", "memo": "MOVE 1 452577"}, "minimap": {"width": 164, "height": 95, "css": 164, "dpr": 1}}
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_refinement_browser.py", line 42, in <module>
+    row['journeys']=verify_refinement(page,w,h,out);assert not errors,errors
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/tools/player_refinement_browser.py", line 49, in verify_refinement
+    for operation in ['pan','zoom','focus','mode','revision','removed']:rows.append(placement(operation));(out/f'{width}-target-integrity.json').write_text(__import__('json').dumps(rows,indent=2)+'\n')
+                                                                                    ^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/tools/player_refinement_browser.py", line 22, in placement
+    prepare(kind)
+  File "/home/codexdev/src/b2z/tools/player_refinement_browser.py", line 15, in prepare
+    assert page.locator(selector).evaluate('(n)=>parseFloat(getComputedStyle(n).fontSize)>=14'),'financial text must retain a readable size'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: financial text must retain a readable size

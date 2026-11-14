@@ -126,3 +126,15 @@ iOS/Android/Safari/Bluetooth and subjective suitability remain NOT VERIFIED here
 Rules9 activation, production frontend deployment and financial operations require
 separate explicit approval. Source publication is authorized in the current brief;
 credentials/hosted conclusions will be recorded from actual results.
+
+
+### Hosted760e8e4 negative result
+
+Run43641830388 passed Source, Native, Packaged DTR and Runtime-lab Wasm, but
+Browser failed its real-touch near-aim-to-pinch assertion at390px. Reproduction
+shows the second touch hit quantity-minus: the editor repositioned during the
+first finger's captured aim gesture. The application correction freezes its slot
+through any arena pointer capture, with an additional fixed-slot/hit-test assertion
+and the original unchanged pinch/memo assertions. This changes application bytes;
+760's freeze is superseded, not relabelled as the corrected artifact. Final freeze
+and all-six exact-source qualification must be repeated for that correction.

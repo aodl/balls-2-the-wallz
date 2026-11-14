@@ -1,0 +1,15 @@
+
+  ...dio-onboarding-compact-controls/refinement-corrected/fixture.mjs  1.4mb ⚠️
+
+⚡ Done in 1122ms
+{"viewport": [1440, 900], "toolbar_drift": [0.0, 0.0, 0.0, 0.0, 0.0], "panel": {"height": 277, "content": 277, "workspace": {"x": 661, "y": 334, "width": 360, "height": 331, "top": 334, "right": 1021, "bottom": 665, "left": 661}}, "errors": [], "move_panel": {"height": 277, "content": 295}, "deferred_target": {"original": 452577, "chosen": "452577", "memo": "MOVE 1 452577"}, "minimap": {"width": 164, "height": 95, "css": 164, "dpr": 1}}
+{"viewport": [390, 844], "toolbar_drift": [0.0, 0.0, 0.0, 0.0, 0.0], "panel": {"height": 277, "content": 277, "workspace": {"x": 8, "y": 221, "width": 360, "height": 331, "top": 221, "right": 368, "bottom": 552, "left": 8}}, "errors": [], "move_panel": {"height": 297, "content": 297}, "minimap": {"width": 186, "height": 107, "css": 124, "dpr": 1.5}}
+{"viewport": [320, 640], "toolbar_drift": [0.0, 0.0, 0.0, 0.0, 0.0], "panel": {"height": 241, "content": 275, "workspace": {"x": 8, "y": 221, "width": 304, "height": 295, "top": 221, "right": 312, "bottom": 516, "left": 8}}, "errors": [], "move_panel": {"height": 241, "content": 295}, "minimap": {"width": 248, "height": 143, "css": 124, "dpr": 2}}
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_refinement_browser.py", line 42, in <module>
+    row['journeys']=verify_refinement(page,w,h,out);assert not errors,errors
+                    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/tools/player_refinement_browser.py", line 94, in verify_refinement
+    page.locator('#quantity-plus').focus();set_heading(page,'37.25');page.evaluate('fixture.publish("additional","final")');assert page.locator('#quantity-plus').evaluate('(n)=>document.activeElement===n');assert heading_value(page)=='37.25'
+                                                                                                                                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
