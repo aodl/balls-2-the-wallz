@@ -1,0 +1,38 @@
+✔ declared own contacts positive, enemy requires our actual pre-event boundary (2.800032ms)
+✔ cannon, vertex blocked and mixed corner never masquerade as enemy wall (0.560906ms)
+✔ seam uses wrapped exact face and island owner resolves player, not label (1.580318ms)
+✔ classification is immutable event-time meaning after later ownership change (0.397905ms)
+✖ stationary coordinate exactly on a grid line cannot identify its canonical side from a track (3.620242ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 243.968209
+
+✖ failing tests:
+
+test at tests/js/audio-contact.test.mjs:12:1
+✖ stationary coordinate exactly on a grid line cannot identify its canonical side from a track (3.620242ms)
+  AssertionError [ERR_ASSERTION]: missing sided cell must not become an enemy-on-our-wall claim
+  + actual - expected
+  
+  + 'threat'
+  - 'neutral'
+  
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z/tests/js/audio-contact.test.mjs:12:190)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'threat',
+    expected: 'neutral',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

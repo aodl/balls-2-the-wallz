@@ -1,0 +1,174 @@
+{
+  "state": {
+    "time": 0.150369,
+    "frames": [
+      {
+        "previous": 0.015541000000000004,
+        "time": 0.017375,
+        "elapsed": 0.18339999999999965,
+        "events": [
+          {
+            "kind": "trajectory",
+            "time": [
+              "2",
+              "125"
+            ],
+            "sequence": 0
+          },
+          {
+            "kind": "strike_armed",
+            "time": [
+              "2",
+              "125"
+            ],
+            "sequence": 1
+          }
+        ],
+        "audio": {
+          "inspected": 1,
+          "retained": 0,
+          "dropped": 0
+        }
+      },
+      {
+        "previous": 0.04787399999999999,
+        "time": 0.049872999999999994,
+        "elapsed": 0.19989999999999963,
+        "events": [
+          {
+            "kind": "trajectory",
+            "time": [
+              "6",
+              "125"
+            ],
+            "sequence": 2
+          }
+        ],
+        "audio": {
+          "inspected": 1,
+          "retained": 0,
+          "dropped": 0
+        }
+      },
+      {
+        "previous": 0.076873,
+        "time": 0.079205,
+        "elapsed": 0.23320000000000074,
+        "events": [
+          {
+            "kind": "capture_annihilation",
+            "time": [
+              "157",
+              "2000"
+            ],
+            "sequence": 3
+          }
+        ],
+        "audio": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        }
+      }
+    ],
+    "authorityTime": [
+      "1",
+      "1"
+    ],
+    "latestBoundaryOwner": null,
+    "account": "2d0e897f7e862d2b57d9bc9ea5c65f9a24ac6c074575f47898314b8d6cb0929d",
+    "camera": [
+      103.5,
+      1,
+      64
+    ]
+  },
+  "audio": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 0,
+    "lastError": "",
+    "unlocked": true,
+    "blocked": false,
+    "hidden": false,
+    "usable": true,
+    "settings": {
+      "version": 2,
+      "enabled": true
+    },
+    "ownership": {
+      "id": "a89423e5-4493-48fb-af80-24046b8a002e",
+      "owner": "a89423e5-4493-48fb-af80-24046b8a002e",
+      "owns": true,
+      "coordinated": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 7,
+    "music": {
+      "starts": 3,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200,
+      "active": true,
+      "nodes": 2,
+      "queuedNodes": 2,
+      "buffers": 3,
+      "phase": 762880,
+      "coveredSeconds": 8.10666666666667
+    },
+    "loader": {
+      "fetches": 12,
+      "cacheHits": 0,
+      "decodes": 11,
+      "maxFetches": 1,
+      "maxEncoded": 6773340,
+      "maxDecodes": 1,
+      "cacheDisabled": true,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 157,
+      "lateFrames": 5,
+      "disabled": 36,
+      "inspected": 2,
+      "classified": 0
+    },
+    "seen": 0,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 2,
+      "candidates": 0,
+      "eligible": 0,
+      "starts": 0,
+      "dropped": 0,
+      "maxVoices": 0,
+      "frames": 157,
+      "maxFrameMs": 4.0999999940395355,
+      "maxReservedPeak": 0,
+      "reconciliations": 20,
+      "contextCreations": 1,
+      "inspectionLimit": 96,
+      "flushP95": 0.10000002384185791,
+      "flushP99": 0.20000001788139343
+    },
+    "mix": {
+      "master": 0.8,
+      "music": 1,
+      "effects": 1,
+      "effectsReservedPeak": 0.2
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "starts": []
+}

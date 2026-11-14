@@ -68,7 +68,7 @@ existing refinement assertions rejected its small font. No assertion was relaxed
 Displayed contact cues now resolve exact rational reversed faces from pre-event
 view ownership. Same-player islands resolve canonical accounts. Own contacts use
 new light contacts; threats require enemy attacker AND our actual contacted wall.
-Cannon/mixed-owner/vertex-blocked/ambiguous/spectator contacts remain neutral.
+Cannon, enemy mixed-owner, vertex-blocked, ambiguous and spectator contacts remain neutral; known own attackers have friendly priority.
 No altered event schema, second simulation or ownership inference from latest head.
 
 ## Eleven workflow results
@@ -273,3 +273,25 @@ routes remain NOT VERIFIED. Conservative overlap/headroom and fixed voice/rate
 budgets are proven in their numerical/engine scopes, not mislabeled as hardware
 or subjective sound quality. The fresh/declared account CPU path has no new world
 scan, but P09 remains a release limitation until representative measurements pass.
+
+
+### Conservative sided-contact correction
+
+A focused negative vector proved a real ambiguity: tracks omit canonical sided
+cells, so zero velocity along an exact grid line cannot identify which adjacent
+row/column owns a reversed face. The preceding implementation guessed below/right
+and could label a threat. The new regression fails that old source; the correction
+returns neutral for that unresolvable contact. No physics, event schema or history
+changes. Common native friendly/threat/spectator fixtures remain unchanged. This
+requires a new runtime freeze; d01 identities above remain superseded historical
+evidence until the final frozen identities below are recorded.
+
+
+The subsequent native no-cue diagnostic proved both physical reflections were
+137.5ms and187.3ms late, exceeding the unchanged100ms policy. Music/context and
+verified playback stayed healthy; no stale effect was emitted. The maintained
+positive-output harness may retry at most three fresh visits only when actual
+per-event trace math proves all contacts late, preserving every failed positive
+attempt. It never rewinds an accepted player, changes deadlines/budgets or counts
+silence as positive-output success. The corrected-source native repeat passed all
+three perspectives on its first visits. [Negative trace](results/late-contact-negative.json).

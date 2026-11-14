@@ -5,13 +5,44 @@
     {
       "perspective": "friendly",
       "account": "aaaaa-aa",
+      "attempt": 1,
       "firstNativeEffect": {
         "duration": 0.3,
         "rate": 1,
-        "at": 2.1946666666666665
+        "at": 2.5973333333333333
       },
       "presentationAndAuthority": {
-        "time": 0.03596300000011921,
+        "time": 0.036111000000000004,
+        "frames": [
+          {
+            "previous": 0.015945,
+            "time": 0.016445,
+            "elapsed": 0.05,
+            "events": [
+              {
+                "kind": "trajectory",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 0
+              },
+              {
+                "kind": "strike_armed",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 1
+              }
+            ],
+            "audio": {
+              "inspected": 1,
+              "retained": 1,
+              "dropped": 0
+            }
+          }
+        ],
         "authorityTime": [
           "1",
           "1"
@@ -39,8 +70,8 @@
           "enabled": true
         },
         "ownership": {
-          "id": "8ca7b2c8-2c84-4674-9672-828903605490",
-          "owner": "8ca7b2c8-2c84-4674-9672-828903605490",
+          "id": "de1c6099-e805-4f23-8aa7-48956ea76f83",
+          "owner": "de1c6099-e805-4f23-8aa7-48956ea76f83",
           "owns": true,
           "coordinated": true
         },
@@ -56,8 +87,8 @@
           "nodes": 2,
           "queuedNodes": 2,
           "buffers": 3,
-          "phase": 177024,
-          "coveredSeconds": 12.312000000000001
+          "phase": 182784,
+          "coveredSeconds": 12.192
         },
         "loader": {
           "fetches": 11,
@@ -77,9 +108,9 @@
           "dropped": 0
         },
         "eventTotals": {
-          "frames": 91,
-          "lateFrames": 1,
-          "disabled": 16,
+          "frames": 80,
+          "lateFrames": 2,
+          "disabled": 21,
           "inspected": 1,
           "classified": 1
         },
@@ -92,14 +123,14 @@
           "starts": 1,
           "dropped": 0,
           "maxVoices": 1,
-          "frames": 91,
-          "maxFrameMs": 1.199999988079071,
+          "frames": 80,
+          "maxFrameMs": 1.9000000059604645,
           "maxReservedPeak": 0.065,
           "reconciliations": 11,
           "contextCreations": 1,
           "inspectionLimit": 128,
           "flushP95": 0.10000002384185791,
-          "flushP99": 1.199999988079071
+          "flushP99": 1.9000000059604645
         },
         "mix": {
           "master": 0.8,
@@ -122,13 +153,44 @@
     {
       "perspective": "threat",
       "account": "rrkah-fqaaa-aaaaa-aaaaq-cai",
+      "attempt": 1,
       "firstNativeEffect": {
         "duration": 0.82,
         "rate": 1,
-        "at": 2.1866666666666665
+        "at": 2.3173333333333335
       },
       "presentationAndAuthority": {
-        "time": 0.035625,
+        "time": 0.035462,
+        "frames": [
+          {
+            "previous": 0.015463000000000001,
+            "time": 0.01613,
+            "elapsed": 0.06669999999999981,
+            "events": [
+              {
+                "kind": "trajectory",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 0
+              },
+              {
+                "kind": "strike_armed",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 1
+              }
+            ],
+            "audio": {
+              "inspected": 1,
+              "retained": 1,
+              "dropped": 0
+            }
+          }
+        ],
         "authorityTime": [
           "1",
           "1"
@@ -156,8 +218,8 @@
           "enabled": true
         },
         "ownership": {
-          "id": "48b17067-6087-4448-b7a6-b6236cbcdab2",
-          "owner": "48b17067-6087-4448-b7a6-b6236cbcdab2",
+          "id": "c9aff55a-7629-49e3-91f2-5a7c18883f09",
+          "owner": "c9aff55a-7629-49e3-91f2-5a7c18883f09",
           "owns": true,
           "coordinated": true
         },
@@ -173,8 +235,8 @@
           "nodes": 2,
           "queuedNodes": 2,
           "buffers": 3,
-          "phase": 175616,
-          "coveredSeconds": 12.341333333333331
+          "phase": 175104,
+          "coveredSeconds": 12.351999999999999
         },
         "loader": {
           "fetches": 11,
@@ -194,9 +256,9 @@
           "dropped": 0
         },
         "eventTotals": {
-          "frames": 88,
+          "frames": 87,
           "lateFrames": 1,
-          "disabled": 14,
+          "disabled": 18,
           "inspected": 1,
           "classified": 1
         },
@@ -209,14 +271,14 @@
           "starts": 1,
           "dropped": 0,
           "maxVoices": 1,
-          "frames": 88,
-          "maxFrameMs": 1.300000011920929,
+          "frames": 87,
+          "maxFrameMs": 3.5,
           "maxReservedPeak": 0.065,
           "reconciliations": 11,
           "contextCreations": 1,
-          "inspectionLimit": 128,
-          "flushP95": 0.19999998807907104,
-          "flushP99": 1.300000011920929
+          "inspectionLimit": 96,
+          "flushP95": 0.10000002384185791,
+          "flushP99": 3.5
         },
         "mix": {
           "master": 0.8,
@@ -239,13 +301,44 @@
     {
       "perspective": "spectator",
       "account": null,
+      "attempt": 1,
       "firstNativeEffect": {
         "duration": 0.18,
         "rate": 1,
-        "at": 2.066666666666667
+        "at": 2.136
       },
       "presentationAndAuthority": {
-        "time": 0.03529699999982118,
+        "time": 0.03595699999976158,
+        "frames": [
+          {
+            "previous": 0.015791999999761584,
+            "time": 0.016457999999761583,
+            "elapsed": 0.06659999999999991,
+            "events": [
+              {
+                "kind": "trajectory",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 0
+              },
+              {
+                "kind": "strike_armed",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 1
+              }
+            ],
+            "audio": {
+              "inspected": 1,
+              "retained": 1,
+              "dropped": 0
+            }
+          }
+        ],
         "authorityTime": [
           "1",
           "1"
@@ -273,8 +366,8 @@
           "enabled": true
         },
         "ownership": {
-          "id": "56ff109e-d535-4d2e-893a-894457c2b162",
-          "owner": "56ff109e-d535-4d2e-893a-894457c2b162",
+          "id": "0fc00d21-7a0a-478f-a6cd-78a1dfb86d6d",
+          "owner": "0fc00d21-7a0a-478f-a6cd-78a1dfb86d6d",
           "owns": true,
           "coordinated": true
         },
@@ -290,8 +383,8 @@
           "nodes": 2,
           "queuedNodes": 2,
           "buffers": 3,
-          "phase": 173696,
-          "coveredSeconds": 12.381333333333332
+          "phase": 178432,
+          "coveredSeconds": 12.282666666666666
         },
         "loader": {
           "fetches": 11,
@@ -311,7 +404,7 @@
           "dropped": 0
         },
         "eventTotals": {
-          "frames": 84,
+          "frames": 82,
           "lateFrames": 1,
           "disabled": 14,
           "inspected": 1,
@@ -326,14 +419,14 @@
           "starts": 1,
           "dropped": 0,
           "maxVoices": 1,
-          "frames": 84,
-          "maxFrameMs": 2.4000000059604645,
+          "frames": 82,
+          "maxFrameMs": 1.300000011920929,
           "maxReservedPeak": 0.065,
           "reconciliations": 9,
           "contextCreations": 1,
-          "inspectionLimit": 96,
-          "flushP95": 0.09999999403953552,
-          "flushP99": 2.4000000059604645
+          "inspectionLimit": 128,
+          "flushP95": 0.10000002384185791,
+          "flushP99": 1.300000011920929
         },
         "mix": {
           "master": 0.8,
@@ -353,5 +446,6 @@
         "startsAfterSeek": 1
       }
     }
-  ]
+  ],
+  "late_attempts": []
 }

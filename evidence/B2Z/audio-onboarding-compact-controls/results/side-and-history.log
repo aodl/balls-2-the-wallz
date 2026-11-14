@@ -1,0 +1,29 @@
+✔ declared own contacts positive, enemy requires our actual pre-event boundary (6.171171ms)
+✔ cannon, vertex blocked and mixed corner never masquerade as enemy wall (0.553007ms)
+✔ seam uses wrapped exact face and island owner resolves player, not label (1.557418ms)
+✔ classification is immutable event-time meaning after later ownership change (0.417405ms)
+✔ stationary coordinate exactly on a grid line cannot identify its canonical side from a track (0.359205ms)
+✔ known own attacker has one friendly-priority contact at a mixed-owner corner (0.286703ms)
+✔ old rational trajectory supplies one corner impact, wraps are silent (4.924256ms)
+✔ v6 launch uses cannon ID instead of player owner; volleys share identity (0.325404ms)
+✔ immutable per-publication provenance survives changing latest head (0.988711ms)
+✔ 100,000 due events are consumed with <=128 inspections and <=32 retained (46.504133ms)
+✔ mute, overview gate and >250ms gap perform no cue inspection; old arms cannot replay (0.516406ms)
+✔ late events drop and decisions are final after take (0.521406ms)
+✔ class rejection does not drain shared tokens; tables bounded under unique entities (11.619033ms)
+✔ actual player audio on/off, silent validation and throwing collector: admission (58.864474ms)
+✔ actual player audio on/off, silent validation and throwing collector: near-impact (8.556598ms)
+✔ actual player audio on/off, silent validation and throwing collector: duel (3.606342ms)
+✔ actual player audio on/off, silent validation and throwing collector: severance (3.43184ms)
+✔ actual player audio on/off, silent validation and throwing collector: corner (3.727543ms)
+✔ actual player audio on/off, silent validation and throwing collector: wall-bounce (3.794243ms)
+✔ actual player audio on/off, silent validation and throwing collector: dense (28.400925ms)
+✔ actual v6 additional-cannon publication preserves state and launch source identity (86.830195ms)
+ℹ tests 21
+ℹ suites 0
+ℹ pass 21
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 736.844142

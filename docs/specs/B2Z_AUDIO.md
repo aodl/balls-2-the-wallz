@@ -79,10 +79,13 @@ rebasing is silent. Capture/receipt/preview/copy/seek/skipped history makes no s
 Listening perspective is the exact declared sending account/subaccount, never
 selected/followed rival identity. Canonical player ownership maps islands to accounts.
 Exact old rational trajectory at displayed event time identifies reversed faces.
-Ownership is read before that event's application; no endpoint ownership, colour,
+A stationary coordinate exactly along a grid line lacks a retained sided cell
+and is neutral rather than guessing its row/column. Ownership is read before that event's application; no endpoint ownership, colour,
 nearest cannon, next-state simulation or new backend field is used.
 
 * Own ball contact: light friendly contact, unless cannon/ambiguous vertex contact.
+  Own-attacker priority is deterministic for otherwise known multi-face contacts;
+  an enemy mixed-owner contact remains neutral, and one impact makes one cue.
 * Enemy ball: threat only when every identified contacted face belongs to the
   declared account. Neutral/third-party/mixed-owner corner/cannon/vertex-blocked
   or unavailable attribution: neutral. Spectators are neutral.
