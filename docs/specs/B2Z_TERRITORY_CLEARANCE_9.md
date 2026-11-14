@@ -66,3 +66,43 @@ Likewise the old backend must not be blindly restored after writing the new
 transition record or activating v9. Preserve the new root/epoch/history and use an
 explicitly reviewed compatible recovery artifact or forward fix. Do not undo paid
 history, reset source cursors, manufacture a reverse epoch or improvise refunds.
+
+## Separately approvable production procedure (not executed by this task)
+
+1. Obtain six substantive hosted PASS for the final source and approve the exact
+   frontend inventory. Install only those frozen frontend assets using the existing
+   assets-only operator route. Verify every served byte/header and certificate;
+   confirm certified rules7 remains active and no four-cell enforcement is claimed.
+   Retain the current audio74 rollback until any backend transition is prepared.
+2. Seek a separate decision naming the normal backend Wasm and the rules9 activation.
+   Before that decision, do not pause, install, prepare or commit anything on mainnet.
+   Under later authorization, preserve the existing normal module, current RunConfig,
+   certified publication/state/source cursor, account-history watermark, receipts,
+   funding/accounting and verified identity. Confirm matching frontend recovery bytes.
+3. Pause through the existing owner `pause_autonomous` operation; do not stop/reset
+   the canister or alter settings. Upgrade the existing backend with the exact normal
+   Wasm, mode **upgrade**, empty `()` post-upgrade argument. No constructor, reinstall,
+   new canister or new source configuration is involved. Independently compare the
+   preserved publication, world bytes, financial state and source cursor immediately
+   after upgrade, before proceeding. A build is not this preservation proof.
+4. Call owner `prepare_clearance_transition()`. Poll its authorized status until
+   phase `ready` and the existing journal/source boundary is drained. Retain exact
+   Ledger cutover/index evidence. Earlier admitted commands execute under rules7.
+   Abort escalation on lifecycle/source errors; never clear errors or alter cursors
+   merely to proceed. Preparation itself crosses the old-module rollback boundary.
+5. Obtain the current authenticated committed manifest; call
+   `commit_clearance_transition(expected_previous_manifest)` with that exact hash.
+   A changed manifest requires re-observation, not relaxed comparison. Verify the
+   epoch metadata commitment, old/new identity, identical world-state hash, source
+   anchor/cursor and unchanged financial accounting. Verify rules9 configuration in
+   both browser observation and read-only quote APIs before announcing enforcement.
+6. Resume with the preserved RunConfig through existing `start_autonomous`; verify
+   ordinary publication/observation recovery. Production payment tests require their
+   own explicit authority; disposable valueless tests do not authorize real payments.
+
+Stop on any mismatch. After preparation/activation use a qualified compatible
+recovery artifact or forward fix; never restore a world snapshot, reverse paid
+history, reset/reinstall, reindex a Ledger input or blindly restore the old module.
+The installed disposable test pins the actual European predecessor module hash,
+executes an old-rule payment on it, then proves upgrade and cutover preservation.
+That proof does not authorize or replace fresh production observations and approval.
