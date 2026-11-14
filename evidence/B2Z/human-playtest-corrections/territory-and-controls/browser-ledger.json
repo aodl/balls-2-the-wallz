@@ -1,0 +1,346 @@
+{
+  "scope": "Composite local gate with original failures and separately passing corrections. All frozen production inputs unchanged after fbd0cdf; qualifier tools changed as documented. Does not assert exact-source hosted qualification.",
+  "checks": [
+    {
+      "name": "01-verify_wire_capture_browser",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_wire_capture_browser.py",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-8fd/wire"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 57.997,
+      "qualification_snapshot": "8fdc2a273a93d711bb18ef4bf390f18ff61acf98"
+    },
+    {
+      "name": "02-check",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/check.py",
+        "browser",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-8fd/http"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 17.188,
+      "qualification_snapshot": "8fdc2a273a93d711bb18ef4bf390f18ff61acf98"
+    },
+    {
+      "name": "03-verify_playability_actions",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_playability_actions.py",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-8fd/actions"
+      ],
+      "exit_code": 1,
+      "status": "FAIL",
+      "seconds": 27.155,
+      "qualification_snapshot": "8fdc2a273a93d711bb18ef4bf390f18ff61acf98"
+    },
+    {
+      "name": "04-verify_tactical_grid",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_tactical_grid.py",
+        "--fixture-dir",
+        "/home/codexdev/src/b2z/.work/territory-controls/actions-defaults-final",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-e003/grid"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 38.332,
+      "qualification_snapshot": "e00300605462340fcdcd01c08d6279a1d7ae28ba"
+    },
+    {
+      "name": "05-verify_tactical_browser",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_tactical_browser.py",
+        "--fixture-dir",
+        "/home/codexdev/src/b2z/.work/territory-controls/actions-defaults-final",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-e003/tactical"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 68.351,
+      "qualification_snapshot": "e00300605462340fcdcd01c08d6279a1d7ae28ba"
+    },
+    {
+      "name": "06-verify_fluid_browser",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_fluid_browser.py",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-e003/fluid",
+        "--video"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 111.049,
+      "qualification_snapshot": "e00300605462340fcdcd01c08d6279a1d7ae28ba"
+    },
+    {
+      "name": "07-verify_fluid_depth",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_fluid_depth.py",
+        "--fixture-dir",
+        "/home/codexdev/src/b2z/.work/territory-controls/actions-defaults-final",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-e003/depth"
+      ],
+      "exit_code": 1,
+      "status": "FAIL",
+      "seconds": 83.811,
+      "qualification_snapshot": "e00300605462340fcdcd01c08d6279a1d7ae28ba"
+    },
+    {
+      "name": "08-verify_elastic_browser",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_elastic_browser.py",
+        "--fixture-dir",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-e003/fluid",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/elastic",
+        "--video"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 20.268,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "09-verify_refinement_browser",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_refinement_browser.py",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/refinement",
+        "--video"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 93.861,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "10-verify_visual_closeout",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_visual_closeout.py",
+        "--fixture-dir",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/refinement",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/visual",
+        "--video"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 25.242,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "11-verify_human_corrections",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_human_corrections.py",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/human"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 115.584,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "12-verify_panel_geometry",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_panel_geometry.py",
+        "--fixture-dir",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/human/fixture",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/panels",
+        "--video"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 111.595,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "13-verify_audio_browser",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_audio_browser.py",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/audio"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 73.698,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "14-verify_audio_peak",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_audio_peak.py",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/audio/peaks.json"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 7.505,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "15-verify_audio_spatial",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_audio_spatial.py",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/audio-spatial"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 22.988,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "16-verify_audio_occlusion",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_audio_occlusion.py",
+        "--fixture-dir",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/audio/assets",
+        "--policy-dir",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/audio/policy-build",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/audio-occlusion"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 20.235,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "17-verify_audio_browser",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_audio_browser.py",
+        "--controls-only",
+        "--decode-delay-ms",
+        "500",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/audio-activation"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 61.938,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "18-verify_audio_visibility",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_audio_visibility.py",
+        "--fixture-dir",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/audio/assets",
+        "--policy-dir",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/audio/policy-build",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/audio-visibility"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 7.17,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "19-verify_human_corrections",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_human_corrections.py",
+        "--width",
+        "320",
+        "--reduced-motion",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/human-reduced"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 23.336,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "20-verify_human_corrections",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_human_corrections.py",
+        "--width",
+        "390",
+        "--forced-colors",
+        "--output",
+        "/home/codexdev/src/b2z/.work/territory-controls/browser-tail/human-forced"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "seconds": 29.738,
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca"
+    },
+    {
+      "name": "03-verify_playability_actions-corrected",
+      "qualification_snapshot": "e00300605462340fcdcd01c08d6279a1d7ae28ba",
+      "status": "PASS",
+      "command": [
+        ".work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_playability_actions.py",
+        "--output",
+        ".work/territory-controls/actions-defaults-final"
+      ]
+    },
+    {
+      "name": "07-verify_fluid_depth-corrected",
+      "qualification_snapshot": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca",
+      "status": "PASS",
+      "command": [
+        ".work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_fluid_depth.py",
+        "--fixture-dir",
+        ".work/territory-controls/actions-defaults-final",
+        "--output",
+        ".work/territory-controls/depth-corrected"
+      ]
+    }
+  ]
+}

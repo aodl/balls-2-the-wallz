@@ -1,0 +1,42 @@
+{
+  "errors": [
+    "wire request failed: net::ERR_ABORTED"
+  ],
+  "error_context": [
+    {
+      "method": "retained_publication",
+      "url": "http://127.0.0.1:43765/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "3f90f7cd5c110cef485a7981b15b23bd3c9364838a2570e309472b66244759b6",
+      "sequence": null,
+      "timing": {
+        "startTime": 0,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": -1,
+        "responseStart": -1,
+        "responseEnd": -1
+      },
+      "error": "wire request failed: net::ERR_ABORTED",
+      "error_epoch_ms": 1794625941915.8347,
+      "capture_accepting": true,
+      "finalization_state": "NOT_FINALIZED",
+      "body_read_ms": null
+    }
+  ],
+  "capture_finalization": {
+    "status": "FAIL",
+    "fence": 1040,
+    "fence_epoch_ms": 1794626044945.3887,
+    "accepted_responses": 1714,
+    "pending_at_fence": [],
+    "peak_pending": 8,
+    "timeout_seconds": 15,
+    "pending_after_drain": [],
+    "drain_ms": 0.523005990544334,
+    "completed_epoch_ms": 1794626044945.9106
+  },
+  "pending_at_index": []
+}

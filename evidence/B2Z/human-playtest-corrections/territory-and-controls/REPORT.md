@@ -1,7 +1,8 @@
-# Territory and controls correction — development qualification in progress
+# Territory and controls — implemented; release qualification BLOCKED
 
 No production deployment or paid-state mutation is authorized or performed by this
-pass. This is not yet a qualified release candidate. Historical audio qualification
+pass. This is not a qualified release candidate: strict installed wire capture fails
+and six hosted gates for the new source remain unavailable. Historical audio qualification
 and P09 FAIL remain separate; approved audio files/mix/tempo are unchanged.
 
 ## Starting identities and preserved production
@@ -112,13 +113,15 @@ it does not claim clearance is active on production v7.
    and reached v9. No deadlines/wire checks were relaxed. A quiescent control repeat
    is required; availability/noise is not assumed to be the cause without evidence.
 
-## Outstanding closeout
+## Current remaining closeout
 
-Finish installed v9 rejection/accounting and historical upgrade qualification,
-final controls/reduced/forced-colour/browser gates, exact artifact freeze, complete
-source/native/installed qualification and all six hosted gates for final source.
-Earlier hosted green at74f0818 does not qualify these changed bytes. Publish only
-through ordinary non-force Git as authorized; no production deployment is authorized.
+Implementation, exact asset freeze, source/native parity, direct-input browser,
+status geometry and the exact-European-module disposable upgrade are complete in
+their stated scopes. The complete installed gate remains FAIL because of the
+sustained-case performance/capture checks; its quiet repeat passes all gameplay windows but also
+fails strict capture on a timed-out read. The original failures remain recorded.
+All six hosted gates for the new source remain BLOCKED by Git authentication.
+No older green run qualifies the new source. No production deployment is authorized.
 
 The purely frontend usability release may precede activation, using v7 legality.
 Backend code and cutover require separate owner approval and a compatible frontend.
@@ -205,3 +208,229 @@ isolated incremental clearance instruction/cycle measurement or a mainnet estima
 No representative-hardware or physical-device claim is made. Historical audio P09
 remains FAIL, accepted only for the already authorized audio trial; no audio
 performance pass is inferred from these tests.
+
+## Populated browser and installed upgrade closeout
+
+The complete current-component browser journey passes desktop1440×900,390×844 and
+320×640. It covers deliberate account/selection, direct aim and outside panning,
+all eight headings with native shaft/head gestures, touch→pinch ownership, legal
+automatic defaults, exact warnings/memos, disabled zoom bounds/reversal and away-click
+follow cancellation. The no-destination browser proof took2.862s elapsed. Reduced
+motion320px and forced colours390px also pass. These are sandboxed Chromium with
+software rendering and emulated viewports/touch, not physical-mobile evidence.
+
+The8-configuration panel matrix passes all24 Fire/Move/Build action contexts,
+192 readiness transitions and3,262 sampled states with **0px** workspace drift.
+Viewport sizes include1440×900,390×844,320×640,390×430 and320×300, plus reduced-motion
+variants. Tests preserve the same action,target,quote fields,warning,scroll,camera,
+clock and queue while copy readiness changes. [Matrix](panels.json) /
+[sampling summary](panel-sampling.json). This is controlled browser status injection,
+not a claim of a genuine subnet outage.
+
+The original browser-gate attempts remain recorded as FAIL in
+[browser ledger](browser-ledger.json), alongside passing corrected journeys.
+Subsequent tactical/fluid/depth/elastic/refinement/visual/audio/visibility checks
+pass in their recorded scopes. Audio preservation tests are not P09 or physical
+listening qualification. No normal artifacts contain the disposable depth variants.
+
+| Evidence | View |
+| --- | --- |
+| Baseline empty Move | [Before](before/move-no-default.png) |
+| Baseline restored selected body | [Before](before/cold-selected.png) |
+| Explicit selected body | [1440](after/1440-selected.png),[390](after/390-selected.png),[320](after/320-selected.png) |
+| Automatic Move and direction arrow | [1440](after/1440-automatic-move.png),[390](after/390-automatic-move.png),[320](after/320-automatic-move.png) |
+| Automatic additional Build and exact warning | [1440](after/1440-automatic-build.png),[390](after/390-automatic-build.png),[320](after/320-automatic-build.png) |
+| Remembered account, no clicked selection | [Cold page](after/390-cold-remembered.png) |
+| Arrow aiming | [Image](after/390-arrow-aim.png),[30.48-second native-input recording](after/390-native-controls.webm) |
+| Detailed interaction assertions | [Results](after/controls.json) |
+
+The quiet exact-European-module test passes end-to-end in281.23s. Its pinned
+predecessor is the actual retained production module612ad0d…; it first executes
+an old-rule valueless payment on that module, then upgrades to candidate8b853bc….
+World,publication,financial state and source cursor compare equal across upgrade.
+The v7→v9 cutover preserves exact world bytes and finances, while the same browser
+session authenticates v9 and disables Move/Build with no safe destination.
+Both unsafe paid commands are rejected with `ENEMY_TERRITORY_TOO_CLOSE`, zero used
+amount and full retained remainder. Normal physics may still advance; no paid
+command creates a cannon/ball or relocates the source. Independent JS replay passes
+134 publications,132 gameplay segments,2 checkpoints and exact positions2–6.
+
+[Installed qualification](installed/qualification.json) /
+[European upgrade](installed/european-upgrade.json) /
+[cutover](installed/clearance-cutover.json) /
+[receipts](installed/clearance-receipts.json) /
+[independent replay](installed/replay.json) /
+[certified browser](installed/browser.json) /
+[no-safe-destination image](installed/rules9-no-safe-destinations.png).
+This uses an isolated populated valueless world and the exact production predecessor
+binary; it is not a clone/upgrade of the actual paid mainnet world.
+
+A second5-run valid-world discovery benchmark isolates process CPU via Node
+process.cpuUsage:550.48–708.27ms CPU across999,999 candidates,1.113–3.721s elapsed,
+250kB cache. [CPU/wall measurements](corridor-cpu.json). Total discovery remains
+O(board cells); bounding each49-cell clearance check does not make the entire
+no-destination proof constant-time. The existing browser journey reports observed
+heaps20.35/22.35/39.01MB at1440/390/320 after its full fixture journey. A matched
+whole-application heap baseline and isolated IC clearance instruction/cycle delta
+remain NOT_RUN; neither cache size nor whole-window cycles proves those results.
+
+## Final matrix additions and unchanged production inventory
+
+The final additive clearance matrix has28 valid-world JS/native cases, with exact
+state/event/score equality and independent native continuation recovery. Additional
+cases cover a third canonical player, enemy-owned land13 cells from its cannon,
+an enemy additional Build that is safe at processing and then invalidates the
+following friendly Build, and canonical source0/destination0. The original22
+rows/historical fixtures were not rewritten. [Case list](clearance-matrix.json).
+
+A requested center-on-neutral enemy-ball snapshot is impossible under the existing
+`validateWorld` invariant: every ball's canonical cell belongs to its player. The
+attempted invalid construction was rejected and is not counted as a passing case.
+Validation/physics were retained. The valid substitute positions the enemy ball at
+an owned-cell boundary so its physical extent overlaps neutral territory within
+the visual vicinity; the actual enemy-owned cell is exactly distance4. Move remains
+legal. This proves the new rule does not dilate territory using visible balls/tails.
+Center-on-unowned snapshot coverage is **NOT_APPLICABLE**, not a synthetic pass.
+
+Rendered native-click checks now include `MOVE 1 0` across both toroidal seams,
+a distant `MOVE 1 500500` with a150.58px bounded shaft, and Build without a relocation
+arrow. The source cannon stays at999997. [Wrapped0](after/move-arrow-wrapped-zero.png),
+[distant](after/move-arrow-long.png),[Build](after/build-wrap-without-move-arrow.png),
+[actual renderer buffers/results](after/move-geometry.json). Camera poses here are
+controlled fixture setup; tile activation uses real native pointer events.
+The first additional helper block sat after its return and was not exercised;
+that run is not counted for these cases. The corrected run requires the result
+marker and captures all three images, retaining actual geometry assertions.
+
+A final read-only mainnet check verifies pinned-root certified frontend/backend
+module/controller/subnet metadata and signed identity encodings for all73 currently
+served public assets, matching the preserved audio74-file inventory. No75-file
+candidate asset is installed. [Certified metadata](production-closeout/metadata-after.json)
+/ [signed deployed inventory](production-closeout/inventory-after.json).
+Production still uses the retained612ad0d… backend and cba3eb98… frontend JavaScript.
+No production settings, controllers, funding, Ledger/game commands or deployment
+operation was performed.
+
+## Complete installed-suite first attempt — FAIL retained
+
+The complete local installed gate atb23ea82 completed52 named cases:51 PASS,
+1 FAIL. All39 ordinary cases, the new normal rules9 case, the other three million
+cases,8 funding cases and the funding cutover passed. The failing case is
+`million_browser_sustained_normal_and_cold_lifeline`.
+
+Its900.247s Normal window passes rate, no-stall/rebuffer, no-resync, buffer
+conservation, queue bound and sustained-deficit checks. It fails the unchanged
+`normal_not_performance_limited` assertion.21/1,560 samples report the backend
+pacer limit during11.18s (03:10:58.710–03:11:09.893 UTC), with supported rate
+1000→772→965→1000 milli. Displayed rate is0.98358ticks/s, buffer conservation
+error7.25e−13, all samples PLAYING and zero resyncs. The unchanged backend pace
+controller measures compute/timer delivery, enters the limit after three overruns,
+and recovers on healthy samples. This flag is not a frontend renderer flag.
+No nearby local root-log write was found within90s; causality is not inferred
+from shared-host noise or from the fact that pace.rs itself is unchanged.
+
+A later retained_publication request aborted during Economy while capture was
+accepting and not finalized. The strict capture still fails with an empty pending
+queue at its fence1040. That error was not filtered, its packet was not fabricated,
+and no deadline or assertion was relaxed. Neither issue caused unverified gameplay
+or an observed resync, but that does not turn this qualification result into PASS.
+[Original analysis](sustained-first/analysis.json) /
+[wire failure](sustained-first/wire-failure.json) /
+[complete gate](sustained-first/full-gate.json) /
+[52-case installed ledger](sustained-first/installed-suite.json).
+
+A focused unchanged-case repeat is running without concurrent browser/test work.
+This first complete gate remains FAIL regardless of that repeat. Exact-source
+hosted qualification is independently BLOCKED by missing Git HTTPS credentials;
+[hosted status](hosted-ci.json) distinguishes the older74f0818 six-gate PASS and
+excludes its informational production-inventory guard.
+
+## Quiet repeat, delivery diagnosis and final disposition
+
+The focused unchanged-case repeat atf0bc94f passes all seven15-minute Normal
+analysis checks, displaying0.96904ticks/s with no limiter, stall/rebuffer, resync,
+queue overflow or sustained buffer deficit. Economy and Lifeline also pass.
+Nevertheless the whole repeated case is **FAIL**, because strict capture records
+one aborted observation_bundle request. The earlier complete gate remains FAIL.
+[Repeat qualification](sustained-quiescent/qualification.json) /
+[Normal analysis](sustained-quiescent/million-sustained-analysis.json) /
+[browser results](sustained-quiescent/results.json) /
+[wire failure](sustained-quiescent/wire-failure.json).
+
+The proxy supplies concrete delivery evidence, beyond a general noise hypothesis:
+matching the failed request-body hash shows late HTTP200 upstream completions at
+14,183.57ms (first run retained_publication) and10,633.44ms (quiet observation_bundle).
+The browser aborted at10,226.95ms and10,180.07ms after proxy arrival, respectively,
+against the unchanged10,000ms observation deadline. The retained-publication retry
+completed in146ms. Accepted gameplay recovered under normal verification. These
+are observed transient read timeouts; they do not justify silently discarding wire
+failures, raising deadlines or claiming the complete installed gate passed.
+[Matched timing evidence](delivery-timeouts.json). No further identical20-minute
+retry is counted as a substitute for diagnosing/qualifying the strict transport
+case on the hosted runner or an appropriate controlled host.
+
+Final source verification at`f0bc94f16caec4e142c689eef970f4a394b944bc` passes all
+1,927 Node/201 Python tests and current source/document checks. The complete suite's
+final captured index history independently replays77 publications with exact assigned
+positions7/8; the wrapper had stopped before this final replay because of the failed
+installed case, so its separately recorded PASS does not change the wrapper's FAIL.
+All28 new clearance vectors pass independent native hashes/recovery. No normal
+application/build/dependency byte has changed after the frozen runtime.
+[Source](source-final.json),[native gate](native-8fd.json),
+[clean consumers](consumers-806.json),[normal Wasm/Candid](wasm-e003.json),
+[changed files](changed-files.json). Local gate snapshots are named accurately;
+qualification-only additions were separately exercised and do not relabel prior CI.
+
+| Qualification | Actual conclusion |
+| --- | --- |
+| Final local source | PASS1,927 Node/201 Python |
+| Native public conformance + expanded clearance matrix | PASS445 legacy public vectors +28 new cases, recovery |
+| Packaged DTR/clean consumers | PASS; pins/locks unchanged |
+| Normal Wasm/Candid/format/Clippy | PASS; exact8b853bc7… retained |
+| Complete local browser steps, corrected fixtures included | PASS in recorded scopes; original failures retained |
+| Panel status geometry | PASS0px /3,262 states |
+| Exact-European predecessor upgrade/cutover/financial/replay | PASS on isolated populated valueless state |
+| Complete local installed suite | **FAIL51/52**, sustained case failed |
+| Unchanged quiet sustained repeat | **FAIL** strict wire; all gameplay windows PASS |
+| Six substantive hosted gates for new candidate | **BLOCKED/NOT_RUN**, source not published |
+| Historical audio P09 | **FAIL**, independent accepted trial limitation |
+| Physical hardware/mobile/listening and isolated clearance IC cost delta | NOT_RUN; no claim inferred |
+
+A normal authorized push failed with `could not read Username for 'https://github.com':
+terminal prompts disabled`. Remote independently remains74f08183b905d97dbfd821ede0a4c2cdc47538f5.
+No source was pushed by this pass. The frozen code/test ref isf0bc94f16caec4e142c689eef970f4a394b944bc;
+a later local evidence-only commit does not alter production inputs. The next action
+is authenticated normal non-force publication, then all six hosted results for the
+published candidate. If strict delivery capture also fails there, retain it and
+investigate matched transport/runner controls before qualification. This report
+returns a concrete **unqualified review candidate**, not permission to deploy.
+
+## Separately approvable release order and rollback
+
+1. Resolve the open qualification results and approve the exact75-file frontend
+   inventorye9b5c4be…/JS97d8ee0b…. Frontend usability can ship independently with
+   certified production rules7. It must not advertise clearance as enforced then.
+   No deployment is authorized by the present task.
+2. Under a separate frontend decision, use the established assets-only route and
+   independently verify every served identity/header. The complete existing audio74
+   rollback bytes at`.work/territory-controls/rollback/frontend` remain available;
+   their b4abc541… inventory matches the signed current canister asset list. Restore
+   those exact bytes/policy with the existing assets-only route if separately
+   authorized, removing the additional clearance configuration key. Never touch the
+   paid backend to roll back a frontend problem.
+3. Under a later separate backend upgrade **and activation** decision, approve the
+   exact normal8b853bc7… Wasm and follow the [owner cutover procedure](../../../../docs/specs/B2Z_TERRITORY_CLEARANCE_9.md).
+   Preserve fresh mainnet world/publication/source/financial observations, pause via
+   existing controls, upgrade the existing canister in upgrade mode, compare state,
+   prepare and drain the old-rule boundary, commit the exact expected manifest and
+   verify certified rules9/state/finances before resuming preserved settings.
+4. Keep the frontend9-compatible throughout and after activation. After preparation,
+   old v7-only backend/frontend artifacts are not blind rollback targets. Use a
+   qualified compatible recovery artifact or forward fix; never reset/reinstall,
+   restore an old paid world, reindex transactions, reverse an epoch or improvise
+   refunds. No controller/settings/funding/ICRC-2 operation is part of this task.
+
+The final file audit rehashes all75 candidate files, all74 preserved rollback files
+and the normal backend exactly. No paid European backend/frontend assets, state,
+settings, authorities, controllers, funds or Ledger commands were changed. Current
+production remains the prior audio prelaunch trial on rules7; rules9 is not active.

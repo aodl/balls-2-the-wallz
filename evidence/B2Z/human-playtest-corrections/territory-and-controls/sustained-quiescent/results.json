@@ -1,0 +1,1097 @@
+{
+  "receiving_account": "35e37b46a956c90a7331fbd095063508db9312502a4c718b2f18fec15eddd25d",
+  "status": "FAIL",
+  "mode": "BUILT_DEPLOYMENT_LIVE_LOCAL",
+  "checks": [
+    {
+      "name": "real-asset-build-and-mainnet-test-adapter-exclusion",
+      "status": "PASS",
+      "details": {
+        "source_commit": "f0bc94f16caec4e142c689eef970f4a394b944bc",
+        "source_dirty": true,
+        "canister_ids_sha256": "838d16de7c4ccc713442d6220ecb1b6305b6ddc8ca93d93cae0646c731304deb",
+        "local_test_only": false,
+        "deployment": {
+          "network": "ic",
+          "host": "https://icp-api.io",
+          "canister_id": "s5ir5-gqaaa-aaaas-amyna-cai"
+        },
+        "inputs": [
+          "apps/b2z-observer/audio-policy.mjs",
+          "apps/b2z-observer/audio-loader.mjs",
+          "apps/b2z-observer/audio-music.mjs",
+          "apps/b2z-observer/audio-events.mjs",
+          "apps/b2z-observer/audio-visibility.mjs",
+          "apps/b2z-observer/audio-engine.mjs",
+          "apps/b2z-observer/audio-ui.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/protocol/seal-codec.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/protocol/epoch-codec.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/client/verification.mjs",
+          "packages/kernels/b2z/playability.generated.mjs",
+          "packages/kernels/b2z/math.mjs",
+          "apps/b2z-observer/model-v6.mjs",
+          "apps/b2z-observer/torus-identity.generated.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/client/playout.mjs",
+          "packages/kernels/b2z/animation-projection.mjs",
+          "node_modules/@icp-sdk/core/lib/esm/principal/utils/base32.js",
+          "node_modules/@icp-sdk/core/lib/esm/principal/utils/getCrc.js",
+          "node_modules/@noble/hashes/_u64.js",
+          "node_modules/@noble/hashes/utils.js",
+          "node_modules/@noble/hashes/_md.js",
+          "node_modules/@noble/hashes/sha2.js",
+          "node_modules/@icp-sdk/core/lib/esm/principal/principal.js",
+          "node_modules/@icp-sdk/core/lib/esm/principal/index.js",
+          "apps/b2z-observer/identity.mjs",
+          "apps/b2z-observer/model.mjs",
+          "node_modules/@dfinity/cbor/dist/cbor.mjs",
+          "node_modules/@icp-sdk/core/lib/esm/agent/errors.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/utils/buffer.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/utils/hash.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/utils/bigint-math.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/utils/leb128.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/idl.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/candid-core.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/candid-ui.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/types.js",
+          "node_modules/@icp-sdk/core/lib/esm/candid/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/expiry.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/cbor.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/leb.js",
+          "node_modules/@noble/curves/utils.js",
+          "node_modules/@noble/curves/abstract/modular.js",
+          "node_modules/@noble/curves/abstract/curve.js",
+          "node_modules/@noble/curves/abstract/hash-to-curve.js",
+          "node_modules/@noble/hashes/hmac.js",
+          "node_modules/@noble/curves/abstract/der.js",
+          "node_modules/@noble/curves/abstract/weierstrass.js",
+          "node_modules/@noble/curves/abstract/bls.js",
+          "node_modules/@noble/curves/abstract/tower.js",
+          "node_modules/@noble/curves/bls12-381.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/bls.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/buffer.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/constants.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/certificate.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/readState.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/api.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/request_id.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/auth.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/random.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/types.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/transforms.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/canisterStatus/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/subnetStatus/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/certificateReject.js",
+          "node_modules/@noble/curves/abstract/edwards.js",
+          "node_modules/@noble/curves/abstract/fft.js",
+          "node_modules/@noble/curves/abstract/frost.js",
+          "node_modules/@noble/curves/abstract/montgomery.js",
+          "node_modules/@noble/curves/abstract/oprf.js",
+          "node_modules/@noble/curves/ed25519.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/expirableStore.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/indexedDBExpirableStore.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/inMemoryExpirableStore.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/createExpirableStore.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/der.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/public_key.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/observable.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/polling/backoff.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/polling/strategy.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/utils/target.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/polling/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/http/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/agent/index.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/actor.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/fetch_candid.js",
+          "node_modules/@icp-sdk/core/lib/esm/agent/index.js",
+          "apps/b2z-observer/live-delivery.mjs",
+          "apps/b2z-observer/startup-playback.mjs",
+          "apps/b2z-observer/elastic-playback.mjs",
+          "apps/b2z-observer/public-cycles.mjs",
+          "apps/b2z-observer/replay-tools.mjs",
+          "apps/b2z-observer/warm-return.mjs",
+          "apps/b2z-observer/observation-loop.mjs",
+          "apps/b2z-observer/experience-status.mjs",
+          "apps/b2z-observer/camera.mjs",
+          "apps/b2z-observer/ball-presentation.mjs",
+          "apps/b2z-observer/guide-clearance.mjs",
+          "apps/b2z-observer/interaction.mjs",
+          "apps/b2z-observer/minimap-projection.mjs",
+          "apps/b2z-observer/minimap.mjs",
+          "apps/b2z-observer/camera-controller.mjs",
+          "apps/b2z-observer/player-anchor.mjs",
+          "apps/b2z-observer/shell.mjs",
+          "node_modules/three/build/three.core.js",
+          "node_modules/three/build/three.module.js",
+          "node_modules/three/examples/jsm/lines/LineSegmentsGeometry.js",
+          "node_modules/three/examples/jsm/lines/LineMaterial.js",
+          "node_modules/three/examples/jsm/lines/LineSegments2.js",
+          "node_modules/three/examples/jsm/lines/LineGeometry.js",
+          "node_modules/three/examples/jsm/lines/Line2.js",
+          "apps/b2z-observer/terrain.mjs",
+          "apps/b2z-observer/terrain-surface.mjs",
+          "apps/b2z-observer/motion-effects.mjs",
+          "apps/b2z-observer/render.mjs",
+          "packages/protocol/territory-clearance.mjs",
+          "apps/b2z-observer/destination-search.mjs",
+          "packages/protocol/memo.mjs",
+          "apps/b2z-observer/play-reference.mjs",
+          "packages/kernels/b2z/economics.generated.mjs",
+          "packages/kernels/b2z/pricing-v6.mjs",
+          "packages/protocol/memo-v6.mjs",
+          "apps/b2z-observer/action-quote-v6.mjs",
+          "apps/b2z-observer/handoff.mjs",
+          "apps/b2z-observer/headings.mjs",
+          "apps/b2z-observer/arcade.mjs",
+          "node_modules/@dtr/timeline-runtime/packages/client/ic-certificate.mjs",
+          "apps/b2z-observer/bounded-observation.mjs",
+          "apps/b2z-observer/configuration.generated.mjs",
+          "apps/b2z-observer/transport.mjs",
+          "apps/b2z-observer/mainnet.mjs",
+          "apps/b2z-observer/deployment.mjs",
+          "apps/b2z-observer/app.mjs"
+        ],
+        "configuration": "configuration.bin",
+        "files": {
+          "index.html": {
+            "sha256": "a9ec87ec1724ba704cb536c2e49aeb30df5c0f63533c304c8107df1de9c599f9",
+            "bytes": 12802
+          },
+          "app.mjs": {
+            "sha256": "97d8ee0bf61e8b76816511772ab348962d56bbf78b597acc365f48a38725cdc9",
+            "bytes": 2075298
+          },
+          "style.css": {
+            "sha256": "039b5458e995d2d41bd989d011a8518d04db95eb969a4d3bae4b078687e6d750",
+            "bytes": 23515
+          },
+          "icon.svg": {
+            "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+            "bytes": 235
+          },
+          "configuration.bin": {
+            "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+            "bytes": 367
+          },
+          "configuration-legacy.bin": {
+            "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+            "bytes": 368
+          },
+          "configuration-torus.bin": {
+            "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+            "bytes": 386
+          },
+          "configuration-million.bin": {
+            "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+            "bytes": 469
+          },
+          "deployment.json": {
+            "sha256": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+            "bytes": 89
+          },
+          ".ic-assets.json5": {
+            "sha256": "096943a71e2351b550877318df3aa3a483ba9beeb57fe965a3249e4aa965ba9c",
+            "bytes": 1214
+          }
+        },
+        "npm_lock_sha256": "0790f987d17d40b1006646ce39f195975f75186e149f4acf6d71d47e2ac66a6c"
+      }
+    },
+    {
+      "name": "million-cell-culling-seam-picking-and-sparse-move-selector",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "million-cell-normal-certified-playback",
+      "status": "PASS",
+      "details": {
+        "seconds": 89.49640000000001,
+        "backend_ticks_per_second": 1.0056270419815767,
+        "admitted_ticks_per_second": 0.9944534081817815,
+        "displayed_ticks_per_second": 1.0024833823559047,
+        "stalled_samples": 0,
+        "resyncs": 0,
+        "nominal_rate": 1,
+        "performance_limited": false,
+        "queue_segments": {
+          "min": 13,
+          "max": 19
+        },
+        "buffer_ticks": {
+          "min": 12.78879458897876,
+          "max": 18.137283595964455
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 256.5,
+            "max": 4192.699999988079
+          },
+          "verify_ms": {
+            "median": 40.29999998211861,
+            "max": 81.69999998807907
+          },
+          "artifact_ms": {
+            "median": 0.4000000059604645,
+            "max": 529.3000000119209
+          },
+          "derive_ms": {
+            "median": 3.699999988079071,
+            "max": 11
+          },
+          "catchup_ms": {
+            "median": 499.80000001192093,
+            "max": 892.3000000119209
+          }
+        },
+        "max_catchup_segments": 4,
+        "buffer_bytes": {
+          "min": 488953,
+          "max": 712895
+        },
+        "buffer_target_ticks": {
+          "min": 17,
+          "max": 17
+        },
+        "distinct_playheads": 159,
+        "certified_publications_per_second": 0.9944534081817815,
+        "authenticated_observation_queries_per_second": 1.5531350981715464,
+        "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+        "buffer_start": 17.312870720899998,
+        "buffer_end": 16.594216940222893,
+        "admitted_ticks": 89,
+        "displayed_ticks": 89.718653780677,
+        "phase_samples": {
+          "PLAYING": 159
+        }
+      }
+    },
+    {
+      "name": "million-cell-continuous-15-minute-normal",
+      "status": "PASS",
+      "details": {
+        "status": "PASS",
+        "seconds": 900.114,
+        "checks": {
+          "rates": true,
+          "no_stall_or_rebuffer": true,
+          "no_resynchronization": true,
+          "normal_not_performance_limited": true,
+          "buffer_accounting": true,
+          "bounded_queue": true,
+          "no_sustained_buffer_deficit": true
+        },
+        "production_endpoint_tick_bounds": {
+          "start": [
+            107,
+            109
+          ],
+          "end": [
+            981,
+            983
+          ]
+        },
+        "produced_ticks_bounds": [
+          872,
+          876
+        ],
+        "produced_ticks_per_second_bounds": [
+          0.9687661785062781,
+          0.9732100600590592
+        ],
+        "admitted_ticks": 873,
+        "displayed_ticks": 872.2452808663627,
+        "admitted_ticks_per_second": 0.9698771488944733,
+        "displayed_ticks_per_second": 0.9690386782855979,
+        "buffer_start": 15.80861674062291,
+        "buffer_end": 16.563335874263544,
+        "buffer_change": 0.7547191336406343,
+        "admitted_minus_displayed": 0.7547191336373089,
+        "buffer_conservation_error": 3.325340003357269e-12,
+        "rolling_buffer_minutes": [
+          {
+            "minute": 0,
+            "samples": 106,
+            "start": 15.80861674062291,
+            "end": 16.366229224879646,
+            "mean": 16.3194401190203,
+            "min": 9.989814360811067,
+            "max": 18.068750252111073
+          },
+          {
+            "minute": 1,
+            "samples": 105,
+            "start": 16.763813337379645,
+            "end": 17.119101812164757,
+            "mean": 15.816601233559807,
+            "min": 10.980989493798745,
+            "max": 18.233976065598654
+          },
+          {
+            "minute": 2,
+            "samples": 107,
+            "start": 17.481219769464758,
+            "end": 16.48872312875892,
+            "mean": 16.280118498132886,
+            "min": 12.413038451481583,
+            "max": 17.941390294664643
+          },
+          {
+            "minute": 3,
+            "samples": 104,
+            "start": 16.92617474985883,
+            "end": 16.87110359199312,
+            "mean": 14.765390908813782,
+            "min": 8.649906297365533,
+            "max": 17.30389286026457
+          },
+          {
+            "minute": 4,
+            "samples": 103,
+            "start": 17.216263136206635,
+            "end": 15.03729390524802,
+            "mean": 15.99800892183785,
+            "min": 12.36944356211194,
+            "max": 17.943583462912045
+          },
+          {
+            "minute": 5,
+            "samples": 103,
+            "start": 15.529377997548067,
+            "end": 15.80060179473071,
+            "mean": 15.916970704997425,
+            "min": 10.94829361298963,
+            "max": 18.625123043089445
+          },
+          {
+            "minute": 6,
+            "samples": 105,
+            "start": 15.252353639930732,
+            "end": 17.532397787194157,
+            "mean": 15.952696187825701,
+            "min": 13.948803564794105,
+            "max": 17.79082483369416
+          },
+          {
+            "minute": 7,
+            "samples": 103,
+            "start": 17.93249947609428,
+            "end": 14.90597470520163,
+            "mean": 16.40885907739147,
+            "min": 12.453244425094226,
+            "max": 17.93249947609428
+          },
+          {
+            "minute": 8,
+            "samples": 104,
+            "start": 14.517123162262692,
+            "end": 16.225019371540156,
+            "mean": 15.280389279191487,
+            "min": 6.389851863940521,
+            "max": 18.627171881240315
+          },
+          {
+            "minute": 9,
+            "samples": 103,
+            "start": 15.539097890040125,
+            "end": 14.689631429800784,
+            "mean": 16.265233417907055,
+            "min": 13.105986423801141,
+            "max": 18.05616884080132
+          },
+          {
+            "minute": 10,
+            "samples": 104,
+            "start": 15.177594394200696,
+            "end": 17.109261595922817,
+            "mean": 16.351693817575597,
+            "min": 13.388396516801208,
+            "max": 17.66133901430112
+          },
+          {
+            "minute": 11,
+            "samples": 104,
+            "start": 16.544739874422703,
+            "end": 16.309486884004855,
+            "mean": 15.632665532421255,
+            "min": 11.445580556528853,
+            "max": 17.305259069728777
+          },
+          {
+            "minute": 12,
+            "samples": 102,
+            "start": 16.75658121090487,
+            "end": 16.33739524716782,
+            "mean": 16.135982971512682,
+            "min": 11.938376565267617,
+            "max": 17.76609989146789
+          },
+          {
+            "minute": 13,
+            "samples": 104,
+            "start": 16.718439925667894,
+            "end": 14.54056828548994,
+            "mean": 15.996654027121242,
+            "min": 10.169807605589654,
+            "max": 17.51566104943788
+          },
+          {
+            "minute": 14,
+            "samples": 103,
+            "start": 14.018027421089869,
+            "end": 13.108486847063546,
+            "mean": 15.835545228201338,
+            "min": 12.315765221502488,
+            "max": 18.053395022540826
+          }
+        ],
+        "buffer_regression_ticks_per_second": 5.7321679018839124e-05,
+        "last_three_minus_first_three_minute_mean": -0.14932587462591052,
+        "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+        "backend_observation_age_ms": {
+          "median_upper": 1173.758056640625,
+          "max_upper": 4294.737060546875
+        },
+        "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+        "phases": {
+          "PLAYING": 1561
+        },
+        "resynchronizations": 0,
+        "performance_limited": false,
+        "dense_phase_samples": {
+          "PLAYING": 3494
+        }
+      }
+    },
+    {
+      "name": "million-cell-economy-certified-playback",
+      "status": "PASS",
+      "details": {
+        "seconds": 39.44849999999988,
+        "backend_ticks_per_second": 0.5069901263672905,
+        "admitted_ticks_per_second": 0.5069901263672905,
+        "displayed_ticks_per_second": 0.5716937994498468,
+        "stalled_samples": 0,
+        "resyncs": 0,
+        "nominal_rate": 0.5,
+        "performance_limited": false,
+        "queue_segments": {
+          "min": 11,
+          "max": 14
+        },
+        "buffer_ticks": {
+          "min": 10.21357021396409,
+          "max": 13.901772343264156
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 247.30000001192093,
+            "max": 2417
+          },
+          "verify_ms": {
+            "median": 39.10000002384186,
+            "max": 72.2999999821186
+          },
+          "artifact_ms": {
+            "median": 0.4000000059604645,
+            "max": 0.5999999940395355
+          },
+          "derive_ms": {
+            "median": 3.4000000059604645,
+            "max": 6.300000011920929
+          },
+          "catchup_ms": {
+            "median": 514.5999999940395,
+            "max": 514.5999999940395
+          }
+        },
+        "max_catchup_segments": 2,
+        "buffer_bytes": {
+          "min": 416805,
+          "max": 530675
+        },
+        "buffer_target_ticks": {
+          "min": 9,
+          "max": 9
+        },
+        "distinct_playheads": 70,
+        "certified_publications_per_second": 0.5069901263672905,
+        "authenticated_observation_queries_per_second": 1.444921860146778,
+        "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+        "buffer_start": 13.752665788164109,
+        "buffer_end": 11.200202940564054,
+        "admitted_ticks": 20,
+        "displayed_ticks": 22.552462847597212,
+        "phase_samples": {
+          "PLAYING": 70
+        }
+      }
+    },
+    {
+      "name": "UX-06-lifeline-label-follows-advancing-verified-presentation",
+      "status": "PASS",
+      "details": ""
+    },
+    {
+      "name": "million-cell-lifeline-certified-playback",
+      "status": "PASS",
+      "details": {
+        "seconds": 49.598,
+        "backend_ticks_per_second": 0.040324206621234725,
+        "admitted_ticks_per_second": 0.040324206621234725,
+        "displayed_ticks_per_second": 0.05000000000009027,
+        "stalled_samples": 0,
+        "resyncs": 0,
+        "nominal_rate": 0.05,
+        "performance_limited": false,
+        "queue_segments": {
+          "min": 10,
+          "max": 11
+        },
+        "buffer_ticks": {
+          "min": 9.575694662261185,
+          "max": 10.80071966225887
+        },
+        "latency_ms": {
+          "fetch_ms": {
+            "median": 233.90000000596046,
+            "max": 5987.600000023842
+          },
+          "verify_ms": {
+            "median": 38.599999994039536,
+            "max": 59.70000001788139
+          },
+          "artifact_ms": {
+            "median": 0.5,
+            "max": 0.5999999940395355
+          },
+          "derive_ms": {
+            "median": 4.600000023841858,
+            "max": 5
+          },
+          "catchup_ms": {
+            "median": 514.5999999940395,
+            "max": 514.5999999940395
+          }
+        },
+        "max_catchup_segments": 2,
+        "buffer_bytes": {
+          "min": 378312,
+          "max": 416393
+        },
+        "buffer_target_ticks": {
+          "min": 1,
+          "max": 1
+        },
+        "distinct_playheads": 90,
+        "certified_publications_per_second": 0.040324206621234725,
+        "authenticated_observation_queries_per_second": 1.1895640953264244,
+        "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+        "buffer_start": 10.530649662263727,
+        "buffer_end": 10.05074966225743,
+        "admitted_ticks": 2,
+        "displayed_ticks": 2.479900000004477,
+        "phase_samples": {
+          "PLAYING": 90
+        }
+      }
+    }
+  ],
+  "qualification": "Explicit compile-time local-only adapter, same bundled observer/renderer/SDK verifier. Production mainnet policy unchanged.",
+  "production_permissions_policy": "accelerometer=(), ambient-light-sensor=(), autoplay=(), battery=(), camera=(), cross-origin-isolated=(), display-capture=(), document-domain=(), encrypted-media=(), execution-while-not-rendered=(), execution-while-out-of-viewport=(), fullscreen=(), geolocation=(), gyroscope=(), keyboard-map=(), magnetometer=(), microphone=(), midi=(), navigation-override=(), payment=(), picture-in-picture=(), publickey-credentials-get=(), screen-wake-lock=(), sync-xhr=(), usb=(), web-share=(), xr-spatial-tracking=(), clipboard-read=(), clipboard-write=(self), gamepad=(), speaker-selection=(), conversion-measurement=(), focus-without-user-activation=(), hid=(), idle-detection=(), interest-cohort=(), serial=(), sync-script=(), trust-token-redemption=(), window-placement=(), vertical-scroll=()",
+  "browser_version": "153.0.8010.12",
+  "capture": {
+    "video": false,
+    "diagnostic_no_video": false,
+    "sandbox": true,
+    "screenshots_and_raw_telemetry": true
+  },
+  "million_normal_playback": {
+    "seconds": 89.49640000000001,
+    "backend_ticks_per_second": 1.0056270419815767,
+    "admitted_ticks_per_second": 0.9944534081817815,
+    "displayed_ticks_per_second": 1.0024833823559047,
+    "stalled_samples": 0,
+    "resyncs": 0,
+    "nominal_rate": 1,
+    "performance_limited": false,
+    "queue_segments": {
+      "min": 13,
+      "max": 19
+    },
+    "buffer_ticks": {
+      "min": 12.78879458897876,
+      "max": 18.137283595964455
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 256.5,
+        "max": 4192.699999988079
+      },
+      "verify_ms": {
+        "median": 40.29999998211861,
+        "max": 81.69999998807907
+      },
+      "artifact_ms": {
+        "median": 0.4000000059604645,
+        "max": 529.3000000119209
+      },
+      "derive_ms": {
+        "median": 3.699999988079071,
+        "max": 11
+      },
+      "catchup_ms": {
+        "median": 499.80000001192093,
+        "max": 892.3000000119209
+      }
+    },
+    "max_catchup_segments": 4,
+    "buffer_bytes": {
+      "min": 488953,
+      "max": 712895
+    },
+    "buffer_target_ticks": {
+      "min": 17,
+      "max": 17
+    },
+    "distinct_playheads": 159,
+    "certified_publications_per_second": 0.9944534081817815,
+    "authenticated_observation_queries_per_second": 1.5531350981715464,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 17.312870720899998,
+    "buffer_end": 16.594216940222893,
+    "admitted_ticks": 89,
+    "displayed_ticks": 89.718653780677,
+    "phase_samples": {
+      "PLAYING": 159
+    }
+  },
+  "million_normal_sustained_playback": {
+    "seconds": 900.114,
+    "backend_ticks_per_second": 0.9709881192826686,
+    "admitted_ticks_per_second": 0.9698771488944733,
+    "displayed_ticks_per_second": 0.9690386782855979,
+    "stalled_samples": 0,
+    "resyncs": 0,
+    "nominal_rate": 1,
+    "performance_limited": false,
+    "queue_segments": {
+      "min": 7,
+      "max": 19
+    },
+    "buffer_ticks": {
+      "min": 6.389851863940521,
+      "max": 18.627171881240315
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 254,
+        "max": 7751.899999976158
+      },
+      "verify_ms": {
+        "median": 39.20000001788139,
+        "max": 100.2000000178814
+      },
+      "artifact_ms": {
+        "median": 0.4000000059604645,
+        "max": 2292.5999999940395
+      },
+      "derive_ms": {
+        "median": 3.5,
+        "max": 11.399999976158142
+      },
+      "catchup_ms": {
+        "median": 681.1999999880791,
+        "max": 3457.5999999940395
+      }
+    },
+    "max_catchup_segments": 8,
+    "buffer_bytes": {
+      "min": 265293,
+      "max": 720027
+    },
+    "buffer_target_ticks": {
+      "min": 17,
+      "max": 17
+    },
+    "distinct_playheads": 1561,
+    "certified_publications_per_second": 0.9698771488944733,
+    "authenticated_observation_queries_per_second": 1.4220420968899494,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 15.80861674062291,
+    "buffer_end": 16.563335874263544,
+    "admitted_ticks": 873,
+    "displayed_ticks": 872.2452808663627,
+    "phase_samples": {
+      "PLAYING": 1561
+    }
+  },
+  "million_sustained_analysis": {
+    "status": "PASS",
+    "seconds": 900.114,
+    "checks": {
+      "rates": true,
+      "no_stall_or_rebuffer": true,
+      "no_resynchronization": true,
+      "normal_not_performance_limited": true,
+      "buffer_accounting": true,
+      "bounded_queue": true,
+      "no_sustained_buffer_deficit": true
+    },
+    "production_endpoint_tick_bounds": {
+      "start": [
+        107,
+        109
+      ],
+      "end": [
+        981,
+        983
+      ]
+    },
+    "produced_ticks_bounds": [
+      872,
+      876
+    ],
+    "produced_ticks_per_second_bounds": [
+      0.9687661785062781,
+      0.9732100600590592
+    ],
+    "admitted_ticks": 873,
+    "displayed_ticks": 872.2452808663627,
+    "admitted_ticks_per_second": 0.9698771488944733,
+    "displayed_ticks_per_second": 0.9690386782855979,
+    "buffer_start": 15.80861674062291,
+    "buffer_end": 16.563335874263544,
+    "buffer_change": 0.7547191336406343,
+    "admitted_minus_displayed": 0.7547191336373089,
+    "buffer_conservation_error": 3.325340003357269e-12,
+    "rolling_buffer_minutes": [
+      {
+        "minute": 0,
+        "samples": 106,
+        "start": 15.80861674062291,
+        "end": 16.366229224879646,
+        "mean": 16.3194401190203,
+        "min": 9.989814360811067,
+        "max": 18.068750252111073
+      },
+      {
+        "minute": 1,
+        "samples": 105,
+        "start": 16.763813337379645,
+        "end": 17.119101812164757,
+        "mean": 15.816601233559807,
+        "min": 10.980989493798745,
+        "max": 18.233976065598654
+      },
+      {
+        "minute": 2,
+        "samples": 107,
+        "start": 17.481219769464758,
+        "end": 16.48872312875892,
+        "mean": 16.280118498132886,
+        "min": 12.413038451481583,
+        "max": 17.941390294664643
+      },
+      {
+        "minute": 3,
+        "samples": 104,
+        "start": 16.92617474985883,
+        "end": 16.87110359199312,
+        "mean": 14.765390908813782,
+        "min": 8.649906297365533,
+        "max": 17.30389286026457
+      },
+      {
+        "minute": 4,
+        "samples": 103,
+        "start": 17.216263136206635,
+        "end": 15.03729390524802,
+        "mean": 15.99800892183785,
+        "min": 12.36944356211194,
+        "max": 17.943583462912045
+      },
+      {
+        "minute": 5,
+        "samples": 103,
+        "start": 15.529377997548067,
+        "end": 15.80060179473071,
+        "mean": 15.916970704997425,
+        "min": 10.94829361298963,
+        "max": 18.625123043089445
+      },
+      {
+        "minute": 6,
+        "samples": 105,
+        "start": 15.252353639930732,
+        "end": 17.532397787194157,
+        "mean": 15.952696187825701,
+        "min": 13.948803564794105,
+        "max": 17.79082483369416
+      },
+      {
+        "minute": 7,
+        "samples": 103,
+        "start": 17.93249947609428,
+        "end": 14.90597470520163,
+        "mean": 16.40885907739147,
+        "min": 12.453244425094226,
+        "max": 17.93249947609428
+      },
+      {
+        "minute": 8,
+        "samples": 104,
+        "start": 14.517123162262692,
+        "end": 16.225019371540156,
+        "mean": 15.280389279191487,
+        "min": 6.389851863940521,
+        "max": 18.627171881240315
+      },
+      {
+        "minute": 9,
+        "samples": 103,
+        "start": 15.539097890040125,
+        "end": 14.689631429800784,
+        "mean": 16.265233417907055,
+        "min": 13.105986423801141,
+        "max": 18.05616884080132
+      },
+      {
+        "minute": 10,
+        "samples": 104,
+        "start": 15.177594394200696,
+        "end": 17.109261595922817,
+        "mean": 16.351693817575597,
+        "min": 13.388396516801208,
+        "max": 17.66133901430112
+      },
+      {
+        "minute": 11,
+        "samples": 104,
+        "start": 16.544739874422703,
+        "end": 16.309486884004855,
+        "mean": 15.632665532421255,
+        "min": 11.445580556528853,
+        "max": 17.305259069728777
+      },
+      {
+        "minute": 12,
+        "samples": 102,
+        "start": 16.75658121090487,
+        "end": 16.33739524716782,
+        "mean": 16.135982971512682,
+        "min": 11.938376565267617,
+        "max": 17.76609989146789
+      },
+      {
+        "minute": 13,
+        "samples": 104,
+        "start": 16.718439925667894,
+        "end": 14.54056828548994,
+        "mean": 15.996654027121242,
+        "min": 10.169807605589654,
+        "max": 17.51566104943788
+      },
+      {
+        "minute": 14,
+        "samples": 103,
+        "start": 14.018027421089869,
+        "end": 13.108486847063546,
+        "mean": 15.835545228201338,
+        "min": 12.315765221502488,
+        "max": 18.053395022540826
+      }
+    ],
+    "buffer_regression_ticks_per_second": 5.7321679018839124e-05,
+    "last_three_minus_first_three_minute_mean": -0.14932587462591052,
+    "stability_criterion": "All samples retained. Last three minute means may lose at most one tick versus first three; whole-window regression may lose at most one tick per observation duration. No rebuffering or resync permitted.",
+    "backend_observation_age_ms": {
+      "median_upper": 1173.758056640625,
+      "max_upper": 4294.737060546875
+    },
+    "backend_poll_uncertainty": "Snapshot lies within each timed request; surrounding requests bound endpoint counts. Bounds, not stale browser lab_status counts, qualify production.",
+    "phases": {
+      "PLAYING": 1561
+    },
+    "resynchronizations": 0,
+    "performance_limited": false,
+    "dense_phase_samples": {
+      "PLAYING": 3494
+    }
+  },
+  "million_economy_playback": {
+    "seconds": 39.44849999999988,
+    "backend_ticks_per_second": 0.5069901263672905,
+    "admitted_ticks_per_second": 0.5069901263672905,
+    "displayed_ticks_per_second": 0.5716937994498468,
+    "stalled_samples": 0,
+    "resyncs": 0,
+    "nominal_rate": 0.5,
+    "performance_limited": false,
+    "queue_segments": {
+      "min": 11,
+      "max": 14
+    },
+    "buffer_ticks": {
+      "min": 10.21357021396409,
+      "max": 13.901772343264156
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 247.30000001192093,
+        "max": 2417
+      },
+      "verify_ms": {
+        "median": 39.10000002384186,
+        "max": 72.2999999821186
+      },
+      "artifact_ms": {
+        "median": 0.4000000059604645,
+        "max": 0.5999999940395355
+      },
+      "derive_ms": {
+        "median": 3.4000000059604645,
+        "max": 6.300000011920929
+      },
+      "catchup_ms": {
+        "median": 514.5999999940395,
+        "max": 514.5999999940395
+      }
+    },
+    "max_catchup_segments": 2,
+    "buffer_bytes": {
+      "min": 416805,
+      "max": 530675
+    },
+    "buffer_target_ticks": {
+      "min": 9,
+      "max": 9
+    },
+    "distinct_playheads": 70,
+    "certified_publications_per_second": 0.5069901263672905,
+    "authenticated_observation_queries_per_second": 1.444921860146778,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 13.752665788164109,
+    "buffer_end": 11.200202940564054,
+    "admitted_ticks": 20,
+    "displayed_ticks": 22.552462847597212,
+    "phase_samples": {
+      "PLAYING": 70
+    }
+  },
+  "lifeline_status_before_settle": {
+    "label": "Slow \u00b7 delayed",
+    "status": {
+      "kind": "slow",
+      "label": "Slow \u00b7 delayed",
+      "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+      "canPrepare": true
+    },
+    "playback": {
+      "wall_ms": 1082872.3,
+      "frame_ms": 66.69999999995343,
+      "verified_ticks": 1024,
+      "consumed_ticks": 1013.262690337736,
+      "admitted_ticks": 1024,
+      "played_ticks": 1013.2626903377358,
+      "buffer_ticks": 10.73730966226401,
+      "buffer_target_ticks": 1,
+      "buffer_bytes": 416393,
+      "queue_segments": 11,
+      "certificate_time_ns": "1794627892039515224",
+      "certificate_age_ms": 1069.4848,
+      "catchup_segments": 2,
+      "catchup_ms": 514.5999999940395,
+      "phase": "PLAYING",
+      "rate": 1,
+      "elastic": {
+        "samples": 8,
+        "factor": 1,
+        "expected_period_seconds": 2,
+        "confidence_seconds": 10.923,
+        "arrival_jitter_seconds": 2.6701999999880788,
+        "max_delivery_seconds": 2.4615,
+        "last_distinct_at": 1081633.2999999821
+      },
+      "presentation_lag_ticks": 10.73730966226401,
+      "nominal_rate": 0.05,
+      "supported_rate": 0.05,
+      "presentation_rate": 0.05832500000001165,
+      "target_rate": 0.05,
+      "performance_limited": false,
+      "fetch_ms": 244.5,
+      "verify_ms": 48.099999994039536,
+      "artifact_ms": 0.5,
+      "derive_ms": 3.4000000059604645,
+      "artifact_bundle": true,
+      "artifact_bundle_fallbacks": 0,
+      "artifact_bundle_error": null,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "backend_segments": 1024,
+      "segment_ticks": 1
+    }
+  },
+  "million_lifeline_playback": {
+    "seconds": 49.598,
+    "backend_ticks_per_second": 0.040324206621234725,
+    "admitted_ticks_per_second": 0.040324206621234725,
+    "displayed_ticks_per_second": 0.05000000000009027,
+    "stalled_samples": 0,
+    "resyncs": 0,
+    "nominal_rate": 0.05,
+    "performance_limited": false,
+    "queue_segments": {
+      "min": 10,
+      "max": 11
+    },
+    "buffer_ticks": {
+      "min": 9.575694662261185,
+      "max": 10.80071966225887
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 233.90000000596046,
+        "max": 5987.600000023842
+      },
+      "verify_ms": {
+        "median": 38.599999994039536,
+        "max": 59.70000001788139
+      },
+      "artifact_ms": {
+        "median": 0.5,
+        "max": 0.5999999940395355
+      },
+      "derive_ms": {
+        "median": 4.600000023841858,
+        "max": 5
+      },
+      "catchup_ms": {
+        "median": 514.5999999940395,
+        "max": 514.5999999940395
+      }
+    },
+    "max_catchup_segments": 2,
+    "buffer_bytes": {
+      "min": 378312,
+      "max": 416393
+    },
+    "buffer_target_ticks": {
+      "min": 1,
+      "max": 1
+    },
+    "distinct_playheads": 90,
+    "certified_publications_per_second": 0.040324206621234725,
+    "authenticated_observation_queries_per_second": 1.1895640953264244,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 10.530649662263727,
+    "buffer_end": 10.05074966225743,
+    "admitted_ticks": 2,
+    "displayed_ticks": 2.479900000004477,
+    "phase_samples": {
+      "PLAYING": 90
+    }
+  },
+  "error": "RuntimeError('wire capture finalisation failed: wire request failed: net::ERR_ABORTED')"
+}

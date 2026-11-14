@@ -6,9 +6,10 @@
   "javascript_sha256": "97d8ee0bf61e8b76816511772ab348962d56bbf78b597acc365f48a38725cdc9",
   "inventory_sha256": "e9b5c4be2216420f6f70d7c3f33f3ef4596b7d56e05c06eae43171fd629cb8c1",
   "audio_unchanged": true,
-  "qualifier_source": "e00300605462340fcdcd01c08d6279a1d7ae28ba",
+  "qualifier_source": "f0bc94f16caec4e142c689eef970f4a394b944bc",
   "backend_runtime_source": "e7e425083ddef569fa481d65acfd204274a03c8a",
   "backend_wasm_sha256": "8b853bc7a93a225ad600b6acb857693a15a08c76c14650d2f849c7e7c2530caf",
   "backend_bytes": 3579652,
-  "qualification": "IN_PROGRESS; no hosted gates for this candidate yet"
+  "qualification": "NOT RELEASE QUALIFIED: strict installed wire capture FAIL; six exact-source hosted gates BLOCKED by Git authentication.",
+  "final_file_rehash": "PASS 75 candidate +74 rollback"
 }

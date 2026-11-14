@@ -1,4 +1,4 @@
-# Territory/control successor — implemented, qualification in progress; NOT DEPLOYED
+# Territory/control successor — implemented; qualification BLOCKED; NOT DEPLOYED
 
 The current source adds bounded intended-zoom controls, shared aim-arrow input,
 explicit session selection, deterministic legal Move/Build defaults, disabled
@@ -14,6 +14,20 @@ Ordinary non-force source publication is authorized for this corrective task.
 [Current development evidence and outstanding qualification](evidence/B2Z/human-playtest-corrections/territory-and-controls/REPORT.md) /
 [versioned rule and activation/rollback contract](docs/specs/B2Z_TERRITORY_CLEARANCE_9.md).
 No earlier green CI is claimed to qualify the new bytes.
+
+Functional closeout passes28 JS/native clearance cases, all populated browser
+controls,8 panel configurations with0px drift across3,262 states, and the exact
+European-module state-preserving disposable upgrade/cutover. Final source passes
+1,927 Node/201 Python tests. Frozen JS97d8ee0b… /75-file inventorye9b5c4be…;
+normal backend candidate8b853bc7… is unactivated.
+
+The complete installed gate has51/52 PASS; its sustained case fails backend
+performance-limit/wire assertions. An unchanged quiet repeat passes its entire
+15-minute Normal/Economy/Lifeline gameplay windows but still fails strict wire
+finalization. Proxy evidence records reads exceeding the unchanged10s deadline.
+No assertion, deadline or trust check was relaxed. New-source hosted CI is blocked
+by unavailable Git HTTPS credentials; remote remains74f0818. This is not a release
+qualification pass and grants no deployment/paid-state authority.
 
 ---
 

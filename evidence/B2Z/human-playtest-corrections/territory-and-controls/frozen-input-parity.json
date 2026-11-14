@@ -1,6 +1,6 @@
 {
   "freeze_source": "8fdc2a273a93d711bb18ef4bf390f18ff61acf98",
-  "checked_source": "a1b564af56cd8e1a95f74b07f07af2561bbf09ca",
+  "checked_source": "f0bc94f16caec4e142c689eef970f4a394b944bc",
   "tracked_consumed_inputs": [
     "apps/b2z-observer/action-quote-v6.mjs",
     "apps/b2z-observer/app.mjs",
@@ -62,5 +62,7 @@
   ],
   "input_diff": "NONE",
   "frozen_build_manifest_sha256": "904ba5636a7af24deeb765cf19fd9373fa9f06bcc41910b5825c33690487c0d8",
-  "meaning": "Frozen metadata retains its original clean source; later qualifier/report commits do not relabel it. No rebuild of unchanged application inputs."
+  "meaning": "Frozen metadata retains its original clean source; later qualifier/report commits do not relabel it. No rebuild of unchanged application inputs.",
+  "whole_frontend_tree_diff": "NONE since frozen8fd source",
+  "backend_runtime_input_diff": "NONE since e7e4250"
 }

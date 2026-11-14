@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S14",
+  "git_revision": "b23ea825424c7f34f7a4b2e46eafa8673b2c4029",
+  "started_utc": "2026-11-14T02:08:08.249372+00:00",
+  "mode": "integration",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "s14-index-poke-local-slice",
+      "command": [
+        "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+        "-B",
+        "tools/verify_s14_local.py",
+        "--output",
+        ".work/territory-controls/integration-complete/s14-local"
+      ],
+      "status": "FAIL",
+      "exit_code": 1,
+      "log": "logs/s14-index-poke-local-slice.log",
+      "elapsed_seconds": 4382.68,
+      "timeout_seconds": 7200,
+      "exit_contract": "project-wrapper-exit-2-is-blocked"
+    }
+  ],
+  "tested_artifacts": [],
+  "overall": "FAIL"
+}

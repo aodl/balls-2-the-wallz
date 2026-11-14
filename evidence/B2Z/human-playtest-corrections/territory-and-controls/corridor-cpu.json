@@ -1,0 +1,63 @@
+{
+  "scope": "Node controlled valid-world performance; shared software host, not physical hardware or installed-IC instruction cost",
+  "owned_cells": 6000,
+  "enemy_cells": 994000,
+  "clearance_checks_per_candidate_max": 49,
+  "rows": [
+    {
+      "result": null,
+      "cpu_user_ms": 686.058,
+      "cpu_system_ms": 17.263,
+      "ms": 2148.455393,
+      "tested": 999999,
+      "chunks": 493,
+      "maxChunkMs": 11.026226000000179,
+      "cache_bytes": 250000,
+      "classified": 999999
+    },
+    {
+      "result": null,
+      "cpu_user_ms": 704.106,
+      "cpu_system_ms": 4.16,
+      "ms": 1652.886685,
+      "tested": 999999,
+      "chunks": 494,
+      "maxChunkMs": 8.299801000000116,
+      "cache_bytes": 250000,
+      "classified": 999999
+    },
+    {
+      "result": null,
+      "cpu_user_ms": 612.096,
+      "cpu_system_ms": 20.675,
+      "ms": 3721.03054,
+      "tested": 999999,
+      "chunks": 498,
+      "maxChunkMs": 15.009082999999919,
+      "cache_bytes": 250000,
+      "classified": 999999
+    },
+    {
+      "result": null,
+      "cpu_user_ms": 544.242,
+      "cpu_system_ms": 6.241,
+      "ms": 1113.1364509999994,
+      "tested": 999999,
+      "chunks": 489,
+      "maxChunkMs": 2.911434999999983,
+      "cache_bytes": 250000,
+      "classified": 999999
+    },
+    {
+      "result": null,
+      "cpu_user_ms": 557.598,
+      "cpu_system_ms": 3.312,
+      "ms": 1146.8183719999997,
+      "tested": 999999,
+      "chunks": 489,
+      "maxChunkMs": 3.70704300000034,
+      "cache_bytes": 250000,
+      "classified": 999999
+    }
+  ]
+}

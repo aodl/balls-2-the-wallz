@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "cases": 28,
+  "scope": "Valid canonical worlds, actual JS and independent native cursor, recovery, exact state/events/scores; no IC-authenticity claim for vectors.",
+  "fixture": "tests/fixtures/clearance-v9.json",
+  "names": [
+    "move-1-0",
+    "move-2-0",
+    "move-3-0",
+    "move-3-3",
+    "move-4-0",
+    "move-4-4",
+    "move-5-0",
+    "move-997-0",
+    "move-996-0",
+    "move-997-997",
+    "historical-v7-move-distance-three",
+    "same-player-separate-island",
+    "additional-explicit-unsafe",
+    "additional-explicit-safe",
+    "additional-implicit-safe-alternative",
+    "additional-implicit-no-safe-sites",
+    "first-join-v7",
+    "first-join-v9",
+    "fire-v7",
+    "fire-v9",
+    "grandfathered-close-cannon-fire",
+    "enemy-claim-before-move-processing",
+    "multiple-enemies-player-three",
+    "enemy-land-thirteen-cells-from-enemy-cannon",
+    "enemy-claim-before-additional-build-processing",
+    "ball-visible-over-neutral-does-not-expand-enemy-halo",
+    "canonical-zero-source-move",
+    "canonical-zero-destination-move"
+  ],
+  "source_commands": [
+    "node tools/clearance_vectors.mjs --check",
+    "cargo test --manifest-path native/Cargo.toml -p b2z-native --test clearance_vectors --locked"
+  ],
+  "neutral_ball_case": "A canonical center on unowned land is invalid under existing World validation. Preserved that invariant; valid boundary-overlap case proves visible ball extent does not dilate enemy ownership."
+}

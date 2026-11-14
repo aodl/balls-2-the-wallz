@@ -1,0 +1,26 @@
+[
+  {
+    "run": "integration-complete/s14-local",
+    "method": "retained_publication",
+    "request_sha256": "3f90f7cd5c110cef485a7981b15b23bd3c9364838a2570e309472b66244759b6",
+    "status": 200,
+    "started_epoch_ms": 1794625931688.8806,
+    "upstream_complete_ms": 14183.56921398663,
+    "abort_after_start_ms": 10226.9541015625,
+    "default_observation_timeout_ms": 10000,
+    "source": "apps/b2z-observer/bounded-observation.mjs",
+    "scope": "Proxy timing matched by request body hash and start interval. Late HTTP200 did not erase the browser abort or qualification failure."
+  },
+  {
+    "run": "sustained-quiescent",
+    "method": "observation_bundle",
+    "request_sha256": "39cd90f660a2c83b8275266f8643832ab554b4a6e425c4d5776ae2ba530f713c",
+    "status": 200,
+    "started_epoch_ms": 1794627429694.5264,
+    "upstream_complete_ms": 10633.438789023785,
+    "abort_after_start_ms": 10180.071044921875,
+    "default_observation_timeout_ms": 10000,
+    "source": "apps/b2z-observer/bounded-observation.mjs",
+    "scope": "Proxy timing matched by request body hash and start interval. Late HTTP200 did not erase the browser abort or qualification failure."
+  }
+]

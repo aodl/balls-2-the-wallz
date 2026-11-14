@@ -1,0 +1,51 @@
+{
+  "observed_remote_head": "74f08183b905d97dbfd821ede0a4c2cdc47538f5",
+  "historical_run": 43519301054,
+  "historical_qualified_sha": "74f08183b905d97dbfd821ede0a4c2cdc47538f5",
+  "historical_jobs": [
+    {
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "counted_substantive": true
+    },
+    {
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "counted_substantive": true
+    },
+    {
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "counted_substantive": true
+    },
+    {
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "counted_substantive": true
+    },
+    {
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success",
+      "counted_substantive": false
+    },
+    {
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "counted_substantive": true
+    },
+    {
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "counted_substantive": true
+    }
+  ],
+  "current_candidate_hosted_status": "BLOCKED: normal Git push failed because HTTPS username credentials are unavailable; no current-source hosted run exists.",
+  "guard_note": "The success conclusion of the separately labelled BLOCKED production inventory job is informational, never a seventh qualification gate."
+}
