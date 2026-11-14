@@ -94,6 +94,7 @@ with sync_playwright() as pw:
    if not a.baseline:
     from territory_controls_browser import verify_territory_controls
     row['territory_controls']=verify_territory_controls(page,out,w)
+    if w==1440:assert 'move_arrows'in row['territory_controls']
    row['recording']=str(Path(page.video.path()).relative_to(out));assert not errors,errors;rows.append(row);(out/'results.json').write_text(json.dumps({'status':'BASELINE'if a.baseline else'RUNNING','rows':rows},indent=2)+'\n');c.close();print('PASS'if not a.baseline else'BASELINE',w,flush=True)
  except Exception:
   traceback.print_exc();page.screenshot(path=str(out/'failure.png'));raise
