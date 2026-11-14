@@ -59,6 +59,7 @@ export class CameraController{
  focus(cell,options={}){
   const {sx,sy,scale}=focusComposition(this.camera,options);const target=this.target(c=>{c.frameCell(cell);c.scale=Math.max(c.scale,scale);c.constrain();const p=c.cellPoint(cell);c.pan(sx-p.sx,sy-p.sy);});return this.go(target,{owner:'focus'});
  }
+ territory(frame,rect){if(!frame)return false;const scale=Math.max(this.camera.fitScale,Math.min(this.camera.maxScale,(rect.right-rect.left)/(frame.projectedWidth+1.5),(rect.bottom-rect.top)/(frame.projectedHeight+1.5)));return this.go(this.target(c=>{c.scale=scale;c.centre(frame.x,frame.y);c.pan((rect.left+rect.right-c.viewport.width)/2,(rect.top+rect.bottom-c.viewport.height)/2);}),{owner:'entry'});}
  overview(anchor){return this.go({...anchor,scale:this.camera.fitScale},{owner:'overview'});}
  zoom(factor,sx=this.camera.viewport.width/2,sy=this.camera.viewport.height/2,{keepFollow=true,world=null,duration}={}){
   if(!Number.isFinite(factor)||factor<=0)return false;

@@ -5,7 +5,7 @@ export class AudioMusic{
  bytes(){return [...new Set([...this.buffers.values(),...[...this.nodes].map(n=>n.source.buffer).filter(Boolean)])].reduce((sum,b)=>sum+b.length*b.numberOfChannels*4,0);}
  async start(manifest){if(this.active||this.starting)return;this.manifest=manifest;const gen=++this.generation;this.starting=true;this.onState();
   try{const phase=Math.floor(((this.phase%manifest.totalFrames)+manifest.totalFrames)%manifest.totalFrames),index=manifest.segments.findIndex(s=>phase<s.startFrame+s.coreFrames);await this.fill(index,gen);await this.fill((index+1)%51,gen);if(gen!==this.generation)return;
-   this.phase=phase;this.nextFrame=phase;this.index=index;this.epoch=this.context.currentTime+.08;this.first=true;this.active=true;this.tick();this.timer=setInterval(()=>this.tick(),150);
+   this.phase=phase;this.nextFrame=phase;this.index=index;this.epoch=this.context.currentTime+.08;this.first=true;this.active=true;this.tick();if(this.active)this.timer=setInterval(()=>this.tick(),150);
   }catch(e){if(gen===this.generation)this.recover(e);}finally{if(gen===this.generation){this.starting=false;this.onState();}}
  }
  async fill(index,gen){if(gen!==this.generation||this.buffers.has(index))return;const spec=this.manifest.segments[index],estimate=Math.ceil(spec.decodedFrames*this.context.sampleRate/48000)*8,used=this.bytes();
@@ -25,6 +25,7 @@ export class AudioMusic{
    if(this.buffers.size<3&&!this.prefetch){const index=this.buffers.has(this.index)?(this.index+1)%51:this.index;this.prefetch=this.fill(index,gen).catch(e=>{if(gen===this.generation)this.recover(e);}).finally(()=>{if(gen===this.generation)this.prefetch=null;});}
   }catch(e){this.recover(e);}finally{this.ticking=false;}
  }
+ ensureCoverage(){if(!this.active)return false;if(!this.timer)this.timer=setInterval(()=>this.tick(),150);this.tick();return this.active&&[...this.nodes].some(n=>!n.ending)&&this.scheduledUntil>this.context.currentTime;}
  recover(error){this.stop();if(++this.failures>2){this.onError(error);return;}const gen=this.generation;this.retryTimer=setTimeout(()=>{if(gen===this.generation){this.retryTimer=null;void this.start(this.manifest);}},1000*this.failures);this.onState();}
  stop({fade=this.context.state==='running'}={}){clearTimeout(this.retryTimer);this.retryTimer=null;this.phase=Math.floor(this.position());this.active=false;this.starting=false;this.generation++;clearInterval(this.timer);this.timer=null;this.scheduledUntil=undefined;this.prefetch=null;this.buffers.clear();
   for(const record of [...this.nodes]){if(record.ending&&fade)continue;try{if(fade){record.ending=true;const now=this.context.currentTime,value=record.fade?Math.max(0,Math.min(1,(now-record.when)/.08)):1;record.gain.gain.cancelScheduledValues(now);record.gain.gain.setValueAtTime(value,now);record.gain.gain.linearRampToValueAtTime(0,now+.04);record.source.stop(now+.05);}else{record.source.stop();this.release(record);}}catch{this.release(record);}}

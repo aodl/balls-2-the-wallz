@@ -1,6 +1,4 @@
-/** Pure reference policy, NOT an integrated audio engine. No DOM/network/state mutation.
- * Copy deliberately into maintained source only after reading the implementation brief.
- */
+/** Integrated bounded presentation-audio policy; no game or network mutation. */
 export const LIMITS=Object.freeze({candidateInspections:128,candidates:32,startsPerFrame:2,
  voices:8,wallVoices:6,cannonVoices:2,seenKeys:4096,entityCooldownKeys:512,
  wallRate:4,wallBurst:2,cannonRate:1,cannonBurst:1,totalRate:5,totalBurst:3,
@@ -11,7 +9,7 @@ export function smoothstep(a,b,x){if(![a,b,x].every(Number.isFinite)||b<=a)retur
  const t=clamp((x-a)/(b-a),0,1);return t*t*(3-2*t);}
 // scale is the repository Camera.scale, not device pixels and not fitScale ratio.
 export function zoomGain(scale){if(!Number.isFinite(scale)||scale<=0)return 0;
- return smoothstep(12,40,scale*Math.sqrt(2/3));}
+ return smoothstep(6,28,scale*Math.sqrt(2/3));}
 export function viewportGain({x,y,width,height,radius=0,occluders=[]}){
  if(![x,y,width,height,radius].every(Number.isFinite)||width<=0||height<=0||radius<0)return 0;
  if(!Array.isArray(occluders)||occluders.length>16)return 0; // malformed/unbounded layout input fails silent

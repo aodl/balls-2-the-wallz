@@ -1,3 +1,16 @@
+# Unified presentation audio — owner correction in progress
+
+The current owner brief supersedes the historical control/default/lifecycle and
+zoom policies below: one enabled-by-default master intent, one mute/enable icon,
+no ordinary lane controls/sliders/retry/cache UI; fixed engineered full mix;
+automatic bounded recovery and ownership-aware displayed contact cues. Musical
+source samples/tempo and all observer/financial trust boundaries remain unchanged.
+The implementation and integrated/native qualification are in progress; no new
+source is production-qualified or authorized for deployment. The remainder is the
+historical v1 contract pending final reconciliation, retained for provenance.
+
+---
+
 # Optional presentation audio v1 — local candidate
 
 This contract adds optional sound to UX-04/05/06/12 without changing UXR-01..25,

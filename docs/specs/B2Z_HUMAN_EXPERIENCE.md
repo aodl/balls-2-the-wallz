@@ -1,5 +1,15 @@
 # B2Z human experience
 
+The current audio/onboarding/compact-actions owner brief supersedes older audio
+preferences and Join/Build conflation. Affected contracts are UX-01/02/03/07/08/10/11/12:
+one enabled-by-default sound-intent icon (subject to browser permission), explicit
+returning-account entry to a compact territory fit with no selection/purchase,
+recipient-left/amount-right exact wallet handoff and one quantity stepper beside
+Fire's aimer. Financial authority, frozen copies, verified playback and Rules7/9
+policy binding remain intact. Implementation/native qualification is in progress;
+prior evidence qualifies only its recorded source, not this working continuation.
+
+
 This is the normative human-interface contract. It supersedes the screen layout,
 toolbar, dialog, reporting and live-pause requirements in earlier observer and
 human-interface documents. Historical evidence remains evidence of its own release.

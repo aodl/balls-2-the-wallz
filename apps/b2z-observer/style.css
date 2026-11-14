@@ -150,12 +150,10 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 /* Independent audio surface: no Fire/Move/Build slots or payment geometry. */
 .audio-controls{position:fixed;left:16px;bottom:134px;z-index:40}
 #audio-button{width:44px;height:44px;padding:8px;font-size:22px}
-#audio-popover{position:absolute;left:0;bottom:52px;width:min(280px,calc(100vw - 24px));max-height:calc(100dvh - 210px);overflow:auto;padding:12px;background:#202a2e;border:1px solid #758187;border-radius:8px;box-sizing:border-box;box-shadow:0 4px 12px #0005}
-#audio-popover label{display:flex;align-items:center;gap:8px;margin:8px 0}
-#audio-popover input[type=range]{min-width:0;width:115px;margin-left:auto}
-#audio-popover input[type=checkbox]{width:20px;height:20px}
-#audio-popover p{font-size:12px;margin:8px 0;min-height:2.5em}
-#audio-popover button{font-size:13px;padding:5px 8px}
-@media(max-width:700px){.audio-controls{left:auto;right:10px;top:66px;bottom:auto}#audio-popover{left:auto;right:0;top:52px;bottom:auto;max-height:calc(100dvh - 136px)}}
 /* Keep the selected source's short-viewport working area clear. */
-@media(max-width:700px){.short-edit .audio-controls{left:10px;right:auto}.short-edit #audio-popover{left:0;right:auto}}
+
+#audio-button{position:relative;display:grid;place-items:center;touch-action:manipulation}
+#audio-button .sound-slash{display:none}
+#audio-button[data-muted="true"] .sound-slash{display:block}
+#audio-button[data-pending="true"]::after{content:"";position:absolute;width:5px;height:5px;border-radius:50%;right:4px;bottom:4px;background:#f1cf77}
+@media(max-width:700px){.audio-controls{left:auto;right:10px;top:66px;bottom:auto}.short-edit .audio-controls{left:10px;right:auto}}

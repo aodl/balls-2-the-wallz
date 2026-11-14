@@ -1,3 +1,20 @@
+# Audio, returning-player entry and compact controls — implementation in progress
+
+The new owner brief in `B2Z_ONE_SELF_CONTAINED_CODEX_PROMPT.zip/CODEX_PROMPT.md`
+supersedes opt-in lanes/sliders, public retry/cache controls and shared Join/Build
+intent. Production remains the exact75-file frontend below on certified Rules7.
+Its complete served bytes/signed inventory and rollback are preserved under
+`.work/audio-onboarding-compact-controls/`. No deployment, backend operation,
+financial action or Rules9 activation is authorized in this task.
+
+The baseline retry dead-end is reproduced with a synthetic context, not native
+output evidence. Ten new focused audio tests and three compact territory-fit tests
+pass so far; integrated/native output and final exact-source qualification are
+pending. Do not label this working source qualified. Raw work is under `.work/`;
+maintained closeout will be `evidence/B2Z/audio-onboarding-compact-controls/REPORT.md`.
+
+---
+
 # Territory/control frontend deployed — Rules7 remains active
 
 The owner-authorized frontend-only deployment is installed at
