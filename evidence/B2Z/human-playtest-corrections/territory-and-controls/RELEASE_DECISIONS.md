@@ -1,4 +1,10 @@
-# Territory/control release decisions — no production authority
+# Territory/control release decisions — frontend executed; Rules9 pending
+
+Decision A was approved by the owner and executed using the exact frozen assets.
+[Actual installation/acceptance and retained rollback](deployment/REPORT.md).
+Decision B remains a separately approvable backend upgrade/activation proposal.
+The original preparation record below grants no additional production authority.
+
 
 All six substantive hosted gates passed for the exact published candidate `7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9`, run
 [43587243414](https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414).
@@ -33,7 +39,8 @@ that staging has exactly those files. Confirm canister_ids.json maps observer to
 DFX_IDENTITY=codex_local DFX_WARNING=-mainnet_plaintext_identity NPM_CONFIG_IF_PRESENT=true dfx deploy observer --network ic --no-wallet --no-asset-upgrade
 ```
 
-This command is recorded for later approval; it was not run in this closeout.
+This command was not run during qualification closeout; it was later approved and
+executed in the frontend-only deployment linked above.
 Do not invoke a builder, backend deploy, --all, install/reinstall or asset-canister
 Wasm upgrade. Independently retrieve and hash all 74 public files (the 75th is the
 consumed upload policy); check certification, content types, CSP/security/cache
@@ -121,8 +128,8 @@ a general release. Manifest remains
 Historical P09 remains FAIL/accepted trial limitation. Emulated Chromium/mobile,
 software rendering and disposable IC results do not prove physical-device listening,
 hardware performance, target-subnet incremental clearance costs or real-wallet
-execution. No ICRC-2 activation is included. Both production decisions remain
-unexecuted and require separate explicit owner authorization.
+execution. No ICRC-2 activation is included. At qualification time both decisions were unexecuted. The later owner instruction
+approved Decision A; Decision B remains unexecuted and needs separate explicit authority.
 
 
 Hosted installed completion is documented in `hosted-43587243414/`: all60 wrapper

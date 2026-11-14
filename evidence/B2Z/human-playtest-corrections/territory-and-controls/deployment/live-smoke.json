@@ -1,0 +1,1935 @@
+{
+  "status": "PASS for completed listed cases",
+  "scope": "Completed desktop case from fourth attempt plus complete mobile-only acceptance. Earlier whole-attempt failures remain under original paths, not relabelled.",
+  "desktop_source_attempt": "fourth (completed desktop case PASS; later mobile timeout retained)",
+  "mobile_source_attempt": "mobile-focused repeat PASS, foreground/camera settlement and native write audit",
+  "views": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "first_world_seconds": 8.876493907009717,
+      "initial_head": {
+        "logical_end": "8428",
+        "manifest_hash": "2bbcc077f7a433143f93af5b05d1465810b8e77674cac31147ca8f3c25aaaaaa",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "8428",
+          "logical_start": "8427",
+          "previous_manifest": "3db6305713ba4e586d8e11efab2fc808b2c40f5bd48059a6b74379529239dde7",
+          "previous_state": "f170cfd379f6f9c3565e1667b0e34631395795137e0bf6e89b5c4db9b9e0c2f8",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": "8431",
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": "40180669",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": "40180669"
+        },
+        "segment_id": "8431",
+        "source_to_exclusive": "40180669",
+        "state_hash": "68f726ae22f0d1443e77b57a11238521b8bbb2c75353a76a57c2dd5edba83db0"
+      },
+      "final_head": {
+        "logical_end": "8431",
+        "manifest_hash": "cd9a1dac5dc1d8310fc2cfad348d7809ba9b0f9c219c08b4106ee48233a2863a",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "8431",
+          "logical_start": "8430",
+          "previous_manifest": "f81f676ee019921100ac2016b445859cb68d6fda43f0c435e84b4b935658b954",
+          "previous_state": "7f77458f6fe3e0bb1933d22eec28b9752f6f78e6797aa4ff19fef61617662233",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": "8434",
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": "40180669",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": "40180669"
+        },
+        "segment_id": "8434",
+        "source_to_exclusive": "40180669",
+        "state_hash": "cb3210fc5d4c10f8cff20f5a6e4cbb90dbef67ebd09829ec54ca4d72c0a5df53"
+      },
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "source": {
+        "network": "ic",
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "subaccount": "0",
+        "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "selection": {
+        "status": "PASS",
+        "before": [
+          3.2792878051213847,
+          0.22587215908879443,
+          88
+        ],
+        "after": [
+          3.2792878051213847,
+          0.22587215908879443,
+          88
+        ]
+      },
+      "near_aim": {
+        "status": "PASS",
+        "cursor": "aim",
+        "before": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "167.15",
+          "worldAngle": "37.5",
+          "quantity": 1
+        },
+        "after": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "281.62",
+          "worldAngle": null,
+          "quantity": 1
+        }
+      },
+      "silent_start": "PASS",
+      "zoom_min": {
+        "camera": [
+          997.4169915379337,
+          1.6903009277525598,
+          2.03646773346401
+        ],
+        "fit_disabled": true,
+        "out_disabled": true
+      },
+      "zoom_max": {
+        "camera": [
+          997.4169915379337,
+          1.6903009277525598,
+          96
+        ],
+        "in_disabled": true,
+        "clicks": 12
+      },
+      "actions": {
+        "fire": {
+          "amount": "0.1 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "memo": "FIRE 1 37.5 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Wallet fee extra.",
+          "warning": "Payments and unused ICP are kept; no automatic refunds.",
+          "warningTitle": "",
+          "copyDisabled": false,
+          "panel": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 435,
+            "top": 334,
+            "right": 1021,
+            "bottom": 769,
+            "left": 661
+          },
+          "scroll": 0,
+          "status": "PASS",
+          "proposal": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "167.15",
+            "worldAngle": "37.5",
+            "quantity": 1
+          },
+          "head": {
+            "logical_end": "8429",
+            "manifest_hash": "2deb6f3b88889fd7bb7424347d2ca518ada214bb6ecd6f67e26281023b1c979f",
+            "seal": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "input_count": 0,
+              "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+              "logical_end": "8429",
+              "logical_start": "8428",
+              "previous_manifest": "2bbcc077f7a433143f93af5b05d1465810b8e77674cac31147ca8f3c25aaaaaa",
+              "previous_state": "68f726ae22f0d1443e77b57a11238521b8bbb2c75353a76a57c2dd5edba83db0",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "segment_id": "8432",
+              "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+              "source_from": "40180669",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+              "source_to_exclusive": "40180669"
+            },
+            "segment_id": "8432",
+            "source_to_exclusive": "40180669",
+            "state_hash": "564f8ef2584e03a37b3e5ad70417ec7efdbf2800d487b751d1f1c2816c5277ba"
+          },
+          "rules": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "source_position": 0,
+          "memo_clipboard": "PASS native write resolved with exact canonical text; clipboard read remains forbidden by unchanged Permissions-Policy; no payment sent"
+        },
+        "move": {
+          "amount": "0.0001 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "memo": "MOVE 1 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Wallet fee extra.",
+          "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+          "warningTitle": "",
+          "copyDisabled": false,
+          "panel": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 411,
+            "top": 334,
+            "right": 1021,
+            "bottom": 745,
+            "left": 661
+          },
+          "scroll": 0,
+          "status": "PASS",
+          "proposal": {
+            "mode": "move",
+            "cell": 1,
+            "degrees": "281.62",
+            "worldAngle": null,
+            "quantity": 1
+          },
+          "head": {
+            "logical_end": "8429",
+            "manifest_hash": "2deb6f3b88889fd7bb7424347d2ca518ada214bb6ecd6f67e26281023b1c979f",
+            "seal": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "input_count": 0,
+              "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+              "logical_end": "8429",
+              "logical_start": "8428",
+              "previous_manifest": "2bbcc077f7a433143f93af5b05d1465810b8e77674cac31147ca8f3c25aaaaaa",
+              "previous_state": "68f726ae22f0d1443e77b57a11238521b8bbb2c75353a76a57c2dd5edba83db0",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "segment_id": "8432",
+              "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+              "source_from": "40180669",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+              "source_to_exclusive": "40180669"
+            },
+            "segment_id": "8432",
+            "source_to_exclusive": "40180669",
+            "state_hash": "564f8ef2584e03a37b3e5ad70417ec7efdbf2800d487b751d1f1c2816c5277ba"
+          },
+          "rules": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "source_position": 0,
+          "memo_clipboard": "PASS native write resolved with exact canonical text; clipboard read remains forbidden by unchanged Permissions-Policy; no payment sent"
+        },
+        "build": {
+          "amount": "4 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "memo": "NEW 37.5 1 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Wallet fee extra.",
+          "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+          "warningTitle": "",
+          "copyDisabled": false,
+          "panel": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 411,
+            "top": 334,
+            "right": 1021,
+            "bottom": 745,
+            "left": 661
+          },
+          "scroll": 0,
+          "status": "PASS",
+          "proposal": {
+            "mode": "start",
+            "cell": 1,
+            "degrees": "167.15",
+            "worldAngle": "37.5",
+            "quantity": 1
+          },
+          "head": {
+            "logical_end": "8430",
+            "manifest_hash": "f81f676ee019921100ac2016b445859cb68d6fda43f0c435e84b4b935658b954",
+            "seal": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "input_count": 0,
+              "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+              "logical_end": "8430",
+              "logical_start": "8429",
+              "previous_manifest": "2deb6f3b88889fd7bb7424347d2ca518ada214bb6ecd6f67e26281023b1c979f",
+              "previous_state": "564f8ef2584e03a37b3e5ad70417ec7efdbf2800d487b751d1f1c2816c5277ba",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "segment_id": "8433",
+              "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+              "source_from": "40180669",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+              "source_to_exclusive": "40180669"
+            },
+            "segment_id": "8433",
+            "source_to_exclusive": "40180669",
+            "state_hash": "7f77458f6fe3e0bb1933d22eec28b9752f6f78e6797aa4ff19fef61617662233"
+          },
+          "rules": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "source_position": 0,
+          "memo_clipboard": "PASS native write resolved with exact canonical text; clipboard read remains forbidden by unchanged Permissions-Policy; no payment sent"
+        }
+      },
+      "page_errors": [],
+      "forbidden_posts": [],
+      "read_only_posts": 349,
+      "audio_activation": {
+        "music_active": true,
+        "sample_rate": 48000,
+        "mute_verified_after_300ms": true
+      },
+      "recovery": {
+        "status": "PASS",
+        "seconds": 22,
+        "http": 503,
+        "fault_requests": 12,
+        "panel_max_drift_px": 0,
+        "scope": "Browser read interception; automatic recovery, no reload",
+        "samples": 43,
+        "head_before": "8433",
+        "head_after": "8433",
+        "samples_with_copy_disabled": 42,
+        "camera_preserved": true,
+        "exact_wallet_values_and_scroll_preserved": true,
+        "clock_always_within_verified_coverage": true,
+        "healthy_after": true,
+        "telemetry": [
+          {
+            "elapsed": 0.25825117400381714,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": false,
+            "status": "slow"
+          },
+          {
+            "elapsed": 0.9692488590080757,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "slow"
+          },
+          {
+            "elapsed": 1.5697736730217002,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 2.1763743570190854,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 2.5784618870238774,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 3.0685274290153757,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 3.396174701018026,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 4.032345826009987,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 4.353829127008794,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 4.817374464008026,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 5.363788455026224,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 5.817266676021973,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 6.129854775004787,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 6.76034483400872,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 7.187234849028755,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 7.622241658013081,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 7.993645637005102,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 8.308477664017119,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 9.063165858009597,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 9.904263248026837,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 10.602455992018804,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 11.197249444026966,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 11.666821154009085,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 12.084357464016648,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 12.975422930001514,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 13.661689636006486,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 14.332507865008665,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 14.99385868399986,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 15.591410468012327,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 16.23236334900139,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 16.62742819901905,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 17.217460893007228,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 17.607475085009355,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 18.17577932900167,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 18.643262413010234,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 19.03030907001812,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 19.512447322020307,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 19.99250925000524,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 20.480383069021627,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 20.83751248102635,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 21.315473485010443,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 21.680616790021304,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          },
+          {
+            "elapsed": 22.144383831007872,
+            "panel": {
+              "x": 661,
+              "y": 334,
+              "width": 360,
+              "height": 438,
+              "top": 334,
+              "right": 1021,
+              "bottom": 772,
+              "left": 661
+            },
+            "copy_disabled": true,
+            "status": "reconnecting"
+          }
+        ]
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "first_world_seconds": 7.796489594009472,
+      "initial_head": {
+        "logical_end": "8434",
+        "manifest_hash": "52e3b9bf877d7b7f8a5a99fa4315757d14a22e8929243805aed34e7c72c4e84e",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "8434",
+          "logical_start": "8433",
+          "previous_manifest": "2cd022ff79137b099386b5ab0b2e9388fae4aeae06c087a8ff6cba1320df0220",
+          "previous_state": "8238e4bb58d4f341a251273dd126dafe903c28d4bd7edef24dea036f351e18de",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": "8437",
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": "40180669",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": "40180669"
+        },
+        "segment_id": "8437",
+        "source_to_exclusive": "40180669",
+        "state_hash": "6fbfe8d8bb9e98306aeac329263d5395cb4f1b9e889c475655c2d3260be8eebd"
+      },
+      "final_head": {
+        "logical_end": "8436",
+        "manifest_hash": "934f68274e27f24a3a7d8d3fa96be131c064a664a7ec88e9dc98403758beaf1b",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "8436",
+          "logical_start": "8435",
+          "previous_manifest": "ef20fa0fb02604e6fcc762b206f2ff42d91d3d62abb47f57a1f09a8330fd2e4b",
+          "previous_state": "001b6279c44672d123243eeebed081e8011ff2ead17707ac1217745b545b28c2",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": "8439",
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": "40180669",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": "40180669"
+        },
+        "segment_id": "8439",
+        "source_to_exclusive": "40180669",
+        "state_hash": "48a620bb7e6269661429db07b7c3ac92ec3b560aeca4b0cbfce87dc52fe6b8cd"
+      },
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "source": {
+        "network": "ic",
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "subaccount": "0",
+        "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "selection": {
+        "status": "PASS",
+        "before": [
+          5.341569569719923,
+          5.341569569719923,
+          64
+        ],
+        "after": [
+          5.341569569719923,
+          5.341569569719923,
+          64
+        ]
+      },
+      "near_aim": {
+        "status": "PASS",
+        "cursor": "aim",
+        "before": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "167.15",
+          "worldAngle": "37.5",
+          "quantity": 1
+        },
+        "after": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "273.35",
+          "worldAngle": null,
+          "quantity": 1
+        }
+      },
+      "silent_start": "PASS",
+      "zoom_min": {
+        "camera": [
+          997.4277856667011,
+          1.6849384982833726,
+          1.0336847748229683
+        ],
+        "fit_disabled": true,
+        "out_disabled": true
+      },
+      "zoom_max": {
+        "camera": [
+          997.4277856667011,
+          1.6849384982833726,
+          96
+        ],
+        "in_disabled": true,
+        "clicks": 14
+      },
+      "actions": {
+        "fire": {
+          "amount": "0.1 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "memo": "FIRE 1 37.5 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Wallet fee extra.",
+          "warning": "Payments and unused ICP are kept; no automatic refunds.",
+          "warningTitle": "",
+          "copyDisabled": false,
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 435,
+            "top": 221,
+            "right": 368,
+            "bottom": 656,
+            "left": 8
+          },
+          "scroll": 0,
+          "status": "PASS",
+          "proposal": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "167.15",
+            "worldAngle": "37.5",
+            "quantity": 1
+          },
+          "head": {
+            "logical_end": "8435",
+            "manifest_hash": "ef20fa0fb02604e6fcc762b206f2ff42d91d3d62abb47f57a1f09a8330fd2e4b",
+            "seal": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "input_count": 0,
+              "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+              "logical_end": "8435",
+              "logical_start": "8434",
+              "previous_manifest": "52e3b9bf877d7b7f8a5a99fa4315757d14a22e8929243805aed34e7c72c4e84e",
+              "previous_state": "6fbfe8d8bb9e98306aeac329263d5395cb4f1b9e889c475655c2d3260be8eebd",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "segment_id": "8438",
+              "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+              "source_from": "40180669",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+              "source_to_exclusive": "40180669"
+            },
+            "segment_id": "8438",
+            "source_to_exclusive": "40180669",
+            "state_hash": "001b6279c44672d123243eeebed081e8011ff2ead17707ac1217745b545b28c2"
+          },
+          "rules": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "source_position": 0,
+          "memo_clipboard": "PASS actual native write resolved with exact canonical text; clipboard read remains forbidden by unchanged Permissions-Policy; no payment sent",
+          "copy_diagnostics": {
+            "writes": [
+              {
+                "value": "FIRE 1 37.5 1",
+                "at": 31778.59999999404,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              }
+            ],
+            "clicks": [
+              {
+                "copy": "text",
+                "at": 31770.69999998808,
+                "disabled": false,
+                "ready": true
+              }
+            ],
+            "feedback": "Copied. Instructions saved; no payment sent."
+          }
+        },
+        "move": {
+          "amount": "0.0001 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "memo": "MOVE 1 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Wallet fee extra.",
+          "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+          "warningTitle": "",
+          "copyDisabled": false,
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 411,
+            "top": 221,
+            "right": 368,
+            "bottom": 632,
+            "left": 8
+          },
+          "scroll": 0,
+          "status": "PASS",
+          "proposal": {
+            "mode": "move",
+            "cell": 1,
+            "degrees": "273.35",
+            "worldAngle": null,
+            "quantity": 1
+          },
+          "head": {
+            "logical_end": "8435",
+            "manifest_hash": "ef20fa0fb02604e6fcc762b206f2ff42d91d3d62abb47f57a1f09a8330fd2e4b",
+            "seal": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "input_count": 0,
+              "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+              "logical_end": "8435",
+              "logical_start": "8434",
+              "previous_manifest": "52e3b9bf877d7b7f8a5a99fa4315757d14a22e8929243805aed34e7c72c4e84e",
+              "previous_state": "6fbfe8d8bb9e98306aeac329263d5395cb4f1b9e889c475655c2d3260be8eebd",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "segment_id": "8438",
+              "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+              "source_from": "40180669",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+              "source_to_exclusive": "40180669"
+            },
+            "segment_id": "8438",
+            "source_to_exclusive": "40180669",
+            "state_hash": "001b6279c44672d123243eeebed081e8011ff2ead17707ac1217745b545b28c2"
+          },
+          "rules": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "source_position": 0,
+          "memo_clipboard": "PASS actual native write resolved with exact canonical text; clipboard read remains forbidden by unchanged Permissions-Policy; no payment sent",
+          "copy_diagnostics": {
+            "writes": [
+              {
+                "value": "FIRE 1 37.5 1",
+                "at": 31778.59999999404,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              },
+              {
+                "value": "MOVE 1 1",
+                "at": 72676.89999997616,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              }
+            ],
+            "clicks": [
+              {
+                "copy": "text",
+                "at": 31770.69999998808,
+                "disabled": false,
+                "ready": true
+              },
+              {
+                "copy": "text",
+                "at": 72668.69999998808,
+                "disabled": false,
+                "ready": true
+              }
+            ],
+            "feedback": "Copied. Instructions saved; no payment sent."
+          }
+        },
+        "build": {
+          "amount": "4 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "memo": "NEW 37.5 1 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Wallet fee extra.",
+          "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+          "warningTitle": "",
+          "copyDisabled": false,
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 411,
+            "top": 221,
+            "right": 368,
+            "bottom": 632,
+            "left": 8
+          },
+          "scroll": 0,
+          "status": "PASS",
+          "proposal": {
+            "mode": "start",
+            "cell": 1,
+            "degrees": "167.15",
+            "worldAngle": "37.5",
+            "quantity": 1
+          },
+          "head": {
+            "logical_end": "8435",
+            "manifest_hash": "ef20fa0fb02604e6fcc762b206f2ff42d91d3d62abb47f57a1f09a8330fd2e4b",
+            "seal": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "input_count": 0,
+              "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+              "logical_end": "8435",
+              "logical_start": "8434",
+              "previous_manifest": "52e3b9bf877d7b7f8a5a99fa4315757d14a22e8929243805aed34e7c72c4e84e",
+              "previous_state": "6fbfe8d8bb9e98306aeac329263d5395cb4f1b9e889c475655c2d3260be8eebd",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "segment_id": "8438",
+              "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+              "source_from": "40180669",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+              "source_to_exclusive": "40180669"
+            },
+            "segment_id": "8438",
+            "source_to_exclusive": "40180669",
+            "state_hash": "001b6279c44672d123243eeebed081e8011ff2ead17707ac1217745b545b28c2"
+          },
+          "rules": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "source_position": 0,
+          "memo_clipboard": "PASS actual native write resolved with exact canonical text; clipboard read remains forbidden by unchanged Permissions-Policy; no payment sent",
+          "copy_diagnostics": {
+            "writes": [
+              {
+                "value": "FIRE 1 37.5 1",
+                "at": 31778.59999999404,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              },
+              {
+                "value": "MOVE 1 1",
+                "at": 72676.89999997616,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              },
+              {
+                "value": "NEW 37.5 1 1",
+                "at": 107274.39999997616,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              }
+            ],
+            "clicks": [
+              {
+                "copy": "text",
+                "at": 31770.69999998808,
+                "disabled": false,
+                "ready": true
+              },
+              {
+                "copy": "text",
+                "at": 72668.69999998808,
+                "disabled": false,
+                "ready": true
+              },
+              {
+                "copy": "text",
+                "at": 107272.39999997616,
+                "disabled": false,
+                "ready": true
+              }
+            ],
+            "feedback": "Copied. Instructions saved; no payment sent."
+          }
+        }
+      },
+      "page_errors": [],
+      "forbidden_posts": [],
+      "read_only_posts": 194
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "first_world_seconds": 10.686039976018947,
+      "initial_head": {
+        "logical_end": "8436",
+        "manifest_hash": "934f68274e27f24a3a7d8d3fa96be131c064a664a7ec88e9dc98403758beaf1b",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "8436",
+          "logical_start": "8435",
+          "previous_manifest": "ef20fa0fb02604e6fcc762b206f2ff42d91d3d62abb47f57a1f09a8330fd2e4b",
+          "previous_state": "001b6279c44672d123243eeebed081e8011ff2ead17707ac1217745b545b28c2",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": "8439",
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": "40180669",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": "40180669"
+        },
+        "segment_id": "8439",
+        "source_to_exclusive": "40180669",
+        "state_hash": "48a620bb7e6269661429db07b7c3ac92ec3b560aeca4b0cbfce87dc52fe6b8cd"
+      },
+      "final_head": {
+        "logical_end": "8437",
+        "manifest_hash": "00829fea86f3a3170284c084166518a88caa33e45dafe97e9dd31e2d2137520a",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "8437",
+          "logical_start": "8436",
+          "previous_manifest": "934f68274e27f24a3a7d8d3fa96be131c064a664a7ec88e9dc98403758beaf1b",
+          "previous_state": "48a620bb7e6269661429db07b7c3ac92ec3b560aeca4b0cbfce87dc52fe6b8cd",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": "8440",
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": "40180669",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": "40180669"
+        },
+        "segment_id": "8440",
+        "source_to_exclusive": "40180669",
+        "state_hash": "45a1b585fd85444f09df45b77ec69d8551d1f30a8314c09a10db70398f0256e4"
+      },
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "source": {
+        "network": "ic",
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "subaccount": "0",
+        "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "selection": {
+        "status": "PASS",
+        "before": [
+          3.3896324309394004,
+          3.3896324309394004,
+          64
+        ],
+        "after": [
+          3.3896324309394004,
+          3.3896324309394004,
+          64
+        ]
+      },
+      "near_aim": {
+        "status": "PASS",
+        "cursor": "aim",
+        "before": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "167.15",
+          "worldAngle": "37.5",
+          "quantity": 1
+        },
+        "after": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "273.35",
+          "worldAngle": null,
+          "quantity": 1
+        }
+      },
+      "silent_start": "PASS",
+      "zoom_min": {
+        "camera": [
+          997.4242892246616,
+          1.689162403249611,
+          0.7838367960742887
+        ],
+        "fit_disabled": true,
+        "out_disabled": true
+      },
+      "zoom_max": {
+        "camera": [
+          997.4242892246616,
+          1.689162403249611,
+          96
+        ],
+        "in_disabled": true,
+        "clicks": 15
+      },
+      "actions": {
+        "fire": {
+          "amount": "0.1 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "memo": "FIRE 1 37.5 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Wallet fee extra.",
+          "warning": "Payments and unused ICP are kept; no automatic refunds.",
+          "warningTitle": "",
+          "copyDisabled": false,
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "scroll": 0,
+          "status": "PASS",
+          "proposal": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "167.15",
+            "worldAngle": "37.5",
+            "quantity": 1
+          },
+          "head": {
+            "logical_end": "8436",
+            "manifest_hash": "934f68274e27f24a3a7d8d3fa96be131c064a664a7ec88e9dc98403758beaf1b",
+            "seal": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "input_count": 0,
+              "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+              "logical_end": "8436",
+              "logical_start": "8435",
+              "previous_manifest": "ef20fa0fb02604e6fcc762b206f2ff42d91d3d62abb47f57a1f09a8330fd2e4b",
+              "previous_state": "001b6279c44672d123243eeebed081e8011ff2ead17707ac1217745b545b28c2",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "segment_id": "8439",
+              "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+              "source_from": "40180669",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+              "source_to_exclusive": "40180669"
+            },
+            "segment_id": "8439",
+            "source_to_exclusive": "40180669",
+            "state_hash": "48a620bb7e6269661429db07b7c3ac92ec3b560aeca4b0cbfce87dc52fe6b8cd"
+          },
+          "rules": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "source_position": 0,
+          "memo_clipboard": "PASS actual native write resolved with exact canonical text; clipboard read remains forbidden by unchanged Permissions-Policy; no payment sent",
+          "copy_diagnostics": {
+            "writes": [
+              {
+                "value": "FIRE 1 37.5 1",
+                "at": 43765.80000001192,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              }
+            ],
+            "clicks": [
+              {
+                "copy": "text",
+                "at": 43755.19999998808,
+                "disabled": false,
+                "ready": true
+              }
+            ],
+            "feedback": "Copied. Instructions saved; no payment sent."
+          }
+        },
+        "move": {
+          "amount": "0.0001 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "memo": "MOVE 1 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Wallet fee extra.",
+          "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+          "warningTitle": "",
+          "copyDisabled": false,
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "scroll": 0,
+          "status": "PASS",
+          "proposal": {
+            "mode": "move",
+            "cell": 1,
+            "degrees": "273.35",
+            "worldAngle": null,
+            "quantity": 1
+          },
+          "head": {
+            "logical_end": "8436",
+            "manifest_hash": "934f68274e27f24a3a7d8d3fa96be131c064a664a7ec88e9dc98403758beaf1b",
+            "seal": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "input_count": 0,
+              "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+              "logical_end": "8436",
+              "logical_start": "8435",
+              "previous_manifest": "ef20fa0fb02604e6fcc762b206f2ff42d91d3d62abb47f57a1f09a8330fd2e4b",
+              "previous_state": "001b6279c44672d123243eeebed081e8011ff2ead17707ac1217745b545b28c2",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "segment_id": "8439",
+              "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+              "source_from": "40180669",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+              "source_to_exclusive": "40180669"
+            },
+            "segment_id": "8439",
+            "source_to_exclusive": "40180669",
+            "state_hash": "48a620bb7e6269661429db07b7c3ac92ec3b560aeca4b0cbfce87dc52fe6b8cd"
+          },
+          "rules": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "source_position": 0,
+          "memo_clipboard": "PASS actual native write resolved with exact canonical text; clipboard read remains forbidden by unchanged Permissions-Policy; no payment sent",
+          "copy_diagnostics": {
+            "writes": [
+              {
+                "value": "FIRE 1 37.5 1",
+                "at": 43765.80000001192,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              },
+              {
+                "value": "MOVE 1 1",
+                "at": 74751.19999998808,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              }
+            ],
+            "clicks": [
+              {
+                "copy": "text",
+                "at": 43755.19999998808,
+                "disabled": false,
+                "ready": true
+              },
+              {
+                "copy": "text",
+                "at": 74743,
+                "disabled": false,
+                "ready": true
+              }
+            ],
+            "feedback": "Copied. Instructions saved; no payment sent."
+          }
+        },
+        "build": {
+          "amount": "4 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "memo": "NEW 37.5 1 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Wallet fee extra.",
+          "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+          "warningTitle": "",
+          "copyDisabled": false,
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "scroll": 0,
+          "status": "PASS",
+          "proposal": {
+            "mode": "start",
+            "cell": 1,
+            "degrees": "167.15",
+            "worldAngle": "37.5",
+            "quantity": 1
+          },
+          "head": {
+            "logical_end": "8437",
+            "manifest_hash": "00829fea86f3a3170284c084166518a88caa33e45dafe97e9dd31e2d2137520a",
+            "seal": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+              "input_count": 0,
+              "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+              "logical_end": "8437",
+              "logical_start": "8436",
+              "previous_manifest": "934f68274e27f24a3a7d8d3fa96be131c064a664a7ec88e9dc98403758beaf1b",
+              "previous_state": "48a620bb7e6269661429db07b7c3ac92ec3b560aeca4b0cbfce87dc52fe6b8cd",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "segment_id": "8440",
+              "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+              "source_from": "40180669",
+              "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+              "source_to_exclusive": "40180669"
+            },
+            "segment_id": "8440",
+            "source_to_exclusive": "40180669",
+            "state_hash": "45a1b585fd85444f09df45b77ec69d8551d1f30a8314c09a10db70398f0256e4"
+          },
+          "rules": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "source_position": 0,
+          "memo_clipboard": "PASS actual native write resolved with exact canonical text; clipboard read remains forbidden by unchanged Permissions-Policy; no payment sent",
+          "copy_diagnostics": {
+            "writes": [
+              {
+                "value": "FIRE 1 37.5 1",
+                "at": 43765.80000001192,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              },
+              {
+                "value": "MOVE 1 1",
+                "at": 74751.19999998808,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              },
+              {
+                "value": "NEW 37.5 1 1",
+                "at": 99023.80000001192,
+                "focus": true,
+                "visibility": "visible",
+                "active": true,
+                "resolved": true
+              }
+            ],
+            "clicks": [
+              {
+                "copy": "text",
+                "at": 43755.19999998808,
+                "disabled": false,
+                "ready": true
+              },
+              {
+                "copy": "text",
+                "at": 74743,
+                "disabled": false,
+                "ready": true
+              },
+              {
+                "copy": "text",
+                "at": 99022.09999999404,
+                "disabled": false,
+                "ready": true
+              }
+            ],
+            "feedback": "Copied. Instructions saved; no payment sent."
+          }
+        }
+      },
+      "page_errors": [],
+      "forbidden_posts": [],
+      "read_only_posts": 214,
+      "contracted_viewport": [
+        320,
+        350
+      ],
+      "contracted_build": {
+        "amount": "4 ICP",
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "memo": "NEW 37.5 1 1",
+        "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "fee": "Wallet fee extra.",
+        "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+        "warningTitle": "",
+        "copyDisabled": false,
+        "panel": {
+          "x": 8,
+          "y": 154,
+          "width": 304,
+          "height": 188,
+          "top": 154,
+          "right": 312,
+          "bottom": 342,
+          "left": 8
+        },
+        "scroll": 0,
+        "status": "PASS",
+        "proposal": {
+          "mode": "start",
+          "cell": 1,
+          "degrees": "167.15",
+          "worldAngle": "37.5",
+          "quantity": 1
+        },
+        "head": {
+          "logical_end": "8437",
+          "manifest_hash": "00829fea86f3a3170284c084166518a88caa33e45dafe97e9dd31e2d2137520a",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "8437",
+            "logical_start": "8436",
+            "previous_manifest": "934f68274e27f24a3a7d8d3fa96be131c064a664a7ec88e9dc98403758beaf1b",
+            "previous_state": "48a620bb7e6269661429db07b7c3ac92ec3b560aeca4b0cbfce87dc52fe6b8cd",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "8440",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "8440",
+          "source_to_exclusive": "40180669",
+          "state_hash": "45a1b585fd85444f09df45b77ec69d8551d1f30a8314c09a10db70398f0256e4"
+        },
+        "rules": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "source_position": 0,
+        "memo_clipboard": "PASS actual native write resolved with exact canonical text; clipboard read remains forbidden by unchanged Permissions-Policy; no payment sent",
+        "copy_diagnostics": {
+          "writes": [
+            {
+              "value": "FIRE 1 37.5 1",
+              "at": 43765.80000001192,
+              "focus": true,
+              "visibility": "visible",
+              "active": true,
+              "resolved": true
+            },
+            {
+              "value": "MOVE 1 1",
+              "at": 74751.19999998808,
+              "focus": true,
+              "visibility": "visible",
+              "active": true,
+              "resolved": true
+            },
+            {
+              "value": "NEW 37.5 1 1",
+              "at": 99023.80000001192,
+              "focus": true,
+              "visibility": "visible",
+              "active": true,
+              "resolved": true
+            },
+            {
+              "value": "NEW 37.5 1 1",
+              "at": 139756.40000000596,
+              "focus": true,
+              "visibility": "visible",
+              "active": true,
+              "resolved": true
+            }
+          ],
+          "clicks": [
+            {
+              "copy": "text",
+              "at": 43755.19999998808,
+              "disabled": false,
+              "ready": true
+            },
+            {
+              "copy": "text",
+              "at": 74743,
+              "disabled": false,
+              "ready": true
+            },
+            {
+              "copy": "text",
+              "at": 99022.09999999404,
+              "disabled": false,
+              "ready": true
+            },
+            {
+              "copy": "text",
+              "at": 139754.19999998808,
+              "disabled": false,
+              "ready": true
+            }
+          ],
+          "feedback": "Copied. Instructions saved; no payment sent."
+        }
+      }
+    }
+  ]
+}

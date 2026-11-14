@@ -1,0 +1,523 @@
+{
+  "status": "PASS",
+  "initial_spinner": "PASS exact visible wording",
+  "first_world_seconds": 5.713611390994629,
+  "startup_samples": [
+    {
+      "at": 7592.0999999940395,
+      "head": {
+        "logical_end": "8438",
+        "manifest_hash": "7cfbbf8564a4f23c9326d7584cd4dc21e149366d3b027adade4e0f46c777b7ca",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "8438",
+          "logical_start": "8437",
+          "previous_manifest": "00829fea86f3a3170284c084166518a88caa33e45dafe97e9dd31e2d2137520a",
+          "previous_state": "45a1b585fd85444f09df45b77ec69d8551d1f30a8314c09a10db70398f0256e4",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": "8441",
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": "40180669",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": "40180669"
+        },
+        "segment_id": "8441",
+        "source_to_exclusive": "40180669",
+        "state_hash": "bc25a7a7d82c125db9fb66c259e6c83081543aa5b41f3ba1c640efca43b28c87"
+      },
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "history": {
+        "requests": 2,
+        "bytes": 15796,
+        "outcome": "interval",
+        "elapsedMs": 494.2999999821186
+      },
+      "referenceTime": [
+        "8438",
+        "1"
+      ],
+      "presented": 8437,
+      "available": 8438,
+      "mode": "certificate-verifier",
+      "error": "",
+      "cannons": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "cell": 0,
+          "heading": 6827,
+          "id": 1
+        }
+      ],
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "2",
+          "publication_ticks": "1",
+          "completed_segments": "8438",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      },
+      "balls": [
+        {
+          "id": 1,
+          "x": 949.3701171875,
+          "y": 24.6162109375
+        }
+      ],
+      "camera": [
+        0.5,
+        0.5,
+        48
+      ],
+      "proposal": {
+        "mode": "inspect",
+        "cell": null,
+        "degrees": "0",
+        "worldAngle": "225",
+        "quantity": 1
+      }
+    },
+    {
+      "at": 9088.300000011921,
+      "head": {
+        "logical_end": "8438",
+        "manifest_hash": "7cfbbf8564a4f23c9326d7584cd4dc21e149366d3b027adade4e0f46c777b7ca",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "8438",
+          "logical_start": "8437",
+          "previous_manifest": "00829fea86f3a3170284c084166518a88caa33e45dafe97e9dd31e2d2137520a",
+          "previous_state": "45a1b585fd85444f09df45b77ec69d8551d1f30a8314c09a10db70398f0256e4",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": "8441",
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": "40180669",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": "40180669"
+        },
+        "segment_id": "8441",
+        "source_to_exclusive": "40180669",
+        "state_hash": "bc25a7a7d82c125db9fb66c259e6c83081543aa5b41f3ba1c640efca43b28c87"
+      },
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "history": {
+        "requests": 2,
+        "bytes": 15796,
+        "outcome": "interval",
+        "elapsedMs": 494.2999999821186
+      },
+      "referenceTime": [
+        "8438",
+        "1"
+      ],
+      "presented": 8437.018833,
+      "available": 8438,
+      "mode": "certificate-verifier",
+      "error": "",
+      "cannons": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "cell": 0,
+          "heading": 6827,
+          "id": 1
+        }
+      ],
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "2",
+          "publication_ticks": "1",
+          "completed_segments": "8438",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      },
+      "balls": [
+        {
+          "id": 1,
+          "x": 949.8370247763814,
+          "y": 24.25792414744501
+        }
+      ],
+      "camera": [
+        0.5,
+        0.5,
+        48
+      ],
+      "proposal": {
+        "mode": "inspect",
+        "cell": null,
+        "degrees": "0",
+        "worldAngle": "225",
+        "quantity": 1
+      }
+    },
+    {
+      "at": 11122.5,
+      "head": {
+        "logical_end": "8438",
+        "manifest_hash": "7cfbbf8564a4f23c9326d7584cd4dc21e149366d3b027adade4e0f46c777b7ca",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "8438",
+          "logical_start": "8437",
+          "previous_manifest": "00829fea86f3a3170284c084166518a88caa33e45dafe97e9dd31e2d2137520a",
+          "previous_state": "45a1b585fd85444f09df45b77ec69d8551d1f30a8314c09a10db70398f0256e4",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": "8441",
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": "40180669",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": "40180669"
+        },
+        "segment_id": "8441",
+        "source_to_exclusive": "40180669",
+        "state_hash": "bc25a7a7d82c125db9fb66c259e6c83081543aa5b41f3ba1c640efca43b28c87"
+      },
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "history": {
+        "requests": 2,
+        "bytes": 15796,
+        "outcome": "interval",
+        "elapsedMs": 494.2999999821186
+      },
+      "referenceTime": [
+        "8438",
+        "1"
+      ],
+      "presented": 8437.036666,
+      "available": 8438,
+      "mode": "certificate-verifier",
+      "error": "",
+      "cannons": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "cell": 0,
+          "heading": 6827,
+          "id": 1
+        }
+      ],
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "2",
+          "publication_ticks": "1",
+          "completed_segments": "8438",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      },
+      "balls": [
+        {
+          "id": 1,
+          "x": 950.2791403730516,
+          "y": 23.918661771487677
+        }
+      ],
+      "camera": [
+        0.5,
+        0.5,
+        48
+      ],
+      "proposal": {
+        "mode": "inspect",
+        "cell": null,
+        "degrees": "0",
+        "worldAngle": "225",
+        "quantity": 1
+      }
+    },
+    {
+      "at": 13224.40000000596,
+      "head": {
+        "logical_end": "8438",
+        "manifest_hash": "7cfbbf8564a4f23c9326d7584cd4dc21e149366d3b027adade4e0f46c777b7ca",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "8438",
+          "logical_start": "8437",
+          "previous_manifest": "00829fea86f3a3170284c084166518a88caa33e45dafe97e9dd31e2d2137520a",
+          "previous_state": "45a1b585fd85444f09df45b77ec69d8551d1f30a8314c09a10db70398f0256e4",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": "8441",
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": "40180669",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": "40180669"
+        },
+        "segment_id": "8441",
+        "source_to_exclusive": "40180669",
+        "state_hash": "bc25a7a7d82c125db9fb66c259e6c83081543aa5b41f3ba1c640efca43b28c87"
+      },
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "history": {
+        "requests": 2,
+        "bytes": 15796,
+        "outcome": "interval",
+        "elapsedMs": 494.2999999821186
+      },
+      "referenceTime": [
+        "8438",
+        "1"
+      ],
+      "presented": 8437.057998999997,
+      "available": 8438,
+      "mode": "certificate-verifier",
+      "error": "",
+      "cannons": [
+        {
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "cell": 0,
+          "heading": 6827,
+          "id": 1
+        }
+      ],
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "2",
+          "publication_ticks": "1",
+          "completed_segments": "8438",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      },
+      "balls": [
+        {
+          "id": 1,
+          "x": 950.8080279423157,
+          "y": 23.512813946348615
+        }
+      ],
+      "camera": [
+        0.5,
+        0.5,
+        48
+      ],
+      "proposal": {
+        "mode": "inspect",
+        "cell": null,
+        "degrees": "0",
+        "worldAngle": "225",
+        "quantity": 1
+      }
+    }
+  ],
+  "movement_without_next_publication": "PASS",
+  "same_head": true,
+  "build_arrow": {
+    "status": "NOT_OBSERVED",
+    "reason": "Projected stroke occluded by actual UI",
+    "geometry": {
+      "source": {
+        "x": 592.2253967444304,
+        "y": 395.92584956081595
+      },
+      "end": {
+        "x": 600.65625,
+        "y": 432.96875
+      },
+      "handle": {
+        "x": 578.65625,
+        "y": 410.96875,
+        "width": 44,
+        "height": 44
+      }
+    },
+    "hit": {
+      "x": 598.5485366861076,
+      "y": 423.708024890204
+    }
+  },
+  "final": {
+    "at": 33166.5,
+    "head": {
+      "logical_end": "8438",
+      "manifest_hash": "7cfbbf8564a4f23c9326d7584cd4dc21e149366d3b027adade4e0f46c777b7ca",
+      "seal": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "8438",
+        "logical_start": "8437",
+        "previous_manifest": "00829fea86f3a3170284c084166518a88caa33e45dafe97e9dd31e2d2137520a",
+        "previous_state": "45a1b585fd85444f09df45b77ec69d8551d1f30a8314c09a10db70398f0256e4",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "8441",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "8441",
+      "source_to_exclusive": "40180669",
+      "state_hash": "bc25a7a7d82c125db9fb66c259e6c83081543aa5b41f3ba1c640efca43b28c87"
+    },
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "history": {
+      "requests": 2,
+      "bytes": 15796,
+      "outcome": "interval",
+      "elapsedMs": 494.2999999821186
+    },
+    "referenceTime": [
+      "8438",
+      "1"
+    ],
+    "presented": 8437.263990000023,
+    "available": 8438,
+    "mode": "certificate-verifier",
+    "error": "",
+    "cannons": [
+      {
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "cell": 0,
+        "heading": 6827,
+        "id": 1
+      }
+    ],
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "2",
+        "publication_ticks": "1",
+        "completed_segments": "8438",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "balls": [
+      {
+        "id": 1,
+        "x": 955.9149552056624,
+        "y": 19.5939558687096
+      }
+    ],
+    "camera": [
+      3.2792878051213847,
+      0.22587215908879443,
+      88
+    ],
+    "proposal": {
+      "mode": "start",
+      "cell": 1,
+      "degrees": "167.15",
+      "worldAngle": "37.5",
+      "quantity": 1
+    }
+  }
+}

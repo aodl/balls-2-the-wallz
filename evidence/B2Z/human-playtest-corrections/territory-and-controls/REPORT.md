@@ -1,4 +1,14 @@
-# Territory and controls — six hosted gates PASS; not deployed
+# Territory and controls — six hosted gates PASS; frontend deployed on Rules7
+
+## Later owner-authorized frontend deployment
+
+The exact frozen frontend is now installed and independently verified on the
+European frontend canister. [Deployment report and actual live checks](deployment/REPORT.md)
+supersede the earlier frontend-not-deployed status. Rules7 remains active; Rules9
+backend upgrade/activation is still unapproved and unexecuted. All audio bytes are
+unchanged and P09 retains its separate accepted-trial FAIL status. The remainder
+of this report records the prior qualification pass and its authorization boundary.
+
 
 Exact published source `7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9` passed all six
 substantive gates in [run 43587243414](https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414),

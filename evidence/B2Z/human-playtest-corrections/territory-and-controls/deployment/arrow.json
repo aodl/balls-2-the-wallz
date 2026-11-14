@@ -1,0 +1,244 @@
+{
+  "status": "PASS",
+  "initial": {
+    "at": 10353.699999988079,
+    "head": {
+      "logical_end": "8440",
+      "manifest_hash": "6c25db10dc82aa2dd6b0866626cf26f6ff5df54bfcfa9f316fbd36c673ebe8f7",
+      "seal": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "8440",
+        "logical_start": "8439",
+        "previous_manifest": "7097465d6aa07d17fea0c46482a3dd0fda61965562a7bb9a24988530034929be",
+        "previous_state": "3aae04c4d717c82dc871433a948adaa90093bc33932658f66b757d215021fe78",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "8443",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "8443",
+      "source_to_exclusive": "40180669",
+      "state_hash": "b99044d2693a7e268582fe0a3bc3fb9d6c8a311a75e8a0f70740e0a5f2a5d213"
+    },
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "history": {
+      "requests": 2,
+      "bytes": 15797,
+      "outcome": "interval",
+      "elapsedMs": 665.1999999880791
+    },
+    "referenceTime": [
+      "8440",
+      "1"
+    ],
+    "presented": 8439,
+    "available": 8440,
+    "mode": "certificate-verifier",
+    "error": "",
+    "cannons": [
+      {
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "cell": 0,
+        "heading": 6827,
+        "id": 1
+      }
+    ],
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "2",
+        "publication_ticks": "1",
+        "completed_segments": "8440",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "balls": [
+      {
+        "id": 1,
+        "x": 998.9541015625,
+        "y": 986.5673828125
+      }
+    ],
+    "camera": [
+      0.5,
+      0.5,
+      48
+    ],
+    "proposal": {
+      "mode": "inspect",
+      "cell": null,
+      "degrees": "0",
+      "worldAngle": "225",
+      "quantity": 1
+    }
+  },
+  "build_arrow": {
+    "status": "PASS",
+    "cursor": "aim",
+    "geometry": {
+      "source": {
+        "x": 592.2253967444304,
+        "y": 395.92584956081595
+      },
+      "end": {
+        "x": 600.65625,
+        "y": 432.96875
+      },
+      "handle": {
+        "x": 578.65625,
+        "y": 410.96875,
+        "width": 44,
+        "height": 44
+      }
+    },
+    "hit": {
+      "x": 611.0887460199308,
+      "y": 478.8063300982168
+    },
+    "before": {
+      "mode": "start",
+      "cell": 1,
+      "degrees": "167.15",
+      "worldAngle": "37.5",
+      "quantity": 1
+    },
+    "after": {
+      "mode": "start",
+      "cell": 1,
+      "degrees": "139.51",
+      "worldAngle": null,
+      "quantity": 1
+    }
+  },
+  "final": {
+    "at": 51142,
+    "head": {
+      "logical_end": "8440",
+      "manifest_hash": "6c25db10dc82aa2dd6b0866626cf26f6ff5df54bfcfa9f316fbd36c673ebe8f7",
+      "seal": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "8440",
+        "logical_start": "8439",
+        "previous_manifest": "7097465d6aa07d17fea0c46482a3dd0fda61965562a7bb9a24988530034929be",
+        "previous_state": "3aae04c4d717c82dc871433a948adaa90093bc33932658f66b757d215021fe78",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "8443",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "8443",
+      "source_to_exclusive": "40180669",
+      "state_hash": "b99044d2693a7e268582fe0a3bc3fb9d6c8a311a75e8a0f70740e0a5f2a5d213"
+    },
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "history": {
+      "requests": 2,
+      "bytes": 15797,
+      "outcome": "interval",
+      "elapsedMs": 665.1999999880791
+    },
+    "referenceTime": [
+      "8440",
+      "1"
+    ],
+    "presented": 8439.409486000022,
+    "available": 8440,
+    "mode": "certificate-verifier",
+    "error": "",
+    "cannons": [
+      {
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "cell": 0,
+        "heading": 6827,
+        "id": 1
+      }
+    ],
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "2",
+        "publication_ticks": "1",
+        "completed_segments": "8440",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "balls": [
+      {
+        "id": 1,
+        "x": 9.106075275951298,
+        "y": 978.7771515952772
+      }
+    ],
+    "camera": [
+      3.2792878051213847,
+      0.22587215908879443,
+      88
+    ],
+    "proposal": {
+      "mode": "start",
+      "cell": 1,
+      "degrees": "139.51",
+      "worldAngle": null,
+      "quantity": 1
+    }
+  },
+  "memo_after_arrow": "NEW 18.76 1 1",
+  "remembered_reload_no_active_selection": "PASS saved account/navigation retained, workspace closed",
+  "canonical_heading_check": {
+    "status": "PASS",
+    "memo": "NEW 18.76 1 1",
+    "angle_u16": 3415
+  }
+}

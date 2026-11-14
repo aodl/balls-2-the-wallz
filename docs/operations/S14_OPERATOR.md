@@ -1,5 +1,17 @@
 # Installed European game — frontend updates
 
+## Current European frontend: territory/control usability on Rules7
+
+The later owner-approved assets-only frontend installation is complete. Exact
+75-file inventory `e9b5c4be…` and served JS `97d8ee0b…` are independently verified;
+backend module `612ad0d0…`, Rules7/configuration7 and source identity remain unchanged.
+[Installation, actual browser acceptance and rollback evidence](../../evidence/B2Z/human-playtest-corrections/territory-and-controls/deployment/REPORT.md).
+The audio trial/P09 limitation is unchanged. Keep the exact preceding audio74-file
+frontend as rollback while Rules7 is active. This frontend approval does not authorize
+Rules9 installation/preparation/activation, funding, payments or settings changes.
+The entries below retain historical deployment and qualification context.
+
+
 ## Audio installed — prelaunch mainnet playtest, not general-release qualified
 
 The owner subsequently authorized a reversible frontend-only mainnet audio trial.
@@ -240,15 +252,15 @@ The [fresh European installation archive](S14_OPERATOR_FRESH_EUROPE_ARCHIVE.md) 
 [older operator archive](S14_OPERATOR_HISTORICAL.md) are immutable historical
 procedures, not current deployment instructions or authority.
 
-## Territory/control successor — development only, not deployed
+## Territory/control successor — frontend deployed; Rules9 not activated
 
 The [rules-9 contract](../specs/B2Z_TERRITORY_CLEARANCE_9.md) defines the proposed
 state-preserving v7→v9 cutover and its separate authorization boundary. The current
-paid European game remains v7, and the audio playtest assets remain installed.
-This corrective task permits source/disposable qualification and ordinary non-force
-Git publication; it authorizes no production backend/frontend installation,
-settings/controllers, transfers, funding or gameplay payments. A compatible frontend
+paid European game remains v7, with the new usability frontend and unchanged audio assets.
+The earlier corrective task permitted source/disposable qualification; the later
+owner instruction separately approved only frontend assets. Backend installation,
+settings/controllers, transfers, funding and gameplay payments remain unauthorized. A compatible frontend
 must recognize the active certified identity before applying the new quote policy.
-Keep the exact deployed audio74-file set for a pre-cutover frontend rollback.
+Keep the exact preceding audio74-file set for a pre-cutover frontend rollback.
 After v9 preparation/activation, neither old backend nor old v7-only frontend is a
 safe blind rollback; qualify a compatible recovery artifact or forward fix.

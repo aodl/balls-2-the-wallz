@@ -1,0 +1,51 @@
+{
+  "status": "PASS",
+  "at": "2026-11-14T14:29:52.709Z",
+  "pinned_mainnet_root": true,
+  "default_time_verification_unchanged": true,
+  "scope": "Fresh BLS certificates/delegations, frontend canister binding and HTTP witness root. Exact body hashes separately pinned to approved inventory; no standalone v2 expression-path evaluator is claimed.",
+  "rows": [
+    {
+      "file": "index.html",
+      "sha256": "a9ec87ec1724ba704cb536c2e49aeb30df5c0f63533c304c8107df1de9c599f9",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "certified_data": "53406b1d16f49ca33ee88a92f8732d9a8945258c4145fef1fd903720db077f9a"
+    },
+    {
+      "file": "app.mjs",
+      "sha256": "97d8ee0bf61e8b76816511772ab348962d56bbf78b597acc365f48a38725cdc9",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "certified_data": "53406b1d16f49ca33ee88a92f8732d9a8945258c4145fef1fd903720db077f9a"
+    },
+    {
+      "file": "style.css",
+      "sha256": "039b5458e995d2d41bd989d011a8518d04db95eb969a4d3bae4b078687e6d750",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "certified_data": "53406b1d16f49ca33ee88a92f8732d9a8945258c4145fef1fd903720db077f9a"
+    },
+    {
+      "file": "deployment.json",
+      "sha256": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "certified_data": "53406b1d16f49ca33ee88a92f8732d9a8945258c4145fef1fd903720db077f9a"
+    },
+    {
+      "file": "configuration-entry.bin",
+      "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "certified_data": "53406b1d16f49ca33ee88a92f8732d9a8945258c4145fef1fd903720db077f9a"
+    },
+    {
+      "file": "configuration-clearance.bin",
+      "sha256": "0567d064106d26a14791f9d07bd64a2e4f87b26789dbef7167b2ee7e96114153",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "certified_data": "53406b1d16f49ca33ee88a92f8732d9a8945258c4145fef1fd903720db077f9a"
+    }
+  ]
+}

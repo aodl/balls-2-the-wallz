@@ -1,0 +1,26 @@
+[
+  {
+    "folder": "live-first",
+    "overall": "FAIL",
+    "error": "TimeoutError('Page.wait_for_function: Timeout 10000ms exceeded.')",
+    "assessment": "Copy confirmation not reached during temporary reconnect; stale copying correctly disabled."
+  },
+  {
+    "folder": "live-second",
+    "overall": "FAIL",
+    "error": "Error(\"Page.evaluate: NotAllowedError: Failed to execute 'readText' on 'Clipboard': The Clipboard API has been blocked because of a permissions policy applied to the current document. See https://crbug.com/414348233 for more details.\\n    at eval (eval at evaluate (:311:30), <anonymous>:1:21)\\n    at eval (<anonymous>)\\n    at UtilityScript.evaluate (<anonymous>:311:30)\\n    at UtilityScript.<anonymous> (<anonymous>:1:44)\")",
+    "assessment": "Native write succeeded; test clipboard readback forbidden by unchanged Permissions-Policy."
+  },
+  {
+    "folder": "live-third",
+    "overall": "FAIL",
+    "error": "TimeoutError('Page.wait_for_function: Timeout 15000ms exceeded.')",
+    "assessment": "Test waited for payment card before acknowledging real copied-instruction Update/Keep guard."
+  },
+  {
+    "folder": "live-fourth",
+    "overall": "FAIL",
+    "error": "TimeoutError('Page.wait_for_function: Timeout 10000ms exceeded.')",
+    "assessment": "Desktop complete PASS, later390 Move copy-feedback wait timeout. Exact original cause not captured. Foreground/camera-settled native click/write repeat passes; no application fix or definitive timing attribution claimed."
+  }
+]

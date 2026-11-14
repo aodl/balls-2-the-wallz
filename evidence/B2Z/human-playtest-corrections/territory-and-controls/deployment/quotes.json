@@ -1,0 +1,114 @@
+{
+  "status": "PASS",
+  "scope": "Pure maintained quote/memo reproduction from authenticated live snapshot/config captures; no transaction or new backend query",
+  "rows": [
+    {
+      "file": "1440-build-quote.json",
+      "memo": "NEW 37.5 1 1",
+      "amount_e8s": "400000000",
+      "rules": 7,
+      "canonical_memo_bytes": "4e45572033372e3520312031",
+      "binary_roundtrip": true,
+      "destination": 1,
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "status": "PASS"
+    },
+    {
+      "file": "1440-fire-quote.json",
+      "memo": "FIRE 1 37.5 1",
+      "amount_e8s": "10000000",
+      "rules": 7,
+      "canonical_memo_bytes": "4649524520312033372e352031",
+      "binary_roundtrip": true,
+      "destination": null,
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "status": "PASS"
+    },
+    {
+      "file": "1440-move-quote.json",
+      "memo": "MOVE 1 1",
+      "amount_e8s": "10000",
+      "rules": 7,
+      "canonical_memo_bytes": "4d4f564520312031",
+      "binary_roundtrip": true,
+      "destination": 1,
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "status": "PASS"
+    },
+    {
+      "file": "320-build-quote.json",
+      "memo": "NEW 37.5 1 1",
+      "amount_e8s": "400000000",
+      "rules": 7,
+      "canonical_memo_bytes": "4e45572033372e3520312031",
+      "binary_roundtrip": true,
+      "destination": 1,
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "status": "PASS"
+    },
+    {
+      "file": "320-fire-quote.json",
+      "memo": "FIRE 1 37.5 1",
+      "amount_e8s": "10000000",
+      "rules": 7,
+      "canonical_memo_bytes": "4649524520312033372e352031",
+      "binary_roundtrip": true,
+      "destination": null,
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "status": "PASS"
+    },
+    {
+      "file": "320-move-quote.json",
+      "memo": "MOVE 1 1",
+      "amount_e8s": "10000",
+      "rules": 7,
+      "canonical_memo_bytes": "4d4f564520312031",
+      "binary_roundtrip": true,
+      "destination": 1,
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "status": "PASS"
+    },
+    {
+      "file": "390-build-quote.json",
+      "memo": "NEW 37.5 1 1",
+      "amount_e8s": "400000000",
+      "rules": 7,
+      "canonical_memo_bytes": "4e45572033372e3520312031",
+      "binary_roundtrip": true,
+      "destination": 1,
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "status": "PASS"
+    },
+    {
+      "file": "390-fire-quote.json",
+      "memo": "FIRE 1 37.5 1",
+      "amount_e8s": "10000000",
+      "rules": 7,
+      "canonical_memo_bytes": "4649524520312033372e352031",
+      "binary_roundtrip": true,
+      "destination": null,
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "status": "PASS"
+    },
+    {
+      "file": "390-move-quote.json",
+      "memo": "MOVE 1 1",
+      "amount_e8s": "10000",
+      "rules": 7,
+      "canonical_memo_bytes": "4d4f564520312031",
+      "binary_roundtrip": true,
+      "destination": 1,
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "status": "PASS"
+    }
+  ]
+}

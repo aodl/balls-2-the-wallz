@@ -1,4 +1,31 @@
-# Territory/control successor — six hosted gates PASS; NOT DEPLOYED
+# Territory/control frontend deployed — Rules7 remains active
+
+The owner-authorized frontend-only deployment is installed at
+https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/.
+Qualified source `7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9`; frozen75-file inventory
+`e9b5c4be2216420f6f70d7c3f33f3ef4596b7d56e05c06eae43171fd629cb8c1`;
+served JS `97d8ee0bf61e8b76816511772ab348962d56bbf78b597acc365f48a38725cdc9`.
+All74 public assets/headers/MIME types and signed inventory match. Critical HTTP
+certificate signatures/binding/witness roots verify against the pinned mainnet root.
+
+[Deployment and actual live acceptance](evidence/B2Z/human-playtest-corrections/territory-and-controls/deployment/REPORT.md)
+records desktop/390/320/contracted controls, exact payments and native copy writes,
+0px panel drift across43 live outage samples, automatic recovery, and real historical
+motion beginning before another publication. Earlier stopped acceptance attempts
+remain failures in their recorded scopes; no application bytes/security policy changed.
+
+The paid backend remains exact module `612ad0d0…`, certified Rules7/configuration7.
+Rules9 is not installed/activated. Controllers/settings, financial authority,
+Ledger/allowances, funding and paid entities were untouched by operator updates;
+autonomous gameplay continued. Exact audio74 rollback remains preserved. Audio
+and its P09 FAIL/accepted trial limitation are unchanged; no general hardware,
+physical-device or subjective listening qualification is claimed. Rules9 requires
+separate tightly controlled artifact/upgrade/cutover approval. No backend operation
+is implied by this completed frontend deployment.
+
+---
+
+# Historical territory/control qualification — before frontend deployment
 
 Qualified published source `7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9` passed all six
 substantive gates in [run 43587243414](https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414),
