@@ -30,3 +30,13 @@ export function destinationLegality(width,height,legal){
  const bits=new Uint8Array(Math.ceil(width*height/4));let inspected=0;
  return{bytes:bits.byteLength,test(cell){if(!Number.isSafeInteger(cell)||cell<0||cell>=width*height)return false;const at=cell>>2,shift=(cell&3)*2,value=(bits[at]>>shift)&3;if(value)return value===2;inspected++;const allowed=Boolean(legal(cell));bits[at]|=(allowed?2:1)<<shift;return allowed;},inspected:()=>inspected};
 }
+
+/** Exact equality of all Move-relevant verified facts permits reuse across heads
+ * whose only changes are motion/time. Financial references still use the latest head. */
+export function moveLegalityIdentity(w,config,account,cannon,dormant=false){return JSON.stringify([
+ w.version,w.width,w.height,account,cannon,dormant,
+ w.version>=5?w.ownership:w.cells,
+ w.cannons.map(c=>[c.id,c.cell,c.account]),
+ w.playability?.territories??null,w.playability?.lifecycle.map(l=>[l.cannon,l.player,l.deadline_ns!==undefined])??null,
+ config?.rules_version,config?.enemy_territory_min_chebyshev,config?.enemy_clearance_actions
+]);}

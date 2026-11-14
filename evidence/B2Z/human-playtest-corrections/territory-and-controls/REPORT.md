@@ -34,6 +34,8 @@ separate. Move discovery uses exact increasing toroidal rings, cooperative chunk
 and a two-bit eligibility cache (250kB at one million cells). Nearby defaults finish
 first; no-destination is reported only after exhaustive proof. Build uses global
 canonical adjacent sites and deterministic selected-anchor/nearest/index preference.
+Motion-only heads may reuse a proof only after exact equality of all Move-relevant
+verified facts, preventing discovery starvation without reusing stale financial quotes.
 Opening a fresh action selects an explicit legal destination; publications do not
 silently replace active/copied intent. Move/Build preserve exact payment warnings.
 Move has a shortest-wrap static direction arrow with dark underlay and visible

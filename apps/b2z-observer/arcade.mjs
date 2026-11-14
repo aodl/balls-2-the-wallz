@@ -1,4 +1,4 @@
-import {nearestDestination,destinationLegality} from './destination-search.mjs';
+import {nearestDestination,destinationLegality,moveLegalityIdentity} from './destination-search.mjs';
 import {cellDistance} from '../../packages/protocol/territory-clearance.mjs';
 /** UX-01..10/13. Local declaration and composer; no payment or game update client. */
 import {describeTextMemo} from '../../packages/protocol/memo.mjs';
@@ -15,7 +15,7 @@ export function paymentWarning(q){return Number.isSafeInteger(q?.cell)&&q.cell>=
 export function createArcade(doc){
  const $=id=>doc.getElementById(id),text=(id,value)=>{if($(id).textContent!==value)$(id).textContent=value;};
  let intentVersion=0;
- let moveWorld=null,moveConfig=null,moveKey=null,moveSearch=null,moveLegality=null,moveReady=false,defaultMove=null;
+ let moveWorld=null,moveConfig=null,moveFingerprint=null,moveKey=null,moveSearch=null,moveLegality=null,moveReady=false,defaultMove=null;
  let sitesWorld=null,sitesConfig=null,sitesAccount=null,sitesRevision=null,eligibleSites=[];
  let declaration=null,context=null,store=null,storage,history,world,config,source,destination,revision='',refs=[],id=null,mode='inspect',view=null,degrees='0',worldAngle='225',quantity=1,siteKey='',cell=null,packet=null,keepPrevious=false,quote=null,manual=null,busy=false,pending=null,warning='',status={canPrepare:false,label:'Verifying game'},receipts=[],preferences={},cameraState=null,opener=null,planningBehind=false,activityKey='',rosterKey='',waitingSince=null;
  try{storage=globalThis.localStorage;}catch{}
@@ -93,12 +93,15 @@ export function createArcade(doc){
  function buildSites(){if(world?.version!==6||!declaration)return[];if(sitesWorld===world&&sitesConfig===config&&sitesAccount===declaration.account&&sitesRevision===revision)return eligibleSites;sitesWorld=world;sitesConfig=config;sitesAccount=declaration.account;sitesRevision=revision;eligibleSites=legalAdjacentSites(world,declaration.account,config).filter(site=>{try{quoteV6(world,config,declaration.account,{kind:'new',angle:'0',quantity:1,cell:site});return true;}catch{return false;}});return eligibleSites;}
  function moveDestination(){
   const c=selected(),key=[context,revision,declaration?.account,id].join('/');if(key===moveKey&&moveWorld===world&&moveConfig===config)return defaultMove;
+  const fingerprint=world?moveLegalityIdentity(world,config,declaration?.account,id,Boolean(c?.dormant)):null;
+  if(fingerprint!==null&&fingerprint===moveFingerprint){moveWorld=world;moveConfig=config;moveKey=key;return defaultMove;}
+  moveFingerprint=fingerprint;
   moveSearch?.cancel();moveSearch=null;moveLegality=null;moveWorld=world;moveConfig=config;moveKey=key;moveReady=false;defaultMove=null;
   if(!c||c.dormant||!declaration||!world){moveReady=true;return null;}
   const w=world,cfg=config,account=declaration.account,cannon=c.id;
   moveLegality=destinationLegality(w.width,w.height,cell=>w.version===6?legalMoveDestination(w,account,cannon,cell,cfg):cell!==c.cell&&c.owns(cell));
   const job=moveSearch=nearestDestination({width:w.width,height:w.height,source:c.cell,legal:moveLegality.test});
-  job.promise.then(cell=>{if(moveSearch!==job||moveKey!==key)return;defaultMove=cell;moveReady=true;refresh();});return null;
+  job.promise.then(cell=>{if(moveSearch!==job||moveFingerprint!==fingerprint)return;defaultMove=cell;moveReady=true;refresh();});return null;
  }
  function defaultBuild(){const c=selected(),sites=buildSites();if(!c)return sites[0]??null;const near=cell=>cellDistance(c.cell,cell,world.width,world.height)===1&&(c.cell%world.width===cell%world.width||Math.floor(c.cell/world.width)===Math.floor(cell/world.width));return [...sites].sort((a,b)=>Number(near(b))-Number(near(a))||cellDistance(c.cell,a,world.width,world.height)-cellDistance(c.cell,b,world.width,world.height)||a-b)[0]??null;}
  function action(value){

@@ -989,3 +989,11 @@ A legal proposed destination also has a small warm diamond marker on the existin
 minimap, making a remote default discoverable without automatically selecting or
 focusing a different real cannon. The marker is presentation only; existing exact
 inverse minimap navigation remains unchanged. It is not an ownership boundary.
+
+A Move proof may continue across newer authenticated heads only when every
+Move-relevant fact is exactly equal (ownership, canonical player mapping,
+anchors/accounts and selected activity, dimensions and active rule policy).
+Motion/time-only publications do not restart an otherwise identical proof.
+Financial quotes remain bound to the latest accepted head, not the cached proof's
+original snapshot. Any relevant change invalidates the cache and keeps the action
+unavailable until the new conclusion is established.
