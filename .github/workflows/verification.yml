@@ -274,6 +274,13 @@ jobs:
             .work/ci-integration/s14-local/generated.did
             .work/ci-integration/s14-local/logs/**
             .work/ci-integration/s14-local/deployment/browser.log
+            .work/ci-integration/s14-local/deployment/clearance-*.json
+            .work/ci-integration/s14-local/deployment/trace.json
+            .work/ci-integration/s14-local/deployment/replay.json
+            .work/ci-integration/s14-local/deployment/browser/*.json
+            .work/ci-integration/s14-local/deployment/browser/*.png
+            .work/ci-integration/s14-local/deployment/browser/browser.log
+            .work/ci-integration/s14-local/deployment/browser/wire/**
             .work/ci-integration/s14-local/deployment/results.json
             .work/ci-integration/s14-local/deployment/transition-browser/**
             .work/ci-integration/s14-local/deployment/torus-scene/**
