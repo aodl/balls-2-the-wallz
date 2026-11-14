@@ -1,13 +1,14 @@
 # Audio, return entry and compact controls — frozen, hosted qualification pending
 
 Owner brief implementation is frozen at runtime/build source
-`d01e8c7d693d2a4718acb5dfefaecda57628ca00`. JS
-`0cc1516b2135204b0b7eef2237b88a56ebafb5be71a54c6f57c2e2b100db7ab2`;
+`704c7d2468f76c48511dd59b311a45c2a5d65cc5`. JS
+`1363ae18e17b4c8a0d81cd8974e7c6bb1654823db7d7cba2a060028a359e8405`;
 complete78-file inventory
-`1b1ae79e8d21e3d61014c98fabacba7d4302ea06b464d4933fea18ae8108c365`.
+`d7b37d1333e18788f7f5d3b835c26036c3eaaa3b5eca89b067be2014a84a655f`.
 Expanded native test/evidence changes preserve all consumed production inputs.
-Local full source passes1939 Node/201 Python; exact-source final hosted gates
-remain pending. The760e8e4 Browser failure was reproduced and corrected: the
+Local full source passes1941 Node/201 Python; exact-source run43649690925 passed five gates but failed installed-IC on an
+obsolete removed audio checkbox selector. A test-only unified-control correction
+is under focused qualification; frozen runtime inputs are unchanged. The760e8e4 Browser failure was reproduced and corrected: the
 quantity widget must freeze throughout arena pointer capture so it cannot steal
 a pinch's second touch. Earlier failures remain in evidence.
 
@@ -18,6 +19,10 @@ SFX provenance and frozen identities. P09 remains FAIL/unqualified; physical
 listening and Firefox output are NOT VERIFIED. Production remains the previously
 installed75-file frontend below on certified Rules7. No deployment, backend,
 financial, funding/settings or Rules9 operation is authorized/performed here.
+
+The final conservative contact guard rejects unresolved stationary grid-line
+sides as neutral. Exact-source qualification runs at43649690925; no old green
+source is substituted for that changed runtime.
 
 ---
 

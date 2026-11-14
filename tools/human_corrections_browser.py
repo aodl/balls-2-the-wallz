@@ -16,7 +16,20 @@ def verify_certified_lifecycle(page,context,out,configuration,record,report,save
  # at 100ms intervals. Wait for the displayed endpoint too before freezing it.
  page.wait_for_function('()=>{const e=__b2zExperience;return e.clock.playhead===e.clock.available&&e.visibleTime===e.clock.available&&e.session.lastRenderedPlayhead===e.clock.available}',timeout=10000);settled=state();page.wait_for_timeout(600);assert state()['time']==settled['time'];assert state()['head']==initial['head'];report['startup_without_H_plus_1']={'status':'PASS','initial':initial,'moving':moving,'exhausted':settled};record('cold-certified-H-plays-without-another-publication',report['startup_without_H_plus_1'])
  if __import__('os').environ.get('B2Z_AUDIO_QUAL')=='1':
-  page.locator('#audio-button').click();page.locator('#audio-music').check();page.locator('#audio-effects').check();page.wait_for_function('()=>__b2zAudio().music?.active&&__b2zAudio().fxBuffers===4',timeout=60000);report['audio_at_verified_endpoint']=page.evaluate('__b2zAudio()');assert report['audio_at_verified_endpoint']['stats']['starts']==0,'Old displayed events replayed on audio enable';page.locator('#audio-button').click();record('audio-native-opt-in-at-certified-endpoint',report['audio_at_verified_endpoint'])
+  # Unified sound is enabled by default. A real ordinary navigation gesture
+  # unlocks it; removed lane checkboxes must not be restored for this fixture.
+  assert page.evaluate('__b2zAudio().settings.enabled')
+  assert page.locator('#audio-music, #audio-effects, #audio-popover').count()==0
+  page.locator('#status-button').click();page.locator('#close-panel').click()
+  page.wait_for_function('()=>__b2zAudio().usable&&__b2zAudio().music?.active&&__b2zAudio().fxBuffers===7',timeout=60000)
+  page.locator('#audio-button').click()
+  assert not page.evaluate('__b2zAudio().settings.enabled')
+  page.wait_for_function('()=>!__b2zAudio().music?.active&&__b2zAudio().activeVoices===0')
+  page.locator('#audio-button').click()
+  page.wait_for_function('()=>__b2zAudio().usable&&__b2zAudio().music?.active&&__b2zAudio().fxBuffers===7',timeout=60000)
+  report['audio_at_verified_endpoint']=page.evaluate('__b2zAudio()')
+  assert report['audio_at_verified_endpoint']['stats']['starts']==0,'Old displayed events replayed on audio enable'
+  record('audio-native-unified-activation-at-certified-endpoint',report['audio_at_verified_endpoint'])
  # Fence the complete healthy H trace before intentionally cancelling delivery.
  # WireCapture remains strict: failed/incomplete accepted packets still fail.
  # The fault journey never advances H; its deliveries have separate bounded logs.

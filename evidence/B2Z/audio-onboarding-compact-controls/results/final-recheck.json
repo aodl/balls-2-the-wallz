@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "source": "704c7d2468f76c48511dd59b311a45c2a5d65cc5",
+  "frozen_files": 78,
+  "consumed_inputs_checked": 220,
+  "tracked_inputs_identical_to_source": 138,
+  "dependency_inputs": "Recorded installed hashes under unchanged committed lock/vendor provenance",
+  "rollback_files_checked": 75,
+  "scope": "Local hash recheck; not deployed. Prior diagnostic attempted git show on untracked node_modules and failed as instrumentation; corrected check independently hashes those installed inputs and compares only tracked files to Git."
+}

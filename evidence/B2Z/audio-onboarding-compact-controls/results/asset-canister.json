@@ -3,8 +3,8 @@
   "status": "PASS",
   "network": "local",
   "canister": "uqqxf-5h777-77774-qaaaa-cai",
-  "upload_seconds": 51.66625265602488,
-  "repeat_sync_seconds": 12.332173414004501,
+  "upload_seconds": 167.90160450700205,
+  "repeat_sync_seconds": 39.66089977801312,
   "flac_identity_encodings": 60,
   "files": [
     {
@@ -15,8 +15,8 @@
     },
     {
       "file": "app.mjs",
-      "sha256": "0cc1516b2135204b0b7eef2237b88a56ebafb5be71a54c6f57c2e2b100db7ab2",
-      "bytes": 2098008,
+      "sha256": "1363ae18e17b4c8a0d81cd8974e7c6bb1654823db7d7cba2a060028a359e8405",
+      "bytes": 2098098,
       "mime": "application/javascript"
     },
     {
@@ -393,7 +393,7 @@
     },
     {
       "file": "build-manifest.json",
-      "sha256": "25f3ace0b0ad78c1810b04e46e332040b69ef3c3c3479a1ee593907e4cd6a852",
+      "sha256": "c8cdf675a12a72c644de3d2610cfb514f578ac76cc4dd986565f7d037a2e3e7e",
       "bytes": 21847,
       "mime": "application/json"
     },
@@ -470,5 +470,5 @@
       "mime": "text/css"
     }
   ],
-  "certification_scope": "IC-Certificate header presence and exact served-byte/security/MIME assertions; not an independent cryptographic HTTP-certificate validation claim."
+  "certification_scope": "IC-Certificate header presence and exact served-byte/security/MIME assertions, not independent cryptographic HTTP-certificate validation."
 }

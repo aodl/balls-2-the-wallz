@@ -1,12 +1,12 @@
 # Audio, returning entry and compact controls — corrective candidate
 
-**Implementation and local qualification complete; final hosted qualification pending. Undeployed.**
+**Implementation frozen; five hosted gates PASS, installed-IC FAIL on an obsolete audio test selector. Test-only correction under qualification. Undeployed.**
 
 Starting local source c9b53e65ced38047a2e688a8a9780b2acd20a8d6; remote branch
 b74710aa7abd1ec9fe51c70961363aa1163bc9a2 independently rechecked14 November.
 Checkpoint8c78593 implements unified intent/reconciliation and separate return
 entry. Compact wallet/contact changes and a proven capture-slot correction are frozen at
-`d01e8c7d693d2a4718acb5dfefaecda57628ca00`. Expanded native qualification/evidence
+`704c7d2468f76c48511dd59b311a45c2a5d65cc5`. Expanded native qualification/evidence
 continuations do not change consumed application/build/dependency inputs. Final
 exact-source hosted conclusions remain pending; old green CI is not substituted.
 
@@ -85,7 +85,7 @@ No altered event schema, second simulation or ownership inference from latest he
 |8 Compact exact wallet|PASS1440/390/320 native Clipboard API writes, actual native full-address Copy/paste, exact amount/memo, inline disclosure, Update/Keep. Existing native/manual-fallback financial journeys remain in the ordinary browser gate.|
 |9 Quantity beside aim|PASS real clicks and keyboard across eight headings, model/memo/amount coherence and fixed focus slot. Full bounds tests and captured-aim pinch regression cover gesture exclusion. PASS1..64 limits/disabled buttons and native emulated touch taps, exact heading/memo unchanged; see compact-final.json.|
 |10 Other actions / layout|PASS legal default Move/Build, exact prompts/warnings, no numeric fields. Fire/Move/Build readiness matrix:192 status states over8 viewport/motion contexts,0px maximum drift; includes320×300 contraction and reduced motion. Existing source visibility, toroidal/panel/camera/financial regressions retained.|
-|11 Source/trust qualification|Local full source PASS1939 Node +201 Python; no backend/financial/dependency inputs changed. Final exact-source hosted gates pending; no general release or deployment claim.|
+|11 Source/trust qualification|Local full source PASS1941 Node +201 Python; no backend/financial/dependency inputs changed. Final exact-source hosted gates pending; no general release or deployment claim.|
 
 Native output and source integrity are distinct. The [contact recordings](captures/displayed-friendly-0.webm),
 [threat recording](captures/displayed-threat-0.webm), [spectator recording](captures/displayed-spectator-0.webm),
@@ -95,7 +95,7 @@ The [390px input journey](captures/390-compact-journey-silent.webm) is explicitl
 [Final native/copy/entry/layout results](results/compact-final.json), [entry matrix](results/entry.json),
 [native meaning](results/native-meaning.json), [native recovery](results/native-recovery.json),
 [context recovery](results/native-context-recovery.json), [geometry](results/panel-geometry.json)
-and [source verification](results/source-quiet.json) retain their scope.
+and [source verification](results/source-final.json) retain their scope.
 
 Earlier local failures remain failures: one original curve assertion encoded the
 superseded zoom policy; two unchanged planner cases returned hard_timeout under
@@ -137,7 +137,7 @@ Fixed bounds remain128 inspections/32 retained/2 starts;8 voices (6wall/2cannon)
 5total starts/s;32MiB music/4MiB FX;8MiB encoded,<=2 fetches/1 native decoder.
 Usual decoded music is3 cores (~9.33MB at48k); seven active FX total1,666,560 bytes.
 No new recurring canister query/timer exists. New original FLACs total21,549 bytes;
-the complete frontend grows48,404 bytes from76,248,428 to76,296,832 bytes. Changed
+the complete frontend grows48,494 bytes from76,248,428 to76,296,922 bytes. Changed
 manifest cache identity lazily refetches a bounded window, never requires a user
 cache-maintenance control. Production storage/cycles charges are not measured by
 this undeployed candidate.
@@ -190,9 +190,9 @@ and all-six exact-source qualification must be repeated for that correction.
 
 |Identity|Value|
 |---|---|
-|Frozen runtime/build source|d01e8c7d693d2a4718acb5dfefaecda57628ca00|
-|JavaScript SHA-256|0cc1516b2135204b0b7eef2237b88a56ebafb5be71a54c6f57c2e2b100db7ab2|
-|Complete78-file inventory SHA-256|1b1ae79e8d21e3d61014c98fabacba7d4302ea06b464d4933fea18ae8108c365|
+|Frozen runtime/build source|704c7d2468f76c48511dd59b311a45c2a5d65cc5|
+|JavaScript SHA-256|1363ae18e17b4c8a0d81cd8974e7c6bb1654823db7d7cba2a060028a359e8405|
+|Complete78-file inventory SHA-256|d7b37d1333e18788f7f5d3b835c26036c3eaaa3b5eca89b067be2014a84a655f|
 |Audio manifest SHA-256|76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c|
 
 [Complete inventory](frontend-inventory.json), [freeze summary](frozen-summary.json),
@@ -246,7 +246,7 @@ approved by this report or these prepared commands.
 [Disposable observer-only asset canister](results/asset-canister.json) PASS:
 all77 public file bytes, exact inventory, all60 FLACs identity-only/audio-flac,
 MIME/cache/nosniff and IC-Certificate header assertions, and unchanged repeat sync.
-Upload51.67s, unchanged repeat12.33s on this local host. It installed no game backend
+Final704 upload167.90s, unchanged repeat39.66s on this local host. It installed no game backend
 and used only an isolated local dfx network. Header presence is not relabeled as
 independent cryptographic HTTP-certificate validation. Production remained untouched.
 
@@ -283,8 +283,8 @@ row/column owns a reversed face. The preceding implementation guessed below/righ
 and could label a threat. The new regression fails that old source; the correction
 returns neutral for that unresolvable contact. No physics, event schema or history
 changes. Common native friendly/threat/spectator fixtures remain unchanged. This
-requires a new runtime freeze; d01 identities above remain superseded historical
-evidence until the final frozen identities below are recorded.
+requires a new runtime freeze; d01 identities remain superseded historical evidence. The current frozen
+identities in the table above are the corrected704c7d2 bytes.
 
 
 The subsequent native no-cue diagnostic proved both physical reflections were
@@ -295,3 +295,58 @@ per-event trace math proves all contacts late, preserving every failed positive
 attempt. It never rewinds an accepted player, changes deadlines/budgets or counts
 silence as positive-output success. The corrected-source native repeat passed all
 three perspectives on its first visits. [Negative trace](results/late-contact-negative.json).
+
+
+### Current exact-source qualification
+
+Frozen runtime/source: `704c7d2468f76c48511dd59b311a45c2a5d65cc5`.
+[Hosted verification43649690925](https://github.com/aodl/balls-2-the-wallz/actions/runs/43649690925)
+completed with Source, Native, Packaged DTR/clean consumers, Runtime-lab Wasm and
+Browser HTTP/Web Crypto PASS, but installed-IC FAIL. The failing installed
+`human_corrections_certified_startup_and_transient_recovery` journey waited30s
+for removed `#audio-music` after clicking the new master sound button. It also
+expected four FX buffers instead of the current seven. This is an obsolete
+fixture contract, not a wire-capture failure. [Exact conclusions](results/hosted-704-jobs.json),
+[original failure](results/hosted-704-installed-failure.log) and
+[passing hosted browser excerpt](results/hosted-browser-final-excerpt.log) remain.
+
+The narrowly corrected installed journey asserts enabled intent, absence of old
+lane controls, ordinary trusted-gesture activation, native scheduler/seven ready
+effects, one-button mute/unmute and zero old-event starts at the exhausted
+verified endpoint. The same fixed-H, strict capture,5/30/90/180s outages, camera/
+draft/panel invariants and wrong-root trust-barrier assertions remain unchanged.
+No application/build/dependency byte changes or new artifact freeze are involved.
+Focused installed Rust child/browser PASS462.48s: all four outages,0px panel drift,
+strict healthy-H evidence and wrong-root rejection retained. The first local
+attempt lacked the existing user-local GTK path. The corrected local driver was
+interrupted with143, but its child independently finished with exactly one Rust
+test PASS and browser-complete/PASS evidence; the driver command is not called a
+pass. [Focused result](results/installed-unified-correction.json). A new hosted
+run is required for the test-only correction; conclusions remain pending.
+Both d01e8c7 and4ee07db passed their Browser gates but are superseded; their
+installed jobs were canceled by newer-head workflow policy. The informational
+inventory guard is not one of the six gates.
+
+Changed runtime/build groups: audio engine/music/UI/ownership/events/policy/loader,
+new audio-contact interpretation and three original effects/manifest; app/arcade
+account routing, new territory-entry and explicit camera fit; index/style/shell,
+new payment-presentation and quantity-placement modules. Renderer geometry,
+physics, purchase/rules interpreters, backend interfaces, dependencies and financial
+state/authority remain unchanged. Tests, maintained specs/operator guidance,
+AGENTS audio link and evidence accompany those changes.
+
+
+### Final read-only production preservation check
+
+At22:59–23:02UTC14November the [signed production metadata](results/production-metadata-final.json)
+verified the same frontend/backend modules, controllers and13-node European subnet
+against the pinned mainnet root. The [signed74-public-asset inventory](results/production-inventory-final.json)
+remains the deployed75-file rollback identity above. A fresh ordinary browser
+[observation](results/production-observation-final.json) reached certified Rules7
+publication8751, logical endpoint8748, with sceneReady=true, no verification/runtime
+error and current payment readiness. The [actual live screenshot](captures/production-unchanged-rules7.png)
+is the previous frontend, not this undeployed candidate. No click, payment or
+operator mutation was performed. Autonomous gameplay continues; this does not
+claim the paid world is frozen. The first read-only diagnostic expected an absent
+production debug global and failed as instrumentation; the corrected probe reads
+the existing experience/session publication without weakening verification.

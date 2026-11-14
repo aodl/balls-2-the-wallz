@@ -1,0 +1,127 @@
+{
+  "status": "PASS",
+  "scope": "Installed Rust child and independent browser completion; local collection driver exited143 before collecting final result, so its command is not recorded as PASS.",
+  "rust_result": "running 1 test\ntest playability_installed::human_corrections_certified_startup_and_transient_recovery ... ok\n\ntest result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 70 filtered out; finished in 462.48s",
+  "browser_status": "PASS",
+  "audio": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 1,
+    "lastError": "",
+    "unlocked": true,
+    "blocked": false,
+    "hidden": false,
+    "usable": true,
+    "settings": {
+      "version": 2,
+      "enabled": true
+    },
+    "ownership": {
+      "id": "1b1f64fd-d5d3-4e6b-9d3b-b88cbfea6922",
+      "owner": "1b1f64fd-d5d3-4e6b-9d3b-b88cbfea6922",
+      "owns": true,
+      "coordinated": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 7,
+    "music": {
+      "starts": 4,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200,
+      "active": true,
+      "nodes": 2,
+      "queuedNodes": 2,
+      "buffers": 2,
+      "phase": 279935,
+      "coveredSeconds": 10.216020833333332
+    },
+    "loader": {
+      "fetches": 14,
+      "cacheHits": 0,
+      "decodes": 12,
+      "maxFetches": 1,
+      "maxEncoded": 6773340,
+      "maxDecodes": 1,
+      "cacheDisabled": true,
+      "encoded": 6178445,
+      "pending": 1,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 174,
+      "lateFrames": 23,
+      "disabled": 38,
+      "inspected": 0,
+      "classified": 0
+    },
+    "seen": 0,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 0,
+      "candidates": 0,
+      "eligible": 0,
+      "starts": 0,
+      "dropped": 0,
+      "maxVoices": 0,
+      "frames": 161,
+      "maxFrameMs": 1,
+      "maxReservedPeak": 0,
+      "reconciliations": 15,
+      "contextCreations": 1,
+      "inspectionLimit": 128,
+      "flushP95": 0.09999999403953552,
+      "flushP99": 0.10000002384185791
+    },
+    "mix": {
+      "master": 0.8,
+      "music": 1,
+      "effects": 1,
+      "effectsReservedPeak": 0.2
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "startup_without_next_head": "PASS",
+  "outages": [
+    {
+      "seconds": 5,
+      "panelDriftPx": 0,
+      "requests": 7
+    },
+    {
+      "seconds": 30,
+      "panelDriftPx": 0,
+      "requests": 13
+    },
+    {
+      "seconds": 90,
+      "panelDriftPx": 0,
+      "requests": 18
+    },
+    {
+      "seconds": 180,
+      "panelDriftPx": 0,
+      "requests": 24
+    }
+  ],
+  "wrong_root": {
+    "status": "PASS",
+    "error": "Certificate verification error: \"Signature verification failed: TrustError: Certificate verification error: \"Invalid signature\"\n    at _TrustError.fromCode (http://127.0.0.1:45627/app.mjs:2184:16)\n    at _Certificate.verify (http://127.0.0.1:45627/app.mjs:9544:30)\n    at async _Certificate._checkDelegationAndGetKey (http://127.0.0.1:45627/app.mjs:9566:9)\n    at async _Certificate.verify (http://127.0.0.1:45627/app.mjs:9510:24)\n    at async _Certificate.create (http://127.0.0.1:45627/app.mjs:9475:9)\n    at async http://127.0.0.1:45627/app.mjs:13077:25\n    at async verifyCertificatePublication (http://127.0.0.1:45627/app.mjs:334:18)\n    at async certifiedTicket (http://127.0.0.1:45627/app.mjs:50033:19)\n    at async acquireLive (http://127.0.0.1:45627/app.mjs:50169:17)\""
+  },
+  "history_timeout": {
+    "requests": 1,
+    "bytes": 0,
+    "outcome": "deadline",
+    "elapsedMs": 2073.5999999940395
+  },
+  "noProductionOperations": true
+}

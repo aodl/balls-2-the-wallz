@@ -1,0 +1,15 @@
+2026-11-14T23:41:11.2192373Z s14-index-poke-local-slice FAIL
+2026-11-14T23:41:11.2195314Z S14 reason: Installed tests failed: playability_installed::human_corrections_certified_startup_and_transient_recovery
+2026-11-14T23:41:11.2197754Z S14 check: installed-index-integration--playability_installed-human_corrections_certified_startup_and_transient_recovery FAIL exit=101 elapsed=39.703s Expected exactly one passing installed test log=s14-local/logs/installed-index-integration--playability_installed-human_corrections_certified_startup_and_transient_recovery.log
+2026-11-14T23:41:11.2200092Z test playability_installed::human_corrections_certified_startup_and_transient_recovery ... 
+2026-11-14T23:41:11.2201666Z thread 'playability_installed::human_corrections_certified_startup_and_transient_recovery' (27422) panicked at tests/support/playability_installed.rs:916:13:
+2026-11-14T23:41:11.2204875Z FAILED
+2026-11-14T23:41:11.2205901Z     playability_installed::human_corrections_certified_startup_and_transient_recovery
+2026-11-14T23:41:11.2206813Z test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 70 filtered out; finished in 39.69s
+2026-11-14T23:41:11.2253177Z S14 browser log: s14-local/deployment/human-corrections/browser.log
+2026-11-14T23:41:11.2255351Z   File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/human_corrections_browser.py", line 19, in verify_certified_lifecycle
+2026-11-14T23:41:11.2258622Z     page.locator('#audio-button').click();page.locator('#audio-music').check();page.locator('#audio-effects').check();page.wait_for_function('()=>__b2zAudio().music?.active&&__b2zAudio().fxBuffers===4',timeout=60000);report['audio_at_verified_endpoint']=page.evaluate('__b2zAudio()');assert report['audio_at_verified_endpoint']['stats']['starts']==0,'Old displayed events replayed on audio enable';page.locator('#audio-button').click();record('audio-native-opt-in-at-certified-endpoint',report['audio_at_verified_endpoint'])
+2026-11-14T23:41:11.2275514Z playwright._impl._errors.TimeoutError: Locator.check: Timeout 30000ms exceeded.
+2026-11-14T23:41:11.2276331Z   - waiting for locator("#audio-music")
+2026-11-14T23:41:11.2277198Z TimeoutError('Locator.check: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator("#audio-music")\n')
+2026-11-14T23:41:11.2277808Z OVERALL FAIL

@@ -1,0 +1,74 @@
+2026-11-14T22:45:52.6054901Z   "status": "PASS"
+2026-11-14T22:46:09.6571727Z   "qualification": "Capture lifecycle fixture only; expired preserved wire content is not new IC authentication or a historical gate PASS.",
+2026-11-14T22:46:09.6573339Z       "status": "PASS",
+2026-11-14T22:46:09.6575588Z       "independent_replay": "PASS 81 segments"
+2026-11-14T22:46:09.6577194Z       "status": "PASS",
+2026-11-14T22:46:09.6583665Z       "status": "PASS",
+2026-11-14T22:46:09.6589929Z       "status": "PASS",
+2026-11-14T22:46:09.6594480Z       "status": "PASS",
+2026-11-14T22:46:09.6597534Z       "status": "PASS",
+2026-11-14T22:46:09.6600402Z       "status": "PASS",
+2026-11-14T22:46:09.6603916Z       "status": "PASS",
+2026-11-14T22:46:09.6607329Z   "status": "PASS",
+2026-11-14T22:46:58.1971863Z observer-http-webcrypto PASS
+2026-11-14T22:46:58.1973811Z OVERALL PASS
+2026-11-14T22:47:01.4428370Z terrain path PASS 1440
+2026-11-14T22:47:03.5786331Z minimap path PASS 1440
+2026-11-14T22:47:04.1405382Z heading and drag PASS 1440
+2026-11-14T22:47:05.7935768Z Move and seam Build PASS 1440
+2026-11-14T22:47:09.5761788Z eligibility and clock PASS 1440
+2026-11-14T22:47:12.0740015Z player controls PASS
+2026-11-14T22:47:25.1125187Z PASS 1440x900
+2026-11-14T22:47:26.1576361Z terrain path PASS 390
+2026-11-14T22:47:27.9643820Z minimap path PASS 390
+2026-11-14T22:47:28.9093276Z heading and drag PASS 390
+2026-11-14T22:47:31.0838703Z Move and seam Build PASS 390
+2026-11-14T22:47:34.1855312Z eligibility and clock PASS 390
+2026-11-14T22:47:36.1671196Z player controls PASS
+2026-11-14T22:47:44.5643233Z PASS 390x844
+2026-11-14T22:47:45.5557985Z terrain path PASS 320
+2026-11-14T22:47:47.2719916Z minimap path PASS 320
+2026-11-14T22:47:47.7725807Z heading and drag PASS 320
+2026-11-14T22:47:49.6647802Z Move and seam Build PASS 320
+2026-11-14T22:47:52.3473987Z eligibility and clock PASS 320
+2026-11-14T22:47:54.3140370Z player controls PASS
+2026-11-14T22:48:01.7421339Z PASS 320x640
+2026-11-14T22:48:29.0787934Z PASS DPR 1
+2026-11-14T22:48:30.2072601Z PASS DPR 1.25
+2026-11-14T22:48:31.5698408Z PASS DPR 1.5
+2026-11-14T22:48:33.1441602Z PASS DPR 2
+2026-11-14T22:48:44.4187810Z PASS 1440
+2026-11-14T22:48:53.8670530Z PASS 390
+2026-11-14T22:49:03.1635823Z PASS 320
+2026-11-14T22:49:16.1694037Z PASS 1440
+2026-11-14T22:49:25.1898550Z PASS 390
+2026-11-14T22:49:33.8526725Z PASS 320
+2026-11-14T22:49:50.1204619Z PASS fixed guide occlusion, 16 direction/zoom cases and negative control
+2026-11-14T22:49:56.2398469Z PASS 1440
+2026-11-14T22:50:00.3543555Z PASS 390
+2026-11-14T22:50:04.4010589Z PASS 320
+2026-11-14T22:51:55.3160900Z PASS 1440
+2026-11-14T22:52:12.8375237Z PASS 390
+2026-11-14T22:52:28.8447272Z PASS 320
+2026-11-14T22:52:43.0042932Z PASS 1440-900-motion
+2026-11-14T22:52:54.9077037Z PASS 390-844-motion
+2026-11-14T22:53:06.8867179Z PASS 320-640-motion
+2026-11-14T22:53:18.4279551Z PASS 390-430-motion
+2026-11-14T22:53:29.7927820Z PASS 320-300-motion
+2026-11-14T22:53:41.5040847Z PASS 1440-900-reduced
+2026-11-14T22:53:52.6372433Z PASS 390-844-reduced
+2026-11-14T22:54:03.6691525Z PASS 320-640-reduced
+2026-11-14T22:54:03.8284557Z ##[group]Run python -B tools/verify_compact_controls.py --output .work/ci-compact-controls
+2026-11-14T22:54:03.8285241Z [36;1mpython -B tools/verify_compact_controls.py --output .work/ci-compact-controls[0m
+2026-11-14T22:54:26.7030419Z [36;1mpython -B tools/verify_contact_meaning.py --output .work/ci-audio-meaning[0m
+2026-11-14T22:54:26.7032296Z [36;1mpython -B tools/verify_audio_occlusion.py --fixture-dir .work/ci-audio/assets --policy-dir .work/ci-audio/policy-build --output .work/ci-audio-occlusion[0m
+2026-11-14T22:54:54.2378993Z Native probe native48
+2026-11-14T22:54:59.1386697Z Native probe cuts48
+2026-11-14T22:54:59.5982331Z Native probe cuts441
+2026-11-14T22:55:00.0480130Z Native probe transition48
+2026-11-14T22:55:00.5020373Z Native probe transition441
+2026-11-14T22:55:00.9498261Z Native probe transitionEnd48
+2026-11-14T22:55:01.2866762Z Native probe transitionEnd441
+2026-11-14T22:55:02.3048083Z {"status": "PASS", "browser": "153.0.8010.12", "native48": 51}
+2026-11-14T22:55:20.5218755Z {"status": "PASS", "scope": "Four-times Fourier peak estimate on guarded approved files; not a physical-output/listening test.", "music_four_times_peak": 0.8667963265088967, "max_enabled_effect_peak_ratio": 1.0018686035816702, "conservative_fixed_mix_output_bound": 0.8537360377801847, "caveat": "Offline Fourier estimate using guard context; not a standards-compliant true-peak meter, output-route or manual listening qualification."}
+2026-11-14T22:56:29.6721674Z {"status": "PASS", "browser": "153.0.8010.12", "native48": 0}

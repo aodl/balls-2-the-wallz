@@ -1,7 +1,6 @@
 {
   "status": "PASS",
-  "frozen_source": "d01e8c7d693d2a4718acb5dfefaecda57628ca00",
-  "node": "v24.15.0",
+  "frozen_source": "704c7d2468f76c48511dd59b311a45c2a5d65cc5",
   "entries": [
     {
       "path": "apps/b2z-observer/action-quote-v6.mjs",
@@ -23,8 +22,8 @@
     },
     {
       "path": "apps/b2z-observer/audio-contact.mjs",
-      "sha256": "914746e719822c22a2700a441be2aba82eff3f29427abbd50222717571195153",
-      "bytes": 1552,
+      "sha256": "2c7c1467e86a974cc7cae3150f7447f5a92a113682fb9d3bc6062fbf4ce70c55",
+      "bytes": 1802,
       "matches_frozen_source": true
     },
     {
@@ -1324,5 +1323,5 @@
       "matches_frozen_source": true
     }
   ],
-  "scope": "All bundle metafile inputs and direct build/upload/dependency assets; tracked files byte-identical to frozen commit, installed dependency files hashed under unchanged package-lock/vendor pins."
+  "scope": "All bundle metafile and direct build/dependency/upload inputs; tracked bytes identical to frozen commit; installed dependencies hashed under unchanged lock/vendor pins."
 }
