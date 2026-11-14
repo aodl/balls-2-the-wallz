@@ -264,3 +264,18 @@ must recognize the active certified identity before applying the new quote polic
 Keep the exact preceding audio74-file set for a pre-cutover frontend rollback.
 After v9 preparation/activation, neither old backend nor old v7-only frontend is a
 safe blind rollback; qualify a compatible recovery artifact or forward fix.
+
+
+### Unified audio / returning-entry candidate boundary
+
+The 14 November audio/onboarding/compact-controls continuation is frontend-only.
+Do not install it until its new frozen inventory and six exact-source substantive
+CI gates qualify. It does not activate Rules9 or alter the backend. Preserve the
+currently installed75-file frontend inventory e9b5c4be2216420f6f70d7c3f33f3ef4596b7d56e05c06eae43171fd629cb8c1
+as rollback. Audio is enabled intent at fixed mix, subject to browser activation;
+one speaker mutes/enables it. No public repair/cache UI is required. Read the new
+candidate report for actual native output/visibility evidence and limitations.
+Post-install acceptance must check fresh-device returning-account entry without
+NEW, native/API/fallback full-recipient and decimal-amount copying, arena quantity
+Update/Keep, status-only zero-drift geometry, real tab-return sound and saved mute.
+Never use a payment/allowance/backend operation to test these frontend controls.

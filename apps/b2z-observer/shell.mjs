@@ -4,16 +4,22 @@ import{createMinimap}from'./minimap.mjs';
 import{CameraController,focusedOn,wheelZoom,previewComposition}from'./camera-controller.mjs';
 import{playerAnchor}from'./player-anchor.mjs';
 import{accountTerritoryFrame}from'./territory-entry.mjs';
+import{aimingArrow}from'./guide-clearance.mjs';
+import{quantityPlacement}from'./quantity-placement.mjs';
 import{displayedBalls}from'./ball-presentation.mjs';
 export function createShell(doc,camera,arcade,onPick){
  const $=id=>doc.getElementById(id),canvas=$('board'),card=$('workspace'),handle=$('aim-handle'),ring=$('aim-ring'),cleanups=[];
  let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null;
- let pendingTerritory=null;
+ let pendingTerritory=null,quantitySlot=null;const quantityPointers=new Set(),quantityWidget=$('quantity-controls');let quantitySize={width:128,height:44};
  const anchorCache=playerAnchor(),reducedMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
  function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale});},400);}
  function zoomButtons(){const a=motion.zoomAvailability();$('zoom-in').disabled=!a.in;$('zoom-out').disabled=!a.out;$('fit').disabled=!a.overview;}
  const motion=new CameraController(camera,{reducedMotion,onChange:zoomButtons,onSettled:save});
  const listen=(node,event,fn,options)=>{if(!node)return;node.addEventListener(event,fn,options);cleanups.push(()=>node.removeEventListener(event,fn,options));};
+ const quantityObserver=new ResizeObserver(entries=>{const r=entries[0]?.borderBoxSize?.[0];if(r?.inlineSize>0&&r.blockSize>0)quantitySize={width:r.inlineSize,height:r.blockSize};else{const b=quantityWidget.getBoundingClientRect();if(b.width)quantitySize={width:b.width,height:b.height};}});quantityObserver.observe(quantityWidget);
+ listen(quantityWidget,'pointerdown',e=>{quantityPointers.add(e.pointerId);e.stopPropagation();});
+ for(const event of ['pointerup','pointercancel'])listen(doc,event,e=>quantityPointers.delete(e.pointerId),true);
+ for(const event of ['dblclick','click'])listen(quantityWidget,event,e=>e.stopPropagation());
  const map=createMinimap($('minimap'),camera,save,{controller:motion,origin:()=>anchor});
  // Long-press discovers an icon without activating it; keyboard gets the same
  // explicit name/reason. This is local feedback, never a gesture/game command.
@@ -40,13 +46,13 @@ export function createShell(doc,camera,arcade,onPick){
  function stopFollowing(){followRebase=false;selectedBall=null;motion.stopFollow();}
  function cancelTap(){gestureSequence++;pendingTap=lastTap=null;}
  function aimAt(p){if(!aimOrigin)return;const w=camera.world(p.x,p.y);arcade.aimAt(w.x-aimOrigin.x,w.y-aimOrigin.y);}
- function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');layout={guideObstacles:[$('status-button'),$('identify-button'),doc.querySelector('.brand')].map(n=>n.getBoundingClientRect().toJSON()),top:Math.ceil(doc.querySelector('.arena-chrome').getBoundingClientRect().bottom)+10,headerBottom:Math.ceil(doc.querySelector('.arena-header').getBoundingClientRect().bottom),mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
+ function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');layout={guideObstacles:[$('status-button'),$('identify-button'),doc.querySelector('.brand')].map(n=>n.getBoundingClientRect().toJSON()),top:Math.ceil(doc.querySelector('.arena-chrome').getBoundingClientRect().bottom)+10,headerBottom:Math.ceil(doc.querySelector('.arena-header').getBoundingClientRect().bottom),mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),sound:doc.querySelector('.audio-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
  let layoutFrame=null,layoutRevision=0,committedLayoutRevision=0;
  function invalidateLayout(){
   if(disposed)return;layoutDirty=true;layoutRevision++;
   if(layoutFrame===null)layoutFrame=requestAnimationFrame(()=>{layoutFrame=null;if(!disposed)position();});
  }
- const observer=new ResizeObserver(invalidateLayout);for(const n of [doc.querySelector('.arena-chrome'),card.querySelector('.panel-header'),card.querySelector('.panel-content'),$('minimap'),$('cycles-display'),$('status-button')])observer.observe(n);
+ const observer=new ResizeObserver(invalidateLayout);for(const n of [doc.querySelector('.audio-controls'),doc.querySelector('.arena-chrome'),card.querySelector('.panel-header'),card.querySelector('.panel-content'),$('minimap'),$('cycles-display'),$('status-button')])observer.observe(n);
  // Content can hide and return to its previous size within one task. In that
  // case ResizeObserver reports no change, although a synchronous overlay read
  // may have cached the intermediate height. Invalidate from actual content
@@ -109,7 +115,7 @@ export function createShell(doc,camera,arcade,onPick){
  }
  listen(canvas,'pointermove',e=>{if(e.pointerType!=='touch')pointer=point(e);});
  listen(canvas,'pointerleave',()=>{pointer=null;hover=null;canvas.dataset.cursor='camera';});
- function clearInput(){hideHelp();clearHelp();pointer=null;hover=null;cancelTap();motion.cancel();for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();owner=null;origin=last=pinch=aimOrigin=null;moved=true;pinched=true;canvas.dataset.cursor='camera';}
+ function clearInput(){quantityPointers.clear();hideHelp();clearHelp();pointer=null;hover=null;cancelTap();motion.cancel();for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();owner=null;origin=last=pinch=aimOrigin=null;moved=true;pinched=true;canvas.dataset.cursor='camera';}
  listen(doc,'visibilitychange',()=>{if(doc.hidden)clearInput();});listen(doc,'freeze',clearInput);listen(canvas,'webglcontextlost',()=>{clearInput();stopFollowing();});
  listen(canvas,'pointerup',e=>{const isTap=pointers.has(e.pointerId)&&owner==='pan'&&!moved&&!pinched,p=point(e);pointers.delete(e.pointerId);if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);if(isTap){if(e.pointerType==='touch')completedTouch={at:performance.now(),x:e.clientX,y:e.clientY};tap(p,e.pointerType,e.timeStamp);}if(!pointers.size){origin=last=pinch=aimOrigin=null;owner=null;pinched=false;}});
  const cancel=e=>{if(!pointers.has(e.pointerId))return;pointers.delete(e.pointerId);owner=null;moved=true;pinched=true;pinch=null;cancelTap();};listen(canvas,'pointercancel',cancel);listen(canvas,'lostpointercapture',cancel);
@@ -129,6 +135,11 @@ export function createShell(doc,camera,arcade,onPick){
   else if(e.key.toLowerCase()==='b'&&lastPoints.length){const ids=lastPoints.map(b=>b.id).sort((a,b)=>a-b),id=ids[(ids.indexOf(selectedBall)+1)%ids.length];activate({kind:'ball',id},{x:0,y:0});e.preventDefault();}
   else if(['[',']'].includes(e.key)){arcade.adjustAngle((e.key==='['?-1:1)*(e.altKey?.01:e.shiftKey?5:1));e.preventDefault();}
  });
+ function positionQuantity(){
+  const q=arcade.quantity?.(),qa=arcade.aim();quantityWidget.hidden=!q?.active||!qa||!camera.cellPoint(qa.cannon.cell).visible;
+  if(!quantityWidget.hidden){const origin=camera.cellPoint(qa.cannon.cell),a=qa.angle*Math.PI/180,end=camera.screen(origin.x+Math.cos(a),origin.y+Math.sin(a)),m=measure(),obstacles=[...m.guideObstacles,m.mini,m.cycles,m.buttons,m.sound];if(!card.hidden&&!card.inert&&cardBounds)obstacles.push(cardBounds);const next=quantityPlacement({origin:{x:origin.sx,y:origin.sy},direction:{x:end.x-origin.sx,y:end.y-origin.sy},...quantitySize,scale:camera.scale,viewport:camera.viewport,top:m.headerBottom+10,obstacles,arrow:aimingArrow(camera,qa,m.guideObstacles)?.screen??[],previous:quantitySlot,locked:quantityPointers.size>0||quantityWidget.contains(doc.activeElement)});quantityWidget.hidden=!next;if(next){quantitySlot=next;const left=`${Math.round(next.rect.left)}px`,top=`${Math.round(next.rect.top)}px`;if(quantityWidget.style.left!==left)quantityWidget.style.left=left;if(quantityWidget.style.top!==top)quantityWidget.style.top=top;}}
+  else quantitySlot=null;
+ }
  function position(){
   const editing=Boolean(doc.activeElement?.closest?.('#action-inputs')),height=Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity),short=(editing||arcade.context()==='action')&&height<520;doc.documentElement.classList.toggle('short-edit',short);if(short!==wasShort){wasShort=short;layoutDirty=true;}
   const viewport=[camera.viewport.width,height].join('/');if(viewport!==lastViewport){lastViewport=viewport;layoutDirty=true;const c=arcade.anchor?.();if((editing||arcade.context()==='action')&&c&&!pointers.size){const p=camera.cellPoint(c.cell);if(short||!p.visible){motion.cancel();camera.pan(short?camera.viewport.width-42-p.sx:0,measure().top+(short?24:80)-p.sy);}}}
@@ -139,7 +150,7 @@ export function createShell(doc,camera,arcade,onPick){
   const m=measure(),expanded=context==='action';
   const obstacles=[m.mini,m.cycles,m.buttons];if(expanded&&cardBounds)obstacles.push(cardBounds);
   $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':'Focus cannon';
-  if(card.hidden||off){if(card.hidden)narrowPositionKey='';committedLayoutRevision=layoutRevision;return;}
+  if(card.hidden||off){positionQuantity();if(card.hidden)narrowPositionKey='';committedLayoutRevision=layoutRevision;return;}
   const vv=globalThis.visualViewport,W=Math.min(camera.viewport.width,vv?.width??Infinity),H=Math.min(camera.viewport.height,vv?.height??Infinity),top=m.top,narrow=W<=700,cw=Math.min(360,W-16);
   let x=W-cw-8,y=top,bottom=H-(short?8:72);
   if(at){
@@ -163,10 +174,10 @@ export function createShell(doc,camera,arcade,onPick){
    const target=previewComposition(intended,c.cell,site,{left:8,right:W-8,top:m.headerBottom+8,bottom:y-6},{interactive:!short&&Boolean(aim)});
    if(target){if(short){motion.cancel();Object.assign(camera,target);}else motion.go(target,{owner:'composition'});}
   }}
-  committedLayoutRevision=layoutRevision;
+  positionQuantity();committedLayoutRevision=layoutRevision;
  }
  listen(doc,'b2z-overlay',()=>{hideHelp();clearHelp();layoutDirty=true;position();});
- const audioNodes=[doc.querySelector('.arena-chrome'),card,$('minimap'),$('cycles-display'),doc.querySelector('.camera-controls'),doc.querySelector('.audio-controls'),$('motion-wait'),$('render-error'),$('locate-context')].filter(Boolean);
+ const audioNodes=[doc.querySelector('.arena-chrome'),card,$('minimap'),$('cycles-display'),doc.querySelector('.camera-controls'),doc.querySelector('.audio-controls'),quantityWidget,$('motion-wait'),$('render-error'),$('locate-context')].filter(Boolean);
  let audioMask=null,audioMaskKey='';const dirtyAudio=()=>{audioMask=null;};const audioObserver=new ResizeObserver(dirtyAudio);for(const node of audioNodes)audioObserver.observe(node);
  const audioMutation=new MutationObserver(dirtyAudio);for(const node of audioNodes)audioMutation.observe(node,{attributes:true,attributeFilter:['hidden','style','class']});listen(doc,'b2z-audio-layout',dirtyAudio);listen(globalThis,'resize',dirtyAudio);listen(doc,'scroll',dirtyAudio,true);
  return{
@@ -184,6 +195,6 @@ export function createShell(doc,camera,arcade,onPick){
    if(selectedBall!==null&&!motion.following)selectedBall=null;const announcement=selectedBall===null?'':`Following ball ${selectedBall}. Click elsewhere or press Escape to stop.`;if($('follow-announcement').textContent!==announcement)$('follow-announcement').textContent=announcement;
   },
   update(v,surface){zoomButtons();if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===selectedBall),arcade.moveSelection());}},
-  dispose(){audioObserver.disconnect();audioMutation.disconnect();disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();contentObserver.disconnect();cancelAnimationFrame(layoutFrame);clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);doc.documentElement.classList.remove('cannon-context');for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
+  dispose(){audioObserver.disconnect();audioMutation.disconnect();quantityObserver.disconnect();quantityPointers.clear();disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();contentObserver.disconnect();cancelAnimationFrame(layoutFrame);clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);doc.documentElement.classList.remove('cannon-context');for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
  };
 }

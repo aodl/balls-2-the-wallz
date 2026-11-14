@@ -1,0 +1,11 @@
+import test from 'node:test';import assert from 'node:assert/strict';
+import {contactMeaning} from '../../apps/b2z-observer/audio-contact.mjs';
+const A='a'.repeat(64),B='b'.repeat(64),C='c'.repeat(64);
+function fixture({x=1,y=1,owner=20,vx=1024,vy=0,defender=1,cannon=false,corner=false}={}){
+ const ball={id:1,owner,x0:BigInt(x)*1024n,y0:BigInt(y)*1024n+512n,vx,vy};if(corner)ball.y0=BigInt(y)*1024n;
+ const view={version:6,width:1000,height:1000,torus:true,playability:{players:[{id:10,account:A},{id:20,account:B},{id:30,account:C}]},cannons:new Map(cannon?[[8,{cell:y*1000+(x+1)%1000,account:B}]]:[]),owner:()=>defender,playerForTerritory:id=>({1:10,2:20,3:30}[id])};return{view,ball,after:{...ball,vx:-vx,vy:-vy}};
+}
+test('declared own contacts positive, enemy requires our actual pre-event boundary',()=>{const f=fixture();assert.equal(contactMeaning(f.view,f.ball,f.after,[1n,1n],A),'threat');f.view.owner=()=>3;assert.equal(contactMeaning(f.view,f.ball,f.after,[1n,1n],A),'neutral');f.view.owner=()=>0;assert.equal(contactMeaning(f.view,f.ball,f.after,[1n,1n],A),'neutral');assert.equal(contactMeaning(f.view,f.ball,f.after,[1n,1n],B),'friendly');assert.equal(contactMeaning(f.view,f.ball,f.after,[1n,1n],null),'neutral');});
+test('cannon, vertex blocked and mixed corner never masquerade as enemy wall',()=>{const c=fixture({cannon:true});assert.equal(contactMeaning(c.view,c.ball,c.after,[1n,1n],A),'neutral');const f=fixture({corner:true,vy:1024});let i=0;f.view.owner=()=>++i===1?1:3;assert.equal(contactMeaning(f.view,f.ball,f.after,[1n,1n],A),'neutral');assert.equal(contactMeaning(f.view,f.ball,f.after,[1n,1n],A,true),'neutral');});
+test('seam uses wrapped exact face and island owner resolves player, not label',()=>{const f=fixture({x:999});const seen=[];f.view.owner=cell=>{seen.push(cell);return 900};f.view.playerForTerritory=id=>id===900?10:undefined;assert.equal(contactMeaning(f.view,f.ball,f.after,[1n,1n],A),'threat');assert.deepEqual(seen,[1000]);});
+test('classification is immutable event-time meaning after later ownership change',()=>{const f=fixture();const meaning=contactMeaning(f.view,f.ball,f.after,[1n,1n],A);f.view.owner=()=>3;assert.equal(meaning,'threat');assert.equal(contactMeaning(f.view,f.ball,f.after,[1n,1n],A),'neutral');});

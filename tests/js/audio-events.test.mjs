@@ -7,7 +7,7 @@ import fs from 'node:fs';
 import {projectAnimation} from '../../packages/kernels/b2z/animation.mjs';
 import {encodeWorld,decodeWorld} from '../../packages/kernels/b2z/world.mjs';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
-import {SoundBudget,MusicPresence} from '../../apps/b2z-observer/audio-policy.mjs';
+import {SoundBudget} from '../../apps/b2z-observer/audio-policy.mjs';
 const descriptor=Object.freeze({namespace:'fixture',identity:'epoch',root:'H',segment:'1'});
 const b={id:7,owner:99,x0:1024n,y0:2048n,vx:10,vy:20};
 const view={version:6,width:1000,height:1000,torus:true,balls:new Map([[7,b]]),cannons:new Map([[3,{id:3,cell:501}]])};
@@ -20,7 +20,6 @@ test('100,000 due events are consumed with <=128 inspections and <=32 retained',
 test('mute, overview gate and >250ms gap perform no cue inspection; old arms cannot replay',()=>{const c=collector();for(const enabled of [false,true]){c.begin({enabled,previous:0,time:1,elapsed:.251,now:2});assert.equal(c.prepare(ev(),view,descriptor,0,1),null);assert.equal(c.stats.inspected,0);}c.arm(1);c.begin({enabled:true,previous:1,time:1,elapsed:.01,now:3});assert.equal(c.prepare(ev(),view,descriptor,0,1),null);});
 test('late events drop and decisions are final after take',()=>{const c=collector();c.begin({enabled:true,previous:0,time:1,elapsed:.2,now:2});assert.equal(c.prepare({...ev(),time:[1n,10n]},view,descriptor,0,1),null);c.accept(c.prepare(ev(),view,descriptor,0,1));assert.equal(c.take().length,1);assert.equal(c.take().length,0);});
 test('class rejection does not drain shared tokens; tables bounded under unique entities',()=>{const b=new SoundBudget();assert(b.accept({kind:'cannon',entity:1},0,0));const before=b.total.tokens;assert(!b.accept({kind:'cannon',entity:2},1,.1));assert.equal(b.total.tokens,Math.min(3,before+.5));for(let i=0;i<2000;i++)b.accept({kind:'wall',entity:i},i%24,i);assert(b.entities.size<=512);assert(b.bins.size<=48);});
-test('presence uses displayed ticks, keeps tempo independent and dwells through short stalls',()=>{const p=new MusicPresence();for(let i=0;i<1000;i++)p.sample(.01,.01);assert(p.db> -1.2&&p.db<-.7);const before=p.db;for(let i=0;i<500;i++)p.sample(0,.01);assert.equal(p.db,before);for(let i=0;i<3000;i++)p.sample(0,.01);assert(p.db<-3);});
 
 const goldens=JSON.parse(fs.readFileSync(new URL('../fixtures/b2z-v3-golden.json',import.meta.url))).cases;
 for(const r of goldens)test(`actual player audio on/off, silent validation and throwing collector: ${r.name}`,async()=>{

@@ -443,14 +443,14 @@ function frame(now){
     const previous=s.clock.playhead;
     const current=s.clock.sample(dt*s.nominalRate/(s.mode==='live'?1:s.recording.tick_seconds));visibleTime=current.playhead;
     s.playedTicks=(s.playedTicks??0)+current.playhead-previous;
-    try{audioCollector=audio.begin({previous,time:visibleTime,elapsed,now,ready:true,failed:!!renderError,camera});}catch(error){audio.fail(error);}
+    try{audioCollector=audio.begin({account:arcade.account(),previous,time:visibleTime,elapsed,now,ready:true,failed:!!renderError,camera});}catch(error){audio.fail(error);}
     presentVerified(s,visibleTime);
 
   }
   if(s?.mode==='live'&&globalThis.__dtrLive){
     const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,buffer_target_ticks:s.clock.target,buffer_bytes:s.bytes,queue_segments:s.queue.length,certificate_time_ns:s.certificateTimeNs??null,certificate_age_ms:s.certificateAgeMs??null,catchup_segments:s.catchupSegments??0,catchup_ms:s.catchupMs??0,phase:phase(),rate:state.rate,elastic:s.elastic?.state(),presentation_lag_ticks:s.referenceWorld?Math.max(0,timeNumber(s.referenceWorld.time)-s.clock.playhead):0,nominal_rate:Number(pace?.nominal_milli??0)/1000,supported_rate:presentationPace(s),presentation_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
   }
-  if(!audioCollector)try{audio.begin({previous:priorAudioTime,time:visibleTime,elapsed,now,ready:Boolean(s?.ready&&!s.error),failed:Boolean(s?.error||renderError),camera});}catch(error){audio.fail(error);}
+  if(!audioCollector)try{audio.begin({account:arcade.account(),previous:priorAudioTime,time:visibleTime,elapsed,now,ready:Boolean(s?.ready&&!s.error),failed:Boolean(s?.error||renderError),camera});}catch(error){audio.fail(error);}
   const drawn=draw();if(now-lastHud>100){updateHud();lastHud=now;}try{if(drawn)audio.flush({...drawn,occluders:audio.effectsReady()?shell.audioOccluders(drawn.canvasRect):[],time:visibleTime,elapsed,continuous:elapsed>0&&elapsed<=.25,failed:Boolean(s?.error||renderError)});else{audio.flush({camera,membership:null,occluders:[],time:visibleTime,elapsed,continuous:elapsed>0&&elapsed<=.25,failed:true});audio.fence();}}catch(error){audio.fail(error);}
   requestAnimationFrame(frame);
 }

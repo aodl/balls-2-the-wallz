@@ -74,3 +74,9 @@ Final visual closeout additionally uses `verify_visual_closeout.py`: preserve
 mobile source/preview clearance, filled provisional ghosts, modality-aware hints,
 stationary toolbar slots and exact financial content. Compare populated matched
 poses and actual-speed movement; software rendering is not hardware qualification.
+
+
+Audio/onboarding/compact-control work uses `docs/specs/B2Z_AUDIO.md` and the current
+UX continuation: native output/real-tab recovery is separate from synthetic
+lifecycle tests. Keep one model-backed arena quantity editor and exact full-value
+wallet copying; returning-account Join never conflates explicit additional Build.

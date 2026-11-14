@@ -24,7 +24,7 @@ with sync_playwright()as pw:
     c=b.new_context(viewport={'width':width,'height':height},device_scale_factor=dpr);page=c.new_page();page.goto(f'http://127.0.0.1:{s.server_port}');page.wait_for_function('()=>!!window.fixture');page.evaluate('fixture.render("additional");fixture.camera.centre(578.5,453.5)');rows=[]
     # Use the actual source's canonical cell, never a guessed screen proxy.
     page.evaluate('()=>{const n=fixture.world().cannons[0].cell;fixture.camera.centre(n%1000+.5,Math.floor(n/1000)+.5)}')
-    for px in [12,20,30,40]:
+    for px in [6,16,24,40]:
      value=page.evaluate('px=>{fixture.camera.scale=px/Math.sqrt(2/3);return fixture.audioProbe()}',px);row=next(r for r in value['rows']if r['kind']=='cannon'and r['entity']==1);gain=(row['masked']or{}).get('gain',0);rows.append({'cellPx':px,'gain':gain,'facts':value})
     assert rows[0]['gain']==0 and 0<rows[1]['gain']<rows[2]['gain']<=rows[3]['gain'];assert rows[-1]['gain']>.99
     page.evaluate('document.getElementById("board").style.cssText="position:absolute;left:20px;top:30px;width:calc(100% - 40px);height:calc(100% - 60px)"');page.wait_for_timeout(100);offset=page.evaluate('fixture.audioProbe()');assert offset['canvas']['left']==20 and offset['canvas']['top']==30;assert offset['pose']==offset['membershipPose'];source=next(r for r in offset['rows']if r['kind']=='cannon'and r['entity']==1);assert source['masked']
@@ -33,10 +33,10 @@ with sync_playwright()as pw:
     # Relocate real opaque DOM nodes into the safe interior to isolate UI masking
     # from the independently conservative screen-edge rule. Test-only placement.
     overlays=[]
-    for selector in ['.arena-chrome','#minimap','#workspace','#audio-popover']:
+    for selector in ['.arena-chrome','#minimap','#workspace','.audio-controls']:
      page.evaluate('sel=>{const n=document.querySelector(sel);n.hidden=false;n.classList.add("qa-occluder");document.dispatchEvent(new Event("b2z-audio-layout"))}',selector);page.wait_for_timeout(50)
      value=page.evaluate('sel=>{const c=fixture.world().cannons[0],r=document.querySelector(sel).getBoundingClientRect(),canvas=document.getElementById("board").getBoundingClientRect(),p=fixture.camera.cellPoint(c.cell);fixture.camera.pan(r.left+r.width/2-canvas.left-p.sx,r.top+r.height/2-canvas.top-p.sy);return fixture.audioProbe()}',selector)
-     row=next(r for r in value['rows']if r['entity']==1 and r['kind']=='cannon');assert row['plain']and row['masked']is None,(selector,row);overlays.append({'node':selector,'facts':value});page.evaluate('sel=>{const n=document.querySelector(sel);n.classList.remove("qa-occluder");n.style.cssText="";n.hidden=sel==="#workspace"||sel==="#audio-popover";document.dispatchEvent(new Event("b2z-audio-layout"))}',selector)
+     row=next(r for r in value['rows']if r['entity']==1 and r['kind']=='cannon');assert row['plain']and row['masked']is None,(selector,row);overlays.append({'node':selector,'facts':value});page.evaluate('sel=>{const n=document.querySelector(sel);n.classList.remove("qa-occluder");n.style.cssText="";n.hidden=sel==="#workspace"||false;document.dispatchEvent(new Event("b2z-audio-layout"))}',selector)
     poses=page.evaluate('''()=>{fixture.render("wrap");fixture.camera.scale=64;const rows=[];for(const x of [999.5,1000.5,-.5,.5]){fixture.camera.centre(x,999.5);const p=fixture.audioProbe();if(p.pose!==p.membershipPose)throw Error("Stale renderer pose at seam");rows.push(p);}for(const dx of [-20,20]){fixture.camera.pan(dx,0);const p=fixture.audioProbe();if(p.pose!==p.membershipPose)throw Error("Stale renderer pose after pan");rows.push(p);}return rows}''')
     page.screenshot(path=str(out/f'{width}-dpr{dpr}.png'));report['rows'].append({'viewport':[width,height],'dpr':dpr,'zoom':rows,'offset':offset,'scrolled':scrolled,'overlays':overlays,'controlled_seam_pan_poses':poses});c.close();(out/'results.json').write_text(json.dumps(report,indent=2)+'\n')
   page=b.new_page();page.goto(f'http://127.0.0.1:{s.server_port}/multi.html');page.wait_for_function('()=>!!globalThis.multiFrame');report['multi_segment_native_frame']=page.evaluate('()=>Promise.race([multiFrame(),new Promise((_,reject)=>setTimeout(()=>reject(Error("Native frame deadline")),30000))])')

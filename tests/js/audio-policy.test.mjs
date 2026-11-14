@@ -1,6 +1,6 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {LIMITS,zoomGain,viewportGain,reflection,impactPoint,paceTargetDb,exponentialApproach,TokenBucket,BoundedSeen} from '../../apps/b2z-observer/audio-policy.mjs';
-test('overview is exactly silent, not merely quiet',()=>{assert.equal(zoomGain(1),0);assert.equal(zoomGain(12/Math.sqrt(2/3)),0);});
+import {LIMITS,zoomGain,viewportGain,reflection,impactPoint,TokenBucket,BoundedSeen} from '../../apps/b2z-observer/audio-policy.mjs';
+test('overview is exactly silent, not merely quiet',()=>{assert.equal(zoomGain(1),0);assert.equal(zoomGain(6/Math.sqrt(2/3)),0);});
 test('zoom gain increases monotonically and clamps',()=>{let prev=0;for(let s=1;s<=100;s++){const n=zoomGain(s);assert(n>=prev&&n<=1);prev=n;}assert.equal(zoomGain(100),1);});
 test('zoom rejects non-finite and negative input',()=>{for(const s of [NaN,Infinity,-1])assert.equal(zoomGain(s),0);});
 test('central unobscured event eligible',()=>assert.equal(viewportGain({x:400,y:300,width:800,height:600,radius:6}),1));
@@ -14,8 +14,6 @@ test('unknown/different entity rejected',()=>{assert.equal(reflection(null,{}),f
 test('impact arithmetic handles torus and negative intercepts',()=>assert.deepEqual(impactPoint({x0:-1024n,y0:0n,vx:1024,vy:512},[1n,2n],1000,1000),{x:999.5,y:.25}));
 test('non-torus edge stays at the physical right border',()=>assert.deepEqual(impactPoint({x0:32n*1024n,y0:0n,vx:0,vy:0},[0n,1n],32,32,false),{x:32,y:0}));
 test('invalid rational rejected',()=>assert.equal(impactPoint({x0:0n,y0:0n,vx:1,vy:1},[1n,0n],1000,1000),null));
-test('music proposal changes presence, not tempo',()=>{assert.equal(paceTargetDb(1),0);assert.equal(paceTargetDb(.01),-3);assert.equal(paceTargetDb(.1),-1.5);assert.equal(paceTargetDb(0),-5);});
-test('smoothing is time-based, independent of number of render frames',()=>{const a=exponentialApproach(0,-3,1,10);let b=0;for(let i=0;i<60;i++)b=exponentialApproach(b,-3,1/60,10);assert(Math.abs(a-b)<1e-12);});
 test('token burst and sustained allowance bounded',()=>{const b=new TokenBucket(4,2);assert(b.take(0));assert(b.take(0));assert(!b.take(0));assert(b.take(.25));assert(!b.take(.25));});
 test('no giant burst after a long idle and backwards time rejected',()=>{const b=new TokenBucket(4,2);b.take(0);assert(b.take(100));assert(b.take(100));assert(!b.take(100));assert(!b.take(99));});
 test('10k proposed events/s cannot defeat token cap',()=>{const b=new TokenBucket(4,2);let started=0;for(let i=0;i<100000;i++)started+=Number(b.take(i/10000));assert(started<=42);});

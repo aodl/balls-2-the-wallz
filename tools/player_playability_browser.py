@@ -1,3 +1,4 @@
+from human_input import set_quantity
 from human_input import set_heading,choose_cell,chosen_cell,heading_value
 from fluid_playability_browser import action_field,settled_panel
 """Focused player-centred journeys, called by the existing populated browser harness.
@@ -105,13 +106,13 @@ def verify_player_controls(page,width,height):
  assert page.locator('#cycle-detail').text_content()=='Cycle data temporarily unavailable'
  # Keyboard viewport contraction retains an editable heading, then restores space.
  if width<=700:
-  page.locator('#ball-quantity').focus();page.set_viewport_size({'width':width,'height':400});page.wait_for_function('(w)=>fixture.camera.viewport.height===400&&fixture.camera.viewport.width===w',arg=width);page.locator('#ball-quantity').scroll_into_view_if_needed();bounds=page.locator('#ball-quantity').evaluate('(n)=>{const r=n.getBoundingClientRect(),p=n.closest(".panel-body").getBoundingClientRect();return {focus:n===document.activeElement,top:r.top,bottom:r.bottom,bodyTop:p.top,bodyBottom:p.bottom,card:n.closest("#workspace").style.cssText,short:document.documentElement.className}}');assert bounds['focus']and bounds['top']>=bounds['bodyTop']and bounds['bottom']<=bounds['bodyBottom'],bounds
+  page.locator('#recipient-reveal').click();page.locator('#full-recipient').focus();page.set_viewport_size({'width':width,'height':400});page.wait_for_function('(w)=>fixture.camera.viewport.height===400&&fixture.camera.viewport.width===w',arg=width);page.locator('#full-recipient').scroll_into_view_if_needed();bounds=page.locator('#full-recipient').evaluate('(n)=>{const r=n.getBoundingClientRect(),p=n.closest(".panel-body").getBoundingClientRect();return {focus:n===document.activeElement,top:r.top,bottom:r.bottom,bodyTop:p.top,bodyBottom:p.bottom}}');assert bounds['focus']and bounds['top']>=bounds['bodyTop']and bounds['bottom']<=bounds['bodyBottom'],bounds
   page.set_viewport_size({'width':width,'height':height});page.wait_for_function('(h)=>fixture.camera.viewport.height===h',arg=height)
  # A cancelled aim does not turn into a board tap; two fingers own the camera.
  if width<=700:
   # Finish keyboard accommodation, then explicitly focus the working area.
   # A pinch starts on the arena, not on the card/Close control below it.
-  page.locator('#ball-quantity').blur()
+  page.locator('#full-recipient').blur();page.locator('#recipient-reveal').click()
   if page.locator('#focus-cannon').is_enabled():page.locator('#focus-cannon').click();page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
   cdp=page.context.new_cdp_session(page);h=page.locator('#aim-handle').bounding_box();x,y=h['x']+22,h['y']+22;selected=page.evaluate('fixture.summary().selected')
   assert page.evaluate('([x,y])=>document.elementFromPoint(x,y)===document.getElementById("aim-handle")',[x,y])
@@ -185,7 +186,7 @@ def capture_player_review(page,width,height,out):
  page.evaluate('fixture.motion("bridge_both",.01)');page.evaluate('fixture.camera.frameCell(fixture.world().cannons[0].cell);fixture.markClock();fixture.cycles("available")')
  page.wait_for_timeout(600);point=page.evaluate('fixture.point(1)');page.mouse.move(point['x'],point['y']);page.wait_for_timeout(350);page.mouse.click(point['x'],point['y']);page.locator('#fire-action').click();page.wait_for_timeout(400)
  handle=page.locator('#aim-handle').bounding_box();origin=page.evaluate('fixture.camera.cellPoint(fixture.aim().cannon.cell)');page.mouse.move(handle['x']+22,handle['y']+22);page.mouse.down();page.mouse.move(origin['sx']+55,origin['sy']-25,steps=8);page.mouse.up()
- set_heading(page,'45');page.locator('#ball-quantity').fill('2');page.wait_for_timeout(450)
+ set_heading(page,'45');set_quantity(page,2);page.wait_for_timeout(450)
  page.screenshot(path=str(out/f'{width}x{height}-populated.png'))
  for kind in ['amount','owner','text']:page.locator(f'[data-copy="{kind}"]').click();expect(page.locator('#copy-feedback')).to_contain_text('Copied')
  set_heading(page,'90');expect(page.locator('#replace-choice')).to_be_visible();page.wait_for_timeout(400);page.locator('#replace-instructions').click();page.locator('[data-copy="text"]').click();expect(page.locator('#text-memo')).to_have_text('FIRE 1 315 2')

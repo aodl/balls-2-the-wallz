@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+from human_input import set_quantity
 """UX-01..13 populated synthetic UI journeys; real HTTP/WebGL/Web Crypto, no IC or payment claim."""
 from human_input import set_heading,choose_cell,chosen_cell,heading_value
 from fluid_playability_browser import action_field,wallet_fields_reachable,verify_wallet_expansion
@@ -41,8 +42,8 @@ with sync_playwright() as pw:
     context.add_init_script("window.copied=[];const write=navigator.clipboard.writeText.bind(navigator.clipboard);window.realWrite=write;navigator.clipboard.writeText=async v=>{await write(v);copied.push(v)}")
     page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));print('navigate',width,flush=True);page.goto(origin);print('loaded',flush=True);page.wait_for_function('()=>!!window.fixture');assert page.locator('#workspace').is_hidden();assert not page.locator('dialog').count()
     assert not page.locator('input[placeholder*="transaction"]').count();assert not page.get_by_text("I've sent this",exact=True).count()
-    print('player controls',flush=True);verify_player_controls(page,width,height);print('player controls PASS',flush=True);print('identify',flush=True);identify(page);close(page);page.evaluate('fixture.render("additional","final")');select(page,2);page.locator('#fire-action').click();page.locator('#ball-quantity').fill('2');set_heading(page,'90')
-    expect(page.locator('#text-memo')).to_have_text('FIRE 2 315 2');expect(page.locator('#transfer-amount')).to_have_text('4.1 ICP');expect(page.locator('#payment-owner')).to_have_text('s5ir5-gqaaa-aaaas-amyna-cai');expect(page.locator('#payment-risk')).to_contain_text('no automatic refunds')
+    print('player controls',flush=True);verify_player_controls(page,width,height);print('player controls PASS',flush=True);print('identify',flush=True);identify(page);close(page);page.evaluate('fixture.render("additional","final")');select(page,2);page.locator('#fire-action').click();set_quantity(page,2);set_heading(page,'90')
+    expect(page.locator('#text-memo')).to_have_text('FIRE 2 315 2');expect(page.locator('#transfer-amount')).to_have_text('4.1 ICP');expect(page.locator('#full-recipient')).to_have_value('s5ir5-gqaaa-aaaas-amyna-cai');expect(page.locator('#payment-risk')).to_contain_text('no automatic refunds')
     print('wallet fields',flush=True)
     fields=['transfer-amount','payment-owner','text-memo','paying-account','payment-risk']
     wallet_fields_reachable(page,fields)

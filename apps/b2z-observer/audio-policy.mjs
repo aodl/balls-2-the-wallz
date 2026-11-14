@@ -43,16 +43,6 @@ export function impactPoint(ball,time,width,height,torus=true){
  }
  try{return{x:axis('x0','vx',width),y:axis('y0','vy',height)};}catch{return null;}
 }
-export function paceTargetDb(rate){
- if(!Number.isFinite(rate)||rate<0)return -3;
- if(rate===0)return -5; // Apply ONLY after sustained no-progress dwell; see brief.
- const p=clamp(Math.log(clamp(rate,.01,1)/.01)/Math.log(100),0,1);
- return -3+3*p;
-}
-export function exponentialApproach(current,target,dt,tau){
- if(![current,target,dt,tau].every(Number.isFinite)||dt<=0||tau<=0)return current;
- return target+(current-target)*Math.exp(-dt/tau);
-}
 export class TokenBucket{
  constructor(rate,burst,now=0){if(![rate,burst,now].every(Number.isFinite)||rate<=0||burst<1)throw Error('bucket config');
   this.rate=rate;this.burst=burst;this.tokens=burst;this.at=now;}
@@ -82,16 +72,5 @@ export class SoundBudget{
  }
  accept(cue,bin,now){if(!this.available(cue,bin,now))return false;const cls=this[cue.kind],key=`${cue.kind}/${cue.entity}`,spatial=`${cue.kind}/${bin}`;
   this.total.take(now);cls.take(now);this.entities.delete(key);this.entities.set(key,now);while(this.entities.size>512)this.entities.delete(this.entities.keys().next().value);this.bins.set(spatial,now);return true;
- }
-}
-export class MusicPresence{
- constructor(){this.db=-3;this.idle=0;this.dwell=0;this.samples=[];}
- sample(delta,dt,{continuous=true,failed=false,original=false}={}){
-  if(!Number.isFinite(dt)||dt<=0||dt>.25||!continuous){this.samples.length=0;return this.db;}
-  this.samples.push([delta,dt]);if(this.samples.length>120)this.samples.shift();let ticks=0,seconds=0;
-  for(let i=this.samples.length-1;i>=0&&seconds<1;i--){ticks+=this.samples[i][0];seconds+=this.samples[i][1];}
-  this.idle=delta>0?0:this.idle+dt;const target=original?0:failed?-9:this.idle>8?-5:paceTargetDb(seconds?ticks/seconds:0);
-  if(!failed&&!original&&this.idle>0&&this.idle<=8)return this.db;
-  this.dwell+=dt;if(Math.abs(target-this.db)>=.5&&this.dwell>=.5){this.db=exponentialApproach(this.db,target,dt,failed?3:target>this.db?9:17);}return this.db;
  }
 }

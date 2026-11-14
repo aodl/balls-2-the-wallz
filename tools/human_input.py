@@ -48,3 +48,13 @@ def choose_cell(page,value):
   page.keyboard.press('Enter');page.wait_for_timeout(450);return {'input':'keyboard','cell':value}
  assert page.evaluate('(p)=>__b2zCamera.cell(p.sx,p.sy)',point)==value,point
  page.mouse.click(point['sx'],point['sy']);page.wait_for_timeout(450);return {'input':'pointer','cell':value,'point':point}
+
+
+def set_quantity(page,value):
+ # Real accessible arena editor; no hidden/input model authority.
+ value=int(value)
+ assert 1<=value<=64
+ page.wait_for_selector('#quantity-controls',state='visible')
+ while int(page.locator('#quantity-count').text_content())!=value:
+  current=int(page.locator('#quantity-count').text_content())
+  page.locator('#quantity-plus'if current<value else'#quantity-minus').click()

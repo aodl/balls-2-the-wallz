@@ -33,35 +33,38 @@ with sync_playwright()as pw:
  report['controlled_native_decode_delay_ms']=a.decode_delay_ms
  requests=[];page.on('request',lambda r:requests.append(r.url));page.on('pageerror',lambda e:report['errors'].append(str(e)))
  try:
-  page.goto(url+"/?recording=audio-wall");page.wait_for_function('()=>__b2zExperience?.session?.ready',timeout=60000);page.wait_for_timeout(500);assert not any('/audio/'in u for u in requests);assert page.evaluate('__b2zAudio().sampleRate')is None;report['checks'].append({'id':'L01','status':'PASS','observation':'Actual game boot silent; zero audio requests/context before gesture'})
+  page.goto(url+"/?recording=audio-wall");page.wait_for_function('()=>__b2zExperience?.session?.ready',timeout=60000);page.wait_for_timeout(300)
+  assert page.evaluate('__b2zAudio().settings.enabled');assert page.locator('#audio-popover,input[type=range],#audio-resume,#audio-clear').count()==0
+  report['checks'].append({'id':'L01','status':'PASS','observation':'Enabled intent by default; browser permission remains independent'})
   if not a.native_only:
-   page.locator('#audio-button').click();page.locator('#audio-music').check();page.locator('#audio-effects').check();page.wait_for_function('()=>__b2zAudio().music?.active&&__b2zAudio().fxBuffers===4',timeout=60000);report['initial_simultaneous_enable']=page.evaluate('__b2zAudio()');page.locator('#audio-effects').uncheck();page.screenshot(path=str(out/'music-enabled.png'));report['initial']=page.evaluate('__b2zAudio()');assert report['initial']['sampleRate']==48000;assert report['initial']['music']['maxBuffers']<=3;report['checks'].append({'id':'B04/M02','status':'PASS','observation':'Native gesture-started FLAC music under unchanged autoplay=() and exact CSP'})
-   if a.soak_seconds:
-    for elapsed in range(0,a.soak_seconds,15):
-     page.wait_for_timeout(min(15,a.soak_seconds-elapsed)*1000);sample=page.evaluate('__b2zAudio()');report.setdefault('soak',[]).append({'elapsed':min(elapsed+15,a.soak_seconds),'state':sample});(out/'running.json').write_text(json.dumps(report,indent=2)+'\n');assert sample['music']['nodes']<=2 and sample['music']['maxBuffers']<=3 and sample['music']['maxDecoded']<=32*1024*1024
-   page.locator('#audio-mute').check();page.wait_for_timeout(500);muted=page.evaluate('__b2zAudio()');assert muted['activeVoices']==0 and not muted['music']['active'];after=sum('/audio/'in u for u in requests);page.wait_for_timeout(700);assert sum('/audio/'in u for u in requests)==after;report['muted']=muted
-   page.locator('#audio-music').uncheck();page.locator('#audio-effects').check();page.locator('#audio-mute').uncheck();page.wait_for_function('()=>__b2zAudio().fxBuffers===4',timeout=60000);report['effects_only']=page.evaluate('__b2zAudio()');assert not report['effects_only']['music']['active'];page.screenshot(path=str(out/'effects-only.png'))
-   page.locator('#audio-button').click();before_starts=page.evaluate('__b2zAudio().stats.starts');attempts=[]
+   page.locator('#board').click(position={'x':160,'y':180});page.wait_for_function('()=>__b2zAudio().music?.active&&__b2zAudio().fxBuffers===7',timeout=60000)
+   report['initial']=page.evaluate('__b2zAudio()');assert report['initial']['sampleRate']==48000;assert report['initial']['music']['maxBuffers']<=3
+   page.screenshot(path=str(out/'unified-enabled.png'))
+   before_starts=page.evaluate('__b2zAudio().stats.starts')
    for attempt in range(3):
-    page.evaluate('async()=>{await __b2zTools.recording(\"audio-wall\");__b2zCamera.scale=48;__b2zCamera.centre(2.5,2.5)}')
-    try:page.wait_for_function('(n)=>__b2zAudio().stats.starts>n',arg=before_starts,timeout=30000)
+    page.evaluate('async()=>{await __b2zTools.recording("audio-wall");__b2zCamera.scale=48;__b2zCamera.centre(2.5,2.5)}')
+    try:page.wait_for_function('(n)=>__b2zAudio().stats.starts>n',arg=before_starts,timeout=30000);break
     except Exception:
-     state=page.evaluate('__b2zAudio()');attempts.append({'attempt':attempt+1,'state':state,'outcome':'no fresh cue'});report['effect_attempts']=attempts;assert page.evaluate('__b2zTools.state().error')is None
-     if not state['eventTotals']['lateFrames']:raise
-     continue
-    attempts.append({'attempt':attempt+1,'outcome':'actual displayed native cue'});break
-   report['effect_attempts']=attempts;report['displayed_effects']=page.evaluate('__b2zAudio()');assert report['displayed_effects']['stats']['starts']>before_starts,'No eligible fresh displayed reflection across bounded native attempts';assert report['displayed_effects']['stats']['maxVoices']<=8;assert page.evaluate('__b2zTools.state().error')is None;page.screenshot(path=str(out/'displayed-effects.png'));page.locator('#audio-button').click();tail_started=time.monotonic();page.wait_for_function('()=>__b2zAudio().activeVoices===0',timeout=2000);report['covered_tail_stop']={'wall_ms':(time.monotonic()-tail_started)*1000,'ramp_seconds':.06,'scope':'Opaque audio popover covers the ripple; wall delay includes RAF scheduling, no hardware latency claim'}
-   page.locator('#audio-mute').check();page.wait_for_timeout(300)
+     report.setdefault('effect_attempts',[]).append(page.evaluate('__b2zAudio()'))
+     assert page.evaluate('__b2zTools.state().error')is None
+   report['displayed_effects']=page.evaluate('__b2zAudio()');assert report['displayed_effects']['stats']['starts']>before_starts
+   assert report['displayed_effects']['stats']['maxVoices']<=8 and report['displayed_effects']['stats']['maxReservedPeak']<=.200000001
+   page.locator('#audio-button').click();page.wait_for_function('()=>!__b2zAudio().settings.enabled&&!__b2zAudio().music.active&&__b2zAudio().activeVoices===0');report['muted']=page.evaluate('__b2zAudio()')
+   after=sum('/audio/'in u for u in requests);page.wait_for_timeout(1100);assert sum('/audio/'in u for u in requests)==after
+   page.reload();page.wait_for_function('()=>__b2zExperience?.session?.ready',timeout=60000);assert not page.evaluate('__b2zAudio().settings.enabled');page.locator('#board').click(position={'x':160,'y':180});assert not page.evaluate('__b2zAudio().settings.enabled')
+   page.locator('#audio-button').click();page.wait_for_function('()=>__b2zAudio().music?.active&&__b2zAudio().fxBuffers===7',timeout=60000);assert page.evaluate('__b2zAudio().settings.enabled');report['checks'].append({'id':'unified-control','status':'PASS','observation':'Ordinary gesture activates both; one icon mutes, survives reload and unrelated gesture; one icon restores both'})
    verify_audio_lifecycle(page,c,url,out,report)
   if not a.controls_only:
    probe=c.new_page();probe.expose_function('__audioProbePCM',lambda value:(out/Path(value['name']).name).write_bytes(base64.b64decode(value['base64'])));probe.expose_function('__audioProbeRow',lambda value:(out/'codec-progress.json').write_text(json.dumps(value,indent=2)+'\n'));probe.goto(url+'/probe.html');probe.wait_for_function('()=>!!audioNative')
    probes=[('native48','audioNative.nativeCores(48000)'),('cuts48','audioNative.renderedCuts(48000)'),('cuts441','audioNative.renderedCuts(44100)'),('transition48','audioNative.renderedCuts(48000,"transition")'),('transition441','audioNative.renderedCuts(44100,"transition")'),('transitionEnd48','audioNative.renderedCuts(48000,"transition-end")'),('transitionEnd441','audioNative.renderedCuts(44100,"transition-end")')]
+   if not a.cuts_only:
+    probe.mouse.click(5,5);report['native_contact_levels']=probe.evaluate('audioNative.nativeContacts()')
    for key,expression in (probes[1:]if a.cuts_only else probes):
     print('Native probe',key,flush=True);report[key]=probe.evaluate('()=>Promise.race(['+expression+',new Promise((_,reject)=>setTimeout(()=>{audioNative.cancel();reject(Error(\"Native probe deadline\"))},900000))])');(out/'native-progress.json').write_text(json.dumps(report,indent=2)+'\n')
    assert a.cuts_only or all(r['sha256']==r['expected']for r in report['native48']['rows']);assert all(report[k]['errorSamples']==0 for k in [key for key,_ in probes if key!='native48']);probe.close();assert not report['errors'],report['errors'];assert all(u.startswith(url)for u in requests),'Unexpected non-loopback request';report['status']='PASS'
   else:report['status']='PASS'
  except Exception as e:
-  report.update(status='FAIL',error=str(e),last_audio=page.evaluate('__b2zAudio()'),game=page.evaluate('__b2zTools.state().error'),audio_status=page.locator('#audio-status').inner_text());page.screenshot(path=str(out/'failure.png'));raise
+  report.update(status='FAIL',error=str(e),last_audio=page.evaluate('__b2zAudio()'),game=page.evaluate('__b2zTools.state().error'),audio_status=page.locator('#audio-button').get_attribute('aria-description'));page.screenshot(path=str(out/'failure.png'));raise
  finally:
   report['browser']=b.version;report['audio_requests']=sum('/audio/'in u for u in requests);(out/'results.json').write_text(json.dumps(report,indent=2)+'\n');
   if a.trace:c.tracing.stop(path=str(out/'trace.zip'))

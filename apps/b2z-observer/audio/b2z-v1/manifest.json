@@ -742,6 +742,42 @@
       "durationSeconds": 0.82,
       "sourceFileSha256": "b18522aef60210f4ff3231ac5863741deab8f78f43df8ba9c968a83bfeb20652",
       "peakLinear": 0.10592532157897949
+    },
+    "friendly-contact-a": {
+      "file": "sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+      "sha256": "e561a8e1413e5b8904c236eb3ed33e440f97175903c6de8a57d7b6aa3b25602a",
+      "bytes": 8334,
+      "decodedFrames": 13440,
+      "pcmInt32Sha256": "0c7c613a189547a18e1fc8a0b67995218890087a6213eb1fd69848ece509e608",
+      "frames": 13440,
+      "durationSeconds": 0.28,
+      "peakLinear": 0.12000000476837158,
+      "rmsLinear": 0.026067460787454012,
+      "provenance": "Original deterministic additive synthesis: tools/create_contact_audio.py; no external samples"
+    },
+    "friendly-contact-b": {
+      "file": "sfx/friendly-contact-b-c46c20436673ab27.flac",
+      "sha256": "c46c20436673ab275d316bceba07520eba533bf96d29dacf5f862fc65685d737",
+      "bytes": 9518,
+      "decodedFrames": 14400,
+      "pcmInt32Sha256": "9e35cfb4a36e281dc0fc198f62b34474d7ef4d8080ef03277fc6dc73e302bf75",
+      "frames": 14400,
+      "durationSeconds": 0.3,
+      "peakLinear": 0.12000000476837158,
+      "rmsLinear": 0.02502545627405229,
+      "provenance": "Original deterministic additive synthesis: tools/create_contact_audio.py; no external samples"
+    },
+    "neutral-contact": {
+      "file": "sfx/neutral-contact-3c37d8751e36c470.flac",
+      "sha256": "3c37d8751e36c470224d342df0f16ac5bbb969115d215f5eaeea0070e91574ee",
+      "bytes": 3697,
+      "decodedFrames": 8640,
+      "pcmInt32Sha256": "6ef07db50726fc3e08f309f27918c5ab2e5f71335670fb7a2d4d1f74daeb9015",
+      "frames": 8640,
+      "durationSeconds": 0.18,
+      "peakLinear": 0.06500005722045898,
+      "rmsLinear": 0.014878410055498312,
+      "provenance": "Original deterministic additive synthesis: tools/create_contact_audio.py; no external samples"
     }
   },
   "provenance": "Approved two-Suno-track crossfaded loop. Original sample values preserved. No Parra for Cuva audio."

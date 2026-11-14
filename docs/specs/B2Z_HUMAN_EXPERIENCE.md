@@ -6,7 +6,7 @@ one enabled-by-default sound-intent icon (subject to browser permission), explic
 returning-account entry to a compact territory fit with no selection/purchase,
 recipient-left/amount-right exact wallet handoff and one quantity stepper beside
 Fire's aimer. Financial authority, frozen copies, verified playback and Rules7/9
-policy binding remain intact. Implementation/native qualification is in progress;
+policy binding remain intact. Current source qualification is recorded separately;
 prior evidence qualifies only its recorded source, not this working continuation.
 
 
@@ -188,7 +188,7 @@ hit areas, names/tooltips, visible focus and pressed/expanded state. Relevant
 disabled actions give concise accessible reasons. Close deselects; collapse retains
 selection/draft. Switching icons replaces one lower section, never a stacked dialog.
 
-Prompts: **Aim & Pay**, **Choose a Tile & Pay**, **Choose a Tile, Aim & Pay**. Pay is
+Prompts: **Aim & Pay**, **Move & Pay**, **Build, Aim & Pay**. Pay is
 an external-wallet intention, not a transaction button. Fire retains its ball
 quantity stepper. Angle numbers, tile IDs and eligible-site dropdowns are absent
 from the ordinary pane and cannot be hidden payment inputs. Explicit local
@@ -528,7 +528,7 @@ Financial warnings are explicit exceptions if more information is necessary; nev
 hide them to satisfy a count. Cards are at most 360 CSS px wide, bounded by viewport,
 keyboard/safe-area space and navigation widgets. Financial values remain at least
 14 CSS px and primary controls target 44 px. Critical text has restrained translucent
-backing/contrast, not unreadable text floating directly over territory. During a short keyboard viewport, quantity editing uses one bounded camera
+backing/contrast, not unreadable text floating directly over territory. During a short keyboard viewport, financial-field editing uses one bounded camera
 accommodation after resize, while the redundant drag handle/player chooser yield
 space to the focused field; the cannon/guide, minimap and cycles remain visible.
 They restore when space/focus returns. No accommodation runs under an active pointer
@@ -1007,3 +1007,49 @@ Motion/time-only publications do not restart an otherwise identical proof.
 Financial quotes remain bound to the latest accepted head, not the cached proof's
 original snapshot. Any relevant change invalidates the cache and keeps the action
 unavailable until the new conclusion is established.
+
+
+## Unified sound, return entry and compact action continuation (14 November)
+
+This section is the current UX-01/02/03/07/08/10/11/12 policy, superseding older
+placement of quantity in the payment body and the shared Join/Build continuation.
+The complete sound contract is [B2Z_AUDIO](B2Z_AUDIO.md): one enabled-by-default
+sound intent, one mute icon, fixed safe full mix, unobtrusive browser activation,
+automatic lifecycle recovery and event-time account-aware contact sound.
+
+Join records a distinct generation-fenced return intent. Canonical exact sending
+account/subaccount is resolved against the latest complete authenticated world,
+including dormant cannons. Unknown/unavailable world means nonfinancial checking,
+never inferred absence. Existing owner closes entry and smoothly fits compact
+wrapped ownership (including disconnected regions); no NEW quote, purchase,
+action or persistent cannon selection. Manual camera input, close or account
+change cancels pending navigation. First-cannon absence enters automatic Join;
+explicit Build remains an additional purchase. Ordinary cannon click never focuses.
+
+The payment top row is To + abbreviated recipient + copy left, exact decimal ICP
+amount + copy right, with no visible Amount label. An accessible inline full
+principal disclosure supports complete native selection; abbreviation is not a
+selectable payment value. Native/API/manual fallback copy always uses the coherent
+canonical packet, with amount excluding the ICP suffix. Financial text stays >=14px;
+long prices/accessibility zoom wrap deliberately, never truncate the price.
+Memo remains complete, payer compact/changeable, separate fee and exact retained-
+payment warnings unchanged. Copy feedback uses a stable accessible announcement.
+Status-only changes disable unsafe copying without changing panel geometry.
+Prompts: Aim & Pay (Fire/Revive), Move & Pay, Build, Aim & Pay (additional Build),
+Join & Pay (automatic first placement, no promised site).
+
+Fire/Revive count is one model-backed arena − N + editor, never a hidden input.
+It requests up to1..64 under existing partial-fill semantics. It sits behind the
+projected aimer in cached fixed slots, avoids visible arrow/body/HUD/payment/map,
+and uses hysteresis. Pointer capture/focus locks its slot through repeated edits.
+Its full bounds, including disabled buttons, own input ahead of board gestures;
+no aim, pan, target, follow or double-click zoom is triggered. Keyboard arrow
+editing works on the widget. When the source is offscreen, the existing Locate
+route remains explicit. No continuous camera accommodation is introduced.
+
+Quantity/heading changes update the same proposed memo/amount. Copied packets use
+the existing Update/Keep safeguard; Keep restores both old quantity and heading.
+Changed payer/rules/world invalidates incompatible instructions; an old price
+cannot be copied merely to preserve geometry. Default legal Move/Build targets,
+active Rules7/Rules9 policy binding and exact risk warning remain unchanged. No
+new four-cell guarantee is advertised while certified Rules7 remains active.
