@@ -1,0 +1,11 @@
+{
+  "finance_preserved": true,
+  "identity": {
+    "config_hash": "0567d064106d26a14791f9d07bd64a2e4f87b26789dbef7167b2ee7e96114153",
+    "rules_hash": "cfb882f7fb231214bac3df61e34a66ceb8c71e1216caabee899495c0910b2b70",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+  },
+  "state_preserved": true,
+  "status": "PASS"
+}

@@ -1,9 +1,20 @@
-# Territory and controls — implemented; release qualification BLOCKED
+# Territory and controls — six hosted gates PASS; not deployed
 
-No production deployment or paid-state mutation is authorized or performed by this
-pass. This is not a qualified release candidate: strict installed wire capture fails
-and six hosted gates for the new source remain unavailable. Historical audio qualification
-and P09 FAIL remain separate; approved audio files/mix/tempo are unchanged.
+Exact published source `7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9` passed all six
+substantive gates in [run 43587243414](https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414),
+including the complete installed-IC gate. The informational production-inventory
+guard is excluded. [Exact conclusions](hosted-ci.json).
+
+No runtime correction, rebuild, timeout change or capture relaxation was required
+in this closeout. [Artifact audit](artifact-audit.json) rehashes the complete75-file
+frontend,74-file rollback and retained backend. Production inputs match their frozen
+sources. [Separate release decisions](RELEASE_DECISIONS.md) contain the frontend-only
+procedure and Rules9 activation/rollback plan. Neither deployment is authorized here.
+
+The earlier local installed failures below remain FAIL under their original source
+identities. Missing-publication/hosted-unavailable statements are historical and
+superseded by the current GitHub result; no older green run was reused. Audio is
+unchanged; P09 remains a separate accepted prelaunch-trial limitation, not PASS.
 
 ## Starting identities and preserved production
 
@@ -59,7 +70,7 @@ configuration `0567d064106d26a14791f9d07bd64a2e4f87b26789dbef7167b2ee7e96114153`
 schema unchanged. The frontend accepts only the known authenticated identity/policy;
 it does not claim clearance is active on production v7.
 
-## Executed evidence so far (not final-source qualification)
+## Historical development evidence (not final-source qualification)
 
 - A real-browser probe of immutable starting-source components reproduces null Move
   destination/payment card, restored cold selected body, and enabled minimum-scale
@@ -67,7 +78,7 @@ it does not claim clearance is active on production v7.
 - Expanded native-input desktop/390/320 journeys pass default proposals, exact warning,
   cursor/arrow gestures, selection and zoom targets/reversal on the tested snapshots.
 - Eight status/panel configurations pass, including keyboard contraction and reduced
-  motion. Final repeat after freeze remains required.
+  motion. The later frozen and hosted repeats are recorded below.
 - A valid one-cell territory proves no Move exists by testing999,999 other cells.
   The tested cached browser run used250,000 cache bytes and492 chunks, largest6.1ms
   on this software/shared host. This is not hardware performance qualification.
@@ -113,14 +124,15 @@ it does not claim clearance is active on production v7.
    and reached v9. No deadlines/wire checks were relaxed. A quiescent control repeat
    is required; availability/noise is not assumed to be the cause without evidence.
 
-## Current remaining closeout
+## Historical local closeout before hosted publication
 
 Implementation, exact asset freeze, source/native parity, direct-input browser,
 status geometry and the exact-European-module disposable upgrade are complete in
 their stated scopes. The complete installed gate remains FAIL because of the
 sustained-case performance/capture checks; its quiet repeat passes all gameplay windows but also
 fails strict capture on a timed-out read. The original failures remain recorded.
-All six hosted gates for the new source remain BLOCKED by Git authentication.
+At that earlier local closeout, hosted publication was blocked by Git authentication.
+The current six-gate PASS above supersedes this publication blocker.
 No older green run qualifies the new source. No production deployment is authorized.
 
 The purely frontend usability release may precede activation, using v7 legality.
@@ -339,13 +351,13 @@ or an observed resync, but that does not turn this qualification result into PAS
 [complete gate](sustained-first/full-gate.json) /
 [52-case installed ledger](sustained-first/installed-suite.json).
 
-A focused unchanged-case repeat is running without concurrent browser/test work.
-This first complete gate remains FAIL regardless of that repeat. Exact-source
-hosted qualification is independently BLOCKED by missing Git HTTPS credentials;
-[hosted status](hosted-ci.json) distinguishes the older74f0818 six-gate PASS and
-excludes its informational production-inventory guard.
+A focused unchanged-case repeat was then run without concurrent browser/test work.
+This first local complete gate remains FAIL regardless of that repeat. Hosted
+publication was unavailable at that point; it is now confirmed at7f5eeed with
+all six substantive gates PASS. [Hosted status](hosted-ci.json) keeps the historical
+74f0818 audio qualification separate and excludes the informational guard.
 
-## Quiet repeat, delivery diagnosis and final disposition
+## Historical quiet repeat and delivery diagnosis
 
 The focused unchanged-case repeat atf0bc94f passes all seven15-minute Normal
 analysis checks, displaying0.96904ticks/s with no limiter, stall/rebuffer, resync,
@@ -392,22 +404,19 @@ qualification-only additions were separately exercised and do not relabel prior 
 | Exact-European predecessor upgrade/cutover/financial/replay | PASS on isolated populated valueless state |
 | Complete local installed suite | **FAIL51/52**, sustained case failed |
 | Unchanged quiet sustained repeat | **FAIL** strict wire; all gameplay windows PASS |
-| Six substantive hosted gates for new candidate | **BLOCKED/NOT_RUN**, source not published |
+| Six substantive hosted gates for published7f5eeed | **PASS6/6**, run43587243414; guard excluded |
 | Historical audio P09 | **FAIL**, independent accepted trial limitation |
 | Physical hardware/mobile/listening and isolated clearance IC cost delta | NOT_RUN; no claim inferred |
 
-A normal authorized push failed with `could not read Username for 'https://github.com':
-terminal prompts disabled`. Remote independently remains74f08183b905d97dbfd821ede0a4c2cdc47538f5.
-No source was pushed by this pass. The frozen code/test ref isf0bc94f16caec4e142c689eef970f4a394b944bc;
-a later local evidence-only commit does not alter production inputs. The next action
-is authenticated normal non-force publication, then all six hosted results for the
-published candidate. If strict delivery capture also fails there, retain it and
-investigate matched transport/runner controls before qualification. This report
-returns a concrete **unqualified review candidate**, not permission to deploy.
+Historical publication attempts failed with missing HTTPS credentials. GitHub now
+contains exact7f5eeed and its six-gate PASS is independently confirmed. This resolves
+the earlier publication/hosted blocker without changing application bytes. The
+original failed logs remain under `.work/territory-controls`; no author is inferred
+for publication from the earlier credential failure.
 
 ## Separately approvable release order and rollback
 
-1. Resolve the open qualification results and approve the exact75-file frontend
+1. With all six hosted results now PASS, seek approval for the exact75-file frontend
    inventorye9b5c4be…/JS97d8ee0b…. Frontend usability can ship independently with
    certified production rules7. It must not advertise clearance as enforced then.
    No deployment is authorized by the present task.
@@ -434,3 +443,86 @@ The final file audit rehashes all75 candidate files, all74 preserved rollback fi
 and the normal backend exactly. No paid European backend/frontend assets, state,
 settings, authorities, controllers, funds or Ledger commands were changed. Current
 production remains the prior audio prelaunch trial on rules7; rules9 is not active.
+
+
+## Final hosted closeout and artifact provenance
+
+The current remote release head and tested run bind exact7f5eeed. All six substantive
+jobs completed successfully; the guard is explicitly not a seventh gate:
+
+| Gate | Conclusion |
+| --- | --- |
+| [Native conformance](https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269691) | PASS |
+| [Packaged DTR and clean consumers](https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269828) | PASS |
+| [S14 and million-cell installed-IC qualification](https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269842) | PASS |
+| [Browser HTTP and Web Crypto](https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269866) | PASS |
+| [Source conformance](https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269867) | PASS |
+| [Runtime-lab Wasm](https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269891) | PASS |
+
+The complete hosted installed result is distinct from both earlier local FAILs.
+Those recorded late upstream HTTP200 responses exceeded the unchanged10s browser
+deadline and did not turn into accepted partial evidence. No new hosted failure
+required diagnosis or a code/capture change. The hosted browser negative-control
+capture suite still rejects incomplete, cancelled, timed-out, malformed, missing
+and unfenced evidence; its complete delayed fixture independently replays81 segments.
+See [capture controls](hosted-43587243414/ci-wire-capture-results.json), whose fixture
+scope is explicitly not new IC authentication. Installed authenticated replay is
+recorded separately in the hosted installed evidence.
+
+[Hosted panel results](hosted-43587243414/ci-panel-geometry-results.json) confirm
+0px drift across eight viewport/motion configurations,24 action cases and192
+status transitions. [Player refinement](hosted-43587243414/ci-player-refinement-results.json)
+and [territory controls](hosted-43587243414/ci-human-corrections-results.json) pass
+without weakening financial, target, cursor, gesture or geometry assertions.
+
+The frozen frontend stays source8fdc2a2/runtimefbd0cdf with original metadata and
+JS97d8ee0b…/inventorye9b5c4be…. The retained backend remains8b853bc7…;
+[hosted Wasm verification](hosted-43587243414/wasm-verification.json) reports a
+separate3,580,379-byte build, SHA-256
+`8f3288fa18cfecbe3ea946479b380eda24e4dbcdca7435ac5b1c052620639e88`.
+This is not relabelled as the retained3,579,652-byte local candidate. Identical
+consumed source/dependency inputs are proven; cross-host byte reproducibility is
+not claimed. The exact retained8b artifact has its separately recorded populated
+European-predecessor upgrade, cutover, financial and independent-replay proof.
+Both artifact scopes are disclosed for the owner's backend decision.
+
+Recommendation: approve the frozen75-file frontend independently if desired;
+keep Rules9 inactive pending its separate upgrade/activation decision using the
+explicit drained-boundary plan. No production frontend/backend, financial state,
+controller/settings, funding or delegated-payment capability changed in this pass.
+All58 audio assets and audio runtime/builder remain unchanged from74f0818. The
+retained74-file audio rollback is rehashed and remains applicable before cutover.
+P09 remains FAIL/accepted trial limitation. Physical-device listening/hardware,
+actual-wallet execution and isolated target-subnet cost deltas remain unproven.
+
+
+### Hosted installed evidence inspected after completion
+
+[Installed verification](hosted-43587243414/installed-verification.json) binds exact
+7f5eeed and PASS. [Full installed ledger](hosted-43587243414/installed-results.json)
+contains60 PASS wrapper checks, including52 selected installed test cases. The
+15-minute Normal window lasts900.13s, displays0.99993 ticks/s, and passes all seven
+rate/stall/rebuffer/resync/performance-limit/buffer/queue checks; Economy, Lifeline
+and reconnect checks also pass. [Sustained results](hosted-43587243414/sustained-results.json)
+/ [analysis](hosted-43587243414/sustained-analysis.json).
+
+[Strict capture](hosted-43587243414/strict-wire-summary.json) has no errors or
+pending requests, fence1045,2,449 accepted responses and bounded peak pending6.
+[Independent sustained replay](hosted-43587243414/sustained-replay.json) matches
+1,046 publications; [final index replay](hosted-43587243414/index-replay.json)
+matches77 publications and assigned Ledger positions7/8. This is complete strict
+capture evidence, not merely a client success. The existing15s capture-drain bound
+is distinct from the unchanged10s observation deadline; neither was altered here.
+
+[Rules9 cutover](hosted-43587243414/clearance-cutover.json) and
+[receipts](hosted-43587243414/clearance-receipts.json) preserve financial and world
+state and reject unsafe valueless Move/New under the active new identity. The
+separately pinned exact-European-predecessor case is not selected in ordinary CI;
+its explicit local PASS remains separately identified in `installed/`.
+
+The hosted installed normal Wasm matches the hosted Wasm gate's8f3288fa… hash.
+[Artifact provenance](hosted-43587243414/artifact-provenance.json) records downloaded
+ZIP hashes, both normal module identities, and differing embedded checkout/Cargo
+paths. These are source-qualified builds with different path-bearing bytes; no
+cross-host byte equality or exclusive explanation for every byte difference is
+claimed. The approved retained candidate is not replaced or relabelled.

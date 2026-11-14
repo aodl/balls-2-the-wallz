@@ -10,6 +10,10 @@
   "backend_runtime_source": "e7e425083ddef569fa481d65acfd204274a03c8a",
   "backend_wasm_sha256": "8b853bc7a93a225ad600b6acb857693a15a08c76c14650d2f849c7e7c2530caf",
   "backend_bytes": 3579652,
-  "qualification": "NOT RELEASE QUALIFIED: strict installed wire capture FAIL; six exact-source hosted gates BLOCKED by Git authentication.",
-  "final_file_rehash": "PASS 75 candidate +74 rollback"
+  "qualification": "PASS all six substantive hosted source gates; frozen input parity and exact local artifact scopes retained",
+  "final_file_rehash": "PASS 75 candidate +74 rollback",
+  "qualified_published_source": "7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9",
+  "qualified_hosted_run": 43587243414,
+  "hosted_wasm_build_sha256": "8f3288fa18cfecbe3ea946479b380eda24e4dbcdca7435ac5b1c052620639e88",
+  "hosted_wasm_note": "Distinct hosted build; not relabelled as the retained8b artifact. Exact8b European-predecessor disposable installed proof is separate."
 }

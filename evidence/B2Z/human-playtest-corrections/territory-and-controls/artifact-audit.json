@@ -1,0 +1,29 @@
+{
+  "checked_at": "2026-11-14T11:21:47.230792+00:00",
+  "checked_source": "7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9",
+  "candidate": {
+    "files": 75,
+    "bytes": 76248428,
+    "manifest_file_sha256": "e9b5c4be2216420f6f70d7c3f33f3ef4596b7d56e05c06eae43171fd629cb8c1",
+    "all_file_hashes": "PASS",
+    "exact_directory_membership": "PASS"
+  },
+  "rollback": {
+    "files": 74,
+    "bytes": 76234102,
+    "manifest_file_sha256": "b4abc541bf7277dbae865f4269d1abd12cc4d6e0bcba39bcf2b21a875c1ae72f",
+    "all_file_hashes": "PASS",
+    "exact_directory_membership": "PASS"
+  },
+  "backend_wasm_sha256": "8b853bc7a93a225ad600b6acb857693a15a08c76c14650d2f849c7e7c2530caf",
+  "production_input_parity": "PASS frontend freeze8fd/backend runtimee7 through published7f5",
+  "audio_files_unchanged": 58,
+  "changed_assets": [
+    "app.mjs",
+    "backend.did",
+    "build-manifest.json",
+    "configuration-clearance.bin"
+  ],
+  "application_rebuilt": false,
+  "audio_runtime_and_builder_diff_since_74f": "NONE"
+}

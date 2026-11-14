@@ -1,33 +1,27 @@
-# Territory/control successor — implemented; qualification BLOCKED; NOT DEPLOYED
+# Territory/control successor — six hosted gates PASS; NOT DEPLOYED
 
-The current source adds bounded intended-zoom controls, shared aim-arrow input,
-explicit session selection, deterministic legal Move/Build defaults, disabled
-unavailable actions and a static Move direction indicator. Rules9 add authoritative
-processing-time toroidal Chebyshev clearance≥4, preserving historical v6/v7 and
-first Join/Fire. Delegated-payment v8 remains separate and inactive.
+Qualified published source `7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9` passed all six
+substantive gates in [run 43587243414](https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414),
+including S14/million-cell installed-IC. The informational production-inventory guard
+is excluded. Previous missing-publication and hosted-unavailable statements are superseded.
 
-Production remains the byte-verified audio trial below with certified rules7.
-Exact audio74-file rollback bytes are preserved. No production frontend/backend,
-settings/controllers, funding, Ledger or gameplay mutation is authorized/performed.
-Ordinary non-force source publication is authorized for this corrective task.
+No application inputs changed or artifacts were rebuilt during closeout. All75
+frozen frontend files (inventory `e9b5c4be…`, JS `97d8ee0b…`), all74 audio rollback
+files and retained normal backend `8b853bc7…` rehash exactly. Hosted Wasm build
+`8f3288fa…` is recorded separately, not relabelled as the local artifact. Exact8b
+European-predecessor disposable upgrade proof and source parity remain identified.
 
-[Current development evidence and outstanding qualification](evidence/B2Z/human-playtest-corrections/territory-and-controls/REPORT.md) /
-[versioned rule and activation/rollback contract](docs/specs/B2Z_TERRITORY_CLEARANCE_9.md).
-No earlier green CI is claimed to qualify the new bytes.
+[Final evidence](evidence/B2Z/human-playtest-corrections/territory-and-controls/REPORT.md) /
+[separate release decisions](evidence/B2Z/human-playtest-corrections/territory-and-controls/RELEASE_DECISIONS.md) /
+[Rules9 cutover contract](docs/specs/B2Z_TERRITORY_CLEARANCE_9.md).
 
-Functional closeout passes28 JS/native clearance cases, all populated browser
-controls,8 panel configurations with0px drift across3,262 states, and the exact
-European-module state-preserving disposable upgrade/cutover. Final source passes
-1,927 Node/201 Python tests. Frozen JS97d8ee0b… /75-file inventorye9b5c4be…;
-normal backend candidate8b853bc7… is unactivated.
-
-The complete installed gate has51/52 PASS; its sustained case fails backend
-performance-limit/wire assertions. An unchanged quiet repeat passes its entire
-15-minute Normal/Economy/Lifeline gameplay windows but still fails strict wire
-finalization. Proxy evidence records reads exceeding the unchanged10s deadline.
-No assertion, deadline or trust check was relaxed. New-source hosted CI is blocked
-by unavailable Git HTTPS credentials; remote remains74f0818. This is not a release
-qualification pass and grants no deployment/paid-state authority.
+Frontend usability can be considered separately on certified Rules7; Rules9 needs
+separate backend-upgrade/activation approval. No production deployment or backend,
+settings/controllers, funding, Ledger or gameplay update was performed. Rules9 is
+inactive. The audio trial is unchanged; historical P09 remains FAIL/accepted trial
+limitation, not a general performance pass. Prior local installed FAIL attempts are
+preserved; no deadline, strict capture or trust assertion was relaxed. Physical-device
+and hardware performance are not inferred from CI.
 
 ---
 

@@ -1,51 +1,138 @@
 {
-  "observed_remote_head": "74f08183b905d97dbfd821ede0a4c2cdc47538f5",
-  "historical_run": 43519301054,
-  "historical_qualified_sha": "74f08183b905d97dbfd821ede0a4c2cdc47538f5",
-  "historical_jobs": [
+  "observed_at": "2026-11-14T11:57:02.699Z",
+  "observed_remote_head": "7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9",
+  "candidate_sha": "7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9",
+  "run_id": 43587243414,
+  "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414",
+  "run_status": "completed",
+  "run_conclusion": "success",
+  "jobs": [
     {
+      "id": 132424269691,
       "name": "Native conformance",
       "status": "completed",
       "conclusion": "success",
-      "counted_substantive": true
+      "started_at": "2026-11-14T10:51:33Z",
+      "completed_at": "2026-11-14T10:53:03Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269691",
+      "counted_substantive": true,
+      "step_conclusions": []
     },
     {
-      "name": "Source conformance",
-      "status": "completed",
-      "conclusion": "success",
-      "counted_substantive": true
-    },
-    {
-      "name": "S14 and million-cell installed-IC qualification",
-      "status": "completed",
-      "conclusion": "success",
-      "counted_substantive": true
-    },
-    {
-      "name": "Browser HTTP and Web Crypto",
-      "status": "completed",
-      "conclusion": "success",
-      "counted_substantive": true
-    },
-    {
+      "id": 132424269822,
       "name": "BLOCKED production inventory (not a pass)",
       "status": "completed",
       "conclusion": "success",
-      "counted_substantive": false
+      "started_at": "2026-11-14T10:51:32Z",
+      "completed_at": "2026-11-14T10:51:35Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269822",
+      "counted_substantive": false,
+      "step_conclusions": []
     },
     {
-      "name": "Runtime-lab Wasm",
-      "status": "completed",
-      "conclusion": "success",
-      "counted_substantive": true
-    },
-    {
+      "id": 132424269828,
       "name": "Packaged DTR and clean consumers",
       "status": "completed",
       "conclusion": "success",
-      "counted_substantive": true
+      "started_at": "2026-11-14T10:51:32Z",
+      "completed_at": "2026-11-14T10:52:12Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269828",
+      "counted_substantive": true,
+      "step_conclusions": []
+    },
+    {
+      "id": 132424269842,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-14T10:51:32Z",
+      "completed_at": "2026-11-14T11:55:23Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269842",
+      "counted_substantive": true,
+      "step_conclusions": []
+    },
+    {
+      "id": 132424269866,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-14T10:51:33Z",
+      "completed_at": "2026-11-14T11:02:42Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269866",
+      "counted_substantive": true,
+      "step_conclusions": []
+    },
+    {
+      "id": 132424269867,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-14T10:51:32Z",
+      "completed_at": "2026-11-14T10:53:25Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269867",
+      "counted_substantive": true,
+      "step_conclusions": []
+    },
+    {
+      "id": 132424269891,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-14T10:51:33Z",
+      "completed_at": "2026-11-14T10:55:16Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43587243414/job/132424269891",
+      "counted_substantive": true,
+      "step_conclusions": []
     }
   ],
-  "current_candidate_hosted_status": "BLOCKED: normal Git push failed because HTTPS username credentials are unavailable; no current-source hosted run exists.",
-  "guard_note": "The success conclusion of the separately labelled BLOCKED production inventory job is informational, never a seventh qualification gate."
+  "substantive_passes": 6,
+  "qualification": "PASS all six substantive hosted gates for exact published7f5eeed; informational guard excluded",
+  "historical_audio_run": {
+    "historical_run": 43519301054,
+    "historical_qualified_sha": "74f08183b905d97dbfd821ede0a4c2cdc47538f5",
+    "historical_jobs": [
+      {
+        "name": "Native conformance",
+        "status": "completed",
+        "conclusion": "success",
+        "counted_substantive": true
+      },
+      {
+        "name": "Source conformance",
+        "status": "completed",
+        "conclusion": "success",
+        "counted_substantive": true
+      },
+      {
+        "name": "S14 and million-cell installed-IC qualification",
+        "status": "completed",
+        "conclusion": "success",
+        "counted_substantive": true
+      },
+      {
+        "name": "Browser HTTP and Web Crypto",
+        "status": "completed",
+        "conclusion": "success",
+        "counted_substantive": true
+      },
+      {
+        "name": "BLOCKED production inventory (not a pass)",
+        "status": "completed",
+        "conclusion": "success",
+        "counted_substantive": false
+      },
+      {
+        "name": "Runtime-lab Wasm",
+        "status": "completed",
+        "conclusion": "success",
+        "counted_substantive": true
+      },
+      {
+        "name": "Packaged DTR and clean consumers",
+        "status": "completed",
+        "conclusion": "success",
+        "counted_substantive": true
+      }
+    ]
+  }
 }

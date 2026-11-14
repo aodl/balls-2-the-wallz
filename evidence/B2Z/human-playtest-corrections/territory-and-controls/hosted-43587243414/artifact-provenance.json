@@ -1,0 +1,28 @@
+{
+  "qualified_source": "7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9",
+  "downloaded_artifacts": [
+    {
+      "name": "wasm-evidence",
+      "zip_sha256": "02da34d16f11d59b9b929ed80dcc66d98de0734e95586366ce909695f9873237"
+    },
+    {
+      "name": "browser-evidence",
+      "zip_sha256": "1266d299629d3381f26a3f3bb16cbf36075f398a48a3c6e021f465a188687b5b"
+    },
+    {
+      "name": "local-ic-evidence",
+      "zip_sha256": "8f4bb3d199326959429078bd9e2694096e75e84d3313d3576bf82fa02d1e6fb1"
+    }
+  ],
+  "hosted_normal_wasm": {
+    "sha256": "8f3288fa18cfecbe3ea946479b380eda24e4dbcdca7435ac5b1c052620639e88",
+    "bytes": 3580379,
+    "matches_hosted_wasm_gate": true
+  },
+  "retained_normal_wasm": {
+    "sha256": "8b853bc7a93a225ad600b6acb857693a15a08c76c14650d2f849c7e7c2530caf",
+    "bytes": 3579652,
+    "exact_local_european_predecessor_installed_proof": "../installed/qualification.json"
+  },
+  "observed_build_difference": "Embedded checkout paths and Cargo registry paths differ (/home/runner versus /home/codexdev). This establishes non-reproducible path-bearing bytes; not a claim that these are the sole differences or proof of normalized module equality. Production source/dependency inputs match. No rebuild or substitution."
+}

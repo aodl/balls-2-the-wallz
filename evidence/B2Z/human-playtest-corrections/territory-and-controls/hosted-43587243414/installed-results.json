@@ -1,0 +1,1284 @@
+{
+  "source_revision": "7f5eeed7d2b5eacc55bf1eab2abe4ccd579a8ab9",
+  "checkpoint": "S14",
+  "overall": "PASS",
+  "checks": [
+    {
+      "id": "prepare-operator-genesis",
+      "command": [
+        "node",
+        "tools/prepare_s14_init.mjs",
+        "--world-output",
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-integration/s14-local/genesis-world.bin",
+        "--output",
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-integration/s14-local/example-init.did"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.114,
+      "timeout_seconds": 60,
+      "log": "logs/prepare-operator-genesis.log"
+    },
+    {
+      "id": "build-normal",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 66.913,
+      "timeout_seconds": 900,
+      "log": "logs/build-normal.log"
+    },
+    {
+      "id": "build-test-hooks",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline",
+        "--features",
+        "test-hooks"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 24.624,
+      "timeout_seconds": 900,
+      "log": "logs/build-test-hooks.log"
+    },
+    {
+      "id": "host-tests",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "canisters/runtime-lab/Cargo.toml",
+        "--locked",
+        "--offline",
+        "--",
+        "--nocapture"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 46.838,
+      "timeout_seconds": 900,
+      "log": "logs/host-tests.log"
+    },
+    {
+      "id": "build-slow-index-fixture",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "tools/s14-index-fixture/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 25.319,
+      "timeout_seconds": 900,
+      "log": "logs/build-slow-index-fixture.log"
+    },
+    {
+      "id": "build-cmc-fixture",
+      "command": [
+        "cargo",
+        "build",
+        "--manifest-path",
+        "tools/cmc-funding-fixture/Cargo.toml",
+        "--release",
+        "--target",
+        "wasm32-unknown-unknown",
+        "--locked",
+        "--offline"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 36.015,
+      "timeout_seconds": 900,
+      "log": "logs/build-cmc-fixture.log"
+    },
+    {
+      "id": "harness-build",
+      "command": [
+        "cargo",
+        "test",
+        "--manifest-path",
+        "tools/s09-integration/Cargo.toml",
+        "--test",
+        "s14_index",
+        "--no-run",
+        "--locked",
+        "--offline",
+        "--message-format=json"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 82.315,
+      "timeout_seconds": 900,
+      "log": "logs/harness-build.log"
+    },
+    {
+      "id": "installed-index-integration--arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 141.102,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments.log",
+      "test": "arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--arena_reserve_preserves_admitted_and_index_pending_payments",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "arena_reserve_preserves_admitted_and_index_pending_payments",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 10.53,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--arena_reserve_preserves_admitted_and_index_pending_payments.log",
+      "test": "arena_reserve_preserves_admitted_and_index_pending_payments",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--b2z_callback_trap_recovers_through_fallback_without_reset",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "b2z_callback_trap_recovers_through_fallback_without_reset",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 5.598,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--b2z_callback_trap_recovers_through_fallback_without_reset.log",
+      "test": "b2z_callback_trap_recovers_through_fallback_without_reset",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--bounded_history_windows_drain_256_257_and_513_without_skipping",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "bounded_history_windows_drain_256_257_and_513_without_skipping",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 26.045,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--bounded_history_windows_drain_256_257_and_513_without_skipping.log",
+      "test": "bounded_history_windows_drain_256_257_and_513_without_skipping",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--complete_index_range_backpressure_preserves_both_documents",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "complete_index_range_backpressure_preserves_both_documents",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.315,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--complete_index_range_backpressure_preserves_both_documents.log",
+      "test": "complete_index_range_backpressure_preserves_both_documents",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--controlled_index_pagination_lag_failure_and_upgrade",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "controlled_index_pagination_lag_failure_and_upgrade",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 5.796,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--controlled_index_pagination_lag_failure_and_upgrade.log",
+      "test": "controlled_index_pagination_lag_failure_and_upgrade",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--deployed_bundle_live_index_payments_reconnect_and_upgrade",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 321.803,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--deployed_bundle_live_index_payments_reconnect_and_upgrade.log",
+      "test": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--empty_arena_all_player_elimination_preserves_scores_then_idles",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "empty_arena_all_player_elimination_preserves_scores_then_idles",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 6.72,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--empty_arena_all_player_elimination_preserves_scores_then_idles.log",
+      "test": "empty_arena_all_player_elimination_preserves_scores_then_idles",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 17.865,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation.log",
+      "test": "empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--entry_installed-clearance_rules9_on_normal_installed_module",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "entry_installed::clearance_rules9_on_normal_installed_module",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 218.844,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--entry_installed-clearance_rules9_on_normal_installed_module.log",
+      "test": "entry_installed::clearance_rules9_on_normal_installed_module",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--europe-europe_empty_reconciliation_and_maintenance_costs",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "europe::europe_empty_reconciliation_and_maintenance_costs",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 55.289,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--europe-europe_empty_reconciliation_and_maintenance_costs.log",
+      "test": "europe::europe_empty_reconciliation_and_maintenance_costs",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--europe-europe_fresh_normal_empty_genesis_authenticated_epochs_and_external_payment",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "europe::europe_fresh_normal_empty_genesis_authenticated_epochs_and_external_payment",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 7.852,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--europe-europe_fresh_normal_empty_genesis_authenticated_epochs_and_external_payment.log",
+      "test": "europe::europe_fresh_normal_empty_genesis_authenticated_epochs_and_external_payment",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--europe-europe_hint_costs_and_independent_fallback",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "europe::europe_hint_costs_and_independent_fallback",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 14.15,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--europe-europe_hint_costs_and_independent_fallback.log",
+      "test": "europe::europe_hint_costs_and_independent_fallback",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--europe-europe_low_floor_transition_and_recovery_headroom",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "europe::europe_low_floor_transition_and_recovery_headroom",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 18.701,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--europe-europe_low_floor_transition_and_recovery_headroom.log",
+      "test": "europe::europe_low_floor_transition_and_recovery_headroom",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--europe-europe_trickle_bounded_real_cadence",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "europe::europe_trickle_bounded_real_cadence",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 111.13,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--europe-europe_trickle_bounded_real_cadence.log",
+      "test": "europe::europe_trickle_bounded_real_cadence",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--europe-europe_trickle_pending_payment_recovers_after_replenishment",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "europe::europe_trickle_pending_payment_recovers_after_replenishment",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 10.536,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--europe-europe_trickle_pending_payment_recovers_after_replenishment.log",
+      "test": "europe::europe_trickle_pending_payment_recovers_after_replenishment",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--million_browser_output_isolation_preserves_existing_evidence",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "million_browser_output_isolation_preserves_existing_evidence",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.004,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--million_browser_output_isolation_preserves_existing_evidence.log",
+      "test": "million_browser_output_isolation_preserves_existing_evidence",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--playability_installed-human_corrections_certified_startup_and_transient_recovery",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "playability_installed::human_corrections_certified_startup_and_transient_recovery",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 342.362,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--playability_installed-human_corrections_certified_startup_and_transient_recovery.log",
+      "test": "playability_installed::human_corrections_certified_startup_and_transient_recovery",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--public_runtime_health_is_bounded_operational_and_anonymous",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "public_runtime_health_is_bounded_operational_and_anonymous",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 4.808,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--public_runtime_health_is_bounded_operational_and_anonymous.log",
+      "test": "public_runtime_health_is_bounded_operational_and_anonymous",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--slow_index_calls_coalesce_timers_and_fence_late_responses",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "slow_index_calls_coalesce_timers_and_fence_late_responses",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 9.666,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--slow_index_calls_coalesce_timers_and_fence_late_responses.log",
+      "test": "slow_index_calls_coalesce_timers_and_fence_late_responses",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--source-tests-bounded_windows_drain_256_257_and_1025_sparse_records_across_restore",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "source::tests::bounded_windows_drain_256_257_and_1025_sparse_records_across_restore",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.816,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--source-tests-bounded_windows_drain_256_257_and_1025_sparse_records_across_restore.log",
+      "test": "source::tests::bounded_windows_drain_256_257_and_1025_sparse_records_across_restore",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--source-tests-classification_preserves_memo_and_delegation_rules",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "source::tests::classification_preserves_memo_and_delegation_rules",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.004,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--source-tests-classification_preserves_memo_and_delegation_rules.log",
+      "test": "source::tests::classification_preserves_memo_and_delegation_rules",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--source-tests-duplicate_nonadvancing_inconsistent_and_overflow_pages_rejected",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "source::tests::duplicate_nonadvancing_inconsistent_and_overflow_pages_rejected",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.008,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--source-tests-duplicate_nonadvancing_inconsistent_and_overflow_pages_rejected.log",
+      "test": "source::tests::duplicate_nonadvancing_inconsistent_and_overflow_pages_rejected",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--source-tests-durable_pending_and_capacity_never_advance_admission",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "source::tests::durable_pending_and_capacity_never_advance_admission",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.064,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--source-tests-durable_pending_and_capacity_never_advance_admission.log",
+      "test": "source::tests::durable_pending_and_capacity_never_advance_admission",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--source-tests-empty_history_and_unchanged_account_are_safe",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "source::tests::empty_history_and_unchanged_account_are_safe",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.008,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--source-tests-empty_history_and_unchanged_account_are_safe.log",
+      "test": "source::tests::empty_history_and_unchanged_account_are_safe",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--source-tests-exact_numeric_subaccount_derivation",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "source::tests::exact_numeric_subaccount_derivation",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.004,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--source-tests-exact_numeric_subaccount_derivation.log",
+      "test": "source::tests::exact_numeric_subaccount_derivation",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--source-tests-full_nat64_source_positions_and_subaccounts_survive_durable_codec",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "source::tests::full_nat64_source_positions_and_subaccounts_survive_durable_codec",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.008,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--source-tests-full_nat64_source_positions_and_subaccounts_survive_durable_codec.log",
+      "test": "source::tests::full_nat64_source_positions_and_subaccounts_survive_durable_codec",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--source-tests-invalid_text_then_valid_payment_preserves_ids_digests_and_pending",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "source::tests::invalid_text_then_valid_payment_preserves_ids_digests_and_pending",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.008,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--source-tests-invalid_text_then_valid_payment_preserves_ids_digests_and_pending.log",
+      "test": "source::tests::invalid_text_then_valid_payment_preserves_ids_digests_and_pending",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--source-tests-poke_target_positive_nat_and_bounded_vector",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "source::tests::poke_target_positive_nat_and_bounded_vector",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.004,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--source-tests-poke_target_positive_nat_and_bounded_vector.log",
+      "test": "source::tests::poke_target_positive_nat_and_bounded_vector",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--source-tests-sparse_pages_frozen_high_and_oldest_first",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "source::tests::sparse_pages_frozen_high_and_oldest_first",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.008,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--source-tests-sparse_pages_frozen_high_and_oldest_first.log",
+      "test": "source::tests::sparse_pages_frozen_high_and_oldest_first",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--source-tests-v6_adapter_is_explicit_and_preserves_normalized_history",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "source::tests::v6_adapter_is_explicit_and_preserves_normalized_history",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.008,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--source-tests-v6_adapter_is_explicit_and_preserves_normalized_history.log",
+      "test": "source::tests::v6_adapter_is_explicit_and_preserves_normalized_history",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--torus_all_player_elimination_sleeps_without_a_browser",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "torus_all_player_elimination_sleeps_without_a_browser",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 8.467,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--torus_all_player_elimination_sleeps_without_a_browser.log",
+      "test": "torus_all_player_elimination_sleeps_without_a_browser",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 54.662,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--torus_browser_authenticated_epoch_recovers_and_stales_old_move.log",
+      "test": "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--torus_browser_scene_camera_and_continuous_supported_playback",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "torus_browser_scene_camera_and_continuous_supported_playback",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 175.625,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--torus_browser_scene_camera_and_continuous_supported_playback.log",
+      "test": "torus_browser_scene_camera_and_continuous_supported_playback",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--torus_delayed_official_index_paginates_old_history_and_holds_new_rows",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "torus_delayed_official_index_paginates_old_history_and_holds_new_rows",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 8.431,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--torus_delayed_official_index_paginates_old_history_and_holds_new_rows.log",
+      "test": "torus_delayed_official_index_paginates_old_history_and_holds_new_rows",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--torus_local_index_orientation_and_pending_upgrade_preserve_exact_replay",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "torus_local_index_orientation_and_pending_upgrade_preserve_exact_replay",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 52.132,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--torus_local_index_orientation_and_pending_upgrade_preserve_exact_replay.log",
+      "test": "torus_local_index_orientation_and_pending_upgrade_preserve_exact_replay",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 16.336,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade.log",
+      "test": "torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--upstream_index_poke_fallback_upgrade_and_replay",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "upstream_index_poke_fallback_upgrade_and_replay",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 18.154,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--upstream_index_poke_fallback_upgrade_and_replay.log",
+      "test": "upstream_index_poke_fallback_upgrade_and_replay",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-index-integration--upstream_text_memos_normalize_once_and_preserve_pending_upgrade",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "upstream_text_memos_normalize_once_and_preserve_pending_upgrade",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 18.707,
+      "timeout_seconds": 900,
+      "log": "logs/installed-index-integration--upstream_text_memos_normalize_once_and_preserve_pending_upgrade.log",
+      "test": "upstream_text_memos_normalize_once_and_preserve_pending_upgrade",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-million-integration--million_browser_normal_lifeline_and_cold_reconnect",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "million_browser_normal_lifeline_and_cold_reconnect",
+        "--exact",
+        "--ignored",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 234.433,
+      "timeout_seconds": 900,
+      "log": "logs/installed-million-integration--million_browser_normal_lifeline_and_cold_reconnect.log",
+      "test": "million_browser_normal_lifeline_and_cold_reconnect",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-million-integration--million_browser_sustained_normal_and_cold_lifeline",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "million_browser_sustained_normal_and_cold_lifeline",
+        "--exact",
+        "--ignored",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 1349.324,
+      "timeout_seconds": 2100,
+      "log": "logs/installed-million-integration--million_browser_sustained_normal_and_cold_lifeline.log",
+      "test": "million_browser_sustained_normal_and_cold_lifeline",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-million-integration--million_max_population_production_probe",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "million_max_population_production_probe",
+        "--exact",
+        "--ignored",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 20.145,
+      "timeout_seconds": 900,
+      "log": "logs/installed-million-integration--million_max_population_production_probe.log",
+      "test": "million_max_population_production_probe",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-million-integration--million_paid_v4_cutover_preserves_state_and_uses_second_epoch",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "million_paid_v4_cutover_preserves_state_and_uses_second_epoch",
+        "--exact",
+        "--ignored",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 26.893,
+      "timeout_seconds": 900,
+      "log": "logs/installed-million-integration--million_paid_v4_cutover_preserves_state_and_uses_second_epoch.log",
+      "test": "million_paid_v4_cutover_preserves_state_and_uses_second_epoch",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-funding-integration--funding_tests-funding_actual_changed_fee_dust_accumulation_and_rejected_game_payments",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "funding_tests::funding_actual_changed_fee_dust_accumulation_and_rejected_game_payments",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 17.457,
+      "timeout_seconds": 900,
+      "log": "logs/installed-funding-integration--funding_tests-funding_actual_changed_fee_dust_accumulation_and_rejected_game_payments.log",
+      "test": "funding_tests::funding_actual_changed_fee_dust_accumulation_and_rejected_game_payments",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-funding-integration--funding_tests-funding_bounded_empty_maintenance_overhead",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "funding_tests::funding_bounded_empty_maintenance_overhead",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 7.368,
+      "timeout_seconds": 900,
+      "log": "logs/installed-funding-integration--funding_tests-funding_bounded_empty_maintenance_overhead.log",
+      "test": "funding_tests::funding_bounded_empty_maintenance_overhead",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-funding-integration--funding_tests-funding_expired_ambiguous_transfer_never_creates_replacement",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "funding_tests::funding_expired_ambiguous_transfer_never_creates_replacement",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 8.903,
+      "timeout_seconds": 900,
+      "log": "logs/installed-funding-integration--funding_tests-funding_expired_ambiguous_transfer_never_creates_replacement.log",
+      "test": "funding_tests::funding_expired_ambiguous_transfer_never_creates_replacement",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-funding-integration--funding_tests-funding_lifeline_recovers_without_gameplay_or_browser",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "funding_tests::funding_lifeline_recovers_without_gameplay_or_browser",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 5.881,
+      "timeout_seconds": 900,
+      "log": "logs/installed-funding-integration--funding_tests-funding_lifeline_recovers_without_gameplay_or_browser.log",
+      "test": "funding_tests::funding_lifeline_recovers_without_gameplay_or_browser",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-funding-integration--funding_tests-funding_low_liquid_cycles_defer_then_recover_without_browser",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "funding_tests::funding_low_liquid_cycles_defer_then_recover_without_browser",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 6.215,
+      "timeout_seconds": 900,
+      "log": "logs/installed-funding-integration--funding_tests-funding_low_liquid_cycles_defer_then_recover_without_browser.log",
+      "test": "funding_tests::funding_low_liquid_cycles_defer_then_recover_without_browser",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-funding-integration--funding_tests-funding_pending_upgrade_duplicates_notification_retry_and_new_deposits",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "funding_tests::funding_pending_upgrade_duplicates_notification_retry_and_new_deposits",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 42.115,
+      "timeout_seconds": 900,
+      "log": "logs/installed-funding-integration--funding_tests-funding_pending_upgrade_duplicates_notification_retry_and_new_deposits.log",
+      "test": "funding_tests::funding_pending_upgrade_duplicates_notification_retry_and_new_deposits",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-funding-integration--funding_tests-funding_real_ledger_join_sweep_index_and_upgrade_preserve_history",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "funding_tests::funding_real_ledger_join_sweep_index_and_upgrade_preserve_history",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 9.217,
+      "timeout_seconds": 900,
+      "log": "logs/installed-funding-integration--funding_tests-funding_real_ledger_join_sweep_index_and_upgrade_preserve_history.log",
+      "test": "funding_tests::funding_real_ledger_join_sweep_index_and_upgrade_preserve_history",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-funding-integration--funding_tests-funding_refund_and_terminal_notification_halt_with_evidence",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "funding_tests::funding_refund_and_terminal_notification_halt_with_evidence",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 19.657,
+      "timeout_seconds": 900,
+      "log": "logs/installed-funding-integration--funding_tests-funding_refund_and_terminal_notification_halt_with_evidence.log",
+      "test": "funding_tests::funding_refund_and_terminal_notification_halt_with_evidence",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "installed-funding-cutover-integration--funding_tests-funding_torus_cutover_preserves_pending_finance_and_outgoing_classification",
+      "command": [
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/s09-integration/target/debug/deps/s14_index-87fd8ae3f4d2b5c7",
+        "funding_tests::funding_torus_cutover_preserves_pending_finance_and_outgoing_classification",
+        "--exact",
+        "--nocapture",
+        "--test-threads=1"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 23.483,
+      "timeout_seconds": 300,
+      "log": "logs/installed-funding-cutover-integration--funding_tests-funding_torus_cutover_preserves_pending_finance_and_outgoing_classification.log",
+      "test": "funding_tests::funding_torus_cutover_preserves_pending_finance_and_outgoing_classification",
+      "pocketic_server_exit": null
+    },
+    {
+      "id": "js-captured-history-replay",
+      "command": [
+        "node",
+        "tools/replay_s14.mjs",
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-integration/s14-local/index-trace.json",
+        "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-integration/s14-local/js-replay.json"
+      ],
+      "exit_code": 0,
+      "status": "PASS",
+      "elapsed_seconds": 0.465,
+      "timeout_seconds": 180,
+      "log": "logs/js-captured-history-replay.log"
+    }
+  ],
+  "artifacts": [
+    {
+      "name": "POCKET_IC_BIN",
+      "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+      "path": "/home/runner/dtr-s09-artifacts/bin/pocket-ic"
+    },
+    {
+      "name": "ICP_LEDGER_WASM",
+      "sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+      "path": "/home/runner/dtr-s09-artifacts/wasm/ledger-canister.wasm"
+    },
+    {
+      "name": "ICP_INDEX_WASM",
+      "sha256": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30",
+      "path": "/home/runner/dtr-s09-artifacts/wasm/ic-icp-index-canister.wasm"
+    },
+    {
+      "name": "normal",
+      "sha256": "8f3288fa18cfecbe3ea946479b380eda24e4dbcdca7435ac5b1c052620639e88",
+      "exports": [
+        "memory",
+        "canister_init",
+        "canister_post_upgrade",
+        "canister_query action_quote",
+        "canister_query artifact_bundle",
+        "canister_query artifact_chunk",
+        "canister_query cannon_state",
+        "canister_query clearance_transition_status",
+        "canister_query controller_funding",
+        "canister_query controller_runtime",
+        "canister_query controller_work",
+        "canister_query entry_transition_status",
+        "canister_query epoch_metadata",
+        "canister_query game_info",
+        "canister_query get_api_doc",
+        "canister_query lab_status",
+        "canister_query million_transition_status",
+        "canister_query nearby_region",
+        "canister_query observation",
+        "canister_query observation_bundle",
+        "canister_query payment_receipt",
+        "canister_query playability_transition_status",
+        "canister_query player_state",
+        "canister_query retained_artifact_chunk",
+        "canister_query retained_publication",
+        "canister_query retention_status",
+        "canister_query runtime_health",
+        "canister_query source_descriptor",
+        "canister_query torus_transition_status",
+        "canister_update commit_clearance_transition",
+        "canister_update commit_entry_transition",
+        "canister_update commit_million_transition",
+        "canister_update commit_playability_transition",
+        "canister_update commit_torus_transition",
+        "canister_update pause_autonomous",
+        "canister_update poke",
+        "canister_update prepare_clearance_transition",
+        "canister_update prepare_entry_transition",
+        "canister_update prepare_million_transition",
+        "canister_update prepare_playability_transition",
+        "canister_update prepare_torus_transition",
+        "canister_update set_funding_paused",
+        "canister_update start_autonomous",
+        "get_candid_pointer",
+        "canister_global_timer",
+        "canister_update <ic-cdk internal> timer_executor",
+        "__data_end",
+        "__heap_base"
+      ]
+    },
+    {
+      "name": "test-hooks",
+      "sha256": "9d5314622b4000d9f5dc964afb32f89fc6fc6830aafc77542ba5c44ad1bc5e06",
+      "exports": [
+        "memory",
+        "canister_init",
+        "canister_post_upgrade",
+        "canister_query action_quote",
+        "canister_query artifact_bundle",
+        "canister_query artifact_chunk",
+        "canister_query cannon_state",
+        "canister_query clearance_transition_status",
+        "canister_query controller_funding",
+        "canister_query controller_runtime",
+        "canister_query controller_work",
+        "canister_query entry_transition_status",
+        "canister_query epoch_metadata",
+        "canister_query game_info",
+        "canister_query get_api_doc",
+        "canister_query lab_status",
+        "canister_query million_transition_status",
+        "canister_query nearby_region",
+        "canister_query observation",
+        "canister_query observation_bundle",
+        "canister_query payment_receipt",
+        "canister_query playability_transition_status",
+        "canister_query player_state",
+        "canister_query retained_artifact_chunk",
+        "canister_query retained_publication",
+        "canister_query retention_status",
+        "canister_query runtime_health",
+        "canister_query source_descriptor",
+        "canister_query torus_transition_status",
+        "canister_update commit_clearance_transition",
+        "canister_update commit_entry_transition",
+        "canister_update commit_million_transition",
+        "canister_update commit_playability_transition",
+        "canister_update commit_torus_transition",
+        "canister_update pause_autonomous",
+        "canister_update poke",
+        "canister_update prepare_clearance_transition",
+        "canister_update prepare_entry_transition",
+        "canister_update prepare_million_transition",
+        "canister_update prepare_playability_transition",
+        "canister_update prepare_torus_transition",
+        "canister_update set_funding_paused",
+        "canister_update start_autonomous",
+        "canister_update test_apply",
+        "canister_update test_funding_fault",
+        "canister_update test_liquid_budget",
+        "canister_update test_source_interval",
+        "canister_update test_trap_next_index_reply",
+        "get_candid_pointer",
+        "canister_global_timer",
+        "canister_update <ic-cdk internal> timer_executor",
+        "__data_end",
+        "__heap_base"
+      ]
+    }
+  ],
+  "dtr_development_revision": null,
+  "dependency_mode": "published-immutable-git",
+  "dtr_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+  "host_lock_sha256": "757cf3408f5542966d808b17ccce13999d8abe88a56c79d0bcde4a45c08bc71a",
+  "javascript_package": {
+    "version": "0.15.0",
+    "integrity": "sha512-DV/YC5bmSSoifJqdQjFFdL1IH0QVTda/8ppbityy2vEDy0smACGZSQ+N+dM8YGiMiUeBfd4IKRq7pKfxlwsvhQ==",
+    "resolved": "file:vendor/dtr/dtr-timeline-runtime-0.15.0.tgz"
+  },
+  "installed_suites": [
+    {
+      "id": "installed-index-integration",
+      "selected": [
+        "arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments",
+        "arena_reserve_preserves_admitted_and_index_pending_payments",
+        "b2z_callback_trap_recovers_through_fallback_without_reset",
+        "bounded_history_windows_drain_256_257_and_513_without_skipping",
+        "complete_index_range_backpressure_preserves_both_documents",
+        "controlled_index_pagination_lag_failure_and_upgrade",
+        "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+        "empty_arena_all_player_elimination_preserves_scores_then_idles",
+        "empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation",
+        "entry_installed::clearance_rules9_on_normal_installed_module",
+        "europe::europe_empty_reconciliation_and_maintenance_costs",
+        "europe::europe_fresh_normal_empty_genesis_authenticated_epochs_and_external_payment",
+        "europe::europe_hint_costs_and_independent_fallback",
+        "europe::europe_low_floor_transition_and_recovery_headroom",
+        "europe::europe_trickle_bounded_real_cadence",
+        "europe::europe_trickle_pending_payment_recovers_after_replenishment",
+        "million_browser_output_isolation_preserves_existing_evidence",
+        "playability_installed::human_corrections_certified_startup_and_transient_recovery",
+        "public_runtime_health_is_bounded_operational_and_anonymous",
+        "slow_index_calls_coalesce_timers_and_fence_late_responses",
+        "source::tests::bounded_windows_drain_256_257_and_1025_sparse_records_across_restore",
+        "source::tests::classification_preserves_memo_and_delegation_rules",
+        "source::tests::duplicate_nonadvancing_inconsistent_and_overflow_pages_rejected",
+        "source::tests::durable_pending_and_capacity_never_advance_admission",
+        "source::tests::empty_history_and_unchanged_account_are_safe",
+        "source::tests::exact_numeric_subaccount_derivation",
+        "source::tests::full_nat64_source_positions_and_subaccounts_survive_durable_codec",
+        "source::tests::invalid_text_then_valid_payment_preserves_ids_digests_and_pending",
+        "source::tests::poke_target_positive_nat_and_bounded_vector",
+        "source::tests::sparse_pages_frozen_high_and_oldest_first",
+        "source::tests::v6_adapter_is_explicit_and_preserves_normalized_history",
+        "torus_all_player_elimination_sleeps_without_a_browser",
+        "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+        "torus_browser_scene_camera_and_continuous_supported_playback",
+        "torus_delayed_official_index_paginates_old_history_and_holds_new_rows",
+        "torus_local_index_orientation_and_pending_upgrade_preserve_exact_replay",
+        "torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade",
+        "upstream_index_poke_fallback_upgrade_and_replay",
+        "upstream_text_memos_normalize_once_and_preserve_pending_upgrade"
+      ],
+      "ignored": [
+        "agent_playtesting::restricted_executor_ledger_index_rehearsal",
+        "arena_matched_prior_producer_cost_comparison",
+        "arena_unfinished_old_segment_survives_upgrade",
+        "arena_upgrade_from_installed_idle_module",
+        "b2z_upgrade_from_s15_with_players_publications_and_pending",
+        "delivery_public_binding",
+        "empty_arena_old_new_cost_comparison",
+        "empty_arena_upgrade_preserves_players_publications_and_pending",
+        "entry_installed::european_rules7_upgrade_and_clearance",
+        "entry_installed::full_world_upgrade_and_first_entry",
+        "europe::europe_natural_initial_budget_activates_rules_and_enters_trickle",
+        "million_browser_normal_lifeline_and_cold_reconnect",
+        "million_browser_sustained_normal_and_cold_lifeline",
+        "million_max_population_production_probe",
+        "million_paid_v4_cutover_preserves_state_and_uses_second_epoch",
+        "operation_cache_profile",
+        "operation_cost::quiet_profile",
+        "pacing_upgrade_from_exact_torus_preserves_paid_state_and_normal_rate",
+        "playability_installed::paid_island_upgrade_rehearsal",
+        "playability_installed::playability_cost_comparison",
+        "playability_profile::playability_admission_screen",
+        "pricing_profile_upgrade_preserves_history_but_does_not_reprice",
+        "s15_upgrade_from_deployed_module_with_players_publications_and_pending"
+      ]
+    },
+    {
+      "id": "installed-million-integration",
+      "selected": [
+        "million_browser_normal_lifeline_and_cold_reconnect",
+        "million_browser_sustained_normal_and_cold_lifeline",
+        "million_max_population_production_probe",
+        "million_paid_v4_cutover_preserves_state_and_uses_second_epoch"
+      ],
+      "ignored": [
+        "million_browser_output_isolation_preserves_existing_evidence"
+      ]
+    },
+    {
+      "id": "installed-funding-integration",
+      "selected": [
+        "funding_tests::funding_actual_changed_fee_dust_accumulation_and_rejected_game_payments",
+        "funding_tests::funding_bounded_empty_maintenance_overhead",
+        "funding_tests::funding_expired_ambiguous_transfer_never_creates_replacement",
+        "funding_tests::funding_lifeline_recovers_without_gameplay_or_browser",
+        "funding_tests::funding_low_liquid_cycles_defer_then_recover_without_browser",
+        "funding_tests::funding_pending_upgrade_duplicates_notification_retry_and_new_deposits",
+        "funding_tests::funding_real_ledger_join_sweep_index_and_upgrade_preserve_history",
+        "funding_tests::funding_refund_and_terminal_notification_halt_with_evidence"
+      ],
+      "ignored": []
+    },
+    {
+      "id": "installed-funding-cutover-integration",
+      "selected": [
+        "funding_tests::funding_torus_cutover_preserves_pending_finance_and_outgoing_classification"
+      ],
+      "ignored": []
+    }
+  ]
+}

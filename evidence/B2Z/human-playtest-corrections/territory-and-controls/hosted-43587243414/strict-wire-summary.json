@@ -1,0 +1,19 @@
+{
+  "errors": [],
+  "bytes": 93962936,
+  "complete_through": 1045,
+  "capture_finalization": {
+    "status": "PASS",
+    "fence": 1045,
+    "fence_epoch_ms": 1794656897976.9163,
+    "accepted_responses": 2449,
+    "pending_at_fence": [],
+    "peak_pending": 6,
+    "timeout_seconds": 15,
+    "pending_after_drain": [],
+    "drain_ms": 1.8032369998763897,
+    "completed_epoch_ms": 1794656897978.7188
+  },
+  "pending_at_index": [],
+  "error_context": []
+}
