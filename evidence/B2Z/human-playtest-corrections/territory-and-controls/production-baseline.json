@@ -1,0 +1,160 @@
+{
+  "scope": "Actual production read-only baseline; no mutations",
+  "assets": [
+    {
+      "path": "app.mjs",
+      "sha256": "cba3eb98c63bb513494500de7f1b79550a1ba4332ee50181529839c6252eed0e",
+      "bytes": 2062812
+    },
+    {
+      "path": "build-manifest.json",
+      "sha256": "ad861e52f1fd87788ab418465878b213a0839ba801ad77fdaf7a40af9794f4f4",
+      "bytes": 20737
+    },
+    {
+      "path": "deployment.json",
+      "sha256": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+      "bytes": 89
+    }
+  ],
+  "views": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "head": {
+        "logical_end": 7922,
+        "manifest_hash": "767ac5f702bc64b7d136e6bfa5d927af2dcc3b9a214acbd547e6e9345f8da6b8",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": 7922,
+          "logical_start": 7921,
+          "previous_manifest": "f590666277fdd308fcd09dd4c7c034452d7d3df4cd2e90ea457e693ce6d45479",
+          "previous_state": "bf770285954e34e7e32e24093b3d1235021681b0d74842dcf367d1ec7962e460",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": 7925,
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": 40180669,
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": 40180669
+        },
+        "segment_id": 7925,
+        "source_to_exclusive": 40180669,
+        "state_hash": "fb070cc1c519734894ba9a603e99f09e2955a0220bbb89e06d5d1261e325a4ad"
+      },
+      "source": {
+        "network": "ic",
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "subaccount": 0,
+        "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "mode": "certificate-verifier",
+      "error": null
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "head": {
+        "logical_end": 7922,
+        "manifest_hash": "767ac5f702bc64b7d136e6bfa5d927af2dcc3b9a214acbd547e6e9345f8da6b8",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": 7922,
+          "logical_start": 7921,
+          "previous_manifest": "f590666277fdd308fcd09dd4c7c034452d7d3df4cd2e90ea457e693ce6d45479",
+          "previous_state": "bf770285954e34e7e32e24093b3d1235021681b0d74842dcf367d1ec7962e460",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": 7925,
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": 40180669,
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": 40180669
+        },
+        "segment_id": 7925,
+        "source_to_exclusive": 40180669,
+        "state_hash": "fb070cc1c519734894ba9a603e99f09e2955a0220bbb89e06d5d1261e325a4ad"
+      },
+      "source": {
+        "network": "ic",
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "subaccount": 0,
+        "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "mode": "certificate-verifier",
+      "error": null
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "identity": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "head": {
+        "logical_end": 7922,
+        "manifest_hash": "767ac5f702bc64b7d136e6bfa5d927af2dcc3b9a214acbd547e6e9345f8da6b8",
+        "seal": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": 7922,
+          "logical_start": 7921,
+          "previous_manifest": "f590666277fdd308fcd09dd4c7c034452d7d3df4cd2e90ea457e693ce6d45479",
+          "previous_state": "bf770285954e34e7e32e24093b3d1235021681b0d74842dcf367d1ec7962e460",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "segment_id": 7925,
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": 40180669,
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": 40180669
+        },
+        "segment_id": 7925,
+        "source_to_exclusive": 40180669,
+        "state_hash": "fb070cc1c519734894ba9a603e99f09e2955a0220bbb89e06d5d1261e325a4ad"
+      },
+      "source": {
+        "network": "ic",
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+        "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "subaccount": 0,
+        "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+      },
+      "mode": "certificate-verifier",
+      "error": null
+    }
+  ]
+}

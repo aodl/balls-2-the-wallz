@@ -1,0 +1,56 @@
+{
+  "source": "b4d2fc4677010740a36a362ca955392cd9616bd3",
+  "scope": "Previous real frontend modules; synthetic populated fixture, native browser inputs",
+  "move": {
+    "mode": "move",
+    "cell": null,
+    "degrees": "0",
+    "worldAngle": "225",
+    "quantity": 1
+  },
+  "payment_visible": false,
+  "cold": {
+    "account": "2d0e897f7e862d2b57d9bc9ea5c65f9a24ac6c074575f47898314b8d6cb0929d",
+    "selected": 1,
+    "cannons": 1,
+    "balls": 1,
+    "camera": [
+      578.5,
+      453.5,
+      64
+    ],
+    "time": 0,
+    "queue": 0,
+    "clock": null,
+    "stats": {
+      "time": 0,
+      "draw_calls": 19,
+      "triangles": 1104,
+      "tiles": 1,
+      "pieces": 2,
+      "effects": 0,
+      "geometries": 22,
+      "textures": 1,
+      "terrain_revision": 1,
+      "terrain_bytes": 4000000,
+      "terrain_dirty_rows": 1000,
+      "preview_cells": 0,
+      "tails": 0,
+      "motion": {
+        "balls": 1,
+        "tiles": 0,
+        "pathPoints": 0,
+        "pointLimit": 64,
+        "totalPointLimit": 8192,
+        "ballLimit": 4096,
+        "tileLimit": 128
+      }
+    }
+  },
+  "cold_body_count": 1,
+  "minimum_buttons": {
+    "zoom-in": false,
+    "zoom-out": false,
+    "fit": false
+  }
+}

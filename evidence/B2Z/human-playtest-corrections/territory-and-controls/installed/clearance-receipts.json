@@ -1,0 +1,43 @@
+{
+  "net_cycles": "536515747",
+  "old_rule_move_position": 4,
+  "old_target": 953074,
+  "receipts": {
+    "5": {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "5"
+      },
+      "reason": "ENEMY_TERRITORY_TOO_CLOSE",
+      "remainder": {
+        "$integer": "10000"
+      },
+      "status": "rejected"
+    },
+    "6": {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "400000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "6"
+      },
+      "reason": "ENEMY_TERRITORY_TOO_CLOSE",
+      "remainder": {
+        "$integer": "400000000"
+      },
+      "status": "rejected"
+    }
+  },
+  "scope": "Whole normal-module processing window including Ledger/Index/physics; not isolated clearance cost",
+  "status": "PASS"
+}

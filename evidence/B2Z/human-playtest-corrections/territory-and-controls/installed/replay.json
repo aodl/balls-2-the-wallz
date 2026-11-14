@@ -1,0 +1,15 @@
+{
+  "status": "PASS",
+  "segments": 134,
+  "gameplay_segments": 132,
+  "application_checkpoints": 2,
+  "assigned": [
+    "2",
+    "3",
+    "4",
+    "5",
+    "6"
+  ],
+  "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+  "work_budget": 23
+}

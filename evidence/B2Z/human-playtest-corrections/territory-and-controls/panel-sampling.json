@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "configurations": 8,
+  "actions": 24,
+  "status_transitions": 192,
+  "sampled_states": 3262,
+  "max_drift_px": 0,
+  "scope": "Native browser frames, controlled fixture readiness changes, same world/quote/clock/selection/camera; not a genuine network outage."
+}

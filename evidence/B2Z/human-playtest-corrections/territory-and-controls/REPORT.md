@@ -125,3 +125,83 @@ Backend code and cutover require separate owner approval and a compatible fronte
 After v9 preparation/activation, old v7-only backend/frontend artifacts are not blind
 rollback targets. Preserve paid state and use a qualified compatible recovery build
 or forward fix. See the rules contract and maintained operator procedure.
+
+## Frozen successor and current qualification ledger
+
+The current frozen frontend was built cleanly at
+`8fdc2a273a93d711bb18ef4bf390f18ff61acf98`; its last runtime change is
+`fbd0cdf30d8577b38bd2e102bd7198b269690a30`. Later replay/fixture corrections and
+operator/report work do not change consumed application/build/dependency inputs.
+[Frozen input parity](frozen-input-parity.json) records the exact comparison; the
+original build manifest retains its original source instead of being relabelled.
+
+- JavaScript: `97d8ee0bf61e8b76816511772ab348962d56bbf78b597acc365f48a38725cdc9`.
+- Complete75-file inventory: `e9b5c4be2216420f6f70d7c3f33f3ef4596b7d56e05c06eae43171fd629cb8c1`.
+- Total76,248,428bytes, versus76,234,102bytes in the retained deployed74-file set:
+  +14,326bytes. Only app.mjs, backend.did, build-manifest.json and the additional
+  configuration-clearance.bin differ. All audio, HTML, CSS, icons and consumed
+  upload policy remain byte-identical. Audio manifest remains `d26588b5…`.
+- Candidate normal backend Wasm: `8b853bc7a93a225ad600b6acb857693a15a08c76c14650d2f849c7e7c2530caf`,
+  3,579,652bytes, with no test/benchmark exports. Runtime source is `e7e4250…`;
+  later commits do not alter backend/build inputs. This is an unactivated candidate,
+  not the installed paid backend.
+
+[Complete inventory](frontend-inventory.json) / [candidate identities](candidate.json).
+
+Local source conformance at8065686 passed1,927/1,927 Node tests and201 Python tests.
+Native conformance at8fdc2a2 passed, including445 independent public-output vectors,
+new22 clearance vectors, recovery, historical hashes, formatting and Clippy.
+Packaged DTR/clean consumers at8065686 passed. Normal Wasm, Candid, formatting and
+Clippy at e003006 passed. The full action/payment browser journey at e003006 passed
+1440×900,390×844,320×640 and its existing storage/clipboard/reduced/input checks.
+The remaining complete browser and installed runs are recorded separately below;
+these local results are not six hosted qualification gates.
+
+## Additional retained failures and corrections
+
+10. The first real-receipt harvest used serde_json Value text parsing on canonical
+    integer objects, so it falsely found zero receipts. Actual artifacts contained
+    both positions. Typed canonical Int decoding now checks the same exact positions,
+    reason, account, zero amount_used and full remainder. No receipt assertion or
+    integer validation was removed.
+11. With that corrected, the normal-module run passed certified handoff and both
+    rejection/accounting checks, then failed independent replay because its utility
+    recognised only the rules7 successor. Strict rules9 predecessor/successor,
+    context5 and elapsed-fact handling were added. The retained133-publication Rust
+    trace then replayed exactly (131 gameplay segments,2 checkpoints,positions2–6).
+    New controlled regressions reject rehashed wrong version/cutover/adapter/anchor/
+    state/extra-field evidence and conflicting identity. Original run remains FAIL.
+12. Old browser assertions expected Move/Build to open without a proposal. They now
+    assert the required legal default and payment content, and prove an illegal
+    click cannot replace that proposal. Existing empty-proposal/same-cell/invalid
+    payment rejection checks remain, with their empty setup made explicit.
+13. Guide-depth's no-guide negative bundle silently failed to match the refactored
+    renderer expression. Its builder now requires the exact source markers before
+    replacement. All16 direction/zoom depth comparisons then passed with the same
+    ≤2% body-overdraw threshold, visible-guide check and deliberately broken depth
+    control. This was a test-variant defect, not permission to relax depth assertions.
+14. First actual-European-module upgrade attempt timed out waiting90s for the Join
+    receipt before reaching the old-module upgrade. Its wire evidence records four
+    aborted requests and successful retained-publication latency up to9.753s. That
+    run remains FAIL; assertions/deadlines were retained for the quieter repeat.
+
+## Exhaustive discovery cost
+
+The populated browser's one-cell no-destination proof visits999,999 other cells.
+A separate valid-world controlled Node case has6,000 friendly corridor cells and
+994,000 enemy cells. Every friendly candidate is within three cells of enemy
+territory. Five complete no-destination proofs took2.612–3.246s elapsed,496–505
+cooperative chunks,250,000 cache bytes and999,999 unique inspected candidates each.
+Largest measured chunk was18.307ms on the loaded/shared host. The4ms check is a
+cooperative scheduling target, not a hard GC/scheduler bound. There is no full-board
+scan on hover/frame and equivalent verified motion heads retain the proof.
+[Raw reviewed performance summary](corridor-performance.json).
+
+Clearance itself checks at most49 nearby cells per candidate; an implicit additional
+Build may inspect multiple bounded adjacent candidates (up to four per anchor).
+The normal installed run's two-payment processing window consumed535,159,848 net
+cycles including Ledger/Index/normal physics/query processing. This is not an
+isolated incremental clearance instruction/cycle measurement or a mainnet estimate.
+No representative-hardware or physical-device claim is made. Historical audio P09
+remains FAIL, accepted only for the already authorized audio trial; no audio
+performance pass is inferred from these tests.
