@@ -1,0 +1,4 @@
+2026-11-14T23:59:24.7243837Z PASS artifact record .work/ci-s14-artifacts.json
+2026-11-14T23:59:25.1552954Z   "status": "PASS"
+2026-11-15T01:00:02.1205051Z s14-index-poke-local-slice PASS
+2026-11-15T01:00:02.1205855Z OVERALL PASS

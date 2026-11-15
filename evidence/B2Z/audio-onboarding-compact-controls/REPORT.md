@@ -1,6 +1,6 @@
 # Audio, returning entry and compact controls — corrective candidate
 
-**Implementation frozen; five hosted gates PASS, installed-IC FAIL on an obsolete audio test selector. Test-only correction under qualification. Undeployed.**
+**All six substantive hosted gates PASS on5f078edd48d62170d13b20819a90d6c9948b0258. Frozen78-file candidate preserved. Undeployed; P09 and device/listening limitations remain.**
 
 Starting local source c9b53e65ced38047a2e688a8a9780b2acd20a8d6; remote branch
 b74710aa7abd1ec9fe51c70961363aa1163bc9a2 independently rechecked14 November.
@@ -8,7 +8,8 @@ Checkpoint8c78593 implements unified intent/reconciliation and separate return
 entry. Compact wallet/contact changes and a proven capture-slot correction are frozen at
 `704c7d2468f76c48511dd59b311a45c2a5d65cc5`. Expanded native qualification/evidence
 continuations do not change consumed application/build/dependency inputs. Final
-exact-source hosted conclusions remain pending; old green CI is not substituted.
+qualification source is5f078edd48d62170d13b20819a90d6c9948b0258, with all six substantive
+gates PASS in43655854356. Old green CI is not substituted.
 
 The supplied ZIP contains CODEX_PROMPT.md and no source archive. ZIP SHA-256
 `af92efc7b58f0ceab6730de674fdbe4b9071e084d2d170cbb84724026407a030`;
@@ -85,7 +86,7 @@ No altered event schema, second simulation or ownership inference from latest he
 |8 Compact exact wallet|PASS1440/390/320 native Clipboard API writes, actual native full-address Copy/paste, exact amount/memo, inline disclosure, Update/Keep. Existing native/manual-fallback financial journeys remain in the ordinary browser gate.|
 |9 Quantity beside aim|PASS real clicks and keyboard across eight headings, model/memo/amount coherence and fixed focus slot. Full bounds tests and captured-aim pinch regression cover gesture exclusion. PASS1..64 limits/disabled buttons and native emulated touch taps, exact heading/memo unchanged; see compact-final.json.|
 |10 Other actions / layout|PASS legal default Move/Build, exact prompts/warnings, no numeric fields. Fire/Move/Build readiness matrix:192 status states over8 viewport/motion contexts,0px maximum drift; includes320×300 contraction and reduced motion. Existing source visibility, toroidal/panel/camera/financial regressions retained.|
-|11 Source/trust qualification|Local full source PASS1941 Node +201 Python; no backend/financial/dependency inputs changed. Final exact-source hosted gates pending; no general release or deployment claim.|
+|11 Source/trust qualification|Local full source PASS1941 Node +201 Python; no backend/financial/dependency inputs changed. All six exact-source hosted gates PASS on5f078ed; no general-release, physical-device, performance or deployment claim.|
 
 Native output and source integrity are distinct. The [contact recordings](captures/displayed-friendly-0.webm),
 [threat recording](captures/displayed-threat-0.webm), [spectator recording](captures/displayed-spectator-0.webm),
@@ -190,6 +191,7 @@ and all-six exact-source qualification must be repeated for that correction.
 
 |Identity|Value|
 |---|---|
+|Qualified source|5f078edd48d62170d13b20819a90d6c9948b0258|
 |Frozen runtime/build source|704c7d2468f76c48511dd59b311a45c2a5d65cc5|
 |JavaScript SHA-256|1363ae18e17b4c8a0d81cd8974e7c6bb1654823db7d7cba2a060028a359e8405|
 |Complete78-file inventory SHA-256|d7b37d1333e18788f7f5d3b835c26036c3eaaa3b5eca89b067be2014a84a655f|
@@ -200,8 +202,10 @@ and all-six exact-source qualification must be repeated for that correction.
 [unchanged51 music/six original effect proof](results/music-preservation.json).
 There are77 public assets plus the consumed upload policy. Approved soundtrack
 files, core sample counts/joins and original six effect files remain byte-identical.
-No backend was rebuilt locally merely for audio/UI qualification; ordinary hosted
-installed gates retain their complete deterministic/financial coverage.
+Backend runtime/dependency inputs are unchanged. The standard focused installed
+setup built the same normal module8b853bc7a93a225ad600b6acb857693a15a08c76c14650d2f849c7e7c2530caf;
+the corrected repeat reused it without rebuilding. Ordinary hosted installed gates
+retain their complete deterministic/financial coverage. No backend was deployed.
 
 Hosted760e8e4 run43641830388 has a genuine Browser FAIL and was superseded, not
 relabeled. Its installed job was canceled by the workflow's newer-head concurrency
@@ -321,8 +325,9 @@ strict healthy-H evidence and wrong-root rejection retained. The first local
 attempt lacked the existing user-local GTK path. The corrected local driver was
 interrupted with143, but its child independently finished with exactly one Rust
 test PASS and browser-complete/PASS evidence; the driver command is not called a
-pass. [Focused result](results/installed-unified-correction.json). A new hosted
-run is required for the test-only correction; conclusions remain pending.
+pass. [Focused result](results/installed-unified-correction.json). The corrected source
+5f078edd48d62170d13b20819a90d6c9948b0258 subsequently passed all six substantive
+hosted gates in43655854356, including the full installed suite.
 Both d01e8c7 and4ee07db passed their Browser gates but are superseded; their
 installed jobs were canceled by newer-head workflow policy. The informational
 inventory guard is not one of the six gates.
@@ -350,3 +355,43 @@ operator mutation was performed. Autonomous gameplay continues; this does not
 claim the paid world is frozen. The first read-only diagnostic expected an absent
 production debug global and failed as instrumentation; the corrected probe reads
 the existing experience/session publication without weakening verification.
+
+
+### Final exact-source verdict —15November2026
+
+[Run43655854356](https://github.com/aodl/balls-2-the-wallz/actions/runs/43655854356)
+completed all six substantive gates successfully for
+`5f078edd48d62170d13b20819a90d6c9948b0258`:
+
+|Substantive gate|Conclusion|
+|---|---|
+|Source conformance|PASS|
+|Native conformance|PASS|
+|Packaged DTR and clean consumers|PASS|
+|Runtime-lab Wasm|PASS|
+|Browser HTTP and Web Crypto|PASS|
+|S14 and million-cell installed-IC qualification|PASS|
+
+[Exact job conclusions/timestamps](results/hosted-final-jobs.json) and
+[installed integration excerpt](results/hosted-installed-final-excerpt.log) retain
+the actual final results. The separately labelled production-inventory guard is
+excluded. The failed704 run remains historical FAIL, not rewritten as qualified.
+The correction changes only the obsolete installed Python journey and reviewed
+evidence; all220 consumed runtime/build/dependency inputs remain identical to the
+frozen704 source, including all138 tracked inputs and unchanged installed hashes
+under committed lock/vendor provenance. [Final parity](results/qualified-input-parity.json).
+No application rebuild or new asset identity was substituted for the frozen78.
+
+The final closeout continuation changes only STATUS/evidence and uses a skip-CI
+commit to avoid repeating unchanged expensive gates. It is not separately called
+a six-gate-tested source: the exact qualified source remains5f078ed.
+
+Recommendation: return this exact frontend candidate for separate owner review
+and, if accepted with the documented limitations, controlled frontend-only
+installation using the procedure above. Do not describe it as general-release
+qualified: P09 remains FAIL/unqualified; Firefox audible output, BFCache restoration,
+physical mobile/browser output routes and subjective/headphone listening remain
+NOT VERIFIED/BLOCKED in their recorded scopes. No production installation, backend
+upgrade, Rules9 activation, ICRC-2 enablement, financial transaction, allowance,
+funding, settings or controller change occurred. The existing deployed75-file
+Rules7 frontend remains the immediate rollback and the actual live application.

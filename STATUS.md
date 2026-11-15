@@ -1,28 +1,26 @@
-# Audio, return entry and compact controls — frozen, hosted qualification pending
+# Audio, returning entry and compact controls — six hosted gates PASS; undeployed
 
-Owner brief implementation is frozen at runtime/build source
-`704c7d2468f76c48511dd59b311a45c2a5d65cc5`. JS
-`1363ae18e17b4c8a0d81cd8974e7c6bb1654823db7d7cba2a060028a359e8405`;
+Exact qualified source `5f078edd48d62170d13b20819a90d6c9948b0258` passed all six
+substantive gates in [run43655854356](https://github.com/aodl/balls-2-the-wallz/actions/runs/43655854356),
+including Browser HTTP/Web Crypto and S14/million-cell installed-IC. The
+informational production-inventory guard is excluded. Frozen runtime/build source
+remains `704c7d2468f76c48511dd59b311a45c2a5d65cc5`; the final correction only replaces
+obsolete installed-test audio checkbox interaction with the unified control.
+
+JS `1363ae18e17b4c8a0d81cd8974e7c6bb1654823db7d7cba2a060028a359e8405`;
 complete78-file inventory
 `d7b37d1333e18788f7f5d3b835c26036c3eaaa3b5eca89b067be2014a84a655f`.
-Expanded native test/evidence changes preserve all consumed production inputs.
-Local full source passes1941 Node/201 Python; exact-source run43649690925 passed five gates but failed installed-IC on an
-obsolete removed audio checkbox selector. A test-only unified-control correction
-is under focused qualification; frozen runtime inputs are unchanged. The760e8e4 Browser failure was reproduced and corrected: the
-quantity widget must freeze throughout arena pointer capture so it cannot steal
-a pinch's second touch. Earlier failures remain in evidence.
+All220 consumed input hashes remain unchanged. Local source PASS1941 Node/201
+Python; native actual-output, returning-account, exact-copy, quantity/gesture and
+0px status-geometry evidence is retained in the [closeout report](evidence/B2Z/audio-onboarding-compact-controls/REPORT.md).
+Historical pinch, ambiguous-contact, obsolete-selector and interrupted local
+collection failures remain under their actual identities.
 
-[Current report](evidence/B2Z/audio-onboarding-compact-controls/REPORT.md) records
-actual native music return, real displayed friendly/threat/spectator output,
-returning-account and exact-copy journeys,0px status geometry drift, new original
-SFX provenance and frozen identities. P09 remains FAIL/unqualified; physical
-listening and Firefox output are NOT VERIFIED. Production remains the previously
-installed75-file frontend below on certified Rules7. No deployment, backend,
-financial, funding/settings or Rules9 operation is authorized/performed here.
-
-The final conservative contact guard rejects unresolved stationary grid-line
-sides as neutral. Exact-source qualification runs at43649690925; no old green
-source is substituted for that changed runtime.
+P09 remains FAIL/unqualified; Firefox audio, physical listening/device output and
+BFCache limitations remain explicit. This is no general-release performance or
+subjective listening pass. Production remains the prior75-file frontend and
+certified Rules7 backend. No deployment, backend/financial/funding/settings change
+or Rules9 activation was performed. A separate owner deployment decision is required.
 
 ---
 

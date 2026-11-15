@@ -1,0 +1,66 @@
+{
+  "qualified_source": "5f078edd48d62170d13b20819a90d6c9948b0258",
+  "frozen_runtime_source": "704c7d2468f76c48511dd59b311a45c2a5d65cc5",
+  "run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43655854356",
+  "substantive_gate_count": 6,
+  "all_six_pass": true,
+  "jobs": [
+    {
+      "id": 132634081806,
+      "name": "Packaged DTR and clean consumers",
+      "conclusion": "success",
+      "started_at": "2026-11-14T23:58:31Z",
+      "completed_at": "2026-11-14T23:59:02Z",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43655854356/job/132634081806"
+    },
+    {
+      "id": 132634082012,
+      "name": "Browser HTTP and Web Crypto",
+      "conclusion": "success",
+      "started_at": "2026-11-14T23:58:33Z",
+      "completed_at": "2026-11-15T00:11:04Z",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43655854356/job/132634082012"
+    },
+    {
+      "id": 132634082081,
+      "name": "Runtime-lab Wasm",
+      "conclusion": "success",
+      "started_at": "2026-11-14T23:58:31Z",
+      "completed_at": "2026-11-15T00:01:54Z",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43655854356/job/132634082081"
+    },
+    {
+      "id": 132634082083,
+      "name": "Source conformance",
+      "conclusion": "success",
+      "started_at": "2026-11-14T23:58:31Z",
+      "completed_at": "2026-11-15T00:00:35Z",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43655854356/job/132634082083"
+    },
+    {
+      "id": 132634082086,
+      "name": "S14 and million-cell installed-IC qualification",
+      "conclusion": "success",
+      "started_at": "2026-11-14T23:58:31Z",
+      "completed_at": "2026-11-15T01:00:14Z",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43655854356/job/132634082086"
+    },
+    {
+      "id": 132634082097,
+      "name": "BLOCKED production inventory (not a pass)",
+      "conclusion": "success",
+      "started_at": "2026-11-14T23:58:32Z",
+      "completed_at": "2026-11-14T23:58:35Z",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43655854356/job/132634082097"
+    },
+    {
+      "id": 132634082102,
+      "name": "Native conformance",
+      "conclusion": "success",
+      "started_at": "2026-11-14T23:58:31Z",
+      "completed_at": "2026-11-14T23:59:50Z",
+      "html_url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43655854356/job/132634082102"
+    }
+  ],
+  "scope": "Informational BLOCKED production inventory guard excluded from six substantive gates. No deployment or physical/performance listening qualification implied."
+}
