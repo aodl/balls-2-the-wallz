@@ -1,0 +1,98 @@
+{
+  "status": "PASS",
+  "scope": "Two real browsers of a pinned disposable IC. Native wall-time speech, no injected event/world.",
+  "observers": [
+    {
+      "at": 1794780592858,
+      "born": 1794780591949,
+      "key": "1fe93e8e4e8268ad6c125915a6b7d49db758ab89b397505c6643f91532a73ace/11/0/10/2",
+      "cannon": 2,
+      "text": "Hello!",
+      "head": "11",
+      "identity": {
+        "config_hash": "26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a",
+        "rules_hash": "5f53d5ea243b2dc8806f96bff9deab5a795702f2ff4e16f45475320b7be40120",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "time": 10.94980000000001,
+      "quantity": 5,
+      "tag": "BDI",
+      "pointer": "none",
+      "rect": {
+        "x": 107,
+        "y": 281,
+        "width": 63.109375,
+        "height": 34.890625,
+        "top": 281,
+        "right": 170.109375,
+        "bottom": 315.890625,
+        "left": 107
+      },
+      "camera": [
+        81.22131060411084,
+        954.2213106041108,
+        39.90167940645011
+      ]
+    },
+    {
+      "at": 1794780595422,
+      "born": 1794780594307,
+      "key": "1fe93e8e4e8268ad6c125915a6b7d49db758ab89b397505c6643f91532a73ace/11/0/10/2",
+      "cannon": 2,
+      "text": "Hello!",
+      "head": "11",
+      "identity": {
+        "config_hash": "26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a",
+        "rules_hash": "5f53d5ea243b2dc8806f96bff9deab5a795702f2ff4e16f45475320b7be40120",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "time": 11,
+      "quantity": 5,
+      "tag": "BDI",
+      "pointer": "none",
+      "rect": {
+        "x": 107,
+        "y": 281,
+        "width": 63.109375,
+        "height": 34.890625,
+        "top": 281,
+        "right": 170.109375,
+        "bottom": 315.890625,
+        "left": 107
+      },
+      "camera": [
+        81.22131060411084,
+        954.2213106041108,
+        39.90167940645011
+      ]
+    }
+  ],
+  "visibility_context": "Ordinary default context; no Playwright focus emulation",
+  "visibility": [
+    {
+      "seconds": 5,
+      "at": 1794780601.092397,
+      "bubble": 1
+    },
+    {
+      "seconds": 35,
+      "at": 1794780636.4003787,
+      "bubble": 1
+    }
+  ],
+  "fade": {
+    "age_ms": 55594,
+    "opacity": 0.8752
+  },
+  "expiry": {
+    "at": 1794780654345,
+    "age_ms": 60038,
+    "repeat_render_does_not_restart": true
+  },
+  "first_hidden_age_expiry": "PASS first observer also expired without replay",
+  "errors": [],
+  "forbidden": [],
+  "browser": "153.0.8010.12"
+}

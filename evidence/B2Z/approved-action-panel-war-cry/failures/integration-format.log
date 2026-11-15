@@ -1,0 +1,107 @@
+Diff in /home/codexdev/src/b2z/tools/s09-integration/tests/support/war_cry_installed.rs:121:
+         let reply = pic
+             .update_call(id, Principal::anonymous(), method, args)
+             .unwrap();
+-        assert!(decode_one::<Result<Vec<u8>, String>>(&reply)
+-            .unwrap()
+-            .is_err());
++        assert!(
++            decode_one::<Result<Vec<u8>, String>>(&reply)
++                .unwrap()
++                .is_err()
++        );
+     }
+     let reply = pic
+         .query_call(
+Diff in /home/codexdev/src/b2z/tools/s09-integration/tests/support/war_cry_installed.rs:133:
+             encode_args(()).unwrap(),
+         )
+         .unwrap();
+-    assert!(decode_one::<Result<Vec<u8>, String>>(&reply)
+-        .unwrap()
+-        .is_err());
++    assert!(
++        decode_one::<Result<Vec<u8>, String>>(&reply)
++            .unwrap()
++            .is_err()
++    );
+     let reply = pic
+         .update_call(
+             id,
+Diff in /home/codexdev/src/b2z/tools/s09-integration/tests/support/war_cry_installed.rs:144:
+             encode_args(()).unwrap(),
+         )
+         .unwrap();
+-    assert!(decode_one::<Result<Vec<u8>, String>>(&reply)
+-        .unwrap()
+-        .unwrap_err()
+-        .contains("predecessor"));
++    assert!(
++        decode_one::<Result<Vec<u8>, String>>(&reply)
++            .unwrap()
++            .unwrap_err()
++            .contains("predecessor")
++    );
+     let mut rows = vec![];
+     playability_installed::record(&pic, id, &mut rows, &out);
+     transition(&pic, id, "entry");
+Diff in /home/codexdev/src/b2z/tools/s09-integration/tests/support/war_cry_installed.rs:382:
+         "trace.json",
+         &serde_json::json!({"status":"PASS","initial_world_hex":hex(&initial),"publications":rows,"inputs":payments.iter().map(|(n,p)|serde_json::json!({"position":n.to_string(),"payload_hex":p})).collect::<Vec<_>>(),"assigned":assigned.clone(),"artifact_events":artifacts,"epoch_metadata":metadata}),
+     );
+-    assert!(std::process::Command::new("node")
+-        .current_dir(&repo)
+-        .args([
+-            "tools/replay_s14.mjs",
+-            out.join("trace.json").to_str().unwrap(),
+-            out.join("replay.json").to_str().unwrap()
+-        ])
+-        .status()
+-        .unwrap()
+-        .success());
++    assert!(
++        std::process::Command::new("node")
++            .current_dir(&repo)
++            .args([
++                "tools/replay_s14.mjs",
++                out.join("trace.json").to_str().unwrap(),
++                out.join("replay.json").to_str().unwrap()
++            ])
++            .status()
++            .unwrap()
++            .success()
++    );
+     // Every declared payment must be retired, including final malformed text.
+     assert!(payments.keys().all(|n| assigned.contains(&n.to_string())));
+     pic.set_time(pocket_ic::Time::from(std::time::SystemTime::now()));
+Diff in /home/codexdev/src/b2z/tools/s09-integration/tests/support/war_cry_installed.rs:409:
+         "configuration.json",
+         &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":account,"expected_cry":"Build!","expected_cannon":3}),
+     );
+-    assert!(std::process::Command::new("node")
+-        .current_dir(&repo)
+-        .args([
+-            "tools/capture_war_cry_installed.mjs",
+-            out.join("configuration.json").to_str().unwrap(),
+-            out.join("trace.json").to_str().unwrap(),
+-            out.join("authenticated").to_str().unwrap()
+-        ])
+-        .status()
+-        .unwrap()
+-        .success());
++    assert!(
++        std::process::Command::new("node")
++            .current_dir(&repo)
++            .args([
++                "tools/capture_war_cry_installed.mjs",
++                out.join("configuration.json").to_str().unwrap(),
++                out.join("trace.json").to_str().unwrap(),
++                out.join("authenticated").to_str().unwrap()
++            ])
++            .status()
++            .unwrap()
++            .success()
++    );
+     assert!(
+         std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap())
+             .current_dir(&repo)

@@ -1,190 +1,241 @@
-> Current continuation: joint visual-viewport wrapping and rendered payer-summary
-> width corrections are under native regression. The previous freezes below are
-> historical; final inventory and hosted requalification are pending. Nothing deployed.
+# Approved action panel and War Cry — corrective qualification
 
-# Approved shared panel and authenticated War Cry — qualification in progress
-
-**Not deployed. Not yet an exact-source-qualified release candidate.** This report
-will be closed only after the final frozen inputs pass all six substantive hosted
-gates. Earlier frontend passes do not qualify these changed bytes.
+**Candidate only; nothing deployed or activated.** The shared frontend can ship
+separately while production remains Rules7. War Cry requires a separately approved
+state-preserving backend upgrade and authenticated Rules10/adapter6 epoch commit.
+The six-gate exact-source conclusion and final identities below must be read
+against their actual source; earlier green jobs do not qualify later bytes.
 
 ## Starting point and protected production
 
-Started from published `84343f0377e49658754470a9549bdd300b147c7e` on
-`release/btz-prelaunch-playability`. The owner supplied
-`B2Z_Approved_Panel_and_War_Cry_Codex_Package.zip`; its five supplied file checksums
-passed. The controlling prompt was read completely. The exact approved image is
-[retained here](reference/APPROVED_ACTION_PANEL.png), SHA-256
-`988235d66eaab055b11871fead7a28f2adad61754afe4401cd3eb26e9b953eb4`.
-The original ZIP remains locally preserved and excluded from Git, not deleted.
+Started at clean `84343f0377e49658754470a9549bdd300b147c7e` on
+`release/btz-prelaunch-playability`. The owner's five-file ZIP was checked against
+its supplied hashes and retained locally. The approved reference is preserved
+byte-for-byte at [APPROVED_ACTION_PANEL.png](reference/APPROVED_ACTION_PANEL.png),
+SHA256 `988235d66eaab055b11871fead7a28f2adad61754afe4401cd3eb26e9b953eb4`.
 
-Read-only European preflight independently checked all77 served public bodies,
-lengths/headers, signed asset inventory, v2 HTTP certificates and canister binding.
-The currently deployed corrected78-file frontend remains JavaScript
-`3ee92eee3dda006c57f2dd17779e0e4babb947dc54942c6bd4998b975ebedbb2`, inventory
+Independent read-only production checks verified all77 public bodies, lengths,
+headers, signed inventory and ICv2 HTTP proofs. Production frontend is still
+`s2jxj-liaaa-aaaas-amynq-cai`, JavaScript
+`3ee92eee3dda006c57f2dd17779e0e4babb947dc54942c6bd4998b975ebedbb2`,
+complete78-file inventory
 `4606757478a113e7a682f0077b69155e9455b2bf60624066c608b7b8168526be`.
-It is preserved separately at `.work/approved-panel-war-cry/rollback/frontend`.
+The exact rollback is retained separately at
+`.work/approved-panel-war-cry/rollback/frontend`.
+
 Paid backend `s5ir5-gqaaa-aaaas-amyna-cai` remains Rules7, module
 `612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948`.
-Frontend target remains `s2jxj-liaaa-aaaas-amynq-cai`.
+Rules7 is `982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f`,
+configuration `8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80`.
+Mutable publication heads are allowed to advance. No production install, upgrade,
+rule activation, payment, allowance, funding, cycles transfer, settings/controller,
+pause or restart occurred. All mutating tests used disposable PocketIC and
+valueless official Ledger/Index records.
 
-No production installation, upgrade, rule activation, payment, allowance, funding,
-cycles transfer, settings/controller or operator pause/restart occurred. All
-mutating tests use disposable PocketIC and valueless official Ledger/Index records.
-Current source history and mutable publication heads are observed, never reset.
+## Implementation and reference fidelity
 
-## Implemented contracts
+The shared read-only grid implements title/amount, From/person-change left and
+To/copy right, Memo/copy, two common dividers and three right-edge Copy axes.
+Values are plain text, financial text remains at least14px, targets at least44px.
+Five-character summaries disclose complete selectable values inline; API, native
+and denied-API fallback copying use the canonical packet, never abbreviations.
+Help retains network-fee disclosure, without a routine fee row. The blue information
+note retains the exact agreed Move/additional-Build sentence.
 
-One shared read-only CSS grid owns title/amount and From/To dividers plus the three
-right-edge Copy controls. From has the reassociate person icon; both summaries use
-five characters plus ellipsis with inline full-value inspection. Amount/memo and
-full-recipient native/API/manual copies use coherent canonical packet values.
-Help retains network-fee disclosure; no routine fee row or input-like payment data
-remains. The blue information note retains the exact Move/additional-Build warning.
+The single measured editor group coordinates quantity and optional War Cry. Fire
+uses the real cannon; Build the proposed cannon. First Join uses entry direction,
+with no invented first site. Move/inspection hides cry. Actual visual-viewport
+width and safe insets bound the group; it wraps the same instances into measured
+reserved space when necessary. Cached dimensions are committed before positioning
+on genuine layout changes. Pointer/focus/pinch ownership and resize release fences
+remain intact. Extreme visual/text zoom can reflow payment rows while normal
+320px portraits retain the approved two-column design.
 
-One measured quantity/War Cry group uses the corrected reservation/dock and gesture
-fences. First Join anchors the same optional field to entry direction, with no
-promised cannon. UTF-8 memo budgeting preserves whole grapheme prefixes, canonical
-directive bytes, IME and Update/Keep. Unsupported Rules7 cannot offer or copy a
-suffixed memo. Audio files, mix, scheduler and approved manifest remain unchanged.
+UTF8 budgeting limits the entire FIRE/NEW memo to32bytes, trims only whole grapheme
+prefixes, preserves exact Unicode and never resurrects removed text. Raw paste is
+validated before single-line HTML newline replacement; controls/bidi/pipe/newlines
+are rejected. Native IME composition fences copying. Quantity, heading, destination,
+payer and cry share frozen Update/Keep consistency. Unsupported Rules7 has no cry
+editor or suffixed payment proposal.
 
-Candidate Rules10 and adapter6 explicitly preserve Rules7 gameplay and schema6.
-BTZPAY03 preserves bounded exact text in the authenticated ordered source input.
-Only the new identity projects cosmetic annotations out of spawn-seed material;
-full inputs remain committed. First successful launch gets one annotation tied to
-payment/account/cannon. Failed/zero/Move outcomes do not. Durable private cursors
-preserve pending text. Historical parsers, seed derivation and receipts are intact.
-Rules9 and delegated authorization are separate, inactive features.
+Rules10 / adapter6 / `btz-war-cry-1` / `BTZPAY03` is distinct from Rules9 clearance
+and experimental delegated payments. It preserves Rules7 gameplay and schema6.
+Only the new identity projects cosmetic text out of deterministic gameplay seed
+material; the complete source bytes remain authenticated. Legacy parser/seed and
+receipt semantics remain unchanged. One first actual successful spawn carries the
+annotation tied to source position, canonical account and cannon. Zero, rejected
+and Move outcomes carry none; partial success carries one. Durable private cursor
+recovery retains pending annotation without changing old cursor bytes.
 
-Speech uses only real verified event application, safe text/BDI nodes and exact
-provenance. It is pointer-transparent, bounded16 active/8 visible/512 recent IDs,
-55 seconds plus5 fading on wall time; hidden time ages it. No backend speech timer,
-extra observation service, audio/TTS, prediction or local payment-success effect.
+The frontend validates positive canonical receipt quantity/position/account and
+launch association, then accepts a cue only after actual verified event application.
+Bubbles use safe textContent/BDI, pointer transparency,16 active/8 visible/512 IDs,
+55seconds plus5seconds fade on wall time. Hidden time ages them; discontinuities,
+source/epoch changes and skipped presentation fence them. No audio/TTS, prediction,
+new polling service or backend bubble timer is introduced.
 
-[Current normative contract](../../../docs/specs/B2Z_WAR_CRY.md) and
-[separate release/cutover decisions](RELEASE_DECISIONS.md) define the exact policies.
+## Executed evidence and its scope
 
-## Evidence status and retained failures
+The maintained browser test covers capability off/on at1440×900,390×844,320×640;
+shared axes within1px; exact copying, full-value disclosure, Keep/Update, raw-paste
+negative/Unicode positive, native IME, first Join and literal `None`. Status-only
+updates retain0px drift. The exact cell0/camera3.6575453715563526,3.6575453715563526,64/
+347.15° pose and full forward/reverse headings retain usable editor bounds and
+actual elementFromPoint targets. Contracted heights350/300/240/180px, DPR1/2/3,
+safe insets and real visual-viewport scale changes are separately recorded.
+These are populated native Chromium fixtures, not production or physical devices.
 
-Raw development results remain under `.work/approved-panel-war-cry/`. Reviewed
-captures/results will be copied here at closeout; no unexecuted test is a PASS.
+Disposable normal-Wasm tests use the checksum-pinned official ICP Ledger/Index,
+not direct game commands. The actual paid predecessor module is installed only in
+the isolated rehearsal, then upgraded without reset. Paid-world/state, financial
+accounting and source ordering survive both module upgrade and Rules7→Rules10
+checkpoint. Anonymous/wrong-predecessor attempts fail. An admitted annotated input
+survives another normal-module upgrade before processing. JS/native recovery is
+also exercised at every work unit, including pending text.
 
-- Source suite:1,957 Node and201 Python tests passed in the first full run; the
-  aggregate was FAIL because the naming/export inventories did not yet classify
-  the newly versioned identifiers/controller methods. Explicit inventories were
-  updated; the full corrected-source rerun remains required.
-- Native: eight JS/native gameplay output vectors pass recovery at every work
-  unit, including a pending annotation.24 shared strict byte/Unicode memo vectors
-  pass. These are deterministic fixtures, not IC authentication evidence.
-- Panel: six native Chromium component contexts at1440×900/390×844/320×640 passed
-  capability-off/on alignment, exact copies, forward/reverse heading sweeps,
-  status-only zero drift, IME and contracted group bounds. Additional first-Join
-  and manual-copy journeys are being completed on the latest corrected source.
-- Actual official Ledger/Index tests processed pre-cutover invalid text, Unicode
-  Revive, partial Fire, zero fill, distinct identical Fire payments, malformed
-  text, a32-byte memo and New. All nine payment positions were assigned once.
-  Twelve publications (ten gameplay, two checkpoints) passed independent replay.
-  Pinned IC certificate/canister/freshness, retained chaining and every artifact
-  passed; changed input text, missing events, changed event text and damaged
-  certificate negatives rejected. Two certified observers displayed the same real New launch and event identity.
-  The ordinary-context hidden-age/fade lifetime closeout is pending.
-- Existing strict capture, browser HTTP/Web Crypto, human-action and tactical
-  regressions pass so far in the current local browser campaign. Complete gate
-  conclusions and exact final source will be recorded at closeout.
+Real payments cover old-rule invalid suffix, Unicode Revive, partial Fire, zero
+fill, identical text in distinct payments, malformed multiple pipes,32byte memo,
+first Join and explicit additional Build. The actual Ledger rejects33bytes.
+Independent verification checks the pinned local IC root, canister, freshness,
+retained chain and every artifact; independent replay reconstructs all publication
+bytes. Altered input text, incomplete events, altered event text and damaged
+certificate are rejected. Two native observers show identical authenticated launch
+identity/text; ordinary same-window5/35second tab switches age speech,55+5second
+fade/expiry completes without replay restart. This is disposable installed-game
+proof, not a production War Cry capability or physical listening claim.
 
-Historical failures are retained, including: incorrect capture comparison of the
-first interval's endpoint with its seed (corrected to predecessor+endpoint checks,
-without weakening independent replay); startup wait referencing a diagnostic
-global before creation; serving unbundled SDK imports rather than the established
-local acceptance bundle; a transitional status-test baseline after deliberate cry
-editing; reuse of saved account storage in a purported fresh Join context; and an
-incorrect denied-clipboard test assignment that invoked its returned function.
+Twenty-four shared JS/native byte/Unicode vectors and eight gameplay/recovery
+vectors cover legacy identity, first/additional New, Revive/Fire, partial/zero,
+exact bytes and seed equivalence. The local source/native/browser reports and
+hosted results retain their actual commits. Existing HTTP/WebCrypto, certificate,
+playback, camera, financial, quantity, context-loss and audio checks remain present.
 
-Application defects discovered by these tests were corrected: first
-Join toggled group visibility twice per frame, perpetually invalidating layout;
-and status refresh overwrote invalid local cry text instead of preserving it for
-correction. Native raw-paste testing additionally exposed browser newline
-replacement; raw paste is now validated first. Speech is fenced at actual
-checkpoint/discontinuous presentation, including a checkpoint with no next segment.
-Their negative evidence is retained. Neither defect was bypassed by
-loosening panel settling, payment readiness or Copy assertions.
+## Failures retained and corrected
 
-## Limitations / decisions still requiring approval
+Historical failures are preserved under `failures/`, rather than overwritten:
 
-No production War Cry capability is active. Frontend-only panel deployment and
-backend installation/activation are independent future approvals. Once Rules10
-inputs exist, a Rules7-only backend rollback is unsafe. Exact normal Wasm and
-frontend inventory, final commits, six hosted conclusions, installed native
-speech evidence and bounded cost measurements remain closeout work.
+- First source aggregate failed its explicit naming/export inventories while
+  Node/Python tests passed; the new version/controller names were explicitly
+  classified without deleting safety assertions.
+- Capture initially compared an interval endpoint with its seed. It now checks
+  authenticated predecessor seal and endpoint separately; replay remains independent.
+- Early browser setup used an absent diagnostic global/unbundled SDK, reused saved
+  storage in a fresh-Join test, or incorrectly installed a denied-clipboard stub.
+  Fixtures were corrected and native journeys rerun.
+- First Join toggled group visibility twice per frame, invalidating layout;
+  invalid cry text was overwritten during status refresh. Both application defects
+  were fixed. Raw-paste evidence exposed native newline replacement; validation
+  now precedes it. Actual epoch/discontinuous presentation fences speech.
+- Contact-audio fixture finish rewound its playhead; the fixture clock was corrected
+  without changing the audio engine, assets or player bounds. Native output and
+  genuine visibility/recovery checks subsequently passed in their recorded scope.
+- Strict receipt negatives exposed fractional/string quantities and string source
+  positions. Canonical safe integer1–64 and bigint position are now required.
+- Safe-area/visual-viewport testing exposed a cached oversized joint editor. Fixed
+  width plus delayed observer measurement could exhaust the reserved dock and
+  stop positioning. The group now fits/wraps the measured visual viewport and
+  commits dimensions in the existing cached layout read. A separate rendered-width
+  assertion exposed5px payer-summary clipping at320px; spacing was corrected while
+  preserving14px text and44px controls.
+- Hosted run43764610049 on `dfaef2c943c629c1c4e35d0776d22131189b7133`
+  failed its newly added strict Wasm hash guard: local002ce4d… differs from hosted
+  1cde99a…. Normal build/Candid/Clippy passed. Both binaries are retained, and
+  build-path/code/data differences are documented; they are not relabelled equal.
+  The exact traceable hosted module is frozen and separately rehearsed. The strict
+  hash check remains mandatory for the final candidate.
 
-P09 remains FAIL/unqualified from the existing audio trial. Physical phone,
-headphone, Bluetooth, Safari/iOS and unavailable Firefox/BFCache performance or
-listening are NOT VERIFIED. Software Chromium viewports are not physical devices.
+## Resources, audio and limitations
 
+All61 existing audio assets, approved music cores/effects and manifest remain
+byte-identical; no mix, tempo, audio engine, dependency or gameplay change was
+needed for layout. Audio manifest remains
+`76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c`.
+P09 remains **FAIL/unqualified**. Existing native stream captures are software
+output evidence, not physical speaker/headphone or subjective quality acceptance.
 
-The initial source freeze at ca2d657 is superseded by the demonstrated raw-paste
-and checkpoint-speech corrections; it is retained under `.work/` and must not be
-deployed. Its read-only production-backed tests passed at320/390/desktop, with
-exact native copied recipient, amount and memo and Rules7 War Cry gating. They
-are scope-limited evidence, not qualification of later changed JavaScript.
-The final freeze and complete hosted qualification remain pending.
+Cue/event retention and editor placement are bounded. The normalized envelope is
+at most88bytes,32bytes beyond the old56byte envelope. Measured purchase windows
+include mandatory gameplay/controller work; their cycles are not isolated cosmetic
+cost or European billing. A bounded live A/B/A frame comparison was **INCONCLUSIVE**:
+software rendering, shared-host jitter and changing head prevent causal performance
+claims. No threshold was relaxed and no improvement is claimed.
 
+Physical phone/headphone/Bluetooth, Safari/iOS and unavailable Firefox/BFCache
+listening/performance are **NOT VERIFIED**. Chromium emulation is not real hardware.
+Actual production enabled-copy/operating acceptance is distinct from fixtures;
+read-only frozen Rules7 checks never override status, enable unsupported text,
+make payments or activate a backend capability.
 
-## Final runtime freeze (hosted qualification pending)
+## Separate release decisions
 
-Clean frozen runtime/build source:
-`ecb0f25cd162e475225cf0b5867d09d6ee91136b`.
-JavaScript:`c56ff5bf5d8ab2e6cc836e38d5fe43b7a17504fbfc6903f74bd0c08d64e2a3c9`.
-Complete79-file inventory (78 public plus upload policy):
-`b7d80bf2526c56f835de5338aa2acc34025a014d5392273b3b06fbadde308db8`.
-Normal backend Wasm:
-`002ce4d43d753dfe86ff16687087222abf646ce7ab23c82bcaa4e8c8ce379453`.
-All61 audio assets and approved manifest remain unchanged. The retained final
-frontend/backend files are under `.work/approved-panel-war-cry/frozen/`.
-The committed inventories/provenance and offline reproduction guard independently
-check every public/policy byte and all consumed source/build/dependency inputs.
-The reviewed public build record is preserved from its actual clean freeze source;
-later test/evidence commits must not replace it with newly generated metadata.
+See [RELEASE_DECISIONS.md](RELEASE_DECISIONS.md) for frontend assets-only rollout,
+exact current rollback, backend preconditions/cutover and failure handling. The
+Rules10 epoch commit is the compatibility stop point: an old Rules7-only module
+is not an approved rollback after that checkpoint, even before another payment;
+following new admission, use a separately reviewed forward state-preserving repair.
+No reset, reverse epoch, history reinterpretation or implied refund is allowed.
+Frontend deployment and backend installation/activation require independent owner
+approval. No authorization is inferred from this source qualification.
 
-The full local native suite and browser campaign now pass, including contact
-meaning, peak/spatial/occlusion, activation and genuine native music visibility.
-A historical contact fixture bug was exposed: after seeking its player to the
-endpoint, its next render still used an earlier clock. The fixture now advances
-its clock too and explicitly checks two later frames for errors. No audio module,
-asset, lateness policy or effect assertion changed.
+## Frozen candidate and qualification continuation
 
-The exact retained European module612ad0d… also passes the additional disposable
-rehearsal to candidate002ce4d…, preserving world, publication, financial state and
-source cursor after an old-rule Ledger payment. The subsequent Rules7→Rules10
-cutover and admitted-annotation upgrade pass, as do pinned certificates,
-independent replay and two observers. Ordinary default-context tab switches5/35s
-age speech correctly; fade is measured near55.8s and expiry near60.1s without a
-restart. Playwright's emulated-focus context was independently shown to stay
-visible on tab switches, so it is not used to claim native hidden lifecycle.
-Raw failed runs remain separately retained.
+Frozen runtime/build source: `fd69939a421796d412d2b9210e78bab0af2f389d`.
+JavaScript: `feefd03a68a464cee92f963c01327d8afe6fe15b495545daae09ace28a4db4c4`.
+Complete79-file inventory (78 public plus consumed upload policy):
+`94329dfe47c12adbd074a5af76009bc9edb0bce44322db2a0279da7fc2fb47fa`.
+Exact normal backend: `1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b`.
+Rules10: `5f53d5ea243b2dc8806f96bff9deab5a795702f2ff4e16f45475320b7be40120`;
+config: `26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a`;
+schema6 unchanged. These are candidates, not installed identities.
 
-Hosted six-gate conclusions are still pending publication/qualification. These
-local passes and frozen identities are not a production deployment authorization.
+The clean freeze reproduces every file, with identical consumed inputs.
+[Inventory](artifacts/frontend-inventory.json), [provenance](artifacts/provenance.json),
+[build record](artifacts/build-manifest.json), [changed consumed inputs](results/changed-runtime-inputs.json)
+and [six changed/new assets](results/final-asset-delta.json) retain exact identities.
+Total assets76,335,716bytes; increase30,203bytes over the installed rollback.
+No soundtrack/effect/policy bytes changed.
 
+Historical run [43764610049](https://github.com/aodl/balls-2-the-wallz/actions/runs/43764610049)
+on `dfaef2c943c629c1c4e35d0776d22131189b7133` completed: Source, Native,
+Packaged DTR/clean consumers, Browser HTTP/WebCrypto and S14/million-cell installed
+gates PASS; Wasm FAIL solely at the exact artifact guard described above. The
+informational inventory guard is not qualification. New runtime bytes require a
+new six-gate run; final publication/qualification is pending.
 
-## Qualification continuation — artifact provenance and strict metadata
+The first local aggregate used Python3.10 accidentally:1959 Node tests passed,
+but source/tool checks failed on absent tomllib. This FAIL is retained. The
+required Python3.11 continuation passed:1959 Node tests and201 Python tests, source
+structure, documentation and maintained references. No timeout or assertion was relaxed.
 
-Run43764610049 at dfaef2c passed Source, Native and package gates; the Wasm build,
-Candid/format/Clippy checks passed, but its added exact hash guard failed. The local
-002ce4d… and hosted1cde99a… binaries embed different absolute source paths and have
-different code/data sections. They are not interchangeable artifacts. The original
-local build and failed guard evidence are retained. The chosen backend candidate
-is now the traceable hosted normal module
-`1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b`,
-from source dfaef2c / artifact14181941816. No hash check was removed or relaxed.
-That exact module passes the additional European-predecessor upgrade/payment/
-certificate/replay/two-observer rehearsal (installed-european9-ci-artifact).
-A final six-gate continuation must pass with this exact selected artifact.
+The final frozen frontend was served locally with its unchanged upload/security
+policy and connected read-only to the actual certified European Rules7 backend.
+At320×640/390×844/1440×900 all worlds verified, unsupported War Cry stayed hidden,
+and recipient/amount/memo API copy plus native external paste matched exact values.
+First verified-world times were2.376/2.310/2.325seconds. The320 view reproduced
+347.15° at camera3.65754537155658,3.65754537155658,64 through ordinary UI; quantity
++/- preserved heading/camera. This is **local frozen frontend with actual mainnet
+read-only data**, not an installed-candidate production acceptance or payment.
+See [results](results/frozen-readonly-final.json) and
+[captures](captures/frozen-readonly-final/320-347.png).
 
-A pure negative association test additionally proved that fractional/string or
-oversized receipt quantities and string source positions were insufficiently
-rejected. The client guard now requires canonical integer quantity1–64 and bigint
-position. Valid authoritative outputs are unchanged; this strengthens malformed
-metadata rejection. The frontend must be refrozen and exercised again; the prior
-c56ff5bf… freeze is retained as superseded, not relabelled as the final candidate.
-The paid frontend/backend remain unchanged.
+A final disposable repeat authenticated/replayed13 publications but its serial
+browser instrumentation missed the five-second fade while operating another tab;
+the bubble had expired correctly before inspection. The failure is retained. A
+bounded passive native opacity probe now records that window concurrently without
+changing DOM, visibility, clock or application timing. The same55–60second/0<opacity<1
+and no-repeat/expiry assertions remain required. The corrected repeat passed. Both observers displayed the same additional-Build
+launch/cannon3; fade was observed at55.726seconds/opacity0.833 and expiry at60.091seconds.
+The exact CI module preserved the actual paid predecessor in the isolated upgrade,
+processed all10 source positions once, and produced six annotations across13
+independently replayed publications. See [installed proof](installed/final-ci-wasm/result.json),
+[replay](installed/final-ci-wasm/replay.json),
+[native lifetime](installed/final-ci-wasm/browser/results.json) and
+[recording](captures/final-installed/speech-lifetime.webm).
+
+The final native panel matrix passed all six capability/viewport contexts with
+432 status-only samples at0px panel drift; all18 action panes retain exact financial
+values and copy axes. The320 capability-enabled case also passed DPR3, native
+IME, actual visual-viewport scale1.1/1.6/1, safe insets, five contracted heights,
+touch aim→pinch and cancelled release. See [final matrix](results/panel-six-final.json),
+[reference comparison](GALLERY.md) and [cost windows](results/costs.json).
+Final hosted exact-source qualification is pending publication below.

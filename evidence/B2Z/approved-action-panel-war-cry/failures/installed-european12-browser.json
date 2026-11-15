@@ -1,0 +1,89 @@
+{
+  "status": "FAIL",
+  "scope": "Two real browsers of a pinned disposable IC. Native wall-time speech, no injected event/world.",
+  "observers": [
+    {
+      "at": 1794782617130,
+      "born": 1794782609019,
+      "key": "63ae2626e100758f18258e2b5c26f68b0f6ff39539aad427f32a76a70c2e5021/12/0/11/3",
+      "cannon": 3,
+      "text": "Build!",
+      "head": "12",
+      "identity": {
+        "config_hash": "26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a",
+        "rules_hash": "5f53d5ea243b2dc8806f96bff9deab5a795702f2ff4e16f45475320b7be40120",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "time": 12,
+      "quantity": 6,
+      "tag": "BDI",
+      "pointer": "none",
+      "rect": {
+        "x": 32,
+        "y": 229,
+        "width": 62.765625,
+        "height": 34.890625,
+        "top": 229,
+        "right": 94.765625,
+        "bottom": 263.890625,
+        "left": 32
+      },
+      "camera": [
+        594.8399852554135,
+        455.33998525541347,
+        13.771151927102583
+      ]
+    },
+    {
+      "at": 1794782644362,
+      "born": 1794782631540,
+      "key": "63ae2626e100758f18258e2b5c26f68b0f6ff39539aad427f32a76a70c2e5021/12/0/11/3",
+      "cannon": 3,
+      "text": "Build!",
+      "head": "12",
+      "identity": {
+        "config_hash": "26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a",
+        "rules_hash": "5f53d5ea243b2dc8806f96bff9deab5a795702f2ff4e16f45475320b7be40120",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "time": 12,
+      "quantity": 6,
+      "tag": "BDI",
+      "pointer": "none",
+      "rect": {
+        "x": 32,
+        "y": 229,
+        "width": 62.765625,
+        "height": 34.890625,
+        "top": 229,
+        "right": 94.765625,
+        "bottom": 263.890625,
+        "left": 32
+      },
+      "camera": [
+        594.8399852554135,
+        455.33998525541347,
+        13.771151927102583
+      ]
+    }
+  ],
+  "visibility_context": "Ordinary default context; no Playwright focus emulation",
+  "visibility": [
+    {
+      "seconds": 5,
+      "at": 1794782652.754656,
+      "bubble": 1
+    },
+    {
+      "seconds": 35,
+      "at": 1794782694.2561476,
+      "bubble": 0
+    }
+  ],
+  "error": "AssertionError()",
+  "errors": [],
+  "forbidden": [],
+  "diagnostic": "{\"error\":\"null\",\"phase\":\"STALLED\",\"details\":\"\",\"bubbles\":[]}"
+}

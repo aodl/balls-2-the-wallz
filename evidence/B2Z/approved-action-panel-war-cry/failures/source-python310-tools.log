@@ -1,0 +1,376 @@
+test_a2_only_cannot_execute_control (test_a2_policy.A2Policy) ... ok
+test_a2_policy_does_not_allow_other_wasm_or_fault_phases (test_a2_policy.A2Policy) ... ok
+test_original_pair_still_requires_both_cases (test_a2_policy.A2Policy) ... ok
+test_move_accepted_is_not_purchase_applied (test_b2z_pilot_receipt.ReceiptRows) ... ok
+test_purchase_keeps_quantity_and_status_assertions (test_b2z_pilot_receipt.ReceiptRows) ... ok
+test_canbench_zero_match_is_not_measurement (test_benchmark_s12.S12BenchmarkRunnerTests) ... ok
+test_ledger_aggregate_rejects_deterministic_drift (test_benchmark_s12.S12BenchmarkRunnerTests) ... ok
+test_ledger_aggregate_uses_conservative_minimum (test_benchmark_s12.S12BenchmarkRunnerTests) ... ok
+test_timeout_and_external_exit_two_are_failures (test_benchmark_s12.S12BenchmarkRunnerTests) ... ok
+test_snapshot_survives_later_file_replacement (test_check.TestArtifactEvidence) ... ok
+test_actual_node_execution (test_check.TestEvidenceClassification) ... ok
+test_actual_rust_execution (test_check.TestEvidenceClassification) ... ok
+test_argparse_usage_exit_is_failure (test_check.TestEvidenceClassification) ... ok
+test_designated_wrapper_blocked_exit_is_blocked (test_check.TestEvidenceClassification) ... ok
+test_ignored_node_test_is_failure (test_check.TestEvidenceClassification) ... ok
+test_missing_tool_is_not_pass (test_check.TestEvidenceClassification) ... ok
+test_node_24_info_prefix (test_check.TestEvidenceClassification) ... ok
+test_nonzero_exit_is_failure (test_check.TestEvidenceClassification) ... ok
+test_real_argparse_usage_failure_is_not_blocked (test_check.TestEvidenceClassification) ... ok
+test_rust_all_ignored_is_failure (test_check.TestEvidenceClassification) ... ok
+test_rust_empty_filter_is_failure (test_check.TestEvidenceClassification) ... ok
+test_zero_tests_is_failure (test_check.TestEvidenceClassification) ... ok
+test_actual_failed_browser_assertion_is_exposed_without_success_log_noise (test_check.TestNestedFailureEvidence) ... ok
+test_failure_exposes_exact_test_and_bounded_tail_without_changing_evidence (test_check.TestNestedFailureEvidence) ... ok
+test_missing_nested_evidence_is_explicit (test_check.TestNestedFailureEvidence) ... ok
+test_all_uses_existing_locks_and_real_browser_gate (test_check.TestPlan) ... ok
+test_component_modes_are_disjoint (test_check.TestPlan) ... ok
+test_unimplemented_requirements_remain_blocked (test_check.TestPlan) ... ok
+test_empty_suite_is_not_pass (test_check.TestPythonEvidence) ... ok
+test_ran_suite_is_pass (test_check.TestPythonEvidence) ... ok
+test_skipped_suite_is_not_pass (test_check.TestPythonEvidence) ... ok
+test_corruption_and_lock_are_not_reset (test_chunked_demo.ChunkedDemoTests) ... ok
+test_lost_acknowledgement_restart (test_chunked_demo.ChunkedDemoTests) ... ok
+test_partial_chunk_restart (test_chunked_demo.ChunkedDemoTests) ... ok
+test_prepublication_restart (test_chunked_demo.ChunkedDemoTests) ... ok
+test_official_self_top_up_route (test_cmc_route.CmcRouteTests) ... ok
+test_cold_runner_fetches_all_graphs_before_offline_provenance (test_delivery_ci.DeliveryContract) ... ERROR
+test_exact_normal_modules (test_delivery_ci.DeliveryContract) ... ok
+test_normal_only_failure_cannot_become_success (test_delivery_ci.DeliveryContract) ... ok
+test_original_assertions_and_900_second_call (test_delivery_ci.DeliveryContract) ... ok
+test_corrupted_local_journal_is_not_silently_reset (test_demo.DemoTests) ... ok
+test_mismatched_scenario_and_existing_lock_fail_closed (test_demo.DemoTests) ... ok
+test_restart_during_capture_matches_uninterrupted_process (test_demo.DemoTests) ... ok
+test_restart_inside_exhaustive_spawn_matches_fresh_process (test_demo.DemoTests) ... ok
+test_dependency_policy (unittest.loader._FailedTest) ... ERROR
+test_dtr_provenance (unittest.loader._FailedTest) ... ERROR
+test_existing_different_file_is_never_overwritten (test_fetch_s09_artifacts.TestS09ArtifactSafety) ... ok
+test_existing_matching_file_is_reused (test_fetch_s09_artifacts.TestS09ArtifactSafety) ... ok
+test_attempt_cannot_be_repeated_after_interruption (test_frozen_delivery_host.FrozenDeliverySafety) ... ok
+test_changed_runtime_library_prevents_attempt (test_frozen_delivery_host.FrozenDeliverySafety) ... ok
+test_failed_case_and_original_nested_manifest_are_preserved (test_frozen_delivery_host.FrozenDeliverySafety) ... ok
+test_missing_preparation_cannot_claim_or_start_attempt (test_frozen_delivery_host.FrozenDeliverySafety) ... ok
+test_missing_second_case_never_becomes_pass (test_frozen_delivery_host.FrozenDeliverySafety) ... ok
+test_tampered_export_fails_before_execution (test_frozen_delivery_host.FrozenDeliverySafety) ... ok
+test_transport_archive_excludes_installed_dependency_tree (test_frozen_delivery_host.FrozenDeliverySafety) ... ok
+test_unsafe_export_paths_are_rejected (test_frozen_delivery_host.FrozenDeliverySafety) ... ok
+test_criteria_accept_quiet_and_reject_busy_without_changing_thresholds (test_host_resources.Screen) ... ok
+test_no_history_is_not_a_pass (test_host_resources.Screen) ... ok
+test_owned_descendants_are_not_confused_with_foreign_work (test_host_resources.Screen) ... ok
+test_canonical_order (test_observation_reference.IndependentPublication) ... ok
+test_standard_empty_sha256 (test_observation_reference.IndependentPublication) ... ok
+test_tag_remains_typed (test_observation_reference.IndependentPublication) ... ok
+test_approved_audio_source_routes_mime_hash_and_rejections (test_observer_server.ObserverServerTests) ... ok
+test_directory_listing_disabled (test_observer_server.ObserverServerTests) ... ok
+test_entry (test_observer_server.ObserverServerTests) ... ok
+test_frozen_audio_routes_are_narrow_and_byte_identical (test_observer_server.ObserverServerTests) ... ok
+test_head_does_not_bypass_allowlist (test_observer_server.ObserverServerTests) ... ok
+test_installed_packaged_modules_satisfy_prerequisite (test_observer_server.ObserverServerTests) ... ok
+test_local_certificate_snapshot_is_disabled_by_default (test_observer_server.ObserverServerTests) ... ok
+test_missing_packaged_modules_have_actionable_setup_error (test_observer_server.ObserverServerTests) ... ok
+test_module_mime (test_observer_server.ObserverServerTests) ... ok
+test_no_write_methods (test_observer_server.ObserverServerTests) ... ok
+test_only_packaged_dtr_modules_are_served_from_dependencies (test_observer_server.ObserverServerTests) ... ok
+test_records (test_observer_server.ObserverServerTests) ... ok
+test_root_redirect (test_observer_server.ObserverServerTests) ... ok
+test_sensitive_paths (test_observer_server.ObserverServerTests) ... ok
+test_traversal (test_observer_server.ObserverServerTests) ... ok
+test_v6_assets_and_public_docs_use_the_explicit_deployment_allowlist (test_observer_server.ObserverServerTests) ... ok
+test_slow_upstream_body_is_distinguished_from_header_wait (test_observer_server.ProxyDiagnosticTests) ... ok
+test_slow_upstream_headers_do_not_block_other_queries (test_observer_server.ProxyDiagnosticTests) ... ok
+test_trace_refuses_old_output_and_bounds_new_output (test_observer_server.ProxyDiagnosticTests) ... ok
+test_upstream_error_is_preserved_without_proxy_retry (test_observer_server.ProxyDiagnosticTests) ... ok
+test_b2z_lost_publish_ack (test_orchestrated_demo.OrchestratedRecovery) ... ok
+test_b2z_publish_before (test_orchestrated_demo.OrchestratedRecovery) ... ok
+test_b2z_seal_crash (test_orchestrated_demo.OrchestratedRecovery) ... ok
+test_corruption_does_not_reset_genesis (test_orchestrated_demo.OrchestratedRecovery) ... ok
+test_life_lost_publish_ack (test_orchestrated_demo.OrchestratedRecovery) ... ok
+test_build_cache_excluded (test_package.TestPackaging) ... ERROR
+test_complete_fresh_extraction (test_package.TestPackaging) ... ERROR
+test_local_environment_directories_excluded (test_package.TestPackaging) ... ERROR
+test_manifest_not_self_referential (test_package.TestPackaging) ... ERROR
+test_output_inside_source_rejected (test_package.TestPackaging) ... ok
+test_repeated_packaging_is_identical (test_package.TestPackaging) ... ERROR
+test_secret_shaped_paths_are_excluded_without_reading (test_package.TestPackaging) ... ok
+test_symlink_rejected (test_package.TestPackaging) ... ok
+test_complete_short_sample_has_honest_scope_and_independent_bounds (test_playability_browser.ShortSampleTests) ... ok
+test_consensus_nanoseconds_become_explicit_utc_datetime (test_playability_browser.ShortSampleTests) ... ok
+test_final_verdict_uses_recorded_playback_after_successful_replay (test_playability_browser.ShortSampleTests) ... ok
+test_incomplete_duration_or_unbracketed_endpoints_do_not_pass (test_playability_browser.ShortSampleTests) ... ok
+test_stall_performance_limit_resync_or_lost_buffer_remain_failures (test_playability_browser.ShortSampleTests) ... ok
+test_unmeasured_playback_requires_explicit_actions_only_scope (test_playability_browser.ShortSampleTests) ... ok
+test_missing_poll_bracket_is_not_pass (test_playback_qualification.ContinuousPlaybackTests) ... ok
+test_rebuffering_cannot_hide_deficit (test_playback_qualification.ContinuousPlaybackTests) ... ok
+test_resync_and_counter_jump_cannot_pass (test_playback_qualification.ContinuousPlaybackTests) ... ok
+test_short_window_is_not_pass (test_playback_qualification.ContinuousPlaybackTests) ... ok
+test_slow_drain_fails_despite_acceptable_tick_rates (test_playback_qualification.ContinuousPlaybackTests) ... ok
+test_stationary_buffer_and_poll_uncertainty (test_playback_qualification.ContinuousPlaybackTests) ... ok
+test_budget_mismatch_requires_measurement (test_s12_cost_model.CostSensitivity) ... ok
+test_cadence_independent_terms (test_s12_cost_model.CostSensitivity) ... ok
+test_empty_and_nonempty_poll_opportunities_not_double_counted (test_s12_cost_model.CostSensitivity) ... ok
+test_finite_backlog_does_not_become_a_full_day_of_arrivals (test_s12_cost_model.CostSensitivity) ... ok
+test_fresh_measurement_changes_cost (test_s12_cost_model.CostSensitivity) ... ok
+test_kernel_only_budget_changes_callback_count (test_s12_cost_model.CostSensitivity) ... ok
+test_missing_callback_is_not_zero (test_s12_cost_model.CostSensitivity) ... ok
+test_no_default_baseline_cli (test_s12_cost_model.CostSensitivity) ... ok
+test_storage_sensitivity (test_s12_cost_model.CostSensitivity) ... ok
+test_tariff_sensitivity (test_s12_cost_model.CostSensitivity) ... ok
+test_traffic_increases_processing (test_s12_cost_model.CostSensitivity) ... ok
+test_zero_arrivals_polling_enabled_and_disabled (test_s12_cost_model.CostSensitivity) ... ok
+test_declared_intervals_execute_and_chain (test_s12_game_bench.ChainedIntervals) ... ok
+test_configuration_mismatch (test_s12_measurements.Measurements) ... ok
+test_current_separate_and_baseline_unchanged (test_s12_measurements.Measurements) ... ok
+test_empty_smoke_and_wrong_inventory (test_s12_measurements.Measurements) ... ok
+test_extended_complete_inventory_is_identified (test_s12_measurements.Measurements) ... ok
+test_extended_inventory (test_s12_measurements.Measurements) ... ok
+test_incomparable (test_s12_measurements.Measurements) ... ok
+test_missing_current (test_s12_measurements.Measurements) ... ok
+test_missing_monitored_current_and_empty (test_s12_measurements.Measurements) ... ok
+test_new_informational_measurement_has_no_regression_claim (test_s12_measurements.Measurements) ... ok
+test_raw_result_integrity_and_manifest_counts (test_s12_measurements.Measurements) ... ok
+test_regression_and_noise (test_s12_measurements.Measurements) ... ok
+test_stale_revision (test_s12_measurements.Measurements) ... ok
+test_zero_match (test_s12_measurements.Measurements) ... ok
+test_censored_visible (test_s13_analysis.PolicyValidation) ... ok
+test_empty_distribution_not_zero (test_s13_analysis.PolicyValidation) ... ok
+test_inventory (test_s13_analysis.PolicyValidation) ... ok
+test_missing_trace (test_s13_analysis.PolicyValidation) ... ok
+test_pair (test_s13_analysis.PolicyValidation) ... ok
+test_reject_every_identity_mismatch (test_s13_analysis.PolicyValidation) ... ok
+test_reject_schedule_hint_duration_backlog (test_s13_analysis.PolicyValidation) ... ok
+test_reject_stale_trace_before_cost (test_s13_analysis.PolicyValidation) ... ok
+test_changed_wasm_blocks_instruction_reuse (test_s13_cost_model.PolicyCost) ... ok
+test_configuration_rejected (test_s13_cost_model.PolicyCost) ... ok
+test_counts_drive_idle_increment (test_s13_cost_model.PolicyCost) ... ok
+test_empty_pairs_rejected (test_s13_cost_model.PolicyCost) ... ok
+test_missing_measurements_cannot_zero (test_s13_cost_model.PolicyCost) ... ok
+test_source_mismatch_rejected (test_s13_cost_model.PolicyCost) ... ok
+test_stalled_source_cannot_pass_traffic_smoke (test_s13_cost_model.PolicyCost) ... ok
+test_unknown_case_rejected (test_s13_cost_model.PolicyCost) ... ok
+test_wrong_schedule_on_both_sides_rejected (test_s13_cost_model.PolicyCost) ... ok
+test_wrong_workload_binding_rejected (test_s13_cost_model.PolicyCost) ... ok
+test_wrong_world_on_both_sides_rejected (test_s13_cost_model.PolicyCost) ... ok
+test_s14_local (unittest.loader._FailedTest) ... ERROR
+test_absolute_path (test_verify_checkpoint.CheckpointVerifierTests) ... ok
+test_backslash_path (test_verify_checkpoint.CheckpointVerifierTests) ... ok
+test_dot_component (test_verify_checkpoint.CheckpointVerifierTests) ... ok
+test_duplicate_entry (test_verify_checkpoint.CheckpointVerifierTests) ... ok
+test_empty_manifest (test_verify_checkpoint.CheckpointVerifierTests) ... ok
+test_invalid_hash (test_verify_checkpoint.CheckpointVerifierTests) ... ok
+test_manifest_self_reference (test_verify_checkpoint.CheckpointVerifierTests) ... ok
+test_missing_file (test_verify_checkpoint.CheckpointVerifierTests) ... ERROR
+test_missing_manifest (test_verify_checkpoint.CheckpointVerifierTests) ... ok
+test_modified_file (test_verify_checkpoint.CheckpointVerifierTests) ... ERROR
+test_parent_traversal (test_verify_checkpoint.CheckpointVerifierTests) ... ok
+test_symlink_file (test_verify_checkpoint.CheckpointVerifierTests) ... ERROR
+test_unlisted_file (test_verify_checkpoint.CheckpointVerifierTests) ... ERROR
+test_valid_payload (test_verify_checkpoint.CheckpointVerifierTests) ... ERROR
+test_verify_dtr_consumers (unittest.loader._FailedTest) ... ERROR
+test_extracts_one_marked_service (test_verify_runtime_candid.TestGeneratedCandidExtraction) ... ok
+test_normal_interface_rejects_benchmark_and_test_exports (test_verify_runtime_candid.TestGeneratedCandidExtraction) ... ok
+test_rejects_missing_or_repeated_markers (test_verify_runtime_candid.TestGeneratedCandidExtraction) ... ok
+test_documented_prerequisite_wrapper_exit_two_is_blocked (test_verify_s09_local.TestNestedExitClassification) ... ok
+test_external_argparse_usage_exit_two_is_failure (test_verify_s09_local.TestNestedExitClassification) ... ok
+test_cross_version_never_falls_back_to_current (test_verify_s10_local.TestUpgradeBaselineSelection) ... ok
+test_cross_version_requires_an_actual_baseline_file (test_verify_s10_local.TestUpgradeBaselineSelection) ... ok
+test_reused_historical_baseline_requires_source_bound_evidence (test_verify_s10_local.TestUpgradeBaselineSelection) ... ok
+test_same_version_is_explicit (test_verify_s10_local.TestUpgradeBaselineSelection) ... ok
+test_body_read_error_is_preserved_with_request_context (test_wire_capture.CaptureSafety) ... ok
+test_drain_dispatch_error_is_retained_even_during_incomplete_abort (test_wire_capture.CaptureSafety) ... ok
+test_exceptional_scope_drains_before_driver_exit_and_preserves_failure (test_wire_capture.CaptureSafety) ... ok
+test_extra_existing_artifact_responses_are_opt_in_and_share_the_same_drain (test_wire_capture.CaptureSafety) ... ok
+test_extra_methods_cannot_expand_capture_to_other_commands (test_wire_capture.CaptureSafety) ... ok
+test_interrupted_body_retains_response_context_and_original_interrupt (test_wire_capture.CaptureSafety) ... ok
+test_limits_remain_fatal (test_wire_capture.CaptureSafety) ... ok
+test_missing_finalization_is_not_success (test_wire_capture.CaptureSafety) ... ok
+test_pending_body_timeout_cannot_become_success (test_wire_capture.CaptureSafety) ... ok
+test_reentrant_body_reads_reserve_unique_order_before_yield (test_wire_capture.CaptureSafety) ... ok
+
+======================================================================
+ERROR: test_cold_runner_fetches_all_graphs_before_offline_provenance (test_delivery_ci.DeliveryContract)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_delivery_ci.py", line 7, in test_cold_runner_fetches_all_graphs_before_offline_provenance
+    from check_dtr_provenance import MANIFESTS
+  File "/home/codexdev/src/b2z/tools/check_dtr_provenance.py", line 3, in <module>
+    import argparse,hashlib,json,subprocess,tomllib
+ModuleNotFoundError: No module named 'tomllib'
+
+======================================================================
+ERROR: test_dependency_policy (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_dependency_policy
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/unittest/loader.py", line 436, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/usr/lib/python3.10/unittest/loader.py", line 377, in _get_module_from_name
+    __import__(name)
+  File "/home/codexdev/src/b2z/tools/test_dependency_policy.py", line 2, in <module>
+    from check_source import check_npm,check_version
+  File "/home/codexdev/src/b2z/tools/check_source.py", line 3, in <module>
+    import hashlib, json, re, subprocess, sys, tomllib
+ModuleNotFoundError: No module named 'tomllib'
+
+
+======================================================================
+ERROR: test_dtr_provenance (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_dtr_provenance
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/unittest/loader.py", line 436, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/usr/lib/python3.10/unittest/loader.py", line 377, in _get_module_from_name
+    __import__(name)
+  File "/home/codexdev/src/b2z/tools/test_dtr_provenance.py", line 2, in <module>
+    from check_dtr_provenance import check_packages
+  File "/home/codexdev/src/b2z/tools/check_dtr_provenance.py", line 3, in <module>
+    import argparse,hashlib,json,subprocess,tomllib
+ModuleNotFoundError: No module named 'tomllib'
+
+
+======================================================================
+ERROR: test_build_cache_excluded (test_package.TestPackaging)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_package.py", line 13, in test_build_cache_excluded
+    p=self.root/'target/debug';p.mkdir(parents=True);(p/'temporary').write_text('not source');package(self.root,self.base/'a.zip')
+  File "/home/codexdev/src/b2z/tools/package_checkpoint.py", line 33, in package
+    errors=verify(stage)
+  File "/home/codexdev/src/b2z/tools/verify_checkpoint.py", line 73, in verify
+    digest = hashlib.file_digest(handle, "sha256").hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'
+
+======================================================================
+ERROR: test_complete_fresh_extraction (test_package.TestPackaging)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_package.py", line 9, in test_complete_fresh_extraction
+    result=package(self.root,self.base/'a.zip');self.assertTrue(result['fresh_extraction_verified']);self.assertEqual(result['payload_files'],2)
+  File "/home/codexdev/src/b2z/tools/package_checkpoint.py", line 33, in package
+    errors=verify(stage)
+  File "/home/codexdev/src/b2z/tools/verify_checkpoint.py", line 73, in verify
+    digest = hashlib.file_digest(handle, "sha256").hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'
+
+======================================================================
+ERROR: test_local_environment_directories_excluded (test_package.TestPackaging)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_package.py", line 17, in test_local_environment_directories_excluded
+    package(self.root,self.base/'a.zip')
+  File "/home/codexdev/src/b2z/tools/package_checkpoint.py", line 33, in package
+    errors=verify(stage)
+  File "/home/codexdev/src/b2z/tools/verify_checkpoint.py", line 73, in verify
+    digest = hashlib.file_digest(handle, "sha256").hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'
+
+======================================================================
+ERROR: test_manifest_not_self_referential (test_package.TestPackaging)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_package.py", line 28, in test_manifest_not_self_referential
+    package(self.root,self.base/'a.zip');self.assertNotIn('  FILES.sha256',(self.root/'FILES.sha256').read_text())
+  File "/home/codexdev/src/b2z/tools/package_checkpoint.py", line 33, in package
+    errors=verify(stage)
+  File "/home/codexdev/src/b2z/tools/verify_checkpoint.py", line 73, in verify
+    digest = hashlib.file_digest(handle, "sha256").hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'
+
+======================================================================
+ERROR: test_repeated_packaging_is_identical (test_package.TestPackaging)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_package.py", line 11, in test_repeated_packaging_is_identical
+    a=package(self.root,self.base/'a.zip');b=package(self.root,self.base/'b.zip');self.assertEqual(a['sha256'],b['sha256'])
+  File "/home/codexdev/src/b2z/tools/package_checkpoint.py", line 33, in package
+    errors=verify(stage)
+  File "/home/codexdev/src/b2z/tools/verify_checkpoint.py", line 73, in verify
+    digest = hashlib.file_digest(handle, "sha256").hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'
+
+======================================================================
+ERROR: test_s14_local (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_s14_local
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/unittest/loader.py", line 436, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/usr/lib/python3.10/unittest/loader.py", line 377, in _get_module_from_name
+    __import__(name)
+  File "/home/codexdev/src/b2z/tools/test_s14_local.py", line 3, in <module>
+    from verify_s14_local import installed_test_inventory
+  File "/home/codexdev/src/b2z/tools/verify_s14_local.py", line 14, in <module>
+    import tomllib
+ModuleNotFoundError: No module named 'tomllib'
+
+
+======================================================================
+ERROR: test_missing_file (test_verify_checkpoint.CheckpointVerifierTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_verify_checkpoint.py", line 38, in test_missing_file
+    self.assertIn("missing file: docs/plan.md", verify(self.root))
+  File "/home/codexdev/src/b2z/tools/verify_checkpoint.py", line 73, in verify
+    digest = hashlib.file_digest(handle, "sha256").hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'
+
+======================================================================
+ERROR: test_modified_file (test_verify_checkpoint.CheckpointVerifierTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_verify_checkpoint.py", line 34, in test_modified_file
+    self.assertIn("checksum mismatch: README.md", verify(self.root))
+  File "/home/codexdev/src/b2z/tools/verify_checkpoint.py", line 73, in verify
+    digest = hashlib.file_digest(handle, "sha256").hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'
+
+======================================================================
+ERROR: test_symlink_file (test_verify_checkpoint.CheckpointVerifierTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_verify_checkpoint.py", line 79, in test_symlink_file
+    self.assertIn("symlink not permitted: link.md", verify(self.root))
+  File "/home/codexdev/src/b2z/tools/verify_checkpoint.py", line 73, in verify
+    digest = hashlib.file_digest(handle, "sha256").hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'
+
+======================================================================
+ERROR: test_unlisted_file (test_verify_checkpoint.CheckpointVerifierTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_verify_checkpoint.py", line 42, in test_unlisted_file
+    self.assertIn("unexpected file: unexpected.txt", verify(self.root))
+  File "/home/codexdev/src/b2z/tools/verify_checkpoint.py", line 73, in verify
+    digest = hashlib.file_digest(handle, "sha256").hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'
+
+======================================================================
+ERROR: test_valid_payload (test_verify_checkpoint.CheckpointVerifierTests)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_verify_checkpoint.py", line 30, in test_valid_payload
+    self.assertEqual(verify(self.root), [])
+  File "/home/codexdev/src/b2z/tools/verify_checkpoint.py", line 73, in verify
+    digest = hashlib.file_digest(handle, "sha256").hexdigest()
+AttributeError: module 'hashlib' has no attribute 'file_digest'
+
+======================================================================
+ERROR: test_verify_dtr_consumers (unittest.loader._FailedTest)
+----------------------------------------------------------------------
+ImportError: Failed to import test module: test_verify_dtr_consumers
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/unittest/loader.py", line 436, in _find_test_path
+    module = self._get_module_from_name(name)
+  File "/usr/lib/python3.10/unittest/loader.py", line 377, in _get_module_from_name
+    __import__(name)
+  File "/home/codexdev/src/b2z/tools/test_verify_dtr_consumers.py", line 2, in <module>
+    from verify_dtr_consumers import cargo_metadata_document
+  File "/home/codexdev/src/b2z/tools/verify_dtr_consumers.py", line 15, in <module>
+    import tomllib
+ModuleNotFoundError: No module named 'tomllib'
+
+
+----------------------------------------------------------------------
+Ran 187 tests in 67.917s
+
+FAILED (errors=15)

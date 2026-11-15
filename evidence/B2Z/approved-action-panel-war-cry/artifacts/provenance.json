@@ -1,13 +1,13 @@
 {
-  "source": "0b8709b7a80afbec9e9ba65e27b0f4abced38909",
+  "source": "fd69939a421796d412d2b9210e78bab0af2f389d",
   "source_dirty": false,
-  "inventory_sha256": "83e0b60c289eaf80cb3b5856d0b6e14fa6f96fd81a2e056b0618a02856dda735",
-  "javascript_sha256": "a0519cba975db3813626ce4ec261d054eb44af2716168e9778326f51b2c4c4fb",
+  "inventory_sha256": "94329dfe47c12adbd074a5af76009bc9edb0bce44322db2a0279da7fc2fb47fa",
+  "javascript_sha256": "feefd03a68a464cee92f963c01327d8afe6fe15b495545daae09ace28a4db4c4",
   "audio_manifest_sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
   "files": 79,
   "public_files": 78,
   "unchanged_audio_assets": 61,
-  "total_asset_bytes": 76334484,
+  "total_asset_bytes": 76335716,
   "normal_wasm_sha256": "1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b",
   "backend_reuse": "Exact hosted normal module from run43764610049 artifact14181941816; all backend runtime/config/dependency inputs unchanged from ca2d657",
   "backend_build_source": "dfaef2c943c629c1c4e35d0776d22131189b7133",
@@ -1245,7 +1245,7 @@
     },
     {
       "path": "apps/b2z-observer/shell.mjs",
-      "sha256": "95abb0778685dbc2084a49c9427b826fd18bea8146194bc61c81c8543e0f9722"
+      "sha256": "66811cf6d56071d9c668a02ed45e445f7299773f36082c255797f417085517de"
     },
     {
       "path": "apps/b2z-observer/speech-bubbles.mjs",
@@ -1257,7 +1257,7 @@
     },
     {
       "path": "apps/b2z-observer/style.css",
-      "sha256": "efda2541ba8771b0cccf9274998a5260e3914e6b48c4ccb56e73fd67d8adfe20"
+      "sha256": "33ed035d11fbbaf22e67593498c5e561a6a254301a7f722c87de7dd7ce3a0039"
     },
     {
       "path": "apps/b2z-observer/terrain-surface.mjs",

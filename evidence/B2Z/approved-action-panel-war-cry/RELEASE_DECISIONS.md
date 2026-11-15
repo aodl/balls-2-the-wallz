@@ -38,6 +38,11 @@ frontend on significant identity/copy/availability/trust/rendering regressions;
 independently verify all restored public bodies and certification. No backend
 rollback, funding or protected-state override.
 
+The prior78-file frontend rollback is valid while the backend remains Rules7.
+After a Rules10 epoch commit, use a retained Rules10-compatible frontend; the old
+Rules7-only frontend cannot verify that identity and is not an approved rollback.
+Preserve this79-file compatible freeze before any later frontend experiment.
+
 ## Backend capability decision
 
 The proposed module adds candidate Rules10 (`B2Z_WAR_CRY_RULES_10`), memo adapter6,

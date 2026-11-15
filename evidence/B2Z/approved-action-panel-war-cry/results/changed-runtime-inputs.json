@@ -1,0 +1,151 @@
+{
+  "starting_source": "84343f0377e49658754470a9549bdd300b147c7e",
+  "frozen_source": "fd69939a421796d412d2b9210e78bab0af2f389d",
+  "changed_consumed_inputs": [
+    {
+      "path": "apps/b2z-observer/action-quote-v6.mjs",
+      "before_sha256": "28e7e1bce45edb7a6c1b8b41f48fdc603104ddc7a5822db7ec99125cf6d5f870",
+      "after_sha256": "f62e64a4ab6e98b14806f816f7136978df8186de21c461f51119e4793c6d7ed7"
+    },
+    {
+      "path": "apps/b2z-observer/app.mjs",
+      "before_sha256": "6310d067a999e1dc610f5ec42b924c843001e647da95f8ba6cdf58dc73fbd921",
+      "after_sha256": "e7fde76d49de42a5773c2acf27e6962ee4a526b39b833f57bd69e4389a2235da"
+    },
+    {
+      "path": "apps/b2z-observer/arcade.mjs",
+      "before_sha256": "a3c1df9a15fe2cdf7d1c0ff3a7feea8839f721bb0536663f9cb8a4922c339809",
+      "after_sha256": "a93f640da08f53b9d8dc24ba3fb9ceada82b57d55ad101c37560f86b957e3e30"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-war-cry.bin",
+      "before_sha256": null,
+      "after_sha256": "26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a"
+    },
+    {
+      "path": "apps/b2z-observer/configuration.generated.mjs",
+      "before_sha256": "fbdfca7d1d65f5bf5a33596964b9d61fe00cda776504adc15c54a4e092aef638",
+      "after_sha256": "519fa5f5e2dadbd7bdcd0a752095de83d4427aafe072825b98c195570b818341"
+    },
+    {
+      "path": "apps/b2z-observer/index.html",
+      "before_sha256": "a2b7d50e240924c66470b9c792edf5fac8640d89ffddd027f25074dfb4702ce8",
+      "after_sha256": "adaebfbb514fd1179e652c9bace0ecbf6e3110ff213f49417ebb36765c955597"
+    },
+    {
+      "path": "apps/b2z-observer/model.mjs",
+      "before_sha256": "8a6e010d99fa14ed4e9b4f6eec81a7584e239c07590003f4597d592d240b09ae",
+      "after_sha256": "a44bf95cf304129f2f99ee4d7c17b92dd0272ec320f2bb8e3a5a26f00e157e87"
+    },
+    {
+      "path": "apps/b2z-observer/payment-presentation.mjs",
+      "before_sha256": "2fd731260b76e0c01af317b8e523a043b1ca662c7c7e2fc989d592b802e10b87",
+      "after_sha256": "8cbb60f8f76af3909269a2f1c896105ec7e368df219a3177db1e2455e0a5f8cb"
+    },
+    {
+      "path": "apps/b2z-observer/shell.mjs",
+      "before_sha256": "37257a996c1df76b8c5e0053d5dc9d44e16ab1c3a151f4119baaa4cabeb5582a",
+      "after_sha256": "66811cf6d56071d9c668a02ed45e445f7299773f36082c255797f417085517de"
+    },
+    {
+      "path": "apps/b2z-observer/speech-bubbles.mjs",
+      "before_sha256": null,
+      "after_sha256": "823d9d6b2a7c882452bfaabd659325ee5e786aa0e51eea9813fe6845745cb5a1"
+    },
+    {
+      "path": "apps/b2z-observer/style.css",
+      "before_sha256": "bddbe2779a52c8f080f9816f9519c03067cc39dd53686112ffc8e0d765a4713b",
+      "after_sha256": "33ed035d11fbbaf22e67593498c5e561a6a254301a7f722c87de7dd7ce3a0039"
+    },
+    {
+      "path": "apps/b2z-observer/torus-identity.generated.mjs",
+      "before_sha256": "b04a5db70d93a51b8718c0b29a7be162976f35bb53bbf3e6ca48047c7e627f31",
+      "after_sha256": "220634a8f86cd6ff85bc918a7d23b2f68e4574c1acbd7b23244ebb697b878d8b"
+    },
+    {
+      "path": "apps/b2z-observer/war-cry-capability.generated.mjs",
+      "before_sha256": null,
+      "after_sha256": "46b0c3113ba965a6d3e941375d46c9324de640b5bac0f3c20d39ed9d9bf01f87"
+    },
+    {
+      "path": "apps/b2z-observer/war-cry-events.mjs",
+      "before_sha256": null,
+      "after_sha256": "fda045c12f1af3cbf050af11846a2125ae90daf09764083b30b33ca97857887a"
+    },
+    {
+      "path": "apps/b2z-observer/war-cry-policy.mjs",
+      "before_sha256": null,
+      "after_sha256": "80b7d8b41d8cdd85b9d787ebec0762f1f9993a5ff35cb32bd1f0c9d5a0291ad4"
+    },
+    {
+      "path": "canisters/runtime-lab/runtime-lab.did",
+      "before_sha256": "03799f2cdbe381753be5d89f92c0d258ca7e060d01dfb34af9586eee25b048e5",
+      "after_sha256": "64d9e37d35320175c6e300a9a587c1d2c351e47f3e6bf1186b5ba35945b4a08a"
+    },
+    {
+      "path": "canisters/runtime-lab/src/lib.rs",
+      "before_sha256": "07cdf9462bf8046d459f387b9a07961d19aa119eb4b861b9bcf4e0feab9badd9",
+      "after_sha256": "168c8ccd6d0e3fbc514c1dcd79e5d37b1d2e116b00af551a80cfc011de5eed53"
+    },
+    {
+      "path": "canisters/runtime-lab/src/playability_runtime.rs",
+      "before_sha256": "74ebe5e82434d8e155a41485f9375f0be798b44bcccef9f4edfd069a881c1766",
+      "after_sha256": "1dce96c5667206f84ed04d6d57bd3d0b067a90928ca963c7263bb7a05df78080"
+    },
+    {
+      "path": "canisters/runtime-lab/src/player_api.rs",
+      "before_sha256": "96cc57bb8b04992218f34068897593cca376295c49931fba98f14a4a67813295",
+      "after_sha256": "8f1b70b26c00b69c0adf2ee1b47ff8957bad71ec6c58b54cc22435a437b4daef"
+    },
+    {
+      "path": "canisters/runtime-lab/src/source.rs",
+      "before_sha256": "90030bbf321b3f172790d636be8919b1311a48ac480f41685fff6c409fc1792f",
+      "after_sha256": "624ad9fb1c7439f35e65b816dc7e6a5d7a0bdee6d223fa1edcc73860ef18e913"
+    },
+    {
+      "path": "canisters/runtime-lab/src/transition.rs",
+      "before_sha256": "d688505e675cca605d615e17154a411c29425418c94c196d32bf138f227ef0a2",
+      "after_sha256": "489b37b780be680d11d23995246f524ce467fc6805d898cddfd4080e029586a0"
+    },
+    {
+      "path": "crates/b2z-protocol/src/lib.rs",
+      "before_sha256": "dd8e9e47ced269d85c07dc01f8e56faceb0064d485237aaf78fe06e305396593",
+      "after_sha256": "e0a2a324d81426582a30aeb5c098c574b3f8de8281fe7f0ee9d2e6b45750c184"
+    },
+    {
+      "path": "crates/b2z-protocol/src/war_cry.rs",
+      "before_sha256": null,
+      "after_sha256": "8cee55ac0ca11dfd59f7078969c7f3b7ac75e72374a460fa3af7ec3e1d961c95"
+    },
+    {
+      "path": "native/b2z-native/src/cursor.rs",
+      "before_sha256": "4b1ca70b345498464319259606159118a09c465a0dfa043e0ea38f3c29b47765",
+      "after_sha256": "cc735d6a842dfd0f11731f5e33f89019e3f9738b78ade74c5199ea88ab10dfbb"
+    },
+    {
+      "path": "native/b2z-native/src/cursor_v6.rs",
+      "before_sha256": "4fcafa1b82afc8826459b1ae207a1e1f0b6059ea7d6e66d593449aaa5bfd84c0",
+      "after_sha256": "3a559b1cae7f940a35ebeba0fca34582ed90e95813de2c6c1f31086fb5c7c2ae"
+    },
+    {
+      "path": "native/b2z-native/src/lib.rs",
+      "before_sha256": "2cc0f945c6c63ef3bf4c9daf297907c84ab9e5af73370837512f5cbfcd7223cd",
+      "after_sha256": "a27f4d0f80eb0d44081d56927287b3a56856de0011ca251ca8f23b22afed4ce6"
+    },
+    {
+      "path": "native/b2z-native/src/war_cry.rs",
+      "before_sha256": null,
+      "after_sha256": "f3e61a45ef7155d366b5740025fd290dafb7919d7de9588a1896e9594bb9c3e5"
+    },
+    {
+      "path": "packages/protocol/war-cry.mjs",
+      "before_sha256": null,
+      "after_sha256": "1eb77a8ade1f91ea28df3e0fb937da7d3ca1a3caf3e14acbc4552e6e2b93c6b2"
+    },
+    {
+      "path": "tools/build_observer_playability.mjs",
+      "before_sha256": "15dc5c4a7bf76b5cd6938d2667c0b00c6766af02965500ce025015316614b372",
+      "after_sha256": "47318280f2f2763687c258c80761baeabab32169c632eeb36441b3d3bdf53ef3"
+    }
+  ]
+}
