@@ -82,7 +82,8 @@ captures/results will be copied here at closeout; no unexecuted test is a PASS.
   Twelve publications (ten gameplay, two checkpoints) passed independent replay.
   Pinned IC certificate/canister/freshness, retained chaining and every artifact
   passed; changed input text, missing events, changed event text and damaged
-  certificate negatives rejected. Two-browser visible speech/lifetime is pending.
+  certificate negatives rejected. Two certified observers displayed the same real New launch and event identity.
+  The ordinary-context hidden-age/fade lifetime closeout is pending.
 - Existing strict capture, browser HTTP/Web Crypto, human-action and tactical
   regressions pass so far in the current local browser campaign. Complete gate
   conclusions and exact final source will be recorded at closeout.
@@ -95,10 +96,13 @@ local acceptance bundle; a transitional status-test baseline after deliberate cr
 editing; reuse of saved account storage in a purported fresh Join context; and an
 incorrect denied-clipboard test assignment that invoked its returned function.
 
-Two genuine application defects discovered by these tests were corrected: first
+Application defects discovered by these tests were corrected: first
 Join toggled group visibility twice per frame, perpetually invalidating layout;
 and status refresh overwrote invalid local cry text instead of preserving it for
-correction. Their negative evidence is retained. Neither defect was bypassed by
+correction. Native raw-paste testing additionally exposed browser newline
+replacement; raw paste is now validated first. Speech is fenced at actual
+checkpoint/discontinuous presentation, including a checkpoint with no next segment.
+Their negative evidence is retained. Neither defect was bypassed by
 loosening panel settling, payment readiness or Copy assertions.
 
 ## Limitations / decisions still requiring approval
@@ -112,3 +116,11 @@ speech evidence and bounded cost measurements remain closeout work.
 P09 remains FAIL/unqualified from the existing audio trial. Physical phone,
 headphone, Bluetooth, Safari/iOS and unavailable Firefox/BFCache performance or
 listening are NOT VERIFIED. Software Chromium viewports are not physical devices.
+
+
+The initial source freeze at ca2d657 is superseded by the demonstrated raw-paste
+and checkpoint-speech corrections; it is retained under `.work/` and must not be
+deployed. Its read-only production-backed tests passed at320/390/desktop, with
+exact native copied recipient, amount and memo and Rules7 War Cry gating. They
+are scope-limited evidence, not qualification of later changed JavaScript.
+The final freeze and complete hosted qualification remain pending.

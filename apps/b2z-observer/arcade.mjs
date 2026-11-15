@@ -1,4 +1,4 @@
-import {fitCry}from'../../packages/protocol/war-cry.mjs';
+import {fitCry,validateCry}from'../../packages/protocol/war-cry.mjs';
 import {warCrySupported}from'./war-cry-policy.mjs';
 import {shortRecipient,paymentCopyValue} from './payment-presentation.mjs';
 import {MAX_QUANTITY} from '../../packages/protocol/memo-v6.mjs';
@@ -152,6 +152,8 @@ export function createArcade(doc){
   try{if(value.length>4096)throw Error('War Cry is too long');if(value)fitCry('FIRE 1 0 1',value);cry=value;cryProblem='';keepPrevious=false;clearDraft();refresh();}
   catch(e){cryProblem=e.message;text('war-cry-note',cryProblem);$('transfer-controls').disabled=true;}
  }
+ // Validate raw paste before the single-line input can silently replace newlines.
+ $('war-cry').addEventListener('paste',e=>{const raw=e.clipboardData?.getData('text/plain');if(!raw)return;try{if(raw.length>4096)throw Error('War Cry is too long');validateCry(raw);}catch(error){e.preventDefault();cryProblem=error.message;text('war-cry-note',cryProblem);$('transfer-controls').disabled=true;}});
  $('war-cry').addEventListener('input',editCry);
  $('war-cry').addEventListener('compositionstart',()=>{composing=true;$('transfer-controls').disabled=true;});
  $('war-cry').addEventListener('compositionend',()=>{composing=false;editCry();});

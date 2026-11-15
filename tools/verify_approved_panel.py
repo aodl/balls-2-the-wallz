@@ -37,6 +37,9 @@ with sync_playwright()as pw:
       page.locator('#war-cry').focus();before=page.evaluate('fixture.summary().camera');page.keyboard.press('ArrowLeft');page.keyboard.press('b');assert page.evaluate('fixture.summary().camera')==before;assert page.locator('#war-cry').evaluate('(n)=>document.activeElement===n')
       page.locator('#war-cry').fill('a'*64);assert len(page.locator('#text-memo').text_content().encode())<=32;assert len(page.locator('#war-cry').input_value())<64
       page.locator('#war-cry').fill('No|way');status(page,'healthy');assert page.locator('#war-cry').input_value()=='No|way';assert page.locator('[data-copy=text]').is_disabled();page.locator('#war-cry').fill('Fine')
+      page.evaluate('(text)=>navigator.clipboard.writeText(text)','Hi'+chr(10)+'There');page.locator('#war-cry').focus();page.keyboard.press('Control+A');page.keyboard.press('Control+V');assert page.locator('#war-cry').input_value()=='Fine','Native paste must reject a newline before browser sanitisation';assert page.locator('[data-copy=text]').is_disabled();page.locator('#war-cry').fill('Fine')
+      page.evaluate('()=>navigator.clipboard.writeText("é 🇬🇧")');page.locator('#war-cry').focus();page.keyboard.press('Control+A');page.keyboard.press('Control+V');assert page.locator('#war-cry').input_value()=='é 🇬🇧'
+
      if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click();settled_panel(page)
      settled_panel(page) # Deliberate cry edits may still be expanding the replacement notice.
      baseline=geometry(page)['panel'];row['actions'][action]['status_samples']=[]

@@ -246,7 +246,7 @@ async function epochConfiguration(s,ticket){
   return certifiedConfiguration(ticket);
 }
 function applyEpochPresentation(s,world,config){
- audio.fence();
+ speech.clear();audio.fence();
   if(config)s.config=config;
   arenaRenderer?.reset();
   if(!visible||visible.width!==world.width||visible.height!==world.height){shell.controller.cancel({follow:true});camera.initialized=false;focusOnNextDraw=world.version>=5;}
@@ -413,7 +413,7 @@ function draw(){
  if(!renderError&&drawnPose===audioPose(camera))return {camera,canvasRect:rect,membership:arenaRenderer.audioMembership(),occluders:[]};
 }
 function presentVerified(s,time){
- function show(q,at){if(!q.presented){if(q.checkpoint)applyEpochPresentation(s,q.segment.final,null);q.player.view.continuePresentation(visible,time);q.presented=true;}const d=q.player.provenance;if(d)visibleSpeechScope=d.namespace+'/'+d.identity+'/'+d.epoch;visible=q.player.advance(at,audioCollector,(e,v,p)=>{try{speech.accept(e,v,p,{continuous:speechContinuous&&!document.hidden});}catch{speech.clear();}});}
+ function show(q,at){if(!q.presented){if(q.checkpoint)applyEpochPresentation(s,q.segment.final,null);q.player.view.continuePresentation(visible,time);q.presented=true;}const d=q.player.provenance??q.provenance;if(d)visibleSpeechScope=d.namespace+'/'+d.identity+'/'+d.epoch;visible=q.player.advance(at,audioCollector,(e,v,p)=>{try{speech.accept(e,v,p,{continuous:speechContinuous&&!document.hidden});}catch{speech.clear();}});}
  while(s.queue.length&&time>=s.queue[0].segment.end){const q=s.queue.shift();show(q,q.segment.end);s.bytes-=q.segment.bytes;}
  if(s.queue.length)show(s.queue[0],time);
  if(!s.queue.length&&s.presentationFence!==undefined&&time===s.clock.available){

@@ -49,6 +49,9 @@ UTF-8/bytes/text; frontend truncates only whole grapheme prefixes. Available byt
 are `max(0,32 - UTF8(directive).length - 1)`. Never truncate/reformat the directive,
 change quantity/prices or split text across payments. Cropped suffixes are not
 resurrected when a directive shrinks. IME completion precedes reconciliation/copy.
+Raw paste is checked before the browser can replace line breaks in a single-line
+input; rejected control/separator text is not silently rewritten. Invalid local
+text remains editable through status refresh while copying stays disabled.
 A literal typed None is text; the empty placeholder None is not.
 
 BTZPAY03:8-byte magic,32-byte canonical funding account,8-byte big-endian amount,
@@ -97,7 +100,8 @@ identity, epoch, publication, event, payment and cannon bind dedupe. Per-tab
 session-storage dedupe is presentation-only, never authority. Maximum512 recent
 IDs,16 active cannon bubbles and8 visible overlays. No queue of offscreen history.
 One active cry per cannon; distinct events replace it. Removal/source/epoch changes
-clear or suppress it; movement follows the same displayed cannon instance.
+clear or suppress it, including zero-time checkpoints without a later segment;
+movement follows the same displayed cannon instance.
 
 Lifetime is60 real presentation seconds:55 visible then5 fading; reduced motion
 removes the fade. A nondecreasing wall clock ages hidden/frozen intervals. Repeated
