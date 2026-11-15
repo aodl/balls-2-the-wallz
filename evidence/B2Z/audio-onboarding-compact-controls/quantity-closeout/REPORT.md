@@ -122,3 +122,34 @@ throws ReferenceError before its module defines that global. It now polls
 is a test-only correction, not a runtime change or acceptance of partial startup.
 The failure log remains retained. A superseded hosted attempt, if cancelled by the
 normal branch concurrency policy, must not be reported as a six-gate pass.
+
+The desktop→320px transition additionally established the legitimate offscreen
+case after resize: waiting for delivered viewport geometry alone does not guarantee
+that the original cannon is visible. The regression now asserts that it really is
+offscreen and the editor hidden, then uses the normal explicit Locate control before
+requiring the dock. This preserves the established offscreen policy. The corrected
+native journey passes both dock transitions and all four visible-edge pans.
+
+Hosted attempt955491b failed the old telemetry test while Fire reserved the meter's
+rail. Its [exact log](results/hosted-955491b-browser.log) is retained. The replacement
+test explicitly asserts that Fire yields optional telemetry, switches to Move and
+runs the unchanged visible meter/content/overlap/financial-isolation assertions,
+then restores Fire and requires the exact earlier memo and quantity control.
+This changes a superseded UI assumption; it removes no telemetry or payment check.
+
+[Exact frozen, mainnet-backed browser evidence](results/frozen-mainnet.json) PASS at
+320×640,390×844 and1440×900. All use actual authenticated Rules7 and native input,
+with unchanged local frozen assets/security policy and read-only API request fencing.
+The320px public route matches the original exact camera and347.15° pose; editor
+10/526/130/46, payment body242px. Native +/- changes only quantity, memo/price;
+angle and camera remain unchanged. These observations kept copying disabled under
+actual current readiness; no healthy status was injected. First verified world
+latencies20.84/16.46/10.99s were observed on the loaded shared host, not a matched
+performance improvement or production-deployment claim. Current financial-copy
+acceptance remains conditional on actual readiness, independently of layout.
+
+The initial parallel local source run hit its existing600-second Node-test deadline
+while several browser/video suites competed on this two-CPU host. It is FAIL, not
+qualified or silently extended. Its [verification record](results/loaded-source-timeout.json)
+is retained; a quiet rerun is required. Hosted Source already passed for955491b,
+which is separate evidence, not a replacement claim for that failed local run.

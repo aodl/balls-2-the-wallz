@@ -95,6 +95,11 @@ def verify_player_controls(page,width,height):
  for displayed in ['0','45','90','180','270','359.99']:
   set_heading(page,displayed);expected=page.evaluate('(a)=>fixture.expectedHeading(a)',displayed);assert page.locator('#text-memo').inner_text()==f'FIRE 1 {expected} 1';assert page.evaluate('fixture.aim().heading===fixture.command().angle')
  print('heading and drag PASS',width,flush=True)
+ # Quantity owns the reserved rail while Fire is open; optional telemetry
+ # yields it. Exercise the same visible meter/financial-isolation assertions
+ # in Move, then restore Fire and its exact local proposal.
+ fire_memo=page.locator('#text-memo').text_content();assert page.locator('#quantity-controls').is_visible();assert page.locator('#cycles-display').evaluate('(n)=>getComputedStyle(n).visibility')=='hidden'
+ page.locator('#move-action').click();settled_panel(page);expect(page.locator('#cycles-display')).to_be_visible()
  # Real compact-meter DOM path must never expand with internal reset diagnostics.
  allowed=page.evaluate('fixture.canPay()')
  for cause in ['credit','reserve','module','source','hidden','error']:
@@ -104,6 +109,7 @@ def verify_player_controls(page,width,height):
   overlap=lambda a,b:a['x']<b['x']+b['width'] and a['x']+a['width']>b['x'] and a['y']<b['y']+b['height'] and a['y']+a['height']>b['y']
   assert not overlap(meter,mini) and not overlap(meter,card);assert meter['x']>=0 and meter['x']+meter['width']<=width
  assert page.locator('#cycle-detail').text_content()=='Cycle data temporarily unavailable'
+ page.locator('#fire-action').click();settled_panel(page);assert page.locator('#text-memo').text_content()==fire_memo;assert page.locator('#quantity-controls').is_visible()
  # Keyboard viewport contraction retains an editable heading, then restores space.
  if width<=700:
   page.locator('#recipient-reveal').click();page.locator('#full-recipient').focus();page.set_viewport_size({'width':width,'height':400});page.wait_for_function('(w)=>fixture.camera.viewport.height===400&&fixture.camera.viewport.width===w',arg=width);page.locator('#full-recipient').scroll_into_view_if_needed();bounds=page.locator('#full-recipient').evaluate('(n)=>{const r=n.getBoundingClientRect(),p=n.closest(".panel-body").getBoundingClientRect();return {focus:n===document.activeElement,top:r.top,bottom:r.bottom,bodyTop:p.top,bodyBottom:p.bottom}}');assert bounds['focus']and bounds['top']>=bounds['bodyTop']and bounds['bottom']<=bounds['bodyBottom'],bounds

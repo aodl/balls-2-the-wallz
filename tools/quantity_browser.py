@@ -65,7 +65,10 @@ def verify_quantity_matrix(browser,url,out,report,save,width=None,height=None):
     dev=c.new_cdp_session(p);dev.send('Emulation.setPageScaleFactor',{'pageScaleFactor':1.1});p.wait_for_timeout(200);row['visual_zoom']=editor(p);dev.send('Emulation.setPageScaleFactor',{'pageScaleFactor':1});p.wait_for_timeout(200)
     p.evaluate("document.documentElement.style.fontSize='20px'");resize(p,{'width':321,'height':640});resize(p,{'width':320,'height':640});settled_panel(p);row['text_zoom']=editor(p);gesture_probes(p,c,row)
    if w==1440:
-    n=p.locator('#quantity-count').text_content();resize(p,{'width':320,'height':640});settled_panel(p);row['dock_transition']=editor(p);assert row['dock_transition']['placement']=='dock'and p.locator('#quantity-count').text_content()==n;p.screenshot(path=str(out/'desktop-to-dock.png'));resize(p,{'width':1440,'height':900});settled_panel(p);row['float_transition']=editor(p);assert row['float_transition']['placement']=='floating'and p.locator('#quantity-count').text_content()==n;p.screenshot(path=str(out/'dock-to-desktop.png'));native_edge_pans(p,row)
+    n=p.locator('#quantity-count').text_content();resize(p,{'width':320,'height':640});settled_panel(p)
+    if p.locator('#locate-context').is_visible():
+     assert not p.evaluate('fixture.camera.cellPoint(fixture.aim().cannon.cell).visible');assert p.locator('#quantity-controls').is_hidden();p.locator('#locate-context').click();settled_panel(p);row['dock_transition_navigation']='Explicit Locate restores source that real viewport contraction left offscreen'
+    row['dock_transition']=editor(p);assert row['dock_transition']['placement']=='dock'and p.locator('#quantity-count').text_content()==n;p.screenshot(path=str(out/'desktop-to-dock.png'));resize(p,{'width':1440,'height':900});settled_panel(p);row['float_transition']=editor(p);assert row['float_transition']['placement']=='floating'and p.locator('#quantity-count').text_content()==n;p.screenshot(path=str(out/'dock-to-desktop.png'));native_edge_pans(p,row)
    if h<280:
     p.keyboard.press('Escape');assert p.locator('#quantity-controls').is_hidden();resize(p,{'width':w,'height':640});p.locator('#centre-cannon').click();settled(p)
     if p.locator('#own-cannons button').first.is_visible():p.locator('#own-cannons button').first.click();settled(p)
