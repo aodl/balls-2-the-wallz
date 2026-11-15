@@ -11,7 +11,7 @@ def verify_returning_entry(browser,url,out):
   ('new-account','additional','2vxsx-fae','',False,False),
   ('delayed','additional','aaaaa-aa','',True,False),
   ('cancel-delayed','additional','aaaaa-aa','',True,True)]:
-  ctx=browser.new_context(viewport={'width':390,'height':844});page=ctx.new_page();page.goto(url+'/?case='+scene+'&phase=final');page.wait_for_function('()=>!!fixture')
+  ctx=browser.new_context(viewport={'width':390,'height':844});page=ctx.new_page();page.goto(url+'/?case='+scene+'&phase=final');page.wait_for_function('()=>Boolean(globalThis.fixture)')
   if delayed:page.evaluate('fixture.status({worldReady:false,resolved:{kind:"reconnecting",label:"Retrying automatically",canPrepare:false}})')
   page.locator('#join-action').click();page.locator('#sending-account').fill(account)
   if sub:page.locator('#identity-form details').evaluate('(n)=>n.open=true');page.locator('#identity-subaccount').fill(sub)

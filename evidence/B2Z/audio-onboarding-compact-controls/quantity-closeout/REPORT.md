@@ -114,3 +114,11 @@ real camera viewport to match before assessing settled geometry; it does not cal
 internal positioning routines or permit an invisible editor for a visible cannon.
 The original capture and assertions remain. Resize-during-press still exercises the
 unsettled interval and requires its release fence to reject a late edit.
+
+The related compact regression completed all three viewport payment/quantity/copy
+journeys, then exposed a pre-existing entry-matrix bootstrap race: `!!fixture`
+throws ReferenceError before its module defines that global. It now polls
+`Boolean(globalThis.fixture)`, preserving every returning-account assertion. This
+is a test-only correction, not a runtime change or acceptance of partial startup.
+The failure log remains retained. A superseded hosted attempt, if cancelled by the
+normal branch concurrency policy, must not be reported as a six-gate pass.
