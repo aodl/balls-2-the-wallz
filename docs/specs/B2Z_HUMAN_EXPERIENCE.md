@@ -1053,3 +1053,44 @@ Changed payer/rules/world invalidates incompatible instructions; an old price
 cannot be copied merely to preserve geometry. Default legal Move/Build targets,
 active Rules7/Rules9 policy binding and exact risk warning remain unchanged. No
 new four-cell guarantee is advertised while certified Rules7 remains active.
+
+### Quantity availability closeout — supersedes opposite-arrow-only placement
+
+For Fire/Revive, a visible source cannon always retains one usable, model-backed
+quantity editor, independent of payment readiness. Opposite-arrow placement is a
+preference. Exhausting its bounded local candidates selects a measured reserved
+dock, never hides the editor. The same DOM instance, focus, quantity and bindings
+survive every placement mode; no payment-form input or duplicate editor returns.
+
+Fire reserves a measured control-rail rectangle immediately above the camera
+controls before sizing the natural payment scrollport. Optional cycles telemetry
+yields that rectangle; essential camera, sound and minimap controls remain usable.
+Geometrically constrained views use that dock consistently; a wider view may float
+near the aimer, retaining the reservation so fallback cannot resize the pane during aiming. Once docked it stays docked until a genuine action/viewport
+change. The exact320×640/cell0/347.15° live regression must pass unchanged in camera
+and a fully usable payment pane. Status-only changes retain zero panel drift and exact
+payment values. Normal views preserve the existing240px-or-natural-content scrollport regression;
+keyboard-contracted views preserve the existing96px usable minimum.
+
+Keyboard-contracted views use a reserved safe-area strip computed from measured
+fixed-control exclusions. The toolbar/payment pane cannot occupy that strip. For
+exceptionally short visual viewports (<280 CSS pixels), quantity and Close share
+one toolbar row; secondary chrome and other action icons yield until Close/Escape
+restores them. On still smaller views scrolling uses the actual remaining space.
+No touch target is shrunk. Camera changes occur only under established explicit
+navigation/entry/real-resize accommodation, never because the heading changes.
+
+Use cached editor/chrome measurements, safe-area insets and actual visual viewport
+size/offsets. The complete editor footprint (including rounded corners and disabled
+buttons) belongs to the editor, excluding aim/pan/placement/double-click gestures.
+Pointer/focus/aim/pinch capture locks its physical target. A resize or cancellation
+fences a pending release before relocation; no late click may edit quantity. A fresh
+press/key remains usable. Decorative guide clearance may shorten on the same ray
+at the actual control rectangle; heading and memo mathematics remain unchanged.
+Audio masks use the actual editor rectangle, not a transparent reserved strip.
+
+Close, Move/Build, inspection, follow, authoritative source removal and offscreen
+Locate retain their established hide rules. Layout exhaustion is never a hide rule.
+The retained canonical pose, native interaction/status/viewport matrix and complete
+planner sweep run in `tools/verify_quantity_browser.py`, `tools/quantity_browser.py`
+and `tests/js/quantity-dock.test.mjs`, including the normal public entry route.

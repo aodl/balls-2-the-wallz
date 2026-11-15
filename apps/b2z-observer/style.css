@@ -176,8 +176,15 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 #quantity-count{display:block;text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap;font-size:.95rem}
 /* Quantity availability is a layout reservation, independent of heading/readiness. */
 :root{--quantity-safe-left:env(safe-area-inset-left,0px);--quantity-safe-right:env(safe-area-inset-right,0px);--quantity-safe-top:env(safe-area-inset-top,0px);--quantity-safe-bottom:env(safe-area-inset-bottom,0px)}
-.panel[data-quantity-reserved=row] .panel-header{padding-bottom:calc(4px + var(--quantity-dock-space,54px));align-items:flex-start}
+.quantity-rail #cycles-display{visibility:hidden;pointer-events:none}
 #quantity-controls{width:130px;height:46px;gap:0}
 #quantity-controls[data-placement=dock]{box-shadow:none;background:var(--control)}
 /* Own the complete measured footprint, including transparent rounded corners. */
 #quantity-controls::before{content:"";position:absolute;inset:0;z-index:-1}
+
+/* Exceptionally short view: preserve quantity and Close in one header row.
+   Closing the action restores secondary chrome and the complete action toolbar. */
+.quantity-constrained .arena-chrome,.quantity-constrained .audio-controls{visibility:hidden;pointer-events:none}
+.quantity-constrained #focus-cannon,.quantity-constrained #context-actions{display:none}
+.quantity-constrained .panel[data-surface=context] .panel-header{width:100%}
+.quantity-constrained #close-panel{margin-left:auto}

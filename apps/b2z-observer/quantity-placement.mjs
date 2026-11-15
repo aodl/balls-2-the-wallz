@@ -1,4 +1,4 @@
-/** Bounded local preferences with a measured, layout-reserved toolbar dock. */
+/** Bounded local preferences with a measured, layout-reserved control dock. */
 const intersects=(a,b,pad=2)=>a.left<b.right+pad&&a.right>b.left-pad&&a.top<b.bottom+pad&&a.bottom>b.top-pad;
 export function quantityPlacement({origin,direction,width,height,scale,viewport,top=74,obstacles=[],previous=null,locked=false,arrow=[],dock=null,preferDock=false,diagnostics=null}){
  const left=viewport.left??0,upper=viewport.top??0,right=left+viewport.width,bottom=upper+viewport.height;

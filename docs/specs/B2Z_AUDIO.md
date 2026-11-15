@@ -147,3 +147,10 @@ Keep unsupported BFCache/non-Chromium/physical devices NOT VERIFIED. P09 histori
 FAIL remains separate until matched new measurements establish its disposition.
 New bytes require a clean frozen inventory and all six exact-source hosted gates.
 No deployment or backend activation is implied by this specification.
+
+Quantity docking does not change audio intent, mix, assets or budgets. Occlusion
+uses the one actual editor rectangle in floating/control-rail/contracted-strip modes;
+a reserved but empty strip and temporarily hidden cycles telemetry are not masks. The visible source cannon
+must remain audible when otherwise eligible. Extremely contracted action chrome
+may temporarily yield the sound icon with other secondary controls until Close or
+Escape restores it; no preference, context, scheduler or musical phase is reset.

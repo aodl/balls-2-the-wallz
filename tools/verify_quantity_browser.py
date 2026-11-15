@@ -5,7 +5,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright
 from fluid_playability_browser import settled_panel
 from quantity_browser import verify_quantity_matrix,editor
-p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--pose-only',action='store_true');a=p.parse_args();out=a.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1]
+p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--pose-only',action='store_true');p.add_argument('--matrix-width',type=int);p.add_argument('--matrix-height',type=int);a=p.parse_args();out=a.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1]
 subprocess.run(['node','tools/fixtures/prepare-playability-actions.mjs',str(out/'fixture.json')],check=True);subprocess.run(['node_modules/.bin/esbuild','tools/fixtures/playability-action-browser.mjs','--bundle','--platform=browser','--format=esm','--outfile='+str(out/'fixture.mjs')],check=True)
 (out/'index.html').write_text((root/'apps/b2z-observer/index.html').read_text().replace('src="./app.mjs"','src="./fixture.mjs"'));(out/'cursors').mkdir()
 for n in ['style.css','icon.svg','cursors/reticle.svg']:(out/n).write_bytes((root/'apps/b2z-observer'/n).read_bytes())
@@ -31,7 +31,7 @@ with sync_playwright()as pw:
   report['exact_pose']=page.evaluate('''()=>({camera:fixture.summary().camera,heading:fixture.proposal().degrees,hidden:document.getElementById('quantity-controls').hidden,quantity:document.getElementById('quantity-controls').getBoundingClientRect().toJSON(),origin:fixture.point(1),arrow:fixture.arrow(),layout:fixture.shell.layoutState(),viewport:{width:innerWidth,height:innerHeight,visual:{width:visualViewport.width,height:visualViewport.height,left:visualViewport.offsetLeft,top:visualViewport.offsetTop}},rects:Object.fromEntries(['.brand','#status-button','#identify-button','#cycles-display','#minimap','.camera-controls','.audio-controls','#workspace'].map(s=>[s,document.querySelector(s).getBoundingClientRect().toJSON()])),focus:document.activeElement.id})''');page.screenshot(path=str(out/'exact-pose.png'));save()
   assert not report['exact_pose']['hidden'],'Visible-cannon quantity editing disappeared at retained320x640/347.15 pose'
   page.evaluate('globalThis.quantityIdentity=document.getElementById("quantity-controls")');editor(page);page.close();ctx.close()
-  if not a.pose_only:verify_quantity_matrix(browser,url,out,report,save)
+  if not a.pose_only:verify_quantity_matrix(browser,url,out,report,save,a.matrix_width,a.matrix_height)
   report['status']='PASS'
  except Exception as e:report.update(status='FAIL',error=str(e));raise
  finally:save();browser.close();s.shutdown()

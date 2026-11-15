@@ -1,0 +1,269 @@
+{
+  "source": "fc2d9e1d9f2f3e0553a0eb114bfd212af64a0ddc",
+  "scope": "Exact measured retained-scene input; original13 candidate equations, checked against actual unmodified planner null result",
+  "origin": {
+    "x": 160,
+    "y": 155.00000000000458
+  },
+  "body": {
+    "left": 118.32,
+    "right": 201.68,
+    "top": 114.60000000000457,
+    "bottom": 173.00000000000458
+  },
+  "top": 66.03125,
+  "viewport": {
+    "width": 320,
+    "height": 640,
+    "visual": {
+      "width": 320,
+      "height": 640,
+      "left": 0,
+      "top": 0
+    }
+  },
+  "previous": {
+    "slot": 12,
+    "rect": {
+      "left": 136,
+      "right": 264,
+      "top": 67,
+      "bottom": 111,
+      "width": 128,
+      "height": 44
+    },
+    "last_visible_heading": "312.15",
+    "source": "Native frame history in previous-slot.json"
+  },
+  "locked": false,
+  "focus": "aim-handle",
+  "actual_chosen": null,
+  "candidates": [
+    {
+      "slot": 0,
+      "rect": {
+        "left": 213.68,
+        "top": 133.00000000000458,
+        "right": 341.68,
+        "bottom": 177.00000000000458,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": false,
+      "cannon": false,
+      "arrow": false,
+      "ui": [],
+      "accepted": false
+    },
+    {
+      "slot": 1,
+      "rect": {
+        "left": 176.95749201409387,
+        "top": 213.95749201409842,
+        "right": 304.9574920140939,
+        "bottom": 257.9574920140984,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": true,
+      "cannon": false,
+      "arrow": false,
+      "ui": [
+        "#workspace"
+      ],
+      "accepted": false
+    },
+    {
+      "slot": 2,
+      "rect": {
+        "left": 96,
+        "top": 208.68000000000458,
+        "right": 224,
+        "bottom": 252.68000000000458,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": true,
+      "cannon": false,
+      "arrow": false,
+      "ui": [
+        "#workspace"
+      ],
+      "accepted": false
+    },
+    {
+      "slot": 3,
+      "rect": {
+        "left": 15.042507985906141,
+        "top": 213.95749201409845,
+        "right": 143.04250798590613,
+        "bottom": 257.9574920140984,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": true,
+      "cannon": false,
+      "arrow": false,
+      "ui": [
+        "#workspace"
+      ],
+      "accepted": false
+    },
+    {
+      "slot": 4,
+      "rect": {
+        "left": -21.680000000000007,
+        "top": 133.0000000000046,
+        "right": 106.32,
+        "bottom": 177.0000000000046,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": false,
+      "cannon": false,
+      "arrow": false,
+      "ui": [],
+      "accepted": false
+    },
+    {
+      "slot": 5,
+      "rect": {
+        "left": 15.042507985906113,
+        "top": 52.04250798591072,
+        "right": 143.04250798590613,
+        "bottom": 96.04250798591072,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": false,
+      "cannon": false,
+      "arrow": true,
+      "ui": [
+        ".brand",
+        "#status-button"
+      ],
+      "accepted": false
+    },
+    {
+      "slot": 6,
+      "rect": {
+        "left": 96,
+        "top": 57.32000000000457,
+        "right": 224,
+        "bottom": 101.32000000000457,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": false,
+      "cannon": false,
+      "arrow": true,
+      "ui": [
+        "#status-button",
+        "#identify-button"
+      ],
+      "accepted": false
+    },
+    {
+      "slot": 7,
+      "rect": {
+        "left": 176.95749201409384,
+        "top": 52.0425079859107,
+        "right": 304.9574920140939,
+        "bottom": 96.0425079859107,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": false,
+      "cannon": false,
+      "arrow": false,
+      "ui": [
+        "#status-button",
+        "#identify-button",
+        ".audio-controls"
+      ],
+      "accepted": false
+    },
+    {
+      "slot": 8,
+      "rect": {
+        "left": 8,
+        "top": 66.03125,
+        "right": 136,
+        "bottom": 110.03125,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": true,
+      "cannon": false,
+      "arrow": true,
+      "ui": [],
+      "accepted": false
+    },
+    {
+      "slot": 9,
+      "rect": {
+        "left": 96,
+        "top": 66.03125,
+        "right": 224,
+        "bottom": 110.03125,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": true,
+      "cannon": false,
+      "arrow": true,
+      "ui": [],
+      "accepted": false
+    },
+    {
+      "slot": 10,
+      "rect": {
+        "left": 184,
+        "top": 66.03125,
+        "right": 312,
+        "bottom": 110.03125,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": true,
+      "cannon": false,
+      "arrow": false,
+      "ui": [
+        ".audio-controls"
+      ],
+      "accepted": false
+    },
+    {
+      "slot": 11,
+      "rect": {
+        "left": 128,
+        "top": 66.03125,
+        "right": 256,
+        "bottom": 110.03125,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": true,
+      "cannon": false,
+      "arrow": true,
+      "ui": [],
+      "accepted": false
+    },
+    {
+      "slot": 12,
+      "rect": {
+        "left": 136,
+        "top": 66.03125,
+        "right": 264,
+        "bottom": 110.03125,
+        "width": 128,
+        "height": 44
+      },
+      "viewport": true,
+      "cannon": false,
+      "arrow": true,
+      "ui": [],
+      "accepted": false
+    }
+  ]
+}

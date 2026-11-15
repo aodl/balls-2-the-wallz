@@ -1,0 +1,74 @@
+[
+  {
+    "attempt": "matrix-expanded",
+    "status": "FAIL",
+    "error": "",
+    "fixture_bundle_sha256": "7302633a6f9f2ed2c2dcc0846bfa9ad9fc6f769a204adc18d4622c67db440cc9",
+    "raw_report": ".work/quantity-closeout/matrix-expanded/results.json",
+    "scope": "Preserved development attempt, not release qualification"
+  },
+  {
+    "attempt": "matrix-click-corrected",
+    "status": "FAIL",
+    "error": "{'hidden': False, 'inert': False, 'style': 'grid', 'rect': {'x': 8, 'y': 67, 'width': 130, 'height': 46, 'top': 67, 'right': 138, 'bottom': 113, 'left': 8}, 'viewport': {'left': 0, 'top': 0, 'right': 320, 'bottom': 350}, 'placement': 'dock', 'focus': 'fire-action', 'identity': True, 'count': 1, 'targets': [{'id': 'quantity-minus', 'rect': {'x': 9, 'y': 68, 'width': 44, 'height': 44, 'top': 68, 'right': 53, 'bottom': 112, 'left': 9}, 'hit': False}, {'id': 'quantity-plus', 'rect': {'x': 105, 'y': 68, 'width': 44, 'height': 44, 'top': 68, 'right': 149, 'bottom': 112, 'left': 105}, 'hit': True}], 'corners': [False, True, True, True], 'layout': {'quantity': {'slot': 'dock', 'mode': 'dock', 'rect': {'left': 8, 'top': 67, 'right': 138, 'bottom': 113, 'width': 130, 'height': 46}}, 'quantityDocked': True, 'quantityReserved': True, 'quantityReservation': 'strip', 'quantitySize': {'width': 130, 'height': 46}, 'quantityPointers': 0, 'dirty': False, 'pendingFrame': False, 'revision': 9, 'committedRevision': 9, 'desired': 368, 'positionKey': '8/154/304/134/134', 'compositionKey': 'action/ball/1/0/0/320/350/true/2', 'cardBounds': {'left': 8, 'right': 312, 'top': 154, 'bottom': 342}}, 'proposal': {'mode': 'ball', 'cell': None, 'degrees': '167.15', 'worldAngle': '37.5', 'quantity': 1}, 'camera': [1.8319100476383028, 1.8319100476383028, 64]}",
+    "fixture_bundle_sha256": "960835a0fa8ff355758a29666f2934c5e3296af21602444cec5b4ea8aaf8b4e1",
+    "raw_report": ".work/quantity-closeout/matrix-click-corrected/results.json",
+    "scope": "Preserved development attempt, not release qualification"
+  },
+  {
+    "attempt": "matrix-strip-corrected",
+    "status": "FAIL",
+    "error": "Page.wait_for_function: ReferenceError: fixture is not defined\n    at eval (eval at predicate (eval at evaluate (:311:30)), <anonymous>:1:5)\n    at predicate (eval at evaluate (:311:30), <anonymous>:13:29)\n    at next (eval at evaluate (:311:30), <anonymous>:29:33)\n    at eval (eval at evaluate (:311:30), <anonymous>:42:13)\n    at UtilityScript.evaluate (<anonymous>:313:16)\n    at UtilityScript.<anonymous> (<anonymous>:1:44)",
+    "fixture_bundle_sha256": "6f5d19f05d155b7421e364b928387aeb0e5588fd70f6a64a3edf9207d76d0511",
+    "raw_report": ".work/quantity-closeout/matrix-strip-corrected/results.json",
+    "scope": "Preserved development attempt, not release qualification"
+  },
+  {
+    "attempt": "matrix-boot-fenced",
+    "status": "FAIL",
+    "error": "{'hidden': False, 'inert': False, 'style': 'grid', 'rect': {'x': 95, 'y': 279, 'width': 130, 'height': 46, 'top': 279, 'right': 225, 'bottom': 325, 'left': 95}, 'viewport': {'left': 0, 'top': 0, 'right': 320, 'bottom': 640}, 'placement': 'dock', 'focus': 'aim-handle', 'identity': True, 'count': 1, 'targets': [{'id': 'quantity-minus', 'rect': {'x': 96, 'y': 280, 'width': 44, 'height': 44, 'top': 280, 'right': 140, 'bottom': 324, 'left': 96}, 'hit': True}, {'id': 'quantity-plus', 'rect': {'x': 180, 'y': 280, 'width': 44, 'height': 44, 'top': 280, 'right': 224, 'bottom': 324, 'left': 180}, 'hit': True}], 'corners': [True, True, True, False], 'layout': {'quantity': {'slot': 'dock', 'mode': 'dock', 'rect': {'left': 95, 'top': 279, 'right': 225, 'bottom': 325, 'width': 130, 'height': 46}}, 'quantityDocked': True, 'quantityReserved': True, 'quantityReservation': 'row', 'quantitySize': {'width': 130, 'height': 46}, 'quantityPointers': 0, 'dirty': False, 'pendingFrame': False, 'revision': 46, 'committedRevision': 46, 'desired': 422, 'positionKey': '8/221/304/187/187', 'compositionKey': 'action/ball/1/0/0/320/640/false/1', 'cardBounds': {'left': 8, 'right': 312, 'top': 221, 'bottom': 516}}, 'proposal': {'mode': 'ball', 'cell': None, 'degrees': '347.15', 'worldAngle': None, 'quantity': 1}, 'camera': [3.6575453715563526, 3.6575453715563526, 64]}",
+    "fixture_bundle_sha256": "6f5d19f05d155b7421e364b928387aeb0e5588fd70f6a64a3edf9207d76d0511",
+    "raw_report": ".work/quantity-closeout/matrix-boot-fenced/results.json",
+    "scope": "Preserved development attempt, not release qualification"
+  },
+  {
+    "attempt": "matrix-complete",
+    "status": "FAIL",
+    "error": "",
+    "fixture_bundle_sha256": "73fab91b50e68cd58ae471c83657349612b53ef6edc353181afc264db513a73b",
+    "raw_report": ".work/quantity-closeout/matrix-complete/results.json",
+    "scope": "Preserved development attempt, not release qualification"
+  },
+  {
+    "attempt": "matrix-extended",
+    "status": "FAIL",
+    "error": "Page.evaluate: Error: Panel did not settle: {\"target\":170,\"expected\":170,\"space\":170,\"cache\":{\"quantity\":null,\"quantityDocked\":true,\"quantityReserved\":true,\"quantityReservation\":\"inline\",\"quantitySize\":{\"width\":130,\"height\":46},\"quantityPointers\":0,\"dirty\":false,\"pendingFrame\":false,\"revision\":9,\"committedRevision\":7,\"desired\":368,\"positionKey\":\"8/8/304/170/170\",\"compositionKey\":\"action/ball/1/0/0/320/240/true/2\",\"cardBounds\":{\"left\":8,\"right\":312,\"top\":8,\"bottom\":232}},\"geometry\":\"[{\\\"x\\\":8,\\\"y\\\":8,\\\"width\\\":304,\\\"height\\\":224,\\\"top\\\":8,\\\"right\\\":312,\\\"bottom\\\":232,\\\"left\\\":8},{\\\"x\\\":8,\\\"y\\\":62,\\\"width\\\":304,\\\"height\\\":170,\\\"top\\\":62,\\\"right\\\":312,\\\"bottom\\\":232,\\\"left\\\":8},294,170,170]\",\"moving\":false}\n    at sample (eval at evaluate (:311:30), <anonymous>:15:52)",
+    "fixture_bundle_sha256": "73fab91b50e68cd58ae471c83657349612b53ef6edc353181afc264db513a73b",
+    "raw_report": ".work/quantity-closeout/matrix-extended/results.json",
+    "scope": "Preserved development attempt, not release qualification"
+  },
+  {
+    "attempt": "matrix-viewport-final",
+    "status": "FAIL",
+    "error": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#join-action\")\n    - locator resolved to <button id=\"join-action\">Join</button>\n  - attempting click action\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <span id=\"cycle-unavailable\">Cycle data temporarily unavailable</span> from <button id=\"cycles-display\" aria-controls=\"workspace\">\u2026</button> subtree intercepts pointer events\n    - retrying click action\n    - waiting 20ms\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is visible, enabled and stable\n      - scrolling into view if needed\n      - done scrolling\n      - <span id=\"cycle-unavailable\">Cycle data temporarily unavailable</span> from <button id=\"cycles-display\" aria-controls=\"workspace\">\u2026</button> subtree intercepts pointer events\n    - retrying click action\n      - waiting 100ms\n    54 \u00d7 waiting for element to be visible, enabled and stable\n       - element is visible, enabled and stable\n       - scrolling into view if needed\n       - done scrolling\n       - <span id=\"cycle-unavailable\">Cycle data temporarily unavailable</span> from <button id=\"cycles-display\" aria-controls=\"workspace\">\u2026</button> subtree intercepts pointer events\n     - retrying click action\n       - waiting 500ms\n",
+    "fixture_bundle_sha256": "4d2446793e41b2e1705a572d535a82f00813c1c55eadc88ee4fcb621aec71371",
+    "raw_report": ".work/quantity-closeout/matrix-viewport-final/results.json",
+    "scope": "Preserved development attempt, not release qualification"
+  },
+  {
+    "attempt": "matrix-native-final",
+    "status": "FAIL",
+    "error": "",
+    "fixture_bundle_sha256": "4d2446793e41b2e1705a572d535a82f00813c1c55eadc88ee4fcb621aec71371",
+    "raw_report": ".work/quantity-closeout/matrix-native-final/results.json",
+    "scope": "Preserved development attempt, not release qualification"
+  },
+  {
+    "attempt": "matrix-qualified",
+    "status": "FAIL",
+    "error": "Locator.click: Timeout 30000ms exceeded.\nCall log:\n  - waiting for locator(\"#move-action\")\n    - locator resolved to <button title=\"Move\" id=\"move-action\" aria-label=\"Move\" aria-pressed=\"false\" aria-expanded=\"false\" aria-description=\"Move\" aria-controls=\"action-view\" aria-describedby=\"inspect-note\">\u2026</button>\n  - attempting click action\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n    - waiting 20ms\n    2 \u00d7 waiting for element to be visible, enabled and stable\n      - element is not visible\n    - retrying click action\n      - waiting 100ms\n    56 \u00d7 waiting for element to be visible, enabled and stable\n       - element is not visible\n     - retrying click action\n       - waiting 500ms\n",
+    "fixture_bundle_sha256": "34aafca425d6608a8887451f2d1cda462c32e8fb7fda5f5e368c6fe22b2ea48a",
+    "raw_report": ".work/quantity-closeout/matrix-qualified/results.json",
+    "scope": "Preserved development attempt, not release qualification"
+  }
+]

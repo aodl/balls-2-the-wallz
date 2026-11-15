@@ -80,3 +80,9 @@ Audio/onboarding/compact-control work uses `docs/specs/B2Z_AUDIO.md` and the cur
 UX continuation: native output/real-tab recovery is separate from synthetic
 lifecycle tests. Keep one model-backed arena quantity editor and exact full-value
 wallet copying; returning-account Join never conflates explicit additional Build.
+
+Quantity availability uses the retained cell-zero320×640/347.15° regression in
+`tools/verify_quantity_browser.py` and `tests/js/quantity-dock.test.mjs`. Opposite-
+arrow placement is preferred; one usable editor for visible Fire/Revive is
+mandatory. Preserve measured dock reservations, pointer/focus locks, viewport-
+change release fences, actual editor audio masks and zero status-only panel drift.

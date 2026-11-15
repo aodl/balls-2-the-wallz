@@ -1,0 +1,9 @@
+
+  .work/quantity-closeout/negative-browser/fixture.mjs  1.4mb ⚠️
+
+⚡ Done in 272ms
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_quantity_browser.py", line 31, in <module>
+    assert not report['exact_pose']['hidden'],'Visible-cannon quantity editing disappeared at retained320x640/347.15 pose'
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: Visible-cannon quantity editing disappeared at retained320x640/347.15 pose

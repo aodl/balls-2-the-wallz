@@ -1,0 +1,2844 @@
+{
+  "status": "PASS",
+  "scope": "Retained mainnet pose in an offline actual-composer/renderer fixture; no certificate/payment claim.",
+  "page_errors": [],
+  "public_route": {
+    "camera": [
+      3.6575453715563526,
+      3.6575453715563526,
+      64
+    ],
+    "heading": "347.15",
+    "panel": {
+      "x": 8,
+      "y": 221,
+      "width": 304,
+      "height": 295,
+      "top": 221,
+      "right": 312,
+      "bottom": 516,
+      "left": 8
+    },
+    "hidden": false,
+    "focus": "aim-handle"
+  },
+  "exact_pose": {
+    "camera": [
+      3.6575453715563526,
+      3.6575453715563526,
+      64
+    ],
+    "heading": "347.15",
+    "hidden": false,
+    "quantity": {
+      "x": 95,
+      "y": 279,
+      "width": 130,
+      "height": 46,
+      "top": 279,
+      "right": 225,
+      "bottom": 325,
+      "left": 95
+    },
+    "origin": {
+      "x": 160,
+      "y": 155.00000000000458
+    },
+    "arrow": {
+      "height": 0.028,
+      "world": [
+        [
+          0.1667997682457787,
+          0.2443095512950607
+        ],
+        [
+          -1.35382476844975,
+          -0.9225839050883
+        ],
+        [
+          -1.1550989073644353,
+          -0.9000443368603994
+        ],
+        [
+          -1.35382476844975,
+          -0.9225839050883
+        ],
+        [
+          -1.280631076001618,
+          -0.7364584544217986
+        ]
+      ],
+      "screen": [
+        {
+          "x": 156.4923076350435,
+          "y": 138.1503668586587
+        },
+        {
+          "x": 140.48426631631216,
+          "y": 67.93119077767764
+        },
+        {
+          "x": 148.45754775193436,
+          "y": 73.71238970605356
+        },
+        {
+          "x": 140.48426631631216,
+          "y": 67.93119077767764
+        },
+        {
+          "x": 135.37355834527034,
+          "y": 74.70665297678826
+        }
+      ]
+    },
+    "layout": {
+      "quantity": {
+        "slot": "dock",
+        "mode": "dock",
+        "rect": {
+          "left": 95,
+          "top": 279,
+          "right": 225,
+          "bottom": 325,
+          "width": 130,
+          "height": 46
+        }
+      },
+      "quantityDocked": true,
+      "quantityReserved": true,
+      "quantityReservation": "row",
+      "quantitySize": {
+        "width": 130,
+        "height": 46
+      },
+      "quantityPointers": 0,
+      "quantityClickCancelled": false,
+      "dirty": false,
+      "pendingFrame": false,
+      "revision": 46,
+      "committedRevision": 46,
+      "desired": 422,
+      "positionKey": "8/221/304/187/187",
+      "compositionKey": "action/ball/1/0/0/320/640/false/1",
+      "cardBounds": {
+        "left": 8,
+        "right": 312,
+        "top": 221,
+        "bottom": 516
+      }
+    },
+    "viewport": {
+      "width": 320,
+      "height": 640,
+      "visual": {
+        "width": 320,
+        "height": 640,
+        "left": 0,
+        "top": 0
+      }
+    },
+    "rects": {
+      ".brand": {
+        "x": 10,
+        "y": 12,
+        "width": 46.0625,
+        "height": 44.078125,
+        "top": 12,
+        "right": 56.0625,
+        "bottom": 56.078125,
+        "left": 10
+      },
+      "#status-button": {
+        "x": 63.0625,
+        "y": 12.03125,
+        "width": 145.40625,
+        "height": 44,
+        "top": 12.03125,
+        "right": 208.46875,
+        "bottom": 56.03125,
+        "left": 63.0625
+      },
+      "#identify-button": {
+        "x": 215.46875,
+        "y": 12.03125,
+        "width": 94.53125,
+        "height": 44,
+        "top": 12.03125,
+        "right": 310,
+        "bottom": 56.03125,
+        "left": 215.46875
+      },
+      "#cycles-display": {
+        "x": 10,
+        "y": 524,
+        "width": 150,
+        "height": 48,
+        "top": 524,
+        "right": 160,
+        "bottom": 572,
+        "left": 10
+      },
+      "#minimap": {
+        "x": 186,
+        "y": 558.421875,
+        "width": 124,
+        "height": 71.578125,
+        "top": 558.421875,
+        "right": 310,
+        "bottom": 630,
+        "left": 186
+      },
+      ".camera-controls": {
+        "x": 10,
+        "y": 579.859375,
+        "width": 148.875,
+        "height": 50.140625,
+        "top": 579.859375,
+        "right": 158.875,
+        "bottom": 630,
+        "left": 10
+      },
+      ".audio-controls": {
+        "x": 266,
+        "y": 66,
+        "width": 44,
+        "height": 44,
+        "top": 66,
+        "right": 310,
+        "bottom": 110,
+        "left": 266
+      },
+      "#workspace": {
+        "x": 8,
+        "y": 221,
+        "width": 304,
+        "height": 295,
+        "top": 221,
+        "right": 312,
+        "bottom": 516,
+        "left": 8
+      }
+    },
+    "focus": "aim-handle"
+  },
+  "matrix": [
+    {
+      "viewport": [
+        320,
+        240
+      ],
+      "dpr": 1,
+      "initial": {
+        "hidden": false,
+        "inert": false,
+        "style": "grid",
+        "rect": {
+          "x": 95,
+          "y": 12,
+          "width": 130,
+          "height": 46,
+          "top": 12,
+          "right": 225,
+          "bottom": 58,
+          "left": 95
+        },
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 320,
+          "bottom": 240
+        },
+        "placement": "dock",
+        "focus": "",
+        "identity": true,
+        "count": 1,
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 96,
+              "y": 13,
+              "width": 44,
+              "height": 44,
+              "top": 13,
+              "right": 140,
+              "bottom": 57,
+              "left": 96
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 180,
+              "y": 13,
+              "width": 44,
+              "height": 44,
+              "top": 13,
+              "right": 224,
+              "bottom": 57,
+              "left": 180
+            },
+            "hit": true
+          }
+        ],
+        "corners": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "layout": {
+          "quantity": {
+            "slot": "dock",
+            "mode": "dock",
+            "rect": {
+              "left": 95,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "width": 130,
+              "height": 46
+            }
+          },
+          "quantityDocked": true,
+          "quantityReserved": true,
+          "quantityReservation": "inline",
+          "quantitySize": {
+            "width": 130,
+            "height": 46
+          },
+          "quantityPointers": 0,
+          "quantityClickCancelled": false,
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 12,
+          "committedRevision": 12,
+          "desired": 368,
+          "positionKey": "8/8/304/170/170",
+          "compositionKey": "action/ball/1/0/0/320/240/true/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 8,
+            "bottom": 232
+          }
+        },
+        "proposal": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "167.15",
+          "worldAngle": "37.5",
+          "quantity": 1
+        },
+        "camera": [
+          999.7512343920366,
+          2.3586906476620015,
+          64
+        ]
+      },
+      "headings": [
+        {
+          "heading": 0,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 13,
+              "committedRevision": 13,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "0",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 90,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 14,
+              "committedRevision": 14,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "90",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 180,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 15,
+              "committedRevision": 15,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "180",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 270,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 16,
+              "committedRevision": 16,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "270",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 340,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 17,
+              "committedRevision": 17,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "340",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 345,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 18,
+              "committedRevision": 18,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "345",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 347,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 19,
+              "committedRevision": 19,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "347",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 347.15,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 20,
+              "committedRevision": 20,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "347.15",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 348,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 21,
+              "committedRevision": 21,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "348",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 350,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 22,
+              "committedRevision": 22,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "350",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 359,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 23,
+              "committedRevision": 23,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "359",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 350,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 24,
+              "committedRevision": 24,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "350",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 348,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 25,
+              "committedRevision": 25,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "348",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 347.15,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 26,
+              "committedRevision": 26,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "347.15",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 347,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 27,
+              "committedRevision": 27,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "347",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 345,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 28,
+              "committedRevision": 28,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "345",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        },
+        {
+          "heading": 340,
+          "state": {
+            "hidden": false,
+            "inert": false,
+            "style": "grid",
+            "rect": {
+              "x": 95,
+              "y": 12,
+              "width": 130,
+              "height": 46,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "left": 95
+            },
+            "viewport": {
+              "left": 0,
+              "top": 0,
+              "right": 320,
+              "bottom": 240
+            },
+            "placement": "dock",
+            "focus": "",
+            "identity": true,
+            "count": 1,
+            "targets": [
+              {
+                "id": "quantity-minus",
+                "rect": {
+                  "x": 96,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 140,
+                  "bottom": 57,
+                  "left": 96
+                },
+                "hit": true
+              },
+              {
+                "id": "quantity-plus",
+                "rect": {
+                  "x": 180,
+                  "y": 13,
+                  "width": 44,
+                  "height": 44,
+                  "top": 13,
+                  "right": 224,
+                  "bottom": 57,
+                  "left": 180
+                },
+                "hit": true
+              }
+            ],
+            "corners": [
+              true,
+              true,
+              true,
+              true
+            ],
+            "layout": {
+              "quantity": {
+                "slot": "dock",
+                "mode": "dock",
+                "rect": {
+                  "left": 95,
+                  "top": 12,
+                  "right": 225,
+                  "bottom": 58,
+                  "width": 130,
+                  "height": 46
+                }
+              },
+              "quantityDocked": true,
+              "quantityReserved": true,
+              "quantityReservation": "inline",
+              "quantitySize": {
+                "width": 130,
+                "height": 46
+              },
+              "quantityPointers": 0,
+              "quantityClickCancelled": false,
+              "dirty": false,
+              "pendingFrame": false,
+              "revision": 29,
+              "committedRevision": 29,
+              "desired": 368,
+              "positionKey": "8/8/304/170/170",
+              "compositionKey": "action/ball/1/0/0/320/240/true/1",
+              "cardBounds": {
+                "left": 8,
+                "right": 312,
+                "top": 8,
+                "bottom": 232
+              }
+            },
+            "proposal": {
+              "mode": "ball",
+              "cell": null,
+              "degrees": "340",
+              "worldAngle": null,
+              "quantity": 1
+            },
+            "camera": [
+              999.7512343920366,
+              2.3586906476620015,
+              64
+            ]
+          }
+        }
+      ],
+      "statuses": [
+        {
+          "kind": "protected",
+          "rects": [
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            }
+          ]
+        },
+        {
+          "kind": "healthy",
+          "rects": [
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            }
+          ]
+        },
+        {
+          "kind": "operational",
+          "rects": [
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            }
+          ]
+        },
+        {
+          "kind": "healthy",
+          "rects": [
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            }
+          ]
+        },
+        {
+          "kind": "delivery",
+          "rects": [
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            }
+          ]
+        },
+        {
+          "kind": "healthy",
+          "rects": [
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            },
+            {
+              "x": 8,
+              "y": 8,
+              "width": 304,
+              "height": 224
+            }
+          ]
+        }
+      ],
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "resize_events": [
+        {
+          "type": "pointerdown",
+          "at": 15020.200000017881,
+          "height": 240,
+          "count": "6",
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 95,
+                "top": 12,
+                "right": 225,
+                "bottom": 58,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "inline",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": false,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 59,
+            "committedRevision": 59,
+            "desired": 273,
+            "positionKey": "8/8/304/170/170",
+            "compositionKey": "action/ball/1/0/0/320/240/true/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 8,
+              "bottom": 232
+            }
+          }
+        },
+        {
+          "type": "resize",
+          "at": 15063.700000017881,
+          "height": 260,
+          "count": "6",
+          "layout": {
+            "quantity": null,
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "inline",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": true,
+            "dirty": true,
+            "pendingFrame": true,
+            "revision": 60,
+            "committedRevision": 59,
+            "desired": 273,
+            "positionKey": "8/8/304/170/170",
+            "compositionKey": "action/ball/1/0/0/320/240/true/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 8,
+              "bottom": 232
+            }
+          }
+        },
+        {
+          "type": "pointerup",
+          "at": 15370.700000017881,
+          "height": 260,
+          "count": "6",
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 95,
+                "top": 12,
+                "right": 225,
+                "bottom": 58,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "inline",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": true,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 61,
+            "committedRevision": 61,
+            "desired": 273,
+            "positionKey": "8/8/304/190/190",
+            "compositionKey": "action/ball/1/0/0/320/260/true/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 8,
+              "bottom": 252
+            }
+          }
+        },
+        {
+          "type": "click",
+          "at": 15370.700000017881,
+          "height": 260,
+          "count": "6",
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 95,
+                "top": 12,
+                "right": 225,
+                "bottom": 58,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "inline",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": true,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 61,
+            "committedRevision": 61,
+            "desired": 273,
+            "positionKey": "8/8/304/190/190",
+            "compositionKey": "action/ball/1/0/0/320/260/true/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 8,
+              "bottom": 252
+            }
+          }
+        }
+      ],
+      "final": {
+        "hidden": false,
+        "inert": false,
+        "style": "grid",
+        "rect": {
+          "x": 95,
+          "y": 12,
+          "width": 130,
+          "height": 46,
+          "top": 12,
+          "right": 225,
+          "bottom": 58,
+          "left": 95
+        },
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 320,
+          "bottom": 240
+        },
+        "placement": "dock",
+        "focus": "quantity-plus",
+        "identity": true,
+        "count": 1,
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 96,
+              "y": 13,
+              "width": 44,
+              "height": 44,
+              "top": 13,
+              "right": 140,
+              "bottom": 57,
+              "left": 96
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 180,
+              "y": 13,
+              "width": 44,
+              "height": 44,
+              "top": 13,
+              "right": 224,
+              "bottom": 57,
+              "left": 180
+            },
+            "hit": true
+          }
+        ],
+        "corners": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "layout": {
+          "quantity": {
+            "slot": "dock",
+            "mode": "dock",
+            "rect": {
+              "left": 95,
+              "top": 12,
+              "right": 225,
+              "bottom": 58,
+              "width": 130,
+              "height": 46
+            }
+          },
+          "quantityDocked": true,
+          "quantityReserved": true,
+          "quantityReservation": "inline",
+          "quantitySize": {
+            "width": 130,
+            "height": 46
+          },
+          "quantityPointers": 0,
+          "quantityClickCancelled": false,
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 63,
+          "committedRevision": 63,
+          "desired": 273,
+          "positionKey": "8/8/304/170/170",
+          "compositionKey": "action/ball/1/0/0/320/240/true/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 8,
+            "bottom": 232
+          }
+        },
+        "proposal": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 6
+        },
+        "camera": [
+          999.7512343920366,
+          2.3586906476620015,
+          64
+        ]
+      },
+      "audio_occlusion": {
+        "rows": [
+          {
+            "kind": "cannon",
+            "entity": 1,
+            "screen": {
+              "x": 277.9999999999993,
+              "y": 77.9360547051565
+            },
+            "plain": null,
+            "masked": null
+          }
+        ],
+        "masks": [
+          {
+            "left": 10,
+            "right": 310,
+            "top": 12,
+            "bottom": 56.078125
+          },
+          {
+            "left": 8,
+            "right": 312,
+            "top": 8,
+            "bottom": 232
+          },
+          {
+            "left": 198,
+            "right": 310,
+            "top": 165.34375,
+            "bottom": 230
+          },
+          {
+            "left": 10,
+            "right": 160,
+            "top": 124,
+            "bottom": 172
+          },
+          {
+            "left": 10,
+            "right": 158.875,
+            "top": 179.859375,
+            "bottom": 230
+          },
+          {
+            "left": 10,
+            "right": 54,
+            "top": 66,
+            "bottom": 110
+          },
+          {
+            "left": 95,
+            "right": 225,
+            "top": 12,
+            "bottom": 58
+          }
+        ],
+        "canvas": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 240,
+          "top": 0,
+          "right": 320,
+          "bottom": 240,
+          "left": 0
+        },
+        "pose": "999.7512343920366/2.3586906476620015/64/320/240",
+        "membershipPose": "999.7512343920366/2.3586906476620015/64/320/240",
+        "scale": 64
+      },
+      "payment_scrollport": {
+        "x": 8,
+        "y": 62,
+        "width": 304,
+        "height": 170
+      },
+      "exception_exit": "PASS Escape restores complete toolbar/chrome before switching actions",
+      "ball_follow_hide": "PASS native B shortcut and Escape"
+    }
+  ]
+}

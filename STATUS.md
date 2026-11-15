@@ -1,3 +1,19 @@
+# Quantity availability correction — qualification in progress; no deployment
+
+The retained320×640/347.15° failure is reproduced on rejected source. A measured
+reserved control-rail/contracted-strip fallback replaces disappearance, preserving
+the one editor/model, native gesture ownership and exact financial handoff. The
+first toolbar-row experiment failed the existing payment-scroll minimum and was
+rejected; its evidence is retained. New runtime bytes require a new freeze and all
+six hosted gates. [Corrective report](evidence/B2Z/audio-onboarding-compact-controls/quantity-closeout/REPORT.md).
+
+Production remains the restored75-file frontend and Rules7 backend. A fresh read-only
+observation recorded Trickle/admission open; the earlier low-energy condition is
+historical, not assumed current. No funding, backend, settings, financial or production
+asset operation is authorised/performed. P09 and physical/browser limitations remain.
+
+---
+
 # Current production — audio/compact trial rolled back after live mobile failure
 
 15November2026: the exact78-file audio/onboarding candidate was installed and all77

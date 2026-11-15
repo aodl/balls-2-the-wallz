@@ -1,0 +1,253 @@
+{
+  "collected_summary_at_utc": "2026-11-15T11:15:24.207154+00:00",
+  "read_only": true,
+  "metadata_file": "metadata-before.json",
+  "world_observation": {
+    "at": "2026-11-15T10:31:35.824Z",
+    "url": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+    "root": "8a53b27caeedd99c3880559af2f887e7df42659239db706435b69917dd7acac6",
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "head": {
+      "logical_end": "8838",
+      "manifest_hash": "34317110162083ed004b141071b4fc31b341359cd0c5bc87096f42bd96459020",
+      "seal": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "8838",
+        "logical_start": "8837",
+        "previous_manifest": "dc4cca563fc30fb2201a33205877fbbd45ef15a0cfd093d033f96fd0896e93cb",
+        "previous_state": "49b7076ee6cbcc996ebb38f9b060e899f56a7b8c06b95ea798cb25fafc5a7236",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "8841",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "8841",
+      "source_to_exclusive": "40180669",
+      "state_hash": "9842312752fb6f025d4c2ce6a9bbe1c509548e548f31bd327c8e0ef91ae8506e"
+    },
+    "source": {
+      "network": "ic",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "subaccount": "0",
+      "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+    },
+    "config": {
+      "annihilation_distance": 64,
+      "annihilation_time_window": [
+        "1",
+        "16"
+      ],
+      "ball_base_e8s": "10000000",
+      "ball_ownership": "funding-player",
+      "ball_price": "island-pool-floor-1-square",
+      "cannon_activity": "connected-island-ball-pool",
+      "cannon_price": "retained-plus-1-square",
+      "capture_resolution": "pair-and-cancel-1",
+      "dormancy_clock": "consensus-observed-ns-1",
+      "dormancy_grace_ns": "86400000000000",
+      "first_spawn": "farthest-cannon-toroidal-euclidean-1",
+      "height": 1000,
+      "join_e8s": "100000000",
+      "lifecycle_input_version": 1,
+      "max_balls": 64,
+      "max_cannons": 128,
+      "max_players": 1024,
+      "max_purchase_balls_per_island": 64,
+      "max_purchase_quantity": 64,
+      "max_retained_per_player": 16,
+      "max_segment_ticks": 64,
+      "max_spawn_searches_per_segment": 8,
+      "memo_adapter_version": 4,
+      "move_e8s": "10000",
+      "move_limit_per_cannon_segment": 1,
+      "ownership": "scaled32-v1",
+      "player_identity": "authenticated-funding-account",
+      "rules_version": 7,
+      "score_area_denominator": 1000000,
+      "score_area_numerator": 1024,
+      "spawn_patch_side": 3,
+      "spawn_preserve_connectivity": true,
+      "spawn_tie_break": "lowest-row-major-cell",
+      "speed": 32000,
+      "topology": "torus",
+      "version": 6,
+      "width": 1000
+    },
+    "status": "Waiting for next on-chain update",
+    "sceneReady": true,
+    "error": "",
+    "authoritativeTime": [
+      "8838",
+      "1"
+    ],
+    "displayedTime": 8837,
+    "canPrepare": true,
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "2",
+        "publication_ticks": "1",
+        "completed_segments": "8838",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "publicCycles": {
+      "balance": "2786698545371",
+      "rate": null,
+      "label": "Collecting",
+      "windowMs": 0,
+      "ageMs": 0.29999998211860657,
+      "idle": "1877758703",
+      "reserved": "0",
+      "reason": "Waiting for enough samples"
+    },
+    "errors": []
+  },
+  "controller_runtime": {
+    "Ok": {
+      "instruction_yield": "600000000",
+      "liquid_cycles": "2_729_154_254_549",
+      "message_work_limit": "2048",
+      "metrics": {
+        "last_instructions": "214138521",
+        "last_persist_instructions": "47586736",
+        "last_publish_instructions": "24682711",
+        "last_seal_instructions": "32673246",
+        "last_step_instructions": "61034961",
+        "max_actions": 5,
+        "max_instructions": "242810711",
+        "messages": "8841",
+        "persist_instructions": "388259087358",
+        "publish_instructions": "203994676689",
+        "seal_instructions": "252942448963",
+        "step_instructions": "510517104448"
+      },
+      "phase_action_limit": 8,
+      "total_cycles": "2_785_487_015_639"
+    }
+  },
+  "controller_funding": {
+    "Ok": {
+      "halted": false,
+      "last_error": [
+        "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+      ],
+      "last_plan_ns": "1794130796502691675",
+      "last_refund": [],
+      "last_success": [
+        {
+          "block_index": "40180668",
+          "completed_at_ns": "1794130803390992707",
+          "cycles": "1_766_023_380_000",
+          "plan": {
+            "amount_e8s": "99990000",
+            "beneficiary": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": "1794130796502691675",
+            "fee_e8s": "10000",
+            "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+            "memo": "1347768404",
+            "to": [
+              1,
+              219,
+              45,
+              242,
+              101,
+              87,
+              242,
+              55,
+              5,
+              177,
+              115,
+              55,
+              40,
+              231,
+              40,
+              211,
+              244,
+              77,
+              23,
+              227,
+              15,
+              253,
+              121,
+              238,
+              152,
+              134,
+              169,
+              100,
+              47,
+              229,
+              145,
+              9
+            ]
+          }
+        }
+      ],
+      "lease_started_ns": "1794739011782448097",
+      "nonce": "2158",
+      "observed_balance": [
+        {
+          "e8s": "0",
+          "observed_at_ns": "1794738714128731473"
+        }
+      ],
+      "observed_fee": [
+        {
+          "e8s": "10000",
+          "observed_at_ns": "1794738716863891877"
+        }
+      ],
+      "paused": false,
+      "phase": {
+        "Idle": null
+      },
+      "total_converted_e8s": "99990000",
+      "total_cycles_reported": "1766023380000",
+      "version": 1
+    }
+  },
+  "pace_policy": {
+    "deployed_source": "07693c7",
+    "current_pace_source_identical": true,
+    "sha256": "40409738252cc5f59b0342ab7b262eb8997fa8a083fac956a4d9ceb908b3c363",
+    "reserve_exit_entry_condition": "select(ReserveProtection, liquid) enters at least Trickle when liquid >=1250000000000; below1000000000000 forces ReserveProtection. Intermediate band retains protection until entry threshold.",
+    "current_mode_observed": {
+      "nominal_milli": 10,
+      "supported_milli": 10,
+      "mode": "Trickle",
+      "admission_open": true,
+      "performance_limited": false
+    },
+    "cause_of_changed_balance": "NOT ESTABLISHED; no funding or operational mutation performed by this task",
+    "funding_amount_or_runway": "NOT ESTIMATED"
+  }
+}

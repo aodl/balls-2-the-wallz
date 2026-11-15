@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "scope": "Retained mainnet pose in an offline actual-composer/renderer fixture; no certificate/payment claim.",
+  "page_errors": [
+    "lowerObstacles is not defined"
+  ],
+  "error": "Page.evaluate: Error: Panel did not settle: {\"target\":242,\"expected\":242,\"space\":242,\"cache\":{\"quantity\":{\"slot\":\"dock\",\"mode\":\"dock\",\"rect\":{\"left\":10,\"top\":525.859375,\"right\":140,\"bottom\":571.859375,\"width\":130,\"height\":46}},\"quantityDocked\":true,\"quantityReserved\":true,\"quantityReservation\":\"rail\",\"quantitySize\":{\"width\":130,\"height\":46},\"quantityPointers\":0,\"quantityClickCancelled\":false,\"dirty\":false,\"pendingFrame\":false,\"revision\":10,\"committedRevision\":10,\"desired\":368,\"positionKey\":\"8/221/304/242/242\",\"compositionKey\":\"action/ball/1/0/0/320/640/false/2\",\"cardBounds\":{\"left\":8,\"right\":312,\"top\":221,\"bottom\":517}},\"geometry\":\"[{\\\"x\\\":8,\\\"y\\\":221,\\\"width\\\":304,\\\"height\\\":296,\\\"top\\\":221,\\\"right\\\":312,\\\"bottom\\\":517,\\\"left\\\":8},{\\\"x\\\":8,\\\"y\\\":275,\\\"width\\\":304,\\\"height\\\":242,\\\"top\\\":275,\\\"right\\\":312,\\\"bottom\\\":517,\\\"left\\\":8},294,242,242]\",\"moving\":true}\n    at sample (eval at evaluate (:311:30), <anonymous>:15:52)"
+}

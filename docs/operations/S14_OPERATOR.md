@@ -279,3 +279,25 @@ Post-install acceptance must check fresh-device returning-account entry without
 NEW, native/API/fallback full-recipient and decimal-amount copying, arena quantity
 Update/Keep, status-only zero-drift geometry, real tab-return sound and saved mute.
 Never use a payment/allowance/backend operation to test these frontend controls.
+
+## Quantity-editor mobile replacement candidate
+
+The15November audio/onboarding trial was restored to the previous exact75-file
+frontend after a settled320×640/347.15° quantity-editor failure. A source CI pass
+alone did not establish live acceptance. Preserve that complete rollback set and
+the failed-source evidence. The replacement requires a new frontend inventory,
+all six exact-source gates, and a separate deployment approval; the earlier trial
+authorisation does not cover changed bytes. No backend/rules/funding operation is
+part of this layout correction.
+
+Before proposing installation, run `tools/verify_quantity_browser.py` and the UX
+quantity-availability matrix. The editor must have a measured reserved control-rail dock or
+constrained reserved strip when local positions fail, retain its full hit region,
+and fence held presses on true viewport changes. Check ready/protected/reconnecting
+states separately, exact Update/Keep behaviour, source removal, native pinch,
+visual viewport/safe insets and the retained cell-zero pose. Test the exact frozen
+frontend read-only against the existing certified Rules7 game where available.
+Do not override protected copying or change resource thresholds to finish tests.
+Refresh total/liquid cycles and pace/admission read-only: historical low-energy
+protection is not proof that the current game is still protected, and a changed
+balance does not establish who funded it. Keep P09 and device/audio limitations.
