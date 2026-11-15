@@ -90,3 +90,27 @@ output and unsupported BFCache remain NOT VERIFIED. Software-rendered/emulated
 viewports and native browser input do not prove physical-mobile performance or
 subjective listening quality. The completed music, effects and source-core hashes
 must remain unchanged; this placement correction does not resolve audio limitations.
+
+## Frozen replacement
+
+| Artifact | Identity |
+|---|---|
+| Clean runtime/build source | `0f55cbb0356b0bb90979bb515f907383efe940a9` |
+| JavaScript SHA-256 | `3ee92eee3dda006c57f2dd17779e0e4babb947dc54942c6bd4998b975ebedbb2` |
+| Complete78-file inventory SHA-256 | `4606757478a113e7a682f0077b69155e9455b2bf60624066c608b7b8168526be` |
+| Audio manifest SHA-256 | `76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c` |
+
+[Complete inventory](frontend-inventory.json), [freeze assertions](results/freeze.json)
+and [220 consumed input hashes](results/source-input-parity.json) prove the replacement.
+Only `quantity-placement.mjs`, `shell.mjs`, `style.css` differ among consumed inputs;
+only app/style/build-manifest differ among upload files. All audio files,51 approved
+music cores, configuration, upload policy, backend/interface and dependencies match
+the failed78-file freeze. The separate restored75-file rollback is untouched.
+
+A browser test initially sampled immediately after a desktop→320px viewport command,
+before the normal resize event reached the game (camera still1440px wide). Its
+editor was correctly offscreen under that stale camera. The test now waits for the
+real camera viewport to match before assessing settled geometry; it does not call
+internal positioning routines or permit an invisible editor for a visible cannon.
+The original capture and assertions remain. Resize-during-press still exercises the
+unsettled interval and requires its release fence to reject a late edit.
