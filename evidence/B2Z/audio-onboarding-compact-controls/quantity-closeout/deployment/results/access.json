@@ -1,0 +1,9 @@
+{
+  "status": "PASS",
+  "active_identity": "codex_local",
+  "public_principal": "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+  "certified_frontend_controller": true,
+  "frontend_module": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+  "prior_successful_same_identity_assets_deployment": "evidence/B2Z/audio-onboarding-compact-controls/deployment/results/deploy.log",
+  "no_permission_mutation": true
+}

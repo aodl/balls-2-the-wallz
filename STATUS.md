@@ -1,4 +1,34 @@
-# Quantity availability replacement — six hosted gates PASS; not deployed
+# Current production — corrected audio/compact frontend installed for prelaunch playtest
+
+15 November 2026: the owner-authorised corrected78-file frontend has been installed
+on `s2jxj-liaaa-aaaas-amynq-cai`. All77 public bodies, lengths, reviewed headers,
+signed asset inventory and IC v2 HTTP certificate proofs match the approved freeze.
+Qualified source `76225150a08c2556e12dcf261e66b8f9489f2ed3` retains all six hosted
+passes in [run43713498060](https://github.com/aodl/balls-2-the-wallz/actions/runs/43713498060).
+Frozen runtime/build `0f55cbb0356b0bb90979bb515f907383efe940a9`; JavaScript
+`3ee92eee3dda006c57f2dd17779e0e4babb947dc54942c6bd4998b975ebedbb2`;
+complete78-file inventory
+`4606757478a113e7a682f0077b69155e9455b2bf60624066c608b7b8168526be`.
+
+The exact live320×640/cell0/camera3.6575453715563526,3.6575453715563526,64/
+347.15° pose passes with a130×46 docked editor and242px payment scrollport.
+Original8 headings,72-step full sweep,52 adjacent states, native input/pinch,
+held-press resize and genuine tab return pass. Native music output returns after
+5/35/8-second real same-window tab switches without toggling. Read-only network
+interruption recovers with0px action-panel drift. Detailed remaining acceptance,
+copy checks, recordings and limitations are maintained in the
+[installed-candidate report](evidence/B2Z/audio-onboarding-compact-controls/quantity-closeout/deployment/REPORT.md).
+
+The paid backend remains Rules7 with unchanged module/config/source identity.
+No backend, financial, funding, settings/controller, Rules9 or ICRC-2 operation was
+performed. The previous exact75-file frontend remains preserved for rollback.
+P09 remains FAIL/unqualified; physical-device listening/performance and unavailable
+live impact/subaccount/dormant scenarios remain separately identified. This is a
+**prelaunch mainnet playtest, not general-release qualification**.
+
+---
+
+# Historical qualification checkpoint — six hosted gates PASS; before deployment
 
 Qualified source `76225150a08c2556e12dcf261e66b8f9489f2ed3` passed all six
 substantive gates in [run43713498060](https://github.com/aodl/balls-2-the-wallz/actions/runs/43713498060),
@@ -18,14 +48,14 @@ Exact frozen assets against read-only mainnet Rules7 also pass; fresh-ready exac
 copying and quantity Keep are demonstrated without a payment/status override.
 [Corrective closeout and new approval plan](evidence/B2Z/audio-onboarding-compact-controls/quantity-closeout/REPORT.md).
 
-Production remains the restored75-file frontend and Rules7 backend. The latest
+At that qualification checkpoint, production remained the restored75-file frontend and Rules7 backend. The latest
 read-only operating query recorded Trickle/admission open; earlier ReserveProtection
 is historical, not assumed current. Both rollback and current staging still match
 the old75-file inventory. Audio files/mix/source, backend, financial authority and
 dependencies are unchanged. P09 remains FAIL/unqualified; physical devices, Firefox
 audible output and BFCache remain NOT VERIFIED. No deployment, Rules9/delegated
 payment activation, funding, settings/controller, backend or financial operation
-was performed. A new owner frontend deployment decision is required.
+was performed. That decision was subsequently granted; see the current deployment record above.
 
 ---
 

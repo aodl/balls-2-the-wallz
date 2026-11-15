@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "head": "5516b35c154aeb2fcf3443a2fdbfcd65af0c09f3",
+  "sets": [
+    {
+      "name": "candidate",
+      "path": ".work/quantity-closeout/frozen/frontend",
+      "files": 78,
+      "all_hashes_match": true
+    },
+    {
+      "name": "rollback",
+      "path": ".work/audio-onboarding-compact-controls/rollback/frontend",
+      "files": 75,
+      "all_hashes_match": true
+    },
+    {
+      "name": "current-staging",
+      "path": ".work/s14/assets",
+      "files": 75,
+      "all_hashes_match": true
+    }
+  ],
+  "consumed_inputs": 220,
+  "no_rebuild": true
+}

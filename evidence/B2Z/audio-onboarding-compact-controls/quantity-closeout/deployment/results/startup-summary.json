@@ -1,0 +1,74 @@
+{
+  "scope": "Actual deployed cold browser; observation only, no manufactured movement",
+  "first_catchup_ms": 1336.9000000357628,
+  "first_verified_world": {
+    "at": 5620.5,
+    "ready": true,
+    "head": "9099",
+    "reference": "9096,1",
+    "display": 9095,
+    "available": 9096,
+    "history": {
+      "requests": 2,
+      "bytes": 16105,
+      "outcome": "interval",
+      "elapsedMs": 629.4000000357628
+    },
+    "note": "Waiting for next on-chain update",
+    "spinnerVisible": true,
+    "balls": [
+      [
+        1,
+        989.4990234375,
+        36.5517578125
+      ]
+    ]
+  },
+  "first_verified_motion": {
+    "at": 6930.600000023842,
+    "ready": true,
+    "head": "9099",
+    "reference": "9096,1",
+    "display": 9095.010833,
+    "available": 9096,
+    "history": {
+      "requests": 2,
+      "bytes": 16105,
+      "outcome": "interval",
+      "elapsedMs": 629.4000000357628
+    },
+    "note": "Slow \u00b7 delayed",
+    "spinnerVisible": false,
+    "balls": [
+      [
+        1,
+        989.2304517861339,
+        36.345666334964335
+      ]
+    ]
+  },
+  "next_observed_head": {
+    "at": 89813.19999998808,
+    "ready": true,
+    "head": "9100",
+    "reference": "9097,1",
+    "display": 9095.838800000154,
+    "available": 9097,
+    "history": {
+      "requests": 2,
+      "bytes": 16105,
+      "outcome": "interval",
+      "elapsedMs": 629.4000000357628
+    },
+    "note": "Slow \u00b7 delayed",
+    "spinnerVisible": false,
+    "balls": [
+      [
+        1,
+        968.7035003867932,
+        20.594079293950927
+      ]
+    ]
+  },
+  "motion_before_next_head": true
+}

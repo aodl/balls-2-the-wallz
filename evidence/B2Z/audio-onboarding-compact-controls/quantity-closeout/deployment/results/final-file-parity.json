@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "sets": [
+    {
+      "set": "candidate",
+      "files": 78,
+      "all_hashes_match": true
+    },
+    {
+      "set": "rollback",
+      "files": 75,
+      "all_hashes_match": true
+    },
+    {
+      "set": "staged",
+      "files": 78,
+      "all_hashes_match": true
+    }
+  ],
+  "consumed_inputs": 220,
+  "runtime_rebuilt": false
+}

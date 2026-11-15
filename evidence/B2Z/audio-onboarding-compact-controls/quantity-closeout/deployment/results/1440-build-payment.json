@@ -1,0 +1,22 @@
+{
+  "amount": "4 ICP",
+  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "abbreviated": "s5ir5\u2026cai",
+  "memo": "NEW 37.5 1 1",
+  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+  "fee": "Wallet fee extra.",
+  "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+  "prompt": "Build, Aim & Pay",
+  "disabled": false,
+  "panel": {
+    "x": 661,
+    "y": 334,
+    "width": 360,
+    "height": 370,
+    "top": 334,
+    "right": 1021,
+    "bottom": 704,
+    "left": 661
+  },
+  "exact_copy": "PASS native API, Control+C and external read-only Control+V"
+}

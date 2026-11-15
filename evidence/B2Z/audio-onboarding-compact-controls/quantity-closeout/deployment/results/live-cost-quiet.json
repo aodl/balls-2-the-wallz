@@ -1,0 +1,533 @@
+{
+  "status": "OBSERVATION ONLY; P09 remains FAIL/unqualified",
+  "first_world_seconds": 3.333097216032911,
+  "scope": "Actual installed one-cannon Rules7 world, identical camera ON/OFF/OFF/ON; shared VM software rendering, not dense gameplay/hardware performance qualification. Default Playwright launch; no autoplay override.",
+  "rows": [
+    {
+      "enabled": true,
+      "frames": 77,
+      "p50": 66.69999999999709,
+      "p95": 100,
+      "p99": 116.70000000000073,
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 0,
+        "lastError": "",
+        "unlocked": true,
+        "blocked": false,
+        "hidden": false,
+        "usable": true,
+        "settings": {
+          "version": 2,
+          "enabled": true
+        },
+        "ownership": {
+          "id": "fad18caa-ef6c-4f90-bf89-519f20ac43b7",
+          "owner": "fad18caa-ef6c-4f90-bf89-519f20ac43b7",
+          "owns": true,
+          "coordinated": true
+        },
+        "activeVoices": 0,
+        "fxBuffers": 7,
+        "music": {
+          "starts": 3,
+          "underruns": 0,
+          "maxBuffers": 3,
+          "maxNodes": 2,
+          "maxDecoded": 9331200,
+          "active": true,
+          "nodes": 2,
+          "queuedNodes": 2,
+          "buffers": 3,
+          "phase": 639360,
+          "coveredSeconds": 10.68
+        },
+        "loader": {
+          "fetches": 12,
+          "cacheHits": 0,
+          "decodes": 11,
+          "maxFetches": 1,
+          "maxEncoded": 6773340,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 400,
+          "lateFrames": 2,
+          "disabled": 182,
+          "inspected": 0,
+          "classified": 0
+        },
+        "seen": 0,
+        "cooldowns": 0,
+        "stats": {
+          "inspections": 0,
+          "candidates": 0,
+          "eligible": 0,
+          "starts": 0,
+          "dropped": 0,
+          "maxVoices": 0,
+          "frames": 369,
+          "maxFrameMs": 1.800000011920929,
+          "maxReservedPeak": 0,
+          "reconciliations": 18,
+          "contextCreations": 1,
+          "inspectionLimit": 128,
+          "flushP95": 0.10000002384185791,
+          "flushP99": 0.10000002384185791
+        },
+        "mix": {
+          "master": 0.8,
+          "music": 1,
+          "effects": 1,
+          "effectsReservedPeak": 0.2
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "camera": [
+        0.5,
+        0.5,
+        48
+      ],
+      "head": "9105",
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "status": {
+        "kind": "slow",
+        "label": "Slow \u00b7 delayed",
+        "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+        "canPrepare": true
+      },
+      "error": ""
+    },
+    {
+      "enabled": false,
+      "frames": 75,
+      "p50": 66.60000000000218,
+      "p95": 116.60000000000218,
+      "p99": 166.60000000000218,
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 1,
+        "lastError": "",
+        "unlocked": true,
+        "blocked": false,
+        "hidden": false,
+        "usable": false,
+        "settings": {
+          "version": 2,
+          "enabled": false
+        },
+        "ownership": {
+          "id": "fad18caa-ef6c-4f90-bf89-519f20ac43b7",
+          "owner": null,
+          "owns": false,
+          "coordinated": true
+        },
+        "activeVoices": 0,
+        "fxBuffers": 7,
+        "music": {
+          "starts": 3,
+          "underruns": 0,
+          "maxBuffers": 3,
+          "maxNodes": 2,
+          "maxDecoded": 9331200,
+          "active": false,
+          "nodes": 0,
+          "queuedNodes": 0,
+          "buffers": 0,
+          "phase": 672000,
+          "coveredSeconds": 0
+        },
+        "loader": {
+          "fetches": 12,
+          "cacheHits": 0,
+          "decodes": 11,
+          "maxFetches": 1,
+          "maxEncoded": 6773340,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 601,
+          "lateFrames": 2,
+          "disabled": 374,
+          "inspected": 0,
+          "classified": 0
+        },
+        "seen": 0,
+        "cooldowns": 0,
+        "stats": {
+          "inspections": 0,
+          "candidates": 0,
+          "eligible": 0,
+          "starts": 0,
+          "dropped": 0,
+          "maxVoices": 0,
+          "frames": 474,
+          "maxFrameMs": 1.800000011920929,
+          "maxReservedPeak": 0,
+          "reconciliations": 21,
+          "contextCreations": 1,
+          "inspectionLimit": 128,
+          "flushP95": 0.10000002384185791,
+          "flushP99": 0.10000002384185791
+        },
+        "mix": {
+          "master": 0.8,
+          "music": 1,
+          "effects": 1,
+          "effectsReservedPeak": 0.2
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "camera": [
+        0.5,
+        0.5,
+        48
+      ],
+      "head": "9105",
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "status": {
+        "kind": "slow",
+        "label": "Slow \u00b7 delayed",
+        "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+        "canPrepare": true
+      },
+      "error": ""
+    },
+    {
+      "enabled": false,
+      "frames": 79,
+      "p50": 66.59999999999854,
+      "p95": 100,
+      "p99": 133.29999999999927,
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 1,
+        "lastError": "",
+        "unlocked": true,
+        "blocked": false,
+        "hidden": false,
+        "usable": false,
+        "settings": {
+          "version": 2,
+          "enabled": false
+        },
+        "ownership": {
+          "id": "fad18caa-ef6c-4f90-bf89-519f20ac43b7",
+          "owner": null,
+          "owns": false,
+          "coordinated": true
+        },
+        "activeVoices": 0,
+        "fxBuffers": 7,
+        "music": {
+          "starts": 3,
+          "underruns": 0,
+          "maxBuffers": 3,
+          "maxNodes": 2,
+          "maxDecoded": 9331200,
+          "active": false,
+          "nodes": 0,
+          "queuedNodes": 0,
+          "buffers": 0,
+          "phase": 672000,
+          "coveredSeconds": 0
+        },
+        "loader": {
+          "fetches": 12,
+          "cacheHits": 0,
+          "decodes": 11,
+          "maxFetches": 1,
+          "maxEncoded": 6773340,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 801,
+          "lateFrames": 2,
+          "disabled": 574,
+          "inspected": 0,
+          "classified": 0
+        },
+        "seen": 0,
+        "cooldowns": 0,
+        "stats": {
+          "inspections": 0,
+          "candidates": 0,
+          "eligible": 0,
+          "starts": 0,
+          "dropped": 0,
+          "maxVoices": 0,
+          "frames": 574,
+          "maxFrameMs": 1.800000011920929,
+          "maxReservedPeak": 0,
+          "reconciliations": 21,
+          "contextCreations": 1,
+          "inspectionLimit": 128,
+          "flushP95": 0.10000002384185791,
+          "flushP99": 0.10000002384185791
+        },
+        "mix": {
+          "master": 0.8,
+          "music": 1,
+          "effects": 1,
+          "effectsReservedPeak": 0.2
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "camera": [
+        0.5,
+        0.5,
+        48
+      ],
+      "head": "9105",
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "status": {
+        "kind": "slow",
+        "label": "Slow \u00b7 delayed",
+        "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+        "canPrepare": true
+      },
+      "error": ""
+    },
+    {
+      "enabled": true,
+      "frames": 82,
+      "p50": 66.59999999999854,
+      "p95": 99.89999999999418,
+      "p99": 100.09999999999854,
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 1,
+        "lastError": "",
+        "unlocked": true,
+        "blocked": false,
+        "hidden": false,
+        "usable": true,
+        "settings": {
+          "version": 2,
+          "enabled": true
+        },
+        "ownership": {
+          "id": "fad18caa-ef6c-4f90-bf89-519f20ac43b7",
+          "owner": "fad18caa-ef6c-4f90-bf89-519f20ac43b7",
+          "owns": true,
+          "coordinated": true
+        },
+        "activeVoices": 0,
+        "fxBuffers": 7,
+        "music": {
+          "starts": 6,
+          "underruns": 0,
+          "maxBuffers": 3,
+          "maxNodes": 2,
+          "maxDecoded": 9331200,
+          "active": true,
+          "nodes": 2,
+          "queuedNodes": 2,
+          "buffers": 3,
+          "phase": 860031.9999999999,
+          "coveredSeconds": 14.082666666666668
+        },
+        "loader": {
+          "fetches": 13,
+          "cacheHits": 3,
+          "decodes": 15,
+          "maxFetches": 1,
+          "maxEncoded": 6967375,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 923,
+          "lateFrames": 2,
+          "disabled": 592,
+          "inspected": 0,
+          "classified": 0
+        },
+        "seen": 0,
+        "cooldowns": 0,
+        "stats": {
+          "inspections": 0,
+          "candidates": 0,
+          "eligible": 0,
+          "starts": 0,
+          "dropped": 0,
+          "maxVoices": 0,
+          "frames": 687,
+          "maxFrameMs": 1.800000011920929,
+          "maxReservedPeak": 0,
+          "reconciliations": 28,
+          "contextCreations": 1,
+          "inspectionLimit": 128,
+          "flushP95": 0.10000002384185791,
+          "flushP99": 0.40000003576278687
+        },
+        "mix": {
+          "master": 0.8,
+          "music": 1,
+          "effects": 1,
+          "effectsReservedPeak": 0.2
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "camera": [
+        0.5,
+        0.5,
+        48
+      ],
+      "head": "9105",
+      "population": {
+        "cannons": 1,
+        "balls": 1
+      },
+      "status": {
+        "kind": "slow",
+        "label": "Slow \u00b7 delayed",
+        "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+        "canPrepare": true
+      },
+      "error": ""
+    }
+  ],
+  "resources": [
+    {
+      "name": "manifest.json",
+      "transfer": 32550,
+      "encoded": 32250,
+      "duration": 168.19999998807907
+    },
+    {
+      "name": "000-978533bbde679a0d.flac",
+      "transfer": 1354968,
+      "encoded": 1354668,
+      "duration": 53.39999997615814
+    },
+    {
+      "name": "wall-ripple-a-3644a32147c83a21.flac",
+      "transfer": 106141,
+      "encoded": 105841,
+      "duration": 15.800000011920929
+    },
+    {
+      "name": "001-7ab28b46da414f75.flac",
+      "transfer": 1254702,
+      "encoded": 1254402,
+      "duration": 112.5
+    },
+    {
+      "name": "wall-ripple-b-b00a94f8e88ec309.flac",
+      "transfer": 106409,
+      "encoded": 106109,
+      "duration": 62
+    },
+    {
+      "name": "002-ab9e812cea73ff2d.flac",
+      "transfer": 1235989,
+      "encoded": 1235689,
+      "duration": 116.39999997615814
+    },
+    {
+      "name": "wall-ripple-c-12d52c1290972681.flac",
+      "transfer": 108276,
+      "encoded": 107976,
+      "duration": 16.80000001192093
+    },
+    {
+      "name": "cannon-launch-soft-00052a3c9bb1f50d.flac",
+      "transfer": 151241,
+      "encoded": 150941,
+      "duration": 17.200000047683716
+    },
+    {
+      "name": "friendly-contact-a-e561a8e1413e5b89.flac",
+      "transfer": 8634,
+      "encoded": 8334,
+      "duration": 62.39999997615814
+    },
+    {
+      "name": "friendly-contact-b-c46c20436673ab27.flac",
+      "transfer": 9818,
+      "encoded": 9518,
+      "duration": 17.100000023841858
+    },
+    {
+      "name": "neutral-contact-3c37d8751e36c470.flac",
+      "transfer": 3997,
+      "encoded": 3697,
+      "duration": 13.900000035762787
+    },
+    {
+      "name": "003-5a9a811a71e0dbf5.flac",
+      "transfer": 1308310,
+      "encoded": 1308010,
+      "duration": 109.69999998807907
+    },
+    {
+      "name": "004-f3bfe0c913ec1cfd.flac",
+      "transfer": 1393775,
+      "encoded": 1393475,
+      "duration": 31
+    }
+  ],
+  "audio_transfer_bytes": 7074810,
+  "browser": "153.0.8010.12"
+}

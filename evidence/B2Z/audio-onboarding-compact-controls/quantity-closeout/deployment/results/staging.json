@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "at": "2026-11-15T17:24:22.307916+00:00",
+  "target": "s2jxj-liaaa-aaaas-amynq-cai",
+  "stage": ".work/s14/assets",
+  "preserved_previous_staging": ".work/quantity-deployment-20261115/previous-staging",
+  "files": 78,
+  "inventory_sha256": "4606757478a113e7a682f0077b69155e9455b2bf60624066c608b7b8168526be",
+  "js_sha256": "3ee92eee3dda006c57f2dd17779e0e4babb947dc54942c6bd4998b975ebedbb2",
+  "builder_invoked": false
+}

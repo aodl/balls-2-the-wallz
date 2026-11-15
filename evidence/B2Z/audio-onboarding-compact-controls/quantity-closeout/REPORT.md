@@ -1,13 +1,16 @@
-# Quantity availability — six hosted gates PASS; replacement not deployed
+# Quantity availability — six hosted gates PASS; installed playtest recorded separately
 
-**The corrected frontend is frozen and qualified for a new owner deployment decision.**
+**The corrected frontend was subsequently authorised and installed for controlled prelaunch testing.**
+See the [actual deployment and live acceptance](deployment/REPORT.md). The following
+sections preserve the implementation/qualification checkpoint and its source scope.
 Qualified source `76225150a08c2556e12dcf261e66b8f9489f2ed3` passed all six
 substantive gates in [run43713498060](https://github.com/aodl/balls-2-the-wallz/actions/runs/43713498060).
 The exact320×640/347.15° failure is resolved with a measured reserved fallback,
 not another candidate offset. Eleven contexts,187 browser heading states and396
 status samples pass with0px drift, plus52 native keyboard states in both directions.
-Production remains the independently verified restored75-file frontend and Rules7.
-No deployment, backend, financial, funding or settings operation was performed.
+At that qualification checkpoint production remained the independently verified
+restored75-file frontend and Rules7. No production operation was performed by that
+source-qualification pass. The later authorised frontend deployment is separate.
 P09 remains FAIL/unqualified; physical/browser limitations below remain explicit.
 This is not a general-release audio/hardware approval.
 

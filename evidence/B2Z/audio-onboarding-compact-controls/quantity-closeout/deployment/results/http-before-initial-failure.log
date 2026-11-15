@@ -1,0 +1,15 @@
+node:internal/fs/promises:640
+  return new FileHandle(await PromisePrototypeThen(
+                        ^
+
+Error: ENOENT: no such file or directory, open '.work/quantity-deployment-20261115/served-before.json'
+    at async open (node:internal/fs/promises:640:25)
+    at async readFile (node:internal/fs/promises:1287:14)
+    at async file:///home/codexdev/src/b2z/.work/quantity-deployment-20261115/verify-http-certificates.mjs:6:25 {
+  errno: -2,
+  code: 'ENOENT',
+  syscall: 'open',
+  path: '.work/quantity-deployment-20261115/served-before.json'
+}
+
+Node.js v24.15.0
