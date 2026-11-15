@@ -1,3 +1,23 @@
+# Current production — audio/compact trial rolled back after live mobile failure
+
+15November2026: the exact78-file audio/onboarding candidate was installed and all77
+served public bytes and v2 HTTP certificates verified. Live native music return
+passed, but320×640 upward aiming reproducibly hides the quantity widget while the
+cannon remains visible, including after one-second settling. The authorised
+frontend-only rollback restored the prior exact75-file deployment: all74 public
+bytes/headers, signed inventory, v2 body/header/path witnesses and Rules7 startup
+verified. Do not redeploy the unchanged candidate.
+
+[Deployment/rollback and actual live acceptance](evidence/B2Z/audio-onboarding-compact-controls/deployment/REPORT.md)
+records the defect, recordings, successful checks and limitations. Production was
+already in low-energy protection before installation; payment copying correctly
+remained disabled. Enabled-copy/fresh-impact acceptance is BLOCKED by that state.
+No backend, financial, funding, settings/controller or Rules9 action was performed.
+A separate narrow source correction/qualification and deployment decision are
+needed; P09 and physical/browser listening limitations remain.
+
+---
+
 # Audio, returning entry and compact controls — six hosted gates PASS; undeployed
 
 Exact qualified source `5f078edd48d62170d13b20819a90d6c9948b0258` passed all six

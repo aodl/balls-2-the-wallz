@@ -1,3 +1,10 @@
+> **Production acceptance update —15November2026:** the authorised exact frontend
+> trial was installed, then rolled back after a persistent320px quantity-widget
+> failure. The prior75-file frontend is restored and independently verified.
+> [Deployment/rollback report](deployment/REPORT.md) supersedes this report's
+> earlier undeployed/recommendation wording. Six-gate source results remain historical
+> facts; they do not qualify the failed live pose. No runtime fix was made.
+
 # Audio, returning entry and compact controls — corrective candidate
 
 **All six substantive hosted gates PASS on5f078edd48d62170d13b20819a90d6c9948b0258. Frozen78-file candidate preserved. Undeployed; P09 and device/listening limitations remain.**

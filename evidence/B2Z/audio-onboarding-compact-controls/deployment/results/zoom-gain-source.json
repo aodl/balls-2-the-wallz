@@ -1,0 +1,33 @@
+{
+  "scope": "Unmodified exact installed-source policy calculation, not a live event-output or listening test. Native matched output captures remain prior qualified evidence.",
+  "rows": [
+    {
+      "scale": 5,
+      "gain": 0
+    },
+    {
+      "scale": 12,
+      "gain": 0.07911807237422472
+    },
+    {
+      "scale": 20,
+      "gain": 0.4543700286690427
+    },
+    {
+      "scale": 24,
+      "gain": 0.673708652755128
+    },
+    {
+      "scale": 32,
+      "gain": 0.9795084836409623
+    },
+    {
+      "scale": 48,
+      "gain": 1
+    },
+    {
+      "scale": 60,
+      "gain": 1
+    }
+  ]
+}

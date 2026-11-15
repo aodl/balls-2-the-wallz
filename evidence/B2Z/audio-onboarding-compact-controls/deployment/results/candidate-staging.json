@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "files": 78,
+  "inventory_sha256": "d7b37d1333e18788f7f5d3b835c26036c3eaaa3b5eca89b067be2014a84a655f",
+  "target": "s2jxj-liaaa-aaaas-amynq-cai",
+  "previous_staging_preserved": ".work/audio-compact-deployment-20261115/previous-staging",
+  "no_rebuild": true
+}

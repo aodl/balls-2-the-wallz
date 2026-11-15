@@ -1,0 +1,7 @@
+{
+  "status": "PASS",
+  "files": 75,
+  "inventory_sha256": "e9b5c4be2216420f6f70d7c3f33f3ef4596b7d56e05c06eae43171fd629cb8c1",
+  "reason": "Persistent visible-cannon arena quantity widget hidden at320x640 heading347.15 degrees; independent one-second settled native-keyboard reproduction",
+  "scope": "Only observer frontend assets; no runtime modification or backend operation"
+}

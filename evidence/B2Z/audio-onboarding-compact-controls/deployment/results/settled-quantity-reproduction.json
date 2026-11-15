@@ -1,0 +1,333 @@
+{
+  "scope": "Actual deployed frontend, ordinary keyboard aim, one-second settle per heading; no override or payment",
+  "rows": [
+    {
+      "heading": "212.15",
+      "hidden": false,
+      "style": "grid",
+      "quantityRect": {
+        "x": 96,
+        "y": 67,
+        "width": 128,
+        "height": 44,
+        "top": 67,
+        "right": 224,
+        "bottom": 111,
+        "left": 96
+      },
+      "handle": {
+        "x": 117.78125,
+        "y": 165.171875,
+        "width": 44,
+        "height": 44,
+        "top": 165.171875,
+        "right": 161.78125,
+        "bottom": 209.171875,
+        "left": 117.78125
+      },
+      "panel": {
+        "x": 8,
+        "y": 221,
+        "width": 304,
+        "height": 295,
+        "top": 221,
+        "right": 312,
+        "bottom": 516,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "active": "aim-handle"
+    },
+    {
+      "heading": "257.15",
+      "hidden": false,
+      "style": "grid",
+      "quantityRect": {
+        "x": 96,
+        "y": 67,
+        "width": 128,
+        "height": 44,
+        "top": 67,
+        "right": 224,
+        "bottom": 111,
+        "left": 96
+      },
+      "handle": {
+        "x": 100.9375,
+        "y": 141.4375,
+        "width": 44,
+        "height": 44,
+        "top": 141.4375,
+        "right": 144.9375,
+        "bottom": 185.4375,
+        "left": 100.9375
+      },
+      "panel": {
+        "x": 8,
+        "y": 221,
+        "width": 304,
+        "height": 295,
+        "top": 221,
+        "right": 312,
+        "bottom": 516,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "active": "aim-handle"
+    },
+    {
+      "heading": "302.15",
+      "hidden": false,
+      "style": "grid",
+      "quantityRect": {
+        "x": 128,
+        "y": 67,
+        "width": 128,
+        "height": 44,
+        "top": 67,
+        "right": 256,
+        "bottom": 111,
+        "left": 128
+      },
+      "handle": {
+        "x": 105.8125,
+        "y": 112.765625,
+        "width": 44,
+        "height": 44,
+        "top": 112.765625,
+        "right": 149.8125,
+        "bottom": 156.765625,
+        "left": 105.8125
+      },
+      "panel": {
+        "x": 8,
+        "y": 221,
+        "width": 304,
+        "height": 295,
+        "top": 221,
+        "right": 312,
+        "bottom": 516,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "active": "aim-handle"
+    },
+    {
+      "heading": "347.15",
+      "hidden": true,
+      "style": "none",
+      "quantityRect": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "handle": {
+        "x": 129.546875,
+        "y": 95.9375,
+        "width": 44,
+        "height": 44,
+        "top": 95.9375,
+        "right": 173.546875,
+        "bottom": 139.9375,
+        "left": 129.546875
+      },
+      "panel": {
+        "x": 8,
+        "y": 221,
+        "width": 304,
+        "height": 295,
+        "top": 221,
+        "right": 312,
+        "bottom": 516,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "active": "aim-handle"
+    },
+    {
+      "heading": "32.15",
+      "hidden": false,
+      "style": "grid",
+      "quantityRect": {
+        "x": 8,
+        "y": 67,
+        "width": 128,
+        "height": 44,
+        "top": 67,
+        "right": 136,
+        "bottom": 111,
+        "left": 8
+      },
+      "handle": {
+        "x": 158.203125,
+        "y": 100.8125,
+        "width": 44,
+        "height": 44,
+        "top": 100.8125,
+        "right": 202.203125,
+        "bottom": 144.8125,
+        "left": 158.203125
+      },
+      "panel": {
+        "x": 8,
+        "y": 221,
+        "width": 304,
+        "height": 295,
+        "top": 221,
+        "right": 312,
+        "bottom": 516,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "active": "aim-handle"
+    },
+    {
+      "heading": "77.15",
+      "hidden": false,
+      "style": "grid",
+      "quantityRect": {
+        "x": 8,
+        "y": 67,
+        "width": 128,
+        "height": 44,
+        "top": 67,
+        "right": 136,
+        "bottom": 111,
+        "left": 8
+      },
+      "handle": {
+        "x": 175.046875,
+        "y": 124.546875,
+        "width": 44,
+        "height": 44,
+        "top": 124.546875,
+        "right": 219.046875,
+        "bottom": 168.546875,
+        "left": 175.046875
+      },
+      "panel": {
+        "x": 8,
+        "y": 221,
+        "width": 304,
+        "height": 295,
+        "top": 221,
+        "right": 312,
+        "bottom": 516,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "active": "aim-handle"
+    },
+    {
+      "heading": "122.15",
+      "hidden": false,
+      "style": "grid",
+      "quantityRect": {
+        "x": 8,
+        "y": 67,
+        "width": 128,
+        "height": 44,
+        "top": 67,
+        "right": 136,
+        "bottom": 111,
+        "left": 8
+      },
+      "handle": {
+        "x": 170.171875,
+        "y": 153.21875,
+        "width": 44,
+        "height": 44,
+        "top": 153.21875,
+        "right": 214.171875,
+        "bottom": 197.21875,
+        "left": 170.171875
+      },
+      "panel": {
+        "x": 8,
+        "y": 221,
+        "width": 304,
+        "height": 295,
+        "top": 221,
+        "right": 312,
+        "bottom": 516,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "active": "aim-handle"
+    },
+    {
+      "heading": "167.15",
+      "hidden": false,
+      "style": "grid",
+      "quantityRect": {
+        "x": 8,
+        "y": 67,
+        "width": 128,
+        "height": 44,
+        "top": 67,
+        "right": 136,
+        "bottom": 111,
+        "left": 8
+      },
+      "handle": {
+        "x": 146.4375,
+        "y": 170.046875,
+        "width": 44,
+        "height": 44,
+        "top": 170.046875,
+        "right": 190.4375,
+        "bottom": 214.046875,
+        "left": 146.4375
+      },
+      "panel": {
+        "x": 8,
+        "y": 221,
+        "width": 304,
+        "height": 295,
+        "top": 221,
+        "right": 312,
+        "bottom": 516,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "active": "aim-handle"
+    }
+  ]
+}

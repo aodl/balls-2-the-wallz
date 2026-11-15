@@ -1,0 +1,8 @@
+viewport 1440
+viewport 390
+viewport 320
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/.work/audio-compact-deployment-20261115/live-protected-controls.py", line 44, in <module>
+    p.wait_for_timeout(80);assert p.locator('#quantity-controls').is_visible();r=p.locator('#quantity-controls').bounding_box();assert r['x']>=0 and r['y']>=0 and r['x']+r['width']<=w and r['y']+r['height']<=h;row['headings'].append({'composer':state(p)['composer'],'quantity_box':r})
+                                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
