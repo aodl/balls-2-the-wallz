@@ -5,7 +5,10 @@ row layouts and the routine visible fee row. See [the current contract](B2Z_WAR_
 and its exact approved reference. Title/amount share row1; From left/To right share
 row2; both dividers and three right-edge Copy controls align. Plain full-value
 copying and a calm blue retention note remain mandatory. War Cry is gated by its
-exact authenticated capability, never enabled on unsupported Rules7.
+exact authenticated capability, never enabled on unsupported Rules7. The joint
+quantity/cry editor reserves measured space in the actual visual viewport, wraps
+the same instances when necessary, and retains gesture/focus locks. Extreme
+visual/text zoom may reflow rows; ordinary portrait keeps the approved shared grid.
 
 The current audio/onboarding/compact-actions owner brief supersedes older audio
 preferences and Join/Build conflation. Affected contracts are UX-01/02/03/07/08/10/11/12:

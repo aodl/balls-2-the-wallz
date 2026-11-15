@@ -1,0 +1,142 @@
+{
+  "status": "FAIL",
+  "scope": "Approved shared panel/native input against canonical disposable scenes; no IC claim.",
+  "views": [
+    {
+      "width": 320,
+      "height": 640,
+      "dpr": 1,
+      "capability": false,
+      "actions": {}
+    }
+  ],
+  "error": "AssertionError([{'id': 'paying-account', 'text': 'f6a7f\u2026', 'width': 50, 'scroll': 55}, {'id': 'payment-owner', 'text': 's5ir5\u2026', 'width': 54, 'scroll': 54}])",
+  "failure": {
+    "title": {
+      "x": 18,
+      "y": 283,
+      "width": 142,
+      "height": 56,
+      "top": 283,
+      "right": 160,
+      "bottom": 339,
+      "left": 18
+    },
+    "from": {
+      "x": 18,
+      "y": 339,
+      "width": 142,
+      "height": 69,
+      "top": 339,
+      "right": 160,
+      "bottom": 408,
+      "left": 18
+    },
+    "to": {
+      "x": 160,
+      "y": 339,
+      "width": 98,
+      "height": 69,
+      "top": 339,
+      "right": 258,
+      "bottom": 408,
+      "left": 160
+    },
+    "amount": {
+      "x": 160,
+      "y": 283,
+      "width": 98,
+      "height": 56,
+      "top": 283,
+      "right": 258,
+      "bottom": 339,
+      "left": 160
+    },
+    "copies": [
+      {
+        "x": 258,
+        "y": 289,
+        "width": 44,
+        "height": 44,
+        "top": 289,
+        "right": 302,
+        "bottom": 333,
+        "left": 258
+      },
+      {
+        "x": 258,
+        "y": 351.5,
+        "width": 44,
+        "height": 44,
+        "top": 351.5,
+        "right": 302,
+        "bottom": 395.5,
+        "left": 258
+      },
+      {
+        "x": 258,
+        "y": 413,
+        "width": 44,
+        "height": 44,
+        "top": 413,
+        "right": 302,
+        "bottom": 457,
+        "left": 258
+      }
+    ],
+    "panel": {
+      "x": 8,
+      "y": 221,
+      "width": 304,
+      "height": 296,
+      "top": 221,
+      "right": 312,
+      "bottom": 517,
+      "left": 8
+    },
+    "scroll": {
+      "x": 8,
+      "y": 275,
+      "width": 304,
+      "height": 242,
+      "top": 275,
+      "right": 312,
+      "bottom": 517,
+      "left": 8
+    },
+    "quantity": {
+      "x": 10,
+      "y": 526,
+      "width": 130,
+      "height": 46,
+      "top": 526,
+      "right": 140,
+      "bottom": 572,
+      "left": 10
+    },
+    "group": {
+      "x": 10,
+      "y": 526,
+      "width": 130,
+      "height": 46,
+      "top": 526,
+      "right": 140,
+      "bottom": 572,
+      "left": 10
+    },
+    "cry": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "left": 0
+    },
+    "hidden": false,
+    "fields": 0,
+    "buttons": 3
+  },
+  "page_errors": []
+}

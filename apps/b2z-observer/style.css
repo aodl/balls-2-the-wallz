@@ -213,13 +213,13 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 
 .payment-price,.payment-to{padding-left:8px}@media(max-width:360px){.payment-price,.payment-to{padding-left:5px}}
 /* One coordinated, measured launch editor; the original quantity instance remains. */
-#launch-editors{position:absolute;z-index:9;display:flex;align-items:center;gap:6px;max-width:calc(100vw - 16px);padding:0;touch-action:manipulation}
+#launch-editors{position:absolute;z-index:9;display:flex;flex-wrap:wrap;align-items:center;gap:6px;width:max-content;max-width:calc(var(--launch-editor-space,100vw) - 16px);padding:0;touch-action:manipulation}
 #launch-editors .quantity-stepper{position:relative;left:auto;top:auto;order:0;flex:none}
 #launch-editors[data-placement=dock]{min-height:46px}
-#war-cry-editor{display:flex;flex-direction:column;justify-content:center;margin:0;min-width:100px;width:146px;max-width:calc(100vw - 152px);font-size:.75rem;line-height:1.2;color:var(--quiet);background:#24312fef;border:1px solid #7b8b87;border-radius:7px;padding:2px 6px}
+#war-cry-editor{display:flex;flex-direction:column;justify-content:center;margin:0;min-width:100px;width:146px;max-width:calc(var(--launch-editor-space,100vw) - 152px);font-size:.75rem;line-height:1.2;color:var(--quiet);background:#24312fef;border:1px solid #7b8b87;border-radius:7px;padding:2px 6px}
 #war-cry{background:none;border:0;padding:0 3px;min-height:28px;font-size:.875rem;width:100%;color:var(--ink)}
 #war-cry-editor:focus-within{outline:2px solid var(--accent);outline-offset:2px}
-#launch-editors:has(#quantity-controls[hidden]) #war-cry-editor{max-width:calc(100vw - 16px)}
+#launch-editors:has(#quantity-controls[hidden]) #war-cry-editor{max-width:calc(var(--launch-editor-space,100vw) - 16px)}
 #speech-layer{position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden}
 .speech-bubble{position:absolute;max-width:176px;min-width:44px;min-height:30px;padding:7px 10px;background:#20302eed;border:1px solid #a7bdb7;border-radius:10px;color:#f3f5ef;font-size:.875rem;line-height:1.35;overflow-wrap:anywhere;pointer-events:none;user-select:none;box-shadow:0 2px 5px #0005}
 .speech-bubble::after{content:"";position:absolute;left:50%;bottom:-5px;width:8px;height:8px;background:#20302e;border-right:1px solid #a7bdb7;border-bottom:1px solid #a7bdb7;transform:rotate(45deg)}
@@ -230,3 +230,15 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 #launch-editors[data-first=true]{position:static;grid-column:2;align-self:center;max-width:100%}#launch-editors[data-first=true] #war-cry-editor{max-width:100%}
 
 .quantity-constrained #war-cry-editor{width:100px;min-width:100px;max-width:100px}
+
+/* Extreme visual-viewport/text zoom reflows values, retaining the copy axis.
+   Ordinary 320px portraits retain the approved two-column layout. */
+.panel-content{container-type:inline-size;container-name:payment-data}
+@container payment-data (max-width:16rem){
+ .payment-grid{grid-template-columns:minmax(0,1fr) 44px}
+ .payment-grid .payment-title,.payment-grid .payment-from{grid-column:1/-1;border-right:0;padding-right:0}
+ .payment-grid .payment-price,.payment-grid .payment-to{padding-left:0}
+ .payment-grid>.payment-memo{grid-column:1}
+}
+
+@media(max-width:360px){.payment-grid .payment-from{gap:1px;padding-right:0}}

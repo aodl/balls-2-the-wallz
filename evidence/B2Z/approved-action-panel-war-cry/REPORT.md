@@ -1,3 +1,7 @@
+> Current continuation: joint visual-viewport wrapping and rendered payer-summary
+> width corrections are under native regression. The previous freezes below are
+> historical; final inventory and hosted requalification are pending. Nothing deployed.
+
 # Approved shared panel and authenticated War Cry — qualification in progress
 
 **Not deployed. Not yet an exact-source-qualified release candidate.** This report

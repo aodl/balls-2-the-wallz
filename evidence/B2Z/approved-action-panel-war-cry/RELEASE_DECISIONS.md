@@ -48,6 +48,8 @@ module does not automatically activate Rules10 on upgrade.
 
 Exact predecessor:
 
+- Paid module: `612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948`.
+- Observed production source identity: `54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125`; reverify at cutover, never substitute the disposable source.
 - Rules7: `982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f`.
 - Config: `8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80`.
 - Schema6: `b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790`.

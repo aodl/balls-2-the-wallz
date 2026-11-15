@@ -1,5 +1,5 @@
 {
-  "source_commit": "ecb0f25cd162e475225cf0b5867d09d6ee91136b",
+  "source_commit": "0b8709b7a80afbec9e9ba65e27b0f4abced38909",
   "source_dirty": false,
   "canister_ids_sha256": "838d16de7c4ccc713442d6220ecb1b6305b6ddc8ca93d93cae0646c731304deb",
   "local_test_only": false,
@@ -161,8 +161,8 @@
       "bytes": 14236
     },
     "app.mjs": {
-      "sha256": "c56ff5bf5d8ab2e6cc836e38d5fe43b7a17504fbfc6903f74bd0c08d64e2a3c9",
-      "bytes": 2125636
+      "sha256": "a0519cba975db3813626ce4ec261d054eb44af2716168e9778326f51b2c4c4fb",
+      "bytes": 2125743
     },
     "style.css": {
       "sha256": "efda2541ba8771b0cccf9274998a5260e3914e6b48c4ccb56e73fd67d8adfe20",

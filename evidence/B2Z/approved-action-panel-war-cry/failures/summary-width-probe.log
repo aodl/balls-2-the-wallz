@@ -1,0 +1,12 @@
+
+  ...k/approved-panel-war-cry/summary-width-probe/fixture/fixture.mjs  1.5mb ⚠️
+
+⚡ Done in 1115ms
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_approved_panel.py", line 33, in <module>
+    assert page.locator('#action-prompt').text_content()==prompt;row['actions'][action]=align(page)
+                                                                                        ^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/tools/verify_approved_panel.py", line 18, in align
+    d=geometry(page);d['summaries']=page.locator('.payment-grid .identity-summary span').evaluate_all('(nodes)=>nodes.map(n=>({id:n.id,text:n.textContent,width:n.clientWidth,scroll:n.scrollWidth}))');assert all(x['scroll']<=x['width']for x in d['summaries']),d['summaries'];assert d['fields']==0 and d['buttons']==3;assert abs(d['title']['right']-d['from']['right'])<=1,d;centers=[x['x']+x['width']/2 for x in d['copies']];assert max(centers)-min(centers)<=1,d;assert all(x['width']>=44 and x['height']>=44 for x in d['copies']);assert d['from']['right']<=d['to']['left']+1;return d
+                                                                                                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: [{'id': 'paying-account', 'text': 'f6a7f…', 'width': 50, 'scroll': 55}, {'id': 'payment-owner', 'text': 's5ir5…', 'width': 54, 'scroll': 54}]

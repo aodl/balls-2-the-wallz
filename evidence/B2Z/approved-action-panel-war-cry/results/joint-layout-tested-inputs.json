@@ -1,0 +1,25 @@
+{
+  "scope": "Native fixture tests joint-mobile-final and panel-1440-isolated; final freeze must preserve these inputs",
+  "inputs": [
+    {
+      "path": "apps/b2z-observer/shell.mjs",
+      "sha256": "66811cf6d56071d9c668a02ed45e445f7299773f36082c255797f417085517de"
+    },
+    {
+      "path": "apps/b2z-observer/style.css",
+      "sha256": "33ed035d11fbbaf22e67593498c5e561a6a254301a7f722c87de7dd7ce3a0039"
+    },
+    {
+      "path": "apps/b2z-observer/arcade.mjs",
+      "sha256": "a93f640da08f53b9d8dc24ba3fb9ceada82b57d55ad101c37560f86b957e3e30"
+    },
+    {
+      "path": "apps/b2z-observer/index.html",
+      "sha256": "adaebfbb514fd1179e652c9bace0ecbf6e3110ff213f49417ebb36765c955597"
+    },
+    {
+      "path": "apps/b2z-observer/war-cry-events.mjs",
+      "sha256": "fda045c12f1af3cbf050af11846a2125ae90daf09764083b30b33ca97857887a"
+    }
+  ]
+}

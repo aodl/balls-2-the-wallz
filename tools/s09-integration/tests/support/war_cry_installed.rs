@@ -301,6 +301,31 @@ fn run_war_cry(european_prior: Option<Vec<u8>>) {
         sent.push(serde_json::json!({"position":position,"raw_memo_hex":hex(memo.as_bytes()),"memo":memo,"amount":amount,"normalized_hex":hex(&raw),"normalized_bytes":raw.len(),"admitted_purchase_window_cycles":processing_cycles.to_string(),"admitted_purchase_window_wall_ms":purchase_started.elapsed().as_millis(),"cost_scope":"normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote"}));
         playability_installed::record(&pic, id, &mut rows, &out);
     }
+    // Explicit additional Build uses the existing authoritative site helper.
+    // It is a proposal only; the normal interpreter still decides at processing.
+    let w = arena_world(&pic, id);
+    let player = b2z_native::purchases_v6::player_by_account(&w, &account).unwrap();
+    let site = *b2z_native::purchases_v6::adjacent_sites(&w, player)
+        .unwrap()
+        .first()
+        .expect("eligible additional Build");
+    let memo = format!("NEW 0 1 {site}|Build!");
+    let amount = 1_000_000_000u64;
+    let position = transfer_text(&pic, ledger, payer, id, amount, memo.as_bytes());
+    let parsed = b2z_protocol::war_cry::parse_text(memo.as_bytes()).unwrap();
+    let mut raw = b"BTZPAY03".to_vec();
+    raw.extend(AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).as_bytes());
+    raw.extend(amount.to_be_bytes());
+    raw.extend(b2z_protocol::v6::encode(parsed.command).unwrap());
+    raw.push(parsed.cry.len() as u8);
+    raw.extend(parsed.cry.as_bytes());
+    payments.insert(position, hex(&raw));
+    admitted(&pic, id, position);
+    let cycles = pic.cycle_balance(id);
+    let started = std::time::Instant::now();
+    playability_installed::one_tick(&pic, id);
+    sent.push(serde_json::json!({"position":position,"raw_memo_hex":hex(memo.as_bytes()),"memo":memo,"amount":amount,"normalized_hex":hex(&raw),"normalized_bytes":raw.len(),"admitted_purchase_window_cycles":(cycles-pic.cycle_balance(id)).to_string(),"admitted_purchase_window_wall_ms":started.elapsed().as_millis(),"cost_scope":"normal Wasm admitted explicit additional Build plus mandatory game/controller work"}));
+    playability_installed::record(&pic, id, &mut rows, &out);
     let mut artifacts = vec![];
     let mut metadata = BTreeMap::new();
     let mut assigned = vec![];
@@ -345,12 +370,13 @@ fn run_war_cry(european_prior: Option<Vec<u8>>) {
     }
     assert_eq!(
         annotations.len(),
-        5,
-        "Revive, partial Fire, distinct identical payments and New, no zero/rejected cry"
+        6,
+        "Revive, partial Fire, distinct identical payments, first Join and explicit additional Build; no zero/rejected cry"
     );
     assert_eq!(annotations[0]["launch_annotation"]["cry"], "é😀");
     assert_eq!(annotations[1]["launch_annotation"]["cry"], "Charge!");
     assert_eq!(annotations[4]["launch_annotation"]["cry"], "Hello!");
+    assert_eq!(annotations[5]["launch_annotation"]["cry"], "Build!");
     save(
         &out,
         "trace.json",
@@ -381,7 +407,7 @@ fn run_war_cry(european_prior: Option<Vec<u8>>) {
     save(
         &out,
         "configuration.json",
-        &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":AccountIdentifier::new(&extra,&DEFAULT_SUBACCOUNT).to_hex(),"expected_cry":"Hello!","expected_cannon":2}),
+        &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":account,"expected_cry":"Build!","expected_cannon":3}),
     );
     assert!(std::process::Command::new("node")
         .current_dir(&repo)

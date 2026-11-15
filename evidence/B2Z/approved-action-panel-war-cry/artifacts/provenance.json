@@ -1,15 +1,23 @@
 {
-  "source": "ecb0f25cd162e475225cf0b5867d09d6ee91136b",
+  "source": "0b8709b7a80afbec9e9ba65e27b0f4abced38909",
   "source_dirty": false,
-  "inventory_sha256": "b7d80bf2526c56f835de5338aa2acc34025a014d5392273b3b06fbadde308db8",
-  "javascript_sha256": "c56ff5bf5d8ab2e6cc836e38d5fe43b7a17504fbfc6903f74bd0c08d64e2a3c9",
+  "inventory_sha256": "83e0b60c289eaf80cb3b5856d0b6e14fa6f96fd81a2e056b0618a02856dda735",
+  "javascript_sha256": "a0519cba975db3813626ce4ec261d054eb44af2716168e9778326f51b2c4c4fb",
   "audio_manifest_sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
   "files": 79,
   "public_files": 78,
   "unchanged_audio_assets": 61,
-  "total_asset_bytes": 76334377,
+  "total_asset_bytes": 76334484,
   "normal_wasm_sha256": "1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b",
-  "backend_reuse": "Exact hosted normal Wasm recovered from retained source-build evidence; must qualify these bytes before release",
+  "backend_reuse": "Exact hosted normal module from run43764610049 artifact14181941816; all backend runtime/config/dependency inputs unchanged from ca2d657",
+  "backend_build_source": "dfaef2c943c629c1c4e35d0776d22131189b7133",
+  "backend_build_environment": {
+    "runner": "ubuntu-24.04",
+    "rust": "1.94.1",
+    "checkout": "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz",
+    "cargo_home": "/home/runner/.cargo"
+  },
+  "backend_previous_local_wasm_sha256": "002ce4d43d753dfe86ff16687087222abf646ce7ab23c82bcaa4e8c8ce379453",
   "inputs": [
     {
       "path": "apps/b2z-observer/action-quote-v6.mjs",
@@ -1277,7 +1285,7 @@
     },
     {
       "path": "apps/b2z-observer/war-cry-events.mjs",
-      "sha256": "e92ebdceae8f3da3b419b0b044e1293575331ef69a8b8f1b9ea3fcf6c3baa40a"
+      "sha256": "fda045c12f1af3cbf050af11846a2125ae90daf09764083b30b33ca97857887a"
     },
     {
       "path": "apps/b2z-observer/war-cry-policy.mjs",
@@ -1893,16 +1901,5 @@
       "path": "rust-toolchain.toml",
       "sha256": "b5c2cffe3b1d150c6f1dd459b35522e4617b5843ff5b5b7253c59f5bea622c83"
     }
-  ],
-  "backend_build_source": "dfaef2c943c629c1c4e35d0776d22131189b7133",
-  "backend_build_environment": {
-    "scope": "Hosted normal release module; absolute Rust source paths make the local build a different binary, not an interchangeable artifact",
-    "rust": "1.94.1",
-    "runner": "ubuntu-24.04",
-    "checkout": "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz",
-    "cargo_home": "/home/runner/.cargo",
-    "artifact_id": 14181941816,
-    "run_id": 43764610049
-  },
-  "backend_previous_local_wasm_sha256": "002ce4d43d753dfe86ff16687087222abf646ce7ab23c82bcaa4e8c8ce379453"
+  ]
 }

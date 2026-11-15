@@ -78,7 +78,12 @@ changes follow the same immutable copied-packet replacement boundary.
 Near-aim placement is preferred. A measured reserved rail/strip is mandatory when
 preferences fail. Joint width includes both controls and measured fixed obstacles,
 including minimap; supported visible-cannon editors never vanish from slot
-exhaustion. Pointer/focus/canvas capture locks placement. Real resize fences a late
+exhaustion. The group uses the actual visual viewport minus safe insets; when the
+joint row cannot fit it wraps the same editor instances into the measured reserved
+strip. Dimensions are committed in the cached layout read before positioning,
+including genuine resize/zoom changes, rather than waiting for a later observer.
+Extreme visual/text zoom can reflow financial rows while preserving the right
+Copy axis; ordinary 320px portrait retains the approved shared two-column grid. Pointer/focus/canvas capture locks placement. Real resize fences a late
 release before relocation. Field typing/caret keys/B/+/-/space never pan, aim,
 follow or edit quantity. Enter blurs/commits local text only; Escape leaves editing
 first. No audio/observer clock or source cursor is reset.
