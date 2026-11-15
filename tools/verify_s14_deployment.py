@@ -349,7 +349,7 @@ def verify_epoch_transition(page,context,out,record,report,save):
     select_cannon(page);choose_action(page,'move')
     old_cell=different_owned_cell(page);choose_action(page,'move');choose_cell(page,str(old_cell));wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#text-memo').inner_text()==f'MOVE {old_cell}'
-    assert source_value(page,'recipient')==report['receiving_account'];assert page.locator('#full-recipient').input_value()==source_value(page,'owner');assert not page.locator('#payment-address,#hex-memo').count()
+    assert source_value(page,'recipient')==report['receiving_account'];assert page.locator('#full-recipient').text_content()==source_value(page,'owner');assert not page.locator('#payment-address,#hex-memo').count()
     page.locator('[data-copy="text"]').click()
     wait_until(page,lambda:'Copied.' in page.locator('#copy-feedback').text_content(),5000)
     # Keep this packet active across the epoch. Escape now explicitly cancels
@@ -623,7 +623,7 @@ def main():
             wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
             assert page.locator('#transfer-amount').inner_text()=='1 ICP'
             assert page.locator('.hero,footer').count()==0
-            assert source_value(page,'recipient')==configuration['recipient'];assert page.locator('#full-recipient').input_value()==source_value(page,'owner');assert not page.locator('#payment-address,#hex-memo').count()
+            assert source_value(page,'recipient')==configuration['recipient'];assert page.locator('#full-recipient').text_content()==source_value(page,'owner');assert not page.locator('#payment-address,#hex-memo').count()
             page.bring_to_front()
             if asset_canister:
                 assert 'clipboard-write=(self)' in response.headers.get('permissions-policy','')

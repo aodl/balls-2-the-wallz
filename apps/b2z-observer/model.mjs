@@ -1,6 +1,7 @@
+import {launchAnnotationValidator}from'./war-cry-events.mjs';
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -9,7 +10,7 @@ import {projectAnimationEvents} from '../../packages/kernels/b2z/animation-proje
 import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
-const playabilityIdentity=id=>[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY].some(expected=>Object.keys(expected).every(k=>id?.[k]===expected[k]));
+const playabilityIdentity=id=>[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY].some(expected=>Object.keys(expected).every(k=>id?.[k]===expected[k]));
 function check(ok,message){if(!ok)throw new Error('observer: '+message);}
 function integer(n,max=4294967295){check(Number.isSafeInteger(n)&&n>=0&&n<=max,'integer bounds');return n;}
 export function timeNumber(r){validRat(r);const n=Number(r[0])/Number(r[1]);check(Number.isFinite(n)&&n>=0&&n<=1e9,'time bounds');return n;}
@@ -93,7 +94,7 @@ export class B2zView {
   removeBalls(ids){for(const id of ids){this.balls.delete(id);for(const [key,p] of this.pending)if(p.ball===id)this.pending.delete(key);}}
   apply(e){
     const t=timeNumber(e.time);this.lastEvent=e.kind.replaceAll('_',' ');
-    if(this.version===6){if(applyV6Event(this,e)){this.effects=this.effects.filter(x=>t-x.t<2).slice(-64);return;}check(['trajectory','cannon_moved','strike_armed','strike_cancelled'].includes(e.kind),'unsupported v6 event');}
+    if(this.version===6){if(applyV6Event(this,e)){if(e.launch_annotation){const id=typeof e.cannon==='object'?e.cannon.id:e.cannon;check(this.cannons.get(id)?.account===e.launch_annotation.account,'launch annotation funding account');}this.effects=this.effects.filter(x=>t-x.t<2).slice(-64);return;}check(['trajectory','cannon_moved','strike_armed','strike_cancelled'].includes(e.kind),'unsupported v6 event');}
     if(e.kind==='trajectory'){
       check(this.balls.has(e.ball.id),'unknown trajectory');const b=this.version===6?trackV6(e.ball):track(e.ball,this.version===5?65536:4096);
       check(this.balls.get(b.id).owner===b.owner,'trajectory owner');this.balls.set(b.id,b);
@@ -157,10 +158,11 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
   if(initial.version===6||final.version===6)check(initial.version===6&&final.version===6&&playabilityIdentity(publication.identity),'playability rules/config/schema identity');
+  const validateAnnotation=launchAnnotationValidator(p.receipts,publication.identity);
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version===6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'animation event order/range');
-    seq=e.sequence;prior=e.time;model.apply(e);
+    seq=e.sequence;prior=e.time;if(e.launch_annotation!==undefined)validateAnnotation(e);model.apply(e);
   }
   model.matches(final);
   return {start:Number(s.logical_start),end:Number(s.logical_end),initial,final,events:p.events,receipts:p.receipts,
@@ -185,10 +187,11 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
   if(initial.version===6||final.version===6)check(initial.version===6&&final.version===6&&playabilityIdentity(publication.identity),'playability rules/config/schema identity');
+  const validateAnnotation=launchAnnotationValidator(p.receipts,publication.identity);
   const model=new B2zView(initial);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version===6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'derived animation event order/range');
-    seq=e.sequence;prior=e.time;model.apply(e);
+    seq=e.sequence;prior=e.time;if(e.launch_annotation!==undefined)validateAnnotation(e);model.apply(e);
   }
   model.matches(final);
   return {start:Number(s.logical_start),end:Number(s.logical_end),initial,final,events:p.events,receipts:p.receipts,
@@ -196,7 +199,7 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
 }
 export class SegmentPlayer {
   constructor(segment,provenance=null){this.segment=segment;this.provenance=provenance;this.view=new B2zView(segment.initial);this.index=0;this.time=segment.start;}
-  advance(time,collector=null){
+  advance(time,collector=null,displayed=null){
     check(Number.isFinite(time)&&time>=this.time&&time<=this.segment.end,'playhead bounds');this.time=time;
     if(this.view.version===6)this.view.logicalTime=time;
     let due=this.index;if(collector?.enabled){let lo=this.index,hi=this.segment.events.length;while(lo<hi){const mid=(lo+hi)>>>1;if(timeNumber(this.segment.events[mid].time)<=time)lo=mid+1;else hi=mid;}due=lo;}
@@ -205,6 +208,7 @@ export class SegmentPlayer {
       const e=this.segment.events[this.index++];let cue=null;
       if(collector?.enabled)try{cue=collector.prepare(e,this.view,this.provenance,this.index-first-1,due-first);}catch{try{collector.fail?.();}catch{}collector=null;}
       this.view.apply(e); // Never swallow an actual model/validation failure.
+      if(displayed&&e.launch_annotation)displayed(e,this.view,this.provenance);
       if(cue)try{collector.accept(cue);}catch{try{collector.fail?.();}catch{}collector=null;}
     }
     if(this.view.version===6)this.view.logicalTime=time;
@@ -301,9 +305,9 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
       check(final.playability.elapsed_ns===context.observed_ns,'rules activation time');
     }else if(events.events[0]?.kind==='rules_activated'){
       check(initial.version===6&&publication.version===(prior.version===6?7:8)&&publication.epoch.version===(prior.version===6?1:2)&&events.events.length===1,'entry checkpoint identity');
-      const clearance=context.migration==='B2Z_TERRITORY_CLEARANCE_RULES_09',before=clearance?ENTRY_IDENTITY:PLAYABILITY_IDENTITY,after=clearance?CLEARANCE_IDENTITY:ENTRY_IDENTITY;
+      const annotation=context.migration==='B2Z_WAR_CRY_RULES_10',clearance=context.migration==='B2Z_TERRITORY_CLEARANCE_RULES_09',before=annotation||clearance?ENTRY_IDENTITY:PLAYABILITY_IDENTITY,after=annotation?WAR_CRY_IDENTITY:clearance?CLEARANCE_IDENTITY:ENTRY_IDENTITY;
       check(Object.keys(before).every(k=>prior.identity[k]===before[k])&&Object.keys(after).every(k=>publication.identity[k]===after[k]),'entry rules identities');
-      const expected={version:clearance?5:4,migration:clearance?'B2Z_TERRITORY_CLEARANCE_RULES_09':'B2Z_FARTHEST_ENTRY_RULES_07',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:4,memo_adapter_after:4};
+      const expected={version:annotation?6:clearance?5:4,migration:annotation?'B2Z_WAR_CRY_RULES_10':clearance?'B2Z_TERRITORY_CLEARANCE_RULES_09':'B2Z_FARTHEST_ENTRY_RULES_07',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:4,memo_adapter_after:annotation?6:4};
       check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'entry cutover context');
       check(publication.head.state_hash===prior.head.state_hash&&sameCanonical(initial,final),'entry preserved complete state');
     }else{

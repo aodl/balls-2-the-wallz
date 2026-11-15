@@ -190,6 +190,9 @@ jobs:
         run: python -B tools/verify_compact_controls.py --output .work/ci-compact-controls
       - name: Retained cell-zero quantity availability, dock and native gesture invariant
         run: python -B tools/verify_quantity_browser.py --output .work/ci-quantity-closeout
+      - name: Approved read-only panel and capability-gated War Cry editors
+        run: python -B tools/verify_approved_panel.py --output .work/ci-approved-panel-war-cry
+
       - name: Approved lossless audio, native scheduler and integrated displayed cues
         run: |
           python -m pip install --require-hashes -r tools/audio-requirements.txt
@@ -220,6 +223,7 @@ jobs:
             .work/ci-elastic-return/**
             .work/ci-compact-controls/**
             .work/ci-quantity-closeout/**
+            .work/ci-approved-panel-war-cry/**
             .work/ci-player-refinement/**
             .work/ci-visual-closeout/**
             .work/ci-human-corrections/**
@@ -288,6 +292,7 @@ jobs:
             .work/ci-integration/s14-local/logs/**
             .work/ci-integration/s14-local/deployment/browser.log
             .work/ci-integration/s14-local/deployment/clearance-*.json
+            .work/ci-integration/s14-local/deployment/war-cry/**
             .work/ci-integration/s14-local/deployment/trace.json
             .work/ci-integration/s14-local/deployment/replay.json
             .work/ci-integration/s14-local/deployment/browser/*.json

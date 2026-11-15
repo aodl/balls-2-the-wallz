@@ -17,6 +17,6 @@ test('UX-08 warning derives from the displayed frozen packet without modifying i
  const draft=Object.freeze({action:'move',cell:0,memo:'MOVE 1 0',amount:20000000n});
  assert.equal(arcade.paymentWarning(saved),ordinary);assert.equal(arcade.paymentWarning(draft),specific);assert.equal(saved.memo,'FIRE 1 255 1');assert.equal(saved.amount,10000000n);
 });
-test('UX-10 fee stays separate and the warning follows ordinary wallet fields',()=>{
- const html=readFileSync('apps/b2z-observer/index.html','utf8');assert.match(html,/<p id="payment-fee">Wallet fee extra\.<\/p>/);assert.ok(html.indexOf('id="payment-risk"')>html.indexOf('</dl>'));assert.match(html,/aria-describedby="payment-fee payment-risk"/);
+test('approved panel keeps fee explanation in Help and retention information beside canonical data',()=>{
+ const html=readFileSync('apps/b2z-observer/index.html','utf8');assert.doesNotMatch(html,/id="payment-fee"/);assert.match(html,/action amount excludes your wallet’s Ledger network fee/);assert.match(html,/aria-describedby="payment-risk"/);assert.ok(html.indexOf('id="payment-risk"')>html.indexOf('id="text-memo"'));assert.match(html,/class="payment-information"/);
 });

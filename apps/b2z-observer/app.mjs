@@ -1,3 +1,4 @@
+import {createSpeechLayer}from'./speech-bubbles.mjs';
 import {zoomGain} from './audio-policy.mjs';
 import {createAudioUI} from './audio-ui.mjs';
 import {publicationAudioDescriptor} from './audio-events.mjs';
@@ -26,6 +27,8 @@ import {observationFailure,liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliv
 const resolveExperience=experienceResolver();
 const $=id=>document.getElementById(id),canvas=$('board');
 let audio;try{audio=createAudioUI(document);}catch{audio={fail(){},effectsReady:()=>false,begin:()=>null,flush(){},fence(){},lifecycle(){},dispose(){},inspect:()=>({unavailable:true})};}globalThis.__b2zAudio=()=>audio.inspect();
+const speech=createSpeechLayer(document);let speechContinuous=false,visibleSpeechScope=null;
+function displayDescriptor(ticket,recording){return{...publicationAudioDescriptor(ticket,recording),epoch:String(ticket.publication.head.seal?.epoch_hash??ticket.publication.epoch?.transition_hash??'genesis')};}
 let audioCollector=null;
 canvas.addEventListener('webglcontextlost',()=>audio.fence());
 let arenaRenderer=null,renderError=null;
@@ -45,7 +48,7 @@ function showError(error){$('observation-error').textContent=String(error?.messa
 function signal(s){return AbortSignal.any([s.abort.signal,AbortSignal.timeout(10000)]);}
 function active(s){return session===s&&!s.abort.signal.aborted;}
 async function start(recording){
-  audio.fence();cycleMonitor?.stop();cycleMonitor=null;session?.abort.abort();arenaRenderer?.reset();shell.invalidateFollow();const s={recording,abort:new AbortController(),busy:true,ready:false,error:null,entry:1,bytes:0,
+  visibleSpeechScope=null;speech.clear();audio.fence();cycleMonitor?.stop();cycleMonitor=null;session?.abort.abort();arenaRenderer?.reset();shell.invalidateFollow();const s={recording,abort:new AbortController(),busy:true,ready:false,error:null,entry:1,bytes:0,
     queue:[],sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:0,target:Math.min(8,recording.logical_end),
       low:Math.min(2,recording.logical_end/2),max_frame_delta:1})};
   session=s;visible=null;visibleTime=0;lastFrame=null;
@@ -79,7 +82,7 @@ async function localArtifact(ticket,kind,signal){
   return assembler.finish();
 }
 async function startLocal(recording){
-  audio.fence();cycleMonitor?.stop();cycleMonitor=null;session?.abort.abort();arenaRenderer?.reset();shell.invalidateFollow();const s={mode:'local',recording,abort:new AbortController(),busy:true,ready:false,error:null,entry:2,bytes:0,
+  visibleSpeechScope=null;speech.clear();audio.fence();cycleMonitor?.stop();cycleMonitor=null;session?.abort.abort();arenaRenderer?.reset();shell.invalidateFollow();const s={mode:'local',recording,abort:new AbortController(),busy:true,ready:false,error:null,entry:2,bytes:0,
     queue:[],sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:recording.logical_start,
       target:Math.min(8,recording.logical_end-recording.logical_start),low:Math.min(2,(recording.logical_end-recording.logical_start)/2),max_frame_delta:1})};
   session=s;visible=null;visibleTime=0;lastFrame=null;
@@ -98,7 +101,7 @@ async function startLocal(recording){
     const [state,events]=await Promise.all([localArtifact(ticket,'state',abort),localArtifact(ticket,'events',abort)]);if(!active(s))return;
     const segment=await prepareDerivedSegment(initial,state,events,ticket.publication);if(!active(s))return;
     if(segment.start!==recording.logical_start||segment.end!==recording.logical_end)throw new Error('local IC snapshot timeline');
-    s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment,publicationAudioDescriptor(ticket,s.recording))});s.bytes=segment.bytes;
+    s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment,displayDescriptor(ticket,s.recording))});s.bytes=segment.bytes;
     s.previousState=state;s.root=ticket.root_hash;visible=new B2zView(segment.initial);s.ready=true;
   }catch(e){if(!active(s))return;s.error=e;s.failureKind=observationFailure(e);showError(e);}finally{s.busy=false;updateHud();draw();}
 }
@@ -160,7 +163,7 @@ function resetLiveClock(s,time){
   s.clock=new PlayoutClock({start:time,...liveSessionBufferPolicy(s),min_rate:1,max_rate:1,max_frame_delta:1});
 }
 async function startLive(recording,startupRetries=0,verificationFloor=null){
-  audio.fence();cycleMonitor?.stop();cycleMonitor=null;session?.abort.abort();arenaRenderer?.reset();shell.invalidateFollow();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
+  visibleSpeechScope=null;speech.clear();audio.fence();cycleMonitor?.stop();cycleMonitor=null;session?.abort.abort();arenaRenderer?.reset();shell.invalidateFollow();const s={mode:'live',recording,abort:new AbortController(),busy:true,ready:false,error:null,bytes:0,queue:[],
     sequence:new PublicationSequence(),previousState:null,root:'',nextDue:0,clock:new PlayoutClock({start:0,target:3,low:1,max_frame_delta:1}),
     verificationFloor,client:null,verifyCertificate:null,accepted:0,resyncs:0,skipped:false,retryFailures:0,deliveryDiagnostics:liveDeliveryDiagnostics()};
   session=s;visible=null;visibleTime=0;lastFrame=null;updateHud();
@@ -213,7 +216,7 @@ async function acquireLive(s,startupRetries=0){
     s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);s.previousState=state;s.root=ticket.root_hash;
     updatePlayReference(s,world,events);
     const initialSegment=s.startupHistory?.segment,historyFailure=s.startupHistory?.failure;if(s.startupHistory)s.startupHistory=s.startupHistory.diagnostic;resetLiveClock(s,initialSegment?.start??time);
-    if(initialSegment){s.clock.append(initialSegment.start,initialSegment.end);s.queue.push({segment:initialSegment,player:new SegmentPlayer(initialSegment,publicationAudioDescriptor(ticket,s.recording))});s.bytes=s.largestSegmentBytes=initialSegment.bytes;resumeVerifiedClock(s);}
+    if(initialSegment){s.clock.append(initialSegment.start,initialSegment.end);s.queue.push({segment:initialSegment,player:new SegmentPlayer(initialSegment,displayDescriptor(ticket,s.recording))});s.bytes=s.largestSegmentBytes=initialSegment.bytes;resumeVerifiedClock(s);}
     if(world.version>=5&&(!camera.initialized||camera.width!==world.width||camera.height!==world.height))focusOnNextDraw=true;visible=new B2zView(initialSegment?.initial??world);s.ready=true;s.firstWorldAt=performance.now();observePresentation(s,ticket);s.skipped=segment!==null;s.accepted=segment===null?0:1;
     globalThis.__dtrLive={connected:true,startupRetries:s.startupRetries??startupRetries,heads:segment===null?[]:[segment],resyncs:0,certificates:1,skipped:s.skipped,
       maxBufferSegments:0,maxBufferLogical:0,delivery:s.deliveryDiagnostics};
@@ -261,7 +264,7 @@ async function admitLive(s,ticket,prefetched){
     // A resynchronised source may be ahead of the retained visual interval.
     // Keep its zero-time checkpoint in the authoritative anchor, not across an
     // unavailable animated gap. The cached anchor is adopted after the remainder.
-    if(s.presentationFence===undefined){s.queue.push({segment,player:new CheckpointPlayer(segment),provenance:publicationAudioDescriptor(ticket,s.recording),checkpoint:true});s.bytes+=segment.bytes;}
+    if(s.presentationFence===undefined){s.queue.push({segment,player:new CheckpointPlayer(segment),provenance:displayDescriptor(ticket,s.recording),checkpoint:true});s.bytes+=segment.bytes;}
     s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;updatePlayReference(s,segment.final,artifacts.events);
     if(document.hidden||s.warmRecovery)retainLatestVerifiedInterval(s,LIVE_BUFFER_LIMITS);
     globalThis.__dtrLive.checkpoints=(globalThis.__dtrLive.checkpoints??0)+1;rememberHead(Number(ticket.publication.head.segment_id));
@@ -275,7 +278,7 @@ async function admitLive(s,ticket,prefetched){
   Object.assign(s.clock,liveSessionBufferPolicy(s));
   if(!document.hidden&&!s.warmRecovery&&s.presentationFence===undefined&&(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.bytes+segment.bytes>LIVE_BUFFER_LIMITS.bytes))return false;
 
-  s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);bridgeVerifiedPresentation(s,segment.start);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment,publicationAudioDescriptor(ticket,s.recording))});s.bytes+=segment.bytes;
+  s.sequence.accept(ticket);rememberLiveAcceptance(s,ticket);bridgeVerifiedPresentation(s,segment.start);s.clock.append(segment.start,segment.end);s.queue.push({segment,player:new SegmentPlayer(segment,displayDescriptor(ticket,s.recording))});s.bytes+=segment.bytes;
   s.admittedTicks=(s.admittedTicks??0)+segment.end-segment.start;
   s.previousState=artifacts.state;s.root=ticket.root_hash;s.accepted++;
   updatePlayReference(s,segment.final,artifacts.events);
@@ -373,7 +376,7 @@ async function pump(now){
     if(s.bytes+segment.bytes>8*1024*1024)throw new Error('observer buffer byte capacity');
     // No public advancement until all bytes, projection bindings and final visual state passed.
     s.sequence.accept(next.ticket);s.clock.append(segment.start,segment.end);
-    s.queue.push({segment,player:new SegmentPlayer(segment,publicationAudioDescriptor(next.ticket,s.recording))});s.bytes+=segment.bytes;
+    s.queue.push({segment,player:new SegmentPlayer(segment,displayDescriptor(next.ticket,s.recording))});s.bytes+=segment.bytes;
     s.previousState=next.state;s.root=next.ticket.root_hash;s.entry++;s.nextDue=performance.now()+600;
   }catch(e){if(!active(s))return;s.error=e;s.failureKind=observationFailure(e);showError(e);}finally{s.busy=false;if(active(s))updateHud();}
 }
@@ -410,7 +413,7 @@ function draw(){
  if(!renderError&&drawnPose===audioPose(camera))return {camera,canvasRect:rect,membership:arenaRenderer.audioMembership(),occluders:[]};
 }
 function presentVerified(s,time){
- function show(q,at){if(!q.presented){if(q.checkpoint)applyEpochPresentation(s,q.segment.final,null);q.player.view.continuePresentation(visible,time);q.presented=true;}visible=q.player.advance(at,audioCollector);}
+ function show(q,at){if(!q.presented){if(q.checkpoint)applyEpochPresentation(s,q.segment.final,null);q.player.view.continuePresentation(visible,time);q.presented=true;}const d=q.player.provenance;if(d)visibleSpeechScope=d.namespace+'/'+d.identity+'/'+d.epoch;visible=q.player.advance(at,audioCollector,(e,v,p)=>{try{speech.accept(e,v,p,{continuous:speechContinuous&&!document.hidden});}catch{speech.clear();}});}
  while(s.queue.length&&time>=s.queue[0].segment.end){const q=s.queue.shift();show(q,q.segment.end);s.bytes-=q.segment.bytes;}
  if(s.queue.length)show(s.queue[0],time);
  if(!s.queue.length&&s.presentationFence!==undefined&&time===s.clock.available){
@@ -430,7 +433,7 @@ function warmPresentation(s){
  s.presentationSkip=false;
 }
 function frame(now){
- const priorAudioTime=visibleTime;audioCollector=null;
+ const priorAudioTime=visibleTime;audioCollector=null;speechContinuous=false;
   if(document.hidden){lastFrame=null;requestAnimationFrame(frame);return;}
   const s=session,elapsed=lastFrame===null?0:(now-lastFrame)/1000,dt=Math.min(elapsed,s?.mode==='live'?1:.25);lastFrame=now;
   if(s?.ready&&!s.error&&!paused){
@@ -444,14 +447,14 @@ function frame(now){
     const current=s.clock.sample(dt*s.nominalRate/(s.mode==='live'?1:s.recording.tick_seconds));visibleTime=current.playhead;
     s.playedTicks=(s.playedTicks??0)+current.playhead-previous;
     try{audioCollector=audio.begin({account:arcade.account(),previous,time:visibleTime,elapsed,now,ready:true,failed:!!renderError,camera});}catch(error){audio.fail(error);}
-    presentVerified(s,visibleTime);
+    speechContinuous=elapsed>=0&&elapsed<=1&&!s.presentationSkip;presentVerified(s,visibleTime);speechContinuous=false;
 
   }
   if(s?.mode==='live'&&globalThis.__dtrLive){
     const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,buffer_target_ticks:s.clock.target,buffer_bytes:s.bytes,queue_segments:s.queue.length,certificate_time_ns:s.certificateTimeNs??null,certificate_age_ms:s.certificateAgeMs??null,catchup_segments:s.catchupSegments??0,catchup_ms:s.catchupMs??0,phase:phase(),rate:state.rate,elastic:s.elastic?.state(),presentation_lag_ticks:s.referenceWorld?Math.max(0,timeNumber(s.referenceWorld.time)-s.clock.playhead):0,nominal_rate:Number(pace?.nominal_milli??0)/1000,supported_rate:presentationPace(s),presentation_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
   }
   if(!audioCollector)try{audio.begin({account:arcade.account(),previous:priorAudioTime,time:visibleTime,elapsed,now,ready:Boolean(s?.ready&&!s.error),failed:Boolean(s?.error||renderError),camera});}catch(error){audio.fail(error);}
-  const drawn=draw();if(now-lastHud>100){updateHud();lastHud=now;}try{if(drawn)audio.flush({...drawn,occluders:audio.effectsReady()?shell.audioOccluders(drawn.canvasRect):[],time:visibleTime,elapsed,continuous:elapsed>0&&elapsed<=.25,failed:Boolean(s?.error||renderError)});else{audio.flush({camera,membership:null,occluders:[],time:visibleTime,elapsed,continuous:elapsed>0&&elapsed<=.25,failed:true});audio.fence();}}catch(error){audio.fail(error);}
+  const drawn=draw();if(drawn&&visible){try{speech.draw(visible,camera,shell.speechObstacles(drawn.canvasRect),visibleSpeechScope);}catch{speech.clear();}}if(now-lastHud>100){updateHud();lastHud=now;}try{if(drawn)audio.flush({...drawn,occluders:audio.effectsReady()?shell.audioOccluders(drawn.canvasRect):[],time:visibleTime,elapsed,continuous:elapsed>0&&elapsed<=.25,failed:Boolean(s?.error||renderError)});else{audio.flush({camera,membership:null,occluders:[],time:visibleTime,elapsed,continuous:elapsed>0&&elapsed<=.25,failed:true});audio.fence();}}catch(error){audio.fail(error);}
   requestAnimationFrame(frame);
 }
 $('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;void(s.mode==='live'?startLive(s.recording,0,s.sequence.last??s.verificationFloor):s.mode==='local'?startLocal(s.recording):start(s.recording));});

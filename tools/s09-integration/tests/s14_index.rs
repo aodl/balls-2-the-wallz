@@ -6965,3 +6965,6 @@ fn public_runtime_health_is_bounded_operational_and_anonymous() {
 
 #[path = "support/entry_installed.rs"]
 mod entry_installed;
+
+#[path = "support/war_cry_installed.rs"]
+mod war_cry_installed;

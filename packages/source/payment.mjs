@@ -21,3 +21,11 @@ export function classifyPayment(tx, recipient) {
     return { outcome: 'rejected', reason: 'INVALID_MEMO', amount_e8s: amount.toString(), account: from };
   }
 }
+
+/** Adapter6 only: same authoritative record filtering, independently versioned text. */
+export async function classifyWarCryPayment(tx,recipient){
+ const prior=classifyPayment(tx,recipient);if(prior.outcome==='ignored'||prior.reason==='DELEGATED_TRANSFER_UNSUPPORTED')return prior;
+ const {decodeWarCryLedgerMemo}=await import('../protocol/war-cry.mjs');
+ try{return{outcome:'candidate',account:prior.account,amount_e8s:prior.amount_e8s,...decodeWarCryLedgerMemo(tx.memo,tx.icrc1_memo)};}
+ catch{return{outcome:'rejected',reason:'INVALID_MEMO',account:prior.account,amount_e8s:prior.amount_e8s};}
+}

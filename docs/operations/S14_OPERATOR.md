@@ -301,3 +301,17 @@ Do not override protected copying or change resource thresholds to finish tests.
 Refresh total/liquid cycles and pace/admission read-only: historical low-energy
 protection is not proof that the current game is still protected, and a changed
 balance does not establish who funded it. Keep P09 and device/audio limitations.
+
+## Approved panel / War Cry candidate (separate decisions)
+
+Use [B2Z_WAR_CRY](../specs/B2Z_WAR_CRY.md) and the current candidate evidence before
+any action. The panel can ship independently on Rules7 with War Cry unavailable.
+Preserve the current corrected78-file frontend for rollback; do not substitute the
+previous rejected audio build. Backend adapter6/Rules10 is a distinct capability,
+not Rules9 clearance or ICRC-2. No production install/activation is authorised by
+development or disposable tests. Pin the final Wasm, exact configuration and
+source predecessor in a separate approval. Prepare/commit require the existing
+paused/drained authenticated boundary; check old manifest/state/finance/cursors
+before and after. Do not downgrade to an old decoder after annotated records are
+admitted. The exact release decision and recovery procedure must accompany the
+qualified artifacts; stop on any mismatch.

@@ -39,3 +39,9 @@ ICRC owner remains `s5ir5-gqaaa-aaaas-amyna-cai`, with default subaccount omitte
 Join remains 1 ICP; additional-ball base remains 0.1 ICP times active-ball-count squared; MOVE remains 0.0001 ICP. Exact integer formatting and certified configuration determine the card amount. Wallet fees are separate. Payments and excess are retained; refunds and automatic payouts remain unavailable.
 
 Shared byte fixtures `tests/fixtures/text-memos.tsv` (unchanged S15 compatibility cases) and `tests/fixtures/text-memos-v3.tsv` run in Rust and JavaScript. The CLI and UI use the same JavaScript helper. See [immutable identifier policy](../architecture/LEGACY_IDENTIFIERS.md).
+
+## Versioned annotation candidate
+
+[War Cry and approved read-only panel](B2Z_WAR_CRY.md) specifies the separately
+identified adapter6/Rules10 capability. Historical formats here remain unchanged.
+Production activation is not implied; unsupported suffixes remain unavailable.

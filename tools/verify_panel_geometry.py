@@ -33,7 +33,7 @@ with sync_playwright()as pw:
    for action,button in [('Fire','fire-action'),('Move','move-action'),('Build','build-action')]:
     page.locator('#'+button).click()
     if action!='Fire':page.evaluate('kind=>fixture.choose(kind==="Move"?fixture.moveSites(1)[0]:fixture.sites()[0])',action)
-    settled_panel(page);result=verify_status_geometry(page,out,key+'-'+action);results.append({'action':action,'max_drift_px':result['max_drift_px'],'baseline':result['baseline']['workspace'],'states':len(result['transitions'])});wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-fee','payment-risk']);page.screenshot(path=str(out/(key+'-'+action+'.png')))
+    settled_panel(page);result=verify_status_geometry(page,out,key+'-'+action);results.append({'action':action,'max_drift_px':result['max_drift_px'],'baseline':result['baseline']['workspace'],'states':len(result['transitions'])});wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-risk']);page.screenshot(path=str(out/(key+'-'+action+'.png')))
    assert not errors,errors;rows.append({'viewport':[w,h],'reduced_motion':reduced,'actions':results,'recording':str(Path(page.video.path()).relative_to(out))if page.video else None});c.close();(out/'results.json').write_text(json.dumps({'status':'RUNNING','rows':rows},indent=2)+'\n');print('PASS',key,flush=True)
  except Exception:
   traceback.print_exc();page.screenshot(path=str(out/'failure.png'));raise

@@ -28,6 +28,7 @@ pub(crate) struct PaymentSaved {
 pub(crate) struct Payment {
     pub saved: PaymentSaved,
     pub memo: Vec<u8>,
+    pub cry: Option<String>,
 }
 pub struct Output {
     pub state: Vec<u8>,
@@ -89,19 +90,49 @@ fn merge(mut a: Value, b: Value) -> Value {
     a
 }
 pub(crate) fn read_payment(s: &str) -> Result<Payment> {
+    read_payment_with_annotations(s, false)
+}
+pub(crate) fn semantic_payment(s: &str) -> Result<String> {
+    let mut b = unhex(s)?;
+    if b.starts_with(b"BTZPAY03") {
+        read_payment_with_annotations(s, true)?;
+        b.truncate(56);
+        b[..8].copy_from_slice(b"BTZPAY02");
+    }
+    Ok(hex(&b))
+}
+pub(crate) fn read_payment_with_annotations(s: &str, allow: bool) -> Result<Payment> {
     let b = unhex(s)?;
-    if b.len() != 56 || &b[..8] != b"BTZPAY02" {
+    let annotated = allow && b.starts_with(b"BTZPAY03");
+    if !(b.len() == 56 && b.starts_with(b"BTZPAY02")
+        || annotated && (57..=88).contains(&b.len()) && usize::from(b[56]) == b.len() - 57)
+    {
         return Err("unreadable normalized payment".into());
     }
+    let cry = if annotated && b.len() > 57 {
+        let t = std::str::from_utf8(&b[57..]).map_err(|_| "annotation UTF8")?;
+        b2z_protocol::war_cry::validate(t).map_err(|_| "annotation text")?;
+        if !matches!(
+            b2z_protocol::v6::decode(&b[48..56]),
+            Ok(b2z_protocol::v6::Command::Fire { .. } | b2z_protocol::v6::Command::New { .. })
+        ) {
+            return Err("annotation launch command".into());
+        }
+        Some(t.to_owned())
+    } else {
+        None
+    };
     let amount = u64::from_be_bytes(b[40..48].try_into().map_err(|_| "payment amount")?);
     Ok(Payment {
         saved: PaymentSaved {
             account: hex(&b[8..40]),
             amount: Int(BigInt::from(amount)),
         },
-        memo: b[48..].to_vec(),
+        memo: b[48..56].to_vec(),
+        cry,
     })
 }
+
 fn context_int(v: &Value, key: &str) -> Result<i64> {
     let n: Int = serde_json::from_value(v.get(key).ok_or("context key")?.clone())
         .map_err(|e| e.to_string())?;
@@ -341,18 +372,23 @@ impl Cursor {
         let playability = crate::playability::identity()?;
         let entry = crate::entry_v7::identity()?;
         let clearance = crate::clearance_v9::identity()?;
+        let war_cry = crate::war_cry::identity()?;
+        let is_war_cry = context.get("config_hash") == war_cry.get("config_hash");
         let is_clearance = context.get("config_hash") == clearance.get("config_hash");
         let is_entry = context.get("config_hash") == entry.get("config_hash");
         let is_playability = context.get("config_hash") == playability.get("config_hash");
         let is_million = context.get("config_hash") == million.get("config_hash");
         let is_torus = context.get("config_hash") == torus.get("config_hash");
-        let is_current = is_clearance
+        let is_current = is_war_cry
+            || is_clearance
             || is_entry
             || is_playability
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_clearance {
+        let expected = if is_war_cry {
+            war_cry
+        } else if is_clearance {
             clearance
         } else if is_entry {
             entry
@@ -374,7 +410,7 @@ impl Cursor {
         }
         let world = World::decode(state)?;
         if world.version
-            != if is_entry || is_clearance || is_playability {
+            != if is_war_cry || is_entry || is_clearance || is_playability {
                 6
             } else if is_million {
                 5
@@ -404,16 +440,34 @@ impl Cursor {
             }
             prior = Some(p);
         }
+        let semantic_inputs = if is_war_cry {
+            Some(
+                inputs
+                    .iter()
+                    .map(|i| {
+                        Ok(Input {
+                            position: i.position.clone(),
+                            payload_hex: semantic_payment(&i.payload_hex)?,
+                        })
+                    })
+                    .collect::<Result<Vec<_>>>()?,
+            )
+        } else {
+            None
+        };
         let seed_base = hash(&encode(
-            &json!({"domain":"BTZ-SPAWN-INPUT-03","state":hash(state),"inputs":hash(&encode(&inputs)?),"logical_start":start}),
+            &json!({"domain":"BTZ-SPAWN-INPUT-03","state":hash(state),"inputs":hash(&encode(semantic_inputs.as_ref().unwrap_or(&inputs))?),"logical_start":start}),
         )?);
         let initial_credits = world.credits.clone();
         let next_time = start.clone();
         Ok(Self {
-            v6: (is_entry || is_clearance || is_playability).then(|| crate::cursor_v6::State {
-                entry_rules: is_entry || is_clearance,
-                clearance_rules: is_clearance,
-                ..Default::default()
+            v6: (is_war_cry || is_entry || is_clearance || is_playability).then(|| {
+                crate::cursor_v6::State {
+                    entry_rules: is_war_cry || is_entry || is_clearance,
+                    war_cry_rules: is_war_cry,
+                    clearance_rules: is_clearance,
+                    ..Default::default()
+                }
             }),
             join_e8s: is_current.then(|| Int(BigInt::from(JOIN_E8S))),
             world,
@@ -446,9 +500,30 @@ impl Cursor {
             spawn_searches: 0,
         })
     }
-    pub(crate) fn emit(&mut self, event: Value) -> Result<()> {
+    pub(crate) fn emit(&mut self, mut event: Value) -> Result<()> {
         if self.events.len() >= 131072 {
             return Err("event capacity".into());
+        }
+        if self.v6.as_ref().is_some_and(|s| s.war_cry_rules)
+            && matches!(
+                event["kind"].as_str(),
+                Some("ball_spawned" | "cannon_spawned")
+            )
+            && event.get("ball").is_some()
+        {
+            if let Some(cry) = self.v6.as_mut().unwrap().pending_cry.take() {
+                let id = event["cannon"]
+                    .as_u64()
+                    .or_else(|| event["cannon"]["id"].as_u64())
+                    .ok_or("annotation cannon")?;
+                let cannon = self
+                    .world
+                    .cannons
+                    .iter()
+                    .find(|c| u64::from(c.id) == id)
+                    .ok_or("annotation cannon")?;
+                event["launch_annotation"] = json!({"version":1,"position":self.inputs[self.input_index].position,"account":cannon.account,"cry":cry});
+            }
         }
         self.events.push(merge(
             json!({"sequence":self.events.len(),"time":self.world.time}),
@@ -470,6 +545,11 @@ impl Cursor {
         ));
         if outcome.get("reason").and_then(Value::as_str) == Some("ACCEPTED") {
             self.emit(outcome)?;
+        }
+        if let Some(s) = self.v6.as_mut() {
+            if s.war_cry_rules {
+                s.pending_cry = None;
+            }
         }
         Ok(())
     }

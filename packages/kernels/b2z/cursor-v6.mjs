@@ -15,7 +15,7 @@ function place(c,p,plan,r){
 export function workV6(c,readPayment){
  if(c.phase==='commands'){
    if(c.inputIndex===c.inputs.length){c.restartSearch();return true;}
-   const p=readPayment(c.inputs[c.inputIndex].payload_hex);
+   const p=readPayment(c.inputs[c.inputIndex].payload_hex);if(c.v6.war_cry_rules)c.v6.pending_cry=p.cry||null;
    if(c.world.received_e8s+p.amount>=1n<<128n)throw Error('treasury overflow');
    const plan=(c.v6.clearance_rules?preparePurchaseClearance:preparePurchase)(c.world,p.account,p.amount,p.memo,c.moved);c.world.received_e8s+=p.amount;
    const payment={account:p.account,amount:p.amount};

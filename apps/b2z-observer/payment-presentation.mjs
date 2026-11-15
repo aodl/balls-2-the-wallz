@@ -1,4 +1,4 @@
 /** Display text is never a payment source. All clipboard values use the packet. */
-export function shortRecipient(principal){if(typeof principal!=='string')throw Error('recipient');return principal.length<=14?principal:principal.slice(0,5)+'…'+principal.slice(-3);}
+export function shortRecipient(principal){if(typeof principal!=='string')throw Error('recipient');return principal.length<=5?principal:principal.slice(0,5)+'…';}
 export function decimalIcp(amount){const n=BigInt(amount);if(n<0n)throw Error('amount');const d=(n%100000000n).toString().padStart(8,'0').replace(/0+$/,'');return `${n/100000000n}${d?'.'+d:''}`;}
 export function paymentCopyValue(packet,field){if(!packet||packet.reason)throw Error('No verified instructions');if(field==='owner')return packet.owner;if(field==='amount')return decimalIcp(packet.amount);if(field==='text')return packet.memo;if(field==='payer')return packet.payer??packet.account;throw Error('Unknown clipboard field');}

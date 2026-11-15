@@ -21,6 +21,10 @@ pub(crate) struct State {
     pub entry_rules: bool,
     #[serde(default, skip_serializing_if = "is_false")]
     pub clearance_rules: bool,
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub war_cry_rules: bool,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub pending_cry: Option<String>,
     pub plan: Option<Plan>,
     pub payment: Option<PaymentSaved>,
     pub batch: Option<Batch>,
@@ -68,8 +72,13 @@ impl Cursor {
                     self.restart_search()?;
                     return Ok(true);
                 }
-                let payment =
-                    crate::cursor::read_payment(&self.inputs[self.input_index].payload_hex)?;
+                let payment = crate::cursor::read_payment_with_annotations(
+                    &self.inputs[self.input_index].payload_hex,
+                    self.v6.as_ref().unwrap().war_cry_rules,
+                )?;
+                if self.v6.as_ref().unwrap().war_cry_rules {
+                    self.v6.as_mut().unwrap().pending_cry = payment.cry.clone();
+                }
                 let amount = payment.saved.amount.0.to_u64().ok_or("PAYMENT_AMOUNT")?;
                 let tally = &self.world.received_e8s.0 + &payment.saved.amount.0;
                 if tally >= BigInt::from(1) << 128usize {

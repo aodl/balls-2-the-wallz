@@ -1,3 +1,5 @@
+import {fitCry}from'../../packages/protocol/war-cry.mjs';
+import {warCrySupported}from'./war-cry-policy.mjs';
 import {shortRecipient,paymentCopyValue} from './payment-presentation.mjs';
 import {MAX_QUANTITY} from '../../packages/protocol/memo-v6.mjs';
 import {nearestDestination,destinationLegality,moveLegalityIdentity} from './destination-search.mjs';
@@ -16,6 +18,7 @@ export const transferMemo=degrees=>describeTextMemo('angle',degrees);
 export function paymentWarning(q){return Number.isSafeInteger(q?.cell)&&q.cell>=0&&['move','start'].includes(q.action)?'If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.':'Payments and unused ICP are kept; no automatic refunds.';}
 export function createArcade(doc){
  const $=id=>doc.getElementById(id),text=(id,value)=>{if($(id).textContent!==value)$(id).textContent=value;};
+ let cry='',composing=false,cryProblem='',cryBudget=null;
  let intentVersion=0,entryGeneration=0,entryPending=null,observationReady=null;
  let moveWorld=null,moveConfig=null,moveFingerprint=null,moveKey=null,moveSearch=null,moveLegality=null,moveReady=false,defaultMove=null;
  let sitesWorld=null,sitesConfig=null,sitesAccount=null,sitesRevision=null,eligibleSites=[];
@@ -24,7 +27,7 @@ export function createArcade(doc){
  const selected=()=>refs.find(c=>c.id===id),mine=()=>refs.filter(c=>c.account===declaration?.account);
  let overlayKey='';const drafts=new Map();const draftKey=value=>`${context}/${declaration?.account}/${id}/${value}`;
  const emit=()=>{const key=[view,mode,id,$('workspace').hidden,Boolean(warning),Boolean(manual)].join('/');if(key!==overlayKey){overlayKey=key;doc.dispatchEvent(new CustomEvent('b2z-overlay'));}};
- function rememberDraft(){if(view==='action')drafts.set(draftKey(mode),{cell,degrees,worldAngle,quantity});}
+ function rememberDraft(){if(view==='action')drafts.set(draftKey(mode),{cell,degrees,worldAngle,quantity,cry});}
  function show(name,title){
   if(name!=='action')rememberDraft();if(!$('workspace').contains(doc.activeElement))opener=doc.activeElement;if(view!==name)doc.querySelector('.panel-scroll').scrollTop=0;view=name;$('workspace').hidden=false;
   for(const n of doc.querySelectorAll('.panel-view'))n.hidden=n.id!==name+'-view';
@@ -56,11 +59,16 @@ export function createArcade(doc){
    let q;
    if(world.version===6)q=prepareQuoteV6(world,config,declaration.account,{kind:{start:'new',ball:'fire',move:'move'}[mode],cannon:id,angle,quantity:requested,cell});
    else{if(mode==='start'&&mine().length)throw Error('ACCOUNT_ALREADY_HAS_CANNON');if(mode==='move'&&!c.owns(cell))throw Error('ILLEGAL_MOVE');const memo=mode==='move'?describeTextMemo('move',String(cell)):m;q={amount:mode==='start'?config.join_e8s:mode==='move'?config.move_e8s:c.next_ball_e8s,memo:memo.text,memo_bytes:new TextEncoder().encode(memo.text)};if(q.amount===null)throw Error('BALL_CAPACITY');}
-   return {account:declaration.account,payer:declaration.display??declaration.principal??declaration.account,network:source.network,backend:source.owner,action:mode,cannon:mode==='start'?null:id,angle:mode==='move'?null:angle,cell,requested:q.requested??requested,maximum_fill:q.maximum_fill??1,amount:q.amount,memo:q.memo,hex:Array.from(q.memo_bytes,b=>b.toString(16).padStart(2,'0')).join(''),owner:destination.primary,subaccount:String(source.subaccount),recipient:destination.legacy,rules:config.rules_version??world.version,snapshot:revision};
+   let annotation={};if(warCrySupported(config)&&mode!=='move'){
+    if(composing||cryProblem)return{reason:cryProblem||'Finish War Cry composition before copying.'};
+    const fitted=fitCry(q.memo,cry);cryBudget=fitted.available;if(fitted.shortened){cry=fitted.cry;text('war-cry-note','Shortened to fit memo');}q={...q,memo:fitted.memo,memo_bytes:new TextEncoder().encode(fitted.memo)};
+    annotation={cry,capability:'btz-war-cry-1',capability_config:config.rules_version};
+   }
+   return {...annotation,account:declaration.account,payer:declaration.display??declaration.principal??declaration.account,network:source.network,backend:source.owner,action:mode,cannon:mode==='start'?null:id,angle:mode==='move'?null:angle,cell,requested:q.requested??requested,maximum_fill:q.maximum_fill??1,amount:q.amount,memo:q.memo,hex:Array.from(q.memo_bytes,b=>b.toString(16).padStart(2,'0')).join(''),owner:destination.primary,subaccount:String(source.subaccount),recipient:destination.legacy,rules:config.rules_version??world.version,snapshot:revision};
   }catch(error){const reasons={ENEMY_TERRITORY_TOO_CLOSE:'Too close to enemy territory.',DIFFERENT_TILE:'Choose a different tile.',BALL_CAPACITY:'Ball capacity reached.',ILLEGAL_MOVE:'Choose a legal highlighted destination.',NOT_OWNER:'Choose one of your cannons.',NO_ADJACENT_SITE:'No adjacent site is currently available.',NO_ELIGIBLE_SPAWN:'No first site is currently available.',PLAYER_CANNON_CAPACITY:'Your cannon capacity is reached.',CANNON_CAPACITY:'Cannon capacity is reached.',QUANTITY_BOUNDS:'Choose between 1 and 64 balls.',CELL_BOUNDS:'Choose a destination cell.',ILLEGAL_ADJACENT_SITE:'That site is no longer eligible. Choose another.',ACCOUNTING_CAPACITY:'Player capacity reached.',HEADING_BOUNDS:'Heading must be between 0 and 359.99°.'};return {reason:reasons[error.message]??(mode==='move'?'Choose a legal destination.':'Enter a heading from 0 to 359.99° and a valid quantity.')};}
  }
  function renderPacket(q){
-  text('transfer-amount',formatIcp(BigInt(q.amount)));text('payment-owner',shortRecipient(q.owner));$('recipient-reveal').setAttribute('aria-label',`Show full receiving principal ${q.owner}`);$('recipient-reveal').title=q.owner;if($('full-recipient').value!==q.owner){$('full-recipient').value=q.owner;$('recipient-full').hidden=true;$('recipient-reveal').setAttribute('aria-expanded','false');};text('text-memo',q.memo);text('paying-account',q.payer??q.account);
+  text('transfer-amount',formatIcp(BigInt(q.amount)));text('payment-owner',shortRecipient(q.owner));$('recipient-reveal').setAttribute('aria-label',`Show full receiving principal ${q.owner}`);$('recipient-reveal').title=q.owner;if($('full-recipient').textContent!==q.owner){text('full-recipient',q.owner);$('recipient-full').hidden=true;$('recipient-reveal').setAttribute('aria-expanded','false');};text('text-memo',q.memo);text('paying-account',shortRecipient(q.payer??q.account));text('full-payer',q.payer??q.account);$('payer-reveal').setAttribute('aria-label',`Show full sending account ${q.payer??q.account}`);
   text('payment-risk',paymentWarning(q));$('payment-risk').title=config?.rules_version===9&&['move','start'].includes(q.action)&&Number.isSafeInteger(q.cell)?'A new enemy claim within four cells can also invalidate the action.':'';$('amount-detail').hidden=q.action!=='start';text('amount-detail',q.action==='start'?'1 ball':'');
  }
  function refresh(){
@@ -73,10 +81,11 @@ export function createArcade(doc){
   text('cannon-life',c?`${own?'Your cannon':'Opponent cannon'} #${c.id} · ${c.dormant?'Dormant':`Island balls ${c.balls} · ${c.owned_count} tiles`}`:'Cannon no longer present.');text('inspect-note',own&&c.next_ball_e8s===null?'Ball capacity reached.':own&&c?.dormant?'Revive before moving or its on-chain expiry.':'');
   const cannonContext=Boolean(c&&['inspect','action'].includes(view));$('inspect-note').hidden=!cannonContext||!$('inspect-note').textContent;$('workspace').dataset.surface=cannonContext?'context':'global';$('workspace').dataset.expanded=view==='action'?'true':'false';$('workspace').style.setProperty('--tool-count',own?(world?.version===6?5:4):2);$('context-actions').hidden=!cannonContext||!own;
   for(const [name,value]of [['fire-action','ball'],['move-action','move'],['build-action','start']]){const active=view==='action'&&mode===value;$(name).setAttribute('aria-pressed',String(active));$(name).setAttribute('aria-expanded',String(active));}
+  const cryActive=warCrySupported(config)&&view==='action'&&['ball','start'].includes(mode);$('war-cry-editor').hidden=!cryActive;const cryInput=$('war-cry');if(!composing&&cryInput.value!==cry)cryInput.value=cry;
   text('quantity-count',String(quantity));text('quantity-description',`${quantity>1?'Up to':'Request'} ${quantity} ball${quantity===1?'':'s'}; capacity may limit fulfilment.`);$('quantity-minus').disabled=quantity<=1;$('quantity-plus').disabled=quantity>=MAX_QUANTITY;$('quantity-controls').dataset.active=String(view==='action'&&mode==='ball'&&world?.version===6&&own);$('join-direction').hidden=mode!=='start'||Boolean(mine().length);for(const b of doc.querySelectorAll('[data-heading]'))b.setAttribute('aria-pressed',String(Number(degrees)===Number(b.dataset.heading)));
   if(view==='action'){
    text('panel-title',c?`Cannon #${c.id}`:'New cannon');text('action-prompt',mode==='move'?'Move & Pay':mode==='start'?(mine().length?'Build, Aim & Pay':'Join & Pay'):'Aim & Pay');
-   quote=candidate();if(manual&&instructionKey(manual.q)!==instructionKey(packet??quote)){manual=null;$('manual-copy').hidden=true;}const differs=Boolean(packet&&instructionKey(quote)!==instructionKey(packet)),changed=differs&&!keepPrevious;
+   quote=candidate();$('war-cry').disabled=cryBudget===0||!globalThis.Intl?.Segmenter;$('war-cry').title=$('war-cry').disabled?(cryBudget===0?'No space remains in this memo':'War Cry requires grapheme support in this browser'):'Public on-chain text';if(!composing&&$('war-cry').value!==cry)$('war-cry').value=cry;if(manual&&instructionKey(manual.q)!==instructionKey(packet??quote)){manual=null;$('manual-copy').hidden=true;}const differs=Boolean(packet&&instructionKey(quote)!==instructionKey(packet)),changed=differs&&!keepPrevious;
    $('replace-choice').hidden=!changed;$('prepared-card').hidden=Boolean(changed||(!packet&&(!quote||quote.reason)));
    if(!$('prepared-card').hidden)renderPacket(packet??quote);
    $('transfer-controls').disabled=busy||!status.canPrepare||Boolean(quote?.reason)||differs||Boolean(warning);
@@ -94,7 +103,7 @@ export function createArcade(doc){
   if(!history)return;const key=JSON.stringify([declaration?.account,history.records(),history.cachedReceipts(),receipts],(_,v)=>typeof v==='bigint'?String(v):v);if(key===activityKey)return;activityKey=key;const saved=[];
   for(const r of history.records().filter(r=>r.account===declaration?.account)){
    const entry=doc.createElement('article'),label=doc.createElement('p'),b=doc.createElement('button');label.textContent=`${r.memo} · ${formatIcp(BigInt(r.amount))}${r.state==='unknown'?' · outcome unknown':''}`;entry.append(label);
-   if(r.backend===source.owner&&r.network===source.network&&r.owner&&r.recipient&&r.hex){b.textContent='View saved instructions';b.onclick=()=>{mode=r.action;id=r.cannon;cell=r.cell;worldAngle=r.angle??worldAngle;degrees=displayHeading(worldAngle);packet=r;keepPrevious=true;warning='Saved instructions may no longer apply. Review before using.';quantity=r.requested??1;show('action','Saved instructions');refresh();};entry.append(b);}saved.push(entry);
+   if(r.backend===source.owner&&r.network===source.network&&r.owner&&r.recipient&&r.hex){b.textContent='View saved instructions';b.onclick=()=>{mode=r.action;id=r.cannon;cell=r.cell;worldAngle=r.angle??worldAngle;degrees=displayHeading(worldAngle);packet=r;keepPrevious=true;warning='Saved instructions may no longer apply. Review before using.';quantity=r.requested??1;cry=r.cry??'';cryProblem='';show('action','Saved instructions');refresh();};entry.append(b);}saved.push(entry);
   }
   if(!saved.length){const p=doc.createElement('p');p.textContent='No saved instructions.';saved.push(p);}$('saved-list').replaceChildren(...saved);
   const outcomes=new Map(history.cachedReceipts().map(r=>[String(r.position),{...r,cached:true}]));for(const r of receipts)outcomes.set(String(r.position),r);
@@ -124,25 +133,35 @@ export function createArcade(doc){
   if(view==='action'&&mode===value){rememberDraft();show('inspect',`Cannon #${id}`);refresh();return;}
   rememberDraft();const previousMode=mode;clearDraft();keepPrevious=false;mode=value;siteKey='';
   const saved=drafts.get(draftKey(value));
-  if(saved){({cell,degrees,worldAngle}=saved);quantity=Number(saved.quantity);}
-  else{cell=null;if(value!=='move'&&previousMode!==value){worldAngle=String(Math.round((value==='start'&&!mine().length?40960:selected()?.heading??40960)*360/65536*100)/100%360);degrees=displayHeading(worldAngle);}if(value==='start'){quantity=1;}}
+  if(saved){({cell,degrees,worldAngle}=saved);quantity=Number(saved.quantity);cry=saved.cry??'';cryProblem='';}
+  else{cry='';cryProblem='';cell=null;if(value!=='move'&&previousMode!==value){worldAngle=String(Math.round((value==='start'&&!mine().length?40960:selected()?.heading??40960)*360/65536*100)/100%360);degrees=displayHeading(worldAngle);}if(value==='start'){quantity=1;}}
 
   if(value==='move'&&(cell===null||!legalMoveDestination(world,declaration.account,id,cell,config)))cell=defaultMove;
   if(value==='start'&&mine().length&&(cell===null||!buildSites().includes(cell)))cell=defaultBuild();
   show('action',id===null?'New cannon':`Cannon #${id}`);refresh();
  }
- $('identity-form').addEventListener('submit',event=>{event.preventDefault();try{const returning=Boolean(entryPending),next=parseSendingAccount($('sending-account').value,$('identity-subaccount').value);if(next.account!==declaration?.account){cancelEntryNavigation();intentVersion++;packet=null;keepPrevious=false;warning='';id=null;mode='inspect';}declaration=next;persist();if(!$('remember-account').checked)store?.forget();identityLabel();updateRoster();activity();text('identity-note','');if(returning){entryPending={generation:entryGeneration,account:next.account};show('account','Checking territory');resolveEntry();}else if(pending){const p=pending;pending=null;action(p);}else{show('account','Account');refresh();}}catch(error){text('identity-note',error.message);}});
+ $('identity-form').addEventListener('submit',event=>{event.preventDefault();try{const returning=Boolean(entryPending),next=parseSendingAccount($('sending-account').value,$('identity-subaccount').value);if(next.account!==declaration?.account){cancelEntryNavigation();intentVersion++;packet=null;keepPrevious=false;warning='';id=null;mode='inspect';}if(next.account!==declaration?.account){cry='';cryProblem='';composing=false;}declaration=next;persist();if(!$('remember-account').checked)store?.forget();identityLabel();updateRoster();activity();text('identity-note','');if(returning){entryPending={generation:entryGeneration,account:next.account};show('account','Checking territory');resolveEntry();}else if(pending){const p=pending;pending=null;action(p);}else{show('account','Account');refresh();}}catch(error){text('identity-note',error.message);}});
  $('change-account').onclick=$('payer-change').onclick=()=>{show('account','Sending account');$('identity-form').hidden=false;$('account-summary').hidden=true;$('sending-account').value=declaration?.display??declaration?.principal??declaration?.account??'';$('identity-subaccount').value='';$('sending-account').focus();};
  $('identity-forget').onclick=()=>{cancelEntryNavigation();store?.forget();declaration=null;id=null;packet=null;warning='';pending=null;mode='inspect';identityLabel();activity();refresh();};
  $('cycles-display').onclick=()=>api.openStatus();
  $('identify-button').onclick=()=>api.openAccount();$('join-action').onclick=enter;$('fire-action').onclick=()=>action('ball');$('move-action').onclick=()=>action('move');$('build-action').onclick=()=>action('start');
  for(const b of doc.querySelectorAll('[data-heading]'))b.onclick=()=>api.setHeading(Number(b.dataset.heading));
  $('join-direction').addEventListener('keydown',e=>{const n={ArrowLeft:-1,ArrowRight:1,ArrowUp:-1,ArrowDown:1}[e.key];if(n){api.adjustAngle(n*(e.altKey?.01:e.shiftKey?5:1));e.preventDefault();e.stopPropagation();}});
+ function editCry(){
+  if(composing)return;const value=$('war-cry').value;
+  try{if(value.length>4096)throw Error('War Cry is too long');if(value)fitCry('FIRE 1 0 1',value);cry=value;cryProblem='';keepPrevious=false;clearDraft();refresh();}
+  catch(e){cryProblem=e.message;text('war-cry-note',cryProblem);$('transfer-controls').disabled=true;}
+ }
+ $('war-cry').addEventListener('input',editCry);
+ $('war-cry').addEventListener('compositionstart',()=>{composing=true;$('transfer-controls').disabled=true;});
+ $('war-cry').addEventListener('compositionend',()=>{composing=false;editCry();});
+ $('war-cry').addEventListener('keydown',e=>{e.stopPropagation();if(e.isComposing)return;if(e.key==='Enter'||e.key==='Escape'){e.preventDefault();$('war-cry').blur();}});
  for(const [name,step]of [['quantity-minus',-1],['quantity-plus',1]])$(name).onclick=()=>api.setQuantity(quantity+step);
  $('quantity-controls').addEventListener('keydown',e=>{if(e.key==='Escape'||e.key==='Tab')return;e.stopPropagation();const step={ArrowUp:1,ArrowRight:1,'+':1,ArrowDown:-1,ArrowLeft:-1,'-':-1}[e.key];if(step){e.preventDefault();api.setQuantity(quantity+step);}});
- $('recipient-reveal').onclick=()=>{const shown=$('recipient-full').hidden;$('recipient-full').hidden=!shown;$('recipient-reveal').setAttribute('aria-expanded',String(shown));if(shown){$('full-recipient').focus();$('full-recipient').select();}};
+ $('recipient-reveal').onclick=()=>{const shown=$('recipient-full').hidden;$('recipient-full').hidden=!shown;$('recipient-reveal').setAttribute('aria-expanded',String(shown));if(shown){$('full-recipient').focus();const r=doc.createRange();r.selectNodeContents($('full-recipient'));const s=doc.getSelection();s.removeAllRanges();s.addRange(r);}};
+ $('payer-reveal').onclick=()=>{const shown=$('payer-full').hidden;$('payer-full').hidden=!shown;$('payer-reveal').setAttribute('aria-expanded',String(shown));if(shown)$('full-payer').focus();};
  $('replace-instructions').onclick=()=>{packet=null;keepPrevious=false;warning='';manual=null;$('manual-copy').hidden=true;text('copy-feedback','');refresh();};
- $('keep-instructions').onclick=()=>{if(!packet)return;keepPrevious=true;mode=packet.action;id=packet.cannon;cell=packet.cell;worldAngle=packet.angle??worldAngle;degrees=displayHeading(worldAngle);quantity=packet.requested;refresh();};
+ $('keep-instructions').onclick=()=>{if(!packet)return;keepPrevious=true;mode=packet.action;id=packet.cannon;cell=packet.cell;worldAngle=packet.angle??worldAngle;degrees=displayHeading(worldAngle);quantity=packet.requested;cry=packet.cry??'';cryProblem='';composing=false;refresh();};
  function freeze(q,h){const saved=packet?.id&&instructionKey(packet)===instructionKey(q)?packet:h.freeze(q);if(q.backend===source?.owner&&q.account===declaration?.account){packet=saved;if(q.cannon!==null&&!refs.some(c=>c.id===q.cannon&&c.account===q.account))warning='The copied target is no longer present. Saved instructions remain in Account.';}activity();return saved;}
  function savedNote(h){return h.persisted()?'Instructions saved; no payment sent.':'Instructions kept for this visit only; device storage is unavailable. No payment sent.';}
  for(const b of doc.querySelectorAll('[data-copy]'))b.addEventListener('click',async()=>{
@@ -157,10 +176,10 @@ export function createArcade(doc){
  doc.addEventListener('copy',event=>{
   const active=doc.activeElement,selection=doc.getSelection(),range=selection?.rangeCount?selection.getRangeAt(0):null;
   const keys=[['owner','payment-owner'],['amount','transfer-amount'],['text','text-memo'],['payer','paying-account']],hits=keys.filter(([,name])=>range&&!selection.isCollapsed&&range.intersectsNode($(name))).map(([key])=>key);
-  const fallback=manual&&active===$('manual-value'),full=active===$('full-recipient')||event.target?.closest?.('#recipient-reveal');if(!fallback&&!full&&!hits.length)return;
+  const fallback=manual&&active===$('manual-value'),full=active===$('full-recipient')||event.target?.closest?.('#recipient-reveal')||range&&!selection.isCollapsed&&range.intersectsNode($('full-recipient')),payer=active===$('full-payer')||range&&!selection.isCollapsed&&range.intersectsNode($('full-payer'));if(!fallback&&!full&&!payer&&!hits.length)return;
   const q=fallback?manual.q:packet??quote,h=fallback?manual.h:history;
   if(view!=='action'||!status.canPrepare||$('transfer-controls').disabled||!q||q.reason||!h){event.preventDefault();event.clipboardData?.setData('text/plain','');text('copy-feedback','Payment instructions temporarily unavailable.');return;}
-  const value=fallback?manual.value:full?paymentCopyValue(q,'owner'):hits.length===1?paymentCopyValue(q,hits[0]):`To ${q.owner}\n${formatIcp(BigInt(q.amount))}\nMemo ${q.memo}\nFrom ${q.payer??q.account}`;
+  const value=fallback?manual.value:full?paymentCopyValue(q,'owner'):payer?paymentCopyValue(q,'payer'):hits.length===1?paymentCopyValue(q,hits[0]):`To ${q.owner}\n${formatIcp(BigInt(q.amount))}\nMemo ${q.memo}\nFrom ${q.payer??q.account}`;
   if(!event.clipboardData)return;event.preventDefault();event.clipboardData.setData('text/plain',value);freeze(q,h);text('copy-feedback',savedNote(h));refresh();
  });
  $('manual-handoff').onclick=()=>{if(!manual||instructionKey(manual.q)!==instructionKey(packet??quote)||!status.canPrepare)return;const h=manual.h;freeze(manual.q,h);manual=null;$('manual-copy').hidden=true;text('copy-feedback',savedNote(h));refresh();};
@@ -187,7 +206,8 @@ export function createArcade(doc){
   aimAt(dx,dy){if(mode!=='ball'&&mode!=='start')return;degrees=String(Math.round(worldToScreen(Math.atan2(dy,dx)*180/Math.PI)*100)/100%360);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
   setHeading(value){if(!Number.isFinite(value))return;degrees=String((value%360+360)%360);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
   destinationState:()=>({ready:moveReady,cell:defaultMove,key:moveKey,stats:moveSearch?.stats,cacheBytes:moveLegality?.bytes,cacheInspections:moveLegality?.inspected()}),
-  proposedAction:()=>Object.freeze({mode,cell,degrees,worldAngle,quantity}),
+  proposedAction:()=>Object.freeze({mode,cell,degrees,worldAngle,quantity,...(warCrySupported(config)?{cry}:{} )}),
+  launchEditor:()=>({active:view==='action'&&['ball','start'].includes(mode)&&(mode==='ball'||warCrySupported(config)),cryActive:warCrySupported(config)&&view==='action'&&['ball','start'].includes(mode),first:mode==='start'&&!mine().length}),
   adjustAngle(delta){degrees=((Number(degrees)+delta+360)%360).toFixed(2);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
   aim(){if(view!=='action'||!['ball','start'].includes(mode)||mode==='start'&&!mine().length||mode==='start'&&mine().length&&cell===null)return null;const c=cell!==null&&mode==='start'?{id:null,cell}:selected();if(!c||mode==='start'&&mine().length&&!buildSites().includes(cell))return null;try{const m=transferMemo(worldAngle===null?encodedHeading(degrees):worldAngle);return{cannon:c,angle:m.command.value*360/65536,heading:m.command.value};}catch{return null;}},
   moveSelection(){const c=selected();if(view!=='action')return null;if(world?.version===6&&mode==='start'&&mine().length)return{kind:'new',width:world.width,height:world.height,key:revision+'/'+siteKey,cells:buildSites(),cell,anchor:selected()?.cell};return mode==='move'&&c?{key:revision+'/'+id,width:world.width,height:world.height,id,cells:[],legal:n=>moveLegality?.test(n)??false,cell,reference:world}:null;},

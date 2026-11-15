@@ -13,10 +13,10 @@ ORDINARY_PAYMENT_WARNING='Payments and unused ICP are kept; no automatic refunds
 
 def payment_warning(page,expected):
  from playwright.sync_api import expect
- expect(page.locator('#payment-risk')).to_have_text(expected);expect(page.locator('#payment-fee')).to_have_text('Wallet fee extra.')
+ expect(page.locator('#payment-risk')).to_have_text(expected);assert page.locator('#payment-fee').count()==0;assert 'Ledger network fee' in page.locator('#help-view').text_content()
  other=ORDINARY_PAYMENT_WARNING if expected==TILE_PAYMENT_WARNING else TILE_PAYMENT_WARNING
  assert other not in page.locator('#prepared-card').inner_text()
- assert page.locator('#payment-risk').evaluate('(n)=>Boolean(document.querySelector(".wallet-fields").compareDocumentPosition(n)&Node.DOCUMENT_POSITION_FOLLOWING)')
+ assert page.locator('#payment-risk').evaluate('(n)=>Boolean(document.querySelector(".payment-grid").compareDocumentPosition(n)&Node.DOCUMENT_POSITION_FOLLOWING)')
  settled_panel(page)
  page.locator('#payment-risk').scroll_into_view_if_needed()
  page.wait_for_function('()=>{const n=document.getElementById("payment-risk").getBoundingClientRect(),p=document.querySelector(".panel-body").getBoundingClientRect();return n.top>=p.top-2&&n.bottom<=p.bottom+2&&n.left>=0&&n.right<=innerWidth}')
@@ -81,7 +81,7 @@ def verify_fluid_controls(page,width,height,out):
  assert page.locator('#action-view').is_hidden();assert page.evaluate('fixture.inspect().selectedContours')>0
  page.evaluate('fixture.camera.scale=fixture.camera.fitScale;fixture.draw()');assert not page.locator('#focus-cannon').is_disabled();page.locator('#focus-cannon').click();settled(page);expect(page.locator('#focus-cannon')).to_be_disabled();page.screenshot(path=str(out/f'{width}-toolbar.png'))
  page.locator('#fire-action').click();expect(page.locator('#action-prompt')).to_have_text('Aim & Pay');assert page.locator('#fire-action').get_attribute('aria-pressed')=='true';set_heading(page,'45');expect(page.locator('#text-memo')).to_have_text('FIRE 1 255 1');assert page.locator('#legacy-details,#payment-address,#hex-memo,[data-copy="hex"],[data-copy="recipient"]').count()==0
- q={'memo':page.locator('#text-memo').inner_text(),'amount':page.locator('#transfer-amount').inner_text(),'owner':page.locator('#full-recipient').input_value()};assert q['owner']=='s5ir5-gqaaa-aaaas-amyna-cai';payment_warning(page,ORDINARY_PAYMENT_WARNING);page.locator('[data-copy="text"]').click();page.wait_for_function('(v)=>copied.at(-1)===v',arg=q['memo']);set_heading(page,'90');expect(page.locator('#replace-choice')).to_be_visible();page.locator('#keep-instructions').click();expect(page.locator('#text-memo')).to_have_text(q['memo'])
+ q={'memo':page.locator('#text-memo').inner_text(),'amount':page.locator('#transfer-amount').inner_text(),'owner':page.locator('#full-recipient').text_content()};assert q['owner']=='s5ir5-gqaaa-aaaas-amyna-cai';payment_warning(page,ORDINARY_PAYMENT_WARNING);page.locator('[data-copy="text"]').click();page.wait_for_function('(v)=>copied.at(-1)===v',arg=q['memo']);set_heading(page,'90');expect(page.locator('#replace-choice')).to_be_visible();page.locator('#keep-instructions').click();expect(page.locator('#text-memo')).to_have_text(q['memo'])
  page.locator('#fire-action').click();assert page.locator('#action-view').is_hidden();assert page.evaluate('fixture.summary().selected')==1;assert page.evaluate('fixture.inspect().selectedContours')>0;page.locator('#fire-action').click();expect(page.locator('#text-memo')).to_have_text(q['memo']);assert heading_value(page)=='45';assert page.evaluate('fixture.inspect().guideDepth.test');assert not page.evaluate('fixture.inspect().guideDepth.write');page.screenshot(path=str(out/f'{width}-aim.png'))
  page.locator('#move-action').click();expect(page.locator('#action-prompt')).to_have_text('Move & Pay');assert page.locator('#angle-controls').is_hidden();source=page.evaluate('fixture.world().cannons.find(c=>c.id===1).cell');choose_cell(page,str(source));expect(page.locator('#preparation-note')).to_contain_text('different tile');assert page.locator('#transfer-controls').evaluate('(n)=>n.disabled');sites=page.evaluate('fixture.moveSites(1)');assert sites
  dest=sites[0];choose_cell(page,str(dest))

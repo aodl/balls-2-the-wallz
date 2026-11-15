@@ -1,10 +1,17 @@
 # B2Z human experience
 
+The approved shared read-only panel/War Cry continuation supersedes older payment
+row layouts and the routine visible fee row. See [the current contract](B2Z_WAR_CRY.md)
+and its exact approved reference. Title/amount share row1; From left/To right share
+row2; both dividers and three right-edge Copy controls align. Plain full-value
+copying and a calm blue retention note remain mandatory. War Cry is gated by its
+exact authenticated capability, never enabled on unsupported Rules7.
+
 The current audio/onboarding/compact-actions owner brief supersedes older audio
 preferences and Join/Build conflation. Affected contracts are UX-01/02/03/07/08/10/11/12:
 one enabled-by-default sound-intent icon (subject to browser permission), explicit
 returning-account entry to a compact territory fit with no selection/purchase,
-recipient-left/amount-right exact wallet handoff and one quantity stepper beside
+the shared read-only exact wallet handoff and one quantity stepper beside
 Fire's aimer. Financial authority, frozen copies, verified playback and Rules7/9
 policy binding remain intact. Current source qualification is recorded separately;
 prior evidence qualifies only its recorded source, not this working continuation.
@@ -283,7 +290,7 @@ requirements. Controlled fixtures are not certificate/physical-device evidence.
 | UXR-04/05/13/17 | ≥240px normal action area where free space permits, bounded by actual room with the 96px usable-scroll floor; fixed toolbar slots through expansion, source anchor independent of Build/Move destination; actual transitional/settled geometry. |
 | UXR-06/14/15/16 | Pending zoom accumulation/reversal/clamp, wheel versus continuous input, immediate ball-follow entry, max-zoom follow no-op; actual input plus intermediate-frame unit tests. |
 | UXR-07/08 | Real .01/.05/1 pace, bounded projected travelled length, hold/fade, stationary expiry, seam/reflection/context reset; before/after actual-speed media. |
-| UXR-09/10/11/12/25 | One prompt, direct/keyboard aiming and tile selection, compact exact wallet rows/icons, risk/fee preserved at ≥14px, solid glass fallback, different Revive icon, accessible names and long-press/keyboard help above the toolbar, without obscuring the action prompt. |
+| UXR-09/10/11/12/25 | One prompt, direct/keyboard aiming and tile selection, compact exact wallet rows/icons, risk and financial values preserved at ≥14px; fee information remains in Help, solid glass fallback, different Revive icon, accessible names and long-press/keyboard help above the toolbar, without obscuring the action prompt. |
 | UXR-18/19 | Meaningful circular anchor invalidation; atlas cache/revision bounds and DPR 1/1.5/2/3 cap, same projected map inverse. |
 | UXR-20/22/23/24 | Smaller visible 76px aim ring/22px handle with 44px hit area, quieter grid, exact square destination footprint, shared warm translucent cannon geometry, prominent truthful routine Waiting. |
 
@@ -329,7 +336,7 @@ Nondefault receiving accounts require their complete ICRC representation.
 
 The wallet panel exposes Amount (exact ICP), Send to (principal/default account),
 Memo (canonical readable text), From (declared actual payer), Copy controls and
-“Wallet fee extra.” remains separate. Beneath the ordinary wallet fields, Fire,
+Fee information remains in Help; the superseded routine visible fee row is removed. Beneath the ordinary wallet fields, Fire,
 Revive and automatic first-cannon Join show “Payments and unused ICP are kept;
 no automatic refunds.” For Move or additional Build with an explicitly selected
 destination (including valid cell zero), replace that generic warning with exactly:
@@ -519,7 +526,7 @@ Copy/layout budgets (dynamic addresses, prices and memos excluded):
 | Cannon inspection | At most 30 words plus contextual labelled actions. |
 | Action restriction | One reason, normally at most 12 words. |
 | Replacement choice | One inline choice, normally at most 18 words. |
-| Ordinary wallet view | At most 65 static words, including the mandatory fee/retention warning; one scroll. |
+| Ordinary wallet view | At most 65 static words, including the mandatory retention information; network-fee explanation stays in Help; one scroll. |
 | Account declaration | At most 40 words before advanced detail/history. |
 | Help | Secondary, at most 110 words. |
 | Technical status/history | Disclosed; bounded source data/records, no default-arena paragraph budget. |
@@ -1026,14 +1033,14 @@ action or persistent cannon selection. Manual camera input, close or account
 change cancels pending navigation. First-cannon absence enters automatic Join;
 explicit Build remains an additional purchase. Ordinary cannon click never focuses.
 
-The payment top row is To + abbreviated recipient + copy left, exact decimal ICP
-amount + copy right, with no visible Amount label. An accessible inline full
-principal disclosure supports complete native selection; abbreviation is not a
-selectable payment value. Native/API/manual fallback copy always uses the coherent
-canonical packet, with amount excluding the ICP suffix. Financial text stays >=14px;
-long prices/accessibility zoom wrap deliberately, never truncate the price.
-Memo remains complete, payer compact/changeable, separate fee and exact retained-
-payment warnings unchanged. Copy feedback uses a stable accessible announcement.
+The approved shared payment grid uses title/amount on row1, From + abbreviated
+account/person control left and To + recipient/Copy right on row2. Shared dividers
+and amount/To/memo Copy buttons align. Nonmodal full identity disclosures support
+exact native selection; summaries never supply clipboard values. Amount excludes
+the ICP suffix; financial text remains >=14px and prices/memos are never truncated.
+Memo remains complete, payer changeable, calm blue retained-payment information
+unchanged. Network fees remain real and separately explained in Help, with no
+routine panel fee row. Copy feedback uses a stable accessible announcement.
 Status-only changes disable unsafe copying without changing panel geometry.
 Prompts: Aim & Pay (Fire/Revive), Move & Pay, Build, Aim & Pay (additional Build),
 Join & Pay (automatic first placement, no promised site).

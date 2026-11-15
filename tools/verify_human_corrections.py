@@ -77,11 +77,11 @@ with sync_playwright() as pw:
     row['panel_geometry']=[{'case':r['case'],'box':r['samples'][-1]['workspace'],'copyDisabled':r['disabled']}for r in geometry['transitions']]
     row['max_panel_drift_px']=geometry['max_drift_px']
     print('stable status',w,flush=True);page.screenshot(path=str(out/f'{w}-stable-status.png'))
-    wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-fee','payment-risk'])
+    wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-risk'])
     # Keyboard board selection commits an immutable canonical cell.
     page.locator('#board').focus();previous=page.evaluate('fixture.proposal().cell');page.keyboard.press('Alt+ArrowRight');page.keyboard.press('Enter');assert page.evaluate('fixture.proposal().cell')in [previous,previous+1]
     for height in [430,300]:
-     page.set_viewport_size({'width':w,'height':height});page.wait_for_timeout(500);wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-fee','payment-risk']);page.screenshot(path=str(out/f'{w}-contracted-{height}.png'))
+     page.set_viewport_size({'width':w,'height':height});page.wait_for_timeout(500);wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-risk']);page.screenshot(path=str(out/f'{w}-contracted-{height}.png'))
     page.set_viewport_size({'width':w,'height':h});page.wait_for_timeout(500)
    page.keyboard.press('Escape')
    for scale,label in [(76,'close'),(12,'intermediate'),(page.evaluate('fixture.camera.fitScale'),'wide')]:

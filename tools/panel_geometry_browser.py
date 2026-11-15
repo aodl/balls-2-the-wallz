@@ -7,7 +7,7 @@ PANEL_SNAPSHOT = r'''(tag)=>{
  const rect=n=>n.getBoundingClientRect().toJSON(),text=id=>document.getElementById(id).textContent;
  const summary=f.summary();
  return {tag,at:performance.now(),action:f.proposal(),selected:summary.selected,prepared:!document.getElementById('prepared-card').hidden,disabled:document.getElementById('transfer-controls').disabled,
-  values:Object.fromEntries(['transfer-amount','payment-owner','text-memo','paying-account','payment-fee','payment-risk'].map(id=>[id,text(id)])),
+  values:Object.fromEntries(['transfer-amount','payment-owner','text-memo','paying-account','payment-risk'].map(id=>[id,text(id)])),
   workspace:rect(c),header:rect(c.querySelector('.panel-header')),body:rect(body),content:{height:content.getBoundingClientRect().height,scrollHeight:content.scrollHeight},scroll:{height:scroll.clientHeight,scrollHeight:scroll.scrollHeight,top:scroll.scrollTop},
   target:c.style.getPropertyValue('--body-height'),space:c.style.getPropertyValue('--body-space'),cache:f.shell.layoutState?.()??null,
   animations:document.getAnimations().filter(a=>a.effect?.target===body||a.effect?.target===scroll).map(a=>({target:a.effect.target.className,state:a.playState,time:a.currentTime})),camera:summary.camera,cameraActive:f.shell.controller.active,

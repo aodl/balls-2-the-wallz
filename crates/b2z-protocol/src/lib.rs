@@ -1,6 +1,7 @@
 //! B2Z memo codec only; no prices, physics, IC calls, or principal inference.
 #![forbid(unsafe_code)]
 pub mod v6;
+pub mod war_cry;
 
 #[derive(Debug, Clone, Copy, PartialEq, Eq)]
 pub enum Command {

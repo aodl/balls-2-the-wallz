@@ -33,6 +33,9 @@ export const ENTRY_IDENTITY=Object.freeze({...PLAYABILITY_IDENTITY,rules_hash:sh
 // v8 is reserved for experimental delegated payments; no activation is implicit.
 export const CLEARANCE_CONFIG=Object.freeze({...ENTRY_CONFIG,...CLEARANCE_POLICY});
 export const CLEARANCE_IDENTITY=Object.freeze({...ENTRY_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_TERRITORY_CLEARANCE_RULES_09')),config_hash:sha256(encodeCanonical(CLEARANCE_CONFIG))});
+// Annotation successor uses Rules7 admission, not Rules9 clearance or delegated authority.
+export const WAR_CRY_CONFIG=Object.freeze({...ENTRY_CONFIG,rules_version:10,memo_adapter_version:6,war_cry_capability:'btz-war-cry-1',war_cry_memo_limit:32,normalized_payment:'BTZPAY03',spawn_seed_projection:'gameplay-semantic-1'});
+export const WAR_CRY_IDENTITY=Object.freeze({...ENTRY_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_WAR_CRY_RULES_10')),config_hash:sha256(encodeCanonical(WAR_CRY_CONFIG))});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{

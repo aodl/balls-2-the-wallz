@@ -201,9 +201,11 @@ fn run_entry_and_clearance(
             encode_args(()).unwrap()
         };
         let reply = pic.update_call(id, extra, method, arg).unwrap();
-        assert!(decode_one::<std::result::Result<Vec<u8>, String>>(&reply)
-            .unwrap()
-            .is_err());
+        assert!(
+            decode_one::<std::result::Result<Vec<u8>, String>>(&reply)
+                .unwrap()
+                .is_err()
+        );
     }
     playability_installed::configuration(&pic, id, 512);
     for _ in 0..100 {
@@ -656,16 +658,18 @@ fn run_entry_and_clearance(
         "trace.json",
         &serde_json::json!({"status":"PASS","initial_world_hex":hex(&initial.encode().unwrap()),"publications":rows,"inputs":payments.iter().map(|(n,p)|serde_json::json!({"position":n.to_string(),"payload_hex":p})).collect::<Vec<_>>(),"assigned":assigned,"artifact_events":events,"epoch_metadata":metadata}),
     );
-    assert!(std::process::Command::new("node")
-        .current_dir(&repo)
-        .args([
-            "tools/replay_s14.mjs",
-            out.join("trace.json").to_str().unwrap(),
-            out.join("replay.json").to_str().unwrap()
-        ])
-        .status()
-        .unwrap()
-        .success());
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(&repo)
+            .args([
+                "tools/replay_s14.mjs",
+                out.join("trace.json").to_str().unwrap(),
+                out.join("replay.json").to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
     save(
         &out,
         "result.json",

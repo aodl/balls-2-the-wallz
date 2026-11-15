@@ -11,7 +11,7 @@ def verify_refinement(page,width,height,out):
   close();page.evaluate('fixture.render("additional","initial");fixture.select(1);document.dispatchEvent(new CustomEvent("b2z-locate"))');settled(page);page.locator('#'+{'move':'move-action','new':'build-action','fire':'fire-action'}[kind]).click();page.wait_for_timeout(230)
   if kind=='move':choose_cell(page,'')
   if kind=='new':choose_cell(page,'')
-  for selector in ['#payment-risk','#payment-fee','#text-memo','#payment-owner']:
+  for selector in ['#payment-risk','#text-memo','#payment-owner']:
    assert page.locator(selector).evaluate('(n)=>parseFloat(getComputedStyle(n).fontSize)>=14'),'financial text must retain a readable size'
   if page.locator('#toolbar-hint').is_visible():
    hint=page.locator('#toolbar-hint').bounding_box();header=page.locator('.panel-header').bounding_box();assert hint['y']+hint['height']<=header['y']+1,'icon hint must not obscure the action prompt'
@@ -68,7 +68,7 @@ def verify_refinement(page,width,height,out):
    page.wait_for_timeout(delay);samples.append([page.locator('#'+n).bounding_box()for n in controls])
   drift=max(math.hypot(b['x']-c['x'],b['y']-c['y'])for sample in samples for b,c in zip(sample,beforeboxes));assert drift<=2,(width,drift)
   geom=page.locator('.panel-scroll').evaluate('(n)=>({height:n.clientHeight,content:n.scrollHeight})');room=page.locator('#workspace').evaluate('(n)=>parseFloat(n.style.getPropertyValue("--body-space"))');assert geom['height']>=min(240,room),(width,geom,room)
-  for selector in ['#transfer-amount','#payment-owner','#text-memo','#paying-account','#payment-fee','#payment-risk']:
+  for selector in ['#transfer-amount','#payment-owner','#text-memo','#paying-account','#payment-risk']:
    page.locator(selector).scroll_into_view_if_needed();assert page.locator(selector).evaluate('(n)=>{const r=n.getBoundingClientRect(),p=document.querySelector(".panel-scroll").getBoundingClientRect();return r.top>=p.top-2&&r.bottom<=p.bottom+2}'),selector
   payment_warning(page,ORDINARY_PAYMENT_WARNING);compositions.append({'clicked_at':[sx,sy],'transition_wall_seconds':transition_elapsed,'journey_seconds_including_layout_checks':time.monotonic()-started,'toolbar_max_drift':drift,'panel':geom});page.screenshot(path=str(out/f'{width}-refined-payment.png'))
  # Build ghost and toolbar keep distinct identities; no quote or frozen packet

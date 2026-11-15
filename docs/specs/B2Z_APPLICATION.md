@@ -90,3 +90,9 @@ frontend upgrade or a change to historical v7 interpretation. No production
 activation is authorized by its implementation task. Experimental delegated-payment
 v8 remains separate. Paid world, accounting, source ordering and first-entry rules
 remain preserved at the proposed cutover.
+
+## Versioned annotation candidate
+
+[War Cry and approved read-only panel](B2Z_WAR_CRY.md) specifies the separately
+identified adapter6/Rules10 capability. Historical formats here remain unchanged.
+Production activation is not implied; unsupported suffixes remain unavailable.

@@ -86,3 +86,9 @@ Quantity availability uses the retained cell-zero320×640/347.15° regression in
 arrow placement is preferred; one usable editor for visible Fire/Revive is
 mandatory. Preserve measured dock reservations, pointer/focus locks, viewport-
 change release fences, actual editor audio masks and zero status-only panel drift.
+
+Approved panel/War Cry work uses `docs/specs/B2Z_WAR_CRY.md` and the exact retained
+reference. Run shared-grid/copy/editor regressions and real valueless Ledger/Index
+annotation/replay/browser checks; mocks do not prove launch association. Preserve
+legacy adapters, gameplay-semantic seed projection, exact capability gating and
+paid-state cutover fences. No production activation follows from qualification.
