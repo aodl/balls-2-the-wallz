@@ -58,7 +58,9 @@ Exact proposed successor:
 - Config: `26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a`.
 - Schema6 remains unchanged; source adapter changes4→6 only at the epoch commit.
 
-A separate approval must name the normal Wasm hash in REPORT.md, existing paid
+The exact candidate normal Wasm is
+`002ce4d43d753dfe86ff16687087222abf646ce7ab23c82bcaa4e8c8ce379453`.
+A separate approval must name that hash, existing paid
 backend `s5ir5-gqaaa-aaaas-amyna-cai`, exact predecessor, compatible frontend and
 stop/recovery conditions. Never install the test-hooks module or a constructor.
 
@@ -90,7 +92,9 @@ stop/recovery conditions. Never install the test-hooks module or a constructor.
 
 Before activation, a compatible state-preserving recovery may remain possible
 under Rules7; verify the actual stable schema and module compatibility first.
-**Once Rules10 inputs have been admitted, a Rules7-only module is unsafe.** Keep
+**Treat the Rules10 epoch commit as the compatibility stop point: the old
+Rules7-only module is not an approved rollback, even before another payment. Once
+Rules10 inputs have been admitted, reverting is certainly unsafe.** Keep
 Rules10 decoding/journal/history capability and use a separately reviewed forward,
 state-preserving repair. Never reverse epoch, reinterpret old invalid memos,
 rescan paid history, reset the world or fabricate refunds.

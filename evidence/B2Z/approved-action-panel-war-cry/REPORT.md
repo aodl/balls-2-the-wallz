@@ -124,3 +124,40 @@ deployed. Its read-only production-backed tests passed at320/390/desktop, with
 exact native copied recipient, amount and memo and Rules7 War Cry gating. They
 are scope-limited evidence, not qualification of later changed JavaScript.
 The final freeze and complete hosted qualification remain pending.
+
+
+## Final runtime freeze (hosted qualification pending)
+
+Clean frozen runtime/build source:
+`ecb0f25cd162e475225cf0b5867d09d6ee91136b`.
+JavaScript:`c56ff5bf5d8ab2e6cc836e38d5fe43b7a17504fbfc6903f74bd0c08d64e2a3c9`.
+Complete79-file inventory (78 public plus upload policy):
+`b7d80bf2526c56f835de5338aa2acc34025a014d5392273b3b06fbadde308db8`.
+Normal backend Wasm:
+`002ce4d43d753dfe86ff16687087222abf646ce7ab23c82bcaa4e8c8ce379453`.
+All61 audio assets and approved manifest remain unchanged. The retained final
+frontend/backend files are under `.work/approved-panel-war-cry/frozen/`.
+The committed inventories/provenance and offline reproduction guard independently
+check every public/policy byte and all consumed source/build/dependency inputs.
+The reviewed public build record is preserved from its actual clean freeze source;
+later test/evidence commits must not replace it with newly generated metadata.
+
+The full local native suite and browser campaign now pass, including contact
+meaning, peak/spatial/occlusion, activation and genuine native music visibility.
+A historical contact fixture bug was exposed: after seeking its player to the
+endpoint, its next render still used an earlier clock. The fixture now advances
+its clock too and explicitly checks two later frames for errors. No audio module,
+asset, lateness policy or effect assertion changed.
+
+The exact retained European module612ad0d… also passes the additional disposable
+rehearsal to candidate002ce4d…, preserving world, publication, financial state and
+source cursor after an old-rule Ledger payment. The subsequent Rules7→Rules10
+cutover and admitted-annotation upgrade pass, as do pinned certificates,
+independent replay and two observers. Ordinary default-context tab switches5/35s
+age speech correctly; fade is measured near55.8s and expiry near60.1s without a
+restart. Playwright's emulated-focus context was independently shown to stay
+visible on tab switches, so it is not used to claim native hidden lifecycle.
+Raw failed runs remain separately retained.
+
+Hosted six-gate conclusions are still pending publication/qualification. These
+local passes and frozen identities are not a production deployment authorization.

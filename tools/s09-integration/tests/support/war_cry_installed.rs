@@ -40,6 +40,19 @@ fn admitted(pic: &PocketIc, id: Principal, position: u64) {
 }
 #[test]
 fn war_cry_real_ledger_index_launch_and_independent_replay() {
+    run_war_cry(None);
+}
+#[test]
+#[ignore = "exact retained paid European Rules7 module; disposable upgrade only"]
+fn war_cry_european_rules7_upgrade() {
+    let prior = bytes("B2Z_EUROPEAN_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&prior),
+        "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948"
+    );
+    run_war_cry(Some(prior));
+}
+fn run_war_cry(european_prior: Option<Vec<u8>>) {
     let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("war-cry");
     std::fs::create_dir_all(&out).unwrap();
@@ -139,6 +152,22 @@ fn war_cry_real_ledger_index_launch_and_independent_replay() {
     playability_installed::record(&pic, id, &mut rows, &out);
     transition(&pic, id, "entry");
     playability_installed::record(&pic, id, &mut rows, &out);
+    let mut upgrade_proof = None;
+    if let Some(prior) = &european_prior {
+        let before = arena_world(&pic, id).encode().unwrap();
+        let finance = funding_tests::preserved_finance(&pic, id);
+        let publication = observe(&pic, id).0.publication;
+        pic.upgrade_canister(
+            id,
+            prior.clone(),
+            encode_args(()).unwrap(),
+            Some(controller()),
+        )
+        .unwrap();
+        assert_eq!(arena_world(&pic, id).encode().unwrap(), before);
+        assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
+        assert_eq!(observe(&pic, id).0.publication, publication);
+    }
     let mut payments = BTreeMap::new();
     // Previously rejected text stays rejected and is never reinterpreted at activation.
     let old = transfer_text(&pic, ledger, payer, id, 10000000, b"FIRE 1 0 1|Old");
@@ -155,6 +184,24 @@ fn war_cry_real_ledger_index_launch_and_independent_replay() {
     playability_installed::record(&pic, id, &mut rows, &out);
     let before = arena_world(&pic, id).encode().unwrap();
     let finance = funding_tests::preserved_finance(&pic, id);
+    if european_prior.is_some() {
+        let publication = observe(&pic, id).0.publication;
+        let cursor = status(&pic, id).source.admitted_to_exclusive;
+        pic.upgrade_canister(
+            id,
+            bytes("B2Z_S14_WASM"),
+            encode_args(()).unwrap(),
+            Some(controller()),
+        )
+        .unwrap();
+        assert_eq!(arena_world(&pic, id).encode().unwrap(), before);
+        assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
+        assert_eq!(observe(&pic, id).0.publication, publication);
+        assert_eq!(status(&pic, id).source.admitted_to_exclusive, cursor);
+        upgrade_proof = Some(
+            serde_json::json!({"predecessor":"612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948","candidate":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"old_rule_payment_processed":old,"world_publication_source_and_finance_preserved":true}),
+        );
+    }
     transition(&pic, id, "war_cry");
     assert_eq!(arena_world(&pic, id).encode().unwrap(), before);
     assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
@@ -365,6 +412,6 @@ fn war_cry_real_ledger_index_launch_and_independent_replay() {
     save(
         &out,
         "result.json",
-        &serde_json::json!({"status":"PASS","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"rules":observe(&pic,id).1.identity,"state_preserved_at_cutover":true,"finance_preserved_at_cutover":true,"old_invalid_position":old,"payments":sent,"annotations":annotations,"receipts":receipts,"source_cursor":status(&pic,id).source.admitted_to_exclusive,"admitted_annotation_upgrade_preserved":pending_upgrade,"ledger_33_byte_rejection":oversized_rejection,"ledger_32_byte_payment_processed":true,"whole_processing_cycles":(start_cycles as i128-pic.cycle_balance(id)as i128).to_string(),"scope":"synthetic initial state; actual valueless official Ledger/Index and normal game Wasm; not production"}),
+        &serde_json::json!({"status":"PASS","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"rules":observe(&pic,id).1.identity,"state_preserved_at_cutover":true,"production_module_upgrade":upgrade_proof,"finance_preserved_at_cutover":true,"old_invalid_position":old,"payments":sent,"annotations":annotations,"receipts":receipts,"source_cursor":status(&pic,id).source.admitted_to_exclusive,"admitted_annotation_upgrade_preserved":pending_upgrade,"ledger_33_byte_rejection":oversized_rejection,"ledger_32_byte_payment_processed":true,"whole_processing_cycles":(start_cycles as i128-pic.cycle_balance(id)as i128).to_string(),"scope":"synthetic initial state; actual valueless official Ledger/Index and normal game Wasm; not production"}),
     );
 }
