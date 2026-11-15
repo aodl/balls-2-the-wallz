@@ -1,0 +1,80 @@
+[
+  {
+    "name": "matrix",
+    "exit": 0,
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "tools/verify_quantity_browser.py",
+      "--output",
+      ".work/quantity-closeout/acceptance-762/matrix"
+    ]
+  },
+  {
+    "name": "compact-final",
+    "exit": 0,
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "tools/verify_compact_controls.py",
+      "--output",
+      ".work/quantity-closeout/acceptance-762/compact-final"
+    ]
+  },
+  {
+    "name": "human-final",
+    "exit": 0,
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "tools/verify_human_corrections.py",
+      "--output",
+      ".work/quantity-closeout/acceptance-762/human-final"
+    ]
+  },
+  {
+    "name": "panel-final",
+    "exit": 0,
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "tools/verify_panel_geometry.py",
+      "--fixture-dir",
+      ".work/quantity-closeout/acceptance-762/human-final/fixture",
+      "--output",
+      ".work/quantity-closeout/acceptance-762/panel-final",
+      "--video"
+    ]
+  },
+  {
+    "name": "refinement-final",
+    "exit": 0,
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "tools/verify_refinement_browser.py",
+      "--output",
+      ".work/quantity-closeout/acceptance-762/refinement-final",
+      "--video"
+    ]
+  },
+  {
+    "name": "visual-final",
+    "exit": 0,
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "tools/verify_visual_closeout.py",
+      "--fixture-dir",
+      ".work/quantity-closeout/acceptance-762/refinement-final",
+      "--output",
+      ".work/quantity-closeout/acceptance-762/visual-final",
+      "--video"
+    ]
+  },
+  {
+    "name": "http-final",
+    "exit": 0,
+    "command": [
+      "/home/codexdev/src/b2z/.work/browser-venv/bin/python",
+      "tools/check.py",
+      "browser",
+      "--output",
+      ".work/quantity-closeout/acceptance-762/http-final"
+    ]
+  }
+]

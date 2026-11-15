@@ -1,0 +1,1139 @@
+﻿2026-11-15T12:22:49.9864979Z Current runner version: '2.338.2'
+2026-11-15T12:22:49.9890542Z ##[group]Runner Image Provisioner
+2026-11-15T12:22:49.9891459Z Hosted Compute Agent
+2026-11-15T12:22:49.9892086Z Version: 20261103.629
+2026-11-15T12:22:49.9892837Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-15T12:22:49.9893596Z Build Date: 2026-11-03T17:26:59Z
+2026-11-15T12:22:49.9894424Z Worker ID: {022bfee7-11f6-4998-a33b-2f2f790885f9}
+2026-11-15T12:22:49.9895197Z Region: westus
+2026-11-15T12:22:49.9895789Z Cloud: Azure
+2026-11-15T12:22:49.9896417Z ##[endgroup]
+2026-11-15T12:22:49.9897910Z ##[group]Operating System
+2026-11-15T12:22:49.9898898Z Ubuntu
+2026-11-15T12:22:49.9899904Z 22.04.5
+2026-11-15T12:22:49.9900523Z LTS
+2026-11-15T12:22:49.9901122Z ##[endgroup]
+2026-11-15T12:22:49.9901728Z ##[group]Runner Image
+2026-11-15T12:22:49.9902410Z Image: ubuntu-22.04
+2026-11-15T12:22:49.9903082Z Version: 20261111.360.2
+2026-11-15T12:22:49.9904413Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20261111.360/images/ubuntu/Ubuntu2204-Readme.md
+2026-11-15T12:22:49.9906071Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20261111.360
+2026-11-15T12:22:49.9907124Z ##[endgroup]
+2026-11-15T12:22:49.9908378Z ##[group]GITHUB_TOKEN Permissions
+2026-11-15T12:22:49.9910515Z Contents: read
+2026-11-15T12:22:49.9911283Z Metadata: read
+2026-11-15T12:22:49.9911898Z ##[endgroup]
+2026-11-15T12:22:49.9914369Z Secret source: Actions
+2026-11-15T12:22:49.9915418Z Cache mode: write
+2026-11-15T12:22:49.9916386Z Prepare workflow directory
+2026-11-15T12:22:50.0392010Z Prepare all required actions
+2026-11-15T12:22:50.0439524Z Getting action download info
+2026-11-15T12:22:50.3747924Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-15T12:22:50.5286861Z Download action repository 'actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-11-15T12:22:50.6147881Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-11-15T12:22:50.8120498Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-15T12:22:51.0403884Z Complete job name: S14 and million-cell installed-IC qualification
+2026-11-15T12:22:51.1337658Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+2026-11-15T12:22:51.1338717Z with:
+2026-11-15T12:22:51.1339193Z   ref: 76225150a08c2556e12dcf261e66b8f9489f2ed3
+2026-11-15T12:22:51.1340247Z   repository: aodl/balls-2-the-wallz
+2026-11-15T12:22:51.1344048Z   token: ***
+2026-11-15T12:22:51.1344487Z   ssh-strict: true
+2026-11-15T12:22:51.1344923Z   ssh-user: git
+2026-11-15T12:22:51.1345376Z   persist-credentials: true
+2026-11-15T12:22:51.1345872Z   clean: true
+2026-11-15T12:22:51.1346325Z   sparse-checkout-cone-mode: true
+2026-11-15T12:22:51.1346850Z   fetch-depth: 1
+2026-11-15T12:22:51.1347299Z   fetch-tags: false
+2026-11-15T12:22:51.1347748Z   show-progress: true
+2026-11-15T12:22:51.1348195Z   lfs: false
+2026-11-15T12:22:51.1348606Z   submodules: false
+2026-11-15T12:22:51.1349054Z   set-safe-directory: true
+2026-11-15T12:22:51.1349837Z   allow-unsafe-pr-checkout: false
+2026-11-15T12:22:51.1350962Z env:
+2026-11-15T12:22:51.1351407Z   CARGO_TERM_COLOR: always
+2026-11-15T12:22:51.1351944Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:22:51.1352426Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:22:51.1352874Z ##[endgroup]
+2026-11-15T12:22:51.3829812Z Syncing repository: aodl/balls-2-the-wallz
+2026-11-15T12:22:51.3831978Z ##[group]Getting Git version info
+2026-11-15T12:22:51.3833330Z Working directory is '/home/runner/work/balls-2-the-wallz/balls-2-the-wallz'
+2026-11-15T12:22:51.3835174Z [command]/usr/bin/git version
+2026-11-15T12:22:51.3940995Z git version 2.56.1
+2026-11-15T12:22:51.3966459Z ##[endgroup]
+2026-11-15T12:22:51.3983762Z Temporarily overriding HOME='/home/runner/work/_temp/94f9b089-e64b-4c67-b6b7-295ca7fca18a' before making global git config changes
+2026-11-15T12:22:51.3986792Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-15T12:22:51.3990968Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/balls-2-the-wallz/balls-2-the-wallz
+2026-11-15T12:22:51.4066169Z Deleting the contents of '/home/runner/work/balls-2-the-wallz/balls-2-the-wallz'
+2026-11-15T12:22:51.4072127Z ##[group]Initializing the repository
+2026-11-15T12:22:51.4076695Z [command]/usr/bin/git init /home/runner/work/balls-2-the-wallz/balls-2-the-wallz
+2026-11-15T12:22:51.4200197Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-15T12:22:51.4201912Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-15T12:22:51.4203547Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-15T12:22:51.4204734Z hint: call:
+2026-11-15T12:22:51.4205407Z hint:
+2026-11-15T12:22:51.4206297Z hint: 	git config --global init.defaultBranch <name>
+2026-11-15T12:22:51.4207325Z hint:
+2026-11-15T12:22:51.4208264Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-15T12:22:51.4209949Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-15T12:22:51.4211212Z hint:
+2026-11-15T12:22:51.4211920Z hint: 	git branch -m <name>
+2026-11-15T12:22:51.4212710Z hint:
+2026-11-15T12:22:51.4213748Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-15T12:22:51.4223199Z Initialized empty Git repository in /home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.git/
+2026-11-15T12:22:51.4234177Z [command]/usr/bin/git remote add origin https://github.com/aodl/balls-2-the-wallz
+2026-11-15T12:22:51.4282012Z ##[endgroup]
+2026-11-15T12:22:51.4283456Z ##[group]Disabling automatic garbage collection
+2026-11-15T12:22:51.4285954Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-15T12:22:51.4324541Z ##[endgroup]
+2026-11-15T12:22:51.4325924Z ##[group]Setting up auth
+2026-11-15T12:22:51.4336917Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-15T12:22:51.4369867Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-15T12:22:51.4799425Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-15T12:22:51.4843715Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-15T12:22:51.5102741Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-15T12:22:51.5145236Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-15T12:22:51.5408377Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-15T12:22:51.5460621Z ##[endgroup]
+2026-11-15T12:22:51.5461613Z ##[group]Fetching the repository
+2026-11-15T12:22:51.5472437Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin 76225150a08c2556e12dcf261e66b8f9489f2ed3
+2026-11-15T12:23:06.5503699Z From https://github.com/aodl/balls-2-the-wallz
+2026-11-15T12:23:06.5505070Z  * branch            76225150a08c2556e12dcf261e66b8f9489f2ed3 -> FETCH_HEAD
+2026-11-15T12:23:06.5513516Z ##[endgroup]
+2026-11-15T12:23:06.5514800Z ##[group]Determining the checkout info
+2026-11-15T12:23:06.5516757Z ##[endgroup]
+2026-11-15T12:23:06.5524053Z [command]/usr/bin/git sparse-checkout disable
+2026-11-15T12:23:06.5597125Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-15T12:23:06.5641810Z ##[group]Checking out the ref
+2026-11-15T12:23:06.5645986Z [command]/usr/bin/git checkout --progress --force 76225150a08c2556e12dcf261e66b8f9489f2ed3
+2026-11-15T12:23:07.5770601Z Updating files:  67% (2536/3737)
+2026-11-15T12:23:07.5949281Z Updating files:  68% (2542/3737)
+2026-11-15T12:23:07.5969339Z Updating files:  69% (2579/3737)
+2026-11-15T12:23:07.5996835Z Updating files:  70% (2616/3737)
+2026-11-15T12:23:07.6037051Z Updating files:  71% (2654/3737)
+2026-11-15T12:23:07.6127191Z Updating files:  72% (2691/3737)
+2026-11-15T12:23:07.6185789Z Updating files:  73% (2729/3737)
+2026-11-15T12:23:07.6253076Z Updating files:  74% (2766/3737)
+2026-11-15T12:23:07.6280081Z Updating files:  75% (2803/3737)
+2026-11-15T12:23:07.6305121Z Updating files:  76% (2841/3737)
+2026-11-15T12:23:07.6324446Z Updating files:  77% (2878/3737)
+2026-11-15T12:23:07.6348338Z Updating files:  78% (2915/3737)
+2026-11-15T12:23:07.6365616Z Updating files:  79% (2953/3737)
+2026-11-15T12:23:07.6384873Z Updating files:  80% (2990/3737)
+2026-11-15T12:23:07.6408161Z Updating files:  81% (3027/3737)
+2026-11-15T12:23:07.6443833Z Updating files:  82% (3065/3737)
+2026-11-15T12:23:07.6490212Z Updating files:  83% (3102/3737)
+2026-11-15T12:23:07.6553666Z Updating files:  84% (3140/3737)
+2026-11-15T12:23:07.6627522Z Updating files:  85% (3177/3737)
+2026-11-15T12:23:07.6935121Z Updating files:  86% (3214/3737)
+2026-11-15T12:23:07.6962778Z Updating files:  87% (3252/3737)
+2026-11-15T12:23:07.6987431Z Updating files:  88% (3289/3737)
+2026-11-15T12:23:07.7015576Z Updating files:  89% (3326/3737)
+2026-11-15T12:23:07.7188584Z Updating files:  90% (3364/3737)
+2026-11-15T12:23:07.7229053Z Updating files:  91% (3401/3737)
+2026-11-15T12:23:07.7251826Z Updating files:  92% (3439/3737)
+2026-11-15T12:23:07.7275456Z Updating files:  93% (3476/3737)
+2026-11-15T12:23:07.7303415Z Updating files:  94% (3513/3737)
+2026-11-15T12:23:07.7338995Z Updating files:  95% (3551/3737)
+2026-11-15T12:23:07.7393326Z Updating files:  96% (3588/3737)
+2026-11-15T12:23:07.7428964Z Updating files:  97% (3625/3737)
+2026-11-15T12:23:07.7454754Z Updating files:  98% (3663/3737)
+2026-11-15T12:23:07.7536127Z Updating files:  99% (3700/3737)
+2026-11-15T12:23:07.7536686Z Updating files: 100% (3737/3737)
+2026-11-15T12:23:07.7537170Z Updating files: 100% (3737/3737), done.
+2026-11-15T12:23:07.7579491Z Note: switching to '76225150a08c2556e12dcf261e66b8f9489f2ed3'.
+2026-11-15T12:23:07.7580410Z 
+2026-11-15T12:23:07.7581414Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-15T12:23:07.7582333Z changes and commit them, and you can discard any commits you make in this
+2026-11-15T12:23:07.7583171Z state without impacting any branches by switching back to a branch.
+2026-11-15T12:23:07.7583845Z 
+2026-11-15T12:23:07.7584427Z If you want to create a new branch to retain commits you create, you may
+2026-11-15T12:23:07.7585237Z do so (now or later) by using -c with the switch command. Example:
+2026-11-15T12:23:07.7585718Z 
+2026-11-15T12:23:07.7585899Z   git switch -c <new-branch-name>
+2026-11-15T12:23:07.7586214Z 
+2026-11-15T12:23:07.7586386Z Or undo this operation with:
+2026-11-15T12:23:07.7586710Z 
+2026-11-15T12:23:07.7586849Z   git switch -
+2026-11-15T12:23:07.7587061Z 
+2026-11-15T12:23:07.7587465Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-15T12:23:07.7588028Z 
+2026-11-15T12:23:07.7588642Z HEAD is now at 7622515 Qualify reserved quantity rail, explicit offscreen Locate and unchanged visible telemetry
+2026-11-15T12:23:07.7703360Z ##[endgroup]
+2026-11-15T12:23:07.7754400Z [command]/usr/bin/git log -1 --format=%H
+2026-11-15T12:23:07.7792493Z 76225150a08c2556e12dcf261e66b8f9489f2ed3
+2026-11-15T12:23:07.8101289Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-15T12:23:07.8101750Z with:
+2026-11-15T12:23:07.8101961Z   python-version: 3.11
+2026-11-15T12:23:07.8102220Z   check-latest: false
+2026-11-15T12:23:07.8104875Z   token: ***
+2026-11-15T12:23:07.8105113Z   update-environment: true
+2026-11-15T12:23:07.8105355Z   allow-prereleases: false
+2026-11-15T12:23:07.8105579Z   freethreaded: false
+2026-11-15T12:23:07.8106009Z env:
+2026-11-15T12:23:07.8106200Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:07.8106424Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:07.8106635Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:07.8106835Z ##[endgroup]
+2026-11-15T12:23:07.9620524Z ##[group]Installed versions
+2026-11-15T12:23:07.9774906Z (node:2161) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-15T12:23:07.9775914Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-15T12:23:07.9776636Z Successfully set up CPython (3.11.18)
+2026-11-15T12:23:07.9780730Z ##[endgroup]
+2026-11-15T12:23:07.9957228Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-11-15T12:23:07.9957635Z with:
+2026-11-15T12:23:07.9957822Z   node-version: 24
+2026-11-15T12:23:07.9958019Z   cache: npm
+2026-11-15T12:23:07.9958208Z   always-auth: false
+2026-11-15T12:23:07.9958423Z   check-latest: false
+2026-11-15T12:23:07.9961434Z   token: ***
+2026-11-15T12:23:07.9961672Z env:
+2026-11-15T12:23:07.9961866Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:07.9962106Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:07.9962323Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:07.9962591Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:07.9963066Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T12:23:07.9963501Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:07.9963881Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:07.9964251Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:07.9964669Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T12:23:07.9964984Z ##[endgroup]
+2026-11-15T12:23:08.1588449Z Found in cache @ /opt/hostedtoolcache/node/24.22.2/x64
+2026-11-15T12:23:08.1600782Z (node:2169) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-15T12:23:08.1601873Z ##[group]Environment details
+2026-11-15T12:23:08.1602812Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-15T12:23:11.3014643Z node: v24.22.2
+2026-11-15T12:23:11.3014994Z npm: 11.19.1
+2026-11-15T12:23:11.3015244Z yarn: 1.22.22
+2026-11-15T12:23:11.3016726Z ##[endgroup]
+2026-11-15T12:23:11.3041863Z [command]/opt/hostedtoolcache/node/24.22.2/x64/bin/npm config get cache
+2026-11-15T12:23:11.6584365Z /home/runner/.npm
+2026-11-15T12:23:11.9316276Z Cache hit for: node-cache-Linux-x64-npm-f5ca1d9cbfc8bd623ad3e5097c7f4f5a155294f0b997b4beb4922bc527ca7129
+2026-11-15T12:23:11.9431222Z (node:2169) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-15T12:23:13.2261448Z Received 6570255 of 10764559 (61.0%), 6.3 MBs/sec
+2026-11-15T12:23:13.3287216Z Received 10764559 of 10764559 (100.0%), 9.3 MBs/sec
+2026-11-15T12:23:13.3288046Z Cache Size: ~10 MB (10764559 B)
+2026-11-15T12:23:13.3317765Z [command]/usr/bin/tar -xf /home/runner/work/_temp/6ab59d4d-dec6-4da5-a329-8a8e4f2e08e5/cache.tzst -P -C /home/runner/work/balls-2-the-wallz/balls-2-the-wallz --use-compress-program unzstd
+2026-11-15T12:23:13.3575479Z Cache restored successfully
+2026-11-15T12:23:13.3603999Z Cache restored from key: node-cache-Linux-x64-npm-f5ca1d9cbfc8bd623ad3e5097c7f4f5a155294f0b997b4beb4922bc527ca7129
+2026-11-15T12:23:13.3792208Z ##[group]Run npm ci
+2026-11-15T12:23:13.3792529Z [36;1mnpm ci[0m
+2026-11-15T12:23:13.3920255Z shell: /usr/bin/bash -e {0}
+2026-11-15T12:23:13.3920555Z env:
+2026-11-15T12:23:13.3920774Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:13.3921050Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:13.3921302Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:13.3921610Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:13.3922096Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T12:23:13.3922801Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:13.3923232Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:13.3923669Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:13.3924106Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T12:23:13.3924472Z ##[endgroup]
+2026-11-15T12:23:16.3426951Z 
+2026-11-15T12:23:16.3437320Z added 15 packages, and audited 16 packages in 3s
+2026-11-15T12:23:16.3437831Z 
+2026-11-15T12:23:16.3438187Z 5 packages are looking for funding
+2026-11-15T12:23:16.3438743Z   run `npm fund` for details
+2026-11-15T12:23:16.3442398Z 
+2026-11-15T12:23:16.3442949Z found 0 vulnerabilities
+2026-11-15T12:23:16.3451941Z npm warn install-scripts 1 package has install scripts not yet covered by allowScripts:
+2026-11-15T12:23:16.3453106Z npm warn install-scripts   esbuild@0.28.2 (postinstall: node install.js)
+2026-11-15T12:23:16.3453672Z npm warn install-scripts
+2026-11-15T12:23:16.3454515Z npm warn install-scripts Run `npm install-scripts ls` to review, or `npm install-scripts approve <pkg>` to allow.
+2026-11-15T12:23:16.3916362Z ##[group]Run python -m pip install --require-hashes -r tools/browser-requirements.txt
+2026-11-15T12:23:16.3917030Z [36;1mpython -m pip install --require-hashes -r tools/browser-requirements.txt[0m
+2026-11-15T12:23:16.3985450Z shell: /usr/bin/bash -e {0}
+2026-11-15T12:23:16.3985712Z env:
+2026-11-15T12:23:16.3985918Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:16.3986175Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:16.3986404Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:16.3986691Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:16.3987158Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T12:23:16.3987620Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:16.3988027Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:16.3988443Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:16.3988919Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T12:23:16.3989270Z ##[endgroup]
+2026-11-15T12:23:17.7453386Z Collecting greenlet==3.5.6 (from -r tools/browser-requirements.txt (line 3))
+2026-11-15T12:23:17.7779328Z   Downloading greenlet-3.5.6-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (624 kB)
+2026-11-15T12:23:17.8086660Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 624.4/624.4 kB 37.8 MB/s  0:00:00
+2026-11-15T12:23:17.8439739Z Collecting playwright==1.63.0 (from -r tools/browser-requirements.txt (line 84))
+2026-11-15T12:23:17.8494173Z   Downloading playwright-1.63.0-py3-none-manylinux1_x86_64.whl (48.2 MB)
+2026-11-15T12:23:18.1433297Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.2/48.2 MB 165.3 MB/s  0:00:00
+2026-11-15T12:23:18.1913969Z Collecting pyee==13.0.1 (from -r tools/browser-requirements.txt (line 94))
+2026-11-15T12:23:18.1942720Z   Downloading pyee-13.0.1-py3-none-any.whl (15 kB)
+2026-11-15T12:23:18.2095492Z Collecting typing-extensions==4.16.0 (from -r tools/browser-requirements.txt (line 98))
+2026-11-15T12:23:18.2123119Z   Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-11-15T12:23:18.2724468Z Installing collected packages: typing-extensions, greenlet, pyee, playwright
+2026-11-15T12:23:19.2767451Z 
+2026-11-15T12:23:19.2777653Z Successfully installed greenlet-3.5.6 playwright-1.63.0 pyee-13.0.1 typing-extensions-4.16.0
+2026-11-15T12:23:19.3482680Z ##[group]Run python -m playwright install chromium
+2026-11-15T12:23:19.3483105Z [36;1mpython -m playwright install chromium[0m
+2026-11-15T12:23:19.3548272Z shell: /usr/bin/bash -e {0}
+2026-11-15T12:23:19.3548535Z env:
+2026-11-15T12:23:19.3548739Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:19.3548989Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:19.3549231Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:19.3549811Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:19.3550293Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T12:23:19.3550961Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:19.3551366Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:19.3551776Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:19.3552189Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T12:23:19.3552542Z ##[endgroup]
+2026-11-15T12:23:19.7439075Z Downloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip
+2026-11-15T12:23:20.1815472Z |                                                                                |   0% of 186.8 MiB
+2026-11-15T12:23:20.3561221Z |■■■■■■■■                                                                        |  10% of 186.8 MiB
+2026-11-15T12:23:20.4467189Z |■■■■■■■■■■■■■■■■                                                                |  20% of 186.8 MiB
+2026-11-15T12:23:20.5473913Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 186.8 MiB
+2026-11-15T12:23:20.6516897Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 186.8 MiB
+2026-11-15T12:23:20.7462930Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 186.8 MiB
+2026-11-15T12:23:20.8449315Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 186.8 MiB
+2026-11-15T12:23:20.9552177Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 186.8 MiB
+2026-11-15T12:23:21.0514346Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 186.8 MiB
+2026-11-15T12:23:21.1801041Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 186.8 MiB
+2026-11-15T12:23:21.3002882Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 186.8 MiB
+2026-11-15T12:23:24.5487208Z Chrome for Testing 153.0.8010.12 (playwright chromium v1243) downloaded to /home/runner/.cache/ms-playwright/chromium-1243
+2026-11-15T12:23:24.5501852Z Downloading FFmpeg (playwright ffmpeg v1011) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-11-15T12:23:24.9207004Z |                                                                                |   0% of 2.3 MiB
+2026-11-15T12:23:24.9276173Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-11-15T12:23:24.9286723Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-11-15T12:23:24.9311042Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-11-15T12:23:24.9332424Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-11-15T12:23:24.9355183Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-11-15T12:23:24.9382826Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-11-15T12:23:24.9397571Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-11-15T12:23:24.9413262Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-11-15T12:23:24.9443667Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-11-15T12:23:24.9453131Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-11-15T12:23:25.0153238Z FFmpeg (playwright ffmpeg v1011) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-11-15T12:23:25.0156384Z Downloading Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-headless-shell-linux64.zip
+2026-11-15T12:23:25.4602684Z |                                                                                |   0% of 114.3 MiB
+2026-11-15T12:23:25.5659127Z |■■■■■■■■                                                                        |  10% of 114.3 MiB
+2026-11-15T12:23:25.6569850Z |■■■■■■■■■■■■■■■■                                                                |  20% of 114.3 MiB
+2026-11-15T12:23:25.7179306Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 114.3 MiB
+2026-11-15T12:23:25.7886700Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 114.3 MiB
+2026-11-15T12:23:25.8688172Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 114.3 MiB
+2026-11-15T12:23:25.9240353Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 114.3 MiB
+2026-11-15T12:23:26.0074016Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 114.3 MiB
+2026-11-15T12:23:26.0569430Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 114.3 MiB
+2026-11-15T12:23:26.1112374Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 114.3 MiB
+2026-11-15T12:23:26.1809392Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 114.3 MiB
+2026-11-15T12:23:28.5289494Z Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1243
+2026-11-15T12:23:28.5589452Z ##[group]Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown
+2026-11-15T12:23:28.5591508Z [36;1mrustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown[0m
+2026-11-15T12:23:28.5687167Z shell: /usr/bin/bash -e {0}
+2026-11-15T12:23:28.5687863Z env:
+2026-11-15T12:23:28.5688209Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:28.5688635Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:28.5689034Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:28.5689518Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:28.5690632Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T12:23:28.5691437Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:28.5692195Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:28.5692944Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:28.5693659Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T12:23:28.5694261Z ##[endgroup]
+2026-11-15T12:23:28.5886410Z info: syncing channel updates for 1.94.1-x86_64-unknown-linux-gnu
+2026-11-15T12:23:28.6736964Z info: latest update on 2026-03-26 for version 1.94.1 (e408947bf 2026-03-25)
+2026-11-15T12:23:28.6737805Z info: downloading 6 components
+2026-11-15T12:23:38.3987791Z 
+2026-11-15T12:23:38.4093480Z   1.94.1-x86_64-unknown-linux-gnu installed - rustc 1.94.1 (e408947bf 2026-03-25)
+2026-11-15T12:23:38.4094089Z 
+2026-11-15T12:23:38.4410508Z ##[group]Run cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked
+2026-11-15T12:23:38.4411207Z [36;1mcargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked[0m
+2026-11-15T12:23:38.4481924Z shell: /usr/bin/bash -e {0}
+2026-11-15T12:23:38.4482202Z env:
+2026-11-15T12:23:38.4482409Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:38.4482683Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:38.4482930Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:38.4483224Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:38.4483695Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T12:23:38.4484155Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:38.4484562Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:38.4485001Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:38.4485471Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T12:23:38.4485833Z ##[endgroup]
+2026-11-15T12:23:38.4796346Z [1m[92m    Updating[0m crates.io index
+2026-11-15T12:23:38.4797931Z [1m[92m    Updating[0m git repository `https://github.com/aodl/dtr.git`
+2026-11-15T12:23:42.3222974Z [1m[92m Downloading[0m crates ...
+2026-11-15T12:23:42.3855734Z [1m[92m  Downloaded[0m version_check v0.9.5
+2026-11-15T12:23:42.3895065Z [1m[92m  Downloaded[0m arbitrary v1.5.0
+2026-11-15T12:23:42.3989041Z [1m[92m  Downloaded[0m winapi-util v0.1.11
+2026-11-15T12:23:42.4040249Z [1m[92m  Downloaded[0m same-file v1.0.6
+2026-11-15T12:23:42.4065628Z [1m[92m  Downloaded[0m bit-set v0.5.3
+2026-11-15T12:23:42.4087458Z [1m[92m  Downloaded[0m getrandom v0.2.17
+2026-11-15T12:23:42.4137730Z [1m[92m  Downloaded[0m pico-args v0.5.0
+2026-11-15T12:23:42.4181176Z [1m[92m  Downloaded[0m dirs-next v2.0.0
+2026-11-15T12:23:42.4217340Z [1m[92m  Downloaded[0m derive_builder_core v0.20.2
+2026-11-15T12:23:42.4283519Z [1m[92m  Downloaded[0m termcolor v1.4.1
+2026-11-15T12:23:42.4311599Z [1m[92m  Downloaded[0m codespan-reporting v0.11.1
+2026-11-15T12:23:42.4407301Z [1m[92m  Downloaded[0m parking_lot_core v0.9.12
+2026-11-15T12:23:42.4443213Z [1m[92m  Downloaded[0m log v0.4.34
+2026-11-15T12:23:42.4484471Z [1m[92m  Downloaded[0m num-bigint v0.4.6
+2026-11-15T12:23:42.4543056Z [1m[92m  Downloaded[0m unicode-segmentation v1.13.3
+2026-11-15T12:23:42.4585163Z [1m[92m  Downloaded[0m itertools v0.11.0
+2026-11-15T12:23:42.4662390Z [1m[92m  Downloaded[0m pest v2.9.2
+2026-11-15T12:23:42.4723509Z [1m[92m  Downloaded[0m regex v1.13.1
+2026-11-15T12:23:42.4788711Z [1m[92m  Downloaded[0m aho-corasick v1.1.5
+2026-11-15T12:23:42.4857876Z [1m[92m  Downloaded[0m syn v1.0.109
+2026-11-15T12:23:42.4965029Z [1m[92m  Downloaded[0m winnow v0.7.15
+2026-11-15T12:23:42.5075982Z [1m[92m  Downloaded[0m unicode-width v0.1.14
+2026-11-15T12:23:42.5136569Z [1m[92m  Downloaded[0m hashbrown v0.17.1
+2026-11-15T12:23:42.5197124Z [1m[92m  Downloaded[0m lalrpop v0.20.2
+2026-11-15T12:23:42.5340311Z [1m[92m  Downloaded[0m regex-syntax v0.8.11
+2026-11-15T12:23:42.5416448Z [1m[92m  Downloaded[0m unicode-width v0.2.2
+2026-11-15T12:23:42.5478621Z [1m[92m  Downloaded[0m object v0.39.1
+2026-11-15T12:23:42.5605317Z [1m[92m  Downloaded[0m handlebars v6.4.4
+2026-11-15T12:23:42.5689078Z [1m[92m  Downloaded[0m indexmap v2.14.2
+2026-11-15T12:23:42.5738624Z [1m[92m  Downloaded[0m ar_archive_writer v0.5.3
+2026-11-15T12:23:42.5778225Z [1m[92m  Downloaded[0m walkdir v2.5.0
+2026-11-15T12:23:42.5800296Z [1m[92m  Downloaded[0m darling_core v0.23.0
+2026-11-15T12:23:42.5863431Z [1m[92m  Downloaded[0m libc v0.2.190
+2026-11-15T12:23:42.6400768Z [1m[92m  Downloaded[0m convert_case v0.6.0
+2026-11-15T12:23:42.6431453Z [1m[92m  Downloaded[0m num-modular v0.6.6
+2026-11-15T12:23:42.6456872Z [1m[92m  Downloaded[0m ucd-trie v0.1.7
+2026-11-15T12:23:42.6477559Z [1m[92m  Downloaded[0m pest_generator v2.9.2
+2026-11-15T12:23:42.6495832Z [1m[92m  Downloaded[0m bit-vec v0.6.3
+2026-11-15T12:23:42.6511905Z [1m[92m  Downloaded[0m lock_api v0.4.14
+2026-11-15T12:23:42.6527445Z [1m[92m  Downloaded[0m bitflags v2.13.2
+2026-11-15T12:23:42.6578612Z [1m[92m  Downloaded[0m parking_lot v0.12.5
+2026-11-15T12:23:42.6609796Z [1m[92m  Downloaded[0m regex-automata v0.4.18
+2026-11-15T12:23:42.6767738Z [1m[92m  Downloaded[0m toml_edit v0.22.27
+2026-11-15T12:23:42.6816335Z [1m[92m  Downloaded[0m ic-cdk v0.20.3
+2026-11-15T12:23:42.6837137Z [1m[92m  Downloaded[0m petgraph v0.6.5
+2026-11-15T12:23:42.7026648Z [1m[92m  Downloaded[0m darling v0.20.11
+2026-11-15T12:23:42.7083234Z [1m[92m  Downloaded[0m derive_builder v0.20.2
+2026-11-15T12:23:42.7139895Z [1m[92m  Downloaded[0m num-order v1.2.0
+2026-11-15T12:23:42.7154477Z [1m[92m  Downloaded[0m pest_derive v2.9.2
+2026-11-15T12:23:42.7179320Z [1m[92m  Downloaded[0m ascii-canvas v3.0.0
+2026-11-15T12:23:42.7194465Z [1m[92m  Downloaded[0m ena v0.14.4
+2026-11-15T12:23:42.7214660Z [1m[92m  Downloaded[0m fixedbitset v0.4.2
+2026-11-15T12:23:42.7229749Z [1m[92m  Downloaded[0m redox_syscall v0.5.18
+2026-11-15T12:23:42.7259097Z [1m[92m  Downloaded[0m string_cache v0.8.9
+2026-11-15T12:23:42.7277827Z [1m[92m  Downloaded[0m wasi v0.11.1+wasi-snapshot-preview1
+2026-11-15T12:23:42.7297942Z [1m[92m  Downloaded[0m libredox v0.1.25
+2026-11-15T12:23:42.7308069Z [1m[92m  Downloaded[0m dirs-sys-next v0.1.2
+2026-11-15T12:23:42.7320703Z [1m[92m  Downloaded[0m candid_parser v0.4.1
+2026-11-15T12:23:42.7353840Z [1m[92m  Downloaded[0m darling_core v0.20.11
+2026-11-15T12:23:42.7412139Z [1m[92m  Downloaded[0m anyhow v1.0.104
+2026-11-15T12:23:42.7457215Z [1m[92m  Downloaded[0m binread v2.2.0
+2026-11-15T12:23:42.7536924Z [1m[92m  Downloaded[0m num-traits v0.2.19
+2026-11-15T12:23:42.7569446Z [1m[92m  Downloaded[0m arrayvec v0.5.2
+2026-11-15T12:23:42.7592329Z [1m[92m  Downloaded[0m pretty v0.12.5
+2026-11-15T12:23:42.7613202Z [1m[92m  Downloaded[0m derive_builder_macro v0.20.2
+2026-11-15T12:23:42.7623252Z [1m[92m  Downloaded[0m pest_meta v2.9.2
+2026-11-15T12:23:42.7647502Z [1m[92m  Downloaded[0m scopeguard v1.2.0
+2026-11-15T12:23:42.7662060Z [1m[92m  Downloaded[0m phf_shared v0.11.3
+2026-11-15T12:23:42.7673434Z [1m[92m  Downloaded[0m term v0.7.0
+2026-11-15T12:23:42.7713522Z [1m[92m  Downloaded[0m tiny-keccak v2.0.2
+2026-11-15T12:23:42.7742319Z [1m[92m  Downloaded[0m toml v0.8.23
+2026-11-15T12:23:42.7769065Z [1m[92m  Downloaded[0m ic-cdk-timers v1.0.0
+2026-11-15T12:23:42.7782414Z [1m[92m  Downloaded[0m winapi v0.3.9
+2026-11-15T12:23:42.8210871Z [1m[92m  Downloaded[0m smallvec v1.16.3
+2026-11-15T12:23:42.8227229Z [1m[92m  Downloaded[0m strum_macros v0.26.4
+2026-11-15T12:23:42.8254972Z [1m[92m  Downloaded[0m either v1.19.0
+2026-11-15T12:23:42.8272756Z [1m[92m  Downloaded[0m binread_derive v2.1.0
+2026-11-15T12:23:42.8299677Z [1m[92m  Downloaded[0m lazy_static v1.5.1
+2026-11-15T12:23:42.8319571Z [1m[92m  Downloaded[0m candid_derive v0.10.28
+2026-11-15T12:23:42.8332672Z [1m[92m  Downloaded[0m paste v1.0.15
+2026-11-15T12:23:42.8368687Z [1m[92m  Downloaded[0m find-msvc-tools v0.1.14
+2026-11-15T12:23:42.8388151Z [1m[92m  Downloaded[0m logos-codegen v0.14.4
+2026-11-15T12:23:42.8422660Z [1m[92m  Downloaded[0m equivalent v1.0.2
+2026-11-15T12:23:42.8434849Z [1m[92m  Downloaded[0m serde_spanned v0.6.9
+2026-11-15T12:23:42.8446779Z [1m[92m  Downloaded[0m logos v0.14.4
+2026-11-15T12:23:42.8531279Z [1m[92m  Downloaded[0m ic-cdk-executor v2.0.0
+2026-11-15T12:23:42.8541630Z [1m[92m  Downloaded[0m ic-cdk-macros v0.19.0
+2026-11-15T12:23:42.8552781Z [1m[92m  Downloaded[0m heck v0.5.0
+2026-11-15T12:23:42.8567397Z [1m[92m  Downloaded[0m ic-error-types v0.2.0
+2026-11-15T12:23:42.8577732Z [1m[92m  Downloaded[0m rustversion v1.0.23
+2026-11-15T12:23:42.8609937Z [1m[92m  Downloaded[0m hex v0.4.3
+2026-11-15T12:23:42.8628174Z [1m[92m  Downloaded[0m leb128 v0.2.7
+2026-11-15T12:23:42.8645028Z [1m[92m  Downloaded[0m autocfg v1.5.1
+2026-11-15T12:23:42.8666464Z [1m[92m  Downloaded[0m typed-arena v2.0.2
+2026-11-15T12:23:42.8680392Z [1m[92m  Downloaded[0m siphasher v1.0.4
+2026-11-15T12:23:42.8697243Z [1m[92m  Downloaded[0m unicode-xid v0.2.6
+2026-11-15T12:23:42.8714823Z [1m[92m  Downloaded[0m toml_datetime v0.6.11
+2026-11-15T12:23:42.8727408Z [1m[92m  Downloaded[0m darling v0.23.0
+2026-11-15T12:23:42.8788231Z [1m[92m  Downloaded[0m darling_macro v0.20.11
+2026-11-15T12:23:42.8796294Z [1m[92m  Downloaded[0m redox_users v0.4.6
+2026-11-15T12:23:42.8811545Z [1m[92m  Downloaded[0m crunchy v0.2.4
+2026-11-15T12:23:42.8821422Z [1m[92m  Downloaded[0m darling_macro v0.23.0
+2026-11-15T12:23:42.8829426Z [1m[92m  Downloaded[0m ident_case v1.0.1
+2026-11-15T12:23:42.8839078Z [1m[92m  Downloaded[0m syn v3.0.7
+2026-11-15T12:23:42.8956802Z [1m[92m  Downloaded[0m new_debug_unreachable v1.0.6
+2026-11-15T12:23:42.8969549Z [1m[92m  Downloaded[0m precomputed-hash v0.1.1
+2026-11-15T12:23:42.8977049Z [1m[92m  Downloaded[0m num-rational v0.4.2
+2026-11-15T12:23:42.8991865Z [1m[92m  Downloaded[0m fnv v1.0.7
+2026-11-15T12:23:42.9002150Z [1m[92m  Downloaded[0m strsim v0.11.1
+2026-11-15T12:23:42.9017210Z [1m[92m  Downloaded[0m byteorder v1.5.0
+2026-11-15T12:23:42.9035559Z [1m[92m  Downloaded[0m num-integer v0.1.47
+2026-11-15T12:23:42.9054071Z [1m[92m  Downloaded[0m candid v0.10.28
+2026-11-15T12:23:42.9086797Z [1m[92m  Downloaded[0m slotmap v1.1.1
+2026-11-15T12:23:42.9124204Z [1m[92m  Downloaded[0m typenum v1.20.1
+2026-11-15T12:23:42.9164482Z [1m[92m  Downloaded[0m ic-stable-structures v0.7.2
+2026-11-15T12:23:42.9233948Z [1m[92m  Downloaded[0m beef v0.5.2
+2026-11-15T12:23:42.9254495Z [1m[92m  Downloaded[0m logos-derive v0.14.4
+2026-11-15T12:23:42.9264428Z [1m[92m  Downloaded[0m ic-cdk-macros v0.20.3
+2026-11-15T12:23:42.9292728Z [1m[92m  Downloaded[0m strum v0.26.3
+2026-11-15T12:23:42.9302553Z [1m[92m  Downloaded[0m shlex v2.0.1
+2026-11-15T12:23:42.9317474Z [1m[92m  Downloaded[0m cc v1.7.0
+2026-11-15T12:23:42.9357974Z [1m[92m  Downloaded[0m psm v0.1.32
+2026-11-15T12:23:42.9392867Z [1m[92m  Downloaded[0m windows-link v0.2.1
+2026-11-15T12:23:42.9402654Z [1m[92m  Downloaded[0m stacker v0.1.25
+2026-11-15T12:23:42.9425930Z [1m[92m  Downloaded[0m ic-management-canister-types v0.5.0
+2026-11-15T12:23:42.9437377Z [1m[92m  Downloaded[0m ic0 v1.2.0
+2026-11-15T12:23:42.9449201Z [1m[92m  Downloaded[0m thiserror v2.0.21
+2026-11-15T12:23:42.9521377Z [1m[92m  Downloaded[0m ic-cdk v0.19.0
+2026-11-15T12:23:42.9562067Z [1m[92m  Downloaded[0m ic-ledger-types v0.16.0
+2026-11-15T12:23:42.9574227Z [1m[92m  Downloaded[0m data-encoding v2.11.1
+2026-11-15T12:23:42.9586118Z [1m[92m  Downloaded[0m cfg-if v1.0.5
+2026-11-15T12:23:42.9601546Z [1m[92m  Downloaded[0m generic-array v0.14.7
+2026-11-15T12:23:42.9617688Z [1m[92m  Downloaded[0m windows-sys v0.61.2
+2026-11-15T12:23:43.0333880Z [1m[92m  Downloaded[0m thiserror-impl v1.0.69
+2026-11-15T12:23:43.0348933Z [1m[92m  Downloaded[0m memchr v2.8.3
+2026-11-15T12:23:43.0412482Z [1m[92m  Downloaded[0m ryu v1.0.23
+2026-11-15T12:23:43.0449211Z [1m[92m  Downloaded[0m serde v1.0.228
+2026-11-15T12:23:43.0488692Z [1m[92m  Downloaded[0m lalrpop-util v0.20.2
+2026-11-15T12:23:43.0500204Z [1m[92m  Downloaded[0m pin-project-lite v0.2.17
+2026-11-15T12:23:43.0566287Z [1m[92m  Downloaded[0m thiserror-impl v2.0.21
+2026-11-15T12:23:43.0583449Z [1m[92m  Downloaded[0m serde_bytes v0.11.19
+2026-11-15T12:23:43.0601251Z [1m[92m  Downloaded[0m crc32fast v1.5.2
+2026-11-15T12:23:43.0624688Z [1m[92m  Downloaded[0m cpufeatures v0.2.17
+2026-11-15T12:23:43.0640278Z [1m[92m  Downloaded[0m block-buffer v0.10.4
+2026-11-15T12:23:43.0652706Z [1m[92m  Downloaded[0m crypto-common v0.1.7
+2026-11-15T12:23:43.0663585Z [1m[92m  Downloaded[0m digest v0.10.7
+2026-11-15T12:23:43.0684104Z [1m[92m  Downloaded[0m sha2 v0.10.9
+2026-11-15T12:23:43.0712880Z [1m[92m  Downloaded[0m thiserror v1.0.69
+2026-11-15T12:23:43.0775225Z [1m[92m  Downloaded[0m itoa v1.0.18
+2026-11-15T12:23:43.0792146Z [1m[92m  Downloaded[0m syn v2.0.119
+2026-11-15T12:23:43.0908151Z [1m[92m  Downloaded[0m serde_core v1.0.228
+2026-11-15T12:23:43.0939656Z [1m[92m  Downloaded[0m serde_json v1.0.145
+2026-11-15T12:23:43.1019949Z [1m[92m  Downloaded[0m ic_principal v0.1.5
+2026-11-15T12:23:43.1031335Z [1m[92m  Downloaded[0m proc-macro2 v1.0.107
+2026-11-15T12:23:43.1064026Z [1m[92m  Downloaded[0m quote v1.0.47
+2026-11-15T12:23:43.1094579Z [1m[92m  Downloaded[0m unicode-ident v1.0.26
+2026-11-15T12:23:43.1125745Z [1m[92m  Downloaded[0m serde_derive v1.0.228
+2026-11-15T12:23:43.1164398Z [1m[92m  Downloaded[0m winapi-i686-pc-windows-gnu v0.4.0
+2026-11-15T12:23:43.2724564Z [1m[92m  Downloaded[0m winapi-x86_64-pc-windows-gnu v0.4.0
+2026-11-15T12:23:43.4845047Z ##[group]Run cargo +1.94.1 fetch --manifest-path tools/s09-integration/Cargo.toml --locked
+2026-11-15T12:23:43.4846242Z [36;1mcargo +1.94.1 fetch --manifest-path tools/s09-integration/Cargo.toml --locked[0m
+2026-11-15T12:23:43.4926984Z shell: /usr/bin/bash -e {0}
+2026-11-15T12:23:43.4927246Z env:
+2026-11-15T12:23:43.4927445Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:43.4927685Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:43.4927907Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:43.4928183Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:43.4928626Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T12:23:43.4929050Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:43.4929439Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:43.4930124Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:43.4930684Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T12:23:43.4931311Z ##[endgroup]
+2026-11-15T12:23:43.5391653Z [1m[92m    Updating[0m crates.io index
+2026-11-15T12:23:44.1452620Z [1m[92m Downloading[0m crates ...
+2026-11-15T12:23:44.2060015Z [1m[92m  Downloaded[0m tokio-macros v2.7.2
+2026-11-15T12:23:44.2098779Z [1m[92m  Downloaded[0m bumpalo v3.20.3
+2026-11-15T12:23:44.2167245Z [1m[92m  Downloaded[0m slab v0.4.12
+2026-11-15T12:23:44.2203867Z [1m[92m  Downloaded[0m zerofrom v0.1.8
+2026-11-15T12:23:44.2228903Z [1m[92m  Downloaded[0m dyn-clone v1.0.20
+2026-11-15T12:23:44.2260440Z [1m[92m  Downloaded[0m windows-targets v0.52.6
+2026-11-15T12:23:44.2288010Z [1m[92m  Downloaded[0m candid_derive v0.10.37
+2026-11-15T12:23:44.2315396Z [1m[92m  Downloaded[0m stop-token v0.7.0
+2026-11-15T12:23:44.2358915Z [1m[92m  Downloaded[0m concurrent-queue v2.5.0
+2026-11-15T12:23:44.2408646Z [1m[92m  Downloaded[0m keccak v0.1.6
+2026-11-15T12:23:44.2437366Z [1m[92m  Downloaded[0m bytemuck v1.25.2
+2026-11-15T12:23:44.2520927Z [1m[92m  Downloaded[0m rustls-pki-types v1.15.1
+2026-11-15T12:23:44.2599856Z [1m[92m  Downloaded[0m parking v2.2.1
+2026-11-15T12:23:44.2649737Z [1m[92m  Downloaded[0m curve25519-dalek-derive v0.1.1
+2026-11-15T12:23:44.2687208Z [1m[92m  Downloaded[0m async-channel v2.5.0
+2026-11-15T12:23:44.2722057Z [1m[92m  Downloaded[0m event-listener-strategy v0.5.4
+2026-11-15T12:23:44.2757785Z [1m[92m  Downloaded[0m async-watch v0.3.1
+2026-11-15T12:23:44.2789079Z [1m[92m  Downloaded[0m event-listener v5.4.2
+2026-11-15T12:23:44.2824962Z [1m[92m  Downloaded[0m zerocopy-derive v0.8.62
+2026-11-15T12:23:44.2995345Z [1m[92m  Downloaded[0m arc-swap v1.9.2
+2026-11-15T12:23:44.3041270Z [1m[92m  Downloaded[0m hkdf v0.12.4
+2026-11-15T12:23:44.3080120Z [1m[92m  Downloaded[0m cached v0.56.0
+2026-11-15T12:23:44.3140775Z [1m[92m  Downloaded[0m ic-agent v0.49.2
+2026-11-15T12:23:44.3211306Z [1m[92m  Downloaded[0m hyper-util v0.1.21
+2026-11-15T12:23:44.3297994Z [1m[92m  Downloaded[0m hashbrown v0.15.5
+2026-11-15T12:23:44.3366655Z [1m[92m  Downloaded[0m h2 v0.4.20
+2026-11-15T12:23:44.3458210Z [1m[92m  Downloaded[0m tracing v0.1.44
+2026-11-15T12:23:44.3682389Z [1m[92m  Downloaded[0m curve25519-dalek v4.1.3
+2026-11-15T12:23:44.3788543Z [1m[92m  Downloaded[0m aws-lc-rs v1.18.1
+2026-11-15T12:23:44.3923467Z [1m[92m  Downloaded[0m zerocopy v0.8.62
+2026-11-15T12:23:44.4238048Z [1m[92m  Downloaded[0m quinn-proto v0.11.19
+2026-11-15T12:23:44.4331490Z [1m[92m  Downloaded[0m simd_cesu8 v1.2.0
+2026-11-15T12:23:44.4393208Z [1m[92m  Downloaded[0m rustix v1.1.5
+2026-11-15T12:23:44.4716834Z [1m[92m  Downloaded[0m zlib-rs v0.6.8
+2026-11-15T12:23:44.4787258Z [1m[92m  Downloaded[0m jni v0.22.4
+2026-11-15T12:23:44.4875334Z [1m[92m  Downloaded[0m windows_aarch64_gnullvm v0.52.6
+2026-11-15T12:23:44.4967765Z [1m[92m  Downloaded[0m rustls v0.23.45
+2026-11-15T12:23:44.5113440Z [1m[92m  Downloaded[0m time v0.3.55
+2026-11-15T12:23:44.5290915Z [1m[92m  Downloaded[0m fiat-crypto v0.2.9
+2026-11-15T12:23:44.5410596Z [1m[92m  Downloaded[0m windows_x86_64_gnullvm v0.52.6
+2026-11-15T12:23:44.5498225Z [1m[92m  Downloaded[0m icu_normalizer v2.3.0
+2026-11-15T12:23:44.5607996Z [1m[92m  Downloaded[0m tracing-subscriber v0.3.23
+2026-11-15T12:23:44.5706578Z [1m[92m  Downloaded[0m ic_bls12_381 v0.10.1
+2026-11-15T12:23:44.5769714Z [1m[92m  Downloaded[0m windows_i686_gnullvm v0.52.6
+2026-11-15T12:23:44.5862469Z [1m[92m  Downloaded[0m hyper v1.12.0
+2026-11-15T12:23:44.5945120Z [1m[92m  Downloaded[0m curve25519-dalek-ng v4.1.1
+2026-11-15T12:23:44.6052096Z [1m[92m  Downloaded[0m rand v0.10.3
+2026-11-15T12:23:44.6100597Z [1m[92m  Downloaded[0m webpki-root-certs v1.0.9
+2026-11-15T12:23:44.6131412Z [1m[92m  Downloaded[0m web-sys v0.3.106
+2026-11-15T12:23:44.7440279Z [1m[92m  Downloaded[0m tokio-util v0.7.20
+2026-11-15T12:23:44.7535274Z [1m[92m  Downloaded[0m binrw v0.15.2
+2026-11-15T12:23:44.7682028Z [1m[92m  Downloaded[0m quinn v0.11.12
+2026-11-15T12:23:44.7723163Z [1m[92m  Downloaded[0m tower-http v0.6.11
+2026-11-15T12:23:44.7834152Z [1m[92m  Downloaded[0m base64 v0.23.1
+2026-11-15T12:23:44.7880618Z [1m[92m  Downloaded[0m miniz_oxide v0.9.1
+2026-11-15T12:23:44.7914396Z [1m[92m  Downloaded[0m flate2 v1.1.10
+2026-11-15T12:23:44.7982177Z [1m[92m  Downloaded[0m candid v0.10.37
+2026-11-15T12:23:44.8019206Z [1m[92m  Downloaded[0m rustls-webpki v0.103.15
+2026-11-15T12:23:44.8059920Z [1m[92m  Downloaded[0m windows_x86_64_gnu v0.52.6
+2026-11-15T12:23:44.8261987Z [1m[92m  Downloaded[0m windows_x86_64_msvc v0.52.6
+2026-11-15T12:23:44.8396487Z [1m[92m  Downloaded[0m windows_aarch64_msvc v0.52.6
+2026-11-15T12:23:44.8520455Z [1m[92m  Downloaded[0m windows_i686_msvc v0.52.6
+2026-11-15T12:23:44.8654863Z [1m[92m  Downloaded[0m windows_i686_gnu v0.52.6
+2026-11-15T12:23:44.8864515Z [1m[92m  Downloaded[0m icu_properties_data v2.3.0
+2026-11-15T12:23:44.8988973Z [1m[92m  Downloaded[0m reqwest v0.13.5
+2026-11-15T12:23:44.9050006Z [1m[92m  Downloaded[0m futures-util v0.3.34
+2026-11-15T12:23:44.9201100Z [1m[92m  Downloaded[0m k256 v0.13.4
+2026-11-15T12:23:44.9246617Z [1m[92m  Downloaded[0m rangemap v1.8.0
+2026-11-15T12:23:44.9272840Z [1m[92m  Downloaded[0m http v1.5.0
+2026-11-15T12:23:44.9315008Z [1m[92m  Downloaded[0m idna v1.1.0
+2026-11-15T12:23:44.9355474Z [1m[92m  Downloaded[0m mio v1.2.4
+2026-11-15T12:23:44.9427939Z [1m[92m  Downloaded[0m async-lock v3.4.2
+2026-11-15T12:23:44.9452862Z [1m[92m  Downloaded[0m async-trait v0.1.92
+2026-11-15T12:23:44.9494915Z [1m[92m  Downloaded[0m ed25519-dalek v2.2.0
+2026-11-15T12:23:44.9531957Z [1m[92m  Downloaded[0m rand v0.8.8
+2026-11-15T12:23:44.9571340Z [1m[92m  Downloaded[0m binrw_derive v0.15.2
+2026-11-15T12:23:44.9618410Z [1m[92m  Downloaded[0m ic-transport-types v0.49.2
+2026-11-15T12:23:44.9631458Z [1m[92m  Downloaded[0m http-body-util v0.1.5
+2026-11-15T12:23:44.9654129Z [1m[92m  Downloaded[0m hyper-rustls v0.27.10
+2026-11-15T12:23:44.9670377Z [1m[92m  Downloaded[0m combine v4.6.8
+2026-11-15T12:23:44.9711805Z [1m[92m  Downloaded[0m jni-macros v0.22.4
+2026-11-15T12:23:44.9735968Z [1m[92m  Downloaded[0m tower v0.5.3
+2026-11-15T12:23:44.9849799Z [1m[92m  Downloaded[0m zerovec v0.11.8
+2026-11-15T12:23:44.9917465Z [1m[92m  Downloaded[0m allocator-api2 v0.2.21
+2026-11-15T12:23:44.9948910Z [1m[92m  Downloaded[0m der v0.7.10
+2026-11-15T12:23:45.0008698Z [1m[92m  Downloaded[0m backon v1.6.0
+2026-11-15T12:23:45.0041828Z [1m[92m  Downloaded[0m security-framework v3.7.0
+2026-11-15T12:23:45.0087459Z [1m[92m  Downloaded[0m js-sys v0.3.106
+2026-11-15T12:23:45.0123703Z [1m[92m  Downloaded[0m pocket-ic v16.1.0
+2026-11-15T12:23:45.0149438Z [1m[92m  Downloaded[0m ahash v0.8.12
+2026-11-15T12:23:45.0176503Z [1m[92m  Downloaded[0m subtle-ng v2.5.0
+2026-11-15T12:23:45.0192278Z [1m[92m  Downloaded[0m digest v0.9.0
+2026-11-15T12:23:45.0207318Z [1m[92m  Downloaded[0m ed25519-consensus v2.1.0
+2026-11-15T12:23:45.0229998Z [1m[92m  Downloaded[0m crypto-bigint v0.5.5
+2026-11-15T12:23:45.0314682Z [1m[92m  Downloaded[0m simd-adler32 v0.3.10
+2026-11-15T12:23:45.0335467Z [1m[92m  Downloaded[0m ic-certification v3.2.0
+2026-11-15T12:23:45.0352505Z [1m[92m  Downloaded[0m atomic-waker v1.1.2
+2026-11-15T12:23:45.0367826Z [1m[92m  Downloaded[0m ring v0.17.14
+2026-11-15T12:23:45.0849298Z [1m[92m  Downloaded[0m want v0.3.2
+2026-11-15T12:23:45.0861417Z [1m[92m  Downloaded[0m ipnet v2.12.2
+2026-11-15T12:23:45.0883431Z [1m[92m  Downloaded[0m unicase v2.10.0
+2026-11-15T12:23:45.0899338Z [1m[92m  Downloaded[0m cpufeatures v0.3.1
+2026-11-15T12:23:45.0915656Z [1m[92m  Downloaded[0m jobserver v0.1.35
+2026-11-15T12:23:45.0938193Z [1m[92m  Downloaded[0m icu_properties v2.3.0
+2026-11-15T12:23:45.0974610Z [1m[92m  Downloaded[0m url v2.5.8
+2026-11-15T12:23:45.1005403Z [1m[92m  Downloaded[0m crossbeam-channel v0.5.17
+2026-11-15T12:23:45.1051634Z [1m[92m  Downloaded[0m foldhash v0.1.5
+2026-11-15T12:23:45.1065461Z [1m[92m  Downloaded[0m block-buffer v0.9.0
+2026-11-15T12:23:45.1074227Z [1m[92m  Downloaded[0m opaque-debug v0.3.1
+2026-11-15T12:23:45.1085740Z [1m[92m  Downloaded[0m sha2 v0.9.9
+2026-11-15T12:23:45.1114037Z [1m[92m  Downloaded[0m elliptic-curve v0.13.8
+2026-11-15T12:23:45.1157179Z [1m[92m  Downloaded[0m primeorder v0.13.6
+2026-11-15T12:23:45.1171554Z [1m[92m  Downloaded[0m p256 v0.13.2
+2026-11-15T12:23:45.1209209Z [1m[92m  Downloaded[0m event-listener v2.5.3
+2026-11-15T12:23:45.1224709Z [1m[92m  Downloaded[0m base64 v0.22.1
+2026-11-15T12:23:45.1268575Z [1m[92m  Downloaded[0m cmake v0.1.58
+2026-11-15T12:23:45.1284072Z [1m[92m  Downloaded[0m tower-layer v0.3.3
+2026-11-15T12:23:45.1295037Z [1m[92m  Downloaded[0m icu_normalizer_data v2.3.0
+2026-11-15T12:23:45.1321972Z [1m[92m  Downloaded[0m icu_collections v2.3.0
+2026-11-15T12:23:45.1393752Z [1m[92m  Downloaded[0m icu_locale_core v2.3.0
+2026-11-15T12:23:45.1472751Z [1m[92m  Downloaded[0m wasm-bindgen v0.2.129
+2026-11-15T12:23:45.1503468Z [1m[92m  Downloaded[0m bytes v1.12.1
+2026-11-15T12:23:45.1543880Z [1m[92m  Downloaded[0m ed25519 v2.2.3
+2026-11-15T12:23:45.1565326Z [1m[92m  Downloaded[0m pem v3.0.6
+2026-11-15T12:23:45.1581078Z [1m[92m  Downloaded[0m ic-ed25519 v0.6.0
+2026-11-15T12:23:45.1592611Z [1m[92m  Downloaded[0m pairing v0.23.0
+2026-11-15T12:23:45.1608975Z [1m[92m  Downloaded[0m ppv-lite86 v0.2.21
+2026-11-15T12:23:45.1627021Z [1m[92m  Downloaded[0m hmac v0.12.1
+2026-11-15T12:23:45.1648465Z [1m[92m  Downloaded[0m ff v0.13.1
+2026-11-15T12:23:45.1664938Z [1m[92m  Downloaded[0m rand_core v0.6.4
+2026-11-15T12:23:45.1679871Z [1m[92m  Downloaded[0m pkcs8 v0.10.2
+2026-11-15T12:23:45.1711321Z [1m[92m  Downloaded[0m async-channel v1.9.0
+2026-11-15T12:23:45.1723923Z [1m[92m  Downloaded[0m adler2 v2.0.1
+2026-11-15T12:23:45.1738732Z [1m[92m  Downloaded[0m array-init v2.1.0
+2026-11-15T12:23:45.1752483Z [1m[92m  Downloaded[0m serde_repr v0.1.21
+2026-11-15T12:23:45.1775168Z [1m[92m  Downloaded[0m try-lock v0.2.5
+2026-11-15T12:23:45.1785403Z [1m[92m  Downloaded[0m lru-slab v0.1.3
+2026-11-15T12:23:45.1795574Z [1m[92m  Downloaded[0m cfg_aliases v0.2.2
+2026-11-15T12:23:45.1806967Z [1m[92m  Downloaded[0m rustc-hash v2.1.3
+2026-11-15T12:23:45.1821135Z [1m[92m  Downloaded[0m jni-sys-macros v0.4.1
+2026-11-15T12:23:45.1828950Z [1m[92m  Downloaded[0m rustc_version v0.4.1
+2026-11-15T12:23:45.1845026Z [1m[92m  Downloaded[0m simdutf8 v0.1.5
+2026-11-15T12:23:45.1871542Z [1m[92m  Downloaded[0m schannel v0.1.29
+2026-11-15T12:23:45.1892142Z [1m[92m  Downloaded[0m dunce v1.0.5
+2026-11-15T12:23:45.1902022Z [1m[92m  Downloaded[0m pkg-config v0.3.34
+2026-11-15T12:23:45.1918987Z [1m[92m  Downloaded[0m icu_provider v2.3.1
+2026-11-15T12:23:45.1950179Z [1m[92m  Downloaded[0m yoke v0.8.3
+2026-11-15T12:23:45.1972280Z [1m[92m  Downloaded[0m wasm-streams v0.5.0
+2026-11-15T12:23:45.2019806Z [1m[92m  Downloaded[0m schemars v0.8.22
+2026-11-15T12:23:45.2164496Z [1m[92m  Downloaded[0m slog v2.8.2
+2026-11-15T12:23:45.2203468Z [1m[92m  Downloaded[0m r-efi v6.0.0
+2026-11-15T12:23:45.2258526Z [1m[92m  Downloaded[0m getrandom v0.4.3
+2026-11-15T12:23:45.2299608Z [1m[92m  Downloaded[0m windows-sys v0.52.0
+2026-11-15T12:23:45.3066928Z [1m[92m  Downloaded[0m sharded-slab v0.1.7
+2026-11-15T12:23:45.3104625Z [1m[92m  Downloaded[0m time-macros v0.2.32
+2026-11-15T12:23:45.3131588Z [1m[92m  Downloaded[0m once_cell v1.21.4
+2026-11-15T12:23:45.3159669Z [1m[92m  Downloaded[0m socket2 v0.6.5
+2026-11-15T12:23:45.3180005Z [1m[92m  Downloaded[0m merlin v3.0.0
+2026-11-15T12:23:45.3193476Z [1m[92m  Downloaded[0m hex-literal v0.4.1
+2026-11-15T12:23:45.3204865Z [1m[92m  Downloaded[0m rand_chacha v0.3.1
+2026-11-15T12:23:45.3218059Z [1m[92m  Downloaded[0m ic-verify-bls-signature v0.6.0
+2026-11-15T12:23:45.3230495Z [1m[92m  Downloaded[0m rfc6979 v0.4.0
+2026-11-15T12:23:45.3242001Z [1m[92m  Downloaded[0m signature v2.2.0
+2026-11-15T12:23:45.3257713Z [1m[92m  Downloaded[0m ecdsa v0.16.9
+2026-11-15T12:23:45.3276514Z [1m[92m  Downloaded[0m group v0.13.0
+2026-11-15T12:23:45.3293285Z [1m[92m  Downloaded[0m base16ct v0.2.0
+2026-11-15T12:23:45.3308447Z [1m[92m  Downloaded[0m base64ct v1.8.3
+2026-11-15T12:23:45.3336537Z [1m[92m  Downloaded[0m pem-rfc7468 v0.7.0
+2026-11-15T12:23:45.3357927Z [1m[92m  Downloaded[0m spki v0.7.3
+2026-11-15T12:23:45.3377282Z [1m[92m  Downloaded[0m sec1 v0.7.3
+2026-11-15T12:23:45.3395668Z [1m[92m  Downloaded[0m rand_pcg v0.10.2
+2026-11-15T12:23:45.3411949Z [1m[92m  Downloaded[0m rustls-native-certs v0.8.4
+2026-11-15T12:23:45.3426880Z [1m[92m  Downloaded[0m core-foundation v0.10.1
+2026-11-15T12:23:45.3452006Z [1m[92m  Downloaded[0m security-framework-sys v2.17.0
+2026-11-15T12:23:45.3476722Z [1m[92m  Downloaded[0m tokio-rustls v0.26.6
+2026-11-15T12:23:45.3494991Z [1m[92m  Downloaded[0m http-body v1.1.0
+2026-11-15T12:23:45.3506177Z [1m[92m  Downloaded[0m litemap v0.8.3
+2026-11-15T12:23:45.3531186Z [1m[92m  Downloaded[0m tinystr v0.8.4
+2026-11-15T12:23:45.3553806Z [1m[92m  Downloaded[0m writeable v0.6.4
+2026-11-15T12:23:45.3576705Z [1m[92m  Downloaded[0m zerotrie v0.2.5
+2026-11-15T12:23:45.3622126Z [1m[92m  Downloaded[0m linux-raw-sys v0.12.1
+2026-11-15T12:23:45.4359727Z [1m[92m  Downloaded[0m synstructure v0.14.0
+2026-11-15T12:23:45.4370915Z [1m[92m  Downloaded[0m zerovec-derive v0.11.6
+2026-11-15T12:23:45.4390066Z [1m[92m  Downloaded[0m serde_derive_internals v0.29.1
+2026-11-15T12:23:45.4406344Z [1m[92m  Downloaded[0m zeroize v1.9.1
+2026-11-15T12:23:45.4423091Z [1m[92m  Downloaded[0m erased-serde v0.3.31
+2026-11-15T12:23:45.4447762Z [1m[92m  Downloaded[0m fastrand v2.5.0
+2026-11-15T12:23:45.4463082Z [1m[92m  Downloaded[0m futures-task v0.3.34
+2026-11-15T12:23:45.4476035Z [1m[92m  Downloaded[0m tracing-core v0.1.36
+2026-11-15T12:23:45.4505490Z [1m[92m  Downloaded[0m untrusted v0.9.0
+2026-11-15T12:23:45.4523583Z [1m[92m  Downloaded[0m yoke-derive v0.8.4
+2026-11-15T12:23:45.4536499Z [1m[92m  Downloaded[0m zerofrom-derive v0.1.8
+2026-11-15T12:23:45.4548447Z [1m[92m  Downloaded[0m idna_adapter v1.2.2
+2026-11-15T12:23:45.4559068Z [1m[92m  Downloaded[0m utf8_iter v1.0.4
+2026-11-15T12:23:45.4570509Z [1m[92m  Downloaded[0m schemars_derive v0.8.22
+2026-11-15T12:23:45.4587564Z [1m[92m  Downloaded[0m zeroize_derive v1.5.0
+2026-11-15T12:23:45.4598146Z [1m[92m  Downloaded[0m futures-macro v0.3.34
+2026-11-15T12:23:45.4609353Z [1m[92m  Downloaded[0m futures-channel v0.3.34
+2026-11-15T12:23:45.4629803Z [1m[92m  Downloaded[0m httparse v1.10.1
+2026-11-15T12:23:45.4658083Z [1m[92m  Downloaded[0m tinyvec v1.13.3
+2026-11-15T12:23:45.4696290Z [1m[92m  Downloaded[0m rustls-platform-verifier v0.7.1
+2026-11-15T12:23:45.4739995Z [1m[92m  Downloaded[0m stable_deref_trait v1.2.1
+2026-11-15T12:23:45.4749459Z [1m[92m  Downloaded[0m percent-encoding v2.3.2
+2026-11-15T12:23:45.4758716Z [1m[92m  Downloaded[0m subtle v2.6.1
+2026-11-15T12:23:45.4772798Z [1m[92m  Downloaded[0m tracing-appender v0.2.5
+2026-11-15T12:23:45.4790329Z [1m[92m  Downloaded[0m deranged v0.5.8
+2026-11-15T12:23:45.4805435Z [1m[92m  Downloaded[0m chacha20 v0.10.2
+2026-11-15T12:23:45.4831674Z [1m[92m  Downloaded[0m quinn-udp v0.5.16
+2026-11-15T12:23:45.4850688Z [1m[92m  Downloaded[0m wasm-bindgen-futures v0.4.79
+2026-11-15T12:23:45.4861605Z [1m[92m  Downloaded[0m futures-io v0.3.34
+2026-11-15T12:23:45.4870696Z [1m[92m  Downloaded[0m ic-management-canister-types v0.8.0
+2026-11-15T12:23:45.4881034Z [1m[92m  Downloaded[0m mime_guess v2.0.5
+2026-11-15T12:23:45.4899717Z [1m[92m  Downloaded[0m core-foundation-sys v0.8.7
+2026-11-15T12:23:45.4935898Z [1m[92m  Downloaded[0m fs_extra v1.3.0
+2026-11-15T12:23:45.4955069Z [1m[92m  Downloaded[0m web-time v1.1.0
+2026-11-15T12:23:45.4972938Z [1m[92m  Downloaded[0m displaydoc v0.2.7
+2026-11-15T12:23:45.4995127Z [1m[92m  Downloaded[0m futures-sink v0.3.34
+2026-11-15T12:23:45.5004321Z [1m[92m  Downloaded[0m errno v0.3.14
+2026-11-15T12:23:45.5020555Z [1m[92m  Downloaded[0m mime v0.3.17
+2026-11-15T12:23:45.5034755Z [1m[92m  Downloaded[0m jni-sys v0.4.1
+2026-11-15T12:23:45.5046090Z [1m[92m  Downloaded[0m rustls-platform-verifier-android v0.2.0
+2026-11-15T12:23:45.5054443Z [1m[92m  Downloaded[0m tower-service v0.3.3
+2026-11-15T12:23:45.5063069Z [1m[92m  Downloaded[0m form_urlencoded v1.2.2
+2026-11-15T12:23:45.5071463Z [1m[92m  Downloaded[0m openssl-probe v0.2.1
+2026-11-15T12:23:45.5084548Z [1m[92m  Downloaded[0m sync_wrapper v1.0.2
+2026-11-15T12:23:45.5093980Z [1m[92m  Downloaded[0m potential_utf v0.1.6
+2026-11-15T12:23:45.5106160Z [1m[92m  Downloaded[0m futures-core v0.3.34
+2026-11-15T12:23:45.5120998Z [1m[92m  Downloaded[0m wasm-bindgen-macro v0.2.129
+2026-11-15T12:23:45.5130980Z [1m[92m  Downloaded[0m symlink v0.1.0
+2026-11-15T12:23:45.5143227Z [1m[92m  Downloaded[0m matchers v0.2.0
+2026-11-15T12:23:45.5154717Z [1m[92m  Downloaded[0m tracing-attributes v0.1.31
+2026-11-15T12:23:45.5183952Z [1m[92m  Downloaded[0m wasm-bindgen-shared v0.2.129
+2026-11-15T12:23:45.5195278Z [1m[92m  Downloaded[0m nu-ansi-term v0.50.3
+2026-11-15T12:23:45.5221791Z [1m[92m  Downloaded[0m const-oid v0.9.6
+2026-11-15T12:23:45.5244176Z [1m[92m  Downloaded[0m rand_core v0.10.1
+2026-11-15T12:23:45.5261708Z [1m[92m  Downloaded[0m wasm-bindgen-macro-support v0.2.129
+2026-11-15T12:23:45.5289012Z [1m[92m  Downloaded[0m crossbeam-utils v0.8.23
+2026-11-15T12:23:45.5319609Z [1m[92m  Downloaded[0m thiserror-impl v2.0.18
+2026-11-15T12:23:45.5335663Z [1m[92m  Downloaded[0m thiserror v2.0.18
+2026-11-15T12:23:45.5406854Z [1m[92m  Downloaded[0m thread_local v1.1.10
+2026-11-15T12:23:45.5420930Z [1m[92m  Downloaded[0m powerfmt v0.2.1
+2026-11-15T12:23:45.5434955Z [1m[92m  Downloaded[0m num-conv v0.2.2
+2026-11-15T12:23:45.5443885Z [1m[92m  Downloaded[0m tracing-log v0.2.0
+2026-11-15T12:23:45.5458243Z [1m[92m  Downloaded[0m half v1.8.3
+2026-11-15T12:23:45.5482741Z [1m[92m  Downloaded[0m serde_cbor v0.11.2
+2026-11-15T12:23:45.5513974Z [1m[92m  Downloaded[0m tokio v1.53.2
+2026-11-15T12:23:45.6051173Z [1m[92m  Downloaded[0m tempfile v3.27.0
+2026-11-15T12:23:45.6079893Z [1m[92m  Downloaded[0m time-core v0.1.9
+2026-11-15T12:23:45.6091967Z [1m[92m  Downloaded[0m valuable v0.1.1
+2026-11-15T12:23:45.6114623Z [1m[92m  Downloaded[0m tracing-serde v0.2.0
+2026-11-15T12:23:45.6124428Z [1m[92m  Downloaded[0m signal-hook-registry v1.4.8
+2026-11-15T12:23:45.6137392Z [1m[92m  Downloaded[0m semver v1.0.28
+2026-11-15T12:23:45.6162994Z [1m[92m  Downloaded[0m wasmparser v0.261.0
+2026-11-15T12:23:45.6260548Z [1m[92m  Downloaded[0m wast v261.0.0
+2026-11-15T12:23:45.6397948Z [1m[92m  Downloaded[0m wat v1.261.0
+2026-11-15T12:23:45.6408838Z [1m[92m  Downloaded[0m leb128fmt v0.1.0
+2026-11-15T12:23:45.6419291Z [1m[92m  Downloaded[0m wasm-encoder v0.261.0
+2026-11-15T12:23:45.6591233Z [1m[92m  Downloaded[0m aws-lc-sys v0.45.0
+2026-11-15T12:23:46.0246850Z ##[group]Run cargo +1.94.1 fetch --manifest-path tools/s14-index-fixture/Cargo.toml --locked
+2026-11-15T12:23:46.0247506Z [36;1mcargo +1.94.1 fetch --manifest-path tools/s14-index-fixture/Cargo.toml --locked[0m
+2026-11-15T12:23:46.0311408Z shell: /usr/bin/bash -e {0}
+2026-11-15T12:23:46.0311659Z env:
+2026-11-15T12:23:46.0311851Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:46.0312092Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:46.0312313Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:46.0312604Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:46.0313065Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T12:23:46.0313521Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:46.0313928Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:46.0314473Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:46.0314975Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T12:23:46.0315324Z ##[endgroup]
+2026-11-15T12:23:46.0961261Z [1m[92m Downloading[0m crates ...
+2026-11-15T12:23:46.1270533Z [1m[92m  Downloaded[0m num-bigint v0.4.8
+2026-11-15T12:23:46.1432576Z ##[group]Run python -B tools/fetch_s09_artifacts.py --destination /home/runner/dtr-s09-artifacts --record .work/ci-s14-artifacts.json
+2026-11-15T12:23:46.1433553Z [36;1mpython -B tools/fetch_s09_artifacts.py --destination /home/runner/dtr-s09-artifacts --record .work/ci-s14-artifacts.json[0m
+2026-11-15T12:23:46.1497616Z shell: /usr/bin/bash -e {0}
+2026-11-15T12:23:46.1497868Z env:
+2026-11-15T12:23:46.1498065Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:46.1498303Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:46.1498531Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:46.1498808Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:46.1499271Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T12:23:46.1500046Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:46.1500445Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:46.1500874Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:46.1501269Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T12:23:46.1501808Z ##[endgroup]
+2026-11-15T12:23:49.2909733Z VERIFIED pocket-ic 131219d90dcf9bf6f3ed8ee02d8f55504ea24a6db382f5680675b7bd6b7ed3bf
+2026-11-15T12:23:49.2910920Z VERIFIED icp-ledger-wasm e66fa97ca52e40a43549bb5c37503568e64ec5ba3579c0ad6c3c7e3cc06013ae
+2026-11-15T12:23:49.2912015Z VERIFIED icp-ledger-did 18c2fe7ea500c88df92eddd83a69a3e44c07a289465e06941b07c0dffc7099df
+2026-11-15T12:23:49.2913181Z VERIFIED icp-ledger-archive-wasm 3a8ec8620661a234aff5d77286fbffd7959ca5f8bdbb6b7bbfc706130bf76a42
+2026-11-15T12:23:49.2914382Z VERIFIED icp-ledger-archive-did 8b9f602f2eb8b87a74d595a46f5c52117b9c0ba5bbb67731b349e0d4cadc3232
+2026-11-15T12:23:49.2915509Z VERIFIED icp-index-wasm 3015c0d83b832e6cb5685e98c0cef690c3b89661343965767bb11397cc9f7b3f
+2026-11-15T12:23:49.2916548Z VERIFIED icp-index-did 7cc38f9c04119460019dc5146b5fb454ddd21395c7a4651692d604794ebe7df5
+2026-11-15T12:23:49.2917386Z PASS artifact record .work/ci-s14-artifacts.json
+2026-11-15T12:23:49.3037874Z ##[group]Run python -B tools/check_dtr_provenance.py --manifest canisters/runtime-lab/Cargo.toml --manifest tools/s09-integration/Cargo.toml --output .work/ci-dtr-integration.json
+2026-11-15T12:23:49.3039195Z [36;1mpython -B tools/check_dtr_provenance.py --manifest canisters/runtime-lab/Cargo.toml --manifest tools/s09-integration/Cargo.toml --output .work/ci-dtr-integration.json[0m
+2026-11-15T12:23:49.3103631Z shell: /usr/bin/bash -e {0}
+2026-11-15T12:23:49.3103895Z env:
+2026-11-15T12:23:49.3104102Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:49.3104354Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:49.3104587Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:49.3104877Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:49.3105361Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T12:23:49.3105821Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:49.3106262Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:49.3106682Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:49.3107088Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T12:23:49.3107434Z ##[endgroup]
+2026-11-15T12:23:49.7887692Z {
+2026-11-15T12:23:49.7888511Z   "required_rust_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7889208Z   "release_contract": {
+2026-11-15T12:23:49.7890181Z     "required_rust_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7891567Z     "status": "Published application-checkpoint revision; B2Z v6 integration/qualification pending",
+2026-11-15T12:23:49.7892872Z     "npm_archive": "vendor/dtr/dtr-timeline-runtime-0.15.0.tgz",
+2026-11-15T12:23:49.7894093Z     "npm_archive_sha256": "22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720"
+2026-11-15T12:23:49.7895026Z   },
+2026-11-15T12:23:49.7895423Z   "source_graphs": [
+2026-11-15T12:23:49.7895861Z     {
+2026-11-15T12:23:49.7896339Z       "manifest": "Cargo.toml",
+2026-11-15T12:23:49.7896869Z       "locked": [
+2026-11-15T12:23:49.7897285Z         {
+2026-11-15T12:23:49.7897684Z           "name": "dtr-core",
+2026-11-15T12:23:49.7898223Z           "version": "0.15.0",
+2026-11-15T12:23:49.7899242Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7900299Z           "checksum": null
+2026-11-15T12:23:49.7900550Z         },
+2026-11-15T12:23:49.7900744Z         {
+2026-11-15T12:23:49.7901008Z           "name": "life-conformance",
+2026-11-15T12:23:49.7901321Z           "version": "0.15.0",
+2026-11-15T12:23:49.7902045Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7902731Z           "checksum": null
+2026-11-15T12:23:49.7902968Z         }
+2026-11-15T12:23:49.7903160Z       ]
+2026-11-15T12:23:49.7903356Z     },
+2026-11-15T12:23:49.7903931Z     {
+2026-11-15T12:23:49.7904167Z       "manifest": "native/Cargo.toml",
+2026-11-15T12:23:49.7904456Z       "locked": [
+2026-11-15T12:23:49.7904659Z         {
+2026-11-15T12:23:49.7904861Z           "name": "dtr-core",
+2026-11-15T12:23:49.7905138Z           "version": "0.15.0",
+2026-11-15T12:23:49.7905851Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7906513Z           "checksum": null
+2026-11-15T12:23:49.7906748Z         },
+2026-11-15T12:23:49.7906937Z         {
+2026-11-15T12:23:49.7907135Z           "name": "dtr-host",
+2026-11-15T12:23:49.7907411Z           "version": "0.15.0",
+2026-11-15T12:23:49.7908092Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7908691Z           "checksum": null
+2026-11-15T12:23:49.7908906Z         },
+2026-11-15T12:23:49.7909292Z         {
+2026-11-15T12:23:49.7909506Z           "name": "dtr-wire",
+2026-11-15T12:23:49.7910060Z           "version": "0.15.0",
+2026-11-15T12:23:49.7910739Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7911353Z           "checksum": null
+2026-11-15T12:23:49.7911567Z         }
+2026-11-15T12:23:49.7911749Z       ]
+2026-11-15T12:23:49.7911923Z     },
+2026-11-15T12:23:49.7912095Z     {
+2026-11-15T12:23:49.7912371Z       "manifest": "canisters/runtime-lab/Cargo.toml",
+2026-11-15T12:23:49.7912687Z       "locked": [
+2026-11-15T12:23:49.7912882Z         {
+2026-11-15T12:23:49.7913070Z           "name": "dtr-core",
+2026-11-15T12:23:49.7913333Z           "version": "0.15.0",
+2026-11-15T12:23:49.7913980Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7914590Z           "checksum": null
+2026-11-15T12:23:49.7914819Z         },
+2026-11-15T12:23:49.7915000Z         {
+2026-11-15T12:23:49.7915192Z           "name": "dtr-host",
+2026-11-15T12:23:49.7915479Z           "version": "0.15.0",
+2026-11-15T12:23:49.7916120Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7916724Z           "checksum": null
+2026-11-15T12:23:49.7916940Z         },
+2026-11-15T12:23:49.7917120Z         {
+2026-11-15T12:23:49.7917316Z           "name": "dtr-wire",
+2026-11-15T12:23:49.7917573Z           "version": "0.15.0",
+2026-11-15T12:23:49.7918208Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7918808Z           "checksum": null
+2026-11-15T12:23:49.7919028Z         }
+2026-11-15T12:23:49.7919205Z       ]
+2026-11-15T12:23:49.7919374Z     },
+2026-11-15T12:23:49.7919776Z     {
+2026-11-15T12:23:49.7920069Z       "manifest": "tools/s09-integration/Cargo.toml",
+2026-11-15T12:23:49.7920381Z       "locked": [
+2026-11-15T12:23:49.7920914Z         {
+2026-11-15T12:23:49.7921317Z           "name": "dtr-core",
+2026-11-15T12:23:49.7934384Z           "version": "0.15.0",
+2026-11-15T12:23:49.7935540Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7936229Z           "checksum": null
+2026-11-15T12:23:49.7936469Z         },
+2026-11-15T12:23:49.7936663Z         {
+2026-11-15T12:23:49.7936866Z           "name": "dtr-host",
+2026-11-15T12:23:49.7937146Z           "version": "0.15.0",
+2026-11-15T12:23:49.7937828Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7938447Z           "checksum": null
+2026-11-15T12:23:49.7938670Z         },
+2026-11-15T12:23:49.7938853Z         {
+2026-11-15T12:23:49.7939053Z           "name": "dtr-wire",
+2026-11-15T12:23:49.7939875Z           "version": "0.15.0",
+2026-11-15T12:23:49.7940553Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7941192Z           "checksum": null
+2026-11-15T12:23:49.7941409Z         }
+2026-11-15T12:23:49.7941589Z       ]
+2026-11-15T12:23:49.7941767Z     },
+2026-11-15T12:23:49.7941946Z     {
+2026-11-15T12:23:49.7942251Z       "manifest": "tools/fixtures/dtr-consumer-rust/Cargo.toml",
+2026-11-15T12:23:49.7942606Z       "locked": [
+2026-11-15T12:23:49.7942799Z         {
+2026-11-15T12:23:49.7942995Z           "name": "dtr-core",
+2026-11-15T12:23:49.7943268Z           "version": "0.15.0",
+2026-11-15T12:23:49.7943926Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7944528Z           "checksum": null
+2026-11-15T12:23:49.7944942Z         },
+2026-11-15T12:23:49.7945134Z         {
+2026-11-15T12:23:49.7945319Z           "name": "dtr-host",
+2026-11-15T12:23:49.7945585Z           "version": "0.15.0",
+2026-11-15T12:23:49.7946262Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7946862Z           "checksum": null
+2026-11-15T12:23:49.7947076Z         },
+2026-11-15T12:23:49.7947251Z         {
+2026-11-15T12:23:49.7947491Z           "name": "dtr-source-model",
+2026-11-15T12:23:49.7947775Z           "version": "0.15.0",
+2026-11-15T12:23:49.7948414Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7949015Z           "checksum": null
+2026-11-15T12:23:49.7949230Z         },
+2026-11-15T12:23:49.7949410Z         {
+2026-11-15T12:23:49.7949819Z           "name": "dtr-wire",
+2026-11-15T12:23:49.7950109Z           "version": "0.15.0",
+2026-11-15T12:23:49.7950765Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7951385Z           "checksum": null
+2026-11-15T12:23:49.7951607Z         }
+2026-11-15T12:23:49.7951786Z       ]
+2026-11-15T12:23:49.7951964Z     },
+2026-11-15T12:23:49.7952146Z     {
+2026-11-15T12:23:49.7952420Z       "manifest": "canisters/runtime-lab/Cargo.toml",
+2026-11-15T12:23:49.7952731Z       "resolved": [
+2026-11-15T12:23:49.7952942Z         {
+2026-11-15T12:23:49.7953144Z           "name": "dtr-core",
+2026-11-15T12:23:49.7953439Z           "version": "0.15.0",
+2026-11-15T12:23:49.7954121Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7954744Z           "checksum": null
+2026-11-15T12:23:49.7954970Z         },
+2026-11-15T12:23:49.7955149Z         {
+2026-11-15T12:23:49.7955346Z           "name": "dtr-host",
+2026-11-15T12:23:49.7955614Z           "version": "0.15.0",
+2026-11-15T12:23:49.7956252Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7956858Z           "checksum": null
+2026-11-15T12:23:49.7957078Z         },
+2026-11-15T12:23:49.7957260Z         {
+2026-11-15T12:23:49.7957445Z           "name": "dtr-wire",
+2026-11-15T12:23:49.7957696Z           "version": "0.15.0",
+2026-11-15T12:23:49.7958324Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7958929Z           "checksum": null
+2026-11-15T12:23:49.7959148Z         }
+2026-11-15T12:23:49.7959322Z       ]
+2026-11-15T12:23:49.7959498Z     },
+2026-11-15T12:23:49.7959925Z     {
+2026-11-15T12:23:49.7960199Z       "manifest": "tools/s09-integration/Cargo.toml",
+2026-11-15T12:23:49.7960500Z       "resolved": [
+2026-11-15T12:23:49.7960868Z         {
+2026-11-15T12:23:49.7961063Z           "name": "dtr-core",
+2026-11-15T12:23:49.7961312Z           "version": "0.15.0",
+2026-11-15T12:23:49.7961954Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7962584Z           "checksum": null
+2026-11-15T12:23:49.7962805Z         },
+2026-11-15T12:23:49.7962980Z         {
+2026-11-15T12:23:49.7963174Z           "name": "dtr-host",
+2026-11-15T12:23:49.7963422Z           "version": "0.15.0",
+2026-11-15T12:23:49.7964063Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7964665Z           "checksum": null
+2026-11-15T12:23:49.7964878Z         },
+2026-11-15T12:23:49.7965051Z         {
+2026-11-15T12:23:49.7965239Z           "name": "dtr-wire",
+2026-11-15T12:23:49.7965485Z           "version": "0.15.0",
+2026-11-15T12:23:49.7966289Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-15T12:23:49.7966904Z           "checksum": null
+2026-11-15T12:23:49.7967119Z         }
+2026-11-15T12:23:49.7967294Z       ]
+2026-11-15T12:23:49.7967468Z     }
+2026-11-15T12:23:49.7967648Z   ],
+2026-11-15T12:23:49.7967840Z   "status": "PASS"
+2026-11-15T12:23:49.7968215Z }
+2026-11-15T12:23:49.7999125Z ##[group]Run python -B tools/check.py integration --output .work/ci-integration
+2026-11-15T12:23:49.7999966Z [36;1mpython -B tools/check.py integration --output .work/ci-integration[0m
+2026-11-15T12:23:49.8063011Z shell: /usr/bin/bash -e {0}
+2026-11-15T12:23:49.8063253Z env:
+2026-11-15T12:23:49.8063449Z   CARGO_TERM_COLOR: always
+2026-11-15T12:23:49.8063686Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T12:23:49.8063913Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T12:23:49.8064192Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:49.8064631Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T12:23:49.8065077Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:49.8065457Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:49.8065837Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T12:23:49.8066226Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T12:23:49.8066573Z ##[endgroup]
+2026-11-15T13:27:48.0912265Z s14-index-poke-local-slice PASS
+2026-11-15T13:27:48.0914109Z OVERALL PASS
+2026-11-15T13:27:48.1055938Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-11-15T13:27:48.1056363Z with:
+2026-11-15T13:27:48.1056565Z   name: local-ic-evidence
+2026-11-15T13:27:48.1061159Z   path: .work/ci-integration/environment.json
+.work/ci-integration/verification.json
+.work/ci-integration/logs/**
+.work/ci-integration/s14-local/*.json
+.work/ci-integration/s14-local/generated.did
+.work/ci-integration/s14-local/logs/**
+.work/ci-integration/s14-local/deployment/browser.log
+.work/ci-integration/s14-local/deployment/clearance-*.json
+.work/ci-integration/s14-local/deployment/trace.json
+.work/ci-integration/s14-local/deployment/replay.json
+.work/ci-integration/s14-local/deployment/browser/*.json
+.work/ci-integration/s14-local/deployment/browser/*.png
+.work/ci-integration/s14-local/deployment/browser/browser.log
+.work/ci-integration/s14-local/deployment/browser/wire/**
+.work/ci-integration/s14-local/deployment/results.json
+.work/ci-integration/s14-local/deployment/transition-browser/**
+.work/ci-integration/s14-local/deployment/torus-scene/**
+.work/ci-integration/s14-local/deployment/million-*.json
+.work/ci-integration/s14-local/deployment/million-browser-*/**
+.work/ci-integration/s14-local/deployment/million-certified-checkpoint/**
+.work/ci-integration/s14-local/deployment/human-corrections/**
+.work/ci-integration/s14-local/*.wasm
+.work/ci-integration/s14-local/snapshot/**
+
+2026-11-15T13:27:48.1065692Z   if-no-files-found: warn
+2026-11-15T13:27:48.1066228Z   retention-days: 14
+2026-11-15T13:27:48.1066443Z   compression-level: 6
+2026-11-15T13:27:48.1066656Z   overwrite: false
+2026-11-15T13:27:48.1066866Z   include-hidden-files: false
+2026-11-15T13:27:48.1067096Z env:
+2026-11-15T13:27:48.1067277Z   CARGO_TERM_COLOR: always
+2026-11-15T13:27:48.1067502Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-15T13:27:48.1067716Z   B2Z_AUDIO_QUAL: 1
+2026-11-15T13:27:48.1067983Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T13:27:48.1068431Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-15T13:27:48.1068858Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T13:27:48.1069233Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T13:27:48.1069931Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-15T13:27:48.1070424Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-15T13:27:48.1070751Z ##[endgroup]
+2026-11-15T13:27:48.2899244Z (node:44395) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-15T13:27:48.2900998Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-15T13:27:49.0452748Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-15T13:27:49.0456606Z The least common ancestor is /home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-integration. This will be the root directory of the artifact
+2026-11-15T13:27:49.0458808Z With the provided path, there will be 3397 files uploaded
+2026-11-15T13:27:49.0465504Z Artifact name is valid!
+2026-11-15T13:27:49.0466523Z Root directory input is valid!
+2026-11-15T13:27:49.4570718Z Beginning upload of artifact content to blob storage
+2026-11-15T13:27:49.8345864Z (node:44395) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-15T13:27:50.7026349Z Uploaded bytes 8388608
+2026-11-15T13:27:50.9154342Z Uploaded bytes 16777216
+2026-11-15T13:27:51.1874704Z Uploaded bytes 25165824
+2026-11-15T13:27:51.2265449Z Uploaded bytes 33554432
+2026-11-15T13:27:51.3188949Z Uploaded bytes 41943040
+2026-11-15T13:27:51.5357126Z Uploaded bytes 50331648
+2026-11-15T13:27:51.6624908Z Uploaded bytes 58720256
+2026-11-15T13:27:51.8720976Z Uploaded bytes 67108864
+2026-11-15T13:27:52.1205983Z Uploaded bytes 75497472
+2026-11-15T13:27:52.4491451Z Uploaded bytes 83886080
+2026-11-15T13:27:52.6756035Z Uploaded bytes 92274688
+2026-11-15T13:27:52.9442276Z Uploaded bytes 100663296
+2026-11-15T13:27:53.1956434Z Uploaded bytes 109051904
+2026-11-15T13:27:53.4296446Z Uploaded bytes 117440512
+2026-11-15T13:27:53.6948843Z Uploaded bytes 125829120
+2026-11-15T13:27:53.9487750Z Uploaded bytes 134217728
+2026-11-15T13:27:54.2130885Z Uploaded bytes 142606336
+2026-11-15T13:27:54.4664677Z Uploaded bytes 150994944
+2026-11-15T13:27:55.0604518Z Uploaded bytes 159383552
+2026-11-15T13:27:56.3990783Z Uploaded bytes 167772160
+2026-11-15T13:27:57.9079883Z Uploaded bytes 176160768
+2026-11-15T13:27:58.2335786Z Uploaded bytes 184549376
+2026-11-15T13:27:58.4638836Z Uploaded bytes 187861569
+2026-11-15T13:27:58.5735048Z Finished uploading artifact content to blob storage!
+2026-11-15T13:27:58.5738599Z SHA256 digest of uploaded artifact zip is fa28c7cd478fa6542782b74f74f75f3b727aa22651ead3f39cbbb321264d6f6a
+2026-11-15T13:27:58.5741343Z Finalizing artifact upload
+2026-11-15T13:27:59.1178212Z Artifact local-ic-evidence.zip successfully finalized. Artifact ID 14163209244
+2026-11-15T13:27:59.1180030Z Artifact local-ic-evidence has been successfully uploaded! Final size is 187861569 bytes. Artifact ID is 14163209244
+2026-11-15T13:27:59.1187677Z Artifact download URL: https://github.com/aodl/balls-2-the-wallz/actions/runs/43713498060/artifacts/14163209244
+2026-11-15T13:27:59.1596802Z Post job cleanup.
+2026-11-15T13:27:59.2940145Z (node:44409) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-15T13:27:59.2942125Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-15T13:27:59.2945376Z Cache hit occurred on the primary key node-cache-Linux-x64-npm-f5ca1d9cbfc8bd623ad3e5097c7f4f5a155294f0b997b4beb4922bc527ca7129, not saving cache.
+2026-11-15T13:27:59.3067370Z Post job cleanup.
+2026-11-15T13:27:59.4415673Z (node:44417) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-15T13:27:59.4440767Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-15T13:27:59.4664720Z Post job cleanup.
+2026-11-15T13:27:59.5960518Z [command]/usr/bin/git version
+2026-11-15T13:27:59.6006183Z git version 2.56.1
+2026-11-15T13:27:59.6070954Z Temporarily overriding HOME='/home/runner/work/_temp/e9c0f47c-e4fd-485a-8395-ed5ebe4e63d8' before making global git config changes
+2026-11-15T13:27:59.6072697Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-15T13:27:59.6074296Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/balls-2-the-wallz/balls-2-the-wallz
+2026-11-15T13:27:59.6111286Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-15T13:27:59.6176669Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-15T13:27:59.6602446Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-15T13:27:59.6639021Z http.https://github.com/.extraheader
+2026-11-15T13:27:59.6649865Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-15T13:27:59.6698565Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-15T13:27:59.7056076Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-15T13:27:59.7104636Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-15T13:27:59.7570828Z Cleaning up orphan processes
+2026-11-15T13:27:59.8048776Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020, actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/
+

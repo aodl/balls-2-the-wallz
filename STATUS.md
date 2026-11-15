@@ -1,16 +1,31 @@
-# Quantity availability correction — qualification in progress; no deployment
+# Quantity availability replacement — six hosted gates PASS; not deployed
 
-The retained320×640/347.15° failure is reproduced on rejected source. A measured
-reserved control-rail/contracted-strip fallback replaces disappearance, preserving
-the one editor/model, native gesture ownership and exact financial handoff. The
-first toolbar-row experiment failed the existing payment-scroll minimum and was
-rejected; its evidence is retained. New runtime bytes require a new freeze and all
-six hosted gates. [Corrective report](evidence/B2Z/audio-onboarding-compact-controls/quantity-closeout/REPORT.md).
+Qualified source `76225150a08c2556e12dcf261e66b8f9489f2ed3` passed all six
+substantive gates in [run43713498060](https://github.com/aodl/balls-2-the-wallz/actions/runs/43713498060),
+including Browser HTTP/Web Crypto and S14/million-cell installed-IC. The
+informational inventory guard is excluded. Frozen runtime/build source remains
+`0f55cbb0356b0bb90979bb515f907383efe940a9`; JS
+`3ee92eee3dda006c57f2dd17779e0e4babb947dc54942c6bd4998b975ebedbb2`;
+complete78-file inventory
+`4606757478a113e7a682f0077b69155e9455b2bf60624066c608b7b8168526be`.
 
-Production remains the restored75-file frontend and Rules7 backend. A fresh read-only
-observation recorded Trickle/admission open; the earlier low-energy condition is
-historical, not assumed current. No funding, backend, settings, financial or production
-asset operation is authorised/performed. P09 and physical/browser limitations remain.
+The exact320×640/cell0/347.15° failure is reproduced on rejected source and
+resolved with a measured reserved control-rail/contracted-strip dock, not another
+guessed slot. Local source PASS1,946 Node/201 Python; all browser regressions PASS.
+Eleven contexts,187 heading states,396 status samples with0px drift,52 native
+keyboard states across both directions and genuine5/35s visibility all pass.
+Exact frozen assets against read-only mainnet Rules7 also pass; fresh-ready exact
+copying and quantity Keep are demonstrated without a payment/status override.
+[Corrective closeout and new approval plan](evidence/B2Z/audio-onboarding-compact-controls/quantity-closeout/REPORT.md).
+
+Production remains the restored75-file frontend and Rules7 backend. The latest
+read-only operating query recorded Trickle/admission open; earlier ReserveProtection
+is historical, not assumed current. Both rollback and current staging still match
+the old75-file inventory. Audio files/mix/source, backend, financial authority and
+dependencies are unchanged. P09 remains FAIL/unqualified; physical devices, Firefox
+audible output and BFCache remain NOT VERIFIED. No deployment, Rules9/delegated
+payment activation, funding, settings/controller, backend or financial operation
+was performed. A new owner frontend deployment decision is required.
 
 ---
 
@@ -25,16 +40,19 @@ bytes/headers, signed inventory, v2 body/header/path witnesses and Rules7 startu
 verified. Do not redeploy the unchanged candidate.
 
 [Deployment/rollback and actual live acceptance](evidence/B2Z/audio-onboarding-compact-controls/deployment/REPORT.md)
-records the defect, recordings, successful checks and limitations. Production was
+records the defect, recordings, successful checks and limitations. At the trial, production was
 already in low-energy protection before installation; payment copying correctly
-remained disabled. Enabled-copy/fresh-impact acceptance is BLOCKED by that state.
+remained disabled and enabled-copy/fresh-impact acceptance was blocked. Later
+read-only Trickle/admission-open and ready-copy observations are recorded in the
+quantity closeout above; no operational intervention was performed.
 No backend, financial, funding, settings/controller or Rules9 action was performed.
-A separate narrow source correction/qualification and deployment decision are
-needed; P09 and physical/browser listening limitations remain.
+The narrow source correction and qualification are complete above; a separate new
+frontend deployment decision remains required. P09 and physical/browser listening
+limitations remain.
 
 ---
 
-# Audio, returning entry and compact controls — six hosted gates PASS; undeployed
+# Historical audio/compact freeze — six gates passed, then live trial failed and rolled back
 
 Exact qualified source `5f078edd48d62170d13b20819a90d6c9948b0258` passed all six
 substantive gates in [run43655854356](https://github.com/aodl/balls-2-the-wallz/actions/runs/43655854356),

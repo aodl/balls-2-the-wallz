@@ -1,0 +1,69 @@
+{
+  "scope": "Node helper microbenchmark on exact retained input, old/new and old/old controls. Not renderer/audio/hardware performance qualification; P09 unchanged.",
+  "rows": [
+    {
+      "scene": "narrow",
+      "name": "old-A",
+      "samples": 10000,
+      "p50_us": 3.8,
+      "p95_us": 5.6,
+      "p99_us": 17.001
+    },
+    {
+      "scene": "narrow",
+      "name": "new-B",
+      "samples": 10000,
+      "p50_us": 0.3,
+      "p95_us": 1,
+      "p99_us": 3.5
+    },
+    {
+      "scene": "narrow",
+      "name": "old-A2",
+      "samples": 10000,
+      "p50_us": 2.1,
+      "p95_us": 2.8,
+      "p99_us": 3.9
+    },
+    {
+      "scene": "narrow",
+      "name": "old-A3",
+      "samples": 10000,
+      "p50_us": 2.1,
+      "p95_us": 3,
+      "p99_us": 4.6
+    },
+    {
+      "scene": "desktop",
+      "name": "old-A",
+      "samples": 10000,
+      "p50_us": 5.4,
+      "p95_us": 10.2,
+      "p99_us": 23.001
+    },
+    {
+      "scene": "desktop",
+      "name": "new-B",
+      "samples": 10000,
+      "p50_us": 5.6,
+      "p95_us": 7.8,
+      "p99_us": 21.8
+    },
+    {
+      "scene": "desktop",
+      "name": "old-A2",
+      "samples": 10000,
+      "p50_us": 4.2,
+      "p95_us": 5.6,
+      "p99_us": 17.601
+    },
+    {
+      "scene": "desktop",
+      "name": "old-A3",
+      "samples": 10000,
+      "p50_us": 4.1,
+      "p95_us": 5.5,
+      "p99_us": 15.701
+    }
+  ]
+}

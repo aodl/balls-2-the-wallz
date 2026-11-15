@@ -1,0 +1,45 @@
+{
+  "status": "PASS",
+  "at": "2026-11-15T12:59:15.006Z",
+  "pinned_mainnet_root": true,
+  "default_time_verification_unchanged": true,
+  "protocol": "https://docs.internetcomputer.org/references/http-gateway-protocol-spec/",
+  "scope": "Restricted exact-path default CEL/no-request certificate profile used by these actual assets. Native pinned SDK BLS/delegation/canister/freshness; RI response-header plus body hashes; witness membership; changed-response negative. Not a general CEL interpreter.",
+  "rows": [
+    {
+      "file": "app.mjs",
+      "sha256": "97d8ee0bf61e8b76816511772ab348962d56bbf78b597acc365f48a38725cdc9",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "v2_exact_path_expression_body_status_and_listed_headers": true
+    },
+    {
+      "file": "index.html",
+      "sha256": "a9ec87ec1724ba704cb536c2e49aeb30df5c0f63533c304c8107df1de9c599f9",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "v2_exact_path_expression_body_status_and_listed_headers": true
+    },
+    {
+      "file": "style.css",
+      "sha256": "039b5458e995d2d41bd989d011a8518d04db95eb969a4d3bae4b078687e6d750",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "v2_exact_path_expression_body_status_and_listed_headers": true
+    },
+    {
+      "file": "deployment.json",
+      "sha256": "b68c8dfab2c537720b224ab5d4f403a6c8b026adb672ba82b1822de1206c7066",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "v2_exact_path_expression_body_status_and_listed_headers": true
+    },
+    {
+      "file": "audio/b2z-v1/manifest.json",
+      "sha256": "d26588b58524710683bd9937a45395ea232eb3a891f4d3a910e1f4283d503db7",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "v2_exact_path_expression_body_status_and_listed_headers": true
+    }
+  ]
+}

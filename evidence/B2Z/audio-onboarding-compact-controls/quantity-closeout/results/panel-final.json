@@ -1,0 +1,447 @@
+{
+  "status": "PASS",
+  "scope": "Natural panel sizing and per-frame status invariants; controlled canonical scene, real DOM/input.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "reduced_motion": false,
+      "actions": [
+        {
+          "action": "Fire",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 331,
+            "top": 334,
+            "right": 1021,
+            "bottom": 665,
+            "left": 661
+          },
+          "states": 8
+        },
+        {
+          "action": "Move",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 351,
+            "top": 334,
+            "right": 1021,
+            "bottom": 685,
+            "left": 661
+          },
+          "states": 8
+        },
+        {
+          "action": "Build",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 351,
+            "top": 334,
+            "right": 1021,
+            "bottom": 685,
+            "left": 661
+          },
+          "states": 8
+        }
+      ],
+      "recording": "video/page@32ef4ddcfe9fe2700a04d9ddc69470c3.webm"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "reduced_motion": false,
+      "actions": [
+        {
+          "action": "Fire",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 331,
+            "top": 221,
+            "right": 368,
+            "bottom": 552,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Move",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 351,
+            "top": 221,
+            "right": 368,
+            "bottom": 572,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Build",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 351,
+            "top": 221,
+            "right": 368,
+            "bottom": 572,
+            "left": 8
+          },
+          "states": 8
+        }
+      ],
+      "recording": "video/page@f0fe133257c6595c0538954141ab0db6.webm"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "reduced_motion": false,
+      "actions": [
+        {
+          "action": "Fire",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 296,
+            "top": 221,
+            "right": 312,
+            "bottom": 517,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Move",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Build",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "states": 8
+        }
+      ],
+      "recording": "video/page@a1d96411eb15a1570cfc216f3e81fc90.webm"
+    },
+    {
+      "viewport": [
+        390,
+        430
+      ],
+      "reduced_motion": false,
+      "actions": [
+        {
+          "action": "Fire",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Move",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Build",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 154,
+            "width": 360,
+            "height": 268,
+            "top": 154,
+            "right": 368,
+            "bottom": 422,
+            "left": 8
+          },
+          "states": 8
+        }
+      ],
+      "recording": "video/page@b085e1eead05592aa263b0a213b3d672.webm"
+    },
+    {
+      "viewport": [
+        320,
+        300
+      ],
+      "reduced_motion": false,
+      "actions": [
+        {
+          "action": "Fire",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Move",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Build",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 142,
+            "width": 304,
+            "height": 150,
+            "top": 142,
+            "right": 312,
+            "bottom": 292,
+            "left": 8
+          },
+          "states": 8
+        }
+      ],
+      "recording": "video/page@c7d5c7d16d3207977eaa34493e316fde.webm"
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "reduced_motion": true,
+      "actions": [
+        {
+          "action": "Fire",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 331,
+            "top": 334,
+            "right": 1021,
+            "bottom": 665,
+            "left": 661
+          },
+          "states": 8
+        },
+        {
+          "action": "Move",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 351,
+            "top": 334,
+            "right": 1021,
+            "bottom": 685,
+            "left": 661
+          },
+          "states": 8
+        },
+        {
+          "action": "Build",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 351,
+            "top": 334,
+            "right": 1021,
+            "bottom": 685,
+            "left": 661
+          },
+          "states": 8
+        }
+      ],
+      "recording": "video/page@b8da9a24743ecc611ec6a0d824759f05.webm"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "reduced_motion": true,
+      "actions": [
+        {
+          "action": "Fire",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 331,
+            "top": 221,
+            "right": 368,
+            "bottom": 552,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Move",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 351,
+            "top": 221,
+            "right": 368,
+            "bottom": 572,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Build",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 351,
+            "top": 221,
+            "right": 368,
+            "bottom": 572,
+            "left": 8
+          },
+          "states": 8
+        }
+      ],
+      "recording": "video/page@320f1b5d5938752eb37e95bc73f0026f.webm"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "reduced_motion": true,
+      "actions": [
+        {
+          "action": "Fire",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 296,
+            "top": 221,
+            "right": 312,
+            "bottom": 517,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Move",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "states": 8
+        },
+        {
+          "action": "Build",
+          "max_drift_px": 0,
+          "baseline": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "states": 8
+        }
+      ],
+      "recording": "video/page@b88721fd5fcc62459cc0c56e300d9f9b.webm"
+    }
+  ],
+  "limits": "Emulated viewport/touch and software rendering; fixture status delivery is separate from IC authenticity."
+}

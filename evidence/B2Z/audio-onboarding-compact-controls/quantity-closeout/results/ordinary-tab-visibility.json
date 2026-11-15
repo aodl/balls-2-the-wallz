@@ -1,0 +1,1000 @@
+{
+  "status": "PASS",
+  "scope": "Ordinary sandboxed Chromium, actual same-window tab visibility; canonical actual composer/renderer fixture, no IC/audio/physical-device claim",
+  "cycles": [
+    {
+      "hidden_seconds": 5,
+      "controlled_status": "healthy",
+      "before": {
+        "hidden": false,
+        "inert": false,
+        "style": "grid",
+        "rect": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46,
+          "top": 526,
+          "right": 140,
+          "bottom": 572,
+          "left": 10
+        },
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 320,
+          "bottom": 640
+        },
+        "placement": "dock",
+        "focus": "fire-action",
+        "identity": true,
+        "count": 1,
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 11,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 55,
+              "bottom": 571,
+              "left": 11
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 95,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 139,
+              "bottom": 571,
+              "left": 95
+            },
+            "hit": true
+          }
+        ],
+        "corners": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "layout": {
+          "quantity": {
+            "slot": "dock",
+            "mode": "dock",
+            "rect": {
+              "left": 10,
+              "top": 525.859375,
+              "right": 140,
+              "bottom": 571.859375,
+              "width": 130,
+              "height": 46
+            }
+          },
+          "quantityDocked": true,
+          "quantityReserved": true,
+          "quantityReservation": "rail",
+          "quantitySize": {
+            "width": 130,
+            "height": 46
+          },
+          "quantityPointers": 0,
+          "quantityClickCancelled": false,
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 10,
+          "committedRevision": 10,
+          "desired": 368,
+          "positionKey": "8/221/304/242/242",
+          "compositionKey": "action/ball/1/0/0/320/640/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 221,
+            "bottom": 517
+          }
+        },
+        "proposal": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "camera": [
+          3.6575453715563526,
+          3.6575453715563526,
+          64
+        ]
+      },
+      "hidden": {
+        "quantity": {
+          "slot": "dock",
+          "mode": "dock",
+          "rect": {
+            "left": 10,
+            "top": 525.859375,
+            "right": 140,
+            "bottom": 571.859375,
+            "width": 130,
+            "height": 46
+          }
+        },
+        "quantityDocked": true,
+        "quantityReserved": true,
+        "quantityReservation": "rail",
+        "quantitySize": {
+          "width": 130,
+          "height": 46
+        },
+        "quantityPointers": 0,
+        "quantityClickCancelled": true,
+        "dirty": false,
+        "pendingFrame": false,
+        "revision": 11,
+        "committedRevision": 11,
+        "desired": 368,
+        "positionKey": "8/221/304/242/242",
+        "compositionKey": "action/ball/1/0/0/320/640/false/1",
+        "cardBounds": {
+          "left": 8,
+          "right": 312,
+          "top": 221,
+          "bottom": 517
+        }
+      },
+      "after": {
+        "hidden": false,
+        "inert": false,
+        "style": "grid",
+        "rect": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46,
+          "top": 526,
+          "right": 140,
+          "bottom": 572,
+          "left": 10
+        },
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 320,
+          "bottom": 640
+        },
+        "placement": "dock",
+        "focus": "quantity-plus",
+        "identity": true,
+        "count": 1,
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 11,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 55,
+              "bottom": 571,
+              "left": 11
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 95,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 139,
+              "bottom": 571,
+              "left": 95
+            },
+            "hit": true
+          }
+        ],
+        "corners": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "layout": {
+          "quantity": {
+            "slot": "dock",
+            "mode": "dock",
+            "rect": {
+              "left": 10,
+              "top": 525.859375,
+              "right": 140,
+              "bottom": 571.859375,
+              "width": 130,
+              "height": 46
+            }
+          },
+          "quantityDocked": true,
+          "quantityReserved": true,
+          "quantityReservation": "rail",
+          "quantitySize": {
+            "width": 130,
+            "height": 46
+          },
+          "quantityPointers": 0,
+          "quantityClickCancelled": false,
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 11,
+          "committedRevision": 11,
+          "desired": 368,
+          "positionKey": "8/221/304/242/242",
+          "compositionKey": "action/ball/1/0/0/320/640/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 221,
+            "bottom": 517
+          }
+        },
+        "proposal": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "camera": [
+          3.6575453715563526,
+          3.6575453715563526,
+          64
+        ]
+      },
+      "fresh_press": "PASS usable after fenced release",
+      "events": [
+        {
+          "hidden": true,
+          "at": 2473.099999964237,
+          "quantity": {
+            "count": 1,
+            "maximum": 64,
+            "active": true
+          },
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 10,
+                "top": 525.859375,
+                "right": 140,
+                "bottom": 571.859375,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "rail",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": false,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 10,
+            "committedRevision": 10,
+            "desired": 368,
+            "positionKey": "8/221/304/242/242",
+            "compositionKey": "action/ball/1/0/0/320/640/false/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 221,
+              "bottom": 517
+            }
+          }
+        },
+        {
+          "hidden": false,
+          "at": 2580.199999988079,
+          "quantity": {
+            "count": 1,
+            "maximum": 64,
+            "active": true
+          },
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 10,
+                "top": 525.859375,
+                "right": 140,
+                "bottom": 571.859375,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "rail",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": false,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 10,
+            "committedRevision": 10,
+            "desired": 368,
+            "positionKey": "8/221/304/242/242",
+            "compositionKey": "action/ball/1/0/0/320/640/false/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 221,
+              "bottom": 517
+            }
+          }
+        },
+        {
+          "hidden": true,
+          "at": 2730.099999964237,
+          "quantity": {
+            "count": 1,
+            "maximum": 64,
+            "active": true
+          },
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 10,
+                "top": 525.859375,
+                "right": 140,
+                "bottom": 571.859375,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "rail",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": true,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 11,
+            "committedRevision": 11,
+            "desired": 368,
+            "positionKey": "8/221/304/242/242",
+            "compositionKey": "action/ball/1/0/0/320/640/false/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 221,
+              "bottom": 517
+            }
+          }
+        },
+        {
+          "hidden": false,
+          "at": 7791.300000011921,
+          "quantity": {
+            "count": 1,
+            "maximum": 64,
+            "active": true
+          },
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 10,
+                "top": 525.859375,
+                "right": 140,
+                "bottom": 571.859375,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "rail",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": true,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 11,
+            "committedRevision": 11,
+            "desired": 368,
+            "positionKey": "8/221/304/242/242",
+            "compositionKey": "action/ball/1/0/0/320/640/false/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 221,
+              "bottom": 517
+            }
+          }
+        }
+      ]
+    },
+    {
+      "hidden_seconds": 35,
+      "controlled_status": "protected",
+      "before": {
+        "hidden": false,
+        "inert": false,
+        "style": "grid",
+        "rect": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46,
+          "top": 526,
+          "right": 140,
+          "bottom": 572,
+          "left": 10
+        },
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 320,
+          "bottom": 640
+        },
+        "placement": "dock",
+        "focus": "",
+        "identity": true,
+        "count": 1,
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 11,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 55,
+              "bottom": 571,
+              "left": 11
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 95,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 139,
+              "bottom": 571,
+              "left": 95
+            },
+            "hit": true
+          }
+        ],
+        "corners": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "layout": {
+          "quantity": {
+            "slot": "dock",
+            "mode": "dock",
+            "rect": {
+              "left": 10,
+              "top": 525.859375,
+              "right": 140,
+              "bottom": 571.859375,
+              "width": 130,
+              "height": 46
+            }
+          },
+          "quantityDocked": true,
+          "quantityReserved": true,
+          "quantityReservation": "rail",
+          "quantitySize": {
+            "width": 130,
+            "height": 46
+          },
+          "quantityPointers": 0,
+          "quantityClickCancelled": false,
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 13,
+          "committedRevision": 13,
+          "desired": 368,
+          "positionKey": "8/221/304/242/242",
+          "compositionKey": "action/ball/1/0/0/320/640/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 221,
+            "bottom": 517
+          }
+        },
+        "proposal": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "camera": [
+          3.6575453715563526,
+          3.6575453715563526,
+          64
+        ]
+      },
+      "hidden": {
+        "quantity": {
+          "slot": "dock",
+          "mode": "dock",
+          "rect": {
+            "left": 10,
+            "top": 525.859375,
+            "right": 140,
+            "bottom": 571.859375,
+            "width": 130,
+            "height": 46
+          }
+        },
+        "quantityDocked": true,
+        "quantityReserved": true,
+        "quantityReservation": "rail",
+        "quantitySize": {
+          "width": 130,
+          "height": 46
+        },
+        "quantityPointers": 0,
+        "quantityClickCancelled": true,
+        "dirty": false,
+        "pendingFrame": false,
+        "revision": 13,
+        "committedRevision": 13,
+        "desired": 368,
+        "positionKey": "8/221/304/242/242",
+        "compositionKey": "action/ball/1/0/0/320/640/false/1",
+        "cardBounds": {
+          "left": 8,
+          "right": 312,
+          "top": 221,
+          "bottom": 517
+        }
+      },
+      "after": {
+        "hidden": false,
+        "inert": false,
+        "style": "grid",
+        "rect": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46,
+          "top": 526,
+          "right": 140,
+          "bottom": 572,
+          "left": 10
+        },
+        "viewport": {
+          "left": 0,
+          "top": 0,
+          "right": 320,
+          "bottom": 640
+        },
+        "placement": "dock",
+        "focus": "quantity-plus",
+        "identity": true,
+        "count": 1,
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 11,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 55,
+              "bottom": 571,
+              "left": 11
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 95,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 139,
+              "bottom": 571,
+              "left": 95
+            },
+            "hit": true
+          }
+        ],
+        "corners": [
+          true,
+          true,
+          true,
+          true
+        ],
+        "layout": {
+          "quantity": {
+            "slot": "dock",
+            "mode": "dock",
+            "rect": {
+              "left": 10,
+              "top": 525.859375,
+              "right": 140,
+              "bottom": 571.859375,
+              "width": 130,
+              "height": 46
+            }
+          },
+          "quantityDocked": true,
+          "quantityReserved": true,
+          "quantityReservation": "rail",
+          "quantitySize": {
+            "width": 130,
+            "height": 46
+          },
+          "quantityPointers": 0,
+          "quantityClickCancelled": false,
+          "dirty": false,
+          "pendingFrame": false,
+          "revision": 13,
+          "committedRevision": 13,
+          "desired": 368,
+          "positionKey": "8/221/304/242/242",
+          "compositionKey": "action/ball/1/0/0/320/640/false/1",
+          "cardBounds": {
+            "left": 8,
+            "right": 312,
+            "top": 221,
+            "bottom": 517
+          }
+        },
+        "proposal": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "camera": [
+          3.6575453715563526,
+          3.6575453715563526,
+          64
+        ]
+      },
+      "fresh_press": "PASS usable after fenced release",
+      "events": [
+        {
+          "hidden": true,
+          "at": 2473.099999964237,
+          "quantity": {
+            "count": 1,
+            "maximum": 64,
+            "active": true
+          },
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 10,
+                "top": 525.859375,
+                "right": 140,
+                "bottom": 571.859375,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "rail",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": false,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 10,
+            "committedRevision": 10,
+            "desired": 368,
+            "positionKey": "8/221/304/242/242",
+            "compositionKey": "action/ball/1/0/0/320/640/false/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 221,
+              "bottom": 517
+            }
+          }
+        },
+        {
+          "hidden": false,
+          "at": 2580.199999988079,
+          "quantity": {
+            "count": 1,
+            "maximum": 64,
+            "active": true
+          },
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 10,
+                "top": 525.859375,
+                "right": 140,
+                "bottom": 571.859375,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "rail",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": false,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 10,
+            "committedRevision": 10,
+            "desired": 368,
+            "positionKey": "8/221/304/242/242",
+            "compositionKey": "action/ball/1/0/0/320/640/false/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 221,
+              "bottom": 517
+            }
+          }
+        },
+        {
+          "hidden": true,
+          "at": 2730.099999964237,
+          "quantity": {
+            "count": 1,
+            "maximum": 64,
+            "active": true
+          },
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 10,
+                "top": 525.859375,
+                "right": 140,
+                "bottom": 571.859375,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "rail",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": true,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 11,
+            "committedRevision": 11,
+            "desired": 368,
+            "positionKey": "8/221/304/242/242",
+            "compositionKey": "action/ball/1/0/0/320/640/false/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 221,
+              "bottom": 517
+            }
+          }
+        },
+        {
+          "hidden": false,
+          "at": 7791.300000011921,
+          "quantity": {
+            "count": 1,
+            "maximum": 64,
+            "active": true
+          },
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 10,
+                "top": 525.859375,
+                "right": 140,
+                "bottom": 571.859375,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "rail",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": true,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 11,
+            "committedRevision": 11,
+            "desired": 368,
+            "positionKey": "8/221/304/242/242",
+            "compositionKey": "action/ball/1/0/0/320/640/false/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 221,
+              "bottom": 517
+            }
+          }
+        },
+        {
+          "hidden": true,
+          "at": 8126.899999976158,
+          "quantity": {
+            "count": 1,
+            "maximum": 64,
+            "active": true
+          },
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 10,
+                "top": 525.859375,
+                "right": 140,
+                "bottom": 571.859375,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "rail",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": true,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 13,
+            "committedRevision": 13,
+            "desired": 368,
+            "positionKey": "8/221/304/242/242",
+            "compositionKey": "action/ball/1/0/0/320/640/false/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 221,
+              "bottom": 517
+            }
+          }
+        },
+        {
+          "hidden": false,
+          "at": 43180.59999996424,
+          "quantity": {
+            "count": 1,
+            "maximum": 64,
+            "active": true
+          },
+          "layout": {
+            "quantity": {
+              "slot": "dock",
+              "mode": "dock",
+              "rect": {
+                "left": 10,
+                "top": 525.859375,
+                "right": 140,
+                "bottom": 571.859375,
+                "width": 130,
+                "height": 46
+              }
+            },
+            "quantityDocked": true,
+            "quantityReserved": true,
+            "quantityReservation": "rail",
+            "quantitySize": {
+              "width": 130,
+              "height": 46
+            },
+            "quantityPointers": 0,
+            "quantityClickCancelled": true,
+            "dirty": false,
+            "pendingFrame": false,
+            "revision": 13,
+            "committedRevision": 13,
+            "desired": 368,
+            "positionKey": "8/221/304/242/242",
+            "compositionKey": "action/ball/1/0/0/320/640/false/1",
+            "cardBounds": {
+              "left": 8,
+              "right": 312,
+              "top": 221,
+              "bottom": 517
+            }
+          }
+        }
+      ]
+    }
+  ],
+  "windows": [
+    {
+      "windowId": 1383670689,
+      "bounds": {
+        "left": 10,
+        "top": 10,
+        "width": 780,
+        "height": 580,
+        "windowState": "normal"
+      }
+    },
+    {
+      "windowId": 1383670689,
+      "bounds": {
+        "left": 10,
+        "top": 10,
+        "width": 780,
+        "height": 580,
+        "windowState": "normal"
+      }
+    }
+  ]
+}

@@ -1,0 +1,188 @@
+{
+  "at": "2026-11-15T12:26:20.529896+00:00",
+  "read_only": true,
+  "method_qualifier": "query; no update or controller/settings changes",
+  "lab_status": {
+    "Ok": {
+      "publication_hash": "fb0007810e881277e2f132645843636d9bbcfdf5ede60f6e5005b40641b0d86e",
+      "revision": "26726",
+      "run": {
+        "callback_count": "8906",
+        "completed_segments": "8906",
+        "current_segment_work": "0",
+        "generation": "1",
+        "idle": false,
+        "last_error": [],
+        "last_segment_work": "218",
+        "max_segment_work": "1027",
+        "pace": {
+          "admission_open": true,
+          "mode": "Trickle",
+          "nominal_milli": 10,
+          "performance_limited": false,
+          "supported_milli": 10
+        },
+        "pacing_seconds": 1,
+        "publication_ticks": "1",
+        "running": true,
+        "segment_ticks": "2",
+        "total_work": "2037564",
+        "work_budget": 512,
+        "world_transition": false
+      },
+      "source": {
+        "admitted_to_exclusive": "40180669",
+        "binding_checked": true,
+        "event_horizon": [],
+        "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+        "index_calls": "10868",
+        "last_error": [],
+        "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+        "network": "ic",
+        "pending_records": 0,
+        "receiving_subaccount": "0",
+        "recipient_account": [
+          197,
+          132,
+          135,
+          134,
+          157,
+          70,
+          239,
+          4,
+          148,
+          199,
+          215,
+          192,
+          49,
+          43,
+          39,
+          96,
+          171,
+          183,
+          22,
+          78,
+          175,
+          210,
+          63,
+          0,
+          9,
+          164,
+          43,
+          149,
+          69,
+          245,
+          59,
+          222
+        ],
+        "reconciliation_requested": false,
+        "scan_in_flight": false
+      },
+      "version": 7
+    }
+  },
+  "runtime_diagnostics": {
+    "Ok": {
+      "instruction_yield": "600000000",
+      "liquid_cycles": "2_702_561_557_690",
+      "message_work_limit": "2048",
+      "metrics": {
+        "last_instructions": "216704253",
+        "last_persist_instructions": "48172676",
+        "last_publish_instructions": "25137978",
+        "last_seal_instructions": "32899813",
+        "last_step_instructions": "62387489",
+        "max_actions": 5,
+        "max_instructions": "242810711",
+        "messages": "8907",
+        "persist_instructions": "391440567200",
+        "publish_instructions": "205641193359",
+        "seal_instructions": "255101843576",
+        "step_instructions": "514616932256"
+      },
+      "phase_action_limit": 8,
+      "total_cycles": "2_758_894_318_780"
+    }
+  },
+  "funding": {
+    "Ok": {
+      "halted": false,
+      "last_error": [
+        "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+      ],
+      "last_plan_ns": "1794130796502691675",
+      "last_refund": [],
+      "last_success": [
+        {
+          "block_index": "40180668",
+          "completed_at_ns": "1794130803390992707",
+          "cycles": "1_766_023_380_000",
+          "plan": {
+            "amount_e8s": "99990000",
+            "beneficiary": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "cmc": "rkp4c-7iaaa-aaaaa-aaaca-cai",
+            "created_at_time_ns": "1794130796502691675",
+            "fee_e8s": "10000",
+            "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+            "memo": "1347768404",
+            "to": [
+              1,
+              219,
+              45,
+              242,
+              101,
+              87,
+              242,
+              55,
+              5,
+              177,
+              115,
+              55,
+              40,
+              231,
+              40,
+              211,
+              244,
+              77,
+              23,
+              227,
+              15,
+              253,
+              121,
+              238,
+              152,
+              134,
+              169,
+              100,
+              47,
+              229,
+              145,
+              9
+            ]
+          }
+        }
+      ],
+      "lease_started_ns": "1794745317328807506",
+      "nonce": "2179",
+      "observed_balance": [
+        {
+          "e8s": "0",
+          "observed_at_ns": "1794745317328807506"
+        }
+      ],
+      "observed_fee": [
+        {
+          "e8s": "10000",
+          "observed_at_ns": "1794745319665272221"
+        }
+      ],
+      "paused": false,
+      "phase": {
+        "Idle": null
+      },
+      "total_converted_e8s": "99990000",
+      "total_cycles_reported": "1766023380000",
+      "version": 1
+    }
+  }
+}

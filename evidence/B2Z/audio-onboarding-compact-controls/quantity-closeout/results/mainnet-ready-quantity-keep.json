@@ -1,0 +1,307 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "first_verified_world_s": 2.3254587670089677,
+      "before": {
+        "heading": "347.15",
+        "quantity": 1,
+        "hidden": false,
+        "rect": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46,
+          "top": 526,
+          "right": 140,
+          "bottom": 572,
+          "left": 10
+        },
+        "camera": [
+          3.6575453715563526,
+          3.6575453715563526,
+          64
+        ],
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 296,
+          "top": 221,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 242,
+          "top": 275,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 11,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 55,
+              "bottom": 571,
+              "left": 11
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 95,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 139,
+              "bottom": 571,
+              "left": 95
+            },
+            "hit": true
+          }
+        ],
+        "rules": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "head": "8916",
+        "ready": true,
+        "error": "",
+        "canPrepare": true,
+        "status": "Slow \u00b7 delayed",
+        "memo": "FIRE 1 217.5 1",
+        "copyDisabled": false
+      },
+      "after_plus": {
+        "heading": "347.15",
+        "quantity": 2,
+        "hidden": false,
+        "rect": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46,
+          "top": 526,
+          "right": 140,
+          "bottom": 572,
+          "left": 10
+        },
+        "camera": [
+          3.6575453715563526,
+          3.6575453715563526,
+          64
+        ],
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 273,
+          "top": 221,
+          "right": 312,
+          "bottom": 494,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 219,
+          "top": 275,
+          "right": 312,
+          "bottom": 494,
+          "left": 8
+        },
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 11,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 55,
+              "bottom": 571,
+              "left": 11
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 95,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 139,
+              "bottom": 571,
+              "left": 95
+            },
+            "hit": true
+          }
+        ],
+        "rules": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "head": "8916",
+        "ready": true,
+        "error": "",
+        "canPrepare": true,
+        "status": "Slow \u00b7 delayed",
+        "memo": "FIRE 1 217.5 1",
+        "copyDisabled": true
+      },
+      "errors": [],
+      "scope": "Exact frozen local HTTP assets with unchanged policy; actual mainnet authenticated Rules7; no status override, production deployment or payment"
+    }
+  ],
+  "network": [
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746235.2892811
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746235.3065834
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746235.3488023
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+      "at": 1794746235.3567975
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+      "at": 1794746235.3625686
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746236.279247
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746236.5249975
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746236.7621446
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746237.6916015
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746237.7107615
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746238.5252204
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746239.1119435
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746239.7992485
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746239.8088572
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746240.3641102
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746240.9353657
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746241.5526009
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746241.8192294
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746245.8787591
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746246.1902366
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746246.4701996
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746247.0675611
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746247.6709988
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746248.3042119
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746248.3066783
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746248.931312
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794746249.5077198
+    }
+  ]
+}

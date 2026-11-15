@@ -1,0 +1,90 @@
+{
+  "status": "PASS",
+  "source": "76225150a08c2556e12dcf261e66b8f9489f2ed3",
+  "contexts": 11,
+  "native_heading_states": 187,
+  "status_samples": 396,
+  "status_panel_drift_px": 0,
+  "viewports_dpr": [
+    [
+      [
+        320,
+        640
+      ],
+      1
+    ],
+    [
+      [
+        390,
+        844
+      ],
+      2
+    ],
+    [
+      [
+        1440,
+        900
+      ],
+      1
+    ],
+    [
+      [
+        320,
+        350
+      ],
+      1
+    ],
+    [
+      [
+        320,
+        300
+      ],
+      2
+    ],
+    [
+      [
+        390,
+        430
+      ],
+      1
+    ],
+    [
+      [
+        640,
+        320
+      ],
+      1
+    ],
+    [
+      [
+        320,
+        640
+      ],
+      3
+    ],
+    [
+      [
+        320,
+        240
+      ],
+      1
+    ],
+    [
+      [
+        320,
+        180
+      ],
+      1
+    ],
+    [
+      [
+        390,
+        844
+      ],
+      1
+    ]
+  ],
+  "source_removed": "PASS latest reference removes cannon while displayed view is retained",
+  "contracted_scope": "<520 contexts open at normal height then real contraction, not a cold180px onboarding qualification",
+  "planner_heading_samples": 7200
+}

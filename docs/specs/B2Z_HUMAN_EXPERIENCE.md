@@ -1039,9 +1039,10 @@ Prompts: Aim & Pay (Fire/Revive), Move & Pay, Build, Aim & Pay (additional Build
 Join & Pay (automatic first placement, no promised site).
 
 Fire/Revive count is one model-backed arena − N + editor, never a hidden input.
-It requests up to1..64 under existing partial-fill semantics. It sits behind the
-projected aimer in cached fixed slots, avoids visible arrow/body/HUD/payment/map,
-and uses hysteresis. Pointer capture/focus locks its slot through repeated edits.
+It requests up to1..64 under existing partial-fill semantics. It prefers cached
+local positions behind the projected aimer, avoiding arrow/body/HUD/payment/map.
+A measured reserved dock is mandatory when those positions fail, as specified below.
+Hysteresis and pointer capture/focus keep its target stable through repeated edits.
 Its full bounds, including disabled buttons, own input ahead of board gestures;
 no aim, pan, target, follow or double-click zoom is triggered. Keyboard arrow
 editing works on the widget. When the source is offscreen, the existing Locate

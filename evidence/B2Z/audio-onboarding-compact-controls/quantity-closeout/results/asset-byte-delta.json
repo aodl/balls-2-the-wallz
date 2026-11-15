@@ -1,0 +1,26 @@
+{
+  "scope": "Frozen identity byte counts; not HTTP compression or hardware timing",
+  "previous_rejected_bytes": 76296922,
+  "replacement_bytes": 76305513,
+  "delta_bytes": 8591,
+  "changed": [
+    {
+      "path": "app.mjs",
+      "before_bytes": 2098098,
+      "after_bytes": 2105533,
+      "delta_bytes": 7435
+    },
+    {
+      "path": "build-manifest.json",
+      "before_bytes": 21847,
+      "after_bytes": 21847,
+      "delta_bytes": 0
+    },
+    {
+      "path": "style.css",
+      "before_bytes": 25088,
+      "after_bytes": 26244,
+      "delta_bytes": 1156
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "inventory_sha256": "e9b5c4be2216420f6f70d7c3f33f3ef4596b7d56e05c06eae43171fd629cb8c1",
+  "sets": [
+    {
+      "directory": ".work/audio-onboarding-compact-controls/rollback/frontend",
+      "files": 75,
+      "all_hashes_match": true
+    },
+    {
+      "directory": ".work/s14/assets",
+      "files": 75,
+      "all_hashes_match": true
+    }
+  ]
+}

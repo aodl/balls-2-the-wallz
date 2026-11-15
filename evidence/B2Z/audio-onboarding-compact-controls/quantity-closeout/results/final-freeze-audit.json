@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "at": "2026-11-15T13:33:31.844181+00:00",
+  "qualified_source": "76225150a08c2556e12dcf261e66b8f9489f2ed3",
+  "frozen_source": "0f55cbb0356b0bb90979bb515f907383efe940a9",
+  "frozen_files_checked": 78,
+  "consumed_inputs_checked": 220,
+  "documentation_evidence_continuation_only": true,
+  "production_deployment_performed": false,
+  "backend_financial_funding_settings_operations_performed": false
+}

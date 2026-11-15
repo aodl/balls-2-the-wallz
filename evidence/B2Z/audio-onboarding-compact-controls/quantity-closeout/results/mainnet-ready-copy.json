@@ -1,0 +1,48 @@
+{
+  "readiness": [
+    {
+      "at": "2026-11-15T12:37:26.852Z",
+      "status": {
+        "kind": "slow",
+        "label": "Slow \u00b7 delayed",
+        "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+        "canPrepare": true
+      },
+      "operationalAgeMs": 674.5,
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": 2,
+          "publication_ticks": 1,
+          "completed_segments": 8913,
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": 40180669
+        }
+      },
+      "lastObserved": null,
+      "observedAt": null,
+      "deliveryError": "",
+      "error": ""
+    }
+  ],
+  "copies": [
+    "s5ir5-gqaaa-aaaas-amyna-cai",
+    "0.1",
+    "FIRE 1 217.5 1"
+  ],
+  "scope": "Read-only mainnet, no status override; actual successful Clipboard API writes only, no payment"
+}

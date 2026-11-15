@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/.work/quantity-closeout/native-heading-sweep.py", line 20, in <module>
+    p.wait_for_timeout(30);d=editor(p);assert d['camera']==camera;angle=p.evaluate('fixture.command().angle');assert p.locator('#text-memo').text_content()==f'FIRE 1 {angle} 1';report['rows'].append({'direction':direction,'heading':d['proposal']['degrees'],'memo':p.locator('#text-memo').text_content(),'editor':d})
+                                                                                                                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

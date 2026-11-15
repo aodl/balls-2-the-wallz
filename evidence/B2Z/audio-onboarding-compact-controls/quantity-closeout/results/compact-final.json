@@ -1,0 +1,404 @@
+{
+  "status": "PASS",
+  "scope": "Native input against actual composer/camera/renderer; controlled canonical worlds, not IC authentication.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "returning_entry": {
+        "status": "PASS",
+        "camera": [
+          514.4937352810418,
+          514.4937352810418,
+          2.197043483872184
+        ],
+        "cannons": 2
+      },
+      "quantity": {
+        "status": "PASS",
+        "memo": "FIRE 1 225 4",
+        "box": {
+          "x": 465,
+          "y": 429,
+          "width": 130,
+          "height": 46
+        }
+      },
+      "quadrants": [
+        {
+          "degrees": 45,
+          "box": {
+            "x": 465,
+            "y": 429,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 90,
+          "box": {
+            "x": 373,
+            "y": 245,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 135,
+          "box": {
+            "x": 373,
+            "y": 245,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 180,
+          "box": {
+            "x": 373,
+            "y": 245,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 225,
+          "box": {
+            "x": 465,
+            "y": 245,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 270,
+          "box": {
+            "x": 557,
+            "y": 245,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 315,
+          "box": {
+            "x": 599,
+            "y": 337,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 0,
+          "box": {
+            "x": 557,
+            "y": 429,
+            "width": 130,
+            "height": 46
+          }
+        }
+      ],
+      "keyboard_bounds": "PASS 1..64, disabled buttons, no camera movement",
+      "exact_copy": {
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "amount": "19",
+        "memo": "FIRE 1 225 4",
+        "status": "PASS actual native writes/copy/paste; read API remains forbidden"
+      },
+      "move_build": "PASS legal defaults, exact prompts and warning",
+      "errors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "returning_entry": {
+        "status": "PASS",
+        "camera": [
+          527.8435991113747,
+          527.8435991113747,
+          1.0336847748229683
+        ],
+        "cannons": 2
+      },
+      "quantity": {
+        "status": "PASS",
+        "memo": "FIRE 1 225 4",
+        "box": {
+          "x": 11,
+          "y": 132,
+          "width": 130,
+          "height": 46
+        }
+      },
+      "quadrants": [
+        {
+          "degrees": 45,
+          "box": {
+            "x": 11,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 90,
+          "box": {
+            "x": 11,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 135,
+          "box": {
+            "x": 11,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 180,
+          "box": {
+            "x": 11,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 225,
+          "box": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 270,
+          "box": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 315,
+          "box": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 0,
+          "box": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        }
+      ],
+      "keyboard_bounds": "PASS 1..64, disabled buttons, no camera movement",
+      "touch_stepper": "PASS native emulated taps, no aim/pan/zoom",
+      "exact_copy": {
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "amount": "19",
+        "memo": "FIRE 1 225 4",
+        "status": "PASS actual native writes/copy/paste; read API remains forbidden"
+      },
+      "move_build": "PASS legal defaults, exact prompts and warning",
+      "errors": []
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "returning_entry": {
+        "status": "PASS",
+        "camera": [
+          536.7187463281252,
+          536.7187463281252,
+          0.7838367960742887
+        ],
+        "cannons": 2
+      },
+      "quantity": {
+        "status": "PASS",
+        "memo": "FIRE 1 225 4",
+        "box": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46
+        }
+      },
+      "quadrants": [
+        {
+          "degrees": 45,
+          "box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 90,
+          "box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 135,
+          "box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 180,
+          "box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 225,
+          "box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 270,
+          "box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 315,
+          "box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "degrees": 0,
+          "box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        }
+      ],
+      "keyboard_bounds": "PASS 1..64, disabled buttons, no camera movement",
+      "touch_stepper": "PASS native emulated taps, no aim/pan/zoom",
+      "exact_copy": {
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "amount": "19",
+        "memo": "FIRE 1 225 4",
+        "status": "PASS actual native writes/copy/paste; read API remains forbidden"
+      },
+      "move_build": "PASS legal defaults, exact prompts and warning",
+      "errors": []
+    }
+  ],
+  "entry_matrix": [
+    {
+      "case": "multiple",
+      "status": "PASS no unsolicited NEW; once-only returning navigation",
+      "camera": [
+        527.8435991113747,
+        527.8435991113747,
+        1.0336847748229683
+      ],
+      "selected": null
+    },
+    {
+      "case": "dormant",
+      "status": "PASS no unsolicited NEW; once-only returning navigation",
+      "camera": [
+        104.10229541704098,
+        1.1022954170409776,
+        47.78635809500484
+      ],
+      "selected": null
+    },
+    {
+      "case": "wrapped",
+      "status": "PASS no unsolicited NEW; once-only returning navigation",
+      "camera": [
+        527.8435991113747,
+        527.8435991113747,
+        1.0336847748229683
+      ],
+      "selected": null
+    },
+    {
+      "case": "wrong-subaccount",
+      "status": "PASS exact absent account enters first Join",
+      "camera": [
+        578.5,
+        453.5,
+        48
+      ],
+      "selected": null
+    },
+    {
+      "case": "new-account",
+      "status": "PASS exact absent account enters first Join",
+      "camera": [
+        578.5,
+        453.5,
+        48
+      ],
+      "selected": null
+    },
+    {
+      "case": "delayed",
+      "status": "PASS no unsolicited NEW; once-only returning navigation",
+      "camera": [
+        576.3088582156406,
+        456.71573115253,
+        40.65758075482024
+      ],
+      "selected": null
+    },
+    {
+      "case": "cancel-delayed",
+      "status": "PASS close cancels pending navigation",
+      "camera": [
+        578.5,
+        453.5,
+        48
+      ],
+      "selected": null
+    }
+  ]
+}

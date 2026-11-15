@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "frozen_source": "0f55cbb0356b0bb90979bb515f907383efe940a9",
+  "published_qualification_source": "76225150a08c2556e12dcf261e66b8f9489f2ed3",
+  "bundled_inputs": 139,
+  "all_bundled_inputs_in_220_hash_proof": true,
+  "bundle_input_set_unchanged": true,
+  "all_220_current_hashes_match_freeze": true,
+  "protected_financial_backend_audio_core_source_changes": []
+}
