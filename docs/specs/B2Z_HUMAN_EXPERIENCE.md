@@ -204,7 +204,7 @@ Build chooses an eligible neighbour and aims its ghost. First Join places
 automatically and retains a compact accessible direction pad, including exact
 keyboard adjustment.
 Only exact amount, principal, canonical text memo, compact payer, Copy controls
-and short fee/retention warning appear in the ordinary handoff. Legacy/hex DOM and
+and short retention information appear in the ordinary handoff; the wallet network fee is explained in Help. Legacy/hex DOM and
 native-copy references are removed, while underlying validation/history bytes stay.
 
 Smoked glass uses controlled local translucency and 7px blur, with a solid
@@ -268,7 +268,7 @@ not hardware performance claims; record actual measurements with environment.
 | UX-04/05/06 | `elastic-playback.test.mjs`, retained expiry-checkpoint test, `measure_elastic_playback.mjs`, controlled rendered returns, actual installed observer and genuine browser lifecycle evidence labelled separately |
 | UX-04/05/11/12 | `fluid-experience.test.mjs`: intermediate camera frames, anchored zoom, cancellation, reduced motion, follow stop/resume and identity fencing |
 | UX-02/03/12 | Stable circular territory anchor, exact shifted map round trips/atlas areas/footprint clipping; populated navigation/gesture journeys |
-| UX-07/08/10/13 | `payment-warning.test.mjs` and actual action-card browser assertions cover Move/Build-specific warning, ordinary Fire/Revive/Join warning, separate fee and frozen-packet binding. Same-cell UI guard with legal zero, unchanged canonical helper, historic packets and exact modern wallet copies |
+| UX-07/08/10/13 | `payment-warning.test.mjs` and actual action-card browser assertions cover Move/Build-specific warning, ordinary Fire/Revive/Join warning, Help fee disclosure and frozen-packet binding. Same-cell UI guard with legal zero, unchanged canonical helper, historic packets and exact modern wallet copies |
 | UX-05/12 | Separate wake/tail expiry, shared ball projection/depth hits, GPU guide occlusion and persistent selection |
 | UX-02/03/11 | Actual desktop/390/320 toolbar/glass/action/keyboard/focus tests and recorded populated journeys |
 

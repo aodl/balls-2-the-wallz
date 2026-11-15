@@ -50,3 +50,31 @@ fn native_matches_js_annotation_vectors_and_recovers_each_work_unit() {
         "must recover a pending annotation before launch"
     );
 }
+
+#[cfg(test)]
+mod shared_vectors {
+    #[test]
+    fn strict_memos_match_shared_vectors() {
+        let f: serde_json::Value =
+            serde_json::from_str(include_str!("../../../tests/fixtures/war-cry-memos.json"))
+                .unwrap();
+        assert_eq!(f["memo_limit"], 32);
+        for row in f["rows"].as_array().unwrap() {
+            let h = row["raw_hex"].as_str().unwrap();
+            let bytes: Vec<u8> = (0..h.len())
+                .step_by(2)
+                .map(|i| u8::from_str_radix(&h[i..i + 2], 16).unwrap())
+                .collect();
+            let actual = b2z_protocol::war_cry::parse_text(&bytes);
+            assert_eq!(
+                actual.is_ok(),
+                row["accepted"].as_bool().unwrap(),
+                "{}",
+                row["name"]
+            );
+            if let Ok(parsed) = actual {
+                assert_eq!(parsed.cry, row["cry"].as_str().unwrap(), "{}", row["name"]);
+            }
+        }
+    }
+}

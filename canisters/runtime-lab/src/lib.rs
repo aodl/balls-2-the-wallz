@@ -167,6 +167,8 @@ struct Root {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     clearance_transition: Option<transition::Transition>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    war_cry_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_barrier: Option<playability_runtime::Barrier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_error: Option<String>,
@@ -274,6 +276,7 @@ fn active_transition(r: &Root) -> AppResult<Option<&transition::Transition>> {
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
         r.clearance_transition.as_ref(),
+        r.war_cry_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -291,6 +294,7 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
         r.clearance_transition.as_ref(),
+        r.war_cry_transition.as_ref(),
     ]
     .map(|t| t.is_some_and(|t| t.holding()));
     if flags.into_iter().filter(|v| *v).count() > 1 {
@@ -306,6 +310,8 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.entry_transition.as_mut()
     } else if flags[4] {
         r.clearance_transition.as_mut()
+    } else if flags[5] {
+        r.war_cry_transition.as_mut()
     } else {
         None
     })
@@ -320,6 +326,7 @@ fn transition_evidence<'a>(
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
         r.clearance_transition.as_ref(),
+        r.war_cry_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -458,6 +465,12 @@ fn root() -> AppResult<Root> {
             return Err("clearance transition version".into());
         }
     }
+    if let Some(t) = &r.war_cry_transition {
+        t.validate()?;
+        if t.version != 6 {
+            return Err("war-cry transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -506,6 +519,7 @@ fn root() -> AppResult<Root> {
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
         r.clearance_transition.as_ref(),
+        r.war_cry_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -787,6 +801,7 @@ fn persist_inner(
         playability_transition: old.and_then(|r| r.playability_transition.clone()),
         entry_transition: old.and_then(|r| r.entry_transition.clone()),
         clearance_transition: old.and_then(|r| r.clearance_transition.clone()),
+        war_cry_transition: old.and_then(|r| r.war_cry_transition.clone()),
         lifecycle_context: old.and_then(|r| r.lifecycle_context.clone()),
         lifecycle_barrier: old.and_then(|r| r.lifecycle_barrier.clone()),
         lifecycle_error: old.and_then(|r| r.lifecycle_error.clone()),
@@ -901,6 +916,12 @@ fn save_root_only(r: &Root) -> AppResult<()> {
             return Err("clearance transition version".into());
         }
     }
+    if let Some(t) = &r.war_cry_transition {
+        t.validate()?;
+        if t.version != 6 {
+            return Err("war-cry transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -908,6 +929,11 @@ fn save_root_only(r: &Root) -> AppResult<()> {
         b.validate()?;
     }
     let publication: Publication = decode(&unhex(&r.publication_hex)?)?;
+    if (r.source.memo_adapter_version == b2z_protocol::war_cry::MEMO_ADAPTER_VERSION)
+        != (publication.identity.config_hash == hash(b2z_native::war_cry::configuration()))
+    {
+        return Err("annotation source/config capability mismatch".into());
+    }
     validate_retention(&r.retention, &publication)?;
     let bytes = encode(r)?;
     if bytes.len() > ROOT_LIMIT {
@@ -2829,6 +2855,137 @@ fn commit_clearance_transition(
     request_reconciliation()?;
     encode(&next.clearance_transition)
 }
+#[ic_cdk::update]
+fn prepare_war_cry_transition() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    let mut r = root()?;
+    let h = host(&r)?;
+    if let Some(t) = &r.war_cry_transition {
+        return encode(t);
+    }
+    if r.run.running {
+        return Err("pause autonomous gameplay before War Cry rules-10 cutover".into());
+    }
+    if active_transition(&r)?.is_some() {
+        return Err("finish existing world transition first".into());
+    }
+    let expected = b2z_native::entry_v7::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("entry requires exact rules-v7 predecessor".into());
+    }
+    let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
+    if w.version != 6 || r.source.memo_adapter_version != b2z_protocol::v6::MEMO_ADAPTER_VERSION {
+        return Err("only current rules-v7 world can activate War Cry rules-10".into());
+    }
+    if r.source.in_flight
+        || r.source.pending.is_some()
+        || r.source.last_error.is_some()
+        || r.run.last_error.is_some()
+        || r.lifecycle_error.is_some()
+        || r.lifecycle_barrier.is_some()
+    {
+        return Err(
+            "finish existing source reconciliation and recover errors before cutover".into(),
+        );
+    }
+    r.war_cry_transition = Some(transition::Transition::war_cry());
+    save_root_only(&r)?;
+    ARENA_IDLE.with(|f| {
+        f.set(
+            !runtime_needs_simulation(&h, active_transition(&r).expect("validated transition"))
+                .expect("validated runtime"),
+        )
+    });
+    install_run_timer(&r.run);
+    request_reconciliation()?;
+    encode(&r.war_cry_transition)
+}
+#[ic_cdk::query]
+fn war_cry_transition_status() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    let r = root()?;
+    encode(
+        &serde_json::json!({"transition":r.war_cry_transition,"lifecycle_error":r.lifecycle_error,"lifecycle_barrier":r.lifecycle_barrier}),
+    )
+}
+/// Derives the War Cry rules-10 metadata once. No caller-supplied world, time or identities.
+#[ic_cdk::update]
+fn commit_war_cry_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if unhex(&expected_previous_manifest)?.len() != 32 {
+        return Err("expected manifest hash".into());
+    }
+    let mut r = root()?;
+    let mut h = host(&r)?;
+    let t = r
+        .war_cry_transition
+        .as_ref()
+        .ok_or("prepare War Cry rules-10 cutover first")?;
+    if t.phase == "complete" {
+        if t.previous_manifest.as_deref() != Some(&expected_previous_manifest) {
+            return Err("conflicting War Cry rules-10 transition retry".into());
+        }
+        let expected = b2z_native::war_cry::identity()?;
+        let identity =
+            serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+        if ["rules_hash", "config_hash", "schema_hash"]
+            .iter()
+            .any(|k| identity[*k] != expected[*k])
+        {
+            return Err("completed War Cry rules-10 transition has been superseded".into());
+        }
+        return encode(t);
+    }
+    if r.run.running
+        || r.run.last_error.is_some()
+        || r.lifecycle_barrier.is_some()
+        || r.lifecycle_error.is_some()
+    {
+        return Err(
+            "War Cry rules-10 activation requires paused error-free autonomous configuration"
+                .into(),
+        );
+    }
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    if h.record.journal.head.manifest_hash != expected_previous_manifest {
+        return Err("old committed manifest changed".into());
+    }
+    let (output, metadata, identity) =
+        playability_runtime::war_cry_candidate(&h, t, &r.source, ic_cdk::api::time())?;
+    let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
+    h.apply(Action::Transition {
+        epoch: Box::new(epoch.clone()),
+        state_hex: hex(&output.state),
+        event_hex: hex(&output.events),
+        score_hex: hex(&output.scores),
+    })?;
+    let t = r.war_cry_transition.as_mut().unwrap();
+    t.phase = "complete".into();
+    t.metadata_hex = Some(hex(&metadata));
+    t.transition_hash = Some(epoch.transition_hash);
+    t.previous_manifest = Some(expected_previous_manifest);
+    // New adapter only after the drained authenticated boundary.
+    r.source.memo_adapter_version = b2z_protocol::war_cry::MEMO_ADAPTER_VERSION;
+    r.source.requested = true;
+    // Preserve existing lifecycle evidence, deadlines and recovery state.
+    let next = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
+    refresh_pace();
+    install_run_timer(&next.run);
+    playability_runtime::install(&next)?;
+    request_reconciliation()?;
+    encode(&next.war_cry_transition)
+}
 /// Content-addressed application metadata. Hash against the independently
 /// authenticated epoch.metadata_hash; this convenience reply is not certified.
 #[ic_cdk::query]
@@ -2843,6 +3000,7 @@ fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, Strin
         r.playability_transition.as_ref(),
         r.entry_transition.as_ref(),
         r.clearance_transition.as_ref(),
+        r.war_cry_transition.as_ref(),
     ]
     .into_iter()
     .flatten()

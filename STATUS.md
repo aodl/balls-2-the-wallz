@@ -1,3 +1,18 @@
+# Active development — approved read-only panel and War Cry candidate
+
+Implementation and qualification are in progress; **no production deployment or
+backend capability activation**. The paid European game remains on the corrected
+78-file frontend and Rules7 described below. The new panel is independently
+compatible with Rules7 and keeps unsupported suffixed memos unavailable. Rules10 /
+adapter6 is a separately approvable candidate preserving Rules7 gameplay, not
+Rules9 clearance or ICRC-2 activation. See the
+[focused report](evidence/B2Z/approved-action-panel-war-cry/REPORT.md),
+[normative contract](docs/specs/B2Z_WAR_CRY.md) and
+[separate release decisions](evidence/B2Z/approved-action-panel-war-cry/RELEASE_DECISIONS.md).
+No previous green CI qualifies the new runtime bytes.
+
+---
+
 # Current production — corrected audio/compact frontend installed for prelaunch playtest
 
 15 November 2026: the owner-authorised corrected78-file frontend has been installed

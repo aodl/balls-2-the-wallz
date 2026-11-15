@@ -4,8 +4,8 @@ import argparse,functools,http.server,json,subprocess,threading
 from pathlib import Path
 from playwright.sync_api import sync_playwright
 from fluid_playability_browser import settled_panel,settled,TILE_PAYMENT_WARNING
-from quantity_browser import open_fire,status
-p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);fixture=out/'fixture';fixture.mkdir();root=Path(__file__).resolve().parents[1]
+from quantity_browser import open_fire,status,resize
+p=argparse.ArgumentParser();p.add_argument('--output',type=Path,required=True);p.add_argument('--width',type=int);p.add_argument('--capability',choices=['enabled','disabled']);a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False);fixture=out/'fixture';fixture.mkdir();root=Path(__file__).resolve().parents[1]
 subprocess.run(['node','tools/fixtures/prepare-playability-actions.mjs',str(fixture/'fixture.json')],check=True);subprocess.run(['node_modules/.bin/esbuild','tools/fixtures/playability-action-browser.mjs','--bundle','--platform=browser','--format=esm','--outfile='+str(fixture/'fixture.mjs')],check=True)
 (fixture/'index.html').write_text((root/'apps/b2z-observer/index.html').read_text().replace('src="./app.mjs"','src="./fixture.mjs"'));(fixture/'style.css').write_bytes((root/'apps/b2z-observer/style.css').read_bytes());(fixture/'cursors').mkdir();(fixture/'cursors/reticle.svg').write_bytes((root/'apps/b2z-observer/cursors/reticle.svg').read_bytes());(fixture/'paste.html').write_text('<textarea id="paste" aria-label="Read-only external wallet paste test"></textarea>')
 class H(http.server.SimpleHTTPRequestHandler):
@@ -20,7 +20,9 @@ with sync_playwright()as pw:
  b=pw.chromium.launch(headless=True,chromium_sandbox=True)
  try:
   for enabled in [False,True]:
+   if a.capability and enabled!=(a.capability=='enabled'):continue
    for w,h in [(1440,900),(390,844),(320,640)]:
+    if a.width and w!=a.width:continue
     ctx=b.new_context(viewport={'width':w,'height':h},has_touch=w<700,permissions=['clipboard-read','clipboard-write'],record_video_dir=str(out/f'video-{w}-{enabled}'));page=ctx.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));ctx.add_init_script("globalThis.copied=[];const wr=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async s=>{await wr(s);copied.push(s)}");page.goto(url+'/?case=quantityLive'+('&war-cry=1'if enabled else''));open_fire(page);row={'width':w,'height':h,'capability':enabled,'actions':{}};report['views'].append(row);save()
     assert page.locator('#war-cry').is_visible()==enabled
     for action,prompt in [('fire','Aim & Pay'),('move','Move & Pay'),('build','Build, Aim & Pay')]:
@@ -34,7 +36,9 @@ with sync_playwright()as pw:
       # Focus/caret and local key ownership across ordinary status refresh.
       page.locator('#war-cry').focus();before=page.evaluate('fixture.summary().camera');page.keyboard.press('ArrowLeft');page.keyboard.press('b');assert page.evaluate('fixture.summary().camera')==before;assert page.locator('#war-cry').evaluate('(n)=>document.activeElement===n')
       page.locator('#war-cry').fill('a'*64);assert len(page.locator('#text-memo').text_content().encode())<=32;assert len(page.locator('#war-cry').input_value())<64
+      page.locator('#war-cry').fill('No|way');status(page,'healthy');assert page.locator('#war-cry').input_value()=='No|way';assert page.locator('[data-copy=text]').is_disabled();page.locator('#war-cry').fill('Fine')
      if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click();settled_panel(page)
+     settled_panel(page) # Deliberate cry edits may still be expanding the replacement notice.
      baseline=geometry(page)['panel'];row['actions'][action]['status_samples']=[]
      for kind in ['protected','healthy','operational','healthy','delivery','healthy']:
       status(page,kind)
@@ -54,7 +58,29 @@ with sync_playwright()as pw:
      for target in ['#quantity-minus','#quantity-plus']+(['#war-cry']if enabled else[]):
       assert page.locator(target).evaluate('(n)=>{const r=n.getBoundingClientRect(),h=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return h===n||n.contains(h)}'),(target,g)
      obstacles=page.evaluate("()=>['#workspace','#minimap','.camera-controls','.audio-controls'].map(s=>document.querySelector(s).getBoundingClientRect().toJSON())");assert all(not(r['left']<o['right']and r['right']>o['left']and r['top']<o['bottom']and r['bottom']>o['top'])for o in obstacles),g
-    row['sweep']='PASS full forward/reverse, original pose, active group bounds';page.screenshot(path=str(out/f'{w}-{enabled}-347.png'));row['final']=geometry(page);row['errors']=errors;assert not errors;save();page.close();ctx.close()
+    if enabled and w==320:
+     row['contracted']=[]
+     page.locator('#war-cry').blur()
+     for height in [350,300,240,180,640]:
+      resize(page,{'width':320,'height':height});settled_panel(page)
+      if page.locator('#locate-context').is_visible():page.locator('#locate-context').click();settled_panel(page)
+      g=geometry(page);r=g['group'];assert not g['hidden']and r['left']>=0 and r['right']<=320 and r['top']>=0 and r['bottom']<=height,g
+      for target in ['#quantity-minus','#quantity-plus','#war-cry']:
+       assert page.locator(target).evaluate('(n)=>{const r=n.getBoundingClientRect(),h=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return h===n||n.contains(h)}'),(target,g)
+      row['contracted'].append({'height':height,'geometry':g});page.screenshot(path=str(out/f'320-cry-contracted-{height}.png'));save()
+     # CDP drives the browser's native IME editing path, not dispatched DOM events.
+     page.locator('#war-cry').focus();page.locator('#war-cry').fill('');dev=ctx.new_cdp_session(page)
+     dev.send('Input.imeSetComposition',{'text':'進め','selectionStart':2,'selectionEnd':2});assert page.locator('[data-copy=text]').is_disabled();dev.send('Input.insertText',{'text':'進め'});page.keyboard.press('Enter');assert page.locator('#war-cry').input_value()=='進め'
+     if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click()
+     assert page.locator('#text-memo').text_content().endswith('|進め');row['native_ime']='PASS composing copy fence and committed Unicode memo'
+    row['sweep']='PASS full forward/reverse, original pose, active group bounds';page.screenshot(path=str(out/f'{w}-{enabled}-347.png'));row['final']=geometry(page);row['errors']=errors;assert not errors;save()
+    if enabled:
+     # First Join is direction-anchored, never attached to a fabricated cannon.
+     page.close();ctx.close();ctx=b.new_context(viewport={'width':w,'height':h},has_touch=w<700,permissions=['clipboard-read','clipboard-write'],record_video_dir=str(out/f'video-{w}-join'));page=ctx.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto(url+'/?case=quantityLive&war-cry=1');page.wait_for_function('()=>Boolean(globalThis.fixture)');page.locator('#join-action').click();page.locator('#sending-account').fill('2vxsx-fae');page.locator('#identity-save').click();settled_panel(page)
+     assert page.locator('#action-prompt').text_content()=='Join & Pay';assert page.locator('#quantity-controls').is_hidden();assert page.locator('#war-cry').is_visible();assert page.locator('#launch-editors').evaluate('(n)=>n.parentElement.id')=='action-inputs';page.locator('#war-cry').fill('None');assert page.locator('#text-memo').text_content().endswith('|None');settled_panel(page);align(page)
+     expected=page.locator('#text-memo').text_content();page.locator('#text-memo').select_text();page.keyboard.press('Control+C');wallet=ctx.new_page();wallet.goto(url+'/paste.html');wallet.locator('#paste').focus();wallet.keyboard.press('Control+V');assert wallet.locator('#paste').input_value()==expected;wallet.close();page.bring_to_front()
+     page.evaluate('()=>{navigator.clipboard.writeText=async()=>{throw new DOMException("Denied","NotAllowedError")}}');page.locator('[data-copy=text]').click();assert page.locator('#manual-value').input_value()==expected;page.keyboard.press('Control+C');wallet=ctx.new_page();wallet.goto(url+'/paste.html');wallet.locator('#paste').focus();wallet.keyboard.press('Control+V');assert wallet.locator('#paste').input_value()==expected;wallet.close();page.bring_to_front();page.locator('#manual-handoff').click();settled_panel(page);row['join']='PASS actual direction-anchored editor, literal None, native and denied-API fallback memo copy';page.screenshot(path=str(out/f'{w}-join-cry.png'));save()
+    page.close();ctx.close()
   report['status']='PASS'
  except Exception as e:
   report.update(status='FAIL',error=repr(e));page.screenshot(path=str(out/'failure.png'));report['failure']=geometry(page);raise

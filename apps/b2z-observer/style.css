@@ -228,3 +228,5 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 @media(forced-colors:active){.speech-bubble{background:Canvas;color:CanvasText;border-color:CanvasText}}
 
 #launch-editors[data-first=true]{position:static;grid-column:2;align-self:center;max-width:100%}#launch-editors[data-first=true] #war-cry-editor{max-width:100%}
+
+.quantity-constrained #war-cry-editor{width:100px;min-width:100px;max-width:100px}

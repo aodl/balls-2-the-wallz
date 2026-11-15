@@ -280,6 +280,61 @@ pub fn clearance_candidate<K: Kernel>(
     ))
 }
 
+pub fn war_cry_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+    _observed_ns: u64,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    t.validate()?;
+    if t.version != 6
+        || t.phase != "ready"
+        || source.pending.is_some()
+        || source.in_flight
+        || !source.binding_checked
+        || source.last_error.is_some()
+        || source.memo_adapter_version != b2z_protocol::v6::MEMO_ADAPTER_VERSION
+    {
+        return Err("war cry source cutover not drained".into());
+    }
+    let expected = b2z_native::entry_v7::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("war cry requires exact rules-v7 predecessor identity".into());
+    }
+    let state = unhex(&h.record.journal.head.state_hex)?;
+    let old = World::decode(&state)?;
+    if old.version != 6
+        || !old.time.0.is_integer()
+        || old.time.0.to_integer() != h.record.journal.head.logical_end.0
+        || !old.pending.is_empty()
+        || Int(source.cursor.into()) != h.record.inbox.cursor
+        || h.record.journal.stage.is_some()
+        || !h.record.inbox.pending.is_empty()
+        || h.record.inbox.cursor != h.record.inbox.retired_to
+    {
+        return Err("war cry requires committed gameplay/source boundary".into());
+    }
+    let mut id = b2z_native::war_cry::identity()?;
+    id["source_id"] = json!(h.record.journal.identity.source_id);
+    let identity: Identity = serde_json::from_value(id).map_err(|e| e.to_string())?;
+    let metadata = json!({"version":6,"migration":"B2Z_WAR_CRY_RULES_10","old_identity":h.record.journal.identity,"new_identity":identity,"previous_state":hash(&state),"new_state":hash(&state),"logical_boundary":old.time,"source_cursor":Int(source.cursor.into()),"ledger_cutover":t.ledger_cutover,"account_history_complete_through":t.ledger_cutover,"index_synced":t.index_synced,"source_anchor":h.record.inbox.source_anchor,"memo_adapter_before":source.memo_adapter_version,"memo_adapter_after":b2z_protocol::war_cry::MEMO_ADAPTER_VERSION});
+    Ok((
+        Output {
+            state,
+            events: encode(
+                &json!({"version":6,"receipts":[],"events":[{"kind":"rules_activated","sequence":0,"time":old.time,"context":metadata}]}),
+            )?,
+            scores: encode(&json!({"version":6,"area_time":[]}))?,
+        },
+        encode(&metadata)?,
+        identity,
+    ))
+}
+
 use super::{
     ensure_run_timer, host, install_run_timer, pace, persist, request_reconciliation, root,
     save_root_only, Root,

@@ -1,0 +1,138 @@
+{
+  "version": 1,
+  "memo_limit": 32,
+  "rows": [
+    {
+      "name": "bare",
+      "raw_hex": "46495245203120302031",
+      "accepted": true,
+      "cry": ""
+    },
+    {
+      "name": "literal-none",
+      "raw_hex": "4e4557203020317c4e6f6e65",
+      "accepted": true,
+      "cry": "None"
+    },
+    {
+      "name": "spaces",
+      "raw_hex": "464952452031203020317c2020",
+      "accepted": true,
+      "cry": "  "
+    },
+    {
+      "name": "accent",
+      "raw_hex": "464952452031203020317cc3a9",
+      "accepted": true,
+      "cry": "é"
+    },
+    {
+      "name": "cjk",
+      "raw_hex": "464952452031203020317ce980b2e38281",
+      "accepted": true,
+      "cry": "進め"
+    },
+    {
+      "name": "combining",
+      "raw_hex": "464952452031203020317c65cc81",
+      "accepted": true,
+      "cry": "é"
+    },
+    {
+      "name": "emoji",
+      "raw_hex": "464952452031203020317cf09f9880",
+      "accepted": true,
+      "cry": "😀"
+    },
+    {
+      "name": "flag",
+      "raw_hex": "464952452031203020317cf09f87acf09f87a7",
+      "accepted": true,
+      "cry": "🇬🇧"
+    },
+    {
+      "name": "zwj",
+      "raw_hex": "464952452031203020317cf09f91a9f09f8fbde2808df09f9a80",
+      "accepted": true,
+      "cry": "👩🏽‍🚀"
+    },
+    {
+      "name": "html-is-text",
+      "raw_hex": "464952452031203020317c3c623e783c2f623e",
+      "accepted": true,
+      "cry": "<b>x</b>"
+    },
+    {
+      "name": "31",
+      "raw_hex": "464952452031203020317c6161616161616161616161616161616161616161",
+      "accepted": true,
+      "cry": "aaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "name": "32",
+      "raw_hex": "464952452031203020317c616161616161616161616161616161616161616161",
+      "accepted": true,
+      "cry": "aaaaaaaaaaaaaaaaaaaaa"
+    },
+    {
+      "name": "33",
+      "raw_hex": "464952452031203020317c61616161616161616161616161616161616161616161",
+      "accepted": false
+    },
+    {
+      "name": "empty-suffix",
+      "raw_hex": "464952452031203020317c",
+      "accepted": false
+    },
+    {
+      "name": "separator",
+      "raw_hex": "464952452031203020317c617c62",
+      "accepted": false
+    },
+    {
+      "name": "move",
+      "raw_hex": "4d4f5645203120327c6869",
+      "accepted": false
+    },
+    {
+      "name": "angle",
+      "raw_hex": "414e474c4520307c6869",
+      "accepted": false
+    },
+    {
+      "name": "newline",
+      "raw_hex": "464952452031203020317c610a62",
+      "accepted": false
+    },
+    {
+      "name": "nul",
+      "raw_hex": "464952452031203020317c610062",
+      "accepted": false
+    },
+    {
+      "name": "override",
+      "raw_hex": "464952452031203020317c61e280ae62",
+      "accepted": false
+    },
+    {
+      "name": "isolation",
+      "raw_hex": "464952452031203020317c61e281a662",
+      "accepted": false
+    },
+    {
+      "name": "control",
+      "raw_hex": "464952452031203020317c617f62",
+      "accepted": false
+    },
+    {
+      "name": "bad-prefix",
+      "raw_hex": "464952452078203020317c4869",
+      "accepted": false
+    },
+    {
+      "name": "invalid-utf8",
+      "raw_hex": "464952452031203020317cff",
+      "accepted": false
+    }
+  ]
+}

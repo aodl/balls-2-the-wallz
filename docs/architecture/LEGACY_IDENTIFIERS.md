@@ -22,3 +22,7 @@ These literal byte strings intentionally retain their published spelling:
 The original fixture contents, recordings, archived checkpoint/evidence files, benchmark records, historical `CHECKPOINT.json` / `FILES.sha256` and past changelog entries are preserved. Their old product spelling, paths, environment-variable names, commit/branch names and deployment commands describe those historical releases. They are not current instructions. Historical links are checked against the documented path migration where possible; current documentation uses current paths. No protocol bytes are obfuscated to satisfy a name search, and no binary protocol version was invented for the name change.
 
 Raw-history normalization is epoch-specific: v1 binary/numeric, v2 S15 prefixed text, v3 prefix-free text plus compatibility. Canonical captured input replay remains authoritative. A source rename never changes an existing hash, seal, raw transaction digest or durable canonical payload.
+
+The candidate War Cry extension retains the compatibility namespace in the exact
+normalized wire magic `BTZPAY03` and capability `btz-war-cry-1`. These are pinned
+protocol identifiers, not product branding. Historical BTZPAY02 remains unchanged.

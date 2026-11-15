@@ -200,6 +200,7 @@ impl SourceState {
         if ![
             legacy_memo_adapter(),
             b2z_protocol::v6::MEMO_ADAPTER_VERSION,
+            b2z_protocol::war_cry::MEMO_ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -270,6 +271,7 @@ impl SourceState {
         if ![
             legacy_memo_adapter(),
             b2z_protocol::v6::MEMO_ADAPTER_VERSION,
+            b2z_protocol::war_cry::MEMO_ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -323,7 +325,7 @@ impl SourceState {
                 payload: if self.memo_adapter_version == legacy_memo_adapter() {
                     classify(&tx.transaction, &recipient)?
                 } else {
-                    classify_v6(&tx.transaction, &recipient)?
+                    classify_with(&tx.transaction, &recipient, self.memo_adapter_version)?
                 },
                 digest: hash(&candid::encode_one(&tx).map_err(|e| e.to_string())?),
             };
@@ -493,6 +495,7 @@ fn account(text: &str) -> Result<AccountIdentifier> {
 fn classify(tx: &Transaction, recipient: &AccountIdentifier) -> Result<Option<String>> {
     classify_with(tx, recipient, legacy_memo_adapter())
 }
+#[cfg(test)]
 fn classify_v6(tx: &Transaction, recipient: &AccountIdentifier) -> Result<Option<String>> {
     classify_with(tx, recipient, b2z_protocol::v6::MEMO_ADAPTER_VERSION)
 }
@@ -516,6 +519,25 @@ fn classify_with(
             }
             if &to != recipient || &from == recipient {
                 return Ok(None);
+            }
+            if adapter == b2z_protocol::war_cry::MEMO_ADAPTER_VERSION {
+                let parsed = if spender.is_none() {
+                    b2z_protocol::war_cry::decode_ledger(tx.memo, tx.icrc1_memo.as_deref()).ok()
+                } else {
+                    None
+                };
+                let memo = parsed
+                    .as_ref()
+                    .and_then(|a| b2z_protocol::v6::encode(a.command).ok())
+                    .unwrap_or(INVALID_MEMO);
+                let cry = parsed.as_ref().map(|a| a.cry.as_bytes()).unwrap_or(&[]);
+                let mut payload = b"BTZPAY03".to_vec();
+                payload.extend(from.as_bytes());
+                payload.extend(amount.e8s.to_be_bytes());
+                payload.extend(memo);
+                payload.push(cry.len() as u8);
+                payload.extend(cry);
+                return Ok(Some(hex(&payload)));
             }
             let memo = if spender.is_some() {
                 [0; 8]
@@ -603,6 +625,34 @@ mod tests {
             transactions: ids.iter().map(|id| tx(*id)).collect(),
             oldest_tx_id: oldest,
         }
+    }
+    #[test]
+    fn annotated_adapter_retains_exact_utf8_but_old_adapter_and_spenders_never_gain_it() {
+        let mut row = tx(100);
+        let recipient = account(&fresh().recipient_hex).unwrap();
+        row.transaction.icrc1_memo = Some("FIRE 1 0 1|é😀".as_bytes().to_vec());
+        let old = classify_v6(&row.transaction, &recipient).unwrap().unwrap();
+        assert!(old.ends_with("0000000000000000"));
+        let raw = unhex(
+            &classify_with(&row.transaction, &recipient, 6)
+                .unwrap()
+                .unwrap(),
+        )
+        .unwrap();
+        assert_eq!(&raw[..8], b"BTZPAY03");
+        assert_eq!(&raw[57..], "é😀".as_bytes());
+        assert_eq!(usize::from(raw[56]), raw.len() - 57);
+        if let Operation::Transfer { spender, .. } = &mut row.transaction.operation {
+            *spender = Some(receiving_account(owner(), 2).to_string());
+        }
+        let blocked = unhex(
+            &classify_with(&row.transaction, &recipient, 6)
+                .unwrap()
+                .unwrap(),
+        )
+        .unwrap();
+        assert_eq!(blocked.len(), 57);
+        assert_eq!(&blocked[48..56], &[0; 8]);
     }
     #[test]
     fn sparse_pages_frozen_high_and_oldest_first() {

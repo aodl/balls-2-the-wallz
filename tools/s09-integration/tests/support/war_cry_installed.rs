@@ -97,6 +97,44 @@ fn war_cry_real_ledger_index_launch_and_independent_replay() {
     )
     .unwrap();
     get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    // New controller methods are never a public game-command surface.
+    for (method, args) in [
+        ("prepare_war_cry_transition", encode_args(()).unwrap()),
+        (
+            "commit_war_cry_transition",
+            candid::encode_one("0".repeat(64)).unwrap(),
+        ),
+    ] {
+        let reply = pic
+            .update_call(id, Principal::anonymous(), method, args)
+            .unwrap();
+        assert!(decode_one::<Result<Vec<u8>, String>>(&reply)
+            .unwrap()
+            .is_err());
+    }
+    let reply = pic
+        .query_call(
+            id,
+            Principal::anonymous(),
+            "war_cry_transition_status",
+            encode_args(()).unwrap(),
+        )
+        .unwrap();
+    assert!(decode_one::<Result<Vec<u8>, String>>(&reply)
+        .unwrap()
+        .is_err());
+    let reply = pic
+        .update_call(
+            id,
+            controller(),
+            "prepare_war_cry_transition",
+            encode_args(()).unwrap(),
+        )
+        .unwrap();
+    assert!(decode_one::<Result<Vec<u8>, String>>(&reply)
+        .unwrap()
+        .unwrap_err()
+        .contains("predecessor"));
     let mut rows = vec![];
     playability_installed::record(&pic, id, &mut rows, &out);
     transition(&pic, id, "entry");
@@ -125,15 +163,57 @@ fn war_cry_real_ledger_index_launch_and_independent_replay() {
         dtr_wire::hash(b2z_native::war_cry::configuration())
     );
     playability_installed::record(&pic, id, &mut rows, &out);
+    // The actual pinned ICP Ledger must enforce the end-to-end byte limit.
+    let oversized = pic.update_call(
+        ledger,
+        payer,
+        "icrc1_transfer",
+        candid::encode_one(IcrcTransferArg {
+            to: IcrcAccount {
+                owner: id,
+                subaccount: None,
+            },
+            fee: Some(10_000u64.into()),
+            memo: Some(b"FIRE 1 0 1|1234567890123456789012".to_vec()),
+            from_subaccount: None,
+            created_at_time: None,
+            amount: 0u64.into(),
+        })
+        .unwrap(),
+    );
+    let oversized_rejection = match oversized {
+        Err(e) => format!("{e:?}"),
+        Ok(reply) => {
+            #[derive(CandidType, Deserialize, Debug)]
+            enum MemoError {
+                GenericError {
+                    error_code: candid::Nat,
+                    message: String,
+                },
+            }
+            format!(
+                "{:?}",
+                decode_one::<Result<candid::Nat, MemoError>>(&reply)
+                    .unwrap()
+                    .unwrap_err()
+            )
+        }
+    };
+    assert!(
+        oversized_rejection.to_lowercase().contains("memo"),
+        "{oversized_rejection}"
+    );
+    let mut pending_upgrade = false;
     let mut sent = vec![];
     let start_cycles = pic.cycle_balance(id);
     for (sender, memo, amount) in [
         (payer, "FIRE 1 0 1|é😀", 10000000),
         (payer, "FIRE 1 0 64|Charge!", 10000000),
         (payer, "FIRE 1 0 1|No", 0),
-        (payer, "FIRE 1 0 1|Twin", 4000000000),
-        (payer, "FIRE 1 0 1|Twin", 4000000000),
+        (payer, "FIRE 1 0 1|Twin", 1000000000),
+        (payer, "FIRE 1 0 1|Twin", 1000000000),
         (payer, "FIRE 1 0 1|Bad|Text", 10000000),
+        (payer, "FIRE 1 0 1|123456789012345678901", 0),
         (extra, "NEW 0 1|Hello!", 100000000),
     ] {
         let position = transfer_text(&pic, ledger, sender, id, amount, memo.as_bytes());
@@ -150,9 +230,28 @@ fn war_cry_real_ledger_index_launch_and_independent_replay() {
         raw.push(cry.len() as u8);
         raw.extend(cry);
         payments.insert(position, hex(&raw));
-        sent.push(serde_json::json!({"position":position,"raw_memo_hex":hex(memo.as_bytes()),"memo":memo,"amount":amount,"normalized_hex":hex(&raw)}));
         admitted(&pic, id, position);
+        if !pending_upgrade {
+            let before_upgrade = arena_world(&pic, id).encode().unwrap();
+            let finance_before = funding_tests::preserved_finance(&pic, id);
+            let source_before = status(&pic, id).source.admitted_to_exclusive;
+            pic.upgrade_canister(
+                id,
+                bytes("B2Z_S14_WASM"),
+                encode_args(()).unwrap(),
+                Some(controller()),
+            )
+            .unwrap();
+            assert_eq!(arena_world(&pic, id).encode().unwrap(), before_upgrade);
+            assert_eq!(funding_tests::preserved_finance(&pic, id), finance_before);
+            assert_eq!(status(&pic, id).source.admitted_to_exclusive, source_before);
+            pending_upgrade = true;
+        }
+        let purchase_cycles = pic.cycle_balance(id);
+        let purchase_started = std::time::Instant::now();
         playability_installed::one_tick(&pic, id);
+        let processing_cycles = purchase_cycles - pic.cycle_balance(id);
+        sent.push(serde_json::json!({"position":position,"raw_memo_hex":hex(memo.as_bytes()),"memo":memo,"amount":amount,"normalized_hex":hex(&raw),"normalized_bytes":raw.len(),"admitted_purchase_window_cycles":processing_cycles.to_string(),"admitted_purchase_window_wall_ms":purchase_started.elapsed().as_millis(),"cost_scope":"normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote"}));
         playability_installed::record(&pic, id, &mut rows, &out);
     }
     let mut artifacts = vec![];
@@ -210,18 +309,16 @@ fn war_cry_real_ledger_index_launch_and_independent_replay() {
         "trace.json",
         &serde_json::json!({"status":"PASS","initial_world_hex":hex(&initial),"publications":rows,"inputs":payments.iter().map(|(n,p)|serde_json::json!({"position":n.to_string(),"payload_hex":p})).collect::<Vec<_>>(),"assigned":assigned.clone(),"artifact_events":artifacts,"epoch_metadata":metadata}),
     );
-    assert!(
-        std::process::Command::new("node")
-            .current_dir(&repo)
-            .args([
-                "tools/replay_s14.mjs",
-                out.join("trace.json").to_str().unwrap(),
-                out.join("replay.json").to_str().unwrap()
-            ])
-            .status()
-            .unwrap()
-            .success()
-    );
+    assert!(std::process::Command::new("node")
+        .current_dir(&repo)
+        .args([
+            "tools/replay_s14.mjs",
+            out.join("trace.json").to_str().unwrap(),
+            out.join("replay.json").to_str().unwrap()
+        ])
+        .status()
+        .unwrap()
+        .success());
     // Every declared payment must be retired, including final malformed text.
     assert!(payments.keys().all(|n| assigned.contains(&n.to_string())));
     pic.set_time(pocket_ic::Time::from(std::time::SystemTime::now()));
@@ -239,19 +336,17 @@ fn war_cry_real_ledger_index_launch_and_independent_replay() {
         "configuration.json",
         &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":AccountIdentifier::new(&extra,&DEFAULT_SUBACCOUNT).to_hex(),"expected_cry":"Hello!","expected_cannon":2}),
     );
-    assert!(
-        std::process::Command::new("node")
-            .current_dir(&repo)
-            .args([
-                "tools/capture_war_cry_installed.mjs",
-                out.join("configuration.json").to_str().unwrap(),
-                out.join("trace.json").to_str().unwrap(),
-                out.join("authenticated").to_str().unwrap()
-            ])
-            .status()
-            .unwrap()
-            .success()
-    );
+    assert!(std::process::Command::new("node")
+        .current_dir(&repo)
+        .args([
+            "tools/capture_war_cry_installed.mjs",
+            out.join("configuration.json").to_str().unwrap(),
+            out.join("trace.json").to_str().unwrap(),
+            out.join("authenticated").to_str().unwrap()
+        ])
+        .status()
+        .unwrap()
+        .success());
     assert!(
         std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap())
             .current_dir(&repo)
@@ -270,6 +365,6 @@ fn war_cry_real_ledger_index_launch_and_independent_replay() {
     save(
         &out,
         "result.json",
-        &serde_json::json!({"status":"PASS","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"rules":observe(&pic,id).1.identity,"state_preserved_at_cutover":true,"finance_preserved_at_cutover":true,"old_invalid_position":old,"payments":sent,"annotations":annotations,"receipts":receipts,"source_cursor":status(&pic,id).source.admitted_to_exclusive,"whole_processing_cycles":(start_cycles as i128-pic.cycle_balance(id)as i128).to_string(),"scope":"synthetic initial state; actual valueless official Ledger/Index and normal game Wasm; not production"}),
+        &serde_json::json!({"status":"PASS","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"rules":observe(&pic,id).1.identity,"state_preserved_at_cutover":true,"finance_preserved_at_cutover":true,"old_invalid_position":old,"payments":sent,"annotations":annotations,"receipts":receipts,"source_cursor":status(&pic,id).source.admitted_to_exclusive,"admitted_annotation_upgrade_preserved":pending_upgrade,"ledger_33_byte_rejection":oversized_rejection,"ledger_32_byte_payment_processed":true,"whole_processing_cycles":(start_cycles as i128-pic.cycle_balance(id)as i128).to_string(),"scope":"synthetic initial state; actual valueless official Ledger/Index and normal game Wasm; not production"}),
     );
 }
