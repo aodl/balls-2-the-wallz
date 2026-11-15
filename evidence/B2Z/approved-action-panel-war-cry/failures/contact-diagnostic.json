@@ -1,0 +1,54 @@
+{
+  "status": "FAIL",
+  "scope": "Native displayed contact perspective through actual SegmentPlayer/renderer/engine.\nDisposable canonical kernel data: source-content verification, not IC authenticity or physical listening.\n",
+  "rows": [],
+  "late_attempts": [],
+  "error": "",
+  "browser_errors": [
+    "observer: playhead bounds"
+  ],
+  "last_state": {
+    "time": 0.03646199999988079,
+    "frames": [
+      {
+        "previous": 0.01596299999988079,
+        "time": 0.01646299999988079,
+        "elapsed": 0.05,
+        "events": [
+          {
+            "kind": "trajectory",
+            "time": [
+              "2",
+              "125"
+            ],
+            "sequence": 0
+          },
+          {
+            "kind": "strike_armed",
+            "time": [
+              "2",
+              "125"
+            ],
+            "sequence": 1
+          }
+        ],
+        "audio": {
+          "inspected": 1,
+          "retained": 1,
+          "dropped": 0
+        }
+      }
+    ],
+    "authorityTime": [
+      "1",
+      "1"
+    ],
+    "latestBoundaryOwner": null,
+    "account": "2d0e897f7e862d2b57d9bc9ea5c65f9a24ac6c074575f47898314b8d6cb0929d",
+    "camera": [
+      103.5,
+      1,
+      64
+    ]
+  }
+}

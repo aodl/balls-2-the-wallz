@@ -1,0 +1,27 @@
+
+  .work/approved-panel-war-cry/panel-final4/fixture/fixture.mjs  1.5mb ⚠️
+
+⚡ Done in 341ms
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_approved_panel.py", line 76, in <module>
+    page.close();ctx.close();ctx=b.new_context(viewport={'width':w,'height':h},has_touch=w<700,permissions=['clipboard-read','clipboard-write'],record_video_dir=str(out/f'video-{w}-join'));page=ctx.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto(url+'/?case=quantityLive&war-cry=1');page.wait_for_function('()=>Boolean(globalThis.fixture)');page.locator('#join-action').click();page.locator('#sending-account').fill('2vxsx-fae');page.locator('#identity-save').click();settled_panel(page)
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/tools/fluid_playability_browser.py", line 29, in settled_panel
+    page.evaluate("""()=>new Promise((resolve,reject)=>{
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/sync_api/_generated.py", line 9413, in evaluate
+    self._sync(
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_page.py", line 474, in evaluate
+    return await self._main_frame.evaluate(expression, arg)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_frame.py", line 346, in evaluate
+    await self._channel.send(
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.Error: Page.evaluate: Error: Panel did not settle: {"target":459,"expected":459,"space":604,"cache":{"quantity":null,"quantityDocked":false,"quantityReserved":false,"quantityReservation":"none","quantitySize":{"width":146,"height":49.34375},"quantityPointers":0,"quantityClickCancelled":false,"dirty":true,"pendingFrame":true,"revision":878,"committedRevision":877,"desired":512,"positionKey":"1072/130/360/604/459","compositionKey":"action/start////1440/900/false/0","cardBounds":{"left":1072,"right":1432,"top":130,"bottom":642}},"geometry":"[{\"x\":1072,\"y\":130,\"width\":360,\"height\":514,\"top\":130,\"right\":1432,\"bottom\":644,\"left\":1072},{\"x\":1073,\"y\":184,\"width\":358,\"height\":459,\"top\":184,\"right\":1431,\"bottom\":643,\"left\":1073},439,459,604]","moving":false}
+    at sample (eval at evaluate (:311:30), <anonymous>:15:52)

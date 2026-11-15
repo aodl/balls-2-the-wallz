@@ -1,0 +1,12 @@
+[
+  {
+    "regular_default_context": true,
+    "before": "visible",
+    "after_real_tab_switch": "hidden"
+  },
+  {
+    "regular_default_context": false,
+    "before": "visible",
+    "after_real_tab_switch": "visible"
+  }
+]

@@ -1,0 +1,9 @@
+
+  .work/approved-panel-war-cry/contact-diagnostic/contact.mjs  1.5mb ⚠️
+
+⚡ Done in 160ms
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_contact_meaning.py", line 45, in <module>
+    first=page.evaluate('contactStarts[0]');assert any(abs(first['duration']-v)<.0001 for v in durations),(name,first);assert first['rate']==1;page.wait_for_timeout(1800);state=page.evaluate('contactQA.audio()');perspective_state=page.evaluate('contactQA.state()');assert perspective_state['latestBoundaryOwner']==expected['latestBoundaryAccount']and perspective_state['authorityTime']==['1','1'];assert state['stats']['maxVoices']<=8;endpoint=page.evaluate('contactQA.finish()');assert endpoint['endpointEquality']and endpoint['events']==endpoint['expected']and endpoint['startsBeforeSeek']==endpoint['startsAfterSeek'];assert not errors;page.screenshot(path=str(out/(name+'.png')))
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ^^^^^^^^^^
+AssertionError

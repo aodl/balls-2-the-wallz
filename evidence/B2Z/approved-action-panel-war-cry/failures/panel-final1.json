@@ -1,0 +1,4647 @@
+{
+  "status": "FAIL",
+  "scope": "Approved shared panel/native input against canonical disposable scenes; no IC claim.",
+  "views": [
+    {
+      "width": 1440,
+      "height": 900,
+      "capability": false,
+      "actions": {
+        "fire": {
+          "title": {
+            "x": 671,
+            "y": 396,
+            "width": 170,
+            "height": 56,
+            "top": 396,
+            "right": 841,
+            "bottom": 452,
+            "left": 671
+          },
+          "from": {
+            "x": 671,
+            "y": 452,
+            "width": 170,
+            "height": 69,
+            "top": 452,
+            "right": 841,
+            "bottom": 521,
+            "left": 671
+          },
+          "to": {
+            "x": 841,
+            "y": 452,
+            "width": 126,
+            "height": 69,
+            "top": 452,
+            "right": 967,
+            "bottom": 521,
+            "left": 841
+          },
+          "amount": {
+            "x": 841,
+            "y": 396,
+            "width": 126,
+            "height": 56,
+            "top": 396,
+            "right": 967,
+            "bottom": 452,
+            "left": 841
+          },
+          "copies": [
+            {
+              "x": 967,
+              "y": 402,
+              "width": 44,
+              "height": 44,
+              "top": 402,
+              "right": 1011,
+              "bottom": 446,
+              "left": 967
+            },
+            {
+              "x": 967,
+              "y": 464.5,
+              "width": 44,
+              "height": 44,
+              "top": 464.5,
+              "right": 1011,
+              "bottom": 508.5,
+              "left": 967
+            },
+            {
+              "x": 967,
+              "y": 526,
+              "width": 44,
+              "height": 44,
+              "top": 526,
+              "right": 1011,
+              "bottom": 570,
+              "left": 967
+            }
+          ],
+          "panel": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 328,
+            "top": 334,
+            "right": 1021,
+            "bottom": 662,
+            "left": 661
+          },
+          "scroll": {
+            "x": 661,
+            "y": 388,
+            "width": 360,
+            "height": 274,
+            "top": 388,
+            "right": 1021,
+            "bottom": 662,
+            "left": 661
+          },
+          "quantity": {
+            "x": 465,
+            "y": 245,
+            "width": 130,
+            "height": 46,
+            "top": 245,
+            "right": 595,
+            "bottom": 291,
+            "left": 465
+          },
+          "group": {
+            "x": 465,
+            "y": 245,
+            "width": 130,
+            "height": 46,
+            "top": 245,
+            "right": 595,
+            "bottom": 291,
+            "left": 465
+          },
+          "cry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "hidden": false,
+          "fields": 0,
+          "buttons": 3,
+          "status_samples": [
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 328,
+                "top": 334,
+                "right": 1021,
+                "bottom": 662,
+                "left": 661
+              }
+            }
+          ]
+        },
+        "move": {
+          "title": {
+            "x": 671,
+            "y": 396,
+            "width": 170,
+            "height": 56,
+            "top": 396,
+            "right": 841,
+            "bottom": 452,
+            "left": 671
+          },
+          "from": {
+            "x": 671,
+            "y": 452,
+            "width": 170,
+            "height": 69,
+            "top": 452,
+            "right": 841,
+            "bottom": 521,
+            "left": 671
+          },
+          "to": {
+            "x": 841,
+            "y": 452,
+            "width": 126,
+            "height": 69,
+            "top": 452,
+            "right": 967,
+            "bottom": 521,
+            "left": 841
+          },
+          "amount": {
+            "x": 841,
+            "y": 396,
+            "width": 126,
+            "height": 56,
+            "top": 396,
+            "right": 967,
+            "bottom": 452,
+            "left": 841
+          },
+          "copies": [
+            {
+              "x": 967,
+              "y": 402,
+              "width": 44,
+              "height": 44,
+              "top": 402,
+              "right": 1011,
+              "bottom": 446,
+              "left": 967
+            },
+            {
+              "x": 967,
+              "y": 464.5,
+              "width": 44,
+              "height": 44,
+              "top": 464.5,
+              "right": 1011,
+              "bottom": 508.5,
+              "left": 967
+            },
+            {
+              "x": 967,
+              "y": 526,
+              "width": 44,
+              "height": 44,
+              "top": 526,
+              "right": 1011,
+              "bottom": 570,
+              "left": 967
+            }
+          ],
+          "panel": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 368,
+            "top": 334,
+            "right": 1021,
+            "bottom": 702,
+            "left": 661
+          },
+          "scroll": {
+            "x": 661,
+            "y": 388,
+            "width": 360,
+            "height": 314,
+            "top": 388,
+            "right": 1021,
+            "bottom": 702,
+            "left": 661
+          },
+          "quantity": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "group": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "cry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "hidden": true,
+          "fields": 0,
+          "buttons": 3,
+          "status_samples": [
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            }
+          ]
+        },
+        "build": {
+          "title": {
+            "x": 671,
+            "y": 396,
+            "width": 170,
+            "height": 56,
+            "top": 396,
+            "right": 841,
+            "bottom": 452,
+            "left": 671
+          },
+          "from": {
+            "x": 671,
+            "y": 452,
+            "width": 170,
+            "height": 69,
+            "top": 452,
+            "right": 841,
+            "bottom": 521,
+            "left": 671
+          },
+          "to": {
+            "x": 841,
+            "y": 452,
+            "width": 126,
+            "height": 69,
+            "top": 452,
+            "right": 967,
+            "bottom": 521,
+            "left": 841
+          },
+          "amount": {
+            "x": 841,
+            "y": 396,
+            "width": 126,
+            "height": 56,
+            "top": 396,
+            "right": 967,
+            "bottom": 452,
+            "left": 841
+          },
+          "copies": [
+            {
+              "x": 967,
+              "y": 402,
+              "width": 44,
+              "height": 44,
+              "top": 402,
+              "right": 1011,
+              "bottom": 446,
+              "left": 967
+            },
+            {
+              "x": 967,
+              "y": 464.5,
+              "width": 44,
+              "height": 44,
+              "top": 464.5,
+              "right": 1011,
+              "bottom": 508.5,
+              "left": 967
+            },
+            {
+              "x": 967,
+              "y": 526,
+              "width": 44,
+              "height": 44,
+              "top": 526,
+              "right": 1011,
+              "bottom": 570,
+              "left": 967
+            }
+          ],
+          "panel": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 368,
+            "top": 334,
+            "right": 1021,
+            "bottom": 702,
+            "left": 661
+          },
+          "scroll": {
+            "x": 661,
+            "y": 388,
+            "width": 360,
+            "height": 314,
+            "top": 388,
+            "right": 1021,
+            "bottom": 702,
+            "left": 661
+          },
+          "quantity": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "group": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "cry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "hidden": true,
+          "fields": 0,
+          "buttons": 3,
+          "status_samples": [
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              }
+            }
+          ]
+        }
+      },
+      "sweep": "PASS full forward/reverse, original pose, active group bounds",
+      "final": {
+        "title": {
+          "x": 844,
+          "y": 321,
+          "width": 170,
+          "height": 56,
+          "top": 321,
+          "right": 1014,
+          "bottom": 377,
+          "left": 844
+        },
+        "from": {
+          "x": 844,
+          "y": 377,
+          "width": 170,
+          "height": 69,
+          "top": 377,
+          "right": 1014,
+          "bottom": 446,
+          "left": 844
+        },
+        "to": {
+          "x": 1014,
+          "y": 377,
+          "width": 126,
+          "height": 69,
+          "top": 377,
+          "right": 1140,
+          "bottom": 446,
+          "left": 1014
+        },
+        "amount": {
+          "x": 1014,
+          "y": 321,
+          "width": 126,
+          "height": 56,
+          "top": 321,
+          "right": 1140,
+          "bottom": 377,
+          "left": 1014
+        },
+        "copies": [
+          {
+            "x": 1140,
+            "y": 327,
+            "width": 44,
+            "height": 44,
+            "top": 327,
+            "right": 1184,
+            "bottom": 371,
+            "left": 1140
+          },
+          {
+            "x": 1140,
+            "y": 389.5,
+            "width": 44,
+            "height": 44,
+            "top": 389.5,
+            "right": 1184,
+            "bottom": 433.5,
+            "left": 1140
+          },
+          {
+            "x": 1140,
+            "y": 451,
+            "width": 44,
+            "height": 44,
+            "top": 451,
+            "right": 1184,
+            "bottom": 495,
+            "left": 1140
+          }
+        ],
+        "panel": {
+          "x": 834,
+          "y": 259,
+          "width": 360,
+          "height": 328,
+          "top": 259,
+          "right": 1194,
+          "bottom": 587,
+          "left": 834
+        },
+        "scroll": {
+          "x": 834,
+          "y": 313,
+          "width": 360,
+          "height": 274,
+          "top": 313,
+          "right": 1194,
+          "bottom": 587,
+          "left": 834
+        },
+        "quantity": {
+          "x": 655,
+          "y": 339,
+          "width": 130,
+          "height": 46,
+          "top": 339,
+          "right": 785,
+          "bottom": 385,
+          "left": 655
+        },
+        "group": {
+          "x": 655,
+          "y": 339,
+          "width": 130,
+          "height": 46,
+          "top": 339,
+          "right": 785,
+          "bottom": 385,
+          "left": 655
+        },
+        "cry": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "hidden": false,
+        "fields": 0,
+        "buttons": 3
+      },
+      "errors": []
+    },
+    {
+      "width": 390,
+      "height": 844,
+      "capability": false,
+      "actions": {
+        "fire": {
+          "title": {
+            "x": 18,
+            "y": 283,
+            "width": 170,
+            "height": 56,
+            "top": 283,
+            "right": 188,
+            "bottom": 339,
+            "left": 18
+          },
+          "from": {
+            "x": 18,
+            "y": 339,
+            "width": 170,
+            "height": 69,
+            "top": 339,
+            "right": 188,
+            "bottom": 408,
+            "left": 18
+          },
+          "to": {
+            "x": 188,
+            "y": 339,
+            "width": 126,
+            "height": 69,
+            "top": 339,
+            "right": 314,
+            "bottom": 408,
+            "left": 188
+          },
+          "amount": {
+            "x": 188,
+            "y": 283,
+            "width": 126,
+            "height": 56,
+            "top": 283,
+            "right": 314,
+            "bottom": 339,
+            "left": 188
+          },
+          "copies": [
+            {
+              "x": 314,
+              "y": 289,
+              "width": 44,
+              "height": 44,
+              "top": 289,
+              "right": 358,
+              "bottom": 333,
+              "left": 314
+            },
+            {
+              "x": 314,
+              "y": 351.5,
+              "width": 44,
+              "height": 44,
+              "top": 351.5,
+              "right": 358,
+              "bottom": 395.5,
+              "left": 314
+            },
+            {
+              "x": 314,
+              "y": 413,
+              "width": 44,
+              "height": 44,
+              "top": 413,
+              "right": 358,
+              "bottom": 457,
+              "left": 314
+            }
+          ],
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 328,
+            "top": 221,
+            "right": 368,
+            "bottom": 549,
+            "left": 8
+          },
+          "scroll": {
+            "x": 8,
+            "y": 275,
+            "width": 360,
+            "height": 274,
+            "top": 275,
+            "right": 368,
+            "bottom": 549,
+            "left": 8
+          },
+          "quantity": {
+            "x": 11,
+            "y": 132,
+            "width": 130,
+            "height": 46,
+            "top": 132,
+            "right": 141,
+            "bottom": 178,
+            "left": 11
+          },
+          "group": {
+            "x": 11,
+            "y": 132,
+            "width": 130,
+            "height": 46,
+            "top": 132,
+            "right": 141,
+            "bottom": 178,
+            "left": 11
+          },
+          "cry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "hidden": false,
+          "fields": 0,
+          "buttons": 3,
+          "status_samples": [
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 328,
+                "top": 221,
+                "right": 368,
+                "bottom": 549,
+                "left": 8
+              }
+            }
+          ]
+        },
+        "move": {
+          "title": {
+            "x": 18,
+            "y": 283,
+            "width": 170,
+            "height": 56,
+            "top": 283,
+            "right": 188,
+            "bottom": 339,
+            "left": 18
+          },
+          "from": {
+            "x": 18,
+            "y": 339,
+            "width": 170,
+            "height": 69,
+            "top": 339,
+            "right": 188,
+            "bottom": 408,
+            "left": 18
+          },
+          "to": {
+            "x": 188,
+            "y": 339,
+            "width": 126,
+            "height": 69,
+            "top": 339,
+            "right": 314,
+            "bottom": 408,
+            "left": 188
+          },
+          "amount": {
+            "x": 188,
+            "y": 283,
+            "width": 126,
+            "height": 56,
+            "top": 283,
+            "right": 314,
+            "bottom": 339,
+            "left": 188
+          },
+          "copies": [
+            {
+              "x": 314,
+              "y": 289,
+              "width": 44,
+              "height": 44,
+              "top": 289,
+              "right": 358,
+              "bottom": 333,
+              "left": 314
+            },
+            {
+              "x": 314,
+              "y": 351.5,
+              "width": 44,
+              "height": 44,
+              "top": 351.5,
+              "right": 358,
+              "bottom": 395.5,
+              "left": 314
+            },
+            {
+              "x": 314,
+              "y": 413,
+              "width": 44,
+              "height": 44,
+              "top": 413,
+              "right": 358,
+              "bottom": 457,
+              "left": 314
+            }
+          ],
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 368,
+            "top": 221,
+            "right": 368,
+            "bottom": 589,
+            "left": 8
+          },
+          "scroll": {
+            "x": 8,
+            "y": 275,
+            "width": 360,
+            "height": 314,
+            "top": 275,
+            "right": 368,
+            "bottom": 589,
+            "left": 8
+          },
+          "quantity": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "group": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "cry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "hidden": true,
+          "fields": 0,
+          "buttons": 3,
+          "status_samples": [
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            }
+          ]
+        },
+        "build": {
+          "title": {
+            "x": 18,
+            "y": 283,
+            "width": 170,
+            "height": 56,
+            "top": 283,
+            "right": 188,
+            "bottom": 339,
+            "left": 18
+          },
+          "from": {
+            "x": 18,
+            "y": 339,
+            "width": 170,
+            "height": 69,
+            "top": 339,
+            "right": 188,
+            "bottom": 408,
+            "left": 18
+          },
+          "to": {
+            "x": 188,
+            "y": 339,
+            "width": 126,
+            "height": 69,
+            "top": 339,
+            "right": 314,
+            "bottom": 408,
+            "left": 188
+          },
+          "amount": {
+            "x": 188,
+            "y": 283,
+            "width": 126,
+            "height": 56,
+            "top": 283,
+            "right": 314,
+            "bottom": 339,
+            "left": 188
+          },
+          "copies": [
+            {
+              "x": 314,
+              "y": 289,
+              "width": 44,
+              "height": 44,
+              "top": 289,
+              "right": 358,
+              "bottom": 333,
+              "left": 314
+            },
+            {
+              "x": 314,
+              "y": 351.5,
+              "width": 44,
+              "height": 44,
+              "top": 351.5,
+              "right": 358,
+              "bottom": 395.5,
+              "left": 314
+            },
+            {
+              "x": 314,
+              "y": 413,
+              "width": 44,
+              "height": 44,
+              "top": 413,
+              "right": 358,
+              "bottom": 457,
+              "left": 314
+            }
+          ],
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 368,
+            "top": 221,
+            "right": 368,
+            "bottom": 589,
+            "left": 8
+          },
+          "scroll": {
+            "x": 8,
+            "y": 275,
+            "width": 360,
+            "height": 314,
+            "top": 275,
+            "right": 368,
+            "bottom": 589,
+            "left": 8
+          },
+          "quantity": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "group": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "cry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "hidden": true,
+          "fields": 0,
+          "buttons": 3,
+          "status_samples": [
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              }
+            }
+          ]
+        }
+      },
+      "sweep": "PASS full forward/reverse, original pose, active group bounds",
+      "final": {
+        "title": {
+          "x": 18,
+          "y": 283,
+          "width": 170,
+          "height": 56,
+          "top": 283,
+          "right": 188,
+          "bottom": 339,
+          "left": 18
+        },
+        "from": {
+          "x": 18,
+          "y": 339,
+          "width": 170,
+          "height": 69,
+          "top": 339,
+          "right": 188,
+          "bottom": 408,
+          "left": 18
+        },
+        "to": {
+          "x": 188,
+          "y": 339,
+          "width": 126,
+          "height": 69,
+          "top": 339,
+          "right": 314,
+          "bottom": 408,
+          "left": 188
+        },
+        "amount": {
+          "x": 188,
+          "y": 283,
+          "width": 126,
+          "height": 56,
+          "top": 283,
+          "right": 314,
+          "bottom": 339,
+          "left": 188
+        },
+        "copies": [
+          {
+            "x": 314,
+            "y": 289,
+            "width": 44,
+            "height": 44,
+            "top": 289,
+            "right": 358,
+            "bottom": 333,
+            "left": 314
+          },
+          {
+            "x": 314,
+            "y": 351.5,
+            "width": 44,
+            "height": 44,
+            "top": 351.5,
+            "right": 358,
+            "bottom": 395.5,
+            "left": 314
+          },
+          {
+            "x": 314,
+            "y": 413,
+            "width": 44,
+            "height": 44,
+            "top": 413,
+            "right": 358,
+            "bottom": 457,
+            "left": 314
+          }
+        ],
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 328,
+          "top": 221,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 274,
+          "top": 275,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "quantity": {
+          "x": 212,
+          "y": 152,
+          "width": 130,
+          "height": 46,
+          "top": 152,
+          "right": 342,
+          "bottom": 198,
+          "left": 212
+        },
+        "group": {
+          "x": 212,
+          "y": 152,
+          "width": 130,
+          "height": 46,
+          "top": 152,
+          "right": 342,
+          "bottom": 198,
+          "left": 212
+        },
+        "cry": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "hidden": false,
+        "fields": 0,
+        "buttons": 3
+      },
+      "errors": []
+    },
+    {
+      "width": 320,
+      "height": 640,
+      "capability": false,
+      "actions": {
+        "fire": {
+          "title": {
+            "x": 18,
+            "y": 283,
+            "width": 142,
+            "height": 56,
+            "top": 283,
+            "right": 160,
+            "bottom": 339,
+            "left": 18
+          },
+          "from": {
+            "x": 18,
+            "y": 339,
+            "width": 142,
+            "height": 69,
+            "top": 339,
+            "right": 160,
+            "bottom": 408,
+            "left": 18
+          },
+          "to": {
+            "x": 160,
+            "y": 339,
+            "width": 98,
+            "height": 69,
+            "top": 339,
+            "right": 258,
+            "bottom": 408,
+            "left": 160
+          },
+          "amount": {
+            "x": 160,
+            "y": 283,
+            "width": 98,
+            "height": 56,
+            "top": 283,
+            "right": 258,
+            "bottom": 339,
+            "left": 160
+          },
+          "copies": [
+            {
+              "x": 258,
+              "y": 289,
+              "width": 44,
+              "height": 44,
+              "top": 289,
+              "right": 302,
+              "bottom": 333,
+              "left": 258
+            },
+            {
+              "x": 258,
+              "y": 351.5,
+              "width": 44,
+              "height": 44,
+              "top": 351.5,
+              "right": 302,
+              "bottom": 395.5,
+              "left": 258
+            },
+            {
+              "x": 258,
+              "y": 413,
+              "width": 44,
+              "height": 44,
+              "top": 413,
+              "right": 302,
+              "bottom": 457,
+              "left": 258
+            }
+          ],
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 296,
+            "top": 221,
+            "right": 312,
+            "bottom": 517,
+            "left": 8
+          },
+          "scroll": {
+            "x": 8,
+            "y": 275,
+            "width": 304,
+            "height": 242,
+            "top": 275,
+            "right": 312,
+            "bottom": 517,
+            "left": 8
+          },
+          "quantity": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46,
+            "top": 526,
+            "right": 140,
+            "bottom": 572,
+            "left": 10
+          },
+          "group": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46,
+            "top": 526,
+            "right": 140,
+            "bottom": 572,
+            "left": 10
+          },
+          "cry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "hidden": false,
+          "fields": 0,
+          "buttons": 3,
+          "status_samples": [
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 296,
+                "top": 221,
+                "right": 312,
+                "bottom": 517,
+                "left": 8
+              }
+            }
+          ]
+        },
+        "move": {
+          "title": {
+            "x": 18,
+            "y": 283,
+            "width": 142,
+            "height": 56,
+            "top": 283,
+            "right": 160,
+            "bottom": 339,
+            "left": 18
+          },
+          "from": {
+            "x": 18,
+            "y": 339,
+            "width": 142,
+            "height": 69,
+            "top": 339,
+            "right": 160,
+            "bottom": 408,
+            "left": 18
+          },
+          "to": {
+            "x": 160,
+            "y": 339,
+            "width": 98,
+            "height": 69,
+            "top": 339,
+            "right": 258,
+            "bottom": 408,
+            "left": 160
+          },
+          "amount": {
+            "x": 160,
+            "y": 283,
+            "width": 98,
+            "height": 56,
+            "top": 283,
+            "right": 258,
+            "bottom": 339,
+            "left": 160
+          },
+          "copies": [
+            {
+              "x": 258,
+              "y": 289,
+              "width": 44,
+              "height": 44,
+              "top": 289,
+              "right": 302,
+              "bottom": 333,
+              "left": 258
+            },
+            {
+              "x": 258,
+              "y": 351.5,
+              "width": 44,
+              "height": 44,
+              "top": 351.5,
+              "right": 302,
+              "bottom": 395.5,
+              "left": 258
+            },
+            {
+              "x": 258,
+              "y": 413,
+              "width": 44,
+              "height": 44,
+              "top": 413,
+              "right": 302,
+              "bottom": 457,
+              "left": 258
+            }
+          ],
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "scroll": {
+            "x": 8,
+            "y": 275,
+            "width": 304,
+            "height": 241,
+            "top": 275,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "quantity": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "group": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "cry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "hidden": true,
+          "fields": 0,
+          "buttons": 3,
+          "status_samples": [
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            }
+          ]
+        },
+        "build": {
+          "title": {
+            "x": 18,
+            "y": 283,
+            "width": 142,
+            "height": 56,
+            "top": 283,
+            "right": 160,
+            "bottom": 339,
+            "left": 18
+          },
+          "from": {
+            "x": 18,
+            "y": 339,
+            "width": 142,
+            "height": 69,
+            "top": 339,
+            "right": 160,
+            "bottom": 408,
+            "left": 18
+          },
+          "to": {
+            "x": 160,
+            "y": 339,
+            "width": 98,
+            "height": 69,
+            "top": 339,
+            "right": 258,
+            "bottom": 408,
+            "left": 160
+          },
+          "amount": {
+            "x": 160,
+            "y": 283,
+            "width": 98,
+            "height": 56,
+            "top": 283,
+            "right": 258,
+            "bottom": 339,
+            "left": 160
+          },
+          "copies": [
+            {
+              "x": 258,
+              "y": 289,
+              "width": 44,
+              "height": 44,
+              "top": 289,
+              "right": 302,
+              "bottom": 333,
+              "left": 258
+            },
+            {
+              "x": 258,
+              "y": 351.5,
+              "width": 44,
+              "height": 44,
+              "top": 351.5,
+              "right": 302,
+              "bottom": 395.5,
+              "left": 258
+            },
+            {
+              "x": 258,
+              "y": 413,
+              "width": 44,
+              "height": 44,
+              "top": 413,
+              "right": 302,
+              "bottom": 457,
+              "left": 258
+            }
+          ],
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "scroll": {
+            "x": 8,
+            "y": 275,
+            "width": 304,
+            "height": 241,
+            "top": 275,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "quantity": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "group": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "cry": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "hidden": true,
+          "fields": 0,
+          "buttons": 3,
+          "status_samples": [
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "protected",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "operational",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "delivery",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            },
+            {
+              "kind": "healthy",
+              "panel": {
+                "x": 8,
+                "y": 221,
+                "width": 304,
+                "height": 295,
+                "top": 221,
+                "right": 312,
+                "bottom": 516,
+                "left": 8
+              }
+            }
+          ]
+        }
+      },
+      "sweep": "PASS full forward/reverse, original pose, active group bounds",
+      "final": {
+        "title": {
+          "x": 18,
+          "y": 283,
+          "width": 142,
+          "height": 56,
+          "top": 283,
+          "right": 160,
+          "bottom": 339,
+          "left": 18
+        },
+        "from": {
+          "x": 18,
+          "y": 339,
+          "width": 142,
+          "height": 69,
+          "top": 339,
+          "right": 160,
+          "bottom": 408,
+          "left": 18
+        },
+        "to": {
+          "x": 160,
+          "y": 339,
+          "width": 98,
+          "height": 69,
+          "top": 339,
+          "right": 258,
+          "bottom": 408,
+          "left": 160
+        },
+        "amount": {
+          "x": 160,
+          "y": 283,
+          "width": 98,
+          "height": 56,
+          "top": 283,
+          "right": 258,
+          "bottom": 339,
+          "left": 160
+        },
+        "copies": [
+          {
+            "x": 258,
+            "y": 289,
+            "width": 44,
+            "height": 44,
+            "top": 289,
+            "right": 302,
+            "bottom": 333,
+            "left": 258
+          },
+          {
+            "x": 258,
+            "y": 351.5,
+            "width": 44,
+            "height": 44,
+            "top": 351.5,
+            "right": 302,
+            "bottom": 395.5,
+            "left": 258
+          },
+          {
+            "x": 258,
+            "y": 413,
+            "width": 44,
+            "height": 44,
+            "top": 413,
+            "right": 302,
+            "bottom": 457,
+            "left": 258
+          }
+        ],
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 296,
+          "top": 221,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 242,
+          "top": 275,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "quantity": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46,
+          "top": 526,
+          "right": 140,
+          "bottom": 572,
+          "left": 10
+        },
+        "group": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46,
+          "top": 526,
+          "right": 140,
+          "bottom": 572,
+          "left": 10
+        },
+        "cry": {
+          "x": 0,
+          "y": 0,
+          "width": 0,
+          "height": 0,
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0
+        },
+        "hidden": false,
+        "fields": 0,
+        "buttons": 3
+      },
+      "errors": []
+    },
+    {
+      "width": 1440,
+      "height": 900,
+      "capability": true,
+      "actions": {
+        "fire": {
+          "title": {
+            "x": 671,
+            "y": 396,
+            "width": 170,
+            "height": 56,
+            "top": 396,
+            "right": 841,
+            "bottom": 452,
+            "left": 671
+          },
+          "from": {
+            "x": 671,
+            "y": 452,
+            "width": 170,
+            "height": 69,
+            "top": 452,
+            "right": 841,
+            "bottom": 521,
+            "left": 671
+          },
+          "to": {
+            "x": 841,
+            "y": 452,
+            "width": 126,
+            "height": 69,
+            "top": 452,
+            "right": 967,
+            "bottom": 521,
+            "left": 841
+          },
+          "amount": {
+            "x": 841,
+            "y": 396,
+            "width": 126,
+            "height": 56,
+            "top": 396,
+            "right": 967,
+            "bottom": 452,
+            "left": 841
+          },
+          "copies": [
+            {
+              "x": 967,
+              "y": 402,
+              "width": 44,
+              "height": 44,
+              "top": 402,
+              "right": 1011,
+              "bottom": 446,
+              "left": 967
+            },
+            {
+              "x": 967,
+              "y": 464.5,
+              "width": 44,
+              "height": 44,
+              "top": 464.5,
+              "right": 1011,
+              "bottom": 508.5,
+              "left": 967
+            },
+            {
+              "x": 967,
+              "y": 526,
+              "width": 44,
+              "height": 44,
+              "top": 526,
+              "right": 1011,
+              "bottom": 570,
+              "left": 967
+            }
+          ],
+          "panel": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 328,
+            "top": 334,
+            "right": 1021,
+            "bottom": 662,
+            "left": 661
+          },
+          "scroll": {
+            "x": 661,
+            "y": 388,
+            "width": 360,
+            "height": 274,
+            "top": 388,
+            "right": 1021,
+            "bottom": 662,
+            "left": 661
+          },
+          "quantity": {
+            "x": 389,
+            "y": 244.1875,
+            "width": 130,
+            "height": 46,
+            "top": 244.1875,
+            "right": 519,
+            "bottom": 290.1875,
+            "left": 389
+          },
+          "group": {
+            "x": 389,
+            "y": 243,
+            "width": 282,
+            "height": 48.390625,
+            "top": 243,
+            "right": 671,
+            "bottom": 291.390625,
+            "left": 389
+          },
+          "cry": {
+            "x": 525,
+            "y": 243,
+            "width": 146,
+            "height": 48.390625,
+            "top": 243,
+            "right": 671,
+            "bottom": 291.390625,
+            "left": 525
+          },
+          "hidden": false,
+          "fields": 0,
+          "buttons": 3,
+          "status_samples": []
+        }
+      },
+      "copied_cry": "PASS Keep/Update complete memo and input"
+    }
+  ],
+  "error": "AssertionError(('protected', {'x': 661, 'y': 334, 'width': 360, 'height': 325.78125, 'top': 334, 'right': 1021, 'bottom': 659.78125, 'left': 661}, {'x': 661, 'y': 334, 'width': 360, 'height': 256.890625, 'top': 334, 'right': 1021, 'bottom': 590.890625, 'left': 661}))",
+  "failure": {
+    "title": {
+      "x": 671,
+      "y": 396,
+      "width": 170,
+      "height": 56,
+      "top": 396,
+      "right": 841,
+      "bottom": 452,
+      "left": 671
+    },
+    "from": {
+      "x": 671,
+      "y": 452,
+      "width": 170,
+      "height": 69,
+      "top": 452,
+      "right": 841,
+      "bottom": 521,
+      "left": 671
+    },
+    "to": {
+      "x": 841,
+      "y": 452,
+      "width": 126,
+      "height": 69,
+      "top": 452,
+      "right": 967,
+      "bottom": 521,
+      "left": 841
+    },
+    "amount": {
+      "x": 841,
+      "y": 396,
+      "width": 126,
+      "height": 56,
+      "top": 396,
+      "right": 967,
+      "bottom": 452,
+      "left": 841
+    },
+    "copies": [
+      {
+        "x": 967,
+        "y": 402,
+        "width": 44,
+        "height": 44,
+        "top": 402,
+        "right": 1011,
+        "bottom": 446,
+        "left": 967
+      },
+      {
+        "x": 967,
+        "y": 464.5,
+        "width": 44,
+        "height": 44,
+        "top": 464.5,
+        "right": 1011,
+        "bottom": 508.5,
+        "left": 967
+      },
+      {
+        "x": 967,
+        "y": 526.796875,
+        "width": 44,
+        "height": 44,
+        "top": 526.796875,
+        "right": 1011,
+        "bottom": 570.796875,
+        "left": 967
+      }
+    ],
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 329,
+      "top": 334,
+      "right": 1021,
+      "bottom": 663,
+      "left": 661
+    },
+    "scroll": {
+      "x": 661,
+      "y": 388,
+      "width": 360,
+      "height": 275,
+      "top": 388,
+      "right": 1021,
+      "bottom": 663,
+      "left": 661
+    },
+    "quantity": {
+      "x": 389,
+      "y": 244.1875,
+      "width": 130,
+      "height": 46,
+      "top": 244.1875,
+      "right": 519,
+      "bottom": 290.1875,
+      "left": 389
+    },
+    "group": {
+      "x": 389,
+      "y": 243,
+      "width": 282,
+      "height": 48.390625,
+      "top": 243,
+      "right": 671,
+      "bottom": 291.390625,
+      "left": 389
+    },
+    "cry": {
+      "x": 525,
+      "y": 243,
+      "width": 146,
+      "height": 48.390625,
+      "top": 243,
+      "right": 671,
+      "bottom": 291.390625,
+      "left": 525
+    },
+    "hidden": false,
+    "fields": 0,
+    "buttons": 3
+  }
+}

@@ -1,0 +1,269 @@
+{
+  "status": "FAIL",
+  "scope": "Approved shared panel/native input against canonical disposable scenes; no IC claim.",
+  "views": [
+    {
+      "width": 1440,
+      "height": 900,
+      "capability": true,
+      "actions": {
+        "fire": {
+          "title": {
+            "x": 671,
+            "y": 396,
+            "width": 170,
+            "height": 56,
+            "top": 396,
+            "right": 841,
+            "bottom": 452,
+            "left": 671
+          },
+          "from": {
+            "x": 671,
+            "y": 452,
+            "width": 170,
+            "height": 69,
+            "top": 452,
+            "right": 841,
+            "bottom": 521,
+            "left": 671
+          },
+          "to": {
+            "x": 841,
+            "y": 452,
+            "width": 126,
+            "height": 69,
+            "top": 452,
+            "right": 967,
+            "bottom": 521,
+            "left": 841
+          },
+          "amount": {
+            "x": 841,
+            "y": 396,
+            "width": 126,
+            "height": 56,
+            "top": 396,
+            "right": 967,
+            "bottom": 452,
+            "left": 841
+          },
+          "copies": [
+            {
+              "x": 967,
+              "y": 402,
+              "width": 44,
+              "height": 44,
+              "top": 402,
+              "right": 1011,
+              "bottom": 446,
+              "left": 967
+            },
+            {
+              "x": 967,
+              "y": 464.5,
+              "width": 44,
+              "height": 44,
+              "top": 464.5,
+              "right": 1011,
+              "bottom": 508.5,
+              "left": 967
+            },
+            {
+              "x": 967,
+              "y": 526,
+              "width": 44,
+              "height": 44,
+              "top": 526,
+              "right": 1011,
+              "bottom": 570,
+              "left": 967
+            }
+          ],
+          "panel": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 328,
+            "top": 334,
+            "right": 1021,
+            "bottom": 662,
+            "left": 661
+          },
+          "scroll": {
+            "x": 661,
+            "y": 388,
+            "width": 360,
+            "height": 274,
+            "top": 388,
+            "right": 1021,
+            "bottom": 662,
+            "left": 661
+          },
+          "quantity": {
+            "x": 389,
+            "y": 244.1875,
+            "width": 130,
+            "height": 46,
+            "top": 244.1875,
+            "right": 519,
+            "bottom": 290.1875,
+            "left": 389
+          },
+          "group": {
+            "x": 389,
+            "y": 243,
+            "width": 282,
+            "height": 48.390625,
+            "top": 243,
+            "right": 671,
+            "bottom": 291.390625,
+            "left": 389
+          },
+          "cry": {
+            "x": 525,
+            "y": 243,
+            "width": 146,
+            "height": 48.390625,
+            "top": 243,
+            "right": 671,
+            "bottom": 291.390625,
+            "left": 525
+          },
+          "hidden": false,
+          "fields": 0,
+          "buttons": 3
+        }
+      },
+      "copied_cry": "PASS Keep/Update complete memo and input"
+    }
+  ],
+  "error": "AssertionError()",
+  "failure": {
+    "title": {
+      "x": 671,
+      "y": 396,
+      "width": 170,
+      "height": 56,
+      "top": 396,
+      "right": 841,
+      "bottom": 452,
+      "left": 671
+    },
+    "from": {
+      "x": 671,
+      "y": 452,
+      "width": 170,
+      "height": 69,
+      "top": 452,
+      "right": 841,
+      "bottom": 521,
+      "left": 671
+    },
+    "to": {
+      "x": 841,
+      "y": 452,
+      "width": 126,
+      "height": 69,
+      "top": 452,
+      "right": 967,
+      "bottom": 521,
+      "left": 841
+    },
+    "amount": {
+      "x": 841,
+      "y": 396,
+      "width": 126,
+      "height": 56,
+      "top": 396,
+      "right": 967,
+      "bottom": 452,
+      "left": 841
+    },
+    "copies": [
+      {
+        "x": 967,
+        "y": 402,
+        "width": 44,
+        "height": 44,
+        "top": 402,
+        "right": 1011,
+        "bottom": 446,
+        "left": 967
+      },
+      {
+        "x": 967,
+        "y": 464.5,
+        "width": 44,
+        "height": 44,
+        "top": 464.5,
+        "right": 1011,
+        "bottom": 508.5,
+        "left": 967
+      },
+      {
+        "x": 967,
+        "y": 526,
+        "width": 44,
+        "height": 44,
+        "top": 526,
+        "right": 1011,
+        "bottom": 570,
+        "left": 967
+      }
+    ],
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 328,
+      "top": 334,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    },
+    "scroll": {
+      "x": 661,
+      "y": 388,
+      "width": 360,
+      "height": 274,
+      "top": 388,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    },
+    "quantity": {
+      "x": 389,
+      "y": 244.1875,
+      "width": 130,
+      "height": 46,
+      "top": 244.1875,
+      "right": 519,
+      "bottom": 290.1875,
+      "left": 389
+    },
+    "group": {
+      "x": 389,
+      "y": 243,
+      "width": 282,
+      "height": 48.390625,
+      "top": 243,
+      "right": 671,
+      "bottom": 291.390625,
+      "left": 389
+    },
+    "cry": {
+      "x": 525,
+      "y": 243,
+      "width": 146,
+      "height": 48.390625,
+      "top": 243,
+      "right": 671,
+      "bottom": 291.390625,
+      "left": 525
+    },
+    "hidden": false,
+    "fields": 0,
+    "buttons": 3
+  }
+}

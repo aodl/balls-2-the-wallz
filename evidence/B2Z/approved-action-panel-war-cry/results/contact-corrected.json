@@ -1,0 +1,451 @@
+{
+  "status": "PASS",
+  "scope": "Native displayed contact perspective through actual SegmentPlayer/renderer/engine.\nDisposable canonical kernel data: source-content verification, not IC authenticity or physical listening.\n",
+  "rows": [
+    {
+      "perspective": "friendly",
+      "account": "aaaaa-aa",
+      "attempt": 1,
+      "firstNativeEffect": {
+        "duration": 0.3,
+        "rate": 1,
+        "at": 2.2346666666666666
+      },
+      "presentationAndAuthority": {
+        "time": 0.03595599999964237,
+        "frames": [
+          {
+            "previous": 0.01578999999964237,
+            "time": 0.01645599999964237,
+            "elapsed": 0.06659999999999991,
+            "events": [
+              {
+                "kind": "trajectory",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 0
+              },
+              {
+                "kind": "strike_armed",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 1
+              }
+            ],
+            "audio": {
+              "inspected": 1,
+              "retained": 1,
+              "dropped": 0
+            }
+          }
+        ],
+        "authorityTime": [
+          "1",
+          "1"
+        ],
+        "latestBoundaryOwner": null,
+        "account": "2d0e897f7e862d2b57d9bc9ea5c65f9a24ac6c074575f47898314b8d6cb0929d",
+        "camera": [
+          103.5,
+          1,
+          64
+        ]
+      },
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 0,
+        "lastError": "",
+        "unlocked": true,
+        "blocked": false,
+        "hidden": false,
+        "usable": true,
+        "settings": {
+          "version": 2,
+          "enabled": true
+        },
+        "ownership": {
+          "id": "0b833e0c-674a-400e-b9c8-c4aa76c9d9ca",
+          "owner": "0b833e0c-674a-400e-b9c8-c4aa76c9d9ca",
+          "owns": true,
+          "coordinated": true
+        },
+        "activeVoices": 0,
+        "fxBuffers": 7,
+        "music": {
+          "starts": 2,
+          "underruns": 0,
+          "maxBuffers": 3,
+          "maxNodes": 2,
+          "maxDecoded": 9331200,
+          "active": true,
+          "nodes": 2,
+          "queuedNodes": 2,
+          "buffers": 3,
+          "phase": 177919.99999999997,
+          "coveredSeconds": 12.293333333333333
+        },
+        "loader": {
+          "fetches": 11,
+          "cacheHits": 0,
+          "decodes": 10,
+          "maxFetches": 1,
+          "maxEncoded": 6773340,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 92,
+          "lateFrames": 1,
+          "disabled": 16,
+          "inspected": 1,
+          "classified": 1
+        },
+        "seen": 1,
+        "cooldowns": 1,
+        "stats": {
+          "inspections": 1,
+          "candidates": 1,
+          "eligible": 1,
+          "starts": 1,
+          "dropped": 0,
+          "maxVoices": 1,
+          "frames": 92,
+          "maxFrameMs": 1.9000000357627869,
+          "maxReservedPeak": 0.065,
+          "reconciliations": 11,
+          "contextCreations": 1,
+          "inspectionLimit": 128,
+          "flushP95": 0.10000002384185791,
+          "flushP99": 1.9000000357627869
+        },
+        "mix": {
+          "master": 0.8,
+          "music": 1,
+          "effects": 1,
+          "effectsReservedPeak": 0.2
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "endpoint": {
+        "endpointEquality": true,
+        "events": 5,
+        "expected": 5,
+        "startsBeforeSeek": 1,
+        "startsAfterSeek": 1
+      }
+    },
+    {
+      "perspective": "threat",
+      "account": "rrkah-fqaaa-aaaaa-aaaaq-cai",
+      "attempt": 1,
+      "firstNativeEffect": {
+        "duration": 0.82,
+        "rate": 1,
+        "at": 2.2346666666666666
+      },
+      "presentationAndAuthority": {
+        "time": 0.035121000000000006,
+        "frames": [
+          {
+            "previous": 0.015621,
+            "time": 0.016121,
+            "elapsed": 0.05,
+            "events": [
+              {
+                "kind": "trajectory",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 0
+              },
+              {
+                "kind": "strike_armed",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 1
+              }
+            ],
+            "audio": {
+              "inspected": 1,
+              "retained": 1,
+              "dropped": 0
+            }
+          }
+        ],
+        "authorityTime": [
+          "1",
+          "1"
+        ],
+        "latestBoundaryOwner": null,
+        "account": "082ecf2e3f647ac600f43f38a68342fba5b8e68b085f02592b77f39808a8d2b5",
+        "camera": [
+          103.5,
+          1,
+          64
+        ]
+      },
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 0,
+        "lastError": "",
+        "unlocked": true,
+        "blocked": false,
+        "hidden": false,
+        "usable": true,
+        "settings": {
+          "version": 2,
+          "enabled": true
+        },
+        "ownership": {
+          "id": "1c7a8e21-520c-406a-b88e-9ff60e4cde81",
+          "owner": "1c7a8e21-520c-406a-b88e-9ff60e4cde81",
+          "owns": true,
+          "coordinated": true
+        },
+        "activeVoices": 0,
+        "fxBuffers": 7,
+        "music": {
+          "starts": 2,
+          "underruns": 0,
+          "maxBuffers": 3,
+          "maxNodes": 2,
+          "maxDecoded": 9331200,
+          "active": true,
+          "nodes": 2,
+          "queuedNodes": 2,
+          "buffers": 3,
+          "phase": 174208,
+          "coveredSeconds": 12.370666666666668
+        },
+        "loader": {
+          "fetches": 11,
+          "cacheHits": 0,
+          "decodes": 10,
+          "maxFetches": 1,
+          "maxEncoded": 6773340,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 89,
+          "lateFrames": 1,
+          "disabled": 16,
+          "inspected": 1,
+          "classified": 1
+        },
+        "seen": 1,
+        "cooldowns": 1,
+        "stats": {
+          "inspections": 1,
+          "candidates": 1,
+          "eligible": 1,
+          "starts": 1,
+          "dropped": 0,
+          "maxVoices": 1,
+          "frames": 89,
+          "maxFrameMs": 1.199999988079071,
+          "maxReservedPeak": 0.065,
+          "reconciliations": 11,
+          "contextCreations": 1,
+          "inspectionLimit": 128,
+          "flushP95": 0.10000002384185791,
+          "flushP99": 1.199999988079071
+        },
+        "mix": {
+          "master": 0.8,
+          "music": 1,
+          "effects": 1,
+          "effectsReservedPeak": 0.2
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "endpoint": {
+        "endpointEquality": true,
+        "events": 5,
+        "expected": 5,
+        "startsBeforeSeek": 1,
+        "startsAfterSeek": 1
+      }
+    },
+    {
+      "perspective": "spectator",
+      "account": null,
+      "attempt": 1,
+      "firstNativeEffect": {
+        "duration": 0.18,
+        "rate": 1,
+        "at": 2.0853333333333333
+      },
+      "presentationAndAuthority": {
+        "time": 0.035450000000119206,
+        "frames": [
+          {
+            "previous": 0.015785000000119207,
+            "time": 0.01645200000011921,
+            "elapsed": 0.06670000000000027,
+            "events": [
+              {
+                "kind": "trajectory",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 0
+              },
+              {
+                "kind": "strike_armed",
+                "time": [
+                  "2",
+                  "125"
+                ],
+                "sequence": 1
+              }
+            ],
+            "audio": {
+              "inspected": 1,
+              "retained": 1,
+              "dropped": 0
+            }
+          }
+        ],
+        "authorityTime": [
+          "1",
+          "1"
+        ],
+        "latestBoundaryOwner": null,
+        "account": null,
+        "camera": [
+          103.5,
+          1,
+          64
+        ]
+      },
+      "audio": {
+        "contextState": "running",
+        "loading": false,
+        "gameReady": true,
+        "generation": 0,
+        "lastError": "",
+        "unlocked": true,
+        "blocked": false,
+        "hidden": false,
+        "usable": true,
+        "settings": {
+          "version": 2,
+          "enabled": true
+        },
+        "ownership": {
+          "id": "1b1cfe8e-c6aa-427e-a81c-ecf53207b355",
+          "owner": "1b1cfe8e-c6aa-427e-a81c-ecf53207b355",
+          "owns": true,
+          "coordinated": true
+        },
+        "activeVoices": 0,
+        "fxBuffers": 7,
+        "music": {
+          "starts": 2,
+          "underruns": 0,
+          "maxBuffers": 3,
+          "maxNodes": 2,
+          "maxDecoded": 9331200,
+          "active": true,
+          "nodes": 2,
+          "queuedNodes": 2,
+          "buffers": 3,
+          "phase": 174080,
+          "coveredSeconds": 12.373333333333333
+        },
+        "loader": {
+          "fetches": 11,
+          "cacheHits": 0,
+          "decodes": 10,
+          "maxFetches": 1,
+          "maxEncoded": 6773340,
+          "maxDecodes": 1,
+          "cacheDisabled": false,
+          "encoded": 0,
+          "pending": 0,
+          "decodePending": 0
+        },
+        "events": {
+          "inspected": 0,
+          "retained": 0,
+          "dropped": 0
+        },
+        "eventTotals": {
+          "frames": 86,
+          "lateFrames": 1,
+          "disabled": 15,
+          "inspected": 1,
+          "classified": 1
+        },
+        "seen": 1,
+        "cooldowns": 1,
+        "stats": {
+          "inspections": 1,
+          "candidates": 1,
+          "eligible": 1,
+          "starts": 1,
+          "dropped": 0,
+          "maxVoices": 1,
+          "frames": 86,
+          "maxFrameMs": 1.100000023841858,
+          "maxReservedPeak": 0.065,
+          "reconciliations": 9,
+          "contextCreations": 1,
+          "inspectionLimit": 128,
+          "flushP95": 0.10000002384185791,
+          "flushP99": 1.100000023841858
+        },
+        "mix": {
+          "master": 0.8,
+          "music": 1,
+          "effects": 1,
+          "effectsReservedPeak": 0.2
+        },
+        "sampleRate": 48000,
+        "baseLatency": 0.010020833333333333,
+        "outputLatency": 0.032
+      },
+      "endpoint": {
+        "endpointEquality": true,
+        "events": 5,
+        "expected": 5,
+        "startsBeforeSeek": 1,
+        "startsAfterSeek": 1
+      }
+    }
+  ],
+  "late_attempts": []
+}

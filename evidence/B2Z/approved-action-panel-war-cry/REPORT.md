@@ -161,3 +161,26 @@ Raw failed runs remain separately retained.
 
 Hosted six-gate conclusions are still pending publication/qualification. These
 local passes and frozen identities are not a production deployment authorization.
+
+
+## Qualification continuation — artifact provenance and strict metadata
+
+Run43764610049 at dfaef2c passed Source, Native and package gates; the Wasm build,
+Candid/format/Clippy checks passed, but its added exact hash guard failed. The local
+002ce4d… and hosted1cde99a… binaries embed different absolute source paths and have
+different code/data sections. They are not interchangeable artifacts. The original
+local build and failed guard evidence are retained. The chosen backend candidate
+is now the traceable hosted normal module
+`1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b`,
+from source dfaef2c / artifact14181941816. No hash check was removed or relaxed.
+That exact module passes the additional European-predecessor upgrade/payment/
+certificate/replay/two-observer rehearsal (installed-european9-ci-artifact).
+A final six-gate continuation must pass with this exact selected artifact.
+
+A pure negative association test additionally proved that fractional/string or
+oversized receipt quantities and string source positions were insufficiently
+rejected. The client guard now requires canonical integer quantity1–64 and bigint
+position. Valid authoritative outputs are unchanged; this strengthens malformed
+metadata rejection. The frontend must be refrozen and exercised again; the prior
+c56ff5bf… freeze is retained as superseded, not relabelled as the final candidate.
+The paid frontend/backend remain unchanged.

@@ -1,0 +1,96 @@
+{
+  "scope": "Measured disposable normal-Wasm admitted-purchase windows include mandatory game/controller work; not isolated annotation cost or European billing. Native visual/input layout is bounded; representative dense hardware remains unqualified.",
+  "frontend_bytes_before": 76305513,
+  "frontend_bytes_after": 76334377,
+  "bundle_bytes_delta": 20103,
+  "normalized_envelope_max_bytes": 88,
+  "annotation_extra_normalized_max_bytes": 32,
+  "annotationBytes": [
+    {
+      "payment": "3",
+      "text_utf8_bytes": 6,
+      "additional_event_bytes": 154
+    },
+    {
+      "payment": "4",
+      "text_utf8_bytes": 7,
+      "additional_event_bytes": 155
+    },
+    {
+      "payment": "6",
+      "text_utf8_bytes": 4,
+      "additional_event_bytes": 152
+    },
+    {
+      "payment": "7",
+      "text_utf8_bytes": 4,
+      "additional_event_bytes": 152
+    },
+    {
+      "payment": "10",
+      "text_utf8_bytes": 6,
+      "additional_event_bytes": 155
+    }
+  ],
+  "purchase_windows": [
+    {
+      "memo": "FIRE 1 0 1|é😀",
+      "raw_memo_bytes": 17,
+      "normalized_bytes": 63,
+      "cycles": "213693876",
+      "wall_ms": 151
+    },
+    {
+      "memo": "FIRE 1 0 64|Charge!",
+      "raw_memo_bytes": 19,
+      "normalized_bytes": 64,
+      "cycles": "281823311",
+      "wall_ms": 136
+    },
+    {
+      "memo": "FIRE 1 0 1|No",
+      "raw_memo_bytes": 13,
+      "normalized_bytes": 59,
+      "cycles": "294917990",
+      "wall_ms": 150
+    },
+    {
+      "memo": "FIRE 1 0 1|Twin",
+      "raw_memo_bytes": 15,
+      "normalized_bytes": 61,
+      "cycles": "334009911",
+      "wall_ms": 145
+    },
+    {
+      "memo": "FIRE 1 0 1|Twin",
+      "raw_memo_bytes": 15,
+      "normalized_bytes": 61,
+      "cycles": "386116932",
+      "wall_ms": 155
+    },
+    {
+      "memo": "FIRE 1 0 1|Bad|Text",
+      "raw_memo_bytes": 19,
+      "normalized_bytes": 57,
+      "cycles": "404452860",
+      "wall_ms": 155
+    },
+    {
+      "memo": "FIRE 1 0 1|123456789012345678901",
+      "raw_memo_bytes": 32,
+      "normalized_bytes": 78,
+      "cycles": "402225742",
+      "wall_ms": 160
+    },
+    {
+      "memo": "NEW 0 1|Hello!",
+      "raw_memo_bytes": 14,
+      "normalized_bytes": 63,
+      "cycles": "513885237",
+      "wall_ms": 176
+    }
+  ],
+  "whole_rehearsal_cycles": "12530081106",
+  "whole_rehearsal_scope": "Includes Ledger/Index delivery, admitted upgrade, replay/certificate queries and native observer window; not per-annotation overhead.",
+  "p09": "FAIL/unqualified, unchanged historical trial limitation"
+}

@@ -1,0 +1,58 @@
+[
+  {
+    "command": [
+      "tools/verify_audio_peak.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate-completion/peaks.json"
+    ],
+    "exit": 0,
+    "seconds": 13.136985175020527
+  },
+  {
+    "command": [
+      "tools/verify_audio_spatial.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate-completion/spatial"
+    ],
+    "exit": 0,
+    "seconds": 48.79217491997406
+  },
+  {
+    "command": [
+      "tools/verify_audio_occlusion.py",
+      "--fixture-dir",
+      ".work/approved-panel-war-cry/browser-gate/audio/assets",
+      "--policy-dir",
+      ".work/approved-panel-war-cry/browser-gate/audio/policy-build",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate-completion/occlusion"
+    ],
+    "exit": 0,
+    "seconds": 27.58440706098918
+  },
+  {
+    "command": [
+      "tools/verify_audio_browser.py",
+      "--controls-only",
+      "--decode-delay-ms",
+      "500",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate-completion/activation"
+    ],
+    "exit": 0,
+    "seconds": 43.37308325996855
+  },
+  {
+    "command": [
+      "tools/verify_audio_visibility.py",
+      "--fixture-dir",
+      ".work/approved-panel-war-cry/browser-gate/audio/assets",
+      "--policy-dir",
+      ".work/approved-panel-war-cry/browser-gate/audio/policy-build",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate-completion/visibility"
+    ],
+    "exit": 0,
+    "seconds": 80.18004701903556
+  }
+]

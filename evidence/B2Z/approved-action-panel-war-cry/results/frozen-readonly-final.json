@@ -1,0 +1,1057 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "copy": {
+        "status": "PASS",
+        "values": {
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "amount": "0.1",
+          "text": "FIRE 1 217.5 1"
+        },
+        "scope": "Native Clipboard API and external paste; no payment"
+      },
+      "war_cry_unavailable": true,
+      "viewport": [
+        320,
+        640
+      ],
+      "first_verified_world_s": 2.578641811036505,
+      "before": {
+        "heading": "347.15",
+        "quantity": 1,
+        "hidden": false,
+        "rect": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46,
+          "top": 526,
+          "right": 140,
+          "bottom": 572,
+          "left": 10
+        },
+        "camera": [
+          3.6575453715563526,
+          3.6575453715563526,
+          64
+        ],
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 296,
+          "top": 221,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 242,
+          "top": 275,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 11,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 55,
+              "bottom": 571,
+              "left": 11
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 95,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 139,
+              "bottom": 571,
+              "left": 95
+            },
+            "hit": true
+          }
+        ],
+        "rules": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "head": "9233",
+        "ready": true,
+        "error": "",
+        "canPrepare": true,
+        "status": "Slow \u00b7 delayed",
+        "memo": "FIRE 1 217.5 1",
+        "copyDisabled": false
+      },
+      "after_plus": {
+        "heading": "347.15",
+        "quantity": 2,
+        "hidden": false,
+        "rect": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46,
+          "top": 526,
+          "right": 140,
+          "bottom": 572,
+          "left": 10
+        },
+        "camera": [
+          3.6575453715563526,
+          3.6575453715563526,
+          64
+        ],
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 296,
+          "top": 221,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 242,
+          "top": 275,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 11,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 55,
+              "bottom": 571,
+              "left": 11
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 95,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 139,
+              "bottom": 571,
+              "left": 95
+            },
+            "hit": true
+          }
+        ],
+        "rules": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "head": "9233",
+        "ready": true,
+        "error": "",
+        "canPrepare": true,
+        "status": "Slow \u00b7 delayed",
+        "memo": "FIRE 1 217.5 2",
+        "copyDisabled": false
+      },
+      "errors": [],
+      "scope": "Exact frozen local HTTP assets with unchanged policy; actual mainnet authenticated Rules7; no status override, production deployment or payment"
+    },
+    {
+      "copy": {
+        "status": "PASS",
+        "values": {
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "amount": "0.1",
+          "text": "FIRE 1 217.5 1"
+        },
+        "scope": "Native Clipboard API and external paste; no payment"
+      },
+      "war_cry_unavailable": true,
+      "viewport": [
+        390,
+        844
+      ],
+      "first_verified_world_s": 3.0945242330199108,
+      "before": {
+        "heading": "347.15",
+        "quantity": 1,
+        "hidden": false,
+        "rect": {
+          "x": 249,
+          "y": 132,
+          "width": 130,
+          "height": 46,
+          "top": 132,
+          "right": 379,
+          "bottom": 178,
+          "left": 249
+        },
+        "camera": [
+          5.609482510336875,
+          5.609482510336875,
+          64
+        ],
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 328,
+          "top": 221,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 274,
+          "top": 275,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 250,
+              "y": 133,
+              "width": 44,
+              "height": 44,
+              "top": 133,
+              "right": 294,
+              "bottom": 177,
+              "left": 250
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 334,
+              "y": 133,
+              "width": 44,
+              "height": 44,
+              "top": 133,
+              "right": 378,
+              "bottom": 177,
+              "left": 334
+            },
+            "hit": true
+          }
+        ],
+        "rules": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "head": "9234",
+        "ready": true,
+        "error": "",
+        "canPrepare": true,
+        "status": "Slow \u00b7 delayed",
+        "memo": "FIRE 1 217.5 1",
+        "copyDisabled": false
+      },
+      "after_plus": {
+        "heading": "347.15",
+        "quantity": 2,
+        "hidden": false,
+        "rect": {
+          "x": 249,
+          "y": 132,
+          "width": 130,
+          "height": 46,
+          "top": 132,
+          "right": 379,
+          "bottom": 178,
+          "left": 249
+        },
+        "camera": [
+          5.609482510336875,
+          5.609482510336875,
+          64
+        ],
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 328,
+          "top": 221,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 274,
+          "top": 275,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 250,
+              "y": 133,
+              "width": 44,
+              "height": 44,
+              "top": 133,
+              "right": 294,
+              "bottom": 177,
+              "left": 250
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 334,
+              "y": 133,
+              "width": 44,
+              "height": 44,
+              "top": 133,
+              "right": 378,
+              "bottom": 177,
+              "left": 334
+            },
+            "hit": true
+          }
+        ],
+        "rules": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "head": "9234",
+        "ready": true,
+        "error": "",
+        "canPrepare": true,
+        "status": "Slow \u00b7 delayed",
+        "memo": "FIRE 1 217.5 2",
+        "copyDisabled": false
+      },
+      "errors": [],
+      "scope": "Exact frozen local HTTP assets with unchanged policy; actual mainnet authenticated Rules7; no status override, production deployment or payment"
+    },
+    {
+      "copy": {
+        "status": "PASS",
+        "values": {
+          "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "amount": "0.1",
+          "text": "FIRE 1 217.5 1"
+        },
+        "scope": "Native Clipboard API and external paste; no payment"
+      },
+      "war_cry_unavailable": true,
+      "viewport": [
+        1440,
+        900
+      ],
+      "first_verified_world_s": 2.362405651016161,
+      "before": {
+        "heading": "347.15",
+        "quantity": 1,
+        "hidden": false,
+        "rect": {
+          "x": 465,
+          "y": 429,
+          "width": 130,
+          "height": 46,
+          "top": 429,
+          "right": 595,
+          "bottom": 475,
+          "left": 465
+        },
+        "camera": [
+          3.279287805121612,
+          0.22587215908856706,
+          88
+        ],
+        "panel": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 328,
+          "top": 334,
+          "right": 1021,
+          "bottom": 662,
+          "left": 661
+        },
+        "scroll": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 274,
+          "top": 388,
+          "right": 1021,
+          "bottom": 662,
+          "left": 661
+        },
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 466,
+              "y": 430,
+              "width": 44,
+              "height": 44,
+              "top": 430,
+              "right": 510,
+              "bottom": 474,
+              "left": 466
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 550,
+              "y": 430,
+              "width": 44,
+              "height": 44,
+              "top": 430,
+              "right": 594,
+              "bottom": 474,
+              "left": 550
+            },
+            "hit": true
+          }
+        ],
+        "rules": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "head": "9234",
+        "ready": true,
+        "error": "",
+        "canPrepare": true,
+        "status": "Slow \u00b7 delayed",
+        "memo": "FIRE 1 217.5 1",
+        "copyDisabled": false
+      },
+      "after_plus": {
+        "heading": "347.15",
+        "quantity": 2,
+        "hidden": false,
+        "rect": {
+          "x": 465,
+          "y": 429,
+          "width": 130,
+          "height": 46,
+          "top": 429,
+          "right": 595,
+          "bottom": 475,
+          "left": 465
+        },
+        "camera": [
+          3.279287805121612,
+          0.22587215908856706,
+          88
+        ],
+        "panel": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 328,
+          "top": 334,
+          "right": 1021,
+          "bottom": 662,
+          "left": 661
+        },
+        "scroll": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 274,
+          "top": 388,
+          "right": 1021,
+          "bottom": 662,
+          "left": 661
+        },
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "rect": {
+              "x": 466,
+              "y": 430,
+              "width": 44,
+              "height": 44,
+              "top": 430,
+              "right": 510,
+              "bottom": 474,
+              "left": 466
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "rect": {
+              "x": 550,
+              "y": 430,
+              "width": 44,
+              "height": 44,
+              "top": 430,
+              "right": 594,
+              "bottom": 474,
+              "left": 550
+            },
+            "hit": true
+          }
+        ],
+        "rules": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "head": "9234",
+        "ready": true,
+        "error": "",
+        "canPrepare": true,
+        "status": "Slow \u00b7 delayed",
+        "memo": "FIRE 1 217.5 2",
+        "copyDisabled": false
+      },
+      "errors": [],
+      "scope": "Exact frozen local HTTP assets with unchanged policy; actual mainnet authenticated Rules7; no status override, production deployment or payment"
+    }
+  ],
+  "network": [
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777948.2045777
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777948.206246
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777948.2353106
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+      "at": 1794777948.2433994
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+      "at": 1794777948.3052745
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777949.3765628
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777949.6056516
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777949.869811
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777950.7960207
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777950.8142467
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777951.3647263
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777952.2588027
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777952.985665
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777952.9886222
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777953.5571463
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777954.1645024
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777954.754431
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777955.0228913
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777960.223075
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777960.5023425
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777961.0430954
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777961.6543345
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777962.216358
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777962.4996874
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777962.8219323
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777963.5176127
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777964.2242734
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777964.6533997
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777965.1013772
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777966.6877828
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777966.6932633
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777966.7140334
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+      "at": 1794777966.7149801
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+      "at": 1794777966.7532246
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777967.9406927
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777968.2681918
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777968.5015833
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777968.7020502
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777970.2963474
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777970.7187245
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777970.9885123
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777971.6668234
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777972.6919022
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777973.0344195
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777973.3902845
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777973.9921486
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777974.9324367
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777975.2576487
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777975.6545599
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777976.4782715
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777977.0814068
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777977.3996842
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777983.0686736
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777983.3991528
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777983.4006429
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777984.011994
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777984.9343088
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777985.4584286
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777985.7240667
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777986.338305
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777987.136179
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777987.7677147
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777987.7753873
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777988.398314
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777989.2135105
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777989.887236
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777989.890638
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777989.921235
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+      "at": 1794777989.9223387
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+      "at": 1794777989.9661546
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777990.8942893
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777991.1533267
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777991.3658166
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777992.470071
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777992.4731765
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777993.2127516
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777993.9412205
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777994.668807
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777994.6729321
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777995.243097
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777995.9401684
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777996.725114
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777996.73721
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777997.4525833
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777998.1892862
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777998.851772
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794777998.8624
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778008.1525536
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778008.1560984
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778008.7958157
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778009.693265
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778010.4511135
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778010.4558961
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778011.136395
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778012.0669522
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778012.8052864
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778012.8112168
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778013.597361
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778014.3467028
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778014.9076498
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778015.17329
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778015.9513488
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778016.7730863
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778017.0940993
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "at": 1794778017.4408662
+    }
+  ]
+}

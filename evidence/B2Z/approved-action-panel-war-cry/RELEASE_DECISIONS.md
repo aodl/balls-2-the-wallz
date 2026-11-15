@@ -59,7 +59,7 @@ Exact proposed successor:
 - Schema6 remains unchanged; source adapter changes4→6 only at the epoch commit.
 
 The exact candidate normal Wasm is
-`002ce4d43d753dfe86ff16687087222abf646ce7ab23c82bcaa4e8c8ce379453`.
+`1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b`.
 A separate approval must name that hash, existing paid
 backend `s5ir5-gqaaa-aaaas-amyna-cai`, exact predecessor, compatible frontend and
 stop/recovery conditions. Never install the test-hooks module or a constructor.
@@ -101,3 +101,9 @@ rescan paid history, reset the world or fabricate refunds.
 
 Audio files/mix/provenance are unchanged. P09 remains FAIL/unqualified. Physical
 phone/headphone/Firefox/Safari listening remains separate owner acceptance.
+
+The backend candidate is the exact hosted normal module retained from run43764610049,
+artifact14181941816. A generic local build is not byte-identical because Rust
+output contains build-host paths. Recover the exact retained module and verify its
+hash; never substitute the earlier local002ce4d… binary. Changed hashes require
+a new explicit freeze and appropriate exact-artifact qualification.

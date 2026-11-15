@@ -1,0 +1,196 @@
+{
+  "local": {
+    "path": ".work/approved-panel-war-cry/frozen/backend/runtime-lab.wasm",
+    "bytes": 3623634,
+    "sha256": "002ce4d43d753dfe86ff16687087222abf646ce7ab23c82bcaa4e8c8ce379453",
+    "sections": [
+      {
+        "kind": 1,
+        "length": 585,
+        "sha256": "3a69dac3d2751d702dc598152dbb84e203fe8ff2433f0ccef7f5bb7c3c499b76",
+        "custom_name": null
+      },
+      {
+        "kind": 2,
+        "length": 808,
+        "sha256": "6cede75e4789d1fbdcb4fa0738877c584fc6697ae9a0074fcabdc98d8b6e9079",
+        "custom_name": null
+      },
+      {
+        "kind": 3,
+        "length": 3384,
+        "sha256": "a3f352f68d67c2be962440b6ff14efe3dd9131550080aaf462646cc4da79567b",
+        "custom_name": null
+      },
+      {
+        "kind": 4,
+        "length": 7,
+        "sha256": "269c97669ccfd623fb7ba70b51f9c2b587433593e4b1e4b32901fb22ba4a14a6",
+        "custom_name": null
+      },
+      {
+        "kind": 5,
+        "length": 3,
+        "sha256": "2e2461dd6852f58de2d470cabcf5c41b6e56fdb6ee9169954fe02a13b3ef4bae",
+        "custom_name": null
+      },
+      {
+        "kind": 6,
+        "length": 25,
+        "sha256": "a5e8aa8323a738d2369b2f53464ff6cc43521169680bb35bbf320709e768a733",
+        "custom_name": null
+      },
+      {
+        "kind": 7,
+        "length": 1834,
+        "sha256": "290e92fc78acb74f8d379a6f841f1e32d2577e7063fbb53b70c8feb647f53779",
+        "custom_name": null
+      },
+      {
+        "kind": 9,
+        "length": 1537,
+        "sha256": "20313341240ad8a02aa4fa1db5e2efd2079e3c1593d85d2c0c5883c6e066167f",
+        "custom_name": null
+      },
+      {
+        "kind": 10,
+        "length": 3096819,
+        "sha256": "d5f3685c6f8d309875cdc50dee8a7bb4d39203c598f06991db63da030251b10f",
+        "custom_name": null
+      },
+      {
+        "kind": 11,
+        "length": 210171,
+        "sha256": "478d0dff1c3a26297395e5cc966e1082d3d56c23a81c736f9b07fe62e276292e",
+        "custom_name": null
+      },
+      {
+        "kind": 0,
+        "length": 308189,
+        "sha256": "2badf3755dbe5b0ae339f1f7eb4adb7edfec5dc2817b69a29c8c0e458f950f4a",
+        "custom_name": "name"
+      },
+      {
+        "kind": 0,
+        "length": 77,
+        "sha256": "5e06b7259dad7d73d76e732d0638c770ba802fae83c312a2ec1b959dcc7d23a4",
+        "custom_name": "producers"
+      },
+      {
+        "kind": 0,
+        "length": 148,
+        "sha256": "97ceea95e0687b14437e21c205ebb40eea27aa5ecaa971f7d87601e3aa213bfd",
+        "custom_name": "target_features"
+      }
+    ],
+    "source_paths": [
+      "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/lazy_static-1.5.1/src/inline_lazy.rs",
+      "/home/codexdev/src/b2z/native/b2z-native/src/playability.rs",
+      "/home/codexdev/src/b2z/native/b2z-native/src/geometry.rs",
+      "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ic-cdk-executor-2.0.0/src/machinery.rs",
+      "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/slotmap-1.1.1/src/secondary.rs",
+      "/home/codexdev/src/b2z/native/b2z-native/src/topology.rs",
+      "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.145/src/value/index.rs",
+      "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/candid-0.10.28/src/types/type_env.rs",
+      "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.4.6/src/biguint/convert.rs",
+      "/home/codexdev/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.4.6/src/bigint/convert.rs"
+    ]
+  },
+  "hosted": {
+    "path": ".work/approved-panel-war-cry/hosted-wasm-43764610049/canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm",
+    "bytes": 3624361,
+    "sha256": "1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b",
+    "sections": [
+      {
+        "kind": 1,
+        "length": 585,
+        "sha256": "c36e6ce10285d5f29b4185b8b57a907e26fe19b1bebbedb93db84a2a92e4d3fe",
+        "custom_name": null
+      },
+      {
+        "kind": 2,
+        "length": 808,
+        "sha256": "93392cc3a2f52da52ddd3bfe6a10cd5ea8137c3798b982e41401964debc4e148",
+        "custom_name": null
+      },
+      {
+        "kind": 3,
+        "length": 3386,
+        "sha256": "90d5ad68edc2bba1fbb750e00171c920a758c211b2d2ba4871c1ab631cf49e8d",
+        "custom_name": null
+      },
+      {
+        "kind": 4,
+        "length": 7,
+        "sha256": "269c97669ccfd623fb7ba70b51f9c2b587433593e4b1e4b32901fb22ba4a14a6",
+        "custom_name": null
+      },
+      {
+        "kind": 5,
+        "length": 3,
+        "sha256": "2e2461dd6852f58de2d470cabcf5c41b6e56fdb6ee9169954fe02a13b3ef4bae",
+        "custom_name": null
+      },
+      {
+        "kind": 6,
+        "length": 25,
+        "sha256": "eda499d9ef571d496e7dd3ddf0e0edeb564b034df2cf954db695115809c05470",
+        "custom_name": null
+      },
+      {
+        "kind": 7,
+        "length": 1834,
+        "sha256": "290e92fc78acb74f8d379a6f841f1e32d2577e7063fbb53b70c8feb647f53779",
+        "custom_name": null
+      },
+      {
+        "kind": 9,
+        "length": 1537,
+        "sha256": "ae7bff39a7ee82273f429509ee238e4a885ff54e613520f980a9977ddc0b810a",
+        "custom_name": null
+      },
+      {
+        "kind": 10,
+        "length": 3097143,
+        "sha256": "e0ede7ab53c308e0afca16fbe172c179ce69cf378de80c2f8ac2618d7aeee361",
+        "custom_name": null
+      },
+      {
+        "kind": 11,
+        "length": 210427,
+        "sha256": "5a0c416ae2d8340e47ed5e9214a9374af375d430145015d2a830e4a19004f17a",
+        "custom_name": null
+      },
+      {
+        "kind": 0,
+        "length": 308334,
+        "sha256": "4878c6b0592286c48e2a5aff3b5fb8156c4b483090bd2a34fb6d9c72689e3b00",
+        "custom_name": "name"
+      },
+      {
+        "kind": 0,
+        "length": 77,
+        "sha256": "5e06b7259dad7d73d76e732d0638c770ba802fae83c312a2ec1b959dcc7d23a4",
+        "custom_name": "producers"
+      },
+      {
+        "kind": 0,
+        "length": 148,
+        "sha256": "97ceea95e0687b14437e21c205ebb40eea27aa5ecaa971f7d87601e3aa213bfd",
+        "custom_name": "target_features"
+      }
+    ],
+    "source_paths": [
+      "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/lazy_static-1.5.1/src/inline_lazy.rs",
+      "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/native/b2z-native/src/playability.rs",
+      "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/native/b2z-native/src/geometry.rs",
+      "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/ic-cdk-executor-2.0.0/src/machinery.rs",
+      "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/slotmap-1.1.1/src/secondary.rs",
+      "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/native/b2z-native/src/topology.rs",
+      "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/serde_json-1.0.145/src/value/index.rs",
+      "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/candid-0.10.28/src/types/type_env.rs",
+      "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.4.6/src/biguint/convert.rs",
+      "/home/runner/.cargo/registry/src/index.crates.io-1949cf8c6b5b557f/num-bigint-0.4.6/src/bigint/convert.rs"
+    ]
+  }
+}

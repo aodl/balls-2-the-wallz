@@ -1,0 +1,25 @@
+
+running 1 test
+test war_cry_installed::war_cry_real_ledger_index_launch_and_independent_replay ... {"status":"PASS","segments":12,"gameplay_segments":10,"application_checkpoints":2,"assigned":["2","3","4","5","6","7","8","9","10"],"comparison":"Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture","work_budget":23}
+PASS authenticated annotation capture and independent replay 12 publications
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_war_cry_live.py", line 5, in <module>
+    from playwright.sync_api import sync_playwright
+ModuleNotFoundError: No module named 'playwright'
+
+thread 'war_cry_installed::war_cry_real_ledger_index_launch_and_independent_replay' (1978090) panicked at tests/support/war_cry_installed.rs:350:5:
+assertion failed: std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap()).current_dir(&repo).args(["tools/verify_war_cry_live.py",
+                        "--configuration",
+                        out.join("configuration.json").to_str().unwrap(),
+                        "--output",
+                        out.join("browser").to_str().unwrap()]).status().unwrap().success()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    war_cry_installed::war_cry_real_ledger_index_launch_and_independent_replay
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 72 filtered out; finished in 287.29s
+

@@ -1,0 +1,32 @@
+✔ annotation requires exact supported identity, successful matching receipt and unique payment (4.336351ms)
+✔ 60 real seconds incl hidden age; repeat event never renews expiry; distinct event replaces (1.022312ms)
+✔ silent discontinuity consumed once; bounded IDs/bubbles; removal and epoch reuse cannot bind (7.67899ms)
+✖ malformed successful receipt quantity/type cannot authorize launch speech (1.285815ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 3
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 181.668226
+
+✖ failing tests:
+
+test at tests/js/war-cry-presentation.test.mjs:10:1
+✖ malformed successful receipt quantity/type cannot authorize launch speech (1.285815ms)
+  AssertionError [ERR_ASSERTION]: Missing expected exception.
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z/tests/js/war-cry-presentation.test.mjs:10:140)
+      at Test.runInAsyncScope (node:async_hooks:227:14)
+      at Test.run (node:internal/test_runner/test:1201:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:831:18)
+      at Test.postRun (node:internal/test_runner/test:1330:19)
+      at Test.run (node:internal/test_runner/test:1258:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: undefined,
+    expected: undefined,
+    operator: 'throws',
+    diff: 'simple'
+  }

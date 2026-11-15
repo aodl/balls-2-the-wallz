@@ -1,0 +1,224 @@
+[
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_wire_capture_browser.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/wire"
+    ],
+    "exit": 0,
+    "seconds": 81.04180758900475,
+    "log": ".work/approved-panel-war-cry/browser-gate/00.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/check.py",
+      "browser",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/base"
+    ],
+    "exit": 0,
+    "seconds": 26.034515098959673,
+    "log": ".work/approved-panel-war-cry/browser-gate/01.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_playability_actions.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/human"
+    ],
+    "exit": 0,
+    "seconds": 358.7526306940126,
+    "log": ".work/approved-panel-war-cry/browser-gate/02.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_tactical_grid.py",
+      "--fixture-dir",
+      ".work/approved-panel-war-cry/browser-gate/human",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/grid"
+    ],
+    "exit": 0,
+    "seconds": 16.753756585996598,
+    "log": ".work/approved-panel-war-cry/browser-gate/03.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_tactical_browser.py",
+      "--fixture-dir",
+      ".work/approved-panel-war-cry/browser-gate/human",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/tactical"
+    ],
+    "exit": 0,
+    "seconds": 44.97909096896183,
+    "log": ".work/approved-panel-war-cry/browser-gate/04.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_fluid_browser.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/fluid",
+      "--video"
+    ],
+    "exit": 0,
+    "seconds": 125.03414789104136,
+    "log": ".work/approved-panel-war-cry/browser-gate/05.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_fluid_depth.py",
+      "--fixture-dir",
+      ".work/approved-panel-war-cry/browser-gate/human",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/depth"
+    ],
+    "exit": 0,
+    "seconds": 55.69757306500105,
+    "log": ".work/approved-panel-war-cry/browser-gate/06.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_elastic_browser.py",
+      "--fixture-dir",
+      ".work/approved-panel-war-cry/browser-gate/fluid",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/elastic",
+      "--video"
+    ],
+    "exit": 0,
+    "seconds": 32.42245250096312,
+    "log": ".work/approved-panel-war-cry/browser-gate/07.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_refinement_browser.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/refinement",
+      "--video"
+    ],
+    "exit": 0,
+    "seconds": 236.873621531995,
+    "log": ".work/approved-panel-war-cry/browser-gate/08.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_visual_closeout.py",
+      "--fixture-dir",
+      ".work/approved-panel-war-cry/browser-gate/refinement",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/visual",
+      "--video"
+    ],
+    "exit": 0,
+    "seconds": 73.58790185302496,
+    "log": ".work/approved-panel-war-cry/browser-gate/09.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_human_corrections.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/corrections"
+    ],
+    "exit": 0,
+    "seconds": 248.07325565395877,
+    "log": ".work/approved-panel-war-cry/browser-gate/10.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_panel_geometry.py",
+      "--fixture-dir",
+      ".work/approved-panel-war-cry/browser-gate/corrections/fixture",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/geometry",
+      "--video"
+    ],
+    "exit": 0,
+    "seconds": 169.74222683598055,
+    "log": ".work/approved-panel-war-cry/browser-gate/11.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_compact_controls.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/compact"
+    ],
+    "exit": 0,
+    "seconds": 65.07120619999478,
+    "log": ".work/approved-panel-war-cry/browser-gate/12.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_quantity_browser.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/quantity"
+    ],
+    "exit": 0,
+    "seconds": 152.60379284096416,
+    "log": ".work/approved-panel-war-cry/browser-gate/13.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_approved_panel.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/approved"
+    ],
+    "exit": 0,
+    "seconds": 254.7784074670053,
+    "log": ".work/approved-panel-war-cry/browser-gate/14.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_audio_browser.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/audio"
+    ],
+    "exit": 0,
+    "seconds": 57.247580273018684,
+    "log": ".work/approved-panel-war-cry/browser-gate/15.log"
+  },
+  {
+    "command": [
+      ".work/browser-venv/bin/python",
+      "-B",
+      "tools/verify_contact_meaning.py",
+      "--output",
+      ".work/approved-panel-war-cry/browser-gate/meaning"
+    ],
+    "exit": 1,
+    "seconds": 16.908565746969543,
+    "log": ".work/approved-panel-war-cry/browser-gate/16.log"
+  }
+]

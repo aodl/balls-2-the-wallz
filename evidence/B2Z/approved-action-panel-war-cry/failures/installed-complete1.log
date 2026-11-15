@@ -1,0 +1,39 @@
+
+running 1 test
+test war_cry_installed::war_cry_real_ledger_index_launch_and_independent_replay ... {"status":"PASS","segments":11,"gameplay_segments":9,"application_checkpoints":2,"assigned":["2","3","4","5","6","7","8","9"],"comparison":"Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture","work_budget":23}
+node:internal/modules/run_main:107
+    triggerUncaughtException(
+    ^
+
+AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:
++ actual - expected
+
++ '767e859089b396b6c013c06b07242ff870e27f242fe6814663b753cea9203d66'
+- 'b4b9e5f1262dd4974a1f232fb40a86716fe1f671d005915d7b3c66e1c4b0cba5'
+
+    at file:///home/codexdev/src/b2z/tools/capture_war_cry_installed.mjs:14:519 {
+  generatedMessage: true,
+  code: 'ERR_ASSERTION',
+  actual: '767e859089b396b6c013c06b07242ff870e27f242fe6814663b753cea9203d66',
+  expected: 'b4b9e5f1262dd4974a1f232fb40a86716fe1f671d005915d7b3c66e1c4b0cba5',
+  operator: 'strictEqual',
+  diff: 'simple'
+}
+
+Node.js v24.15.0
+
+thread 'war_cry_installed::war_cry_real_ledger_index_launch_and_independent_replay' (1963344) panicked at tests/support/war_cry_installed.rs:242:5:
+assertion failed: std::process::Command::new("node").current_dir(&repo).args(["tools/capture_war_cry_installed.mjs",
+                        out.join("configuration.json").to_str().unwrap(),
+                        out.join("trace.json").to_str().unwrap(),
+                        out.join("authenticated").to_str().unwrap()]).status().unwrap().success()
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    war_cry_installed::war_cry_real_ledger_index_launch_and_independent_replay
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 72 filtered out; finished in 48.96s
+

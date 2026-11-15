@@ -1,0 +1,9 @@
+
+  .work/approved-panel-war-cry/panel-final1/fixture/fixture.mjs  1.5mb ⚠️
+
+⚡ Done in 297ms
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_approved_panel.py", line 42, in <module>
+    page.wait_for_timeout(25);box=geometry(page)['panel'];assert all(box[k]==baseline[k]for k in ['x','y','width','height']),(kind,box,baseline);row['actions'][action]['status_samples'].append({'kind':kind,'panel':box})
+                                                                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: ('protected', {'x': 661, 'y': 334, 'width': 360, 'height': 325.78125, 'top': 334, 'right': 1021, 'bottom': 659.78125, 'left': 661}, {'x': 661, 'y': 334, 'width': 360, 'height': 256.890625, 'top': 334, 'right': 1021, 'bottom': 590.890625, 'left': 661})

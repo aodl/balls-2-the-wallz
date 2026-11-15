@@ -8,8 +8,8 @@
   "public_files": 78,
   "unchanged_audio_assets": 61,
   "total_asset_bytes": 76334377,
-  "normal_wasm_sha256": "002ce4d43d753dfe86ff16687087222abf646ce7ab23c82bcaa4e8c8ce379453",
-  "backend_reuse": "Exact normal module from installed-complete4; all listed backend runtime/config/dependency inputs unchanged from ca2d657",
+  "normal_wasm_sha256": "1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b",
+  "backend_reuse": "Exact hosted normal Wasm recovered from retained source-build evidence; must qualify these bytes before release",
   "inputs": [
     {
       "path": "apps/b2z-observer/action-quote-v6.mjs",
@@ -1893,5 +1893,16 @@
       "path": "rust-toolchain.toml",
       "sha256": "b5c2cffe3b1d150c6f1dd459b35522e4617b5843ff5b5b7253c59f5bea622c83"
     }
-  ]
+  ],
+  "backend_build_source": "dfaef2c943c629c1c4e35d0776d22131189b7133",
+  "backend_build_environment": {
+    "scope": "Hosted normal release module; absolute Rust source paths make the local build a different binary, not an interchangeable artifact",
+    "rust": "1.94.1",
+    "runner": "ubuntu-24.04",
+    "checkout": "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz",
+    "cargo_home": "/home/runner/.cargo",
+    "artifact_id": 14181941816,
+    "run_id": 43764610049
+  },
+  "backend_previous_local_wasm_sha256": "002ce4d43d753dfe86ff16687087222abf646ce7ab23c82bcaa4e8c8ce379453"
 }
