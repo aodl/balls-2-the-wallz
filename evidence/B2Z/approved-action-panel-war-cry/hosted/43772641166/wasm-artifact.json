@@ -1,0 +1,12 @@
+{
+  "source": "93cd974ea37561bdcfd057ef6daf71af132e6671",
+  "run": 43772641166,
+  "download": "GitHub wasm-evidence artifact; retained locally, no deployment",
+  "files": [
+    {
+      "path": "canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm",
+      "bytes": 3624361,
+      "sha256": "1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b"
+    }
+  ]
+}

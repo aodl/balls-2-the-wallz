@@ -133,6 +133,28 @@
       "name": "invalid-utf8",
       "raw_hex": "464952452031203020317cff",
       "accepted": false
+    },
+    {
+      "name": "cry-leading-BOM",
+      "raw_hex": "464952452031203020317cefbbbf41",
+      "accepted": true,
+      "cry": "﻿A"
+    },
+    {
+      "name": "cry-BOM-only",
+      "raw_hex": "464952452031203020317cefbbbf",
+      "accepted": true,
+      "cry": "﻿"
+    },
+    {
+      "name": "memo-leading-BOM-suffix",
+      "raw_hex": "efbbbf464952452031203020317c41",
+      "accepted": false
+    },
+    {
+      "name": "memo-leading-BOM-bare",
+      "raw_hex": "efbbbf46495245203120302031",
+      "accepted": false
     }
   ]
 }

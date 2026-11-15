@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {fitCry,parseWarCryMemo,validateCry,memoByteLength}from'../../packages/protocol/war-cry.mjs';
+import {fitCry,parseWarCryMemo,validateCry,memoByteLength,encodeAnnotatedPayment,readAnnotatedPayment}from'../../packages/protocol/war-cry.mjs';
 import{parseV6TextMemo}from'../../packages/protocol/memo-v6.mjs';
 const bytes=s=>new TextEncoder().encode(s);
 test('old parser rejects suffix; new parser retains exact UTF8 annotation',()=>{assert.throws(()=>parseV6TextMemo(bytes('FIRE 1 0 1|Hi')));assert.equal(parseWarCryMemo(bytes('FIRE 1 0 1|é😀')).cry,'é😀');});
@@ -14,4 +14,4 @@ test('strict malformed input and dangerous controls fail closed',()=>{
 });
 test('exact configuration gate cannot be enabled by one local flag',async()=>{const {warCrySupported}=await import('../../apps/b2z-observer/war-cry-policy.mjs'),{WAR_CRY_CONFIG,ENTRY_CONFIG,CLEARANCE_CONFIG}=await import('../../packages/kernels/b2z/world.mjs');assert.equal(warCrySupported(WAR_CRY_CONFIG),true);for(const c of[ENTRY_CONFIG,CLEARANCE_CONFIG,{...ENTRY_CONFIG,war_cry_capability:'btz-war-cry-1'}, {...WAR_CRY_CONFIG,move_e8s:1n},{...WAR_CRY_CONFIG,memo_adapter_version:4}])assert.equal(warCrySupported(c),false);});
 
-test('shared JS/native strict memo byte vectors',async()=>{const {readFile}=await import('node:fs/promises'),f=JSON.parse(await readFile(new URL('../fixtures/war-cry-memos.json',import.meta.url)));assert.equal(f.memo_limit,32);for(const r of f.rows){const b=Buffer.from(r.raw_hex,'hex');if(r.accepted)assert.equal(parseWarCryMemo(b).cry,r.cry,r.name);else assert.throws(()=>parseWarCryMemo(b),r.name);}});
+test('shared JS/native strict memo byte vectors',async()=>{const {readFile}=await import('node:fs/promises'),f=JSON.parse(await readFile(new URL('../fixtures/war-cry-memos.json',import.meta.url)));assert.equal(f.memo_limit,32);for(const r of f.rows){const b=Buffer.from(r.raw_hex,'hex');if(r.accepted){const p=parseWarCryMemo(b);assert.equal(p.cry,r.cry,r.name);assert.equal(readAnnotatedPayment(encodeAnnotatedPayment('00'.repeat(32),1n,p.command,p.cry)).cry,r.cry,r.name+' normalized byte round-trip');}else assert.throws(()=>parseWarCryMemo(b),r.name);}});

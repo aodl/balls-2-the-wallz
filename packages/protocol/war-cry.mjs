@@ -3,7 +3,7 @@ import {parseV6TextMemo,decodeV6LedgerMemo,encodeV6Memo} from './memo-v6.mjs';
 export const WAR_CRY_ADAPTER=6;
 export const WAR_CRY_CAPABILITY='btz-war-cry-1';
 export const MEMO_LIMIT=32;
-const encoder=new TextEncoder(),decoder=new TextDecoder('utf-8',{fatal:true});
+const encoder=new TextEncoder(),decoder=new TextDecoder('utf-8',{fatal:true,ignoreBOM:true}); // U+FEFF is payload, never a transport marker.
 const forbidden=/[|\u0000-\u001f\u007f-\u009f\u2028-\u202e\u2066-\u2069]/u;
 export function validateCry(text){
  if(typeof text!=='string'||!text||forbidden.test(text))throw Error('War Cry must be single-line public text without | or directional controls');

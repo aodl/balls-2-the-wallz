@@ -1,3 +1,8 @@
+> **Superseded frontend freeze:** a final UTF8 review proved that93cd974 drops a
+> leading U+FEFF when decoding normalized cry bytes. Its CI cannot qualify the
+> corrected bytes. A byte-preserving replacement freeze/qualification is in progress;
+> production remains untouched and unsupported War Cry remains unavailable there.
+
 # Approved action panel and War Cry — corrective qualification
 
 **Candidate only; nothing deployed or activated.** The shared frontend can ship
@@ -87,9 +92,11 @@ These are populated native Chromium fixtures, not production or physical devices
 
 Disposable normal-Wasm tests use the checksum-pinned official ICP Ledger/Index,
 not direct game commands. The actual paid predecessor module is installed only in
-the isolated rehearsal, then upgraded without reset. Paid-world/state, financial
+the isolated rehearsal, then upgraded without reset. Representative disposable paid-world state, financial
 accounting and source ordering survive both module upgrade and Rules7→Rules10
-checkpoint. Anonymous/wrong-predecessor attempts fail. An admitted annotated input
+checkpoint. The initial world is synthetic and all funds are valueless: the test
+uses the exact paid predecessor module binary, not a copied production journal or
+a production upgrade. Anonymous/wrong-predecessor attempts fail. An admitted annotated input
 survives another normal-module upgrade before processing. JS/native recovery is
 also exercised at every work unit, including pending text.
 
@@ -143,6 +150,22 @@ Historical failures are preserved under `failures/`, rather than overwritten:
   build-path/code/data differences are documented; they are not relabelled equal.
   The exact traceable hosted module is frozen and separately rehearsed. The strict
   hash check remains mandatory for the final candidate.
+
+## Acceptance scope matrix
+
+| Workflow | Result / executed scope |
+|---|---|
+| Reference grid, From/To, Copy axes, plain text, blue warning | PASS:18 native action panes; dividers/axes within1px,44px targets |
+| Full recipient/amount/memo, native/API/fallback, inline inspection | PASS:native fixtures and exact frozen mainnet-backed Rules7 browser; no wallet-app/payment claim |
+| Frozen Update/Keep and status stability | PASS:432 status-only samples at0px drift, complete quantity/angle/cry packet restoration |
+| Complete32byte UTF8 memo and strict parsing | PASS:24 shared JS/native vectors, real Ledger32/33 boundary, grapheme-prefix and native IME/paste |
+| Certified capability and old-history isolation | PASS:actual Rules7 hides cry/emits bare memos; wrong local flag/config and old suffix negatives |
+| Joint floating/docked editor and first Join | PASS:320/390/desktop, DPR1/2/3, exact347.15, forward/reverse sweep, visual viewport/insets, contracted views, touch/cancellation |
+| Official Ledger→Index→normal interpreter | PASS:valueless transfers,10 positions assigned once,13 authenticated publications independently replayed |
+| First successful launch / no false launch | PASS:actual Revive/partial/zero/rejection/first Join/additional Build; JS/native and protocol Move/empty/suffix negatives |
+| Bubble association, replacement and bounded lifetime | PASS:two native observers same event,5/35second real tabs,55+5 output; unit saturation/dedupe/skip/source/epoch negatives remain separately scoped |
+| Upgrade, receipts, seed and trust invariants | PASS:exact paid predecessor binary in disposable synthetic world, finance/source preservation, admitted-input upgrade, native every-unit recovery and certificate/artifact/replay negatives |
+| Existing audio, returning entry, verified playback and controls | Maintained full regressions preserved; final hosted Browser/installed conclusions recorded below. P09 FAIL; physical/unsupported platforms NOT VERIFIED |
 
 ## Resources, audio and limitations
 
@@ -239,3 +262,29 @@ IME, actual visual-viewport scale1.1/1.6/1, safe insets, five contracted heights
 touch aim→pinch and cancelled release. See [final matrix](results/panel-six-final.json),
 [reference comparison](GALLERY.md) and [cost windows](results/costs.json).
 Final hosted exact-source qualification is pending publication below.
+
+The current qualification source is `93cd974ea37561bdcfd057ef6daf71af132e6671`,
+[run43772641166](https://github.com/aodl/balls-2-the-wallz/actions/runs/43772641166).
+Source, Native, Packaged DTR/clean consumers and Runtime-lab Wasm have passed,
+including strict frozen frontend reproduction and normal-module hash equality.
+Browser and installed-IC conclusions are still pending.
+
+## Proven UTF8 BOM correction (replacement candidate)
+
+The existing fatal TextDecoder still consumed an initial UTF8 BOM in a normalized
+cry slice. `FIRE 1 0 1|\uFEFFA` parsed with the full text but decoded fromBTZPAY03
+as `A`, while Rust preserved `\uFEFFA`. Strict independent replay would reject
+that legitimate native output. This is a real byte-fidelity defect, not a delivery
+failure. The new-capability JS decoder now uses `ignoreBOM:true` (preserve U+FEFF).
+Historical memo parsers, native rules, configuration, module bytes and audio are
+unchanged. No new backend rule/version or production activation is introduced.
+
+The old-source round-trip regression fails; the correction passes. Four shared
+vectors cover a cry-leading BOM, BOM-only cry, and invalid BOM-prefixed directives.
+All accepted vectors now check normalized round-trip bytes too. The ninth gameplay
+vector preserves this text through JS/native execution and recovery at every work
+unit; the previous eight vectors remain byte-identical. Native paste/memo copying
+and the full320 geometry/IME/pinch journey pass with the preserved scalar. A real
+valueless Ledger case is added to the installed qualification, requiring seven
+launch annotations and a fresh frontend freeze. Prior13-publication results remain
+historical; the replacement must qualify its own source and bytes.

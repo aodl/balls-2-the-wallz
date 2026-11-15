@@ -1,0 +1,21 @@
+✔ only successful launch, one annotation per purchase incl New and partial batch (675.115893ms)
+✔ cosmetic text does not reroll seed, world, scoring, receipt or nonannotation events (279.410697ms)
+✔ legacy rules cannot admit a new envelope (7.191783ms)
+✔ New annotation cannot reroll its automatic site or unrelated New in the same segment (334.422628ms)
+✔ annotation requires exact supported identity, successful matching receipt and unique payment (8.255794ms)
+✔ 60 real seconds incl hidden age; repeat event never renews expiry; distinct event replaces (1.078013ms)
+✔ silent discontinuity consumed once; bounded IDs/bubbles; removal and epoch reuse cannot bind (14.667868ms)
+✔ malformed successful receipt quantity/type cannot authorize launch speech (0.786909ms)
+✔ old parser rejects suffix; new parser retains exact UTF8 annotation (7.171482ms)
+✔ complete byte budget and exact grapheme-prefix, no directive edits (54.088719ms)
+✔ strict malformed input and dangerous controls fail closed (2.969134ms)
+✔ exact configuration gate cannot be enabled by one local flag (45.855725ms)
+✔ shared JS/native strict memo byte vectors (44.014304ms)
+ℹ tests 13
+ℹ suites 0
+ℹ pass 13
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2164.161187

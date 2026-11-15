@@ -139,3 +139,8 @@ independent replay, pinned disposable certificate verification, two observers,
 source and cursor recovery, native input and approximately60-second bubble output.
 Fixtures/compilation alone are not installed/authentication evidence. Audio/P09
 and physical/browser limitations remain separately labelled.
+
+New-capability UTF8 decoders preserve U+FEFF in payload text (`ignoreBOM:true`
+in JavaScript). It is never treated as a removable transport marker. A BOM in an
+ASCII directive is rejected; a valid BOM-containing cry survives raw/normalized
+bytes and JS/native replay unchanged. Shared vectors cover both boundaries.

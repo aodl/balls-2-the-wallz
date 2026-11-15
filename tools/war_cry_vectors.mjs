@@ -5,7 +5,7 @@ import{encodeAnnotatedPayment,parseWarCryMemo}from'../packages/protocol/war-cry.
 import{decodeCanonical,encodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';import{sha256}from'@dtr/timeline-runtime/runtime/seal';
 const f=JSON.parse(await readFile('tests/fixtures/rules-v6.json','utf8')),rows=[];
 for(const [name,base,directive,cry,budget]of [
- ['fire','idle','FIRE 1 0 1','Charge!',10000000n],['fire-alt','idle','FIRE 1 0 1','é😀',10000000n],['fire-empty','idle','FIRE 1 0 1','',10000000n],['partial','idle','FIRE 1 0 64','Onward',10000000n],['zero','idle','FIRE 1 0 64','No',0n],['revive','revival','FIRE 1 90 1','Again',10000000n],['join','idle','NEW 0 1','Hi',100000000n],['additional','idle','NEW 0 1','Here',400000000n],
+ ['fire','idle','FIRE 1 0 1','Charge!',10000000n],['fire-alt','idle','FIRE 1 0 1','é😀',10000000n],['fire-empty','idle','FIRE 1 0 1','',10000000n],['partial','idle','FIRE 1 0 64','Onward',10000000n],['zero','idle','FIRE 1 0 64','No',0n],['revive','revival','FIRE 1 90 1','Again',10000000n],['join','idle','NEW 0 1','Hi',100000000n],['additional','idle','NEW 0 1','Here',400000000n],['fire-BOM','idle','FIRE 1 0 1','\ufeffA',10000000n],
 ]){
  const w=decodeWorld(Buffer.from(f.cases[base].state_hex,'hex')),account=name==='join'?'02'.repeat(32):w.cannons[0].account,{command}=parseWarCryMemo(new TextEncoder().encode(directive)),inputs=[{position:100n,payload_hex:Buffer.from(encodeAnnotatedPayment(account,budget,command,cry)).toString('hex')}],state=encodeWorld(w),context={...WAR_CRY_IDENTITY,logical_start:w.time[0],logical_end:w.time[0]+1n};
  let c=new B2zCursor(state,inputs,context),steps=0;

@@ -1,0 +1,10 @@
+{
+  "negative_source": "93cd974ea37561bdcfd057ef6daf71af132e6671",
+  "old_normalized_roundtrip": "U+FEFF A became A",
+  "corrected_normalized_roundtrip": "exact UTF8 preserved",
+  "shared_memo_vectors": 28,
+  "gameplay_vectors": 9,
+  "original_eight_gameplay_vectors_byte_identical": true,
+  "native_every_work_unit": "PASS",
+  "backend_runtime_inputs_unchanged": true
+}

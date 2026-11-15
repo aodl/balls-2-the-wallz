@@ -1,0 +1,32 @@
+✔ old parser rejects suffix; new parser retains exact UTF8 annotation (2.991634ms)
+✔ complete byte budget and exact grapheme-prefix, no directive edits (60.455588ms)
+✔ strict malformed input and dangerous controls fail closed (3.336538ms)
+✔ exact configuration gate cannot be enabled by one local flag (57.13385ms)
+✖ shared JS/native strict memo byte vectors (53.344007ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 4
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 336.113623
+
+✖ failing tests:
+
+test at tests/js/war-cry.test.mjs:17:1
+✖ shared JS/native strict memo byte vectors (53.344007ms)
+  AssertionError [ERR_ASSERTION]: cry-leading-BOM normalized byte round-trip
+  
+  'A' !== '﻿A'
+  
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z/tests/js/war-cry.test.mjs:17:370)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'A',
+    expected: '﻿A',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

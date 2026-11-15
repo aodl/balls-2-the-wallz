@@ -1,0 +1,11 @@
+   Compiling b2z-native v0.5.0 (/home/codexdev/src/b2z/native/b2z-native)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 3.42s
+     Running tests/war_cry.rs (native/target/debug/deps/war_cry-cb63ac2d618f5bc5)
+
+running 2 tests
+test shared_vectors::strict_memos_match_shared_vectors ... ok
+test native_matches_js_annotation_vectors_and_recovers_each_work_unit has been running for over 60 seconds
+test native_matches_js_annotation_vectors_and_recovers_each_work_unit ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 118.39s
+

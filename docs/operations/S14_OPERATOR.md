@@ -271,8 +271,9 @@ safe blind rollback; qualify a compatible recovery artifact or forward fix.
 The 14 November audio/onboarding/compact-controls continuation is frontend-only.
 Do not install it until its new frozen inventory and six exact-source substantive
 CI gates qualify. It does not activate Rules9 or alter the backend. Preserve the
-currently installed75-file frontend inventory e9b5c4be2216420f6f70d7c3f33f3ef4596b7d56e05c06eae43171fd629cb8c1
-as rollback. Audio is enabled intent at fixed mix, subject to browser activation;
+then-installed75-file frontend inventory e9b5c4be2216420f6f70d7c3f33f3ef4596b7d56e05c06eae43171fd629cb8c1
+as its historical rollback. That trial was superseded; use STATUS.md and the
+current corrected78-file rollback below for new frontend decisions. Audio is enabled intent at fixed mix, subject to browser activation;
 one speaker mutes/enables it. No public repair/cache UI is required. Read the new
 candidate report for actual native output/visibility evidence and limitations.
 Post-install acceptance must check fresh-device returning-account entry without
@@ -312,6 +313,8 @@ not Rules9 clearance or ICRC-2. No production install/activation is authorised b
 development or disposable tests. Pin the final Wasm, exact configuration and
 source predecessor in a separate approval. Prepare/commit require the existing
 paused/drained authenticated boundary; check old manifest/state/finance/cursors
-before and after. Do not downgrade to an old decoder after annotated records are
-admitted. The exact release decision and recovery procedure must accompany the
+before and after. Treat the Rules10 epoch commit as the compatibility stop point;
+an old Rules7-only decoder/frontend is not an approved rollback even before the
+next annotated input. After admission, use a compatible forward state-preserving
+repair, never reinterpret the paid journal. The exact release decision and recovery procedure must accompany the
 qualified artifacts; stop on any mismatch.

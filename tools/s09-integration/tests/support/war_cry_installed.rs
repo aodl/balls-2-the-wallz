@@ -268,6 +268,7 @@ fn run_war_cry(european_prior: Option<Vec<u8>>) {
         (payer, "FIRE 1 0 1|Bad|Text", 10000000),
         (payer, "FIRE 1 0 1|123456789012345678901", 0),
         (extra, "NEW 0 1|Hello!", 100000000),
+        (payer, "FIRE 1 0 1|\u{feff}A", 10000000),
     ] {
         let position = transfer_text(&pic, ledger, sender, id, amount, memo.as_bytes());
         let parsed = b2z_protocol::war_cry::parse_text(memo.as_bytes()).ok();
@@ -376,13 +377,14 @@ fn run_war_cry(european_prior: Option<Vec<u8>>) {
     }
     assert_eq!(
         annotations.len(),
-        6,
+        7,
         "Revive, partial Fire, distinct identical payments, first Join and explicit additional Build; no zero/rejected cry"
     );
     assert_eq!(annotations[0]["launch_annotation"]["cry"], "é😀");
     assert_eq!(annotations[1]["launch_annotation"]["cry"], "Charge!");
     assert_eq!(annotations[4]["launch_annotation"]["cry"], "Hello!");
-    assert_eq!(annotations[5]["launch_annotation"]["cry"], "Build!");
+    assert_eq!(annotations[5]["launch_annotation"]["cry"], "\u{feff}A");
+    assert_eq!(annotations[6]["launch_annotation"]["cry"], "Build!");
     save(
         &out,
         "trace.json",
