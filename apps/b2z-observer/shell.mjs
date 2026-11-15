@@ -5,21 +5,22 @@ import{CameraController,focusedOn,wheelZoom,previewComposition}from'./camera-con
 import{playerAnchor}from'./player-anchor.mjs';
 import{accountTerritoryFrame}from'./territory-entry.mjs';
 import{aimingArrow}from'./guide-clearance.mjs';
-import{quantityPlacement}from'./quantity-placement.mjs';
+import{quantityPlacement,quantityDockStrip}from'./quantity-placement.mjs';
 import{displayedBalls}from'./ball-presentation.mjs';
 export function createShell(doc,camera,arcade,onPick){
  const $=id=>doc.getElementById(id),canvas=$('board'),card=$('workspace'),handle=$('aim-handle'),ring=$('aim-ring'),cleanups=[];
  let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null;
- let pendingTerritory=null,quantitySlot=null;const quantityPointers=new Set(),quantityWidget=$('quantity-controls');let quantitySize={width:128,height:44};
+ let pendingTerritory=null,quantitySlot=null;const quantityPointers=new Map(),quantityWidget=$('quantity-controls');let quantitySize={width:130,height:46},quantityDocked=false,quantityContext='',quantityReserved=false,quantityReservation='none',quantityClickCancelled=false;
  const anchorCache=playerAnchor(),reducedMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
  function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale});},400);}
  function zoomButtons(){const a=motion.zoomAvailability();$('zoom-in').disabled=!a.in;$('zoom-out').disabled=!a.out;$('fit').disabled=!a.overview;}
  const motion=new CameraController(camera,{reducedMotion,onChange:zoomButtons,onSettled:save});
  const listen=(node,event,fn,options)=>{if(!node)return;node.addEventListener(event,fn,options);cleanups.push(()=>node.removeEventListener(event,fn,options));};
- const quantityObserver=new ResizeObserver(entries=>{const r=entries[0]?.borderBoxSize?.[0];if(r?.inlineSize>0&&r.blockSize>0)quantitySize={width:r.inlineSize,height:r.blockSize};else{const b=quantityWidget.getBoundingClientRect();if(b.width)quantitySize={width:b.width,height:b.height};}});quantityObserver.observe(quantityWidget);
- listen(quantityWidget,'pointerdown',e=>{quantityPointers.add(e.pointerId);e.stopPropagation();});
- for(const event of ['pointerup','pointercancel'])listen(doc,event,e=>quantityPointers.delete(e.pointerId),true);
- for(const event of ['dblclick','click'])listen(quantityWidget,event,e=>e.stopPropagation());
+ const quantityObserver=new ResizeObserver(entries=>{const r=entries[0]?.borderBoxSize?.[0];if(r?.inlineSize>0&&r.blockSize>0){const changed=quantitySize.width!==r.inlineSize||quantitySize.height!==r.blockSize;quantitySize={width:r.inlineSize,height:r.blockSize};if(changed)invalidateLayout();}else{const b=quantityWidget.getBoundingClientRect();if(b.width)quantitySize={width:b.width,height:b.height};}});quantityObserver.observe(quantityWidget);
+ listen(quantityWidget,'pointerdown',e=>{quantityPointers.set(e.pointerId,e.target);quantityClickCancelled=false;e.stopPropagation();});
+ for(const event of ['pointerup','pointercancel'])listen(doc,event,e=>{if(event==='pointercancel'&&quantityPointers.has(e.pointerId))quantityClickCancelled=true;quantityPointers.delete(e.pointerId);},true);
+ listen(quantityWidget,'keydown',e=>{if(!e.repeat&&['Enter',' '].includes(e.key))quantityClickCancelled=false;});
+ for(const event of ['dblclick','click']){listen(quantityWidget,event,e=>{if(quantityClickCancelled){quantityClickCancelled=false;e.preventDefault();e.stopImmediatePropagation();}},true);listen(quantityWidget,event,e=>e.stopPropagation());}
  const map=createMinimap($('minimap'),camera,save,{controller:motion,origin:()=>anchor});
  // Long-press discovers an icon without activating it; keyboard gets the same
  // explicit name/reason. This is local feedback, never a gesture/game command.
@@ -46,7 +47,7 @@ export function createShell(doc,camera,arcade,onPick){
  function stopFollowing(){followRebase=false;selectedBall=null;motion.stopFollow();}
  function cancelTap(){gestureSequence++;pendingTap=lastTap=null;}
  function aimAt(p){if(!aimOrigin)return;const w=camera.world(p.x,p.y);arcade.aimAt(w.x-aimOrigin.x,w.y-aimOrigin.y);}
- function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');layout={guideObstacles:[$('status-button'),$('identify-button'),doc.querySelector('.brand')].map(n=>n.getBoundingClientRect().toJSON()),top:Math.ceil(doc.querySelector('.arena-chrome').getBoundingClientRect().bottom)+10,headerBottom:Math.ceil(doc.querySelector('.arena-header').getBoundingClientRect().bottom),mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),sound:doc.querySelector('.audio-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
+ function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');const safe=getComputedStyle(doc.documentElement);layout={safe:Object.fromEntries(['left','right','top','bottom'].map(k=>[k,parseFloat(safe.getPropertyValue('--quantity-safe-'+k))||0])),guideObstacles:[$('status-button'),$('identify-button'),doc.querySelector('.brand')].map(n=>n.getBoundingClientRect().toJSON()),top:Math.ceil(doc.querySelector('.arena-chrome').getBoundingClientRect().bottom)+10,headerBottom:Math.ceil(doc.querySelector('.arena-header').getBoundingClientRect().bottom),mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),sound:doc.querySelector('.audio-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
  let layoutFrame=null,layoutRevision=0,committedLayoutRevision=0;
  function invalidateLayout(){
   if(disposed)return;layoutDirty=true;layoutRevision++;
@@ -65,7 +66,8 @@ export function createShell(doc,camera,arcade,onPick){
   }))invalidateLayout();
  });
  contentObserver.observe(card.querySelector('.panel-content'),{subtree:true,childList:true,characterData:true,attributes:true,attributeFilter:['hidden','open'],attributeOldValue:true});
- const measureChrome=()=>{const chrome=doc.querySelector('.arena-chrome');doc.documentElement.style.setProperty('--chrome-bottom',Math.ceil(chrome.getBoundingClientRect().bottom+12)+'px');layoutDirty=true;};measureChrome();if(globalThis.visualViewport)listen(visualViewport,'resize',measureChrome);
+ const measureChrome=()=>{const chrome=doc.querySelector('.arena-chrome');doc.documentElement.style.setProperty('--chrome-bottom',Math.ceil(chrome.getBoundingClientRect().bottom+12)+'px');layoutDirty=true;};measureChrome();function resized(){if(quantityPointers.size){quantityClickCancelled=true;for(const[id,target]of quantityPointers)if(target.hasPointerCapture?.(id))target.releasePointerCapture(id);}clearInput();quantitySlot=null;quantityContext='';measureChrome();invalidateLayout();}
+ listen(globalThis,'resize',resized);if(globalThis.visualViewport){listen(visualViewport,'resize',resized);listen(visualViewport,'scroll',resized);}
  listen(doc,'b2z-entry-cancel',()=>{pendingTerritory=null;if(motion.animation?.owner==='entry')motion.cancel();});
  listen(doc,'b2z-return-territory',e=>{if(e.detail?.current?.()){stopFollowing();cancelTap();pendingTerritory={...e.detail,until:performance.now()+10000};}});
  listen($('minimap'),'pointerdown',()=>arcade.cancelEntryNavigation?.(),true);listen($('minimap'),'keydown',()=>arcade.cancelEntryNavigation?.(),true);
@@ -77,7 +79,7 @@ export function createShell(doc,camera,arcade,onPick){
  $('zoom-in').onclick=()=>{arcade.cancelEntryNavigation?.();motion.zoom(1.4);zoomButtons();};$('zoom-out').onclick=()=>{arcade.cancelEntryNavigation?.();motion.zoom(1/1.4);zoomButtons();};
  listen(doc,'keydown',e=>{if(e.key==='Escape'){cancelTap();stopFollowing();arcade.cancel();e.preventDefault();}});
  function down(e){if(e.button!==0)return;arcade.cancelEntryNavigation?.();keyboardTarget=null;const p=point(e);nativePairWorld=lastTap&&Math.hypot(p.x-lastTap.p.x,p.y-lastTap.p.y)<=7?lastTap.world:null;pointers.set(e.pointerId,p);canvas.setPointerCapture(e.pointerId);motion.cancel();
-  if(pointers.size===1){origin=last=p;moved=false;pinched=false;owner=e.currentTarget===handle||aimingVicinity(camera,arcade.aim(),p,e.pointerType,arcade.moveSelection(),measure().guideObstacles)?'aim':'pan';canvas.dataset.cursor=owner==='aim'?'aim':'camera';aimOrigin=arcade.aim()?camera.cellPoint(arcade.aim().cannon.cell):null;
+  if(pointers.size===1){origin=last=p;moved=false;pinched=false;owner=e.currentTarget===handle||aimingVicinity(camera,arcade.aim(),p,e.pointerType,arcade.moveSelection(),guideRects())?'aim':'pan';canvas.dataset.cursor=owner==='aim'?'aim':'camera';aimOrigin=arcade.aim()?camera.cellPoint(arcade.aim().cannon.cell):null;
    const hit=resolve(p);if(hit.kind!=='ball'||hit.id!==selectedBall)stopFollowing();
    if(owner==='aim'){cancelTap();if(e.currentTarget!==handle&&Math.hypot(p.x-aimOrigin.sx,p.y-aimOrigin.sy)>6)aimAt(p);}
   }
@@ -89,7 +91,7 @@ export function createShell(doc,camera,arcade,onPick){
   if(pointers.size>=2){const next=pair();if(pinch){camera.zoom(next.d/Math.max(1,pinch.d),pinch.x,pinch.y);camera.pan(next.x-pinch.x,next.y-pinch.y);}pinch=next;save();zoomButtons();return;}
   if(!last||pinched)return;if(owner==='aim'){aimAt(p);moved=true;}else{if(Math.hypot(p.x-origin.x,p.y-origin.y)>6){moved=true;cancelTap();stopFollowing();motion.manual();}if(moved){camera.pan(p.x-last.x,p.y-last.y);save();}}last=p;
  });
- function resolve(p){if(aimingVicinity(camera,arcade.aim(),p,p.pointerType??'mouse',arcade.moveSelection(),measure().guideObstacles))return{kind:'aim'};const hit=resolveInteraction(camera,onPick.cannons?.()??lastView?.cannons??new Map(),p,arcade.moveSelection(),arcade.aim(),lastPoints);return hit.kind==='cannon'&&arcade.hasCannon&&!arcade.hasCannon(hit.id)?{kind:'camera',cell:hit.cell}:hit;}
+ function resolve(p){if(aimingVicinity(camera,arcade.aim(),p,p.pointerType??'mouse',arcade.moveSelection(),guideRects()))return{kind:'aim'};const hit=resolveInteraction(camera,onPick.cannons?.()??lastView?.cannons??new Map(),p,arcade.moveSelection(),arcade.aim(),lastPoints);return hit.kind==='cannon'&&arcade.hasCannon&&!arcade.hasCannon(hit.id)?{kind:'camera',cell:hit.cell}:hit;}
  function activate(hit,p){
   if(hit.kind==='place'||hit.kind==='invalid'){if(hit.cell!==null)arcade.chooseCell(hit.cell);return;}
   if(hit.kind==='cannon'){stopFollowing();motion.cancel();if(arcade.selectCannon(hit.id))layoutDirty=true;return;}
@@ -115,7 +117,7 @@ export function createShell(doc,camera,arcade,onPick){
  }
  listen(canvas,'pointermove',e=>{if(e.pointerType!=='touch')pointer=point(e);});
  listen(canvas,'pointerleave',()=>{pointer=null;hover=null;canvas.dataset.cursor='camera';});
- function clearInput(){quantityPointers.clear();hideHelp();clearHelp();pointer=null;hover=null;cancelTap();motion.cancel();for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();owner=null;origin=last=pinch=aimOrigin=null;moved=true;pinched=true;canvas.dataset.cursor='camera';}
+ function clearInput(){if(quantityPointers.size)quantityClickCancelled=true;quantityPointers.clear();hideHelp();clearHelp();pointer=null;hover=null;cancelTap();motion.cancel();for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();owner=null;origin=last=pinch=aimOrigin=null;moved=true;pinched=true;canvas.dataset.cursor='camera';}
  listen(doc,'visibilitychange',()=>{if(doc.hidden)clearInput();});listen(doc,'freeze',clearInput);listen(canvas,'webglcontextlost',()=>{clearInput();stopFollowing();});
  listen(canvas,'pointerup',e=>{const isTap=pointers.has(e.pointerId)&&owner==='pan'&&!moved&&!pinched,p=point(e);pointers.delete(e.pointerId);if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);if(isTap){if(e.pointerType==='touch')completedTouch={at:performance.now(),x:e.clientX,y:e.clientY};tap(p,e.pointerType,e.timeStamp);}if(!pointers.size){origin=last=pinch=aimOrigin=null;owner=null;pinched=false;}});
  const cancel=e=>{if(!pointers.has(e.pointerId))return;pointers.delete(e.pointerId);owner=null;moved=true;pinched=true;pinch=null;cancelTap();};listen(canvas,'pointercancel',cancel);listen(canvas,'lostpointercapture',cancel);
@@ -135,12 +137,24 @@ export function createShell(doc,camera,arcade,onPick){
   else if(e.key.toLowerCase()==='b'&&lastPoints.length){const ids=lastPoints.map(b=>b.id).sort((a,b)=>a-b),id=ids[(ids.indexOf(selectedBall)+1)%ids.length];activate({kind:'ball',id},{x:0,y:0});e.preventDefault();}
   else if(['[',']'].includes(e.key)){arcade.adjustAngle((e.key==='['?-1:1)*(e.altKey?.01:e.shiftKey?5:1));e.preventDefault();}
  });
+ function visibleBounds(){const v=globalThis.visualViewport,m=measure(),left=(v?.offsetLeft??0)+m.safe.left,top=(v?.offsetTop??0)+m.safe.top;return{left,top,width:Math.max(0,Math.min(camera.viewport.width,v?.width??Infinity)-m.safe.left-m.safe.right),height:Math.max(0,Math.min(camera.viewport.height,v?.height??Infinity)-m.safe.top-m.safe.bottom)};}
+ function guideRects(){const r=measure().guideObstacles;return quantitySlot?.mode==='dock'&&!quantityWidget.hidden?[...r,quantitySlot.rect]:r;}
  function positionQuantity(){
   const q=arcade.quantity?.(),qa=arcade.aim();quantityWidget.hidden=!q?.active||!qa||!camera.cellPoint(qa.cannon.cell).visible;
-  if(!quantityWidget.hidden){const origin=camera.cellPoint(qa.cannon.cell),a=qa.angle*Math.PI/180,end=camera.screen(origin.x+Math.cos(a),origin.y+Math.sin(a)),m=measure(),obstacles=[...m.guideObstacles,m.mini,m.cycles,m.buttons,m.sound];if(!card.hidden&&!card.inert&&cardBounds)obstacles.push(cardBounds);const next=quantityPlacement({origin:{x:origin.sx,y:origin.sy},direction:{x:end.x-origin.sx,y:end.y-origin.sy},...quantitySize,scale:camera.scale,viewport:camera.viewport,top:m.headerBottom+10,obstacles,arrow:aimingArrow(camera,qa,m.guideObstacles)?.screen??[],previous:quantitySlot,locked:quantityPointers.size>0||pointers.size>0||quantityWidget.contains(doc.activeElement)});quantityWidget.hidden=!next;if(next){quantitySlot=next;const left=`${Math.round(next.rect.left)}px`,top=`${Math.round(next.rect.top)}px`;if(quantityWidget.style.left!==left)quantityWidget.style.left=left;if(quantityWidget.style.top!==top)quantityWidget.style.top=top;}}
-  else quantitySlot=null;
+  if(quantityWidget.hidden){quantitySlot=null;quantityContext='';return;}
+  const origin=camera.cellPoint(qa.cannon.cell),a=qa.angle*Math.PI/180,end=camera.screen(origin.x+Math.cos(a),origin.y+Math.sin(a)),m=measure(),viewport=visibleBounds(),obstacles=[...m.guideObstacles,m.mini,m.cycles,m.buttons,m.sound];if(!card.hidden&&!card.inert&&cardBounds)obstacles.push(cardBounds);
+  const context=[qa.cannon.id,qa.cannon.cell,viewport.left,viewport.top,viewport.width,viewport.height,quantitySize.width,quantitySize.height].join('/');
+  if(context!==quantityContext){quantityContext=context;quantityDocked=viewport.width<=700||viewport.height<520;}
+  const strip=quantityReservation==='strip'?quantityDockStrip({viewport,top:Math.max(m.headerBottom+10,viewport.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound]}):null;
+  const dockLeft=strip?strip.left:Math.max(viewport.left+8,Math.min(viewport.left+viewport.width-quantitySize.width-8,cardBounds.left+(cardBounds.right-cardBounds.left-quantitySize.width)/2)),dockTop=strip?strip.top:cardBounds.top+m.headerHeight-quantitySize.height-4,dock={left:dockLeft,top:dockTop,right:dockLeft+quantitySize.width,bottom:dockTop+quantitySize.height,...quantitySize};
+  const next=quantityPlacement({origin:{x:origin.sx,y:origin.sy},direction:{x:end.x-origin.sx,y:end.y-origin.sy},...quantitySize,scale:camera.scale,viewport,top:Math.max(m.headerBottom+10,viewport.top+8),obstacles,arrow:aimingArrow(camera,qa,m.guideObstacles)?.screen??[],dock,preferDock:quantityDocked,previous:quantitySlot,locked:quantityPointers.size>0||pointers.size>0||quantityWidget.contains(doc.activeElement)});
+  // A supported visible action has reserved measured space; never hide on slot exhaustion.
+  if(!next)throw Error('Quantity dock outside usable viewport');
+  quantitySlot=next;if(next.mode==='dock')quantityDocked=true;quantityWidget.dataset.placement=next.mode;
+  const left=`${Math.round(next.rect.left)}px`,top=`${Math.round(next.rect.top)}px`;if(quantityWidget.style.left!==left)quantityWidget.style.left=left;if(quantityWidget.style.top!==top)quantityWidget.style.top=top;
  }
  function position(){
+  const reserve=Boolean(arcade.quantity?.().active&&arcade.aim()),reservation=reserve?(Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity)<520?'strip':'row'):'none';if(reservation!==quantityReservation){quantityReserved=reserve;quantityReservation=reservation;card.dataset.quantityReserved=reservation;layoutDirty=true;}const dockSpace=`${quantitySize.height+8}px`;if(card.style.getPropertyValue('--quantity-dock-space')!==dockSpace){card.style.setProperty('--quantity-dock-space',dockSpace);layoutDirty=true;}
   const editing=Boolean(doc.activeElement?.closest?.('#action-inputs')),height=Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity),short=(editing||arcade.context()==='action')&&height<520;doc.documentElement.classList.toggle('short-edit',short);if(short!==wasShort){wasShort=short;layoutDirty=true;}
   const viewport=[camera.viewport.width,height].join('/');if(viewport!==lastViewport){lastViewport=viewport;layoutDirty=true;const c=arcade.anchor?.();if((editing||arcade.context()==='action')&&c&&!pointers.size){const p=camera.cellPoint(c.cell);if(short||!p.visible){motion.cancel();camera.pan(short?camera.viewport.width-42-p.sx:0,measure().top+(short?24:80)-p.sy);}}}
   const aim=arcade.aim(),p=aim?camera.cellPoint(aim.cannon.cell):null;handle.hidden=ring.hidden=short||!p?.visible;
@@ -151,11 +165,11 @@ export function createShell(doc,camera,arcade,onPick){
   const obstacles=[m.mini,m.cycles,m.buttons];if(expanded&&cardBounds)obstacles.push(cardBounds);
   $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':'Focus cannon';
   if(card.hidden||off){positionQuantity();if(card.hidden)narrowPositionKey='';committedLayoutRevision=layoutRevision;return;}
-  const vv=globalThis.visualViewport,W=Math.min(camera.viewport.width,vv?.width??Infinity),H=Math.min(camera.viewport.height,vv?.height??Infinity),top=m.top,narrow=W<=700,cw=Math.min(360,W-16);
-  let x=W-cw-8,y=top,bottom=H-(short?8:72);
+  const bounds=visibleBounds(),W=bounds.width,H=bounds.height,top=Math.max(m.top,bounds.top+8),narrow=W<=700,cw=Math.min(360,W-16);
+  let x=bounds.left+W-cw-8,y=top,bottom=bounds.top+H-(short?8:72);
   if(at){
-   if(narrow){x=8;y=short?Math.max(top,Math.min(154,H-158)):Math.min(top+96,Math.max(top,H-360));
-    const key=[c.id,c.cell,W,H,short,locateGeneration].join('/');
+   if(narrow){x=bounds.left+8;y=short?Math.max(top,Math.min(154,H-158)):Math.min(top+96,Math.max(top,H-360));
+    const key=[c.id,c.cell,bounds.left,bounds.top,W,H,short,quantityReserved,locateGeneration].join('/');
     if(key!==narrowPositionKey){narrowPositionKey=key;narrowY=y;
      const above=camera.scale*.60+2,below=camera.scale*.17+2,half=camera.scale*.62+2;
      if(!short&&motion.animation?.owner!=='focus'&&at.sx+half>x&&at.sx-half<x+cw&&at.sy+below+4>y&&at.sy-above-4<y+m.headerHeight){const bottom=Math.min(H-72,...[m.mini,m.cycles,m.buttons].filter(r=>r.width).map(r=>r.top-8));narrowY=Math.max(top,Math.min(at.sy+below+8,bottom-m.headerHeight-96));}
@@ -163,9 +177,10 @@ export function createShell(doc,camera,arcade,onPick){
    }
    else{const clearance=Math.ceil(camera.scale/Math.SQRT2+68),right=at.sx+clearance,left=at.sx-clearance-cw;const side=cardSide==='right'&&right+cw<=W-8?'right':cardSide==='left'&&left>=8?'left':right+cw<=W-8?'right':left>=8?'left':null;cardSide=side;x=side==='right'?right:side==='left'?left:Math.max(8,Math.min(W-cw-8,at.sx-cw/2));y=Math.max(top,Math.min(H-310,at.sy-26));}
   }
+  if(quantityReserved&&short){const strip=quantityDockStrip({viewport:bounds,top:Math.max(m.headerBottom+10,bounds.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound]});y=Math.max(strip?strip.bottom+8:top,Math.min(y,bottom-m.headerHeight-96));}
   for(const obstacle of(short?[]:[m.mini,m.cycles,m.buttons]))if(obstacle.width&&x+cw>obstacle.left&&x<obstacle.right)bottom=Math.min(bottom,obstacle.top-8);
   // One natural scroll, with useful space even under a contracted keyboard.
-  const room=Math.max(96,bottom-y-m.headerHeight),bodyHeight=context==='inspect'?0:Math.min(room,Math.max(0,m.desired-m.headerHeight)),next=[Math.round(x),Math.round(y),Math.round(cw),Math.round(room),Math.ceil(bodyHeight)].join('/');
+  const minimum=quantityReserved?Math.min(96,Math.max(44,bottom-top-m.headerHeight)):96,room=Math.max(minimum,bottom-y-m.headerHeight),bodyHeight=context==='inspect'?0:Math.min(room,Math.max(0,m.desired-m.headerHeight)),next=[Math.round(x),Math.round(y),Math.round(cw),Math.round(room),Math.ceil(bodyHeight)].join('/');
   if(next!==positionKey){audioMask=null;positionKey=next;card.style.left=`${Math.round(x)}px`;card.style.top=`${Math.round(y)}px`;card.style.width=`${cw}px`;card.style.maxHeight='none';card.style.setProperty('--body-space',`${Math.floor(room)}px`);card.style.setProperty('--body-height',`${Math.ceil(bodyHeight)}px`);}
   cardBounds={left:x,right:x+cw,top:y,bottom:y+m.headerHeight+bodyHeight};
   const site=aim?.cannon.cell??arcade.moveSelection()?.cell??c?.cell,compose=[context,arcade.mode(),c?.id,c?.cell,site,W,H,short,locateGeneration].join('/');
@@ -182,8 +197,8 @@ export function createShell(doc,camera,arcade,onPick){
  const audioMutation=new MutationObserver(dirtyAudio);for(const node of audioNodes)audioMutation.observe(node,{attributes:true,attributeFilter:['hidden','style','class']});listen(doc,'b2z-audio-layout',dirtyAudio);listen(globalThis,'resize',dirtyAudio);listen(doc,'scroll',dirtyAudio,true);
  return{
   audioOccluders(canvasRect=canvas.getBoundingClientRect()){const key=[canvasRect.left,canvasRect.top,canvasRect.width,canvasRect.height].join('/')+'/'+audioNodes.map(n=>n.hidden).join('/')+'/'+cardBounds?.bottom;if(key===audioMaskKey&&audioMask)return audioMask;audioMaskKey=key;audioMask=[];for(const node of audioNodes){if(node.hidden||node.closest('[hidden]'))continue;let r=node.getBoundingClientRect();if(node===card&&cardBounds)r={...r.toJSON(),left:Math.min(r.left,cardBounds.left),right:Math.max(r.right,cardBounds.right),top:Math.min(r.top,cardBounds.top),bottom:Math.max(r.bottom,cardBounds.bottom)};if(r.width&&r.height)audioMask.push({left:r.left-canvasRect.left,right:r.right-canvasRect.left,top:r.top-canvasRect.top,bottom:r.bottom-canvasRect.top});}return audioMask;},
-  layoutState:()=>({dirty:layoutDirty,pendingFrame:layoutFrame!==null,revision:layoutRevision,committedRevision:committedLayoutRevision,desired:layout?.desired,positionKey,compositionKey,cardBounds:cardBounds&&{...cardBounds}}),
-  guideObstacles:()=>measure().guideObstacles,hover:()=>hover,followedBall:()=>selectedBall,controller:motion,mapAnchor:()=>anchor,rebaseFollow(){if(selectedBall!==null)followRebase=true;},invalidateFollow(){cancelTap();stopFollowing();anchorCache.reset();},overlays(){},
+  layoutState:()=>({quantity:quantitySlot&&{...quantitySlot},quantityDocked,quantityReserved,quantityReservation,quantitySize:{...quantitySize},quantityPointers:quantityPointers.size,dirty:layoutDirty,pendingFrame:layoutFrame!==null,revision:layoutRevision,committedRevision:committedLayoutRevision,desired:layout?.desired,positionKey,compositionKey,cardBounds:cardBounds&&{...cardBounds}}),
+  guideObstacles:guideRects,hover:()=>hover,followedBall:()=>selectedBall,controller:motion,mapAnchor:()=>anchor,rebaseFollow(){if(selectedBall!==null)followRebase=true;},invalidateFollow(){cancelTap();stopFollowing();anchorCache.reset();},overlays(){},
   advance(v,time,now=performance.now(),identity=lastIdentity,points=displayedBalls(v,time)){
    if(disposed||doc.hidden)return;lastView=v;lastTime=time;lastPoints=points;lastIdentity=identity;
    if(pendingTerritory){const p=pendingTerritory;if(!p.current()||now>p.until)pendingTerritory=null;else if(camera.width===p.world.width&&camera.height===p.world.height){pendingTerritory=null;const m=measure(),bottom=Math.min(camera.viewport.height-24,...[m.mini,m.cycles,m.buttons].filter(r=>r.width).map(r=>r.top-12));motion.territory(accountTerritoryFrame(p.world,p.account),{left:24,right:camera.viewport.width-24,top:m.headerBottom+24,bottom:Math.max(m.headerBottom+100,bottom)});}}

@@ -25,6 +25,8 @@ for(const[name,row]of Object.entries(f.cases)){
 }
 // Static, valid one-cell territory for an exhaustive no-Move proof.
 {const w=decodeWorld(bytesHex(cases.idle.initial));if(w.cannons.length!==1||w.balls.some(b=>b.cell!==w.cannons[0].cell))throw Error('no-Move fixture requires one active anchored cell');w.ownership.base.fill(0);w.ownership.overrides=[];w.ownership.counts=[];setOwner(w,w.cannons[0].cell,1);validateWorld(w);const bytes=hex(encodeWorld(w));cases.noMove={initial:bytes,final:bytes};}
+// Retained canonical live scene; no new execution, payment or authenticity claim.
+{const f=JSON.parse(fs.readFileSync(new URL('./quantity-live-pose.json',import.meta.url)),(_,v)=>v&&typeof v==='object'&&'$integer'in v?BigInt(v.$integer):v);const raw=encodeCanonical(f.world);validateWorld(decodeWorld(raw));cases.quantityLive={initial:hex(raw),final:hex(raw)};}
 const sequences={};
 for(const name of ['idle','wrap']){
  let initial=bytesHex(cases[name].final);sequences[name]=[];
