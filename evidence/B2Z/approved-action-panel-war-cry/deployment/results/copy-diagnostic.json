@@ -1,0 +1,160 @@
+{
+  "status": "PASS",
+  "copies": [
+    {
+      "event": {
+        "at": 12839.900000035763,
+        "ready": true,
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai"
+    },
+    {
+      "event": {
+        "at": 14739.5,
+        "ready": true,
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai"
+    },
+    {
+      "event": {
+        "at": 16688.5,
+        "ready": true,
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai"
+    },
+    {
+      "event": {
+        "at": 18433.900000035763,
+        "ready": true,
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai"
+    },
+    {
+      "event": {
+        "at": 20253,
+        "ready": true,
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai"
+    },
+    {
+      "event": {
+        "at": 22216.80000001192,
+        "ready": true,
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai"
+    },
+    {
+      "event": {
+        "at": 24119.600000023842,
+        "ready": true,
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai"
+    },
+    {
+      "event": {
+        "at": 26089.900000035763,
+        "ready": true,
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai"
+    },
+    {
+      "event": {
+        "at": 28001.900000035763,
+        "ready": true,
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai"
+    },
+    {
+      "event": {
+        "at": 29993.69999998808,
+        "ready": true,
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai"
+    }
+  ],
+  "scope": "Actual deployed frontend; native clipboard events and external paste, no payment/status override",
+  "blocked": {
+    "event": {
+      "at": 31936.19999998808,
+      "ready": false,
+      "disabled": true,
+      "prevented": true,
+      "value": "",
+      "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "feedback": "Payment instructions temporarily unavailable."
+    },
+    "pasted": ""
+  },
+  "recovered": {
+    "event": {
+      "at": 34350.40000003576,
+      "ready": true,
+      "disabled": false,
+      "prevented": true,
+      "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "feedback": "Instructions saved; no payment sent."
+    },
+    "pasted": "s5ir5-gqaaa-aaaas-amyna-cai"
+  }
+}

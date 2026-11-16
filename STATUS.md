@@ -1,4 +1,33 @@
-# Qualified candidate — approved read-only panel and War Cry (not deployed)
+# Current production — approved79-file payment panel on Rules7
+
+16 November2026: the owner-authorised exact shared-panel frontend is installed on
+`s2jxj-liaaa-aaaas-amynq-cai`. All78 public bodies, reviewed headers, signed
+inventory and fresh ICv2 BLS/body/header/path witnesses matched. Qualified source
+`367edf563222854423f2687711a21ab0087d7910`, frozen runtime427199b38e847f4cfb7142db2b42212e804169a6;
+JavaScript `c37ed0c363902e29443ba9eb1501c6b653873945bb63e7d92b341f8400f1085d`;
+complete79-file inventory `63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f`.
+The paid backend remains exact Rules7/module612ad0d…; no backend, financial,
+funding or settings operation occurred. War Cry and territory clearance remain
+unavailable on production. All61 audio files remain unchanged.
+
+Actual live three-width panel/native copying, original320×640/347.15° quantity
+pose, heading sweep, entry/reassociation, first Join,24s read-fault recovery with
+0px panel drift and native music returns pass in their recorded scopes. Initial
+pinch/copy ambiguities and corrected instrumentation mistakes remain visible,
+along with shared-host software performance and P09 FAIL/unqualified. No physical
+phone/listening or general-release performance pass is claimed. See the
+[deployment report](evidence/B2Z/approved-action-panel-war-cry/deployment/REPORT.md)
+and [actual captures](evidence/B2Z/approved-action-panel-war-cry/deployment/GALLERY.md).
+
+The exact preceding78-file frontend is retained at
+`.work/approved-panel-war-cry/rollback/frontend`. The installed79-file freeze is
+retained separately. A combined clearance-plus-War-Cry successor is a new,
+separate development/qualification workstream; no future compatible frontend or
+backend installation/preparation/activation is authorised by this deployment.
+
+---
+
+# Prior qualification — approved panel and standalone War Cry candidate
 
 All six substantive hosted gates PASS for published source
 `367edf563222854423f2687711a21ab0087d7910` in
@@ -26,7 +55,7 @@ BFCache is BLOCKED in the media-capture route.
 
 ---
 
-# Current production — corrected audio/compact frontend installed for prelaunch playtest
+# Previous production — corrected78-file frontend retained for rollback
 
 15 November 2026: the owner-authorised corrected78-file frontend has been installed
 on `s2jxj-liaaa-aaaas-amynq-cai`. All77 public bodies, lengths, reviewed headers,

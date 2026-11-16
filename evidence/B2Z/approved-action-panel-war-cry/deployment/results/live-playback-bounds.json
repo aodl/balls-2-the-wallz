@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "scope": "Actual startup/native-journey frame samples; no rewind or display beyond latest verified endpoint",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "samples": 1325,
+      "minimum_display_delta": 0,
+      "maximum_display_minus_latest_verified_endpoint": -0.19569799985220016
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "samples": 1372,
+      "minimum_display_delta": 0,
+      "maximum_display_minus_latest_verified_endpoint": -0.8756719999782945
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "samples": 1647,
+      "minimum_display_delta": 0,
+      "maximum_display_minus_latest_verified_endpoint": -0.8330059999698278
+    }
+  ]
+}

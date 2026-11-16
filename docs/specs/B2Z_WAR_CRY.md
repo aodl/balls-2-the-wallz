@@ -3,8 +3,10 @@
 The owner-approved reference is
 [evidence/reference](../../evidence/B2Z/approved-action-panel-war-cry/reference/APPROVED_ACTION_PANEL.png).
 Its placeholder data are illustrative. The panel independently supports current
-Rules7; War Cry requires the exact new authenticated configuration. Production
-remains on its separately deployed Rules7 assets until separately approved.
+Rules7; War Cry requires the exact new authenticated configuration. The shared panel was separately approved and deployed on16 November2026;
+production remains Rules7 and War Cry stays unavailable. A combined clearance/
+War Cry successor is a separate development candidate, not standalone Rules10
+activation or permission to change the paid backend.
 
 ## Shared read-only panel
 

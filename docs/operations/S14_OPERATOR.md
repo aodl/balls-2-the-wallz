@@ -318,3 +318,22 @@ an old Rules7-only decoder/frontend is not an approved rollback even before the
 next annotated input. After admission, use a compatible forward state-preserving
 repair, never reinterpret the paid journal. The exact release decision and recovery procedure must accompany the
 qualified artifacts; stop on any mismatch.
+
+## 16 November2026 approved shared-panel installation
+
+The owner-authorised79-file shared-panel frontend is now installed; see the
+[actual deployment/acceptance record](../../evidence/B2Z/approved-action-panel-war-cry/deployment/REPORT.md).
+Its exact frozen source/assets remain `.work/approved-panel-war-cry/frozen/frontend`,
+JS c37ed0c363902e29443ba9eb1501c6b653873945bb63e7d92b341f8400f1085d,
+inventory63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f.
+No rebuild was used. Backend remains Rules7/module612ad0d…; War Cry/clearance
+capabilities are not active. The prior78-file frontend at
+`.work/approved-panel-war-cry/rollback/frontend` is the immediate frontend-only
+rollback while Rules7 remains active; the deployment record contains all hashes
+and the scoped restoration procedure. Earlier75-file rollback statements above
+are historical, not current operator instructions.
+
+A combined successor requires its own exact-source qualification and compatible
+frontend approval before any later separately approved backend module/epoch
+operation. Never activate standalone9 or10 as a shortcut, or deploy a changed
+compatibility bundle under the completed79-file approval.

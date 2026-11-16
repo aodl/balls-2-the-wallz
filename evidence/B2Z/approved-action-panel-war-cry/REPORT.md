@@ -1,3 +1,8 @@
+>16 November2026 continuation: the exact79-file **frontend only** was subsequently
+>authorised and installed. See [deployment and actual live acceptance](deployment/REPORT.md).
+>The standalone Rules10 backend in this historical qualification remains undeployed;
+>a combined territory-clearance/War-Cry successor is a separate workstream.
+
 # Approved action panel and War Cry — corrective qualification
 
 **Candidate only; nothing deployed or activated.** The shared frontend can ship

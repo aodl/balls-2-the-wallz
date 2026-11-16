@@ -1,0 +1,63 @@
+{
+  "status": "PASS",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "payer_person_control": "PASS same account reassociation and changed payer discard incompatible action; no unsolicited NEW",
+      "camera_preserved_on_reassociation": true,
+      "first_join": {
+        "memo": "NEW 225 1",
+        "amount": "1 ICP",
+        "payer": "2vxsx-fae",
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "warning": "Payments and unused ICP are kept; no automatic refunds.",
+        "copy_disabled": false,
+        "automatic_site": true
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "payer_person_control": "PASS same account reassociation and changed payer discard incompatible action; no unsolicited NEW",
+      "camera_preserved_on_reassociation": true,
+      "first_join": {
+        "memo": "NEW 225 1",
+        "amount": "1 ICP",
+        "payer": "2vxsx-fae",
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "warning": "Payments and unused ICP are kept; no automatic refunds.",
+        "copy_disabled": false,
+        "automatic_site": true
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "payer_person_control": "PASS same account reassociation and changed payer discard incompatible action; no unsolicited NEW",
+      "camera_preserved_on_reassociation": true,
+      "first_join": {
+        "memo": "NEW 225 1",
+        "amount": "1 ICP",
+        "payer": "2vxsx-fae",
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "warning": "Payments and unused ICP are kept; no automatic refunds.",
+        "copy_disabled": false,
+        "automatic_site": true
+      },
+      "contracted_scroll": {
+        "x": 9,
+        "y": 121,
+        "width": 302,
+        "height": 222
+      },
+      "reduced_motion": "PASS real media preference"
+    }
+  ]
+}

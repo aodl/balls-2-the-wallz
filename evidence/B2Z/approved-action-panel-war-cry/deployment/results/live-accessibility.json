@@ -1,0 +1,753 @@
+{
+  "rows": [
+    {
+      "width": 320,
+      "status": "PASS",
+      "native_payment_scroll": true,
+      "full_address_disclosure": true,
+      "before": {
+        "at": "2026-11-16T08:24:08.693Z",
+        "camera": [
+          3.6575453715563526,
+          3.6575453715563526,
+          64
+        ],
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "left": 0,
+          "top": 0,
+          "visibleWidth": 320,
+          "visibleHeight": 640
+        },
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "9625",
+          "manifest_hash": "4a2288042e217bd22840392a934cde1921ab51cea9303529359b984faf2d5e64",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "9625",
+            "logical_start": "9624",
+            "previous_manifest": "2b7b016118926311887abd35d458c8540fc45d52bb670c5d4aeb2096f28d1351",
+            "previous_state": "a03cfac62b39986911027ea901175e787f31bf46d9fc4898c43e4fa811679d5e",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "9628",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "9628",
+          "source_to_exclusive": "40180669",
+          "state_hash": "8b10e895919b6800a592a2f2190f8602ff0bb55b13d5f6ad11a9d95754f30b20"
+        },
+        "ready": true,
+        "error": "",
+        "deliveryError": "",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 9625,
+        "playhead": 9624.229158000036,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": "2",
+            "publication_ticks": "1",
+            "completed_segments": "9625",
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": "40180669"
+          }
+        },
+        "quantity": {
+          "hidden": false,
+          "inert": false,
+          "placement": "dock",
+          "rect": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46,
+            "top": 526,
+            "right": 140,
+            "bottom": 572,
+            "left": 10
+          },
+          "text": "1",
+          "targets": [
+            {
+              "id": "quantity-minus",
+              "disabled": true,
+              "rect": {
+                "x": 11,
+                "y": 527,
+                "width": 44,
+                "height": 44,
+                "top": 527,
+                "right": 55,
+                "bottom": 571,
+                "left": 11
+              },
+              "hit": true
+            },
+            {
+              "id": "quantity-plus",
+              "disabled": false,
+              "rect": {
+                "x": 95,
+                "y": 527,
+                "width": 44,
+                "height": 44,
+                "top": 527,
+                "right": 139,
+                "bottom": 571,
+                "left": 95
+              },
+              "hit": true
+            }
+          ],
+          "corners": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 296,
+          "top": 221,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 242,
+          "top": 275,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "scrollContent": 272,
+        "board": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 640,
+          "top": 0,
+          "right": 320,
+          "bottom": 640,
+          "left": 0
+        },
+        "cyclesVisibility": "hidden",
+        "focus": "aim-handle",
+        "source_point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 160,
+          "sy": 155.00000000000458,
+          "visible": true,
+          "score": 164.99999999999542,
+          "hit": "board"
+        }
+      },
+      "after": {
+        "at": "2026-11-16T08:24:30.785Z",
+        "camera": [
+          3.6575453715563526,
+          3.6575453715563526,
+          64
+        ],
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "left": 0,
+          "top": 0,
+          "visibleWidth": 320,
+          "visibleHeight": 640
+        },
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "9625",
+          "manifest_hash": "4a2288042e217bd22840392a934cde1921ab51cea9303529359b984faf2d5e64",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "9625",
+            "logical_start": "9624",
+            "previous_manifest": "2b7b016118926311887abd35d458c8540fc45d52bb670c5d4aeb2096f28d1351",
+            "previous_state": "a03cfac62b39986911027ea901175e787f31bf46d9fc4898c43e4fa811679d5e",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "9628",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "9628",
+          "source_to_exclusive": "40180669",
+          "state_hash": "8b10e895919b6800a592a2f2190f8602ff0bb55b13d5f6ad11a9d95754f30b20"
+        },
+        "ready": true,
+        "error": "",
+        "deliveryError": "",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 9625,
+        "playhead": 9624.451817000061,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": "2",
+            "publication_ticks": "1",
+            "completed_segments": "9625",
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": "40180669"
+          }
+        },
+        "quantity": {
+          "hidden": false,
+          "inert": false,
+          "placement": "dock",
+          "rect": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46,
+            "top": 526,
+            "right": 140,
+            "bottom": 572,
+            "left": 10
+          },
+          "text": "1",
+          "targets": [
+            {
+              "id": "quantity-minus",
+              "disabled": true,
+              "rect": {
+                "x": 11,
+                "y": 527,
+                "width": 44,
+                "height": 44,
+                "top": 527,
+                "right": 55,
+                "bottom": 571,
+                "left": 11
+              },
+              "hit": true
+            },
+            {
+              "id": "quantity-plus",
+              "disabled": false,
+              "rect": {
+                "x": 95,
+                "y": 527,
+                "width": 44,
+                "height": 44,
+                "top": 527,
+                "right": 139,
+                "bottom": 571,
+                "left": 95
+              },
+              "hit": true
+            }
+          ],
+          "corners": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 296,
+          "top": 221,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 242,
+          "top": 275,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "scrollContent": 272,
+        "board": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 640,
+          "top": 0,
+          "right": 320,
+          "bottom": 640,
+          "left": 0
+        },
+        "cyclesVisibility": "hidden",
+        "focus": "",
+        "source_point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 160,
+          "sy": 155.00000000000458,
+          "visible": true,
+          "score": 164.99999999999542,
+          "hit": "board"
+        }
+      }
+    },
+    {
+      "width": 390,
+      "status": "PASS",
+      "native_payment_scroll": true,
+      "full_address_disclosure": true,
+      "before": {
+        "at": "2026-11-16T08:25:24.191Z",
+        "camera": [
+          5.609482510336875,
+          5.609482510336875,
+          64
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "visibleWidth": 390,
+          "visibleHeight": 844
+        },
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "9626",
+          "manifest_hash": "b22034c53958b3eb0af3084125e5cf4bd2c2344c274b8359a1a6b973b472fffe",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "9626",
+            "logical_start": "9625",
+            "previous_manifest": "4a2288042e217bd22840392a934cde1921ab51cea9303529359b984faf2d5e64",
+            "previous_state": "8b10e895919b6800a592a2f2190f8602ff0bb55b13d5f6ad11a9d95754f30b20",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "9629",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "9629",
+          "source_to_exclusive": "40180669",
+          "state_hash": "7b4dcf22a04153b983f702a8649b034c6b0cac0edbbdcc49f3b40bef117241da"
+        },
+        "ready": true,
+        "error": "",
+        "deliveryError": "",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 9626,
+        "playhead": 9624.427983000058,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": "2",
+            "publication_ticks": "1",
+            "completed_segments": "9626",
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": "40180669"
+          }
+        },
+        "quantity": {
+          "hidden": false,
+          "inert": false,
+          "placement": "floating",
+          "rect": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46,
+            "top": 132,
+            "right": 379,
+            "bottom": 178,
+            "left": 249
+          },
+          "text": "1",
+          "targets": [
+            {
+              "id": "quantity-minus",
+              "disabled": true,
+              "rect": {
+                "x": 250,
+                "y": 133,
+                "width": 44,
+                "height": 44,
+                "top": 133,
+                "right": 294,
+                "bottom": 177,
+                "left": 250
+              },
+              "hit": true
+            },
+            {
+              "id": "quantity-plus",
+              "disabled": false,
+              "rect": {
+                "x": 334,
+                "y": 133,
+                "width": 44,
+                "height": 44,
+                "top": 133,
+                "right": 378,
+                "bottom": 177,
+                "left": 334
+              },
+              "hit": true
+            }
+          ],
+          "corners": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 328,
+          "top": 221,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 274,
+          "top": 275,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "scrollContent": 274,
+        "board": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "cyclesVisibility": "hidden",
+        "focus": "aim-handle",
+        "source_point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 195,
+          "sy": 154.99999999999534,
+          "visible": true,
+          "score": 267.00000000000466,
+          "hit": "board"
+        }
+      },
+      "after": {
+        "at": "2026-11-16T08:25:42.701Z",
+        "camera": [
+          5.609482510336875,
+          5.609482510336875,
+          64
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "visibleWidth": 390,
+          "visibleHeight": 844
+        },
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "9626",
+          "manifest_hash": "b22034c53958b3eb0af3084125e5cf4bd2c2344c274b8359a1a6b973b472fffe",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "9626",
+            "logical_start": "9625",
+            "previous_manifest": "4a2288042e217bd22840392a934cde1921ab51cea9303529359b984faf2d5e64",
+            "previous_state": "8b10e895919b6800a592a2f2190f8602ff0bb55b13d5f6ad11a9d95754f30b20",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "9629",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "9629",
+          "source_to_exclusive": "40180669",
+          "state_hash": "7b4dcf22a04153b983f702a8649b034c6b0cac0edbbdcc49f3b40bef117241da"
+        },
+        "ready": true,
+        "error": "",
+        "deliveryError": "",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 9626,
+        "playhead": 9624.616308000075,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": "2",
+            "publication_ticks": "1",
+            "completed_segments": "9626",
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": "40180669"
+          }
+        },
+        "quantity": {
+          "hidden": false,
+          "inert": false,
+          "placement": "floating",
+          "rect": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46,
+            "top": 132,
+            "right": 379,
+            "bottom": 178,
+            "left": 249
+          },
+          "text": "1",
+          "targets": [
+            {
+              "id": "quantity-minus",
+              "disabled": true,
+              "rect": {
+                "x": 250,
+                "y": 133,
+                "width": 44,
+                "height": 44,
+                "top": 133,
+                "right": 294,
+                "bottom": 177,
+                "left": 250
+              },
+              "hit": true
+            },
+            {
+              "id": "quantity-plus",
+              "disabled": false,
+              "rect": {
+                "x": 334,
+                "y": 133,
+                "width": 44,
+                "height": 44,
+                "top": 133,
+                "right": 378,
+                "bottom": 177,
+                "left": 334
+              },
+              "hit": true
+            }
+          ],
+          "corners": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 328,
+          "top": 221,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 274,
+          "top": 275,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "scrollContent": 274,
+        "board": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "cyclesVisibility": "hidden",
+        "focus": "recipient-reveal",
+        "source_point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 195,
+          "sy": 154.99999999999534,
+          "visible": true,
+          "score": 267.00000000000466,
+          "hit": "board"
+        }
+      }
+    }
+  ],
+  "status": "PASS"
+}

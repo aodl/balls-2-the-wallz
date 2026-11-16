@@ -1,0 +1,20 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/.work/approved-panel-deployment-20261116/critical-mobile.py", line 38, in <module>
+    dev=c.new_cdp_session(p);origin=p.evaluate('__b2zCamera.cellPoint(0)');x,y=origin['sx']-26,origin['sy']+4;assert p.evaluate('([x,y])=>document.elementFromPoint(x,y)?.id==="board"',[x,y]);box=p.locator('#quantity-controls').bounding_box();dev.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y,'id':11}]});dev.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x+15,'y':y-14,'id':11}]});qa.frame(p);angle=qa.snap(p)['composer']['degrees'];camera=qa.snap(p)['camera'];assert p.evaluate('([x,y])=>document.elementFromPoint(x+90,y)?.id==="board"',[x,y]);dev.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x+15,'y':y-14,'id':11},{'x':x+90,'y':y,'id':22}]});dev.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x-5,'y':y-25,'id':11},{'x':x+115,'y':y+10,'id':22}]});assert p.locator('#quantity-controls').bounding_box()==box;dev.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]});qa.frame(p);assert qa.snap(p)['camera']!=camera;assert p.locator('#quantity-count').text_content()=='1';p.wait_for_function('a=>__b2zExperience.composer.degrees===a',arg=angle);report['aim_pinch']='PASS gesture ownership, fixed editor, no minus interception'
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/sync_api/_generated.py", line 12809, in wait_for_function
+    self._sync(
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_sync_base.py", line 115, in _sync
+    return task.result()
+           ^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_page.py", line 1153, in wait_for_function
+    return await self._main_frame.wait_for_function(**locals_to_params(locals()))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_frame.py", line 941, in wait_for_function
+    await self._channel.send("waitForFunction", self._timeout, params)
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 76, in send
+    return await self._connection.wrap_api_call(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/.work/browser-venv/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 632, in wrap_api_call
+    raise rewrite_error(error, f"{parsed_st['apiName']}: {error}") from None
+playwright._impl._errors.TimeoutError: Page.wait_for_function: Timeout 30000ms exceeded.

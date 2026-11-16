@@ -1,0 +1,59 @@
+[
+  {
+    "viewport": [
+      1440,
+      900
+    ],
+    "world_seconds": 4.7082723009516485,
+    "initial_head": "9609",
+    "first_world_at_ms": 3565.800000011921,
+    "first_motion_at_ms": 4473.899999976158,
+    "motion_before_new_head": true,
+    "authoritative_reference": "9606,1",
+    "presentation_time": 9605,
+    "history": {
+      "requests": 2,
+      "bytes": 16913,
+      "outcome": "interval",
+      "elapsedMs": 535.4000000357628
+    }
+  },
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "world_seconds": 3.8365695460233837,
+    "initial_head": "9610",
+    "first_world_at_ms": 2756.199999988079,
+    "first_motion_at_ms": 3701,
+    "motion_before_new_head": true,
+    "authoritative_reference": "9607,1",
+    "presentation_time": 9606,
+    "history": {
+      "requests": 2,
+      "bytes": 16913,
+      "outcome": "interval",
+      "elapsedMs": 389.80000001192093
+    }
+  },
+  {
+    "viewport": [
+      320,
+      640
+    ],
+    "world_seconds": 3.4534209219855256,
+    "initial_head": "9611",
+    "first_world_at_ms": 2870.099999964237,
+    "first_motion_at_ms": 3307.7999999523163,
+    "motion_before_new_head": true,
+    "authoritative_reference": "9608,1",
+    "presentation_time": 9607,
+    "history": {
+      "requests": 2,
+      "bytes": 16913,
+      "outcome": "interval",
+      "elapsedMs": 459.30000001192093
+    }
+  }
+]

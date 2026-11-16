@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/.work/approved-panel-deployment-20261116/live-controls.py", line 52, in <module>
+    p.locator('#recipient-reveal').click();p.locator('#full-recipient').focus();p.locator('#full-recipient').select_text();p.keyboard.press('Control+C');assert pasted(ctx,p)==v['recipient'];p.locator('#recipient-reveal').click();v['exact_copy']='PASS native API, Control+C and external read-only Control+V';row['actions'][action]=v;row['actions'][action]['geometry']=alignment(p);assert p.locator('#war-cry-editor').is_hidden();assert '|' not in v['memo'];assert p.locator('#prepared-card input,#prepared-card textarea,#payment-fee').count()==0
+                                                                                                                                                                ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
