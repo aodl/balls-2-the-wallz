@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "at": "2026-11-16T20:35:00.014044+00:00",
+  "rollback_directory": ".work/approved-panel-war-cry/rollback/frontend",
+  "rollback_files": 79,
+  "rollback_inventory_sha256": "63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f",
+  "rollback_origin": "All78 independently retrieved and certificate-verified public files plus exact consumed upload policy from approved79 freeze",
+  "preserved_earlier78": ".work/approved-panel-war-cry/rollback/frontend78-retained-before-frontend80-20261116",
+  "previous_staging": ".work/frontend80-deployment-20261116/previous-staging",
+  "staged_files": 80,
+  "staged_inventory_sha256": "e8a9303538dbb2cc5028b21cf5ae97caacdb9c438497a35a567e30a9071a0c67",
+  "no_build": true,
+  "preflight_instrumentation_note": "Initial historical78 manifest path absent; corrected to retained prior-deployment manifest before any staging/rollback mutation or production operation."
+}

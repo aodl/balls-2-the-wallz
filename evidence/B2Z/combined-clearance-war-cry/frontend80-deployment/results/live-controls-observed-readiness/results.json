@@ -1,0 +1,164 @@
+{
+  "status": "FAIL",
+  "scope": "Actual deployed authenticated mainnet state, native mouse/keyboard/emulated-touch and copy/paste. No payments. Emulated viewport is not physical hardware.",
+  "views": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "startup_seconds": 9.674627859028988,
+      "initial": {
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "composer": {
+          "mode": "inspect",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "10071",
+          "manifest_hash": "122b4d311d82fbd039062b216987bbcd664acf6a9605b80b5a1ce67824e0dfab",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "10071",
+            "logical_start": "10070",
+            "previous_manifest": "fc1e26e9f354039159be94b6907eef24834b1b24498fe6b724fb0f27e57517d7",
+            "previous_state": "1850a634d49026a5187b6a6c9696377ea30661dcef89b74b22707f9bb50c90aa",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "10074",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "10074",
+          "source_to_exclusive": "40180669",
+          "state_hash": "a4ccf70f688999d74767ec5a27173b65cbcf16a89059b34851f6fc1ed0dc4a8b"
+        },
+        "error": "",
+        "ready": true,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 10071,
+        "playhead": 10070.003
+      },
+      "available_cannons": [
+        {
+          "id": 1,
+          "cell": 0,
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "dormant": null
+        }
+      ],
+      "returning_owner": {
+        "status": "PASS",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owned_cannons": 1,
+        "camera": [
+          2.743735281041836,
+          6.243735281041836,
+          7.9733293309001
+        ],
+        "no_new_proposal": true
+      },
+      "selection_no_focus": "PASS",
+      "actions": {}
+    }
+  ],
+  "error": "TimeoutError('Locator.select_text: Timeout 28483ms exceeded.\\nCall log:\\n  - attempting selectText action\\n    2 \u00d7 waiting for element to be visible\\n      - element is not visible\\n    - retrying selectText action\\n    - waiting 20ms\\n    2 \u00d7 waiting for element to be visible\\n      - element is not visible\\n    - retrying selectText action\\n      - waiting 100ms\\n    11 \u00d7 waiting for element to be visible\\n       - element is not visible\\n     - retrying selectText action\\n       - waiting 500ms\\n')",
+  "failure_state": {
+    "camera": [
+      3.279287805121612,
+      0.22587215908856706,
+      88
+    ],
+    "composer": {
+      "mode": "ball",
+      "cell": null,
+      "degrees": "167.15",
+      "worldAngle": "37.5",
+      "quantity": 1
+    },
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "head": {
+      "logical_end": "10072",
+      "manifest_hash": "09c0ab5619ded60db80ca4fe153b220be3e17d1707858e64a3bb27aaf6e839bc",
+      "seal": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "10072",
+        "logical_start": "10071",
+        "previous_manifest": "122b4d311d82fbd039062b216987bbcd664acf6a9605b80b5a1ce67824e0dfab",
+        "previous_state": "a4ccf70f688999d74767ec5a27173b65cbcf16a89059b34851f6fc1ed0dc4a8b",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "10075",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "10075",
+      "source_to_exclusive": "40180669",
+      "state_hash": "94d4eded651489e800fde2aeec555cc7ed7c230d528a971b8df8f30859b75c3b"
+    },
+    "error": "",
+    "ready": true,
+    "status": {
+      "kind": "slow",
+      "label": "Slow \u00b7 delayed",
+      "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+      "canPrepare": true
+    },
+    "available": 10072,
+    "playhead": 10071.161288000165
+  },
+  "failure_payment": {
+    "amount": "0.1 ICP",
+    "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "abbreviated": "s5ir5\u2026",
+    "memo": "FIRE 1 37.5 1",
+    "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+    "fee": "Help: Ledger fee separate",
+    "warning": "Payments and unused ICP are kept; no automatic refunds.",
+    "prompt": "Aim & Pay",
+    "disabled": false,
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 328,
+      "top": 334,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    }
+  }
+}

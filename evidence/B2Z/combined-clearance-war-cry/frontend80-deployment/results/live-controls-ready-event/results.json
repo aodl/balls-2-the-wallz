@@ -1,0 +1,164 @@
+{
+  "status": "FAIL",
+  "scope": "Actual deployed authenticated mainnet state, native mouse/keyboard/emulated-touch and copy/paste. No payments. Emulated viewport is not physical hardware.",
+  "views": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "startup_seconds": 7.297412055020686,
+      "initial": {
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "composer": {
+          "mode": "inspect",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "10066",
+          "manifest_hash": "9eb7a7560a46658648005c3a5d5dfd1d64957cf8d562e89400fed061343d1eab",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "10066",
+            "logical_start": "10065",
+            "previous_manifest": "33e97bd596fd3add5d0278a63533ddb850d54e8cd0670a3bb5b7650fb18d100e",
+            "previous_state": "9b2a7f28a67a49c0d9e38cc7ec6ad6debd8ae46e5b03b863e951c73a21ac3620",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "10069",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "10069",
+          "source_to_exclusive": "40180669",
+          "state_hash": "32a0b5945c3ad92d12b24185401b3faf3a08435d232884d1a83d146aa977d37e"
+        },
+        "error": "",
+        "ready": true,
+        "status": {
+          "kind": "waiting",
+          "label": "Waiting for next on-chain update",
+          "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+          "canPrepare": true
+        },
+        "available": 10066,
+        "playhead": 10065.0005
+      },
+      "available_cannons": [
+        {
+          "id": 1,
+          "cell": 0,
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "dormant": null
+        }
+      ],
+      "returning_owner": {
+        "status": "PASS",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owned_cannons": 1,
+        "camera": [
+          2.993735281041836,
+          5.993735281041836,
+          7.9733293309001
+        ],
+        "no_new_proposal": true
+      },
+      "selection_no_focus": "PASS",
+      "actions": {}
+    }
+  ],
+  "error": "AssertionError('No ready native copy within bounded recovery attempts')",
+  "failure_state": {
+    "camera": [
+      3.279287805121612,
+      0.22587215908856706,
+      88
+    ],
+    "composer": {
+      "mode": "ball",
+      "cell": null,
+      "degrees": "167.15",
+      "worldAngle": "37.5",
+      "quantity": 1
+    },
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "head": {
+      "logical_end": "10067",
+      "manifest_hash": "b62acd2c6475dcfbc16c27f2a8d8a3cd99b5764451ad345b5c1e767e6c0d34c9",
+      "seal": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "10067",
+        "logical_start": "10066",
+        "previous_manifest": "9eb7a7560a46658648005c3a5d5dfd1d64957cf8d562e89400fed061343d1eab",
+        "previous_state": "32a0b5945c3ad92d12b24185401b3faf3a08435d232884d1a83d146aa977d37e",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "10070",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "10070",
+      "source_to_exclusive": "40180669",
+      "state_hash": "065098208a84677ae5dcdfea4c26097bd0fdc080c965e85bf1558353733cf45f"
+    },
+    "error": "",
+    "ready": true,
+    "status": {
+      "kind": "slow",
+      "label": "Slow \u00b7 delayed",
+      "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+      "canPrepare": false
+    },
+    "available": 10067,
+    "playhead": 10065.797969000096
+  },
+  "failure_payment": {
+    "amount": "0.1 ICP",
+    "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "abbreviated": "s5ir5\u2026",
+    "memo": "FIRE 1 37.5 1",
+    "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+    "fee": "Help: Ledger fee separate",
+    "warning": "Payments and unused ICP are kept; no automatic refunds.",
+    "prompt": "Aim & Pay",
+    "disabled": true,
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 372,
+      "top": 334,
+      "right": 1021,
+      "bottom": 706,
+      "left": 661
+    }
+  }
+}

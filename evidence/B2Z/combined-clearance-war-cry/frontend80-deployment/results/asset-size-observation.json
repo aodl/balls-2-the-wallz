@@ -1,0 +1,10 @@
+{
+  "complete_upload_input_bytes_before": 76335820,
+  "complete_upload_input_bytes_after": 76341055,
+  "public_identity_bytes_before": 76331925,
+  "public_identity_bytes_after": 76337160,
+  "registered_all_encoding_bytes_before": 76790906,
+  "registered_all_encoding_bytes_after": 76796518,
+  "scope": "Exact retained bytes and signed asset-encoding lengths, not canister memory allocation, pricing, download cost or cycle-cost estimate",
+  "identity_byte_increase": 5235
+}

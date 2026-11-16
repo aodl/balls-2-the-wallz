@@ -1,8 +1,12 @@
 # Combined clearance and War Cry — qualification closeout
 
-**Production frontend79 is installed; combined Rules11 remains undeployed.**
-The approved panel deployment and live acceptance are recorded separately in
-[the deployment report](../approved-action-panel-war-cry/deployment/REPORT.md).
+**Production frontend80 is installed; the paid backend remains Rules7.**
+The owner-authorised compatibility-only asset deployment, complete79-public-file
+certification and actual live acceptance are recorded in
+[the frontend80 deployment report](frontend80-deployment/REPORT.md).
+The preceding79-file panel deployment remains
+[historical evidence](../approved-action-panel-war-cry/deployment/REPORT.md).
+No combined backend installation, pause, preparation, commit or resume occurred.
 Development is isolated on `feature/b2z-combined-clearance-war-cry`, starting from
 published deployment-evidence commit `6afe3b2fc2426887f905259312f5c090ed7dc7ab`.
 **All six substantive gates PASS** for final exact source
@@ -56,8 +60,10 @@ Only app.mjs, backend.did, build-manifest.json and new configuration-combined.bi
 change versus approved79. No audio, HTML/CSS, camera, quantity dock, economics,
 lockfile/dependency or gameplay-physics change is introduced. Full offline byte
 reproduction and consumed-input checks pass. [The complete inventory and build
-provenance](artifacts/provenance.json) name every input. Neither frontend80 nor
-combined backend has been installed on production; `.work/s14/assets` retains79.
+provenance](artifacts/provenance.json) name every input. At qualification time neither frontend80 nor the combined backend was installed.
+The later authorised frontend80 operation now stages/serves these exact80 files;
+the combined backend remains uninstalled. The current rollback is the preserved
+79-file frontend. See the separately scoped deployment report above.
 
 ## Implementation
 
@@ -423,7 +429,7 @@ timeout pass. [Original failure](results/hosted-43872278065-failure/diagnosis.js
 [actual browser state](results/hosted-43872278065-failure/browser/exception-browser-state.json),
 [controller cutover](results/hosted-43872278065-failure/clearance-cutover.json).
 
-## Final qualification scope matrix
+## Final qualification scope matrix (before the later frontend80 deployment)
 
 | Check | Result and actual scope |
 | --- | --- |
@@ -501,15 +507,18 @@ Update/War Cry and no-safe-destination assertions without an override.
 [final signed HTTP/certificate proof](results/paused-ack-european/authenticated/result.json),
 [native capture index](results/paused-ack-european/browser/wire-index.json).
 
-**Recommendation:** retain the successful production79-file panel release; approve
-neither backend nor frontend80 implicitly. The combined candidate is ready for
-independent review under the ordered maintenance procedure in
-[RELEASE_DECISIONS.md](RELEASE_DECISIONS.md). First separately approve compatible
-frontend80, then exact normal backend upgrade while paused, then current-manifest
-preparation/commit and separately controlled resume. Require an actual observed
-paused operational state before cutover. Old Rules7-only rollback is unsafe after
-the durable transition extension/epoch; use compatible state-preserving forward
-recovery. The failed mixed module/browser interruption scope remains unqualified.
+**Current recommendation:** retain the successful owner-authorised frontend80
+compatibility deployment, now separately verified in
+[its live report](frontend80-deployment/REPORT.md). The earlier recommendation to
+obtain that frontend approval has been satisfied; it did not authorise backend
+maintenance. The combined backend candidate remains ready for independent review
+under the ordered procedure in [RELEASE_DECISIONS.md](RELEASE_DECISIONS.md).
+Exact normal backend upgrade while paused, current-manifest preparation/commit
+and controlled resume still require separate explicit approvals. Require an
+actual observed paused operational state before cutover. Old Rules7-only rollback
+is unsafe after the durable transition extension/epoch; use compatible
+state-preserving forward recovery. Mixed module/browser interruption scope
+remains unqualified.
 
 No combined production install, preparation, activation, payment, funding, settings
 or controller operation occurred. Existing audio/P09 FAIL and physical-device,
@@ -518,7 +527,7 @@ publication contains only reviewed documentation/evidence and does not authorise
 production activation.
 
 
-### Final read-only production preservation at15:24UTC
+### Earlier read-only production preservation at15:24UTC (before frontend80)
 
 A fresh real-site observation at2026-11-16T15:24:02.086Z authenticates Rules7,
 head9880, unchanged configuration8eca3f…/source54d927… and no browser/verification

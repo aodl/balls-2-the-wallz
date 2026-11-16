@@ -351,3 +351,30 @@ Preparation may already write a durable field unknown to the old strict Root
 decoder. After preparation retain a tested compatible forward-recovery module;
 after epoch commit no Rules7-only backend or frontend is a blind rollback target.
 Never reset state, reverse the epoch or Ledger cursor, or reindex paid history.
+
+
+## 16 November2026 frontend80 compatibility installation — current operator state
+
+The separately authorised exact80-file frontend is now installed, with no build
+or backend maintenance. See the [deployment and live acceptance report](../../evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/REPORT.md).
+JS `bc2872444e4574ae818983e2d7ede46f7ff0c4c2d71b198b9b821c344636321c`,
+complete inventory `e8a9303538dbb2cc5028b21cf5ae97caacdb9c438497a35a567e30a9071a0c67`.
+All79 public assets/certificates verify. Backend remains Rules7/module612ad0d…;
+War Cry and clearance are inactive. Do not deploy the normal combined Wasm or
+pause/prepare/commit/resume the backend under this completed frontend authority.
+
+The current frontend-only rollback is the exact79-file c37ed0…/63cffc… release at
+`.work/approved-panel-war-cry/rollback/frontend`. That path's older78-file set was
+verified and renamed to sibling `frontend78-retained-before-frontend80-20261116`;
+earlier current78 rollback statements above are historical. The80-file freeze is
+`.work/combined-clearance-war-cry/frozen/frontend` and must remain separate.
+Restore only a clean, rehashed complete rollback staging set using the scoped
+observer assets procedure; then verify all78 public files, signed inventory,
+fresh IC-v2 proofs, headers and Rules7 backend binding. Never invoke a builder
+or change paid backend state to repair the frontend. No rollback was required.
+
+This79-file rollback is appropriate only before a future Rules11 epoch. After
+cutover use a separately retained qualified Rules11-compatible recovery frontend.
+Remaining backend approvals and the durable-decoder/forward-recovery stop
+conditions remain in RELEASE_DECISIONS; the frontend operation changes none of
+them. Keep P09 FAIL and physical-device/audio limitations explicit.

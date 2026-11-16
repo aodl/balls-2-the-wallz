@@ -1,0 +1,1354 @@
+{
+  "status": "PASS",
+  "scope": "Actual production Rules7; actual API completion, native copy and external native paste. Fresh real certificate/operational state only; no overrides or payment. One action per viewport; separate nine-panel geometry coverage.",
+  "views": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "action": "fire",
+      "source": {
+        "id": 1,
+        "cell": 0,
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "dormant": null
+      },
+      "fields": [
+        {
+          "field": "owner",
+          "api_attempts": [
+            {
+              "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+              "start": {
+                "at": 25675.100000023842,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 1986.224384,
+                "certifiedAge": 1145.5,
+                "operationalAge": 1265,
+                "head": "10092",
+                "memo": "FIRE 1 37.5 1",
+                "amount": "0.1 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              },
+              "success": true,
+              "end": {
+                "at": 26125.600000023842,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 14757.259008,
+                "certifiedAge": 117,
+                "operationalAge": 1712.4000000357628,
+                "head": "10092",
+                "memo": "FIRE 1 37.5 1",
+                "amount": "0.1 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              }
+            }
+          ],
+          "native_attempts": [
+            {
+              "event": {
+                "state": {
+                  "at": 36045.200000047684,
+                  "focused": true,
+                  "hidden": false,
+                  "status": {
+                    "kind": "slow",
+                    "label": "Slow \u00b7 delayed",
+                    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                    "canPrepare": true
+                  },
+                  "disabled": false,
+                  "certAge": 1326.718976,
+                  "certifiedAge": 987.7000000476837,
+                  "operationalAge": 2659.600000023842,
+                  "head": "10092",
+                  "memo": "FIRE 1 37.5 1",
+                  "amount": "0.1 ICP",
+                  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+                },
+                "prevented": true,
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai"
+              },
+              "pasted": "s5ir5-gqaaa-aaaas-amyna-cai"
+            }
+          ],
+          "api": {
+            "status": "PASS",
+            "value": "s5ir5-gqaaa-aaaas-amyna-cai"
+          },
+          "native": {
+            "status": "PASS",
+            "value": "s5ir5-gqaaa-aaaas-amyna-cai"
+          }
+        },
+        {
+          "field": "amount",
+          "api_attempts": [
+            {
+              "value": "0.1",
+              "start": {
+                "at": 43934.90000003576,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 1589.744384,
+                "certifiedAge": 766,
+                "operationalAge": 1068.199999988079,
+                "head": "10092",
+                "memo": "FIRE 1 37.5 1",
+                "amount": "0.1 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              },
+              "success": true,
+              "end": {
+                "at": 44635.5,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 1589.744384,
+                "certifiedAge": 1466.5999999642372,
+                "operationalAge": 1768.7999999523163,
+                "head": "10092",
+                "memo": "FIRE 1 37.5 1",
+                "amount": "0.1 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              }
+            }
+          ],
+          "native_attempts": [
+            {
+              "event": {
+                "state": {
+                  "at": 52620.700000047684,
+                  "focused": true,
+                  "hidden": false,
+                  "status": {
+                    "kind": "slow",
+                    "label": "Slow \u00b7 delayed",
+                    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                    "canPrepare": true
+                  },
+                  "disabled": false,
+                  "certAge": 12052.624384,
+                  "certifiedAge": 877,
+                  "operationalAge": 1238.5,
+                  "head": "10092",
+                  "memo": "FIRE 1 37.5 1",
+                  "amount": "0.1 ICP",
+                  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+                },
+                "prevented": true,
+                "value": "0.1"
+              },
+              "pasted": "0.1"
+            }
+          ],
+          "api": {
+            "status": "PASS",
+            "value": "0.1"
+          },
+          "native": {
+            "status": "PASS",
+            "value": "0.1"
+          }
+        },
+        {
+          "field": "text",
+          "api_attempts": [
+            {
+              "value": "FIRE 1 37.5 1",
+              "start": {
+                "at": 57310.80000001192,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 21540.074752,
+                "certifiedAge": 918.0999999642372,
+                "operationalAge": 3490.399999976158,
+                "head": "10092",
+                "memo": "FIRE 1 37.5 1",
+                "amount": "0.1 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              },
+              "success": true,
+              "end": {
+                "at": 57515.700000047684,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 21540.074752,
+                "certifiedAge": 1123,
+                "operationalAge": 3695.300000011921,
+                "head": "10092",
+                "memo": "FIRE 1 37.5 1",
+                "amount": "0.1 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              }
+            }
+          ],
+          "native_attempts": [
+            {
+              "event": {
+                "state": {
+                  "at": 65370.90000003576,
+                  "focused": true,
+                  "hidden": false,
+                  "status": {
+                    "kind": "slow",
+                    "label": "Slow \u00b7 delayed",
+                    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                    "canPrepare": true
+                  },
+                  "disabled": false,
+                  "certAge": 26626.38208,
+                  "certifiedAge": 506,
+                  "operationalAge": 1561.8999999761581,
+                  "head": "10092",
+                  "memo": "FIRE 1 37.5 1",
+                  "amount": "0.1 ICP",
+                  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+                },
+                "prevented": true,
+                "value": "FIRE 1 37.5 1"
+              },
+              "pasted": "FIRE 1 37.5 1"
+            }
+          ],
+          "api": {
+            "status": "PASS",
+            "value": "FIRE 1 37.5 1"
+          },
+          "native": {
+            "status": "PASS",
+            "value": "FIRE 1 37.5 1"
+          }
+        }
+      ],
+      "final": {
+        "at": "2026-11-16T21:17:37.197Z",
+        "camera": [
+          3.279287805121612,
+          0.22587215908856706,
+          88
+        ],
+        "viewport": {
+          "width": 1440,
+          "height": 900,
+          "left": 0,
+          "top": 0,
+          "visibleWidth": 1440,
+          "visibleHeight": 900
+        },
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "167.15",
+          "worldAngle": "37.5",
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "10089",
+          "manifest_hash": "b624d0bd96c662b2dbf5bc0bcddf97a9ccef5229e19c194d066ed8601e285010",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "10089",
+            "logical_start": "10088",
+            "previous_manifest": "c3bf37e2add2758921544981ccfffea83cfe662ecec1f7145398c055606b2108",
+            "previous_state": "951c880ce958c04e0f6fd9bc5be423deb75f66b167401b38775234c1e54da876",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "10092",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "10092",
+          "source_to_exclusive": "40180669",
+          "state_hash": "1620c6ea891ce08d69ae3bb719ea21acb718b3d64356acfb14087be27a171572"
+        },
+        "ready": true,
+        "error": "",
+        "deliveryError": "",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": false
+        },
+        "available": 10089,
+        "playhead": 10088.624309000112,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": "2",
+            "publication_ticks": "1",
+            "completed_segments": "10089",
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": "40180669"
+          }
+        },
+        "quantity": {
+          "hidden": false,
+          "inert": false,
+          "placement": "floating",
+          "rect": {
+            "x": 465,
+            "y": 245,
+            "width": 130,
+            "height": 46,
+            "top": 245,
+            "right": 595,
+            "bottom": 291,
+            "left": 465
+          },
+          "text": "1",
+          "targets": [
+            {
+              "id": "quantity-minus",
+              "disabled": true,
+              "rect": {
+                "x": 466,
+                "y": 246,
+                "width": 44,
+                "height": 44,
+                "top": 246,
+                "right": 510,
+                "bottom": 290,
+                "left": 466
+              },
+              "hit": true
+            },
+            {
+              "id": "quantity-plus",
+              "disabled": false,
+              "rect": {
+                "x": 550,
+                "y": 246,
+                "width": 44,
+                "height": 44,
+                "top": 246,
+                "right": 594,
+                "bottom": 290,
+                "left": 550
+              },
+              "hit": true
+            }
+          ],
+          "corners": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "panel": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 328,
+          "top": 334,
+          "right": 1021,
+          "bottom": 662,
+          "left": 661
+        },
+        "scroll": {
+          "x": 661,
+          "y": 388,
+          "width": 360,
+          "height": 274,
+          "top": 388,
+          "right": 1021,
+          "bottom": 662,
+          "left": 661
+        },
+        "scrollContent": 274,
+        "board": {
+          "x": 0,
+          "y": 0,
+          "width": 1440,
+          "height": 900,
+          "top": 0,
+          "right": 1440,
+          "bottom": 900,
+          "left": 0
+        },
+        "cyclesVisibility": "hidden",
+        "focus": ""
+      },
+      "status": "PASS"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "action": "move",
+      "source": {
+        "id": 1,
+        "cell": 0,
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "dormant": null
+      },
+      "fields": [
+        {
+          "field": "owner",
+          "api_attempts": [
+            {
+              "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+              "start": {
+                "at": 23680.899999976158,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 1336.216576,
+                "certifiedAge": 293,
+                "operationalAge": 2865,
+                "head": "10093",
+                "memo": "MOVE 1 1",
+                "amount": "0.0001 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              },
+              "success": true,
+              "end": {
+                "at": 23981.099999964237,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 1336.216576,
+                "certifiedAge": 593.0999999642372,
+                "operationalAge": 3165.099999964237,
+                "head": "10093",
+                "memo": "MOVE 1 1",
+                "amount": "0.0001 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              }
+            }
+          ],
+          "native_attempts": [
+            {
+              "event": {
+                "state": {
+                  "at": 33228.799999952316,
+                  "focused": true,
+                  "hidden": false,
+                  "status": {
+                    "kind": "slow",
+                    "label": "Slow \u00b7 delayed",
+                    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                    "canPrepare": true
+                  },
+                  "disabled": false,
+                  "certAge": 1780.838144,
+                  "certifiedAge": 798.8000000119209,
+                  "operationalAge": 1739.800000011921,
+                  "head": "10093",
+                  "memo": "MOVE 1 1",
+                  "amount": "0.0001 ICP",
+                  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+                },
+                "prevented": true,
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai"
+              },
+              "pasted": "s5ir5-gqaaa-aaaas-amyna-cai"
+            }
+          ],
+          "api": {
+            "status": "PASS",
+            "value": "s5ir5-gqaaa-aaaas-amyna-cai"
+          },
+          "native": {
+            "status": "PASS",
+            "value": "s5ir5-gqaaa-aaaas-amyna-cai"
+          }
+        },
+        {
+          "field": "amount",
+          "api_attempts": [
+            {
+              "value": "0.0001",
+              "start": {
+                "at": 40371.59999996424,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 1543.064064,
+                "certifiedAge": 760.8000000119209,
+                "operationalAge": 2180.899999976158,
+                "head": "10093",
+                "memo": "MOVE 1 1",
+                "amount": "0.0001 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              },
+              "success": true,
+              "end": {
+                "at": 40550.39999997616,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 1543.064064,
+                "certifiedAge": 939.8000000119209,
+                "operationalAge": 2359.899999976158,
+                "head": "10093",
+                "memo": "MOVE 1 1",
+                "amount": "0.0001 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              }
+            }
+          ],
+          "native_attempts": [
+            {
+              "event": {
+                "state": {
+                  "at": 46342.69999998808,
+                  "focused": true,
+                  "hidden": false,
+                  "status": {
+                    "kind": "slow",
+                    "label": "Slow \u00b7 delayed",
+                    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                    "canPrepare": true
+                  },
+                  "disabled": false,
+                  "certAge": 1465.46432,
+                  "certifiedAge": 437.69999998807907,
+                  "operationalAge": 1127.5,
+                  "head": "10093",
+                  "memo": "MOVE 1 1",
+                  "amount": "0.0001 ICP",
+                  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+                },
+                "prevented": true,
+                "value": "0.0001"
+              },
+              "pasted": "0.0001"
+            }
+          ],
+          "api": {
+            "status": "PASS",
+            "value": "0.0001"
+          },
+          "native": {
+            "status": "PASS",
+            "value": "0.0001"
+          }
+        },
+        {
+          "field": "text",
+          "api_attempts": [
+            {
+              "value": "MOVE 1 1",
+              "start": {
+                "at": 50724.299999952316,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 9788.844544,
+                "certifiedAge": 598.1999999880791,
+                "operationalAge": 3305.100000023842,
+                "head": "10093",
+                "memo": "MOVE 1 1",
+                "amount": "0.0001 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              },
+              "success": true,
+              "end": {
+                "at": 51059.59999996424,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 9788.844544,
+                "certifiedAge": 933.3999999761581,
+                "operationalAge": 1077,
+                "head": "10093",
+                "memo": "MOVE 1 1",
+                "amount": "0.0001 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              }
+            }
+          ],
+          "native_attempts": [
+            {
+              "event": {
+                "state": {
+                  "at": 56497,
+                  "focused": true,
+                  "hidden": false,
+                  "status": {
+                    "kind": "slow",
+                    "label": "Slow \u00b7 delayed",
+                    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                    "canPrepare": true
+                  },
+                  "disabled": false,
+                  "certAge": 3208.694528,
+                  "certifiedAge": 1074.5,
+                  "operationalAge": 1894.4000000357628,
+                  "head": "10093",
+                  "memo": "MOVE 1 1",
+                  "amount": "0.0001 ICP",
+                  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+                },
+                "prevented": true,
+                "value": "MOVE 1 1"
+              },
+              "pasted": "MOVE 1 1"
+            }
+          ],
+          "api": {
+            "status": "PASS",
+            "value": "MOVE 1 1"
+          },
+          "native": {
+            "status": "PASS",
+            "value": "MOVE 1 1"
+          }
+        }
+      ],
+      "final": {
+        "at": "2026-11-16T21:18:38.199Z",
+        "camera": [
+          5.609482510336875,
+          5.609482510336875,
+          64
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "visibleWidth": 390,
+          "visibleHeight": 844
+        },
+        "composer": {
+          "mode": "move",
+          "cell": 1,
+          "degrees": "167.15",
+          "worldAngle": "37.5",
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "10090",
+          "manifest_hash": "45dca1acee3d26644017eec6d2a5819c6dcbe2f41072efafee45f1e62c9bb3e0",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "10090",
+            "logical_start": "10089",
+            "previous_manifest": "b624d0bd96c662b2dbf5bc0bcddf97a9ccef5229e19c194d066ed8601e285010",
+            "previous_state": "1620c6ea891ce08d69ae3bb719ea21acb718b3d64356acfb14087be27a171572",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "10093",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "10093",
+          "source_to_exclusive": "40180669",
+          "state_hash": "053bfe35f71576fb5b936c32817949f9fddff06ff2ab956574e883bb23e9d1b8"
+        },
+        "ready": true,
+        "error": "",
+        "deliveryError": "",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 10090,
+        "playhead": 10088.534312000087,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": "2",
+            "publication_ticks": "1",
+            "completed_segments": "10090",
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": "40180669"
+          }
+        },
+        "quantity": {
+          "hidden": true,
+          "inert": false,
+          "placement": "floating",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "text": "1",
+          "targets": [
+            {
+              "id": "quantity-minus",
+              "disabled": true,
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "hit": false
+            },
+            {
+              "id": "quantity-plus",
+              "disabled": false,
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "hit": false
+            }
+          ],
+          "corners": [
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 368,
+          "top": 221,
+          "right": 368,
+          "bottom": 589,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 314,
+          "top": 275,
+          "right": 368,
+          "bottom": 589,
+          "left": 8
+        },
+        "scrollContent": 314,
+        "board": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "cyclesVisibility": "visible",
+        "focus": ""
+      },
+      "status": "PASS"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "action": "build",
+      "source": {
+        "id": 1,
+        "cell": 0,
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "dormant": null
+      },
+      "fields": [
+        {
+          "field": "owner",
+          "api_attempts": [
+            {
+              "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+              "start": {
+                "at": 21255.399999976158,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "reconnecting",
+                  "label": "Reconnecting",
+                  "detail": "Temporarily unable to reach the game. Retrying automatically.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 1137.323008,
+                "certifiedAge": 443.5,
+                "operationalAge": 1904.1000000238419,
+                "head": "10093",
+                "memo": "NEW 37.5 1 1",
+                "amount": "4 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              },
+              "success": true,
+              "end": {
+                "at": 21335.099999964237,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "reconnecting",
+                  "label": "Reconnecting",
+                  "detail": "Temporarily unable to reach the game. Retrying automatically.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 1137.323008,
+                "certifiedAge": 523.0999999642372,
+                "operationalAge": 1983.699999988079,
+                "head": "10093",
+                "memo": "NEW 37.5 1 1",
+                "amount": "4 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              }
+            }
+          ],
+          "native_attempts": [
+            {
+              "event": {
+                "state": {
+                  "at": 25051.69999998808,
+                  "focused": true,
+                  "hidden": false,
+                  "status": {
+                    "kind": "slow",
+                    "label": "Slow \u00b7 delayed",
+                    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                    "canPrepare": true
+                  },
+                  "disabled": false,
+                  "certAge": 1751.478272,
+                  "certifiedAge": 283.39999997615814,
+                  "operationalAge": 1473.8999999761581,
+                  "head": "10093",
+                  "memo": "NEW 37.5 1 1",
+                  "amount": "4 ICP",
+                  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+                },
+                "prevented": true,
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai"
+              },
+              "pasted": "s5ir5-gqaaa-aaaas-amyna-cai"
+            }
+          ],
+          "api": {
+            "status": "PASS",
+            "value": "s5ir5-gqaaa-aaaas-amyna-cai"
+          },
+          "native": {
+            "status": "PASS",
+            "value": "s5ir5-gqaaa-aaaas-amyna-cai"
+          }
+        },
+        {
+          "field": "amount",
+          "api_attempts": [
+            {
+              "value": "4",
+              "start": {
+                "at": 27926.399999976158,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 2021.074688,
+                "certifiedAge": 245.0999999642372,
+                "operationalAge": 2092.300000011921,
+                "head": "10093",
+                "memo": "NEW 37.5 1 1",
+                "amount": "4 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              },
+              "success": true,
+              "end": {
+                "at": 27978.899999976158,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 2021.074688,
+                "certifiedAge": 297.69999998807907,
+                "operationalAge": 2144.900000035763,
+                "head": "10093",
+                "memo": "NEW 37.5 1 1",
+                "amount": "4 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              }
+            }
+          ],
+          "native_attempts": [
+            {
+              "event": {
+                "state": {
+                  "at": 31291.5,
+                  "focused": true,
+                  "hidden": false,
+                  "status": {
+                    "kind": "slow",
+                    "label": "Slow \u00b7 delayed",
+                    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                    "canPrepare": true
+                  },
+                  "disabled": false,
+                  "certAge": 7693.563648,
+                  "certifiedAge": 201.30000001192093,
+                  "operationalAge": 1017.1000000238419,
+                  "head": "10093",
+                  "memo": "NEW 37.5 1 1",
+                  "amount": "4 ICP",
+                  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+                },
+                "prevented": true,
+                "value": "4"
+              },
+              "pasted": "4"
+            }
+          ],
+          "api": {
+            "status": "PASS",
+            "value": "4"
+          },
+          "native": {
+            "status": "PASS",
+            "value": "4"
+          }
+        },
+        {
+          "field": "text",
+          "api_attempts": [
+            {
+              "value": "NEW 37.5 1 1",
+              "start": {
+                "at": 33535.69999998808,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 7028.074752,
+                "certifiedAge": 847.1999999880791,
+                "operationalAge": 794.3999999761581,
+                "head": "10093",
+                "memo": "NEW 37.5 1 1",
+                "amount": "4 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              },
+              "success": true,
+              "end": {
+                "at": 33801.5,
+                "focused": true,
+                "hidden": false,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "disabled": true,
+                "certAge": 1284.509184,
+                "certifiedAge": 64.69999998807907,
+                "operationalAge": 1060.199999988079,
+                "head": "10093",
+                "memo": "NEW 37.5 1 1",
+                "amount": "4 ICP",
+                "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+              }
+            }
+          ],
+          "native_attempts": [
+            {
+              "event": {
+                "state": {
+                  "at": 36993.5,
+                  "focused": true,
+                  "hidden": false,
+                  "status": {
+                    "kind": "slow",
+                    "label": "Slow \u00b7 delayed",
+                    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                    "canPrepare": true
+                  },
+                  "disabled": false,
+                  "certAge": 4164.509184,
+                  "certifiedAge": 375.80000001192093,
+                  "operationalAge": 2216.900000035763,
+                  "head": "10093",
+                  "memo": "NEW 37.5 1 1",
+                  "amount": "4 ICP",
+                  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+                  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df"
+                },
+                "prevented": true,
+                "value": "NEW 37.5 1 1"
+              },
+              "pasted": "NEW 37.5 1 1"
+            }
+          ],
+          "api": {
+            "status": "PASS",
+            "value": "NEW 37.5 1 1"
+          },
+          "native": {
+            "status": "PASS",
+            "value": "NEW 37.5 1 1"
+          }
+        }
+      ],
+      "denied_api_fallback": "PASS exact full principal via real native selection/paste; no payment",
+      "final": {
+        "at": "2026-11-16T21:19:23.812Z",
+        "camera": [
+          4.157545371556353,
+          4.157545371556353,
+          64
+        ],
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "left": 0,
+          "top": 0,
+          "visibleWidth": 320,
+          "visibleHeight": 640
+        },
+        "composer": {
+          "mode": "start",
+          "cell": 1,
+          "degrees": "167.15",
+          "worldAngle": "37.5",
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "10090",
+          "manifest_hash": "45dca1acee3d26644017eec6d2a5819c6dcbe2f41072efafee45f1e62c9bb3e0",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "10090",
+            "logical_start": "10089",
+            "previous_manifest": "b624d0bd96c662b2dbf5bc0bcddf97a9ccef5229e19c194d066ed8601e285010",
+            "previous_state": "1620c6ea891ce08d69ae3bb719ea21acb718b3d64356acfb14087be27a171572",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "10093",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "10093",
+          "source_to_exclusive": "40180669",
+          "state_hash": "053bfe35f71576fb5b936c32817949f9fddff06ff2ab956574e883bb23e9d1b8"
+        },
+        "ready": true,
+        "error": "",
+        "deliveryError": "",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 10090,
+        "playhead": 10089.380652000067,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": "2",
+            "publication_ticks": "1",
+            "completed_segments": "10090",
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": "40180669"
+          }
+        },
+        "quantity": {
+          "hidden": true,
+          "inert": false,
+          "placement": "dock",
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "text": "1",
+          "targets": [
+            {
+              "id": "quantity-minus",
+              "disabled": true,
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "hit": false
+            },
+            {
+              "id": "quantity-plus",
+              "disabled": false,
+              "rect": {
+                "x": 0,
+                "y": 0,
+                "width": 0,
+                "height": 0,
+                "top": 0,
+                "right": 0,
+                "bottom": 0,
+                "left": 0
+              },
+              "hit": false
+            }
+          ],
+          "corners": [
+            false,
+            false,
+            false,
+            false
+          ]
+        },
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 241,
+          "top": 275,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        },
+        "scrollContent": 312,
+        "board": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 640,
+          "top": 0,
+          "right": 320,
+          "bottom": 640,
+          "left": 0
+        },
+        "cyclesVisibility": "visible",
+        "focus": ""
+      },
+      "status": "PASS"
+    }
+  ]
+}

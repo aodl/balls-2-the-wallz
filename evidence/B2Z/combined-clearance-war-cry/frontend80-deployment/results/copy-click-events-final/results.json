@@ -1,0 +1,758 @@
+{
+  "status": "OBSERVED",
+  "attempts": [
+    {
+      "key": "owner",
+      "trace": [
+        {
+          "type": "pointerdown",
+          "phase": "capture",
+          "field": "owner",
+          "state": {
+            "at": 21810.80000001192,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 2744,
+            "certificateAge": 1563.161856,
+            "certifiedAge": 129.69999998807907,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "pointerdown",
+          "phase": "after",
+          "field": "owner",
+          "state": {
+            "at": 21811.100000023842,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 2744.100000023842,
+            "certificateAge": 1563.161856,
+            "certifiedAge": 129.80000001192093,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "pointerup",
+          "phase": "capture",
+          "field": "owner",
+          "state": {
+            "at": 21815.5,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 2748.600000023842,
+            "certificateAge": 1563.161856,
+            "certifiedAge": 134.30000001192093,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "pointerup",
+          "phase": "after",
+          "field": "owner",
+          "state": {
+            "at": 21815.600000023842,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 2748.600000023842,
+            "certificateAge": 1563.161856,
+            "certifiedAge": 134.30000001192093,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "click",
+          "phase": "capture",
+          "field": "owner",
+          "state": {
+            "at": 21815.600000023842,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 2748.600000023842,
+            "certificateAge": 1563.161856,
+            "certifiedAge": 134.30000001192093,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "click",
+          "phase": "after",
+          "field": "owner",
+          "state": {
+            "at": 21815.600000023842,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 2748.600000023842,
+            "certificateAge": 1563.161856,
+            "certifiedAge": 134.30000001192093,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "api-start",
+          "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "state": {
+            "at": 21821.600000023842,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": true,
+            "feedback": "",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 2754.600000023842,
+            "certificateAge": 1563.161856,
+            "certifiedAge": 140.30000001192093,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "api-end",
+          "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "success": true,
+          "state": {
+            "at": 21951.69999998808,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": true,
+            "feedback": "",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 858.6999999880791,
+            "certificateAge": 1563.161856,
+            "certifiedAge": 270.39999997615814,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        }
+      ],
+      "after": {
+        "at": 23719.400000035763,
+        "focused": true,
+        "hidden": false,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "disabled": false,
+        "feedback": "Copied. Instructions saved; no payment sent.",
+        "manualHidden": true,
+        "manualValue": "",
+        "operationalAge": 2626.400000035763,
+        "certificateAge": 4815.328256,
+        "certifiedAge": 514.6000000238419,
+        "deliveryError": "",
+        "reason": "",
+        "replace": false,
+        "amount": "0.1 ICP",
+        "memo": "FIRE 1 37.5 1"
+      }
+    },
+    {
+      "key": "amount",
+      "trace": [
+        {
+          "type": "pointerdown",
+          "phase": "capture",
+          "field": "amount",
+          "state": {
+            "at": 28874.30000001192,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1072.6000000238419,
+            "certificateAge": 13950.409216,
+            "certifiedAge": 312.69999998807907,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "pointerdown",
+          "phase": "after",
+          "field": "amount",
+          "state": {
+            "at": 28874.400000035763,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1072.7000000476837,
+            "certificateAge": 13950.409216,
+            "certifiedAge": 312.80000001192093,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "pointerup",
+          "phase": "capture",
+          "field": "amount",
+          "state": {
+            "at": 28876.80000001192,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1075.2000000476837,
+            "certificateAge": 13950.409216,
+            "certifiedAge": 315.30000001192093,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "pointerup",
+          "phase": "after",
+          "field": "amount",
+          "state": {
+            "at": 28876.900000035763,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1075.2000000476837,
+            "certificateAge": 13950.409216,
+            "certifiedAge": 315.30000001192093,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "click",
+          "phase": "capture",
+          "field": "amount",
+          "state": {
+            "at": 28879.5,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1077.800000011921,
+            "certificateAge": 13950.409216,
+            "certifiedAge": 317.89999997615814,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "click",
+          "phase": "after",
+          "field": "amount",
+          "state": {
+            "at": 28879.5,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1077.800000011921,
+            "certificateAge": 13950.409216,
+            "certifiedAge": 317.89999997615814,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "api-start",
+          "value": "0.1",
+          "state": {
+            "at": 28881.600000023842,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": true,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1079.9000000357628,
+            "certificateAge": 13950.409216,
+            "certifiedAge": 320,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "api-end",
+          "value": "0.1",
+          "success": true,
+          "state": {
+            "at": 29150.600000023842,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": true,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1349,
+            "certificateAge": 13950.409216,
+            "certifiedAge": 589.0999999642372,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        }
+      ],
+      "after": {
+        "at": 31084.69999998808,
+        "focused": true,
+        "hidden": false,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "disabled": false,
+        "feedback": "Copied. Instructions saved; no payment sent.",
+        "manualHidden": true,
+        "manualValue": "",
+        "operationalAge": 1157.5,
+        "certificateAge": 16331.409152,
+        "certifiedAge": 141.9000000357628,
+        "deliveryError": "",
+        "reason": "",
+        "replace": false,
+        "amount": "0.1 ICP",
+        "memo": "FIRE 1 37.5 1"
+      }
+    },
+    {
+      "key": "text",
+      "trace": [
+        {
+          "type": "pointerdown",
+          "phase": "capture",
+          "field": "text",
+          "state": {
+            "at": 35352.40000003576,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1212.2000000476837,
+            "certificateAge": 19902.62016,
+            "certifiedAge": 97.40000003576279,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "pointerdown",
+          "phase": "after",
+          "field": "text",
+          "state": {
+            "at": 35352.5,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1212.300000011921,
+            "certificateAge": 19902.62016,
+            "certifiedAge": 97.5,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "pointerup",
+          "phase": "capture",
+          "field": "text",
+          "state": {
+            "at": 35354,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1213.800000011921,
+            "certificateAge": 19902.62016,
+            "certifiedAge": 99,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "pointerup",
+          "phase": "after",
+          "field": "text",
+          "state": {
+            "at": 35354,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1213.800000011921,
+            "certificateAge": 19902.62016,
+            "certifiedAge": 99,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "click",
+          "phase": "capture",
+          "field": "text",
+          "state": {
+            "at": 35354.90000003576,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1214.7000000476837,
+            "certificateAge": 19902.62016,
+            "certifiedAge": 99.90000003576279,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "click",
+          "phase": "after",
+          "field": "text",
+          "state": {
+            "at": 35355,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": false,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1214.800000011921,
+            "certificateAge": 19902.62016,
+            "certifiedAge": 100,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "api-start",
+          "value": "FIRE 1 37.5 1",
+          "state": {
+            "at": 35359.10000002384,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": true,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1218.9000000357628,
+            "certificateAge": 19902.62016,
+            "certifiedAge": 104.10000002384186,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        },
+        {
+          "type": "api-end",
+          "value": "FIRE 1 37.5 1",
+          "success": true,
+          "state": {
+            "at": 35482.30000001192,
+            "focused": true,
+            "hidden": false,
+            "status": {
+              "kind": "slow",
+              "label": "Slow \u00b7 delayed",
+              "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+              "canPrepare": true
+            },
+            "disabled": true,
+            "feedback": "Copied. Instructions saved; no payment sent.",
+            "manualHidden": true,
+            "manualValue": "",
+            "operationalAge": 1342.1000000238419,
+            "certificateAge": 19902.62016,
+            "certifiedAge": 227.30000001192093,
+            "deliveryError": "",
+            "reason": "",
+            "replace": false,
+            "amount": "0.1 ICP",
+            "memo": "FIRE 1 37.5 1"
+          }
+        }
+      ],
+      "after": {
+        "at": 36999.69999998808,
+        "focused": true,
+        "hidden": false,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "disabled": false,
+        "feedback": "Copied. Instructions saved; no payment sent.",
+        "manualHidden": true,
+        "manualValue": "",
+        "operationalAge": 690.5,
+        "certificateAge": 1185.524992,
+        "certifiedAge": 57.30000001192093,
+        "deliveryError": "",
+        "reason": "",
+        "replace": false,
+        "amount": "0.1 ICP",
+        "memo": "FIRE 1 37.5 1"
+      }
+    }
+  ]
+}

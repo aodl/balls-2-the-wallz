@@ -1,0 +1,16 @@
+{
+  "docs_links": {
+    "status": "PASS",
+    "links": 413
+  },
+  "source_structure": {
+    "status": "PASS",
+    "javascript_syntax_files": 261,
+    "scope": "Not compilation, executable access control or installed qualification"
+  },
+  "full_diff_whitespace": {
+    "status": "FINDINGS RETAINED",
+    "scope": "Raw browser/failure logs and exact served generated app; do not rewrite authenticated bytes to normalise whitespace"
+  },
+  "runtime_changes": "NONE"
+}

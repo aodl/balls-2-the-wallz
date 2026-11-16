@@ -1,4 +1,41 @@
-# Current production — approved79-file payment panel on Rules7
+# Current production — Rules11-compatible frontend80; backend Rules7
+
+16 November2026: the owner-authorised exact80-file frontend is installed on
+`s2jxj-liaaa-aaaas-amynq-cai`. Qualified source
+`c0e3dd28879199c48aae328d712d6543ffcc5455`, frozen runtime
+`fc317d188ba6b503c81f9767da0358b89c60868f`; all six substantive gates pass in
+[run43884464465](https://github.com/aodl/balls-2-the-wallz/actions/runs/43884464465).
+JavaScript `bc2872444e4574ae818983e2d7ede46f7ff0c4c2d71b198b9b821c344636321c`;
+complete80-file inventory `e8a9303538dbb2cc5028b21cf5ae97caacdb9c438497a35a567e30a9071a0c67`.
+All79 public bodies, signed inventory, IC-v2 proofs and reviewed headers verify;
+all61 audio files are unchanged. No rebuild or backend operation occurred.
+
+Actual live Rules7 panel/copying, original320×640/347.15° quantity pose and heading
+sweeps, returning entry, Update/Keep, following, wrapped Move previews,24s browser
+read-fault recovery with0px panel drift, and native5/35/8s music tab returns pass
+in their recorded scopes. Failed initial diagnostic attempts remain preserved.
+Latest21:55UTC authenticated observation: head10115/logical10112, running/Trickle,
+open admission, unchanged module612ad0d…/Rules7/configuration/source/controllers.
+War Cry and clearance remain inactive. P09 remains FAIL/unqualified; actual text
+zoom, physical phones/listening and representative dense performance are not
+claimed. No Rules11 backend maintenance or financial/funding/settings action is
+authorised or performed.
+
+The immediate Rules7 frontend rollback is the verified79-file c37ed0…/63cffc… set
+at `.work/approved-panel-war-cry/rollback/frontend`. The older78-file directory was
+verified and retained as `frontend78-retained-before-frontend80-20261116` beside
+it. The installed80-file freeze remains separately preserved. The old79 is not
+an approved frontend rollback after a future Rules11 epoch.
+See [the full deployment/live-acceptance report](evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/REPORT.md),
+[actual captures](evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/GALLERY.md)
+and [remaining backend decisions](evidence/B2Z/combined-clearance-war-cry/RELEASE_DECISIONS.md).
+
+The following snapshot predates frontend80 and is retained as history; its
+frontend79/current-rollback wording is superseded by the paragraph above.
+
+---
+
+# Historical production snapshot — frontend79 before the frontend80 operation
 
 ## Combined successor qualification (separate from the live frontend)
 

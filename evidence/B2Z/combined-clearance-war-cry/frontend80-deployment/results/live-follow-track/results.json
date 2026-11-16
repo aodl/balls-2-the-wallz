@@ -1,0 +1,197 @@
+{
+  "status": "PASS",
+  "scope": "Actual displayed authenticated ball; public keyboard navigation and bounded fresh-centre native pointer attempts. No camera override or clock freeze.",
+  "pointer_attempts": [
+    {
+      "point": {
+        "id": 1,
+        "x": 820.1738828438184,
+        "y": 413.7056060876565,
+        "scale": 88,
+        "at": 46057.39999997616,
+        "time": 10102.37648500006
+      },
+      "announcement": "Following ball 1. Click elsewhere or press Escape to stop."
+    }
+  ],
+  "keyboard_follow": "PASS explicit public B follows verified ball without changing zoom",
+  "native_follow": "PASS native click on actual visible sphere; no persistent Follow dialog",
+  "click_away": "PASS stops following at current camera",
+  "outside_drag": "PASS native ordinary-space drag pans",
+  "minimap": "PASS native diamond navigation",
+  "final": {
+    "at": "2026-11-16T21:41:42.521Z",
+    "camera": [
+      97.05538972962177,
+      902.0608967858411,
+      88
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "left": 0,
+      "top": 0,
+      "visibleWidth": 1440,
+      "visibleHeight": 900
+    },
+    "composer": {
+      "mode": "inspect",
+      "cell": null,
+      "degrees": "167.15",
+      "worldAngle": "37.5",
+      "quantity": 1
+    },
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "head": {
+      "logical_end": "10104",
+      "manifest_hash": "52e3f6dbca3a735f2c42d399777ada03726b7ed5ead4c54db03ec90208682681",
+      "seal": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "10104",
+        "logical_start": "10103",
+        "previous_manifest": "6acab2c5fadb4c26fd68f537397f638e2617a76dcbfeb626ee2cb4f36f3ddb97",
+        "previous_state": "13d4f097a78e416395b55a7316a138799c9e56104e9e16dc972c0b0a70ebcd3d",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "10107",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "10107",
+      "source_to_exclusive": "40180669",
+      "state_hash": "0def7e7f7d3676e44967ca05e784c33dbb25ae05bf319c86252441f011f5b55c"
+    },
+    "ready": true,
+    "error": "",
+    "deliveryError": "",
+    "status": {
+      "kind": "slow",
+      "label": "Slow \u00b7 delayed",
+      "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+      "canPrepare": true
+    },
+    "available": 10104,
+    "playhead": 10102.591476000096,
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "2",
+        "publication_ticks": "1",
+        "completed_segments": "10104",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "quantity": {
+      "hidden": true,
+      "inert": false,
+      "placement": "floating",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 0,
+        "height": 0,
+        "top": 0,
+        "right": 0,
+        "bottom": 0,
+        "left": 0
+      },
+      "text": "1",
+      "targets": [
+        {
+          "id": "quantity-minus",
+          "disabled": true,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "hit": false
+        },
+        {
+          "id": "quantity-plus",
+          "disabled": false,
+          "rect": {
+            "x": 0,
+            "y": 0,
+            "width": 0,
+            "height": 0,
+            "top": 0,
+            "right": 0,
+            "bottom": 0,
+            "left": 0
+          },
+          "hit": false
+        }
+      ],
+      "corners": [
+        false,
+        false,
+        false,
+        false
+      ]
+    },
+    "panel": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "left": 0
+    },
+    "scroll": {
+      "x": 0,
+      "y": 0,
+      "width": 0,
+      "height": 0,
+      "top": 0,
+      "right": 0,
+      "bottom": 0,
+      "left": 0
+    },
+    "scrollContent": 0,
+    "board": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "top": 0,
+      "right": 1440,
+      "bottom": 900,
+      "left": 0
+    },
+    "cyclesVisibility": "visible",
+    "focus": "minimap"
+  }
+}

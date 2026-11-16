@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/.work/frontend80-deployment-20261116/live-controls-observed-ui.py", line 51, in <module>
+    ready(p);p.locator('[data-copy='+key+']').click();p.wait_for_function('()=>document.getElementById("copy-feedback").textContent.includes("Copied.")',timeout=10000);assert p.evaluate('copyAudit.at(-1)')==value;assert pasted(ctx,p)==value
+                                                                                                                                                                               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

@@ -1,10 +1,13 @@
 # Separate production decisions — combined Rules11 remains inactive
 
-The approved79-file payment-panel frontend is installed. Its JavaScript is
-`c37ed0c363902e29443ba9eb1501c6b653873945bb63e7d92b341f8400f1085d`;
-complete inventory is `63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f`.
-The previous78-file assets remain separately preserved. Current production backend
-is Rules7; none of the following backend operations has been performed.
+The owner-authorised80-file compatibility frontend is now installed and live
+acceptance is recorded in [the deployment report](frontend80-deployment/REPORT.md).
+JS `bc2872444e4574ae818983e2d7ede46f7ff0c4c2d71b198b9b821c344636321c`,
+complete inventory `e8a9303538dbb2cc5028b21cf5ae97caacdb9c438497a35a567e30a9071a0c67`.
+The preceding79-file set is preserved at
+`.work/approved-panel-war-cry/rollback/frontend`; older78 remains separately
+archived. Production backend is still Rules7. None of the backend operations
+below has been authorised or performed by the frontend deployment.
 
 ## Candidate identities
 
@@ -26,18 +29,18 @@ The separate mixed module/browser interruption scope remains unqualified.
 
 ## Decision1: compatible frontend before the backend
 
-All six final-source gates have passed. Separately approve only the exact80-file freeze. Preserve
-both the current79-file frontend and the80-file freeze separately. Stage/rehash all
-80 files, then use the maintained observer-only assets procedure. Verify all79
-public files, signed inventory, IC-v2 certification, MIME/cache/CSP and unchanged
-asset-canister module. While Rules7 is certified, War Cry remains hidden and the
-new clearance restriction remains inactive. Repeat exact clipboard, Update/Keep,
-entry, audio,320×640/347.15° and status-geometry acceptance without any payment.
+**Approved and completed16 November2026.** The exact80-file freeze was installed
+without rebuilding. All79 public assets, signed inventory, IC-v2 proofs and
+reviewed MIME/cache/security headers pass; the asset module is unchanged. Actual
+live Rules7 panel, exact copying, Update/Keep, entry, audio,320×640/347.15° and
+status-geometry results and honest limitations are in the deployment report.
+War Cry remains hidden and the new clearance restriction remains inactive.
 
-Before the epoch, a serious frontend regression permits restoration of the exact
-79-file set. After the epoch, retain a qualified Rules11-capable recovery frontend;
-79 cannot be assumed to verify Rules11 and is not a suitable post-cutover rollback.
-This frontend deployment requires separate owner approval.
+Before the epoch a serious regression permits restoration of the exact79-file
+set. After the epoch retain a qualified Rules11-capable recovery frontend;79 is
+not an approved post-cutover rollback. This completed frontend approval grants
+none of Decisions2–4 below. Existing mixed module/browser interruption failures
+remain unqualified and were not rerun for an ordinary frontend asset upload.
 
 ## Decision2: exact normal module upgrade, preserving Rules7
 

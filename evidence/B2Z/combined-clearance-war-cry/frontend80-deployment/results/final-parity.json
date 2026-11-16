@@ -1,0 +1,28 @@
+{
+  "status": "PASS",
+  "at": "2026-11-16T22:07:52.008511+00:00",
+  "consumed_frontend_inputs": 420,
+  "checks": {
+    "freeze": {
+      "status": "PASS",
+      "files": 80,
+      "directory": ".work/combined-clearance-war-cry/frozen/frontend"
+    },
+    "staging": {
+      "status": "PASS",
+      "files": 80,
+      "directory": ".work/s14/assets"
+    },
+    "rollback": {
+      "status": "PASS",
+      "files": 79,
+      "directory": ".work/approved-panel-war-cry/rollback/frontend"
+    }
+  },
+  "metadata_before_equals_final": true,
+  "signed_inventory_after_equals_final": true,
+  "runtime_changes": "NONE",
+  "rebuild": "NONE",
+  "new_hosted_run_required": false,
+  "reason": "Only non-consumed documentation and deployment evidence changed"
+}

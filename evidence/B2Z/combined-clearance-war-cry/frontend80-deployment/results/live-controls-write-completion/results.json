@@ -1,0 +1,306 @@
+{
+  "status": "FAIL",
+  "scope": "Actual deployed authenticated mainnet state, native mouse/keyboard/emulated-touch and copy/paste. No payments. Emulated viewport is not physical hardware.",
+  "views": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "startup_seconds": 10.237418196978979,
+      "initial": {
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "composer": {
+          "mode": "inspect",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "10080",
+          "manifest_hash": "78b0fc830807e8b3a490c247bb5e7d089834f1606beb58d99819c39a45e24154",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "10080",
+            "logical_start": "10079",
+            "previous_manifest": "6f6d92158f3155e91a5053d138dfc67359226c6ab0bc88eb782122f0639f5074",
+            "previous_state": "abb21298ff558c850e26206b77aaf5df21772a32e0f0aff1898035a5891cdd6d",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "10083",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "10083",
+          "source_to_exclusive": "40180669",
+          "state_hash": "4031449b02f5cdc5529b0289733b7978d88b7c4a0de91bd5d617b0b46b3f7ace"
+        },
+        "error": "",
+        "ready": true,
+        "status": {
+          "kind": "waiting",
+          "label": "Waiting for next on-chain update",
+          "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+          "canPrepare": true
+        },
+        "available": 10080,
+        "playhead": 10079.000834
+      },
+      "available_cannons": [
+        {
+          "id": 1,
+          "cell": 0,
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "dormant": null
+        }
+      ],
+      "returning_owner": {
+        "status": "PASS",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owned_cannons": 1,
+        "camera": [
+          2.493735281041836,
+          6.493735281041836,
+          7.9733293309001
+        ],
+        "no_new_proposal": true
+      },
+      "selection_no_focus": "PASS",
+      "actions": {
+        "fire": {
+          "amount": "0.1 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "abbreviated": "s5ir5\u2026",
+          "memo": "FIRE 1 37.5 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Help: Ledger fee separate",
+          "warning": "Payments and unused ICP are kept; no automatic refunds.",
+          "prompt": "Aim & Pay",
+          "disabled": false,
+          "panel": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 328,
+            "top": 334,
+            "right": 1021,
+            "bottom": 662,
+            "left": 661
+          },
+          "api_attempts": {
+            "owner": [
+              {
+                "status": "BLOCKED no new native API write",
+                "state": {
+                  "camera": [
+                    3.279287805121612,
+                    0.22587215908856706,
+                    88
+                  ],
+                  "composer": {
+                    "mode": "ball",
+                    "cell": null,
+                    "degrees": "167.15",
+                    "worldAngle": "37.5",
+                    "quantity": 1
+                  },
+                  "identity": {
+                    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+                  },
+                  "head": {
+                    "logical_end": "10080",
+                    "manifest_hash": "78b0fc830807e8b3a490c247bb5e7d089834f1606beb58d99819c39a45e24154",
+                    "seal": {
+                      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                      "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+                      "input_count": 0,
+                      "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+                      "logical_end": "10080",
+                      "logical_start": "10079",
+                      "previous_manifest": "6f6d92158f3155e91a5053d138dfc67359226c6ab0bc88eb782122f0639f5074",
+                      "previous_state": "abb21298ff558c850e26206b77aaf5df21772a32e0f0aff1898035a5891cdd6d",
+                      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                      "segment_id": "10083",
+                      "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+                      "source_from": "40180669",
+                      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+                      "source_to_exclusive": "40180669"
+                    },
+                    "segment_id": "10083",
+                    "source_to_exclusive": "40180669",
+                    "state_hash": "4031449b02f5cdc5529b0289733b7978d88b7c4a0de91bd5d617b0b46b3f7ace"
+                  },
+                  "error": "",
+                  "ready": true,
+                  "status": {
+                    "kind": "slow",
+                    "label": "Slow \u00b7 delayed",
+                    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                    "canPrepare": false
+                  },
+                  "available": 10080,
+                  "playhead": 10079.657308000073
+                },
+                "index": 0
+              },
+              {
+                "status": "BLOCKED no new native API write",
+                "state": {
+                  "camera": [
+                    3.279287805121612,
+                    0.22587215908856706,
+                    88
+                  ],
+                  "composer": {
+                    "mode": "ball",
+                    "cell": null,
+                    "degrees": "167.15",
+                    "worldAngle": "37.5",
+                    "quantity": 1
+                  },
+                  "identity": {
+                    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+                  },
+                  "head": {
+                    "logical_end": "10081",
+                    "manifest_hash": "ce1732758e9f89e108b4fafdb698aeede04a2ac04800f25c99819521d3555c58",
+                    "seal": {
+                      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                      "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+                      "input_count": 0,
+                      "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+                      "logical_end": "10081",
+                      "logical_start": "10080",
+                      "previous_manifest": "78b0fc830807e8b3a490c247bb5e7d089834f1606beb58d99819c39a45e24154",
+                      "previous_state": "4031449b02f5cdc5529b0289733b7978d88b7c4a0de91bd5d617b0b46b3f7ace",
+                      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                      "segment_id": "10084",
+                      "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+                      "source_from": "40180669",
+                      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+                      "source_to_exclusive": "40180669"
+                    },
+                    "segment_id": "10084",
+                    "source_to_exclusive": "40180669",
+                    "state_hash": "61eb6ace18fe1f2a576ab3b09440682fe1c885ac7e24aa2c264ca3b6fbac00c6"
+                  },
+                  "error": "",
+                  "ready": true,
+                  "status": {
+                    "kind": "slow",
+                    "label": "Slow \u00b7 delayed",
+                    "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                    "canPrepare": true
+                  },
+                  "available": 10081,
+                  "playhead": 10079.844134000095
+                },
+                "index": 0
+              }
+            ]
+          }
+        }
+      }
+    }
+  ],
+  "error": "AssertionError()",
+  "failure_state": {
+    "camera": [
+      3.279287805121612,
+      0.22587215908856706,
+      88
+    ],
+    "composer": {
+      "mode": "ball",
+      "cell": null,
+      "degrees": "167.15",
+      "worldAngle": "37.5",
+      "quantity": 1
+    },
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "head": {
+      "logical_end": "10081",
+      "manifest_hash": "ce1732758e9f89e108b4fafdb698aeede04a2ac04800f25c99819521d3555c58",
+      "seal": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "10081",
+        "logical_start": "10080",
+        "previous_manifest": "78b0fc830807e8b3a490c247bb5e7d089834f1606beb58d99819c39a45e24154",
+        "previous_state": "4031449b02f5cdc5529b0289733b7978d88b7c4a0de91bd5d617b0b46b3f7ace",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "10084",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "10084",
+      "source_to_exclusive": "40180669",
+      "state_hash": "61eb6ace18fe1f2a576ab3b09440682fe1c885ac7e24aa2c264ca3b6fbac00c6"
+    },
+    "error": "",
+    "ready": true,
+    "status": {
+      "kind": "slow",
+      "label": "Slow \u00b7 delayed",
+      "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+      "canPrepare": true
+    },
+    "available": 10081,
+    "playhead": 10079.880965000102
+  },
+  "failure_payment": {
+    "amount": "0.1 ICP",
+    "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "abbreviated": "s5ir5\u2026",
+    "memo": "FIRE 1 37.5 1",
+    "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+    "fee": "Help: Ledger fee separate",
+    "warning": "Payments and unused ICP are kept; no automatic refunds.",
+    "prompt": "Aim & Pay",
+    "disabled": false,
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 328,
+      "top": 334,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    }
+  }
+}

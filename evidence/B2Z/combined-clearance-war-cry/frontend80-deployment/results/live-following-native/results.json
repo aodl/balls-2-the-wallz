@@ -1,0 +1,12 @@
+{
+  "status": "FAIL",
+  "visible_balls": [
+    {
+      "id": 1,
+      "x": 405.95128211947485,
+      "y": 754.2404166184112,
+      "visible": true
+    }
+  ],
+  "error": "TimeoutError('Page.wait_for_function: Timeout 30000ms exceeded.')"
+}

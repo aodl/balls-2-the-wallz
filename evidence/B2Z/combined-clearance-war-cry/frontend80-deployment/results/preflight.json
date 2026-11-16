@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "at": "2026-11-16T20:33:33.998813+00:00",
+  "head": "0cd29d5fcb84cda4ebcfc6e132e31d522ce77f20",
+  "qualified_source": "c0e3dd28879199c48aae328d712d6543ffcc5455",
+  "runtime_source": "fc317d188ba6b503c81f9767da0358b89c60868f",
+  "frontend_input_count": 420,
+  "candidate_files": 80,
+  "rollback_files": 79,
+  "candidate_inventory_sha256": "e8a9303538dbb2cc5028b21cf5ae97caacdb9c438497a35a567e30a9071a0c67",
+  "rollback_inventory_sha256": "63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f",
+  "changed_assets": [
+    "app.mjs",
+    "backend.did",
+    "build-manifest.json",
+    "configuration-combined.bin"
+  ],
+  "unchanged_audio_files": 61,
+  "rollback_directory_initial_state": "Earlier78-file release; preserve separately and populate actual current79 after full served verification",
+  "observer_mapping": "s2jxj-liaaa-aaaas-amynq-cai",
+  "backend_mapping": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "build": "NONE: use exact retained assets; observer has no builder or dependency hook"
+}

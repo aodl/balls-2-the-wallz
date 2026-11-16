@@ -1,0 +1,113 @@
+{
+  "amount": "0.0001 ICP",
+  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "abbreviated": "s5ir5\u2026",
+  "memo": "MOVE 1 1",
+  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+  "fee": "Help: Ledger fee separate",
+  "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+  "prompt": "Move & Pay",
+  "disabled": false,
+  "panel": {
+    "x": 8,
+    "y": 221,
+    "width": 360,
+    "height": 368,
+    "top": 221,
+    "right": 368,
+    "bottom": 589,
+    "left": 8
+  },
+  "geometry": {
+    "title": {
+      "x": 18,
+      "y": 283,
+      "width": 170,
+      "height": 56,
+      "top": 283,
+      "right": 188,
+      "bottom": 339,
+      "left": 18
+    },
+    "from": {
+      "x": 18,
+      "y": 339,
+      "width": 170,
+      "height": 69,
+      "top": 339,
+      "right": 188,
+      "bottom": 408,
+      "left": 18
+    },
+    "to": {
+      "x": 188,
+      "y": 339,
+      "width": 126,
+      "height": 69,
+      "top": 339,
+      "right": 314,
+      "bottom": 408,
+      "left": 188
+    },
+    "copies": [
+      {
+        "rect": {
+          "x": 314,
+          "y": 289,
+          "width": 44,
+          "height": 44,
+          "top": 289,
+          "right": 358,
+          "bottom": 333,
+          "left": 314
+        },
+        "font": 14
+      },
+      {
+        "rect": {
+          "x": 314,
+          "y": 351.5,
+          "width": 44,
+          "height": 44,
+          "top": 351.5,
+          "right": 358,
+          "bottom": 395.5,
+          "left": 314
+        },
+        "font": 14
+      },
+      {
+        "rect": {
+          "x": 314,
+          "y": 413,
+          "width": 44,
+          "height": 44,
+          "top": 413,
+          "right": 358,
+          "bottom": 457,
+          "left": 314
+        },
+        "font": 14
+      }
+    ],
+    "finance": [
+      {
+        "id": "transfer-amount",
+        "font": 16.64
+      },
+      {
+        "id": "paying-account",
+        "font": 14.4
+      },
+      {
+        "id": "payment-owner",
+        "font": 14.4
+      },
+      {
+        "id": "text-memo",
+        "font": 14
+      }
+    ],
+    "payerIcon": "<circle cx=\"12\" cy=\"7\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></circle><path d=\"M4 21v-2a8 8 0 0 1 16 0v2Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></path>"
+  }
+}

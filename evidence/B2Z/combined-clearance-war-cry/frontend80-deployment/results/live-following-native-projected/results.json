@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "visible_balls": [],
+  "projection": "Actual displayed sphere centre at renderer/picker height .14; prior probe used ground plane",
+  "selection_method": "Public B keyboard navigation; no visible ball at initial camera",
+  "followed": "Following ball 1. Click elsewhere or press Escape to stop.",
+  "error": "TimeoutError('Page.wait_for_function: Timeout 30000ms exceeded.')"
+}

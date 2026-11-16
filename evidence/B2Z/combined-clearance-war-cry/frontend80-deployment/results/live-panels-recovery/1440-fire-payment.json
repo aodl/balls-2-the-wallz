@@ -1,0 +1,113 @@
+{
+  "amount": "0.1 ICP",
+  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "abbreviated": "s5ir5\u2026",
+  "memo": "FIRE 1 37.5 1",
+  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+  "fee": "Help: Ledger fee separate",
+  "warning": "Payments and unused ICP are kept; no automatic refunds.",
+  "prompt": "Aim & Pay",
+  "disabled": false,
+  "panel": {
+    "x": 661,
+    "y": 334,
+    "width": 360,
+    "height": 328,
+    "top": 334,
+    "right": 1021,
+    "bottom": 662,
+    "left": 661
+  },
+  "geometry": {
+    "title": {
+      "x": 671,
+      "y": 396,
+      "width": 170,
+      "height": 56,
+      "top": 396,
+      "right": 841,
+      "bottom": 452,
+      "left": 671
+    },
+    "from": {
+      "x": 671,
+      "y": 452,
+      "width": 170,
+      "height": 69,
+      "top": 452,
+      "right": 841,
+      "bottom": 521,
+      "left": 671
+    },
+    "to": {
+      "x": 841,
+      "y": 452,
+      "width": 126,
+      "height": 69,
+      "top": 452,
+      "right": 967,
+      "bottom": 521,
+      "left": 841
+    },
+    "copies": [
+      {
+        "rect": {
+          "x": 967,
+          "y": 402,
+          "width": 44,
+          "height": 44,
+          "top": 402,
+          "right": 1011,
+          "bottom": 446,
+          "left": 967
+        },
+        "font": 14
+      },
+      {
+        "rect": {
+          "x": 967,
+          "y": 464.5,
+          "width": 44,
+          "height": 44,
+          "top": 464.5,
+          "right": 1011,
+          "bottom": 508.5,
+          "left": 967
+        },
+        "font": 14
+      },
+      {
+        "rect": {
+          "x": 967,
+          "y": 526,
+          "width": 44,
+          "height": 44,
+          "top": 526,
+          "right": 1011,
+          "bottom": 570,
+          "left": 967
+        },
+        "font": 14
+      }
+    ],
+    "finance": [
+      {
+        "id": "transfer-amount",
+        "font": 16.64
+      },
+      {
+        "id": "paying-account",
+        "font": 14.4
+      },
+      {
+        "id": "payment-owner",
+        "font": 14.4
+      },
+      {
+        "id": "text-memo",
+        "font": 14
+      }
+    ],
+    "payerIcon": "<circle cx=\"12\" cy=\"7\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></circle><path d=\"M4 21v-2a8 8 0 0 1 16 0v2Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></path>"
+  }
+}

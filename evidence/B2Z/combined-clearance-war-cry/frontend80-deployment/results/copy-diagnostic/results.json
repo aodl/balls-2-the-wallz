@@ -1,0 +1,507 @@
+{
+  "status": "FAIL",
+  "copies": [
+    {
+      "event": {
+        "at": 49135.69999998808,
+        "ready": true,
+        "hidden": false,
+        "operationalAt": 45862.19999998808,
+        "operationalAge": 3273.5,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 10069,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "phase": "PLAYING",
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "visibility": []
+    },
+    {
+      "event": {
+        "at": 56601.40000003576,
+        "ready": true,
+        "hidden": false,
+        "operationalAt": 52757.69999998808,
+        "operationalAge": 3843.7000000476837,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 10069,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "phase": "PLAYING",
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "visibility": []
+    },
+    {
+      "event": {
+        "at": 64808.90000003576,
+        "ready": true,
+        "hidden": false,
+        "operationalAt": 61810.10000002384,
+        "operationalAge": 2998.800000011921,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 10069,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "phase": "PLAYING",
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "visibility": []
+    },
+    {
+      "event": {
+        "at": 72480,
+        "ready": true,
+        "hidden": false,
+        "operationalAt": 71544.80000001192,
+        "operationalAge": 935.1999999880791,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 10069,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "phase": "PLAYING",
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "visibility": []
+    },
+    {
+      "event": {
+        "at": 82802,
+        "ready": true,
+        "hidden": false,
+        "operationalAt": 80561.69999998808,
+        "operationalAge": 2240.300000011921,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 10070,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "phase": "PLAYING",
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "visibility": []
+    },
+    {
+      "event": {
+        "at": 95494.5,
+        "ready": true,
+        "hidden": false,
+        "operationalAt": 87656.69999998808,
+        "operationalAge": 7837.800000011921,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 10070,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "phase": "PLAYING",
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "visibility": []
+    },
+    {
+      "event": {
+        "at": 104193.30000001192,
+        "ready": true,
+        "hidden": false,
+        "operationalAt": 102358.60000002384,
+        "operationalAge": 1834.699999988079,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 10070,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "phase": "PLAYING",
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "visibility": []
+    },
+    {
+      "event": {
+        "at": 112551.5,
+        "ready": true,
+        "hidden": false,
+        "operationalAt": 110273.69999998808,
+        "operationalAge": 2277.800000011921,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 10070,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "phase": "PLAYING",
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "visibility": []
+    },
+    {
+      "event": {
+        "at": 121412.69999998808,
+        "ready": true,
+        "hidden": false,
+        "operationalAt": 119887.10000002384,
+        "operationalAge": 1525.5999999642372,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 10070,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "phase": "PLAYING",
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "visibility": []
+    },
+    {
+      "event": {
+        "at": 129119.69999998808,
+        "ready": true,
+        "hidden": false,
+        "operationalAt": 127204.5,
+        "operationalAge": 1915.199999988079,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": 2,
+            "publication_ticks": 1,
+            "completed_segments": 10070,
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": 40180669
+          }
+        },
+        "phase": "PLAYING",
+        "disabled": false,
+        "prevented": true,
+        "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "feedback": "Instructions saved; no payment sent."
+      },
+      "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "expected": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "visibility": []
+    }
+  ],
+  "scope": "Actual deployed frontend; native clipboard events and external paste, no payment/status override",
+  "blocked": {
+    "event": {
+      "at": 135340.5,
+      "ready": false,
+      "hidden": false,
+      "operationalAt": 129600.90000003576,
+      "operationalAge": 5739.599999964237,
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": 2,
+          "publication_ticks": 1,
+          "completed_segments": 10070,
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": 40180669
+        }
+      },
+      "phase": "PLAYING",
+      "disabled": true,
+      "prevented": true,
+      "value": "",
+      "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "feedback": "Payment instructions temporarily unavailable."
+    },
+    "pasted": ""
+  },
+  "recovered": {
+    "event": {
+      "at": 141998.10000002384,
+      "ready": false,
+      "hidden": false,
+      "operationalAt": 140395.30000001192,
+      "operationalAge": 1602.800000011921,
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": 2,
+          "publication_ticks": 1,
+          "completed_segments": 10070,
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": 40180669
+        }
+      },
+      "phase": "PLAYING",
+      "disabled": true,
+      "prevented": true,
+      "value": "",
+      "selection": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "feedback": "Payment instructions temporarily unavailable."
+    },
+    "pasted": ""
+  },
+  "error": "AssertionError()"
+}

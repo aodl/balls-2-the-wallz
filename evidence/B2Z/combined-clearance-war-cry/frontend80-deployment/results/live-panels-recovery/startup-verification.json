@@ -1,0 +1,78 @@
+{
+  "status": "PASS",
+  "scope": "Actual served frontend native-browser verified presentation/entity samples; no fabricated source/state. First-motion sample requires both time and authenticated entity position change. Videos are separate visual evidence.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "first_verified_seconds": 10.433306318998802,
+      "first_head": "10087",
+      "first_native_frame_ms": 6806.399999976158,
+      "first_motion_ms": 9365.199999988079,
+      "motion_head": "10087",
+      "next_observed_head": "10088",
+      "next_head_ms": 26681.5,
+      "motion_before_next_publication_demonstrated": true,
+      "spinner_seen": true,
+      "catchup_text_seen": true,
+      "verified_history": {
+        "requests": 2,
+        "bytes": 16869,
+        "outcome": "interval",
+        "elapsedMs": 910.5999999642372
+      },
+      "monotonic_and_bounded_by_verified_coverage": true,
+      "first_verified_seconds_scope": "Harness wall time through ready observation; native-frame timestamps are recorded separately"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "first_verified_seconds": 8.175568759965245,
+      "first_head": "10089",
+      "first_native_frame_ms": 6036.199999988079,
+      "first_motion_ms": 7855.299999952316,
+      "motion_head": "10089",
+      "next_observed_head": "10090",
+      "next_head_ms": 30776.69999998808,
+      "motion_before_next_publication_demonstrated": true,
+      "spinner_seen": true,
+      "catchup_text_seen": true,
+      "verified_history": {
+        "requests": 2,
+        "bytes": 16869,
+        "outcome": "interval",
+        "elapsedMs": 437.19999998807907
+      },
+      "monotonic_and_bounded_by_verified_coverage": true,
+      "first_verified_seconds_scope": "Harness wall time through ready observation; native-frame timestamps are recorded separately"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "first_verified_seconds": 7.863442574045621,
+      "first_head": "10090",
+      "first_native_frame_ms": 6034.699999988079,
+      "first_motion_ms": 7504.599999964237,
+      "motion_head": "10090",
+      "next_observed_head": "10091",
+      "next_head_ms": 56169.89999997616,
+      "motion_before_next_publication_demonstrated": true,
+      "spinner_seen": true,
+      "catchup_text_seen": true,
+      "verified_history": {
+        "requests": 2,
+        "bytes": 16869,
+        "outcome": "interval",
+        "elapsedMs": 572.3999999761581
+      },
+      "monotonic_and_bounded_by_verified_coverage": true,
+      "first_verified_seconds_scope": "Harness wall time through ready observation; native-frame timestamps are recorded separately"
+    }
+  ]
+}

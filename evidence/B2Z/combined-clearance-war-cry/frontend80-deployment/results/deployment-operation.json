@@ -1,0 +1,14 @@
+{
+  "status": "PASS",
+  "target": "s2jxj-liaaa-aaaas-amynq-cai",
+  "command": "DFX_IDENTITY=codex_local DFX_WARNING=-mainnet_plaintext_identity NPM_CONFIG_IF_PRESENT=true dfx deploy observer --network ic --no-wallet --no-asset-upgrade",
+  "deployment_log": "deploy.log",
+  "all_staging_bytes_unchanged_after_command": true,
+  "all_79_served_bodies_and_headers": true,
+  "all_79_http_v2_proofs": true,
+  "certified_modules_controllers_subnet_unchanged": true,
+  "backend_actions": "NONE",
+  "qualification_source": "c0e3dd28879199c48aae328d712d6543ffcc5455",
+  "evidence_head_before_install": "0cd29d5fcb84cda4ebcfc6e132e31d522ce77f20",
+  "frozen_runtime_source": "fc317d188ba6b503c81f9767da0358b89c60868f"
+}

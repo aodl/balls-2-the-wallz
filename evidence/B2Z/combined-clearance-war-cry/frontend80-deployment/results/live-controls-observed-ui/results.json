@@ -1,0 +1,655 @@
+{
+  "status": "FAIL",
+  "scope": "Actual deployed authenticated mainnet state, native mouse/keyboard/emulated-touch and copy/paste. No payments. Emulated viewport is not physical hardware.",
+  "views": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "startup_seconds": 11.518389557022601,
+      "initial": {
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "composer": {
+          "mode": "inspect",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "10073",
+          "manifest_hash": "b061a137a73cfff3343a0bae23e21e2789e4d29f7b831f09f120e35d87b51370",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "10073",
+            "logical_start": "10072",
+            "previous_manifest": "09c0ab5619ded60db80ca4fe153b220be3e17d1707858e64a3bb27aaf6e839bc",
+            "previous_state": "94d4eded651489e800fde2aeec555cc7ed7c230d528a971b8df8f30859b75c3b",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "10076",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "10076",
+          "source_to_exclusive": "40180669",
+          "state_hash": "0b22bbd97ff16726766b39ef33a0b5b73bee2aff1514b2821b150269e95914d1"
+        },
+        "error": "",
+        "ready": true,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 10073,
+        "playhead": 10072.001833
+      },
+      "available_cannons": [
+        {
+          "id": 1,
+          "cell": 0,
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "dormant": null
+        }
+      ],
+      "returning_owner": {
+        "status": "PASS",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owned_cannons": 1,
+        "camera": [
+          2.743735281041836,
+          6.243735281041836,
+          7.9733293309001
+        ],
+        "no_new_proposal": true
+      },
+      "selection_no_focus": "PASS",
+      "actions": {
+        "fire": {
+          "amount": "0.1 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "abbreviated": "s5ir5\u2026",
+          "memo": "FIRE 1 37.5 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Help: Ledger fee separate",
+          "warning": "Payments and unused ICP are kept; no automatic refunds.",
+          "prompt": "Aim & Pay",
+          "disabled": false,
+          "panel": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 328,
+            "top": 334,
+            "right": 1021,
+            "bottom": 662,
+            "left": 661
+          },
+          "native_copy_attempts": [
+            {
+              "event": {
+                "ready": true,
+                "hidden": false,
+                "at": 120205.39999997616,
+                "operationalAge": 2348.5,
+                "disabled": false,
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "prevented": true
+              },
+              "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+              "state_after_return": {
+                "camera": [
+                  3.279287805121612,
+                  0.22587215908856706,
+                  88
+                ],
+                "composer": {
+                  "mode": "ball",
+                  "cell": null,
+                  "degrees": "167.15",
+                  "worldAngle": "37.5",
+                  "quantity": 1
+                },
+                "identity": {
+                  "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                  "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                  "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                  "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+                },
+                "head": {
+                  "logical_end": "10074",
+                  "manifest_hash": "48c53750c7345f126ff65d17ff6f999c4dc1d8e18f467791dcfa949b36f6832d",
+                  "seal": {
+                    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                    "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+                    "input_count": 0,
+                    "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+                    "logical_end": "10074",
+                    "logical_start": "10073",
+                    "previous_manifest": "b061a137a73cfff3343a0bae23e21e2789e4d29f7b831f09f120e35d87b51370",
+                    "previous_state": "0b22bbd97ff16726766b39ef33a0b5b73bee2aff1514b2821b150269e95914d1",
+                    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                    "segment_id": "10077",
+                    "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+                    "source_from": "40180669",
+                    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+                    "source_to_exclusive": "40180669"
+                  },
+                  "segment_id": "10077",
+                  "source_to_exclusive": "40180669",
+                  "state_hash": "3c37d63780998b005cece0471be795b2a03076bb60f39f2c3dea2abe922234ad"
+                },
+                "error": "",
+                "ready": true,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": false
+                },
+                "available": 10074,
+                "playhead": 10073.12895600006
+              },
+              "disclosure_reopened": true
+            }
+          ],
+          "exact_copy": "PASS native API, Control+C and external read-only Control+V",
+          "geometry": {
+            "title": {
+              "x": 671,
+              "y": 396,
+              "width": 170,
+              "height": 56,
+              "top": 396,
+              "right": 841,
+              "bottom": 452,
+              "left": 671
+            },
+            "from": {
+              "x": 671,
+              "y": 452,
+              "width": 170,
+              "height": 69,
+              "top": 452,
+              "right": 841,
+              "bottom": 521,
+              "left": 671
+            },
+            "to": {
+              "x": 841,
+              "y": 452,
+              "width": 126,
+              "height": 69,
+              "top": 452,
+              "right": 967,
+              "bottom": 521,
+              "left": 841
+            },
+            "copies": [
+              {
+                "rect": {
+                  "x": 967,
+                  "y": 402,
+                  "width": 44,
+                  "height": 44,
+                  "top": 402,
+                  "right": 1011,
+                  "bottom": 446,
+                  "left": 967
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 967,
+                  "y": 464.5,
+                  "width": 44,
+                  "height": 44,
+                  "top": 464.5,
+                  "right": 1011,
+                  "bottom": 508.5,
+                  "left": 967
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 967,
+                  "y": 526,
+                  "width": 44,
+                  "height": 44,
+                  "top": 526,
+                  "right": 1011,
+                  "bottom": 570,
+                  "left": 967
+                },
+                "font": 14
+              }
+            ],
+            "finance": [
+              {
+                "id": "transfer-amount",
+                "font": 16.64
+              },
+              {
+                "id": "paying-account",
+                "font": 14.4
+              },
+              {
+                "id": "payment-owner",
+                "font": 14.4
+              },
+              {
+                "id": "text-memo",
+                "font": 14
+              }
+            ],
+            "payerIcon": "<circle cx=\"12\" cy=\"7\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></circle><path d=\"M4 21v-2a8 8 0 0 1 16 0v2Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></path>"
+          }
+        },
+        "move": {
+          "amount": "0.0001 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "abbreviated": "s5ir5\u2026",
+          "memo": "MOVE 1 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Help: Ledger fee separate",
+          "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+          "prompt": "Move & Pay",
+          "disabled": false,
+          "panel": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 368,
+            "top": 334,
+            "right": 1021,
+            "bottom": 702,
+            "left": 661
+          },
+          "native_copy_attempts": [
+            {
+              "event": {
+                "ready": true,
+                "hidden": false,
+                "at": 365374.59999996424,
+                "operationalAge": 3166.199999988079,
+                "disabled": false,
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "prevented": true
+              },
+              "pasted": "s5ir5-gqaaa-aaaas-amyna-cai",
+              "state_after_return": {
+                "camera": [
+                  3.279287805121612,
+                  0.22587215908856706,
+                  88
+                ],
+                "composer": {
+                  "mode": "move",
+                  "cell": 1,
+                  "degrees": "167.15",
+                  "worldAngle": null,
+                  "quantity": 2
+                },
+                "identity": {
+                  "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                  "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                  "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                  "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+                },
+                "head": {
+                  "logical_end": "10077",
+                  "manifest_hash": "ed178c20620005505e1861abc77116acff74bb1a2a001e24d7fe525cb6a06589",
+                  "seal": {
+                    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+                    "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+                    "input_count": 0,
+                    "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+                    "logical_end": "10077",
+                    "logical_start": "10076",
+                    "previous_manifest": "8e41589f03795bec5c2cbbd920b288d6c6405da6d06f594eb6490485a728f210",
+                    "previous_state": "1f51388225f5778612c08ef6a48ba842513888f79ea54dcfd42824b7b1aeb56f",
+                    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+                    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+                    "segment_id": "10080",
+                    "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+                    "source_from": "40180669",
+                    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+                    "source_to_exclusive": "40180669"
+                  },
+                  "segment_id": "10080",
+                  "source_to_exclusive": "40180669",
+                  "state_hash": "6396424719bec3247e467115400ce28dcd1c132b6571c560be86829f26114637"
+                },
+                "error": "",
+                "ready": true,
+                "status": {
+                  "kind": "slow",
+                  "label": "Slow \u00b7 delayed",
+                  "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+                  "canPrepare": true
+                },
+                "available": 10077,
+                "playhead": 10075.601801348868
+              },
+              "disclosure_reopened": true
+            }
+          ],
+          "exact_copy": "PASS native API, Control+C and external read-only Control+V",
+          "geometry": {
+            "title": {
+              "x": 671,
+              "y": 396,
+              "width": 170,
+              "height": 56,
+              "top": 396,
+              "right": 841,
+              "bottom": 452,
+              "left": 671
+            },
+            "from": {
+              "x": 671,
+              "y": 452,
+              "width": 170,
+              "height": 69,
+              "top": 452,
+              "right": 841,
+              "bottom": 521,
+              "left": 671
+            },
+            "to": {
+              "x": 841,
+              "y": 452,
+              "width": 126,
+              "height": 69,
+              "top": 452,
+              "right": 967,
+              "bottom": 521,
+              "left": 841
+            },
+            "copies": [
+              {
+                "rect": {
+                  "x": 967,
+                  "y": 402,
+                  "width": 44,
+                  "height": 44,
+                  "top": 402,
+                  "right": 1011,
+                  "bottom": 446,
+                  "left": 967
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 967,
+                  "y": 464.5,
+                  "width": 44,
+                  "height": 44,
+                  "top": 464.5,
+                  "right": 1011,
+                  "bottom": 508.5,
+                  "left": 967
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 967,
+                  "y": 526,
+                  "width": 44,
+                  "height": 44,
+                  "top": 526,
+                  "right": 1011,
+                  "bottom": 570,
+                  "left": 967
+                },
+                "font": 14
+              }
+            ],
+            "finance": [
+              {
+                "id": "transfer-amount",
+                "font": 16.64
+              },
+              {
+                "id": "paying-account",
+                "font": 14.4
+              },
+              {
+                "id": "payment-owner",
+                "font": 14.4
+              },
+              {
+                "id": "text-memo",
+                "font": 14
+              }
+            ],
+            "payerIcon": "<circle cx=\"12\" cy=\"7\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></circle><path d=\"M4 21v-2a8 8 0 0 1 16 0v2Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></path>"
+          }
+        }
+      },
+      "quantity_update_keep": "PASS exact restored count/memo, stationary button slot, no camera/heading movement",
+      "headings": [
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "212.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 465,
+            "y": 245,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "257.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 557,
+            "y": 245,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "302.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 465,
+            "y": 429,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "347.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 465,
+            "y": 429,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "32.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 465,
+            "y": 429,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "77.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 373,
+            "y": 429,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "122.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 331,
+            "y": 337,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "167.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 373,
+            "y": 245,
+            "width": 130,
+            "height": 46
+          }
+        }
+      ],
+      "denied_clipboard_fallback": "PASS controlled native-API rejection, full-value manual native selection/paste"
+    }
+  ],
+  "error": "AssertionError()",
+  "failure_state": {
+    "camera": [
+      3.279287805121612,
+      0.22587215908856706,
+      88
+    ],
+    "composer": {
+      "mode": "start",
+      "cell": 1,
+      "degrees": "167.15",
+      "worldAngle": "37.5",
+      "quantity": 1
+    },
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "head": {
+      "logical_end": "10077",
+      "manifest_hash": "ed178c20620005505e1861abc77116acff74bb1a2a001e24d7fe525cb6a06589",
+      "seal": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "10077",
+        "logical_start": "10076",
+        "previous_manifest": "8e41589f03795bec5c2cbbd920b288d6c6405da6d06f594eb6490485a728f210",
+        "previous_state": "1f51388225f5778612c08ef6a48ba842513888f79ea54dcfd42824b7b1aeb56f",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "10080",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "10080",
+      "source_to_exclusive": "40180669",
+      "state_hash": "6396424719bec3247e467115400ce28dcd1c132b6571c560be86829f26114637"
+    },
+    "error": "",
+    "ready": true,
+    "status": {
+      "kind": "reconnecting",
+      "label": "Reconnecting",
+      "detail": "Temporarily unable to reach the game. Retrying automatically.",
+      "canPrepare": false
+    },
+    "available": 10077,
+    "playhead": 10076.171164359139
+  },
+  "failure_payment": {
+    "amount": "4 ICP",
+    "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "abbreviated": "s5ir5\u2026",
+    "memo": "NEW 37.5 1 1",
+    "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+    "fee": "Help: Ledger fee separate",
+    "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+    "prompt": "Build, Aim & Pay",
+    "disabled": true,
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 368,
+      "top": 334,
+      "right": 1021,
+      "bottom": 702,
+      "left": 661
+    }
+  }
+}
