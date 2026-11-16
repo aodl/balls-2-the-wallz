@@ -21,7 +21,15 @@ contracts. See [the maintained specification](../../../docs/specs/B2Z_COMBINED_C
 
 Memo adapter6 / BTZPAY03 and32-byte strict Unicode codec remain unchanged.
 ICRC-2 remains disabled. Existing music and effect assets are unchanged.
-Normal Wasm, frontend freeze, final source and hosted conclusions remain pending;
+The provisional local normal Wasm is `23c3586fc18aa11294f789d03fcf9cb8b1cb9827d3f94b7f179a5ef37f55d43e`.
+The compatible80-file frontend is frozen from clean source
+`fc317d188ba6b503c81f9767da0358b89c60868f`: JS
+`bc2872444e4574ae818983e2d7ede46f7ff0c4c2d71b198b9b821c344636321c`,
+inventory `e8a9303538dbb2cc5028b21cf5ae97caacdb9c438497a35a567e30a9071a0c67`.
+All61 audio assets remain byte-identical; only app, backend.did, build record and
+the new configuration-combined.bin differ from the approved79-file deployment.
+A full offline reproduction/input-parity check passes. These are not production
+assets. Exact hosted normal Wasm and final six-gate conclusions remain pending;
 no historical Rules9/Rules10 CI is claimed to qualify this composition.
 
 ## Executed checks so far
@@ -69,6 +77,30 @@ is shared. Normal browser Uint8Array results and historical vector outputs are
 unchanged. This is not evidence of a production state or accounting mutation.
 All14 focused composition/legacy memo/kernel tests pass after correction. The
 frontend input record is re-frozen; the Rust normal module is unaffected.
+
+## Additional executed checks and retained failures
+
+All52 runtime host tests, including Candid service equality, pass. All201 Python
+tool tests pass. Three additive independent replay/observer-checkpoint tests pass,
+including conflicting identity, wrong adapter, incomplete Index watermark and
+source-anchor negatives. These remain content tests; actual IC authentication
+belongs to the installed capture.
+
+The full local Node suite passed1963/1965 but failed two unchanged forecast-cost
+cases at their existing2-second hard deadline. Focused current-source execution
+subsequently passed both; an independently archived approved6afe3b2 baseline
+reproduced the same hard-timeout failure. Forecast code/test bytes are unchanged.
+This does not prove a unique scheduling cause or resolve representative hardware
+performance; the initial full-suite FAIL is retained. No forecast deadline or
+assertion is relaxed. Exact hosted qualification remains required.
+
+The first joint installed rehearsal reached new-rule payments but its new extra
+rejection payment exhausted the fixture's fixed disposable payer balance. The
+Ledger returned InsufficientFunds, obscured by the old narrow test error decoder.
+The rejected test amount now uses the maintained exact cannon price; no balance,
+price, financial rule or production funding changed. Complete Ledger error
+variants improve diagnostics without accepting any failed transfer. The original
+failed record is retained; the corrected rehearsal is in progress.
 
 ## Qualification still required
 

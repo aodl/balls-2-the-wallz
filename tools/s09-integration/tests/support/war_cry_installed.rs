@@ -419,7 +419,10 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
                 .find(|cell| !b2z_native::purchases_v6::enemy_clearance(&w, player, *cell))
                 .expect("real unsafe adjacent Build after Revive");
             let text = format!("NEW 0 1 {unsafe_site}|Unsafe!");
-            let amount = 1_000_000_000u64;
+            let amount = b2z_native::pricing_v6::cannon_price(
+                w.cannons.iter().filter(|c| c.account == account).count() as u32,
+            )
+            .unwrap();
             let position = transfer_text(&pic, ledger, payer, id, amount, text.as_bytes());
             let parsed = b2z_protocol::war_cry::parse_text(text.as_bytes()).unwrap();
             let mut raw = b"BTZPAY03".to_vec();

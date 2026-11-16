@@ -2689,6 +2689,23 @@ fn transfer_text(
         .unwrap();
     #[derive(CandidType, Deserialize, Debug)]
     enum TransferError {
+        BadFee {
+            expected_fee: candid::Nat,
+        },
+        BadBurn {
+            min_burn_amount: candid::Nat,
+        },
+        InsufficientFunds {
+            balance: candid::Nat,
+        },
+        TooOld,
+        CreatedInFuture {
+            ledger_time: u64,
+        },
+        Duplicate {
+            duplicate_of: candid::Nat,
+        },
+        TemporarilyUnavailable,
         GenericError {
             error_code: candid::Nat,
             message: String,
