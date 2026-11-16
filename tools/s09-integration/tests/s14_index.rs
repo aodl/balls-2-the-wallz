@@ -247,6 +247,7 @@ struct RunStatus {
     running: bool,
     callback_count: u64,
     completed_segments: u64,
+    current_segment_work: Option<u64>,
     publication_ticks: Option<u64>,
     last_error: Option<String>,
 }

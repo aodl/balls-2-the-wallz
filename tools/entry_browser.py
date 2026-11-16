@@ -55,11 +55,13 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
         page.locator('#quantity-plus').click()
         wait_until(page,lambda:page.locator('#replace-choice').is_visible(),10000)
         page.locator('#replace-instructions').click()
-        wait_until(page,lambda:page.locator('[data-copy=text]').is_enabled(),30000)
+        # The real controller intentionally remains paused throughout cutover.
+        # Updating a local quote must not override that financial protection.
+        assert page.locator('[data-copy=text]').is_disabled()
         page.locator('#war-cry').fill('Combined!')
         wait_until(page,lambda:page.locator('#text-memo').inner_text().endswith('|Combined!'),10000)
         assert len(page.locator('#text-memo').inner_text().encode())<=32
-        report['combined_packet_transition']={'old':old_packet,'new_memo':page.locator('#text-memo').inner_text(),'stale_copy_disabled_after_keep':True,'explicit_update_then_supported_cry':True}
+        report['combined_packet_transition']={'old':old_packet,'new_memo':page.locator('#text-memo').inner_text(),'stale_copy_disabled_after_keep':True,'explicit_update_then_supported_cry':True,'copy_remains_disabled_while_real_controller_paused':page.locator('[data-copy=text]').is_disabled()}
         page.screenshot(path=str(out/'rules11-replaced-packet-and-cry.png'));save()
     wait_until(page,lambda:page.locator('#move-action').is_disabled()and page.locator('#build-action').is_disabled()and page.locator('#move-action').get_attribute('title')=='No legal move destination',30000)
     assert page.locator('#move-action').get_attribute('title')=='No legal move destination'

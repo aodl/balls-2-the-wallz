@@ -541,10 +541,16 @@ fn run_entry_and_clearance(
         publication,
         "idempotent clearance retry"
     );
+    if combined {
+        assert!(
+            !status(&pic, id).run.running,
+            "controller stays paused during the quoted-packet transition test"
+        );
+    }
     save(
         &out,
         "clearance-cutover.json",
-        &serde_json::json!({"status":"PASS","state_preserved":true,"finance_preserved":true,"identity":observe(&pic,id).1.identity}),
+        &serde_json::json!({"status":"PASS","state_preserved":true,"finance_preserved":true,"identity":observe(&pic,id).1.identity,"run_running_at_cutover":status(&pic,id).run.running}),
     );
     live_record(&pic, id, &mut rows, &out);
     playability_installed::record(&pic, id, &mut rows, &out);

@@ -43,3 +43,15 @@ test('semantic seed projection preserves the complete raw authenticated Buffer',
  assert.equal(Buffer.from(out).subarray(0,8).toString(),'BTZPAY02');
  out[8]^=1;assert.deepEqual(raw,before,'projection has no shared mutable storage');
 });
+
+test('identical bare Fire fields cannot retain a Rules7 copied-packet identity after cutover',async()=>{
+ const{instructionKey}=await import('../../apps/b2z-observer/handoff.mjs');
+ const{quoteV6}=await import('../../apps/b2z-observer/action-quote-v6.mjs');
+ const{decodeWorld}=await import('../../packages/kernels/b2z/world.mjs');
+ const f=JSON.parse(await readFile(new URL('../fixtures/combined-v11.json',import.meta.url))),row=f.rows.find(r=>r.name==='annotation/fire');
+ const w=decodeWorld(Buffer.from(row.initial_hex,'hex')),c=w.cannons[0],command={kind:'fire',cannon:c.id,angle:'0',quantity:1};
+ const old=quoteV6(w,ENTRY_CONFIG,c.account,command),next=quoteV6(w,COMBINED_CONFIG,c.account,command);
+ assert.equal(old.amount,next.amount);assert.equal(old.memo,next.memo);
+ const packet=q=>({account:c.account,cannon:c.id,amount:q.amount,memo:q.memo,recipient:'same verified recipient'});
+ assert.notEqual(instructionKey({...packet(old),rules:7}),instructionKey({...packet(next),rules:11}));
+});

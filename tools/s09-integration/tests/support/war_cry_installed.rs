@@ -22,6 +22,52 @@ fn transition(pic: &PocketIc, id: Principal, kind: &str) {
         }
     }
     assert!(ready, "drained {kind} boundary");
+    if kind == "combined" {
+        let before = arena_world(pic, id).encode().unwrap();
+        let finance = funding_tests::preserved_finance(pic, id);
+        let publication = observe(pic, id).0.publication;
+        let raw: Vec<u8> = get_query(
+            pic,
+            id,
+            "combined_transition_status",
+            encode_args(()).unwrap(),
+        );
+        let phase: serde_json::Value = decode(&raw).unwrap();
+        assert_eq!(phase["transition"]["phase"], "ready");
+        pic.upgrade_canister(
+            id,
+            bytes("B2Z_S14_WASM"),
+            encode_args(()).unwrap(),
+            Some(controller()),
+        )
+        .unwrap();
+        assert_eq!(arena_world(pic, id).encode().unwrap(), before);
+        assert_eq!(funding_tests::preserved_finance(pic, id), finance);
+        assert_eq!(observe(pic, id).0.publication, publication);
+        let restored: Vec<u8> = get_query(
+            pic,
+            id,
+            "combined_transition_status",
+            encode_args(()).unwrap(),
+        );
+        let restored: serde_json::Value = decode(&restored).unwrap();
+        assert_eq!(
+            restored["transition"], phase["transition"],
+            "durable prepared cutover survives normal upgrade"
+        );
+        let mut recovered_drained = false;
+        for _ in 0..1800 {
+            if transition_drained(pic, id) {
+                recovered_drained = true;
+                break;
+            }
+            tick(pic);
+        }
+        assert!(
+            recovered_drained,
+            "source is quiescent again after the prepared-boundary upgrade"
+        );
+    }
     let manifest = observe(pic, id).1.head.manifest_hash;
     let wrong = pic
         .update_call(
@@ -360,6 +406,7 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
         "{oversized_rejection}"
     );
     let mut pending_upgrade = false;
+    let mut staged_annotation_upgrade = None;
     let mut sent = vec![];
     let start_cycles = pic.cycle_balance(id);
     for (sender, memo, amount) in [
@@ -403,6 +450,50 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
             assert_eq!(funding_tests::preserved_finance(&pic, id), finance_before);
             assert_eq!(status(&pic, id).source.admitted_to_exclusive, source_before);
             pending_upgrade = true;
+        }
+        if combined && staged_annotation_upgrade.is_none() {
+            playability_installed::configuration(&pic, id, 1);
+            let mut phase = None;
+            for _ in 0..30 {
+                tick(&pic);
+                let work: playability_installed::BoundaryWork =
+                    get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+                if work.phase.as_deref() == Some("running")
+                    && status(&pic, id).run.current_segment_work.unwrap_or(0) > 0
+                {
+                    phase = work.phase;
+                    break;
+                }
+            }
+            assert_eq!(
+                phase.as_deref(),
+                Some("running"),
+                "interrupt actual annotated execution before publication"
+            );
+            get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+            let before = arena_world(&pic, id).encode().unwrap();
+            let finance = funding_tests::preserved_finance(&pic, id);
+            let publication = observe(&pic, id).0.publication;
+            let source = status(&pic, id).source.admitted_to_exclusive;
+            let work = status(&pic, id).run.current_segment_work.unwrap();
+            pic.upgrade_canister(
+                id,
+                bytes("B2Z_S14_WASM"),
+                encode_args(()).unwrap(),
+                Some(controller()),
+            )
+            .unwrap();
+            assert_eq!(arena_world(&pic, id).encode().unwrap(), before);
+            assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
+            assert_eq!(observe(&pic, id).0.publication, publication);
+            assert_eq!(status(&pic, id).source.admitted_to_exclusive, source);
+            assert_eq!(status(&pic, id).run.current_segment_work, Some(work));
+            let restored: playability_installed::BoundaryWork =
+                get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+            assert_eq!(restored.phase.as_deref(), Some("running"));
+            staged_annotation_upgrade = Some(
+                serde_json::json!({"phase":"running","work":work,"source_cursor":source,"world_finance_publication_preserved":true,"scope":"actual unpublished annotated execution; exact pending-cry unit recovery is independently covered by native every-unit vectors"}),
+            );
         }
         let purchase_cycles = pic.cycle_balance(id);
         let purchase_started = std::time::Instant::now();
@@ -600,6 +691,6 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
     save(
         &out,
         "result.json",
-        &serde_json::json!({"status":"PASS","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"rules":observe(&pic,id).1.identity,"state_preserved_at_cutover":true,"production_module_upgrade":upgrade_proof,"finance_preserved_at_cutover":true,"old_invalid_position":old,"payments":sent,"annotations":annotations,"receipts":receipts,"source_cursor":status(&pic,id).source.admitted_to_exclusive,"admitted_annotation_upgrade_preserved":pending_upgrade,"ledger_33_byte_rejection":oversized_rejection,"ledger_32_byte_payment_processed":true,"whole_processing_cycles":(start_cycles as i128-pic.cycle_balance(id)as i128).to_string(),"scope":"synthetic initial state; actual valueless official Ledger/Index and normal game Wasm; not production"}),
+        &serde_json::json!({"status":"PASS","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"rules":observe(&pic,id).1.identity,"state_preserved_at_cutover":true,"production_module_upgrade":upgrade_proof,"finance_preserved_at_cutover":true,"old_invalid_position":old,"payments":sent,"annotations":annotations,"receipts":receipts,"source_cursor":status(&pic,id).source.admitted_to_exclusive,"admitted_annotation_upgrade_preserved":pending_upgrade,"unpublished_annotated_execution_upgrade":staged_annotation_upgrade,"ledger_33_byte_rejection":oversized_rejection,"ledger_32_byte_payment_processed":true,"whole_processing_cycles":(start_cycles as i128-pic.cycle_balance(id)as i128).to_string(),"scope":"synthetic initial state; actual valueless official Ledger/Index and normal game Wasm; not production"}),
     );
 }

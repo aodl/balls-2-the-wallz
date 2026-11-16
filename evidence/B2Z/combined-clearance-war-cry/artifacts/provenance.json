@@ -14,13 +14,13 @@
     "configuration-combined.bin"
   ],
   "total_asset_bytes": 76341055,
-  "normal_wasm_sha256": "23c3586fc18aa11294f789d03fcf9cb8b1cb9827d3f94b7f179a5ef37f55d43e",
-  "backend_build_source": "77527b925a9ce44ff73d13cd8f75b3922fd22a5e",
+  "normal_wasm_sha256": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "backend_build_source": "89bfdd6b6500a57cdbb827aa9cb9a8351547d995",
   "backend_build_environment": {
-    "scope": "local normal release build; exact hosted Wasm identity is independently required",
+    "runner": "ubuntu-24.04",
     "rust": "1.94.1",
-    "checkout": "/home/codexdev/src/b2z",
-    "command": "cargo build --manifest-path canisters/runtime-lab/Cargo.toml --release --target wasm32-unknown-unknown --locked --offline"
+    "checkout": "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz",
+    "cargo_home": "/home/runner/.cargo"
   },
   "inputs": [
     {
@@ -1917,5 +1917,12 @@
       "path": "rust-toolchain.toml",
       "sha256": "b5c2cffe3b1d150c6f1dd459b35522e4617b5843ff5b5b7253c59f5bea622c83"
     }
-  ]
+  ],
+  "backend_previous_local_wasm_sha256": "23c3586fc18aa11294f789d03fcf9cb8b1cb9827d3f94b7f179a5ef37f55d43e",
+  "backend_hosted_artifact": {
+    "run": 43843201572,
+    "artifact": 14213678913,
+    "archive_sha256": "150ffa39d7875366b509811c95851beeab3079ff43a861ccede09ca8621fdd38",
+    "scope": "Exact hosted normal build; full six-gate result remains pending after strict freeze identity update"
+  }
 }

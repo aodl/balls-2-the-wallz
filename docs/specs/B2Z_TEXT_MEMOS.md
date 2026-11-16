@@ -45,3 +45,7 @@ Shared byte fixtures `tests/fixtures/text-memos.tsv` (unchanged S15 compatibilit
 [War Cry and approved read-only panel](B2Z_WAR_CRY.md) specifies the separately
 identified adapter6/Rules10 capability. Historical formats here remain unchanged.
 Production activation is not implied; unsupported suffixes remain unavailable.
+
+The distinct [combined Rules11 successor](B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md)
+retains adapter6/BTZPAY03 while also enforcing Rules9 clearance. It does not alter
+any historical grammar or activate the capability in the current Rules7 game.

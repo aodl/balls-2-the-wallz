@@ -59,3 +59,14 @@ The proposed `ledger_hint : () -> ()` receiver is our contract, not a descriptio
 The host admits one fenced scan lease with monotonically increasing generation and nonce. It checks source identity, cursor, generation and nonce again after each await. Expired/stale callbacks cannot complete a replacement operation. Hints received while a scan is running remain dirty after successful completion. Failed work requests another attempt; an independent one-shot fallback re-arms only after bounded work returns and discovers records when every hint is lost. Hints coalesce and carry no transaction authority.
 
 No claim of zero-cost rejected updates is made. The future canister must bound callback decoding, timers, storage and ingress admission as well as the inner loop. The source model is not a stable-memory implementation or a liveness proof under a permanently unavailable ledger.
+
+## Combined Rules11 candidate boundary
+
+The [combined clearance/War Cry contract](B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md)
+uses one authenticated direct Rules7 checkpoint: exact current predecessor,
+unchanged world hash/source cursor/financial state, global exclusive Ledger
+cutover and complete official Index watermark, then adapter4→6. Admitted inputs
+are drained under their original identity before the atomic commit. No past input
+is re-normalized, no receipt is rewritten, and all new raw BTZPAY03 input bytes
+remain in source/DTR commitments despite cosmetic seed projection. The new
+configuration is not a production activation.

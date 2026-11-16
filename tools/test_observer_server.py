@@ -56,6 +56,17 @@ class ObserverServerTests(unittest.TestCase):
                 status,headers,body=self.get('/audio/b2z-v1/'+spec['file']);self.assertEqual(status,200);self.assertEqual(headers['Content-Type'],'audio/flac');self.assertEqual(hashlib.sha256(body).hexdigest(),spec['sha256']);self.assertEqual(self.get('/audio/b2z-v1/manifest.json')[0],200)
                 for name in ['../manifest.json','sfx/not-hashed.flac','music/000-0000000000000000.flac','private.pem']:
                     self.assertEqual(self.get('/audio/b2z-v1/'+name)[0],404)
+    def test_combined_configuration_frozen_route_is_exact_and_narrow(self):
+        expected=(serve_observer.ROOT/'apps/b2z-observer/configuration-combined.bin').read_bytes()
+        with tempfile.TemporaryDirectory(dir=serve_observer.ROOT/'.work') as directory:
+            root=Path(directory);(root/'configuration-combined.bin').write_bytes(expected)
+            (root/'unexpected.bin').write_bytes(b'not an approved route')
+            with patch.object(serve_observer,'DEPLOYMENT_ASSETS',root):
+                status,headers,body=self.get('/configuration-combined.bin')
+                self.assertEqual(status,200);self.assertEqual(body,expected)
+                self.assertEqual(headers['Content-Type'],'application/octet-stream')
+                self.assertEqual(headers['X-Content-Type-Options'],'nosniff')
+                self.assertEqual(self.get('/unexpected.bin')[0],404)
     def test_records(self):self.assertEqual(self.get('/apps/b2z-observer/recordings/index.json')[0],200)
     def test_local_certificate_snapshot_is_disabled_by_default(self):
         for path in ['/s09-local/metadata.json','/s10-live/metadata.json','/s10-live/root-key.der','/s09-assets/ic-certificate.mjs']:

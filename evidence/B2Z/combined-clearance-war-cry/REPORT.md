@@ -102,6 +102,46 @@ price, financial rule or production funding changed. Complete Ledger error
 variants improve diagnostics without accepting any failed transfer. The original
 failed record is retained; the corrected rehearsal is in progress.
 
+## Hosted artifact identity and installed progress
+
+Bootstrap run[43843201572](https://github.com/aodl/balls-2-the-wallz/actions/runs/43843201572)
+is for published source`89bfdd6b6500a57cdbb827aa9cb9a8351547d995`. Source, Native
+and Packaged DTR gates passed. The Wasm job passed compilation, Candid, formatting
+and clippy but **failed** its exact-freeze check: hosted bytes differ from the
+local artifact. The exact hosted normal module from artifact14213678913 is
+`5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43`
+(3,659,359bytes). It is the selected future candidate, pending final qualification.
+The local23c3586… module is retained separately. Both contain17 checkout-path
+strings from their different build environments; they are not called byte-identical.
+No convenient local module will substitute for the hosted candidate.
+
+The completed local23c3586…/exact European612ad0… disposable rehearsal passes:
+15 authenticated publications,13 gameplay segments,2 checkpoints,12 retired Ledger
+inputs,7 launch annotations, unsafe annotated New rejection without speech, exact
+world/source/publication/financial preservation, independent replay and certificate/
+artifact negatives. Two native browser observers display the same verified
+`Build!` event for cannon4; real5/35-second tab journeys and55+5-second lifetime
+pass, with expiry measured at60,027ms. This is not physical-device or production
+War Cry acceptance, and it does not qualify the different hosted module.
+
+A subsequent browser attempt exposed a genuine local HTTP integration omission:
+configuration-combined.bin existed in the freeze but was absent from the test
+server's explicit allowlist, yielding404 and fail-closed startup. A failing HTTP
+regression reproduces404≠200; adding only that reviewed filename restores exact
+bytes/MIME/security headers while unknown files remain404. All21 server tests
+pass after correction. The earlier missing-Playwright failure was separately
+caused by resolving the virtualenv interpreter symlink; the runner now preserves
+the interpreter path and checks its import before starting a replica.
+
+One clearance diagnostic referenced the advancing frozen Wasm path while it was
+changed from local to hosted bytes. It is explicitly excluded from exact-artifact
+qualification. The runner now copies and pins a per-run immutable module and
+checks its hash at completion. Its new packet test also incorrectly expected
+enabled Copy during the controller's intentional pause; it now verifies stale
+Keep remains disabled and the updated local proposal stays protected, rather
+than overriding readiness. The original failed/invalid evidence is retained.
+Exact hosted-module paid-predecessor rehearsals and final gates remain required.
+
 ## Qualification still required
 
 Complete local deterministic/native/source/browser checks, actual disposable
