@@ -143,7 +143,7 @@ fn run_entry_and_clearance(
     // Setup-only test hooks disappear before any qualified payment or release action.
     pic.upgrade_canister(
         id,
-        prior.clone(),
+        european_prior.as_ref().unwrap_or(&prior).clone(),
         encode_args(()).unwrap(),
         Some(controller()),
     )
@@ -416,6 +416,11 @@ fn run_entry_and_clearance(
     }
     pause(&pic, id);
     if let Some(old) = &european_prior {
+        let started = std::time::Instant::now();
+        let epoch_ms = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_millis();
         pic.upgrade_canister(
             id,
             old.clone(),
@@ -423,6 +428,14 @@ fn run_entry_and_clearance(
             Some(controller()),
         )
         .unwrap();
+        save(
+            &out,
+            "old-module-install-timing.json",
+            &serde_json::json!({
+                "started_epoch_ms":epoch_ms, "wall_ms":started.elapsed().as_millis(),
+                "module":dtr_wire::hash(old), "scope":"disposable pre-preparation Rules7 compatibility check; not production latency"
+            }),
+        );
         assert_eq!(
             pic.canister_status(id, Some(controller()))
                 .unwrap()
@@ -482,6 +495,11 @@ fn run_entry_and_clearance(
         let old_finance = funding_tests::preserved_finance(&pic, id);
         let old_publication = observe(&pic, id).0.publication;
         let old_source = status(&pic, id).source;
+        let started = std::time::Instant::now();
+        let epoch_ms = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_millis();
         pic.upgrade_canister(
             id,
             candidate.clone(),
@@ -489,6 +507,14 @@ fn run_entry_and_clearance(
             Some(controller()),
         )
         .unwrap();
+        save(
+            &out,
+            "candidate-module-install-timing.json",
+            &serde_json::json!({
+                "started_epoch_ms":epoch_ms, "wall_ms":started.elapsed().as_millis(),
+                "module":dtr_wire::hash(&candidate), "scope":"actual disposable old Rules7 to exact hosted normal module; not production latency"
+            }),
+        );
         assert_eq!(arena_world(&pic, id).encode().unwrap(), old_state);
         assert_eq!(funding_tests::preserved_finance(&pic, id), old_finance);
         assert_eq!(observe(&pic, id).0.publication, old_publication);
