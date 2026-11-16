@@ -21,14 +21,27 @@ def open_settings(page):
 def close_settings(page):
  if page.locator('#workspace').is_visible():page.locator('#close-panel').click()
 def main():
- p=argparse.ArgumentParser();p.add_argument('--mode',choices=['http'],default='http');p.add_argument('--trust',choices=['offline','local','live'],default='offline');p.add_argument('--url',required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--browser');p.add_argument('--coordination',type=Path);a=p.parse_args();a.output.mkdir(parents=True,exist_ok=True)
+ p=argparse.ArgumentParser();p.add_argument('--mode',choices=['http'],default='http');p.add_argument('--trust',choices=['offline','local','live'],default='offline');p.add_argument('--url',required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--browser');p.add_argument('--coordination',type=Path);p.add_argument('--audio-cache-cancel-race',action='store_true');a=p.parse_args();
+ if a.audio_cache_cancel_race and a.trust!='offline':p.error('cache cancellation probe requires explicit offline recording mode')
+ a.output.mkdir(parents=True,exist_ok=True)
  report={'overall':'IN_PROGRESS','mode':'http','trust':a.trust,'qualification':__doc__,'checks':[]};dest=a.output/'results.json'
  def record(name,status='PASS',details=None):report['checks'].append({'name':name,'status':status,'details':details});dest.write_text(json.dumps(report,indent=2)+'\n');print(name,status,flush=True)
  try:from playwright.sync_api import sync_playwright
  except ImportError:report['overall']='BLOCKED';record('browser-tooling','BLOCKED','Playwright unavailable');return 2
  with sync_playwright() as pw:
   browser=pw.chromium.launch(headless=True,chromium_sandbox=True,executable_path=a.browser or pw.chromium.executable_path);report.update(browser_version=browser.version,playwright_version=importlib.metadata.version('playwright'),sandbox=True);record('browser-sandbox')
-  context=browser.new_context(viewport={'width':1440,'height':900});page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)))
+  context=browser.new_context(viewport={'width':1440,'height':900});page=context.new_page();errors=[];report['page_errors']=[]
+  def page_error(error):
+   errors.append(str(error));report['page_errors'].append({'message':str(error),'stack':error.stack,'at':time.time()})
+  page.on('pageerror',page_error)
+  if a.audio_cache_cancel_race:
+   context.add_init_script("""{const open=caches.open.bind(caches);globalThis.audioCacheProbe={armed:false,started:false,released:false};caches.open=(...args)=>open(...args).then(cache=>{if(!audioCacheProbe.armed||!String(args[0]).startsWith('b2z-audio-')||audioCacheProbe.started)return cache;audioCacheProbe.started=true;audioCacheProbe.before=__b2zAudio().generation;void __b2zTools.recording('dense');void __b2zTools.recording('near-impact');return new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(()=>{audioCacheProbe.after=__b2zAudio().generation;audioCacheProbe.released=true;resolve(cache)})))})}""")
+   def held_catalog(route):
+    # Preserve the real body; hold only this controlled replay response until
+    # two ordinary animation frames have exposed the cancelled-cache boundary.
+    wait_until(page,lambda:page.evaluate('!audioCacheProbe.started||audioCacheProbe.released'),2000);route.continue_()
+   page.route('**/recordings/near-impact/000/catalog.bin',held_catalog)
+  report['controlled_audio_cache_cancel_race']=a.audio_cache_cancel_race
   try:
    response=page.goto(a.url);wait_until(page,lambda:page.evaluate('Boolean(__b2zExperience?.session?.ready)'))
    assert page.evaluate('isSecureContext&&typeof crypto.subtle.digest==="function"');record('native-browser-web-crypto')
@@ -44,6 +57,12 @@ def main():
     wait_until(page,lambda:page.evaluate('__b2zExperience.clock.playhead')>0);record('verified-coverage-advances')
     if a.trust=='offline':
      # Replay-only controller is separate from ordinary UI; an old in-flight load cannot win.
+     if a.audio_cache_cancel_race:
+      page.evaluate('audioCacheProbe.armed=true')
+      page.locator('#status-button').click();close_settings(page)
+      wait_until(page,lambda:page.evaluate('audioCacheProbe.released'))
+      report['audio_cache_probe']=page.evaluate('({...audioCacheProbe})')
+      assert report['audio_cache_probe']['after']>report['audio_cache_probe']['before'],'Cache race must actually cancel the old loader'
      page.evaluate('()=>{void __b2zTools.recording("dense");void __b2zTools.recording("near-impact");}');wait_until(page,lambda:page.evaluate('__b2zTools.state().recording.id')=='near-impact'and page.evaluate('__b2zTools.state().ready'));record('session-generation-fencing')
    before=page.evaluate('__b2zExperience.clock.playhead');page.evaluate('window.savedClock=__b2zExperience.clock;window.savedQueue=__b2zExperience.queue');open_settings(page);close_settings(page);page.locator('#identify-button').click();close_settings(page);page.wait_for_timeout(150)
    assert page.evaluate('savedClock===__b2zExperience.clock&&savedQueue===__b2zExperience.queue');assert page.evaluate('__b2zExperience.clock.playhead')>=before;record('UX-04-panels-preserve-clock-and-queue')

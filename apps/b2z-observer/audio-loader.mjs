@@ -10,7 +10,9 @@ export function validateAudioManifest(m){
  for(const f of [...m.segments,...Object.values(m.effects)]){if(!/^(music\/[0-9]{3}|sfx\/[a-z-]+)-[0-9a-f]{16}\.flac$/.test(f.file)||!f.file.includes(f.sha256.slice(0,16))||!/^[0-9a-f]{64}$/.test(f.sha256)||!Number.isInteger(f.bytes)||f.bytes<1||f.bytes>1700000||!Number.isInteger(f.decodedFrames)||f.decodedFrames<1||f.decodedFrames>388800||paths.has(f.file))throw Error('Audio asset bounds');paths.add(f.file);}
  if(frames!==m.totalFrames)throw Error('Audio loop length');return m;
 }
-async function abortable(promise,signal){signal.throwIfAborted();let reject;const stopped=new Promise((_,r)=>{reject=()=>r(signal.reason);signal.addEventListener('abort',reject,{once:true});});try{return await Promise.race([promise,stopped]);}finally{signal.removeEventListener('abort',reject);}}
+// An operation may already exist when cancellation wins. Observe its rejection
+// before throwing, without awaiting abandoned work or accepting its result.
+async function abortable(promise,signal){if(signal.aborted){void Promise.resolve(promise).catch(()=>{});signal.throwIfAborted();}let reject;const stopped=new Promise((_,r)=>{reject=()=>r(signal.reason);signal.addEventListener('abort',reject,{once:true});});try{return await Promise.race([promise,stopped]);}finally{signal.removeEventListener('abort',reject);}}
 async function boundedBytes(response,cap,signal){
  if(!response.ok||Number(response.headers.get('Content-Length'))>cap)throw Error('Audio response unavailable/oversized');
  const reader=response.body.getReader(),parts=[];let length=0;

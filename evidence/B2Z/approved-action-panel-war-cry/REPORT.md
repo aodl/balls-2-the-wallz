@@ -1,3 +1,8 @@
+> **Replacement qualification required:** hosted f3fb116 failed the base HTTP
+> browser gate on an unhandled cancelled optional-audio fetch. The demonstrated
+> loader race is corrected locally; new frozen runtime/CI identities must qualify
+> those bytes. Production remains unchanged.
+
 # Approved action panel and War Cry — corrective qualification
 
 **Candidate only; nothing deployed or activated.** The shared frontend can ship
@@ -287,3 +292,32 @@ HTTP assets with actual authenticated European data, not production deployment,
 physical-device acceptance or a performance-improvement claim. Earlier2.3second
 observations belong to their earlier frozen source and network window. See
 [read-only result](results/frozen-readonly-final.json) and captures in GALLERY.md.
+
+## Hosted cancellation failure and narrow corrective pass
+
+Run43778610653 sourcef3fb116 failed Browser HTTP/WebCrypto before the later panel
+steps: every original crypto/CSP/playback/generation/context-loss/corruption
+assertion passed, but the primary page emitted `signal is aborted without reason`.
+The old job did not retain a stack; the maintained harness now records stacks
+without filtering errors or weakening its final assertion. A normal local repeat
+passed; a fixed-delay cache attempt failed to exercise the boundary and is retained
+as diagnostic only, not proof of recovery.
+
+A deterministic controlled native HTTP test holds actual optional CacheStorage
+completion across two normal frames while the existing offline recording API
+replaces its session. Genuine catalog bytes remain held until that boundary, then
+continue unchanged; no fake visibility, clocks, world, certificate or success is
+inserted. This reproduces the exact message with stack at AudioLoader.cancel →
+stop → reconcile → begin → frame and an actual generation0→2 cancellation. All
+original integrity assertions still pass, and the final unhandled-error assertion
+fails on old source. A matching Node test also fails as an unhandled rejection.
+
+Root cause: abortable() threw for an already-aborted signal before observing an
+already-created fetch promise. The narrow guard now attaches a rejection observer
+without awaiting abandoned work, then preserves the same immediate cancellation
+rejection. No global error suppression, acceptance after cancellation, hash/length
+relaxation, deadline change, music/mix/tempo/voice-budget change or backend change
+is introduced. Both the ordinary and controlled HTTP journeys pass after repair,
+with zero page errors; all nine loader units pass. The controlled regression is
+added to the existing hosted Browser gate. Native audio output/visibility and new
+frozen artifacts are being completed before fresh exact-source qualification.

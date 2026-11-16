@@ -18,3 +18,11 @@ test('one stalled optional cache lookup disables further cache work',async t=>{
 test('clear-cache deadline reports failure honestly and touches only audio cache names',async t=>{
  const hold=setTimeout(()=>{},3000);t.after(()=>clearTimeout(hold));const{clearAudioCache}=await import('../../apps/b2z-observer/audio-loader.mjs');const prior=globalThis.caches,deleted=[];t.after(()=>globalThis.caches=prior);globalThis.caches={keys:async()=>['unrelated-app','b2z-audio-old'],delete:async name=>{deleted.push(name);return true;}};assert.equal(await clearAudioCache(),true);assert.deepEqual(deleted,['b2z-audio-old']);globalThis.caches={keys:async()=>Array.from({length:129},(_,i)=>'other-'+i)};assert.equal(await clearAudioCache(),false);globalThis.caches={keys:()=>new Promise(()=>{})};assert.equal(await clearAudioCache(),false);
 });
+
+test('cancellation during optional cache lookup observes an already-rejected fetch promise',async t=>{
+ const prior=globalThis.caches;let opened;globalThis.caches={open:()=>new Promise(r=>opened=r),keys:async()=>[]};t.after(()=>globalThis.caches=prior);
+ const{loader}=setup(t,async(_url,{signal})=>{signal.throwIfAborted();return new Response(bytes);});
+ const pending=loader.load(spec),rejection=assert.rejects(pending,e=>e.name==='AbortError');
+ for(let i=0;i<100&&!opened;i++)await new Promise(r=>setImmediate(r));assert(opened);loader.cancel();opened({match:async()=>null});await rejection;await new Promise(r=>setImmediate(r));
+ assert.equal(loader.pending,0);assert.equal(loader.encoded,0);assert.equal(loader.stats.decodes,0);
+});

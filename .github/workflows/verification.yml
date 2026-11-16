@@ -174,6 +174,8 @@ jobs:
       - name: Capture lifecycle HTTP/browser and independent replay regressions
         run: python -B tools/verify_wire_capture_browser.py --output .work/ci-wire-capture
       - run: python -B tools/check.py browser --output .work/ci-browser
+      - name: Optional audio cache cancellation retains strict HTTP observation guarantees
+        run: python -B tools/verify_observer_http.py --audio-cache-cancel-race --output .work/ci-audio-cache-cancel
       - name: Minimal human interface contract journeys (UX-01 through UX-13)
         run: python -B tools/verify_playability_actions.py --output .work/ci-human-experience
       - name: Tactical projection, interaction and GPU seam regressions
@@ -221,6 +223,8 @@ jobs:
             .work/ci-browser/logs/**
             .work/ci-browser/browser-http/results.json
             .work/ci-browser/browser-http/*.png
+            .work/ci-audio-cache-cancel/results.json
+            .work/ci-audio-cache-cancel/*.png
             .work/ci-wire-capture/**
             .work/ci-human-experience/**
             .work/ci-tactical-grid/**

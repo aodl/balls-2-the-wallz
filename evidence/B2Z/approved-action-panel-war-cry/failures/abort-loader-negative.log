@@ -1,0 +1,29 @@
+✔ only exact same-origin allowlisted paths are fetched (105.984705ms)
+✔ hash/stream length failures never reach decoder (3.117236ms)
+✔ cancellation settles even when fetch ignores abort (2.544029ms)
+✔ cancelled decode cannot complete old request; next explicit load waits without parallel work (14.997771ms)
+✔ manifest rejects changed cores, extraneous paths, formats or unbounded sizes (5.543563ms)
+✔ synchronous decoder rejection frees its slot without affecting game state (7.490685ms)
+✔ one stalled optional cache lookup disables further cache work (1010.51689ms)
+✔ clear-cache deadline reports failure honestly and touches only audio cache names (1504.935912ms)
+✖ cancellation during optional cache lookup observes an already-rejected fetch promise (9.70751ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 8
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2814.541402
+
+✖ failing tests:
+
+test at tests/js/audio-loader.test.mjs:22:1
+✖ cancellation during optional cache lookup observes an already-rejected fetch promise (9.70751ms)
+  AbortError: This operation was aborted
+      at new DOMException (node:internal/per_context/domexception:76:18)
+      at AbortController.abort (node:internal/abort_controller:506:18)
+      at AudioLoader.cancel (file:///home/codexdev/src/b2z/apps/b2z-observer/audio-loader.mjs:21:45)
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z/tests/js/audio-loader.test.mjs:26:93)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:831:7)

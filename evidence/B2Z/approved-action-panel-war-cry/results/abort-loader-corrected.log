@@ -1,0 +1,17 @@
+✔ only exact same-origin allowlisted paths are fetched (96.230997ms)
+✔ hash/stream length failures never reach decoder (3.176936ms)
+✔ cancellation settles even when fetch ignores abort (2.159025ms)
+✔ cancelled decode cannot complete old request; next explicit load waits without parallel work (14.801168ms)
+✔ manifest rejects changed cores, extraneous paths, formats or unbounded sizes (4.34575ms)
+✔ synchronous decoder rejection frees its slot without affecting game state (2.398927ms)
+✔ one stalled optional cache lookup disables further cache work (1033.020374ms)
+✔ clear-cache deadline reports failure honestly and touches only audio cache names (1523.573066ms)
+✔ cancellation during optional cache lookup observes an already-rejected fetch promise (14.533665ms)
+ℹ tests 9
+ℹ suites 0
+ℹ pass 9
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2985.057922

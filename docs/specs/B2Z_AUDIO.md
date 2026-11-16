@@ -154,3 +154,9 @@ a reserved but empty strip and temporarily hidden cycles telemetry are not masks
 must remain audible when otherwise eligible. Extremely contracted action chrome
 may temporarily yield the sound icon with other secondary controls until Close or
 Escape restores it; no preference, context, scheduler or musical phase is reset.
+
+Optional-cache cancellation must observe an already-created fetch/decode promise
+before rejecting an already-aborted signal. Discard the abandoned result, retain
+generation/byte/hash/decoder fences, and never await indefinitely or leak an
+unhandled rejection into gameplay. The controlled native HTTP cache/session race
+is qualified separately from genuine visibility/output recovery.
