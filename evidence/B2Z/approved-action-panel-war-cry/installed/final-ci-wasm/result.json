@@ -455,8 +455,8 @@
   "old_invalid_position": 2,
   "payments": [
     {
-      "admitted_purchase_window_cycles": "213693604",
-      "admitted_purchase_window_wall_ms": 388,
+      "admitted_purchase_window_cycles": "213686397",
+      "admitted_purchase_window_wall_ms": 598,
       "amount": 10000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|é😀",
@@ -466,8 +466,8 @@
       "raw_memo_hex": "464952452031203020317cc3a9f09f9880"
     },
     {
-      "admitted_purchase_window_cycles": "281820061",
-      "admitted_purchase_window_wall_ms": 412,
+      "admitted_purchase_window_cycles": "281813087",
+      "admitted_purchase_window_wall_ms": 476,
       "amount": 10000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 64|Charge!",
@@ -477,8 +477,8 @@
       "raw_memo_hex": "46495245203120302036347c43686172676521"
     },
     {
-      "admitted_purchase_window_cycles": "294919258",
-      "admitted_purchase_window_wall_ms": 242,
+      "admitted_purchase_window_cycles": "294910888",
+      "admitted_purchase_window_wall_ms": 1109,
       "amount": 0,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|No",
@@ -488,8 +488,8 @@
       "raw_memo_hex": "464952452031203020317c4e6f"
     },
     {
-      "admitted_purchase_window_cycles": "334011638",
-      "admitted_purchase_window_wall_ms": 435,
+      "admitted_purchase_window_cycles": "334002446",
+      "admitted_purchase_window_wall_ms": 783,
       "amount": 1000000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|Twin",
@@ -499,8 +499,8 @@
       "raw_memo_hex": "464952452031203020317c5477696e"
     },
     {
-      "admitted_purchase_window_cycles": "386116871",
-      "admitted_purchase_window_wall_ms": 502,
+      "admitted_purchase_window_cycles": "386108203",
+      "admitted_purchase_window_wall_ms": 312,
       "amount": 1000000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|Twin",
@@ -510,8 +510,8 @@
       "raw_memo_hex": "464952452031203020317c5477696e"
     },
     {
-      "admitted_purchase_window_cycles": "404456779",
-      "admitted_purchase_window_wall_ms": 484,
+      "admitted_purchase_window_cycles": "404446703",
+      "admitted_purchase_window_wall_ms": 300,
       "amount": 10000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|Bad|Text",
@@ -521,8 +521,8 @@
       "raw_memo_hex": "464952452031203020317c4261647c54657874"
     },
     {
-      "admitted_purchase_window_cycles": "402229192",
-      "admitted_purchase_window_wall_ms": 502,
+      "admitted_purchase_window_cycles": "402216619",
+      "admitted_purchase_window_wall_ms": 361,
       "amount": 0,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|123456789012345678901",
@@ -532,8 +532,8 @@
       "raw_memo_hex": "464952452031203020317c313233343536373839303132333435363738393031"
     },
     {
-      "admitted_purchase_window_cycles": "513886631",
-      "admitted_purchase_window_wall_ms": 514,
+      "admitted_purchase_window_cycles": "513871378",
+      "admitted_purchase_window_wall_ms": 361,
       "amount": 100000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "NEW 0 1|Hello!",
@@ -543,8 +543,8 @@
       "raw_memo_hex": "4e4557203020317c48656c6c6f21"
     },
     {
-      "admitted_purchase_window_cycles": "507731364",
-      "admitted_purchase_window_wall_ms": 493,
+      "admitted_purchase_window_cycles": "507718098",
+      "admitted_purchase_window_wall_ms": 277,
       "amount": 1000000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|﻿A",
@@ -554,8 +554,8 @@
       "raw_memo_hex": "464952452031203020317cefbbbf41"
     },
     {
-      "admitted_purchase_window_cycles": "654477955",
-      "admitted_purchase_window_wall_ms": 616,
+      "admitted_purchase_window_cycles": "654464469",
+      "admitted_purchase_window_wall_ms": 410,
       "amount": 1000000000,
       "cost_scope": "normal Wasm admitted explicit additional Build plus mandatory game/controller work",
       "memo": "NEW 0 1 452578|Build!",
@@ -854,5 +854,5 @@
   "source_cursor": 13,
   "state_preserved_at_cutover": true,
   "status": "PASS",
-  "whole_processing_cycles": "14177683779"
+  "whole_processing_cycles": "14091591281"
 }

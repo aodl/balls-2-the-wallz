@@ -1,0 +1,121 @@
+{
+  "scope": "Measured disposable exact normal-Wasm1cde99a admitted-purchase windows include mandatory game/controller work; not isolated annotation cost or European billing. Native UI uses software rendering; representative dense hardware remains unqualified.",
+  "source": "dcc1e7a2c55aa159b30fd19e9d251801b1106134",
+  "normal_wasm_sha256": "1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b",
+  "frontend_bytes_before": 76305513,
+  "frontend_bytes_after": 76335733,
+  "normalized_envelope_max_bytes": 88,
+  "annotation_extra_normalized_max_bytes": 32,
+  "annotationBytes": [
+    {
+      "payment": "3",
+      "text_utf8_bytes": 6,
+      "additional_event_bytes": 154
+    },
+    {
+      "payment": "4",
+      "text_utf8_bytes": 7,
+      "additional_event_bytes": 155
+    },
+    {
+      "payment": "6",
+      "text_utf8_bytes": 4,
+      "additional_event_bytes": 152
+    },
+    {
+      "payment": "7",
+      "text_utf8_bytes": 4,
+      "additional_event_bytes": 152
+    },
+    {
+      "payment": "10",
+      "text_utf8_bytes": 6,
+      "additional_event_bytes": 155
+    },
+    {
+      "payment": "11",
+      "text_utf8_bytes": 4,
+      "additional_event_bytes": 153
+    },
+    {
+      "payment": "12",
+      "text_utf8_bytes": 6,
+      "additional_event_bytes": 155
+    }
+  ],
+  "purchase_windows": [
+    {
+      "memo": "FIRE 1 0 1|é😀",
+      "raw_memo_bytes": 17,
+      "normalized_bytes": 63,
+      "cycles": "213693604",
+      "wall_ms": 388
+    },
+    {
+      "memo": "FIRE 1 0 64|Charge!",
+      "raw_memo_bytes": 19,
+      "normalized_bytes": 64,
+      "cycles": "281820061",
+      "wall_ms": 412
+    },
+    {
+      "memo": "FIRE 1 0 1|No",
+      "raw_memo_bytes": 13,
+      "normalized_bytes": 59,
+      "cycles": "294919258",
+      "wall_ms": 242
+    },
+    {
+      "memo": "FIRE 1 0 1|Twin",
+      "raw_memo_bytes": 15,
+      "normalized_bytes": 61,
+      "cycles": "334011638",
+      "wall_ms": 435
+    },
+    {
+      "memo": "FIRE 1 0 1|Twin",
+      "raw_memo_bytes": 15,
+      "normalized_bytes": 61,
+      "cycles": "386116871",
+      "wall_ms": 502
+    },
+    {
+      "memo": "FIRE 1 0 1|Bad|Text",
+      "raw_memo_bytes": 19,
+      "normalized_bytes": 57,
+      "cycles": "404456779",
+      "wall_ms": 484
+    },
+    {
+      "memo": "FIRE 1 0 1|123456789012345678901",
+      "raw_memo_bytes": 32,
+      "normalized_bytes": 78,
+      "cycles": "402229192",
+      "wall_ms": 502
+    },
+    {
+      "memo": "NEW 0 1|Hello!",
+      "raw_memo_bytes": 14,
+      "normalized_bytes": 63,
+      "cycles": "513886631",
+      "wall_ms": 514
+    },
+    {
+      "memo": "FIRE 1 0 1|﻿A",
+      "raw_memo_bytes": 15,
+      "normalized_bytes": 61,
+      "cycles": "507731364",
+      "wall_ms": 493
+    },
+    {
+      "memo": "NEW 0 1 452578|Build!",
+      "raw_memo_bytes": 21,
+      "normalized_bytes": 63,
+      "cycles": "654477955",
+      "wall_ms": 616
+    }
+  ],
+  "whole_rehearsal_cycles": "14177683779",
+  "whole_rehearsal_scope": "Includes Ledger/Index delivery, admitted upgrade, replay/certificate queries and native observer window; not per-annotation overhead.",
+  "p09": "FAIL/unqualified, unchanged historical trial limitation"
+}

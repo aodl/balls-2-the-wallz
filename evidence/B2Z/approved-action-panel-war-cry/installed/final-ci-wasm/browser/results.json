@@ -3,9 +3,9 @@
   "scope": "Two real browsers of a pinned disposable IC. Native wall-time speech, no injected event/world.",
   "observers": [
     {
-      "at": 1794786027944,
-      "born": 1794786023269,
-      "key": "291648a1e859afeefa2d52bb24cfc90725968e2761628ddbaae284a26e9e0a2a/13/0/12/3",
+      "at": 1794790010685,
+      "born": 1794790007163,
+      "key": "d7740c594d293e2a2f30b8d75591878548c54472327ad9e7e900cfedd732c56a/13/0/12/3",
       "cannon": 3,
       "text": "Build!",
       "head": "13",
@@ -36,9 +36,9 @@
       ]
     },
     {
-      "at": 1794786054916,
-      "born": 1794786045132,
-      "key": "291648a1e859afeefa2d52bb24cfc90725968e2761628ddbaae284a26e9e0a2a/13/0/12/3",
+      "at": 1794790021309,
+      "born": 1794790016295,
+      "key": "d7740c594d293e2a2f30b8d75591878548c54472327ad9e7e900cfedd732c56a/13/0/12/3",
       "cannon": 3,
       "text": "Build!",
       "head": "13",
@@ -73,117 +73,150 @@
   "visibility": [
     {
       "seconds": 5,
-      "at": 1794786061.6618285,
+      "at": 1794790027.5852332,
       "bubble": 1
     },
     {
       "seconds": 35,
-      "at": 1794786097.9040031,
-      "bubble": 0
+      "at": 1794790063.2447064,
+      "bubble": 1
     }
   ],
   "fade": {
-    "age_ms": 55570,
-    "opacity": 0.8136
+    "age_ms": 55763,
+    "opacity": 0.7988
   },
   "native_lifetime_probe": {
     "samples": [
       {
-        "age_ms": 55504,
-        "opacity": 0.9016,
+        "age_ms": 55080,
+        "opacity": 0.9842,
         "visibility": "visible"
       },
       {
-        "age_ms": 55615,
-        "opacity": 0.88,
+        "age_ms": 55230,
+        "opacity": 0.9586,
         "visibility": "visible"
       },
       {
-        "age_ms": 55905,
-        "opacity": 0.8276,
+        "age_ms": 55431,
+        "opacity": 0.9216,
         "visibility": "visible"
       },
       {
-        "age_ms": 56007,
-        "opacity": 0.8136,
+        "age_ms": 55631,
+        "opacity": 0.8766,
         "visibility": "visible"
       },
       {
-        "age_ms": 56757,
-        "opacity": 0.6584,
+        "age_ms": 56006,
+        "opacity": 0.8006,
         "visibility": "visible"
       },
       {
-        "age_ms": 56854,
-        "opacity": 0.6366,
+        "age_ms": 56030,
+        "opacity": 0.7988,
         "visibility": "visible"
       },
       {
-        "age_ms": 57031,
-        "opacity": 0.6076,
+        "age_ms": 56230,
+        "opacity": 0.7566,
         "visibility": "visible"
       },
       {
-        "age_ms": 57230,
-        "opacity": 0.559,
+        "age_ms": 56430,
+        "opacity": 0.7166,
         "visibility": "visible"
       },
       {
-        "age_ms": 57587,
-        "opacity": 0.4836,
+        "age_ms": 56862,
+        "opacity": 0.6278,
         "visibility": "visible"
       },
       {
-        "age_ms": 57607,
-        "opacity": 0.481,
+        "age_ms": 57039,
+        "opacity": 0.5922,
         "visibility": "visible"
       },
       {
-        "age_ms": 57810,
-        "opacity": 0.4446,
+        "age_ms": 57231,
+        "opacity": 0.557,
         "visibility": "visible"
       },
       {
-        "age_ms": 58008,
-        "opacity": 0.4074,
+        "age_ms": 57435,
+        "opacity": 0.5138,
         "visibility": "visible"
       },
       {
-        "age_ms": 58723,
-        "opacity": 0.259,
+        "age_ms": 57701,
+        "opacity": 0.4614,
         "visibility": "visible"
       },
       {
-        "age_ms": 58814,
-        "opacity": 0.2416,
+        "age_ms": 57830,
+        "opacity": 0.439,
         "visibility": "visible"
       },
       {
-        "age_ms": 59009,
-        "opacity": 0.2064,
+        "age_ms": 58030,
+        "opacity": 0.401,
         "visibility": "visible"
       },
       {
-        "age_ms": 59208,
-        "opacity": 0.1622,
+        "age_ms": 58230,
+        "opacity": 0.3578,
         "visibility": "visible"
       },
       {
-        "age_ms": 59754,
-        "opacity": 0.0534,
+        "age_ms": 58552,
+        "opacity": 0.2904,
         "visibility": "visible"
       },
       {
-        "age_ms": 59809,
-        "opacity": 0.0402,
+        "age_ms": 58630,
+        "opacity": 0.2766,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58831,
+        "opacity": 0.2366,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59030,
+        "opacity": 0.202,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59334,
+        "opacity": 0.136,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59432,
+        "opacity": 0.1246,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59631,
+        "opacity": 0.0746,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59830,
+        "opacity": 0.0388,
         "visibility": "visible"
       }
     ],
-    "expired": null
+    "expired": {
+      "at": 1794790076429,
+      "age_ms": 60134
+    }
   },
   "expiry": {
-    "at": 1794786105374,
-    "age_ms": 60242,
+    "at": 1794790076429,
+    "age_ms": 60134,
     "repeat_render_does_not_restart": true
   },
   "first_hidden_age_expiry": "PASS first observer also expired without replay",

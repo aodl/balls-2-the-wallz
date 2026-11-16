@@ -1,13 +1,13 @@
 {
-  "source": "dcc1e7a2c55aa159b30fd19e9d251801b1106134",
+  "source": "427199b38e847f4cfb7142db2b42212e804169a6",
   "source_dirty": false,
-  "inventory_sha256": "c2cb60e831eec89acfd141e10b862d724622db77b185a5ec28506ac1dd38d17f",
-  "javascript_sha256": "59b946e9a40452e2ba9538260ac3141541777b6bb281cc282ab00e3d5aa21fd9",
+  "inventory_sha256": "63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f",
+  "javascript_sha256": "c37ed0c363902e29443ba9eb1501c6b653873945bb63e7d92b341f8400f1085d",
   "audio_manifest_sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
   "files": 79,
   "public_files": 78,
   "unchanged_audio_assets": 61,
-  "total_asset_bytes": 76335733,
+  "total_asset_bytes": 76335820,
   "normal_wasm_sha256": "1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b",
   "backend_reuse": "Exact hosted normal module from run43764610049 artifact14181941816; all backend runtime/config/dependency inputs unchanged from ca2d657",
   "backend_build_source": "dfaef2c943c629c1c4e35d0776d22131189b7133",
@@ -45,7 +45,7 @@
     },
     {
       "path": "apps/b2z-observer/audio-loader.mjs",
-      "sha256": "f8ef960e9a6299fb12acadaf285c033f67bd1d850602aad4e95c0c0d2441778f"
+      "sha256": "ba1859cae4422d25f33b32a8737d304ecce5ca18a61471d6e01afbd3d7e7419e"
     },
     {
       "path": "apps/b2z-observer/audio-music.mjs",

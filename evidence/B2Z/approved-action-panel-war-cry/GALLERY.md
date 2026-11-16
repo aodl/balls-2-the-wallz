@@ -5,7 +5,7 @@ Shared-panel captures use populated canonical gameplay fixtures; authentication
 claims apply only to the separately labelled installed-game and mainnet sections.
 Full scenes retain context and scroll boundaries. CSS viewport sizes are stated;
 DPR2/3 captures have larger pixel dimensions. Software Chromium is not a physical
-phone or subjective listening test. Runtime inputs match frozen `dcc1e7a2…`.
+phone or subjective listening test. Runtime inputs match frozen `427199b3…`.
 
 ## Owner reference (unchanged)
 
@@ -31,6 +31,7 @@ missing content. See the native journeys and exact retained sentence assertions.
 [320 native journey](captures/final-panel/320-journey0.webm),
 [390 native journey](captures/final-panel/390-journey0.webm),
 [desktop native journey](captures/final-panel/desktop-journey0.webm).
+[320 first-Join native journey](captures/final-panel/320-join-journey0.webm).
 The first-Join recordings include native copy/paste into an external textarea and
 denied-API fallback; these are clipboard tests, not a payment or wallet-app test.
 
@@ -56,3 +57,9 @@ These use local frozen HTTP assets against the actual European backend. War Cry
 is unavailable, full recipient/amount/memo copying passed, and no payment was sent.
 They do not represent deployment of this candidate. Existing production stays on
 the retained78-file audio/compact-control frontend.
+
+## Optional-loader repair — native audio output
+
+[Native software output after the cancellation repair](captures/audio-cancel-native/native-output-0.webm)
+and [actual 5/35/8-second return measurements](results/audio-cancel-native-visibility.json).
+This is native browser stream evidence, not physical listening or BFCache acceptance.

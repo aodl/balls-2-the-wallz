@@ -14,17 +14,17 @@ against their actual source; earlier green jobs do not qualify later bytes.
 
 ## Current frozen candidate — replacement qualification pending
 
-Runtime/build source: `dcc1e7a2c55aa159b30fd19e9d251801b1106134`.
+Runtime/build source: `427199b38e847f4cfb7142db2b42212e804169a6`.
 
 | Artifact | SHA256 |
 |---|---|
-| JavaScript | `59b946e9a40452e2ba9538260ac3141541777b6bb281cc282ab00e3d5aa21fd9` |
-| Complete79-file inventory | `c2cb60e831eec89acfd141e10b862d724622db77b185a5ec28506ac1dd38d17f` |
+| JavaScript | `c37ed0c363902e29443ba9eb1501c6b653873945bb63e7d92b341f8400f1085d` |
+| Complete79-file inventory | `63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f` |
 | Normal backend | `1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b` |
 | Unchanged audio manifest | `76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c` |
 
 There are78 public files plus the consumed upload policy. All79 reproduce exactly;
-all61 audio assets remain unchanged. Total76,335,733bytes,30,220bytes above the
+all61 audio assets remain unchanged. Total76,335,820bytes,30,307bytes above the
 installed78-file rollback. Backend inputs are unchanged from ca2d657; the exact
 CI-produced normal module1cde99a… is reused, never the differing local002ce4d… build.
 
@@ -37,7 +37,7 @@ schema6 remains unchanged. These are candidate identities, not production activa
 [asset delta](results/final-asset-delta.json) and [actual captures](GALLERY.md).
 
 The replacement must obtain its own six hosted gates. Earlier run43772641166 on
-93cd974 has five passes and installed-IC pending, but its frontend is superseded by
+93cd974 passed all six gates, but its frontend is superseded by
 the proven UTF8 defect below; those results do not qualify these changed bytes.
 No production operation is authorized or performed.
 
@@ -188,7 +188,7 @@ Historical failures are preserved under `failures/`, rather than overwritten:
 | Reference grid, From/To, Copy axes, plain text, blue warning | PASS:18 native action panes; dividers/axes within1px,44px targets |
 | Full recipient/amount/memo, native/API/fallback, inline inspection | PASS:native fixtures and exact frozen mainnet-backed Rules7 browser; no wallet-app/payment claim |
 | Frozen Update/Keep and status stability | PASS:432 status-only samples at0px drift, complete quantity/angle/cry packet restoration |
-| Complete32byte UTF8 memo and strict parsing | PASS:24 shared JS/native vectors, real Ledger32/33 boundary, grapheme-prefix and native IME/paste |
+| Complete32byte UTF8 memo and strict parsing | PASS:28 shared JS/native vectors, real Ledger32/33 boundary, grapheme-prefix and native IME/paste |
 | Certified capability and old-history isolation | PASS:actual Rules7 hides cry/emits bare memos; wrong local flag/config and old suffix negatives |
 | Joint floating/docked editor and first Join | PASS:320/390/desktop, DPR1/2/3, exact347.15, forward/reverse sweep, visual viewport/insets, contracted views, touch/cancellation |
 | Official Ledger→Index→normal interpreter | PASS:valueless transfers,11 positions assigned once,14 authenticated publications independently replayed |
@@ -200,8 +200,9 @@ Historical failures are preserved under `failures/`, rather than overwritten:
 ## Resources, audio and limitations
 
 All61 existing audio assets, approved music cores/effects and manifest remain
-byte-identical; no mix, tempo, audio engine, dependency or gameplay change was
-needed for layout. Audio manifest remains
+byte-identical; no mix, tempo, scheduler, dependency or gameplay change was
+needed for layout. The later optional-loader cancellation fix is documented below
+and does not change those assets or budgets. Audio manifest remains
 `76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c`.
 P09 remains **FAIL/unqualified**. Existing native stream captures are software
 output evidence, not physical speaker/headphone or subjective quality acceptance.
@@ -213,8 +214,9 @@ cost or European billing. A bounded live A/B/A frame comparison was **INCONCLUSI
 software rendering, shared-host jitter and changing head prevent causal performance
 claims. No threshold was relaxed and no improvement is claimed.
 
-Physical phone/headphone/Bluetooth, Safari/iOS and unavailable Firefox/BFCache
-listening/performance are **NOT VERIFIED**. Chromium emulation is not real hardware.
+Physical phone/headphone/Bluetooth, Safari/iOS and unavailable Firefox
+listening/performance are **NOT VERIFIED**. Native BFCache restoration remains
+**BLOCKED** in the exercised browser route, not a pass. Chromium emulation is not real hardware.
 Actual production enabled-copy/operating acceptance is distinct from fixtures;
 read-only frozen Rules7 checks never override status, enable unsupported text,
 make payments or activate a backend capability.
@@ -271,23 +273,23 @@ without changing DOM, visibility, clocks or application timing. The original
 0<opacity<1 and expiry/no-repeat requirements remain. Failures and previous13-pub
 results are retained under failures/ and installed/pre-BOM-fd69939/.
 
-Final native fade was observed at55.570seconds, opacity
-0.8136; expiry was60.242seconds,
+Final native fade was observed at55.763seconds, opacity
+0.7988; expiry was60.134seconds,
 including genuine5/35second same-window tab transitions and no replay restart.
 
-The replacement local source suite passed1959 Node and201 Python tests under
+The replacement local source suite passed1960 Node and201 Python tests under
 Python3.11. The earlier mistaken Python3.10 aggregate FAIL is retained. The final
 six-context panel matrix passed all18 action panes and432 status-only samples at
 0px drift, plus native BOM paste/full memo copying, IME, the exact347.15° pose,
 forward/reverse headings, visual viewport/insets, DPR1/2/3, contracted heights and
-touch/cancellation. See [source](results/source-BOM-final.json),
-[panel matrix](results/panel-six-final.json), [asset reproduction](results/reproduce-BOM-final.json)
-and [backend parity](results/backend-parity-BOM-final.json).
+touch/cancellation. See [source](results/source-cancel-final.json),
+[panel matrix](results/panel-six-final.json), [asset reproduction](results/reproduce-427199b.json)
+and [backend parity](results/backend-parity-427199b.json).
 
 The exact replacement frozen frontend also passed actual mainnet-backed read-only
 Rules7 at320/390/desktop, including full recipient/amount/memo native paste and
 quantity +/− coherence, with no suffix offered. First verified worlds took
-6.857/5.435/5.291seconds in this observed run. These are local frozen
+5.443/4.069/4.072seconds in this observed run. These are local frozen
 HTTP assets with actual authenticated European data, not production deployment,
 physical-device acceptance or a performance-improvement claim. Earlier2.3second
 observations belong to their earlier frozen source and network window. See
@@ -319,5 +321,6 @@ rejection. No global error suppression, acceptance after cancellation, hash/leng
 relaxation, deadline change, music/mix/tempo/voice-budget change or backend change
 is introduced. Both the ordinary and controlled HTTP journeys pass after repair,
 with zero page errors; all nine loader units pass. The controlled regression is
-added to the existing hosted Browser gate. Native audio output/visibility and new
-frozen artifacts are being completed before fresh exact-source qualification.
+added to the existing hosted Browser gate. Native software output and real-tab recovery pass after the repair; the new
+79-file freeze has passed local source and disposable installed qualification.
+Fresh exact-source hosted qualification remains required.

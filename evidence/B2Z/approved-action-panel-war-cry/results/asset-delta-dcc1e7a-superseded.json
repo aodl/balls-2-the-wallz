@@ -1,0 +1,83 @@
+{
+  "source": "dcc1e7a2c55aa159b30fd19e9d251801b1106134",
+  "before_complete_files": 78,
+  "after_complete_files": 79,
+  "before_bytes": 76305513,
+  "after_bytes": 76335733,
+  "changed": [
+    {
+      "path": "app.mjs",
+      "before": {
+        "path": "app.mjs",
+        "bytes": 2105533,
+        "sha256": "3ee92eee3dda006c57f2dd17779e0e4babb947dc54942c6bd4998b975ebedbb2"
+      },
+      "after": {
+        "path": "app.mjs",
+        "bytes": 2126254,
+        "sha256": "59b946e9a40452e2ba9538260ac3141541777b6bb281cc282ab00e3d5aa21fd9"
+      }
+    },
+    {
+      "path": "backend.did",
+      "before": {
+        "path": "backend.did",
+        "bytes": 12328,
+        "sha256": "03799f2cdbe381753be5d89f92c0d258ca7e060d01dfb34af9586eee25b048e5"
+      },
+      "after": {
+        "path": "backend.did",
+        "bytes": 12483,
+        "sha256": "64d9e37d35320175c6e300a9a587c1d2c351e47f3e6bf1186b5ba35945b4a08a"
+      }
+    },
+    {
+      "path": "build-manifest.json",
+      "before": {
+        "path": "build-manifest.json",
+        "bytes": 21847,
+        "sha256": "911b155365e7e04e32b6320b14fde8e72cc6306dc730178bc44bf9e615032b21"
+      },
+      "after": {
+        "path": "build-manifest.json",
+        "bytes": 22321,
+        "sha256": "a89eb86aa49db978df2eef581e685b5a9e4c911e0a0b3ee6736bde136c3b07c0"
+      }
+    },
+    {
+      "path": "configuration-war-cry.bin",
+      "before": null,
+      "after": {
+        "path": "configuration-war-cry.bin",
+        "bytes": 1303,
+        "sha256": "26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a"
+      }
+    },
+    {
+      "path": "index.html",
+      "before": {
+        "path": "index.html",
+        "bytes": 12894,
+        "sha256": "601308516b27eb1adc8da8cbc9870ee18316f348a6dd395ea3df981b7a9ef67c"
+      },
+      "after": {
+        "path": "index.html",
+        "bytes": 14236,
+        "sha256": "038135a54d097cba7dd5091c73d17b15badbdfc1dfa272f42659c89c8d255358"
+      }
+    },
+    {
+      "path": "style.css",
+      "before": {
+        "path": "style.css",
+        "bytes": 26244,
+        "sha256": "bddbe2779a52c8f080f9816f9519c03067cc39dd53686112ffc8e0d765a4713b"
+      },
+      "after": {
+        "path": "style.css",
+        "bytes": 32469,
+        "sha256": "33ed035d11fbbaf22e67593498c5e561a6a254301a7f722c87de7dd7ce3a0039"
+      }
+    }
+  ]
+}

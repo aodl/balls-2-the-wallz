@@ -1,11 +1,12 @@
 # Active development — approved read-only panel and War Cry candidate
 
 Implementation and local source/native/browser qualification are complete; a
-replacement hosted qualification is pending after the proven UTF8 BOM correction.
-Frozen runtime `dcc1e7a2c55aa159b30fd19e9d251801b1106134`, JavaScript
-`59b946e9a40452e2ba9538260ac3141541777b6bb281cc282ab00e3d5aa21fd9`,
+replacement hosted qualification is pending after the proven UTF8 BOM correction
+and the narrowly reproduced optional-audio cancellation repair.
+Frozen runtime `427199b38e847f4cfb7142db2b42212e804169a6`, JavaScript
+`c37ed0c363902e29443ba9eb1501c6b653873945bb63e7d92b341f8400f1085d`,
 complete79-file inventory
-`c2cb60e831eec89acfd141e10b862d724622db77b185a5ec28506ac1dd38d17f`.
+`63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f`.
 Exact backend candidate `1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b`
 was rehearsed against the paid predecessor only in isolated PocketIC;
 **no production deployment or backend capability activation**. The paid European game remains on the corrected
