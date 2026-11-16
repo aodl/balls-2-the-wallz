@@ -829,7 +829,24 @@ fn run_entry_and_clearance_ordered(
         "clearance-receipts.json",
         &serde_json::json!({"status":"PASS","old_rule_move_position":old_position,"old_target":old_target,"receipts":receipts,"scope":"Whole normal-module processing window including Ledger/Index/physics; not isolated clearance cost","net_cycles":(cycles_before as i128-pic.cycle_balance(id) as i128).to_string()}),
     );
-    live.stop_live();
+    if combined {
+        let final_observation = observe(&pic, id).0;
+        std::fs::write(
+            out.join("final-publication.bin"),
+            final_observation.publication,
+        )
+        .unwrap();
+        std::fs::write(
+            out.join("final-certificate.cbor"),
+            final_observation
+                .certificate
+                .expect("actual local IC certificate"),
+        )
+        .unwrap();
+    }
+    if !combined {
+        live.stop_live();
+    }
     playability_installed::record(&pic, id, &mut rows, &out);
     let mut events = vec![];
     let mut metadata = BTreeMap::new();
@@ -868,21 +885,32 @@ fn run_entry_and_clearance_ordered(
         "trace.json",
         &serde_json::json!({"status":"PASS","initial_world_hex":hex(&initial.encode().unwrap()),"publications":rows,"inputs":payments.iter().map(|(n,p)|serde_json::json!({"position":n.to_string(),"payload_hex":p})).collect::<Vec<_>>(),"assigned":assigned,"artifact_events":events,"epoch_metadata":metadata}),
     );
+    let replay_command = if combined {
+        vec![
+            "tools/verify_combined_installed_history.mjs".to_owned(),
+            out.to_str().unwrap().to_owned(),
+        ]
+    } else {
+        vec![
+            "tools/replay_s14.mjs".to_owned(),
+            out.join("trace.json").to_str().unwrap().to_owned(),
+            out.join("replay.json").to_str().unwrap().to_owned(),
+        ]
+    };
     assert!(
         std::process::Command::new("node")
             .current_dir(&repo)
-            .args([
-                "tools/replay_s14.mjs",
-                out.join("trace.json").to_str().unwrap(),
-                out.join("replay.json").to_str().unwrap()
-            ])
+            .args(replay_command)
             .status()
             .unwrap()
             .success()
     );
+    if combined {
+        live.stop_live();
+    }
     save(
         &out,
         "result.json",
-        &serde_json::json!({"status":"PASS","predecessor_sha256":dtr_wire::hash(&prior),"candidate_sha256":dtr_wire::hash(&candidate),"synthetic_setup_only":true,"historical_wasm_upgrade":historical_upgrade,"qualified_payments_on_normal_module":true,"unfinished_operation_preserved":true,"entry_cutover_world_exact":true,"join_position":join,"publication_count":rows.len(),"net_cycles_window":(cycles as i128-pic.cycle_balance(id) as i128).to_string()}),
+        &serde_json::json!({"status":"PASS","predecessor_sha256":dtr_wire::hash(european_prior.as_ref().unwrap_or(&prior)),"module_upgrade_before_browser":upgrade_before_browser,"candidate_sha256":dtr_wire::hash(&candidate),"synthetic_setup_only":true,"historical_wasm_upgrade":historical_upgrade,"qualified_payments_on_normal_module":true,"unfinished_operation_preserved":true,"entry_cutover_world_exact":true,"join_position":join,"publication_count":rows.len(),"net_cycles_window":(cycles as i128-pic.cycle_balance(id) as i128).to_string()}),
     );
 }
