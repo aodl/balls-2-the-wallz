@@ -322,6 +322,14 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
         assert_eq!(arena_world(&pic, id).encode().unwrap(), before);
         assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
         assert_eq!(observe(&pic, id).0.publication, publication);
+        assert_eq!(
+            pic.canister_status(id, Some(controller()))
+                .unwrap()
+                .module_hash,
+            Some(
+                unhex("612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948").unwrap()
+            )
+        );
     }
     let mut payments = BTreeMap::new();
     // Previously rejected text stays rejected and is never reinterpreted at activation.
@@ -335,8 +343,8 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
         ),
     );
     admitted(&pic, id, old);
-    playability_installed::one_tick(&pic, id);
-    playability_installed::record(&pic, id, &mut rows, &out);
+    // Carry an actually admitted old-adapter input across the module upgrade.
+    // Execution still uses Rules7; it must never be reparsed as an annotated memo.
     let before = arena_world(&pic, id).encode().unwrap();
     let finance = funding_tests::preserved_finance(&pic, id);
     if european_prior.is_some() {
@@ -353,10 +361,20 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
         assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
         assert_eq!(observe(&pic, id).0.publication, publication);
         assert_eq!(status(&pic, id).source.admitted_to_exclusive, cursor);
+        assert_eq!(
+            pic.canister_status(id, Some(controller()))
+                .unwrap()
+                .module_hash,
+            Some(unhex(&dtr_wire::hash(&bytes("B2Z_S14_WASM"))).unwrap())
+        );
         upgrade_proof = Some(
-            serde_json::json!({"predecessor":"612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948","candidate":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"old_rule_payment_processed":old,"world_publication_source_and_finance_preserved":true}),
+            serde_json::json!({"predecessor":"612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948","candidate":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"old_rule_payment_admitted_before_upgrade":old,"old_normalized_input_preserved":true,"world_publication_source_and_finance_preserved":true}),
         );
     }
+    playability_installed::one_tick(&pic, id);
+    playability_installed::record(&pic, id, &mut rows, &out);
+    let before = arena_world(&pic, id).encode().unwrap();
+    let finance = funding_tests::preserved_finance(&pic, id);
     transition(&pic, id, transition_kind);
     assert_eq!(arena_world(&pic, id).encode().unwrap(), before);
     assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
