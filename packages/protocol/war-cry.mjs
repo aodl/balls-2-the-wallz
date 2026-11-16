@@ -48,5 +48,5 @@ export function readAnnotatedPayment(bytes){
 }
 export function semanticPayment(bytes){
  if(decoder.decode(bytes.slice(0,8))!=='BTZPAY03')return bytes;
- readAnnotatedPayment(bytes);const out=bytes.slice(0,56);out.set(encoder.encode('BTZPAY02'));return out;
+ readAnnotatedPayment(bytes);const out=Uint8Array.from(bytes.subarray(0,56));out.set(encoder.encode('BTZPAY02'));return out;
 }

@@ -34,3 +34,12 @@ test('combined launch annotations retain strict receipt and identity binding',as
  const launches=audit.events.filter(e=>e.launch_annotation);
  assert.throws(()=>validateLaunchAnnotations([...launches,...launches],audit.receipts,COMBINED_IDENTITY));
 });
+
+test('semantic seed projection preserves the complete raw authenticated Buffer',async()=>{
+ const{encodeAnnotatedPayment,semanticPayment}=await import('../../packages/protocol/war-cry.mjs');
+ const raw=Buffer.from(encodeAnnotatedPayment('01'.repeat(32),10000000n,{kind:'fire',cannon:1,angle:0,quantity:1},'Charge!'));
+ const before=Buffer.from(raw),out=semanticPayment(raw);
+ assert.deepEqual(raw,before,'raw input remains BTZPAY03 with exact cry');
+ assert.equal(Buffer.from(out).subarray(0,8).toString(),'BTZPAY02');
+ out[8]^=1;assert.deepEqual(raw,before,'projection has no shared mutable storage');
+});

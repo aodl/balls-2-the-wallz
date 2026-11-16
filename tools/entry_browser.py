@@ -32,11 +32,35 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
     page.set_viewport_size({'width':390,'height':844});page.wait_for_timeout(300);page.screenshot(path=str(out/'after-join-mobile.png'))
     report['entry']={'status':'PASS','existing_session':True,'navigation_after_initial':len(navigations),'rules6_full_world_quote_blocked':True,'rules7_full_world_quote_amount':'1 ICP','memo':'NEW 0 1','independent_disposable_payment':'Harness independently sends two-ball NEW; UI defaults to one included ball. This receipt is not associated with saved instructions.','receipt':receipt,'position':sent['position'],'receipt_wait_seconds':confirmed-started,'confirmed_to_visible_seconds':time.monotonic()-confirmed,'heads':page.evaluate('__dtrLive.heads'),'camera_preserved_through_rules_handoff':True,'source':'Actual valueless Ledger/Index admission and authenticated artifacts, not inferred from counts'}
     record('rules-7-occupied-world-join-receipt-and-presentation',report['entry']);save()
+    old_packet=None
+    if configuration.get('clearance_rules_version')==11:
+        select_cannon(page,2);page.locator('#fire-action').click()
+        wait_until(page,lambda:page.locator('[data-copy=amount]').is_enabled(),30000)
+        page.evaluate('''()=>{const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async value=>{await write(value);globalThis.combinedCopied=value}}''')
+        old_packet={'memo':page.locator('#text-memo').inner_text(),'amount':page.locator('#transfer-amount').inner_text()}
+        assert '|'not in old_packet['memo']and page.locator('#war-cry-editor').is_hidden()
+        page.locator('[data-copy=text]').click();wait_until(page,lambda:page.evaluate('globalThis.combinedCopied')==old_packet['memo'],10000)
+        page.screenshot(path=str(out/'rules7-copied-before-combined.png'))
     (out/'browser-join-seen').write_text('genuine receipt and same-page presentation verified\n')
     wait_file(page,out/'clearance-activated',180000)
     target_rules=configuration.get('clearance_rules_version',9)
     assert target_rules in (9,11)
     wait_until(page,lambda:page.evaluate('__b2zExperience.session.config.rules_version')==target_rules,60000)
+    if old_packet:
+        wait_until(page,lambda:page.locator('#replace-choice').is_visible(),30000)
+        assert page.locator('[data-copy=text]').is_disabled()
+        page.locator('#keep-instructions').click()
+        assert page.locator('#text-memo').inner_text()==old_packet['memo']and page.locator('[data-copy=text]').is_disabled()
+        assert page.locator('#war-cry-editor').is_visible()
+        page.locator('#quantity-plus').click()
+        wait_until(page,lambda:page.locator('#replace-choice').is_visible(),10000)
+        page.locator('#replace-instructions').click()
+        wait_until(page,lambda:page.locator('[data-copy=text]').is_enabled(),30000)
+        page.locator('#war-cry').fill('Combined!')
+        wait_until(page,lambda:page.locator('#text-memo').inner_text().endswith('|Combined!'),10000)
+        assert len(page.locator('#text-memo').inner_text().encode())<=32
+        report['combined_packet_transition']={'old':old_packet,'new_memo':page.locator('#text-memo').inner_text(),'stale_copy_disabled_after_keep':True,'explicit_update_then_supported_cry':True}
+        page.screenshot(path=str(out/'rules11-replaced-packet-and-cry.png'));save()
     wait_until(page,lambda:page.locator('#move-action').is_disabled()and page.locator('#build-action').is_disabled()and page.locator('#move-action').get_attribute('title')=='No legal move destination',30000)
     assert page.locator('#move-action').get_attribute('title')=='No legal move destination'
     page.screenshot(path=str(out/'rules9-no-safe-destinations.png'))
