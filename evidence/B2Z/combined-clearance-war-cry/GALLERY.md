@@ -42,3 +42,13 @@ These are distinct scopes; none is a production Rules11 activation.
 
 Native-input WebMs accompany the frozen-mainnet viewport folders. They record
 visual interaction, not physical phones or independently captured audible output.
+
+
+The final clean-source observed-pause rehearsal retains the same native UI proof:
+[actual fresh paused status](results/paused-ack-european/browser/browser-clearance-pause-seen),
+[authenticated Rules11 Update](results/paused-ack-european/browser/rules11-replaced-packet-and-cry.png),
+[no safe destination](results/paused-ack-european/browser/rules9-no-safe-destinations.png).
+This is disposable IC, not production activation. The former hosted assertion
+failure remains [visually preserved](results/hosted-43872278065-failure/browser/exception-browser.png).
+
+[Final actual production79 at15:24UTC](results/production-closeout/live-final.png) remains Rules7; this is read-only preservation, not Rules11 activation.

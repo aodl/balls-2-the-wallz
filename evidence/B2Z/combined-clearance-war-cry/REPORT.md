@@ -5,11 +5,13 @@ The approved panel deployment and live acceptance are recorded separately in
 [the deployment report](../approved-action-panel-war-cry/deployment/REPORT.md).
 Development is isolated on `feature/b2z-combined-clearance-war-cry`, starting from
 published deployment-evidence commit `6afe3b2fc2426887f905259312f5c090ed7dc7ab`.
-Final exact-source hosted qualification is pending; no earlier separately green
-Rules9/Rules10 run qualifies this composition.
-The final test continuation at `b1d7fe81670962b410966a2786301b1c55d52c31`
-passed five gates but failed the installed paused-Copy assertion; its negative
-evidence and the explicit observed-pause correction are recorded below.
+**All six substantive gates PASS** for final exact source
+`c0e3dd28879199c48aae328d712d6543ffcc5455` in
+[run43884464465](https://github.com/aodl/balls-2-the-wallz/actions/runs/43884464465),
+including S14/million-cell installed-IC. The informational inventory guard is
+excluded. Earlier separately green Rules9/Rules10 runs do not qualify this
+composition. The b1d7fe8 continuation's failed paused-Copy assertion and the
+explicit observed-pause correction remain recorded below.
 
 ## Identities and separation
 
@@ -390,8 +392,9 @@ with its actual source.
 The final continuation adds paused setup acknowledgement, the positive ordered
 European rehearsal and stronger final-receipt certificate/HTTP assertions. It
 changes no runtime/build/dependency input or frozen artifact. A full final-source
-run of those stronger assertions is still pending publication/completion. No
-previous pass is presented as a run of changed test code.
+run of those stronger assertions initially failed at b1d7fe8 as documented below.
+After the explicit observed-pause correction, all six final-source gates pass at
+c0e3dd2/run43884464465. No previous pass is presented as a run of changed test code.
 
 ### Final-continuation negative and observed operational pause
 
@@ -420,7 +423,7 @@ timeout pass. [Original failure](results/hosted-43872278065-failure/diagnosis.js
 [actual browser state](results/hosted-43872278065-failure/browser/exception-browser-state.json),
 [controller cutover](results/hosted-43872278065-failure/clearance-cutover.json).
 
-## Scope matrix before final hosted closeout
+## Final qualification scope matrix
 
 | Check | Result and actual scope |
 | --- | --- |
@@ -436,7 +439,7 @@ timeout pass. [Original failure](results/hosted-43872278065-failure/diagnosis.js
 | Shared panel/native input/quantity347.15°/contractions | PASS, controlled fixture and separate actual deployed79 acceptance |
 | Exact future80 mainnet-backed Rules7 | PASS three views, full-value API copying; first390 blocked then separately ready |
 | Current production79 preservation | PASS signed78-file metadata, fresh three-body/header/BLS sample; original all78-body deployment proof retained |
-| Frozen runtime six hosted gates | PASS686b2d9/run43859604893; final test-only continuation still requires its exact-source run |
+| Final exact-source six hosted gates | PASS c0e3dd28879199c48aae328d712d6543ffcc5455/run43884464465, including installed-IC |
 | Supplemental mixed module-install/browser capture | FAIL, retained unqualified interruption experiment; positive ordered maintenance scope is separate |
 | Isolated shared-host purchase cost | MEASURED, with noisy A/A tails; no representative hardware pass |
 | Historical audio P09 | FAIL/unqualified; accepted only for the existing controlled trial |
@@ -451,4 +454,89 @@ clearance rejection receipts. [Actual observed pause](results/paused-ack-normal/
 [installed result](results/paused-ack-normal/results.json),
 [final certificate/HTTP proof](results/paused-ack-normal/authenticated/result.json).
 This local run explicitly records an uncommitted test-only continuation; its new
-source commit still requires all six hosted gates.
+source commit subsequently passes all six hosted gates as recorded below.
+
+
+## Final exact-source qualification and release recommendation
+
+Final published application/test source:
+`c0e3dd28879199c48aae328d712d6543ffcc5455`, branch
+`feature/b2z-combined-clearance-war-cry`. All six substantive hosted jobs in
+[43884464465](https://github.com/aodl/balls-2-the-wallz/actions/runs/43884464465)
+conclude **success**, including the formerly failing installed test:
+
+| Gate | Final conclusion |
+| --- | --- |
+| Source conformance | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm | PASS |
+| Browser HTTP and Web Crypto | PASS |
+| S14 and million-cell installed-IC qualification | PASS |
+
+[Exact job identities](results/checks/ci-43884464465.json) exclude the informational
+BLOCKED production-inventory guard. The actual hosted Wasm artifact14234281799,
+archive SHA256 `20f48e92b85c41acccb396106922e00ad8305513fccf5025afc4eb6bf5ce2d36`,
+was independently downloaded and compared byte-for-byte: it reproduces the selected
+normal5ffb6c… module. [Attestation](results/checks/qualified-hosted-wasm-43884464465.json).
+[All420 frontend and53 backend consumed inputs](results/checks/final-qualified-input-parity.json)
+remain identical to the freezes; no runtime/build/dependency input changed during
+the test correction or this evidence-only closeout. Neither freeze was rebuilt or
+relabelled. The earlier bootstrap, b1d7fe8 and mixed-interruption failures remain
+associated with their actual sources and conclusions.
+
+The corrected exact-European rehearsal also passes on **clean c0e3dd2**,300.151s,
+using actual predecessor612ad0… and selected normal5ffb6c… . It independently
+replays all123 publications:121 gameplay segments/two checkpoints and paid inputs
+2–6. The native observer's strict wire fence is121, with zero errors or pending
+bodies; final separately fetched signed HTTP/certificate artifacts anchor head122
+and both late rejection receipts. This distinction is deliberate: no incomplete
+native response is treated as complete. Seven tampering/incompleteness negatives
+still reject. The real browser observes paused Rules7 with a1453.3ms-old operational
+reply and disabled Copy before epoch commit, then retains all stale Keep/explicit
+Update/War Cry and no-safe-destination assertions without an override.
+[Clean installed result](results/paused-ack-european/results.json),
+[actual pause](results/paused-ack-european/browser/browser-clearance-pause-seen),
+[complete replay](results/paused-ack-european/replay.json),
+[final signed HTTP/certificate proof](results/paused-ack-european/authenticated/result.json),
+[native capture index](results/paused-ack-european/browser/wire-index.json).
+
+**Recommendation:** retain the successful production79-file panel release; approve
+neither backend nor frontend80 implicitly. The combined candidate is ready for
+independent review under the ordered maintenance procedure in
+[RELEASE_DECISIONS.md](RELEASE_DECISIONS.md). First separately approve compatible
+frontend80, then exact normal backend upgrade while paused, then current-manifest
+preparation/commit and separately controlled resume. Require an actual observed
+paused operational state before cutover. Old Rules7-only rollback is unsafe after
+the durable transition extension/epoch; use compatible state-preserving forward
+recovery. The failed mixed module/browser interruption scope remains unqualified.
+
+No combined production install, preparation, activation, payment, funding, settings
+or controller operation occurred. Existing audio/P09 FAIL and physical-device,
+Firefox/Safari/headphone/Bluetooth/BFCache limitations remain unchanged. This final
+publication contains only reviewed documentation/evidence and does not authorise
+production activation.
+
+
+### Final read-only production preservation at15:24UTC
+
+A fresh real-site observation at2026-11-16T15:24:02.086Z authenticates Rules7,
+head9880, unchanged configuration8eca3f…/source54d927… and no browser/verification
+error. Backend module612ad0… and frontend asset module04e565… remain unchanged;
+certified controllers/subnet and all78 signed inventory entries still match the
+installed79-file frontend. Fresh HTML, appC37 and audio-manifest76ed bytes,
+MIME/security/cache headers and all three complete IC-v2 BLS/body/header/path
+proofs pass. This is a fresh **three-body preservation sample**, supplementing
+A's original all78-body installation verification, not a second all78-body fetch.
+The previous78-file rollback and both frozen candidates remain separately intact.
+
+The actual backend is running/Trickle,10 milliticks/s, admission open, source
+binding checked, no source/run error, pending source records0 and source cursor
+40180669. Browser canPrepare is true at this observation; no Copy or payment was
+performed in this final preservation sample. Public cycles report2,362,674,766,646,
+reserved0 and no rate/runway estimate. Liquid/treasury/pending-funding facts remain
+unestablished; this read does not authorise funding or operational changes.
+[Actual final observation](results/production-closeout/observation-final.json),
+[certified modules](results/production-closeout/metadata-final.json),
+[signed inventory](results/production-closeout/inventory-final.json),
+[fresh body/header proofs](results/production-closeout/http-certificates-final.json).

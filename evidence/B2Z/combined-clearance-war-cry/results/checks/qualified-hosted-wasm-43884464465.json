@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "source": "c0e3dd28879199c48aae328d712d6543ffcc5455",
+  "run": 43884464465,
+  "artifact": 14234281799,
+  "archive_digest": "sha256:20f48e92b85c41acccb396106922e00ad8305513fccf5025afc4eb6bf5ce2d36",
+  "normal_wasm_sha256": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "bytes": 3659359,
+  "byte_identical_to_selected_frozen_module": true,
+  "scope": "Exact hosted observed-pause test correction build; frozen original preserved, not replaced or relabelled"
+}

@@ -4,16 +4,24 @@
 
 Rules11 development is isolated on `feature/b2z-combined-clearance-war-cry`, based
 on published deployment evidence `6afe3b2`. It composes Rules9 clearance and Rules10
-War Cry. All six substantive gates pass for686b2d9 in run43859604893.
-The exact hosted normal5ffb6c… and compatible80-file frontend are frozen;
-actual paid-predecessor/financial/certificate/native-browser closeouts pass locally.
-The final test-only continuation adds stronger final-receipt HTTP/BLS assertions.
-Its b1d7fe8 run43872278065 passes five gates but fails the installed paused-Copy
-assertion before real paused operational confirmation reaches the browser. The
-focused correction requires that actual fresh observation before epoch commit;
-its final exact-source qualification remains pending. No runtime/build/dependency
-bytes changed; no combined production operation is authorised or performed.
+War Cry. **All six substantive gates PASS** for final exact source
+`c0e3dd28879199c48aae328d712d6543ffcc5455` in
+[run43884464465](https://github.com/aodl/balls-2-the-wallz/actions/runs/43884464465),
+including installed-IC; the informational inventory guard is excluded.
+The exact hosted normal5ffb6c… and compatible80-file frontend are frozen and input
+parity is unchanged. Actual paid-predecessor, financial, certificate, complete
+replay and two-observer native closeouts pass locally. The earlier b1d7fe8 paused-
+Copy failure remains preserved; explicit fresh operational-pause acknowledgement
+corrects its test precondition without changing runtime bytes or weakening Copy.
+The final clean-source European rehearsal passes123-publication replay and strict
+native capture. Supplemental mixed module/browser interruption failures remain
+unqualified; future maintenance must follow the documented ordering. No combined
+production operation is authorised or performed.
 Production stays on the approved79-file panel frontend and unchanged Rules7.
+A final15:24UTC read-only check confirms head9880, running/Trickle10 milliticks/s,
+open admission and unchanged modules, controllers, signed78-file inventory and
+Rules7/source identity. Three fresh body/header/IC-v2 proofs pass. No backend or
+financial operation occurred; cycle-rate/runway and liquid balance are not inferred.
 See [the current candidate report](evidence/B2Z/combined-clearance-war-cry/REPORT.md)
 and [separate release decisions](evidence/B2Z/combined-clearance-war-cry/RELEASE_DECISIONS.md).
 

@@ -17,12 +17,16 @@ is Rules7; none of the following backend operations has been performed.
   complete inventory `e8a9303538dbb2cc5028b21cf5ae97caacdb9c438497a35a567e30a9071a0c67`,
   `.work/combined-clearance-war-cry/frozen/frontend`.
 
-These identities name artifacts; final qualification status is in REPORT.md.
-They do not grant deployment authority.
+All six substantive gates pass for exact source
+`c0e3dd28879199c48aae328d712d6543ffcc5455` in run43884464465. The hosted normal
+module reproduces5ffb6c… byte-for-byte; the final clean European rehearsal passes
+123-publication certificate/HTTP replay with actual observed paused readiness.
+These identities and qualification results do not grant deployment authority.
+The separate mixed module/browser interruption scope remains unqualified.
 
 ## Decision1: compatible frontend before the backend
 
-Approve only the exact80-file freeze once all six final-source gates pass. Preserve
+All six final-source gates have passed. Separately approve only the exact80-file freeze. Preserve
 both the current79-file frontend and the80-file freeze separately. Stage/rehash all
 80 files, then use the maintained observer-only assets procedure. Verify all79
 public files, signed inventory, IC-v2 certification, MIME/cache/CSP and unchanged

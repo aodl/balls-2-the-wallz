@@ -182,3 +182,21 @@ is2,404,531,536,354/reserved0; no liquid/runway/funding estimate is inferred.
 [Preservation evidence](../../combined-clearance-war-cry/results/production-preservation/observation-final.json)
 is distinct from the **undeployed** combined-compatible80-file candidate. No
 additional deployment or backend/financial/funding/settings operation occurred.
+
+
+## Final preservation after combined development —15:24UTC
+
+The final read-only production check at2026-11-16T15:24:02.086Z still authenticates
+Rules7/head9880, unchanged configuration/source and backend module612ad0… . The
+frontend asset module/controllers/subnet and all78 signed asset entries remain
+unchanged. Fresh HTML/appC37/audio-manifest76ed body/header hashes and full IC-v2
+BLS/path/body/header proofs pass. This supplements the original all78-body
+installation check with a **three-body preservation sample**, not a new deployment
+or claim that every media body was refetched. No runtime error; running/Trickle
+10 milliticks/s, admission open, checked healthy source, pending source records0,
+cursor40180669 and actual canPrepare true. Public cycle balance2,362,674,766,646,
+reserved0; no rate/runway or liquid/treasury/funding inference is made.
+[Final certified preservation evidence](../../combined-clearance-war-cry/results/production-closeout/observation-final.json).
+The six-gate-qualified future Rules11/frontend80 candidates remain undeployed.
+The current79 freeze and preceding78 rollback remain preserved, with no backend,
+financial, funding or settings operation.

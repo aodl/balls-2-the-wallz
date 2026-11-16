@@ -1,0 +1,7 @@
+{
+  "authenticated_receipt_and_visible_entities": true,
+  "payment_position": "3",
+  "running_before_old_packet_and_cutover": true,
+  "scope": "setup coordination only; not a throughput or latency qualification",
+  "status": "RELEASED"
+}

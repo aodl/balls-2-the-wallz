@@ -1,0 +1,58 @@
+{
+  "status": "PASS",
+  "source": "c0e3dd28879199c48aae328d712d6543ffcc5455",
+  "run": 43884464465,
+  "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43884464465",
+  "substantive_gates": 6,
+  "jobs": [
+    {
+      "id": 133358741780,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "counted": true
+    },
+    {
+      "id": 133358742098,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "counted": true
+    },
+    {
+      "id": 133358742212,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "counted": true
+    },
+    {
+      "id": 133358742273,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "counted": true
+    },
+    {
+      "id": 133358742276,
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success",
+      "counted": false
+    },
+    {
+      "id": 133358742357,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "counted": true
+    },
+    {
+      "id": 133358742516,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "counted": true
+    }
+  ]
+}
