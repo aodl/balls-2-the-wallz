@@ -2,6 +2,7 @@
 #![forbid(unsafe_code)]
 pub mod capture_v6;
 pub mod clearance_v9;
+pub mod combined_v11;
 mod cursor;
 mod cursor_v6;
 mod economics_generated;

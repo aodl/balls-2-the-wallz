@@ -373,8 +373,11 @@ impl Cursor {
         let entry = crate::entry_v7::identity()?;
         let clearance = crate::clearance_v9::identity()?;
         let war_cry = crate::war_cry::identity()?;
-        let is_war_cry = context.get("config_hash") == war_cry.get("config_hash");
-        let is_clearance = context.get("config_hash") == clearance.get("config_hash");
+        let combined = crate::combined_v11::identity()?;
+        let is_combined = context.get("config_hash") == combined.get("config_hash");
+        let is_war_cry = is_combined || context.get("config_hash") == war_cry.get("config_hash");
+        let is_clearance =
+            is_combined || context.get("config_hash") == clearance.get("config_hash");
         let is_entry = context.get("config_hash") == entry.get("config_hash");
         let is_playability = context.get("config_hash") == playability.get("config_hash");
         let is_million = context.get("config_hash") == million.get("config_hash");
@@ -386,7 +389,9 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_war_cry {
+        let expected = if is_combined {
+            combined
+        } else if is_war_cry {
             war_cry
         } else if is_clearance {
             clearance

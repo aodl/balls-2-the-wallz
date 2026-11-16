@@ -22,11 +22,52 @@ fn transition(pic: &PocketIc, id: Principal, kind: &str) {
         }
     }
     assert!(ready, "drained {kind} boundary");
+    let manifest = observe(pic, id).1.head.manifest_hash;
+    let wrong = pic
+        .update_call(
+            id,
+            controller(),
+            &format!("commit_{kind}_transition"),
+            candid::encode_one("00".repeat(32)).unwrap(),
+        )
+        .unwrap();
+    assert!(
+        decode_one::<Result<Vec<u8>, String>>(&wrong)
+            .unwrap()
+            .is_err(),
+        "stale/wrong manifest must fail"
+    );
     let _: Vec<u8> = get_result(
         pic,
         id,
         &format!("commit_{kind}_transition"),
-        candid::encode_one(observe(pic, id).1.head.manifest_hash).unwrap(),
+        candid::encode_one(manifest.clone()).unwrap(),
+    );
+    let installed = observe(pic, id).0.publication;
+    let _: Vec<u8> = get_result(
+        pic,
+        id,
+        &format!("commit_{kind}_transition"),
+        candid::encode_one(manifest).unwrap(),
+    );
+    assert_eq!(
+        observe(pic, id).0.publication,
+        installed,
+        "same commit is idempotent"
+    );
+    let wrong = pic
+        .update_call(
+            id,
+            controller(),
+            &format!("commit_{kind}_transition"),
+            candid::encode_one("ab".repeat(32)).unwrap(),
+        )
+        .unwrap();
+    assert!(
+        decode_one::<Result<Vec<u8>, String>>(&wrong)
+            .unwrap()
+            .is_err(),
+        "conflicting commit retry must fail"
     );
 }
 fn admitted(pic: &PocketIc, id: Principal, position: u64) {
@@ -40,7 +81,7 @@ fn admitted(pic: &PocketIc, id: Principal, position: u64) {
 }
 #[test]
 fn war_cry_real_ledger_index_launch_and_independent_replay() {
-    run_war_cry(None);
+    run_war_cry(None, false);
 }
 #[test]
 #[ignore = "exact retained paid European Rules7 module; disposable upgrade only"]
@@ -50,11 +91,35 @@ fn war_cry_european_rules7_upgrade() {
         dtr_wire::hash(&prior),
         "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948"
     );
-    run_war_cry(Some(prior));
+    run_war_cry(Some(prior), false);
 }
-fn run_war_cry(european_prior: Option<Vec<u8>>) {
+#[test]
+fn combined_real_ledger_index_launch_and_independent_replay() {
+    run_war_cry(None, true);
+}
+#[test]
+#[ignore = "exact retained paid European Rules7 module; disposable combined upgrade only"]
+fn combined_european_rules7_launch_upgrade() {
+    let prior = bytes("B2Z_EUROPEAN_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&prior),
+        "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948"
+    );
+    run_war_cry(Some(prior), true);
+}
+fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
+    let transition_kind = if combined { "combined" } else { "war_cry" };
+    let configuration = if combined {
+        b2z_native::combined_v11::configuration()
+    } else {
+        b2z_native::war_cry::configuration()
+    };
     let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
-    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("war-cry");
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join(if combined {
+        "combined-launch"
+    } else {
+        "war-cry"
+    });
     std::fs::create_dir_all(&out).unwrap();
     let f: serde_json::Value =
         serde_json::from_slice(&std::fs::read(repo.join("tests/fixtures/rules-v6.json")).unwrap())
@@ -112,9 +177,12 @@ fn run_war_cry(european_prior: Option<Vec<u8>>) {
     get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
     // New controller methods are never a public game-command surface.
     for (method, args) in [
-        ("prepare_war_cry_transition", encode_args(()).unwrap()),
         (
-            "commit_war_cry_transition",
+            &format!("prepare_{transition_kind}_transition"),
+            encode_args(()).unwrap(),
+        ),
+        (
+            &format!("commit_{transition_kind}_transition"),
             candid::encode_one("0".repeat(64)).unwrap(),
         ),
     ] {
@@ -131,7 +199,7 @@ fn run_war_cry(european_prior: Option<Vec<u8>>) {
         .query_call(
             id,
             Principal::anonymous(),
-            "war_cry_transition_status",
+            &format!("{transition_kind}_transition_status"),
             encode_args(()).unwrap(),
         )
         .unwrap();
@@ -144,7 +212,7 @@ fn run_war_cry(european_prior: Option<Vec<u8>>) {
         .update_call(
             id,
             controller(),
-            "prepare_war_cry_transition",
+            &format!("prepare_{transition_kind}_transition"),
             encode_args(()).unwrap(),
         )
         .unwrap();
@@ -208,12 +276,12 @@ fn run_war_cry(european_prior: Option<Vec<u8>>) {
             serde_json::json!({"predecessor":"612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948","candidate":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"old_rule_payment_processed":old,"world_publication_source_and_finance_preserved":true}),
         );
     }
-    transition(&pic, id, "war_cry");
+    transition(&pic, id, transition_kind);
     assert_eq!(arena_world(&pic, id).encode().unwrap(), before);
     assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
     assert_eq!(
         observe(&pic, id).1.identity.config_hash,
-        dtr_wire::hash(b2z_native::war_cry::configuration())
+        dtr_wire::hash(configuration)
     );
     playability_installed::record(&pic, id, &mut rows, &out);
     // The actual pinned ICP Ledger must enforce the end-to-end byte limit.
@@ -417,7 +485,7 @@ fn run_war_cry(european_prior: Option<Vec<u8>>) {
     save(
         &out,
         "configuration.json",
-        &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":account,"expected_cry":"Build!","expected_cannon":3}),
+        &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":account,"expected_cry":"Build!","expected_cannon":3,"expected_rules":if combined {11}else{10}}),
     );
     assert!(
         std::process::Command::new("node")

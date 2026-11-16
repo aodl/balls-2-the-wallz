@@ -106,3 +106,11 @@ history, reset/reinstall, reindex a Ledger input or blindly restore the old modu
 The installed disposable test pins the actual European predecessor module hash,
 executes an old-rule payment on it, then proves upgrade and cutover preservation.
 That proof does not authorize or replace fresh production observations and approval.
+
+## Combined successor development
+
+[Rules11](B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md) retains this complete clearance
+policy and combines authenticated War Cry under adapter6. Rules9 and its hashes
+remain historical independent candidates. The combined direct Rules7 cutover
+requires its own exact-source qualification and separate production approval.
+No intermediate Rules9 or Rules10 production activation is planned or authorised.

@@ -1,5 +1,15 @@
 # Current production — approved79-file payment panel on Rules7
 
+## Combined successor development (separate from the live frontend)
+
+Rules11 development is isolated on `feature/b2z-combined-clearance-war-cry`, based
+on published deployment evidence `6afe3b2`. It composes Rules9 clearance and Rules10
+War Cry; source/installed qualification and frozen artifacts remain pending.
+Production stays on the approved79-file panel frontend and unchanged Rules7.
+See [the current candidate report](evidence/B2Z/combined-clearance-war-cry/REPORT.md)
+and [separate release decisions](evidence/B2Z/combined-clearance-war-cry/RELEASE_DECISIONS.md).
+
+
 16 November2026: the owner-authorised exact shared-panel frontend is installed on
 `s2jxj-liaaa-aaaas-amynq-cai`. All78 public bodies, reviewed headers, signed
 inventory and fresh ICv2 BLS/body/header/path witnesses matched. Qualified source

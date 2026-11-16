@@ -34,10 +34,12 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
     record('rules-7-occupied-world-join-receipt-and-presentation',report['entry']);save()
     (out/'browser-join-seen').write_text('genuine receipt and same-page presentation verified\n')
     wait_file(page,out/'clearance-activated',180000)
-    wait_until(page,lambda:page.evaluate('__b2zExperience.session.config.rules_version')==9,60000)
+    target_rules=configuration.get('clearance_rules_version',9)
+    assert target_rules in (9,11)
+    wait_until(page,lambda:page.evaluate('__b2zExperience.session.config.rules_version')==target_rules,60000)
     wait_until(page,lambda:page.locator('#move-action').is_disabled()and page.locator('#build-action').is_disabled()and page.locator('#move-action').get_attribute('title')=='No legal move destination',30000)
     assert page.locator('#move-action').get_attribute('title')=='No legal move destination'
     page.screenshot(path=str(out/'rules9-no-safe-destinations.png'))
-    report['clearance']={'status':'PASS','same_page':True,'active_rules':9,'move_disabled':True,'build_disabled':True,'certificate_mode':page.evaluate('__dtrLive.delivery.acceptedHeads.at(-1).mode')}
+    report['clearance']={'status':'PASS','same_page':True,'active_rules':target_rules,'move_disabled':True,'build_disabled':True,'certificate_mode':page.evaluate('__dtrLive.delivery.acceptedHeads.at(-1).mode')}
     assert report['clearance']['certificate_mode']=='certificate-verifier'
-    record('rules-9-authenticated-handoff-and-no-safe-destinations',report['clearance']);save()
+    record(f'rules-{target_rules}-authenticated-handoff-and-no-safe-destinations',report['clearance']);save()

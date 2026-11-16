@@ -337,3 +337,17 @@ A combined successor requires its own exact-source qualification and compatible
 frontend approval before any later separately approved backend module/epoch
 operation. Never activate standalone9 or10 as a shortcut, or deploy a changed
 compatibility bundle under the completed79-file approval.
+
+## Combined Rules11 development boundary
+
+The approved79-file payment-panel frontend is installed separately; production
+remains Rules7. The combined candidate and direct cutover are specified in
+[B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md](../specs/B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md).
+Do not use standalone Rules9 or Rules10 as an intermediate production shortcut.
+The compatible frontend, exact normal backend module, preparation, epoch commit
+and ordinary-operation resume require separate concrete owner decisions; see
+[RELEASE_DECISIONS](../../evidence/B2Z/combined-clearance-war-cry/RELEASE_DECISIONS.md).
+Preparation may already write a durable field unknown to the old strict Root
+decoder. After preparation retain a tested compatible forward-recovery module;
+after epoch commit no Rules7-only backend or frontend is a blind rollback target.
+Never reset state, reverse the epoch or Ledger cursor, or reindex paid history.

@@ -313,7 +313,10 @@ fn cannon(w: &World, id: u32) -> Result<Option<CannonView>> {
 }
 pub fn game_info() -> Result<GameInfo> {
     let (r, p, w) = load()?;
-    let configuration = if p.identity.config_hash == hash(b2z_native::war_cry::configuration()) {
+    let configuration = if p.identity.config_hash == hash(b2z_native::combined_v11::configuration())
+    {
+        b2z_native::combined_v11::configuration()
+    } else if p.identity.config_hash == hash(b2z_native::war_cry::configuration()) {
         b2z_native::war_cry::configuration()
     } else if p.identity.config_hash == hash(b2z_native::clearance_v9::configuration()) {
         b2z_native::clearance_v9::configuration()
@@ -647,8 +650,10 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
         &action,
         p.identity.config_hash == hash(b2z_native::entry_v7::configuration())
             || p.identity.config_hash == hash(b2z_native::war_cry::configuration())
-            || p.identity.config_hash == hash(b2z_native::clearance_v9::configuration()),
-        p.identity.config_hash == hash(b2z_native::clearance_v9::configuration()),
+            || p.identity.config_hash == hash(b2z_native::clearance_v9::configuration())
+            || p.identity.config_hash == hash(b2z_native::combined_v11::configuration()),
+        p.identity.config_hash == hash(b2z_native::clearance_v9::configuration())
+            || p.identity.config_hash == hash(b2z_native::combined_v11::configuration()),
     )?;
     let amount = prices
         .iter()

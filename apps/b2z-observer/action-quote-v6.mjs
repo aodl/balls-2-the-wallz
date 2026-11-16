@@ -32,7 +32,7 @@ export function quoteV6(w,config,account,{kind,cannon,angle='0',quantity=1,cell=
  }else if(kind==='new'){
   check(w.playability.players.some(p=>p.account===account)||w.playability.players.length<config.max_players,'ACCOUNTING_CAPACITY');
   check(mine.length<config.max_retained_per_player,'PLAYER_CANNON_CAPACITY');check(w.cannons.length<config.max_cannons,'CANNON_CAPACITY');check(free>0,'BALL_CAPACITY');
-  if(!mine.length){check(cell===null,'FIRST_PLACEMENT_AUTOMATIC');if(![7,9,10].includes(config.rules_version))check(1000000-w.ownership.counts.reduce((sum,r)=>sum+r.cells,0)>=9,'NO_ELIGIBLE_SPAWN');}
+  if(!mine.length){check(cell===null,'FIRST_PLACEMENT_AUTOMATIC');if(![7,9,10,11].includes(config.rules_version))check(1000000-w.ownership.counts.reduce((sum,r)=>sum+r.cells,0)>=9,'NO_ELIGIBLE_SPAWN');}
   else{if(clearanceActive(config)){const old=legalAdjacentSites(w,account).filter(c=>sitePool(w,account,c)<config.max_purchase_balls_per_island),safe=legalAdjacentSites(w,account,config);if(cell!==null&&old.includes(cell)&&!safe.includes(cell)||old.length&&!safe.length)throw Error('ENEMY_TERRITORY_TOO_CLOSE');}const sites=legalAdjacentSites(w,account,config).filter(c=>sitePool(w,account,c)<config.max_purchase_balls_per_island);check(sites.length>0,'NO_ADJACENT_SITE');if(cell!==null){check(sites.includes(cell),'ILLEGAL_ADJACENT_SITE');pool=sitePool(w,account,cell);}else{const counts=new Set(sites.map(c=>sitePool(w,account,c)));check(quantity===1||counts.size===1,'CHOOSE_SITE_FOR_EXACT_BATCH');pool=counts.size===1?[...counts][0]:null;}}
   // An automatic one-ball New has a site-independent cannon price. Its eventual
   // merged pool is deliberately unspecified when eligible sites differ.

@@ -1105,3 +1105,13 @@ Locate retain their established hide rules. Layout exhaustion is never a hide ru
 The retained canonical pose, native interaction/status/viewport matrix and complete
 planner sweep run in `tools/verify_quantity_browser.py`, `tools/quantity_browser.py`
 and `tests/js/quantity-dock.test.mjs`, including the normal public entry route.
+
+### Combined clearance/War Cry compatibility
+
+The existing approved shared read-only panel and measured editor dock remain the
+visual contract. A distinct Rules11 compatibility candidate recognises both
+capabilities only under the exact authenticated combined configuration; Rules7
+continues bare commands, ordinary legality and no War Cry editor. At a rules
+transition the copied packet's rules/capability identity becomes stale and copying
+remains blocked until a coherent replacement is deliberately chosen. See
+[B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md](B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md).

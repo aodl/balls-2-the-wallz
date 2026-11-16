@@ -37,7 +37,7 @@ jobs:
         run: python -B tools/check_dtr_provenance.py --locks-only --output .work/ci-dtr-source.json
       - run: python -B tools/check.py source --output .work/ci-source
       - name: Reproduce exact approved panel and War Cry frozen assets
-        run: python -B tools/verify_approved_panel_freeze.py --output .work/ci-frozen-panel
+        run: python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/combined-clearance-war-cry/artifacts --output .work/ci-frozen-panel
       - name: Upload source evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -133,8 +133,8 @@ jobs:
       - name: Assert exact DTR release provenance
         run: python3 -B tools/check_dtr_provenance.py --manifest canisters/runtime-lab/Cargo.toml --output .work/ci-dtr-wasm.json
       - run: python3 -B tools/check.py wasm --output .work/ci-wasm
-      - name: Verify exact normal War Cry candidate module
-        run: python3 -B tools/verify_approved_panel_freeze.py --backend-only --wasm canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm --output .work/ci-frozen-wasm
+      - name: Verify exact normal combined clearance and War Cry candidate module
+        run: python3 -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/combined-clearance-war-cry/artifacts --backend-only --wasm canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm --output .work/ci-frozen-wasm
       - name: Upload Wasm evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -201,6 +201,8 @@ jobs:
         run: python -B tools/verify_quantity_browser.py --output .work/ci-quantity-closeout
       - name: Approved read-only panel and capability-gated War Cry editors
         run: python -B tools/verify_approved_panel.py --output .work/ci-approved-panel-war-cry
+      - name: Combined Rules11 shared panel, editor availability and native input
+        run: python -B tools/verify_approved_panel.py --combined --output .work/ci-combined-panel
 
       - name: Approved lossless audio, native scheduler and integrated displayed cues
         run: |
@@ -235,6 +237,7 @@ jobs:
             .work/ci-compact-controls/**
             .work/ci-quantity-closeout/**
             .work/ci-approved-panel-war-cry/**
+            .work/ci-combined-panel/**
             .work/ci-player-refinement/**
             .work/ci-visual-closeout/**
             .work/ci-human-corrections/**
@@ -304,6 +307,8 @@ jobs:
             .work/ci-integration/s14-local/deployment/browser.log
             .work/ci-integration/s14-local/deployment/clearance-*.json
             .work/ci-integration/s14-local/deployment/war-cry/**
+            .work/ci-integration/s14-local/deployment/combined-clearance/**
+            .work/ci-integration/s14-local/deployment/combined-launch/**
             .work/ci-integration/s14-local/deployment/trace.json
             .work/ci-integration/s14-local/deployment/replay.json
             .work/ci-integration/s14-local/deployment/browser/*.json

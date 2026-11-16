@@ -62,8 +62,7 @@ remains the authenticated Ledger position in the existing ordered input. Invalid
 memos retain an invalid command and no annotation under existing financial rules.
 BTZPAY02 and all historical bytes are unchanged.
 
-The full normalized input remains committed by source/DTR history. Under Rules10
-only, seed derivation projects each BTZPAY03 to equivalent BTZPAY02 gameplay bytes.
+The full normalized input remains committed by source/DTR history. Under Rules10 and the distinct combined Rules11 identity, seed derivation projects each BTZPAY03 to equivalent BTZPAY02 gameplay bytes.
 Cosmetic text cannot reroll an automatic site, including another payment in the
 same segment. Earlier rules continue hashing their original normalized inputs.
 
@@ -146,3 +145,11 @@ New-capability UTF8 decoders preserve U+FEFF in payload text (`ignoreBOM:true`
 in JavaScript). It is never treated as a removable transport marker. A BOM in an
 ASCII directive is rejected; a valid BOM-containing cry survives raw/normalized
 bytes and JS/native replay unchanged. Shared vectors cover both boundaries.
+
+## Combined successor development
+
+[Rules11](B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md) composes the unchanged wire,
+launch association and bubble contract with Rules9 clearance in one interpreter.
+Its identity is distinct, adapter6 remains unchanged, and its direct Rules7
+cutover uses metadata version7. Standalone Rules10 evidence does not qualify this
+composition. Production remains Rules7: no War Cry suffix or editor is available.

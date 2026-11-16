@@ -130,6 +130,7 @@ def planned_checks(mode,outdir):
       ('playability-rules-vectors',['node','tools/rules_vectors.mjs','--check'],'normal',('node',),120),
       ('entry-rules-vectors',['node','tools/entry_vectors.mjs','--check'],'normal',('node',),120),
       ('clearance-rules-vectors',['node','tools/clearance_vectors.mjs','--check'],'normal',('node',),120),
+      ('combined-rules-vectors',['node','tools/combined_vectors.mjs','--check'],'normal',('node',),180),
       ('adjacent-cannon-vectors',['node','tools/adjacent_cannon_vectors.mjs','--check'],'normal',('node',),120),
       ('observer-recordings',['node','tools/build_observer_recordings.mjs','--check'],'normal',('node',),180),
       ('protocol-fixtures',[sys.executable,'-B','tools/reference_fixtures.py','--check'],'normal',(),120),

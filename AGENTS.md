@@ -92,3 +92,10 @@ reference. Run shared-grid/copy/editor regressions and real valueless Ledger/Ind
 annotation/replay/browser checks; mocks do not prove launch association. Preserve
 legacy adapters, gameplay-semantic seed projection, exact capability gating and
 paid-state cutover fences. No production activation follows from qualification.
+
+Combined clearance/War Cry development uses
+[Rules11](docs/specs/B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md). Preserve standalone
+Rules7/9/10 identities and fixtures, direct state-preserving Rules7 cutover, exact
+source adapter6 semantics and both policy gates. Production remains Rules7 until
+a separately authorised backend operation. New compatibility assets are distinct
+from the approved79-file frontend freeze; never mix their staging directories.

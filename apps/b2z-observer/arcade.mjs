@@ -1,4 +1,5 @@
 import {fitCry,validateCry}from'../../packages/protocol/war-cry.mjs';
+import {clearanceActive}from'../../packages/protocol/territory-clearance.mjs';
 import {warCrySupported}from'./war-cry-policy.mjs';
 import {shortRecipient,paymentCopyValue} from './payment-presentation.mjs';
 import {MAX_QUANTITY} from '../../packages/protocol/memo-v6.mjs';
@@ -69,7 +70,7 @@ export function createArcade(doc){
  }
  function renderPacket(q){
   text('transfer-amount',formatIcp(BigInt(q.amount)));text('payment-owner',shortRecipient(q.owner));$('recipient-reveal').setAttribute('aria-label',`Show full receiving principal ${q.owner}`);$('recipient-reveal').title=q.owner;if($('full-recipient').textContent!==q.owner){text('full-recipient',q.owner);$('recipient-full').hidden=true;$('recipient-reveal').setAttribute('aria-expanded','false');};text('text-memo',q.memo);text('paying-account',shortRecipient(q.payer??q.account));text('full-payer',q.payer??q.account);$('payer-reveal').setAttribute('aria-label',`Show full sending account ${q.payer??q.account}`);
-  text('payment-risk',paymentWarning(q));$('payment-risk').title=config?.rules_version===9&&['move','start'].includes(q.action)&&Number.isSafeInteger(q.cell)?'A new enemy claim within four cells can also invalidate the action.':'';$('amount-detail').hidden=q.action!=='start';text('amount-detail',q.action==='start'?'1 ball':'');
+  text('payment-risk',paymentWarning(q));$('payment-risk').title=clearanceActive(config)&&['move','start'].includes(q.action)&&Number.isSafeInteger(q.cell)?'A new enemy claim within four cells can also invalidate the action.':'';$('amount-detail').hidden=q.action!=='start';text('amount-detail',q.action==='start'?'1 ball':'');
  }
  function refresh(){
   $('transfer-controls').disabled=busy||!status.canPrepare||Boolean(warning);

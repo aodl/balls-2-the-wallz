@@ -7,7 +7,7 @@ import {decodeMemo, encodeMemo} from '../../protocol/memo.mjs';
 import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {canonicalInputs, sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {add, cmp, heading, mulInt, rat, sub, validRat} from './math.mjs';
-import {B2Z_IDENTITY, TORUS_IDENTITY, MILLION_IDENTITY, PLAYABILITY_IDENTITY, ENTRY_IDENTITY, CLEARANCE_IDENTITY, WAR_CRY_IDENTITY, wrapCell, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld, cellCount, ownerAt,playerAt, setOwner, ownershipCounts,validStrike} from './world.mjs';
+import {B2Z_IDENTITY, TORUS_IDENTITY, MILLION_IDENTITY, PLAYABILITY_IDENTITY, ENTRY_IDENTITY, CLEARANCE_IDENTITY, WAR_CRY_IDENTITY, COMBINED_IDENTITY, wrapCell, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld, cellCount, ownerAt,playerAt, setOwner, ownershipCounts,validStrike} from './world.mjs';
 import {nextCrossing, reflected} from './geometry.mjs';
 import {beginCapture, beginCleanup, topologyStep} from './topology.mjs';
 import {beginSpawn, spawnStep} from './spawn.mjs';
@@ -120,16 +120,16 @@ export function matchStrikes(world, incoming) {
 
 export class B2zCursor {
   constructor(state, inputs, seal, {cacheAreas = true, fastTopology = true} = {}) {
-    const identity=seal.config_hash===WAR_CRY_IDENTITY.config_hash?WAR_CRY_IDENTITY:seal.config_hash===CLEARANCE_IDENTITY.config_hash?CLEARANCE_IDENTITY:seal.config_hash===ENTRY_IDENTITY.config_hash?ENTRY_IDENTITY:seal.config_hash===PLAYABILITY_IDENTITY.config_hash?PLAYABILITY_IDENTITY:seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
+    const identity=seal.config_hash===COMBINED_IDENTITY.config_hash?COMBINED_IDENTITY:seal.config_hash===WAR_CRY_IDENTITY.config_hash?WAR_CRY_IDENTITY:seal.config_hash===CLEARANCE_IDENTITY.config_hash?CLEARANCE_IDENTITY:seal.config_hash===ENTRY_IDENTITY.config_hash?ENTRY_IDENTITY:seal.config_hash===PLAYABILITY_IDENTITY.config_hash?PLAYABILITY_IDENTITY:seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
     for (const k of Object.keys(identity)) if (seal[k] !== identity[k]) throw new Error('B2Z rule/config/schema identity');
     if(identity!==B2Z_IDENTITY)this.joinE8s=PRELAUNCH_CONFIG.join_e8s;
-    this.world = decodeWorld(state);if(identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY)this.v6={plan:null,payment:null,batch:null,capture:null,births:[],finalized:false,...([ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY].includes(identity)?{entry_rules:true}:{}),...(identity===CLEARANCE_IDENTITY?{clearance_rules:true}:{}),...(identity===WAR_CRY_IDENTITY?{war_cry_rules:true,pending_cry:null}:{})};if(this.world.version!==(identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY?6:identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
+    this.world = decodeWorld(state);if(identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY)this.v6={plan:null,payment:null,batch:null,capture:null,births:[],finalized:false,...([ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY].includes(identity)?{entry_rules:true}:{}),...([CLEARANCE_IDENTITY,COMBINED_IDENTITY].includes(identity)?{clearance_rules:true}:{}),...([WAR_CRY_IDENTITY,COMBINED_IDENTITY].includes(identity)?{war_cry_rules:true,pending_cry:null}:{})};if(this.world.version!==(identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY?6:identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
     this.start = rat(uint(seal.logical_start)); this.end = rat(uint(seal.logical_end));
     if (cmp(this.world.time, this.start) !== 0 || cmp(this.end, this.start) <= 0
         || cmp(sub(this.end, this.start), rat(LIMITS.max_segment_ticks)) > 0
         || cmp(this.end, rat(1000000000)) > 0 || inputs.length > 4096) throw new Error('B2Z segment context');
     this.seedBase = sha256(encodeCanonical({domain: 'BTZ-SPAWN-INPUT-03', state: sha256(state),
-      inputs: sha256(encodeCanonical(identity===WAR_CRY_IDENTITY?this.inputs.map(i=>({...i,payload_hex:hex(semanticPayment(unhex(i.payload_hex)))})):this.inputs)), logical_start: this.start}));
+      inputs: sha256(encodeCanonical([WAR_CRY_IDENTITY,COMBINED_IDENTITY].includes(identity)?this.inputs.map(i=>({...i,payload_hex:hex(semanticPayment(unhex(i.payload_hex)))})):this.inputs)), logical_start: this.start}));
     this.initialCredits = cloneCanonical(this.world.credits);
     this.phase = 'commands'; this.events = []; this.receipts = [];
     this.scan = 0; this.candidates = []; this.intents = []; this.nextTime = this.start;

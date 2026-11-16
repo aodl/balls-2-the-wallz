@@ -27,7 +27,7 @@ def settled_panel(page):
  # A completed transition can still have an incorrect cached target height.
  # Observe ordinary frames; never call internal measurement/position routines.
  page.evaluate("""()=>new Promise((resolve,reject)=>{
-  const started=performance.now();let previous='',stable=0;
+  const started=performance.now();let previous='',stable=0;const samples=[];
   function sample(){
    const card=document.getElementById('workspace'),body=card.querySelector('.panel-body'),scroll=card.querySelector('.panel-scroll'),content=card.querySelector('.panel-content'),shell=globalThis.fixture?.shell;
    const cache=shell?.layoutState?.(),visible=!card.hidden&&!card.inert;
@@ -38,9 +38,10 @@ def settled_panel(page):
    const expected=collapsed?0:Math.min(space,content.scrollHeight+20);
    const geometry=JSON.stringify([card.getBoundingClientRect().toJSON(),body.getBoundingClientRect().toJSON(),content.scrollHeight,target,space]);
    const ready=!pending&&!moving&&(!visible||Number.isFinite(target)&&Math.abs(target-expected)<=1);
+   samples.push({elapsed:performance.now()-started,ready,pending,moving,stable,changed:geometry!==previous,geometry});if(samples.length>24)samples.shift();
    stable=ready&&geometry===previous?stable+1:0;previous=geometry;
    if(stable>=4)return resolve();
-   if(performance.now()-started>8000)return reject(Error('Panel did not settle: '+JSON.stringify({target,expected,space,cache,geometry,moving})));
+   if(performance.now()-started>8000)return reject(Error('Panel did not settle: '+JSON.stringify({target,expected,space,cache,geometry,moving,samples})));
    requestAnimationFrame(sample);
   }requestAnimationFrame(sample);
  })""")

@@ -10,8 +10,9 @@ def checked_path(name):
  if p.is_absolute()or'..'in p.parts or p.suffix=='.pem'or p.name=='.env':raise ValueError('public relative source input required')
  return ROOT/p
 def main():
- p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--backend-only',action='store_true');p.add_argument('--wasm',type=Path);a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
- provenance=json.loads((EVIDENCE/'provenance.json').read_text());inventory=json.loads((EVIDENCE/'frontend-inventory.json').read_text());assert sha(EVIDENCE/'frontend-inventory.json')==provenance['inventory_sha256'];assert not provenance['source_dirty']
+ p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--backend-only',action='store_true');p.add_argument('--wasm',type=Path);p.add_argument('--artifacts',type=Path,default=EVIDENCE,help='Reviewed versioned evidence directory; defaults to historical approved79 freeze');a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=False)
+ evidence=a.artifacts.resolve();assert evidence.is_relative_to(ROOT/'evidence'),'reviewed evidence must be inside repository evidence'
+ provenance=json.loads((evidence/'provenance.json').read_text());inventory=json.loads((evidence/'frontend-inventory.json').read_text());assert sha(evidence/'frontend-inventory.json')==provenance['inventory_sha256'];assert not provenance['source_dirty']
  source=subprocess.check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip();checked=[]
  for row in provenance['backend_inputs']if a.backend_only else provenance['inputs']:
   path=checked_path(row['path'])
@@ -28,7 +29,7 @@ def main():
   for name,r in expected.items():
    if name=='build-manifest.json':continue
    assert(assets/name).stat().st_size==r['bytes']and sha(assets/name)==r['sha256'],'different frozen asset: '+name
-  frozen=EVIDENCE/'build-manifest.json';assert sha(frozen)==expected['build-manifest.json']['sha256'];metadata=json.loads(frozen.read_text());assert metadata['source_commit']==provenance['source']and not metadata['source_dirty']and not metadata['local_test_only'];assert metadata['deployment']['canister_id']=='s5ir5-gqaaa-aaaas-amyna-cai'
+  frozen=evidence/'build-manifest.json';assert sha(frozen)==expected['build-manifest.json']['sha256'];metadata=json.loads(frozen.read_text());assert metadata['source_commit']==provenance['source']and not metadata['source_dirty']and not metadata['local_test_only'];assert metadata['deployment']['canister_id']=='s5ir5-gqaaa-aaaas-amyna-cai'
   shutil.copyfile(frozen,assets/'build-manifest.json')
   assert all(sha(assets/name)==r['sha256']and(assets/name).stat().st_size==r['bytes']for name,r in expected.items())
  result={'status':'PASS','scope':__doc__,'tested_source':source,'frozen_source':provenance['source'],'normal_wasm_sha256':provenance['normal_wasm_sha256'],'inventory_sha256':provenance['inventory_sha256'],'files':len(inventory),'backend_only':a.backend_only,'checked_inputs':checked};(out/'result.json').write_text(json.dumps(result,indent=2)+'\n');print('PASS exact frozen inputs/artifacts',source)

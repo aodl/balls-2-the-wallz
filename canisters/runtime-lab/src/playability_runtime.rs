@@ -335,6 +335,73 @@ pub fn war_cry_candidate<K: Kernel>(
     ))
 }
 
+pub fn combined_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+    _observed_ns: u64,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    t.validate()?;
+    h.validate()?;
+    let committed_anchor = h
+        .record
+        .journal
+        .head
+        .seal
+        .as_ref()
+        .map(|s| &s.source_anchor)
+        .or_else(|| h.record.journal.epoch.as_ref().map(|e| &e.source_anchor));
+    if committed_anchor != Some(&h.record.inbox.source_anchor) {
+        return Err("combined source anchor differs from authenticated predecessor".into());
+    }
+    if t.version != 7
+        || t.phase != "ready"
+        || source.pending.is_some()
+        || source.in_flight
+        || !source.binding_checked
+        || source.last_error.is_some()
+        || source.memo_adapter_version != b2z_protocol::v6::MEMO_ADAPTER_VERSION
+    {
+        return Err("combined source cutover not drained".into());
+    }
+    let expected = b2z_native::entry_v7::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("combined requires exact rules-v7 predecessor identity".into());
+    }
+    let state = unhex(&h.record.journal.head.state_hex)?;
+    let old = World::decode(&state)?;
+    if old.version != 6
+        || !old.time.0.is_integer()
+        || old.time.0.to_integer() != h.record.journal.head.logical_end.0
+        || !old.pending.is_empty()
+        || Int(source.cursor.into()) != h.record.inbox.cursor
+        || h.record.journal.stage.is_some()
+        || !h.record.inbox.pending.is_empty()
+        || h.record.inbox.cursor != h.record.inbox.retired_to
+    {
+        return Err("combined requires committed gameplay/source boundary".into());
+    }
+    let mut id = b2z_native::combined_v11::identity()?;
+    id["source_id"] = json!(h.record.journal.identity.source_id);
+    let identity: Identity = serde_json::from_value(id).map_err(|e| e.to_string())?;
+    let metadata = json!({"version":7,"migration":"B2Z_CLEARANCE_WAR_CRY_RULES_11","old_identity":h.record.journal.identity,"new_identity":identity,"previous_state":hash(&state),"new_state":hash(&state),"logical_boundary":old.time,"source_cursor":Int(source.cursor.into()),"ledger_cutover":t.ledger_cutover,"account_history_complete_through":t.ledger_cutover,"index_synced":t.index_synced,"source_anchor":h.record.inbox.source_anchor,"memo_adapter_before":source.memo_adapter_version,"memo_adapter_after":b2z_protocol::war_cry::MEMO_ADAPTER_VERSION});
+    Ok((
+        Output {
+            state,
+            events: encode(
+                &json!({"version":6,"receipts":[],"events":[{"kind":"rules_activated","sequence":0,"time":old.time,"context":metadata}]}),
+            )?,
+            scores: encode(&json!({"version":6,"area_time":[]}))?,
+        },
+        encode(&metadata)?,
+        identity,
+    ))
+}
+
 use super::{
     ensure_run_timer, host, install_run_timer, pace, persist, request_reconciliation, root,
     save_root_only, Root,
@@ -900,6 +967,75 @@ mod tests {
                 "never reinterpret/repeat a rules-7 activation"
             );
             ordinary(&mut entry);
+            // Branch independently: never change the historical Rules9 trace.
+            {
+                let image = entry.snapshot().unwrap();
+                let mut combined = Coordinator::restore(
+                    &image,
+                    &hash(&image),
+                    ExplicitClock(observed + 1000000000),
+                )
+                .unwrap();
+                let before = combined.record.clone();
+                let (out, metadata, identity) =
+                    combined_candidate(&combined, &ready(7), &source, observed).unwrap();
+                assert_eq!(out.state, unhex(&before.journal.head.state_hex).unwrap());
+                let context: serde_json::Value = decode(&metadata).unwrap();
+                assert_eq!(context["version"], 7);
+                assert_eq!(context["memo_adapter_before"], 4);
+                assert_eq!(context["memo_adapter_after"], 6);
+                let mut incomplete = ready(7);
+                incomplete.index_synced = Some(Int(99.into()));
+                assert!(combined_candidate(&combined, &incomplete, &source, observed).is_err());
+                assert!(combined_candidate(&combined, &ready(6), &source, observed).is_err());
+                for variant in 0..5 {
+                    let mut wrong = source.clone();
+                    match variant {
+                        0 => wrong.binding_checked = false,
+                        1 => wrong.in_flight = true,
+                        2 => wrong.last_error = Some("transport unavailable".into()),
+                        3 => wrong.memo_adapter_version = 6,
+                        _ => wrong.cursor += 1,
+                    }
+                    assert!(combined_candidate(&combined, &ready(7), &wrong, observed).is_err());
+                }
+                combined.record.inbox.source_anchor = "ab".repeat(32);
+                assert!(combined_candidate(&combined, &ready(7), &source, observed).is_err());
+                combined.record = before.clone();
+                apply_rules(&mut combined, &out, &metadata, identity);
+                assert_eq!(combined.record.inbox.cursor, before.inbox.cursor);
+                assert_eq!(combined.record.inbox.retired_to, before.inbox.retired_to);
+                assert_eq!(
+                    combined.record.inbox.source_anchor,
+                    before.inbox.source_anchor
+                );
+                assert_eq!(
+                    encode(&combined.record.inbox.pending).unwrap(),
+                    encode(&before.inbox.pending).unwrap()
+                );
+                assert_eq!(
+                    unhex(&combined.record.journal.head.state_hex).unwrap(),
+                    out.state
+                );
+                assert_eq!(
+                    combined.record.journal.identity.config_hash,
+                    hash(b2z_native::combined_v11::configuration())
+                );
+                assert!(
+                    combined_candidate(&combined, &ready(7), &source, observed).is_err(),
+                    "combined identity cannot be its own predecessor"
+                );
+                let restored = Coordinator::restore(
+                    &combined.snapshot().unwrap(),
+                    &hash(&combined.snapshot().unwrap()),
+                    ExplicitClock(observed),
+                )
+                .unwrap();
+                assert_eq!(
+                    restored.record.journal.identity,
+                    combined.record.journal.identity
+                );
+            }
             let clear_state = unhex(&entry.record.journal.head.state_hex).unwrap();
             let (clear_out, clear_metadata, clear_id) =
                 clearance_candidate(&entry, &ready(5), &source, observed).unwrap();

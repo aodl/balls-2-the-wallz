@@ -15,6 +15,7 @@ struct ClearanceReceipt {
 #[derive(serde::Deserialize)]
 struct ClearanceEvents {
     receipts: Vec<ClearanceReceipt>,
+    events: Vec<serde_json::Value>,
 }
 fn pause(pic: &PocketIc, id: Principal) {
     get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
@@ -38,13 +39,13 @@ fn full_world_upgrade_and_first_entry() {
         dtr_wire::hash(&prior),
         "b618e4f34b429484263cd0a09efc1865d646733540ff66eec0e5f16f3b2b9a2e"
     );
-    run_entry_and_clearance(prior, true, None);
+    run_entry_and_clearance(prior, true, None, false);
 }
 /// Current normal module, real valueless Ledger/Index, v6→v7→v9 boundaries.
 /// Historical Wasm upgrade remains the separately pinned ignored rehearsal above.
 #[test]
 fn clearance_rules9_on_normal_installed_module() {
-    run_entry_and_clearance(bytes("B2Z_S14_WASM"), false, None);
+    run_entry_and_clearance(bytes("B2Z_S14_WASM"), false, None, false);
 }
 #[test]
 #[ignore = "exact installed European rules7 module upgrade; disposable IC only"]
@@ -54,14 +55,40 @@ fn european_rules7_upgrade_and_clearance() {
         dtr_wire::hash(&old),
         "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948"
     );
-    run_entry_and_clearance(bytes("B2Z_S14_WASM"), false, Some(old));
+    run_entry_and_clearance(bytes("B2Z_S14_WASM"), false, Some(old), false);
+}
+#[test]
+fn combined_clearance_on_normal_installed_module() {
+    run_entry_and_clearance(bytes("B2Z_S14_WASM"), false, None, true);
+}
+#[test]
+#[ignore = "exact European Rules7 predecessor; disposable combined clearance cutover only"]
+fn european_rules7_upgrade_and_combined_clearance() {
+    let old = bytes("B2Z_EUROPEAN_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&old),
+        "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948"
+    );
+    run_entry_and_clearance(bytes("B2Z_S14_WASM"), false, Some(old), true);
 }
 fn run_entry_and_clearance(
     prior: Vec<u8>,
     historical_upgrade: bool,
     european_prior: Option<Vec<u8>>,
+    combined: bool,
 ) {
-    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    let transition_kind = if combined { "combined" } else { "clearance" };
+    let target_configuration = if combined {
+        b2z_native::combined_v11::configuration()
+    } else {
+        b2z_native::clearance_v9::configuration()
+    };
+    let base_out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    let out = if combined {
+        base_out.join("combined-clearance")
+    } else {
+        base_out
+    };
     std::fs::create_dir_all(&out).unwrap();
     let candidate = bytes("B2Z_S14_WASM");
     let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
@@ -227,7 +254,7 @@ fn run_entry_and_clearance(
     save(
         &browser_out,
         "configuration.json",
-        &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":source.index.to_text(),"recipient":AccountIdentifier::new(&id,&DEFAULT_SUBACCOUNT).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap()),"new_player_account":AccountIdentifier::new(&extra,&DEFAULT_SUBACCOUNT).to_hex()}),
+        &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":source.index.to_text(),"recipient":AccountIdentifier::new(&id,&DEFAULT_SUBACCOUNT).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap()),"new_player_account":AccountIdentifier::new(&extra,&DEFAULT_SUBACCOUNT).to_hex(),"clearance_rules_version":if combined {11}else{9}}),
     );
     std::fs::write(browser_out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
     save(
@@ -439,7 +466,7 @@ fn run_entry_and_clearance(
     get_result::<Vec<u8>>(
         &pic,
         id,
-        "prepare_clearance_transition",
+        &format!("prepare_{transition_kind}_transition"),
         encode_args(()).unwrap(),
     );
     let mut clearance_ready = false;
@@ -448,7 +475,7 @@ fn run_entry_and_clearance(
         let raw: Vec<u8> = get_query(
             &pic,
             id,
-            "clearance_transition_status",
+            &format!("{transition_kind}_transition_status"),
             encode_args(()).unwrap(),
         );
         let state: serde_json::Value = decode(&raw).unwrap();
@@ -474,10 +501,23 @@ fn run_entry_and_clearance(
     let before_clearance = arena_world(&pic, id).encode().unwrap();
     let finance_clearance = funding_tests::preserved_finance(&pic, id);
     let previous = observe(&pic, id).1.head.manifest_hash;
+    let wrong = pic
+        .update_call(
+            id,
+            controller(),
+            &format!("commit_{transition_kind}_transition"),
+            candid::encode_one("ab".repeat(32)).unwrap(),
+        )
+        .unwrap();
+    assert!(
+        decode_one::<Result<Vec<u8>, String>>(&wrong)
+            .unwrap()
+            .is_err()
+    );
     let _: Vec<u8> = get_result(
         &pic,
         id,
-        "commit_clearance_transition",
+        &format!("commit_{transition_kind}_transition"),
         candid::encode_one(previous.clone()).unwrap(),
     );
     assert_eq!(arena_world(&pic, id).encode().unwrap(), before_clearance);
@@ -487,13 +527,13 @@ fn run_entry_and_clearance(
     );
     assert_eq!(
         observe(&pic, id).1.identity.config_hash,
-        dtr_wire::hash(b2z_native::clearance_v9::configuration())
+        dtr_wire::hash(target_configuration)
     );
     let publication = observe(&pic, id).0.publication;
     let _: Vec<u8> = get_result(
         &pic,
         id,
-        "commit_clearance_transition",
+        &format!("commit_{transition_kind}_transition"),
         candid::encode_one(previous).unwrap(),
     );
     assert_eq!(
@@ -537,7 +577,13 @@ fn run_entry_and_clearance(
     let unsafe_move = unsafe_build;
     let commands = [
         (10000, format!("MOVE 1 {unsafe_move}")),
-        (400000000, format!("NEW 0 1 {unsafe_build}")),
+        (
+            400000000,
+            format!(
+                "NEW 0 1 {unsafe_build}{}",
+                if combined { "|Unsafe!" } else { "" }
+            ),
+        ),
     ];
     let before_received = w.received_e8s.clone();
     let before_cannons = w.cannons.clone();
@@ -545,15 +591,24 @@ fn run_entry_and_clearance(
     let mut expected = Vec::new();
     for (amount, text) in commands {
         let position = transfer_text(&pic, ledger, payer, id, amount, text.as_bytes());
-        payments.insert(
-            position,
+        let payload = if combined {
+            let parsed = b2z_protocol::war_cry::parse_text(text.as_bytes()).unwrap();
+            let mut raw = b"BTZPAY03".to_vec();
+            raw.extend(AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).as_bytes());
+            raw.extend(amount.to_be_bytes());
+            raw.extend(b2z_protocol::v6::encode(parsed.command).unwrap());
+            raw.push(parsed.cry.len() as u8);
+            raw.extend(parsed.cry.as_bytes());
+            hex(&raw)
+        } else {
             normalized(
                 AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT),
                 amount,
                 b2z_protocol::v6::encode(b2z_protocol::v6::parse_text(text.as_bytes()).unwrap())
                     .unwrap(),
-            ),
-        );
+            )
+        };
+        payments.insert(position, payload);
         expected.push(position);
     }
     let cycles_before = pic.cycle_balance(id);
@@ -580,6 +635,15 @@ fn run_entry_and_clearance(
                 &std::fs::read(out.join(format!("publication-{n}-artifact-1.bin"))).unwrap(),
             )
             .unwrap();
+            if combined {
+                assert!(
+                    events
+                        .events
+                        .iter()
+                        .all(|e| e.get("launch_annotation").is_none()),
+                    "rejected clearance commands emit no speech"
+                );
+            }
             for receipt in events.receipts {
                 let pos = receipt.position.0.to_string().parse::<u64>().unwrap();
                 if expected.contains(&pos) {

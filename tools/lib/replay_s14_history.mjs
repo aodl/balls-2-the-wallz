@@ -9,7 +9,7 @@ import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {stageTorusMigration,stageMillionWorld} from '../../packages/kernels/b2z/migration.mjs';
 import {migratePlayability,dueFences} from '../../packages/kernels/b2z/playability.mjs';
 import {expireV6} from '../../packages/kernels/b2z/lifecycle-v6.mjs';
-import {decodeWorld,encodeWorld,MILLION_IDENTITY,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
+import {decodeWorld,encodeWorld,MILLION_IDENTITY,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 import {B2zKernel} from '../../packages/kernels/b2z/kernel.mjs';
 const equal=(a,b)=>hex(encodeCanonical(a))===hex(encodeCanonical(b));
 const check=(ok,message)=>{if(!ok)throw Error(message);};
@@ -37,9 +37,9 @@ export function replayHistory(trace,{diagnostic}={}){
    }else if([7,8].includes(p.version)&&old.version===6){
     const audit=decodeCanonical(eventBytes(p)),context=audit.events[0]?.context;
     check(audit.events[0]?.kind==='rules_activated'&&context,'entry activation context missing');
-    const annotation=context.migration==='B2Z_WAR_CRY_RULES_10',clearance=context.migration==='B2Z_TERRITORY_CLEARANCE_RULES_09',predecessor=annotation||clearance?ENTRY_IDENTITY:PLAYABILITY_IDENTITY,successor=annotation?WAR_CRY_IDENTITY:clearance?CLEARANCE_IDENTITY:ENTRY_IDENTITY;
+    const combined=context.migration==='B2Z_CLEARANCE_WAR_CRY_RULES_11',annotation=context.migration==='B2Z_WAR_CRY_RULES_10',clearance=context.migration==='B2Z_TERRITORY_CLEARANCE_RULES_09',predecessor=combined||annotation||clearance?ENTRY_IDENTITY:PLAYABILITY_IDENTITY,successor=combined?COMBINED_IDENTITY:annotation?WAR_CRY_IDENTITY:clearance?CLEARANCE_IDENTITY:ENTRY_IDENTITY;
     check(Object.keys(predecessor).every(k=>host.publicationRecord().journal.identity[k]===predecessor[k])&&Object.keys(successor).every(k=>p.identity[k]===successor[k])&&p.identity.source_id===host.publicationRecord().journal.identity.source_id,'entry transition identity');
-    const expected={version:annotation?6:clearance?5:4,migration:annotation?'B2Z_WAR_CRY_RULES_10':clearance?'B2Z_TERRITORY_CLEARANCE_RULES_09':'B2Z_FARTHEST_ENTRY_RULES_07',old_identity:host.publicationRecord().journal.identity,new_identity:p.identity,previous_state:sha256(before),new_state:sha256(before),logical_boundary:old.time,source_cursor:host.committed().source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:host.committed().seal?.source_anchor??host.publicationRecord().journal.epoch?.source_anchor,memo_adapter_before:4,memo_adapter_after:annotation?6:4};
+    const expected={version:combined?7:annotation?6:clearance?5:4,migration:combined?'B2Z_CLEARANCE_WAR_CRY_RULES_11':annotation?'B2Z_WAR_CRY_RULES_10':clearance?'B2Z_TERRITORY_CLEARANCE_RULES_09':'B2Z_FARTHEST_ENTRY_RULES_07',old_identity:host.publicationRecord().journal.identity,new_identity:p.identity,previous_state:sha256(before),new_state:sha256(before),logical_boundary:old.time,source_cursor:host.committed().source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:host.committed().seal?.source_anchor??host.publicationRecord().journal.epoch?.source_anchor,memo_adapter_before:4,memo_adapter_after:combined||annotation?6:4};
     check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&equal(context,expected),'entry cutover context mismatch');
     metadata=encodeCanonical(expected);out=emptyOutput(before,6,[{kind:'rules_activated',sequence:0,time:old.time,context:expected}]);
    }else if(p.version===8){
@@ -65,7 +65,7 @@ export function replayHistory(trace,{diagnostic}={}){
    host.apply({kind:'transition',epoch,state_hex:hex(out.state),event_hex:hex(out.events),score_hex:hex(out.scores)});checkpoints++;
   }else{
    const seal=p.head.seal,selected=inputs.filter(i=>i.position>=seal.source_from&&i.position<seal.source_to_exclusive);completionTime=null;
-   if([PLAYABILITY_IDENTITY.config_hash,ENTRY_IDENTITY.config_hash,CLEARANCE_IDENTITY.config_hash,WAR_CRY_IDENTITY.config_hash].includes(p.identity.config_hash)){
+   if([PLAYABILITY_IDENTITY.config_hash,ENTRY_IDENTITY.config_hash,CLEARANCE_IDENTITY.config_hash,WAR_CRY_IDENTITY.config_hash,COMBINED_IDENTITY.config_hash].includes(p.identity.config_hash)){
     const event=decodeCanonical(eventBytes(p)),facts=event.events.filter(e=>e.kind==='lifecycle_time'),last=event.events.at(-1);
     check(event.version===6&&facts.length===1&&last===facts[0]&&equal(last.time,[seal.logical_end,1n])&&typeof last.observed_ns==='bigint','invalid completion fact');completionTime=last.observed_ns;
    }

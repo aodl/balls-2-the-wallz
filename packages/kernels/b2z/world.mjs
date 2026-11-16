@@ -1,4 +1,5 @@
 import {CLEARANCE_POLICY} from './clearance.generated.mjs';
+import {COMBINED_POLICY} from './combined.generated.mjs';
 import {ENTRY_POLICY} from './entry.generated.mjs';
 import{territoryPlayer,territoryBalls,territoryForCannon}from'./territory-v6.mjs';
 import {PRICING,LEGACY_JOIN_E8S,LEGACY_BALL_BASE_E8S,LEGACY_MOVE_E8S} from './economics.generated.mjs';
@@ -36,6 +37,9 @@ export const CLEARANCE_IDENTITY=Object.freeze({...ENTRY_IDENTITY,rules_hash:sha2
 // Annotation successor uses Rules7 admission, not Rules9 clearance or delegated authority.
 export const WAR_CRY_CONFIG=Object.freeze({...ENTRY_CONFIG,rules_version:10,memo_adapter_version:6,war_cry_capability:'btz-war-cry-1',war_cry_memo_limit:32,normalized_payment:'BTZPAY03',spawn_seed_projection:'gameplay-semantic-1'});
 export const WAR_CRY_IDENTITY=Object.freeze({...ENTRY_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_WAR_CRY_RULES_10')),config_hash:sha256(encodeCanonical(WAR_CRY_CONFIG))});
+// Rules11 compose clearance and authenticated annotations; prior identities stay immutable.
+export const COMBINED_CONFIG=Object.freeze({...ENTRY_CONFIG,...COMBINED_POLICY});
+export const COMBINED_IDENTITY=Object.freeze({...ENTRY_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_CLEARANCE_WAR_CRY_RULES_11')),config_hash:sha256(encodeCanonical(COMBINED_CONFIG))});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{
