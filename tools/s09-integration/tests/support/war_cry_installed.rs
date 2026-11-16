@@ -4,7 +4,7 @@ use b2z_native::world::World;
 fn save(out: &Path, name: &str, value: &serde_json::Value) {
     std::fs::write(out.join(name), serde_json::to_vec_pretty(value).unwrap()).unwrap();
 }
-fn transition(pic: &PocketIc, id: Principal, kind: &str) {
+pub(super) fn transition(pic: &PocketIc, id: Principal, kind: &str) {
     playability_installed::prepare(pic, id, &format!("prepare_{kind}_transition"));
     let mut ready = false;
     for _ in 0..1800 {

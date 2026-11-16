@@ -187,7 +187,7 @@ fn run_entry_and_clearance_ordered(
                 unhex("612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948").unwrap()
             )
         );
-        playability_installed::old_transition(&pic, id, "entry");
+        war_cry_installed::transition(&pic, id, "entry");
         playability_installed::record(&pic, id, &mut rows, &out);
         assert_eq!(
             observe(&pic, id).1.identity.config_hash,
