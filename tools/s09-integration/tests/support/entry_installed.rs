@@ -71,12 +71,32 @@ fn european_rules7_upgrade_and_combined_clearance() {
     );
     run_entry_and_clearance(bytes("B2Z_S14_WASM"), false, Some(old), true);
 }
+#[test]
+#[ignore = "exact European paid Rules7 upgrade before native observer; disposable combined cutover"]
+fn european_rules7_upgrade_before_browser_and_combined_clearance() {
+    let old = bytes("B2Z_EUROPEAN_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&old),
+        "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948"
+    );
+    run_entry_and_clearance_ordered(bytes("B2Z_S14_WASM"), false, Some(old), true, true);
+}
 fn run_entry_and_clearance(
     prior: Vec<u8>,
     historical_upgrade: bool,
     european_prior: Option<Vec<u8>>,
     combined: bool,
 ) {
+    run_entry_and_clearance_ordered(prior, historical_upgrade, european_prior, combined, false);
+}
+fn run_entry_and_clearance_ordered(
+    prior: Vec<u8>,
+    historical_upgrade: bool,
+    european_prior: Option<Vec<u8>>,
+    combined: bool,
+    upgrade_before_browser: bool,
+) {
+    assert!(!upgrade_before_browser || (combined && european_prior.is_some()));
     let transition_kind = if combined { "combined" } else { "clearance" };
     let target_configuration = if combined {
         b2z_native::combined_v11::configuration()
@@ -158,6 +178,22 @@ fn run_entry_and_clearance(
         }
     }
     pause(&pic, id);
+    if upgrade_before_browser {
+        assert_eq!(
+            pic.canister_status(id, Some(controller()))
+                .unwrap()
+                .module_hash,
+            Some(
+                unhex("612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948").unwrap()
+            )
+        );
+        playability_installed::old_transition(&pic, id, "entry");
+        playability_installed::record(&pic, id, &mut rows, &out);
+        assert_eq!(
+            observe(&pic, id).1.identity.config_hash,
+            dtr_wire::hash(b2z_native::entry_v7::configuration())
+        );
+    }
     let text = b"FIRE 1 0 1";
     let position = transfer_text(&pic, ledger, payer, id, 90000000, text);
     let memo = b2z_protocol::v6::encode(b2z_protocol::v6::parse_text(text).unwrap()).unwrap();
@@ -216,6 +252,29 @@ fn run_entry_and_clearance(
     assert_eq!(status(&pic, id).source.ledger, source_before.ledger);
     assert_eq!(status(&pic, id).source.index, source_before.index);
     assert_eq!(funding_tests::preserved_finance(&pic, id), finance_before);
+    if upgrade_before_browser {
+        assert_eq!(
+            observe(&pic, id).1.identity.config_hash,
+            dtr_wire::hash(b2z_native::entry_v7::configuration())
+        );
+        assert_eq!(
+            pic.canister_status(id, Some(controller()))
+                .unwrap()
+                .module_hash,
+            Some(unhex(&dtr_wire::hash(&candidate)).unwrap())
+        );
+        save(
+            &out,
+            "european-upgrade.json",
+            &serde_json::json!({
+                "status":"PASS", "predecessor":dtr_wire::hash(european_prior.as_ref().unwrap()),
+                "candidate":dtr_wire::hash(&candidate), "active_rules":7,
+                "pre_upgrade_payment_position":position, "unfinished_execution":unfinished,
+                "state_preserved":true,"publication_preserved":true,"financial_state_preserved":true,"source_cursor_preserved":true,
+                "scope":"actual old-module Rules7 paid Fire and unfinished execution; upgrade while paused before starting native observer"
+            }),
+        );
+    }
     for method in [
         "prepare_entry_transition",
         "commit_entry_transition",
@@ -247,14 +306,16 @@ fn run_entry_and_clearance(
     let mut live =
         PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
     let gateway = live.make_live(None);
-    playability_installed::configuration(&pic, id, 512);
+    if !upgrade_before_browser {
+        playability_installed::configuration(&pic, id, 512);
+    }
     let browser_out = out.join("browser");
     std::fs::create_dir(&browser_out).unwrap();
     let source = status(&pic, id).source;
     save(
         &browser_out,
         "configuration.json",
-        &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":source.index.to_text(),"recipient":AccountIdentifier::new(&id,&DEFAULT_SUBACCOUNT).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap()),"new_player_account":AccountIdentifier::new(&extra,&DEFAULT_SUBACCOUNT).to_hex(),"clearance_rules_version":if combined {11}else{9}}),
+        &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":source.index.to_text(),"recipient":AccountIdentifier::new(&id,&DEFAULT_SUBACCOUNT).to_hex(),"root_key_hex":hex(&pic.root_key().unwrap()),"new_player_account":AccountIdentifier::new(&extra,&DEFAULT_SUBACCOUNT).to_hex(),"clearance_rules_version":if combined {11}else{9},"entry_initial_rules_version":if upgrade_before_browser {7}else{6}}),
     );
     std::fs::write(browser_out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
     save(
@@ -294,51 +355,53 @@ fn run_entry_and_clearance(
         live_record(&pic, id, &mut rows, &out);
     }
     pause(&pic, id);
-    get_result::<Vec<u8>>(
-        &pic,
-        id,
-        "prepare_entry_transition",
-        encode_args(()).unwrap(),
-    );
-    for _ in 0..1200 {
-        live_record(&pic, id, &mut rows, &out);
-        let raw: Vec<u8> = get_query(
+    if !upgrade_before_browser {
+        get_result::<Vec<u8>>(
             &pic,
             id,
-            "entry_transition_status",
+            "prepare_entry_transition",
             encode_args(()).unwrap(),
         );
-        let t: serde_json::Value = decode(&raw).unwrap();
-        if t["transition"]["phase"] == "ready" && transition_drained(&pic, id) {
-            break;
+        for _ in 0..1200 {
+            live_record(&pic, id, &mut rows, &out);
+            let raw: Vec<u8> = get_query(
+                &pic,
+                id,
+                "entry_transition_status",
+                encode_args(()).unwrap(),
+            );
+            let t: serde_json::Value = decode(&raw).unwrap();
+            if t["transition"]["phase"] == "ready" && transition_drained(&pic, id) {
+                break;
+            }
         }
+        assert!(transition_drained(&pic, id));
+        let state = arena_world(&pic, id).encode().unwrap();
+        let predecessor = observe(&pic, id).1;
+        let previous_manifest = predecessor.head.manifest_hash.clone();
+        let finance = funding_tests::preserved_finance(&pic, id);
+        let _: Vec<u8> = get_result(
+            &pic,
+            id,
+            "commit_entry_transition",
+            candid::encode_one(predecessor.head.manifest_hash).unwrap(),
+        );
+        assert_eq!(arena_world(&pic, id).encode().unwrap(), state);
+        assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
+        let current = observe(&pic, id).0.publication;
+        let _: Vec<u8> = get_result(
+            &pic,
+            id,
+            "commit_entry_transition",
+            candid::encode_one(previous_manifest).unwrap(),
+        );
+        assert_eq!(observe(&pic, id).0.publication, current);
+        assert_eq!(
+            observe(&pic, id).1.identity.config_hash,
+            dtr_wire::hash(b2z_native::entry_v7::configuration())
+        );
+        playability_installed::record(&pic, id, &mut rows, &out);
     }
-    assert!(transition_drained(&pic, id));
-    let state = arena_world(&pic, id).encode().unwrap();
-    let predecessor = observe(&pic, id).1;
-    let previous_manifest = predecessor.head.manifest_hash.clone();
-    let finance = funding_tests::preserved_finance(&pic, id);
-    let _: Vec<u8> = get_result(
-        &pic,
-        id,
-        "commit_entry_transition",
-        candid::encode_one(predecessor.head.manifest_hash).unwrap(),
-    );
-    assert_eq!(arena_world(&pic, id).encode().unwrap(), state);
-    assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
-    let current = observe(&pic, id).0.publication;
-    let _: Vec<u8> = get_result(
-        &pic,
-        id,
-        "commit_entry_transition",
-        candid::encode_one(previous_manifest).unwrap(),
-    );
-    assert_eq!(observe(&pic, id).0.publication, current);
-    assert_eq!(
-        observe(&pic, id).1.identity.config_hash,
-        dtr_wire::hash(b2z_native::entry_v7::configuration())
-    );
-    playability_installed::record(&pic, id, &mut rows, &out);
     // As in the proposed production cutover, verify the committed identity
     // while paused before resuming. This setup epoch must not be evicted by
     // one-second fixture publications before its native observer receives it.
@@ -426,7 +489,7 @@ fn run_entry_and_clearance(
         }
     }
     pause(&pic, id);
-    if let Some(old) = &european_prior {
+    if let Some(old) = european_prior.as_ref().filter(|_| !upgrade_before_browser) {
         let started = std::time::Instant::now();
         let epoch_ms = std::time::SystemTime::now()
             .duration_since(std::time::UNIX_EPOCH)
@@ -477,7 +540,7 @@ fn run_entry_and_clearance(
                 .unwrap(),
         ),
     );
-    if european_prior.is_some() {
+    if european_prior.is_some() && !upgrade_before_browser {
         let mut admitted = false;
         for _ in 0..1800 {
             live_record(&pic, id, &mut rows, &out);

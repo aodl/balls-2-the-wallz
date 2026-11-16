@@ -9,8 +9,13 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
     assert page.title()=='B2Z · on ICP'
     from verify_s14_deployment import identify_account,select_cannon
     identify_account(page,configuration['new_player_account']);page.locator('#join-action').click()
-    wait_until(page,lambda:'No first site' in page.locator('#preparation-note').inner_text(),30000)
-    assert page.locator('[data-copy="amount"]').is_disabled()
+    initial_rules=configuration.get('entry_initial_rules_version',6);assert initial_rules in (6,7)
+    if initial_rules==6:
+        wait_until(page,lambda:'No first site' in page.locator('#preparation-note').inner_text(),30000)
+        assert page.locator('[data-copy="amount"]').is_disabled()
+    else:
+        assert page.evaluate('__b2zExperience.session.config.rules_version')==7
+        assert page.locator('[data-copy="amount"]').is_disabled()  # real controller remains paused
     camera=page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale})')
     (out/'browser-v6-ready').write_text(json.dumps({'head':page.evaluate('__dtrLive.heads.at(-1)'),'camera':camera})+'\n')
     wait_until(page,lambda:page.evaluate('__b2zExperience.session.config.rules_version')==7,90000)
@@ -33,6 +38,8 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
     page.locator('#close-panel').click();page.locator('#centre-cannon').click();page.screenshot(path=str(out/'after-join-desktop.png'))
     page.set_viewport_size({'width':390,'height':844});page.wait_for_timeout(300);page.screenshot(path=str(out/'after-join-mobile.png'))
     report['entry']={'status':'PASS','existing_session':True,'navigation_after_initial':len(navigations),'rules6_full_world_quote_blocked':True,'rules7_full_world_quote_amount':'1 ICP','memo':'NEW 0 1','independent_disposable_payment':'Harness independently sends two-ball NEW; UI defaults to one included ball. This receipt is not associated with saved instructions.','receipt':receipt,'position':sent['position'],'receipt_wait_seconds':confirmed-started,'confirmed_to_visible_seconds':time.monotonic()-confirmed,'heads':page.evaluate('__dtrLive.heads'),'camera_preserved_through_rules_handoff':True,'source':'Actual valueless Ledger/Index admission and authenticated artifacts, not inferred from counts'}
+    report['entry']['initial_rules_version']=initial_rules
+    report['entry']['rules6_full_world_quote_blocked']=True if initial_rules==6 else 'NOT_APPLICABLE: exact European Rules7 predecessor; separate normal-module test covers Rules6'
     record('rules-7-occupied-world-join-receipt-and-presentation',report['entry']);save()
     old_packet=None
     if configuration.get('clearance_rules_version')==11:
