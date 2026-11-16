@@ -1,0 +1,11 @@
+Built observer for dfj7p-ut777-77776-qaaba-cai: /home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-integration/s14-local/deployment/combined-clearance/browser/assets
+Built observer for s5ir5-gqaaa-aaaas-amyna-cai: /home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work/ci-integration/s14-local/deployment/combined-clearance/browser/mainnet-assets
+CANNON_NAVIGATION_SETTLED [{"selected": 2, "offscreen": true, "title": "Cannon #2", "camera": [530.2017601105313, 502.0415821597028, 50.91099300586809]}, {"selected": 2, "offscreen": true, "title": "Cannon #2", "camera": [395.36226180540893, 637.5604457938698, 60.00660643585119]}, {"selected": 2, "offscreen": true, "title": "Cannon #2", "camera": [229.0837259578443, 804.6767470858263, 73.4904997534336]}, {"selected": 2, "offscreen": true, "title": "Cannon #2", "camera": [120.7007515061041, 913.6057902787502, 83.87102203058426]}, {"selected": 2, "offscreen": false, "title": "Cannon #2", "camera": [81.62820993846208, 952.8751920423463, 87.96257691750135]}]
+Traceback (most recent call last):
+  File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/verify_s14_deployment.py", line 593, in main
+    verify_entry_scene(page,context,out,configuration,record,report,save)
+  File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/entry_browser.py", line 69, in verify_entry_scene
+    assert page.locator('[data-copy=text]').is_disabled()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
+AssertionError()

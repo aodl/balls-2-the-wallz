@@ -1,0 +1,27 @@
+{
+  "scope": "Exact normal candidate / exact paid predecessor, disposable IC only; no rebuild.",
+  "source": "b1d7fe81670962b410966a2786301b1c55d52c31",
+  "source_dirty": true,
+  "normal_wasm_sha256": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "immutable_normal_sha256_at_end": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "source_at_start": "b1d7fe81670962b410966a2786301b1c55d52c31",
+  "prior_wasm_sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "setup_only_hooks_sha256": "2e6df5f6e4cd755c9bc4550bbfd3eb3b60aba3a2663315d2a29a2be447fb6b68",
+  "test": "entry_installed::combined_clearance_on_normal_installed_module",
+  "result": {
+    "id": "installed-combined",
+    "command": [
+      "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+      "entry_installed::combined_clearance_on_normal_installed_module",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "elapsed_seconds": 230.994,
+    "timeout_seconds": 900,
+    "log": "logs/installed-combined.log",
+    "pocketic_server_exit": null
+  }
+}

@@ -1,0 +1,1231 @@
+{
+  "phase": "BUFFERING",
+  "live": {
+    "connected": true,
+    "startupRetries": 0,
+    "heads": [
+      54,
+      55,
+      56,
+      57,
+      58,
+      59,
+      60,
+      61,
+      62,
+      63,
+      64,
+      65,
+      66,
+      67,
+      68,
+      69,
+      70,
+      71,
+      72,
+      73,
+      74,
+      75,
+      76,
+      77,
+      78,
+      79,
+      80,
+      81,
+      82,
+      83,
+      84,
+      85,
+      86,
+      87,
+      88,
+      89,
+      90,
+      91,
+      92,
+      93,
+      94,
+      95,
+      96,
+      97,
+      98,
+      99,
+      100,
+      101,
+      102,
+      103,
+      104,
+      105,
+      106,
+      107,
+      108,
+      109,
+      110,
+      111,
+      112,
+      113,
+      114,
+      115,
+      116,
+      117,
+      118,
+      119
+    ],
+    "resyncs": 0,
+    "certificates": 164,
+    "skipped": true,
+    "maxBufferSegments": 18,
+    "maxBufferLogical": 17.412365791186296,
+    "delivery": {
+      "failures": 0,
+      "recoveries": 0,
+      "evicted": 0,
+      "active": null,
+      "blocking": null,
+      "history": [],
+      "acceptedHeads": [
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 6,
+          "identity": {
+            "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+            "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": null,
+          "format": null,
+          "head": "56",
+          "root": "758fea4ccb83eb7d8e205cc868bc414d84e881d98667b5428e70b5a004b56338",
+          "certificate_time_ns": "1794835316868179822"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "57",
+          "root": "0e76e64b9beae323641468581b0f2b4e3b876bfd27fb2f92883103d30a3a259d",
+          "certificate_time_ns": "1794835317357848318"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "58",
+          "root": "55c25585a2bab6f4a961bf1cff9765f80058028a30bfa5dde4ac81d9a92de5db",
+          "certificate_time_ns": "1794835317679077632"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "59",
+          "root": "5483adc9b3c46a1fe6f1667ded209a3464cc24824a03b4eaf9f1cdc50a2f2980",
+          "certificate_time_ns": "1794835319228689642"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "60",
+          "root": "fef27a026ec795f9b402dc597e19ae7057b3bb93bf8163b1d99a2383419a2f13",
+          "certificate_time_ns": "1794835320913731849"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "61",
+          "root": "67b01e71ab95c3106ef0eb8df912010a828515ae399b9413650d9639f93ccb49",
+          "certificate_time_ns": "1794835320913731849"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "62",
+          "root": "8bc66adc2bb05d3c72f0b7c57fdd89f1919cf0a3f7a10ef262b3978765e0d103",
+          "certificate_time_ns": "1794835322243572955"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "63",
+          "root": "103d87441122a16b7ba2701f2e577e7ad87a38a7e16fe27273b1f89473fb6cbf",
+          "certificate_time_ns": "1794835323210196814"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "64",
+          "root": "07df340abeffea66ea804b2084072e792d783d7c2092b88d110f68cf5f6afdb6",
+          "certificate_time_ns": "1794835324279103406"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "65",
+          "root": "542f6b33208274c50530a581b4978dedbfaf9b70fe02a99319d304ec1e480b66",
+          "certificate_time_ns": "1794835325248835750"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "66",
+          "root": "0dc07eb9985784b56dc3aa053c1e2f45eb52360d3cc9aaba5950d0fffb294c86",
+          "certificate_time_ns": "1794835326216569058"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "67",
+          "root": "61086bacf5af3aa96262bc5977abfbae0ba35f3d9df44e1794d13978b67cdc83",
+          "certificate_time_ns": "1794835327288262035"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "68",
+          "root": "10a1a80712dc5947a2f3c9eaec3e462b9176962e77ca76f03cdf1e68a8594140",
+          "certificate_time_ns": "1794835328253702428"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "69",
+          "root": "d535f54cb76a109812f55dc1b68db0a7966eec09b689b341a15c246e7ddba627",
+          "certificate_time_ns": "1794835329225851459"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "70",
+          "root": "fe6495e5c572e8a1b576a8e99399c3478d515b97e13112e4428b48a74e5cbbee",
+          "certificate_time_ns": "1794835330296783057"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "71",
+          "root": "001f262d22ab1b74340525fc5874c46f89b850171547b4e1fa1822565fc7da97",
+          "certificate_time_ns": "1794835331263348885"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "72",
+          "root": "fbf21cb98560a703bcee6ccdceca50a059b2e2d84f5d62786cb89fb919dde629",
+          "certificate_time_ns": "1794835332232462503"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "73",
+          "root": "4c39143570259c884aef920b580cf949dc18a47dd850283db522a4656c47b0ff",
+          "certificate_time_ns": "1794835333198980770"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "74",
+          "root": "6745aa128e3bb4c94879fb05f604a555b5aee9cbb7f2911e799ebb4f301e5a6c",
+          "certificate_time_ns": "1794835334275554044"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "75",
+          "root": "8f5a1e9b67e3f86e1db6f093a83092e3bcaf33c3593224b85b751896424526e3",
+          "certificate_time_ns": "1794835335244565792"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "76",
+          "root": "18cd7a4e23c8dd1c42a5b8a98bb631d162855596770e00bc0128ceacbc57d015",
+          "certificate_time_ns": "1794835336070380125"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "77",
+          "root": "420ed32c7166092a1f7203080ebea8dedcfed57288b4cb3d93af2a8c20b635e4",
+          "certificate_time_ns": "1794835337001525846"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "78",
+          "root": "e3cacdd3c6a9359f288c6f522336e2570a9dc4b9ad79ee78c5fc2b2c7f219622",
+          "certificate_time_ns": "1794835337664841732"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "79",
+          "root": "780636f026d8969b334e6f3b457d15f340633e3632a44acb84751ded71013480",
+          "certificate_time_ns": "1794835339144084071"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "80",
+          "root": "46a17134d11569d1bd8bd6745410829c819149b6eb8908d693b059c1228fed0f",
+          "certificate_time_ns": "1794835339883240971"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "81",
+          "root": "a768c622409c029c85283bcac01be1c11137ae6b060cfbc9da045e866748bc7a",
+          "certificate_time_ns": "1794835340659732575"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "82",
+          "root": "bf5576b7ad9f6c09d330895d79d9dc12b6da0a26c2ca74c10238e261d68dade7",
+          "certificate_time_ns": "1794835341599949964"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "83",
+          "root": "c49e4c5280d4041b6c8535e3c16cc5eb946706225ff7ab0650728ef1fd16ba41",
+          "certificate_time_ns": "1794835343055833429"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "84",
+          "root": "64c5161a941862fc9d5a9ce6e250b61e5ad000545faebd6bdfad17474d470e94",
+          "certificate_time_ns": "1794835343762728009"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "85",
+          "root": "20e9c2dd6bda5cd2e7660fa234ce0424f03ead53224b9e08f0d869db1628e16d",
+          "certificate_time_ns": "1794835344648934342"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "86",
+          "root": "d0abfcfe6041927f9612e0df25bf4e833df7288525bff7562244cf8dd223d443",
+          "certificate_time_ns": "1794835345980262202"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "87",
+          "root": "5a7646029d3c1434f45370f0cba73a3db4e30c9f05e290b82f35534babc65dfc",
+          "certificate_time_ns": "1794835346822061033"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "88",
+          "root": "b6bb2c61a7f642235a4adc4a2d84987f34d9d3bfd0c4a4919ac2c8b98edc362a",
+          "certificate_time_ns": "1794835347602080025"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "89",
+          "root": "bb283a4730cd7effb7653a9ee19e1e3550517d109a13d31c0572dabaf6314473",
+          "certificate_time_ns": "1794835348950932046"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "90",
+          "root": "f2fde835c1f9800a3611faa40f601ad07f94186ac9d32bfb6b8efbfc3dea0809",
+          "certificate_time_ns": "1794835349805252644"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "91",
+          "root": "b0b30a3183c6d8829626d64907048164bced2ebfd0bb81131153e117d8d04349",
+          "certificate_time_ns": "1794835351095920586"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "92",
+          "root": "8c844f3c3a28bece20f7d7c5681f1a900ac69e58f1f65ee200e76d75b2f68f64",
+          "certificate_time_ns": "1794835351655607049"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "93",
+          "root": "b6e277e06fa7b7b7d940425cce354c78d420c6f47c8453de505b49fdf592bab0",
+          "certificate_time_ns": "1794835353076764122"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "94",
+          "root": "b80e43f12a1f13d68573d9f0d2fc4b571253a10454744225b45d4a2bedec0124",
+          "certificate_time_ns": "1794835353918622692"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "95",
+          "root": "229b9c317990368a571ad9596fb40826380fc46d84b36407bd8d9ce2ee3a1678",
+          "certificate_time_ns": "1794835354675446344"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "96",
+          "root": "53037997fed5d416378695932feb5a7391f8a49e44db8a9e7081066bade45513",
+          "certificate_time_ns": "1794835356023645285"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "97",
+          "root": "6d5be7537c849eefbcac6deb747ecfebd5f0483245cf786e6157395726ce45b5",
+          "certificate_time_ns": "1794835356874931433"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "98",
+          "root": "f08ebb6cb1a638e622f6fe8e82c46279b1d3f00428f62ab64f69ae68d0480117",
+          "certificate_time_ns": "1794835357657990329"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "99",
+          "root": "6ebad2aeed5cc2b5df708c6aee087d88b68245be07c55d9518f41ad8d056528d",
+          "certificate_time_ns": "1794835359079921532"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "100",
+          "root": "4b5a243311c8e3cd54d640b7d1dd4aa1291937a1ed77a410b22062d1a476f3fa",
+          "certificate_time_ns": "1794835359920929138"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "101",
+          "root": "017a6a5642288d28e374d53aad5234ed8ba3a384cd45406e88813e27da00fa3c",
+          "certificate_time_ns": "1794835360745313466"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "102",
+          "root": "a96d8a9363cc1f7c9a13294fd1229196b14d9709627179334932d89cfc6c3c0f",
+          "certificate_time_ns": "1794835362364148625"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "103",
+          "root": "a674f0bb83fe2f9b574205fd6b4b71281cae541582dc5634726b08a7e1b92f14",
+          "certificate_time_ns": "1794835362577066781"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "104",
+          "root": "7bd2fac48ec687fc2f0bcaa37789dfaa4089c62d66b3f1395e4c6df0b0541e76",
+          "certificate_time_ns": "1794835364030385511"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "105",
+          "root": "58bd98583141ef1928047b14d766ca7a8a7f4895f17e7d3c34fc286b9871f171",
+          "certificate_time_ns": "1794835364847881623"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "106",
+          "root": "bd49fa8f5d05fea1fa5479ac781afe01114cf2cdeaabe35a1837150b5bceabcb",
+          "certificate_time_ns": "1794835365792437834"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "107",
+          "root": "a618048a38c5a89d1f2dfab7c6722ae8ad3a6abb4d46f978f31e13d4f0efe23c",
+          "certificate_time_ns": "1794835367000010065"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "108",
+          "root": "df0f27815b3203dbae07f0a50133e593f4d27b41d9500d7b62246afb90548f7c",
+          "certificate_time_ns": "1794835367845168710"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "109",
+          "root": "9cd4403afa7c399f7d94b0eac6a2b3cc868e1ebd9024c814059c8e6c288f8e47",
+          "certificate_time_ns": "1794835368821000585"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "110",
+          "root": "254e18703f5ec8ee738e85f537c72c8f8eb5788406242604a5f85016f633b200",
+          "certificate_time_ns": "1794835370050794494"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "111",
+          "root": "d221444a7ebc5e17413d66391533de5d01e4f652872bcf49262946037393230d",
+          "certificate_time_ns": "1794835370760685601"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "112",
+          "root": "02a08fc5b16199f023bc54c6b0d3fbce9d9f5de75e6c9ed26cbd299f4e63544f",
+          "certificate_time_ns": "1794835371658991112"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "113",
+          "root": "67ad56ed38d2a56b8e208172dff9b1816df126bf9af3a9ffbf6c5b9ff32f4800",
+          "certificate_time_ns": "1794835373019857707"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "114",
+          "root": "ffc6ae15e6907ef26bc570a5b4ab35a89a90c4d08968f299b58dc0bea3e2f2e3",
+          "certificate_time_ns": "1794835373870109497"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "115",
+          "root": "02debcbcf299f22e531c95de75cd53a6826afd33c1b529419b08f0c202a7da46",
+          "certificate_time_ns": "1794835390169397237"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "116",
+          "root": "120339c3f212939e24efb8cb17f374504e702a4137adcfe492fe3bef3e5e8768",
+          "certificate_time_ns": "1794835391139010509"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "117",
+          "root": "924afa9580df0fa49b72f7721043f69d37cc08d6177315d739b78c6229df7bd4",
+          "certificate_time_ns": "1794835392110926665"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "eeeb52e28f42d4286d0b0c542501de656b3d6ce44fcaea3925689332a5c597fc",
+          "format": null,
+          "head": "118",
+          "root": "555d15799bb241eac666d1a36d972e121f5f39f2d68fedc458bfb407546ee954",
+          "certificate_time_ns": "1794835393121091493"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 8,
+          "identity": {
+            "config_hash": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df",
+            "rules_hash": "5d0ca4591a782b609ef10d9db46d4bd93042b0fcdd738d8d1f920840c05b7756",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "23ffefb5f37b45267bdb67cd0340436a2c431070b86bf60072b6fd8eebb5eb7b",
+          "format": null,
+          "head": "119",
+          "root": "037aab84e6c477790895f02f8c560cf993c5912afb2ad989ec4def31fdcefe71",
+          "certificate_time_ns": "1794835393121091493"
+        }
+      ],
+      "acceptedEvicted": 2
+    },
+    "playback": {
+      "wall_ms": 78930.3,
+      "frame_ms": 16.60000000000582,
+      "verified_ticks": 118,
+      "consumed_ticks": 115.29255995556031,
+      "admitted_ticks": 63,
+      "played_ticks": 61.29255995555911,
+      "buffer_ticks": 2.707440044439693,
+      "buffer_target_ticks": 17,
+      "buffer_bytes": 179341,
+      "queue_segments": 4,
+      "certificate_time_ns": "1794835393387875498",
+      "certificate_age_ms": 101.124352,
+      "catchup_segments": 2,
+      "catchup_ms": 83.69999999995343,
+      "phase": "BUFFERING",
+      "rate": 1,
+      "elastic": {
+        "samples": 0,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0.1275,
+        "last_distinct_at": 78667.6000000001
+      },
+      "presentation_lag_ticks": 2.707440044439693,
+      "nominal_rate": 1,
+      "supported_rate": 1,
+      "presentation_rate": 0.8388289999999995,
+      "target_rate": 1,
+      "performance_limited": false,
+      "fetch_ms": 19.699999999953434,
+      "verify_ms": 19.9000000001397,
+      "artifact_ms": 27,
+      "derive_ms": 4.800000000046566,
+      "artifact_bundle": true,
+      "artifact_bundle_fallbacks": 0,
+      "artifact_bundle_error": null,
+      "delivery_failures": 0,
+      "delivery_error": null,
+      "backend_segments": 117,
+      "segment_ticks": 1
+    },
+    "checkpoints": 2
+  },
+  "error": "",
+  "service": "Waiting for next on-chain update",
+  "quote": "",
+  "displayed": {
+    "cannons": 2,
+    "balls": 6
+  }
+}

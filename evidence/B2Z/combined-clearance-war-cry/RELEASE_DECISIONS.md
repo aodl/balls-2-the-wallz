@@ -80,6 +80,10 @@ Record the global Ledger exclusive watermark. Official Index completeness must
 reach it; drain every pre-cutover admitted input and finish its execution under
 Rules7. Require no staged execution/pending inputs, retired cursor==source cursor,
 committed integer-time world and the exact sealed source anchor. Re-observe and
+confirm that the browser has received the actual fresh paused operational reply
+and disabled Copy; a controller-side pause or authenticated rules checkpoint alone
+does not establish that this independently polled status has reached the browser.
+Re-observe and
 independently authenticate the **current exact predecessor manifest**. Commit that
 manifest, not one observed before draining. A newer valid manifest is not an
 acceptable substitute for the approved manifest; stop and re-establish the decision.

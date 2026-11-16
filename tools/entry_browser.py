@@ -51,6 +51,17 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
         page.locator('[data-copy=text]').click();wait_until(page,lambda:page.evaluate('globalThis.combinedCopied')==old_packet['memo'],10000)
         page.screenshot(path=str(out/'rules7-copied-before-combined.png'))
     (out/'browser-join-seen').write_text('genuine receipt and same-page presentation verified\n')
+    if old_packet:
+        # A certificate checkpoint and the two-second operational query are
+        # independent deliveries. First establish the actual observed pause;
+        # do not infer it from a controller-side marker or an identity change.
+        wait_file(page,out/'clearance-paused',180000)
+        wait_until(page,lambda:page.evaluate('''()=>{const s=__b2zExperience.session;return s.operational?.run.running===false&&performance.now()-s.operationalAt<15000}''')and page.locator('[data-copy=text]').is_disabled(),30000)
+        assert page.locator('[data-copy=text]').is_disabled()
+        paused=page.evaluate('''()=>({at:performance.now(),head:String(__b2zExperience.session.sequence.last.publication.head.segment_id),rules:__b2zExperience.session.config.rules_version,running:__b2zExperience.session.operational.run.running,operationalAge:performance.now()-__b2zExperience.session.operationalAt,canPay:__b2zExperience.arcade?.canPay?.()??null,label:document.querySelector('#arena-note').textContent,copyDisabled:document.querySelector('#transfer-controls').disabled,memo:document.querySelector('#text-memo').textContent})''')
+        assert paused['rules']==7 and paused['running']is False and paused['copyDisabled']
+        (out/'browser-clearance-pause-seen').write_text(json.dumps(paused,indent=2)+'\n')
+        report['combined_operational_pause']=paused;save()
     wait_file(page,out/'clearance-activated',180000)
     target_rules=configuration.get('clearance_rules_version',9)
     assert target_rules in (9,11)

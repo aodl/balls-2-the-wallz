@@ -628,6 +628,29 @@ fn run_entry_and_clearance_ordered(
         clearance_ready,
         "clearance drain must finish before activation"
     );
+    if combined {
+        // The controller's pause is not itself a browser observation. Require
+        // the real operational query to acknowledge it before epoch commit,
+        // matching the proposed maintenance precondition. No status override.
+        std::fs::write(
+            browser_out.join("clearance-paused"),
+            "actual paused/drained controller",
+        )
+        .unwrap();
+        let paused_start = std::time::Instant::now();
+        while !browser_out.join("browser-clearance-pause-seen").exists() {
+            assert!(
+                paused_start.elapsed() < Duration::from_secs(60),
+                "browser must observe real pause before cutover"
+            );
+            assert!(
+                browser.0.try_wait().unwrap().is_none(),
+                "inspect paused browser log"
+            );
+            live_record(&pic, id, &mut rows, &out);
+        }
+        assert!(!status(&pic, id).run.running);
+    }
     assert_eq!(
         arena_world(&pic, id)
             .cannons

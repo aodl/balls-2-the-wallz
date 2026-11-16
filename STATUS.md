@@ -7,9 +7,12 @@ on published deployment evidence `6afe3b2`. It composes Rules9 clearance and Rul
 War Cry. All six substantive gates pass for686b2d9 in run43859604893.
 The exact hosted normal5ffb6c… and compatible80-file frontend are frozen;
 actual paid-predecessor/financial/certificate/native-browser closeouts pass locally.
-The final test-only continuation adds stronger final-receipt HTTP/BLS assertions
-and awaits its own exact-source hosted run. No runtime/build/dependency bytes
-changed; no combined production operation is authorised or performed.
+The final test-only continuation adds stronger final-receipt HTTP/BLS assertions.
+Its b1d7fe8 run43872278065 passes five gates but fails the installed paused-Copy
+assertion before real paused operational confirmation reaches the browser. The
+focused correction requires that actual fresh observation before epoch commit;
+its final exact-source qualification remains pending. No runtime/build/dependency
+bytes changed; no combined production operation is authorised or performed.
 Production stays on the approved79-file panel frontend and unchanged Rules7.
 See [the current candidate report](evidence/B2Z/combined-clearance-war-cry/REPORT.md)
 and [separate release decisions](evidence/B2Z/combined-clearance-war-cry/RELEASE_DECISIONS.md).

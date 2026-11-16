@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "source": "b1d7fe81670962b410966a2786301b1c55d52c31",
+  "run": 43872278065,
+  "artifact": 14228118635,
+  "archive_digest": "sha256:9ac46a7bc96b9f8114bf332080e3265ac6f8978329d743d3c7aa04fd127b84c5",
+  "normal_wasm_sha256": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "bytes": 3659359,
+  "byte_identical_to_selected_frozen_module": true,
+  "scope": "Final exact hosted build; original frozen module preserved without replacement or relabelling"
+}

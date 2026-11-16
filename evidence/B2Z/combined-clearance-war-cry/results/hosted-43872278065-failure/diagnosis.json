@@ -1,0 +1,13 @@
+{
+  "source": "b1d7fe81670962b410966a2786301b1c55d52c31",
+  "run": 43872278065,
+  "failed_job": 133316252814,
+  "substantive_gates_passed": 5,
+  "installed_conclusion": "failure",
+  "assertion": "tools/entry_browser.py:69 Copy disabled immediately after explicit Update",
+  "complete_raw_artifact": {
+    "id": 14232957780,
+    "sha256": "2d4a605f4362094ff96c4594771cca781e931678bc21f56e299b9e8f57ccaa2f"
+  },
+  "evidence": "Actual controller paused; authenticated Rules11 checkpoint119; browser status still Waiting for next on-chain update. Paused operational response had not been established as a browser precondition. Generic strict capture correctly lacks a final fence after the assertion abort; not a capture transport timeout pass."
+}

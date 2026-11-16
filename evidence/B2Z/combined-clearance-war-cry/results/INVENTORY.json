@@ -80,6 +80,11 @@
     "sha256": "43a59a06099df08450834850f8dc67ed7ff4cd11dcf0a144732a19a97d98f9dc"
   },
   {
+    "path": "checks/ci-43872278065.json",
+    "bytes": 1377,
+    "sha256": "7144d9fc428bcb2d3768b400069ae9ee44dc8711357aee218c639fc9ac177f9f"
+  },
+  {
     "path": "checks/combined-checkpoint-js.log",
     "bytes": 468,
     "sha256": "64cb16ff3fda27020251ae6e7b645b1f0e21ece9de549c7f21862690c3bd7680"
@@ -168,6 +173,11 @@
     "path": "checks/qualified-hosted-wasm-43859604893.json",
     "bytes": 517,
     "sha256": "fcf8dfd07dd53d3799f96c46c90d9b806b854887513278b7fcfdde45fa4f2856"
+  },
+  {
+    "path": "checks/qualified-hosted-wasm-43872278065.json",
+    "bytes": 495,
+    "sha256": "7bf33e908509b8c9850b37580c40abb1ca8b7efa160dc4ef8770fe768df934e6"
   },
   {
     "path": "checks/retention-diagnosis.json",
@@ -628,6 +638,51 @@
     "path": "frozen-mainnet-ready/video-390/page@c848b8f7e9dc20aa4fc236a460ab7494.webm",
     "bytes": 739287,
     "sha256": "e30d5c00edab298434d48a9e9738b0809136994c7e83c30cae88857230295824"
+  },
+  {
+    "path": "hosted-43872278065-failure/browser/browser.log",
+    "bytes": 1515,
+    "sha256": "8904882cbfb0d697a84121550f836778f72bbc660452b3eba46e90dfe3632e06"
+  },
+  {
+    "path": "hosted-43872278065-failure/browser/exception-browser-state.json",
+    "bytes": 58345,
+    "sha256": "ff88804cee42be803a6fe2346c36ae5cfacd29c3186b8a6916ec394cfd95d2e9"
+  },
+  {
+    "path": "hosted-43872278065-failure/browser/exception-browser.png",
+    "bytes": 95075,
+    "sha256": "cbdab10b8ef356e6c5dae533e62b0ed2f49954e09efa86fac7193c2093aeb8b4"
+  },
+  {
+    "path": "hosted-43872278065-failure/browser/proxy-timing.jsonl",
+    "bytes": 152812,
+    "sha256": "f971b311bd9b408937b246c351d23e8f475c119fd8f6059328bd76a4f9663b8e"
+  },
+  {
+    "path": "hosted-43872278065-failure/browser/results.json",
+    "bytes": 31495,
+    "sha256": "5b6b983b49a10f027ee6dcc25c5db1c77e2d36f2f8eaf91dcdd51218bd74d136"
+  },
+  {
+    "path": "hosted-43872278065-failure/browser/wire-index.json",
+    "bytes": 250039,
+    "sha256": "2a80a866b30a423d535456b3e97b368b9d499a2c45534f0d1cbcb8b9b6cb7465"
+  },
+  {
+    "path": "hosted-43872278065-failure/clearance-cutover.json",
+    "bytes": 478,
+    "sha256": "678a2a7b45894d9fbba5e314b47cacd34115b6ce5ef7705458441e9afb4a30e1"
+  },
+  {
+    "path": "hosted-43872278065-failure/diagnosis.json",
+    "bytes": 744,
+    "sha256": "5f2e9e7e1853b61c98c8399c8b891dffa493ffd20a884721e73b1eb76ea78a22"
+  },
+  {
+    "path": "hosted-43872278065-failure/hosted-failed-step.log",
+    "bytes": 10057,
+    "sha256": "90c7cca93b710dad98c166c82c8255b58597ba439fddba7c5f31d1ce9b7e6034"
   },
   {
     "path": "hosted-clearance/authenticated/final-certificate.cbor",
@@ -4858,6 +4913,61 @@
     "path": "instrumentation/verify-frozen-mainnet-quotes.mjs",
     "bytes": 2006,
     "sha256": "41641d4ff4547347356900444f8ed649e590eab2cfb2e987251824d3903575f5"
+  },
+  {
+    "path": "paused-ack-normal/authenticated/result.json",
+    "bytes": 3303,
+    "sha256": "858122b666bf0be7bc3b5f74fa26c5e016a0dbc27b296c3005eb6fbbcc1006bd"
+  },
+  {
+    "path": "paused-ack-normal/browser/browser-clearance-pause-seen",
+    "bytes": 213,
+    "sha256": "ed45e6b91f131084f195444372f0f5631a60b3b2a40743626d96c1108ba66f15"
+  },
+  {
+    "path": "paused-ack-normal/browser/browser.log",
+    "bytes": 622,
+    "sha256": "b441b528f58b17f0eeef41bfffb99e479e1b8ead9bc152ebd046ab2785bd6bbe"
+  },
+  {
+    "path": "paused-ack-normal/browser/results.json",
+    "bytes": 32274,
+    "sha256": "7138d614c6fb3d4829685a569ebb9f9967db3f9cc56a9d60b7bd2c3dd7ef9737"
+  },
+  {
+    "path": "paused-ack-normal/browser/rules11-replaced-packet-and-cry.png",
+    "bytes": 90856,
+    "sha256": "a6c7088a666b678ad0fb34d59d9f2b63e0149a55181ec4366de12b60b66a410f"
+  },
+  {
+    "path": "paused-ack-normal/browser/wire-index.json",
+    "bytes": 199059,
+    "sha256": "7fcb133fd5b6aa889feba153d963ae39278cc783e1503e3361022935615e62d5"
+  },
+  {
+    "path": "paused-ack-normal/clearance-cutover.json",
+    "bytes": 478,
+    "sha256": "678a2a7b45894d9fbba5e314b47cacd34115b6ce5ef7705458441e9afb4a30e1"
+  },
+  {
+    "path": "paused-ack-normal/logs/installed-combined.log",
+    "bytes": 269,
+    "sha256": "d809ef18da3899e522381f66195f756e22c27fbed8d36712b41e3eecb016e1f5"
+  },
+  {
+    "path": "paused-ack-normal/replay.json",
+    "bytes": 311,
+    "sha256": "0429d25c5268130eeb7c034a751696862a385d2a5a7f18d9c1e22a0b47724fcf"
+  },
+  {
+    "path": "paused-ack-normal/results.json",
+    "bytes": 1189,
+    "sha256": "dd0c8aeba250fa3fa4340f2dc945db9083f5484a213bbaaed15389232f7b9ea3"
+  },
+  {
+    "path": "paused-ack-normal/trace.json",
+    "bytes": 7505357,
+    "sha256": "bbd1b70650921d6f9ebb6b4324486f209b49dcd01b5ca1697a19d85bd27fd2ef"
   },
   {
     "path": "production-preservation/browser.log",

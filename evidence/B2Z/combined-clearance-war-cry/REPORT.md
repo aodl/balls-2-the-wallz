@@ -7,6 +7,9 @@ Development is isolated on `feature/b2z-combined-clearance-war-cry`, starting fr
 published deployment-evidence commit `6afe3b2fc2426887f905259312f5c090ed7dc7ab`.
 Final exact-source hosted qualification is pending; no earlier separately green
 Rules9/Rules10 run qualifies this composition.
+The final test continuation at `b1d7fe81670962b410966a2786301b1c55d52c31`
+passed five gates but failed the installed paused-Copy assertion; its negative
+evidence and the explicit observed-pause correction are recorded below.
 
 ## Identities and separation
 
@@ -390,6 +393,33 @@ changes no runtime/build/dependency input or frozen artifact. A full final-sourc
 run of those stronger assertions is still pending publication/completion. No
 previous pass is presented as a run of changed test code.
 
+### Final-continuation negative and observed operational pause
+
+[Run43872278065](https://github.com/aodl/balls-2-the-wallz/actions/runs/43872278065)
+at exact source `b1d7fe81670962b410966a2786301b1c55d52c31` passes Source, Native,
+Package, Wasm and Browser, but **fails installed-IC** in
+`entry_installed::combined_clearance_on_normal_installed_module`,
+`tools/entry_browser.py:69`: Copy was enabled after explicit Update. The real
+controller is paused and Rules11 checkpoint119 is authenticated, but the browser
+still reports “Waiting for next on-chain update,” not the observed “Game paused.”
+The test inferred browser operational confirmation from a controller-side pause
+and a separately delivered checkpoint. The two-second operational poll and the
+certificate delivery are independent; the last status body itself was not retained
+by the generic artifact-only capture, so its exact contents are not invented.
+
+The correction adds a bounded real-observation handshake: while the controller
+remains paused/drained under Rules7, the browser must observe a fresh paused
+operational reply **and disabled Copy** before the harness permits epoch commit.
+It records that reply's age, rules, memo and control state. Existing stale Keep,
+explicit Update, disabled Copy, byte limits and strict certificate/wire assertions
+remain unchanged. No timeout, runtime, frontend asset or backend module changes.
+This mirrors the separately approvable maintenance precondition; no status is
+overridden. The original assertion abort also correctly leaves capture without
+a final publication fence; it is not accepted as a completed replay or a transport
+timeout pass. [Original failure](results/hosted-43872278065-failure/diagnosis.json),
+[actual browser state](results/hosted-43872278065-failure/browser/exception-browser-state.json),
+[controller cutover](results/hosted-43872278065-failure/clearance-cutover.json).
+
 ## Scope matrix before final hosted closeout
 
 | Check | Result and actual scope |
@@ -413,3 +443,12 @@ previous pass is presented as a run of changed test code.
 | Physical phone/Firefox/Safari/headphone/Bluetooth listening | NOT VERIFIED |
 | Prior BFCache capture restriction | BLOCKED in its recorded scope, not cleared here |
 | Production frontend80/backend/epoch/payment/funding | NOT RUN / NOT AUTHORISED |
+
+The focused observed-pause correction passes locally on the unchanged selected
+normal5ffb6c… module:230.994s,118 independently authenticated/replayed publications,
+zero native wire errors, unchanged disabled-Copy/Keep/Update assertions and both
+clearance rejection receipts. [Actual observed pause](results/paused-ack-normal/browser/browser-clearance-pause-seen),
+[installed result](results/paused-ack-normal/results.json),
+[final certificate/HTTP proof](results/paused-ack-normal/authenticated/result.json).
+This local run explicitly records an uncommitted test-only continuation; its new
+source commit still requires all six hosted gates.
