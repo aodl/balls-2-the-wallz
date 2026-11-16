@@ -1,0 +1,12 @@
+{
+  "artifact_length": 298,
+  "chunk": 0,
+  "chunk_count": 1,
+  "completed_rows": 146,
+  "kind": 2,
+  "observed_head": 152,
+  "publication_hash": "7995e22adef37587353394c39a4cc399a0da2ae43f5db468f54722298be9110a",
+  "request": "retained_artifact_chunk",
+  "segment": 146,
+  "status": "pending"
+}

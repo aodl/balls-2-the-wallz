@@ -1,0 +1,11 @@
+✔ independent replay supports the exact rules7 to combined rules11 epoch and subsequent elapsed segments (2643.522236ms)
+✔ combined replay rejects a conflicting identity or cutover context even with rehashed event bytes (9614.433746ms)
+✔ combined observer checkpoint preserves every entity and requires exact predecessor/cutover (1202.046098ms)
+ℹ tests 3
+ℹ suites 0
+ℹ pass 3
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 14967.545233

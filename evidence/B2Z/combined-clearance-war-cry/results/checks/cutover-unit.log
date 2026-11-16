@@ -1,0 +1,10 @@
+   Compiling b2z-native v0.5.0 (/home/codexdev/src/b2z/native/b2z-native)
+   Compiling dtr-runtime-lab v0.5.0 (/home/codexdev/src/b2z/canisters/runtime-lab)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 2m 34s
+     Running unittests src/lib.rs (canisters/runtime-lab/target/debug/deps/dtr_runtime_lab-380da727ea31f6c5)
+
+running 1 test
+test playability_runtime::tests::native_epoch_sequence_preserves_value_and_expires_without_ledger_or_logical_ticks ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 51 filtered out; finished in 9.63s
+

@@ -1,0 +1,457 @@
+   Compiling dtr-runtime-lab v0.5.0 (/home/codexdev/src/b2z/canisters/runtime-lab)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 57.46s
+     Running unittests src/lib.rs (canisters/runtime-lab/target/debug/deps/dtr_runtime_lab-380da727ea31f6c5)
+
+running 52 tests
+test funding::tests::definitive_rejections_replan_only_without_prior_ambiguity ... ok
+test funding::tests::expired_identity_is_never_replaced_and_future_keeps_original ... ok
+test funding::tests::principal_subaccount_is_not_default ... ok
+test funding::tests::self_source_and_durable_plan_cannot_redirect ... ok
+test funding::tests::threshold_and_dust ... ok
+test health::tests::discontinuities_cannot_hide_inside_the_sampling_interval ... ok
+test health::tests::net_samples_reset_on_topups_and_credits_and_expire ... ok
+test health::tests::samples_are_bounded_and_do_not_measure_subminute_rates ... ok
+test health::tests::query_execution_refunds_do_not_rewrite_historical_callback_endpoints ... ok
+test operation_kernel::tests::malformed_inputs_and_returned_copies_cannot_poison_a_valid_entry ... ok
+test operation_kernel::tests::large_valid_continuations_use_uncached_validation ... ok
+test operation_kernel::tests::typed_continuations_match_full_restore_and_stateless_baseline ... ok
+test operation_kernel::tests::warm_cache_never_accepts_a_wrong_commitment_or_changed_bytes ... ok
+test pace::tests::conservative_selection_and_descending_steady_do_not_oscillate ... ok
+test pace::tests::deadlines_bound_head_and_drop_delayed_catchup ... ok
+test pace::tests::every_entry_exit_and_one_cycle_below_boundary ... ok
+test pace::tests::fresh_trickle_entry_retains_exit_and_recovery_hysteresis ... ok
+test pace::tests::persistent_compute_overruns_lower_then_healthy_probes_restore_envelope ... ok
+test pace::tests::sudden_changes_skip_intermediate_modes_in_both_directions ... ok
+test pace::tests::target_is_dimension_free_and_performance_is_reported_separately ... ok
+test pace::tests::timer_delivery_cost_also_bounds_the_performance_envelope ... ok
+test playability_runtime::tests::abandoned_query_on_upgrade_never_erases_durable_pending_data ... ok
+test playability_runtime::tests::expiry_barrier_follows_only_the_captured_finite_window ... ok
+test playability_runtime::tests::lifecycle_context_bounds_and_preimages_fail_closed ... ok
+test operation_kernel::tests::oversized_outputs_match_stateless_without_retention ... ok
+test playability_runtime::tests::newer_pokes_or_responses_cannot_expand_a_known_expiry_window ... ok
+test player_api::tests::clearance_quote_policy_matches_active_rules_and_preserves_fire ... ok
+test player_api::tests::exact_binary_headings_never_get_a_rounded_text_memo ... ok
+test player_api::tests::exact_island_quotes_and_account_authority_match_the_kernel ... ok
+test player_api::tests::first_additional_and_revival_quotes_keep_positive_sequential_prices ... ok
+test player_api::tests::first_join_quote_rejects_fully_owned_world_without_changing_rules ... ok
+test player_api::tests::receipt_numbers_preserve_tagged_e8s_and_bounded_quantities ... ok
+test player_api::tests::region_bounds_seams_and_canonical_accounts_are_explicit ... ok
+test source::tests::annotated_adapter_retains_exact_utf8_but_old_adapter_and_spenders_never_gain_it ... ok
+test playability_runtime::tests::native_epoch_sequence_preserves_value_and_expires_without_ledger_or_logical_ticks ... ok
+test source::tests::classification_preserves_memo_and_delegation_rules ... ok
+test source::tests::duplicate_nonadvancing_inconsistent_and_overflow_pages_rejected ... ok
+test source::tests::durable_pending_and_capacity_never_advance_admission ... ok
+test source::tests::empty_history_and_unchanged_account_are_safe ... ok
+test source::tests::exact_numeric_subaccount_derivation ... ok
+test source::tests::full_nat64_source_positions_and_subaccounts_survive_durable_codec ... ok
+test source::tests::invalid_text_then_valid_payment_preserves_ids_digests_and_pending ... ok
+test source::tests::poke_target_positive_nat_and_bounded_vector ... ok
+test source::tests::sparse_pages_frozen_high_and_oldest_first ... ok
+test source::tests::v6_adapter_is_explicit_and_preserves_normalized_history ... ok
+test tests::coordinator_image_overflow_preserves_existing_blob_slots ... ok
+test tests::empty_history_idles_but_inflight_stage_and_rejected_payment_need_work ... ok
+DTR_RUNTIME_CANDID_BEGIN
+type BallView = record {
+  player_id : nat32;
+  ball_id : nat32;
+  cell : nat32;
+  velocity_x : int32;
+  velocity_y : int32;
+  y_intercept : int;
+  x_intercept : int;
+};
+type CannonReply = record { state : StateRef; cannon : opt CannonView };
+type CannonView = record {
+  player_id : nat32;
+  owned_island_cells : nat32;
+  island_id : nat32;
+  funding_account : text;
+  cell : nat32;
+  cannon_id : nat32;
+  heading : opt nat16;
+  dormant_since_ns : opt nat64;
+  deadline_ns : opt nat64;
+  island_ball_ids : vec nat32;
+};
+type CellView = record { player_id : nat32; island_id : nat32; cell : nat32 };
+type Completion = record {
+  block_index : nat64;
+  completed_at_ns : nat64;
+  plan : Plan;
+  cycles : text;
+};
+type ControllerWork = record {
+  source_cursor : nat64;
+  ready_manifest : opt text;
+  phase : opt text;
+  revision : nat64;
+  pending_inputs : nat32;
+};
+type Destination = record {
+  receiving_numeric_subaccount : nat64;
+  owner : principal;
+  network : text;
+  icp_account : text;
+  ledger : principal;
+  index : principal;
+};
+type DriverMetrics = record {
+  last_seal_instructions : nat64;
+  last_step_instructions : nat64;
+  last_instructions : nat64;
+  messages : nat64;
+  max_actions : nat32;
+  seal_instructions : nat64;
+  step_instructions : nat64;
+  publish_instructions : nat64;
+  last_publish_instructions : nat64;
+  max_instructions : nat64;
+  persist_instructions : nat64;
+  last_persist_instructions : nat64;
+};
+type GameInfo = record {
+  height : nat32;
+  destination : Destination;
+  payments_retained : bool;
+  wallet_execution_available : bool;
+  state : StateRef;
+  world_version : nat32;
+  memo_adapter_version : nat8;
+  configuration : blob;
+  width : nat32;
+  limits : Limits;
+};
+type Health = record {
+  resets : nat64;
+  sample_end_ns : nat64;
+  observed_at_ns : nat64;
+  sample_start_total_cycles : nat;
+  sample_count : nat32;
+  runtime_started_ns : nat64;
+  known_treasury_credit_delta : nat;
+  net_decline_cycles : opt nat;
+  version : nat32;
+  sample_scope : text;
+  reservation_gap_end : nat;
+  certified_gameplay : bool;
+  sample_end_total_cycles : nat;
+  total_cycles : nat;
+  reservation_gap_start : nat;
+  sample_start_ns : nat64;
+  liquid_cycles : nat;
+  discontinuity : text;
+};
+type Hint = record {
+  // Funding-selected gameplay target. This is never reduced because of world size.
+  nominal_milli : nat32;
+  // Actual scheduler target after the independently measured performance envelope.
+  supported_milli : nat32;
+  mode : text;
+  admission_open : bool;
+  performance_limited : bool;
+};
+type IndexConfig = record {
+  receiving_subaccount : nat64;
+  // Explicitly process existing history too; never silently skip a funded account.
+  starting_policy : StartingPolicy;
+  event_horizon : opt principal;
+  network : text;
+  ledger : principal;
+  index : principal;
+};
+type Limits = record {
+  total_cannons : nat32;
+  retained_cannons_per_account : nat32;
+  total_balls : nat32;
+  purchase_balls_per_island : nat32;
+  maximum_quantity : nat8;
+};
+type Observation = record { e8s : nat64; observed_at_ns : nat64 };
+type ObservationBundle = record {
+  artifacts : vec blob;
+  observation : Observation_1;
+};
+type Observation_1 = record { certificate : opt blob; publication : blob };
+type Phase = variant {
+  NotifyPending : record { block_index : nat64; plan : Plan; attempts : nat64 };
+  Idle;
+  TransferPending : record { plan : Plan; attempts : nat64; uncertain : bool };
+};
+type Plan = record {
+  to : blob;
+  cmc : text;
+  created_at_time_ns : nat64;
+  beneficiary : text;
+  memo : nat64;
+  fee_e8s : nat64;
+  amount_e8s : nat64;
+  ledger : text;
+};
+type PlayerView = record {
+  player_id : opt nat32;
+  accrued_area_time : Rational;
+  funding_account : text;
+  cannons : vec CannonView;
+  state : StateRef;
+  active_balls : nat32;
+  owned_cells : nat32;
+};
+type PokeMatch = record { target : PokeTarget; max_amount : nat };
+type PokeTarget = variant { neuron_nonce : nat64; subaccount : nat64 };
+type Quote = record {
+  text_memo : opt text;
+  destination : Destination;
+  funding_account : text;
+  memo_bytes : blob;
+  per_item_e8s : vec nat64;
+  amount_e8s_excluding_fee : nat64;
+  numeric_memo : nat64;
+  reservation : bool;
+  state : StateRef;
+  maximum_fill_now : nat8;
+  requested_quantity : nat8;
+  unused_payment_retained : bool;
+  limits : Limits;
+};
+type QuoteAction = variant {
+  New : record { angle : nat16; cell : opt nat32; quantity : nat8 };
+  Fire : record { angle : nat16; quantity : nat8; cannon : nat32 };
+  Move : record { cell : nat32; cannon : nat32 };
+};
+type Rational = record { numerator : int; denominator : nat };
+type Receipt = record {
+  searched_segment : opt nat64;
+  status : ReceiptStatus;
+  search_retained : bool;
+  per_item_e8s : vec nat64;
+  actual_quantity : opt nat8;
+  amount_used_e8s : opt nat64;
+  retained_remainder_e8s : opt nat64;
+  state : StateRef;
+  canonical_receipt : opt blob;
+  event_artifact_hash : opt text;
+  account : opt text;
+  requested_quantity : opt nat8;
+  ledger_position : nat64;
+  stop_reason : opt text;
+  reason : opt text;
+};
+type ReceiptStatus = variant {
+  PartiallyApplied;
+  Applied;
+  Duplicate;
+  Rejected;
+  UnknownOrNotRetained;
+  Pending;
+};
+type Refund = record {
+  plan : Plan;
+  refund_block : opt nat64;
+  transfer_block : nat64;
+  reason : text;
+};
+type Region = record {
+  cells : vec CellView;
+  cannons : vec CannonView;
+  state : StateRef;
+  logical_time : Rational;
+  balls : vec BallView;
+};
+type Result = variant { Ok : Quote; Err : text };
+type Result_1 = variant { Ok : vec blob; Err : text };
+type Result_10 = variant { Ok : Observation_1; Err : text };
+type Result_11 = variant { Ok : ObservationBundle; Err : text };
+type Result_12 = variant { Ok : Receipt; Err : text };
+type Result_13 = variant { Ok : PlayerView; Err : text };
+type Result_14 = variant { Ok : RetentionStatus; Err : text };
+type Result_2 = variant { Ok : blob; Err : text };
+type Result_3 = variant { Ok : CannonReply; Err : text };
+type Result_4 = variant { Ok : State; Err : text };
+type Result_5 = variant { Ok : RuntimeDiagnostics; Err : text };
+type Result_6 = variant { Ok : ControllerWork; Err : text };
+type Result_7 = variant { Ok : GameInfo; Err : text };
+type Result_8 = variant { Ok : Status; Err : text };
+type Result_9 = variant { Ok : Region; Err : text };
+type RetainedEntry = record {
+  segment_id : nat64;
+  bytes : nat64;
+  current : bool;
+  publication_hash : text;
+};
+type RetentionStatus = record {
+  entries : vec RetainedEntry;
+  max_segments : nat16;
+  max_bytes : nat64;
+  retained_bytes : nat64;
+};
+type RunConfig = record {
+  work_budget : nat32;
+  segment_ticks : nat64;
+  pacing_seconds : nat32;
+};
+type RunStatus = record {
+  last_error : opt text;
+  last_segment_work : nat64;
+  callback_count : nat64;
+  world_transition : bool;
+  idle : bool;
+  pace : Hint;
+  generation : nat64;
+  work_budget : nat32;
+  total_work : nat64;
+  current_segment_work : nat64;
+  segment_ticks : nat64;
+  publication_ticks : nat64;
+  max_segment_work : nat64;
+  completed_segments : nat64;
+  running : bool;
+  pacing_seconds : nat32;
+};
+type RuntimeDiagnostics = record {
+  metrics : DriverMetrics;
+  instruction_yield : nat64;
+  message_work_limit : nat64;
+  total_cycles : nat;
+  phase_action_limit : nat32;
+  liquid_cycles : nat;
+};
+type SourceStatus = record {
+  last_error : opt text;
+  receiving_subaccount : nat64;
+  index_calls : nat64;
+  binding_checked : bool;
+  reconciliation_requested : bool;
+  event_horizon : opt principal;
+  network : text;
+  pending_records : nat32;
+  ledger : principal;
+  index : principal;
+  recipient_account : blob;
+  admitted_to_exclusive : nat64;
+  scan_in_flight : bool;
+};
+type StartingPolicy = variant { FromBeginning };
+type State = record {
+  last_error : opt text;
+  total_cycles_reported : text;
+  last_plan_ns : nat64;
+  observed_fee : opt Observation;
+  last_refund : opt Refund;
+  total_converted_e8s : text;
+  last_success : opt Completion;
+  version : nat32;
+  lease_started_ns : nat64;
+  nonce : nat64;
+  observed_balance : opt Observation;
+  halted : bool;
+  phase : Phase;
+  paused : bool;
+};
+type StateRef = record {
+  source_to_exclusive : nat64;
+  segment_id : opt nat64;
+  logical_end : nat64;
+  source_id : text;
+  manifest_hash : text;
+  rules_hash : text;
+  epoch_hash : opt text;
+  state_hash : text;
+  config_hash : text;
+  publication_hash : text;
+  certified_reply : bool;
+  schema_hash : text;
+};
+type Status = record {
+  run : RunStatus;
+  source : SourceStatus;
+  version : nat32;
+  revision : nat64;
+  publication_hash : text;
+};
+service : (blob, nat64, IndexConfig) -> {
+  action_quote : (text, QuoteAction) -> (Result) query;
+  // One bounded query avoids three independent artifact round trips for ordinary
+  // small publications. Larger publications retain the existing chunk fallback.
+  artifact_bundle : (nat64, text) -> (Result_1) query;
+  artifact_chunk : (text, nat8, nat16) -> (Result_2) query;
+  cannon_state : (nat32) -> (Result_3) query;
+  clearance_transition_status : () -> (Result_2) query;
+  combined_transition_status : () -> (Result_2) query;
+  // Derives the rules-9 metadata once. No caller-supplied world, time or identities.
+  commit_clearance_transition : (text) -> (Result_2);
+  // Derives the combined rules-11 metadata once. No caller-supplied world, time or identities.
+  commit_combined_transition : (text) -> (Result_2);
+  // Derives the rules-7 metadata once. No caller-supplied world, time or identities.
+  commit_entry_transition : (text) -> (Result_2);
+  // Commit the reviewed compact 1000×1000 state through DTR's generic next
+  // epoch operation. No state or identity is accepted from the caller.
+  commit_million_transition : (text) -> (Result_2);
+  // Derives the v6 metadata once. No caller-supplied world, time or identities.
+  commit_playability_transition : (text) -> (Result_2);
+  // Derive the new world from the actual durable committed state, once. Expected
+  // manifest protects against a stale operator view; there is no arbitrary replacement.
+  commit_torus_transition : (text) -> (Result_2);
+  // Derives the War Cry rules-10 metadata once. No caller-supplied world, time or identities.
+  commit_war_cry_transition : (text) -> (Result_2);
+  controller_funding : () -> (Result_4) query;
+  controller_runtime : () -> (Result_5) query;
+  controller_work : () -> (Result_6) query;
+  entry_transition_status : () -> (Result_2) query;
+  // Content-addressed application metadata. Hash against the independently
+  // authenticated epoch.metadata_hash; this convenience reply is not certified.
+  epoch_metadata : (text) -> (Result_2) query;
+  game_info : () -> (Result_7) query;
+  get_api_doc : () -> (text) query;
+  lab_status : () -> (Result_8) query;
+  million_transition_status : () -> (Result_2) query;
+  nearby_region : (nat32, nat8, nat8) -> (Result_9) query;
+  observation : () -> (Result_10) query;
+  // Returns one atomic certified snapshot and its small public artifacts. The
+  // byte cap keeps the query bounded; clients retain the chunked fallback.
+  observation_bundle : () -> (Result_11) query;
+  pause_autonomous : () -> (Result_8);
+  payment_receipt : (nat64, opt nat64) -> (Result_12) query;
+  playability_transition_status : () -> (Result_2) query;
+  player_state : (text) -> (Result_13) query;
+  poke : (vec PokeMatch) -> ();
+  prepare_clearance_transition : () -> (Result_2);
+  prepare_combined_transition : () -> (Result_2);
+  // Change only first-entry rules at the exact committed rules-v6 predecessor.
+  // The existing fenced source worker obtains its own Ledger/Index watermarks.
+  prepare_entry_transition : () -> (Result_2);
+  // Begins only the reviewed v4→v5 cutover. The existing v3→v4 evidence is
+  // retained independently, and the worker obtains fresh global watermarks.
+  prepare_million_transition : () -> (Result_2);
+  // Start the next-unused rules-v6 cutover from the actual paid v5 predecessor.
+  // The existing fenced source worker obtains its own Ledger/Index watermarks.
+  prepare_playability_transition : () -> (Result_2);
+  // Begins only the reviewed v3→v4 cutover. Never accepts state, identities or a
+  // caller-supplied Ledger height. The fenced worker obtains its own watermarks.
+  prepare_torus_transition : () -> (Result_2);
+  prepare_war_cry_transition : () -> (Result_2);
+  retained_artifact_chunk : (nat64, text, nat8, nat16) -> (Result_2) query;
+  retained_publication : (nat64) -> (Result_2) query;
+  retention_status : () -> (Result_14) query;
+  runtime_health : () -> (Health) query;
+  set_funding_paused : (bool) -> (Result_4);
+  // Hash this descriptor and compare with the certified publication's source_id.
+  source_descriptor : () -> (Result_2) query;
+  start_autonomous : (RunConfig) -> (Result_8);
+  torus_transition_status : () -> (Result_2) query;
+  war_cry_transition_status : () -> (Result_2) query;
+}
+DTR_RUNTIME_CANDID_END
+test tests::print_generated_candid ... ok
+test source::tests::bounded_windows_drain_256_257_and_1025_sparse_records_across_restore ... ok
+test tests::transition_metadata_is_bound_and_does_not_forge_source_progress ... ok
+test transition::tests::empty_account_page_never_erases_known_history ... ok
+test tests::stable_storage_only_contains_described_chunks_after_resize_and_eviction ... ok
+
+test result: ok. 52 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 13.45s
+
+   Doc-tests dtr_runtime_lab
+
+running 0 tests
+
+test result: ok. 0 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s
+

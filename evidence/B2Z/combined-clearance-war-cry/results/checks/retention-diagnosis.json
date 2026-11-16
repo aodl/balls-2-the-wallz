@@ -1,0 +1,61 @@
+{
+  "scope": "Original failing diagnostic; no retries or accepted incomplete artifact",
+  "capture": {
+    "artifact_length": 298,
+    "chunk": 0,
+    "chunk_count": 1,
+    "completed_rows": 146,
+    "kind": 2,
+    "observed_head": 152,
+    "publication_hash": "7995e22adef37587353394c39a4cc399a0da2ae43f5db468f54722298be9110a",
+    "request": "retained_artifact_chunk",
+    "segment": 146,
+    "status": "pending"
+  },
+  "latest_browser_captured_heads": [
+    {
+      "file": "0024.cbor",
+      "segment": 121,
+      "manifest": "8a844167af8f8aaace1bda40d58eb2043b555928936e76ca5ac4e44228c80e2a"
+    },
+    {
+      "file": "0025.cbor",
+      "segment": 127,
+      "manifest": "c202e26d120b095a6cd72fe3f3b01493098d121b08bb9477c34f891330b67d9f"
+    },
+    {
+      "file": "0026.cbor",
+      "segment": 123,
+      "manifest": "1fa48db199e65b3b6ce01ffbbbf888ade0852d1267fea6e7b51fb11cccb5fc3e"
+    },
+    {
+      "file": "0030.cbor",
+      "segment": 155,
+      "manifest": "5e25166a0ea3174f170633c208293c5ec933c953495961bea2d965a0b31be6c6"
+    },
+    {
+      "file": "0031.cbor",
+      "segment": 156,
+      "manifest": "307cf70d3c040e1e3715b7e00d4a50fdc88e04dbfffb6486e911a24042294562"
+    },
+    {
+      "file": "0032.cbor",
+      "segment": 157,
+      "manifest": "aa92e230260459c221929a31c36f35a990e1f06d7f2028e8c37c91112e755151"
+    },
+    {
+      "file": "0033.cbor",
+      "segment": 158,
+      "manifest": "e4b2f90ea398ef07eccb442f6ba1ed85f8a7338eeee8f793fcc0c06d94fcd1d4"
+    },
+    {
+      "file": "0034.cbor",
+      "segment": 160,
+      "manifest": "cb57969920f318e313650be54e25787aa5918b506021d892c12bd5f636d1a0f1"
+    }
+  ],
+  "largest_browser_captured_head": 160,
+  "retention_max_segments": 16,
+  "oldest_complete_collector_row": 145,
+  "incomplete_row_must_not_be_admitted": true
+}

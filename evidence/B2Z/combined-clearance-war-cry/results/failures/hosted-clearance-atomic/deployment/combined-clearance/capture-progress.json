@@ -1,0 +1,13 @@
+{
+  "artifact_lengths": [
+    4134,
+    47872,
+    287
+  ],
+  "completed_rows": 192,
+  "observed_head": 192,
+  "publication_hash": "a1e7596ff286b8da9883b2b0c31330436946149b873f2b075c60333ca7223fea",
+  "request": "artifact_bundle",
+  "segment": 192,
+  "status": "requested"
+}

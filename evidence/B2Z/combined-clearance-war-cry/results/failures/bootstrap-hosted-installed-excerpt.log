@@ -1,0 +1,40 @@
+2026-11-16T10:57:18.4741710Z S14 reason: Installed tests failed: entry_installed::combined_clearance_on_normal_installed_module, war_cry_installed::combined_real_ledger_index_launch_and_independent_replay
+2026-11-16T10:57:18.4755301Z S14 check: installed-index-integration--entry_installed-combined_clearance_on_normal_installed_module FAIL exit=101 elapsed=206.404s Expected exactly one passing installed test log=s14-local/logs/installed-index-integration--entry_installed-combined_clearance_on_normal_installed_module.log
+2026-11-16T10:57:18.4756719Z 
+2026-11-16T10:57:18.4756833Z running 1 test
+2026-11-16T10:57:18.4757268Z test entry_installed::combined_clearance_on_normal_installed_module ... 
+2026-11-16T10:57:18.4755301Z S14 check: installed-index-integration--entry_installed-combined_clearance_on_normal_installed_module FAIL exit=101 elapsed=206.404s Expected exactly one passing installed test log=s14-local/logs/installed-index-integration--entry_installed-combined_clearance_on_normal_installed_module.log
+2026-11-16T10:57:18.4756719Z 
+2026-11-16T10:57:18.4756833Z running 1 test
+2026-11-16T10:57:18.4757268Z test entry_installed::combined_clearance_on_normal_installed_module ... 
+2026-11-16T10:57:18.4758212Z thread 'entry_installed::combined_clearance_on_normal_installed_module' (24384) panicked at tests/support/entry_installed.rs:562:9:
+2026-11-16T10:57:18.4758212Z thread 'entry_installed::combined_clearance_on_normal_installed_module' (24384) panicked at tests/support/entry_installed.rs:562:9:
+2026-11-16T10:57:18.4758926Z inspect v9 browser log
+2026-11-16T10:57:18.4759449Z note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+2026-11-16T10:57:18.4759861Z FAILED
+2026-11-16T10:57:18.4759986Z 
+2026-11-16T10:57:18.4762615Z S14 check: installed-index-integration--war_cry_installed-combined_real_ledger_index_launch_and_independent_replay FAIL exit=101 elapsed=93.399s Expected exactly one passing installed test log=s14-local/logs/installed-index-integration--war_cry_installed-combined_real_ledger_index_launch_and_independent_replay.log
+2026-11-16T10:57:18.4763650Z     await self._channel.send("waitForFunction", self._timeout, params)
+2026-11-16T10:57:18.4764255Z   File "/opt/hostedtoolcache/Python/3.11.18/x64/lib/python3.11/site-packages/playwright/_impl/_connection.py", line 76, in send
+2026-11-16T10:57:18.4765063Z     return await self._connection.wrap_api_call(
+2026-11-16T10:57:18.4765334Z            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-16T10:57:18.4767191Z playwright._impl._errors.TimeoutError: Page.wait_for_function: Timeout 60000ms exceeded.
+2026-11-16T10:57:18.4767464Z 
+2026-11-16T10:57:18.4767942Z thread 'war_cry_installed::combined_real_ledger_index_launch_and_independent_replay' (34175) panicked at tests/support/war_cry_installed.rs:585:5:
+2026-11-16T10:57:18.4768983Z assertion failed: std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap()).current_dir(&repo).args(["tools/verify_war_cry_live.py",
+2026-11-16T10:57:18.4769526Z                         "--configuration",
+2026-11-16T10:57:18.4767942Z thread 'war_cry_installed::combined_real_ledger_index_launch_and_independent_replay' (34175) panicked at tests/support/war_cry_installed.rs:585:5:
+2026-11-16T10:57:18.4768983Z assertion failed: std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap()).current_dir(&repo).args(["tools/verify_war_cry_live.py",
+2026-11-16T10:57:18.4769526Z                         "--configuration",
+2026-11-16T10:57:18.4769839Z                         out.join("configuration.json").to_str().unwrap(),
+2026-11-16T10:57:18.4770128Z                         "--output",
+2026-11-16T10:57:18.4852877Z TimeoutError: condition not met within 60000ms: None
+2026-11-16T10:57:18.4853377Z TimeoutError('condition not met within 60000ms: None')
+2026-11-16T10:57:18.4853781Z S14 browser log: s14-local/deployment/combined-launch/browser/browser.log
+2026-11-16T10:57:18.4854593Z [34578:34578:1116/102550.443240:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-11-16T10:57:18.4855594Z [34578:34578:1116/102550.443305:ERROR:dbus/object_proxy.cc:572] Failed to call method: org.freedesktop.DBus.NameHasOwner: object_path= /org/freedesktop/DBus: unknown error type: 
+2026-11-16T10:57:18.5155576Z OVERALL FAIL
+2026-11-16T10:57:18.5230108Z ##[error]Process completed with exit code 1.
+2026-11-16T10:57:18.5294281Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-11-16T10:57:18.5294592Z with:
+2026-11-16T10:57:18.5294767Z   name: local-ic-evidence

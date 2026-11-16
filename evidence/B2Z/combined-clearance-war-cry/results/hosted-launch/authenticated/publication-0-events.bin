@@ -1,0 +1,1 @@
+{"events":[{"kind":"lifecycle_time","observed_ns":{"$integer":"1794821126819132355"},"previous_elapsed_ns":{"$integer":"1794821120466890754"},"sequence":0,"stamped":[],"time":[{"$integer":"2"},{"$integer":"1"}]}],"receipts":[],"version":6}

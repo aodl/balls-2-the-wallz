@@ -1,0 +1,27 @@
+{
+  "scope": "Exact normal candidate / exact paid predecessor, disposable IC only; no rebuild.",
+  "source": "89bfdd6b6500a57cdbb827aa9cb9a8351547d995",
+  "source_dirty": true,
+  "normal_wasm_sha256": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "prior_wasm_sha256": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "setup_only_hooks_sha256": "2e6df5f6e4cd755c9bc4550bbfd3eb3b60aba3a2663315d2a29a2be447fb6b68",
+  "test": "entry_installed::european_rules7_upgrade_and_combined_clearance",
+  "result": {
+    "id": "installed-combined",
+    "command": [
+      "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+      "entry_installed::european_rules7_upgrade_and_combined_clearance",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1",
+      "--ignored"
+    ],
+    "exit_code": 101,
+    "status": "FAIL",
+    "elapsed_seconds": 301.797,
+    "timeout_seconds": 900,
+    "log": "logs/installed-combined.log",
+    "pocketic_server_exit": null,
+    "reason": "Expected exactly one passing installed test"
+  }
+}

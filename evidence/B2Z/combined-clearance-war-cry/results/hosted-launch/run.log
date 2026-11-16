@@ -1,0 +1,9 @@
+
+running 1 test
+test war_cry_installed::combined_european_rules7_launch_upgrade ... {"status":"PASS","segments":15,"gameplay_segments":13,"application_checkpoints":2,"assigned":["2","3","4","5","6","7","8","9","10","11","12","13"],"comparison":"Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture","work_budget":23}
+PASS authenticated annotation capture and independent replay 15 publications
+Built observer for dfj7p-ut777-77776-qaaba-cai: /home/codexdev/src/b2z/.work/combined-clearance-war-cry/hosted-launch-european/deployment/combined-launch/browser/assets
+ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 77 filtered out; finished in 310.06s
+

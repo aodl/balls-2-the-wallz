@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_approved_panel_freeze.py", line 36, in <module>
+    if __name__=='__main__':main()
+                            ^^^^^^
+  File "/home/codexdev/src/b2z/tools/verify_approved_panel_freeze.py", line 22, in main
+    if a.wasm:assert sha(a.wasm)==provenance['normal_wasm_sha256'],'normal Wasm differs from the frozen candidate'
+                     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: normal Wasm differs from the frozen candidate

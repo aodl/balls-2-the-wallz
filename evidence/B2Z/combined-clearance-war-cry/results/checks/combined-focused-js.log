@@ -1,0 +1,16 @@
+✔ combined identity pins both complete policies, preserving economics and old identities (46.565532ms)
+✔ combined vectors bind exact reference fixtures and composed cursor recovery (5268.7472ms)
+✔ clearance remains at most49 canonical-player ownership reads including seams (4.571952ms)
+✔ old parser rejects suffix; new parser retains exact UTF8 annotation (32.707873ms)
+✔ complete byte budget and exact grapheme-prefix, no directive edits (272.301506ms)
+✔ strict malformed input and dangerous controls fail closed (30.168044ms)
+✔ exact configuration gate cannot be enabled by one local flag (386.059904ms)
+✔ shared JS/native strict memo byte vectors (305.368784ms)
+ℹ tests 8
+ℹ suites 0
+ℹ pass 8
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9991.482175

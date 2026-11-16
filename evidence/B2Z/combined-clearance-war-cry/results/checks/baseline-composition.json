@@ -1,0 +1,96 @@
+{
+  "scope": "Before combined implementation; valid existing unsafe-site fixture, actual standalone9/10 cursors. Neither provides both features.",
+  "rows": [
+    {
+      "name": "standalone9",
+      "rejected_envelope": "RangeError: input too large"
+    },
+    {
+      "name": "standalone10",
+      "receipts": [
+        {
+          "account": "0101010101010101010101010101010101010101010101010101010101010101",
+          "actual_quantity": 1,
+          "amount": "400000000",
+          "amount_used": "400000000",
+          "cannon": 3,
+          "kind": "purchase_completed",
+          "new_cannon": true,
+          "per_item_prices": [
+            "400000000"
+          ],
+          "position": "99",
+          "quantity_explicit": true,
+          "reason": "ACCEPTED",
+          "remainder": "0",
+          "requested_quantity": 1,
+          "status": "applied",
+          "stop_reason": "quantity_limit"
+        }
+      ],
+      "annotations": [
+        {
+          "ball": {
+            "cell": 453579,
+            "id": 2,
+            "owner": 1,
+            "vx": 32000,
+            "vy": 0,
+            "x0": "593408",
+            "y0": "464384"
+          },
+          "cannon": {
+            "account": "0101010101010101010101010101010101010101010101010101010101010101",
+            "cell": 453579,
+            "heading": 0,
+            "id": 3
+          },
+          "frontier_other": -1,
+          "kind": "cannon_spawned",
+          "launch_annotation": {
+            "account": "0101010101010101010101010101010101010101010101010101010101010101",
+            "cry": "Charge!",
+            "position": "99",
+            "version": 1
+          },
+          "metadata_delta": {
+            "lifecycle": [
+              {
+                "cannon": 3,
+                "generation": 1,
+                "player": 1
+              }
+            ],
+            "next_player_id": 3,
+            "next_territory_id": 3,
+            "players": [],
+            "retired_cannons": [],
+            "retired_territories": [],
+            "territories": []
+          },
+          "ownership_ops": [
+            {
+              "cell": 453579,
+              "kind": "set",
+              "owner": 1
+            }
+          ],
+          "patch": [
+            453579
+          ],
+          "placement_class": 4,
+          "player": 1,
+          "previous_owners": [
+            1
+          ],
+          "reactivated_cannons": [],
+          "sequence": 0,
+          "time": [
+            "0",
+            "1"
+          ]
+        }
+      ]
+    }
+  ]
+}

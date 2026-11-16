@@ -1,0 +1,15 @@
+
+running 1 test
+test entry_installed::european_rules7_upgrade_and_combined_clearance ... 
+thread 'entry_installed::european_rules7_upgrade_and_combined_clearance' (2371088) panicked at tests/support/entry_installed.rs:562:9:
+inspect v9 browser log
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    entry_installed::european_rules7_upgrade_and_combined_clearance
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 77 filtered out; finished in 301.74s
+

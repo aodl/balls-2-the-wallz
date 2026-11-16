@@ -1,0 +1,14 @@
+.F...................
+======================================================================
+FAIL: test_combined_configuration_frozen_route_is_exact_and_narrow (test_observer_server.ObserverServerTests.test_combined_configuration_frozen_route_is_exact_and_narrow)
+----------------------------------------------------------------------
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/test_observer_server.py", line 66, in test_combined_configuration_frozen_route_is_exact_and_narrow
+    self.assertEqual(status,200);self.assertEqual(body,expected)
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError: 404 != 200
+
+----------------------------------------------------------------------
+Ran 21 tests in 3.585s
+
+FAILED (failures=1)

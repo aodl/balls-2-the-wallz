@@ -1,0 +1,183 @@
+{
+  "scope": "Isolated actual JS pure planner plus normalization, interleaved A/B and A/A, warmed; excludes mandatory replay, renderer, IC execution and P09. Shared desktop host, not representative hardware qualification.",
+  "status": "MEASURED",
+  "node": "v24.15.0",
+  "rows": [
+    {
+      "name": "clearance/move-1-0",
+      "samples": 128,
+      "iterations_per_sample": 32,
+      "unit": "microseconds per operation, block averaged",
+      "baseline": {
+        "p50": 2.47503125000037,
+        "p95": 5.3594375000010075,
+        "p99": 456.0490625,
+        "min": 1.4031250000030582,
+        "max": 571.2285312500001
+      },
+      "combined": {
+        "p50": 5.415687500004651,
+        "p95": 382.5856874999971,
+        "p99": 483.5337812499958,
+        "min": 4.062531249999779,
+        "max": 571.0910312499991
+      },
+      "incremental_ab": {
+        "p50": 2.8281562500005464,
+        "p95": 380.42315624999645,
+        "p99": 480.89312499999437,
+        "min": -565.7690937500064,
+        "max": 568.1691250000008
+      },
+      "baseline_aa": {
+        "p50": -0.6031249999978172,
+        "p95": 178.95209374999865,
+        "p99": 452.0177812499995,
+        "min": -1472.207781249999,
+        "max": 535.0062187499987
+      },
+      "normalization_and_semantic_projection": {
+        "p50": 20.48146874999901,
+        "p95": 553.8064687499968,
+        "p99": 817.6876562500013,
+        "min": 16.10956249999873,
+        "max": 1063.2905312499972
+      },
+      "world_unchanged": true,
+      "baseline_result": "move",
+      "combined_result": "rejected"
+    },
+    {
+      "name": "interaction/additional-explicit-safe",
+      "samples": 128,
+      "iterations_per_sample": 32,
+      "unit": "microseconds per operation, block averaged",
+      "baseline": {
+        "p50": 7.334468750002543,
+        "p95": 297.91284374999805,
+        "p99": 384.1794687499913,
+        "min": 5.343812500001377,
+        "max": 468.90859375000105
+      },
+      "combined": {
+        "p50": 25.86903125001072,
+        "p95": 350.6978437499981,
+        "p99": 461.5397812499964,
+        "min": 17.697062499991034,
+        "max": 580.9692499999954
+      },
+      "incremental_ab": {
+        "p50": 15.843906249997985,
+        "p95": 340.97587499999804,
+        "p99": 455.29284374998724,
+        "min": -428.8300312500155,
+        "max": 572.4472812499926
+      },
+      "baseline_aa": {
+        "p50": -0.8187499999934289,
+        "p95": 291.29093750000834,
+        "p99": 378.53256249999845,
+        "min": -568.7315937500017,
+        "max": 440.2395312500005
+      },
+      "normalization_and_semantic_projection": {
+        "p50": 26.475312499997017,
+        "p95": 362.0542499999999,
+        "p99": 408.52353125001173,
+        "min": 20.30962499999589,
+        "max": 468.73671875000866
+      },
+      "world_unchanged": true,
+      "baseline_result": "new",
+      "combined_result": "new"
+    },
+    {
+      "name": "interaction/additional-explicit-unsafe",
+      "samples": 128,
+      "iterations_per_sample": 32,
+      "unit": "microseconds per operation, block averaged",
+      "baseline": {
+        "p50": 6.1375624999868705,
+        "p95": 230.09018749999655,
+        "p99": 516.1091562499962,
+        "min": 4.959437500019703,
+        "max": 561.6409374999876
+      },
+      "combined": {
+        "p50": 18.80646875000025,
+        "p95": 493.0557187500142,
+        "p99": 559.3221562500048,
+        "min": 15.731437499994172,
+        "max": 675.3234999999904
+      },
+      "incremental_ab": {
+        "p50": 12.559500000008939,
+        "p95": 486.4369062499918,
+        "p99": 553.0220937500019,
+        "min": -544.7782500000073,
+        "max": 669.7765624999761
+      },
+      "baseline_aa": {
+        "p50": -0.7624687500253913,
+        "p95": 255.99987499998633,
+        "p99": 564.7534375000305,
+        "min": -570.2378750000321,
+        "max": 614.1040625000187
+      },
+      "normalization_and_semantic_projection": {
+        "p50": 25.159656249996942,
+        "p95": 447.5208124999881,
+        "p99": 528.9811875000225,
+        "min": 18.884593749987744,
+        "max": 975.8957500000065
+      },
+      "world_unchanged": true,
+      "baseline_result": "new",
+      "combined_result": "rejected"
+    },
+    {
+      "name": "annotation/fire",
+      "samples": 128,
+      "iterations_per_sample": 32,
+      "unit": "microseconds per operation, block averaged",
+      "baseline": {
+        "p50": 2.0375312500107157,
+        "p95": 70.70393749998516,
+        "p99": 229.41203124997855,
+        "min": 1.3437499999895408,
+        "max": 443.67706250000083
+      },
+      "combined": {
+        "p50": 2.0812812500139444,
+        "p95": 3.7906562500040764,
+        "p99": 130.46403124999983,
+        "min": 1.3874999999927695,
+        "max": 476.6149374999884
+      },
+      "incremental_ab": {
+        "p50": 0.028125000000045475,
+        "p95": 1.1031249999859938,
+        "p99": 127.71399999999744,
+        "min": -441.76143750001984,
+        "max": 474.3461562499931
+      },
+      "baseline_aa": {
+        "p50": -0.44996874999014835,
+        "p95": 72.00709374998837,
+        "p99": 227.16199999999276,
+        "min": -436.45509374999847,
+        "max": 487.6369374999854
+      },
+      "normalization_and_semantic_projection": {
+        "p50": 25.650312500005157,
+        "p95": 463.48040624999953,
+        "p99": 521.2435625000182,
+        "min": 16.918937499980302,
+        "max": 744.9680624999928
+      },
+      "world_unchanged": true,
+      "baseline_result": "fire",
+      "combined_result": "fire"
+    }
+  ]
+}

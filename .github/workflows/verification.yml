@@ -324,6 +324,7 @@ jobs:
             .work/ci-integration/s14-local/deployment/human-corrections/**
             .work/ci-integration/s14-local/*.wasm
             .work/ci-integration/s14-local/snapshot/**
+            !.work/ci-integration/s14-local/deployment/**/ordinary-profile/**
           if-no-files-found: warn
           retention-days: 14
 

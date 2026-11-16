@@ -1,0 +1,10 @@
+✔ cost attribution is bounded, complete and separate from deterministic forecast rows (2459.726862ms)
+✔ cache bypass runs fresh work while normal completed-result caching is retained (4608.767613ms)
+ℹ tests 2
+ℹ suites 0
+ℹ pass 2
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 10307.874228

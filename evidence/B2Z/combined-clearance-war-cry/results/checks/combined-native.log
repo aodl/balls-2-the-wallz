@@ -1,0 +1,27 @@
+    Blocking waiting for file lock on package cache
+   Compiling b2z-native v0.5.0 (/home/codexdev/src/b2z/native/b2z-native)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 25.34s
+     Running tests/clearance_vectors.rs (native/target/debug/deps/clearance_vectors-f5d356419b75678a)
+
+running 1 test
+test clearance_matches_reference_and_restores_its_own_continuations ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 14.94s
+
+     Running tests/combined_v11.rs (native/target/debug/deps/combined_v11-2b93d79cb768c4ef)
+
+running 1 test
+test combined_exact_outputs_and_durable_pending_annotations has been running for over 60 seconds
+test combined_exact_outputs_and_durable_pending_annotations ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 938.34s
+
+     Running tests/war_cry.rs (native/target/debug/deps/war_cry-cb63ac2d618f5bc5)
+
+running 2 tests
+test shared_vectors::strict_memos_match_shared_vectors ... ok
+test native_matches_js_annotation_vectors_and_recovers_each_work_unit has been running for over 60 seconds
+test native_matches_js_annotation_vectors_and_recovers_each_work_unit ... ok
+
+test result: ok. 2 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 480.14s
+

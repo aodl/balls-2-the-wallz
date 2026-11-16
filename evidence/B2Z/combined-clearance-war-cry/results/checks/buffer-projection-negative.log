@@ -1,0 +1,43 @@
+✖ semantic seed projection preserves the complete raw authenticated Buffer (21.504746ms)
+ℹ tests 1
+ℹ suites 0
+ℹ pass 0
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 427.070482
+
+✖ failing tests:
+
+test at tests/js/combined-rules.test.mjs:38:1
+✖ semantic seed projection preserves the complete raw authenticated Buffer (21.504746ms)
+  AssertionError [ERR_ASSERTION]: raw input remains BTZPAY03 with exact cry
+  + actual - expected
+  ... Skipped lines
+  
+    Buffer(64) [Uint8Array] [
+      66,
+      84,
+      90,
+      80,
+  ...
+      48,
+  +   50,
+  -   51,
+      1,
+      1,
+      1,
+      1,
+      1,
+  
+      at TestContext.<anonymous> (file:///home/codexdev/src/b2z/tests/js/combined-rules.test.mjs:42:9)
+      at async Test.run (node:internal/test_runner/test:1208:7)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:385:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: <Buffer 42 54 5a 50 41 59 30 32 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 00 00 00 00 00 98 96 80 f6 00 ... 14 more bytes>,
+    expected: <Buffer 42 54 5a 50 41 59 30 33 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 01 00 00 00 00 00 98 96 80 f6 00 ... 14 more bytes>,
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,13 @@
+✔ old parser rejects suffix; new parser retains exact UTF8 annotation (5.196759ms)
+✔ complete byte budget and exact grapheme-prefix, no directive edits (53.938215ms)
+✔ strict malformed input and dangerous controls fail closed (0.950511ms)
+✔ exact configuration gate cannot be enabled by one local flag (29.922642ms)
+✔ shared JS/native strict memo byte vectors (40.039957ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 682.367888

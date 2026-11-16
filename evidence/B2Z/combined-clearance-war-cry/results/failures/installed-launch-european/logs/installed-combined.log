@@ -1,0 +1,49 @@
+
+running 1 test
+test war_cry_installed::combined_european_rules7_launch_upgrade ... 
+thread 'war_cry_installed::combined_european_rules7_launch_upgrade' (2342831) panicked at tests/s14_index.rs:2698:10:
+called `Result::unwrap()` on an `Err` value: Custom(input: 4449444c086b02bc8a017dc5fed201016b08d1c4987c02c291ecb9027f94c1c7890403eb82a8970404a1c3ebfd0705f087e6db090693e5bec80c7feb9cdbd50f076c02c7ebc4d00971c498b1b50d7d6c019bb3bea60a7d6c018bbdf29b017d6c01bf9bb7f00d7d6c01a3bb918c0a786c019cbab69c027d01000107_e0d2dbc903
+table: type table0 = variant { 17_724 : nat; 3_456_837 : table1 }
+type table1 = variant {
+  260_448_849 : table2;
+  658_180_290;
+  1_093_787_796 : table3;
+  1_122_632_043 : table4;
+  2_142_953_889 : table5;
+  2_608_432_112 : table6;
+  3_373_249_171;
+  4_206_284_395 : table7;
+}
+type table2 = record { 2_584_819_143 : text; 3_601_615_940 : nat }
+type table3 = record { 2_765_068_699 : nat }
+type table4 = record { 326_934_155 : nat }
+type table5 = record { 3_725_446_591 : nat }
+type table6 = record { 2_709_806_499 : nat64 }
+type table7 = record { 596_483_356 : nat }
+wire_type: variant {
+  260_448_849 : table2;
+  658_180_290;
+  1_093_787_796 : table3;
+  1_122_632_043 : table4;
+  2_142_953_889 : table5;
+  2_608_432_112 : table6;
+  3_373_249_171;
+  4_206_284_395 : table7;
+}, expect_type: variant { GenericError : record { message : text; error_code : nat } }
+
+Caused by:
+    0: Fail to decode argument 0 from table0 to variant {
+         Ok : nat;
+         Err : variant { GenericError : record { message : text; error_code : nat } };
+       }
+    1: Subtyping error: Unknown variant field 4_206_284_395)
+note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace
+FAILED
+
+failures:
+
+failures:
+    war_cry_installed::combined_european_rules7_launch_upgrade
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 77 filtered out; finished in 346.46s
+

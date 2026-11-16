@@ -1,0 +1,13 @@
+Observer: http://127.0.0.1:47441/apps/b2z-observer/
+Offline replay is default; explicit S09 snapshot and S10 live-local certificate modes are available. No real funds.
+127.0.0.1 - - [16/Nov/2026 10:25:50] "GET / HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 10:25:50] "GET /style.css HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 10:25:50] "GET /app.mjs HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 10:25:51] "GET /icon.svg HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 10:25:51] "POST /api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 10:25:51] "POST /api/v3/canister/dfj7p-ut777-77776-qaaba-cai/read_state HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 10:25:51] "POST /api/v3/canister/dfj7p-ut777-77776-qaaba-cai/read_state HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 10:25:51] "POST /api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 10:25:51] "POST /api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query HTTP/1.1" 200 -
+127.0.0.1 - - [16/Nov/2026 10:25:51] code 404, message Not Found
+127.0.0.1 - - [16/Nov/2026 10:25:51] "GET /configuration-combined.bin HTTP/1.1" 404 -

@@ -1,0 +1,40 @@
+
+running 1 test
+test entry_installed::european_rules7_upgrade_and_combined_clearance ... 
+thread 'entry_installed::european_rules7_upgrade_and_combined_clearance' (2412718) panicked at tests/s14_index.rs:3200:33:
+query retained_artifact_chunk args=4449444c000478717b7a92000000000000004037393935653232616465663337353837333533333934633339613463633339396130646132616534336635646234363866353437323232393862653931313061020000: publication unavailable: snapshot resync required
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/std/src/panicking.rs:689:5
+   1: core::panicking::panic_fmt
+             at /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/core/src/panicking.rs:80:14
+   2: s14_index::get_query::{{closure}}
+             at ./tools/s09-integration/tests/s14_index.rs:3200:33
+   3: core::result::Result<T,E>::unwrap_or_else
+             at /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/core/src/result.rs:1622:23
+   4: s14_index::get_query
+             at ./tools/s09-integration/tests/s14_index.rs:3200:10
+   5: s14_index::playability_installed::record
+             at ./tools/s09-integration/tests/support/playability_installed.rs:334:29
+   6: s14_index::entry_installed::live_record
+             at ./tools/s09-integration/tests/support/entry_installed.rs:29:5
+   7: s14_index::entry_installed::run_entry_and_clearance
+             at ./tools/s09-integration/tests/support/entry_installed.rs:375:9
+   8: s14_index::entry_installed::european_rules7_upgrade_and_combined_clearance
+             at ./tools/s09-integration/tests/support/entry_installed.rs:72:5
+   9: s14_index::entry_installed::european_rules7_upgrade_and_combined_clearance::{{closure}}
+             at ./tools/s09-integration/tests/support/entry_installed.rs:66:52
+  10: core::ops::function::FnOnce::call_once
+             at /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/core/src/ops/function.rs:250:5
+  11: core::ops::function::FnOnce::call_once
+             at /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/core/src/ops/function.rs:250:5
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+FAILED
+
+failures:
+
+failures:
+    entry_installed::european_rules7_upgrade_and_combined_clearance
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 77 filtered out; finished in 330.66s
+

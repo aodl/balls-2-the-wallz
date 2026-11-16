@@ -1,0 +1,216 @@
+{
+  "status": "PASS",
+  "scope": "Two real browsers of a pinned disposable IC. Native wall-time speech, no injected event/world.",
+  "observers": [
+    {
+      "at": 1794824959864,
+      "born": 1794824955655,
+      "key": "1709646af486dac2346f10edd764f96e16c4d6afc12ce6bd3d3c0e4d6a2849c0/14/0/13/4",
+      "cannon": 4,
+      "text": "Build!",
+      "head": "14",
+      "identity": {
+        "config_hash": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df",
+        "rules_hash": "5d0ca4591a782b609ef10d9db46d4bd93042b0fcdd738d8d1f920840c05b7756",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "time": 14,
+      "quantity": 7,
+      "tag": "BDI",
+      "pointer": "none",
+      "rect": {
+        "x": 54,
+        "y": 250,
+        "width": 62.765625,
+        "height": 34.890625,
+        "top": 250,
+        "right": 116.765625,
+        "bottom": 284.890625,
+        "left": 54
+      },
+      "camera": [
+        594.6850611907623,
+        456.1850611907623,
+        10.719124233265784
+      ]
+    },
+    {
+      "at": 1794824971446,
+      "born": 1794824965577,
+      "key": "1709646af486dac2346f10edd764f96e16c4d6afc12ce6bd3d3c0e4d6a2849c0/14/0/13/4",
+      "cannon": 4,
+      "text": "Build!",
+      "head": "14",
+      "identity": {
+        "config_hash": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df",
+        "rules_hash": "5d0ca4591a782b609ef10d9db46d4bd93042b0fcdd738d8d1f920840c05b7756",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "time": 14,
+      "quantity": 7,
+      "tag": "BDI",
+      "pointer": "none",
+      "rect": {
+        "x": 54,
+        "y": 250,
+        "width": 62.765625,
+        "height": 34.890625,
+        "top": 250,
+        "right": 116.765625,
+        "bottom": 284.890625,
+        "left": 54
+      },
+      "camera": [
+        594.6850611907623,
+        456.1850611907623,
+        10.719124233265784
+      ]
+    }
+  ],
+  "visibility_context": "Ordinary default context; no Playwright focus emulation",
+  "visibility": [
+    {
+      "seconds": 5,
+      "at": 1794824977.6198728,
+      "bubble": 1
+    },
+    {
+      "seconds": 35,
+      "at": 1794825013.3656073,
+      "bubble": 1
+    }
+  ],
+  "fade": {
+    "age_ms": 55822,
+    "opacity": 0.8124
+  },
+  "native_lifetime_probe": {
+    "samples": [
+      {
+        "age_ms": 55081,
+        "opacity": 0.988,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 55285,
+        "opacity": 0.9446,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 55769,
+        "opacity": 0.8486,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 55880,
+        "opacity": 0.8386,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 56080,
+        "opacity": 0.7898,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 56408,
+        "opacity": 0.7192,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 56480,
+        "opacity": 0.7072,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 56680,
+        "opacity": 0.671,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 56883,
+        "opacity": 0.6246,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57080,
+        "opacity": 0.5942,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57506,
+        "opacity": 0.505,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57690,
+        "opacity": 0.47,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57882,
+        "opacity": 0.4256,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58083,
+        "opacity": 0.3836,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58394,
+        "opacity": 0.3222,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58480,
+        "opacity": 0.3132,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58681,
+        "opacity": 0.2666,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58881,
+        "opacity": 0.2304,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59405,
+        "opacity": 0.1246,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59480,
+        "opacity": 0.1096,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59680,
+        "opacity": 0.0704,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59886,
+        "opacity": 0.0254,
+        "visibility": "visible"
+      }
+    ],
+    "expired": {
+      "at": 1794825025901,
+      "age_ms": 60324
+    }
+  },
+  "expiry": {
+    "at": 1794825025901,
+    "age_ms": 60324,
+    "repeat_render_does_not_restart": true
+  },
+  "first_hidden_age_expiry": "PASS first observer also expired without replay",
+  "errors": [],
+  "forbidden": [],
+  "browser": "153.0.8010.12"
+}
