@@ -1,0 +1,575 @@
+{
+  "status": "PASS",
+  "scope": "Exact future frontend80 served locally with its policy; read-only actual certified European Rules7. No installation/payment.",
+  "rows": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "first_verified_world_seconds": 3.8545846290071495,
+      "startup_and_native_entry_seconds": 19.36626529105706,
+      "source": {
+        "id": 1,
+        "cell": 0,
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "dormant": null
+      },
+      "before": {
+        "at": "2026-11-16T12:10:04.893Z",
+        "camera": [
+          5.609482510336875,
+          5.609482510336875,
+          64
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "visibleWidth": 390,
+          "visibleHeight": 844
+        },
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "9761",
+          "manifest_hash": "2f59d8528bcdba219f4d6e0da8e754079999f6dc75f3e7767b4b2f8d5b2af8a6",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "9761",
+            "logical_start": "9760",
+            "previous_manifest": "4e694e3242e6689d4cccb9c50fd52a76a0e74b4e1edfc86196a78a553e7d15f8",
+            "previous_state": "844e06da4d47e9ab78ac9ec7eeccd55d3509702c77298593b12b9254d9703fe0",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "9764",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "9764",
+          "source_to_exclusive": "40180669",
+          "state_hash": "368cc996c7cf0dcc2e07b88eb9a29763ff2a6a4d38cb557c3dc1416d56f1c466"
+        },
+        "ready": true,
+        "error": "",
+        "deliveryError": "",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 9761,
+        "playhead": 9760.144494000026,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": "2",
+            "publication_ticks": "1",
+            "completed_segments": "9761",
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": "40180669"
+          }
+        },
+        "quantity": {
+          "hidden": false,
+          "inert": false,
+          "placement": "floating",
+          "rect": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46,
+            "top": 132,
+            "right": 379,
+            "bottom": 178,
+            "left": 249
+          },
+          "text": "1",
+          "targets": [
+            {
+              "id": "quantity-minus",
+              "disabled": true,
+              "rect": {
+                "x": 250,
+                "y": 133,
+                "width": 44,
+                "height": 44,
+                "top": 133,
+                "right": 294,
+                "bottom": 177,
+                "left": 250
+              },
+              "hit": true
+            },
+            {
+              "id": "quantity-plus",
+              "disabled": false,
+              "rect": {
+                "x": 334,
+                "y": 133,
+                "width": 44,
+                "height": 44,
+                "top": 133,
+                "right": 378,
+                "bottom": 177,
+                "left": 334
+              },
+              "hit": true
+            }
+          ],
+          "corners": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 328,
+          "top": 221,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 274,
+          "top": 275,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "scrollContent": 274,
+        "board": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "cyclesVisibility": "hidden",
+        "focus": "aim-handle",
+        "source_point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 195,
+          "sy": 154.99999999999534,
+          "visible": true,
+          "score": 267.00000000000466,
+          "hit": "board"
+        }
+      },
+      "plus": {
+        "at": "2026-11-16T12:10:06.049Z",
+        "camera": [
+          5.609482510336875,
+          5.609482510336875,
+          64
+        ],
+        "viewport": {
+          "width": 390,
+          "height": 844,
+          "left": 0,
+          "top": 0,
+          "visibleWidth": 390,
+          "visibleHeight": 844
+        },
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 2
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "9761",
+          "manifest_hash": "2f59d8528bcdba219f4d6e0da8e754079999f6dc75f3e7767b4b2f8d5b2af8a6",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "9761",
+            "logical_start": "9760",
+            "previous_manifest": "4e694e3242e6689d4cccb9c50fd52a76a0e74b4e1edfc86196a78a553e7d15f8",
+            "previous_state": "844e06da4d47e9ab78ac9ec7eeccd55d3509702c77298593b12b9254d9703fe0",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "9764",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "9764",
+          "source_to_exclusive": "40180669",
+          "state_hash": "368cc996c7cf0dcc2e07b88eb9a29763ff2a6a4d38cb557c3dc1416d56f1c466"
+        },
+        "ready": true,
+        "error": "",
+        "deliveryError": "",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 9761,
+        "playhead": 9760.155827000028,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": "2",
+            "publication_ticks": "1",
+            "completed_segments": "9761",
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": "40180669"
+          }
+        },
+        "quantity": {
+          "hidden": false,
+          "inert": false,
+          "placement": "floating",
+          "rect": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46,
+            "top": 132,
+            "right": 379,
+            "bottom": 178,
+            "left": 249
+          },
+          "text": "2",
+          "targets": [
+            {
+              "id": "quantity-minus",
+              "disabled": false,
+              "rect": {
+                "x": 250,
+                "y": 133,
+                "width": 44,
+                "height": 44,
+                "top": 133,
+                "right": 294,
+                "bottom": 177,
+                "left": 250
+              },
+              "hit": true
+            },
+            {
+              "id": "quantity-plus",
+              "disabled": false,
+              "rect": {
+                "x": 334,
+                "y": 133,
+                "width": 44,
+                "height": 44,
+                "top": 133,
+                "right": 378,
+                "bottom": 177,
+                "left": 334
+              },
+              "hit": true
+            }
+          ],
+          "corners": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 360,
+          "height": 328,
+          "top": 221,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 360,
+          "height": 274,
+          "top": 275,
+          "right": 368,
+          "bottom": 549,
+          "left": 8
+        },
+        "scrollContent": 274,
+        "board": {
+          "x": 0,
+          "y": 0,
+          "width": 390,
+          "height": 844,
+          "top": 0,
+          "right": 390,
+          "bottom": 844,
+          "left": 0
+        },
+        "cyclesVisibility": "hidden",
+        "focus": "quantity-plus",
+        "source_point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 195,
+          "sy": 154.99999999999534,
+          "visible": true,
+          "score": 267.00000000000466,
+          "hit": "board"
+        }
+      },
+      "war_cry_hidden_under_certified_rules7": true,
+      "copy": [
+        {
+          "field": "owner",
+          "exact": "s5ir5-gqaaa-aaaas-amyna-cai"
+        },
+        {
+          "field": "amount",
+          "exact": "0.5"
+        },
+        {
+          "field": "text",
+          "exact": "FIRE 1 217.5 2"
+        }
+      ],
+      "errors": [],
+      "copy_gate_before_wait": {
+        "kind": "slow",
+        "label": "Slow \u00b7 delayed",
+        "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+        "canPrepare": true
+      },
+      "copy_gate_after_wait": {
+        "kind": "slow",
+        "label": "Slow \u00b7 delayed",
+        "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+        "canPrepare": true
+      }
+    }
+  ],
+  "requests": [
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    },
+    {
+      "method": "POST",
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query"
+    }
+  ],
+  "browser": "153.0.8010.12"
+}

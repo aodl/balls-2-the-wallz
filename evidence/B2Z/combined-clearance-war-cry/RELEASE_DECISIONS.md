@@ -47,6 +47,13 @@ accounting, source/admission/retirement cursors, Index and Ledger watermarks,
 autonomous configuration, module, controllers and resource-protection status.
 Mutable publication heads may advance before the separately approved pause.
 
+For this owner-only maintenance sequence, close all owner B2Z tabs during the
+module installation. After byte/state checks, reopen the qualified80-file frontend
+and authenticate its still-Rules7 world before any preparation/epoch commit. The
+positive ordered rehearsal qualifies this sequence; the supplemental mixed
+module/browser interval retains strict capture failures and is not claimed green.
+An old tab missing an evicted epoch may fail closed and require fresh entry.
+
 Approve one direct controller management install_code(mode=upgrade), exact frozen
 normal Wasm above and empty Candid arguments. Explicit--wasm avoids invoking the
 custom builder in dfx.json. No unrestricted deploy, reinstall, constructor,
@@ -106,3 +113,16 @@ accounts, receipts, source cursor and authenticated chain. Preserve evidence and
 pause safely if authorised; never reinstall/reset, reverse an epoch, restore an old
 world, reset a cursor, reindex paid inputs or manufacture refunds. Standalone9/10
 and experimental ICRC-2 are neither shortcuts nor approved intermediate states.
+
+## Source-adapter identity detail
+
+The account/Index source binding can remain the same across this adapter-only
+transition (the disposable source_id is unchanged). The authenticated checkpoint
+and exact configuration bind adapter4→6; do not infer activation merely from a
+different source_id or copy a disposable source ID into production. Reconfirm
+production54d927… and the actual committed metadata.
+
+The positive exact-predecessor module and cutover rehearsal is independently
+certificate/HTTP/replay verified through the final rejected payments. This does
+not convert the separate mixed live-module interruption capture failures into
+passes. Keep the documented owner-only maintenance ordering and stop conditions.

@@ -4,7 +4,7 @@ from pathlib import Path
 sys.path.insert(0,str(Path('tools').resolve()))
 from verify_s09_local import start_pocketic,stop_pocketic,execute
 from verify_s14_local import installed_case_result,wasm_exports
-p=argparse.ArgumentParser();p.add_argument('--wasm',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--test',choices=['launch','clearance','launch-european','clearance-european'],required=True);a=p.parse_args();root=a.output.resolve();root.mkdir(exist_ok=False,parents=True)
+p=argparse.ArgumentParser();p.add_argument('--wasm',type=Path,required=True);p.add_argument('--output',type=Path,required=True);p.add_argument('--test',choices=['launch','clearance','launch-european','clearance-european','clearance-upfront-european'],required=True);a=p.parse_args();root=a.output.resolve();root.mkdir(exist_ok=False,parents=True)
 sha=lambda p:hashlib.sha256(p.read_bytes()).hexdigest()
 normal=root/'normal-under-test.wasm';normal.write_bytes(a.wasm.read_bytes());normal_sha=sha(normal)
 source_at_start=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()
@@ -17,7 +17,7 @@ artifacts=Path('/home/codexdev/dtr-s09-artifacts');expected={'bin/pocket-ic':'b4
 for name,h in expected.items():assert sha(artifacts/name)==h
 r=execute('harness-build',['cargo','test','--manifest-path','tools/s09-integration/Cargo.toml','--test','s14_index','--no-run','--locked','--offline','--message-format=json'],root,300);assert r['status']=='PASS'
 binary=[json.loads(s)['executable']for s in(root/'logs/harness-build.log').read_text().splitlines()if s.startswith('{')and json.loads(s).get('reason')=='compiler-artifact'and json.loads(s).get('executable')];assert len(binary)==1
-selection={'launch':'war_cry_installed::combined_real_ledger_index_launch_and_independent_replay','clearance':'entry_installed::combined_clearance_on_normal_installed_module','launch-european':'war_cry_installed::combined_european_rules7_launch_upgrade','clearance-european':'entry_installed::european_rules7_upgrade_and_combined_clearance'}
+selection={'clearance-upfront-european':'entry_installed::european_rules7_upgrade_before_browser_and_combined_clearance','launch':'war_cry_installed::combined_real_ledger_index_launch_and_independent_replay','clearance':'entry_installed::combined_clearance_on_normal_installed_module','launch-european':'war_cry_installed::combined_european_rules7_launch_upgrade','clearance-european':'entry_installed::european_rules7_upgrade_and_combined_clearance'}
 env={'DFX_IDENTITY':'codex_local','POCKET_IC_BIN':str(artifacts/'bin/pocket-ic'),'ICP_LEDGER_WASM':str(artifacts/'wasm/ledger-canister.wasm'),'ICP_INDEX_WASM':str(artifacts/'wasm/ic-icp-index-canister.wasm'),'B2Z_S14_WASM':str(normal),'B2Z_S14_TEST_WASM':str(hooks),'S14_GENESIS_WORLD':str(setup/'genesis-world.bin'),'S14_BROWSER_PYTHON':str(Path('.work/browser-venv/bin/python').absolute()),'S14_DEPLOYMENT_OUTPUT':str(root/'deployment'),'B2Z_EUROPEAN_PRIOR_WASM':str(prior)}
 subprocess.run([env['S14_BROWSER_PYTHON'],'-c','from playwright.sync_api import sync_playwright'],check=True)
 (root/'deployment').mkdir();server=start_pocketic(artifacts/'bin/pocket-ic',root,hard_ttl_seconds=960,idle_ttl_seconds=930)

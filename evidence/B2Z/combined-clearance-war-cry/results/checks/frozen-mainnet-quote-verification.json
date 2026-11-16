@@ -1,0 +1,46 @@
+{
+  "status": "PASS",
+  "scope": "Pure maintained quote/memo reproduction from actual authenticated mainnet captures; no transaction or new canister query",
+  "rows": [
+    {
+      "file": ".work/combined-clearance-war-cry/frozen-mainnet/1440-fire-quote.json",
+      "status": "PASS",
+      "memo": "FIRE 1 217.5 2",
+      "amount_e8s": "50000000",
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "rules": 7,
+      "copy_disabled_at_capture": false
+    },
+    {
+      "file": ".work/combined-clearance-war-cry/frozen-mainnet/320-fire-quote.json",
+      "status": "PASS",
+      "memo": "FIRE 1 217.5 2",
+      "amount_e8s": "50000000",
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "rules": 7,
+      "copy_disabled_at_capture": false
+    },
+    {
+      "file": ".work/combined-clearance-war-cry/frozen-mainnet/390-fire-quote.json",
+      "status": "PASS",
+      "memo": "FIRE 1 217.5 2",
+      "amount_e8s": "50000000",
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "rules": 7,
+      "copy_disabled_at_capture": true
+    },
+    {
+      "file": ".work/combined-clearance-war-cry/frozen-mainnet-ready/390-fire-quote.json",
+      "status": "PASS",
+      "memo": "FIRE 1 217.5 2",
+      "amount_e8s": "50000000",
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+      "rules": 7,
+      "copy_disabled_at_capture": false
+    }
+  ]
+}

@@ -1,0 +1,13 @@
+{
+  "active_rules": 7,
+  "candidate": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "financial_state_preserved": true,
+  "pre_upgrade_payment_position": 2,
+  "predecessor": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+  "publication_preserved": true,
+  "scope": "actual old-module Rules7 paid Fire and unfinished execution; upgrade while paused before starting native observer",
+  "source_cursor_preserved": true,
+  "state_preserved": true,
+  "status": "PASS",
+  "unfinished_execution": true
+}

@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "source": "686b2d94225c0e719efc72d450189565d2b37149",
+  "run": 43859604893,
+  "artifact": 14222258758,
+  "archive_digest": "sha256:998014e2eef622cf1f2a64041af5e7426a660675cbf71eae33e82327a59aa832",
+  "normal_wasm_sha256": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "bytes": 3659359,
+  "byte_identical_to_selected_frozen_module": true,
+  "scope": "Second exact hosted build from six-gate-successful source; frozen original is preserved, not relabelled or replaced"
+}

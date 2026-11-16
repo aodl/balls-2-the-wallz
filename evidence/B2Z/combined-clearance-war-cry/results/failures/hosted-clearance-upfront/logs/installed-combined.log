@@ -1,0 +1,38 @@
+
+running 1 test
+test entry_installed::european_rules7_upgrade_before_browser_and_combined_clearance ... 
+thread 'entry_installed::european_rules7_upgrade_before_browser_and_combined_clearance' (2442940) panicked at tests/s14_index.rs:4855:20:
+called `Result::unwrap()` on an `Err` value: "missing field `version`"
+stack backtrace:
+   0: __rustc::rust_begin_unwind
+             at /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/std/src/panicking.rs:689:5
+   1: core::panicking::panic_fmt
+             at /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/core/src/panicking.rs:80:14
+   2: core::result::unwrap_failed
+             at /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/core/src/result.rs:1867:5
+   3: core::result::Result<T,E>::unwrap
+             at /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/core/src/result.rs:1233:23
+   4: s14_index::transition_view_for
+             at ./tools/s09-integration/tests/s14_index.rs:4855:20
+   5: s14_index::playability_installed::old_transition
+             at ./tools/s09-integration/tests/support/playability_installed.rs:279:12
+   6: s14_index::entry_installed::run_entry_and_clearance_ordered
+             at ./tools/s09-integration/tests/support/entry_installed.rs:190:9
+   7: s14_index::entry_installed::european_rules7_upgrade_before_browser_and_combined_clearance
+             at ./tools/s09-integration/tests/support/entry_installed.rs:82:5
+   8: s14_index::entry_installed::european_rules7_upgrade_before_browser_and_combined_clearance::{{closure}}
+             at ./tools/s09-integration/tests/support/entry_installed.rs:76:67
+   9: core::ops::function::FnOnce::call_once
+             at /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/core/src/ops/function.rs:250:5
+  10: core::ops::function::FnOnce::call_once
+             at /rustc/e408947bfd200af42db322daf0fadfe7e26d3bd1/library/core/src/ops/function.rs:250:5
+note: Some details are omitted, run with `RUST_BACKTRACE=full` for a verbose backtrace.
+FAILED
+
+failures:
+
+failures:
+    entry_installed::european_rules7_upgrade_before_browser_and_combined_clearance
+
+test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 79 filtered out; finished in 38.87s
+

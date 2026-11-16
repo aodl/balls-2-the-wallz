@@ -1,0 +1,237 @@
+{
+  "phase": "ERROR",
+  "live": {
+    "connected": true,
+    "startupRetries": 0,
+    "heads": [
+      69,
+      70
+    ],
+    "resyncs": 0,
+    "certificates": 2,
+    "skipped": true,
+    "maxBufferSegments": 1,
+    "maxBufferLogical": 1,
+    "delivery": {
+      "failures": 1,
+      "recoveries": 0,
+      "evicted": 0,
+      "active": {
+        "id": 1,
+        "at_ms": 23603,
+        "message": "publication unavailable: snapshot resync required",
+        "kind": "delivery-or-verification-error",
+        "rejected": {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "68ca47ecc1c13725b042fcf203a55e00cb4ac91cc387747d42e75b784dd44735",
+          "format": null,
+          "head": "79",
+          "root": "4dc851582807d75df339e176ee053ccb354aabd843ed6757fe15f1d03905f650",
+          "certificate_time_ns": "1794829240604569933"
+        },
+        "accepted": {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 6,
+          "identity": {
+            "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+            "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": null,
+          "format": null,
+          "head": "69",
+          "root": "17504670d833440fcd4fa779dde99bdc6492a4f7770873884f9b544a11821b2e",
+          "certificate_time_ns": "1794829230015145897"
+        },
+        "resynchronisations": 0,
+        "recovered_at_ms": null
+      },
+      "blocking": {
+        "id": 1,
+        "at_ms": 23603,
+        "message": "publication unavailable: snapshot resync required",
+        "kind": "delivery-or-verification-error",
+        "rejected": {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 7,
+          "identity": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": "68ca47ecc1c13725b042fcf203a55e00cb4ac91cc387747d42e75b784dd44735",
+          "format": null,
+          "head": "79",
+          "root": "4dc851582807d75df339e176ee053ccb354aabd843ed6757fe15f1d03905f650",
+          "certificate_time_ns": "1794829240604569933"
+        },
+        "accepted": {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 6,
+          "identity": {
+            "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+            "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": null,
+          "format": null,
+          "head": "69",
+          "root": "17504670d833440fcd4fa779dde99bdc6492a4f7770873884f9b544a11821b2e",
+          "certificate_time_ns": "1794829230015145897"
+        },
+        "resynchronisations": 0,
+        "recovered_at_ms": null
+      },
+      "history": [
+        {
+          "id": 1,
+          "at_ms": 23603,
+          "message": "publication unavailable: snapshot resync required",
+          "kind": "delivery-or-verification-error",
+          "rejected": {
+            "mode": "certificate-verifier",
+            "network": "pocketic-local",
+            "canister": "dfj7p-ut777-77776-qaaba-cai",
+            "version": 7,
+            "identity": {
+              "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+              "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+            },
+            "epoch": "68ca47ecc1c13725b042fcf203a55e00cb4ac91cc387747d42e75b784dd44735",
+            "format": null,
+            "head": "79",
+            "root": "4dc851582807d75df339e176ee053ccb354aabd843ed6757fe15f1d03905f650",
+            "certificate_time_ns": "1794829240604569933"
+          },
+          "accepted": {
+            "mode": "certificate-verifier",
+            "network": "pocketic-local",
+            "canister": "dfj7p-ut777-77776-qaaba-cai",
+            "version": 6,
+            "identity": {
+              "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+              "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+              "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+              "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+            },
+            "epoch": null,
+            "format": null,
+            "head": "69",
+            "root": "17504670d833440fcd4fa779dde99bdc6492a4f7770873884f9b544a11821b2e",
+            "certificate_time_ns": "1794829230015145897"
+          },
+          "resynchronisations": 0,
+          "recovered_at_ms": null
+        }
+      ],
+      "acceptedHeads": [
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 6,
+          "identity": {
+            "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+            "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": null,
+          "format": null,
+          "head": "69",
+          "root": "17504670d833440fcd4fa779dde99bdc6492a4f7770873884f9b544a11821b2e",
+          "certificate_time_ns": "1794829230015145897"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "pocketic-local",
+          "canister": "dfj7p-ut777-77776-qaaba-cai",
+          "version": 6,
+          "identity": {
+            "config_hash": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+            "rules_hash": "c1374abe923db8556c0a611caaa5c39711f0cda2ca4710f05e02fc71967a4c46",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          },
+          "epoch": null,
+          "format": null,
+          "head": "70",
+          "root": "38db20da1bd7149727e8d3375ad5b592d40c720b2742cb783f870ad45ddc63fd",
+          "certificate_time_ns": "1794829240604569933"
+        }
+      ],
+      "acceptedEvicted": 0
+    },
+    "playback": {
+      "wall_ms": 102365.1,
+      "frame_ms": 16.70000000001164,
+      "verified_ticks": 71,
+      "consumed_ticks": 71,
+      "admitted_ticks": 1,
+      "played_ticks": 2,
+      "buffer_ticks": 0,
+      "buffer_target_ticks": 17,
+      "buffer_bytes": 0,
+      "queue_segments": 0,
+      "certificate_time_ns": "1794829240604569933",
+      "certificate_age_ms": 662.430208,
+      "catchup_segments": 10,
+      "catchup_ms": 0,
+      "phase": "ERROR",
+      "rate": 1,
+      "elastic": {
+        "samples": 0,
+        "factor": 1,
+        "expected_period_seconds": null,
+        "confidence_seconds": null,
+        "arrival_jitter_seconds": 0,
+        "max_delivery_seconds": 0,
+        "last_distinct_at": 4772.300000011921
+      },
+      "presentation_lag_ticks": 0,
+      "nominal_rate": 1,
+      "supported_rate": 1,
+      "presentation_rate": 1,
+      "target_rate": 1,
+      "performance_limited": false,
+      "fetch_ms": 6758.800000011921,
+      "verify_ms": 271,
+      "artifact_ms": 0.10000002384185791,
+      "derive_ms": 32.5,
+      "artifact_bundle": true,
+      "artifact_bundle_fallbacks": 1,
+      "artifact_bundle_error": null,
+      "delivery_failures": 1,
+      "delivery_error": "publication unavailable: snapshot resync required",
+      "backend_segments": 87,
+      "segment_ticks": 1
+    }
+  },
+  "error": "publication unavailable: snapshot resync required",
+  "service": "Unable to verify game data.",
+  "quote": "No first site is currently available.",
+  "displayed": {
+    "cannons": 1,
+    "balls": 4
+  }
+}

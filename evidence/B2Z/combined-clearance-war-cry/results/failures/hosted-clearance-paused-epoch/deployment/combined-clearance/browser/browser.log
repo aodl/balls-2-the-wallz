@@ -1,0 +1,16 @@
+Built observer for dfj7p-ut777-77776-qaaba-cai: /home/codexdev/src/b2z/.work/combined-clearance-war-cry/hosted-clearance-paused-epoch/deployment/combined-clearance/browser/assets
+Built observer for s5ir5-gqaaa-aaaas-amyna-cai: /home/codexdev/src/b2z/.work/combined-clearance-war-cry/hosted-clearance-paused-epoch/deployment/combined-clearance/browser/mainnet-assets
+CANNON_NAVIGATION_SETTLED [{"selected": 2, "offscreen": false, "title": "Cannon #2", "camera": [81.27928780512138, 953.2258721590888, 88]}]
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_s14_deployment.py", line 601, in main
+    if wire_capture:stop_wire_capture()
+                    ^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/tools/verify_s14_deployment.py", line 566, in stop_wire_capture
+    return wire_capture.finish(lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)'))
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z/tools/wire_capture.py", line 124, in finish
+    self._drain()
+  File "/home/codexdev/src/b2z/tools/wire_capture.py", line 153, in _drain
+    raise RuntimeError('wire capture finalisation failed: ' + '; '.join(self.errors))
+RuntimeError: wire capture finalisation failed: wire request failed: net::ERR_ABORTED; wire request failed: net::ERR_ABORTED; wire request failed: net::ERR_ABORTED
+RuntimeError('wire capture finalisation failed: wire request failed: net::ERR_ABORTED; wire request failed: net::ERR_ABORTED; wire request failed: net::ERR_ABORTED')

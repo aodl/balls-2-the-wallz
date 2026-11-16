@@ -24,3 +24,21 @@ claimed. The actual production audio captures and limitations remain in the
 separate deployment report.
 
 [Native visual WebM](results/hosted-launch/browser/video-1/page@3fb0bd07f548e48268c76d38c6729ff5.webm) — no physical listening claim.
+
+## Actual controlled cutover and exact-byte mainnet-backed checks
+
+These are distinct scopes; none is a production Rules11 activation.
+
+- [Actual Rules7 copied packet](results/hosted-clearance/browser/rules7-copied-before-combined.png)
+  and [authenticated Rules11 Update/War Cry](results/hosted-clearance/browser/rules11-replaced-packet-and-cry.png).
+- [Rules11 no-safe-destination controls](results/hosted-clearance/browser/rules9-no-safe-destinations.png)
+  (the retained filename is historical; the measured active identity is11).
+- Exact frozen80 locally served against actual mainnet Rules7: [320/cell0/347.15°](results/frozen-mainnet/320-rules7-347.png),
+  [390](results/frozen-mainnet/390-rules7-347.png), [1440](results/frozen-mainnet/1440-rules7-347.png).
+- [Separate ready390 capture](results/frozen-mainnet-ready/390-updated.png) proves
+  actual Copy readiness; the first390 run correctly remained disabled when stale.
+- [Fresh actual production79](results/production-preservation/live-final.png),
+  Rules7 and unchanged modules/inventory at12:34UTC.
+
+Native-input WebMs accompany the frozen-mainnet viewport folders. They record
+visual interaction, not physical phones or independently captured audible output.

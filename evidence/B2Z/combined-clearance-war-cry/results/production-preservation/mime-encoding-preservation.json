@@ -1,0 +1,5 @@
+{
+  "status": "PASS",
+  "scope": "All78 signed list entries retain identical MIME and complete encoding/hash/length metadata versus verified post-deployment inventory",
+  "files": 78
+}

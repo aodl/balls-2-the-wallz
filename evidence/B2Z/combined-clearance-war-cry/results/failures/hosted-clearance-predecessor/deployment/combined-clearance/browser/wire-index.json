@@ -1,0 +1,1174 @@
+{
+  "packets": [
+    {
+      "method": "observation_bundle",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "e0e102fd2661ee10cf2602d5a18c52486171e8800d98ead49d52c5485a41ab73",
+      "sequence": 0,
+      "file": "0000.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829229128.5798,
+        "domainLookupStart": 12.525,
+        "domainLookupEnd": 12.533,
+        "connectStart": 12.533,
+        "secureConnectionStart": -1,
+        "connectEnd": 28.238,
+        "requestStart": 28.565,
+        "responseStart": 1004.14,
+        "responseEnd": 1054.232
+      },
+      "response_epoch_ms": 1794829230358.2854,
+      "body_completed_epoch_ms": 1794829230604.1562,
+      "body_read_ms": 245.87035301374272,
+      "response_sha256": "bc11b5352b735a816e73919922094e326fa1eb9468d0c596ef900e157afccacd"
+    },
+    {
+      "method": "retained_publication",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "49f364d6352cd633e2a4942c8ec9ae8ceaa51078f9bb5cb89752c66bcf76b25c",
+      "sequence": 1,
+      "file": "0001.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829231130.0278,
+        "domainLookupStart": 7.456,
+        "domainLookupEnd": 7.473,
+        "connectStart": 7.473,
+        "secureConnectionStart": -1,
+        "connectEnd": 7.76,
+        "requestStart": 9.757,
+        "responseStart": 59.677,
+        "responseEnd": 75.088
+      },
+      "response_epoch_ms": 1794829231219.3435,
+      "body_completed_epoch_ms": 1794829231255.9739,
+      "body_read_ms": 36.63042502012104,
+      "response_sha256": "294ea0907d12be4f556338ebed4da076ba2861f0e5f8ec5e752cb70e9de828c7"
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "af57d6a25e28a3ef48cfb121b6e18b93263342cdb64dec9870b95b7631aaa28d",
+      "sequence": 2,
+      "file": "0002.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829231275.8123,
+        "domainLookupStart": 8.578,
+        "domainLookupEnd": 8.595,
+        "connectStart": 8.595,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.831,
+        "requestStart": 8.954,
+        "responseStart": 78.197,
+        "responseEnd": 121.666
+      },
+      "response_epoch_ms": 1794829231460.427,
+      "body_completed_epoch_ms": 1794829234247.3818,
+      "body_read_ms": 2786.955035990104,
+      "response_sha256": "d030c8b80c9c195035d15fb9067c16b4f1a6fee0d2240c0aa1ea478aa56a136c"
+    },
+    {
+      "method": "observation_bundle",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "e0e102fd2661ee10cf2602d5a18c52486171e8800d98ead49d52c5485a41ab73",
+      "sequence": 3,
+      "file": "0003.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829234279.1638,
+        "domainLookupStart": 6.574,
+        "domainLookupEnd": 6.658,
+        "connectStart": 6.658,
+        "secureConnectionStart": -1,
+        "connectEnd": 6.881,
+        "requestStart": 6.994,
+        "responseStart": 6665.624,
+        "responseEnd": 6699.294
+      },
+      "response_epoch_ms": 1794829240980.0742,
+      "body_completed_epoch_ms": 1794829241326.346,
+      "body_read_ms": 346.27179004019126,
+      "response_sha256": "c556b13dd9330d3084c7b07663feba027a532ae9891f59837d5e961583cae0a9"
+    },
+    {
+      "method": "retained_publication",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "8267b10dd261a07996ca2c9c5cff2e7bd21b028e6f8eff849926263de1f164b6",
+      "sequence": 4,
+      "file": "0004.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829241302.0608,
+        "domainLookupStart": 10.047,
+        "domainLookupEnd": 10.128,
+        "connectStart": 10.128,
+        "secureConnectionStart": -1,
+        "connectEnd": 10.325,
+        "requestStart": 10.44,
+        "responseStart": 161.863,
+        "responseEnd": 190.308
+      },
+      "response_epoch_ms": 1794829241585.3105,
+      "body_completed_epoch_ms": 1794829241613.6968,
+      "body_read_ms": 28.38512702146545,
+      "response_sha256": "0fc2a7db9ee10450ca07cf5598d720507ba97c8676b3d6a9d8a7be43a727af08"
+    },
+    {
+      "method": "retained_publication",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "8a4b6d09dc2f5d5a22c0f94708a42ddb9995c67227488dcd7ead0aa702026a33",
+      "sequence": 5,
+      "file": "0005.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829241311.962,
+        "domainLookupStart": 9.121,
+        "domainLookupEnd": 9.129,
+        "connectStart": 9.129,
+        "secureConnectionStart": -1,
+        "connectEnd": 17.722,
+        "requestStart": 20.202,
+        "responseStart": 376.938,
+        "responseEnd": 413.112
+      },
+      "response_epoch_ms": 1794829241715.828,
+      "body_completed_epoch_ms": 1794829241825.3533,
+      "body_read_ms": 109.52536197146401,
+      "response_sha256": "39e06e271ad755e50cd96dacc7b1657ebdbed87f28559efcdf2bc4f528f4c883"
+    },
+    {
+      "method": "retained_publication",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "a58f9ff5d5cf6c53b365e2fdfa549f7b9045b1f5962d0114c22f630814cf3bee",
+      "sequence": 6,
+      "file": "0006.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829241617.4622,
+        "domainLookupStart": 0.355,
+        "domainLookupEnd": 0.371,
+        "connectStart": 0.371,
+        "secureConnectionStart": -1,
+        "connectEnd": 3.305,
+        "requestStart": 3.425,
+        "responseStart": 111.275,
+        "responseEnd": 146.385
+      },
+      "response_epoch_ms": 1794829241815.247,
+      "body_completed_epoch_ms": 1794829241879.3281,
+      "body_read_ms": 64.08083799760789,
+      "response_sha256": "1088587d792af985d4abdfdb4b47aa86d2cacb6a2a49074e97b9e7fe4b0dd68b"
+    },
+    {
+      "method": "retained_publication",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "d86b760b1dd7acf14290a28419f299fb777c719cc2cd64a1e77fe3223daf0918",
+      "sequence": 7,
+      "file": "0007.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829241311.784,
+        "domainLookupStart": 9.044,
+        "domainLookupEnd": 9.06,
+        "connectStart": 9.06,
+        "secureConnectionStart": -1,
+        "connectEnd": 9.403,
+        "requestStart": 20.218,
+        "responseStart": 463.005,
+        "responseEnd": 503.794
+      },
+      "response_epoch_ms": 1794829241839.1584,
+      "body_completed_epoch_ms": 1794829241916.1162,
+      "body_read_ms": 76.95738703478128,
+      "response_sha256": "37b12567d685e663149630a561eeaecda83d21366cab519063a48e752b1d2573"
+    },
+    {
+      "method": "retained_publication",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "6b787b77e3eb79ea94be28f9e3e206df8ed600b0ab7251e4f8b1c1b13cd21b5c",
+      "sequence": 8,
+      "file": "0008.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829241796.2642,
+        "domainLookupStart": 5.071,
+        "domainLookupEnd": 5.086,
+        "connectStart": 5.086,
+        "secureConnectionStart": -1,
+        "connectEnd": 5.297,
+        "requestStart": 5.412,
+        "responseStart": 115.607,
+        "responseEnd": 157.948
+      },
+      "response_epoch_ms": 1794829241946.6897,
+      "body_completed_epoch_ms": 1794829241981.6428,
+      "body_read_ms": 34.95340299559757,
+      "response_sha256": "b8362e55c74ea0bb3af243a212752cb4c0240281e1990928e16aa428533d1d38"
+    },
+    {
+      "method": "retained_publication",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "e5255514e82193c4a300b9147745c83c36bcb88ffafc183c0c20713997c91017",
+      "sequence": 9,
+      "file": "0009.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829241861.713,
+        "domainLookupStart": 3.043,
+        "domainLookupEnd": 3.06,
+        "connectStart": 3.06,
+        "secureConnectionStart": -1,
+        "connectEnd": 3.304,
+        "requestStart": 3.434,
+        "responseStart": 124.092,
+        "responseEnd": 143.587
+      },
+      "response_epoch_ms": 1794829242016.3428,
+      "body_completed_epoch_ms": 1794829242040.4329,
+      "body_read_ms": 24.08937702421099,
+      "response_sha256": "2a936962f9577d80c0f3fba10f59c513f306e844bbf528bd44bebf2eff9b0ee4"
+    },
+    {
+      "method": "retained_publication",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "2910989b06e406f88c38642860bde0e84b53a121fef5a316f92fd1a0fd509eed",
+      "sequence": 10,
+      "file": "0010.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829241332.3672,
+        "domainLookupStart": 1.883,
+        "domainLookupEnd": 1.894,
+        "connectStart": 1.894,
+        "secureConnectionStart": -1,
+        "connectEnd": 2.209,
+        "requestStart": 2.344,
+        "responseStart": 925.184,
+        "responseEnd": 971.467
+      },
+      "response_epoch_ms": 1794829242293.0132,
+      "body_completed_epoch_ms": 1794829242321.8115,
+      "body_read_ms": 28.797531966120005,
+      "response_sha256": "bbbdc09903ec11bc9b43411e960b36c41594cff2aa23c336a0cc1570dc33a4d7"
+    },
+    {
+      "method": "retained_publication",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "c05e40c8a643dabc7305a6eabe6584f18319e247053530552b513f39eec870b9",
+      "sequence": 11,
+      "file": "0011.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829241904.7292,
+        "domainLookupStart": 0.7,
+        "domainLookupEnd": 0.716,
+        "connectStart": 0.716,
+        "secureConnectionStart": -1,
+        "connectEnd": 7.193,
+        "requestStart": 7.299,
+        "responseStart": 1207.161,
+        "responseEnd": 1229.614
+      },
+      "response_epoch_ms": 1794829243133.9692,
+      "body_completed_epoch_ms": 1794829243158.8726,
+      "body_read_ms": 24.902987002860755,
+      "response_sha256": "5ab7f9b81fe684caaf343b9f8751569cd2ae2f8605be072192e9d8d08344ede5"
+    },
+    {
+      "method": "retained_publication",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "b728d922bd66a85be0ab5ceaeba25965820fe3be6fef4f70f84b32f351052cea",
+      "sequence": 12,
+      "file": "0012.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829242309.3162,
+        "domainLookupStart": 1.375,
+        "domainLookupEnd": 1.388,
+        "connectStart": 1.388,
+        "secureConnectionStart": -1,
+        "connectEnd": 2.183,
+        "requestStart": 2.331,
+        "responseStart": 1044.444,
+        "responseEnd": 1066.591
+      },
+      "response_epoch_ms": 1794829243383.023,
+      "body_completed_epoch_ms": 1794829243469.4568,
+      "body_read_ms": 86.43529599066824,
+      "response_sha256": "90b20af6ee43771ba17e0a674d8c3d7d34b8705de87bd52c182537e6ecc1b991"
+    },
+    {
+      "method": "artifact_bundle",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "9892c3a70fae6598ea40f6382f6e09b606891fe3c255b8bdafc29de0cf65d602",
+      "sequence": 13,
+      "file": "0013.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829243432.6228,
+        "domainLookupStart": 5.823,
+        "domainLookupEnd": 5.83,
+        "connectStart": 5.83,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.026,
+        "requestStart": 14.772,
+        "responseStart": 340.373,
+        "responseEnd": 387.335
+      },
+      "response_epoch_ms": 1794829243801.2651,
+      "body_completed_epoch_ms": 1794829243876.965,
+      "body_read_ms": 75.69937303196639,
+      "response_sha256": "d7b105d828d68c108aef843fdf3686093c11a6c975f05f3b741b2aaf1a0fd9a6"
+    },
+    {
+      "method": "artifact_bundle",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "bdd09bc34fd81b3ffa213143f53b5bf96a60c5402e56664c34ccca1e44ad2eb0",
+      "sequence": 14,
+      "file": "0014.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829243432.4558,
+        "domainLookupStart": 5.846,
+        "domainLookupEnd": 5.853,
+        "connectStart": 5.853,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.192,
+        "requestStart": 14.835,
+        "responseStart": 402.822,
+        "responseEnd": 442.291
+      },
+      "response_epoch_ms": 1794829243888.869,
+      "body_completed_epoch_ms": 1794829243966.8203,
+      "body_read_ms": 77.95089803403243,
+      "response_sha256": "167ae0a10b2003307bfe13dc8f6140b2a8ccc154bf0c72611a7844cf3a187678"
+    },
+    {
+      "method": "artifact_bundle",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "fcc1715106424628502d5281517cac9634c8bf5b4c64115e8fae202eb9997388",
+      "sequence": 15,
+      "file": "0015.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829243432.106,
+        "domainLookupStart": 5.692,
+        "domainLookupEnd": 5.781,
+        "connectStart": 5.781,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.549,
+        "requestStart": 11.226,
+        "responseStart": 608.651,
+        "responseEnd": 651.904
+      },
+      "response_epoch_ms": 1794829244069.365,
+      "body_completed_epoch_ms": 1794829244377.728,
+      "body_read_ms": 308.3628530148417,
+      "response_sha256": "3f136b1e7d0130a696f70623aa4b957b58e46a22bc8b4d9560be11ad9bf86629"
+    },
+    {
+      "method": "artifact_bundle",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "2e02a50f2e576fa40dc0c59212cc205ac1ab91bf6ffd497288f6861b7725dc4d",
+      "sequence": 16,
+      "file": "0016.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829243955.836,
+        "domainLookupStart": 7.434,
+        "domainLookupEnd": 7.45,
+        "connectStart": 7.45,
+        "secureConnectionStart": -1,
+        "connectEnd": 7.682,
+        "requestStart": 14.149,
+        "responseStart": 254.813,
+        "responseEnd": 293.034
+      },
+      "response_epoch_ms": 1794829244378.3098,
+      "body_completed_epoch_ms": 1794829244989.1558,
+      "body_read_ms": 610.8463379787281,
+      "response_sha256": "52f335e3e3c27800f46db5892c807af4d41baec915ee993214e5782e354212f8"
+    },
+    {
+      "method": "artifact_bundle",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "7dcb1f22cead4a59afd440f71f52e8f4fa9361b263baf7be6e10cff8e36d9022",
+      "sequence": 17,
+      "file": "0017.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829244164.83,
+        "domainLookupStart": 9.932,
+        "domainLookupEnd": 9.95,
+        "connectStart": 9.95,
+        "secureConnectionStart": -1,
+        "connectEnd": 10.197,
+        "requestStart": 10.33,
+        "responseStart": 181.574,
+        "responseEnd": 238.232
+      },
+      "response_epoch_ms": 1794829244389.3274,
+      "body_completed_epoch_ms": 1794829245011.2463,
+      "body_read_ms": 621.921566023957,
+      "response_sha256": "8bc65db174f6f400ccac41d88fe063c30694863c105f834c14cd3983a8e798ec"
+    },
+    {
+      "method": "artifact_bundle",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "163d6efd874c439f973a3e752354dd7a427286e50d04352614b45684495bfa24",
+      "sequence": 18,
+      "file": "0018.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829243874.825,
+        "domainLookupStart": 3.908,
+        "domainLookupEnd": 3.924,
+        "connectStart": 3.924,
+        "secureConnectionStart": -1,
+        "connectEnd": 4.163,
+        "requestStart": 6.817,
+        "responseStart": 1280.451,
+        "responseEnd": 1329.512
+      },
+      "response_epoch_ms": 1794829245337.2405,
+      "body_completed_epoch_ms": 1794829246487.0225,
+      "body_read_ms": 1149.7825409751385,
+      "response_sha256": "080cb7f1093e992e8af0751a7f4c0db14569f557519b17cfc56e9ee7f5c44b7b"
+    },
+    {
+      "method": "artifact_bundle",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "5cd23295aab9b32210cca1a158bea398f7d68a6661a9848e3f3398eb7c06f605",
+      "sequence": 19,
+      "file": "0019.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829245040.7231,
+        "domainLookupStart": 3.549,
+        "domainLookupEnd": 3.635,
+        "connectStart": 3.635,
+        "secureConnectionStart": -1,
+        "connectEnd": 6.169,
+        "requestStart": 6.378,
+        "responseStart": 273.687,
+        "responseEnd": 352.241
+      },
+      "response_epoch_ms": 1794829245698.074,
+      "body_completed_epoch_ms": 1794829246531.74,
+      "body_read_ms": 833.6669990094379,
+      "response_sha256": "8f12c157c03d8fc03861afa6f87fe6c554d3a75361ad40fbf6670f8a9ae2a9ed"
+    },
+    {
+      "method": "artifact_bundle",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "e745e6ba111dfe7840c3913daa6ab17e5105639b8e6a062e529966415420694a",
+      "sequence": 20,
+      "file": "0020.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829243432.353,
+        "domainLookupStart": 5.818,
+        "domainLookupEnd": 5.827,
+        "connectStart": 5.827,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.328,
+        "requestStart": 14.806,
+        "responseStart": 6719.366,
+        "responseEnd": 6759.07
+      },
+      "response_epoch_ms": 1794829250179.1611,
+      "body_completed_epoch_ms": 1794829250238.2026,
+      "body_read_ms": 59.041379019618034,
+      "response_sha256": "9dc5a176185f2d3528e31a2c3109f892e04e370a5ccffa66c68609b10cc022c2"
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "b53e398f04378576fd32fc50a14d5ecaee16217912be3522324be784b28bbed5",
+      "sequence": 21,
+      "file": "0021.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829250219.553,
+        "domainLookupStart": 13.23,
+        "domainLookupEnd": 13.246,
+        "connectStart": 13.246,
+        "secureConnectionStart": -1,
+        "connectEnd": 13.939,
+        "requestStart": 14.656,
+        "responseStart": 85.971,
+        "responseEnd": 116.125
+      },
+      "response_epoch_ms": 1794829250327.3472,
+      "body_completed_epoch_ms": 1794829250344.997,
+      "body_read_ms": 17.64860301045701,
+      "response_sha256": "8da9267e44ba32b89d2931931b35dfc9609726d4426952e3d57cf8f20d801e6a"
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "d63f8f9573fa448530da4f2e321370f1dc3e289a500f6f08aa4eb44bf1ad3f50",
+      "sequence": 22,
+      "file": "0022.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829250233.3027,
+        "domainLookupStart": 8.778,
+        "domainLookupEnd": 8.794,
+        "connectStart": 8.794,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.993,
+        "requestStart": 13.795,
+        "responseStart": 103.406,
+        "responseEnd": 139.526
+      },
+      "response_epoch_ms": 1794829250357.2163,
+      "body_completed_epoch_ms": 1794829250374.6497,
+      "body_read_ms": 17.433399974834174,
+      "response_sha256": "62cce3fd9b12713fc5fc860a52186f3a787f6a5aa00d744626aa21ca3ee3cf9e"
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "043e54d4b03096ae32e731c90f037296e4bbeb33ef6938bcffab96bc30c44a9a",
+      "sequence": 23,
+      "file": "0023.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829250219.757,
+        "domainLookupStart": 13.291,
+        "domainLookupEnd": 13.299,
+        "connectStart": 13.299,
+        "secureConnectionStart": -1,
+        "connectEnd": 13.722,
+        "requestStart": 14.575,
+        "responseStart": 313.953,
+        "responseEnd": 338.682
+      },
+      "response_epoch_ms": 1794829250548.3518,
+      "body_completed_epoch_ms": 1794829250975.1428,
+      "body_read_ms": 426.7910140333697,
+      "response_sha256": "71528ffd5b0570b6039be82935797ad763838cd8f28cfc31cb22dd2395c4446f"
+    },
+    {
+      "method": "artifact_bundle",
+      "url": "http://127.0.0.1:45123/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "9d418f76ff17d628a28bf9da0bb3004bf479a9aaa1e4cbf88810f24e0a2b3619",
+      "sequence": 24,
+      "file": "0024.cbor",
+      "status": 200,
+      "timing": {
+        "startTime": 1794829250608.023,
+        "domainLookupStart": 0.505,
+        "domainLookupEnd": 0.598,
+        "connectStart": 0.598,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.784,
+        "requestStart": 0.902,
+        "responseStart": 871.392,
+        "responseEnd": 897.452
+      },
+      "response_epoch_ms": 1794829251498.322,
+      "body_completed_epoch_ms": 1794829251523.1038,
+      "body_read_ms": 24.78148596128449,
+      "response_sha256": "bb5afb6787c0322ed77f16bec7115f8ec1712af350e2e28a3d0c2ec5bcb56093"
+    }
+  ],
+  "errors": [
+    "incomplete wire capture: publication fence not established"
+  ],
+  "bytes": 361846,
+  "complete_through": null,
+  "query_timings": [
+    {
+      "method": "read_state",
+      "timing": {
+        "startTime": 1794829229477.8171,
+        "domainLookupStart": 7.562,
+        "domainLookupEnd": 7.579,
+        "connectStart": 7.579,
+        "secureConnectionStart": -1,
+        "connectEnd": 11.087,
+        "requestStart": 11.228,
+        "responseStart": 81.742,
+        "responseEnd": 231.008
+      },
+      "request_sha256": "a0398747230009a892c1c6bd3c364cfe8465d1e0ae23254e1b53e3156ad4ed06",
+      "failure": null
+    },
+    {
+      "method": "read_state",
+      "timing": {
+        "startTime": 1794829229477.99,
+        "domainLookupStart": 10.765,
+        "domainLookupEnd": 10.78,
+        "connectStart": 10.78,
+        "secureConnectionStart": -1,
+        "connectEnd": 10.933,
+        "requestStart": 11.189,
+        "responseStart": 596.44,
+        "responseEnd": 744.621
+      },
+      "request_sha256": "a0398747230009a892c1c6bd3c364cfe8465d1e0ae23254e1b53e3156ad4ed06",
+      "failure": null
+    },
+    {
+      "method": "observation_bundle",
+      "timing": {
+        "startTime": 1794829229128.5798,
+        "domainLookupStart": 12.525,
+        "domainLookupEnd": 12.533,
+        "connectStart": 12.533,
+        "secureConnectionStart": -1,
+        "connectEnd": 28.238,
+        "requestStart": 28.565,
+        "responseStart": 1004.14,
+        "responseEnd": 1054.232
+      },
+      "request_sha256": "e0e102fd2661ee10cf2602d5a18c52486171e8800d98ead49d52c5485a41ab73",
+      "failure": null
+    },
+    {
+      "method": "lab_status",
+      "timing": {
+        "startTime": 1794829229135.5078,
+        "domainLookupStart": 22.338,
+        "domainLookupEnd": 22.355,
+        "connectStart": 22.355,
+        "secureConnectionStart": -1,
+        "connectEnd": 38.333,
+        "requestStart": 38.522,
+        "responseStart": 1847.405,
+        "responseEnd": 1912.507
+      },
+      "request_sha256": "1c8ae7d09e4aca3ead248d7df3604f13687363da07da9c423a1a0e12c06f048b",
+      "failure": null
+    },
+    {
+      "method": "retained_publication",
+      "timing": {
+        "startTime": 1794829231130.0278,
+        "domainLookupStart": 7.456,
+        "domainLookupEnd": 7.473,
+        "connectStart": 7.473,
+        "secureConnectionStart": -1,
+        "connectEnd": 7.76,
+        "requestStart": 9.757,
+        "responseStart": 59.677,
+        "responseEnd": 75.088
+      },
+      "request_sha256": "49f364d6352cd633e2a4942c8ec9ae8ceaa51078f9bb5cb89752c66bcf76b25c",
+      "failure": null
+    },
+    {
+      "method": "lab_status",
+      "timing": {
+        "startTime": 1794829231231.038,
+        "domainLookupStart": 8.823,
+        "domainLookupEnd": 8.843,
+        "connectStart": 8.843,
+        "secureConnectionStart": -1,
+        "connectEnd": 9.181,
+        "requestStart": 9.306,
+        "responseStart": 84.685,
+        "responseEnd": 127.111
+      },
+      "request_sha256": "1c8ae7d09e4aca3ead248d7df3604f13687363da07da9c423a1a0e12c06f048b",
+      "failure": null
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "timing": {
+        "startTime": 1794829231275.8123,
+        "domainLookupStart": 8.578,
+        "domainLookupEnd": 8.595,
+        "connectStart": 8.595,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.831,
+        "requestStart": 8.954,
+        "responseStart": 78.197,
+        "responseEnd": 121.666
+      },
+      "request_sha256": "af57d6a25e28a3ef48cfb121b6e18b93263342cdb64dec9870b95b7631aaa28d",
+      "failure": null
+    },
+    {
+      "method": "lab_status",
+      "timing": {
+        "startTime": 1794829234292.102,
+        "domainLookupStart": 10.768,
+        "domainLookupEnd": 10.785,
+        "connectStart": 10.785,
+        "secureConnectionStart": -1,
+        "connectEnd": 11.003,
+        "requestStart": 11.136,
+        "responseStart": 2067.759,
+        "responseEnd": 2108.53
+      },
+      "request_sha256": "1c8ae7d09e4aca3ead248d7df3604f13687363da07da9c423a1a0e12c06f048b",
+      "failure": null
+    },
+    {
+      "method": "lab_status",
+      "timing": {
+        "startTime": 1794829237067.864,
+        "domainLookupStart": 5.276,
+        "domainLookupEnd": 5.342,
+        "connectStart": 5.342,
+        "secureConnectionStart": -1,
+        "connectEnd": 5.516,
+        "requestStart": 9.9,
+        "responseStart": 71.084,
+        "responseEnd": 105.028
+      },
+      "request_sha256": "1c8ae7d09e4aca3ead248d7df3604f13687363da07da9c423a1a0e12c06f048b",
+      "failure": null
+    },
+    {
+      "method": "lab_status",
+      "timing": {
+        "startTime": 1794829239228.4658,
+        "domainLookupStart": 2.576,
+        "domainLookupEnd": 2.651,
+        "connectStart": 2.651,
+        "secureConnectionStart": -1,
+        "connectEnd": 2.861,
+        "requestStart": 5.194,
+        "responseStart": 91.635,
+        "responseEnd": 117.536
+      },
+      "request_sha256": "1c8ae7d09e4aca3ead248d7df3604f13687363da07da9c423a1a0e12c06f048b",
+      "failure": null
+    },
+    {
+      "method": "observation_bundle",
+      "timing": {
+        "startTime": 1794829234279.1638,
+        "domainLookupStart": 6.574,
+        "domainLookupEnd": 6.658,
+        "connectStart": 6.658,
+        "secureConnectionStart": -1,
+        "connectEnd": 6.881,
+        "requestStart": 6.994,
+        "responseStart": 6665.624,
+        "responseEnd": 6699.294
+      },
+      "request_sha256": "e0e102fd2661ee10cf2602d5a18c52486171e8800d98ead49d52c5485a41ab73",
+      "failure": null
+    },
+    {
+      "method": "retained_publication",
+      "timing": {
+        "startTime": 1794829241302.0608,
+        "domainLookupStart": 10.047,
+        "domainLookupEnd": 10.128,
+        "connectStart": 10.128,
+        "secureConnectionStart": -1,
+        "connectEnd": 10.325,
+        "requestStart": 10.44,
+        "responseStart": 161.863,
+        "responseEnd": 190.308
+      },
+      "request_sha256": "8267b10dd261a07996ca2c9c5cff2e7bd21b028e6f8eff849926263de1f164b6",
+      "failure": null
+    },
+    {
+      "method": "retained_publication",
+      "timing": {
+        "startTime": 1794829241311.962,
+        "domainLookupStart": 9.121,
+        "domainLookupEnd": 9.129,
+        "connectStart": 9.129,
+        "secureConnectionStart": -1,
+        "connectEnd": 17.722,
+        "requestStart": 20.202,
+        "responseStart": 376.938,
+        "responseEnd": 413.112
+      },
+      "request_sha256": "8a4b6d09dc2f5d5a22c0f94708a42ddb9995c67227488dcd7ead0aa702026a33",
+      "failure": null
+    },
+    {
+      "method": "retained_publication",
+      "timing": {
+        "startTime": 1794829241617.4622,
+        "domainLookupStart": 0.355,
+        "domainLookupEnd": 0.371,
+        "connectStart": 0.371,
+        "secureConnectionStart": -1,
+        "connectEnd": 3.305,
+        "requestStart": 3.425,
+        "responseStart": 111.275,
+        "responseEnd": 146.385
+      },
+      "request_sha256": "a58f9ff5d5cf6c53b365e2fdfa549f7b9045b1f5962d0114c22f630814cf3bee",
+      "failure": null
+    },
+    {
+      "method": "retained_publication",
+      "timing": {
+        "startTime": 1794829241311.784,
+        "domainLookupStart": 9.044,
+        "domainLookupEnd": 9.06,
+        "connectStart": 9.06,
+        "secureConnectionStart": -1,
+        "connectEnd": 9.403,
+        "requestStart": 20.218,
+        "responseStart": 463.005,
+        "responseEnd": 503.794
+      },
+      "request_sha256": "d86b760b1dd7acf14290a28419f299fb777c719cc2cd64a1e77fe3223daf0918",
+      "failure": null
+    },
+    {
+      "method": "retained_publication",
+      "timing": {
+        "startTime": 1794829241796.2642,
+        "domainLookupStart": 5.071,
+        "domainLookupEnd": 5.086,
+        "connectStart": 5.086,
+        "secureConnectionStart": -1,
+        "connectEnd": 5.297,
+        "requestStart": 5.412,
+        "responseStart": 115.607,
+        "responseEnd": 157.948
+      },
+      "request_sha256": "6b787b77e3eb79ea94be28f9e3e206df8ed600b0ab7251e4f8b1c1b13cd21b5c",
+      "failure": null
+    },
+    {
+      "method": "retained_publication",
+      "timing": {
+        "startTime": 1794829241861.713,
+        "domainLookupStart": 3.043,
+        "domainLookupEnd": 3.06,
+        "connectStart": 3.06,
+        "secureConnectionStart": -1,
+        "connectEnd": 3.304,
+        "requestStart": 3.434,
+        "responseStart": 124.092,
+        "responseEnd": 143.587
+      },
+      "request_sha256": "e5255514e82193c4a300b9147745c83c36bcb88ffafc183c0c20713997c91017",
+      "failure": null
+    },
+    {
+      "method": "retained_publication",
+      "timing": {
+        "startTime": 1794829241332.3672,
+        "domainLookupStart": 1.883,
+        "domainLookupEnd": 1.894,
+        "connectStart": 1.894,
+        "secureConnectionStart": -1,
+        "connectEnd": 2.209,
+        "requestStart": 2.344,
+        "responseStart": 925.184,
+        "responseEnd": 971.467
+      },
+      "request_sha256": "2910989b06e406f88c38642860bde0e84b53a121fef5a316f92fd1a0fd509eed",
+      "failure": null
+    },
+    {
+      "method": "retained_publication",
+      "timing": {
+        "startTime": 1794829241904.7292,
+        "domainLookupStart": 0.7,
+        "domainLookupEnd": 0.716,
+        "connectStart": 0.716,
+        "secureConnectionStart": -1,
+        "connectEnd": 7.193,
+        "requestStart": 7.299,
+        "responseStart": 1207.161,
+        "responseEnd": 1229.614
+      },
+      "request_sha256": "c05e40c8a643dabc7305a6eabe6584f18319e247053530552b513f39eec870b9",
+      "failure": null
+    },
+    {
+      "method": "retained_publication",
+      "timing": {
+        "startTime": 1794829242309.3162,
+        "domainLookupStart": 1.375,
+        "domainLookupEnd": 1.388,
+        "connectStart": 1.388,
+        "secureConnectionStart": -1,
+        "connectEnd": 2.183,
+        "requestStart": 2.331,
+        "responseStart": 1044.444,
+        "responseEnd": 1066.591
+      },
+      "request_sha256": "b728d922bd66a85be0ab5ceaeba25965820fe3be6fef4f70f84b32f351052cea",
+      "failure": null
+    },
+    {
+      "method": "artifact_bundle",
+      "timing": {
+        "startTime": 1794829243432.6228,
+        "domainLookupStart": 5.823,
+        "domainLookupEnd": 5.83,
+        "connectStart": 5.83,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.026,
+        "requestStart": 14.772,
+        "responseStart": 340.373,
+        "responseEnd": 387.335
+      },
+      "request_sha256": "9892c3a70fae6598ea40f6382f6e09b606891fe3c255b8bdafc29de0cf65d602",
+      "failure": null
+    },
+    {
+      "method": "artifact_bundle",
+      "timing": {
+        "startTime": 1794829243432.4558,
+        "domainLookupStart": 5.846,
+        "domainLookupEnd": 5.853,
+        "connectStart": 5.853,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.192,
+        "requestStart": 14.835,
+        "responseStart": 402.822,
+        "responseEnd": 442.291
+      },
+      "request_sha256": "bdd09bc34fd81b3ffa213143f53b5bf96a60c5402e56664c34ccca1e44ad2eb0",
+      "failure": null
+    },
+    {
+      "method": "artifact_bundle",
+      "timing": {
+        "startTime": 1794829243432.106,
+        "domainLookupStart": 5.692,
+        "domainLookupEnd": 5.781,
+        "connectStart": 5.781,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.549,
+        "requestStart": 11.226,
+        "responseStart": 608.651,
+        "responseEnd": 651.904
+      },
+      "request_sha256": "fcc1715106424628502d5281517cac9634c8bf5b4c64115e8fae202eb9997388",
+      "failure": null
+    },
+    {
+      "method": "artifact_bundle",
+      "timing": {
+        "startTime": 1794829243955.836,
+        "domainLookupStart": 7.434,
+        "domainLookupEnd": 7.45,
+        "connectStart": 7.45,
+        "secureConnectionStart": -1,
+        "connectEnd": 7.682,
+        "requestStart": 14.149,
+        "responseStart": 254.813,
+        "responseEnd": 293.034
+      },
+      "request_sha256": "2e02a50f2e576fa40dc0c59212cc205ac1ab91bf6ffd497288f6861b7725dc4d",
+      "failure": null
+    },
+    {
+      "method": "artifact_bundle",
+      "timing": {
+        "startTime": 1794829244164.83,
+        "domainLookupStart": 9.932,
+        "domainLookupEnd": 9.95,
+        "connectStart": 9.95,
+        "secureConnectionStart": -1,
+        "connectEnd": 10.197,
+        "requestStart": 10.33,
+        "responseStart": 181.574,
+        "responseEnd": 238.232
+      },
+      "request_sha256": "7dcb1f22cead4a59afd440f71f52e8f4fa9361b263baf7be6e10cff8e36d9022",
+      "failure": null
+    },
+    {
+      "method": "artifact_bundle",
+      "timing": {
+        "startTime": 1794829243874.825,
+        "domainLookupStart": 3.908,
+        "domainLookupEnd": 3.924,
+        "connectStart": 3.924,
+        "secureConnectionStart": -1,
+        "connectEnd": 4.163,
+        "requestStart": 6.817,
+        "responseStart": 1280.451,
+        "responseEnd": 1329.512
+      },
+      "request_sha256": "163d6efd874c439f973a3e752354dd7a427286e50d04352614b45684495bfa24",
+      "failure": null
+    },
+    {
+      "method": "artifact_bundle",
+      "timing": {
+        "startTime": 1794829245040.7231,
+        "domainLookupStart": 3.549,
+        "domainLookupEnd": 3.635,
+        "connectStart": 3.635,
+        "secureConnectionStart": -1,
+        "connectEnd": 6.169,
+        "requestStart": 6.378,
+        "responseStart": 273.687,
+        "responseEnd": 352.241
+      },
+      "request_sha256": "5cd23295aab9b32210cca1a158bea398f7d68a6661a9848e3f3398eb7c06f605",
+      "failure": null
+    },
+    {
+      "method": "lab_status",
+      "timing": {
+        "startTime": 1794829241369.4373,
+        "domainLookupStart": 5.293,
+        "domainLookupEnd": 5.322,
+        "connectStart": 5.322,
+        "secureConnectionStart": -1,
+        "connectEnd": 5.558,
+        "requestStart": 5.686,
+        "responseStart": 4933.319,
+        "responseEnd": 4995.666
+      },
+      "request_sha256": "1c8ae7d09e4aca3ead248d7df3604f13687363da07da9c423a1a0e12c06f048b",
+      "failure": null
+    },
+    {
+      "method": "lab_status",
+      "timing": {
+        "startTime": 1794829247319.142,
+        "domainLookupStart": 2.572,
+        "domainLookupEnd": 2.651,
+        "connectStart": 2.651,
+        "secureConnectionStart": -1,
+        "connectEnd": 2.854,
+        "requestStart": 3.112,
+        "responseStart": 1925.558,
+        "responseEnd": 1938.851
+      },
+      "request_sha256": "1c8ae7d09e4aca3ead248d7df3604f13687363da07da9c423a1a0e12c06f048b",
+      "failure": null
+    },
+    {
+      "method": "artifact_bundle",
+      "timing": {
+        "startTime": 1794829243432.353,
+        "domainLookupStart": 5.818,
+        "domainLookupEnd": 5.827,
+        "connectStart": 5.827,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.328,
+        "requestStart": 14.806,
+        "responseStart": 6719.366,
+        "responseEnd": 6759.07
+      },
+      "request_sha256": "e745e6ba111dfe7840c3913daa6ab17e5105639b8e6a062e529966415420694a",
+      "failure": null
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "timing": {
+        "startTime": 1794829250219.553,
+        "domainLookupStart": 13.23,
+        "domainLookupEnd": 13.246,
+        "connectStart": 13.246,
+        "secureConnectionStart": -1,
+        "connectEnd": 13.939,
+        "requestStart": 14.656,
+        "responseStart": 85.971,
+        "responseEnd": 116.125
+      },
+      "request_sha256": "b53e398f04378576fd32fc50a14d5ecaee16217912be3522324be784b28bbed5",
+      "failure": null
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "timing": {
+        "startTime": 1794829250233.3027,
+        "domainLookupStart": 8.778,
+        "domainLookupEnd": 8.794,
+        "connectStart": 8.794,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.993,
+        "requestStart": 13.795,
+        "responseStart": 103.406,
+        "responseEnd": 139.526
+      },
+      "request_sha256": "d63f8f9573fa448530da4f2e321370f1dc3e289a500f6f08aa4eb44bf1ad3f50",
+      "failure": null
+    },
+    {
+      "method": "lab_status",
+      "timing": {
+        "startTime": 1794829249447.356,
+        "domainLookupStart": 4.694,
+        "domainLookupEnd": 4.8,
+        "connectStart": 4.8,
+        "secureConnectionStart": -1,
+        "connectEnd": 5.039,
+        "requestStart": 5.178,
+        "responseStart": 1046.342,
+        "responseEnd": 1061.293
+      },
+      "request_sha256": "1c8ae7d09e4aca3ead248d7df3604f13687363da07da9c423a1a0e12c06f048b",
+      "failure": null
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "timing": {
+        "startTime": 1794829250219.757,
+        "domainLookupStart": 13.291,
+        "domainLookupEnd": 13.299,
+        "connectStart": 13.299,
+        "secureConnectionStart": -1,
+        "connectEnd": 13.722,
+        "requestStart": 14.575,
+        "responseStart": 313.953,
+        "responseEnd": 338.682
+      },
+      "request_sha256": "043e54d4b03096ae32e731c90f037296e4bbeb33ef6938bcffab96bc30c44a9a",
+      "failure": null
+    },
+    {
+      "method": "artifact_bundle",
+      "timing": {
+        "startTime": 1794829250608.023,
+        "domainLookupStart": 0.505,
+        "domainLookupEnd": 0.598,
+        "connectStart": 0.598,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.784,
+        "requestStart": 0.902,
+        "responseStart": 871.392,
+        "responseEnd": 897.452
+      },
+      "request_sha256": "9d418f76ff17d628a28bf9da0bb3004bf479a9aaa1e4cbf88810f24e0a2b3619",
+      "failure": null
+    }
+  ],
+  "capture_finalization": {
+    "status": "FAIL",
+    "fence": null,
+    "fence_epoch_ms": 1794829329318.4583,
+    "accepted_responses": 25,
+    "pending_at_fence": [],
+    "peak_pending": 2,
+    "timeout_seconds": 15,
+    "pending_after_drain": [],
+    "drain_ms": 2.901734027545899,
+    "completed_epoch_ms": 1794829329321.3604
+  },
+  "pending_at_index": [],
+  "error_context": [
+    {
+      "stage": "abort",
+      "error": "incomplete wire capture: publication fence not established",
+      "error_epoch_ms": 1794829329318.4468,
+      "capture_accepting": true,
+      "finalization_state": "NOT_FINALIZED",
+      "body_read_ms": null
+    }
+  ],
+  "extra_capture_methods": [
+    "artifact_bundle",
+    "artifact_chunk",
+    "retained_artifact_chunk"
+  ]
+}

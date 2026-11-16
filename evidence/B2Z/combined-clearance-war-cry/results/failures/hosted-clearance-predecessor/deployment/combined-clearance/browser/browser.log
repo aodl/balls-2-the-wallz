@@ -1,0 +1,11 @@
+Built observer for dfj7p-ut777-77776-qaaba-cai: /home/codexdev/src/b2z/.work/combined-clearance-war-cry/hosted-clearance-predecessor/deployment/combined-clearance/browser/assets
+Built observer for s5ir5-gqaaa-aaaas-amyna-cai: /home/codexdev/src/b2z/.work/combined-clearance-war-cry/hosted-clearance-predecessor/deployment/combined-clearance/browser/mainnet-assets
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z/tools/verify_s14_deployment.py", line 593, in main
+    verify_entry_scene(page,context,out,configuration,record,report,save)
+  File "/home/codexdev/src/b2z/tools/entry_browser.py", line 16, in verify_entry_scene
+    wait_until(page,lambda:page.evaluate('__b2zExperience.session.config.rules_version')==7,90000)
+  File "/home/codexdev/src/b2z/tools/browser_observer.py", line 15, in wait_until
+    raise TimeoutError(f'condition not met within {timeout}ms: {last}')
+TimeoutError: condition not met within 90000ms: None
+TimeoutError('condition not met within 90000ms: None')

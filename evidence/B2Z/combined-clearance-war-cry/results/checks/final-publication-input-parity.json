@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "at": "2026-11-16T13:01:22.724537+00:00",
+  "source": "50d4b2963c515d97f63f25d5add90c451e53d5d6",
+  "groups": {
+    "inputs": 420,
+    "backend_inputs": 53
+  },
+  "normal_wasm_sha256": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "frontend_javascript_sha256": "bc2872444e4574ae818983e2d7ede46f7ff0c4c2d71b198b9b821c344636321c",
+  "inventory_sha256": "e8a9303538dbb2cc5028b21cf5ae97caacdb9c438497a35a567e30a9071a0c67",
+  "scope": "Final test/evidence continuation consumes identical runtime/build/dependency inputs; no build or artifact substitution"
+}

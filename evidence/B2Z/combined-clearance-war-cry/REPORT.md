@@ -242,26 +242,170 @@ a Root field old strict decoders reject. After the epoch, Rules7-only rollback i
 unsafe. Recovery must be a compatible state-preserving forward module; never reset,
 reverse an epoch, restore an old world, reset cursors, reindex or manufacture refunds.
 
-## Latest controlled rehearsal status
+## Completed exact-predecessor closeout
 
-The atomic capture run retained complete history but failed its90-second Join
-receipt assertion: payment3 applied in publication107 while the unheld one-second
-fixture advanced to192. The browser was catching up/resynchronising and did not
-observe that bounded historical receipt. Setup now holds the actual paid
-publication until its receipt and entities are authenticated, then resumes before
-copy/cutover. This follows the existing finance-harness contract; it is not a
-throughput or production-latency pass. No assertion or timeout is relaxed.
+The selected positive clearance rehearsal is
+[the authenticated run](results/hosted-clearance/run.json), source
+`50d4b2963c515d97f63f25d5add90c451e53d5d6` (the full executed ref is recorded in that JSON), **PASS301.31s**.
+It starts on the exact European612ad0… normal module, commits the established
+Rules7 setup while paused, processes a real bare Fire under that old module,
+interrupts actual execution, and upgrades to the exact hosted5ffb6c… module
+**before starting the native observer**. Complete world, publication, source cursor
+and paid accounting are equal before/after. This is a direct Rules7→combined
+activation; the historical Rules6→7 setup is not an intermediate production plan.
+The separate normal-module journey retains its actual native Rules6→7 coverage.
 
-The coordinated repeat passes actual same-page Rules7→11, stale Keep disabled,
-explicit quantity Update and `FIRE 2 0 2|Combined!`, protected Copy during the
-real pause, and both no-safe-action disabled controls. The overall run still
-**FAILS** strict wire finalisation on three net::ERR_ABORTED requests around the
-extra mid-browser old/new module upgrades. Original packets, timings and errors
-are retained; no incomplete response is called verified. Precise request identity/
-upstream timing correlation remains incomplete, so this is not labelled resolved.
+The browser then verifies Rules7→11 on the same page: an actually copied
+`FIRE 2 0 1`/0.4ICP packet becomes stale; Keep stays disabled, explicit Update
+produces `FIRE 2 0 2|Combined!`, and Copy correctly remains unavailable during
+the real controller pause. Both no-safe-destination controls disable under the
+authenticated Rules11 tuple. Its complete native wire capture passes with180
+responses, zero errors and no pending bodies at fence120. No wire-capture
+assertion, finalisation rule, frontend deadline or negative test is relaxed.
 
-Inspection also found that the European rehearsal's initial normal install used
-the candidate despite having an exact predecessor parameter. It now starts on612ad0…
-and measures both mid-browser module upgrade windows. This strengthens actual
-old-module paid-state coverage; it does not alter capture acceptance. That repeat
-is in progress, and full qualification is not claimed before its outcome.
+Actual new-rule payments5/6 (`MOVE` and `NEW…|Unsafe!`) both reject with
+ENEMY_TERRITORY_TOO_CLOSE, amount_used0 and retained full remainder; neither
+emits an annotation, allocates a cannon/ball ID or relocates a cannon. Pre-cutover
+Move4 executes under Rules7 and is not retrospectively rejected.
+
+Those final receipts occur after the native browser fence. The focused
+`verify_combined_installed_history.mjs` independently captures their final
+observation and complete artifacts over **actual signed-query loopback HTTP**,
+with a10-second per-request bound. Pinned BLS/root/canister/freshness verification
+anchors the entire recorded predecessor/artifact chain through head121. All122
+publications (120 gameplay/two checkpoints) and all five paid inputs replay
+exactly. Seven complete final HTTP packets total60,885bytes;3,934,432 recorded
+artifact bytes verify. Seven negatives reject changed normalized cry, missing
+publication, forged receipt, truncated artifact, wrong source, wrong canister and
+damaged certificate. [Full authenticated results](results/hosted-clearance/authenticated/result.json)
+and [receipts](results/hosted-clearance/clearance-receipts.json) are retained.
+This supplements the strict browser wire capture; it does not repair or accept an
+incomplete browser response.
+
+Its full setup/upgrade/physics/HTTP window costs39,845,621,045 cycles; the two
+rejection processing window costs521,087,624 cycles. Neither is an isolated
+clearance cost or production-subnet quote. The earlier269.31s positive run is
+retained locally; its legacy result predecessor field reflected a helper argument,
+not the actual installed module. The explicit management-module assertion and
+european-upgrade.json proved612ad0…; the final reporting-only correction now
+records the actual predecessor directly. No old raw record was rewritten.
+
+## Retained interruption and setup failures
+
+The first atomic collector repeat retained the full history but missed Join's
+bounded receipt: real payment3 applied in publication107 while the unheld
+one-second fixture advanced to192. The browser was resynchronising and did not
+observe that receipt. Financial setup now holds the **actual paid publication**
+until the native receipt/entities are authenticated, then resumes before old-packet
+copy/cutover. This follows the existing financial-harness contract and is not a
+throughput or production-latency pass; deadlines and assertions are unchanged.
+
+The coordinated mixed module/browser experiments passed their native Rules7→11
+assertions but **failed** strict finalisation on three net::ERR_ABORTED requests.
+The measured old/new module installs took6,653/6,924ms. Precise per-request/upstream
+correlation remains incomplete; they are not declared environmental, repaired, or
+qualified. Their original packets, timings, errors and failed conclusions remain
+in results/failures. An earlier repeat also correctly failed closed when the
+fixture resumed immediately after its Rules6→7 epoch and the required predecessor
+was evicted before the browser verified it. Setup now follows commit-paused →
+authenticate → resume. A wrong helper initially decoded the entry status as an
+unwrapped record; using the existing wrapped-status helper corrects that test-only
+38.87s failure. The original mixed interruption test remains available; no coverage
+or strict assertion was removed.
+
+The positive ordered rehearsal tests the proposed owner-only maintenance sequence
+and supplies complete cryptographic evidence. It does not qualify the failed
+mixed interruption interval. Future module maintenance should close owner game
+tabs, upgrade while paused, then reopen the qualified80-file frontend and verify
+Rules7 before preparing/committing the new epoch. A tab missing an evicted epoch
+may fail closed; this work does not weaken trust or invent a historical bridge.
+See the separate release decisions for this limitation and the recovery boundary.
+
+## Exact frozen frontend80 against the actual European backend
+
+The **undeployed** frozen80 assets were served locally with their unchanged
+approved policy, rehashed first, and used ordinary mouse/keyboard/emulated-touch
+against the real mainnet backend. All POSTs were query/read_state; no status/world
+override, payment or installation occurred. All three views320×640,390×844 and
+1440×900 pass returning-owner navigation without NEW, hidden War Cry/bare Rules7
+memos, native quantity edits and coherent Keep/Update. The original320/cell0/
+347.15° pose uses camera[3.6575453715563526,3.6575453715563526,64] and retains
+a usable130×46 editor. First verified worlds appeared in2.647/2.421/2.440s; this
+is not a controlled performance comparison.
+
+Real recipient/amount/memo API writes pass at320 and1440. The first390 check
+correctly disables copying when its actual canPrepare becomes false; a separate
+ready390 journey then passes all three exact writes without an override. Native
+input videos/screenshots and [four independent canonical quote/memo checks](results/checks/frozen-mainnet-quote-verification.json)
+are retained. These are mainnet-backed local frozen-byte observations, **not a
+production80 deployment**, physical-phone acceptance or new listening evidence.
+
+## Fresh production preservation
+
+At2026-11-16T12:34:33.472Z the actual deployed79-file site is still authenticated
+Rules7, head9778, source54d927…, backend module612ad0… and unchanged asset module/
+controllers/subnet. All78 signed inventory entries match approved79. Fresh HTML,
+JavaScriptC37 and audio-manifest76ed bodies/security headers and full IC-v2
+path/body/header/BLS proofs pass. This preservation sample supplements Workstream A's
+original **all78-body** verification; it is not described as refetching every
+media body again. The actual site renders verified state with no browser errors.
+
+Read-only operating status is running/Trickle, nominal/support10 milliticks/s,
+admission open, source binding checked, no source/run error, zero pending source
+records, admitted_to_exclusive40180669. Reported public cycle balance is
+2,404,531,536,354 with reserved0; the sampler has no rate/runway estimate. Liquid
+balance and treasury/pending-funding details are not established by this capture.
+No balance, required funding amount or re-entry override is invented. Autonomous
+heads and resource use continue normally; no paid backend/financial/settings
+operation occurred.
+
+## Hosted qualification and final continuation
+
+All **six substantive gates PASS** in
+[43859604893](https://github.com/aodl/balls-2-the-wallz/actions/runs/43859604893)
+for exact published source686b2d94225c0e719efc72d450189565d2b37149:
+
+| Gate | Conclusion |
+| --- | --- |
+| Source conformance | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm | PASS |
+| Browser HTTP and Web Crypto | PASS |
+| S14 and million-cell installed-IC qualification | PASS |
+
+The separately labelled BLOCKED production-inventory guard is excluded. The
+strict Wasm gate reproduces the selected5ffb6c… bytes. The bootstrap source89bfdd6
+failures retain their own actual conclusions; they are not relabelled green.
+[Recorded job identities](results/checks/ci-43859604893.json) associate this pass
+with its actual source.
+
+The final continuation adds paused setup acknowledgement, the positive ordered
+European rehearsal and stronger final-receipt certificate/HTTP assertions. It
+changes no runtime/build/dependency input or frozen artifact. A full final-source
+run of those stronger assertions is still pending publication/completion. No
+previous pass is presented as a run of changed test code.
+
+## Scope matrix before final hosted closeout
+
+| Check | Result and actual scope |
+| --- | --- |
+| Combined JS/native50 exact vectors and cursor recovery | PASS, public state/events/scores/receipts and historical fixture hashes |
+| Runtime52/controller/Candid/transition negatives | PASS; compile alone is not installed proof |
+| Exact612ad0… paid Rules7 →5ffb6c… upgrade | PASS, disposable Fire and unfinished state/source/accounting preservation |
+| Official Ledger/Index Unicode/32-byte normalization | PASS, actual valueless transfers;33-byte negative |
+| Unsafe Move and annotated additional Build | PASS, actual rejected receipts and zero annotations |
+| First Join/Revive/partial/zero/twins/BOM/safe Build | PASS, actual launch fixture, seven annotations |
+| Final complete certified122-publication replay | PASS, signed HTTP tip/artifacts, BLS anchor and seven negatives |
+| Same-page Rules7→11 stale packet and local editor | PASS; copying stays protected during actual pause |
+| Two independent native authenticated bubbles | PASS, same event, real visibility and55+5s aging |
+| Shared panel/native input/quantity347.15°/contractions | PASS, controlled fixture and separate actual deployed79 acceptance |
+| Exact future80 mainnet-backed Rules7 | PASS three views, full-value API copying; first390 blocked then separately ready |
+| Current production79 preservation | PASS signed78-file metadata, fresh three-body/header/BLS sample; original all78-body deployment proof retained |
+| Frozen runtime six hosted gates | PASS686b2d9/run43859604893; final test-only continuation still requires its exact-source run |
+| Supplemental mixed module-install/browser capture | FAIL, retained unqualified interruption experiment; positive ordered maintenance scope is separate |
+| Isolated shared-host purchase cost | MEASURED, with noisy A/A tails; no representative hardware pass |
+| Historical audio P09 | FAIL/unqualified; accepted only for the existing controlled trial |
+| Physical phone/Firefox/Safari/headphone/Bluetooth listening | NOT VERIFIED |
+| Prior BFCache capture restriction | BLOCKED in its recorded scope, not cleared here |
+| Production frontend80/backend/epoch/payment/funding | NOT RUN / NOT AUTHORISED |

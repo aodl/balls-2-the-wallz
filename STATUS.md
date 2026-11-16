@@ -1,10 +1,15 @@
 # Current production — approved79-file payment panel on Rules7
 
-## Combined successor development (separate from the live frontend)
+## Combined successor qualification (separate from the live frontend)
 
 Rules11 development is isolated on `feature/b2z-combined-clearance-war-cry`, based
 on published deployment evidence `6afe3b2`. It composes Rules9 clearance and Rules10
-War Cry; source/installed qualification and frozen artifacts remain pending.
+War Cry. All six substantive gates pass for686b2d9 in run43859604893.
+The exact hosted normal5ffb6c… and compatible80-file frontend are frozen;
+actual paid-predecessor/financial/certificate/native-browser closeouts pass locally.
+The final test-only continuation adds stronger final-receipt HTTP/BLS assertions
+and awaits its own exact-source hosted run. No runtime/build/dependency bytes
+changed; no combined production operation is authorised or performed.
 Production stays on the approved79-file panel frontend and unchanged Rules7.
 See [the current candidate report](evidence/B2Z/combined-clearance-war-cry/REPORT.md)
 and [separate release decisions](evidence/B2Z/combined-clearance-war-cry/RELEASE_DECISIONS.md).
@@ -51,8 +56,8 @@ complete79-file inventory
 `63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f`.
 Exact backend candidate `1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b`
 was rehearsed against the paid predecessor only in isolated PocketIC;
-**no production deployment or backend capability activation**. The paid European game remains on the corrected
-78-file frontend and Rules7 described below. The new panel is independently
+**no production deployment or backend capability activation**. At that pre-deployment checkpoint, the paid European game used the corrected
+78-file frontend and Rules7 described below; the current79-file deployment is above. The new panel is independently
 compatible with Rules7 and keeps unsupported suffixed memos unavailable. Rules10 /
 adapter6 is a separately approvable candidate preserving Rules7 gameplay, not
 Rules9 clearance or ICRC-2 activation. See the

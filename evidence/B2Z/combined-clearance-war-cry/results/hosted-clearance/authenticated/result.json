@@ -1,0 +1,92 @@
+{
+  "status": "PASS",
+  "scope": "Actual disposable signed-query HTTP observation and final paid artifacts; pinned BLS/root/canister/freshness anchors the entire recorded predecessor/artifact chain and independent replay; supplements separate strict native HTTP capture, not production",
+  "head": 121,
+  "certificate_root": "44a3dd72229c701e99144453b807c3a5391d142c2a9e029b12d101b5f6805713",
+  "root_key_sha256": "968c6c2122d3577878be624c1dc37609286f2f9ad7ee2cdae5d6bd45f0a05e8c",
+  "verified_recorded_bytes": 3934432,
+  "packets": [
+    {
+      "method": "observation",
+      "file": "0000.cbor",
+      "status": 200,
+      "bytes": 5695,
+      "request_sha256": "40a473c432c102e8882d5ec2aef534e9a153db17b66495189150e2334694f343",
+      "response_sha256": "6af9e72c87b34497b50da2d6f5e1a32ae3250600a3c52af70a2130ba77d18cfe"
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0001.cbor",
+      "status": 200,
+      "bytes": 4336,
+      "request_sha256": "ba01bd5638ab61fafdff9868d5ab4a5160b446852b646afe637bd108b63eb6c5",
+      "response_sha256": "52e987d2619080fcbfc482398ecbb00f5de2c5bbaf0843800ce082d16657204c"
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0002.cbor",
+      "status": 200,
+      "bytes": 16590,
+      "request_sha256": "63e50835fccf017cdda53bf0289c14eaca01e4102069a86b66bfc3527d7951dd",
+      "response_sha256": "12c60521a73ea485ff495ef99e11bf588aa9ac41830bfc4c1636eceb8e8f3273"
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0003.cbor",
+      "status": 200,
+      "bytes": 16590,
+      "request_sha256": "40f1852667757974858d8ad497ca1f19bd644ff880948908f4f106ea997635a3",
+      "response_sha256": "271a3ae9875e5a82e2b588a37673b12925a489ee61adaddf3f77941a3994ab59"
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0004.cbor",
+      "status": 200,
+      "bytes": 16590,
+      "request_sha256": "42d9a38dfe0522c77eed916dc8dcbb412ed2569d024e29a14388daae581c4b03",
+      "response_sha256": "440d539c5b03a889c2246e15821f81bb3001fe30f49451b2d87326765221970c"
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0005.cbor",
+      "status": 200,
+      "bytes": 581,
+      "request_sha256": "980b3f7a56b626f2b67f99ae632d2ba258b8c598276827d85107824b147947c7",
+      "response_sha256": "545a025fef7e3d3a03e093eff8b5de7320a7ebd46144e50e5cfd2bcb9632fdb8"
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0006.cbor",
+      "status": 200,
+      "bytes": 503,
+      "request_sha256": "5be9e2b8a017b2e52e5439e99940849ffe4f036908384388a718d2f437a0e803",
+      "response_sha256": "9c4b59aca7ddbe0a753a3c048cbd8914205c4d1f829836d033382d215ca62f74"
+    }
+  ],
+  "wire_bytes": 60885,
+  "per_request_deadline_ms": 10000,
+  "independent": {
+    "status": "PASS",
+    "segments": 122,
+    "gameplay_segments": 120,
+    "application_checkpoints": 2,
+    "assigned": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6"
+    ],
+    "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+    "work_budget": 23
+  },
+  "negatives": [
+    "changed normalized cry",
+    "missing publication",
+    "forged receipt",
+    "truncated artifact",
+    "wrong source",
+    "wrong canister",
+    "damaged certificate"
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "status": "PASS",
+  "source": "686b2d94225c0e719efc72d450189565d2b37149",
+  "run": 43859604893,
+  "substantive_gates": 6,
+  "jobs": [
+    {
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 133272632419,
+      "counted": true
+    },
+    {
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 133272632615,
+      "counted": false
+    },
+    {
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 133272632774,
+      "counted": true
+    },
+    {
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 133272632801,
+      "counted": true
+    },
+    {
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 133272632838,
+      "counted": true
+    },
+    {
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 133272632841,
+      "counted": true
+    },
+    {
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 133272632874,
+      "counted": true
+    }
+  ]
+}

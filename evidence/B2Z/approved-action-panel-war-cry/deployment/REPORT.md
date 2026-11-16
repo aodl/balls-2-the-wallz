@@ -167,3 +167,18 @@ Previous78-file rollback JS3ee92eee…/inventory46067574… remains complete at
 retained at `.work/approved-panel-war-cry/frozen/frontend`. The new combined-rule
 compatibility candidate must NOT replace either staging or production without a
 separate future frontend approval.
+
+## Read-only preservation after combined-rules development
+
+At2026-11-16T12:34:33.472Z the same approved79-file frontend remains installed.
+The paid backend is still module612ad0…/Rules7, with unchanged source binding,
+asset-canister module, controllers and subnet. All78 signed inventory entries
+retain exact hashes/lengths/MIME/encodings. Fresh HTML, appC37 and audio manifest76ed
+body/header/path/BLS proofs pass; this sample supplements the original all78-body
+deployment check. The actual site renders verified head9778 without errors.
+Read-only status is running/Trickle10milliticks/s, admission open, source binding
+checked/no errors, zero pending source records. The reported public cycle balance
+is2,404,531,536,354/reserved0; no liquid/runway/funding estimate is inferred.
+[Preservation evidence](../../combined-clearance-war-cry/results/production-preservation/observation-final.json)
+is distinct from the **undeployed** combined-compatible80-file candidate. No
+additional deployment or backend/financial/funding/settings operation occurred.

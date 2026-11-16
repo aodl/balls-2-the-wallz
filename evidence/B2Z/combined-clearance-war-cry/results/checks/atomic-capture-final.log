@@ -1,0 +1,9 @@
+   Compiling dtr-s09-integration v0.1.0 (/home/codexdev/src/b2z/tools/s09-integration)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 11.67s
+     Running tests/s14_index.rs (tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664)
+
+running 1 test
+test playability_installed::atomic_capture_rejects_incomplete_or_tampered_artifacts ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 79 filtered out; finished in 0.02s
+

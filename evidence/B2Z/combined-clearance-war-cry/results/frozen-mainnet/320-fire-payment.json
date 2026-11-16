@@ -1,0 +1,21 @@
+{
+  "amount": "0.5 ICP",
+  "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "abbreviated": "s5ir5\u2026",
+  "memo": "FIRE 1 217.5 2",
+  "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+  "fee": "Help: Ledger fee separate",
+  "warning": "Payments and unused ICP are kept; no automatic refunds.",
+  "prompt": "Aim & Pay",
+  "disabled": false,
+  "panel": {
+    "x": 8,
+    "y": 221,
+    "width": 304,
+    "height": 296,
+    "top": 221,
+    "right": 312,
+    "bottom": 517,
+    "left": 8
+  }
+}
