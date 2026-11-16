@@ -339,6 +339,17 @@ fn run_entry_and_clearance(
         dtr_wire::hash(b2z_native::entry_v7::configuration())
     );
     playability_installed::record(&pic, id, &mut rows, &out);
+    // As in the proposed production cutover, verify the committed identity
+    // while paused before resuming. This setup epoch must not be evicted by
+    // one-second fixture publications before its native observer receives it.
+    while !browser_out.join("browser-entry-policy-seen").exists() {
+        assert!(start.elapsed() < Duration::from_secs(180));
+        assert!(
+            browser.0.try_wait().unwrap().is_none(),
+            "inspect entry policy browser log"
+        );
+        live_record(&pic, id, &mut rows, &out);
+    }
     playability_installed::configuration(&pic, id, 512);
     while !browser_out.join("browser-entry-ready").exists() {
         assert!(start.elapsed() < Duration::from_secs(180));

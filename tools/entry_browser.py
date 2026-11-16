@@ -14,6 +14,7 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
     camera=page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale})')
     (out/'browser-v6-ready').write_text(json.dumps({'head':page.evaluate('__dtrLive.heads.at(-1)'),'camera':camera})+'\n')
     wait_until(page,lambda:page.evaluate('__b2zExperience.session.config.rules_version')==7,90000)
+    (out/'browser-entry-policy-seen').write_text('authenticated Rules7 checkpoint; resume setup only after verification\n')
     wait_until(page,lambda:page.locator('[data-copy="amount"]').is_enabled(),30000)
     assert page.evaluate('({x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale})')==camera
     # Screen heading120 is canonical world heading0; preserve the exact NEW0 assertion.
