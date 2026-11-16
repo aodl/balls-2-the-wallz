@@ -332,13 +332,59 @@
     },
     {
       "ball": {
-        "cell": 452578,
+        "cell": 453578,
         "id": 7,
         "owner": 1,
         "vx": 32000,
         "vy": 0,
         "x0": {
           "$integer": "240384"
+        },
+        "y0": {
+          "$integer": "464384"
+        }
+      },
+      "cannon": 1,
+      "heading": 0,
+      "kind": "ball_spawned",
+      "launch_annotation": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cry": "﻿A",
+        "position": {
+          "$integer": "11"
+        },
+        "version": 1
+      },
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 3,
+        "next_territory_id": 3,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "reactivated_cannons": [],
+      "revived": false,
+      "sequence": 0,
+      "time": [
+        {
+          "$integer": "11"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": {
+        "cell": 452578,
+        "id": 8,
+        "owner": 1,
+        "vx": 32000,
+        "vy": 0,
+        "x0": {
+          "$integer": "208384"
         },
         "y0": {
           "$integer": "463360"
@@ -356,7 +402,7 @@
         "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
         "cry": "Build!",
         "position": {
-          "$integer": "11"
+          "$integer": "12"
         },
         "version": 1
       },
@@ -394,7 +440,7 @@
       "sequence": 0,
       "time": [
         {
-          "$integer": "11"
+          "$integer": "12"
         },
         {
           "$integer": "1"
@@ -409,8 +455,8 @@
   "old_invalid_position": 2,
   "payments": [
     {
-      "admitted_purchase_window_cycles": "213692779",
-      "admitted_purchase_window_wall_ms": 438,
+      "admitted_purchase_window_cycles": "213693604",
+      "admitted_purchase_window_wall_ms": 388,
       "amount": 10000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|é😀",
@@ -420,8 +466,8 @@
       "raw_memo_hex": "464952452031203020317cc3a9f09f9880"
     },
     {
-      "admitted_purchase_window_cycles": "281818518",
-      "admitted_purchase_window_wall_ms": 157,
+      "admitted_purchase_window_cycles": "281820061",
+      "admitted_purchase_window_wall_ms": 412,
       "amount": 10000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 64|Charge!",
@@ -431,8 +477,8 @@
       "raw_memo_hex": "46495245203120302036347c43686172676521"
     },
     {
-      "admitted_purchase_window_cycles": "294917124",
-      "admitted_purchase_window_wall_ms": 435,
+      "admitted_purchase_window_cycles": "294919258",
+      "admitted_purchase_window_wall_ms": 242,
       "amount": 0,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|No",
@@ -442,8 +488,8 @@
       "raw_memo_hex": "464952452031203020317c4e6f"
     },
     {
-      "admitted_purchase_window_cycles": "334009416",
-      "admitted_purchase_window_wall_ms": 412,
+      "admitted_purchase_window_cycles": "334011638",
+      "admitted_purchase_window_wall_ms": 435,
       "amount": 1000000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|Twin",
@@ -453,8 +499,8 @@
       "raw_memo_hex": "464952452031203020317c5477696e"
     },
     {
-      "admitted_purchase_window_cycles": "386116981",
-      "admitted_purchase_window_wall_ms": 155,
+      "admitted_purchase_window_cycles": "386116871",
+      "admitted_purchase_window_wall_ms": 502,
       "amount": 1000000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|Twin",
@@ -464,8 +510,8 @@
       "raw_memo_hex": "464952452031203020317c5477696e"
     },
     {
-      "admitted_purchase_window_cycles": "404454073",
-      "admitted_purchase_window_wall_ms": 166,
+      "admitted_purchase_window_cycles": "404456779",
+      "admitted_purchase_window_wall_ms": 484,
       "amount": 10000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|Bad|Text",
@@ -475,8 +521,8 @@
       "raw_memo_hex": "464952452031203020317c4261647c54657874"
     },
     {
-      "admitted_purchase_window_cycles": "402226354",
-      "admitted_purchase_window_wall_ms": 175,
+      "admitted_purchase_window_cycles": "402229192",
+      "admitted_purchase_window_wall_ms": 502,
       "amount": 0,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "FIRE 1 0 1|123456789012345678901",
@@ -486,8 +532,8 @@
       "raw_memo_hex": "464952452031203020317c313233343536373839303132333435363738393031"
     },
     {
-      "admitted_purchase_window_cycles": "513883958",
-      "admitted_purchase_window_wall_ms": 196,
+      "admitted_purchase_window_cycles": "513886631",
+      "admitted_purchase_window_wall_ms": 514,
       "amount": 100000000,
       "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
       "memo": "NEW 0 1|Hello!",
@@ -497,14 +543,25 @@
       "raw_memo_hex": "4e4557203020317c48656c6c6f21"
     },
     {
-      "admitted_purchase_window_cycles": "595402830",
-      "admitted_purchase_window_wall_ms": 198,
+      "admitted_purchase_window_cycles": "507731364",
+      "admitted_purchase_window_wall_ms": 493,
+      "amount": 1000000000,
+      "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
+      "memo": "FIRE 1 0 1|﻿A",
+      "normalized_bytes": 61,
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055000000003b9aca00f60000000100000104efbbbf41",
+      "position": 11,
+      "raw_memo_hex": "464952452031203020317cefbbbf41"
+    },
+    {
+      "admitted_purchase_window_cycles": "654477955",
+      "admitted_purchase_window_wall_ms": 616,
       "amount": 1000000000,
       "cost_scope": "normal Wasm admitted explicit additional Build plus mandatory game/controller work",
       "memo": "NEW 0 1 452578|Build!",
       "normalized_bytes": 63,
       "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055000000003b9aca00c600000106e7e200064275696c6421",
-      "position": 11,
+      "position": 12,
       "raw_memo_hex": "4e455720302031203435323537387c4275696c6421"
     }
   ],
@@ -735,6 +792,35 @@
         "$integer": "1000000000"
       },
       "amount_used": {
+        "$integer": "160000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "160000000"
+        }
+      ],
+      "position": {
+        "$integer": "11"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "840000000"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "1000000000"
+      },
+      "amount_used": {
         "$integer": "400000000"
       },
       "cannon": 3,
@@ -746,7 +832,7 @@
         }
       ],
       "position": {
-        "$integer": "11"
+        "$integer": "12"
       },
       "quantity_explicit": true,
       "reason": "ACCEPTED",
@@ -765,8 +851,8 @@
     "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
   },
   "scope": "synthetic initial state; actual valueless official Ledger/Index and normal game Wasm; not production",
-  "source_cursor": 12,
+  "source_cursor": 13,
   "state_preserved_at_cutover": true,
   "status": "PASS",
-  "whole_processing_cycles": "13320668956"
+  "whole_processing_cycles": "14177683779"
 }

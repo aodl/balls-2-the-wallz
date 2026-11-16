@@ -1,8 +1,3 @@
-> **Superseded frontend freeze:** a final UTF8 review proved that93cd974 drops a
-> leading U+FEFF when decoding normalized cry bytes. Its CI cannot qualify the
-> corrected bytes. A byte-preserving replacement freeze/qualification is in progress;
-> production remains untouched and unsupported War Cry remains unavailable there.
-
 # Approved action panel and War Cry — corrective qualification
 
 **Candidate only; nothing deployed or activated.** The shared frontend can ship
@@ -10,6 +5,36 @@ separately while production remains Rules7. War Cry requires a separately approv
 state-preserving backend upgrade and authenticated Rules10/adapter6 epoch commit.
 The six-gate exact-source conclusion and final identities below must be read
 against their actual source; earlier green jobs do not qualify later bytes.
+
+
+## Current frozen candidate — replacement qualification pending
+
+Runtime/build source: `dcc1e7a2c55aa159b30fd19e9d251801b1106134`.
+
+| Artifact | SHA256 |
+|---|---|
+| JavaScript | `59b946e9a40452e2ba9538260ac3141541777b6bb281cc282ab00e3d5aa21fd9` |
+| Complete79-file inventory | `c2cb60e831eec89acfd141e10b862d724622db77b185a5ec28506ac1dd38d17f` |
+| Normal backend | `1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b` |
+| Unchanged audio manifest | `76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c` |
+
+There are78 public files plus the consumed upload policy. All79 reproduce exactly;
+all61 audio assets remain unchanged. Total76,335,733bytes,30,220bytes above the
+installed78-file rollback. Backend inputs are unchanged from ca2d657; the exact
+CI-produced normal module1cde99a… is reused, never the differing local002ce4d… build.
+
+Rules10 is `5f53d5ea243b2dc8806f96bff9deab5a795702f2ff4e16f45475320b7be40120`;
+config is `26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a`;
+schema6 remains unchanged. These are candidate identities, not production activation.
+
+[Inventory](artifacts/frontend-inventory.json), [provenance](artifacts/provenance.json),
+[build record](artifacts/build-manifest.json), [changed runtime inputs](results/changed-runtime-inputs.json),
+[asset delta](results/final-asset-delta.json) and [actual captures](GALLERY.md).
+
+The replacement must obtain its own six hosted gates. Earlier run43772641166 on
+93cd974 has five passes and installed-IC pending, but its frontend is superseded by
+the proven UTF8 defect below; those results do not qualify these changed bytes.
+No production operation is authorized or performed.
 
 ## Starting point and protected production
 
@@ -94,15 +119,15 @@ Disposable normal-Wasm tests use the checksum-pinned official ICP Ledger/Index,
 not direct game commands. The actual paid predecessor module is installed only in
 the isolated rehearsal, then upgraded without reset. Representative disposable paid-world state, financial
 accounting and source ordering survive both module upgrade and Rules7→Rules10
-checkpoint. The initial world is synthetic and all funds are valueless: the test
-uses the exact paid predecessor module binary, not a copied production journal or
-a production upgrade. Anonymous/wrong-predecessor attempts fail. An admitted annotated input
+checkpoint. The initial world is synthetic and all funds valueless; this uses the
+exact paid predecessor module binary, not a copied production journal or an actual
+production upgrade. Anonymous/wrong-predecessor attempts fail. An admitted annotated input
 survives another normal-module upgrade before processing. JS/native recovery is
 also exercised at every work unit, including pending text.
 
-Real payments cover old-rule invalid suffix, Unicode Revive, partial Fire, zero
+Real valueless payments cover old-rule invalid suffix, Unicode Revive, partial Fire, zero
 fill, identical text in distinct payments, malformed multiple pipes,32byte memo,
-first Join and explicit additional Build. The actual Ledger rejects33bytes.
+first Join, U+FEFF-bearing Fire and explicit additional Build. The actual Ledger rejects33bytes.
 Independent verification checks the pinned local IC root, canister, freshness,
 retained chain and every artifact; independent replay reconstructs all publication
 bytes. Altered input text, incomplete events, altered event text and damaged
@@ -111,7 +136,7 @@ identity/text; ordinary same-window5/35second tab switches age speech,55+5second
 fade/expiry completes without replay restart. This is disposable installed-game
 proof, not a production War Cry capability or physical listening claim.
 
-Twenty-four shared JS/native byte/Unicode vectors and eight gameplay/recovery
+Twenty-eight shared JS/native byte/Unicode vectors and nine gameplay/recovery
 vectors cover legacy identity, first/additional New, Revive/Fire, partial/zero,
 exact bytes and seed equivalence. The local source/native/browser reports and
 hosted results retain their actual commits. Existing HTTP/WebCrypto, certificate,
@@ -161,7 +186,7 @@ Historical failures are preserved under `failures/`, rather than overwritten:
 | Complete32byte UTF8 memo and strict parsing | PASS:24 shared JS/native vectors, real Ledger32/33 boundary, grapheme-prefix and native IME/paste |
 | Certified capability and old-history isolation | PASS:actual Rules7 hides cry/emits bare memos; wrong local flag/config and old suffix negatives |
 | Joint floating/docked editor and first Join | PASS:320/390/desktop, DPR1/2/3, exact347.15, forward/reverse sweep, visual viewport/insets, contracted views, touch/cancellation |
-| Official Ledger→Index→normal interpreter | PASS:valueless transfers,10 positions assigned once,13 authenticated publications independently replayed |
+| Official Ledger→Index→normal interpreter | PASS:valueless transfers,11 positions assigned once,14 authenticated publications independently replayed |
 | First successful launch / no false launch | PASS:actual Revive/partial/zero/rejection/first Join/additional Build; JS/native and protocol Move/empty/suffix negatives |
 | Bubble association, replacement and bounded lifetime | PASS:two native observers same event,5/35second real tabs,55+5 output; unit saturation/dedupe/skip/source/epoch negatives remain separately scoped |
 | Upgrade, receipts, seed and trust invariants | PASS:exact paid predecessor binary in disposable synthetic world, finance/source preservation, admitted-input upgrade, native every-unit recovery and certificate/artifact/replay negatives |
@@ -200,91 +225,65 @@ No reset, reverse epoch, history reinterpretation or implied refund is allowed.
 Frontend deployment and backend installation/activation require independent owner
 approval. No authorization is inferred from this source qualification.
 
-## Frozen candidate and qualification continuation
+## Additional corrective evidence and current results
 
-Frozen runtime/build source: `fd69939a421796d412d2b9210e78bab0af2f389d`.
-JavaScript: `feefd03a68a464cee92f963c01327d8afe6fe15b495545daae09ace28a4db4c4`.
-Complete79-file inventory (78 public plus consumed upload policy):
-`94329dfe47c12adbd074a5af76009bc9edb0bce44322db2a0279da7fc2fb47fa`.
-Exact normal backend: `1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b`.
-Rules10: `5f53d5ea243b2dc8806f96bff9deab5a795702f2ff4e16f45475320b7be40120`;
-config: `26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a`;
-schema6 unchanged. These are candidates, not installed identities.
+The old93cd974 UTF8 decoder consumed U+FEFF at the start of a normalized cry slice:
+raw `FIRE 1 0 1|\uFEFFA` became `A` afterBTZPAY03 decoding while Rust preserved
+`\uFEFFA`. Strict replay would reject legitimate output. The new-capability JS
+decoder uses `ignoreBOM:true` to preserve the payload. Historical parsers, native
+rules and module, source identity and all audio bytes remain unchanged. Four added
+shared vectors cover cry-leading/BOM-only text and invalid BOM-prefixed directives;
+all accepted rows now check normalized round-trip too. The ninth gameplay vector
+proves JS/native every-unit recovery and unchanged state/scoring/receipts/physical
+events. The original eight rows remain byte-identical.
 
-The clean freeze reproduces every file, with identical consumed inputs.
-[Inventory](artifacts/frontend-inventory.json), [provenance](artifacts/provenance.json),
-[build record](artifacts/build-manifest.json), [changed consumed inputs](results/changed-runtime-inputs.json)
-and [six changed/new assets](results/final-asset-delta.json) retain exact identities.
-Total assets76,335,716bytes; increase30,203bytes over the installed rollback.
-No soundtrack/effect/policy bytes changed.
+The retained negative also evaluates the immutable93cd974 reader against the actual
+authenticated position11 input: it returns U+0041, while the corrected reader and
+certified native event retain U+FEFF/U+0041. This is a decoder negative, not a claim
+that the complete old browser/replay was run. Full corrected independent replay
+passed all14 publications. See [wire negative](results/bom-authenticated-negative.json),
+[old failing test](failures/bom-old-negative.log) and
+[native recovery](results/bom-native.log).
 
-Historical run [43764610049](https://github.com/aodl/balls-2-the-wallz/actions/runs/43764610049)
-on `dfaef2c943c629c1c4e35d0776d22131189b7133` completed: Source, Native,
-Packaged DTR/clean consumers, Browser HTTP/WebCrypto and S14/million-cell installed
-gates PASS; Wasm FAIL solely at the exact artifact guard described above. The
-informational inventory guard is not qualification. New runtime bytes require a
-new six-gate run; final publication/qualification is pending.
-
-The first local aggregate used Python3.10 accidentally:1959 Node tests passed,
-but source/tool checks failed on absent tomllib. This FAIL is retained. The
-required Python3.11 continuation passed:1959 Node tests and201 Python tests, source
-structure, documentation and maintained references. No timeout or assertion was relaxed.
-
-The final frozen frontend was served locally with its unchanged upload/security
-policy and connected read-only to the actual certified European Rules7 backend.
-At320×640/390×844/1440×900 all worlds verified, unsupported War Cry stayed hidden,
-and recipient/amount/memo API copy plus native external paste matched exact values.
-First verified-world times were2.376/2.310/2.325seconds. The320 view reproduced
-347.15° at camera3.65754537155658,3.65754537155658,64 through ordinary UI; quantity
-+/- preserved heading/camera. This is **local frozen frontend with actual mainnet
-read-only data**, not an installed-candidate production acceptance or payment.
-See [results](results/frozen-readonly-final.json) and
-[captures](captures/frozen-readonly-final/320-347.png).
-
-A final disposable repeat authenticated/replayed13 publications but its serial
-browser instrumentation missed the five-second fade while operating another tab;
-the bubble had expired correctly before inspection. The failure is retained. A
-bounded passive native opacity probe now records that window concurrently without
-changing DOM, visibility, clock or application timing. The same55–60second/0<opacity<1
-and no-repeat/expiry assertions remain required. The corrected repeat passed. Both observers displayed the same additional-Build
-launch/cannon3; fade was observed at55.726seconds/opacity0.833 and expiry at60.091seconds.
-The exact CI module preserved the actual paid predecessor in the isolated upgrade,
-processed all10 source positions once, and produced six annotations across13
-independently replayed publications. See [installed proof](installed/final-ci-wasm/result.json),
+The first added Ledger case was correctly rejected UNDERFUNDED: its late Fire
+price exceeded the10m e8s fixture budget after earlier balls. No false bubble was
+emitted. Only that valueless test budget was corrected to1b, as in existing Twin
+cases; prices/rules and financial assertions were preserved. The retained receipt
+is [here](failures/BOM-underfunded-receipt.json). The corrected complete rehearsal
+processed11 positions once, authenticated/replayed14 publications (12 gameplay,
+two checkpoints), and produced seven successful annotations, including the exact
+BOM-bearing cry. Both native observers showed the same explicit additional-Build
+launch/cannon3. See [installed result](installed/final-ci-wasm/result.json),
+[authenticated capture](installed/final-ci-wasm/authenticated/result.json),
 [replay](installed/final-ci-wasm/replay.json),
 [native lifetime](installed/final-ci-wasm/browser/results.json) and
 [recording](captures/final-installed/speech-lifetime.webm).
 
-The final native panel matrix passed all six capability/viewport contexts with
-432 status-only samples at0px panel drift; all18 action panes retain exact financial
-values and copy axes. The320 capability-enabled case also passed DPR3, native
-IME, actual visual-viewport scale1.1/1.6/1, safe insets, five contracted heights,
-touch aim→pinch and cancelled release. See [final matrix](results/panel-six-final.json),
-[reference comparison](GALLERY.md) and [cost windows](results/costs.json).
-Final hosted exact-source qualification is pending publication below.
+A prior serial observer test missed the five-second fade while another observer's
+long tab journey ran; the bubble had expired correctly before inspection. A bounded
+passive native opacity probe now records the same55–60second window concurrently,
+without changing DOM, visibility, clocks or application timing. The original
+0<opacity<1 and expiry/no-repeat requirements remain. Failures and previous13-pub
+results are retained under failures/ and installed/pre-BOM-fd69939/.
 
-The current qualification source is `93cd974ea37561bdcfd057ef6daf71af132e6671`,
-[run43772641166](https://github.com/aodl/balls-2-the-wallz/actions/runs/43772641166).
-Source, Native, Packaged DTR/clean consumers and Runtime-lab Wasm have passed,
-including strict frozen frontend reproduction and normal-module hash equality.
-Browser and installed-IC conclusions are still pending.
+Final native fade was observed at55.570seconds, opacity
+0.8136; expiry was60.242seconds,
+including genuine5/35second same-window tab transitions and no replay restart.
 
-## Proven UTF8 BOM correction (replacement candidate)
+The replacement local source suite passed1959 Node and201 Python tests under
+Python3.11. The earlier mistaken Python3.10 aggregate FAIL is retained. The final
+six-context panel matrix passed all18 action panes and432 status-only samples at
+0px drift, plus native BOM paste/full memo copying, IME, the exact347.15° pose,
+forward/reverse headings, visual viewport/insets, DPR1/2/3, contracted heights and
+touch/cancellation. See [source](results/source-BOM-final.json),
+[panel matrix](results/panel-six-final.json), [asset reproduction](results/reproduce-BOM-final.json)
+and [backend parity](results/backend-parity-BOM-final.json).
 
-The existing fatal TextDecoder still consumed an initial UTF8 BOM in a normalized
-cry slice. `FIRE 1 0 1|\uFEFFA` parsed with the full text but decoded fromBTZPAY03
-as `A`, while Rust preserved `\uFEFFA`. Strict independent replay would reject
-that legitimate native output. This is a real byte-fidelity defect, not a delivery
-failure. The new-capability JS decoder now uses `ignoreBOM:true` (preserve U+FEFF).
-Historical memo parsers, native rules, configuration, module bytes and audio are
-unchanged. No new backend rule/version or production activation is introduced.
-
-The old-source round-trip regression fails; the correction passes. Four shared
-vectors cover a cry-leading BOM, BOM-only cry, and invalid BOM-prefixed directives.
-All accepted vectors now check normalized round-trip bytes too. The ninth gameplay
-vector preserves this text through JS/native execution and recovery at every work
-unit; the previous eight vectors remain byte-identical. Native paste/memo copying
-and the full320 geometry/IME/pinch journey pass with the preserved scalar. A real
-valueless Ledger case is added to the installed qualification, requiring seven
-launch annotations and a fresh frontend freeze. Prior13-publication results remain
-historical; the replacement must qualify its own source and bytes.
+The exact replacement frozen frontend also passed actual mainnet-backed read-only
+Rules7 at320/390/desktop, including full recipient/amount/memo native paste and
+quantity +/− coherence, with no suffix offered. First verified worlds took
+6.857/5.435/5.291seconds in this observed run. These are local frozen
+HTTP assets with actual authenticated European data, not production deployment,
+physical-device acceptance or a performance-improvement claim. Earlier2.3second
+observations belong to their earlier frozen source and network window. See
+[read-only result](results/frozen-readonly-final.json) and captures in GALLERY.md.

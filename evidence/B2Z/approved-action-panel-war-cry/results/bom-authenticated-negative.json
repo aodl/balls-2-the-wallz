@@ -1,0 +1,20 @@
+{
+  "scope": "Immutable93cd974 normalized reader tested against actual PAY03 input bound by verified seal/input hash and complete independent replay. Full old session/replay was not executed; full corrected replay separately passed14 publications.",
+  "old_source": "93cd974ea37561bdcfd057ef6daf71af132e6671",
+  "old_protocol_sha256": "1eb77a8ade1f91ea28df3e0fb937da7d3ca1a3caf3e14acbc4552e6e2b93c6b2",
+  "payload_sha256": "d89b47d4ba551e12aa507cd69c84dea20d53b5e26074e4c545a21cd1ed578f96",
+  "position": "11",
+  "old": [
+    "U+0041"
+  ],
+  "corrected": [
+    "U+FEFF",
+    "U+0041"
+  ],
+  "authenticated_event": [
+    "U+FEFF",
+    "U+0041"
+  ],
+  "status": "PASS old negative/new positive",
+  "normal_wasm": "1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b"
+}

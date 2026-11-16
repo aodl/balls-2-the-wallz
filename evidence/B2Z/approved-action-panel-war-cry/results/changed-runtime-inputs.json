@@ -1,6 +1,6 @@
 {
   "starting_source": "84343f0377e49658754470a9549bdd300b147c7e",
-  "frozen_source": "fd69939a421796d412d2b9210e78bab0af2f389d",
+  "frozen_source": "dcc1e7a2c55aa159b30fd19e9d251801b1106134",
   "changed_consumed_inputs": [
     {
       "path": "apps/b2z-observer/action-quote-v6.mjs",
@@ -140,7 +140,7 @@
     {
       "path": "packages/protocol/war-cry.mjs",
       "before_sha256": null,
-      "after_sha256": "1eb77a8ade1f91ea28df3e0fb937da7d3ca1a3caf3e14acbc4552e6e2b93c6b2"
+      "after_sha256": "69f6994782d0547c99a5cfc0e0fc8afdd1298b2334387640fdefeb9f628e7140"
     },
     {
       "path": "tools/build_observer_playability.mjs",

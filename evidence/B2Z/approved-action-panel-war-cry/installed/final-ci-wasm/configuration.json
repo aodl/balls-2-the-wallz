@@ -2,7 +2,7 @@
   "canister_id": "dfj7p-ut777-77776-qaaba-cai",
   "expected_cannon": 3,
   "expected_cry": "Build!",
-  "host": "http://localhost:34355/",
+  "host": "http://localhost:43869/",
   "index": "dmkut-c3777-77776-qaaaq-cai",
   "ledger": "dllsh-pd777-77776-qaaaa-cai",
   "listening_account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",

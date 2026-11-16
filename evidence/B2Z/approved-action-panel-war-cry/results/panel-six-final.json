@@ -6262,6 +6262,7 @@
         }
       },
       "copied_cry": "PASS Keep/Update complete memo and input",
+      "native_BOM": "PASS U+FEFF remains exact payload after native paste and canonical memo copy",
       "exact_pose": {
         "title": {
           "x": 844,
@@ -7893,6 +7894,7 @@
         }
       },
       "copied_cry": "PASS Keep/Update complete memo and input",
+      "native_BOM": "PASS U+FEFF remains exact payload after native paste and canonical memo copy",
       "exact_pose": {
         "title": {
           "x": 18,
@@ -9524,6 +9526,7 @@
         }
       },
       "copied_cry": "PASS Keep/Update complete memo and input",
+      "native_BOM": "PASS U+FEFF remains exact payload after native paste and canonical memo copy",
       "exact_pose": {
         "title": {
           "x": 18,

@@ -5,7 +5,7 @@ Shared-panel captures use populated canonical gameplay fixtures; authentication
 claims apply only to the separately labelled installed-game and mainnet sections.
 Full scenes retain context and scroll boundaries. CSS viewport sizes are stated;
 DPR2/3 captures have larger pixel dimensions. Software Chromium is not a physical
-phone or subjective listening test. Runtime inputs match frozen `fd69939a…`.
+phone or subjective listening test. Runtime inputs match frozen `dcc1e7a2…`.
 
 ## Owner reference (unchanged)
 

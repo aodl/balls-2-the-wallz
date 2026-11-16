@@ -1,12 +1,14 @@
 # Active development — approved read-only panel and War Cry candidate
 
-Implementation and local source/native/browser qualification are complete; final
-hosted continuation is pending. Frozen runtime `fd69939a421796d412d2b9210e78bab0af2f389d`,
-JavaScript `feefd03a68a464cee92f963c01327d8afe6fe15b495545daae09ace28a4db4c4`,
-complete79-file inventory `94329dfe47c12adbd074a5af76009bc9edb0bce44322db2a0279da7fc2fb47fa`.
+Implementation and local source/native/browser qualification are complete; a
+replacement hosted qualification is pending after the proven UTF8 BOM correction.
+Frozen runtime `dcc1e7a2c55aa159b30fd19e9d251801b1106134`, JavaScript
+`59b946e9a40452e2ba9538260ac3141541777b6bb281cc282ab00e3d5aa21fd9`,
+complete79-file inventory
+`c2cb60e831eec89acfd141e10b862d724622db77b185a5ec28506ac1dd38d17f`.
 Exact backend candidate `1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b`
-was rehearsed against the paid predecessor only in isolated PocketIC; **no production deployment or
-backend capability activation**. The paid European game remains on the corrected
+was rehearsed against the paid predecessor only in isolated PocketIC;
+**no production deployment or backend capability activation**. The paid European game remains on the corrected
 78-file frontend and Rules7 described below. The new panel is independently
 compatible with Rules7 and keeps unsupported suffixed memos unavailable. Rules10 /
 adapter6 is a separately approvable candidate preserving Rules7 gameplay, not

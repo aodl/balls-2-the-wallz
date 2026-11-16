@@ -1,0 +1,22 @@
+{
+  "scope": "Valueless fixture mistake: late Fire priced above its10m e8s test budget; normal rules correctly rejected UNDERFUNDED and emitted no cry. Replacement test budget1b e8s matches existing funded Twin cases; no game price/rule changed.",
+  "result": [
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "11"
+      },
+      "reason": "UNDERFUNDED",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    }
+  ]
+}

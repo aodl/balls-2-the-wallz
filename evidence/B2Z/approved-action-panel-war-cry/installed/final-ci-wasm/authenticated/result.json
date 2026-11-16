@@ -2,535 +2,591 @@
   "status": "PASS",
   "scope": "Actual disposable IC; pinned BLS/canister/freshness, signed query transport, authenticated predecessor/artifacts, independent replay; not production",
   "root_key_sha256": "968c6c2122d3577878be624c1dc37609286f2f9ad7ee2cdae5d6bd45f0a05e8c",
-  "certificate_root": "004a9746acb8222c8cf16fd17c49c55a0fccf4fa67ee065b69eca16f90380a7f",
-  "head": 12,
+  "certificate_root": "291648a1e859afeefa2d52bb24cfc90725968e2761628ddbaae284a26e9e0a2a",
+  "head": 13,
   "packets": [
     {
       "method": "observation",
       "file": "0000.cbor",
-      "request_sha256": "8875223a94829097ae3f8613e68b415e05bf27bf303f6cf1026f6da7a2396036",
-      "response_sha256": "3636cfb5216c7cf721db5681425f8399095930dee945be1ea5111055b256ac07",
+      "request_sha256": "1b008f1c80f7bb373e7f5a02c3b2a4a3c81215fa912f5b10762c6aabc117c543",
+      "response_sha256": "371e1f8491d616ec57a6bca9df02c5c6555fb1b4ba74ec994fbe3bb1f04f0511",
       "bytes": 5685,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0001.cbor",
-      "request_sha256": "136a89811713fb5fedec121e15becd8b1de0723586744f072281fa4434b033ac",
-      "response_sha256": "f1d8fef5f26c93483ac21c0cdbe3ac22b14dc5be410b5dc88e229dec9044c6d8",
-      "bytes": 4392,
+      "request_sha256": "1c5c2c6824be502b0d43a114f1d7d102d21e71811be3059898d59282ecc62f5d",
+      "response_sha256": "6312d1faaf198dbd52bc7df1cc593b60992cc973d9d379d19ecffc83192ce3f7",
+      "bytes": 4459,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0002.cbor",
-      "request_sha256": "a120d87ff3961c71525dbde40467fea3c7a72bcb982df21f4dff53fb451040bb",
-      "response_sha256": "dd68931d4d80d3c7bdde274e3aa144378a8e80698f536a6b98ec92b5abc6d8ba",
-      "bytes": 4323,
+      "request_sha256": "75d7a6386d6b4e6548d8c82736a77af240fc430679ad103d12954b98721db822",
+      "response_sha256": "8e6663973cf50345457bf62bcd28103a9a35c9adf2918ead03fa0cce6f9ca6de",
+      "bytes": 4392,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0003.cbor",
-      "request_sha256": "22114f1ac6fc271ccf0860074b48adf745fe9e4ac325768b5b18fb112489ade0",
-      "response_sha256": "2a4d67cec8069e537365073e2d7ef5d458f888f50c7bbb24368b5e76251eba94",
-      "bytes": 4384,
+      "request_sha256": "5cdafdcc1f4a94ab8b7d0d019ee36a4f9e71d25912aa7d6573e3356bbb1ef4db",
+      "response_sha256": "232a1e0384fc65027a4736882a2db5ab5a286f1199dd177435181b45a6e57ed8",
+      "bytes": 4323,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0004.cbor",
-      "request_sha256": "bca911b7495c37df791c3fb766bc612f1fbc3df0121a2d9a69891a1a0bb0a942",
-      "response_sha256": "2e1807c36c6878c77af1d1f3fe6b5945ff845f9513fac4e27ffe27643997a3f1",
+      "request_sha256": "0e5cf98c67dd626252a6a48c482af535a40a409a2b26f99340728227cd0d1363",
+      "response_sha256": "cca9315fd058545e466f3805202e53db35a678ce3deeb727e99e1fd1c5ed2cc7",
       "bytes": 4384,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0005.cbor",
-      "request_sha256": "8ac791f5928c122edd13d8502fd993c1daafc0f6230e5c40794d0032fd1734f6",
-      "response_sha256": "8fd768c87909fa5a11e02d7543997cc17b5cf6c44b38b2d1ecbaa4498cbdd41e",
-      "bytes": 4317,
+      "request_sha256": "18fb74155716385219a478076d416e546ece32dc83a4d371cd9af122ed4f6fd4",
+      "response_sha256": "898b9474cd027360125e527c184913f34e6a47bc5c7c05c88be560ca2ffa9bc9",
+      "bytes": 4384,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0006.cbor",
-      "request_sha256": "03f959b6374d666eb7dfee3f1f9f653d20c56b10e7c11b757b93f13de3b018d7",
-      "response_sha256": "ab38932940d48a375f4373091dba145340d9256aa9ca3db833e2b0f4a046745b",
+      "request_sha256": "7b55b3e1f03c81128b7b21b7235fb373b65243d7452f5136d30656d44002bc37",
+      "response_sha256": "26b7f7da48b5a1335be94c6f72ef18975661c9ebf6ee70fe2319428302d9a96e",
       "bytes": 4317,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0007.cbor",
-      "request_sha256": "b73e92b218cb23ab1f6077bf7fdcac0f2aff838cfe9970b71c8351e6470c5c6d",
-      "response_sha256": "fa7434cd41b9a7af9a6a0ba82516b22fcccf07255b494a2b94b273498ff9c8e8",
+      "request_sha256": "76aa974ecad8c460e326139fd93eb88891da81a3b07d0bf74c66975039b61a94",
+      "response_sha256": "d45ee0019994b8d7fed4efb7f470b0f80c38b2a16261a12580b8e9b50bedeb46",
       "bytes": 4317,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0008.cbor",
-      "request_sha256": "c4ded51e62660a249dec8fa7a6ea3d690c055f4c039cdd0ea36fa2ac71b9d5da",
-      "response_sha256": "d88b33a617ba27b857228788270253acd766643d059a07a61877781f73bcf9bd",
-      "bytes": 4250,
+      "request_sha256": "20d031c52d09b0cf3a5e2debcb90c870e1c5bbefcca97ccd127672cbc05ff60d",
+      "response_sha256": "77a46dffda396fcc0ea364fcfe8002df73780baa62a3f68778e749dac91e4a2f",
+      "bytes": 4317,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0009.cbor",
-      "request_sha256": "8b054655321187338dbf3c91cdcc01560aa6bdf1caf32e2ebf39142f632ff285",
-      "response_sha256": "251ddeed01aee545b88baccd94e34bffad3153f6572fbf2c4b093c5bff1c613a",
-      "bytes": 3336,
+      "request_sha256": "a775e207b5dbe40fc066e082961404fccef1f2c62aa89f2a95ac88727166bf8a",
+      "response_sha256": "196f4f4d05c5630130688dd9f7de9566626a8053aa8c2610e98029ba2dbede30",
+      "bytes": 4250,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0010.cbor",
-      "request_sha256": "bef98fb22a9ad13195cc0f64cac7565e8d6e7e8be999a4eec098d617ab042488",
-      "response_sha256": "9ec926b2d85c2b33a3f8c029eb03e675bb3ca48d407ab014427fb4942a5357b7",
-      "bytes": 7484,
+      "request_sha256": "aea758f5f6cd5537666dd381fb904f12ee7d95f14c79c930fcc1d5481735d11d",
+      "response_sha256": "d1cf27884acfbdb6bbb785a8a9fbeb1a5b37a35efc076f5d5949d5193dd983fe",
+      "bytes": 3336,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0011.cbor",
-      "request_sha256": "c5d5a8fb439ee079ac3781816c1b94488688a211a13f05b0ca2d2bd829946503",
-      "response_sha256": "c99e5c11256082339ea9c9c6fa93f061a225e7ab239892c7fb0878b1c7dacc9c",
-      "bytes": 6572,
+      "request_sha256": "e64e6b507729dfe40064a64451e26066936ad136330cb812b540c872154c5cbe",
+      "response_sha256": "146a34a32fe57985f5b8dfa118a3e04e67615e965aa4fd112894a9c1f039535b",
+      "bytes": 7484,
       "status": 200
     },
     {
       "method": "retained_publication",
       "file": "0012.cbor",
-      "request_sha256": "c9fba3befb68bfb91b578c52f42580b0c57650d689b16d9575cd60ed2bcae3db",
-      "response_sha256": "ba3b13ae946ec5352db10d090066aa8b58cc18e3ed06673c4ea149b1bceaf620",
+      "request_sha256": "eb594699d5af0f3cd95d500729516975411a322d82ff25182d92dda56e663ede",
+      "response_sha256": "f3df7f7b962ceff243bf22be57af0ff62c2c5a472808667846b37043378ca229",
+      "bytes": 6572,
+      "status": 200
+    },
+    {
+      "method": "retained_publication",
+      "file": "0013.cbor",
+      "request_sha256": "ccd7e2843b1098aa8e94dad97435d5b38ec95a302684fa1ec659222781498288",
+      "response_sha256": "18d4ab0c6e00b5554cca1570d55dcb15cf7660814e661fbb5d9a36e4d9c2f5ad",
       "bytes": 2278,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
-      "file": "0013.cbor",
-      "request_sha256": "6f4067b255af88cf0aefb6941d94bbc454a3b959b6e65eac0f4ae32a3c77b417",
-      "response_sha256": "c05570d3d051bfcaa9d28cab40e6e5574ce8f25696975aef12e5d04410983930",
-      "bytes": 3268,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
       "file": "0014.cbor",
-      "request_sha256": "c1ab0de2934bd5606338cabd21c241eb5d01dbe2f6347589635498130b36711f",
-      "response_sha256": "3c4fbce38a8ac4351747de3216e7ef45a01455051b9e4e19918f6214ae896a5a",
-      "bytes": 444,
+      "request_sha256": "9d0dcee5c718cf1f618524886cc4d9673e9e39baad58cedf270c0e9574b2d185",
+      "response_sha256": "f9fc645ac588b5c525a18351051543495e2d04175a2d6f8098e0d7b70b444543",
+      "bytes": 3268,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0015.cbor",
-      "request_sha256": "e7befcc10c0976f8a62d606c359bd1bbb061cf3067fd294e1f05691079cdd6f9",
-      "response_sha256": "ee7efc10b350d1b90c9bd7c9be141b4313568caf66d3c88abaf5297e32484651",
-      "bytes": 354,
+      "request_sha256": "57c8c33eed001d0efbbad0e35c4c8fafbc02b7ac26eee019648acf0f5a37bbef",
+      "response_sha256": "bb63cbb0acbac01bae89f3a02366c7be3662a4b4da352e69cfa500c8fa3818ae",
+      "bytes": 444,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0016.cbor",
-      "request_sha256": "e739d3144882d1230eb90bb343f948b44d1127ffe0cbaaa5b19869cb434e313f",
-      "response_sha256": "b9c7b2514372f8778a06f34f88485bc32fded30aed5bf4c692065bc43f6dd9f7",
-      "bytes": 3268,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0017.cbor",
-      "request_sha256": "71fc321bb31ed744d38394164a97cc82c16583cc5992913f91243700cea6579d",
-      "response_sha256": "9d05e4b70a0c6e85bf4a98445d250e475f8d342210f7e5f30c4220cfa751de20",
-      "bytes": 1567,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0018.cbor",
-      "request_sha256": "a3c55c9243b355044c307a489a96c8ad54c666c611ae2a1184e228b36d29fe15",
-      "response_sha256": "57300792b5ea8dbe49fac0b2e97e1c4f0d3aa8622988d29faf7cd6cf46e5431a",
-      "bytes": 231,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0019.cbor",
-      "request_sha256": "c096c50d371a3aa906fe301a108519f16f051e5bf97cc46bd909718a80525171",
-      "response_sha256": "4ca1d486517cc42c7339a41bc960832673b921818c6934acd35a02a67aa11ee3",
-      "bytes": 3268,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0020.cbor",
-      "request_sha256": "2d201b14bd6292fa6925b3a601b7121f6cb6af63eeddf010e7f07bec64953e86",
-      "response_sha256": "2cca9eeaaa97b03fb59553af67c01ffea7716fa64445561dfbe38e091cef6259",
-      "bytes": 696,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0021.cbor",
-      "request_sha256": "118e73ae6f90f75d9b19acd5466f6eb7e84f1b2bd6f4a4656a74f4a074bee56b",
-      "response_sha256": "258756c87de03d2c893100cb40f3c68a1fd57525ba58f24002b86387285223de",
+      "request_sha256": "7c2e8796d39fb4cabfe5a476e3601aa29841fb89c60af8f9809c1aecd19b941e",
+      "response_sha256": "af8a458f35137ce8595c1139a9a41677200ae1c00be18bbc1b52c33eee130231",
       "bytes": 354,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
-      "file": "0022.cbor",
-      "request_sha256": "18379414b9cc41efbb559b2467f43f972f6a9e46a8a5327ce3118f42b3a98235",
-      "response_sha256": "961cd8c9bcbeedae28c0a5decbc4fc2f3ba1dee4ad719e5f45313cebe5404713",
+      "file": "0017.cbor",
+      "request_sha256": "276f2edbdc7c7df380ed5929d56f1b6cfa55ed8f633fb30f13ae454c13c03d28",
+      "response_sha256": "fc4e200b9b5e720299e81d78f48908b54224395af0012a15b5241febb9e0f2e6",
       "bytes": 3268,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
-      "file": "0023.cbor",
-      "request_sha256": "204df602b15a8f289281de41c76d761f10e3954fbffb5d45e64abfb9034ac3ef",
-      "response_sha256": "4efd0a9ac6e3d89ebc64be3708eebabe0eac31dfb163927be4709ea82d6dd295",
-      "bytes": 1560,
+      "file": "0018.cbor",
+      "request_sha256": "6557fb650726993f6d4fc61da37ba272b718e196be8310a948b709958321f5a2",
+      "response_sha256": "e177d8960ee2e2a1a9dafa13f399afbd42693788fba40c093a1d119192b24315",
+      "bytes": 1567,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
-      "file": "0024.cbor",
-      "request_sha256": "01d15ae97f8390a427e057084f020c019721dee5a37e5e6bcd623c3640c931ba",
-      "response_sha256": "f21c1e650385013a30460e64a88d0300afadc33fbeb4908ac62b36f9cfe5d824",
+      "file": "0019.cbor",
+      "request_sha256": "5b320a502d44f14a5d953b926b75d7fdd9e0fc03d2130bb6c5495935259be29c",
+      "response_sha256": "78324cc3e128bad7394b9d1363848b3c0e2abfb994dec7acd4af20163d952fa9",
       "bytes": 231,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
+      "file": "0020.cbor",
+      "request_sha256": "47536821118215a8a21421c9e7656440bbfbc21dcdc8d27ee3367197fd61c448",
+      "response_sha256": "18cc964bd05bc7578b4dcbbc185d033cf92c218169ec9b0c3f5a2fafbba5b464",
+      "bytes": 3268,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0021.cbor",
+      "request_sha256": "e48c18a7af60b5c0978bb3cefb197c05d32674cc72ced88ea09f0ac17dd4a966",
+      "response_sha256": "e36d067ee81e33c6d475f7c31fa816398b922f1fbcc7420c3a6d20b95fc266da",
+      "bytes": 696,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0022.cbor",
+      "request_sha256": "e623edb25c7570cc436a164e83c87824ae52238710ad029ed45a1a2eb5b80103",
+      "response_sha256": "4d1e723db30fbd01304e03621fb10ec1e86ddc7bd6d0cd5e342c9a28d67ea512",
+      "bytes": 354,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0023.cbor",
+      "request_sha256": "b2817bc2849091e3038797018d3301b1847811eab3b591a00a5b20e53e28f5c8",
+      "response_sha256": "0cd18e7ddfbfe588554e4a0ec2830e6dc96c1ec401d827c703d130cf978f2702",
+      "bytes": 3268,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0024.cbor",
+      "request_sha256": "77f0e249d804145288896c088bfa836dfbbe1a8a3d45e5d6172403b4fe321de2",
+      "response_sha256": "2e3e007dcb110838baa03d5f274b3ecd15e8d759481ae29c295357c9d727f4eb",
+      "bytes": 1560,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
       "file": "0025.cbor",
-      "request_sha256": "d3c74f43e93edb6338b807dde119b0e173425a25c53f0ece0d175d11978e2a61",
-      "response_sha256": "5c7ebc4a9f956efa3132d488d07ec297fe15badd2633f1f0b1dd99ce23c22fae",
-      "bytes": 3294,
+      "request_sha256": "ae7786ab7b32fa9ae9ed5599c7eb1eba422562da531c9d94667c7376b9ba6f32",
+      "response_sha256": "47f37dc51c54861a77d31f807d7d80a0814bb62bc17bc441bc4bfd2ca7089d48",
+      "bytes": 231,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0026.cbor",
-      "request_sha256": "98c0cb700e39409c29153a5c88436f7edb2d7fce2d55f837cfe20c41d1de78ce",
-      "response_sha256": "d82ca4bf3817191899eedd772126f428cf04e4c8dd89df3b73352556d6120029",
-      "bytes": 12685,
+      "request_sha256": "68c08428bc9ec70d8e742fd3c404a564db54723d5f477ff1a3ebea53d37f1b92",
+      "response_sha256": "f0634035724d0f424cb86ec7627fd56b3ed15c6e944607661fd654ef39ab263a",
+      "bytes": 3294,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0027.cbor",
-      "request_sha256": "55867f03790fd46604f9615da999893af59da38cf933ff2636190e3ab84818e3",
-      "response_sha256": "13724ef1d18e4074961a4b676ad5b54458bf311f2c72322c9d4b1ad0b163dd4f",
-      "bytes": 364,
+      "request_sha256": "a751bf8e4264a2f6a68b4132df734a7abdaa76e3e25f31e57cb83e23c9d99d89",
+      "response_sha256": "d1d991f310a598001d065852c5af2a052ca196fb2bc857fc904fc69a132fe6f3",
+      "bytes": 12685,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0028.cbor",
-      "request_sha256": "80e01a0d6114aa481f5754043179f318782bb61ef6f2fc2496605fee7f74f62d",
-      "response_sha256": "c0e9eda7f735f818f8020267d2576c24e29fe8dae176b3603247b45cc3e4ffea",
-      "bytes": 3400,
+      "request_sha256": "aa3a0604ff3df65db02876b2fd41c5411d33112aeb301c1c796be4bb2f4b2632",
+      "response_sha256": "b56676d4a5ffcaaf89137fb851594af597b0876ccc33196d50e9b961f1c13110",
+      "bytes": 364,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0029.cbor",
-      "request_sha256": "09bc743cc8056474e80f94ae9a6a33aa7e9de5cbdc084764a14e229cae28d69d",
-      "response_sha256": "8e0c32a0cb6adbde91d8b4187dd26f7ca00fe789fd5b8ca1254731bd5e352880",
-      "bytes": 16590,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0030.cbor",
-      "request_sha256": "51ed8a8a84de565023e7b8f7274bfe9e12c4d7d3f60e1291532320e7d2827168",
-      "response_sha256": "747d8ed935a8b677657ff57780d1dedca8159e7168e14aaf055a7147645772e5",
-      "bytes": 2649,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0031.cbor",
-      "request_sha256": "377db5195b7d29e27c272ffb7316aa63267a6fbf293ab856cfb5b02186142820",
-      "response_sha256": "51b415c5fe16420242a3df1172efd75a632fdd4e6bbabe53daca4e9c9ae44bfc",
-      "bytes": 364,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0032.cbor",
-      "request_sha256": "0e4262409ca1751094b50bc1d58e848f72934f9b486b0149f6f7de48b02be210",
-      "response_sha256": "15d7d10abe780a93032d2ca7cdad1b8092adee8209df782aa810c3410bbee2fd",
+      "request_sha256": "fda305d3178891e191fa60f9dc01f55bdf384f5c92094758c13e0a3d948801d8",
+      "response_sha256": "1de495e119f4c9cfe81b17b38b7e3a81b573ed9ffd232a0d088f733a8b817a75",
       "bytes": 3400,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
-      "file": "0033.cbor",
-      "request_sha256": "6918ed5331cdf3a14091398db0895e542b82a996c689f303916f58651978975d",
-      "response_sha256": "d5a36aca090feb072275dc19c629f7aa149147e2f5681b6cf481c97410b47cfa",
+      "file": "0030.cbor",
+      "request_sha256": "020685b3b35f003e8e7ca3e26922437eefd4c38be38d6a5df81a50f7bdfc99b1",
+      "response_sha256": "8e812ee3bb2464210ec0e34148cae387dcaaef8168fdefd1da47596772bacee9",
       "bytes": 16590,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0031.cbor",
+      "request_sha256": "8cbfbd9c969f7eb23bc9d3dd621e05747bf322ce7874322be763f804ef94bf48",
+      "response_sha256": "867ce24aa8429a80ad9217c8c49a7d1867a02403fdb083994ad119f05cb9e0bf",
+      "bytes": 2649,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0032.cbor",
+      "request_sha256": "15b9fddff8a71da1de15d6d878a8b374efca7279860d628dce316f79773209a0",
+      "response_sha256": "b7d064173487f08df7bb2ed949e7263384658ddf80a68afe3804e2238e45986a",
+      "bytes": 364,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0033.cbor",
+      "request_sha256": "5f94cf563dbabe3c1617e8b394c7deac18e31e3295a07f007aa943c6df6dee8c",
+      "response_sha256": "cfbcd51fbd5e38db7da9be581a448ab3f568530930b686b6c9948f2200b819b3",
+      "bytes": 3400,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0034.cbor",
-      "request_sha256": "cc7f3324ba264b9e24b8cfb4502edfe2df2a19d6ee55dde64cd17d17db9db8b8",
-      "response_sha256": "02cab7f7d5cec4fe940deb712e579be3096de243061cdb628579db0e6b72be22",
-      "bytes": 1265,
+      "request_sha256": "ff07c38fccb11291c8eeb97f5fefaff6296a090ec1f4efdb4dc42b8362743d8b",
+      "response_sha256": "dde43f6f41d438bd538ab5b0a97b78ff6c94e99da94baa82a8d40af85ddfbd6a",
+      "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0035.cbor",
-      "request_sha256": "ca220e87213bff71551136f26fd128336aebaa887afc1ed069e4fc2ce550eaed",
-      "response_sha256": "8514c016f14632a47bfd8f4dfc251c1852b0d3a7c66d831d6fd98b5d64df9d3b",
-      "bytes": 364,
+      "request_sha256": "fb67ba7090bae401ddcc22605f984f3192187117e7b9283a0099ac43b41da0cd",
+      "response_sha256": "09ada425a2ce5ff30034fc1759b62f5c695edcbc5718ca9e681e4adc249db6a9",
+      "bytes": 1265,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0036.cbor",
-      "request_sha256": "182edc757975d402477159a6aea7f2331a5e031ac9e1f54404db2c410da3d565",
-      "response_sha256": "c787c5e6005f06fac07db05aaaee64cee991abf03999d4f35edda77f48cb21a7",
-      "bytes": 3506,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0037.cbor",
-      "request_sha256": "14a0b9a1af729d5143300488b69bbc944cbf725c8dd84f254a963ab2afa44187",
-      "response_sha256": "e1adf1db252c5ee2ebd71f3df635fe898e9b9a6f27e73983b2eebf3387b6bbf2",
-      "bytes": 16590,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0038.cbor",
-      "request_sha256": "b828d4c8dfcfd9777104e04033409b158f2edf4cdcd6c87c0358549e5cdfe851",
-      "response_sha256": "bd964fd12eccd1077431bae604aca25b57e091537458d02a1226f55b9ee94a93",
-      "bytes": 10116,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0039.cbor",
-      "request_sha256": "bffde94379e6f736f58fad103f2f26867aed07b13a92e32bb8780f4ac0c8dee3",
-      "response_sha256": "c4098996ef59c31c46b207c38ca90a209c761c500e7b3ab074b091eeeea14119",
+      "request_sha256": "eca4ab9af4915c90ef13ebf226350d7e770e784e6c496e2ea5e29bdbe5a98c68",
+      "response_sha256": "02f9308b5d782e48eee89305c5992c6a53cd3bbaa1672c77ab71364405a17fd2",
       "bytes": 364,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
-      "file": "0040.cbor",
-      "request_sha256": "3e347892fdfa0eddc008df301b24f3f2e636ad1f31bc81bb000b0c2b00c85100",
-      "response_sha256": "e7c94d003eb577b164b7ffd5279a0b81c3f50fc20999e3d083fd861eb85e1a22",
-      "bytes": 3613,
+      "file": "0037.cbor",
+      "request_sha256": "ce975a3f35cae46b0153b8e5fdd7c553c23fc0698f1c15f7ad0674619d5140d0",
+      "response_sha256": "ac5d029eba49c0c74adc952c74360828a7284639b81fff0e11a7ca31f97d7f87",
+      "bytes": 3506,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
-      "file": "0041.cbor",
-      "request_sha256": "9f564cfad96934a5a76fc7babf158d2e9a39e035df7603d0c9ac7238d6bbceaa",
-      "response_sha256": "b74846bb425ffff629047c0b4de518689a1077223eeb1c6d2735baa69e2d2803",
+      "file": "0038.cbor",
+      "request_sha256": "9f4a2346becaae93abf920a1f44a113b76bed17b09d34820abcd0f1c66288509",
+      "response_sha256": "239f9cc7996feceb7a4ed72dd9ead736443d4421d5a3b9ad4096bec300324fcf",
       "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
+      "file": "0039.cbor",
+      "request_sha256": "093b21850e7c087ac38743515c0551b65ca33731de2cb382218b7b33710844ce",
+      "response_sha256": "33d4818608119d55bee64ce08c277b13eb1fb5c4415bf16d26973240be335281",
+      "bytes": 10116,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0040.cbor",
+      "request_sha256": "9d303534f5873d35504e390cb1b462b32477a02d18cb03fca80e41a0da947ac3",
+      "response_sha256": "efa130ce60d1a81def01ec4d498d32a400028543e24f753052f76b6e38e71a2d",
+      "bytes": 364,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0041.cbor",
+      "request_sha256": "e338ae10f9895ccc62781ef0ff29ba598da8d73769d15be6c02e159ac8ed7aed",
+      "response_sha256": "834793a14616b361bca17b3363af572e008e132dca86f77530c623726111b2bc",
+      "bytes": 3613,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
       "file": "0042.cbor",
-      "request_sha256": "4b6934671fea8d7f6f23ceae2c6698d62894eef85fe0955a082d99b83efecd7c",
-      "response_sha256": "ae1012367591c3341e8ad5682f63d6f61486047ae18834d4bf20bc7751fb8441",
+      "request_sha256": "5086a01e1f3aee616a63cb5721c740f0c88f4919313f55ba72a93737d6446ada",
+      "response_sha256": "7c585f911612cebd7cb6e7c0e28dafb2ab01709d73007d570937bb05678fa930",
       "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0043.cbor",
-      "request_sha256": "8718e4cc1802fd5b7a03289db82fe58e59087118aec5e5a82b20255cd82d5f23",
-      "response_sha256": "684063f39c3a26784f1e4022bbe145f244bd5ef586010d574ed78efe7312110a",
-      "bytes": 1666,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0044.cbor",
-      "request_sha256": "c794a9af2233daf99d6c40e41461827f243d572d8166c3720a01b20c4c0c43a2",
-      "response_sha256": "496adaffd7d99d9b1ad77f528ccc3bb32d09d35e1f9f4bd289c444b6f6477911",
-      "bytes": 364,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0045.cbor",
-      "request_sha256": "d7e0f84e42898aa73c1c25e3830ef2e777486e2ff8fa7c7a2d83c98363173d18",
-      "response_sha256": "cb51ac8292f3d3f754acf69c036f56dd5d95a9dc3e3f96c7e27cd03f4e635890",
-      "bytes": 3612,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0046.cbor",
-      "request_sha256": "09adb8849b042cebfecbcbd3cd4d3b2d8b384161566ca42753da0ee3d92ac2d3",
-      "response_sha256": "afe51ab539e93d0c37f0af5e8f92aabca6b1513b8607b02d50afe7c22948649e",
+      "request_sha256": "509684467878549f30cb41bff27f2aeda353f25d96cd2846a04bef0b220c2494",
+      "response_sha256": "fb750691b72138271b0b69dea138d9182ff871e9046e535a4d6ee7e063e99fc5",
       "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
+      "file": "0044.cbor",
+      "request_sha256": "43ed5c172f3ab0beeed463aefdeddc4ebd0064b86c15db530d7ec13d59ff4c85",
+      "response_sha256": "0b087fbb27b242c5e805cafd2656dda892fb40307898420dc792b2c3b1cdf88d",
+      "bytes": 1666,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0045.cbor",
+      "request_sha256": "2bc3e95cb2d26895773cdb2b3bb88787d93720f51104a77b0521e6d731411403",
+      "response_sha256": "b3404a6ece3dd29704d6777fce7f0ab4e4d117f7c4e438d47bc83ab61c1c6fe0",
+      "bytes": 364,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0046.cbor",
+      "request_sha256": "076a4e0a58edaea72c534f133a0a8b0cc70d3eb53d2fc865de703b9c37fe7215",
+      "response_sha256": "00b8cae7cb482c2b63b7c92bd1d64ced5b5b36d22c728da2166c20aadf251f74",
+      "bytes": 3612,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
       "file": "0047.cbor",
-      "request_sha256": "6acfd0e1896cf8d5b3939d54f16a84b5d70c059284ce5b944d697d3094cb90f1",
-      "response_sha256": "b6d4e94f0cb3a38b83a96cc2fe1176758d34ac8aaa54275334d9702b443a09a3",
+      "request_sha256": "b8d2d974a863492417cd2401e1700c8a6f631cd56b9dc03ac4a2a65dce96a6bc",
+      "response_sha256": "675a97d01614ed27a0ee6578dbb64f799068ad4d12e1bf151c62d02f5d997671",
       "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0048.cbor",
-      "request_sha256": "b5aae479bfdb486e3429fd050b8debb5d290a2530ae2ef10e75048e8fb2cf4b7",
-      "response_sha256": "bcc8da186872601ba9e13b4db440254e67911bcaccb9bc6a141a3f9d69d9716a",
-      "bytes": 419,
+      "request_sha256": "f9fd0b52263ca88e2c6e566bded0d0a8c3d580f95bd7afbd4d688ba5e16ac8f7",
+      "response_sha256": "a12678adbde81d496b35c6bf400fac1897b746b3b678529139035e8be11dda5c",
+      "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0049.cbor",
-      "request_sha256": "087f350ad4660e11a60a0828ca8633c28b1c2d5333f3cb2618551470207213ce",
-      "response_sha256": "3fed5f34575bcb2f17dbce2a63784a588821e4ceedd30480cf6f8421fa58ae8f",
-      "bytes": 364,
+      "request_sha256": "43101ea9987bbe631078ff7122613abe558902c4244d4ae706c2c22c16029545",
+      "response_sha256": "5369d9cc3982c5cd0bc06c5aee61ef18bc811bb401beab51a79c6f6a27a911b9",
+      "bytes": 419,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0050.cbor",
-      "request_sha256": "40a8d70fda45cfc355cb903a12bf2a077c3678cb8440cc322556bb21ad64cf6c",
-      "response_sha256": "63b56e4ef93abf247201a9b8f2186a2aa41774343f0b49b3341bcd39bebb14de",
-      "bytes": 3612,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0051.cbor",
-      "request_sha256": "ab64b6ebedd43fb3e3cf9dfeba1c0f97f9d6c9799b75b92684e1cedeccc7bffa",
-      "response_sha256": "3a27c4d7f0e70bfce05118a88ad2f76dbf7cec14c7138521d4c227baabc845a8",
-      "bytes": 16590,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0052.cbor",
-      "request_sha256": "de1dd7300dd24cdc9c5e671f59de342347974e50b42a52416c3b24dea02b3a04",
-      "response_sha256": "7379e308144db1506d868fda4b3259eaf4297b2f917a3179b41f412a1b06a6f2",
-      "bytes": 16588,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0053.cbor",
-      "request_sha256": "001df7c6d903c3cf8c33a14d5eb97965c3dd33be301940da3d576f74fa29122a",
-      "response_sha256": "2b80b6171be49fe24b965930b3f82633a25c35af30bd7cce9c6cde4cc89b4a13",
+      "request_sha256": "ef82428bbfda470a44302e8169d14941fe53d35d9299ecc623148bc0b6d837f8",
+      "response_sha256": "16159c654f4b8fe8aeff5b2557de3c0bd7be5064cd3969e0df0124387f07d893",
       "bytes": 364,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
-      "file": "0054.cbor",
-      "request_sha256": "1c3008f524a0c5175e23fd66a34679f999a9877f385e47e4405188afb4c2dc0a",
-      "response_sha256": "3bbff3f2a23a2346b5c6b73c114c3941d938c5d208686832c82a9567d875849a",
-      "bytes": 4250,
+      "file": "0051.cbor",
+      "request_sha256": "84441a2edbf91e86d2787c44c037c4e4caa6f0d6e03f7014851cef79ddd9fc49",
+      "response_sha256": "8ef4ddfac217b0f079e15aa27663c5ef4bef3aa4fda8a080cadbb988a1d41e07",
+      "bytes": 3612,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
-      "file": "0055.cbor",
-      "request_sha256": "36534a7ec3b40c3ed7049149c960d14d2cb810c17050b5d73df149f6535f087d",
-      "response_sha256": "64336449b9bf233d03a854b26e2d4937eca4b42baee540ae83ab3eb01aba4a99",
+      "file": "0052.cbor",
+      "request_sha256": "0a20542dc035b4cdcfbbcb06b8e9ad28dbc6bde0f8cfe6ba1452c27d2018dbd7",
+      "response_sha256": "ba0411ef2968dcb6204be51b999f5098e55664f2d7c33ad4c407aaa571a9106b",
       "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
+      "file": "0053.cbor",
+      "request_sha256": "a1aa214e2f42ab3e54b139239d8c79496eaaef3c75c4f9ab4459fd923007aaa9",
+      "response_sha256": "bd812f35bc551f6f6e64f5a412da43a079bfe8d08fcc154aea6eeb5dfbae742a",
+      "bytes": 16588,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0054.cbor",
+      "request_sha256": "53aa1833af1f316ab4a74b336815f1645e32011a3b8e769a95a75c0238ad5a23",
+      "response_sha256": "c7c1bb6ac67d934f53c09f40c1b0774c4c70ecd2308dab13b8f122c32a3d1099",
+      "bytes": 364,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0055.cbor",
+      "request_sha256": "a3da588572192175e205417bf21f09fd6f74a7bd9860f74fd523cd61c8d54ded",
+      "response_sha256": "b9ce836d4a57a11a409a1961dee47273b35a3781e27a432ff1b8fe454ab2ad4e",
+      "bytes": 4250,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
       "file": "0056.cbor",
-      "request_sha256": "1be7e5125a16d388c5239620fa9d9ebd707b296a1cfcc323e43e1c36872b28ac",
-      "response_sha256": "eea44cda708aa564c730abc54a39c1ccc6bc1ec5f19562bc31cbc9dd3ca7773a",
+      "request_sha256": "eaec1ac74b36ac3e144980bf294f8cf7bcdd5840e2a72f4847e946326fbfcf95",
+      "response_sha256": "8a71784f2829dc06380cf3d315fea07744ccbb0670221928ac01d6ae0ddb3470",
       "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0057.cbor",
-      "request_sha256": "854e97580246c1f8eaaf971ce31b6fdcc4cc7361a2094ae7cb6c89c9d65b47f7",
-      "response_sha256": "9fee6c0cec7870720dc88e0c93d8a93541c4a6dd98389104955ed5bc2c170ad2",
-      "bytes": 12346,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0058.cbor",
-      "request_sha256": "d7f232e9509d559f26755c5b8ea4d3b93f60aefbecf41e18579fd403f7c2e12d",
-      "response_sha256": "c2d8ad9f07883d0e7992d48930f82431782f5a33d082ab1516acb0e82993499d",
-      "bytes": 496,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0059.cbor",
-      "request_sha256": "bbe1cbf435d6fbac1d619ed8a571f6e80d4748ee4c1a3ea81d6303de0ada73b6",
-      "response_sha256": "8d0517c407c521589bea307b0110ac60fdb7a832a83420974d92b9eb25a62411",
-      "bytes": 4550,
-      "status": 200
-    },
-    {
-      "method": "retained_artifact_chunk",
-      "file": "0060.cbor",
-      "request_sha256": "0be7326a368760d26d36eea9d88ee72c476346225980d32913566d4d75914099",
-      "response_sha256": "5d272d00dab2917ccd2982fe132be90442d42df5150c9d83585f9b1c4e0b4b4f",
+      "request_sha256": "eebe1382f2cb8e0a5c2ac749709984b55ae16e727b0144236283382a8dbecd48",
+      "response_sha256": "d1c7ef75927ebd016c3d2623f29b556d023ca9c9044f054711f51d6b14642646",
       "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
+      "file": "0058.cbor",
+      "request_sha256": "9accd6542d28d73900d9c6adb14ac3d72992fe0e5fc0b33313b99c74833af209",
+      "response_sha256": "0829f48f45f1e84c79f718d17ede349e74d069c59881910041948bc15327b383",
+      "bytes": 12346,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0059.cbor",
+      "request_sha256": "c6f5e7d69d5be9e8907ae6eff36e9a2084ae61738f9993cadcbc85a51539796b",
+      "response_sha256": "4e7f56e88573519590821c685bac0b87368c0e895495023b45b5ddd7eab4f9ac",
+      "bytes": 496,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0060.cbor",
+      "request_sha256": "fdc4d18ab23ea26fb454a976a5327a12ae3d7df1080287d09b72b6e587016d22",
+      "response_sha256": "fa0d58c57ba3476708cd56f149fd088d486adc0fe105015f0292bb8f0392c950",
+      "bytes": 4360,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
       "file": "0061.cbor",
-      "request_sha256": "04916ecf326fb26fa578f08103c5c322c9d888fd4f1c5f5af6c907ae45ed9b91",
-      "response_sha256": "a8e95d4cdea718a93b982a8ddb28750c4cec05ff81f490e7fa14256b7481278b",
+      "request_sha256": "c342d4aaebe7950f641ee4b82f3a6aab4a17a9961deb637e90a5fda473dc83ba",
+      "response_sha256": "062e5323ac94c3d738069f1f4f7d2fe8e7c6de4255e8e8f008e4415303265276",
       "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0062.cbor",
-      "request_sha256": "ba29118f17bfb97f466296455c1e2bf474092e2969c73dd41b23ebfbf140a37e",
-      "response_sha256": "a5f74a4194b6b8729a2b6fb057954c124ccf2129b0925981298bb253e81859f0",
+      "request_sha256": "ccd8d259912477a7c14a65eb1299900be30a3f68fb1857edb8614f75765647f3",
+      "response_sha256": "49d9c3620970f613e523540c534c168f2ed4ce36463fafe44041f3de5b242c5e",
       "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0063.cbor",
-      "request_sha256": "89ee719abe3c985ee984516c03347fc08408416931b42e3c243f24a06b7f59ac",
-      "response_sha256": "3a7cf6ee7655e4734f537ed9612cfb8aa2a9c337a80fc5bbb614f58c37ad660d",
-      "bytes": 4343,
+      "request_sha256": "1e53b6b5170027ef707885cece630de18372f31b35ace844ca64aab3417bf03f",
+      "response_sha256": "aaaf0ed18012c8ebb9d3efea664efd2a423c175aa8172c426d8267c9a10823c5",
+      "bytes": 16590,
       "status": 200
     },
     {
       "method": "retained_artifact_chunk",
       "file": "0064.cbor",
-      "request_sha256": "f08b1590540dcd41e47526f7d46288e163799efbe88934cc77c46944e1df0a90",
-      "response_sha256": "4915fbc7ad7eda419c5f3ca237670bcb5560b3d45934f63ab46c4739f41f0d10",
+      "request_sha256": "3b82ede55d0051f2050d33ab0625226f76818a4b0f0fbb45103b1317f98dcac5",
+      "response_sha256": "024e337dc9aa3152a84e54a08a7cfd1a2d34e8b7476e4834354bb2029d932b25",
+      "bytes": 1351,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0065.cbor",
+      "request_sha256": "25a14ebea63620139a6605abff34a2f61aad74c0f6952984ef7fb55128da186f",
+      "response_sha256": "4d73476e5690f3217c8c4e0b9c7f93f022908180ee7ef8a7c3cd1c39e4fc76dd",
+      "bytes": 498,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0066.cbor",
+      "request_sha256": "19592f87cc75bfe120d50c28cc5006aec37dc35730410b4306b90f5b748afecc",
+      "response_sha256": "fd987f7a305df858fe321d02a260f30f2530b76d3e43348989f77f18699c438f",
+      "bytes": 4657,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0067.cbor",
+      "request_sha256": "5e2c30b0b0c5bb41f8cd95b8a77b084dbc7d884afaaf61849292d321dadb3703",
+      "response_sha256": "e1edc0cd0896c1ba134adc8f49d1a47b28bffbd7b2be7db2b38471e5de9760cf",
+      "bytes": 16590,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0068.cbor",
+      "request_sha256": "af296e2d414dd6ea9be905424b5f24741675b15cb6abf4e69f342c6c70d5cdce",
+      "response_sha256": "055c1f38da37a74b902c35990b422990b7489f75f28ea69df9d2fba0c7868b88",
+      "bytes": 16590,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0069.cbor",
+      "request_sha256": "1943e428311085fb9cb9539013e287f42e2969b672dc7a4c28c2a1a67d20316c",
+      "response_sha256": "1f03460bb69df07a20fe0940a4bf34ecd0dba323879cd0f28e1c4853ad252821",
+      "bytes": 16590,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0070.cbor",
+      "request_sha256": "7f0b6dbbb8fe7cec6a1ec2572e211b278110bf85f7ccb34fd6f3c99880689a74",
+      "response_sha256": "1fc970066f9be10bcec32a15d2bdee174c3ef4255fb394dc2d97a13a3c54756b",
+      "bytes": 12698,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0071.cbor",
+      "request_sha256": "51c8e375806a06000e7396683c79cf6a293d01ebf4bd1220c724673e7999c9eb",
+      "response_sha256": "242138498d6121c3282ef29d1469ac5c83482a50e38b3c8b29f172ef34117850",
       "bytes": 498,
       "status": 200
     }
   ],
-  "wire_bytes": 393074,
+  "wire_bytes": 461974,
   "independent": {
     "status": "PASS",
-    "segments": 13,
-    "gameplay_segments": 11,
+    "segments": 14,
+    "gameplay_segments": 12,
     "application_checkpoints": 2,
     "assigned": [
       "2",
@@ -542,7 +598,8 @@
       "8",
       "9",
       "10",
-      "11"
+      "11",
+      "12"
     ],
     "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
     "work_budget": 23

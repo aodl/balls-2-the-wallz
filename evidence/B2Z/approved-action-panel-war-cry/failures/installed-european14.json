@@ -1,0 +1,22 @@
+{
+  "source": "dcc1e7a2c55aa159b30fd19e9d251801b1106134",
+  "backend_artifacts": "exact CI-produced normal Wasm1cde99a\u2026; setup-only test-hooks from installed-complete4; no backend rebuild",
+  "result": {
+    "id": "installed-war-cry",
+    "command": [
+      "/home/codexdev/src/b2z/tools/s09-integration/target/debug/deps/s14_index-c77789c9b9016664",
+      "war_cry_installed::war_cry_european_rules7_upgrade",
+      "--ignored",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 101,
+    "status": "FAIL",
+    "elapsed_seconds": 238.106,
+    "timeout_seconds": 900,
+    "log": "logs/installed-war-cry.log",
+    "pocketic_server_exit": null,
+    "reason": "Expected exactly one passing installed test"
+  }
+}
