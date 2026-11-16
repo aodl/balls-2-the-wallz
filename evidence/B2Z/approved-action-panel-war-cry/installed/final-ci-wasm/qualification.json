@@ -1,5 +1,5 @@
 {
-  "source": "dcc1e7a2c55aa159b30fd19e9d251801b1106134",
+  "source": "427199b38e847f4cfb7142db2b42212e804169a6",
   "backend_artifacts": "exact CI-produced normal Wasm1cde99a\u2026; setup-only test-hooks from installed-complete4; no backend rebuild",
   "result": {
     "id": "installed-war-cry",
@@ -13,9 +13,11 @@
     ],
     "exit_code": 0,
     "status": "PASS",
-    "elapsed_seconds": 299.097,
+    "elapsed_seconds": 251.019,
     "timeout_seconds": 900,
     "log": "logs/installed-war-cry.log",
     "pocketic_server_exit": null
-  }
+  },
+  "frontend_scope": "Native disposable IC frontend build uses pinned local-network configuration. Runtime inputs exactly match frozen427199b; source_dirty reflects only in-progress freeze evidence, not application edits.",
+  "frozen_runtime_input_hashes_verified": true
 }
