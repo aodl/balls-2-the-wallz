@@ -26,7 +26,7 @@ fn tick_record(pic: &PocketIc, id: Principal, rows: &mut Vec<Publication>, out: 
 }
 fn live_record(pic: &PocketIc, id: Principal, rows: &mut Vec<Publication>, out: &Path) {
     std::thread::sleep(Duration::from_millis(100));
-    playability_installed::record(pic, id, rows, out);
+    playability_installed::record_bundled(pic, id, rows, out);
 }
 fn save(out: &Path, name: &str, v: &serde_json::Value) {
     std::fs::write(out.join(name), serde_json::to_vec_pretty(v).unwrap()).unwrap();

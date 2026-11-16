@@ -300,6 +300,60 @@ pub(super) fn old_transition(pic: &PocketIc, id: Principal, kind: &str) {
     );
 }
 pub(super) fn record(pic: &PocketIc, id: Principal, rows: &mut Vec<Publication>, out: &Path) {
+    record_inner(pic, id, rows, out, false);
+}
+// The live entry rehearsal always runs a normal module exporting artifact_bundle.
+// Fetch a bounded publication atomically instead of racing its retention eviction
+// between individual chunk queries. This is a collector optimisation, not resync:
+// missing publications and every transport/integrity error still fail the test.
+pub(super) fn record_bundled(
+    pic: &PocketIc,
+    id: Principal,
+    rows: &mut Vec<Publication>,
+    out: &Path,
+) {
+    record_inner(pic, id, rows, out, true);
+}
+fn checked_bundle(descriptors: &[dtr_host::observation::Descriptor], artifacts: &[Vec<u8>]) {
+    use dtr_host::observation::CHUNK;
+    assert_eq!(artifacts.len(), descriptors.len());
+    for (body, descriptor) in artifacts.iter().zip(descriptors) {
+        assert_eq!(body.len(), descriptor.length);
+        assert_eq!(dtr_wire::hash(body), descriptor.sha256);
+        assert_eq!(body.chunks(CHUNK).count(), descriptor.chunks.len());
+        for (chunk, expected) in body.chunks(CHUNK).zip(&descriptor.chunks) {
+            assert_eq!(dtr_wire::hash(chunk), *expected);
+        }
+    }
+}
+#[test]
+fn atomic_capture_rejects_incomplete_or_tampered_artifacts() {
+    use dtr_host::observation::{CHUNK, describe};
+    let bodies = vec![vec![7; CHUNK + 1], vec![1, 2, 3], vec![]];
+    let descriptors = ["state", "events", "scores"]
+        .iter()
+        .zip(&bodies)
+        .map(|(kind, body)| describe(kind, body).unwrap())
+        .collect::<Vec<_>>();
+    checked_bundle(&descriptors, &bodies);
+    assert!(std::panic::catch_unwind(|| checked_bundle(&descriptors, &bodies[..2])).is_err());
+    let mut truncated = bodies.clone();
+    truncated[0].pop();
+    assert!(std::panic::catch_unwind(|| checked_bundle(&descriptors, &truncated)).is_err());
+    let mut changed = bodies.clone();
+    changed[1][1] ^= 1;
+    assert!(std::panic::catch_unwind(|| checked_bundle(&descriptors, &changed)).is_err());
+    let mut damaged_descriptor = descriptors.clone();
+    damaged_descriptor[0].chunks[0] = "00".repeat(32);
+    assert!(std::panic::catch_unwind(|| checked_bundle(&damaged_descriptor, &bodies)).is_err());
+}
+fn record_inner(
+    pic: &PocketIc,
+    id: Principal,
+    rows: &mut Vec<Publication>,
+    out: &Path,
+    bundle: bool,
+) {
     let (o, p) = observe(pic, id);
     let Some(n) = p.head.segment_id.as_ref() else {
         return;
@@ -318,9 +372,55 @@ pub(super) fn record(pic: &PocketIc, id: Principal, rows: &mut Vec<Publication>,
         };
         let publication: Publication = decode(&raw).unwrap();
         std::fs::write(out.join(format!("publication-{segment}.bin")), raw).unwrap();
+        if bundle
+            && publication
+                .artifacts
+                .iter()
+                .map(|a| a.length)
+                .sum::<usize>()
+                <= 1024 * 1024
+        {
+            std::fs::write(out.join("capture-progress.json"), serde_json::to_vec_pretty(&serde_json::json!({
+                "observed_head": current, "completed_rows": rows.len(), "segment": segment,
+                "publication_hash": dtr_wire::hash(&encode_publication(&publication)),
+                "request": "artifact_bundle", "status": "requested",
+                "artifact_lengths": publication.artifacts.iter().map(|a| a.length).collect::<Vec<_>>()
+            })).unwrap()).unwrap();
+            let artifacts: Vec<Vec<u8>> = get_query(
+                pic,
+                id,
+                "artifact_bundle",
+                encode_args((
+                    segment as u64,
+                    dtr_wire::hash(&encode_publication(&publication)),
+                ))
+                .unwrap(),
+            );
+            assert_eq!(publication.chunk_bytes, dtr_host::observation::CHUNK);
+            checked_bundle(&publication.artifacts, &artifacts);
+            for (kind, body) in artifacts.into_iter().enumerate() {
+                std::fs::write(
+                    out.join(format!("publication-{segment}-artifact-{kind}.bin")),
+                    body,
+                )
+                .unwrap();
+            }
+            rows.push(publication);
+            continue;
+        }
         for (kind, descriptor) in publication.artifacts.iter().enumerate() {
             let mut body = Vec::new();
             for chunk in 0..descriptor.chunks.len() {
+                std::fs::write(
+                    out.join("capture-progress.json"),
+                    serde_json::to_vec_pretty(&serde_json::json!({
+                        "observed_head": current, "completed_rows": rows.len(),
+                        "segment": segment, "publication_hash": dtr_wire::hash(&encode_publication(&publication)),
+                        "kind": kind, "chunk": chunk, "chunk_count": descriptor.chunks.len(),
+                        "artifact_length": descriptor.length,
+                        "request": "retained_artifact_chunk", "status": "pending"
+                    })).unwrap(),
+                ).unwrap();
                 body.extend(get_query::<Vec<u8>>(
                     pic,
                     id,

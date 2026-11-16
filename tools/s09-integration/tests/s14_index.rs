@@ -3194,9 +3194,13 @@ fn get_query<T: for<'de> Deserialize<'de> + CandidType>(
     method: &str,
     args: Vec<u8>,
 ) -> T {
-    decode_one::<Result<T, String>>(&pic.query_call(id, controller(), method, args).unwrap())
+    let argument_hex = hex(&args);
+    let reply = pic
+        .query_call(id, controller(), method, args)
+        .unwrap_or_else(|error| panic!("query {method} args={argument_hex} transport: {error:?}"));
+    decode_one::<Result<T, String>>(&reply)
         .unwrap()
-        .unwrap()
+        .unwrap_or_else(|error| panic!("query {method} args={argument_hex}: {error}"))
 }
 fn start_arena(pic: &PocketIc, id: Principal) {
     get_result::<Status>(
