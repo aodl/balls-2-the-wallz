@@ -30,6 +30,10 @@ recovered from hosted run43843201572/source89bfdd6b6500a57cdbb827aa9cb9a8351547d
 artifact14213678913. Archive SHA-256:
 `150ffa39d7875366b509811c95851beeab3079ff43a861ccede09ca8621fdd38`.
 Normal exports exclude test hooks. Backend consumed-input parity remains exact.
+The fully qualified686b2d9 build from artifact14222258758 was independently
+downloaded and compared byte-for-byte with the frozen file: identical5ffb6c… .
+[The reproduction attestation](results/checks/qualified-hosted-wasm-43859604893.json)
+retains its archive digest; the original freeze is not replaced or relabelled.
 The separately retained local Wasm23c3586fc18aa11294f789d03fcf9cb8b1cb9827d3f94b7f179a5ef37f55d43e
 is not interchangeable: both contain17 checkout-path strings from different build
 environments, but complete byte equality is neither asserted nor established.
