@@ -1,8 +1,3 @@
-> **Replacement qualification required:** hosted f3fb116 failed the base HTTP
-> browser gate on an unhandled cancelled optional-audio fetch. The demonstrated
-> loader race is corrected locally; new frozen runtime/CI identities must qualify
-> those bytes. Production remains unchanged.
-
 # Approved action panel and War Cry — corrective qualification
 
 **Candidate only; nothing deployed or activated.** The shared frontend can ship
@@ -12,7 +7,7 @@ The six-gate exact-source conclusion and final identities below must be read
 against their actual source; earlier green jobs do not qualify later bytes.
 
 
-## Current frozen candidate — replacement qualification pending
+## Current frozen candidate — six exact-source gates PASS
 
 Runtime/build source: `427199b38e847f4cfb7142db2b42212e804169a6`.
 
@@ -34,12 +29,37 @@ schema6 remains unchanged. These are candidate identities, not production activa
 
 [Inventory](artifacts/frontend-inventory.json), [provenance](artifacts/provenance.json),
 [build record](artifacts/build-manifest.json), [changed runtime inputs](results/changed-runtime-inputs.json),
-[asset delta](results/final-asset-delta.json) and [actual captures](GALLERY.md).
+[asset delta](results/final-asset-delta.json), [final input/artifact parity](results/final-closeout-input-parity.json)
+and [actual captures](GALLERY.md).
 
-The replacement must obtain its own six hosted gates. Earlier run43772641166 on
-93cd974 passed all six gates, but its frontend is superseded by
-the proven UTF8 defect below; those results do not qualify these changed bytes.
-No production operation is authorized or performed.
+Published qualified source: `367edf563222854423f2687711a21ab0087d7910`.
+[Hosted run43785291394](https://github.com/aodl/balls-2-the-wallz/actions/runs/43785291394)
+completed all six substantive gates successfully on16 November2026:
+
+| Substantive gate | Conclusion |
+|---|---|
+| Source conformance, including exact79-file reproduction | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm, including strict1cde99a… module identity | PASS |
+| Browser HTTP and Web Crypto, including approved panel and cancellation regression | PASS |
+| S14 and million-cell installed-IC qualification | PASS |
+
+The separately labelled production-inventory guard is informational and is not
+counted. [Actual jobs and timestamps](hosted/43785291394/jobs.json),
+[installed gate](hosted/43785291394/installed-verification.json),
+[authenticated War Cry](hosted/43785291394/installed-war-cry-authenticated.json),
+[independent replay](hosted/43785291394/installed-war-cry-replay.json),
+[native bubble observers](hosted/43785291394/installed-war-cry-browser.json) and
+[hosted panel matrix](hosted/43785291394/ci-approved-panel-war-cry-results.json).
+Fresh hosted Wasm matches the frozen1cde99a… artifact exactly; installed War Cry
+reports seven annotations and preserved cutover world/finance.
+
+Earlier93cd974/run43772641166 passed all six gates but is superseded by the proven
+UTF8 defect. The subsequent f3fb116/run43778610653 finished five substantive passes
+(including installed-IC) and the retained strict Browser cancellation failure.
+Neither is substituted for the final source. No production operation was performed.
+
 
 ## Starting point and protected production
 
@@ -323,4 +343,46 @@ is introduced. Both the ordinary and controlled HTTP journeys pass after repair,
 with zero page errors; all nine loader units pass. The controlled regression is
 added to the existing hosted Browser gate. Native software output and real-tab recovery pass after the repair; the new
 79-file freeze has passed local source and disposable installed qualification.
-Fresh exact-source hosted qualification remains required.
+Fresh exact-source hosted qualification now passes all six gates on367edf5;
+[the hosted controlled cancellation case](hosted/43785291394/ci-audio-cache-cancel-results.json)
+retains all original strict assertions.
+
+## Final-source bounded observation (not P09 qualification)
+
+The final frozen c37ed0c… frontend was compared A/B/A against the retained
+production frontend, using local HTTP assets and actual read-only Rules7. All
+three contexts had the same viewport/camera; the first A/B observed head9382 and
+one ball, while the last A observed9383. Enabled frame p50/p95 was approximately
+66.6/100ms in each; muted p99 included a200ms candidate outlier. This slow shared
+software renderer and changing presentation do not isolate incremental cost. The
+result is **INCONCLUSIVE**, not an improvement or threshold pass; dense P09 remains
+FAIL/unqualified.
+
+Verified-world observations were2.042/1.660/1.913seconds, without a causal latency
+claim. All three fetched11 FLAC bodies totaling5,645,185 encoded bytes in the
+observed post-activation window, rather than the entire soundtrack. Maximum
+reported decoded music allocation remained9,331,200bytes. Same-origin encoded
+asset totals were7,810,375/7,837,408/7,810,375bytes; opaque cross-origin queries are
+not included. Coarse used-JS-heap observations were29.4/33.1/29.4MB and are not
+isolated incremental memory evidence. No errors or non-read-only requests occurred.
+See [raw measurements and limitations](results/bounded-performance-final.json).
+
+## Read-only production preservation at closeout
+
+The paid European Rules7 backend and corrected78-file frontend remain unchanged.
+Fresh pinned-mainnet checks verified module/controller/subnet identities and all77
+signed asset hashes/lengths. A bounded fresh HTTP recheck of app, HTML, CSS,
+deployment configuration and audio manifest also verified their exact bodies,
+reviewed headers, ICv2 body/header/path witnesses, BLS/delegation/canister binding
+and freshness, including a changed-response negative. The earlier complete77-body
+check remains separately retained; this final check does not claim a second full
+media download. See [signed metadata](results/production-closeout-metadata.json),
+[signed inventory](results/production-closeout-inventory.json),
+[HTTP identities](results/production-closeout-http.json) and
+[HTTP certificate proofs](results/production-closeout-http-certificates.json).
+
+The final closeout continuation changes evidence/documentation only. Frozen
+runtime/build/dependency inputs and all79 artifact hashes remain identical to the
+qualified source. Frontend deployment and backend upgrade/epoch activation each
+require a new explicit owner decision. Rules9, ICRC-2, funding and payments remain
+outside this operation.

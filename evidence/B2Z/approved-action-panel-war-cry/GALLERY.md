@@ -63,3 +63,16 @@ the retained78-file audio/compact-control frontend.
 [Native software output after the cancellation repair](captures/audio-cancel-native/native-output-0.webm)
 and [actual 5/35/8-second return measurements](results/audio-cancel-native-visibility.json).
 This is native browser stream evidence, not physical listening or BFCache acceptance.
+
+## Hosted exact-source browser screenshots —367edf5
+
+These are populated canonical fixture renders from hosted run43785291394, not
+production War Cry activation. The full native panel/editor matrix passed.
+
+![Hosted desktop Move](hosted/43785291394/captures/1440-True-move.png)
+![Hosted390 Move](hosted/43785291394/captures/390-True-move.png)
+![Hosted320 Move](hosted/43785291394/captures/320-True-move.png)
+![Hosted original347.15 pose](hosted/43785291394/captures/320-True-exact-347.png)
+
+[Hosted panel matrix](hosted/43785291394/ci-approved-panel-war-cry-results.json)
+and [strict cancellation regression](hosted/43785291394/ci-audio-cache-cancel-results.json).

@@ -1,7 +1,14 @@
 # Separate release decisions — nothing deployed by this task
 
-Artifact identities and qualification conclusions are recorded in REPORT.md and
-its frozen inventories. A source publication or disposable installation does not
+Qualified source `367edf563222854423f2687711a21ab0087d7910` passed all six
+substantive gates in [run43785291394](https://github.com/aodl/balls-2-the-wallz/actions/runs/43785291394).
+Frozen runtime/build source is427199b38e847f4cfb7142db2b42212e804169a6.
+Frontend JavaScript is `c37ed0c363902e29443ba9eb1501c6b653873945bb63e7d92b341f8400f1085d`;
+complete79-file inventory is `63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f`.
+Exact assets are retained at `.work/approved-panel-war-cry/frozen/frontend`;
+normal module at `.work/approved-panel-war-cry/frozen/backend/runtime-lab.wasm`.
+Artifact identities and scoped qualification conclusions are recorded in REPORT.md
+and its frozen inventories. A source publication or disposable installation does not
 constitute either production approval below.
 
 ## Frontend-only decision

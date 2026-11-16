@@ -1,0 +1,3672 @@
+{
+  "scope": "Read-only European Rules7, ordinary Chromium/SwiftShader; A/B/A same viewport and explicit enabled/muted intent. Not physical hardware, dense P09, output-route or isolated audio-CPU qualification.",
+  "status": "INCONCLUSIVE for performance qualification",
+  "rows": [
+    {
+      "variant": "A",
+      "verified_world_seconds": 2.041745216003619,
+      "enabled_before": {
+        "head": "9382",
+        "root": "b967a138632d6bccb914371d15f0c7c70764383618e45f34a04c28a0469b5fa3",
+        "rules": 7,
+        "balls": 1,
+        "cannons": 1,
+        "time": 9378.033998000004,
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "audio": {
+          "contextState": "running",
+          "loading": true,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": true,
+          "blocked": false,
+          "hidden": false,
+          "usable": true,
+          "settings": {
+            "version": 2,
+            "enabled": true
+          },
+          "ownership": {
+            "id": "44145e25-d988-425d-8e8b-cbfbd6b9174a",
+            "owner": "44145e25-d988-425d-8e8b-cbfbd6b9174a",
+            "owns": true,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 1,
+          "music": {
+            "starts": 2,
+            "underruns": 0,
+            "maxBuffers": 2,
+            "maxNodes": 2,
+            "maxDecoded": 6220800,
+            "active": true,
+            "nodes": 2,
+            "queuedNodes": 2,
+            "buffers": 2,
+            "phase": 8704,
+            "coveredSeconds": 15.818666666666665
+          },
+          "loader": {
+            "fetches": 5,
+            "cacheHits": 0,
+            "decodes": 3,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": false,
+            "encoded": 530545,
+            "pending": 1,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 147,
+            "lateFrames": 2,
+            "disabled": 132,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 119,
+            "maxFrameMs": 0.10000002384185791,
+            "maxReservedPeak": 0,
+            "reconciliations": 6,
+            "contextCreations": 1,
+            "inspectionLimit": 128,
+            "flushP95": 0.10000002384185791,
+            "flushP99": 0.10000002384185791
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "heap": {
+          "used": 29400000,
+          "total": 44700000
+        },
+        "resource": [
+          {
+            "name": "style.css",
+            "encoded": 26244,
+            "transfer": 26544,
+            "duration": 15.399999976158142
+          },
+          {
+            "name": "app.mjs",
+            "encoded": 2105533,
+            "transfer": 2105833,
+            "duration": 29.899999976158142
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 390
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 352.89999997615814
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 330.69999998807907
+          },
+          {
+            "name": "read_state",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 342.69999998807907
+          },
+          {
+            "name": "read_state",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 345.60000002384186
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 256.69999998807907
+          },
+          {
+            "name": "configuration-entry.bin",
+            "encoded": 1163,
+            "transfer": 1463,
+            "duration": 7.900000035762787
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 183.60000002384186
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 316.5999999642372
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 460.2000000476837
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 177.69999998807907
+          },
+          {
+            "name": "manifest.json",
+            "encoded": 32250,
+            "transfer": 32550,
+            "duration": 19.899999976158142
+          },
+          {
+            "name": "000-978533bbde679a0d.flac",
+            "encoded": 1354668,
+            "transfer": 1354968,
+            "duration": 49
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 234.30000001192093
+          },
+          {
+            "name": "wall-ripple-a-3644a32147c83a21.flac",
+            "encoded": 105841,
+            "transfer": 106141,
+            "duration": 27
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 81.59999996423721
+          },
+          {
+            "name": "001-7ab28b46da414f75.flac",
+            "encoded": 1254402,
+            "transfer": 1254702,
+            "duration": 38.80000001192093
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 258.69999998807907
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 216.0999999642372
+          },
+          {
+            "name": "wall-ripple-b-b00a94f8e88ec309.flac",
+            "encoded": 106109,
+            "transfer": 106409,
+            "duration": 19.099999964237213
+          }
+        ]
+      },
+      "enabled": {
+        "frame_ms_p50": 66.60000000000036,
+        "frame_ms_p95": 100,
+        "frame_ms_p99": 116.59999999999854,
+        "state": {
+          "head": "9382",
+          "root": "b967a138632d6bccb914371d15f0c7c70764383618e45f34a04c28a0469b5fa3",
+          "rules": 7,
+          "balls": 1,
+          "cannons": 1,
+          "time": 9378.153493000027,
+          "camera": [
+            0.5,
+            0.5,
+            48
+          ],
+          "audio": {
+            "contextState": "running",
+            "loading": false,
+            "gameReady": true,
+            "generation": 0,
+            "lastError": "",
+            "unlocked": true,
+            "blocked": false,
+            "hidden": false,
+            "usable": true,
+            "settings": {
+              "version": 2,
+              "enabled": true
+            },
+            "ownership": {
+              "id": "44145e25-d988-425d-8e8b-cbfbd6b9174a",
+              "owner": "44145e25-d988-425d-8e8b-cbfbd6b9174a",
+              "owns": true,
+              "coordinated": true
+            },
+            "activeVoices": 0,
+            "fxBuffers": 7,
+            "music": {
+              "starts": 3,
+              "underruns": 0,
+              "maxBuffers": 3,
+              "maxNodes": 2,
+              "maxDecoded": 9331200,
+              "active": true,
+              "nodes": 2,
+              "queuedNodes": 2,
+              "buffers": 3,
+              "phase": 582528,
+              "coveredSeconds": 11.863999999999999
+            },
+            "loader": {
+              "fetches": 12,
+              "cacheHits": 0,
+              "decodes": 11,
+              "maxFetches": 1,
+              "maxEncoded": 6773340,
+              "maxDecodes": 1,
+              "cacheDisabled": false,
+              "encoded": 0,
+              "pending": 0,
+              "decodePending": 0
+            },
+            "events": {
+              "inspected": 0,
+              "retained": 0,
+              "dropped": 0
+            },
+            "eventTotals": {
+              "frames": 328,
+              "lateFrames": 2,
+              "disabled": 132,
+              "inspected": 1,
+              "classified": 1
+            },
+            "seen": 1,
+            "cooldowns": 0,
+            "stats": {
+              "inspections": 1,
+              "candidates": 1,
+              "eligible": 0,
+              "starts": 0,
+              "dropped": 1,
+              "maxVoices": 0,
+              "frames": 300,
+              "maxFrameMs": 2,
+              "maxReservedPeak": 0,
+              "reconciliations": 17,
+              "contextCreations": 1,
+              "inspectionLimit": 128,
+              "flushP95": 0.10000002384185791,
+              "flushP99": 0.10000002384185791
+            },
+            "mix": {
+              "master": 0.8,
+              "music": 1,
+              "effects": 1,
+              "effectsReservedPeak": 0.2
+            },
+            "sampleRate": 48000,
+            "baseLatency": 0.010020833333333333,
+            "outputLatency": 0.032
+          },
+          "heap": {
+            "used": 29400000,
+            "total": 44700000
+          },
+          "resource": [
+            {
+              "name": "style.css",
+              "encoded": 26244,
+              "transfer": 26544,
+              "duration": 15.399999976158142
+            },
+            {
+              "name": "app.mjs",
+              "encoded": 2105533,
+              "transfer": 2105833,
+              "duration": 29.899999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 390
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 352.89999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 330.69999998807907
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 342.69999998807907
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 345.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 256.69999998807907
+            },
+            {
+              "name": "configuration-entry.bin",
+              "encoded": 1163,
+              "transfer": 1463,
+              "duration": 7.900000035762787
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 183.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 316.5999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 460.2000000476837
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 177.69999998807907
+            },
+            {
+              "name": "manifest.json",
+              "encoded": 32250,
+              "transfer": 32550,
+              "duration": 19.899999976158142
+            },
+            {
+              "name": "000-978533bbde679a0d.flac",
+              "encoded": 1354668,
+              "transfer": 1354968,
+              "duration": 49
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 234.30000001192093
+            },
+            {
+              "name": "wall-ripple-a-3644a32147c83a21.flac",
+              "encoded": 105841,
+              "transfer": 106141,
+              "duration": 27
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 81.59999996423721
+            },
+            {
+              "name": "001-7ab28b46da414f75.flac",
+              "encoded": 1254402,
+              "transfer": 1254702,
+              "duration": 38.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 258.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 216.0999999642372
+            },
+            {
+              "name": "wall-ripple-b-b00a94f8e88ec309.flac",
+              "encoded": 106109,
+              "transfer": 106409,
+              "duration": 19.099999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 83
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 278.4000000357628
+            },
+            {
+              "name": "002-ab9e812cea73ff2d.flac",
+              "encoded": 1235689,
+              "transfer": 1235989,
+              "duration": 33.799999952316284
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 132.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 267.19999998807907
+            },
+            {
+              "name": "wall-ripple-c-12d52c1290972681.flac",
+              "encoded": 107976,
+              "transfer": 108276,
+              "duration": 19.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 224.19999998807907
+            },
+            {
+              "name": "cannon-launch-soft-00052a3c9bb1f50d.flac",
+              "encoded": 150941,
+              "transfer": 151241,
+              "duration": 27.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 80.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 227.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 227.10000002384186
+            },
+            {
+              "name": "friendly-contact-a-e561a8e1413e5b89.flac",
+              "encoded": 8334,
+              "transfer": 8634,
+              "duration": 18.399999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 79.79999995231628
+            },
+            {
+              "name": "friendly-contact-b-c46c20436673ab27.flac",
+              "encoded": 9518,
+              "transfer": 9818,
+              "duration": 25.899999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 589.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 235.9000000357628
+            },
+            {
+              "name": "neutral-contact-3c37d8751e36c470.flac",
+              "encoded": 3697,
+              "transfer": 3997,
+              "duration": 21.799999952316284
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 260.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 195.19999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 86
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 274.0999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 190.19999998807907
+            },
+            {
+              "name": "003-5a9a811a71e0dbf5.flac",
+              "encoded": 1308010,
+              "transfer": 1308310,
+              "duration": 36.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 82.59999996423721
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 389.4000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 228.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 236.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 112.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 251
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 208.39999997615814
+            }
+          ]
+        }
+      },
+      "muted": {
+        "frame_ms_p50": 50.10000000000218,
+        "frame_ms_p95": 100,
+        "frame_ms_p99": 100.10000000000218,
+        "state": {
+          "head": "9382",
+          "root": "b967a138632d6bccb914371d15f0c7c70764383618e45f34a04c28a0469b5fa3",
+          "rules": 7,
+          "balls": 1,
+          "cannons": 1,
+          "time": 9378.27282200005,
+          "camera": [
+            0.5,
+            0.5,
+            48
+          ],
+          "audio": {
+            "contextState": "running",
+            "loading": false,
+            "gameReady": true,
+            "generation": 1,
+            "lastError": "",
+            "unlocked": true,
+            "blocked": false,
+            "hidden": false,
+            "usable": false,
+            "settings": {
+              "version": 2,
+              "enabled": false
+            },
+            "ownership": {
+              "id": "44145e25-d988-425d-8e8b-cbfbd6b9174a",
+              "owner": null,
+              "owns": false,
+              "coordinated": true
+            },
+            "activeVoices": 0,
+            "fxBuffers": 7,
+            "music": {
+              "starts": 3,
+              "underruns": 0,
+              "maxBuffers": 3,
+              "maxNodes": 2,
+              "maxDecoded": 9331200,
+              "active": false,
+              "nodes": 0,
+              "queuedNodes": 0,
+              "buffers": 0,
+              "phase": 611328,
+              "coveredSeconds": 0
+            },
+            "loader": {
+              "fetches": 12,
+              "cacheHits": 0,
+              "decodes": 11,
+              "maxFetches": 1,
+              "maxEncoded": 6773340,
+              "maxDecodes": 1,
+              "cacheDisabled": false,
+              "encoded": 0,
+              "pending": 0,
+              "decodePending": 0
+            },
+            "events": {
+              "inspected": 0,
+              "retained": 0,
+              "dropped": 0
+            },
+            "eventTotals": {
+              "frames": 705,
+              "lateFrames": 2,
+              "disabled": 500,
+              "inspected": 1,
+              "classified": 1
+            },
+            "seen": 1,
+            "cooldowns": 0,
+            "stats": {
+              "inspections": 1,
+              "candidates": 1,
+              "eligible": 0,
+              "starts": 0,
+              "dropped": 1,
+              "maxVoices": 0,
+              "frames": 493,
+              "maxFrameMs": 2,
+              "maxReservedPeak": 0,
+              "reconciliations": 19,
+              "contextCreations": 1,
+              "inspectionLimit": 128,
+              "flushP95": 0.09999996423721313,
+              "flushP99": 0.10000002384185791
+            },
+            "mix": {
+              "master": 0.8,
+              "music": 1,
+              "effects": 1,
+              "effectsReservedPeak": 0.2
+            },
+            "sampleRate": 48000,
+            "baseLatency": 0.010020833333333333,
+            "outputLatency": 0.032
+          },
+          "heap": {
+            "used": 29400000,
+            "total": 44700000
+          },
+          "resource": [
+            {
+              "name": "style.css",
+              "encoded": 26244,
+              "transfer": 26544,
+              "duration": 15.399999976158142
+            },
+            {
+              "name": "app.mjs",
+              "encoded": 2105533,
+              "transfer": 2105833,
+              "duration": 29.899999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 390
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 352.89999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 330.69999998807907
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 342.69999998807907
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 345.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 256.69999998807907
+            },
+            {
+              "name": "configuration-entry.bin",
+              "encoded": 1163,
+              "transfer": 1463,
+              "duration": 7.900000035762787
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 183.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 316.5999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 460.2000000476837
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 177.69999998807907
+            },
+            {
+              "name": "manifest.json",
+              "encoded": 32250,
+              "transfer": 32550,
+              "duration": 19.899999976158142
+            },
+            {
+              "name": "000-978533bbde679a0d.flac",
+              "encoded": 1354668,
+              "transfer": 1354968,
+              "duration": 49
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 234.30000001192093
+            },
+            {
+              "name": "wall-ripple-a-3644a32147c83a21.flac",
+              "encoded": 105841,
+              "transfer": 106141,
+              "duration": 27
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 81.59999996423721
+            },
+            {
+              "name": "001-7ab28b46da414f75.flac",
+              "encoded": 1254402,
+              "transfer": 1254702,
+              "duration": 38.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 258.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 216.0999999642372
+            },
+            {
+              "name": "wall-ripple-b-b00a94f8e88ec309.flac",
+              "encoded": 106109,
+              "transfer": 106409,
+              "duration": 19.099999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 83
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 278.4000000357628
+            },
+            {
+              "name": "002-ab9e812cea73ff2d.flac",
+              "encoded": 1235689,
+              "transfer": 1235989,
+              "duration": 33.799999952316284
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 132.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 267.19999998807907
+            },
+            {
+              "name": "wall-ripple-c-12d52c1290972681.flac",
+              "encoded": 107976,
+              "transfer": 108276,
+              "duration": 19.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 224.19999998807907
+            },
+            {
+              "name": "cannon-launch-soft-00052a3c9bb1f50d.flac",
+              "encoded": 150941,
+              "transfer": 151241,
+              "duration": 27.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 80.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 227.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 227.10000002384186
+            },
+            {
+              "name": "friendly-contact-a-e561a8e1413e5b89.flac",
+              "encoded": 8334,
+              "transfer": 8634,
+              "duration": 18.399999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 79.79999995231628
+            },
+            {
+              "name": "friendly-contact-b-c46c20436673ab27.flac",
+              "encoded": 9518,
+              "transfer": 9818,
+              "duration": 25.899999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 589.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 235.9000000357628
+            },
+            {
+              "name": "neutral-contact-3c37d8751e36c470.flac",
+              "encoded": 3697,
+              "transfer": 3997,
+              "duration": 21.799999952316284
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 260.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 195.19999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 86
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 274.0999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 190.19999998807907
+            },
+            {
+              "name": "003-5a9a811a71e0dbf5.flac",
+              "encoded": 1308010,
+              "transfer": 1308310,
+              "duration": 36.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 82.59999996423721
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 389.4000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 228.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 236.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 112.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 251
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 208.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 119.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 215.70000004768372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 151.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 194.5999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 260.4000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 129.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 537.1999999880791
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 226.9000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 217.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 87.90000003576279
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 221.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 205
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 209.79999995231628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 214.4000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 280.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 393.89999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 245.19999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 194.9000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 248.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 228.89999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 235.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 122.39999997615814
+            }
+          ]
+        }
+      },
+      "errors": [],
+      "forbidden": []
+    },
+    {
+      "variant": "B",
+      "verified_world_seconds": 1.659972958965227,
+      "enabled_before": {
+        "head": "9382",
+        "root": "b967a138632d6bccb914371d15f0c7c70764383618e45f34a04c28a0469b5fa3",
+        "rules": 7,
+        "balls": 1,
+        "cannons": 1,
+        "time": 9378.032332000004,
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "audio": {
+          "contextState": "running",
+          "loading": true,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": true,
+          "blocked": false,
+          "hidden": false,
+          "usable": true,
+          "settings": {
+            "version": 2,
+            "enabled": true
+          },
+          "ownership": {
+            "id": "41fd3a4a-feb6-44d7-b1cb-bbff732087e9",
+            "owner": "41fd3a4a-feb6-44d7-b1cb-bbff732087e9",
+            "owns": true,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 1,
+          "music": {
+            "starts": 2,
+            "underruns": 0,
+            "maxBuffers": 2,
+            "maxNodes": 2,
+            "maxDecoded": 6220800,
+            "active": true,
+            "nodes": 2,
+            "queuedNodes": 2,
+            "buffers": 2,
+            "phase": 9215.999999999987,
+            "coveredSeconds": 15.808
+          },
+          "loader": {
+            "fetches": 5,
+            "cacheHits": 0,
+            "decodes": 3,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": false,
+            "encoded": 530545,
+            "pending": 1,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 132,
+            "lateFrames": 2,
+            "disabled": 117,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 104,
+            "maxFrameMs": 0.40000003576278687,
+            "maxReservedPeak": 0,
+            "reconciliations": 6,
+            "contextCreations": 1,
+            "inspectionLimit": 128,
+            "flushP95": 0.10000002384185791,
+            "flushP99": 0.10000002384185791
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "heap": {
+          "used": 33100000,
+          "total": 44700000
+        },
+        "resource": [
+          {
+            "name": "style.css",
+            "encoded": 32469,
+            "transfer": 32769,
+            "duration": 12.599999964237213
+          },
+          {
+            "name": "app.mjs",
+            "encoded": 2126341,
+            "transfer": 2126641,
+            "duration": 27.5
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 260.69999998807907
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 257.69999998807907
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 216.5999999642372
+          },
+          {
+            "name": "read_state",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 371.9000000357628
+          },
+          {
+            "name": "read_state",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 187.4000000357628
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 211.5
+          },
+          {
+            "name": "configuration-entry.bin",
+            "encoded": 1163,
+            "transfer": 1463,
+            "duration": 5.400000035762787
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 213.5
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 226.79999995231628
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 364.5
+          },
+          {
+            "name": "manifest.json",
+            "encoded": 32250,
+            "transfer": 32550,
+            "duration": 18.399999976158142
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 168.20000004768372
+          },
+          {
+            "name": "000-978533bbde679a0d.flac",
+            "encoded": 1354668,
+            "transfer": 1354968,
+            "duration": 31.100000023841858
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 276.30000001192093
+          },
+          {
+            "name": "wall-ripple-a-3644a32147c83a21.flac",
+            "encoded": 105841,
+            "transfer": 106141,
+            "duration": 20.399999976158142
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 189.5999999642372
+          },
+          {
+            "name": "001-7ab28b46da414f75.flac",
+            "encoded": 1254402,
+            "transfer": 1254702,
+            "duration": 45.60000002384186
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 47.69999998807907
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 267.19999998807907
+          },
+          {
+            "name": "wall-ripple-b-b00a94f8e88ec309.flac",
+            "encoded": 106109,
+            "transfer": 106409,
+            "duration": 17.099999964237213
+          }
+        ]
+      },
+      "enabled": {
+        "frame_ms_p50": 66.60000000000036,
+        "frame_ms_p95": 100.10000000000036,
+        "frame_ms_p99": 116.70000000000073,
+        "state": {
+          "head": "9382",
+          "root": "b967a138632d6bccb914371d15f0c7c70764383618e45f34a04c28a0469b5fa3",
+          "rules": 7,
+          "balls": 1,
+          "cannons": 1,
+          "time": 9378.153327000027,
+          "camera": [
+            0.5,
+            0.5,
+            48
+          ],
+          "audio": {
+            "contextState": "running",
+            "loading": false,
+            "gameReady": true,
+            "generation": 0,
+            "lastError": "",
+            "unlocked": true,
+            "blocked": false,
+            "hidden": false,
+            "usable": true,
+            "settings": {
+              "version": 2,
+              "enabled": true
+            },
+            "ownership": {
+              "id": "41fd3a4a-feb6-44d7-b1cb-bbff732087e9",
+              "owner": "41fd3a4a-feb6-44d7-b1cb-bbff732087e9",
+              "owns": true,
+              "coordinated": true
+            },
+            "activeVoices": 0,
+            "fxBuffers": 7,
+            "music": {
+              "starts": 3,
+              "underruns": 0,
+              "maxBuffers": 3,
+              "maxNodes": 2,
+              "maxDecoded": 9331200,
+              "active": true,
+              "nodes": 2,
+              "queuedNodes": 2,
+              "buffers": 3,
+              "phase": 588800,
+              "coveredSeconds": 11.733333333333334
+            },
+            "loader": {
+              "fetches": 12,
+              "cacheHits": 0,
+              "decodes": 11,
+              "maxFetches": 1,
+              "maxEncoded": 6773340,
+              "maxDecodes": 1,
+              "cacheDisabled": false,
+              "encoded": 0,
+              "pending": 0,
+              "decodePending": 0
+            },
+            "events": {
+              "inspected": 0,
+              "retained": 0,
+              "dropped": 0
+            },
+            "eventTotals": {
+              "frames": 313,
+              "lateFrames": 2,
+              "disabled": 117,
+              "inspected": 1,
+              "classified": 1
+            },
+            "seen": 1,
+            "cooldowns": 0,
+            "stats": {
+              "inspections": 1,
+              "candidates": 1,
+              "eligible": 0,
+              "starts": 0,
+              "dropped": 1,
+              "maxVoices": 0,
+              "frames": 285,
+              "maxFrameMs": 0.40000003576278687,
+              "maxReservedPeak": 0,
+              "reconciliations": 17,
+              "contextCreations": 1,
+              "inspectionLimit": 128,
+              "flushP95": 0.10000002384185791,
+              "flushP99": 0.10000002384185791
+            },
+            "mix": {
+              "master": 0.8,
+              "music": 1,
+              "effects": 1,
+              "effectsReservedPeak": 0.2
+            },
+            "sampleRate": 48000,
+            "baseLatency": 0.010020833333333333,
+            "outputLatency": 0.032
+          },
+          "heap": {
+            "used": 33100000,
+            "total": 44700000
+          },
+          "resource": [
+            {
+              "name": "style.css",
+              "encoded": 32469,
+              "transfer": 32769,
+              "duration": 12.599999964237213
+            },
+            {
+              "name": "app.mjs",
+              "encoded": 2126341,
+              "transfer": 2126641,
+              "duration": 27.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 260.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 257.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 216.5999999642372
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 371.9000000357628
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 187.4000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 211.5
+            },
+            {
+              "name": "configuration-entry.bin",
+              "encoded": 1163,
+              "transfer": 1463,
+              "duration": 5.400000035762787
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 213.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 226.79999995231628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 364.5
+            },
+            {
+              "name": "manifest.json",
+              "encoded": 32250,
+              "transfer": 32550,
+              "duration": 18.399999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 168.20000004768372
+            },
+            {
+              "name": "000-978533bbde679a0d.flac",
+              "encoded": 1354668,
+              "transfer": 1354968,
+              "duration": 31.100000023841858
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 276.30000001192093
+            },
+            {
+              "name": "wall-ripple-a-3644a32147c83a21.flac",
+              "encoded": 105841,
+              "transfer": 106141,
+              "duration": 20.399999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 189.5999999642372
+            },
+            {
+              "name": "001-7ab28b46da414f75.flac",
+              "encoded": 1254402,
+              "transfer": 1254702,
+              "duration": 45.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 47.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 267.19999998807907
+            },
+            {
+              "name": "wall-ripple-b-b00a94f8e88ec309.flac",
+              "encoded": 106109,
+              "transfer": 106409,
+              "duration": 17.099999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 451.89999997615814
+            },
+            {
+              "name": "002-ab9e812cea73ff2d.flac",
+              "encoded": 1235689,
+              "transfer": 1235989,
+              "duration": 21.899999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 179.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 45.60000002384186
+            },
+            {
+              "name": "wall-ripple-c-12d52c1290972681.flac",
+              "encoded": 107976,
+              "transfer": 108276,
+              "duration": 20.599999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 195.19999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 227.89999997615814
+            },
+            {
+              "name": "cannon-launch-soft-00052a3c9bb1f50d.flac",
+              "encoded": 150941,
+              "transfer": 151241,
+              "duration": 20.099999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 209.69999998807907
+            },
+            {
+              "name": "friendly-contact-a-e561a8e1413e5b89.flac",
+              "encoded": 8334,
+              "transfer": 8634,
+              "duration": 18.799999952316284
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 59.19999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 164.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 167.39999997615814
+            },
+            {
+              "name": "friendly-contact-b-c46c20436673ab27.flac",
+              "encoded": 9518,
+              "transfer": 9818,
+              "duration": 17.600000023841858
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 50.89999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 221.70000004768372
+            },
+            {
+              "name": "neutral-contact-3c37d8751e36c470.flac",
+              "encoded": 3697,
+              "transfer": 3997,
+              "duration": 15.699999988079071
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 211.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 180.9000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 231.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 370.5
+            },
+            {
+              "name": "003-5a9a811a71e0dbf5.flac",
+              "encoded": 1308010,
+              "transfer": 1308310,
+              "duration": 38.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 763.0999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 176.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 210.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 197.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 300.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 83.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 221.69999998807907
+            }
+          ]
+        }
+      },
+      "muted": {
+        "frame_ms_p50": 66.59999999999854,
+        "frame_ms_p95": 99.90000000000146,
+        "frame_ms_p99": 200,
+        "state": {
+          "head": "9382",
+          "root": "b967a138632d6bccb914371d15f0c7c70764383618e45f34a04c28a0469b5fa3",
+          "rules": 7,
+          "balls": 1,
+          "cannons": 1,
+          "time": 9378.276823000051,
+          "camera": [
+            0.5,
+            0.5,
+            48
+          ],
+          "audio": {
+            "contextState": "running",
+            "loading": false,
+            "gameReady": true,
+            "generation": 1,
+            "lastError": "",
+            "unlocked": true,
+            "blocked": false,
+            "hidden": false,
+            "usable": false,
+            "settings": {
+              "version": 2,
+              "enabled": false
+            },
+            "ownership": {
+              "id": "41fd3a4a-feb6-44d7-b1cb-bbff732087e9",
+              "owner": null,
+              "owns": false,
+              "coordinated": true
+            },
+            "activeVoices": 0,
+            "fxBuffers": 7,
+            "music": {
+              "starts": 3,
+              "underruns": 0,
+              "maxBuffers": 3,
+              "maxNodes": 2,
+              "maxDecoded": 9331200,
+              "active": false,
+              "nodes": 0,
+              "queuedNodes": 0,
+              "buffers": 0,
+              "phase": 618112,
+              "coveredSeconds": 0
+            },
+            "loader": {
+              "fetches": 12,
+              "cacheHits": 0,
+              "decodes": 11,
+              "maxFetches": 1,
+              "maxEncoded": 6773340,
+              "maxDecodes": 1,
+              "cacheDisabled": false,
+              "encoded": 0,
+              "pending": 0,
+              "decodePending": 0
+            },
+            "events": {
+              "inspected": 0,
+              "retained": 0,
+              "dropped": 0
+            },
+            "eventTotals": {
+              "frames": 690,
+              "lateFrames": 2,
+              "disabled": 485,
+              "inspected": 1,
+              "classified": 1
+            },
+            "seen": 1,
+            "cooldowns": 0,
+            "stats": {
+              "inspections": 1,
+              "candidates": 1,
+              "eligible": 0,
+              "starts": 0,
+              "dropped": 1,
+              "maxVoices": 0,
+              "frames": 478,
+              "maxFrameMs": 0.40000003576278687,
+              "maxReservedPeak": 0,
+              "reconciliations": 19,
+              "contextCreations": 1,
+              "inspectionLimit": 128,
+              "flushP95": 0.10000002384185791,
+              "flushP99": 0.10000002384185791
+            },
+            "mix": {
+              "master": 0.8,
+              "music": 1,
+              "effects": 1,
+              "effectsReservedPeak": 0.2
+            },
+            "sampleRate": 48000,
+            "baseLatency": 0.010020833333333333,
+            "outputLatency": 0.032
+          },
+          "heap": {
+            "used": 33100000,
+            "total": 44700000
+          },
+          "resource": [
+            {
+              "name": "style.css",
+              "encoded": 32469,
+              "transfer": 32769,
+              "duration": 12.599999964237213
+            },
+            {
+              "name": "app.mjs",
+              "encoded": 2126341,
+              "transfer": 2126641,
+              "duration": 27.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 260.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 257.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 216.5999999642372
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 371.9000000357628
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 187.4000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 211.5
+            },
+            {
+              "name": "configuration-entry.bin",
+              "encoded": 1163,
+              "transfer": 1463,
+              "duration": 5.400000035762787
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 213.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 226.79999995231628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 364.5
+            },
+            {
+              "name": "manifest.json",
+              "encoded": 32250,
+              "transfer": 32550,
+              "duration": 18.399999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 168.20000004768372
+            },
+            {
+              "name": "000-978533bbde679a0d.flac",
+              "encoded": 1354668,
+              "transfer": 1354968,
+              "duration": 31.100000023841858
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 276.30000001192093
+            },
+            {
+              "name": "wall-ripple-a-3644a32147c83a21.flac",
+              "encoded": 105841,
+              "transfer": 106141,
+              "duration": 20.399999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 189.5999999642372
+            },
+            {
+              "name": "001-7ab28b46da414f75.flac",
+              "encoded": 1254402,
+              "transfer": 1254702,
+              "duration": 45.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 47.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 267.19999998807907
+            },
+            {
+              "name": "wall-ripple-b-b00a94f8e88ec309.flac",
+              "encoded": 106109,
+              "transfer": 106409,
+              "duration": 17.099999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 451.89999997615814
+            },
+            {
+              "name": "002-ab9e812cea73ff2d.flac",
+              "encoded": 1235689,
+              "transfer": 1235989,
+              "duration": 21.899999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 179.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 45.60000002384186
+            },
+            {
+              "name": "wall-ripple-c-12d52c1290972681.flac",
+              "encoded": 107976,
+              "transfer": 108276,
+              "duration": 20.599999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 195.19999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 227.89999997615814
+            },
+            {
+              "name": "cannon-launch-soft-00052a3c9bb1f50d.flac",
+              "encoded": 150941,
+              "transfer": 151241,
+              "duration": 20.099999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 209.69999998807907
+            },
+            {
+              "name": "friendly-contact-a-e561a8e1413e5b89.flac",
+              "encoded": 8334,
+              "transfer": 8634,
+              "duration": 18.799999952316284
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 59.19999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 164.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 167.39999997615814
+            },
+            {
+              "name": "friendly-contact-b-c46c20436673ab27.flac",
+              "encoded": 9518,
+              "transfer": 9818,
+              "duration": 17.600000023841858
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 50.89999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 221.70000004768372
+            },
+            {
+              "name": "neutral-contact-3c37d8751e36c470.flac",
+              "encoded": 3697,
+              "transfer": 3997,
+              "duration": 15.699999988079071
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 211.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 180.9000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 231.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 370.5
+            },
+            {
+              "name": "003-5a9a811a71e0dbf5.flac",
+              "encoded": 1308010,
+              "transfer": 1308310,
+              "duration": 38.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 763.0999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 176.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 210.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 197.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 300.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 83.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 221.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 466.2999999523163
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 234
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 84
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 207
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 172.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 193.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 50.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 422.89999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 52
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 273.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 202.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 92
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 175.20000004768372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 189.0999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 220.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 388.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 178.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 231.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 219.20000004768372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 202.19999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 233
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 190.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 231.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 174.5
+            }
+          ]
+        }
+      },
+      "errors": [],
+      "forbidden": []
+    },
+    {
+      "variant": "A",
+      "verified_world_seconds": 1.9128285279730335,
+      "enabled_before": {
+        "head": "9382",
+        "root": "b967a138632d6bccb914371d15f0c7c70764383618e45f34a04c28a0469b5fa3",
+        "rules": 7,
+        "balls": 1,
+        "cannons": 1,
+        "time": 9378.032999000006,
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "audio": {
+          "contextState": "running",
+          "loading": true,
+          "gameReady": true,
+          "generation": 0,
+          "lastError": "",
+          "unlocked": true,
+          "blocked": false,
+          "hidden": false,
+          "usable": true,
+          "settings": {
+            "version": 2,
+            "enabled": true
+          },
+          "ownership": {
+            "id": "3d99e73e-b46b-4e86-bc7d-6f8116ecd7dc",
+            "owner": "3d99e73e-b46b-4e86-bc7d-6f8116ecd7dc",
+            "owns": true,
+            "coordinated": true
+          },
+          "activeVoices": 0,
+          "fxBuffers": 1,
+          "music": {
+            "starts": 2,
+            "underruns": 0,
+            "maxBuffers": 2,
+            "maxNodes": 2,
+            "maxDecoded": 6220800,
+            "active": true,
+            "nodes": 2,
+            "queuedNodes": 2,
+            "buffers": 2,
+            "phase": 16383.999999999985,
+            "coveredSeconds": 15.658666666666665
+          },
+          "loader": {
+            "fetches": 5,
+            "cacheHits": 0,
+            "decodes": 3,
+            "maxFetches": 1,
+            "maxEncoded": 6773340,
+            "maxDecodes": 1,
+            "cacheDisabled": false,
+            "encoded": 530545,
+            "pending": 1,
+            "decodePending": 0
+          },
+          "events": {
+            "inspected": 0,
+            "retained": 0,
+            "dropped": 0
+          },
+          "eventTotals": {
+            "frames": 148,
+            "lateFrames": 2,
+            "disabled": 131,
+            "inspected": 0,
+            "classified": 0
+          },
+          "seen": 0,
+          "cooldowns": 0,
+          "stats": {
+            "inspections": 0,
+            "candidates": 0,
+            "eligible": 0,
+            "starts": 0,
+            "dropped": 0,
+            "maxVoices": 0,
+            "frames": 121,
+            "maxFrameMs": 0.10000002384185791,
+            "maxReservedPeak": 0,
+            "reconciliations": 6,
+            "contextCreations": 1,
+            "inspectionLimit": 128,
+            "flushP95": 0.09999996423721313,
+            "flushP99": 0.10000002384185791
+          },
+          "mix": {
+            "master": 0.8,
+            "music": 1,
+            "effects": 1,
+            "effectsReservedPeak": 0.2
+          },
+          "sampleRate": 48000,
+          "baseLatency": 0.010020833333333333,
+          "outputLatency": 0.032
+        },
+        "heap": {
+          "used": 29400000,
+          "total": 44700000
+        },
+        "resource": [
+          {
+            "name": "style.css",
+            "encoded": 26244,
+            "transfer": 26544,
+            "duration": 13.5
+          },
+          {
+            "name": "app.mjs",
+            "encoded": 2105533,
+            "transfer": 2105833,
+            "duration": 30.099999964237213
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 351.5999999642372
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 329.80000001192093
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 336.2000000476837
+          },
+          {
+            "name": "read_state",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 324.89999997615814
+          },
+          {
+            "name": "read_state",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 352.69999998807907
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 193.4000000357628
+          },
+          {
+            "name": "configuration-entry.bin",
+            "encoded": 1163,
+            "transfer": 1463,
+            "duration": 6.399999976158142
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 357.69999998807907
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 254.80000001192093
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 212.89999997615814
+          },
+          {
+            "name": "manifest.json",
+            "encoded": 32250,
+            "transfer": 32550,
+            "duration": 20.599999964237213
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 201.5999999642372
+          },
+          {
+            "name": "000-978533bbde679a0d.flac",
+            "encoded": 1354668,
+            "transfer": 1354968,
+            "duration": 35.09999996423721
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 83.29999995231628
+          },
+          {
+            "name": "wall-ripple-a-3644a32147c83a21.flac",
+            "encoded": 105841,
+            "transfer": 106141,
+            "duration": 18.899999976158142
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 422.5
+          },
+          {
+            "name": "001-7ab28b46da414f75.flac",
+            "encoded": 1254402,
+            "transfer": 1254702,
+            "duration": 39
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 266.5
+          },
+          {
+            "name": "query",
+            "encoded": 0,
+            "transfer": 0,
+            "duration": 250.10000002384186
+          },
+          {
+            "name": "wall-ripple-b-b00a94f8e88ec309.flac",
+            "encoded": 106109,
+            "transfer": 106409,
+            "duration": 14.400000035762787
+          }
+        ]
+      },
+      "enabled": {
+        "frame_ms_p50": 66.60000000000036,
+        "frame_ms_p95": 100,
+        "frame_ms_p99": 100.10000000000036,
+        "state": {
+          "head": "9383",
+          "root": "12a286d46302aecae2213fc77ec7241360d2140657a090e4ce79802c632d5908",
+          "rules": 7,
+          "balls": 1,
+          "cannons": 1,
+          "time": 9378.150994000029,
+          "camera": [
+            0.5,
+            0.5,
+            48
+          ],
+          "audio": {
+            "contextState": "running",
+            "loading": false,
+            "gameReady": true,
+            "generation": 0,
+            "lastError": "",
+            "unlocked": true,
+            "blocked": false,
+            "hidden": false,
+            "usable": true,
+            "settings": {
+              "version": 2,
+              "enabled": true
+            },
+            "ownership": {
+              "id": "3d99e73e-b46b-4e86-bc7d-6f8116ecd7dc",
+              "owner": "3d99e73e-b46b-4e86-bc7d-6f8116ecd7dc",
+              "owns": true,
+              "coordinated": true
+            },
+            "activeVoices": 0,
+            "fxBuffers": 7,
+            "music": {
+              "starts": 3,
+              "underruns": 0,
+              "maxBuffers": 3,
+              "maxNodes": 2,
+              "maxDecoded": 9331200,
+              "active": true,
+              "nodes": 2,
+              "queuedNodes": 2,
+              "buffers": 3,
+              "phase": 586368,
+              "coveredSeconds": 11.783999999999999
+            },
+            "loader": {
+              "fetches": 12,
+              "cacheHits": 0,
+              "decodes": 11,
+              "maxFetches": 1,
+              "maxEncoded": 6773340,
+              "maxDecodes": 1,
+              "cacheDisabled": false,
+              "encoded": 0,
+              "pending": 0,
+              "decodePending": 0
+            },
+            "events": {
+              "inspected": 0,
+              "retained": 0,
+              "dropped": 0
+            },
+            "eventTotals": {
+              "frames": 329,
+              "lateFrames": 2,
+              "disabled": 131,
+              "inspected": 1,
+              "classified": 1
+            },
+            "seen": 1,
+            "cooldowns": 0,
+            "stats": {
+              "inspections": 1,
+              "candidates": 1,
+              "eligible": 0,
+              "starts": 0,
+              "dropped": 1,
+              "maxVoices": 0,
+              "frames": 302,
+              "maxFrameMs": 0.5,
+              "maxReservedPeak": 0,
+              "reconciliations": 16,
+              "contextCreations": 1,
+              "inspectionLimit": 128,
+              "flushP95": 0.10000002384185791,
+              "flushP99": 0.10000002384185791
+            },
+            "mix": {
+              "master": 0.8,
+              "music": 1,
+              "effects": 1,
+              "effectsReservedPeak": 0.2
+            },
+            "sampleRate": 48000,
+            "baseLatency": 0.010020833333333333,
+            "outputLatency": 0.032
+          },
+          "heap": {
+            "used": 29400000,
+            "total": 44700000
+          },
+          "resource": [
+            {
+              "name": "style.css",
+              "encoded": 26244,
+              "transfer": 26544,
+              "duration": 13.5
+            },
+            {
+              "name": "app.mjs",
+              "encoded": 2105533,
+              "transfer": 2105833,
+              "duration": 30.099999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 351.5999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 329.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 336.2000000476837
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 324.89999997615814
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 352.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 193.4000000357628
+            },
+            {
+              "name": "configuration-entry.bin",
+              "encoded": 1163,
+              "transfer": 1463,
+              "duration": 6.399999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 357.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 254.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 212.89999997615814
+            },
+            {
+              "name": "manifest.json",
+              "encoded": 32250,
+              "transfer": 32550,
+              "duration": 20.599999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 201.5999999642372
+            },
+            {
+              "name": "000-978533bbde679a0d.flac",
+              "encoded": 1354668,
+              "transfer": 1354968,
+              "duration": 35.09999996423721
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 83.29999995231628
+            },
+            {
+              "name": "wall-ripple-a-3644a32147c83a21.flac",
+              "encoded": 105841,
+              "transfer": 106141,
+              "duration": 18.899999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 422.5
+            },
+            {
+              "name": "001-7ab28b46da414f75.flac",
+              "encoded": 1254402,
+              "transfer": 1254702,
+              "duration": 39
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 266.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 250.10000002384186
+            },
+            {
+              "name": "wall-ripple-b-b00a94f8e88ec309.flac",
+              "encoded": 106109,
+              "transfer": 106409,
+              "duration": 14.400000035762787
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 256.9000000357628
+            },
+            {
+              "name": "002-ab9e812cea73ff2d.flac",
+              "encoded": 1235689,
+              "transfer": 1235989,
+              "duration": 32.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 88.09999996423721
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 810.8999999761581
+            },
+            {
+              "name": "wall-ripple-c-12d52c1290972681.flac",
+              "encoded": 107976,
+              "transfer": 108276,
+              "duration": 19.399999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 198.39999997615814
+            },
+            {
+              "name": "cannon-launch-soft-00052a3c9bb1f50d.flac",
+              "encoded": 150941,
+              "transfer": 151241,
+              "duration": 20.299999952316284
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 241.4000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 230.60000002384186
+            },
+            {
+              "name": "friendly-contact-a-e561a8e1413e5b89.flac",
+              "encoded": 8334,
+              "transfer": 8634,
+              "duration": 22.100000023841858
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 248.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 224.9000000357628
+            },
+            {
+              "name": "friendly-contact-b-c46c20436673ab27.flac",
+              "encoded": 9518,
+              "transfer": 9818,
+              "duration": 21
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 214.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 265.0999999642372
+            },
+            {
+              "name": "neutral-contact-3c37d8751e36c470.flac",
+              "encoded": 3697,
+              "transfer": 3997,
+              "duration": 17.099999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 206.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 86
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 232.79999995231628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 266.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 213.70000004768372
+            },
+            {
+              "name": "003-5a9a811a71e0dbf5.flac",
+              "encoded": 1308010,
+              "transfer": 1308310,
+              "duration": 42
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 213.0999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 193.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 80.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 215.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 235.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 238.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 303.5
+            }
+          ]
+        }
+      },
+      "muted": {
+        "frame_ms_p50": 66.59999999999854,
+        "frame_ms_p95": 99.89999999999782,
+        "frame_ms_p99": 100.10000000000218,
+        "state": {
+          "head": "9383",
+          "root": "12a286d46302aecae2213fc77ec7241360d2140657a090e4ce79802c632d5908",
+          "rules": 7,
+          "balls": 1,
+          "cannons": 1,
+          "time": 9378.272322000052,
+          "camera": [
+            0.5,
+            0.5,
+            48
+          ],
+          "audio": {
+            "contextState": "running",
+            "loading": false,
+            "gameReady": true,
+            "generation": 1,
+            "lastError": "",
+            "unlocked": true,
+            "blocked": false,
+            "hidden": false,
+            "usable": false,
+            "settings": {
+              "version": 2,
+              "enabled": false
+            },
+            "ownership": {
+              "id": "3d99e73e-b46b-4e86-bc7d-6f8116ecd7dc",
+              "owner": null,
+              "owns": false,
+              "coordinated": true
+            },
+            "activeVoices": 0,
+            "fxBuffers": 7,
+            "music": {
+              "starts": 3,
+              "underruns": 0,
+              "maxBuffers": 3,
+              "maxNodes": 2,
+              "maxDecoded": 9331200,
+              "active": false,
+              "nodes": 0,
+              "queuedNodes": 0,
+              "buffers": 0,
+              "phase": 616704,
+              "coveredSeconds": 0
+            },
+            "loader": {
+              "fetches": 12,
+              "cacheHits": 0,
+              "decodes": 11,
+              "maxFetches": 1,
+              "maxEncoded": 6773340,
+              "maxDecodes": 1,
+              "cacheDisabled": false,
+              "encoded": 0,
+              "pending": 0,
+              "decodePending": 0
+            },
+            "events": {
+              "inspected": 0,
+              "retained": 0,
+              "dropped": 0
+            },
+            "eventTotals": {
+              "frames": 706,
+              "lateFrames": 2,
+              "disabled": 499,
+              "inspected": 1,
+              "classified": 1
+            },
+            "seen": 1,
+            "cooldowns": 0,
+            "stats": {
+              "inspections": 1,
+              "candidates": 1,
+              "eligible": 0,
+              "starts": 0,
+              "dropped": 1,
+              "maxVoices": 0,
+              "frames": 495,
+              "maxFrameMs": 0.5,
+              "maxReservedPeak": 0,
+              "reconciliations": 19,
+              "contextCreations": 1,
+              "inspectionLimit": 128,
+              "flushP95": 0.09999996423721313,
+              "flushP99": 0.10000002384185791
+            },
+            "mix": {
+              "master": 0.8,
+              "music": 1,
+              "effects": 1,
+              "effectsReservedPeak": 0.2
+            },
+            "sampleRate": 48000,
+            "baseLatency": 0.010020833333333333,
+            "outputLatency": 0.032
+          },
+          "heap": {
+            "used": 29400000,
+            "total": 44700000
+          },
+          "resource": [
+            {
+              "name": "style.css",
+              "encoded": 26244,
+              "transfer": 26544,
+              "duration": 13.5
+            },
+            {
+              "name": "app.mjs",
+              "encoded": 2105533,
+              "transfer": 2105833,
+              "duration": 30.099999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 351.5999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 329.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 336.2000000476837
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 324.89999997615814
+            },
+            {
+              "name": "read_state",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 352.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 193.4000000357628
+            },
+            {
+              "name": "configuration-entry.bin",
+              "encoded": 1163,
+              "transfer": 1463,
+              "duration": 6.399999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 357.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 254.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 212.89999997615814
+            },
+            {
+              "name": "manifest.json",
+              "encoded": 32250,
+              "transfer": 32550,
+              "duration": 20.599999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 201.5999999642372
+            },
+            {
+              "name": "000-978533bbde679a0d.flac",
+              "encoded": 1354668,
+              "transfer": 1354968,
+              "duration": 35.09999996423721
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 83.29999995231628
+            },
+            {
+              "name": "wall-ripple-a-3644a32147c83a21.flac",
+              "encoded": 105841,
+              "transfer": 106141,
+              "duration": 18.899999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 422.5
+            },
+            {
+              "name": "001-7ab28b46da414f75.flac",
+              "encoded": 1254402,
+              "transfer": 1254702,
+              "duration": 39
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 266.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 250.10000002384186
+            },
+            {
+              "name": "wall-ripple-b-b00a94f8e88ec309.flac",
+              "encoded": 106109,
+              "transfer": 106409,
+              "duration": 14.400000035762787
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 256.9000000357628
+            },
+            {
+              "name": "002-ab9e812cea73ff2d.flac",
+              "encoded": 1235689,
+              "transfer": 1235989,
+              "duration": 32.69999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 88.09999996423721
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 810.8999999761581
+            },
+            {
+              "name": "wall-ripple-c-12d52c1290972681.flac",
+              "encoded": 107976,
+              "transfer": 108276,
+              "duration": 19.399999976158142
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 198.39999997615814
+            },
+            {
+              "name": "cannon-launch-soft-00052a3c9bb1f50d.flac",
+              "encoded": 150941,
+              "transfer": 151241,
+              "duration": 20.299999952316284
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 241.4000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 230.60000002384186
+            },
+            {
+              "name": "friendly-contact-a-e561a8e1413e5b89.flac",
+              "encoded": 8334,
+              "transfer": 8634,
+              "duration": 22.100000023841858
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 248.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 224.9000000357628
+            },
+            {
+              "name": "friendly-contact-b-c46c20436673ab27.flac",
+              "encoded": 9518,
+              "transfer": 9818,
+              "duration": 21
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 214.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 265.0999999642372
+            },
+            {
+              "name": "neutral-contact-3c37d8751e36c470.flac",
+              "encoded": 3697,
+              "transfer": 3997,
+              "duration": 17.099999964237213
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 206.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 86
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 232.79999995231628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 266.30000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 213.70000004768372
+            },
+            {
+              "name": "003-5a9a811a71e0dbf5.flac",
+              "encoded": 1308010,
+              "transfer": 1308310,
+              "duration": 42
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 213.0999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 193.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 80.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 215.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 235.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 238.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 303.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 214.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 85.19999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 181.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 215.19999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 226.9000000357628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 233.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 256
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 262.5999999642372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 122.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 253.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 209.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 220.19999998807907
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 248.79999995231628
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 122.20000004768372
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 198
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 239.10000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 89.60000002384186
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 244.5
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 198.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 212.39999997615814
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 89.80000001192093
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 810.3999999761581
+            },
+            {
+              "name": "query",
+              "encoded": 0,
+              "transfer": 0,
+              "duration": 209.39999997615814
+            }
+          ]
+        }
+      },
+      "errors": [],
+      "forbidden": []
+    }
+  ],
+  "collection_status": "PASS observations collected; no performance threshold claim",
+  "candidate_runtime_source": "427199b38e847f4cfb7142db2b42212e804169a6",
+  "published_candidate": "367edf563222854423f2687711a21ab0087d7910",
+  "candidate_javascript_sha256": "c37ed0c363902e29443ba9eb1501c6b653873945bb63e7d92b341f8400f1085d",
+  "baseline_javascript_sha256": "3ee92eee3dda006c57f2dd17779e0e4babb947dc54942c6bd4998b975ebedbb2",
+  "limitations": "Same viewport/camera and first A/B verified head9382 with one visible ball, final A head9383. Shared-host software renderer, non-identical presentation times, coarse heap and muted p99 outlier; not matched deterministic dense scenes, causal incremental overhead or a P09 pass. Same-origin resource timing excludes opaque cross-origin query body sizes."
+}

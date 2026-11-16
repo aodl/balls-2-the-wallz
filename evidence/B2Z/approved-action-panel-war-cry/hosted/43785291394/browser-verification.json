@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S14",
+  "git_revision": "367edf563222854423f2687711a21ab0087d7910",
+  "started_utc": "2026-11-16T01:17:56.502430+00:00",
+  "mode": "browser",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "observer-http-webcrypto",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.11.18/x64/bin/python",
+        "-B",
+        "tools/verify_observer_http.py",
+        "--output",
+        ".work/ci-browser/browser-http"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/observer-http-webcrypto.log",
+      "elapsed_seconds": 5.633,
+      "timeout_seconds": 240,
+      "exit_contract": "project-wrapper-exit-2-is-blocked"
+    }
+  ],
+  "tested_artifacts": [],
+  "overall": "PASS"
+}

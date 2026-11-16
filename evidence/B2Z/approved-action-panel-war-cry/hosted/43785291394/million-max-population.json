@@ -1,0 +1,27 @@
+{
+  "artifact_bytes": 513075,
+  "balls": 64,
+  "clock": "PocketIC virtual scheduling plus local harness wall time; not mainnet wall time",
+  "cycles": "70766981513",
+  "event_bytes": 503120,
+  "harness_ticks_per_second": 0.8752151945752843,
+  "harness_wall_seconds": 9.140609132,
+  "pace": {
+    "mode": "Normal",
+    "nominal_milli": 1000,
+    "performance_limited": false,
+    "supported_milli": 1000
+  },
+  "publication_bytes": 4086,
+  "score_bytes": 277,
+  "stable_memory_bytes": 33619968,
+  "state_bytes": 9678,
+  "status": "PASS",
+  "ticks": 8,
+  "virtual_seconds": 7.15000043,
+  "virtual_ticks_per_second": 1.1188810515917689,
+  "world": [
+    1000,
+    1000
+  ]
+}

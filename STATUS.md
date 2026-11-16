@@ -1,8 +1,11 @@
-# Active development — approved read-only panel and War Cry candidate
+# Qualified candidate — approved read-only panel and War Cry (not deployed)
 
-Implementation and local source/native/browser qualification are complete; a
-replacement hosted qualification is pending after the proven UTF8 BOM correction
-and the narrowly reproduced optional-audio cancellation repair.
+All six substantive hosted gates PASS for published source
+`367edf563222854423f2687711a21ab0087d7910` in
+[run43785291394](https://github.com/aodl/balls-2-the-wallz/actions/runs/43785291394),
+including Browser and S14/million-cell installed-IC. The informational inventory
+guard is excluded. UTF8 BOM and optional-audio cancellation corrections have
+failing regressions retained and passing exact-source checks.
 Frozen runtime `427199b38e847f4cfb7142db2b42212e804169a6`, JavaScript
 `c37ed0c363902e29443ba9eb1501c6b653873945bb63e7d92b341f8400f1085d`,
 complete79-file inventory
@@ -17,7 +20,9 @@ Rules9 clearance or ICRC-2 activation. See the
 [focused report](evidence/B2Z/approved-action-panel-war-cry/REPORT.md),
 [normative contract](docs/specs/B2Z_WAR_CRY.md) and
 [separate release decisions](evidence/B2Z/approved-action-panel-war-cry/RELEASE_DECISIONS.md).
-No previous green CI qualifies the new runtime bytes.
+This exact run qualifies these frozen bytes; earlier green runs are not substituted.
+P09 remains FAIL/unqualified; physical listening/performance is NOT VERIFIED and
+BFCache is BLOCKED in the media-capture route.
 
 ---
 

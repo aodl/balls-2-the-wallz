@@ -1,0 +1,57 @@
+{
+  "source": "367edf563222854423f2687711a21ab0087d7910",
+  "run": 43785291394,
+  "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43785291394",
+  "conclusion": "success",
+  "substantive_gates": [
+    {
+      "id": 133031445579,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T01:16:33Z",
+      "completed_at": "2026-11-16T01:17:05Z"
+    },
+    {
+      "id": 133031445661,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T01:16:33Z",
+      "completed_at": "2026-11-16T01:18:17Z"
+    },
+    {
+      "id": 133031445725,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T01:16:32Z",
+      "completed_at": "2026-11-16T01:30:43Z"
+    },
+    {
+      "id": 133031445750,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T01:16:33Z",
+      "completed_at": "2026-11-16T01:19:15Z"
+    },
+    {
+      "id": 133031445816,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T01:16:33Z",
+      "completed_at": "2026-11-16T02:20:00Z"
+    },
+    {
+      "id": 133031445878,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T01:16:33Z",
+      "completed_at": "2026-11-16T01:18:42Z"
+    }
+  ],
+  "informational_guard_excluded": true
+}

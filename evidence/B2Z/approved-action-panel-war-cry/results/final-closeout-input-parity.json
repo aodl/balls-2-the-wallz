@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "qualified_source": "367edf563222854423f2687711a21ab0087d7910",
+  "frozen_runtime_source": "427199b38e847f4cfb7142db2b42212e804169a6",
+  "scope": "Final documentation/evidence continuation: all consumed frontend/backend runtime/build/dependency inputs and exact79 assets preserved; no rebuild or installation",
+  "inventory_sha256": "63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f",
+  "javascript_sha256": "c37ed0c363902e29443ba9eb1501c6b653873945bb63e7d92b341f8400f1085d",
+  "normal_wasm_sha256": "1cde99a3a43747106b7a7150414946cde2a1a6eb48f0d1aeb0355eaf85c1a45b",
+  "input_entries_checked": 470,
+  "files_checked": 79,
+  "public_files": 78,
+  "unchanged_audio_assets": 61
+}

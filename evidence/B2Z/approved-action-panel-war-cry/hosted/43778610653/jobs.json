@@ -1,0 +1,65 @@
+{
+  "run": 43778610653,
+  "source": "f3fb11664669a545e2747a9d106f2043aeecf372",
+  "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/43778610653",
+  "conclusion": "failure",
+  "scope": "Historical superseded source: five substantive passes; strict Browser failed optional audio cancellation, corrected in427199b. Not qualification for changed bytes.",
+  "jobs": [
+    {
+      "id": 133010490891,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T00:08:43Z",
+      "completed_at": "2026-11-16T00:10:32Z"
+    },
+    {
+      "id": 133010491106,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T00:08:43Z",
+      "completed_at": "2026-11-16T00:11:18Z"
+    },
+    {
+      "id": 133010491109,
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T00:08:43Z",
+      "completed_at": "2026-11-16T00:08:48Z"
+    },
+    {
+      "id": 133010491143,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "failure",
+      "started_at": "2026-11-16T00:08:43Z",
+      "completed_at": "2026-11-16T00:09:32Z"
+    },
+    {
+      "id": 133010491160,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T00:08:43Z",
+      "completed_at": "2026-11-16T00:09:28Z"
+    },
+    {
+      "id": 133010491184,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T00:08:43Z",
+      "completed_at": "2026-11-16T00:11:04Z"
+    },
+    {
+      "id": 133010491205,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-16T00:08:43Z",
+      "completed_at": "2026-11-16T01:16:07Z"
+    }
+  ]
+}

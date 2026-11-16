@@ -1,0 +1,25 @@
+{
+  "artifact_bytes": 15208,
+  "balls": 1,
+  "clock": "PocketIC virtual time; not mainnet wall time",
+  "cycles": "2281768791",
+  "event_bytes": 11274,
+  "pace": {
+    "mode": "Normal",
+    "nominal_milli": 1000,
+    "performance_limited": false,
+    "supported_milli": 1000
+  },
+  "publication_bytes": 4056,
+  "score_bytes": 159,
+  "seconds": 15.000000045,
+  "stable_memory_bytes": 33619968,
+  "state_bytes": 3775,
+  "status": "PASS",
+  "ticks": 15,
+  "ticks_per_second": 0.999999997,
+  "world": [
+    1000,
+    1000
+  ]
+}
