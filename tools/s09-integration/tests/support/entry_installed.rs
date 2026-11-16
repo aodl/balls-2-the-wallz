@@ -363,7 +363,13 @@ fn run_entry_and_clearance(
         "join-sent.json",
         &serde_json::json!({"position":join.to_string()}),
     );
-    while !browser_out.join("browser-join-seen").exists() {
+    // This is a financial/upgrade fixture, not a throughput window. Keep the
+    // real paid publication available until the native observer authenticates
+    // its receipt and visible entities. The IC, source and certificate remain
+    // live; resume before copying the old-rule packet or performing cutover.
+    let mut join_held = false;
+    let mut join_released = false;
+    loop {
         assert!(
             start.elapsed() < Duration::from_secs(300),
             "browser complete timeout"
@@ -373,6 +379,40 @@ fn run_entry_and_clearance(
             "inspect browser/browser.log"
         );
         live_record(&pic, id, &mut rows, &out);
+        if !join_held && arena_world(&pic, id).cannons.len() == 2 {
+            pause(&pic, id);
+            join_held = true;
+            save(
+                &out,
+                "join-publication-hold.json",
+                &serde_json::json!({
+                    "status":"HELD", "payment_position":join.to_string(),
+                    "head":observe(&pic,id).1.head.segment_id,
+                    "scope":"actual valueless paid setup publication; not a playback/performance window"
+                }),
+            );
+        }
+        if join_held && !join_released && browser_out.join("browser-join-receipt-seen").exists() {
+            playability_installed::configuration(&pic, id, 512);
+            join_released = true;
+        }
+        if browser_out.join("browser-join-seen").exists() {
+            assert!(
+                join_held && join_released,
+                "paid setup hold must end before cutover"
+            );
+            save(
+                &out,
+                "join-publication-hold.json",
+                &serde_json::json!({
+                    "status":"RELEASED", "payment_position":join.to_string(),
+                    "authenticated_receipt_and_visible_entities":true,
+                    "running_before_old_packet_and_cutover":status(&pic,id).run.running,
+                    "scope":"setup coordination only; not a throughput or latency qualification"
+                }),
+            );
+            break;
+        }
     }
     pause(&pic, id);
     if let Some(old) = &european_prior {

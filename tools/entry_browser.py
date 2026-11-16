@@ -26,6 +26,7 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
     wait_until(page,lambda:row()is not None,90000)
     receipt=row();assert receipt['actual_quantity']>0,receipt
     confirmed=time.monotonic();wait_until(page,lambda:page.evaluate('__b2zExperience.visible.cannons.size===2&&__b2zExperience.visible.balls.size===6'),60000)
+    (out/'browser-join-receipt-seen').write_text('authenticated real Join receipt and visible entities; release setup publication hold\n')
     select_cannon(page,2)
     assert not navigations,navigations
     page.locator('#close-panel').click();page.locator('#centre-cannon').click();page.screenshot(path=str(out/'after-join-desktop.png'))

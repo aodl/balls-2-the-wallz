@@ -917,6 +917,9 @@ def main():
     except Exception as error:
         __import__('traceback').print_exc()
         try:
+            report['failure_observer_state']=page.evaluate('''()=>({heads:globalThis.__dtrLive?.heads?.map(String),blocking:String(globalThis.__dtrLive?.delivery?.blocking??''),rules:globalThis.__b2zExperience?.session?.config?.rules_version,receipts:[...(globalThis.__b2zExperience?.session?.receipts?.keys()??[])].slice(-24).map(String),reference_cannons:globalThis.__b2zExperience?.session?.referenceWorld?.cannons?.length,visible_cannons:globalThis.__b2zExperience?.visible?.cannons?.size})''')
+        except Exception as diagnostic_error:report['failure_observer_diagnostic_error']=repr(diagnostic_error)
+        try:
             report['interaction_failure']=page.evaluate('''() => ({phase:document.body.dataset.phase,camera:globalThis.__b2zCamera?{x:__b2zCamera.x,y:__b2zCamera.y,scale:__b2zCamera.scale}:null,selected:globalThis.__b2zTools?.selection(),move:document.querySelector('#move-cell')?.value,memo:document.querySelector('#text-memo')?.textContent,note:document.querySelector('#preparation-note')?.textContent,action:document.querySelector('#action-prompt')?.textContent,offscreen:document.querySelector('#workspace')?.inert})''')
             page.screenshot(path=str(out/'exception-browser.png'))
         except Exception:pass
