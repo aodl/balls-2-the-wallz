@@ -157,6 +157,41 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
     for c in &mut world.credits {
         c.account = account.clone();
     }
+    if combined {
+        // Synthetic setup only: a dormant enemy anchor four rows north of our
+        // cannon makes its north Build neighbour unsafe. No runtime state hook.
+        let cell = world.cannons[0].cell;
+        let enemy_cell = ((cell / 1000 + 996) % 1000) * 1000 + cell % 1000;
+        let enemy_account = AccountIdentifier::new(
+            &Principal::self_authenticating([11; 32]),
+            &DEFAULT_SUBACCOUNT,
+        )
+        .to_hex();
+        world.set_owner(enemy_cell, 2).unwrap();
+        world.cannons.push(b2z_native::world::Cannon {
+            id: 2,
+            cell: enemy_cell,
+            account: enemy_account.clone(),
+            heading: None,
+        });
+        world.next_cannon_id = 3;
+        let p = world.playability.as_mut().unwrap();
+        p.players.push(b2z_native::playability::Player {
+            id: 2,
+            account: enemy_account,
+        });
+        p.territories
+            .push(b2z_native::territory_v6::Territory { id: 2, player: 2 });
+        p.lifecycle.push(b2z_native::playability::Lifecycle {
+            cannon: 2,
+            player: 2,
+            generation: 1,
+            dormant_since_ns: Some(Int(base.into())),
+            deadline_ns: Some(Int((base + 86_400_000_000_000).into())),
+        });
+        p.next_player_id = 3;
+        p.next_territory_id = 3;
+    }
     world.validate().unwrap();
     let initial = world.encode().unwrap();
     let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers(
@@ -375,6 +410,30 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
         let processing_cycles = purchase_cycles - pic.cycle_balance(id);
         sent.push(serde_json::json!({"position":position,"raw_memo_hex":hex(memo.as_bytes()),"memo":memo,"amount":amount,"normalized_hex":hex(&raw),"normalized_bytes":raw.len(),"admitted_purchase_window_cycles":processing_cycles.to_string(),"admitted_purchase_window_wall_ms":purchase_started.elapsed().as_millis(),"cost_scope":"normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote"}));
         playability_installed::record(&pic, id, &mut rows, &out);
+        if combined && sent.len() == 1 {
+            let w = arena_world(&pic, id);
+            let player = b2z_native::purchases_v6::player_by_account(&w, &account).unwrap();
+            let unsafe_site = b2z_native::purchases_v6::adjacent_sites(&w, player)
+                .unwrap()
+                .into_iter()
+                .find(|cell| !b2z_native::purchases_v6::enemy_clearance(&w, player, *cell))
+                .expect("real unsafe adjacent Build after Revive");
+            let text = format!("NEW 0 1 {unsafe_site}|Unsafe!");
+            let amount = 1_000_000_000u64;
+            let position = transfer_text(&pic, ledger, payer, id, amount, text.as_bytes());
+            let parsed = b2z_protocol::war_cry::parse_text(text.as_bytes()).unwrap();
+            let mut raw = b"BTZPAY03".to_vec();
+            raw.extend(AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).as_bytes());
+            raw.extend(amount.to_be_bytes());
+            raw.extend(b2z_protocol::v6::encode(parsed.command).unwrap());
+            raw.push(parsed.cry.len() as u8);
+            raw.extend(parsed.cry.as_bytes());
+            payments.insert(position, hex(&raw));
+            admitted(&pic, id, position);
+            playability_installed::one_tick(&pic, id);
+            playability_installed::record(&pic, id, &mut rows, &out);
+            sent.push(serde_json::json!({"position":position,"memo":text,"amount":amount,"expected_rejection":"ENEMY_TERRITORY_TOO_CLOSE","normalized_hex":hex(&raw)}));
+        }
     }
     // Explicit additional Build uses the existing authoritative site helper.
     // It is a proposal only; the normal interpreter still decides at processing.
@@ -382,8 +441,9 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
     let player = b2z_native::purchases_v6::player_by_account(&w, &account).unwrap();
     let site = *b2z_native::purchases_v6::adjacent_sites(&w, player)
         .unwrap()
-        .first()
-        .expect("eligible additional Build");
+        .iter()
+        .find(|cell| !combined || b2z_native::purchases_v6::enemy_clearance(&w, player, **cell))
+        .expect("eligible safe additional Build");
     let memo = format!("NEW 0 1 {site}|Build!");
     let amount = 1_000_000_000u64;
     let position = transfer_text(&pic, ledger, payer, id, amount, memo.as_bytes());
@@ -448,6 +508,25 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
         7,
         "Revive, partial Fire, distinct identical payments, first Join and explicit additional Build; no zero/rejected cry"
     );
+    if combined {
+        let unsafe_payment = sent
+            .iter()
+            .find(|r| r.get("expected_rejection").is_some())
+            .unwrap();
+        let position = unsafe_payment["position"].as_u64().unwrap().to_string();
+        let receipt = receipts
+            .iter()
+            .find(|r| r["position"]["$integer"].as_str() == Some(position.as_str()))
+            .expect("unsafe annotated New receipt");
+        assert_eq!(receipt["reason"], "ENEMY_TERRITORY_TOO_CLOSE");
+        assert_eq!(receipt["amount_used"]["$integer"], "0");
+        assert_eq!(receipt["remainder"], receipt["amount"]);
+        assert!(
+            annotations
+                .iter()
+                .all(|e| e["launch_annotation"]["position"] != receipt["position"])
+        );
+    }
     assert_eq!(annotations[0]["launch_annotation"]["cry"], "é😀");
     assert_eq!(annotations[1]["launch_annotation"]["cry"], "Charge!");
     assert_eq!(annotations[4]["launch_annotation"]["cry"], "Hello!");
@@ -485,7 +564,7 @@ fn run_war_cry(european_prior: Option<Vec<u8>>, combined: bool) {
     save(
         &out,
         "configuration.json",
-        &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":account,"expected_cry":"Build!","expected_cannon":3,"expected_rules":if combined {11}else{10}}),
+        &serde_json::json!({"network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),"ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),"root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":account,"expected_cry":"Build!","expected_cannon":if combined {4}else{3},"expected_rules":if combined {11}else{10}}),
     );
     assert!(
         std::process::Command::new("node")
