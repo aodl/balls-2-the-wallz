@@ -12,6 +12,7 @@ if a.baseline_root:
 
  for name in ['camera.mjs','model.mjs']:text=text.replace("'../../apps/b2z-observer/"+name+"'",repr(str(root/'apps/b2z-observer'/name)))
  text=text.replace("'@dtr/timeline-runtime/runtime/canonical'",repr(str(root/'node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs')))
+ text=text.replace("'../../packages/kernels/b2z/deflector-boundary.mjs'",repr(str(root/'packages/kernels/b2z/deflector-boundary.mjs')))
  entry=out/'baseline-entry.mjs';entry.write_text(text)
 subprocess.run(['node_modules/.bin/esbuild',str(entry),'--bundle','--format=esm','--platform=browser','--outfile='+str(out/'fixture.mjs')],check=True)
 (out/'index.html').write_text('<!doctype html><html><head><meta charset="utf-8"><link rel="stylesheet" href="style.css"></head><body><canvas id="board"></canvas><script type="module" src="fixture.mjs"></script></body></html>');(out/'style.css').write_bytes((root/'apps/b2z-observer/style.css').read_bytes())

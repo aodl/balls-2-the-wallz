@@ -389,3 +389,35 @@ development brief. A rendered wedge or exact contact probe is not an authenticat
 mechanic or supporting payment capability. No Deflector normal Wasm is qualified.
 Do not use the unchanged Rules11 module as a Deflector release. Future numeric,
 schema, source, migration, exact artifact and capability approvals remain separate.
+
+## Four-direction Deflector successor — development only
+
+See [the current mechanic](../specs/B2Z_DEFLECTORS.md) and
+[numerical proof](../../evidence/B2Z/graphite-deflectors/boundary-deflector/NUMERICAL_PROOF.md).
+This continuation has no production authority. Preserve Rules11 normal5ffb6cc2…
+and graphite frontend25ac2af8…; do not overwrite their frozen directories.
+
+A future candidate release requires independently qualified compatible frontend,
+normal successor Wasm, exact Rules11 predecessor, schema7/adapter7 identity and
+an approved decision register (heading mapping, rearm exception, one-tick allowance,
+0.1ICP and capacities). Current Europe remains Rules7. No direct Rules7→Deflector
+shortcut is supported. Rules7→Rules11 is a separate owner decision and maintenance.
+
+The current read-only European observation reports a stored segment allowance2
+and effective Trickle publication1. The successor preparation requires stored
+allowance1; it will refuse a larger allowance without silently changing settings.
+Any future operating-setting change therefore needs separate owner approval and
+its own qualified, explicit procedure. Disposable setup uses allowance1 before
+recording the preserved Rules11 baseline; it does not establish production readiness.
+
+Future prepare/drain/commit must use the existing controller architecture, healthy
+source and required liquid resources, no competing transition, complete official
+Index/ledger watermark, all old-adapter inputs completed, and the exact current
+manifest. Recheck the manifest immediately before commit. Identical commit retry
+is idempotent; changed/superseded/conflicting manifests must fail. No switch inside
+an admitted batch. Schema6 projection of the migrated den1/empty-structure world
+must equal predecessor bytes and preserve finance/cursor/journal/publication chain.
+After the authenticated epoch, Rules11-only modules/frontends are unsafe blind
+rollback targets. Recovery must preserve state and the new decoder; never reinstall,
+reset, restore old world snapshots, reverse an epoch, reindex paid history or invent
+refunds. No production upgrade/prepare/commit/funding is authorised by these docs.

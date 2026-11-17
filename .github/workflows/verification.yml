@@ -75,8 +75,10 @@ jobs:
       - name: Assert exact DTR release provenance
         run: python -B tools/check_dtr_provenance.py --manifest Cargo.toml --manifest native/Cargo.toml --output .work/ci-dtr-native.json
       - run: python -B tools/check.py native --output .work/ci-native
-      - name: Deflector geometry checkpoint (not installed mechanic qualification)
+      - name: Historical midpoint arithmetic regression (not gameplay qualification)
         run: python -B tools/verify_deflector_contact_checkpoint.py --output .work/ci-deflector-contact
+      - name: Four-direction exact oracle and bounded JS/native chains
+        run: python -B tools/verify_boundary_deflector_checkpoint.py --output .work/ci-boundary-numeric
       - name: Upload native evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -87,6 +89,7 @@ jobs:
             .work/ci-native/verification.json
             .work/ci-native/logs/**
             .work/ci-deflector-contact/**
+            .work/ci-boundary-numeric/**
           if-no-files-found: warn
           retention-days: 14
 
@@ -220,6 +223,8 @@ jobs:
           python -B tools/verify_audio_occlusion.py --fixture-dir .work/ci-audio/assets --policy-dir .work/ci-audio/policy-build --output .work/ci-audio-occlusion
           python -B tools/verify_audio_browser.py --controls-only --decode-delay-ms 500 --output .work/ci-audio-activation
           python -B tools/verify_audio_visibility.py --fixture-dir .work/ci-audio/assets --policy-dir .work/ci-audio/policy-build --output .work/ci-audio-visibility
+      - name: Four-direction controls, exact clipboard and frozen-copy fixture
+        run: python -B tools/verify_boundary_deflector_browser.py --output .work/ci-boundary-controls
       - name: Upload browser evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -235,6 +240,7 @@ jobs:
             .work/ci-audio-cache-cancel/*.png
             .work/ci-wire-capture/**
             .work/ci-graphite-models/**
+            .work/ci-boundary-controls/**
             .work/ci-human-experience/**
             .work/ci-tactical-grid/**
             .work/ci-tactical-journey/**
@@ -310,6 +316,8 @@ jobs:
             .work/ci-integration/logs/**
             .work/ci-integration/s14-local/*.json
             .work/ci-integration/s14-local/generated.did
+            .work/ci-integration/s14-local/normal.wasm
+            .work/ci-integration/s14-local/deployment/boundary-deflector/**
             .work/ci-integration/s14-local/logs/**
             .work/ci-integration/s14-local/deployment/browser.log
             .work/ci-integration/s14-local/deployment/clearance-*.json

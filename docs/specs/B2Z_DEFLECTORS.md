@@ -1,69 +1,121 @@
-# Deflector — design checkpoint, not an implemented authoritative capability
+# Four-direction boundary Deflector — provisional Rules12 candidate
 
-The controlling [owner brief](../../evidence/B2Z/graphite-deflectors/CODEX_PROMPT.md)
-requires a successor to combined Rules11, retaining both clearance and War Cry.
-Rules12 was unused in the inspected branch collection and is provisionally
-reserved for this work. No Rules12 identity/configuration/schema/adapter is
-certified or admitted by the application at this checkpoint. No DEFLECT payment
-instruction is exposed. Production Rules7 and the ongoing Rules11 release remain
-unchanged. Art is not gameplay authority.
+This specification supersedes the abandoned arbitrary-angle/interior-midpoint
+proposal. Its negative numerical evidence remains in the historical graphite
+report and [superseded specification](../../evidence/B2Z/graphite-deflectors/boundary-deflector/SUPERSEDED_MIDPOINT_SPEC.md).
+Candidate implementation is not production activation or completed qualification.
+The paid European Rules7 world and both qualified predecessor freezes are protected.
 
-## Required mechanic and provisional policy
+## Direction and contact
 
-A Deflector is passable, owned by a canonical funding account, fixed heading,
-non-anchoring and separate from cannons. An entering owner's ball turns at a
-path-dependent interior contact, keeps its identity/owner and uses the existing
-canonical heading/speed constructor. It is not a mirror or enemy projectile trap.
-Positive-duration incoming-chord midpoint is the prototype contact model; tangent
-and corner-only contacts do not qualify. Only applied authenticated events may
-create/remove structures or redirect balls.
+A Deflector is a blocked tile, separate from cannon IDs/capacity and never a
+territory anchor, ball source or claimant. It has one immutable orientation:
+NE, SE, SW or NW. Use canonical positive-x east, positive-y south coordinates.
+Front faces are NE:N/E, SE:S/E, SW:S/W, NW:N/W. Other faces are rear.
+Front selects the arrow vector; rear selects its opposite. Incoming velocity
+only determines the genuine contacted face, exact position and time. Both
+outgoing components have canonical magnitude22627 at nominal speed32000.
 
-Candidate purchase grammar is `DEFLECT <cell> <angle>`, with no quantity or War Cry.
-Owned active-island placement, processing-time four-cell enemy clearance,
-no cannon/Deflector/live-ball overlap,16/player and256/world, flat10,000,000e8s,
-removal on territory loss/pruning/retirement, no transfer/sell/rotate/expiry and
-retained-payment semantics are **provisional development policy**, not approved
-live economics. First Join, Fire/Revive, prices, seeds and annotations must retain
-combined Rules11 semantics. No source adapter or normal backend currently accepts
-this command. The distinct Build deflector workflow cannot be claimed complete.
+**Coordinate conflict resolved explicitly in the candidate:** the owner brief's
+binary labels would point in the wrong directions under the existing heading
+helper. Named directions and the normative front-face table take precedence:
+NE=57344, SE=8192, SW=24576, NW=40960. Cannon precision/math are unchanged. This
+mapping is pinned in the new candidate configuration, requiring owner review.
 
-## Numeric checkpoint and failed proposals
+Use the existing boundary-crossing scheduler, occupancy classification, intent
+ordering and blocked-vertex response. Keep the open-space source cell on impact.
+The exact position is continuous; no centre teleport, interior event, artificial
+pause or speed increase. A simultaneous two-axis vertex uses the existing blocked
+vertex response with **no front/rear claim**. Tangencies do not attempt entry.
+Intent structure IDs are revalidated after equal-time topology changes. Existing
+canonical player/ball event order, strike cancellation/expiry and topology order
+remain intact; no secondary collision scheduler is introduced.
 
-Schema6 uses integer global intercepts, not rational anchors. The executable
-JS/Rust checkpoint agrees with11 independent Fraction oracle vectors. In the
-same-speed(5,12)→(13,0) counterexample, contact is(5/48,3/4) at1/48 and the new
-x intercept is−1/6; at1024 units/tile this is−512/3. Rounding it inside the old
-schema would silently alter the trajectory. Historical validators/encodings are
-therefore left intact.
+## Numerical model and provisional progress policy
 
-An unbounded exact-anchor proposal is also not qualified: the explicit four-device
-abstract2×2 torus experiment has denominator growth of29/283/1417/4252 bits after
-10/100/500/1500 redirects (read actual result for exact final value). Positive
-isolated events and one-per-residence do not establish bounded lifetime encoding
-or work. This is a negative geometry experiment, not a certified1000×1000 world,
-canonical speed-table fixture, Zeno proof or installed payment.
+World schema7 stores `x0`, `y0` as integer numerators with a shared positive BigInt
+`den`; position is numerator/den + integer velocity*time. Reduce all three by their
+common gcd. Existing integer balls migrate exactly with den1. Bound den<=65536,
+abs(numerator)<=6553600000000000000, logical time<=1000000000. Fractional balls
+must have both component magnitudes22627. No host floating point affects execution.
+See the [proof and executed stress](../../evidence/B2Z/graphite-deflectors/boundary-deflector/NUMERICAL_PROOF.md).
 
-A versioned fixed-point intercept representation is an alternative, not implemented
-consensus: at a selected fine grid one must define exact integer rounding,
-cell-sidedness, event ties and cumulative spatial error, then update both engines,
-validators, animation, durable cursors and schema migration together. No arbitrary
-Number rounding, event dropping or stuck-ball deletion is accepted. Numeric and
-progress proofs remain unresolved; a new normal Wasm must not be frozen or called
-qualified while they are unresolved.
+A tight perpendicular arrangement permits about195494 contacts in one tick for
+one legitimate incoming heading. The unconditional redirect policy is therefore
+not economical. **Provisional exception requiring approval:** after an active
+redirect, rearm at t+4096/22627. Every actual Deflector contact before rearm uses
+ordinary cannon-style face reflection and an explicit
+`deflector_rearm_reflection` annotation; it is neither skipped nor delayed.
+Armed contacts emit `deflector_redirect` and front/rear. Expired rearm metadata is
+cleared at the next real boundary event. Exact vertices retain their separate
+exception. No wall-clock cooldown, dropped collision or deleted ball.
 
-## Required completion before an authoritative release
+The candidate accepts at most **one logical tick per publication**. Historical
+limits remain unchanged. Prepare/commit and subsequent start configuration reject
+larger allowances rather than changing operating policy. The first eight-tick
+proposal failed actual structural/artifact stress and is retained as negative
+evidence. The fixed-slot schema7 motion encoding retains exact values; a measured64-ball
+enclosed box at maximum logical time produces758133 event bytes; broader
+installed/capacity qualification must still establish release suitability.
 
-Implement the chosen bounded representation and simulated-time/distance rearm
-policy if needed; prove chain/loop progress and bounded message continuations.
-Integrate the interior event in the real scheduler, generation/visit invalidation,
-processing-time purchases, occupied-site rejection for Move/New, topology removal,
-receipts/accounting, source adapter, authenticated replay/projection and two native
-observers. Demonstrate actual official valueless Ledger/Index purchases and a
-redirect chain, including durable interruption and negatives. None of these
-installed Deflector claims follows from the geometry checkpoint.
+## State, lifecycle and processing-time placement
 
-The intended predecessor is combined Rules11, never an implicit experimental
-Rules7 replacement. An empty-Deflector schema migration, source cutover, exact
-predecessor/current-manifest commitment and forward recovery boundary need their
-own disposable qualification and later owner approval. Preserve all Rules7/9/10/11
-historical bytes. Do not activate or prepare any production transition here.
+`deflectors` are cell-sorted `{id, owner, cell, orientation}` with monotonically
+increasing `next_deflector_id`. Owner is the canonical player, never an island
+label. Binary occupancy lookup is bounded by log2(256). Placement requires an
+owned active island, no cannon/Deflector/inclusive live-ball closure and Rules11's
+7x7 toroidal Chebyshev enemy exclusion (distance0–3 invalid,4 permitted). Different
+same-player islands and neutral cells are not enemies. Dormant enemy land remains
+enemy land. Move and cannon construction also reject occupied Deflector cells.
+A structure is removed when its tile genuinely ceases to belong to its owner,
+including pruning/lifecycle expiry. It never keeps an otherwise empty island alive.
+
+Provisional price10000000e8s (0.1ICP),16/player,256/world; no sell/move/rotate/refund.
+These are candidate policy, not approved live economics. Reject with established
+retained-payment accounting: amount_used0 and remainder=received amount, no credit
+or automatic refund. Replayed source positions cannot duplicate structures.
+First Join, Fire/Revive, ordinary cannon prices and Rules11 War Cry remain unchanged.
+
+## Memo, source and successful presentation
+
+Adapter7 accepts only canonical `DEFLECT <cell> <NE|SE|SW|NW>` (cell0–999999,
+no leading zeros except0). No arbitrary angle, quantity or War Cry is accepted.
+Eight-byte command: b7,cell24,orientation0–3,three reserved zero bytes.
+BTZPAY04 authenticates account32,amountu64,command8,cry length and exact bounded
+UTF-8. Existing FIRE/NEW/MOVE grammar and successful-launch War Cry association are
+retained. Malformed paid commands receive deterministic rejection; present malformed
+text never falls back to numeric interpretation. Historical adapters and Rules7,
+9,10,11 identities/receipts/sealed publications retain their original interpretation.
+No delegated spender support or ICRC2 is enabled.
+
+Verified raw motion events carry exact trajectory and explicit contact metadata.
+Animation projection preserves rational tracks and genuine turn points. Structures
+and turns become visible only after successful authenticated event application.
+No extra Deflector audio, predicted collision or locally fabricated purchase.
+
+## Frontend and upgrade boundary
+
+The contextual toolbar is Focus · Fire · Move · Build cannon · Build deflector ·
+Close only under the exact authenticated supporting identity. Build cannon retains
+its cube; Build deflector has a distinct wedge icon and accessible name. Unsupported
+identities expose no actionable DEFLECT memo. No local feature flag grants authority.
+
+A cooperative cached search proposes a legal owned tile. No legal site disables the
+action. The owner-coloured graphite base stays fixed; its upper wedge snaps to one
+of four directions. Native board aiming and four44px directional buttons share one
+orientation model. The same measured floating-editor/dock instance reserves its
+space, retains focus/gesture locks and excludes aim/pan/pinch input. No quantity or
+War Cry editor appears for this nonlaunch action. Preserve the approved read-only
+panel, `Deflect & Pay`, full-value copying, payer reassociation and frozen Update/Keep.
+The chosen-tile retained-payment warning and active clearance risk remain explicit.
+
+Direct Rules11→12 uses controller-only prepare/drain/commit, exact predecessor and
+current manifest, official Index/ledger watermark, completed old batches, healthy
+source/resources and unchanged operating configuration. Schema6→7 adds empty
+structures and den1; projection back to6 must exactly match predecessor state bytes.
+Metadata version8 binds source/cursor, ledger cutover, adapter6→7, old/new identity,
+state hashes and preserved predecessor projection. Idempotent identical commits;
+stale/conflicting manifests fail. No production operation is authorised here.
+After activation old modules/frontends are incompatible rollback targets. Use a
+qualified compatible frontend first and state-preserving forward recovery, never
+reinstall/reset/reindex paid history or reverse the authenticated epoch.

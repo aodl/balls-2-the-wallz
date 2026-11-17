@@ -1130,3 +1130,20 @@ capability or authenticated mechanic yet. Build deflector/Deflect & Pay requires
 a future exact supporting identity, complete deterministic execution and replay;
 Rules7/11 must not offer an unsupported memo or fabricated redirect. Original
 references remain immutable; actual candidate captures are labelled separately.
+
+## Four-direction Deflector candidate (UX-02/03/05/07/08/10/11/12/13)
+
+The [current Deflector contract](B2Z_DEFLECTORS.md) supersedes the old midpoint
+proposal. The supporting certified successor adds one distinct wedge toolbar action,
+legal default owned site, four snapped directions and `Deflect & Pay` in the approved
+shared panel. Unsupported identities cannot prepare DEFLECT. The measured shared
+floating/docked editor uses the same instances and authoritative local action model;
+its full footprint excludes all board gestures. No quantity or War Cry for construction.
+Heading changes cannot displace a focused/pressed editor. Preserve the cell0,
+320×640/347.15° Fire quantity regression and zero status-panel drift.
+
+Only verified events create actual structures or redirect displayed balls at their
+exact boundary contact. Keep fixed tile-aligned bases, owner-coloured graphite
+accents, existing instanced silhouettes and audio. Native fixture control evidence
+is `tools/verify_boundary_deflector_browser.py`; it is not certified payment evidence.
+Disposable official Ledger/Index and independent observer qualification is separate.

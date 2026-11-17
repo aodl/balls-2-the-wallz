@@ -249,7 +249,7 @@ fn load() -> Result<(Root, Publication, World)> {
     Ok((r, p, w))
 }
 fn limits(w: &World) -> Limits {
-    let six = w.version == 6;
+    let six = w.version >= 6;
     Limits {
         total_cannons: if six { v6::MAX_CANNONS as u32 } else { 32 },
         total_balls: if six { v6::MAX_BALLS as u32 } else { 64 },
@@ -313,8 +313,11 @@ fn cannon(w: &World, id: u32) -> Result<Option<CannonView>> {
 }
 pub fn game_info() -> Result<GameInfo> {
     let (r, p, w) = load()?;
-    let configuration = if p.identity.config_hash == hash(b2z_native::combined_v11::configuration())
+    let configuration = if p.identity.config_hash
+        == hash(b2z_native::deflectors_v12::configuration())
     {
+        b2z_native::deflectors_v12::configuration()
+    } else if p.identity.config_hash == hash(b2z_native::combined_v11::configuration()) {
         b2z_native::combined_v11::configuration()
     } else if p.identity.config_hash == hash(b2z_native::war_cry::configuration()) {
         b2z_native::war_cry::configuration()
@@ -350,7 +353,7 @@ pub fn game_info() -> Result<GameInfo> {
 pub fn player_state(funding_account: String) -> Result<PlayerView> {
     account(&funding_account)?;
     let (r, p, w) = load()?;
-    let player = if w.version == 6 {
+    let player = if w.version >= 6 {
         purchases_v6::player_by_account(&w, &funding_account)
     } else {
         w.cannons
@@ -374,7 +377,7 @@ pub fn player_state(funding_account: String) -> Result<PlayerView> {
         .ownership_counts()
         .iter()
         .filter(|(island, _)| {
-            w.account_for_player(if w.version == 6 {
+            w.account_for_player(if w.version >= 6 {
                 territory_player(&w, *island)
             } else {
                 *island
@@ -393,7 +396,7 @@ pub fn player_state(funding_account: String) -> Result<PlayerView> {
     })
 }
 fn territory_player(w: &World, id: u32) -> u32 {
-    if w.version == 6 {
+    if w.version >= 6 {
         b2z_native::territory_v6::player(w, id).unwrap_or(0)
     } else {
         id
@@ -511,7 +514,7 @@ fn quote_items_with_rules(
     clearance_rules: bool,
 ) -> Result<Vec<u64>> {
     account(funding_account)?;
-    if w.version != 6 {
+    if w.version < 6 {
         return Err("RULES_V6_NOT_ACTIVE".into());
     }
     let memo = b2z_protocol::v6::encode(command(action)).map_err(|_| "COMMAND_BOUNDS")?;
@@ -526,6 +529,7 @@ fn quote_items_with_rules(
     let free = v6::MAX_BALLS.saturating_sub(w.balls.len());
     match plan {
         purchases_v6::Plan::Rejected { reason } => Err(reason),
+        purchases_v6::Plan::Deflect { price, .. } => Ok(vec![number(&price)?]),
         purchases_v6::Plan::Move { price, .. } => Ok(vec![number(&price)?]),
         purchases_v6::Plan::Fire {
             cannon, quantity, ..
@@ -651,9 +655,11 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
         p.identity.config_hash == hash(b2z_native::entry_v7::configuration())
             || p.identity.config_hash == hash(b2z_native::war_cry::configuration())
             || p.identity.config_hash == hash(b2z_native::clearance_v9::configuration())
-            || p.identity.config_hash == hash(b2z_native::combined_v11::configuration()),
+            || p.identity.config_hash == hash(b2z_native::combined_v11::configuration())
+            || p.identity.config_hash == hash(b2z_native::deflectors_v12::configuration()),
         p.identity.config_hash == hash(b2z_native::clearance_v9::configuration())
-            || p.identity.config_hash == hash(b2z_native::combined_v11::configuration()),
+            || p.identity.config_hash == hash(b2z_native::combined_v11::configuration())
+            || p.identity.config_hash == hash(b2z_native::deflectors_v12::configuration()),
     )?;
     let amount = prices
         .iter()

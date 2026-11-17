@@ -12,8 +12,8 @@ function ordered(xs,key){return xs.every((x,i)=>integer(x[key],1,MAX_U32-1)&&(!i
 function find(xs,id,key){let lo=0,hi=xs.length;while(lo<hi){const m=(lo+hi)>>1;if(xs[m][key]<id)lo=m+1;else hi=m;}return xs[lo]?.[key]===id?xs[lo]:undefined;}
 export const life=(w,id)=>find(w.playability?.lifecycle??[],id,'cannon');
 export const player=(w,id)=>find(w.playability?.players??[],id,'id');
-export function playerForCannon(w,id){return w.version===6?life(w,id)?.player:w.cannons.find(c=>c.id===id)?.id;}
-export function accountForPlayer(w,id){return w.version===6?player(w,id)?.account:w.cannons.find(c=>c.id===id)?.account;}
+export function playerForCannon(w,id){return w.version>=6?life(w,id)?.player:w.cannons.find(c=>c.id===id)?.id;}
+export function accountForPlayer(w,id){return w.version>=6?player(w,id)?.account:w.cannons.find(c=>c.id===id)?.account;}
 export function validatePlayability(w){
  const s=w.playability;if(!s||Object.keys(s).sort().join(',')!=='elapsed_ns,lifecycle,next_player_id,next_territory_id,players,territories')throw Error('PLAYER_IDENTITY');elapsed(s.elapsed_ns);
  if(!Array.isArray(s.players)||s.players.length>V6_POLICY.max_players||!ordered(s.players,'id')||!Array.isArray(s.lifecycle)||s.lifecycle.length!==w.cannons.length)throw Error('PLAYER_IDENTITY');

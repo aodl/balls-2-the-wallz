@@ -38,6 +38,44 @@ pub struct Ball {
     pub y0: Int,
     pub vx: i32,
     pub vy: i32,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "read_den"
+    )]
+    pub den: Option<Int>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "read_rearm"
+    )]
+    pub deflector_rearm: Option<Rat>,
+}
+fn read_den<'de, D: serde::Deserializer<'de>>(d: D) -> std::result::Result<Option<Int>, D::Error> {
+    Int::deserialize(d).map(Some)
+}
+fn read_rearm<'de, D: serde::Deserializer<'de>>(
+    d: D,
+) -> std::result::Result<Option<Rat>, D::Error> {
+    Rat::deserialize(d).map(Some)
+}
+#[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
+#[serde(deny_unknown_fields)]
+pub struct Deflector {
+    pub id: u32,
+    pub owner: u32,
+    pub cell: usize,
+    pub orientation: String,
+}
+fn read_deflectors<'de, D: serde::Deserializer<'de>>(
+    d: D,
+) -> std::result::Result<Option<Vec<Deflector>>, D::Error> {
+    Vec::<Deflector>::deserialize(d).map(Some)
+}
+fn read_deflector_id<'de, D: serde::Deserializer<'de>>(
+    d: D,
+) -> std::result::Result<Option<u32>, D::Error> {
+    u32::deserialize(d).map(Some)
 }
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(deny_unknown_fields)]
@@ -144,6 +182,18 @@ pub struct World {
     pub next_strike_id: u32,
     pub received_e8s: Int,
     pub credits: Vec<Credit>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "read_deflectors"
+    )]
+    pub deflectors: Option<Vec<Deflector>>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "read_deflector_id"
+    )]
+    pub next_deflector_id: Option<u32>,
 }
 pub fn account_ok(s: &str) -> bool {
     s.len() == 64
@@ -180,21 +230,38 @@ pub fn wrap_cell(x: i64, y: i64, width: usize, height: usize) -> usize {
 pub fn position(b: &Ball, t: &Rat) -> Result<[Rat; 2]> {
     let n = t.0.numer();
     let d = t.0.denom();
+    if b.den.as_ref().is_none_or(|d| d.0 == BigInt::from(1)) {
+        return Ok([
+            Rat::new(&b.x0.0 * d + BigInt::from(b.vx) * n, d.clone())?,
+            Rat::new(&b.y0.0 * d + BigInt::from(b.vy) * n, d.clone())?,
+        ]);
+    }
+    let denominator = b
+        .den
+        .as_ref()
+        .map(|v| v.0.clone())
+        .unwrap_or_else(|| BigInt::from(1));
     Ok([
-        Rat::new(&b.x0.0 * d + BigInt::from(b.vx) * n, d.clone())?,
-        Rat::new(&b.y0.0 * d + BigInt::from(b.vy) * n, d.clone())?,
+        Rat::new(
+            &b.x0.0 * d + BigInt::from(b.vx) * n * &denominator,
+            d * &denominator,
+        )?,
+        Rat::new(
+            &b.y0.0 * d + BigInt::from(b.vy) * n * &denominator,
+            d * &denominator,
+        )?,
     ])
 }
 impl World {
     pub fn player_for_cannon(&self, id: u32) -> Option<u32> {
-        if self.version == 6 {
+        if self.version >= 6 {
             self.playability.as_ref()?.life(id).map(|c| c.player)
         } else {
             self.cannons.iter().find(|c| c.id == id).map(|c| c.id)
         }
     }
     pub fn account_for_player(&self, id: u32) -> Option<&str> {
-        if self.version == 6 {
+        if self.version >= 6 {
             self.playability
                 .as_ref()?
                 .player(id)
@@ -208,7 +275,7 @@ impl World {
     }
     pub fn player_at(&self, cell: usize) -> Option<u32> {
         let id = self.owner(cell)?;
-        if self.version == 6 {
+        if self.version >= 6 {
             crate::territory_v6::player(self, id)
         } else {
             Some(id)
@@ -219,7 +286,7 @@ impl World {
             .map_or(0, |r| crate::territory_v6::balls(self, r))
     }
     pub fn active_cannon(&self, id: u32) -> bool {
-        if self.version == 6 {
+        if self.version >= 6 {
             self.territory_ball_count(id) > 0
         } else {
             self.balls.iter().any(|b| b.owner == id)
@@ -464,7 +531,7 @@ impl World {
     /// For resolved states only. Topology continuation snapshots may be transiently disconnected.
     pub fn validate(&self) -> Result<()> {
         let fail = |s: &str| -> Result<()> { Err(s.into()) };
-        if ![3, 4, 5, 6].contains(&self.version)
+        if ![3, 4, 5, 6, 7].contains(&self.version)
             || (self.version == 4 && (self.width != 32 || self.height != 32))
             || (self.version >= 5 && (self.width != 1000 || self.height != 1000))
             || !(1..=1000).contains(&self.width)
@@ -472,7 +539,7 @@ impl World {
             || (self.version < 5
                 && (self.cells.len() != self.cell_count() || self.ownership.is_some()))
             || (self.version >= 5 && (!self.cells.is_empty() || self.ownership.is_none()))
-            || (self.version == 6) != self.playability.is_some()
+            || (self.version >= 6) != self.playability.is_some()
         {
             return fail("world dimensions/version");
         }
@@ -540,13 +607,13 @@ impl World {
             return fail("world time");
         }
         if self.cannons.len()
-            > if self.version == 6 {
+            > if self.version >= 6 {
                 crate::playability::MAX_CANNONS
             } else {
                 32
             }
             || self.balls.len()
-                > if self.version == 6 {
+                > if self.version >= 6 {
                     crate::playability::MAX_BALLS
                 } else {
                     64
@@ -562,7 +629,7 @@ impl World {
             if (self.version == 3 && c.heading.is_some())
                 || c.id <= last
                 || c.id
-                    > if self.version == 6 {
+                    > if self.version >= 6 {
                         u32::MAX - 1
                     } else {
                         65535
@@ -574,7 +641,7 @@ impl World {
             {
                 return fail("cannon identity");
             }
-            ids.insert(if self.version == 6 {
+            ids.insert(if self.version >= 6 {
                 self.owner(c.cell).ok_or("unknown cannon territory")?
             } else {
                 c.id
@@ -602,7 +669,7 @@ impl World {
         }
         last = 0;
         for b in &self.balls {
-            let player = if self.version == 6 {
+            let player = if self.version >= 6 {
                 self.playability
                     .as_ref()
                     .and_then(|s| s.player(b.owner))
@@ -623,10 +690,18 @@ impl World {
                 return fail("ball bounds/identity");
             }
             last = b.id;
-            if b.x0.0.abs() > BigInt::from(100_000_000_000_000i64)
-                || b.y0.0.abs() > BigInt::from(100_000_000_000_000i64)
-            {
+            let limit = BigInt::from(if self.version == 7 {
+                6553600000000000000u64
+            } else {
+                100000000000000u64
+            });
+            if b.x0.0.abs() > limit || b.y0.0.abs() > limit {
                 return fail("motion intercept");
+            }
+            if self.version == 7 {
+                crate::deflectors_v12::validate_ball(b)?;
+            } else if b.den.is_some() || b.deflector_rearm.is_some() {
+                return fail("historical trajectory extension");
             }
             let [x, y] = position(b, &self.time)?;
             let cx = (b.cell % self.width) as i64;
@@ -703,6 +778,11 @@ impl World {
         if let Some(state) = &self.playability {
             state.validate(self)?;
         }
+        if self.version == 7 {
+            crate::deflectors_v12::validate(self)?;
+        } else if self.deflectors.is_some() || self.next_deflector_id.is_some() {
+            return fail("historical structure extension");
+        }
         Ok(())
     }
     pub fn valid_strike(&self, p: &Strike) -> bool {
@@ -712,6 +792,7 @@ impl World {
             && self.player_at(p.from) == Some(p.owner)
             && self.player_at(p.to) == Some(p.defender)
             && !self.cannons.iter().any(|c| c.cell == p.to)
+            && crate::deflectors_v12::at(self, p.to).is_none()
     }
     pub fn accrue(&mut self, dt: &Rat, areas: &[(u32, usize)]) -> Result<()> {
         if dt.0.is_negative() {

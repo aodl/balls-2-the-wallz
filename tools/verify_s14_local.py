@@ -120,6 +120,11 @@ def main():
         assert len(binaries)==1
         env={key:str(path.resolve()) for key,path in files.items()}
         env.update(B2Z_S14_WASM=str(out/'normal.wasm'),B2Z_S14_TEST_WASM=str(out/'test-hooks.wasm'),S14_TRACE=str(out/'index-trace.json'),S14_GENESIS_WORLD=str(out/'genesis-world.bin'),S14_LIVE_CLIENT_RESULT=str(out/'live-client.json'),S14_SNAPSHOT=str(out/'snapshot'),DFX_IDENTITY='codex_local',S14_BROWSER_PYTHON=a.browser_python,S14_DEPLOYMENT_OUTPUT=str(out/'deployment'),S14_SLOW_INDEX_WASM=str(ROOT/'tools/s14-index-fixture/target/wasm32-unknown-unknown/release/s14_index_fixture.wasm'))
+        import gzip
+        rules11=out/'rules11-predecessor.wasm'
+        rules11.write_bytes(gzip.decompress((ROOT/'vendor/b2z/rules11-5ffb6cc2.wasm.gz').read_bytes()))
+        assert hashlib.sha256(rules11.read_bytes()).hexdigest()=='5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43'
+        env['B2Z_RULES11_PRIOR_WASM']=str(rules11)
         env['B2Z_CMC_MOCK_WASM']=str(ROOT/'tools/cmc-funding-fixture/target/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm')
         if a.funding_prior_wasm:
             if hashlib.sha256(a.funding_prior_wasm.read_bytes()).hexdigest()!='53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec':raise ValueError('funding upgrade requires exact installed 53b219 module')

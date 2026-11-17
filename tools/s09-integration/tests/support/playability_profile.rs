@@ -57,6 +57,8 @@ fn world(balls: usize) -> World {
             let x = player * 1000 / players + 1000 / players / 2;
             let y = (i % (balls / players).max(1)) * 10;
             Ball {
+                den: None,
+                deflector_rearm: None,
                 id: (i + 1) as u32,
                 owner: (player + 1) as u32,
                 cell: y * 1000 + x,

@@ -20,7 +20,10 @@ with sync_playwright()as pw:
     r=route.request
     if r.method=='POST'and not r.url.endswith(('/query','/read_state')):forbidden.append(r.url);route.abort()
     else:route.continue_()
-   ctx.route('**/*',guard);page.goto(url,wait_until='domcontentloaded');page.wait_for_function('()=>globalThis.__b2zExperience?.session?.ready',timeout=60000);assert not page.evaluate('String(__b2zExperience.session.error??"")');assert page.evaluate('__b2zExperience.session.config.rules_version')==c.get('expected_rules',10)
+   ctx.route('**/*',guard)
+   if c.get('expected_rules')==12:
+    ctx.add_init_script('''globalThis.deflectorPresentationProbe={frames:0,states:[],structures:[]};let signature='';function inspectDeflectorFrame(){const e=globalThis.__b2zExperience,p=globalThis.deflectorPresentationProbe;if(e?.session?.ready&&e.visible?.version===7){p.frames++;const structures=[...e.visible.deflectors.values()].map(d=>({...d}));if(structures.length)p.structures=structures;const b=e.visible.balls.get(1);if(b){const s=[b.vx,b.vy,String(b.x0),String(b.y0),String(b.den)].join('/');if(s!==signature&&p.states.length<512){signature=s;p.states.push({time:e.visibleTime,vx:b.vx,vy:b.vy,x0:String(b.x0),y0:String(b.y0),den:String(b.den),source:String(e.session.sequence.last.publication.head.segment_id),displayed_interval:e.session.queue[0]?[e.session.queue[0].segment.start,e.session.queue[0].segment.end]:null});}}}requestAnimationFrame(inspectDeflectorFrame)}requestAnimationFrame(inspectDeflectorFrame);''')
+   page.goto(url,wait_until='domcontentloaded');page.wait_for_function('()=>globalThis.__b2zExperience?.session?.ready',timeout=60000);assert not page.evaluate('String(__b2zExperience.session.error??"")');assert page.evaluate('__b2zExperience.session.config.rules_version')==c.get('expected_rules',10)
    page.locator('#join-action').click();page.locator('#sending-account').fill(c['listening_account']);page.locator('#identity-save').click();page.wait_for_function('()=>document.getElementById("workspace").hidden');bubble=page.locator('.speech-bubble').filter(has_text=c['expected_cry']);bubble.wait_for(state='visible',timeout=20000)
    state=page.evaluate('''text=>{const b=[...document.querySelectorAll('.speech-bubble')].find(n=>n.textContent===text),e=__b2zExperience;return{at:Date.now(),born:Number(b.dataset.born),key:b.dataset.event,cannon:Number(b.dataset.cannon),text:b.textContent,head:String(e.session.sequence.last.publication.head.segment_id),identity:e.session.sequence.last.publication.identity,time:e.visibleTime,quantity:e.visible.balls.size,tag:b.firstElementChild.tagName,pointer:getComputedStyle(b).pointerEvents,rect:b.getBoundingClientRect().toJSON(),camera:[__b2zCamera.x,__b2zCamera.y,__b2zCamera.scale]}}''',c['expected_cry']);assert state['text']==c['expected_cry']and state['tag']=='BDI'and state['pointer']=='none';assert state['cannon']==c['expected_cannon'];report['observers'].append(state)
    if i==1:
@@ -28,7 +31,22 @@ with sync_playwright()as pw:
     # window on a busy host. Record actual output concurrently, without changing
     # DOM, visibility, clocks, playback or the application's timer.
     page.evaluate('''({text,born})=>{globalThis.speechLifetimeProbe={samples:[],expired:null};const timer=setInterval(()=>{const age=Date.now()-born,b=[...document.querySelectorAll('.speech-bubble')].find(n=>n.textContent===text);if(age>=55000&&age<60000&&b&&speechLifetimeProbe.samples.length<32)speechLifetimeProbe.samples.push({age_ms:age,opacity:Number(getComputedStyle(b).opacity),visibility:document.visibilityState});if(!b&&!speechLifetimeProbe.expired)speechLifetimeProbe.expired={at:Date.now(),age_ms:age};if(age>61500)clearInterval(timer);},200)}''',{'text':c['expected_cry'],'born':state['born']})
-   page.screenshot(path=str(out/f'observer-{i}-speech.png'));save()
+   page.screenshot(path=str(out/f'observer-{i}-speech.png'))
+   if c.get('expected_rules')==12:
+    page.wait_for_function('()=>deflectorPresentationProbe.structures.length===4&&deflectorPresentationProbe.states.length>=2',timeout=20000)
+    probe=page.evaluate('deflectorPresentationProbe');assert all(abs(x['vx'])==22627 and abs(x['vy'])==22627 for x in probe['states']if x['den']!='1');assert len({(x['vx'],x['vy'])for x in probe['states']})>=2;report['observers'][-1]['verified_redirect_presentation']=probe
+    page.locator('#centre-cannon').click()
+    if page.locator('#own-cannons button').first.is_visible():page.locator('#own-cannons button').first.click()
+    if page.locator('#focus-cannon').is_visible():page.locator('#focus-cannon').click()
+    page.wait_for_timeout(500);page.screenshot(path=str(out/f'observer-{i}-deflectors.png'))
+   save()
+  if c.get('observer_ready_marker'):
+   Path(c['observer_ready_marker']).write_text('Two ordinary observers have verified the paid snapshot and used public Focus.\n')
+   for i,page in enumerate(pages):
+    page.bring_to_front();page.wait_for_function('(end)=>deflectorPresentationProbe.states.filter(s=>s.time>end+.05).length>=2',arg=c['initial_replay_end'],timeout=45000)
+    probe=page.evaluate('deflectorPresentationProbe');active=[x for x in probe['states']if x['time']>c['initial_replay_end']+.05];assert len({(x['vx'],x['vy'])for x in active})>=2
+    report['observers'][i]['live_verified_redirects']=probe;page.screenshot(path=str(out/f'observer-{i}-live-redirects.png'));save()
+   assert sorted(report['observers'][0]['live_verified_redirects']['structures'],key=lambda d:d['id'])==sorted(report['observers'][1]['live_verified_redirects']['structures'],key=lambda d:d['id'])
   assert report['observers'][0]['key']==report['observers'][1]['key'];page=pages[0];ctx=contexts[0];page.bring_to_front();control=browser.new_browser_cdp_session();info=ctx.new_cdp_session(page).send('Target.getTargetInfo')['targetInfo'];params={'url':'about:blank','newWindow':False}
   with ctx.expect_page()as new:control.send('Target.createTarget',params)
   away=new.value;page.bring_to_front();wins=[control.send('Browser.getWindowForTarget',{'targetId':ctx.new_cdp_session(x).send('Target.getTargetInfo')['targetInfo']['targetId']})['windowId']for x in [page,away]];assert wins[0]==wins[1];report['visibility_context']='Ordinary default context; no Playwright focus emulation';report['visibility']=[]

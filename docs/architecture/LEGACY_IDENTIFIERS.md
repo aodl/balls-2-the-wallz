@@ -26,3 +26,8 @@ Raw-history normalization is epoch-specific: v1 binary/numeric, v2 S15 prefixed 
 The candidate War Cry extension retains the compatibility namespace in the exact
 normalized wire magic `BTZPAY03` and capability `btz-war-cry-1`. These are pinned
 protocol identifiers, not product branding. Historical BTZPAY02 remains unchanged.
+
+The provisional Rules12 adapter7 uses `BTZPAY04` and capability
+`btz-boundary-deflector-1`. These are new versioned compatibility identifiers,
+not a product-branding change. Historical `BTZPAY02`/`BTZPAY03` bytes remain
+unchanged; no prior paid memo is reparsed under the new grammar.

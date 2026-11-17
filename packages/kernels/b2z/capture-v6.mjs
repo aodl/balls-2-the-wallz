@@ -5,13 +5,14 @@ import {ownerAt,playerAt,neighbors,setOwner,validateWorld,validStrike,position} 
 import {SplitJob,rowRuns} from './territory-topology-v6.mjs';
 import {territoryPlayer,territoryBalls,pruneEmptyTerritory,mergeTerritories} from './territory-v6.mjs';
 import {reviveTerritory,metadataDelta} from './playability.mjs';
+import{deflectorAt,removeLostDeflectors}from'./deflectors-v12.mjs';
 
 export class CaptureJob {
   constructor(w) {
-    if(w.version!==6)throw Error('EXPECTED_V6');
+    if(w.version<6)throw Error('EXPECTED_V6');
     Object.assign(this,{phase:'cleanup',proposal:structuredClone(w),split:null,ball:null,target:null,
       attacker:0,root:0,affected:[],at:0,ranges:[],row:0,merge_ids:[],pairs:[],fences:[],
-      reactivated:[],operations:[],cancelled_strikes:[],metadata_delta:null});
+      reactivated:[],operations:[],cancelled_strikes:[],metadata_delta:null,...(w.version===7?{removed_deflectors:[]}:{})});
   }
   toState(){return structuredClone({...this,split:this.split?.toState()??null});}
   static fromState(s){const j=Object.assign(Object.create(CaptureJob.prototype),structuredClone(s));if(j.split)j.split=SplitJob.fromState(j.split);return j;}
@@ -19,7 +20,7 @@ export class CaptureJob {
     const b=w.balls.find(b=>b.id===ball);if(!b)throw Error('CAPTURE_BALL');
     const root=ownerAt(w,b.cell);
     if(!Number.isInteger(target)||target<0||target>=w.width*w.height||playerAt(w,target)===b.owner
-        ||w.cannons.some(c=>c.cell===target)||!neighbors(target,w.width,w.height,true).some(c=>ownerAt(w,c)===root))throw Error('INVALID_CAPTURE');
+        ||w.cannons.some(c=>c.cell===target)||deflectorAt(w,target)||!neighbors(target,w.width,w.height,true).some(c=>ownerAt(w,c)===root))throw Error('INVALID_CAPTURE');
     const j=new CaptureJob(w);Object.assign(j,{ball,target,attacker:b.owner,root});
     const defender=w.balls.filter(d=>d.cell===target&&d.owner!==b.owner).sort((a,b)=>a.id-b.id)[0];
     if(defender){j.pair(w,[[ball,defender.id]]);return j;}
@@ -73,6 +74,7 @@ export class CaptureJob {
       if(id!==undefined){mergeTerritories(w,[this.root,id]);this.operations.push({kind:'relabel',from:id,to:this.root});this.merge_ids=this.merge_ids.filter(n=>n!==id);}
       else{this.reactivated=reviveTerritory(w,this.root);this.phase='commit';}
     }else if(this.phase==='commit'){
+      if(w.version===7)this.removed_deflectors.push(...removeLostDeflectors(w));
       w.pending=w.pending.filter(p=>{if(validStrike(w,p))return true;this.cancelled_strikes.push(p.id);return false;});validateWorld(w);
       this.metadata_delta=metadataDelta(original.playability,w.playability);
       for(const key of Object.keys(original))delete original[key];Object.assign(original,w);this.phase='done';
@@ -84,6 +86,6 @@ export class CaptureJob {
     if(this.phase!=='done')throw Error('INCOMPLETE_CAPTURE');
     return{kind:this.target===null?'annihilation_cleanup':this.pairs.length?'capture_annihilation':'capture',target:this.target,ball:this.ball,attacker:this.attacker,
       cancelled_capture:this.target!==null&&this.pairs.length>0,pairs:this.pairs,ownership_ops:this.operations,dormant:this.fences,
-      reactivated_cannons:this.reactivated,cancelled_strikes:this.cancelled_strikes,metadata_delta:this.metadata_delta};
+      reactivated_cannons:this.reactivated,cancelled_strikes:this.cancelled_strikes,metadata_delta:this.metadata_delta,...(this.removed_deflectors?{removed_deflectors:this.removed_deflectors}:{})};
   }
 }

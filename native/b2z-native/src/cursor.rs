@@ -132,6 +132,50 @@ pub(crate) fn read_payment_with_annotations(s: &str, allow: bool) -> Result<Paym
         cry,
     })
 }
+pub(crate) fn read_payment_deflectors(s: &str) -> Result<Payment> {
+    let b = unhex(s)?;
+    if !(57..=88).contains(&b.len())
+        || !b.starts_with(b"BTZPAY04")
+        || usize::from(b[56]) != b.len() - 57
+    {
+        return Err("adapter7 payment envelope".into());
+    }
+    let mut legacy = b.clone();
+    legacy[7] = b'3';
+    if b[48] == 0xb7 {
+        if b.len() != 57 || b[56] != 0 {
+            return Err("deflector annotation".into());
+        }
+        legacy[48..56].copy_from_slice(&b2z_protocol::encode(b2z_protocol::Command::Angle(0)));
+    }
+    let mut p = read_payment_with_annotations(&hex(&legacy), true)?;
+    p.memo = b[48..56].to_vec();
+    Ok(p)
+}
+fn semantic_deflector_payment(s: &str) -> Result<String> {
+    read_payment_deflectors(s)?;
+    let mut b = unhex(s)?;
+    b.truncate(56);
+    b[7] = b'2';
+    Ok(hex(&b))
+}
+fn semantic_deflector_world(bytes: &[u8]) -> Result<Vec<u8>> {
+    let mut w = World::decode(bytes)?;
+    if w.deflectors.as_ref().is_some_and(|d| !d.is_empty())
+        || w.balls.iter().any(|b| {
+            b.den.as_ref().is_none_or(|d| d.0 != BigInt::from(1)) || b.deflector_rearm.is_some()
+        })
+    {
+        return Ok(bytes.to_vec());
+    }
+    w.version = 6;
+    w.deflectors = None;
+    w.next_deflector_id = None;
+    for b in &mut w.balls {
+        b.den = None;
+    }
+    w.encode()
+}
 
 fn context_int(v: &Value, key: &str) -> Result<i64> {
     let n: Int = serde_json::from_value(v.get(key).ok_or("context key")?.clone())
@@ -177,8 +221,10 @@ pub(crate) fn launch(w: &mut World, c: &Cannon, angle: u16) -> Result<Ball> {
     let x = (c.cell % w.width) as i64 * Q + Q / 2;
     let y = (c.cell / w.width) as i64 * Q + Q / 2;
     let b = Ball {
+        den: (w.version == 7).then(|| Int(1.into())),
+        deflector_rearm: None,
         id: w.next_ball_id,
-        owner: if w.version == 6 {
+        owner: if w.version >= 6 {
             w.player_for_cannon(c.id).ok_or("UNKNOWN_PLAYER")?
         } else {
             c.id
@@ -374,7 +420,9 @@ impl Cursor {
         let clearance = crate::clearance_v9::identity()?;
         let war_cry = crate::war_cry::identity()?;
         let combined = crate::combined_v11::identity()?;
-        let is_combined = context.get("config_hash") == combined.get("config_hash");
+        let deflector = crate::deflectors_v12::identity()?;
+        let is_deflector = context.get("config_hash") == deflector.get("config_hash");
+        let is_combined = is_deflector || context.get("config_hash") == combined.get("config_hash");
         let is_war_cry = is_combined || context.get("config_hash") == war_cry.get("config_hash");
         let is_clearance =
             is_combined || context.get("config_hash") == clearance.get("config_hash");
@@ -389,7 +437,9 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_combined {
+        let expected = if is_deflector {
+            deflector
+        } else if is_combined {
             combined
         } else if is_war_cry {
             war_cry
@@ -415,7 +465,9 @@ impl Cursor {
         }
         let world = World::decode(state)?;
         if world.version
-            != if is_war_cry || is_entry || is_clearance || is_playability {
+            != if is_deflector {
+                7
+            } else if is_war_cry || is_entry || is_clearance || is_playability {
                 6
             } else if is_million {
                 5
@@ -431,7 +483,7 @@ impl Cursor {
         let end = Rat::integer(context_int(context, "logical_end")?);
         if world.time != start
             || end <= start
-            || end.sub(&start)? > Rat::integer(64)
+            || end.sub(&start)? > Rat::integer(if is_deflector { 1 } else { 64 })
             || end > Rat::integer(1000000000)
             || inputs.len() > 4096
         {
@@ -452,7 +504,11 @@ impl Cursor {
                     .map(|i| {
                         Ok(Input {
                             position: i.position.clone(),
-                            payload_hex: semantic_payment(&i.payload_hex)?,
+                            payload_hex: if is_deflector {
+                                semantic_deflector_payment(&i.payload_hex)?
+                            } else {
+                                semantic_payment(&i.payload_hex)?
+                            },
                         })
                     })
                     .collect::<Result<Vec<_>>>()?,
@@ -460,8 +516,13 @@ impl Cursor {
         } else {
             None
         };
+        let semantic_state = if is_deflector {
+            Some(semantic_deflector_world(state)?)
+        } else {
+            None
+        };
         let seed_base = hash(&encode(
-            &json!({"domain":"BTZ-SPAWN-INPUT-03","state":hash(state),"inputs":hash(&encode(semantic_inputs.as_ref().unwrap_or(&inputs))?),"logical_start":start}),
+            &json!({"domain":"BTZ-SPAWN-INPUT-03","state":hash(semantic_state.as_deref().unwrap_or(state)),"inputs":hash(&encode(semantic_inputs.as_ref().unwrap_or(&inputs))?),"logical_start":start}),
         )?);
         let initial_credits = world.credits.clone();
         let next_time = start.clone();
@@ -471,6 +532,7 @@ impl Cursor {
                     entry_rules: is_war_cry || is_entry || is_clearance,
                     war_cry_rules: is_war_cry,
                     clearance_rules: is_clearance,
+                    deflector_rules: is_deflector,
                     ..Default::default()
                 }
             }),
@@ -578,7 +640,7 @@ impl Cursor {
         Ok(())
     }
     pub fn work(&mut self) -> Result<()> {
-        if self.world.version == 6 && self.v6_work()? {
+        if self.world.version >= 6 && self.v6_work()? {
             return Ok(());
         }
         match self.phase.as_str() {
@@ -735,7 +797,7 @@ impl Cursor {
                 }
                 let pairs = match_strikes(&self.world, arrivals)?;
                 if !pairs.is_empty() {
-                    if self.world.version == 6 {
+                    if self.world.version >= 6 {
                         return self.v6_cleanup(&pairs);
                     }
                     self.emit(json!({"kind":"annihilation","pairs":pairs}))?;
@@ -767,7 +829,7 @@ impl Cursor {
                 let p = &due[0];
                 self.world.pending.retain(|s| s.id != p.id);
                 if self.world.valid_strike(p) {
-                    if self.world.version == 6 {
+                    if self.world.version >= 6 {
                         return self.v6_capture(p.to, p.ball, "expire", json!({"strike":p.id}));
                     }
                     self.job = Some(topology::capture(
@@ -830,16 +892,61 @@ impl Cursor {
             return Ok(());
         };
         let mut b = self.world.balls[index].clone();
+        if self.world.version == 7
+            && b.deflector_rearm
+                .as_ref()
+                .is_some_and(|r| &self.world.time >= r)
+        {
+            b.deflector_rearm = None;
+        }
         let (pass_x, pass_y, vertex_blocked) = crate::geometry::passage(&self.world, &b, &i);
         let sx = b.vx.signum() as i64;
         let sy = b.vy.signum() as i64;
         let xy = position(&b, &self.world.time)?;
-        if i.crossing.x && !pass_x {
-            reflect(&mut b, "x", i.crossing.xwall);
-        }
-        if i.crossing.y && !pass_y {
-            reflect(&mut b, "y", i.crossing.ywall);
-        }
+        let d = if self.world.version == 7 && !(i.crossing.x && i.crossing.y) {
+            i.targets
+                .iter()
+                .filter_map(|t| {
+                    t.target
+                        .and_then(|c| crate::deflectors_v12::at(&self.world, c))
+                })
+                .find(|d| Some(d.id) == i.deflector_target)
+                .cloned()
+        } else {
+            None
+        };
+        let deflector_contact = if let Some(d) = d {
+            let face = if i.crossing.x {
+                if b.vx > 0 {
+                    "W"
+                } else {
+                    "E"
+                }
+            } else if b.vy > 0 {
+                "N"
+            } else {
+                "S"
+            };
+            Some(crate::deflectors_v12::contact(
+                &mut b,
+                &self.world.time,
+                &d,
+                face,
+                if i.crossing.x {
+                    i.crossing.xwall
+                } else {
+                    i.crossing.ywall
+                },
+            )?)
+        } else {
+            if i.crossing.x && !pass_x {
+                reflect(&mut b, "x", i.crossing.xwall);
+            }
+            if i.crossing.y && !pass_y {
+                reflect(&mut b, "y", i.crossing.ywall);
+            }
+            None
+        };
         let old_cell = b.cell;
         if self.world.torus() {
             let x = (b.cell % self.world.width) as i64 + if pass_x { sx } else { 0 };
@@ -847,15 +954,31 @@ impl Cursor {
             b.cell = crate::world::wrap_cell(x, y, self.world.width, self.world.height);
             if x < 0 {
                 b.x0.0 += BigInt::from(self.world.width as i64 * Q)
+                    * b.den
+                        .as_ref()
+                        .map(|d| d.0.clone())
+                        .unwrap_or_else(|| 1.into())
             }
             if x >= self.world.width as i64 {
                 b.x0.0 -= BigInt::from(self.world.width as i64 * Q)
+                    * b.den
+                        .as_ref()
+                        .map(|d| d.0.clone())
+                        .unwrap_or_else(|| 1.into())
             }
             if y < 0 {
                 b.y0.0 += BigInt::from(self.world.height as i64 * Q)
+                    * b.den
+                        .as_ref()
+                        .map(|d| d.0.clone())
+                        .unwrap_or_else(|| 1.into())
             }
             if y >= self.world.height as i64 {
                 b.y0.0 -= BigInt::from(self.world.height as i64 * Q)
+                    * b.den
+                        .as_ref()
+                        .map(|d| d.0.clone())
+                        .unwrap_or_else(|| 1.into())
             }
         } else {
             b.cell = (b.cell as i64
@@ -867,13 +990,18 @@ impl Cursor {
                 })) as usize;
         }
         self.world.balls[index] = b.clone();
-        self.emit(json!({"kind":"motion","ball":b.id,"from_cell":old_cell,"ball_state":b,"vertex_blocked":vertex_blocked}))?;
+        let mut motion = json!({"kind":"motion","ball":b.id,"from_cell":old_cell,"ball_state":b,"vertex_blocked":vertex_blocked});
+        if let Some(d) = deflector_contact {
+            motion["deflector_contact"] = d;
+        }
+        self.emit(motion)?;
         let attack = i.attack.filter(|t| {
             !vertex_blocked
                 && t.target.is_some_and(|target| {
                     !self.claimed.contains(&target)
                         && self.world.player_at(target) == Some(t.defender)
                         && !self.world.cannons.iter().any(|c| c.cell == target)
+                        && crate::deflectors_v12::at(&self.world, target).is_none()
                 })
                 && !self.world.pending.iter().any(|p| p.ball == b.id)
         });
@@ -900,7 +1028,7 @@ impl Cursor {
                 self.emit(json!({"kind":"strike_armed","strike":p}))?;
             } else {
                 self.claimed.push(target);
-                if self.world.version == 6 {
+                if self.world.version >= 6 {
                     return self.v6_capture(target, b.id, "resolve", json!({}));
                 }
                 self.job = Some(topology::capture(
@@ -960,10 +1088,18 @@ impl Cursor {
                 units: s.units.sub(&initial)?,
             });
         }
+        let wire_events = if self.world.version == 7 {
+            self.events
+                .iter()
+                .map(crate::deflectors_v12::pack_event)
+                .collect::<Result<Vec<_>>>()?
+        } else {
+            self.events.clone()
+        };
         Ok(Output {
             state: self.world.encode()?,
             events: encode(
-                &json!({"version":self.world.version,"receipts":self.receipts,"events":self.events}),
+                &json!({"version":self.world.version,"receipts":self.receipts,"events":wire_events}),
             )?,
             scores: encode(&json!({"version":self.world.version,"area_time":scores}))?,
         })
@@ -984,7 +1120,7 @@ impl Cursor {
         {
             return Err("cursor economics".into());
         }
-        if (c.world.version == 6) != c.v6.is_some()
+        if (c.world.version >= 6) != c.v6.is_some()
             || version != 3
             || !matches!(
                 c.phase.as_str(),
@@ -1008,30 +1144,30 @@ impl Cursor {
             || c.world.cell_count() > 1_000_000
             || c.events.len() > 131072
             || c.world.balls.len()
-                > if c.world.version == 6 {
+                > if c.world.version >= 6 {
                     crate::playability::MAX_BALLS
                 } else {
                     64
                 }
             || c.intents.len()
-                > if c.world.version == 6 {
+                > if c.world.version >= 6 {
                     crate::playability::MAX_BALLS
                 } else {
                     64
                 }
             || c.world.pending.len()
-                > if c.world.version == 6 {
+                > if c.world.version >= 6 {
                     crate::playability::MAX_BALLS
                 } else {
                     64
                 }
             || c.spawn_job.as_ref().is_some_and(|j| {
-                j.candidates.len() > if c.world.version == 6 { 8192 } else { 5120 }
+                j.candidates.len() > if c.world.version >= 6 { 8192 } else { 5120 }
             })
         {
             return Err("cursor bounds".into());
         }
-        if c.world.version == 6
+        if c.world.version >= 6
             || matches!(
                 c.phase.as_str(),
                 "done" | "commands" | "spawn" | "search" | "area"
@@ -1039,7 +1175,7 @@ impl Cursor {
         {
             c.world.validate()?;
         }
-        if c.world.version == 6 {
+        if c.world.version >= 6 {
             c.validate_v6()?;
         }
         Ok(())

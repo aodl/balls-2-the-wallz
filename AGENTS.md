@@ -107,3 +107,13 @@ headings/world footprints and actual shader/renderer costs; never infer game-sta
 support from a synthetic render fixture. Contact-oracle parity is not installed
 purchase, scheduler, replay or migration qualification. Keep Deflector commands
 unavailable until an exact supporting authenticated policy is implemented.
+
+## Boundary Deflector development continuation
+
+For new Deflector changes use `docs/specs/B2Z_DEFLECTORS.md` and the boundary
+numerical proof. The former midpoint prototype is historical negative evidence.
+Retain schema6 and historical rule encodings; schema7/adapter7 are distinct.
+Do not overwrite qualified graphite or Rules11 freezes. Fixture/native controls,
+actual valueless Ledger/Index payments, independent authenticated replay and two
+ordinary observers are separate evidence requirements. No production activation
+is implicit. New exact-source qualification must cover changed runtime bytes.

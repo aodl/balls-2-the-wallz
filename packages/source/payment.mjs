@@ -29,3 +29,10 @@ export async function classifyWarCryPayment(tx,recipient){
  try{return{outcome:'candidate',account:prior.account,amount_e8s:prior.amount_e8s,...decodeWarCryLedgerMemo(tx.memo,tx.icrc1_memo)};}
  catch{return{outcome:'rejected',reason:'INVALID_MEMO',account:prior.account,amount_e8s:prior.amount_e8s};}
 }
+/** Adapter7 preserves filtering/accounting while extending only its own grammar. */
+export async function classifyDeflectorPayment(tx,recipient){
+ const prior=classifyPayment(tx,recipient);if(prior.outcome==='ignored'||prior.reason==='DELEGATED_TRANSFER_UNSUPPORTED')return prior;
+ const{decodeDeflectorLedgerMemo}=await import('../protocol/deflector.mjs');
+ try{return{outcome:'candidate',account:prior.account,amount_e8s:prior.amount_e8s,...decodeDeflectorLedgerMemo(tx.memo,tx.icrc1_memo)};}
+ catch{return{outcome:'rejected',reason:'INVALID_MEMO',account:prior.account,amount_e8s:prior.amount_e8s};}
+}

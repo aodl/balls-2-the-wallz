@@ -24,7 +24,7 @@ fn add(rs: &mut Vec<[usize; 2]>, mut r: [usize; 2]) {
 }
 /// Each row has at most width spans. No flat cell array is allocated.
 pub fn row_runs(w: &World, y: usize) -> Result<Vec<(usize, usize, u32)>> {
-    if y >= w.height || w.version != 6 {
+    if y >= w.height || w.version < 6 {
         return Err("ISLAND_ROW".into());
     }
     let o = w.ownership.as_ref().ok_or("ownership")?;

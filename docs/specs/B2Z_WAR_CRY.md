@@ -153,3 +153,14 @@ launch association and bubble contract with Rules9 clearance in one interpreter.
 Its identity is distinct, adapter6 remains unchanged, and its direct Rules7
 cutover uses metadata version7. Standalone Rules10 evidence does not qualify this
 composition. Production remains Rules7: no War Cry suffix or editor is available.
+
+## Four-direction Deflector development successor
+
+The separate Rules12 candidate composes this complete capability with Rules11
+clearance and [boundary Deflectors](B2Z_DEFLECTORS.md). Adapter7/BTZPAY04 preserves
+exact War Cry bytes, gameplay-semantic spawn seeds, successful-launch association
+and historical adapters. DEFLECT itself has no War Cry or launch annotation.
+An unsafe annotated additional NEW still rejects before launch under clearance.
+Only the new exact authenticated configuration can enable its frontend capability.
+Production Rules7 remains unsupported and unchanged. Candidate tests/identities
+are recorded separately; prior green Rules11/graphite evidence does not qualify it.

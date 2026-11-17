@@ -7,7 +7,7 @@ import {sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runti
 import {projectAnimationEvents} from './animation-projection.mjs';
 import {decodeWorld} from './world.mjs';
 export const ANIMATION_FORMAT='btz-animation-1';
-export const trajectory=b=>({id:b.id,owner:b.owner,x0:b.x0,y0:b.y0,vx:b.vx,vy:b.vy});
+export const trajectory=b=>({id:b.id,owner:b.owner,x0:b.x0,y0:b.y0,vx:b.vx,vy:b.vy,...(b.den===undefined?{}:{den:b.den,...(b.deflector_rearm===undefined?{}:{deflector_rearm:b.deflector_rearm})})});
 /** Only committed, integrity-checked source records may be projected by a host. */
 export function projectAnimation(initialState,sourceEvents){
   const projected=projectAnimationEvents(decodeWorld(initialState),sourceEvents);

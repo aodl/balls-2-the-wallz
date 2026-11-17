@@ -70,3 +70,22 @@ are drained under their original identity before the atomic commit. No past inpu
 is re-normalized, no receipt is rewritten, and all new raw BTZPAY03 input bytes
 remain in source/DTR commitments despite cosmetic seed projection. The new
 configuration is not a production activation.
+
+## Provisional boundary-Deflector successor
+
+The separately versioned [four-direction Deflector contract](B2Z_DEFLECTORS.md)
+adds schema7, Rules12, adapter7/BTZPAY04 and exact fixed-slot motion records.
+This is a candidate extension, not a reinterpretation of historical adapters or
+an active production capability. Existing Rules7/9/10/11 bytes, receipts, source
+ordering and exactly-once accounting retain their original identities.
+Canonical text `DEFLECT <cell> <NE|SE|SW|NW>` carries no quantity or War Cry.
+The32-byte complete Ledger memo bound, exact payer/amount, processing-time legality,
+retained-payment semantics and external-wallet-only execution remain mandatory.
+A malformed present memo cannot fall back to numeric or another adapter.
+
+Direct Rules11→12 requires an authenticated drained epoch bound to the exact
+predecessor manifest, official Ledger/Index watermark, source anchor/cursor,
+old/new state/config/schema identities, adapter6→7 and exact preservation projection.
+No mid-batch switch, rescanning of paid history, refund or delegated authority.
+The current European Rules7 game and qualified Rule11 freeze remain untouched.
+No production transition or payment is authorised by this documentation.

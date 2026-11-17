@@ -1,8 +1,8 @@
 /** Strict supplemental event/receipt binding; no new trust source. */
 import {validateCry,memoByteLength}from'../../packages/protocol/war-cry.mjs';
-import {WAR_CRY_IDENTITY,COMBINED_IDENTITY}from'./torus-identity.generated.mjs';
+import {WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY}from'./torus-identity.generated.mjs';
 export function launchAnnotationValidator(receipts,identity){
- const seen=new Set(),supported=[WAR_CRY_IDENTITY,COMBINED_IDENTITY].some(expected=>Object.keys(expected).every(k=>identity?.[k]===expected[k]));
+ const seen=new Set(),supported=[WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY].some(expected=>Object.keys(expected).every(k=>identity?.[k]===expected[k]));
  let byPosition=null;
  return e=>{
   if(e.launch_annotation===undefined)return;if(!byPosition){byPosition=new Map(receipts.map(r=>[String(r.position),r]));if(byPosition.size!==receipts.length)throw Error('observer: repeated annotation receipt');}const a=e.launch_annotation,cannon=typeof e.cannon==='object'?e.cannon.id:e.cannon,r=byPosition.get(String(a?.position));

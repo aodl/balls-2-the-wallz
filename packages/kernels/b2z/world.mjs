@@ -1,5 +1,7 @@
 import {CLEARANCE_POLICY} from './clearance.generated.mjs';
 import {COMBINED_POLICY} from './combined.generated.mjs';
+import {DEFLECTOR_POLICY} from './deflector.generated.mjs';
+import {validateDeflectorState,validateDeflectorBall,deflectorAt} from './deflectors-v12.mjs';
 import {ENTRY_POLICY} from './entry.generated.mjs';
 import{territoryPlayer,territoryBalls,territoryForCannon}from'./territory-v6.mjs';
 import {PRICING,LEGACY_JOIN_E8S,LEGACY_BALL_BASE_E8S,LEGACY_MOVE_E8S} from './economics.generated.mjs';
@@ -40,6 +42,8 @@ export const WAR_CRY_IDENTITY=Object.freeze({...ENTRY_IDENTITY,rules_hash:sha256
 // Rules11 compose clearance and authenticated annotations; prior identities stay immutable.
 export const COMBINED_CONFIG=Object.freeze({...ENTRY_CONFIG,...COMBINED_POLICY});
 export const COMBINED_IDENTITY=Object.freeze({...ENTRY_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_CLEARANCE_WAR_CRY_RULES_11')),config_hash:sha256(encodeCanonical(COMBINED_CONFIG))});
+export const DEFLECTOR_CONFIG=Object.freeze({...COMBINED_CONFIG,...DEFLECTOR_POLICY,version:7});
+export const DEFLECTOR_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_BOUNDARY_DEFLECTOR_RULES_12')),schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_07_BOUNDED_DIAGONAL_DEFLECTORS')),config_hash:sha256(encodeCanonical(DEFLECTOR_CONFIG))});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{
@@ -53,7 +57,7 @@ export function ownerAt(w,cell) {
   while(low<high){const mid=(low+high)>>1;if(w.ownership.overrides[mid].start<=cell)low=mid+1;else high=mid;}
   return low&&cell<w.ownership.overrides[low-1].end?w.ownership.overrides[low-1].owner:w.ownership.base[baseCell(w,cell)];
 }
-export function playerAt(w,cell){const id=ownerAt(w,cell);return w.version===6?territoryPlayer(w,id):id;}
+export function playerAt(w,cell){const id=ownerAt(w,cell);return w.version>=6?territoryPlayer(w,id):id;}
 export function territoryBallCount(w,cannon){const id=territoryForCannon(w,cannon);return id===undefined?0:territoryBalls(w,id);}
 function adjustCount(counts,owner,delta){
   if(!owner)return;
@@ -105,8 +109,10 @@ export function neighbors(cell, width, height, torus=false) {
   return out;
 }
 export function position(ball, time) {
-  return [rat(ball.x0 * time[1] + BigInt(ball.vx) * time[0], time[1]),
-    rat(ball.y0 * time[1] + BigInt(ball.vy) * time[0], time[1])];
+  if(ball.den===undefined||ball.den===1n)return [rat(ball.x0*time[1]+BigInt(ball.vx)*time[0],time[1]),rat(ball.y0*time[1]+BigInt(ball.vy)*time[0],time[1])];
+  const d=ball.den;
+  return [rat(ball.x0 * time[1] + BigInt(ball.vx) * time[0]*d, time[1]*d),
+    rat(ball.y0 * time[1] + BigInt(ball.vy) * time[0]*d, time[1]*d)];
 }
 export function connected(cells, width, height, owner, anchor, torus=false) {
   if (cells[anchor] !== owner) return false;
@@ -117,37 +123,37 @@ export function connected(cells, width, height, owner, anchor, torus=false) {
 }
 /** Validate fully resolved states only; intermediate capture scratch may deliberately violate connectivity. */
 export function validateWorld(w) {
-  if (![3,4,5,6].includes(w.version)) throw new Error('B2Z state version');
+  if (![3,4,5,6,7].includes(w.version)) throw new Error('B2Z state version');
   if(w.version===4&&(w.width!==32||w.height!==32))throw new Error('torus dimensions');
   if(w.version>=5&&(w.width!==1000||w.height!==1000))throw new Error('million dimensions');
-  if((w.version===6)!==(w.playability!==undefined))throw new Error('B2Z lifecycle version');
+  if((w.version>=6)!==(w.playability!==undefined))throw new Error('B2Z lifecycle version');
   integer(w.width, 1, 1000, 'width'); integer(w.height, 1, 1000, 'height');
   if(w.version<5){if(!Array.isArray(w.cells)||w.cells.length!==cellCount(w)||w.cells.length>LIMITS.max_cells||w.ownership!==undefined)throw new Error('board bounds');}
   else {
     const o=w.ownership;
     if(w.cells!==undefined||!o||o.format!=='scaled32-v1'||o.source_width!==32||o.source_height!==32||!Array.isArray(o.base)||o.base.length!==1024||!Array.isArray(o.overrides)||!Array.isArray(o.counts)||o.overrides.length>cellCount(w))throw new Error('v5 ownership encoding');
-    let prior=0;for(const p of o.overrides){integer(p.start,0,cellCount(w)-1,'override start');integer(p.end,1,cellCount(w),'override end');integer(p.owner,0,w.version===6?4294967294:65535,'override owner');if(p.start>=p.end||p.start<prior)throw new Error('v5 ownership encoding');prior=p.end;}
-    const expected=new Map();for(let y=0;y<32;y++)for(let x=0;x<32;x++){const owner=o.base[y*32+x];integer(owner,0,w.version===6?4294967294:65535,'base owner');if(owner)expected.set(owner,(expected.get(owner)??0)+sourceSpan(x,w.width,32)*sourceSpan(y,w.height,32));}
+    let prior=0;for(const p of o.overrides){integer(p.start,0,cellCount(w)-1,'override start');integer(p.end,1,cellCount(w),'override end');integer(p.owner,0,w.version>=6?4294967294:65535,'override owner');if(p.start>=p.end||p.start<prior)throw new Error('v5 ownership encoding');prior=p.end;}
+    const expected=new Map();for(let y=0;y<32;y++)for(let x=0;x<32;x++){const owner=o.base[y*32+x];integer(owner,0,w.version>=6?4294967294:65535,'base owner');if(owner)expected.set(owner,(expected.get(owner)??0)+sourceSpan(x,w.width,32)*sourceSpan(y,w.height,32));}
     for(const p of o.overrides){let cell=p.start;while(cell<p.end){const x=cell%w.width,y=Math.floor(cell/w.width),sx=Math.floor(x*o.source_width/w.width),sy=Math.floor(y*o.source_height/w.height),xEnd=Math.min(w.width,Math.ceil((sx+1)*w.width/o.source_width)),length=Math.min(xEnd-x,p.end-cell),base=o.base[sy*o.source_width+sx];if(base)expected.set(base,expected.get(base)-length);cell+=length;}if(p.owner)expected.set(p.owner,(expected.get(p.owner)??0)+p.end-p.start);}
     const expectedCounts=[...expected].filter(([,cells])=>cells).sort((a,b)=>a[0]-b[0]).map(([owner,cells])=>({owner,cells}));
     if(o.counts.length!==expectedCounts.length||o.counts.some((c,i)=>c.owner!==expectedCounts[i].owner||c.cells!==expectedCounts[i].cells))throw new Error('v5 ownership counts');
   }
   validRat(w.time);
   if (cmp(w.time, rat(0)) < 0 || cmp(w.time, rat(1000000000)) > 0) throw new Error('time bounds');
-  const limits=w.version===6?V6_POLICY:LIMITS;
+  const limits=w.version>=6?V6_POLICY:LIMITS;
   if (w.cannons.length > limits.max_cannons || w.balls.length > limits.max_balls) throw new Error('entity capacity');
   const owners = new Set(), accounts = new Set(), anchors = new Set(); let last = 0;
   for (const c of w.cannons) {
-    integer(c.id, last + 1, w.version===6?4294967294:65535, 'cannon order'); last = c.id;
+    integer(c.id, last + 1, w.version>=6?4294967294:65535, 'cannon order'); last = c.id;
     if(c.heading!==undefined){if(w.version<4)throw new Error('legacy heading');integer(c.heading,0,65535,'cannon heading');}
     integer(c.cell, 0, cellCount(w) - 1, 'anchor');
     if (!/^[0-9a-f]{64}$/.test(c.account) || w.version<6&&accounts.has(c.account) || anchors.has(c.cell)) throw new Error('account/anchor identity');
-    owners.add(w.version===6?ownerAt(w,c.cell):c.id); accounts.add(c.account); anchors.add(c.cell);
+    owners.add(w.version>=6?ownerAt(w,c.cell):c.id); accounts.add(c.account); anchors.add(c.cell);
     if (w.version<5&&!connected(w.cells, w.width, w.height, c.id, c.cell,w.version===4)) throw new Error('territory disconnected');
   }
   const represented=w.version>=5?[...w.ownership.base,...w.ownership.overrides.map(p=>p.owner)]:w.cells;
   for (const owner of represented) if (!Number.isInteger(owner) || (owner !== 0 && !owners.has(owner))) throw new Error('unknown cell owner');
-  const players=w.version===6?new Set(w.playability.players.map(p=>p.id)):owners;
+  const players=w.version>=6?new Set(w.playability.players.map(p=>p.id)):owners;
   const counts = new Map(); last = 0;
   for (const b of w.balls) {
     integer(b.id, last + 1, 4294967294, 'ball order'); last = b.id;
@@ -156,7 +162,10 @@ export function validateWorld(w) {
     if (!b.vx && !b.vy) throw new Error('stationary ball');
     const player=b.owner;
     if (player===undefined || !players.has(b.owner) || playerAt(w,b.cell) !== player) throw new Error('ball outside owner territory');
-    for (const n of [b.x0, b.y0]) if (typeof n !== 'bigint' || n < -100000000000000n || n > 100000000000000n) throw new Error('motion intercept');
+    const maxIntercept=w.version===7?6553600000000000000n:100000000000000n;
+    for (const n of [b.x0, b.y0]) if (typeof n !== 'bigint' || n < -maxIntercept || n > maxIntercept) throw new Error('motion intercept');
+    if(w.version<7&&(b.den!==undefined||b.deflector_rearm!==undefined))throw Error('historical trajectory extension');
+    if(w.version===7)validateDeflectorBall(b);
     const [x, y] = position(b, w.time), cx = b.cell % w.width, cy = Math.floor(b.cell / w.width);
     if (cmp(x, rat(cx * Q)) < 0 || cmp(x, rat((cx + 1) * Q)) > 0 || cmp(y, rat(cy * Q)) < 0 || cmp(y, rat((cy + 1) * Q)) > 0)
       throw new Error('ball cell/position mismatch');
@@ -164,7 +173,7 @@ export function validateWorld(w) {
   }
   for (const c of w.cannons) if (w.version<6&&(!counts.get(c.id) || (counts.get(c.id)??0) > limits.max_per_cannon)) throw new Error('cannon ball invariant');
   integer(w.next_ball_id, last + 1, 4294967295, 'next ball ID');
-  integer(w.next_cannon_id, Math.max(0, ...w.cannons.map(c => c.id)) + 1, w.version===6?4294967295:65536, 'next cannon ID');
+  integer(w.next_cannon_id, Math.max(0, ...w.cannons.map(c => c.id)) + 1, w.version>=6?4294967295:65536, 'next cannon ID');
   if (!Array.isArray(w.pending) || w.pending.length > w.balls.length) throw new Error('pending strike capacity');
   const armed = new Set(); let priorStrike = 0;
   for (const p of w.pending) {
@@ -185,7 +194,8 @@ export function validateWorld(w) {
     if (s.units[0] < 0n) throw new Error('negative score');
   }
   if (w.credits.length > 1024) throw new Error('credit demonstration limit');
-  if(w.version===6)validatePlayability(w);
+  if(w.version>=6)validatePlayability(w);
+  if(w.version===7)validateDeflectorState(w);else if(w.deflectors!==undefined||w.next_deflector_id!==undefined)throw Error('historical structure extension');
   return w;
 }
 export function encodeWorld(w) { validateWorld(w); return encodeCanonical(w); }
@@ -199,5 +209,5 @@ export function fixtureWorld({width, height, cells, cannons, balls, time = rat(0
 export function validStrike(world, p) {
   return world.balls.some(b => b.id === p.ball && b.owner === p.owner)
     && playerAt(world,p.from) === p.owner && playerAt(world,p.to) === p.defender
-    && !world.cannons.some(c => c.cell === p.to);
+    && !world.cannons.some(c => c.cell === p.to)&&!deflectorAt(world,p.to);
 }

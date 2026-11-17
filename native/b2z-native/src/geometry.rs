@@ -1,6 +1,7 @@
 use crate::world::{Ball, World, Q};
 use dtr_wire::{Rat, Result};
 use num_bigint::BigInt;
+use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -29,19 +30,63 @@ pub struct Intent {
     pub cell: usize,
     pub targets: Vec<Target>,
     pub attack: Option<Target>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub deflector_target: Option<u32>,
 }
 pub fn next_crossing(b: &Ball, width: usize, now: &Rat) -> Result<Crossing> {
+    let d = b
+        .den
+        .as_ref()
+        .map(|n| n.0.to_u32().ok_or("trajectory denominator"))
+        .transpose()?
+        .unwrap_or(1);
+    next_crossing_rational(b, width, now, d)
+}
+/// Shared exact crossing calculation. Historical callers retain denominator one;
+/// world/cursor validation selects schema7 rational trajectories.
+pub fn next_crossing_rational(
+    b: &Ball,
+    width: usize,
+    now: &Rat,
+    denominator: u32,
+) -> Result<Crossing> {
+    if denominator == 0 || denominator > 65536 {
+        return Err("trajectory denominator".into());
+    }
+    let d = BigInt::from(denominator);
     let xwall = (b.cell % width + usize::from(b.vx > 0)) as i64 * Q;
     let ywall = (b.cell / width + usize::from(b.vy > 0)) as i64 * Q;
     let tx = if b.vx == 0 {
         None
     } else {
-        Some(Rat::new(BigInt::from(xwall) - &b.x0.0, b.vx.into())?)
+        Some(Rat::new(
+            (if denominator == 1 {
+                BigInt::from(xwall)
+            } else {
+                BigInt::from(xwall) * &d
+            }) - &b.x0.0,
+            if denominator == 1 {
+                BigInt::from(b.vx)
+            } else {
+                BigInt::from(b.vx) * &d
+            },
+        )?)
     };
     let ty = if b.vy == 0 {
         None
     } else {
-        Some(Rat::new(BigInt::from(ywall) - &b.y0.0, b.vy.into())?)
+        Some(Rat::new(
+            (if denominator == 1 {
+                BigInt::from(ywall)
+            } else {
+                BigInt::from(ywall) * &d
+            }) - &b.y0.0,
+            if denominator == 1 {
+                BigInt::from(b.vy)
+            } else {
+                BigInt::from(b.vy) * &d
+            },
+        )?)
     };
     if tx.as_ref().is_some_and(|t| t < now) || ty.as_ref().is_some_and(|t| t < now) {
         return Err("invalid sided trajectory".into());
@@ -77,7 +122,9 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
         } else {
             Some(y as usize * w.width + x as usize)
         };
-        let anchor = target.is_some_and(|t| w.cannons.iter().any(|c| c.cell == t));
+        let anchor = target.is_some_and(|t| {
+            w.cannons.iter().any(|c| c.cell == t) || crate::deflectors_v12::at(w, t).is_some()
+        });
         let defender = target.and_then(|t| w.player_at(t)).unwrap_or(0);
         targets.push(Target {
             axis: axis.into(),
@@ -92,12 +139,25 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
         .filter(|t| t.capturable)
         .min_by_key(|t| t.target)
         .cloned();
+    let deflector_target = if w.version == 7 && crossing.x != crossing.y {
+        targets
+            .iter()
+            .filter_map(|t| {
+                t.target
+                    .and_then(|c| crate::deflectors_v12::at(w, c))
+                    .map(|d| d.id)
+            })
+            .next()
+    } else {
+        None
+    };
     Intent {
         crossing,
         owner: b.owner,
         cell: b.cell,
         targets,
         attack,
+        deflector_target,
     }
 }
 /// Revalidate frozen crossing intent against current ownership and cannon cells.
@@ -109,7 +169,9 @@ pub fn passage(w: &World, b: &Ball, i: &Intent) -> (bool, bool, bool) {
     for t in &i.targets {
         let pass = t.pass
             && t.target.is_some_and(|c| {
-                w.player_at(c) == player && !w.cannons.iter().any(|a| a.cell == c)
+                w.player_at(c) == player
+                    && !w.cannons.iter().any(|a| a.cell == c)
+                    && crate::deflectors_v12::at(w, c).is_none()
             });
         if t.axis == "x" {
             x = pass;
@@ -130,7 +192,10 @@ pub fn passage(w: &World, b: &Ball, i: &Intent) -> (bool, bool, bool) {
         } else {
             (b.cell as i64 + sx + sy * w.width as i64) as usize
         };
-        if w.player_at(cell) != player || w.cannons.iter().any(|c| c.cell == cell) {
+        if w.player_at(cell) != player
+            || w.cannons.iter().any(|c| c.cell == cell)
+            || crate::deflectors_v12::at(w, cell).is_some()
+        {
             return (false, false, true);
         }
     }
@@ -138,11 +203,16 @@ pub fn passage(w: &World, b: &Ball, i: &Intent) -> (bool, bool, bool) {
 }
 
 pub fn reflect(b: &mut Ball, axis: &str, wall: i64) {
+    let d = b
+        .den
+        .as_ref()
+        .map(|d| d.0.clone())
+        .unwrap_or_else(|| BigInt::from(1));
     if axis == "x" {
-        b.x0.0 = BigInt::from(2 * wall) - &b.x0.0;
+        b.x0.0 = BigInt::from(2 * wall) * &d - &b.x0.0;
         b.vx = -b.vx;
     } else {
-        b.y0.0 = BigInt::from(2 * wall) - &b.y0.0;
+        b.y0.0 = BigInt::from(2 * wall) * &d - &b.y0.0;
         b.vy = -b.vy;
     }
 }

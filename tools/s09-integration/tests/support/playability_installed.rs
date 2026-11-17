@@ -39,6 +39,8 @@ fn playability_cost_comparison() {
             .map(|i| {
                 let x = 4 + i * 2;
                 b2z_native::world::Ball {
+                    den: None,
+                    deflector_rearm: None,
                     id: i as u32 + 1,
                     owner: 1,
                     cell: 3 * 16 + x,
@@ -502,6 +504,8 @@ pub(super) fn controls(browser: bool) -> World {
                 units: Rat::integer(id as i64 * 11),
             });
             w.balls.push(Ball {
+                den: None,
+                deflector_rearm: None,
                 id,
                 owner: id,
                 cell: ball_cell,

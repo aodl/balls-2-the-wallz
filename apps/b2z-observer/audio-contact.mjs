@@ -3,10 +3,10 @@
  * attackers have friendly priority; mixed enemy/cannon/vertex cases are neutral. */
 export function contactMeaning(view,b,after,time,account,vertexBlocked=false){
  if(!account||vertexBlocked||!view.owner||!b)return 'neutral';
- const accountOf=player=>view.version===6?view.playability?.players.find(p=>p.id===player)?.account:view.cannons.get(player)?.account;
- const [n,d]=time,unit=1024n*d;if(d<=0n)return 'neutral';
+ const accountOf=player=>view.version>=6?view.playability?.players.find(p=>p.id===player)?.account:view.cannons.get(player)?.account;
+ const [n,td]=time,scale=b.den??1n,d=td*scale,unit=1024n*d;if(d<=0n)return 'neutral';
  const floor=(a,z)=>a>=0n?a/z:(a-z+1n)/z;
- const coords=['x','y'].map(axis=>{const v=b['v'+axis],q=b[axis+'0']*d+BigInt(v)*n;return {q,cell:Number(floor(q,unit))-(q%unit===0n&&v>0?1:0),boundary:q%unit===0n};});
+ const coords=['x','y'].map(axis=>{const v=b['v'+axis],q=b[axis+'0']*td+BigInt(v)*n*scale;return {q,cell:Number(floor(q,unit))-(q%unit===0n&&v>0?1:0),boundary:q%unit===0n};});
  // Tracks omit the sided cell. A stationary coordinate on an exact grid line
  // cannot establish which adjacent row/column owns the contacted face.
  if(coords.some((c,i)=>c.boundary&&b[i?'vy':'vx']===0))return 'neutral';

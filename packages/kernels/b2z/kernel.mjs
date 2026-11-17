@@ -1,3 +1,7 @@
+import{packDeflectorEvent}from'./deflector-events.mjs';
+import{readDeflectorPayment,semanticDeflectorPayment}from'../../protocol/deflector.mjs';
+import{deflectorAt}from'./deflectors-v12.mjs';
+import{contactResponse}from'./deflector-boundary.mjs';
 import {readAnnotatedPayment,semanticPayment} from '../../protocol/war-cry.mjs';
 import {workV6,captureV6,cleanupV6,finalizeCursorElapsed,validateV6Cursor} from './cursor-v6.mjs';
 import {scoreAreas,V6_POLICY,playerForCannon} from './playability.mjs';
@@ -7,7 +11,7 @@ import {decodeMemo, encodeMemo} from '../../protocol/memo.mjs';
 import {cloneCanonical, decodeCanonical, encodeCanonical} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {canonicalInputs, sha256} from '../../../node_modules/@dtr/timeline-runtime/packages/runtime/seal.mjs';
 import {add, cmp, heading, mulInt, rat, sub, validRat} from './math.mjs';
-import {B2Z_IDENTITY, TORUS_IDENTITY, MILLION_IDENTITY, PLAYABILITY_IDENTITY, ENTRY_IDENTITY, CLEARANCE_IDENTITY, WAR_CRY_IDENTITY, COMBINED_IDENTITY, wrapCell, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld, cellCount, ownerAt,playerAt, setOwner, ownershipCounts,validStrike} from './world.mjs';
+import {B2Z_IDENTITY, TORUS_IDENTITY, MILLION_IDENTITY, PLAYABILITY_IDENTITY, ENTRY_IDENTITY, CLEARANCE_IDENTITY, WAR_CRY_IDENTITY, COMBINED_IDENTITY, DEFLECTOR_IDENTITY, DEFLECTOR_CONFIG, wrapCell, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld, cellCount, ownerAt,playerAt, setOwner, ownershipCounts,validStrike} from './world.mjs';
 import {nextCrossing, reflected} from './geometry.mjs';
 import {beginCapture, beginCleanup, topologyStep} from './topology.mjs';
 import {beginSpawn, spawnStep} from './spawn.mjs';
@@ -16,7 +20,8 @@ import {beginSpawn, spawnStep} from './spawn.mjs';
 export function encodePayment(account, amount, command) {
   return concat(ascii('BTZPAY02'), unhex(account, 32), be(amount, 8), encodeMemo(command));
 }
-function readPayment(payload,annotations=false) {
+function readPayment(payload,annotations=false,deflectors=false) {
+  if(deflectors)return readDeflectorPayment(unhex(payload));
   const bytes=unhex(payload);if(annotations&&bytes.length>=8&&new TextDecoder().decode(bytes.slice(0,8))==='BTZPAY03')return readAnnotatedPayment(bytes);
   const r = new Reader(unhex(payload), 56);
   if (hex(r.take(8)) !== hex(ascii('BTZPAY02'))) throw new Error('unreadable normalized payment');
@@ -31,8 +36,8 @@ export function launch(world, cannon, angle) {
   if (world.time[1] !== 1n) throw new Error('commands require integer checkpoint');
   const [vx, vy] = heading(angle,world.version>=5?32000:1024), x = (cannon.cell % world.width) * Q + Q / 2,
     y = Math.floor(cannon.cell / world.width) * Q + Q / 2;
-  const b = {id: world.next_ball_id++, owner: world.version===6?playerForCannon(world,cannon.id):cannon.id, cell: cannon.cell,
-    x0: BigInt(x) - BigInt(vx) * world.time[0], y0: BigInt(y) - BigInt(vy) * world.time[0], vx, vy};
+  const b = {id: world.next_ball_id++, owner: world.version>=6?playerForCannon(world,cannon.id):cannon.id, cell: cannon.cell,
+    x0: BigInt(x) - BigInt(vx) * world.time[0], y0: BigInt(y) - BigInt(vy) * world.time[0], vx, vy,...(world.version===7?{den:1n}:{})};
   if(world.version>=4)cannon.heading=angle;
   world.balls.push(b); return b;
 }
@@ -72,18 +77,18 @@ export function classify(world, ball, crossing) {
     const x = cx + (axis === 'x' ? Math.sign(ball.vx) : 0), y = cy + (axis === 'y' ? Math.sign(ball.vy) : 0);
     const target = world.version>=4?wrapCell(x,y,world.width,world.height):x < 0 || y < 0 || x >= world.width || y >= world.height ? null : y * world.width + x;
     const cannon = target !== null && world.cannons.some(c => c.cell === target);
-    const defender=target===null?0:playerAt(world,target),pass=target!==null&&defender===player&&!cannon;
-    targets.push({axis, target, pass, capturable: target !== null && !cannon && player!==undefined&&defender !== player, defender});
+    const defender=target===null?0:playerAt(world,target),pass=target!==null&&defender===player&&!cannon&&!deflectorAt(world,target);
+    targets.push({axis, target, pass, capturable: target !== null && !cannon && !deflectorAt(world,target) && player!==undefined&&defender !== player, defender});
   }
   const attack = targets.filter(t => t.capturable).sort((a, b) => a.target - b.target)[0] ?? null;
-  return {...crossing, owner: ball.owner, cell: ball.cell, targets, attack};
+  return {...crossing,...(world.version===7&&(crossing.x!==crossing.y)?{deflector_target:targets.map(t=>deflectorAt(world,t.target)).find(Boolean)?.id??null}:{}), owner: ball.owner, cell: ball.cell, targets, attack};
 }
 export function passage(world,b,i){
  const player=b.owner;
  let passX=false,passY=false;
- for(const t of i.targets){const pass=t.pass&&playerAt(world,t.target)===player&&!world.cannons.some(c=>c.cell===t.target);if(t.axis==='x')passX=pass;else passY=pass;}
+ for(const t of i.targets){const pass=t.pass&&playerAt(world,t.target)===player&&!world.cannons.some(c=>c.cell===t.target)&&!deflectorAt(world,t.target);if(t.axis==='x')passX=pass;else passY=pass;}
  if(i.x&&i.y&&passX&&passY){const sx=Math.sign(b.vx),sy=Math.sign(b.vy),diagonal=world.version>=4?wrapCell(b.cell%world.width+sx,Math.floor(b.cell/world.width)+sy,world.width,world.height):b.cell+sx+sy*world.width;
-  if(playerAt(world,diagonal)!==player||world.cannons.some(c=>c.cell===diagonal))return {passX:false,passY:false,vertexBlocked:true};
+  if(playerAt(world,diagonal)!==player||world.cannons.some(c=>c.cell===diagonal)||deflectorAt(world,diagonal))return {passX:false,passY:false,vertexBlocked:true};
  }
  return {passX,passY,vertexBlocked:false};
 }
@@ -120,16 +125,16 @@ export function matchStrikes(world, incoming) {
 
 export class B2zCursor {
   constructor(state, inputs, seal, {cacheAreas = true, fastTopology = true} = {}) {
-    const identity=seal.config_hash===COMBINED_IDENTITY.config_hash?COMBINED_IDENTITY:seal.config_hash===WAR_CRY_IDENTITY.config_hash?WAR_CRY_IDENTITY:seal.config_hash===CLEARANCE_IDENTITY.config_hash?CLEARANCE_IDENTITY:seal.config_hash===ENTRY_IDENTITY.config_hash?ENTRY_IDENTITY:seal.config_hash===PLAYABILITY_IDENTITY.config_hash?PLAYABILITY_IDENTITY:seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
+    const identity=seal.config_hash===DEFLECTOR_IDENTITY.config_hash?DEFLECTOR_IDENTITY:seal.config_hash===COMBINED_IDENTITY.config_hash?COMBINED_IDENTITY:seal.config_hash===WAR_CRY_IDENTITY.config_hash?WAR_CRY_IDENTITY:seal.config_hash===CLEARANCE_IDENTITY.config_hash?CLEARANCE_IDENTITY:seal.config_hash===ENTRY_IDENTITY.config_hash?ENTRY_IDENTITY:seal.config_hash===PLAYABILITY_IDENTITY.config_hash?PLAYABILITY_IDENTITY:seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
     for (const k of Object.keys(identity)) if (seal[k] !== identity[k]) throw new Error('B2Z rule/config/schema identity');
     if(identity!==B2Z_IDENTITY)this.joinE8s=PRELAUNCH_CONFIG.join_e8s;
-    this.world = decodeWorld(state);if(identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY)this.v6={plan:null,payment:null,batch:null,capture:null,births:[],finalized:false,...([ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY].includes(identity)?{entry_rules:true}:{}),...([CLEARANCE_IDENTITY,COMBINED_IDENTITY].includes(identity)?{clearance_rules:true}:{}),...([WAR_CRY_IDENTITY,COMBINED_IDENTITY].includes(identity)?{war_cry_rules:true,pending_cry:null}:{})};if(this.world.version!==(identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY?6:identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
+    this.world = decodeWorld(state);if(identity===DEFLECTOR_IDENTITY||identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY)this.v6={plan:null,payment:null,batch:null,capture:null,births:[],finalized:false,...([ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY].includes(identity)?{entry_rules:true}:{}),...([CLEARANCE_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY].includes(identity)?{clearance_rules:true}:{}),...([WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY].includes(identity)?{war_cry_rules:true,pending_cry:null}:{}),...(identity===DEFLECTOR_IDENTITY?{deflector_rules:true}:{})};if(this.world.version!==(identity===DEFLECTOR_IDENTITY?7:identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY?6:identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
     this.start = rat(uint(seal.logical_start)); this.end = rat(uint(seal.logical_end));
     if (cmp(this.world.time, this.start) !== 0 || cmp(this.end, this.start) <= 0
-        || cmp(sub(this.end, this.start), rat(LIMITS.max_segment_ticks)) > 0
+        || cmp(sub(this.end, this.start), rat(identity===DEFLECTOR_IDENTITY?DEFLECTOR_CONFIG.max_segment_ticks:LIMITS.max_segment_ticks)) > 0
         || cmp(this.end, rat(1000000000)) > 0 || inputs.length > 4096) throw new Error('B2Z segment context');
-    this.seedBase = sha256(encodeCanonical({domain: 'BTZ-SPAWN-INPUT-03', state: sha256(state),
-      inputs: sha256(encodeCanonical([WAR_CRY_IDENTITY,COMBINED_IDENTITY].includes(identity)?this.inputs.map(i=>({...i,payload_hex:hex(semanticPayment(unhex(i.payload_hex)))})):this.inputs)), logical_start: this.start}));
+    this.seedBase = sha256(encodeCanonical({domain: 'BTZ-SPAWN-INPUT-03', state: sha256(identity===DEFLECTOR_IDENTITY?semanticDeflectorWorld(state):state),
+      inputs: sha256(encodeCanonical([WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY].includes(identity)?this.inputs.map(i=>({...i,payload_hex:hex((identity===DEFLECTOR_IDENTITY?semanticDeflectorPayment:semanticPayment)(unhex(i.payload_hex)))})):this.inputs)), logical_start: this.start}));
     this.initialCredits = cloneCanonical(this.world.credits);
     this.phase = 'commands'; this.events = []; this.receipts = [];
     this.scan = 0; this.candidates = []; this.intents = []; this.nextTime = this.start;
@@ -162,7 +167,7 @@ export class B2zCursor {
     this.world.pending = valid;
   }
   work() {
-    if(this.world.version===6&&workV6(this,payload=>readPayment(payload,!!this.v6.war_cry_rules)))return;
+    if(this.world.version>=6&&workV6(this,payload=>readPayment(payload,!!this.v6.war_cry_rules,!!this.v6.deflector_rules)))return;
     if (this.phase === 'commands') {
       if (this.inputIndex < this.inputs.length) {
         const i = this.inputs[this.inputIndex], payment = readPayment(i.payload_hex);
@@ -194,7 +199,7 @@ export class B2zCursor {
       }
     } else if (this.phase === 'search') {
       if (this.scan < this.world.balls.length) {
-        const crossing = nextCrossing(this.world.balls[this.scan++], this.world.width, this.world.time);
+        const crossing = nextCrossing(this.world.balls[this.scan++], this.world.width, this.world.time,this.world.balls[this.scan-1].den??1n);
         if (cmp(crossing.time, this.end) < 0) this.candidates.push(crossing);
       } else {
         this.nextTime = [...this.candidates.map(c => c.time), ...this.world.pending.map(p => p.deadline)]
@@ -212,7 +217,7 @@ export class B2zCursor {
       } else {
         const dt = sub(this.nextTime, this.world.time);
         for (const [id, area] of this.areas) {
-          const account = this.world.version===6?this.world.playability.players.find(p=>p.id===id).account:this.world.cannons.find(c => c.id === id).account;
+          const account = this.world.version>=6?this.world.playability.players.find(p=>p.id===id).account:this.world.cannons.find(c => c.id === id).account;
           let s = this.world.credits.find(s => s.account === account);
           if (!s) { s = {account, units: rat(0)}; this.world.credits.push(s); }
           const delta=this.world.version>=5?rat(dt[0]*BigInt(area)*1024n,dt[1]*1000000n):mulInt(dt,area);
@@ -228,7 +233,7 @@ export class B2zCursor {
         .sort((a, b) => a.owner - b.owner || a.ball - b.ball);
       const pairs = matchStrikes(this.world, this.intents.map(i => incomingStrike(this.world, i)).filter(Boolean));
       if (pairs.length) {
-        if(this.world.version===6){cleanupV6(this,pairs);return;}
+        if(this.world.version>=6){cleanupV6(this,pairs);return;}
         this.emit({kind: 'annihilation', pairs});
         this.job = beginCleanup(this.world, pairs.flat()); this.jobMeta = {kind: 'annihilation_cleanup'};
         this.afterTopology = 'resolve'; this.phase = 'topology';
@@ -237,20 +242,26 @@ export class B2zCursor {
       if (this.resolving >= this.intents.length) { this.phase = 'expire'; return; }
       const i = this.intents[this.resolving++], b = this.world.balls.find(b => b.id === i.ball);
       if (!b) return;
+      if(this.world.version===7&&b.deflector_rearm&&cmp(this.world.time,b.deflector_rearm)>=0)delete b.deflector_rearm;
       const {passX,passY,vertexBlocked}=passage(this.world,b,i);
       const sx=Math.sign(b.vx),sy=Math.sign(b.vy);
       const xy = position(b, this.world.time);
-      if (i.x && !passX) reflected(b, 'x', i.xwall);
-      if (i.y && !passY) reflected(b, 'y', i.ywall);
+      let deflector_contact;
+      const target=this.world.version===7&&!(i.x&&i.y)?i.targets.find(t=>deflectorAt(this.world,t.target)?.id===i.deflector_target):null;
+      if(target){const d=deflectorAt(this.world,target.target),face=i.x?(b.vx>0?'W':'E'):(b.vy>0?'N':'S');
+        const response=contactResponse(b,this.world.time,d.orientation,face,i.x?i.xwall:i.ywall,b.deflector_rearm??null);
+        Object.assign(b,response.trajectory,{deflector_rearm:response.armed_at});
+        deflector_contact={id:d.id,orientation:d.orientation,face,kind:response.kind,...(response.front===undefined?{}:{front:response.front})};
+      }else{if (i.x && !passX) reflected(b, 'x', i.xwall);if (i.y && !passY) reflected(b, 'y', i.ywall);}
       const oldCell = b.cell;
       if(this.world.version>=4){const x=b.cell%this.world.width+(passX?sx:0),y=Math.floor(b.cell/this.world.width)+(passY?sy:0);b.cell=wrapCell(x,y,this.world.width,this.world.height);
-        if(x<0)b.x0+=BigInt(this.world.width*Q);if(x>=this.world.width)b.x0-=BigInt(this.world.width*Q);
-        if(y<0)b.y0+=BigInt(this.world.height*Q);if(y>=this.world.height)b.y0-=BigInt(this.world.height*Q);
+        if(x<0)b.x0+=BigInt(this.world.width*Q)*(b.den??1n);if(x>=this.world.width)b.x0-=BigInt(this.world.width*Q)*(b.den??1n);
+        if(y<0)b.y0+=BigInt(this.world.height*Q)*(b.den??1n);if(y>=this.world.height)b.y0-=BigInt(this.world.height*Q)*(b.den??1n);
       }else b.cell += (passX ? sx : 0) + (passY ? sy * this.world.width : 0);
-      this.emit({kind: 'motion', ball: b.id, from_cell: oldCell, ball_state: structuredClone(b), vertex_blocked: vertexBlocked});
+      this.emit({kind: 'motion', ball: b.id, from_cell: oldCell, ball_state: structuredClone(b), vertex_blocked: vertexBlocked,...(deflector_contact?{deflector_contact}:{})});
       const t = i.attack;
       const attack = !vertexBlocked && t && !this.claimed.includes(t.target)
-        && playerAt(this.world,t.target) === t.defender && !this.world.cannons.some(c => c.cell === t.target)
+        && playerAt(this.world,t.target) === t.defender && !this.world.cannons.some(c => c.cell === t.target)&&!deflectorAt(this.world,t.target)
         && !this.world.pending.some(p => p.ball === b.id) ? t : null;
       if (attack && attack.defender) {
         if (this.world.next_strike_id >= 4294967295) throw new Error('strike ID exhausted');
@@ -260,7 +271,7 @@ export class B2zCursor {
         this.world.pending.push(p); this.emit({kind: 'strike_armed', strike: cloneCanonical(p)});
       } else if (attack) {
         this.claimed.push(attack.target);
-        if(this.world.version===6){captureV6(this,attack.target,b.id,'resolve');return;}
+        if(this.world.version>=6){captureV6(this,attack.target,b.id,'resolve');return;}
         this.job = beginCapture(this.world, attack.target, b.owner, this.fastTopology);
         this.jobMeta = {kind: 'capture', attacker: b.owner, ball: b.id, target: attack.target};
         this.afterTopology = 'resolve'; this.phase = 'topology';
@@ -271,7 +282,7 @@ export class B2zCursor {
       if (!due.length) { validateWorld(this.world); this.restartSearch(); return; }
       const p = due[0]; this.world.pending = this.world.pending.filter(s => s.id !== p.id);
       if (validStrike(this.world, p)) {
-        if(this.world.version===6){captureV6(this,p.to,p.ball,'expire',{strike:p.id});return;}
+        if(this.world.version>=6){captureV6(this,p.to,p.ball,'expire',{strike:p.id});return;}
         this.job = beginCapture(this.world, p.to, p.owner, this.fastTopology);
         this.jobMeta = {kind: 'capture', attacker: p.owner, ball: p.ball, target: p.to, strike: p.id};
         this.afterTopology = 'expire'; this.phase = 'topology';
@@ -297,13 +308,13 @@ export class B2zCursor {
     }
     return {used, complete: this.phase === 'done'};
   }
-  needsElapsed(){return this.world.version===6&&this.phase==='done'&&!this.v6.finalized;}
+  needsElapsed(){return this.world.version>=6&&this.phase==='done'&&!this.v6.finalized;}
   finalizeElapsed(observedNs){finalizeCursorElapsed(this,observedNs);}
   result() {
     if (this.phase !== 'done'||this.needsElapsed()) throw new Error('incomplete B2Z segment');
     const scores = this.world.credits.map(s => ({account: s.account,
       units: sub(s.units, this.initialCredits.find(p => p.account === s.account)?.units ?? rat(0))}));
-    return {state: encodeWorld(this.world), events: encodeCanonical({version: this.world.version, receipts: this.receipts, events: this.events}),
+    return {state: encodeWorld(this.world), events: encodeCanonical({version: this.world.version, receipts: this.receipts, events: this.world.version===7?this.events.map(packDeflectorEvent):this.events}),
       scores: encodeCanonical({version: this.world.version, area_time: scores})};
   }
   snapshot() { return encodeCanonical({version: 3, cursor: {...this}}); }
@@ -317,15 +328,20 @@ export class B2zCursor {
     validRat(c.world.time); validRat(c.start); validRat(c.end);
     if (cmp(c.world.time, c.start) < 0 || cmp(c.world.time, c.end) > 0 || c.inputIndex > c.inputs.length
         || c.inputIndex < 0 || c.receipts.length !== c.inputIndex || cellCount(c.world) > 1000000
-        || c.events.length > 131072 || c.world.balls.length > (c.world.version===6?V6_POLICY.max_balls:LIMITS.max_balls) || c.intents.length > (c.world.version===6?V6_POLICY.max_balls:LIMITS.max_balls)
-        || c.world.pending.length > (c.world.version===6?V6_POLICY.max_balls:LIMITS.max_balls) || (c.spawnJob && c.spawnJob.candidates.length > (c.world.version>=5?8192:5*LIMITS.max_cells)))
+        || c.events.length > 131072 || c.world.balls.length > (c.world.version>=6?V6_POLICY.max_balls:LIMITS.max_balls) || c.intents.length > (c.world.version>=6?V6_POLICY.max_balls:LIMITS.max_balls)
+        || c.world.pending.length > (c.world.version>=6?V6_POLICY.max_balls:LIMITS.max_balls) || (c.spawnJob && c.spawnJob.candidates.length > (c.world.version>=5?8192:5*LIMITS.max_cells)))
       throw new Error('B2Z cursor bounds');
-    if((c.world.version===6)!==!!c.v6)throw Error('V6_CURSOR');
-    if (c.world.version===6||['done','commands','spawn','search','area'].includes(c.phase)) validateWorld(c.world);
-    if(c.world.version===6)validateV6Cursor(c);
+    if((c.world.version>=6)!==!!c.v6)throw Error('V6_CURSOR');
+    if (c.world.version>=6||['done','commands','spawn','search','area'].includes(c.phase)) validateWorld(c.world);
+    if(c.world.version>=6)validateV6Cursor(c);
     // The expected hash is a trusted durable commitment, never an untrusted caller's self-supplied checksum.
     return c;
   }
 }
 export const B2zKernel = {begin: (s, i, c) => new B2zCursor(s, i, c), restore: B2zCursor.restore,
   fork: cursor => Object.assign(Object.create(B2zCursor.prototype), structuredClone({...cursor}))};
+
+function semanticDeflectorWorld(bytes){
+ const w=decodeWorld(bytes);if(w.deflectors.length||w.balls.some(b=>b.den!==1n||b.deflector_rearm!==undefined))return bytes;
+ w.version=6;delete w.deflectors;delete w.next_deflector_id;for(const b of w.balls)delete b.den;return encodeWorld(w);
+}

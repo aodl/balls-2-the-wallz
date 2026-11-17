@@ -9,7 +9,7 @@ export function aimingVicinity(camera,aim,p,pointerType='mouse',selection=null,o
  if(arrow&&arrow.screen.some((b,i)=>i>0&&segmentDistance(p,arrow.screen[i-1],b)<=width))return true;
  // An explicitly eligible different Build tile remains a destination target,
  // including a neighbour whose centre falls inside the generous touch halo.
- if(selection?.kind==='new'){const cell=camera.cell(p.x,p.y);if(cell!==selection.cell&&selection.cells.includes(cell))return false;}
+ if(['new','deflect'].includes(selection?.kind)){const cell=camera.cell(p.x,p.y);if(cell!==selection.cell&&(selection.legal?selection.legal(cell):selection.cells.includes(cell)))return false;}
  const at=camera.cellPoint(aim.cannon.cell);
  const radius=Math.min(pointerType==='touch'?88:76,Math.max(pointerType==='touch'?60:52,camera.scale*.72));
  return at.visible&&Math.hypot(p.x-at.sx,p.y-at.sy)<=radius;

@@ -33,10 +33,10 @@ export function reflection(before,after){
 export function impactPoint(ball,time,width,height,torus=true){
  if(!ball||!Array.isArray(time)||time.length!==2||typeof time[0]!=='bigint'||typeof time[1]!=='bigint'||time[1]<=0n)return null;
  if(![width,height].every(n=>Number.isSafeInteger(n)&&n>0))return null;
- const [n,d]=time;
+ const [n,td]=time,scale=ball.den??1n,d=td*scale;
  function axis(k,v,extent){
   if(typeof ball[k]!=='bigint'||!Number.isSafeInteger(ball[v]))throw Error('bad trajectory');
-  let q=ball[k]*d+BigInt(ball[v])*n;
+  let q=ball[k]*td+BigInt(ball[v])*n*scale;
   if(torus){const period=BigInt(extent)*1024n*d;q=((q%period)+period)%period;}
   const result=(Number(q/d)+Number((q%d)*4294967296n/d)/4294967296)/1024;
   if(!Number.isFinite(result))throw Error('unprojectable trajectory');return result;

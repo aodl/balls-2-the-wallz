@@ -402,6 +402,96 @@ pub fn combined_candidate<K: Kernel>(
     ))
 }
 
+pub fn deflector_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+    _observed_ns: u64,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    t.validate()?;
+    h.validate()?;
+    let committed_anchor = h
+        .record
+        .journal
+        .head
+        .seal
+        .as_ref()
+        .map(|s| &s.source_anchor)
+        .or_else(|| h.record.journal.epoch.as_ref().map(|e| &e.source_anchor));
+    if committed_anchor != Some(&h.record.inbox.source_anchor) {
+        return Err("deflector source anchor differs from authenticated predecessor".into());
+    }
+    if t.version != 8
+        || t.phase != "ready"
+        || source.pending.is_some()
+        || source.in_flight
+        || !source.binding_checked
+        || source.last_error.is_some()
+        || source.memo_adapter_version != b2z_protocol::war_cry::MEMO_ADAPTER_VERSION
+    {
+        return Err("deflector source cutover not drained".into());
+    }
+    let expected = b2z_native::combined_v11::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("deflector requires exact Rules11 predecessor identity".into());
+    }
+    let state = unhex(&h.record.journal.head.state_hex)?;
+    let old = World::decode(&state)?;
+    if h.record.journal.head.seal.is_none()
+        && !h
+            .record
+            .journal
+            .epoch
+            .as_ref()
+            .is_some_and(|e| e.version == 3)
+    {
+        return Err(
+            "deflector requires a completed Rules11 interval, not a consecutive rules epoch".into(),
+        );
+    }
+    if old.version != 6
+        || !old.time.0.is_integer()
+        || old.time.0.to_integer() != h.record.journal.head.logical_end.0
+        || Int(source.cursor.into()) != h.record.inbox.cursor
+        || h.record.journal.stage.is_some()
+        || !h.record.inbox.pending.is_empty()
+        || h.record.inbox.cursor != h.record.inbox.retired_to
+    {
+        return Err("deflector requires committed gameplay/source boundary".into());
+    }
+    let mut id = b2z_native::deflectors_v12::identity()?;
+    id["source_id"] = json!(h.record.journal.identity.source_id);
+    let identity: Identity = serde_json::from_value(id).map_err(|e| e.to_string())?;
+    let successor = b2z_native::deflectors_v12::migrate(&old)?;
+    let next_state = successor.encode()?;
+    let mut projection = successor.clone();
+    projection.version = 6;
+    projection.deflectors = None;
+    projection.next_deflector_id = None;
+    for b in &mut projection.balls {
+        b.den = None;
+    }
+    if projection.encode()? != state {
+        return Err("world preservation projection differs".into());
+    }
+    let metadata = json!({"version":8,"migration":"B2Z_BOUNDARY_DEFLECTOR_RULES_12","old_identity":h.record.journal.identity,"new_identity":identity,"previous_state":hash(&state),"new_state":hash(&next_state),"preserved_predecessor_projection":hash(&state),"logical_boundary":old.time,"source_cursor":Int(source.cursor.into()),"ledger_cutover":t.ledger_cutover,"account_history_complete_through":t.ledger_cutover,"index_synced":t.index_synced,"source_anchor":h.record.inbox.source_anchor,"memo_adapter_before":source.memo_adapter_version,"memo_adapter_after":b2z_protocol::deflector::MEMO_ADAPTER_VERSION});
+    Ok((
+        Output {
+            state: next_state,
+            events: encode(
+                &json!({"version":7,"receipts":[],"events":[{"kind":"deflector_rules_activated","sequence":0,"time":old.time,"context":metadata}]}),
+            )?,
+            scores: encode(&json!({"version":7,"area_time":[]}))?,
+        },
+        encode(&metadata)?,
+        identity,
+    ))
+}
+
 use super::{
     ensure_run_timer, host, install_run_timer, pace, persist, request_reconciliation, root,
     save_root_only, Root,
@@ -441,7 +531,7 @@ fn arm(at: u64) {
     TIMER.with(|slot| *slot.borrow_mut() = Some((id, at)));
 }
 fn install_world(r: &Root, w: &World) -> Result<()> {
-    if w.version != 6 {
+    if w.version < 6 {
         clear_timer();
         return Ok(());
     }
@@ -501,7 +591,7 @@ fn maintain() -> Result<()> {
     let mut r = root()?;
     let mut h = host(&r)?;
     let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
-    if w.version != 6 {
+    if w.version < 6 {
         return Ok(());
     }
     let now = ic_cdk::api::time();
@@ -764,6 +854,8 @@ mod tests {
         let a = "01".repeat(32);
         let b = "02".repeat(32);
         let world = World {
+            deflectors: None,
+            next_deflector_id: None,
             version: 3,
             width: 16,
             height: 8,
@@ -786,6 +878,8 @@ mod tests {
             ],
             balls: vec![
                 Ball {
+                    den: None,
+                    deflector_rearm: None,
                     id: 1,
                     owner: 1,
                     cell: 52,
@@ -795,6 +889,8 @@ mod tests {
                     vy: 0,
                 },
                 Ball {
+                    den: None,
+                    deflector_rearm: None,
                     id: 2,
                     owner: 2,
                     cell: 59,
@@ -1034,6 +1130,72 @@ mod tests {
                 assert_eq!(
                     restored.record.journal.identity,
                     combined.record.journal.identity
+                );
+                // Independently extend the exact Rules11 branch; historical
+                // Rules7/9/10/11 outputs and the original trace stay unchanged.
+                let mut source6 = source.clone();
+                source6.memo_adapter_version = 6;
+                assert!(
+                    deflector_candidate(&combined, &ready(8), &source6, observed).is_err(),
+                    "consecutive rules epochs are not a drained ordinary boundary"
+                );
+                ordinary(&mut combined);
+                let mut annotation_source = source.clone();
+                annotation_source.memo_adapter_version = 6;
+                let before = combined.record.clone();
+                let (deflect_out, deflect_metadata, deflect_id) =
+                    deflector_candidate(&combined, &ready(8), &annotation_source, observed)
+                        .unwrap();
+                let old = World::decode(&unhex(&before.journal.head.state_hex).unwrap()).unwrap();
+                let next = World::decode(&deflect_out.state).unwrap();
+                assert_eq!(next, b2z_native::deflectors_v12::migrate(&old).unwrap());
+                let context: serde_json::Value = decode(&deflect_metadata).unwrap();
+                assert_eq!(context["memo_adapter_before"], 6);
+                assert_eq!(context["memo_adapter_after"], 7);
+                assert_eq!(
+                    context["preserved_predecessor_projection"],
+                    hash(&old.encode().unwrap())
+                );
+                for variant in 0..6 {
+                    let mut wrong = annotation_source.clone();
+                    match variant {
+                        0 => wrong.binding_checked = false,
+                        1 => wrong.in_flight = true,
+                        2 => wrong.last_error = Some("transport unavailable".into()),
+                        3 => wrong.memo_adapter_version = 4,
+                        4 => wrong.memo_adapter_version = 7,
+                        _ => wrong.cursor += 1,
+                    }
+                    assert!(deflector_candidate(&combined, &ready(8), &wrong, observed).is_err());
+                }
+                assert!(
+                    deflector_candidate(&combined, &ready(7), &annotation_source, observed)
+                        .is_err()
+                );
+                let mut incomplete = ready(8);
+                incomplete.index_synced = Some(Int(99.into()));
+                assert!(
+                    deflector_candidate(&combined, &incomplete, &annotation_source, observed)
+                        .is_err()
+                );
+                combined.record.inbox.source_anchor = "ab".repeat(32);
+                assert!(
+                    deflector_candidate(&combined, &ready(8), &annotation_source, observed)
+                        .is_err()
+                );
+                combined.record = before.clone();
+                apply_rules(&mut combined, &deflect_out, &deflect_metadata, deflect_id);
+                assert_eq!(combined.record.inbox, before.inbox);
+                assert!(
+                    deflector_candidate(&combined, &ready(8), &annotation_source, observed)
+                        .is_err()
+                );
+                let image = combined.snapshot().unwrap();
+                let restored =
+                    Coordinator::restore(&image, &hash(&image), ExplicitClock(observed)).unwrap();
+                assert_eq!(
+                    restored.record.journal.head.state_hex,
+                    combined.record.journal.head.state_hex
                 );
             }
             let clear_state = unhex(&entry.record.journal.head.state_hex).unwrap();

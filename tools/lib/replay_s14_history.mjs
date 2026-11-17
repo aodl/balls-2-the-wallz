@@ -1,3 +1,5 @@
+import {readDeflectorPayment}from'../../packages/protocol/deflector.mjs';
+import {migrateDeflectorWorld}from'../../packages/kernels/b2z/deflectors-v12.mjs';
 import {readAnnotatedPayment}from'../../packages/protocol/war-cry.mjs';
 /** Independent application replay. Authentication belongs to the capture gate.
  * Expected events supply only hash-bound elapsed-time facts; gameplay is recomputed. */
@@ -9,7 +11,7 @@ import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {stageTorusMigration,stageMillionWorld} from '../../packages/kernels/b2z/migration.mjs';
 import {migratePlayability,dueFences} from '../../packages/kernels/b2z/playability.mjs';
 import {expireV6} from '../../packages/kernels/b2z/lifecycle-v6.mjs';
-import {decodeWorld,encodeWorld,MILLION_IDENTITY,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
+import {decodeWorld,encodeWorld,MILLION_IDENTITY,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 import {B2zKernel} from '../../packages/kernels/b2z/kernel.mjs';
 const equal=(a,b)=>hex(encodeCanonical(a))===hex(encodeCanonical(b));
 const check=(ok,message)=>{if(!ok)throw Error(message);};
@@ -17,7 +19,7 @@ const emptyOutput=(state,version,events=[])=>({state,events:encodeCanonical({ver
 export function replayHistory(trace,{diagnostic}={}){
  check(trace.status==='PASS'&&trace.publications?.length&&Array.isArray(trace.inputs)&&Array.isArray(trace.assigned),'complete captured history required');
  const inputs=trace.inputs.map(i=>({position:BigInt(i.position),payload_hex:i.payload_hex})),artifacts=new Map();
- check(inputs.every(i=>i.position>=0n&&i.position<=18446744073709551615n&&typeof i.payload_hex==='string'&&(/^[0-9a-f]{112}$/.test(i.payload_hex)||/^[0-9a-f]{114,176}$/.test(i.payload_hex)&&(()=>{try{readAnnotatedPayment(unhex(i.payload_hex));return true;}catch{return false;}})()))&&new Set(inputs.map(i=>String(i.position))).size===inputs.length,'bounded unique normalized inputs required');
+ check(inputs.every(i=>i.position>=0n&&i.position<=18446744073709551615n&&typeof i.payload_hex==='string'&&(/^[0-9a-f]{112}$/.test(i.payload_hex)||/^[0-9a-f]{114,176}$/.test(i.payload_hex)&&(()=>{try{const raw=unhex(i.payload_hex);if(i.payload_hex.startsWith("42545a5041593034"))readDeflectorPayment(raw);else readAnnotatedPayment(raw);return true;}catch{return false;}})()))&&new Set(inputs.map(i=>String(i.position))).size===inputs.length,'bounded unique normalized inputs required');
  for(const row of trace.artifact_events??[]){const id=BigInt(row.segment_id).toString();check(!artifacts.has(id),'duplicate event artifact');artifacts.set(id,row.events_hex);}
  const eventBytes=p=>{const bytes=unhex(artifacts.get(p.head.segment_id.toString())??'');check(bytes.length>0&&bytes.length<=1048576&&sha256(bytes)===p.artifacts.find(a=>a.kind==='events')?.sha256,'missing or invalid replay event artifact at '+p.head.segment_id);return bytes;};
  let completionTime=null;
@@ -34,6 +36,13 @@ export function replayHistory(trace,{diagnostic}={}){
     const raw=trace.epoch_metadata?.[p.epoch.transition_hash]??trace.metadata_hex;check(typeof raw==='string','missing historical transition metadata');
     const proof=decodeCanonical(unhex(raw)),proposed=stageTorusMigration(before,{...proof,identity:host.publicationRecord().journal.identity});
     metadata=encodeCanonical(proposed.transition);check(hex(metadata)===raw,'application transition metadata mismatch');out=emptyOutput(proposed.state,4);
+   }else if(p.version===8&&old.version===6&&p.identity.config_hash===DEFLECTOR_IDENTITY.config_hash){
+    const audit=decodeCanonical(eventBytes(p)),context=audit.events[0]?.context;
+    check(audit.version===7&&audit.events.length===1&&audit.events[0].kind==='deflector_rules_activated'&&context,'Deflector activation context missing');
+    check(Object.keys(COMBINED_IDENTITY).every(k=>host.publicationRecord().journal.identity[k]===COMBINED_IDENTITY[k])&&Object.keys(DEFLECTOR_IDENTITY).every(k=>p.identity[k]===DEFLECTOR_IDENTITY[k])&&p.identity.source_id===host.publicationRecord().journal.identity.source_id,'Deflector transition identity');
+    const state=encodeWorld(migrateDeflectorWorld(old)),expected={version:8,migration:'B2Z_BOUNDARY_DEFLECTOR_RULES_12',old_identity:host.publicationRecord().journal.identity,new_identity:p.identity,previous_state:sha256(before),new_state:sha256(state),preserved_predecessor_projection:sha256(before),logical_boundary:old.time,source_cursor:host.committed().source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:host.committed().seal?.source_anchor??host.publicationRecord().journal.epoch?.source_anchor,memo_adapter_before:6,memo_adapter_after:7};
+    check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&equal(context,expected),'Deflector cutover context mismatch');
+    metadata=encodeCanonical(expected);out=emptyOutput(state,7,[{kind:'deflector_rules_activated',sequence:0,time:old.time,context:expected}]);
    }else if([7,8].includes(p.version)&&old.version===6){
     const audit=decodeCanonical(eventBytes(p)),context=audit.events[0]?.context;
     check(audit.events[0]?.kind==='rules_activated'&&context,'entry activation context missing');
@@ -54,7 +63,7 @@ export function replayHistory(trace,{diagnostic}={}){
     metadata=encodeCanonical(expected);out=emptyOutput(state,version,isSix?[{kind:'rules_activated',sequence:0,time:old.time,context:expected}]:[]);
    }else{
     const events=decodeCanonical(eventBytes(p)),context=events.events[0]?.context;
-    check(old.version===6&&events.events[0]?.kind==='lifecycle_context'&&context,'missing lifecycle checkpoint context');
+    check(old.version>=6&&events.events[0]?.kind==='lifecycle_context'&&context,'missing lifecycle checkpoint context');
     check(equal(context.fences,dueFences(old,context.observed_ns)),'incomplete lifecycle due fences');
     const proposed=expireV6(old,context.observed_ns,context.fences);check(proposed&&equal(decodeCanonical(proposed.metadata),context),'lifecycle context mismatch');out=proposed.output;metadata=proposed.metadata;
     const cursor=host.committed().source_to_exclusive;check(p.epoch.source_cursor>=cursor,'checkpoint source rollback');
@@ -65,9 +74,9 @@ export function replayHistory(trace,{diagnostic}={}){
    host.apply({kind:'transition',epoch,state_hex:hex(out.state),event_hex:hex(out.events),score_hex:hex(out.scores)});checkpoints++;
   }else{
    const seal=p.head.seal,selected=inputs.filter(i=>i.position>=seal.source_from&&i.position<seal.source_to_exclusive);completionTime=null;
-   if([PLAYABILITY_IDENTITY.config_hash,ENTRY_IDENTITY.config_hash,CLEARANCE_IDENTITY.config_hash,WAR_CRY_IDENTITY.config_hash,COMBINED_IDENTITY.config_hash].includes(p.identity.config_hash)){
+   if([PLAYABILITY_IDENTITY.config_hash,ENTRY_IDENTITY.config_hash,CLEARANCE_IDENTITY.config_hash,WAR_CRY_IDENTITY.config_hash,COMBINED_IDENTITY.config_hash,DEFLECTOR_IDENTITY.config_hash].includes(p.identity.config_hash)){
     const event=decodeCanonical(eventBytes(p)),facts=event.events.filter(e=>e.kind==='lifecycle_time'),last=event.events.at(-1);
-    check(event.version===6&&facts.length===1&&last===facts[0]&&equal(last.time,[seal.logical_end,1n])&&typeof last.observed_ns==='bigint','invalid completion fact');completionTime=last.observed_ns;
+    check(event.version===(p.identity.config_hash===DEFLECTOR_IDENTITY.config_hash?7:6)&&facts.length===1&&last===facts[0]&&equal(last.time,[seal.logical_end,1n])&&typeof last.observed_ns==='bigint','invalid completion fact');completionTime=last.observed_ns;
    }
    assigned.push(...selected.map(i=>i.position.toString()));
    if(selected.length===0)host.ingestOrdered(seal.source_from,seal.source_to_exclusive,[],seal.source_anchor);

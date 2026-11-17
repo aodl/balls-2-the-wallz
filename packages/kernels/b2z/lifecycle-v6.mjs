@@ -5,7 +5,7 @@ import{sha256}from'@dtr/timeline-runtime/runtime/seal';
 import{validateWorld,encodeWorld,ownerAt,setOwner,neighbors}from'./world.mjs';
 import{elapsed,life,playerForCannon,V6_POLICY}from'./playability.mjs';
 export function expireV6(w,observed_ns,fences){
- validateWorld(w);if(w.version!==6)throw Error('EXPECTED_V6');elapsed(observed_ns);
+ validateWorld(w);if(w.version<6)throw Error('EXPECTED_V6');elapsed(observed_ns);
  if(observed_ns<w.playability.elapsed_ns)throw Error('LIFECYCLE_TIME_ROLLBACK');
  if(!Array.isArray(fences)||fences.length>V6_POLICY.max_cannons)throw Error('EXPIRY_CAPACITY');
  const seen=new Set(),due=[];let prior=null;
@@ -22,5 +22,5 @@ export function expireV6(w,observed_ns,fences){
   const territory=ownerAt(next,c.cell),cell_retained=false;setOwner(next,c.cell,0);next.cannons=next.cannons.filter(c=>c.id!==f.cannon);next.playability.lifecycle=next.playability.lifecycle.filter(l=>l.cannon!==f.cannon);regroupMarkers(next,territory);
   events.push({kind:'cannon_expired',sequence:events.length,time:w.time,cannon:c.id,cell:c.cell,player,generation:f.generation,deadline_ns:f.deadline_ns,observed_ns,cell_retained});expired.push(c.id);
  }
- return {metadata:encodeCanonical(context),expired,output:{state:encodeWorld(next),events:encodeCanonical({version:6,receipts:[],events}),scores:encodeCanonical({version:6,area_time:[]})}};
+ return {metadata:encodeCanonical(context),expired,output:{state:encodeWorld(next),events:encodeCanonical({version:w.version,receipts:[],events}),scores:encodeCanonical({version:w.version,area_time:[]})}};
 }

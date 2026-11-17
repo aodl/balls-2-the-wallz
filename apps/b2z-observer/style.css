@@ -255,3 +255,8 @@ button:hover{background:#39464c}button:disabled{box-shadow:none}
 #quantity-controls button,#war-cry-editor input{background:transparent}
 @media(prefers-reduced-transparency:reduce){.panel,.panel-scroll,.panel-header,#quantity-controls,#war-cry-editor{background:#20282b;backdrop-filter:none}}
 @media(forced-colors:active){button,.panel,.panel-scroll,.panel-header,#quantity-controls,#war-cry-editor,.payment-information{background:Canvas;color:CanvasText;border-color:CanvasText;box-shadow:none}.panel-header button[aria-pressed=true]{outline:2px solid Highlight;outline-offset:-3px}.payment-price{color:CanvasText}}
+
+/* One measured arena editor: Deflector choices reuse its reserved dock/locks. */
+#deflector-directions{display:flex;gap:0;height:46px;border:1px solid var(--line);border-radius:8px;background:var(--control);touch-action:manipulation}
+#deflector-directions button{width:44px;min-width:44px;height:44px;padding:0;border:0;border-radius:4px;background:transparent;font-size:14px;font-weight:700}
+#deflector-directions button[aria-pressed=true]{background:var(--pressed);box-shadow:inset 0 -3px var(--accent);color:var(--ink)}

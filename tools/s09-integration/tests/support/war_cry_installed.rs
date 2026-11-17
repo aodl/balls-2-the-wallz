@@ -22,18 +22,44 @@ pub(super) fn transition(pic: &PocketIc, id: Principal, kind: &str) {
         }
     }
     assert!(ready, "drained {kind} boundary");
-    if kind == "combined" {
+    if matches!(kind, "combined" | "deflector") {
         let before = arena_world(pic, id).encode().unwrap();
         let finance = funding_tests::preserved_finance(pic, id);
         let publication = observe(pic, id).0.publication;
         let raw: Vec<u8> = get_query(
             pic,
             id,
-            "combined_transition_status",
+            &format!("{kind}_transition_status"),
             encode_args(()).unwrap(),
         );
         let phase: serde_json::Value = decode(&raw).unwrap();
         assert_eq!(phase["transition"]["phase"], "ready");
+        if kind == "deflector" {
+            let expected_module = pic
+                .canister_status(id, Some(controller()))
+                .unwrap()
+                .module_hash;
+            let downgrade = pic.upgrade_canister(
+                id,
+                bytes("B2Z_RULES11_PRIOR_WASM"),
+                encode_args(()).unwrap(),
+                Some(controller()),
+            );
+            assert!(
+                downgrade.is_err(),
+                "old Rules11 module must not accept the new durable preparation record"
+            );
+            eprintln!("Expected disposable prepared-record downgrade rejection: {downgrade:?}");
+            assert_eq!(
+                pic.canister_status(id, Some(controller()))
+                    .unwrap()
+                    .module_hash,
+                expected_module
+            );
+            assert_eq!(arena_world(pic, id).encode().unwrap(), before);
+            assert_eq!(funding_tests::preserved_finance(pic, id), finance);
+            assert_eq!(observe(pic, id).0.publication, publication);
+        }
         pic.upgrade_canister(
             id,
             bytes("B2Z_S14_WASM"),
@@ -47,7 +73,7 @@ pub(super) fn transition(pic: &PocketIc, id: Principal, kind: &str) {
         let restored: Vec<u8> = get_query(
             pic,
             id,
-            "combined_transition_status",
+            &format!("{kind}_transition_status"),
             encode_args(()).unwrap(),
         );
         let restored: serde_json::Value = decode(&restored).unwrap();

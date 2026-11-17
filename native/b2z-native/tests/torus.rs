@@ -7,6 +7,8 @@ fn million_split_world() -> b2z_native::world::World {
     use dtr_wire::{Int, Rat};
     let account = |id: u32| format!("{id:064x}");
     World {
+        deflectors: None,
+        next_deflector_id: None,
         version: 4,
         width: 32,
         height: 32,
@@ -31,6 +33,8 @@ fn million_split_world() -> b2z_native::world::World {
         ],
         balls: vec![
             Ball {
+                den: None,
+                deflector_rearm: None,
                 id: 1,
                 owner: 1,
                 cell: 264,
@@ -40,6 +44,8 @@ fn million_split_world() -> b2z_native::world::World {
                 vy: 1,
             },
             Ball {
+                den: None,
+                deflector_rearm: None,
                 id: 2,
                 owner: 2,
                 cell: 279,

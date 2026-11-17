@@ -10,8 +10,8 @@ export function compactAxis(intervals,size){
 }
 export function accountTerritoryFrame(world,account){
  const mine=world.cannons.filter(c=>c.account===account);if(!mine.length)return null;
- const players=world.version===6?new Map(world.playability.players.map(p=>[p.id,p.account])):null,territories=world.version===6?new Map(world.playability.territories.map(t=>[t.id,t.player])):null,cannons=new Map(world.cannons.map(c=>[c.id,c.account]));
- const owner=id=>world.version===6?players.get(territories.get(id)):cannons.get(id);
+ const players=world.version>=6?new Map(world.playability.players.map(p=>[p.id,p.account])):null,territories=world.version>=6?new Map(world.playability.territories.map(t=>[t.id,t.player])):null,cannons=new Map(world.cannons.map(c=>[c.id,c.account]));
+ const owner=id=>world.version>=6?players.get(territories.get(id)):cannons.get(id);
  const rects=territoryLayout({...world,torus:world.version>=4,owner:n=>world.cells[n]}).rects.filter(r=>r.owner&&owner(r.owner)===account);
  if(!rects.length)return{x:mine[0].cell%world.width+.5,y:Math.floor(mine[0].cell/world.width)+.5,projectedWidth:1,projectedHeight:1,regions:0};
  const x=compactAxis(rects.map(r=>[r.x,r.x+r.width]),world.width),y=compactAxis(rects.map(r=>[r.y,r.y+r.height]),world.height);let left=Infinity,right=-Infinity,top=Infinity,bottom=-Infinity;

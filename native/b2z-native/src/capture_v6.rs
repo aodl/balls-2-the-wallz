@@ -39,10 +39,12 @@ pub struct Job {
     pub operations: Vec<Value>,
     pub cancelled_strikes: Vec<u32>,
     metadata_delta: Option<MetadataDelta>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    removed_deflectors: Option<Vec<crate::world::Deflector>>,
 }
 impl Job {
     fn base(w: &World) -> Result<Self> {
-        if w.version != 6 {
+        if w.version < 6 {
             return Err("EXPECTED_V6".into());
         }
         Ok(Self {
@@ -64,6 +66,7 @@ impl Job {
             operations: vec![],
             cancelled_strikes: vec![],
             metadata_delta: None,
+            removed_deflectors: (w.version == 7).then(Vec::new),
         })
     }
     pub fn capture(w: &World, target: usize, ball: u32) -> Result<Self> {
@@ -76,6 +79,7 @@ impl Job {
         if target >= w.cell_count()
             || w.player_at(target) == Some(b.owner)
             || w.cannons.iter().any(|c| c.cell == target)
+            || crate::deflectors_v12::at(w, target).is_some()
             || !w
                 .neighbors(target)
                 .iter()
@@ -261,6 +265,13 @@ impl Job {
                 }
             }
             "commit" => {
+                if self.proposal.version == 7 {
+                    let gone = crate::deflectors_v12::remove_lost(&mut self.proposal);
+                    self.removed_deflectors
+                        .as_mut()
+                        .ok_or("structure capture continuation")?
+                        .extend(gone);
+                }
                 let pending = std::mem::take(&mut self.proposal.pending);
                 for p in pending {
                     if self.proposal.valid_strike(&p) {
@@ -289,12 +300,14 @@ impl Job {
         if self.phase != "done" {
             return Err("INCOMPLETE_CAPTURE".into());
         }
-        Ok(
-            json!({"kind":if self.target.is_none() { "annihilation_cleanup" } else if self.pairs.is_empty() { "capture" } else { "capture_annihilation" },
+        let mut e = json!({"kind":if self.target.is_none() { "annihilation_cleanup" } else if self.pairs.is_empty() { "capture" } else { "capture_annihilation" },
             "target":self.target,"ball":self.ball,"attacker":self.attacker,
             "cancelled_capture": self.target.is_some() && !self.pairs.is_empty(),
             "pairs":self.pairs,"ownership_ops":self.operations,"dormant":self.fences,
-            "reactivated_cannons":self.reactivated,"cancelled_strikes":self.cancelled_strikes,"metadata_delta":self.metadata_delta}),
-        )
+            "reactivated_cannons":self.reactivated,"cancelled_strikes":self.cancelled_strikes,"metadata_delta":self.metadata_delta});
+        if let Some(ds) = &self.removed_deflectors {
+            e["removed_deflectors"] = json!(ds);
+        }
+        Ok(e)
     }
 }

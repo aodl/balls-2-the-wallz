@@ -23,6 +23,8 @@ pub(crate) struct State {
     pub clearance_rules: bool,
     #[serde(default, skip_serializing_if = "is_false")]
     pub war_cry_rules: bool,
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub deflector_rules: bool,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pending_cry: Option<String>,
     pub plan: Option<Plan>,
@@ -38,7 +40,8 @@ fn is_false(v: &bool) -> bool {
 impl Cursor {
     pub(crate) fn validate_v6(&self) -> Result<()> {
         let s = self.v6.as_ref().ok_or("V6_CURSOR")?;
-        if s.finalized && self.phase != "done"
+        if s.deflector_rules != (self.world.version == 7)
+            || s.finalized && self.phase != "done"
             || s.births.len() > playability::MAX_CANNONS
             || s.births
                 .iter()
@@ -72,10 +75,16 @@ impl Cursor {
                     self.restart_search()?;
                     return Ok(true);
                 }
-                let payment = crate::cursor::read_payment_with_annotations(
-                    &self.inputs[self.input_index].payload_hex,
-                    self.v6.as_ref().unwrap().war_cry_rules,
-                )?;
+                let payment = if self.v6.as_ref().unwrap().deflector_rules {
+                    crate::cursor::read_payment_deflectors(
+                        &self.inputs[self.input_index].payload_hex,
+                    )?
+                } else {
+                    crate::cursor::read_payment_with_annotations(
+                        &self.inputs[self.input_index].payload_hex,
+                        self.v6.as_ref().unwrap().war_cry_rules,
+                    )?
+                };
                 if self.v6.as_ref().unwrap().war_cry_rules {
                     self.v6.as_mut().unwrap().pending_cry = payment.cry.clone();
                 }
@@ -95,6 +104,26 @@ impl Cursor {
                 self.world.received_e8s.0 = tally;
                 match &plan {
                     Plan::Rejected { reason } => self.v6_reject(&payment.saved, reason)?,
+                    Plan::Deflect {
+                        owner,
+                        cell,
+                        orientation,
+                        price,
+                    } => {
+                        let id = self.world.next_deflector_id.ok_or("structure counter")?;
+                        let d = crate::world::Deflector {
+                            id,
+                            owner: *owner,
+                            cell: *cell,
+                            orientation: orientation.clone(),
+                        };
+                        self.world.next_deflector_id =
+                            Some(id.checked_add(1).ok_or("structure counter")?);
+                        let ds = self.world.deflectors.as_mut().ok_or("structure state")?;
+                        ds.push(d.clone());
+                        ds.sort_by_key(|d| d.cell);
+                        self.receipt(&payment.saved,json!({"reason":"ACCEPTED","kind":"deflector_built","structure":d,"status":"applied","amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
+                    }
                     Plan::Move {
                         cannon,
                         cell,
@@ -289,7 +318,7 @@ impl Cursor {
         Ok(())
     }
     pub fn needs_elapsed(&self) -> bool {
-        self.world.version == 6
+        self.world.version >= 6
             && self.phase == "done"
             && self.v6.as_ref().is_none_or(|s| !s.finalized)
     }

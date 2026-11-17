@@ -201,6 +201,7 @@ impl SourceState {
             legacy_memo_adapter(),
             b2z_protocol::v6::MEMO_ADAPTER_VERSION,
             b2z_protocol::war_cry::MEMO_ADAPTER_VERSION,
+            b2z_protocol::deflector::MEMO_ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -272,6 +273,7 @@ impl SourceState {
             legacy_memo_adapter(),
             b2z_protocol::v6::MEMO_ADAPTER_VERSION,
             b2z_protocol::war_cry::MEMO_ADAPTER_VERSION,
+            b2z_protocol::deflector::MEMO_ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -519,6 +521,25 @@ fn classify_with(
             }
             if &to != recipient || &from == recipient {
                 return Ok(None);
+            }
+            if adapter == b2z_protocol::deflector::MEMO_ADAPTER_VERSION {
+                let parsed = if spender.is_none() {
+                    b2z_protocol::deflector::decode_ledger(tx.memo, tx.icrc1_memo.as_deref()).ok()
+                } else {
+                    None
+                };
+                let memo = parsed
+                    .as_ref()
+                    .and_then(|a| b2z_protocol::deflector::encode(a.command).ok())
+                    .unwrap_or(INVALID_MEMO);
+                let cry = parsed.as_ref().map(|a| a.cry.as_bytes()).unwrap_or(&[]);
+                let mut payload = b"BTZPAY04".to_vec();
+                payload.extend(from.as_bytes());
+                payload.extend(amount.e8s.to_be_bytes());
+                payload.extend(memo);
+                payload.push(cry.len() as u8);
+                payload.extend(cry);
+                return Ok(Some(hex(&payload)));
             }
             if adapter == b2z_protocol::war_cry::MEMO_ADAPTER_VERSION {
                 let parsed = if spender.is_none() {

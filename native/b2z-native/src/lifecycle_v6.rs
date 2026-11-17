@@ -91,8 +91,8 @@ pub fn expire(world: &World, observed_ns: u64, fences: &[Fence]) -> Result<Optio
         expired,
         output: Output {
             state: next.encode()?,
-            events: encode(&json!({"version":6,"receipts":[],"events":events}))?,
-            scores: encode(&json!({"version":6,"area_time":[]}))?,
+            events: encode(&json!({"version":world.version,"receipts":[],"events":events}))?,
+            scores: encode(&json!({"version":world.version,"area_time":[]}))?,
         },
     }))
 }

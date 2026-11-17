@@ -1,3 +1,4 @@
+import{validateRationalTrack}from'./model-deflector.mjs';
 /** V6 presentation facts only. No physics, Ledger admission or action authority. */
 import {V6_POLICY} from '../../packages/kernels/b2z/playability.generated.mjs';
 import {encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
@@ -6,7 +7,7 @@ const check=(v,s)=>{if(!v)throw Error('observer: v6 '+s);};
 const integer=(v,max=4294967294,min=0)=>check(Number.isSafeInteger(v)&&v>=min&&v<=max,'integer');
 const ns=n=>check(typeof n==='bigint'&&n>=0n&&n<=18446744073709551615n,'elapsed time');
 const same=(a,b)=>{const x=encodeCanonical(a),y=encodeCanonical(b);return x.length===y.length&&x.every((v,i)=>v===y[i]);};
-export function trackV6(b){integer(b.id,4294967294,1);integer(b.owner,4294967294,1);for(const k of ['vx','vy'])check(Number.isSafeInteger(b[k])&&Math.abs(b[k])<=65536,'velocity');for(const k of ['x0','y0'])check(typeof b[k]==='bigint'&&b[k]>=-100000000000000n&&b[k]<=100000000000000n,'intercept');check(b.vx||b.vy,'zero velocity');return {id:b.id,owner:b.owner,x0:b.x0,y0:b.y0,vx:b.vx,vy:b.vy};}
+export function trackV6(b,rational=false){integer(b.id,4294967294,1);integer(b.owner,4294967294,1);for(const k of ['vx','vy'])check(Number.isSafeInteger(b[k])&&Math.abs(b[k])<=65536,'velocity');const limit=rational?6553600000000000000n:100000000000000n;for(const k of ['x0','y0'])check(typeof b[k]==='bigint'&&b[k]>=-limit&&b[k]<=limit,'intercept');if(rational)validateRationalTrack(b);else check(b.den===undefined&&b.deflector_rearm===undefined,'historical trajectory');check(b.vx||b.vy,'zero velocity');return {id:b.id,owner:b.owner,x0:b.x0,y0:b.y0,vx:b.vx,vy:b.vy,...(rational?{den:b.den,...(b.deflector_rearm===undefined?{}:{deflector_rearm:structuredClone(b.deflector_rearm)})}:{})};}
 export function validateV6Snapshot(w,ownerAt){
  const s=w.playability;check(s&&w.width===1000&&w.height===1000,'snapshot');ns(s.elapsed_ns);
  const bounded=(v,n)=>check(Array.isArray(v)&&v.length<=n,'array bounds');
@@ -19,7 +20,7 @@ export function validateV6Snapshot(w,ownerAt){
  integer(s.next_player_id,4294967295);integer(s.next_territory_id,4294967295);check(s.next_player_id>(s.players.at(-1)?.id??0)&&s.next_territory_id>(s.territories.at(-1)?.id??0),'next identities');
  for(const id of [...w.ownership.base,...w.ownership.overrides.map(r=>r.owner)])check(id===0||territories.has(id),'territory binding');
  const anchors=new Map(),cells=new Set(),retained=new Map();check(s.lifecycle.length===w.cannons.length,'lifecycle cardinality');
- const pools=new Map();for(const b of w.balls){trackV6(b);integer(b.cell,999999);const label=ownerAt(w,b.cell);check(players.has(b.owner)&&territories.get(label)===b.owner,'ball player');pools.set(label,(pools.get(label)??0)+1);const x=rat(b.x0*w.time[1]+BigInt(b.vx)*w.time[0],w.time[1]),y=rat(b.y0*w.time[1]+BigInt(b.vy)*w.time[0],w.time[1]),cx=b.cell%1000,cy=Math.floor(b.cell/1000);check(cmp(x,rat(cx*1024))>=0&&cmp(x,rat((cx+1)*1024))<=0&&cmp(y,rat(cy*1024))>=0&&cmp(y,rat((cy+1)*1024))<=0,'ball position');}
+ const pools=new Map();for(const b of w.balls){trackV6(b,w.version===7);integer(b.cell,999999);const label=ownerAt(w,b.cell);check(players.has(b.owner)&&territories.get(label)===b.owner,'ball player');pools.set(label,(pools.get(label)??0)+1);const x=rat(b.x0*w.time[1]+BigInt(b.vx)*w.time[0]*(b.den??1n),w.time[1]*(b.den??1n)),y=rat(b.y0*w.time[1]+BigInt(b.vy)*w.time[0]*(b.den??1n),w.time[1]*(b.den??1n)),cx=b.cell%1000,cy=Math.floor(b.cell/1000);check(cmp(x,rat(cx*1024))>=0&&cmp(x,rat((cx+1)*1024))<=0&&cmp(y,rat(cy*1024))>=0&&cmp(y,rat((cy+1)*1024))<=0,'ball position');}
  for(let i=0;i<w.cannons.length;i++){
   const c=w.cannons[i],l=s.lifecycle[i],label=ownerAt(w,c.cell);integer(c.cell,999999);if(c.heading!==undefined)integer(c.heading,65535);integer(l.generation,4294967295,1);
   check(!cells.has(c.cell)&&l.cannon===c.id&&territories.get(label)===l.player&&players.get(l.player)?.account===c.account,'cannon player');cells.add(c.cell);anchors.set(label,(anchors.get(label)??0)+1);retained.set(l.player,(retained.get(l.player)??0)+1);check(retained.get(l.player)<=V6_POLICY.max_retained_per_player,'retained limit');
@@ -60,13 +61,13 @@ export function applyV6Event(view,e){
  if(e.kind==='cannon_spawned'){
   const c=e.cannon;integer(c.id,4294967294,1);view.cell(c.cell);check(!view.cannons.has(c.id),'duplicate cannon');check(Array.isArray(e.patch)&&[1,9].includes(e.patch.length),'patch');
   view.cannons.set(c.id,{...c});ownership(view,e.ownership_ops);applyMetadata(view,e.metadata_delta);
-  const b=trackV6(e.ball);check(b.owner===view.playerForCannon(c.id)&&!view.balls.has(b.id),'initial ball');view.balls.set(b.id,b);view.effects.push({kind:'spawn',cell:c.cell,t,owner:b.owner});
+  const b=trackV6(e.ball,view.version===7);check(b.owner===view.playerForCannon(c.id)&&!view.balls.has(b.id),'initial ball');view.balls.set(b.id,b);view.effects.push({kind:'spawn',cell:c.cell,t,owner:b.owner});
  }else if(e.kind==='ball_spawned'){
-  check(view.cannons.has(e.cannon),'launch cannon');applyMetadata(view,e.metadata_delta);const b=trackV6(e.ball);check(b.owner===view.playerForCannon(e.cannon)&&!view.balls.has(b.id),'spawn player');view.balls.set(b.id,b);integer(e.heading,65535);view.cannons.get(e.cannon).heading=e.heading;
+  check(view.cannons.has(e.cannon),'launch cannon');applyMetadata(view,e.metadata_delta);const b=trackV6(e.ball,view.version===7);check(b.owner===view.playerForCannon(e.cannon)&&!view.balls.has(b.id),'spawn player');view.balls.set(b.id,b);integer(e.heading,65535);view.cannons.get(e.cannon).heading=e.heading;
  }else if(['capture','capture_annihilation','annihilation_cleanup'].includes(e.kind)){
   check(Array.isArray(e.pairs)&&e.pairs.length<=Math.floor(V6_POLICY.max_balls/2),'pairs');const used=new Set();
   for(const pair of e.pairs){check(Array.isArray(pair.balls)&&pair.balls.length===2&&Array.isArray(pair.positions)&&pair.positions.length===2,'pair');const balls=pair.balls.map(id=>view.balls.get(id));check(balls.every(Boolean)&&balls[0].owner!==balls[1].owner,'pair participants');
-   for(let i=0;i<2;i++){const b=balls[i];check(!used.has(b.id),'repeated participant');used.add(b.id);const p=pair.positions[i];check(Array.isArray(p)&&p.length===2,'pair position');for(let axis=0;axis<2;axis++){const k=axis?'y0':'x0',v=axis?'vy':'vx';check(cmp(p[axis],rat(b[k]*e.time[1]+BigInt(b[v])*e.time[0],e.time[1]))===0,'pair trajectory');}}
+   for(let i=0;i<2;i++){const b=balls[i];check(!used.has(b.id),'repeated participant');used.add(b.id);const p=pair.positions[i];check(Array.isArray(p)&&p.length===2,'pair position');for(let axis=0;axis<2;axis++){const k=axis?'y0':'x0',v=axis?'vy':'vx';check(cmp(p[axis],rat(b[k]*e.time[1]+BigInt(b[v])*e.time[0]*(b.den??1n),e.time[1]*(b.den??1n)))===0,'pair trajectory');}}
    const [[x,y],[x2,y2]]=pair.positions.map(p=>p.map(r=>((Number(r[0])/Number(r[1])/1024)%1000+1000)%1000));view.effects.push({kind:'mutual',x,y,x2,y2,t,owner:balls[0].owner});
   }
   view.removeBalls([...used]);ownership(view,e.ownership_ops);applyMetadata(view,e.metadata_delta);

@@ -1,4 +1,5 @@
 import {hasEnemyClearance} from '../../protocol/territory-clearance.mjs';
+import{deflectorAt}from'./deflectors-v12.mjs';
 import{allocateTerritory,mergeTerritories,territoryForCannon,territoryBalls}from'./territory-v6.mjs';
 /** Versioned pure purchase planning; the enclosing cursor owns receipt admission. */
 import {decodeV6Memo,encodeV6Memo,MAX_QUANTITY} from '../../protocol/memo-v6.mjs';
@@ -15,12 +16,12 @@ function amount(n){if(typeof n!=='bigint'||n<0n||n>U64)throw Error('PAYMENT_AMOU
 const reject=reason=>({kind:'rejected',reason});
 export const playerByAccount=(w,account)=>w.playability?.players.find(p=>p.account===account)?.id;
 export function adjacentSites(w,id){
- if(w.version!==6)throw Error('EXPECTED_V6');const sites=new Set(),blocked=occupiedCells(w);
+ if(w.version<6)throw Error('EXPECTED_V6');const sites=new Set(),blocked=occupiedCells(w);
  for(const c of w.cannons)if(playerForCannon(w,c.id)===id&&territoryBallCount(w,c.id)>0)for(const n of neighbors(c.cell,w.width,w.height,true))sites.add(n);
  return [...sites].filter(c=>!blocked.has(c)&&(ownerAt(w,c)===0||playerAt(w,c)===id)).sort((a,b)=>a-b);
 }
 export function occupiedCells(w){
- const blocked=new Set(w.cannons.map(c=>c.cell));
+ const blocked=new Set([...w.cannons.map(c=>c.cell),...(w.deflectors??[]).map(d=>d.cell)]);
  for(const b of w.balls){const [x,y]=position(b,w.time),cx=b.cell%w.width,cy=Math.floor(b.cell/w.width),xs=[cx],ys=[cy];
   if(cmp(x,rat(cx*Q))===0)xs.push(cx-1);else if(cmp(x,rat((cx+1)*Q))===0)xs.push(cx+1);
   if(cmp(y,rat(cy*Q))===0)ys.push(cy-1);else if(cmp(y,rat((cy+1)*Q))===0)ys.push(cy+1);
@@ -63,7 +64,7 @@ export function chooseAdjacent(w,id,seed,clearance=false){
  ranked.sort((a,b)=>a[0]===b[0]?a[1]-b[1]:a[0]<b[0]?-1:1);return ranked[0]?.[1]??null;
 }
 export function preparePurchase(w,account,budget,memo,moved=[]){
- if(w.version!==6)throw Error('EXPECTED_V6');amount(budget);let c;try{c=decodeV6Memo(memo);}catch{return reject('MALFORMED_MEMO');}
+ if(w.version<6)throw Error('EXPECTED_V6');amount(budget);let c;try{c=decodeV6Memo(memo);}catch{return reject('MALFORMED_MEMO');}
  const mine=w.cannons.filter(c=>c.account===account);let explicit=true;
  if(c.kind==='angle'){explicit=false;c=mine.length?{kind:'fire',cannon:mine[0].id,angle:c.value,quantity:MAX_QUANTITY}:{kind:'new',angle:c.value,quantity:MAX_QUANTITY,cell:null};}
  else if(c.kind==='move'){explicit=false;if(!mine.length)return reject('NO_CANNON');c={kind:'move_cannon',cannon:mine[0].id,cell:c.value};}
@@ -87,6 +88,7 @@ export function preparePurchase(w,account,budget,memo,moved=[]){
  if(c.kind!=='move_cannon')throw Error('unresolved command');if(!pool)return reject('DORMANT_REVIVAL_REQUIRED');
  if(budget<PRELAUNCH_CONFIG.move_e8s)return reject('UNDERFUNDED');if(moved.includes(c.cannon))return reject('MOVE_LIMIT');
  if(playerAt(w,c.cell)!==playerForCannon(w,c.cannon))return reject('NOT_OWN_TERRITORY');if(w.cannons.some(x=>x.id!==c.cannon&&x.cell===c.cell))return reject('CANNON_OCCUPIED');
+ if(deflectorAt(w,c.cell))return reject('SITE_OCCUPIED');
  const old=ownerAt(w,cannon.cell);if(ownerAt(w,c.cell)!==old&&w.cannons.filter(c=>ownerAt(w,c.cell)===old).length===1)return reject('WOULD_STRAND_ISLAND');
  return {kind:'move',cannon:c.cannon,cell:c.cell,price:PRELAUNCH_CONFIG.move_e8s};
 }
@@ -94,7 +96,7 @@ export class PurchaseBatch{
  static fire(account,budget,p){if(p.kind!=='fire')throw Error('fire plan');return Object.assign(new PurchaseBatch(),{account,amount:amount(budget),cannon:p.cannon,angle:p.angle,requested:p.quantity,explicit:p.explicit,new_cannon:false,prices:[],used:0n,remainder:budget,stop_reason:null});}
  static afterNew(account,budget,cannon,p){if(p.kind!=='new'||amount(budget)<p.price)throw Error('new cannon plan');return Object.assign(new PurchaseBatch(),{account,amount:budget,cannon,angle:p.angle,requested:p.quantity,explicit:p.explicit,new_cannon:true,prices:[p.price],used:p.price,remainder:budget-p.price,stop_reason:p.quantity===1?'quantity_limit':null});}
  validate(w){
-  if(w.version!==6||!Number.isInteger(this.requested)||this.requested<1||this.requested>MAX_QUANTITY||this.prices.length>this.requested||!w.cannons.some(c=>c.id===this.cannon&&c.account===this.account))throw Error('PURCHASE_CONTINUATION');
+  if(w.version<6||!Number.isInteger(this.requested)||this.requested<1||this.requested>MAX_QUANTITY||this.prices.length>this.requested||!w.cannons.some(c=>c.id===this.cannon&&c.account===this.account))throw Error('PURCHASE_CONTINUATION');
   amount(this.amount);amount(this.used);amount(this.remainder);if(this.used+this.remainder!==this.amount||this.prices.some(p=>amount(p)===0n)||this.prices.reduce((s,p)=>s+p,0n)!==this.used||this.stop_reason!==null&&!['quantity_limit','capacity','insufficient_payment','ball_id_exhausted'].includes(this.stop_reason))throw Error('PURCHASE_CONTINUATION');
  }
  step(w){

@@ -3574,6 +3574,8 @@ fn empty_arena_all_player_elimination_preserves_scores_then_idles() {
     ];
     w.balls = vec![
         Ball {
+            den: None,
+            deflector_rearm: None,
             id: 1,
             owner: 1,
             cell: 8,
@@ -3583,6 +3585,8 @@ fn empty_arena_all_player_elimination_preserves_scores_then_idles() {
             vy: 0,
         },
         Ball {
+            den: None,
+            deflector_rearm: None,
             id: 2,
             owner: 2,
             cell: 9,
@@ -3939,6 +3943,8 @@ fn pace_world() -> b2z_native::world::World {
         heading: None,
     }];
     world.balls = vec![Ball {
+        den: None,
+        deflector_rearm: None,
         id: 1,
         owner: 1,
         cell: 42,
@@ -3988,6 +3994,8 @@ fn million_population_world(ball_count: usize) -> b2z_native::world::World {
             let x = if owner == 1 { 5 } else { 27 };
             let y = n % 32;
             Ball {
+                den: None,
+                deflector_rearm: None,
                 id: (n + 1) as u32,
                 owner,
                 cell: y * 32 + x,
@@ -4437,6 +4445,8 @@ fn torus_browser_scene_camera_and_continuous_supported_playback() {
     ]
     .into_iter()
     .map(|(id, owner, cell, vx, vy)| Ball {
+        den: None,
+        deflector_rearm: None,
         id,
         owner,
         cell,
@@ -6990,3 +7000,6 @@ mod entry_installed;
 
 #[path = "support/war_cry_installed.rs"]
 mod war_cry_installed;
+
+#[path = "support/boundary_deflector_installed.rs"]
+mod boundary_deflector_installed;

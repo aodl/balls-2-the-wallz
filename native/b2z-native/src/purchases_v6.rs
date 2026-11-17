@@ -15,6 +15,12 @@ use std::collections::BTreeSet;
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Plan {
+    Deflect {
+        owner: u32,
+        cell: usize,
+        orientation: String,
+        price: Int,
+    },
     Rejected {
         reason: String,
     },
@@ -57,7 +63,7 @@ pub fn player_by_account(world: &World, account: &str) -> Option<u32> {
 /// Closed-cell occupancy also excludes a ball exactly on an adjacent/seam wall.
 /// Work is bounded by entity counts, never by the million-cell board area.
 pub fn adjacent_sites(world: &World, player: u32) -> Result<Vec<usize>> {
-    if world.version != 6 {
+    if world.version < 6 {
         return Err("EXPECTED_V6".into());
     }
     let mut candidates = BTreeSet::new();
@@ -79,6 +85,9 @@ pub fn adjacent_sites(world: &World, player: u32) -> Result<Vec<usize>> {
 }
 pub(crate) fn occupied_cells(world: &World) -> Result<BTreeSet<usize>> {
     let mut blocked: BTreeSet<_> = world.cannons.iter().map(|c| c.cell).collect();
+    if let Some(ds) = &world.deflectors {
+        blocked.extend(ds.iter().map(|d| d.cell));
+    }
     for b in &world.balls {
         let [x, y] = position(b, &world.time)?;
         let cx = (b.cell % world.width) as i64;
@@ -292,8 +301,11 @@ pub fn prepare(
     memo: &[u8],
     moved: &[u32],
 ) -> Result<Plan> {
-    if world.version != 6 {
+    if world.version < 6 {
         return Err("EXPECTED_V6".into());
+    }
+    if world.version == 7 && memo.first() == Some(&0xb7) {
+        return crate::deflectors_v12::prepare(world, account, amount, memo);
     }
     let command = match b2z_protocol::v6::decode(memo) {
         Ok(c) => c,
@@ -452,6 +464,9 @@ pub fn prepare(
             {
                 return Ok(reject("CANNON_OCCUPIED"));
             }
+            if crate::deflectors_v12::at(world, cell as usize).is_some() {
+                return Ok(reject("SITE_OCCUPIED"));
+            }
             let old = world.owner(c.cell).ok_or("cannon territory")?;
             if world.owner(cell as usize) != Some(old)
                 && world
@@ -550,7 +565,7 @@ impl Batch {
         })
     }
     pub fn validate(&self, world: &World) -> Result<()> {
-        if world.version != 6
+        if world.version < 6
             || !(1..=b2z_protocol::v6::MAX_QUANTITY).contains(&self.requested)
             || self.prices.len() > usize::from(self.requested)
             || !world

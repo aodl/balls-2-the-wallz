@@ -36,7 +36,7 @@ export function destinationLegality(width,height,legal){
 export function moveLegalityIdentity(w,config,account,cannon,dormant=false){return JSON.stringify([
  w.version,w.width,w.height,account,cannon,dormant,
  w.version>=5?w.ownership:w.cells,
- w.cannons.map(c=>[c.id,c.cell,c.account]),
+ w.cannons.map(c=>[c.id,c.cell,c.account]),w.deflectors?.map(d=>d.cell)??null,
  w.playability?.territories??null,w.playability?.lifecycle.map(l=>[l.cannon,l.player,l.deadline_ns!==undefined])??null,
  config?.rules_version,config?.enemy_territory_min_chebyshev,config?.enemy_clearance_actions
 ]);}
