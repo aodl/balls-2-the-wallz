@@ -1115,3 +1115,18 @@ continues bare commands, ordinary legality and no War Cry editor. At a rules
 transition the copied packet's rules/capability identity becomes stale and copying
 remains blocked until a coherent replacement is deliberately chosen. See
 [B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md](B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md).
+
+## Isolated graphite/Deflector development
+
+The [visual system](B2Z_VISUAL_SYSTEM.md) changes materials and physical model
+geometry while preserving the approved shared payment grid, exact wallet values,
+whole-body selection, explicit Focus, stable toolbar and reserved launch editors.
+Player accents resolve the real owner in the arena and the declared payer in the
+pane; inspection cannot confer authority. Physical structures remain tile-sized
+at every heading/zoom. Far markers are presentation, not enlarged occupancy.
+
+The [Deflector design checkpoint](B2Z_DEFLECTORS.md) is not a supported payment
+capability or authenticated mechanic yet. Build deflector/Deflect & Pay requires
+a future exact supporting identity, complete deterministic execution and replay;
+Rules7/11 must not offer an unsupported memo or fabricated redirect. Original
+references remain immutable; actual candidate captures are labelled separately.

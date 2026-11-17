@@ -1,0 +1,20 @@
+{
+  "status": "UNQUALIFIED DESIGN POLICY; NOT CERTIFIED CONFIGURATION",
+  "candidate_rules_version": 12,
+  "predecessor": "combined Rules11",
+  "deflector_build_e8s": "10000000",
+  "max_deflectors_per_player": 16,
+  "max_deflectors": 256,
+  "placement": "empty-owned-active-island",
+  "enemy_clearance": "toroidal-chebyshev-minimum-4",
+  "contact": "incoming-chord-midpoint-candidate",
+  "heading": "fixed canonical heading at construction",
+  "ownership_loss": "remove; never transfer",
+  "anchors_territory": false,
+  "includes_ball": false,
+  "memo_proposal": "DEFLECT <cell> <angle>",
+  "war_cry": false,
+  "numeric_representation": "UNRESOLVED; schema6 integer intercept is insufficient",
+  "rearm_policy": "UNRESOLVED; one per residence alone is not a progress proof",
+  "production_approved": false
+}

@@ -1,0 +1,77 @@
+{
+  "basis": "Directly inspected conversation images, selected by the owner; no new generated artwork",
+  "references": [
+    {
+      "file": "reference/01_APPROVED_VISUAL_LANGUAGE.png",
+      "original_filename": "a_sleek_high_contrast_isometric_game_ui_ux_conce.png",
+      "role": "Approved material/theme direction; not a precise layout or permanent footer",
+      "size_bytes": 1757975,
+      "dimensions_px": [
+        1536,
+        1024
+      ],
+      "sha256": "96c806085421fa91948dd484106e4d07aed9378746e256a9a4f6cd83fe132719",
+      "transformation": "none; original bytes copied"
+    },
+    {
+      "file": "reference/02_APPROVED_CANNON.png",
+      "original_filename": "neon_accented_isometric_b2z_cannon.png",
+      "role": "Refined selected cannon shape/material family",
+      "size_bytes": 1612298,
+      "dimensions_px": [
+        1254,
+        1254
+      ],
+      "sha256": "557f7c481383330240ffd1a385b3c2871b63113cf2b3288298875d624911790a",
+      "transformation": "none; original bytes copied"
+    },
+    {
+      "file": "reference/03_APPROVED_DEFLECTOR.png",
+      "original_filename": "neon_lime_ball_deflector.png",
+      "role": "Refined selected square-mounted directional wedge",
+      "size_bytes": 1631060,
+      "dimensions_px": [
+        1254,
+        1254
+      ],
+      "sha256": "bb37db7a88811fe998defbf986cd0ccb14a22c08a26c2e8050a9f410fdd0a4d4",
+      "transformation": "none; original bytes copied"
+    },
+    {
+      "file": "reference/04_APPROVED_PANEL_STRUCTURE.png",
+      "original_filename": "a_clean_ui_game_payment_panel_on_a_light_green_iso.png",
+      "role": "Approved exact structural information hierarchy; preserve alignment",
+      "size_bytes": 1395845,
+      "dimensions_px": [
+        1536,
+        1024
+      ],
+      "sha256": "988235d66eaab055b11871fead7a28f2adad61754afe4401cd3eb26e9b953eb4",
+      "transformation": "none; original bytes copied"
+    },
+    {
+      "file": "reference/05_CURRENT_UI_BASELINE.png",
+      "original_filename": "image(8).png",
+      "role": "Owner-supplied actual prior-game UI screenshot, comparison only",
+      "size_bytes": 75003,
+      "dimensions_px": [
+        568,
+        441
+      ],
+      "sha256": "7eec290481f2fb1de1ea1b673bc7ff918a5d2539f25808093fa5e48cc9df5aef",
+      "transformation": "none; original bytes copied"
+    },
+    {
+      "file": "reference/06_CURRENT_CANNON_BASELINE.png",
+      "original_filename": "image(5).png",
+      "role": "Owner-supplied actual earlier cannon screenshot, comparison only",
+      "size_bytes": 32490,
+      "dimensions_px": [
+        432,
+        239
+      ],
+      "sha256": "8ff80d808580ac5ec864da61f671ecfca26f1117d11bdb1777a570c76d374b70",
+      "transformation": "none; original bytes copied"
+    }
+  ]
+}

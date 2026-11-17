@@ -242,3 +242,16 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 }
 
 @media(max-width:360px){.payment-grid .payment-from{gap:1px;padding-right:0}}
+
+/* Graphite material continuation: shared payment grid and geometry are unchanged.
+   Hue describes the declared payer; inspected enemy structures retain their owner. */
+:root{--player-accent:#c3d1d5;--accent:var(--player-accent);--paper:#20282b;--control:#293237;--line:#85969b;--ink:#f1f5f4;--quiet:#c0cdd0;--cannon-base:#242a2e;--cannon-turret:#454c52;--cannon-barrel:#4c555d}
+button{background:linear-gradient(160deg,#354046,#232b30);border-color:#85969b;box-shadow:inset 0 1px 0 #e5f1f018,0 2px 3px #0003}
+button:hover{background:#39464c}button:disabled{box-shadow:none}
+.panel,.panel-scroll,#quantity-controls,#war-cry-editor,.camera-controls button,.audio-controls button,#identify-button,#status-button{background:linear-gradient(150deg,#2c373bfa,#1c2428fa);box-shadow:inset 0 1px 0 #e5f1f025,0 4px 9px #0004;border-color:#85969b}
+.panel-header{background:linear-gradient(155deg,#354147fa,#202a2ffa);border-top-color:#b0bdc0}
+.panel-header button[aria-pressed=true]{background:#303c42;border-color:var(--player-accent);box-shadow:inset 0 -3px 0 var(--player-accent)}
+.payment-price{color:var(--ink)}.payment-information{background:#244451;border-color:#83bed5;color:#a6d8ef}
+#quantity-controls button,#war-cry-editor input{background:transparent}
+@media(prefers-reduced-transparency:reduce){.panel,.panel-scroll,.panel-header,#quantity-controls,#war-cry-editor{background:#20282b;backdrop-filter:none}}
+@media(forced-colors:active){button,.panel,.panel-scroll,.panel-header,#quantity-controls,#war-cry-editor,.payment-information{background:Canvas;color:CanvasText;border-color:CanvasText;box-shadow:none}.panel-header button[aria-pressed=true]{outline:2px solid Highlight;outline-offset:-3px}.payment-price{color:CanvasText}}

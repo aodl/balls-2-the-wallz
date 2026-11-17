@@ -1,3 +1,4 @@
+import {paneAccent} from './theme.mjs';
 import {fitCry,validateCry}from'../../packages/protocol/war-cry.mjs';
 import {clearanceActive}from'../../packages/protocol/territory-clearance.mjs';
 import {warCrySupported}from'./war-cry-policy.mjs';
@@ -35,7 +36,7 @@ export function createArcade(doc){
   text('panel-title',title);refresh();
  }
  function persist(){if(!declaration||!$('remember-account').checked)return;if(id!==null)declaration={...declaration,cannon:id};const saved=store?.write({...declaration,cannon:id??declaration.cannon,camera:cameraState});text('storage-note',saved?'':'Using this visit only; device storage is unavailable.');}
- function identityLabel(){text('identity-label',declaration?'Account':'Account');$('identity-color').style.background=declaration?accountColor(declaration.account):'transparent';text('account-name',declaration?.display??declaration?.principal??declaration?.account??'');$('identity-form').hidden=Boolean(declaration);$('account-summary').hidden=!declaration;}
+ function identityLabel(){paneAccent(doc,declaration?.account,declaration?accountColor(declaration.account):null);text('identity-label',declaration?'Account':'Account');$('identity-color').style.background=declaration?accountColor(declaration.account):'transparent';text('account-name',declaration?.display??declaration?.principal??declaration?.account??'');$('identity-form').hidden=Boolean(declaration);$('account-summary').hidden=!declaration;}
  function clearDraft(){text('roster-note','');if(!packet){warning='';text('copy-feedback','');manual=null;$('manual-copy').hidden=true;}}
  function cancelEntryNavigation(){entryGeneration++;entryPending=null;doc.dispatchEvent(new Event('b2z-entry-cancel'));}
  function enter(){cancelEntryNavigation();entryPending={generation:entryGeneration,account:declaration?.account??null};pending=null;mode='inspect';cell=null;if(!declaration){api.openAccount();return;}show('account','Checking territory');resolveEntry();}
