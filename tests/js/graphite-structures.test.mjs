@@ -19,3 +19,14 @@ test('contrast adjustment preserves light account hues and safely lifts dark exa
 });
 
 test('contrast palette cache remains bounded under many distinct declared colours',()=>{for(let i=0;i<4000;i++)luminousAccent('#'+i.toString(16).padStart(6,'0'));assert(themeCacheSize()<=1024);assert(contrast(luminousAccent('#000001'),GRAPHITE.paper)>=4.5);});
+
+test('merged cannon upper retains a real dark muzzle, owner rim and substantial barrel',()=>{
+ const {base,upper}=structureGeometry('cannon'),p=upper.attributes.position,c=upper.attributes.color,m=upper.attributes.accentChannel;
+ let dark=0,rim=0,barrel=0;
+ for(let i=0;i<p.count;i++){
+  if(Math.abs(p.getX(i)-.364)<1e-6&&Math.max(c.getX(i),c.getY(i),c.getZ(i))<.01&&m.getX(i)===0)dark++;
+  if(Math.abs(p.getX(i)-.368)<1e-6&&m.getX(i)===1)rim++;
+  if(Math.abs(p.getX(i)-.125)<1e-6&&Math.hypot(p.getY(i)-.285,p.getZ(i))>.07)barrel++;
+ }
+ assert(dark>=9,'dark muzzle disc omitted');assert(rim>=16,'ownership muzzle rim omitted');assert(barrel>=8,'barrel body omitted');base.dispose();upper.dispose();
+});

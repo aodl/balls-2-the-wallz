@@ -70,7 +70,13 @@ with sync_playwright() as pw:
     if a.baseline:page.locator('#angle-degrees').fill(str(angle))
     else:set_heading(page,angle)
     page.evaluate('fixture.draw()');data=page.evaluate('fixture.inspect()');poses.append({'angle':angle,'render':data});page.screenshot(path=str(out/f'{w}-build-{angle}.png'))
-    if not a.baseline:assert len(data['ghostParts']['barrel'])==16 and len(data['ghostParts']['muzzle'])==16;assert page.evaluate('fixture.aim().heading===fixture.command().angle')
+    if not a.baseline:
+     # The armoured barrel/collar/dark muzzle/rim are merged into the rotating
+     # upper batch. Their actual vertices are checked in graphite-structures;
+     # retain every real/ghost transform and canonical-heading assertion here.
+     assert set(data['ghostParts'])==set(data['cannonParts'])=={'base','turret'}
+     assert all(len(matrix)==16 for matrix in data['ghostParts'].values())
+     assert page.evaluate('fixture.aim().heading===fixture.command().angle')
    print('previews',w,flush=True);row['build']=poses
    if not a.baseline:
     geometry=verify_status_geometry(page,out,str(w)+'-Build')
