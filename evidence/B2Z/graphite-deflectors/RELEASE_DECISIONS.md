@@ -6,12 +6,14 @@ The visual-only80-file freeze is `.work/graphite-deflectors/frozen/frontend` in 
 isolated worktree. Frozen build source `0e2740c97d2067420c2d191eaee66b54eb5dc4c9`;
 JavaScript `25ac2af801426d57c20d2066782e8d523c45b8d0b6fbcebaca464332751971db`;
 complete inventory `ab046a31801a07dcd3f13b782872b4c2125f71712c158bcce47a14fd96c4cd12`.
-The final indexed-source qualification continuation is recorded in REPORT;
-consult REPORT for actual final hosted conclusions. No old green CI qualifies it.
+Exact qualification source `14704e4221afda77229f6f932f2f82be98ffbd6b` passed all
+six substantive gates in [run44041131981](https://github.com/aodl/balls-2-the-wallz/actions/runs/44041131981).
+This qualifies the visual/frontend checkpoint and existing maintained game suites,
+not the missing authoritative Deflector feature. No old green CI qualifies it.
 It retains certified Rules7/9/10/11 capability policy; no Deflector decoder,
 financial command or counterfeit supporting identity is added.
 
-A later frontend release requires owner visual review, actual qualification and
+A later frontend release requires owner visual review and
 explicit assets-only approval. Retrieve/reverify the then-current deployed frontend
 before staging this exact inventory in an independent preserved path. The expected
 current recovery frontend is the80-file Rules11-compatible BC287…/e8a930… release,

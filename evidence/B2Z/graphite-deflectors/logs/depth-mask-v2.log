@@ -1,0 +1,5 @@
+captured normal
+captured no-guide
+captured overdraw
+captured body-mask
+PASS fixed guide occlusion, 16 direction/zoom cases and negative control

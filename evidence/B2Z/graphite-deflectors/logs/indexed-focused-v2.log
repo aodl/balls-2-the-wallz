@@ -1,0 +1,13 @@
+✔ incoming chord geometry agrees with independent exact Fraction oracle; no integer snap (14.455168ms)
+✔ tangency, corner-only touch and stationary paths are not positive interior residence (0.552107ms)
+✔ complete quantized-heading sweep keeps both rotating models inside their tile (621.845048ms)
+✔ contrast adjustment preserves light account hues and safely lifts dark examples (5.703765ms)
+✔ contrast palette cache remains bounded under many distinct declared colours (764.946385ms)
+ℹ tests 5
+ℹ suites 0
+ℹ pass 5
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 2146.511925

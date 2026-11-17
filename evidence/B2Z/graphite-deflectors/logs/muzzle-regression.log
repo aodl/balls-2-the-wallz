@@ -1,0 +1,12 @@
+✔ complete quantized-heading sweep keeps both rotating models inside their tile (182.396294ms)
+✔ contrast adjustment preserves light account hues and safely lifts dark examples (1.225714ms)
+✔ contrast palette cache remains bounded under many distinct declared colours (230.133042ms)
+✔ merged cannon upper retains a real dark muzzle, owner rim and substantial barrel (3.837445ms)
+ℹ tests 4
+ℹ suites 0
+ℹ pass 4
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 566.355501

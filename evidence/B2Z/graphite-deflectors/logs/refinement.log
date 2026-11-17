@@ -1,0 +1,7 @@
+
+  .work/graphite-deflectors/refinement/fixture.mjs  1.5mb ⚠️
+
+⚡ Done in 508ms
+{"viewport": [1440, 900], "toolbar_drift": [0.0, 0.0, 0.0, 0.0, 0.0], "panel": {"height": 274, "content": 274, "workspace": {"x": 661, "y": 334, "width": 360, "height": 328, "top": 334, "right": 1021, "bottom": 662, "left": 661}}, "errors": [], "move_panel": {"height": 314, "content": 314}, "deferred_target": {"original": 452577, "chosen": "452577", "memo": "MOVE 1 452577"}, "minimap": {"width": 164, "height": 95, "css": 164, "dpr": 1}}
+{"viewport": [390, 844], "toolbar_drift": [0.0, 0.0, 0.0, 0.0, 0.0], "panel": {"height": 274, "content": 274, "workspace": {"x": 8, "y": 221, "width": 360, "height": 328, "top": 221, "right": 368, "bottom": 549, "left": 8}}, "errors": [], "move_panel": {"height": 314, "content": 314}, "minimap": {"width": 186, "height": 107, "css": 124, "dpr": 1.5}}
+{"viewport": [320, 640], "toolbar_drift": [0.0, 0.0, 0.0, 0.0, 0.0], "panel": {"height": 242, "content": 272, "workspace": {"x": 8, "y": 221, "width": 304, "height": 296, "top": 221, "right": 312, "bottom": 517, "left": 8}}, "errors": [], "move_panel": {"height": 241, "content": 312}, "minimap": {"width": 248, "height": 143, "css": 124, "dpr": 2}}

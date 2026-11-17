@@ -1,0 +1,129 @@
+{
+  "at": "2026-11-17T06:46:07.844Z",
+  "url": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+  "root": "bc0f04db1d1a3059580f32c3c4e5dad6a83dcf50ad5be7d56a068c6b1ae8d6f1",
+  "identity": {
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "head": {
+    "logical_end": "10430",
+    "manifest_hash": "e73cdef0fd81e4568f53ced03cb802a49ccd8190a58324ca9a4363737a4cd961",
+    "seal": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+      "input_count": 0,
+      "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+      "logical_end": "10430",
+      "logical_start": "10429",
+      "previous_manifest": "c33c23aee50337858a2ce8de1a0f85c96aee202e34a3c70423fd1480ca0f261b",
+      "previous_state": "769399bac640d204ab8f7806423be1b18b102d48d9151117120f44728cf3afeb",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "segment_id": "10433",
+      "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+      "source_from": "40180669",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+      "source_to_exclusive": "40180669"
+    },
+    "segment_id": "10433",
+    "source_to_exclusive": "40180669",
+    "state_hash": "24f3f0ccc28d4b71c167278aa35a50b28a27381bcd20d5e23ecea8db9bb83ce8"
+  },
+  "source": {
+    "network": "ic",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "owner": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "subaccount": "0",
+    "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde"
+  },
+  "config": {
+    "annihilation_distance": 64,
+    "annihilation_time_window": [
+      "1",
+      "16"
+    ],
+    "ball_base_e8s": "10000000",
+    "ball_ownership": "funding-player",
+    "ball_price": "island-pool-floor-1-square",
+    "cannon_activity": "connected-island-ball-pool",
+    "cannon_price": "retained-plus-1-square",
+    "capture_resolution": "pair-and-cancel-1",
+    "dormancy_clock": "consensus-observed-ns-1",
+    "dormancy_grace_ns": "86400000000000",
+    "first_spawn": "farthest-cannon-toroidal-euclidean-1",
+    "height": 1000,
+    "join_e8s": "100000000",
+    "lifecycle_input_version": 1,
+    "max_balls": 64,
+    "max_cannons": 128,
+    "max_players": 1024,
+    "max_purchase_balls_per_island": 64,
+    "max_purchase_quantity": 64,
+    "max_retained_per_player": 16,
+    "max_segment_ticks": 64,
+    "max_spawn_searches_per_segment": 8,
+    "memo_adapter_version": 4,
+    "move_e8s": "10000",
+    "move_limit_per_cannon_segment": 1,
+    "ownership": "scaled32-v1",
+    "player_identity": "authenticated-funding-account",
+    "rules_version": 7,
+    "score_area_denominator": 1000000,
+    "score_area_numerator": 1024,
+    "spawn_patch_side": 3,
+    "spawn_preserve_connectivity": true,
+    "spawn_tie_break": "lowest-row-major-cell",
+    "speed": 32000,
+    "topology": "torus",
+    "version": 6,
+    "width": 1000
+  },
+  "status": "Waiting for next on-chain update",
+  "sceneReady": true,
+  "error": "",
+  "authoritativeTime": [
+    "10430",
+    "1"
+  ],
+  "displayedTime": 10429,
+  "canPrepare": true,
+  "operational": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "2",
+      "publication_ticks": "1",
+      "completed_segments": "10430",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40180669"
+    }
+  },
+  "publicCycles": {
+    "balance": "2134787541192",
+    "rate": null,
+    "label": "Collecting",
+    "windowMs": 0,
+    "ageMs": 0.19999998807907104,
+    "idle": "1877758703",
+    "reserved": "0",
+    "reason": "Waiting for enough samples"
+  },
+  "errors": []
+}

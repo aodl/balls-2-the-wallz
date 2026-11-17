@@ -1,0 +1,952 @@
+{
+  "status": "PASS",
+  "scope": "Final indexed runtime shared renderer; synthetic art scene, not paid structures or authenticated Deflector state. Palette overrides are controlled contrast extremes, not changed game colours.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "angle": 0,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "angle": 22.5,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "angle": 45,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "angle": 90,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "angle": 135,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "angle": 180,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "angle": 225,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "angle": 270,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "angle": 315,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "angle": 0,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "angle": 22.5,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "angle": 45,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "angle": 90,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "angle": 135,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "angle": 180,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "angle": 225,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "angle": 270,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "angle": 315,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "angle": 0,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "angle": 22.5,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "angle": 45,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "angle": 90,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "angle": 135,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "angle": 180,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "angle": 225,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "angle": 270,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "angle": 315,
+      "stats": {
+        "time": 0,
+        "deflectors": 1,
+        "structure_triangles": 376,
+        "structure_uploads": true,
+        "instance_upload_bytes": 496,
+        "draw_calls": 6,
+        "triangles": 410,
+        "tiles": 1,
+        "pieces": 1,
+        "effects": 0,
+        "geometries": 22,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 0,
+        "tails": 0,
+        "motion": {
+          "balls": 0,
+          "tiles": 0,
+          "pathPoints": 0,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      }
+    }
+  ],
+  "errors": []
+}

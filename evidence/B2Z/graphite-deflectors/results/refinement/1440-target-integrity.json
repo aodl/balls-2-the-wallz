@@ -1,0 +1,50 @@
+[
+  {
+    "operation": "pan",
+    "action": "move",
+    "original": 452577,
+    "chosen": "452577",
+    "copyable": true,
+    "memo": "MOVE 1 452577"
+  },
+  {
+    "operation": "zoom",
+    "action": "move",
+    "original": 452577,
+    "chosen": "452577",
+    "copyable": true,
+    "memo": "MOVE 1 452577"
+  },
+  {
+    "operation": "focus",
+    "action": "move",
+    "original": 452577,
+    "chosen": "",
+    "copyable": false,
+    "memo": "MOVE 1 452577"
+  },
+  {
+    "operation": "mode",
+    "action": "move",
+    "original": 452577,
+    "chosen": "",
+    "copyable": true,
+    "memo": "FIRE 1 225 1"
+  },
+  {
+    "operation": "revision",
+    "action": "move",
+    "original": 453579,
+    "chosen": "",
+    "copyable": false,
+    "memo": "MOVE 1 452577"
+  },
+  {
+    "operation": "removed",
+    "action": "move",
+    "original": 452578,
+    "chosen": "",
+    "copyable": false,
+    "memo": "MOVE 2 452578"
+  }
+]

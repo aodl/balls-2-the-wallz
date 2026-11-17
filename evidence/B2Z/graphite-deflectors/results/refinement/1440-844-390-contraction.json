@@ -1,0 +1,139 @@
+{
+  "viewport": [
+    844,
+    390
+  ],
+  "dpr": 1,
+  "point": {
+    "x": 801.9999999999999,
+    "y": 96.00000000000541
+  },
+  "hit": [
+    {
+      "id": "board",
+      "tag": "CANVAS",
+      "class": "",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 844,
+        "height": 390,
+        "top": 0,
+        "right": 844,
+        "bottom": 390,
+        "left": 0
+      }
+    },
+    {
+      "id": "arena",
+      "tag": "MAIN",
+      "class": "",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 844,
+        "height": 390,
+        "top": 0,
+        "right": 844,
+        "bottom": 390,
+        "left": 0
+      }
+    },
+    {
+      "id": "",
+      "tag": "BODY",
+      "class": "",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 844,
+        "height": 390,
+        "top": 0,
+        "right": 844,
+        "bottom": 390,
+        "left": 0
+      }
+    },
+    {
+      "id": "",
+      "tag": "HTML",
+      "class": "cannon-context short-edit",
+      "rect": {
+        "x": 0,
+        "y": 0,
+        "width": 844,
+        "height": 390,
+        "top": 0,
+        "right": 844,
+        "bottom": 390,
+        "left": 0
+      }
+    }
+  ],
+  "board": {
+    "x": 0,
+    "y": 0,
+    "width": 844,
+    "height": 390,
+    "top": 0,
+    "right": 844,
+    "bottom": 390,
+    "left": 0
+  },
+  "panel": {
+    "x": 311,
+    "y": 180,
+    "width": 360,
+    "height": 202,
+    "top": 180,
+    "right": 671,
+    "bottom": 382,
+    "left": 311
+  },
+  "scroll": 114,
+  "camera": [
+    576.8244223342826,
+    457.9312536263483,
+    88
+  ],
+  "selected": 1,
+  "activeElement": "full-recipient",
+  "layout": {
+    "quantity": {
+      "slot": "dock",
+      "mode": "dock",
+      "rect": {
+        "left": 8,
+        "top": 72,
+        "right": 138,
+        "bottom": 118,
+        "width": 130,
+        "height": 46
+      }
+    },
+    "quantityDocked": true,
+    "quantityReserved": true,
+    "quantityReservation": "strip",
+    "quantitySize": {
+      "width": 130,
+      "height": 46
+    },
+    "quantityPointers": 0,
+    "quantityClickCancelled": false,
+    "dirty": false,
+    "pendingFrame": false,
+    "revision": 132,
+    "committedRevision": 132,
+    "desired": 372,
+    "positionKey": "311/126/360/202/202",
+    "compositionKey": "action/ball/1/453578/453578/844/390/true/18",
+    "cardBounds": {
+      "left": 310.9999999999999,
+      "right": 670.9999999999999,
+      "top": 126,
+      "bottom": 382
+    }
+  },
+  "audioPopoverHidden": null,
+  "animationActive": false
+}

@@ -1,0 +1,10 @@
+{
+  "run": 44041131981,
+  "source": "14704e4221afda77229f6f932f2f82be98ffbd6b",
+  "artifact_id": 14313352888,
+  "bytes": 495258228,
+  "zip_sha256": "f5e65620ce4958b8534e9a9b13c9e0a952f55c58a78a5b7d7224ca2a3a2e3387",
+  "complete_archive_retained_locally": ".work/graphite-deflectors/hosted-final/local-ic-evidence.zip",
+  "scope": "Existing S14/Rules11 installed qualification, NOT authoritative Deflector qualification",
+  "selected_result_files": 17
+}

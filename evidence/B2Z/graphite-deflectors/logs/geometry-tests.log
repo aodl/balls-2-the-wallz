@@ -1,0 +1,15 @@
+✔ complete quantized-heading sweep keeps both rotating models inside their tile (302.754384ms)
+✔ contrast adjustment preserves light account hues and safely lifts dark examples (1.359215ms)
+✔ retained347.15 pose falls back to a reserved control-rail dock, never a guessed additional slot (3.802642ms)
+✔ complete sub-degree sweep in both directions, all previous-slot histories, retains available measured dock (316.64354ms)
+✔ constrained dock is heading-independent; focus/pointer lock preserves the existing actual target (12.353038ms)
+✔ visible viewport offsets/insets constrain both preferences and dock; invalid offscreen reservation is rejected (0.736408ms)
+✔ contracted reservation derives free intervals from actual controls rather than adding a slot (0.797309ms)
+ℹ tests 7
+ℹ suites 0
+ℹ pass 7
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 866.174183

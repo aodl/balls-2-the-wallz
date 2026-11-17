@@ -1,0 +1,332 @@
+{
+  "status": "illustrative exact-geometry examples only",
+  "policy": "proposed incoming-chord-midpoint; not owner-approved production physics",
+  "units": "unit cell, abstract time, exact fraction strings; y increases with abstract coordinate",
+  "speed_warning": "Most vectors test position/timing, not equal-speed normalization. The counterexample has equal Euclidean speeds of 13.",
+  "vectors": [
+    {
+      "id": "left-low",
+      "entry_time": "0",
+      "entry_position": [
+        "0",
+        "1/4"
+      ],
+      "incoming_velocity": [
+        "1",
+        "0"
+      ],
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "1/2",
+        "1/4"
+      ],
+      "outgoing_velocity": [
+        "1",
+        "1"
+      ],
+      "outgoing_global_intercept": [
+        "0",
+        "-1/4"
+      ],
+      "intercept_x_1024": "0",
+      "intercept_y_1024": "-256",
+      "scope": "Exact illustrative geometry; not canonical B2Z speed or authenticated input"
+    },
+    {
+      "id": "left-high",
+      "entry_time": "0",
+      "entry_position": [
+        "0",
+        "3/4"
+      ],
+      "incoming_velocity": [
+        "1",
+        "0"
+      ],
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "1/2",
+        "3/4"
+      ],
+      "outgoing_velocity": [
+        "1",
+        "1"
+      ],
+      "outgoing_global_intercept": [
+        "0",
+        "1/4"
+      ],
+      "intercept_x_1024": "0",
+      "intercept_y_1024": "256",
+      "scope": "Exact illustrative geometry; not canonical B2Z speed or authenticated input"
+    },
+    {
+      "id": "right-low",
+      "entry_time": "0",
+      "entry_position": [
+        "1",
+        "1/4"
+      ],
+      "incoming_velocity": [
+        "-1",
+        "0"
+      ],
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "1/2",
+        "1/4"
+      ],
+      "outgoing_velocity": [
+        "1",
+        "1"
+      ],
+      "outgoing_global_intercept": [
+        "0",
+        "-1/4"
+      ],
+      "intercept_x_1024": "0",
+      "intercept_y_1024": "-256",
+      "scope": "Exact illustrative geometry; not canonical B2Z speed or authenticated input"
+    },
+    {
+      "id": "bottom-left",
+      "entry_time": "0",
+      "entry_position": [
+        "1/4",
+        "0"
+      ],
+      "incoming_velocity": [
+        "0",
+        "1"
+      ],
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "1/4",
+        "1/2"
+      ],
+      "outgoing_velocity": [
+        "1",
+        "1"
+      ],
+      "outgoing_global_intercept": [
+        "-1/4",
+        "0"
+      ],
+      "intercept_x_1024": "-256",
+      "intercept_y_1024": "0",
+      "scope": "Exact illustrative geometry; not canonical B2Z speed or authenticated input"
+    },
+    {
+      "id": "top-right",
+      "entry_time": "0",
+      "entry_position": [
+        "3/4",
+        "1"
+      ],
+      "incoming_velocity": [
+        "0",
+        "-1"
+      ],
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "3/4",
+        "1/2"
+      ],
+      "outgoing_velocity": [
+        "1",
+        "1"
+      ],
+      "outgoing_global_intercept": [
+        "1/4",
+        "0"
+      ],
+      "intercept_x_1024": "256",
+      "intercept_y_1024": "0",
+      "scope": "Exact illustrative geometry; not canonical B2Z speed or authenticated input"
+    },
+    {
+      "id": "oblique-left",
+      "entry_time": "0",
+      "entry_position": [
+        "0",
+        "1/4"
+      ],
+      "incoming_velocity": [
+        "3",
+        "1"
+      ],
+      "geometric_exit_time": "1/3",
+      "contact_time": "1/6",
+      "contact_position": [
+        "1/2",
+        "5/12"
+      ],
+      "outgoing_velocity": [
+        "1",
+        "1"
+      ],
+      "outgoing_global_intercept": [
+        "1/3",
+        "1/4"
+      ],
+      "intercept_x_1024": "1024/3",
+      "intercept_y_1024": "256",
+      "scope": "Exact illustrative geometry; not canonical B2Z speed or authenticated input"
+    },
+    {
+      "id": "oblique-bottom",
+      "entry_time": "0",
+      "entry_position": [
+        "1/4",
+        "0"
+      ],
+      "incoming_velocity": [
+        "1",
+        "3"
+      ],
+      "geometric_exit_time": "1/3",
+      "contact_time": "1/6",
+      "contact_position": [
+        "5/12",
+        "1/2"
+      ],
+      "outgoing_velocity": [
+        "1",
+        "1"
+      ],
+      "outgoing_global_intercept": [
+        "1/4",
+        "1/3"
+      ],
+      "intercept_x_1024": "256",
+      "intercept_y_1024": "1024/3",
+      "scope": "Exact illustrative geometry; not canonical B2Z speed or authenticated input"
+    },
+    {
+      "id": "diagonal-corner-entry",
+      "entry_time": "0",
+      "entry_position": [
+        "0",
+        "0"
+      ],
+      "incoming_velocity": [
+        "1",
+        "1"
+      ],
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "1/2",
+        "1/2"
+      ],
+      "outgoing_velocity": [
+        "1",
+        "1"
+      ],
+      "outgoing_global_intercept": [
+        "0",
+        "0"
+      ],
+      "intercept_x_1024": "0",
+      "intercept_y_1024": "0",
+      "scope": "Exact illustrative geometry; not canonical B2Z speed or authenticated input"
+    },
+    {
+      "id": "near-corner-positive",
+      "entry_time": "0",
+      "entry_position": [
+        "0",
+        "1023/1024"
+      ],
+      "incoming_velocity": [
+        "1",
+        "1"
+      ],
+      "geometric_exit_time": "1/1024",
+      "contact_time": "1/2048",
+      "contact_position": [
+        "1/2048",
+        "2047/2048"
+      ],
+      "outgoing_velocity": [
+        "1",
+        "1"
+      ],
+      "outgoing_global_intercept": [
+        "0",
+        "1023/1024"
+      ],
+      "intercept_x_1024": "0",
+      "intercept_y_1024": "1023",
+      "scope": "Exact illustrative geometry; not canonical B2Z speed or authenticated input"
+    },
+    {
+      "id": "integer-intercept-counterexample",
+      "entry_time": "0",
+      "entry_position": [
+        "0",
+        "1/2"
+      ],
+      "incoming_velocity": [
+        "5",
+        "12"
+      ],
+      "geometric_exit_time": "1/24",
+      "contact_time": "1/48",
+      "contact_position": [
+        "5/48",
+        "3/4"
+      ],
+      "outgoing_velocity": [
+        "13",
+        "0"
+      ],
+      "outgoing_global_intercept": [
+        "-1/6",
+        "3/4"
+      ],
+      "intercept_x_1024": "-512/3",
+      "intercept_y_1024": "768",
+      "scope": "Exact illustrative geometry; not canonical B2Z speed or authenticated input"
+    },
+    {
+      "id": "nonzero-entry-time",
+      "entry_time": "3/7",
+      "entry_position": [
+        "0",
+        "1/2"
+      ],
+      "incoming_velocity": [
+        "5",
+        "12"
+      ],
+      "geometric_exit_time": "79/168",
+      "contact_time": "151/336",
+      "contact_position": [
+        "5/48",
+        "3/4"
+      ],
+      "outgoing_velocity": [
+        "13",
+        "0"
+      ],
+      "outgoing_global_intercept": [
+        "-241/42",
+        "3/4"
+      ],
+      "intercept_x_1024": "-123392/21",
+      "intercept_y_1024": "768",
+      "scope": "Exact illustrative geometry; not canonical B2Z speed or authenticated input"
+    }
+  ],
+  "excluded_cases": [
+    "zero-duration corner/tangent contact is not an interior entry",
+    "negative crossing time is invalid; do not clamp it",
+    "arithmetic/resource proof and old-world migration are outside these examples"
+  ]
+}

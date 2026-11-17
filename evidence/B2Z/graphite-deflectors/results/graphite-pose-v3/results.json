@@ -1,0 +1,224 @@
+{
+  "status": "PASS",
+  "scope": "Retained mainnet pose in an offline actual-composer/renderer fixture; no certificate/payment claim.",
+  "page_errors": [],
+  "public_route": {
+    "camera": [
+      3.6575453715563526,
+      3.6575453715563526,
+      64
+    ],
+    "heading": "347.15",
+    "panel": {
+      "x": 8,
+      "y": 221,
+      "width": 304,
+      "height": 296,
+      "top": 221,
+      "right": 312,
+      "bottom": 517,
+      "left": 8
+    },
+    "hidden": false,
+    "focus": "aim-handle"
+  },
+  "exact_pose": {
+    "camera": [
+      3.6575453715563526,
+      3.6575453715563526,
+      64
+    ],
+    "heading": "347.15",
+    "hidden": false,
+    "quantity": {
+      "x": 10,
+      "y": 526,
+      "width": 130,
+      "height": 46,
+      "top": 526,
+      "right": 140,
+      "bottom": 572,
+      "left": 10
+    },
+    "origin": {
+      "x": 160,
+      "y": 155.00000000000458
+    },
+    "arrow": {
+      "height": 0.028,
+      "world": [
+        [
+          0.1667997682457787,
+          0.2443095512950607
+        ],
+        [
+          -1.35382476844975,
+          -0.9225839050883
+        ],
+        [
+          -1.1550989073644353,
+          -0.9000443368603994
+        ],
+        [
+          -1.35382476844975,
+          -0.9225839050883
+        ],
+        [
+          -1.280631076001618,
+          -0.7364584544217986
+        ]
+      ],
+      "screen": [
+        {
+          "x": 156.4923076350435,
+          "y": 138.1503668586587
+        },
+        {
+          "x": 140.48426631631216,
+          "y": 67.93119077767764
+        },
+        {
+          "x": 148.45754775193436,
+          "y": 73.71238970605356
+        },
+        {
+          "x": 140.48426631631216,
+          "y": 67.93119077767764
+        },
+        {
+          "x": 135.37355834527034,
+          "y": 74.70665297678826
+        }
+      ]
+    },
+    "layout": {
+      "quantity": {
+        "slot": "dock",
+        "mode": "dock",
+        "rect": {
+          "left": 10,
+          "top": 525.859375,
+          "right": 140,
+          "bottom": 571.859375,
+          "width": 130,
+          "height": 46
+        }
+      },
+      "quantityDocked": true,
+      "quantityReserved": true,
+      "quantityReservation": "rail",
+      "quantitySize": {
+        "width": 130,
+        "height": 46
+      },
+      "quantityPointers": 0,
+      "quantityClickCancelled": false,
+      "dirty": false,
+      "pendingFrame": false,
+      "revision": 46,
+      "committedRevision": 46,
+      "desired": 328,
+      "positionKey": "8/221/304/242/242",
+      "compositionKey": "action/ball/1/0/0/320/640/false/1",
+      "cardBounds": {
+        "left": 8,
+        "right": 312,
+        "top": 221,
+        "bottom": 517
+      }
+    },
+    "viewport": {
+      "width": 320,
+      "height": 640,
+      "visual": {
+        "width": 320,
+        "height": 640,
+        "left": 0,
+        "top": 0
+      }
+    },
+    "rects": {
+      ".brand": {
+        "x": 10,
+        "y": 12,
+        "width": 46.0625,
+        "height": 44.078125,
+        "top": 12,
+        "right": 56.0625,
+        "bottom": 56.078125,
+        "left": 10
+      },
+      "#status-button": {
+        "x": 63.0625,
+        "y": 12.03125,
+        "width": 145.40625,
+        "height": 44,
+        "top": 12.03125,
+        "right": 208.46875,
+        "bottom": 56.03125,
+        "left": 63.0625
+      },
+      "#identify-button": {
+        "x": 215.46875,
+        "y": 12.03125,
+        "width": 94.53125,
+        "height": 44,
+        "top": 12.03125,
+        "right": 310,
+        "bottom": 56.03125,
+        "left": 215.46875
+      },
+      "#cycles-display": {
+        "x": 10,
+        "y": 524,
+        "width": 150,
+        "height": 48,
+        "top": 524,
+        "right": 160,
+        "bottom": 572,
+        "left": 10
+      },
+      "#minimap": {
+        "x": 186,
+        "y": 558.421875,
+        "width": 124,
+        "height": 71.578125,
+        "top": 558.421875,
+        "right": 310,
+        "bottom": 630,
+        "left": 186
+      },
+      ".camera-controls": {
+        "x": 10,
+        "y": 579.859375,
+        "width": 148.875,
+        "height": 50.140625,
+        "top": 579.859375,
+        "right": 158.875,
+        "bottom": 630,
+        "left": 10
+      },
+      ".audio-controls": {
+        "x": 266,
+        "y": 66,
+        "width": 44,
+        "height": 44,
+        "top": 66,
+        "right": 310,
+        "bottom": 110,
+        "left": 266
+      },
+      "#workspace": {
+        "x": 8,
+        "y": 221,
+        "width": 304,
+        "height": 296,
+        "top": 221,
+        "right": 312,
+        "bottom": 517,
+        "left": 8
+      }
+    },
+    "focus": "aim-handle"
+  }
+}

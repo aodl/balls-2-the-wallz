@@ -1,0 +1,157 @@
+{
+  "status": "PASS",
+  "scope": "11 illustrative exact unit-cell vectors, JS/Rust versus independent Fraction oracle; not authoritative B2Z execution or canonical speed proof",
+  "vectors": [
+    {
+      "id": "left-low",
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "1/2",
+        "1/4"
+      ],
+      "outgoing_global_intercept": [
+        "0",
+        "-1/4"
+      ]
+    },
+    {
+      "id": "left-high",
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "1/2",
+        "3/4"
+      ],
+      "outgoing_global_intercept": [
+        "0",
+        "1/4"
+      ]
+    },
+    {
+      "id": "right-low",
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "1/2",
+        "1/4"
+      ],
+      "outgoing_global_intercept": [
+        "0",
+        "-1/4"
+      ]
+    },
+    {
+      "id": "bottom-left",
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "1/4",
+        "1/2"
+      ],
+      "outgoing_global_intercept": [
+        "-1/4",
+        "0"
+      ]
+    },
+    {
+      "id": "top-right",
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "3/4",
+        "1/2"
+      ],
+      "outgoing_global_intercept": [
+        "1/4",
+        "0"
+      ]
+    },
+    {
+      "id": "oblique-left",
+      "geometric_exit_time": "1/3",
+      "contact_time": "1/6",
+      "contact_position": [
+        "1/2",
+        "5/12"
+      ],
+      "outgoing_global_intercept": [
+        "1/3",
+        "1/4"
+      ]
+    },
+    {
+      "id": "oblique-bottom",
+      "geometric_exit_time": "1/3",
+      "contact_time": "1/6",
+      "contact_position": [
+        "5/12",
+        "1/2"
+      ],
+      "outgoing_global_intercept": [
+        "1/4",
+        "1/3"
+      ]
+    },
+    {
+      "id": "diagonal-corner-entry",
+      "geometric_exit_time": "1",
+      "contact_time": "1/2",
+      "contact_position": [
+        "1/2",
+        "1/2"
+      ],
+      "outgoing_global_intercept": [
+        "0",
+        "0"
+      ]
+    },
+    {
+      "id": "near-corner-positive",
+      "geometric_exit_time": "1/1024",
+      "contact_time": "1/2048",
+      "contact_position": [
+        "1/2048",
+        "2047/2048"
+      ],
+      "outgoing_global_intercept": [
+        "0",
+        "1023/1024"
+      ]
+    },
+    {
+      "id": "integer-intercept-counterexample",
+      "geometric_exit_time": "1/24",
+      "contact_time": "1/48",
+      "contact_position": [
+        "5/48",
+        "3/4"
+      ],
+      "outgoing_global_intercept": [
+        "-1/6",
+        "3/4"
+      ]
+    },
+    {
+      "id": "nonzero-entry-time",
+      "geometric_exit_time": "79/168",
+      "contact_time": "151/336",
+      "contact_position": [
+        "5/48",
+        "3/4"
+      ],
+      "outgoing_global_intercept": [
+        "-241/42",
+        "3/4"
+      ]
+    }
+  ],
+  "integer_intercept_counterexample": "x0*1024=-512/3; existing schema6 forbids fractional intercepts",
+  "not_qualified": [
+    "durable scheduler",
+    "source adapter",
+    "paid purchase receipts",
+    "authenticated replay",
+    "progress and numeric lifetime bounds"
+  ]
+}

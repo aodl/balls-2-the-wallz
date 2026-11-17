@@ -1,0 +1,14 @@
+{
+  "candidate_sha256": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "entry_cutover_world_exact": true,
+  "historical_wasm_upgrade": false,
+  "join_position": 3,
+  "module_upgrade_before_browser": false,
+  "net_cycles_window": "42168232289",
+  "predecessor_sha256": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "publication_count": 121,
+  "qualified_payments_on_normal_module": true,
+  "status": "PASS",
+  "synthetic_setup_only": true,
+  "unfinished_operation_preserved": true
+}

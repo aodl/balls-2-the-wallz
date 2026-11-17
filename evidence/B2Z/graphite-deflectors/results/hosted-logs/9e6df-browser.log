@@ -1,0 +1,967 @@
+﻿2026-11-17T07:32:36.7561711Z Current runner version: '2.338.2'
+2026-11-17T07:32:36.7584473Z ##[group]Runner Image Provisioner
+2026-11-17T07:32:36.7585222Z Hosted Compute Agent
+2026-11-17T07:32:36.7585834Z Version: 20261103.629
+2026-11-17T07:32:36.7586409Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-17T07:32:36.7587083Z Build Date: 2026-11-03T17:26:59Z
+2026-11-17T07:32:36.7587713Z Worker ID: {381d483f-a0a2-4bf6-92d7-e14d64640ac0}
+2026-11-17T07:32:36.7588345Z Region: westus3
+2026-11-17T07:32:36.7588922Z Cloud: Azure
+2026-11-17T07:32:36.7589422Z ##[endgroup]
+2026-11-17T07:32:36.7590731Z ##[group]Operating System
+2026-11-17T07:32:36.7591320Z Ubuntu
+2026-11-17T07:32:36.7591784Z 22.04.5
+2026-11-17T07:32:36.7592268Z LTS
+2026-11-17T07:32:36.7592723Z ##[endgroup]
+2026-11-17T07:32:36.7593481Z ##[group]Runner Image
+2026-11-17T07:32:36.7594091Z Image: ubuntu-22.04
+2026-11-17T07:32:36.7594634Z Version: 20261111.360.2
+2026-11-17T07:32:36.7595818Z Included Software: https://github.com/actions/runner-images/blob/ubuntu22/20261111.360/images/ubuntu/Ubuntu2204-Readme.md
+2026-11-17T07:32:36.7597194Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu22%2F20261111.360
+2026-11-17T07:32:36.7598099Z ##[endgroup]
+2026-11-17T07:32:36.7599112Z ##[group]GITHUB_TOKEN Permissions
+2026-11-17T07:32:36.7600967Z Contents: read
+2026-11-17T07:32:36.7601509Z Metadata: read
+2026-11-17T07:32:36.7602059Z ##[endgroup]
+2026-11-17T07:32:36.7604582Z Secret source: Actions
+2026-11-17T07:32:36.7605483Z Cache mode: write
+2026-11-17T07:32:36.7606156Z Prepare workflow directory
+2026-11-17T07:32:36.7966226Z Prepare all required actions
+2026-11-17T07:32:36.8011599Z Getting action download info
+2026-11-17T07:32:37.1417885Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-17T07:32:37.2223613Z Download action repository 'actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-11-17T07:32:37.2869357Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-11-17T07:32:37.3589117Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-17T07:32:37.5404448Z Complete job name: Browser HTTP and Web Crypto
+2026-11-17T07:32:37.6295964Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+2026-11-17T07:32:37.6296853Z with:
+2026-11-17T07:32:37.6297292Z   ref: 9e6df9fbd1947f8edc57bcb47acbaa109bb0932c
+2026-11-17T07:32:37.6297855Z   repository: aodl/balls-2-the-wallz
+2026-11-17T07:32:37.6301523Z   token: ***
+2026-11-17T07:32:37.6301905Z   ssh-strict: true
+2026-11-17T07:32:37.6302323Z   ssh-user: git
+2026-11-17T07:32:37.6302733Z   persist-credentials: true
+2026-11-17T07:32:37.6303452Z   clean: true
+2026-11-17T07:32:37.6303854Z   sparse-checkout-cone-mode: true
+2026-11-17T07:32:37.6304315Z   fetch-depth: 1
+2026-11-17T07:32:37.6304720Z   fetch-tags: false
+2026-11-17T07:32:37.6305111Z   show-progress: true
+2026-11-17T07:32:37.6305500Z   lfs: false
+2026-11-17T07:32:37.6305861Z   submodules: false
+2026-11-17T07:32:37.6306257Z   set-safe-directory: true
+2026-11-17T07:32:37.6306714Z   allow-unsafe-pr-checkout: false
+2026-11-17T07:32:37.6307452Z env:
+2026-11-17T07:32:37.6307824Z   CARGO_TERM_COLOR: always
+2026-11-17T07:32:37.6308282Z ##[endgroup]
+2026-11-17T07:32:37.8245305Z Syncing repository: aodl/balls-2-the-wallz
+2026-11-17T07:32:37.8247767Z ##[group]Getting Git version info
+2026-11-17T07:32:37.8249224Z Working directory is '/home/runner/work/balls-2-the-wallz/balls-2-the-wallz'
+2026-11-17T07:32:37.8256893Z [command]/usr/bin/git version
+2026-11-17T07:32:37.8389189Z git version 2.56.1
+2026-11-17T07:32:37.8415035Z ##[endgroup]
+2026-11-17T07:32:37.8423023Z Temporarily overriding HOME='/home/runner/work/_temp/03179775-82e4-491d-91e2-8a42cdc762b5' before making global git config changes
+2026-11-17T07:32:37.8425433Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T07:32:37.8427762Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/balls-2-the-wallz/balls-2-the-wallz
+2026-11-17T07:32:37.8502623Z Deleting the contents of '/home/runner/work/balls-2-the-wallz/balls-2-the-wallz'
+2026-11-17T07:32:37.8515538Z ##[group]Initializing the repository
+2026-11-17T07:32:37.8517369Z [command]/usr/bin/git init /home/runner/work/balls-2-the-wallz/balls-2-the-wallz
+2026-11-17T07:32:37.8591596Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-17T07:32:37.8592993Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-17T07:32:37.8594315Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-17T07:32:37.8595508Z hint: call:
+2026-11-17T07:32:37.8596150Z hint:
+2026-11-17T07:32:37.8596938Z hint: 	git config --global init.defaultBranch <name>
+2026-11-17T07:32:37.8597934Z hint:
+2026-11-17T07:32:37.8598893Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-17T07:32:37.8600328Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-17T07:32:37.8601530Z hint:
+2026-11-17T07:32:37.8602233Z hint: 	git branch -m <name>
+2026-11-17T07:32:37.8603251Z hint:
+2026-11-17T07:32:37.8604299Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-17T07:32:37.8606045Z Initialized empty Git repository in /home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.git/
+2026-11-17T07:32:37.8617578Z [command]/usr/bin/git remote add origin https://github.com/aodl/balls-2-the-wallz
+2026-11-17T07:32:37.8643508Z ##[endgroup]
+2026-11-17T07:32:37.8644775Z ##[group]Disabling automatic garbage collection
+2026-11-17T07:32:37.8647242Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-17T07:32:37.8674980Z ##[endgroup]
+2026-11-17T07:32:37.8676125Z ##[group]Setting up auth
+2026-11-17T07:32:37.8681271Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T07:32:37.8709870Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T07:32:37.9012238Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T07:32:37.9042549Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T07:32:37.9244193Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T07:32:37.9271992Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T07:32:37.9448337Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-17T07:32:37.9479966Z ##[endgroup]
+2026-11-17T07:32:37.9480664Z ##[group]Fetching the repository
+2026-11-17T07:32:37.9488628Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin 9e6df9fbd1947f8edc57bcb47acbaa109bb0932c
+2026-11-17T07:32:51.5884991Z From https://github.com/aodl/balls-2-the-wallz
+2026-11-17T07:32:51.5885988Z  * branch            9e6df9fbd1947f8edc57bcb47acbaa109bb0932c -> FETCH_HEAD
+2026-11-17T07:32:51.5891726Z ##[endgroup]
+2026-11-17T07:32:51.5893002Z ##[group]Determining the checkout info
+2026-11-17T07:32:51.5894065Z ##[endgroup]
+2026-11-17T07:32:51.5900769Z [command]/usr/bin/git sparse-checkout disable
+2026-11-17T07:32:51.5938683Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-17T07:32:51.5971657Z ##[group]Checking out the ref
+2026-11-17T07:32:51.5975747Z [command]/usr/bin/git checkout --progress --force 9e6df9fbd1947f8edc57bcb47acbaa109bb0932c
+2026-11-17T07:32:52.6089350Z Updating files:  35% (2480/7003)
+2026-11-17T07:32:52.6141818Z Updating files:  36% (2522/7003)
+2026-11-17T07:32:52.6196340Z Updating files:  37% (2592/7003)
+2026-11-17T07:32:52.6225361Z Updating files:  38% (2662/7003)
+2026-11-17T07:32:52.6253807Z Updating files:  39% (2732/7003)
+2026-11-17T07:32:52.6274476Z Updating files:  40% (2802/7003)
+2026-11-17T07:32:52.6295503Z Updating files:  41% (2872/7003)
+2026-11-17T07:32:52.6318242Z Updating files:  42% (2942/7003)
+2026-11-17T07:32:52.6344554Z Updating files:  43% (3012/7003)
+2026-11-17T07:32:52.6366709Z Updating files:  44% (3082/7003)
+2026-11-17T07:32:52.6477239Z Updating files:  45% (3152/7003)
+2026-11-17T07:32:52.6577147Z Updating files:  46% (3222/7003)
+2026-11-17T07:32:52.6666245Z Updating files:  47% (3292/7003)
+2026-11-17T07:32:52.6706787Z Updating files:  48% (3362/7003)
+2026-11-17T07:32:52.6749539Z Updating files:  49% (3432/7003)
+2026-11-17T07:32:52.6779262Z Updating files:  50% (3502/7003)
+2026-11-17T07:32:52.6805722Z Updating files:  51% (3572/7003)
+2026-11-17T07:32:52.6825561Z Updating files:  52% (3642/7003)
+2026-11-17T07:32:52.6847268Z Updating files:  53% (3712/7003)
+2026-11-17T07:32:52.6868764Z Updating files:  54% (3782/7003)
+2026-11-17T07:32:52.6894823Z Updating files:  55% (3852/7003)
+2026-11-17T07:32:52.6917178Z Updating files:  56% (3922/7003)
+2026-11-17T07:32:52.7192235Z Updating files:  57% (3992/7003)
+2026-11-17T07:32:52.7380620Z Updating files:  58% (4062/7003)
+2026-11-17T07:32:52.7422433Z Updating files:  59% (4132/7003)
+2026-11-17T07:32:52.7486525Z Updating files:  60% (4202/7003)
+2026-11-17T07:32:52.7519261Z Updating files:  61% (4272/7003)
+2026-11-17T07:32:52.7578754Z Updating files:  62% (4342/7003)
+2026-11-17T07:32:52.8166377Z Updating files:  63% (4412/7003)
+2026-11-17T07:32:52.8193749Z Updating files:  64% (4482/7003)
+2026-11-17T07:32:52.8258572Z Updating files:  65% (4552/7003)
+2026-11-17T07:32:52.8714361Z Updating files:  66% (4622/7003)
+2026-11-17T07:32:52.9110144Z Updating files:  67% (4693/7003)
+2026-11-17T07:32:52.9740565Z Updating files:  68% (4763/7003)
+2026-11-17T07:32:53.0135284Z Updating files:  69% (4833/7003)
+2026-11-17T07:32:53.0510449Z Updating files:  70% (4903/7003)
+2026-11-17T07:32:53.0870946Z Updating files:  71% (4973/7003)
+2026-11-17T07:32:53.0971462Z Updating files:  72% (5043/7003)
+2026-11-17T07:32:53.1165666Z Updating files:  73% (5113/7003)
+2026-11-17T07:32:53.1339485Z Updating files:  74% (5183/7003)
+2026-11-17T07:32:53.1752954Z Updating files:  75% (5253/7003)
+2026-11-17T07:32:53.1833702Z Updating files:  76% (5323/7003)
+2026-11-17T07:32:53.2477060Z Updating files:  77% (5393/7003)
+2026-11-17T07:32:53.2591534Z Updating files:  78% (5463/7003)
+2026-11-17T07:32:53.3324133Z Updating files:  79% (5533/7003)
+2026-11-17T07:32:53.3739156Z Updating files:  80% (5603/7003)
+2026-11-17T07:32:53.3793482Z Updating files:  81% (5673/7003)
+2026-11-17T07:32:53.4326078Z Updating files:  82% (5743/7003)
+2026-11-17T07:32:53.4358337Z Updating files:  83% (5813/7003)
+2026-11-17T07:32:53.4468189Z Updating files:  84% (5883/7003)
+2026-11-17T07:32:53.4559233Z Updating files:  85% (5953/7003)
+2026-11-17T07:32:53.4597692Z Updating files:  86% (6023/7003)
+2026-11-17T07:32:53.4620759Z Updating files:  87% (6093/7003)
+2026-11-17T07:32:53.4640746Z Updating files:  88% (6163/7003)
+2026-11-17T07:32:53.4678277Z Updating files:  89% (6233/7003)
+2026-11-17T07:32:53.4724703Z Updating files:  90% (6303/7003)
+2026-11-17T07:32:53.4789886Z Updating files:  91% (6373/7003)
+2026-11-17T07:32:53.5131466Z Updating files:  92% (6443/7003)
+2026-11-17T07:32:53.5163076Z Updating files:  93% (6513/7003)
+2026-11-17T07:32:53.5367476Z Updating files:  94% (6583/7003)
+2026-11-17T07:32:53.5404250Z Updating files:  95% (6653/7003)
+2026-11-17T07:32:53.5434171Z Updating files:  96% (6723/7003)
+2026-11-17T07:32:53.5464668Z Updating files:  97% (6793/7003)
+2026-11-17T07:32:53.5510296Z Updating files:  98% (6863/7003)
+2026-11-17T07:32:53.5588305Z Updating files:  99% (6933/7003)
+2026-11-17T07:32:53.5588585Z Updating files: 100% (7003/7003)
+2026-11-17T07:32:53.5663143Z Updating files: 100% (7003/7003), done.
+2026-11-17T07:32:53.5664212Z Note: switching to '9e6df9fbd1947f8edc57bcb47acbaa109bb0932c'.
+2026-11-17T07:32:53.5664483Z 
+2026-11-17T07:32:53.5664703Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-17T07:32:53.5665402Z changes and commit them, and you can discard any commits you make in this
+2026-11-17T07:32:53.5666181Z state without impacting any branches by switching back to a branch.
+2026-11-17T07:32:53.5666513Z 
+2026-11-17T07:32:53.5666908Z If you want to create a new branch to retain commits you create, you may
+2026-11-17T07:32:53.5669471Z do so (now or later) by using -c with the switch command. Example:
+2026-11-17T07:32:53.5670066Z 
+2026-11-17T07:32:53.5670251Z   git switch -c <new-branch-name>
+2026-11-17T07:32:53.5670570Z 
+2026-11-17T07:32:53.5670751Z Or undo this operation with:
+2026-11-17T07:32:53.5671027Z 
+2026-11-17T07:32:53.5671169Z   git switch -
+2026-11-17T07:32:53.5671392Z 
+2026-11-17T07:32:53.5671775Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-17T07:32:53.5672380Z 
+2026-11-17T07:32:53.5673028Z HEAD is now at 9e6df9f Freeze indexed graphite frontend with portable exact-source inventory
+2026-11-17T07:32:53.5778460Z ##[endgroup]
+2026-11-17T07:32:53.5815674Z [command]/usr/bin/git log -1 --format=%H
+2026-11-17T07:32:53.5841228Z 9e6df9fbd1947f8edc57bcb47acbaa109bb0932c
+2026-11-17T07:32:53.6065492Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-17T07:32:53.6065885Z with:
+2026-11-17T07:32:53.6066100Z   python-version: 3.11
+2026-11-17T07:32:53.6066321Z   check-latest: false
+2026-11-17T07:32:53.6069064Z   token: ***
+2026-11-17T07:32:53.6069277Z   update-environment: true
+2026-11-17T07:32:53.6069517Z   allow-prereleases: false
+2026-11-17T07:32:53.6069750Z   freethreaded: false
+2026-11-17T07:32:53.6069957Z env:
+2026-11-17T07:32:53.6070149Z   CARGO_TERM_COLOR: always
+2026-11-17T07:32:53.6070395Z ##[endgroup]
+2026-11-17T07:32:53.7325189Z ##[group]Installed versions
+2026-11-17T07:32:53.7428549Z (node:2046) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T07:32:53.7429675Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T07:32:53.7430333Z Successfully set up CPython (3.11.18)
+2026-11-17T07:32:53.7431171Z ##[endgroup]
+2026-11-17T07:32:53.7549165Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-11-17T07:32:53.7549547Z with:
+2026-11-17T07:32:53.7549747Z   node-version: 24
+2026-11-17T07:32:53.7549954Z   cache: npm
+2026-11-17T07:32:53.7550149Z   always-auth: false
+2026-11-17T07:32:53.7550365Z   check-latest: false
+2026-11-17T07:32:53.7553438Z   token: ***
+2026-11-17T07:32:53.7553631Z env:
+2026-11-17T07:32:53.7553825Z   CARGO_TERM_COLOR: always
+2026-11-17T07:32:53.7554123Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:53.7554593Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:32:53.7555038Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:53.7555415Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:53.7555789Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:53.7556180Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:32:53.7556538Z ##[endgroup]
+2026-11-17T07:32:53.9041865Z Found in cache @ /opt/hostedtoolcache/node/24.22.2/x64
+2026-11-17T07:32:53.9045890Z (node:2054) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T07:32:53.9046586Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T07:32:53.9048892Z ##[group]Environment details
+2026-11-17T07:32:54.2441453Z node: v24.22.2
+2026-11-17T07:32:54.2441860Z npm: 11.19.1
+2026-11-17T07:32:54.2442185Z yarn: 1.22.22
+2026-11-17T07:32:54.2443126Z ##[endgroup]
+2026-11-17T07:32:54.2460716Z [command]/opt/hostedtoolcache/node/24.22.2/x64/bin/npm config get cache
+2026-11-17T07:32:54.5369953Z /home/runner/.npm
+2026-11-17T07:32:54.7541191Z Cache hit for: node-cache-Linux-x64-npm-f5ca1d9cbfc8bd623ad3e5097c7f4f5a155294f0b997b4beb4922bc527ca7129
+2026-11-17T07:32:54.7638498Z (node:2054) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-17T07:32:55.8499248Z Received 10762650 of 10762650 (100.0%), 11.9 MBs/sec
+2026-11-17T07:32:55.8499952Z Cache Size: ~10 MB (10762650 B)
+2026-11-17T07:32:55.8525313Z [command]/usr/bin/tar -xf /home/runner/work/_temp/9c46f350-1d80-45fd-b082-209d89acb4c8/cache.tzst -P -C /home/runner/work/balls-2-the-wallz/balls-2-the-wallz --use-compress-program unzstd
+2026-11-17T07:32:55.8706248Z Cache restored successfully
+2026-11-17T07:32:55.8722413Z Cache restored from key: node-cache-Linux-x64-npm-f5ca1d9cbfc8bd623ad3e5097c7f4f5a155294f0b997b4beb4922bc527ca7129
+2026-11-17T07:32:55.8851142Z ##[group]Run npm ci --ignore-scripts
+2026-11-17T07:32:55.8851559Z [36;1mnpm ci --ignore-scripts[0m
+2026-11-17T07:32:55.8904867Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:32:55.8905151Z env:
+2026-11-17T07:32:55.8905364Z   CARGO_TERM_COLOR: always
+2026-11-17T07:32:55.8905675Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:55.8906113Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:32:55.8906543Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:55.8906929Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:55.8907310Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:55.8907706Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:32:55.8908037Z ##[endgroup]
+2026-11-17T07:32:58.5119602Z 
+2026-11-17T07:32:58.5129383Z added 15 packages, and audited 16 packages in 3s
+2026-11-17T07:32:58.5129846Z 
+2026-11-17T07:32:58.5130279Z 5 packages are looking for funding
+2026-11-17T07:32:58.5130805Z   run `npm fund` for details
+2026-11-17T07:32:58.5133087Z 
+2026-11-17T07:32:58.5133509Z found 0 vulnerabilities
+2026-11-17T07:32:58.5371302Z ##[group]Run python -m pip install --require-hashes -r tools/browser-requirements.txt
+2026-11-17T07:32:58.5371925Z [36;1mpython -m pip install --require-hashes -r tools/browser-requirements.txt[0m
+2026-11-17T07:32:58.5407823Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:32:58.5408086Z env:
+2026-11-17T07:32:58.5408302Z   CARGO_TERM_COLOR: always
+2026-11-17T07:32:58.5408616Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:58.5409055Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:32:58.5409485Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:58.5409880Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:58.5410258Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:32:58.5410662Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:32:58.5410983Z ##[endgroup]
+2026-11-17T07:32:59.8047978Z Collecting greenlet==3.5.6 (from -r tools/browser-requirements.txt (line 3))
+2026-11-17T07:32:59.8517104Z   Downloading greenlet-3.5.6-cp311-cp311-manylinux_2_24_x86_64.manylinux_2_28_x86_64.whl (624 kB)
+2026-11-17T07:32:59.8890532Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 624.4/624.4 kB 43.1 MB/s  0:00:00
+2026-11-17T07:32:59.9207748Z Collecting playwright==1.63.0 (from -r tools/browser-requirements.txt (line 84))
+2026-11-17T07:32:59.9254031Z   Downloading playwright-1.63.0-py3-none-manylinux1_x86_64.whl (48.2 MB)
+2026-11-17T07:33:00.1447069Z      ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━ 48.2/48.2 MB 222.9 MB/s  0:00:00
+2026-11-17T07:33:00.2008954Z Collecting pyee==13.0.1 (from -r tools/browser-requirements.txt (line 94))
+2026-11-17T07:33:00.2045002Z   Downloading pyee-13.0.1-py3-none-any.whl (15 kB)
+2026-11-17T07:33:00.2187963Z Collecting typing-extensions==4.16.0 (from -r tools/browser-requirements.txt (line 98))
+2026-11-17T07:33:00.2230405Z   Downloading typing_extensions-4.16.0-py3-none-any.whl (45 kB)
+2026-11-17T07:33:00.2688650Z Installing collected packages: typing-extensions, greenlet, pyee, playwright
+2026-11-17T07:33:01.1837442Z 
+2026-11-17T07:33:01.1847907Z Successfully installed greenlet-3.5.6 playwright-1.63.0 pyee-13.0.1 typing-extensions-4.16.0
+2026-11-17T07:33:01.2420096Z ##[group]Run python -m playwright install chromium
+2026-11-17T07:33:01.2420569Z [36;1mpython -m playwright install chromium[0m
+2026-11-17T07:33:01.2457189Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:33:01.2457450Z env:
+2026-11-17T07:33:01.2457658Z   CARGO_TERM_COLOR: always
+2026-11-17T07:33:01.2457975Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:01.2458410Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:33:01.2458837Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:01.2459232Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:01.2459635Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:01.2460019Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:33:01.2460341Z ##[endgroup]
+2026-11-17T07:33:01.5761319Z Downloading Chrome for Testing 153.0.8010.12 (playwright chromium v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-linux64.zip
+2026-11-17T07:33:01.9676345Z |                                                                                |   0% of 186.8 MiB
+2026-11-17T07:33:02.1118373Z |■■■■■■■■                                                                        |  10% of 186.8 MiB
+2026-11-17T07:33:02.1857921Z |■■■■■■■■■■■■■■■■                                                                |  20% of 186.8 MiB
+2026-11-17T07:33:02.2726361Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 186.8 MiB
+2026-11-17T07:33:02.3416774Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 186.8 MiB
+2026-11-17T07:33:02.4019571Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 186.8 MiB
+2026-11-17T07:33:02.4464224Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 186.8 MiB
+2026-11-17T07:33:02.5260135Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 186.8 MiB
+2026-11-17T07:33:02.6006424Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 186.8 MiB
+2026-11-17T07:33:02.6458656Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 186.8 MiB
+2026-11-17T07:33:02.7146224Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 186.8 MiB
+2026-11-17T07:33:05.4636465Z Chrome for Testing 153.0.8010.12 (playwright chromium v1243) downloaded to /home/runner/.cache/ms-playwright/chromium-1243
+2026-11-17T07:33:05.4640629Z Downloading FFmpeg (playwright ffmpeg v1011) from https://cdn.playwright.dev/dbazure/download/playwright/builds/ffmpeg/1011/ffmpeg-linux.zip
+2026-11-17T07:33:05.8134901Z |                                                                                |   0% of 2.3 MiB
+2026-11-17T07:33:05.8339636Z |■■■■■■■■                                                                        |  10% of 2.3 MiB
+2026-11-17T07:33:05.8419756Z |■■■■■■■■■■■■■■■■                                                                |  20% of 2.3 MiB
+2026-11-17T07:33:05.8476120Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 2.3 MiB
+2026-11-17T07:33:05.8510145Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 2.3 MiB
+2026-11-17T07:33:05.8524235Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 2.3 MiB
+2026-11-17T07:33:05.8563112Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 2.3 MiB
+2026-11-17T07:33:05.8578142Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 2.3 MiB
+2026-11-17T07:33:05.8602490Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 2.3 MiB
+2026-11-17T07:33:05.8615666Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 2.3 MiB
+2026-11-17T07:33:05.8624944Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 2.3 MiB
+2026-11-17T07:33:05.9108716Z FFmpeg (playwright ffmpeg v1011) downloaded to /home/runner/.cache/ms-playwright/ffmpeg-1011
+2026-11-17T07:33:05.9111917Z Downloading Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) from https://cdn.playwright.dev/builds/cft/153.0.8010.12/linux64/chrome-headless-shell-linux64.zip
+2026-11-17T07:33:06.2868619Z |                                                                                |   0% of 114.3 MiB
+2026-11-17T07:33:06.3647818Z |■■■■■■■■                                                                        |  10% of 114.3 MiB
+2026-11-17T07:33:06.4228616Z |■■■■■■■■■■■■■■■■                                                                |  20% of 114.3 MiB
+2026-11-17T07:33:06.4693036Z |■■■■■■■■■■■■■■■■■■■■■■■■                                                        |  30% of 114.3 MiB
+2026-11-17T07:33:06.5180528Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                                |  40% of 114.3 MiB
+2026-11-17T07:33:06.5697265Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                        |  50% of 114.3 MiB
+2026-11-17T07:33:06.5975159Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                                |  60% of 114.3 MiB
+2026-11-17T07:33:06.6456125Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                        |  70% of 114.3 MiB
+2026-11-17T07:33:06.6718841Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■                |  80% of 114.3 MiB
+2026-11-17T07:33:06.7040523Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■        |  90% of 114.3 MiB
+2026-11-17T07:33:06.7532289Z |■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■■| 100% of 114.3 MiB
+2026-11-17T07:33:08.7273394Z Chrome Headless Shell 153.0.8010.12 (playwright chromium-headless-shell v1243) downloaded to /home/runner/.cache/ms-playwright/chromium_headless_shell-1243
+2026-11-17T07:33:08.7477664Z ##[group]Run python -B tools/check_dtr_provenance.py --locks-only --output .work/ci-dtr-browser.json
+2026-11-17T07:33:08.7478370Z [36;1mpython -B tools/check_dtr_provenance.py --locks-only --output .work/ci-dtr-browser.json[0m
+2026-11-17T07:33:08.7512667Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:33:08.7513057Z env:
+2026-11-17T07:33:08.7513272Z   CARGO_TERM_COLOR: always
+2026-11-17T07:33:08.7513595Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:08.7514040Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:33:08.7514485Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:08.7514864Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:08.7515239Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:08.7515624Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:33:08.7515945Z ##[endgroup]
+2026-11-17T07:33:08.8135799Z {
+2026-11-17T07:33:08.8136539Z   "required_rust_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8137219Z   "release_contract": {
+2026-11-17T07:33:08.8137858Z     "required_rust_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8138941Z     "status": "Published application-checkpoint revision; B2Z v6 integration/qualification pending",
+2026-11-17T07:33:08.8139992Z     "npm_archive": "vendor/dtr/dtr-timeline-runtime-0.15.0.tgz",
+2026-11-17T07:33:08.8141004Z     "npm_archive_sha256": "22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720"
+2026-11-17T07:33:08.8141781Z   },
+2026-11-17T07:33:08.8142305Z   "source_graphs": [
+2026-11-17T07:33:08.8142638Z     {
+2026-11-17T07:33:08.8143095Z       "manifest": "Cargo.toml",
+2026-11-17T07:33:08.8143354Z       "locked": [
+2026-11-17T07:33:08.8143563Z         {
+2026-11-17T07:33:08.8143791Z           "name": "dtr-core",
+2026-11-17T07:33:08.8144061Z           "version": "0.15.0",
+2026-11-17T07:33:08.8144745Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8145353Z           "checksum": null
+2026-11-17T07:33:08.8145584Z         },
+2026-11-17T07:33:08.8145773Z         {
+2026-11-17T07:33:08.8146008Z           "name": "life-conformance",
+2026-11-17T07:33:08.8146298Z           "version": "0.15.0",
+2026-11-17T07:33:08.8146927Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8147524Z           "checksum": null
+2026-11-17T07:33:08.8147749Z         }
+2026-11-17T07:33:08.8147936Z       ]
+2026-11-17T07:33:08.8148127Z     },
+2026-11-17T07:33:08.8148313Z     {
+2026-11-17T07:33:08.8148546Z       "manifest": "native/Cargo.toml",
+2026-11-17T07:33:08.8148810Z       "locked": [
+2026-11-17T07:33:08.8149021Z         {
+2026-11-17T07:33:08.8149223Z           "name": "dtr-core",
+2026-11-17T07:33:08.8149494Z           "version": "0.15.0",
+2026-11-17T07:33:08.8150120Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8150697Z           "checksum": null
+2026-11-17T07:33:08.8150928Z         },
+2026-11-17T07:33:08.8151122Z         {
+2026-11-17T07:33:08.8151323Z           "name": "dtr-host",
+2026-11-17T07:33:08.8151589Z           "version": "0.15.0",
+2026-11-17T07:33:08.8152215Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8153180Z           "checksum": null
+2026-11-17T07:33:08.8153423Z         },
+2026-11-17T07:33:08.8153628Z         {
+2026-11-17T07:33:08.8153837Z           "name": "dtr-wire",
+2026-11-17T07:33:08.8154104Z           "version": "0.15.0",
+2026-11-17T07:33:08.8154859Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8155447Z           "checksum": null
+2026-11-17T07:33:08.8155680Z         }
+2026-11-17T07:33:08.8155876Z       ]
+2026-11-17T07:33:08.8156065Z     },
+2026-11-17T07:33:08.8156244Z     {
+2026-11-17T07:33:08.8156515Z       "manifest": "canisters/runtime-lab/Cargo.toml",
+2026-11-17T07:33:08.8156833Z       "locked": [
+2026-11-17T07:33:08.8157052Z         {
+2026-11-17T07:33:08.8157314Z           "name": "dtr-core",
+2026-11-17T07:33:08.8157568Z           "version": "0.15.0",
+2026-11-17T07:33:08.8158174Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8158759Z           "checksum": null
+2026-11-17T07:33:08.8158987Z         },
+2026-11-17T07:33:08.8159170Z         {
+2026-11-17T07:33:08.8159373Z           "name": "dtr-host",
+2026-11-17T07:33:08.8159633Z           "version": "0.15.0",
+2026-11-17T07:33:08.8160254Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8160827Z           "checksum": null
+2026-11-17T07:33:08.8161058Z         },
+2026-11-17T07:33:08.8161241Z         {
+2026-11-17T07:33:08.8161439Z           "name": "dtr-wire",
+2026-11-17T07:33:08.8161704Z           "version": "0.15.0",
+2026-11-17T07:33:08.8162317Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8162978Z           "checksum": null
+2026-11-17T07:33:08.8163312Z         }
+2026-11-17T07:33:08.8163501Z       ]
+2026-11-17T07:33:08.8163685Z     },
+2026-11-17T07:33:08.8163888Z     {
+2026-11-17T07:33:08.8164162Z       "manifest": "tools/s09-integration/Cargo.toml",
+2026-11-17T07:33:08.8164471Z       "locked": [
+2026-11-17T07:33:08.8164676Z         {
+2026-11-17T07:33:08.8164877Z           "name": "dtr-core",
+2026-11-17T07:33:08.8165140Z           "version": "0.15.0",
+2026-11-17T07:33:08.8165759Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8166333Z           "checksum": null
+2026-11-17T07:33:08.8166558Z         },
+2026-11-17T07:33:08.8166745Z         {
+2026-11-17T07:33:08.8166939Z           "name": "dtr-host",
+2026-11-17T07:33:08.8167201Z           "version": "0.15.0",
+2026-11-17T07:33:08.8167822Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8168404Z           "checksum": null
+2026-11-17T07:33:08.8168627Z         },
+2026-11-17T07:33:08.8168816Z         {
+2026-11-17T07:33:08.8169016Z           "name": "dtr-wire",
+2026-11-17T07:33:08.8169274Z           "version": "0.15.0",
+2026-11-17T07:33:08.8169880Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8170458Z           "checksum": null
+2026-11-17T07:33:08.8170678Z         }
+2026-11-17T07:33:08.8170858Z       ]
+2026-11-17T07:33:08.8171049Z     },
+2026-11-17T07:33:08.8171227Z     {
+2026-11-17T07:33:08.8171530Z       "manifest": "tools/fixtures/dtr-consumer-rust/Cargo.toml",
+2026-11-17T07:33:08.8171873Z       "locked": [
+2026-11-17T07:33:08.8172071Z         {
+2026-11-17T07:33:08.8172274Z           "name": "dtr-core",
+2026-11-17T07:33:08.8172537Z           "version": "0.15.0",
+2026-11-17T07:33:08.8173295Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8174027Z           "checksum": null
+2026-11-17T07:33:08.8174264Z         },
+2026-11-17T07:33:08.8174450Z         {
+2026-11-17T07:33:08.8174651Z           "name": "dtr-host",
+2026-11-17T07:33:08.8174939Z           "version": "0.15.0",
+2026-11-17T07:33:08.8175630Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8176205Z           "checksum": null
+2026-11-17T07:33:08.8176446Z         },
+2026-11-17T07:33:08.8176634Z         {
+2026-11-17T07:33:08.8176862Z           "name": "dtr-source-model",
+2026-11-17T07:33:08.8177142Z           "version": "0.15.0",
+2026-11-17T07:33:08.8177755Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8178321Z           "checksum": null
+2026-11-17T07:33:08.8178561Z         },
+2026-11-17T07:33:08.8178748Z         {
+2026-11-17T07:33:08.8178965Z           "name": "dtr-wire",
+2026-11-17T07:33:08.8179225Z           "version": "0.15.0",
+2026-11-17T07:33:08.8179838Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:33:08.8180413Z           "checksum": null
+2026-11-17T07:33:08.8180641Z         }
+2026-11-17T07:33:08.8180826Z       ]
+2026-11-17T07:33:08.8181014Z     }
+2026-11-17T07:33:08.8181192Z   ],
+2026-11-17T07:33:08.8181396Z   "status": "PASS"
+2026-11-17T07:33:08.8181603Z }
+2026-11-17T07:33:08.8225901Z ##[group]Run python -B tools/verify_wire_capture_browser.py --output .work/ci-wire-capture
+2026-11-17T07:33:08.8226520Z [36;1mpython -B tools/verify_wire_capture_browser.py --output .work/ci-wire-capture[0m
+2026-11-17T07:33:08.8257431Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:33:08.8257693Z env:
+2026-11-17T07:33:08.8257903Z   CARGO_TERM_COLOR: always
+2026-11-17T07:33:08.8258244Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:08.8258686Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:33:08.8259112Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:08.8259496Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:08.8259888Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:08.8260289Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:33:08.8260618Z ##[endgroup]
+2026-11-17T07:33:23.6981381Z {
+2026-11-17T07:33:23.6982525Z   "qualification": "Capture lifecycle fixture only; expired preserved wire content is not new IC authentication or a historical gate PASS.",
+2026-11-17T07:33:23.6983505Z   "checks": [
+2026-11-17T07:33:23.6983757Z     {
+2026-11-17T07:33:23.6984025Z       "name": "delayed",
+2026-11-17T07:33:23.6984316Z       "status": "PASS",
+2026-11-17T07:33:23.6984652Z       "capture_expected_success": true,
+2026-11-17T07:33:23.6985076Z       "registration_seconds": 0.7144219920000126,
+2026-11-17T07:33:23.6985462Z       "shutdown_ms": 802.362162999998,
+2026-11-17T07:33:23.6985789Z       "peak_pending": 10,
+2026-11-17T07:33:23.6986119Z       "observed_capture_errors": [],
+2026-11-17T07:33:23.6986503Z       "independent_replay": "PASS 81 segments"
+2026-11-17T07:33:23.6986839Z     },
+2026-11-17T07:33:23.6987064Z     {
+2026-11-17T07:33:23.6987309Z       "name": "incomplete",
+2026-11-17T07:33:23.6987600Z       "status": "PASS",
+2026-11-17T07:33:23.6987916Z       "capture_expected_success": false,
+2026-11-17T07:33:23.6988319Z       "registration_seconds": 0.01364005700000348,
+2026-11-17T07:33:23.6988703Z       "shutdown_ms": 2.52739500000132,
+2026-11-17T07:33:23.6989026Z       "peak_pending": 1,
+2026-11-17T07:33:23.6989353Z       "observed_capture_errors": [
+2026-11-17T07:33:23.6989840Z         "wire request failed: net::ERR_CONTENT_LENGTH_MISMATCH",
+2026-11-17T07:33:23.6991178Z         "Response.body: Protocol error (Network.getResponseBody): No data found for resource with given identifier\nResponse body is not available for a response that was navigated away from. Read response.body() before triggering any navigation."
+2026-11-17T07:33:23.6993467Z       ],
+2026-11-17T07:33:23.6994072Z       "independent_replay": "expected gate failure; replay NOT_RUN"
+2026-11-17T07:33:23.6994728Z     },
+2026-11-17T07:33:23.6995066Z     {
+2026-11-17T07:33:23.6995451Z       "name": "cancel",
+2026-11-17T07:33:23.6995904Z       "status": "PASS",
+2026-11-17T07:33:23.6996449Z       "capture_expected_success": false,
+2026-11-17T07:33:23.6997148Z       "registration_seconds": 0.010765813999995544,
+2026-11-17T07:33:23.6997764Z       "shutdown_ms": 1.8246030000028668,
+2026-11-17T07:33:23.6998307Z       "peak_pending": 1,
+2026-11-17T07:33:23.6998818Z       "observed_capture_errors": [
+2026-11-17T07:33:23.6999453Z         "wire request failed: net::ERR_ABORTED",
+2026-11-17T07:33:23.7001605Z         "Response.body: Protocol error (Network.getResponseBody): No data found for resource with given identifier\nResponse body is not available for a response that was navigated away from. Read response.body() before triggering any navigation."
+2026-11-17T07:33:23.7003511Z       ],
+2026-11-17T07:33:23.7003919Z       "independent_replay": "expected gate failure; replay NOT_RUN"
+2026-11-17T07:33:23.7004341Z     },
+2026-11-17T07:33:23.7004563Z     {
+2026-11-17T07:33:23.7004806Z       "name": "timeout",
+2026-11-17T07:33:23.7005112Z       "status": "PASS",
+2026-11-17T07:33:23.7005451Z       "capture_expected_success": false,
+2026-11-17T07:33:23.7006123Z       "registration_seconds": 0.010739826999994762,
+2026-11-17T07:33:23.7006545Z       "shutdown_ms": 201.60467999998843,
+2026-11-17T07:33:23.7006878Z       "peak_pending": 1,
+2026-11-17T07:33:23.7007200Z       "observed_capture_errors": [
+2026-11-17T07:33:23.7007564Z         "wire capture drain timeout",
+2026-11-17T07:33:23.7008050Z         "Response.body: Target page, context or browser has been closed"
+2026-11-17T07:33:23.7008482Z       ],
+2026-11-17T07:33:23.7008864Z       "independent_replay": "expected gate failure; replay NOT_RUN"
+2026-11-17T07:33:23.7009268Z     },
+2026-11-17T07:33:23.7009483Z     {
+2026-11-17T07:33:23.7009724Z       "name": "malformed",
+2026-11-17T07:33:23.7010014Z       "status": "PASS",
+2026-11-17T07:33:23.7010336Z       "capture_expected_success": true,
+2026-11-17T07:33:23.7010728Z       "registration_seconds": 0.4730440430000016,
+2026-11-17T07:33:23.7011106Z       "shutdown_ms": 53.249890000003575,
+2026-11-17T07:33:23.7011429Z       "peak_pending": 11,
+2026-11-17T07:33:23.7011751Z       "observed_capture_errors": [],
+2026-11-17T07:33:23.7012213Z       "independent_replay": "expected gate failure; replay NOT_RUN"
+2026-11-17T07:33:23.7012605Z     },
+2026-11-17T07:33:23.7013006Z     {
+2026-11-17T07:33:23.7013266Z       "name": "missing",
+2026-11-17T07:33:23.7013548Z       "status": "PASS",
+2026-11-17T07:33:23.7013867Z       "capture_expected_success": true,
+2026-11-17T07:33:23.7014275Z       "registration_seconds": 0.46351627999999323,
+2026-11-17T07:33:23.7014667Z       "shutdown_ms": 52.449275999990164,
+2026-11-17T07:33:23.7015003Z       "peak_pending": 12,
+2026-11-17T07:33:23.7015334Z       "observed_capture_errors": [],
+2026-11-17T07:33:23.7015794Z       "independent_replay": "expected gate failure; replay NOT_RUN"
+2026-11-17T07:33:23.7016189Z     },
+2026-11-17T07:33:23.7016426Z     {
+2026-11-17T07:33:23.7016694Z       "name": "close_before_fence",
+2026-11-17T07:33:23.7017016Z       "status": "PASS",
+2026-11-17T07:33:23.7017340Z       "capture_expected_success": false,
+2026-11-17T07:33:23.7017748Z       "registration_seconds": 0.010948906999999508,
+2026-11-17T07:33:23.7018142Z       "shutdown_ms": 0.8265870000059294,
+2026-11-17T07:33:23.7018468Z       "peak_pending": 1,
+2026-11-17T07:33:23.7018798Z       "observed_capture_errors": [
+2026-11-17T07:33:23.7019268Z         "Page.evaluate: Target page, context or browser has been closed"
+2026-11-17T07:33:23.7019870Z       ],
+2026-11-17T07:33:23.7020265Z       "independent_replay": "expected gate failure; replay NOT_RUN"
+2026-11-17T07:33:23.7020670Z     },
+2026-11-17T07:33:23.7020893Z     {
+2026-11-17T07:33:23.7021149Z       "name": "abort_scope",
+2026-11-17T07:33:23.7021477Z       "status": "PASS",
+2026-11-17T07:33:23.7021789Z       "capture_expected_success": false,
+2026-11-17T07:33:23.7022182Z       "registration_seconds": 0.010356294000004596,
+2026-11-17T07:33:23.7022563Z       "shutdown_ms": 2012.2002749999979,
+2026-11-17T07:33:23.7023015Z       "peak_pending": 1,
+2026-11-17T07:33:23.7023335Z       "observed_capture_errors": [
+2026-11-17T07:33:23.7023794Z         "incomplete wire capture: publication fence not established"
+2026-11-17T07:33:23.7024204Z       ],
+2026-11-17T07:33:23.7024579Z       "independent_replay": "expected gate failure; replay NOT_RUN"
+2026-11-17T07:33:23.7024976Z     }
+2026-11-17T07:33:23.7025194Z   ],
+2026-11-17T07:33:23.7025421Z   "status": "PASS",
+2026-11-17T07:33:23.7025936Z   "fixture_sha256": "a41c1dae50bfe4d61e2f4a06b2987c696421b264577db08513db94f81fb7d33b",
+2026-11-17T07:33:23.7026496Z   "browser_version": "153.0.8010.12",
+2026-11-17T07:33:23.7026815Z   "sandbox": true
+2026-11-17T07:33:23.7027070Z }
+2026-11-17T07:33:23.7251472Z ##[group]Run python -B tools/check.py browser --output .work/ci-browser
+2026-11-17T07:33:23.7252000Z [36;1mpython -B tools/check.py browser --output .work/ci-browser[0m
+2026-11-17T07:33:23.7283988Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:33:23.7284245Z env:
+2026-11-17T07:33:23.7284447Z   CARGO_TERM_COLOR: always
+2026-11-17T07:33:23.7284761Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:23.7285197Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:33:23.7285625Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:23.7286016Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:23.7286402Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:33:23.7286796Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:33:23.7287121Z ##[endgroup]
+2026-11-17T07:34:09.9519990Z observer-http-webcrypto PASS
+2026-11-17T07:34:09.9520564Z OVERALL PASS
+2026-11-17T07:34:09.9607211Z ##[group]Run python -B tools/verify_observer_http.py --audio-cache-cancel-race --output .work/ci-audio-cache-cancel
+2026-11-17T07:34:09.9608006Z [36;1mpython -B tools/verify_observer_http.py --audio-cache-cancel-race --output .work/ci-audio-cache-cancel[0m
+2026-11-17T07:34:09.9640511Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:34:09.9640776Z env:
+2026-11-17T07:34:09.9640980Z   CARGO_TERM_COLOR: always
+2026-11-17T07:34:09.9641297Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:34:09.9641732Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:34:09.9642154Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:34:09.9642532Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:34:09.9643249Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:34:09.9643635Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:34:09.9643957Z ##[endgroup]
+2026-11-17T07:34:10.1785354Z 
+2026-11-17T07:34:10.1786370Z   .work/ci-audio-cache-cancel/assets/app.mjs  2.0mb ⚠️
+2026-11-17T07:34:10.1786804Z 
+2026-11-17T07:34:10.1786945Z ⚡ Done in 113ms
+2026-11-17T07:34:10.8313204Z browser-sandbox PASS
+2026-11-17T07:34:11.5798981Z native-browser-web-crypto PASS
+2026-11-17T07:34:11.6319193Z csp-and-unobstructed-arena PASS
+2026-11-17T07:34:12.4423100Z verified-coverage-advances PASS
+2026-11-17T07:34:12.7948499Z session-generation-fencing PASS
+2026-11-17T07:34:13.1432586Z UX-04-panels-preserve-clock-and-queue PASS
+2026-11-17T07:34:13.7441503Z responsive-rendered-arena PASS
+2026-11-17T07:34:13.7454636Z actual-webgl-renderer PASS
+2026-11-17T07:34:14.0976461Z UX-12-context-restore-preserves-verified-session PASS
+2026-11-17T07:34:15.6029413Z UX-11-reduced-motion-retains-live-updates PASS
+2026-11-17T07:34:16.0061813Z corruption-fails-closed PASS
+2026-11-17T07:34:16.0160829Z application-errors PASS
+2026-11-17T07:34:16.1352619Z ##[group]Run python -B tools/verify_playability_actions.py --output .work/ci-human-experience
+2026-11-17T07:34:16.1353487Z [36;1mpython -B tools/verify_playability_actions.py --output .work/ci-human-experience[0m
+2026-11-17T07:34:16.1385375Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:34:16.1385639Z env:
+2026-11-17T07:34:16.1385848Z   CARGO_TERM_COLOR: always
+2026-11-17T07:34:16.1386160Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:34:16.1386601Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:34:16.1387026Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:34:16.1387421Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:34:16.1387798Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:34:16.1388181Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:34:16.1388520Z ##[endgroup]
+2026-11-17T07:34:16.7582646Z 
+2026-11-17T07:34:16.7583809Z   .work/ci-human-experience/fixture.mjs  1.5mb ⚠️
+2026-11-17T07:34:16.7584271Z 
+2026-11-17T07:34:16.7584473Z ⚡ Done in 107ms
+2026-11-17T07:34:17.3586852Z navigate 1440
+2026-11-17T07:34:17.5420825Z loaded
+2026-11-17T07:34:17.9749049Z player controls
+2026-11-17T07:34:19.1514602Z terrain path PASS 1440
+2026-11-17T07:34:21.2713567Z minimap path PASS 1440
+2026-11-17T07:34:21.8727650Z heading and drag PASS 1440
+2026-11-17T07:34:24.3295840Z Move and seam Build PASS 1440
+2026-11-17T07:34:29.6536162Z eligibility and clock PASS 1440
+2026-11-17T07:34:32.0455311Z player controls PASS
+2026-11-17T07:34:32.0458340Z identify
+2026-11-17T07:34:32.0458932Z account click
+2026-11-17T07:34:32.1244086Z account open
+2026-11-17T07:34:32.1881888Z fill account
+2026-11-17T07:34:32.2029396Z save account
+2026-11-17T07:34:32.2436867Z account saved
+2026-11-17T07:34:32.8534213Z wallet fields
+2026-11-17T07:34:34.3587268Z account click
+2026-11-17T07:34:34.4188882Z account open
+2026-11-17T07:34:34.4705332Z fill account
+2026-11-17T07:34:34.4749572Z save account
+2026-11-17T07:34:34.5409677Z account saved
+2026-11-17T07:34:34.9522642Z account click
+2026-11-17T07:34:35.0057110Z account open
+2026-11-17T07:34:35.0521326Z fill account
+2026-11-17T07:34:35.0665316Z save account
+2026-11-17T07:34:35.1143387Z account saved
+2026-11-17T07:34:37.3930801Z account click
+2026-11-17T07:34:37.7327007Z account open
+2026-11-17T07:34:38.9609638Z account click
+2026-11-17T07:34:39.3437020Z account open
+2026-11-17T07:34:40.5369091Z account click
+2026-11-17T07:34:40.9006190Z account open
+2026-11-17T07:34:45.0956913Z PASS 1440x900
+2026-11-17T07:34:45.2274650Z navigate 390
+2026-11-17T07:34:45.3485181Z loaded
+2026-11-17T07:34:45.6809397Z player controls
+2026-11-17T07:34:46.0896448Z terrain path PASS 390
+2026-11-17T07:34:47.8753180Z minimap path PASS 390
+2026-11-17T07:34:48.2284307Z aim entry settled {'released': True, 'active': False, 'elapsed_ms': 336.6000000000058, 'memo': 'FIRE 1 225 1', 'oldMemo': 'FIRE 1 225 1'}
+2026-11-17T07:34:48.7703240Z aim interrupt held {'target': 'aim-handle', 'camera': [583.6094014828354, 458.60940148283544, 64], 'active': False}
+2026-11-17T07:34:48.8296617Z heading and drag PASS 390
+2026-11-17T07:34:51.6694721Z Move and seam Build PASS 390
+2026-11-17T07:34:54.8251450Z eligibility and clock PASS 390
+2026-11-17T07:34:56.7448042Z player controls PASS
+2026-11-17T07:34:56.7448343Z identify
+2026-11-17T07:34:56.7448562Z account click
+2026-11-17T07:34:56.8000402Z account open
+2026-11-17T07:34:56.8336623Z fill account
+2026-11-17T07:34:56.8390735Z save account
+2026-11-17T07:34:56.8707231Z account saved
+2026-11-17T07:34:57.3599016Z wallet fields
+2026-11-17T07:34:58.4157213Z account click
+2026-11-17T07:34:58.4476865Z account open
+2026-11-17T07:34:58.4832982Z fill account
+2026-11-17T07:34:58.4877140Z save account
+2026-11-17T07:34:58.5181419Z account saved
+2026-11-17T07:34:58.9658885Z account click
+2026-11-17T07:34:58.9984762Z account open
+2026-11-17T07:34:59.0527823Z fill account
+2026-11-17T07:34:59.0574629Z save account
+2026-11-17T07:34:59.1016938Z account saved
+2026-11-17T07:35:01.0673963Z account click
+2026-11-17T07:35:01.1245765Z account open
+2026-11-17T07:35:01.6226651Z account click
+2026-11-17T07:35:01.6743697Z account open
+2026-11-17T07:35:02.1731976Z account click
+2026-11-17T07:35:02.2245659Z account open
+2026-11-17T07:35:05.0238977Z PASS 390x844
+2026-11-17T07:35:05.1406837Z navigate 320
+2026-11-17T07:35:05.2610677Z loaded
+2026-11-17T07:35:05.5837112Z player controls
+2026-11-17T07:35:05.9160293Z terrain path PASS 320
+2026-11-17T07:35:07.5549190Z minimap path PASS 320
+2026-11-17T07:35:08.0293521Z heading and drag PASS 320
+2026-11-17T07:35:10.5859371Z Move and seam Build PASS 320
+2026-11-17T07:35:13.3237332Z eligibility and clock PASS 320
+2026-11-17T07:35:15.2049428Z player controls PASS
+2026-11-17T07:35:15.2049878Z identify
+2026-11-17T07:35:15.2050236Z account click
+2026-11-17T07:35:15.2654321Z account open
+2026-11-17T07:35:15.2975205Z fill account
+2026-11-17T07:35:15.3019530Z save account
+2026-11-17T07:35:15.3316933Z account saved
+2026-11-17T07:35:15.7188717Z wallet fields
+2026-11-17T07:35:16.7141334Z account click
+2026-11-17T07:35:16.7461449Z account open
+2026-11-17T07:35:16.7804993Z fill account
+2026-11-17T07:35:16.7844658Z save account
+2026-11-17T07:35:16.8148276Z account saved
+2026-11-17T07:35:17.0466888Z account click
+2026-11-17T07:35:17.0798902Z account open
+2026-11-17T07:35:17.1137302Z fill account
+2026-11-17T07:35:17.1177050Z save account
+2026-11-17T07:35:17.1485220Z account saved
+2026-11-17T07:35:18.9201301Z account click
+2026-11-17T07:35:18.9546434Z account open
+2026-11-17T07:35:19.3384123Z account click
+2026-11-17T07:35:19.3869341Z account open
+2026-11-17T07:35:19.7221131Z account click
+2026-11-17T07:35:19.7705449Z account open
+2026-11-17T07:35:22.3722256Z PASS 320x640
+2026-11-17T07:35:24.6907271Z account click
+2026-11-17T07:35:24.7527740Z account open
+2026-11-17T07:35:24.7543879Z fill account
+2026-11-17T07:35:24.7619593Z save account
+2026-11-17T07:35:24.7987292Z account saved
+2026-11-17T07:35:26.1940469Z account click
+2026-11-17T07:35:26.2516723Z account open
+2026-11-17T07:35:26.2532477Z fill account
+2026-11-17T07:35:26.2575549Z save account
+2026-11-17T07:35:26.2997813Z account saved
+2026-11-17T07:35:46.7587213Z ##[group]Run python -B tools/verify_tactical_grid.py --fixture-dir .work/ci-human-experience --output .work/ci-tactical-grid
+2026-11-17T07:35:46.7588071Z [36;1mpython -B tools/verify_tactical_grid.py --fixture-dir .work/ci-human-experience --output .work/ci-tactical-grid[0m
+2026-11-17T07:35:46.7588869Z [36;1mpython -B tools/verify_tactical_browser.py --fixture-dir .work/ci-human-experience --output .work/ci-tactical-journey[0m
+2026-11-17T07:35:46.7620915Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:35:46.7621188Z env:
+2026-11-17T07:35:46.7621396Z   CARGO_TERM_COLOR: always
+2026-11-17T07:35:46.7621703Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:35:46.7622150Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:35:46.7622584Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:35:46.7623147Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:35:46.7623574Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:35:46.7623971Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:35:46.7624302Z ##[endgroup]
+2026-11-17T07:35:48.4117590Z PASS DPR 1
+2026-11-17T07:35:49.4554906Z PASS DPR 1.25
+2026-11-17T07:35:50.5917133Z PASS DPR 1.5
+2026-11-17T07:35:51.8534772Z PASS DPR 2
+2026-11-17T07:36:03.1437667Z PASS 1440
+2026-11-17T07:36:12.6359763Z PASS 390
+2026-11-17T07:36:21.8984702Z PASS 320
+2026-11-17T07:36:22.2833682Z ##[group]Run python -B tools/verify_fluid_browser.py --output .work/ci-fluid-journeys --video
+2026-11-17T07:36:22.2834496Z [36;1mpython -B tools/verify_fluid_browser.py --output .work/ci-fluid-journeys --video[0m
+2026-11-17T07:36:22.2835496Z [36;1mpython -B tools/verify_fluid_depth.py --fixture-dir .work/ci-human-experience --output .work/ci-fluid-depth[0m
+2026-11-17T07:36:22.2836464Z [36;1mpython -B tools/verify_elastic_browser.py --fixture-dir .work/ci-fluid-journeys --output .work/ci-elastic-return --video[0m
+2026-11-17T07:36:22.2872768Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:36:22.2873218Z env:
+2026-11-17T07:36:22.2873459Z   CARGO_TERM_COLOR: always
+2026-11-17T07:36:22.2873806Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:36:22.2874293Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:36:22.2874760Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:36:22.2875215Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:36:22.2875606Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:36:22.2875990Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:36:22.2876315Z ##[endgroup]
+2026-11-17T07:36:22.8855363Z 
+2026-11-17T07:36:22.8856587Z   .work/ci-fluid-journeys/fixture.mjs  1.5mb ⚠️
+2026-11-17T07:36:22.8857057Z 
+2026-11-17T07:36:22.8857263Z ⚡ Done in 102ms
+2026-11-17T07:36:34.6931142Z PASS 1440
+2026-11-17T07:36:43.6870859Z PASS 390
+2026-11-17T07:36:52.1175254Z PASS 320
+2026-11-17T07:36:58.4306998Z captured normal
+2026-11-17T07:37:03.1100689Z captured no-guide
+2026-11-17T07:37:07.7585909Z captured overdraw
+2026-11-17T07:37:12.2254853Z captured body-mask
+2026-11-17T07:37:12.6755346Z PASS fixed guide occlusion, 16 direction/zoom cases and negative control
+2026-11-17T07:37:18.7563415Z PASS 1440
+2026-11-17T07:37:22.7320557Z PASS 390
+2026-11-17T07:37:26.5860537Z PASS 320
+2026-11-17T07:37:26.8780964Z ##[group]Run python -B tools/verify_refinement_browser.py --output .work/ci-player-refinement --video
+2026-11-17T07:37:26.8782216Z [36;1mpython -B tools/verify_refinement_browser.py --output .work/ci-player-refinement --video[0m
+2026-11-17T07:37:26.8834367Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:37:26.8834812Z env:
+2026-11-17T07:37:26.8835130Z   CARGO_TERM_COLOR: always
+2026-11-17T07:37:26.8835652Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:37:26.8836393Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:37:26.8837109Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:37:26.8837762Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:37:26.8838408Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:37:26.8839033Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:37:26.8839583Z ##[endgroup]
+2026-11-17T07:37:27.5137305Z 
+2026-11-17T07:37:27.5138241Z   .work/ci-player-refinement/fixture.mjs  1.5mb ⚠️
+2026-11-17T07:37:27.5143311Z 
+2026-11-17T07:37:27.5143600Z ⚡ Done in 108ms
+2026-11-17T07:37:31.0369515Z {"viewport": [1440, 900], "toolbar_drift": [0.0, 0.0, 0.0, 0.0, 0.0], "panel": {"height": 274, "content": 274, "workspace": {"x": 661, "y": 334, "width": 360, "height": 328, "top": 334, "right": 1021, "bottom": 662, "left": 661}}, "errors": [], "move_panel": {"height": 311, "content": 312}, "deferred_target": {"original": 452577, "chosen": "452577", "memo": "MOVE 1 452577"}, "minimap": {"width": 164, "height": 95, "css": 164, "dpr": 1}}
+2026-11-17T07:37:57.2175520Z {"viewport": [390, 844], "toolbar_drift": [0.0, 0.0, 0.0, 0.0, 0.0], "panel": {"height": 274, "content": 274, "workspace": {"x": 8, "y": 221, "width": 360, "height": 328, "top": 221, "right": 368, "bottom": 549, "left": 8}}, "errors": [], "move_panel": {"height": 312, "content": 312}, "minimap": {"width": 186, "height": 107, "css": 124, "dpr": 1.5}}
+2026-11-17T07:38:13.4661803Z {"viewport": [320, 640], "toolbar_drift": [0.0, 0.0, 0.0, 0.0, 0.0], "panel": {"height": 242, "content": 272, "workspace": {"x": 8, "y": 221, "width": 304, "height": 296, "top": 221, "right": 312, "bottom": 517, "left": 8}}, "errors": [], "move_panel": {"height": 241, "content": 312}, "minimap": {"width": 248, "height": 143, "css": 124, "dpr": 2}}
+2026-11-17T07:38:28.1111511Z ##[group]Run python -B tools/verify_visual_closeout.py --fixture-dir .work/ci-player-refinement --output .work/ci-visual-closeout --video
+2026-11-17T07:38:28.1112476Z [36;1mpython -B tools/verify_visual_closeout.py --fixture-dir .work/ci-player-refinement --output .work/ci-visual-closeout --video[0m
+2026-11-17T07:38:28.1144792Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:38:28.1145055Z env:
+2026-11-17T07:38:28.1145262Z   CARGO_TERM_COLOR: always
+2026-11-17T07:38:28.1145584Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:28.1146031Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:38:28.1146454Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:28.1146842Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:28.1147231Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:28.1147658Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:38:28.1147998Z ##[endgroup]
+2026-11-17T07:38:33.4369390Z seam-pointer-layout {'point': {'x': 720, 'y': 454.6557530363207}, 'beforeLayoutTarget': 'board'}
+2026-11-17T07:38:34.4602179Z CAPTURED 1440
+2026-11-17T07:38:39.5721784Z CAPTURED 390
+2026-11-17T07:38:44.5674345Z CAPTURED 320
+2026-11-17T07:38:44.7305983Z ##[group]Run python -B tools/verify_human_corrections.py --output .work/ci-human-corrections
+2026-11-17T07:38:44.7306636Z [36;1mpython -B tools/verify_human_corrections.py --output .work/ci-human-corrections[0m
+2026-11-17T07:38:44.7338806Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:38:44.7339083Z env:
+2026-11-17T07:38:44.7339287Z   CARGO_TERM_COLOR: always
+2026-11-17T07:38:44.7339608Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:44.7340041Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:38:44.7340458Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:44.7340848Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:44.7341230Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:44.7341615Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:38:44.7341941Z ##[endgroup]
+2026-11-17T07:38:45.4252695Z 
+2026-11-17T07:38:45.4284305Z   .work/ci-human-corrections/fixture/fixture.mjs  1.5mb ⚠️
+2026-11-17T07:38:45.4284798Z 
+2026-11-17T07:38:45.4285009Z ⚡ Done in 125ms
+2026-11-17T07:38:47.8424167Z selection 1440
+2026-11-17T07:38:51.6294175Z Traceback (most recent call last):
+2026-11-17T07:38:51.6306534Z   File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/verify_human_corrections.py", line 73, in <module>
+2026-11-17T07:38:51.6308776Z     if not a.baseline:assert len(data['ghostParts']['barrel'])==16 and len(data['ghostParts']['muzzle'])==16;assert page.evaluate('fixture.aim().heading===fixture.command().angle')
+2026-11-17T07:38:51.6310379Z                                  ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+2026-11-17T07:38:51.6311195Z KeyError: 'barrel'
+2026-11-17T07:38:51.9670550Z Traceback (most recent call last):
+2026-11-17T07:38:51.9671963Z   File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/verify_human_corrections.py", line 73, in <module>
+2026-11-17T07:38:51.9675145Z     if not a.baseline:assert len(data['ghostParts']['barrel'])==16 and len(data['ghostParts']['muzzle'])==16;assert page.evaluate('fixture.aim().heading===fixture.command().angle')
+2026-11-17T07:38:51.9677788Z                                  ~~~~~~~~~~~~~~~~~~^^^^^^^^^^
+2026-11-17T07:38:51.9678777Z KeyError: 'barrel'
+2026-11-17T07:38:51.9916011Z ##[error]Process completed with exit code 1.
+2026-11-17T07:38:52.0032219Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-11-17T07:38:52.0032614Z with:
+2026-11-17T07:38:52.0033018Z   name: browser-evidence
+2026-11-17T07:38:52.0036991Z   path: .work/ci-browser/environment.json
+.work/ci-browser/verification.json
+.work/ci-browser/logs/**
+.work/ci-browser/browser-http/results.json
+.work/ci-browser/browser-http/*.png
+.work/ci-audio-cache-cancel/results.json
+.work/ci-audio-cache-cancel/*.png
+.work/ci-wire-capture/**
+.work/ci-graphite-models/**
+.work/ci-human-experience/**
+.work/ci-tactical-grid/**
+.work/ci-tactical-journey/**
+.work/ci-fluid-journeys/**
+.work/ci-fluid-depth/**
+.work/ci-elastic-return/**
+.work/ci-compact-controls/**
+.work/ci-quantity-closeout/**
+.work/ci-approved-panel-war-cry/**
+.work/ci-combined-panel/**
+.work/ci-player-refinement/**
+.work/ci-visual-closeout/**
+.work/ci-human-corrections/**
+.work/ci-panel-geometry/**
+.work/ci-audio/results.json
+.work/ci-audio/native-progress.json
+.work/ci-audio/peaks.json
+.work/ci-audio/*.png
+.work/ci-audio/*.wav
+.work/ci-audio/*.webm
+.work/ci-audio-meaning/results.json
+.work/ci-audio-meaning/contact.json
+.work/ci-audio-meaning/*.webm
+.work/ci-audio-meaning/*.png
+.work/ci-audio-spatial/**
+.work/ci-audio-occlusion/**
+.work/ci-audio-visibility/results.json
+.work/ci-audio-visibility/*.png
+.work/ci-audio-visibility/*.webm
+.work/ci-audio-activation/results.json
+.work/ci-audio-activation/*.png
+
+2026-11-17T07:38:52.0041329Z   if-no-files-found: warn
+2026-11-17T07:38:52.0041577Z   retention-days: 14
+2026-11-17T07:38:52.0041823Z   compression-level: 6
+2026-11-17T07:38:52.0042045Z   overwrite: false
+2026-11-17T07:38:52.0042271Z   include-hidden-files: false
+2026-11-17T07:38:52.0042516Z env:
+2026-11-17T07:38:52.0042712Z   CARGO_TERM_COLOR: always
+2026-11-17T07:38:52.0043099Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:52.0043527Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:38:52.0043950Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:52.0044334Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:52.0044715Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:38:52.0045106Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:38:52.0045430Z ##[endgroup]
+2026-11-17T07:38:52.1749604Z (node:5449) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T07:38:52.1751475Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T07:38:52.3516593Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-17T07:38:52.3523325Z The least common ancestor is /home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work. This will be the root directory of the artifact
+2026-11-17T07:38:52.3524054Z With the provided path, there will be 561 files uploaded
+2026-11-17T07:38:52.3527262Z Artifact name is valid!
+2026-11-17T07:38:52.3527790Z Root directory input is valid!
+2026-11-17T07:38:52.6852455Z Beginning upload of artifact content to blob storage
+2026-11-17T07:38:53.2135466Z (node:5449) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-17T07:38:53.9650877Z Uploaded bytes 8388608
+2026-11-17T07:38:54.1957591Z Uploaded bytes 16777216
+2026-11-17T07:38:54.2567290Z Uploaded bytes 25165824
+2026-11-17T07:38:54.5571413Z Uploaded bytes 33554432
+2026-11-17T07:38:54.8961274Z Uploaded bytes 41943040
+2026-11-17T07:38:54.9938360Z Uploaded bytes 43402354
+2026-11-17T07:38:55.0573008Z Finished uploading artifact content to blob storage!
+2026-11-17T07:38:55.0577453Z SHA256 digest of uploaded artifact zip is 263c26855c1e0a4309e63a2930f6ee530dc8faf84e4fe9e750750f009d0342e6
+2026-11-17T07:38:55.0579094Z Finalizing artifact upload
+2026-11-17T07:38:55.4661898Z Artifact browser-evidence.zip successfully finalized. Artifact ID 14309445737
+2026-11-17T07:38:55.4664130Z Artifact browser-evidence has been successfully uploaded! Final size is 43402354 bytes. Artifact ID is 14309445737
+2026-11-17T07:38:55.4672560Z Artifact download URL: https://github.com/aodl/balls-2-the-wallz/actions/runs/44039468344/artifacts/14309445737
+2026-11-17T07:38:55.4971251Z Post job cleanup.
+2026-11-17T07:38:55.5920665Z [command]/usr/bin/git version
+2026-11-17T07:38:55.5956434Z git version 2.56.1
+2026-11-17T07:38:55.5993826Z Temporarily overriding HOME='/home/runner/work/_temp/25eaa1c3-2930-48a9-a07b-8eb673c68e82' before making global git config changes
+2026-11-17T07:38:55.5997415Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T07:38:55.5999982Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/balls-2-the-wallz/balls-2-the-wallz
+2026-11-17T07:38:55.6040898Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T07:38:55.6074515Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T07:38:55.6351909Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T07:38:55.6387196Z http.https://github.com/.extraheader
+2026-11-17T07:38:55.6404081Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-17T07:38:55.6447578Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T07:38:55.6754310Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T07:38:55.6800647Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T07:38:55.7419980Z Cleaning up orphan processes
+2026-11-17T07:38:55.7727528Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020, actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

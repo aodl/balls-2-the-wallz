@@ -1,0 +1,8 @@
+{
+  "artifact_id": 14309445737,
+  "run": 44039468344,
+  "source": "9e6df9fbd1947f8edc57bcb47acbaa109bb0932c",
+  "archive_sha256": "263c26855c1e0a4309e63a2930f6ee530dc8faf84e4fe9e750750f009d0342e6",
+  "bytes": 43402354,
+  "scope": "Original hosted Browser FAIL, merged-preview KeyError barrel; fixed physical-depth test passed"
+}

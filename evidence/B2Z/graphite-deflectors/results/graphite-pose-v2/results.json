@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "scope": "Retained mainnet pose in an offline actual-composer/renderer fixture; no certificate/payment claim.",
+  "page_errors": [
+    "Arena shader compilation failed: ERROR: 0:472: '=' : dimension mismatch\nERROR: 0:472: 'assign' : cannot convert from 'in highp 3-component vector of float' to 'out highp 4-component vector of float'\nERROR: 0:474: 'mix' : no matching overloaded function found\nERROR: 0:474: '=' : dimension mismatch\nERROR: 0:474: 'assign' : cannot convert from 'const mediump float' to 'out highp 4-component vector of float'\n  Vertex shader is not compiled.\n"
+  ],
+  "error": "Page.wait_for_function: Timeout 30000ms exceeded."
+}

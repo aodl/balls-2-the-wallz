@@ -1,0 +1,70 @@
+{
+  "run": 44041131981,
+  "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44041131981",
+  "source": "14704e4221afda77229f6f932f2f82be98ffbd6b",
+  "scope": "Visual/frontend checkpoint and existing maintained game/Rules11 suites. Authoritative Deflector not implemented or qualified.",
+  "substantive": [
+    {
+      "id": 133895849084,
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-17T07:45:41Z",
+      "completed_at": "2026-11-17T08:55:13Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44041131981/job/133895849084"
+    },
+    {
+      "id": 133895849457,
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-17T07:45:41Z",
+      "completed_at": "2026-11-17T07:48:17Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44041131981/job/133895849457"
+    },
+    {
+      "id": 133895849510,
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-17T07:45:42Z",
+      "completed_at": "2026-11-17T08:03:12Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44041131981/job/133895849510"
+    },
+    {
+      "id": 133895849518,
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-17T07:45:41Z",
+      "completed_at": "2026-11-17T07:48:07Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44041131981/job/133895849518"
+    },
+    {
+      "id": 133895849530,
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-17T07:45:41Z",
+      "completed_at": "2026-11-17T07:48:31Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44041131981/job/133895849530"
+    },
+    {
+      "id": 133895849569,
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "started_at": "2026-11-17T07:45:42Z",
+      "completed_at": "2026-11-17T07:46:40Z",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44041131981/job/133895849569"
+    }
+  ],
+  "informational_excluded": [
+    {
+      "id": 133895849742,
+      "name": "BLOCKED production inventory (not a pass)",
+      "conclusion": "success"
+    }
+  ],
+  "all_six_pass": true
+}

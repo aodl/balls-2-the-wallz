@@ -1,0 +1,8 @@
+{
+  "artifact_id": 14307517407,
+  "run": 44035757853,
+  "source": "fa935d3818e727444e1e214963fb68904e9f6d40",
+  "archive_sha256": "13fbdbb14129ec2e83e631dabb1dc26e5bd7c2931413fa902bd51f93c51acde2",
+  "bytes": 20028691,
+  "scope": "Original hosted Browser FAIL at verify_fluid_depth.py:29, empty neutral-RGB mask48/0"
+}

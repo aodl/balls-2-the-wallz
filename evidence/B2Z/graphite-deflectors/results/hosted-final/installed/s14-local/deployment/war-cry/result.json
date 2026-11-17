@@ -1,0 +1,854 @@
+{
+  "admitted_annotation_upgrade_preserved": true,
+  "annotations": [
+    {
+      "ball": {
+        "cell": 453578,
+        "id": 2,
+        "owner": 1,
+        "vx": 32000,
+        "vy": 0,
+        "x0": {
+          "$integer": "496384"
+        },
+        "y0": {
+          "$integer": "464384"
+        }
+      },
+      "cannon": 1,
+      "heading": 0,
+      "kind": "ball_spawned",
+      "launch_annotation": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cry": "é😀",
+        "position": {
+          "$integer": "3"
+        },
+        "version": 1
+      },
+      "metadata_delta": {
+        "lifecycle": [
+          {
+            "cannon": 1,
+            "generation": 3,
+            "player": 1
+          }
+        ],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "reactivated_cannons": [
+        1
+      ],
+      "revived": true,
+      "sequence": 0,
+      "time": [
+        {
+          "$integer": "3"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": {
+        "cell": 453578,
+        "id": 3,
+        "owner": 1,
+        "vx": 32000,
+        "vy": 0,
+        "x0": {
+          "$integer": "464384"
+        },
+        "y0": {
+          "$integer": "464384"
+        }
+      },
+      "cannon": 1,
+      "heading": 0,
+      "kind": "ball_spawned",
+      "launch_annotation": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cry": "Charge!",
+        "position": {
+          "$integer": "4"
+        },
+        "version": 1
+      },
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "reactivated_cannons": [],
+      "revived": false,
+      "sequence": 0,
+      "time": [
+        {
+          "$integer": "4"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": {
+        "cell": 453578,
+        "id": 4,
+        "owner": 1,
+        "vx": 32000,
+        "vy": 0,
+        "x0": {
+          "$integer": "400384"
+        },
+        "y0": {
+          "$integer": "464384"
+        }
+      },
+      "cannon": 1,
+      "heading": 0,
+      "kind": "ball_spawned",
+      "launch_annotation": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cry": "Twin",
+        "position": {
+          "$integer": "6"
+        },
+        "version": 1
+      },
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "reactivated_cannons": [],
+      "revived": false,
+      "sequence": 0,
+      "time": [
+        {
+          "$integer": "6"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": {
+        "cell": 453578,
+        "id": 5,
+        "owner": 1,
+        "vx": 32000,
+        "vy": 0,
+        "x0": {
+          "$integer": "368384"
+        },
+        "y0": {
+          "$integer": "464384"
+        }
+      },
+      "cannon": 1,
+      "heading": 0,
+      "kind": "ball_spawned",
+      "launch_annotation": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cry": "Twin",
+        "position": {
+          "$integer": "7"
+        },
+        "version": 1
+      },
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 2,
+        "next_territory_id": 2,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "reactivated_cannons": [],
+      "revived": false,
+      "sequence": 0,
+      "time": [
+        {
+          "$integer": "7"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": {
+        "cell": 953078,
+        "id": 6,
+        "owner": 2,
+        "vx": 32000,
+        "vy": 0,
+        "x0": {
+          "$integer": "-239616"
+        },
+        "y0": {
+          "$integer": "976384"
+        }
+      },
+      "cannon": {
+        "account": "7a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef",
+        "cell": 953078,
+        "heading": 0,
+        "id": 2
+      },
+      "frontier_other": -1,
+      "kind": "cannon_spawned",
+      "launch_annotation": {
+        "account": "7a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef",
+        "cry": "Hello!",
+        "position": {
+          "$integer": "10"
+        },
+        "version": 1
+      },
+      "metadata_delta": {
+        "lifecycle": [
+          {
+            "cannon": 2,
+            "generation": 1,
+            "player": 2
+          }
+        ],
+        "next_player_id": 3,
+        "next_territory_id": 3,
+        "players": [
+          {
+            "account": "7a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef",
+            "id": 2
+          }
+        ],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": [
+          {
+            "id": 2,
+            "player": 2
+          }
+        ]
+      },
+      "ownership_ops": [
+        {
+          "cell": 952077,
+          "kind": "set",
+          "owner": 2
+        },
+        {
+          "cell": 952078,
+          "kind": "set",
+          "owner": 2
+        },
+        {
+          "cell": 952079,
+          "kind": "set",
+          "owner": 2
+        },
+        {
+          "cell": 953077,
+          "kind": "set",
+          "owner": 2
+        },
+        {
+          "cell": 953078,
+          "kind": "set",
+          "owner": 2
+        },
+        {
+          "cell": 953079,
+          "kind": "set",
+          "owner": 2
+        },
+        {
+          "cell": 954077,
+          "kind": "set",
+          "owner": 2
+        },
+        {
+          "cell": 954078,
+          "kind": "set",
+          "owner": 2
+        },
+        {
+          "cell": 954079,
+          "kind": "set",
+          "owner": 2
+        }
+      ],
+      "patch": [
+        952077,
+        952078,
+        952079,
+        953077,
+        953078,
+        953079,
+        954077,
+        954078,
+        954079
+      ],
+      "placement_class": 5,
+      "player": 2,
+      "previous_owners": [
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0
+      ],
+      "reactivated_cannons": [],
+      "sequence": 0,
+      "time": [
+        {
+          "$integer": "10"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": {
+        "cell": 453578,
+        "id": 7,
+        "owner": 1,
+        "vx": 32000,
+        "vy": 0,
+        "x0": {
+          "$integer": "240384"
+        },
+        "y0": {
+          "$integer": "464384"
+        }
+      },
+      "cannon": 1,
+      "heading": 0,
+      "kind": "ball_spawned",
+      "launch_annotation": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cry": "﻿A",
+        "position": {
+          "$integer": "11"
+        },
+        "version": 1
+      },
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 3,
+        "next_territory_id": 3,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "reactivated_cannons": [],
+      "revived": false,
+      "sequence": 0,
+      "time": [
+        {
+          "$integer": "11"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": {
+        "cell": 452578,
+        "id": 8,
+        "owner": 1,
+        "vx": 32000,
+        "vy": 0,
+        "x0": {
+          "$integer": "208384"
+        },
+        "y0": {
+          "$integer": "463360"
+        }
+      },
+      "cannon": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cell": 452578,
+        "heading": 0,
+        "id": 3
+      },
+      "frontier_other": -1,
+      "kind": "cannon_spawned",
+      "launch_annotation": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cry": "Build!",
+        "position": {
+          "$integer": "12"
+        },
+        "version": 1
+      },
+      "metadata_delta": {
+        "lifecycle": [
+          {
+            "cannon": 3,
+            "generation": 1,
+            "player": 1
+          }
+        ],
+        "next_player_id": 3,
+        "next_territory_id": 3,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "cell": 452578,
+          "kind": "set",
+          "owner": 1
+        }
+      ],
+      "patch": [
+        452578
+      ],
+      "placement_class": 4,
+      "player": 1,
+      "previous_owners": [
+        0
+      ],
+      "reactivated_cannons": [],
+      "sequence": 0,
+      "time": [
+        {
+          "$integer": "12"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    }
+  ],
+  "finance_preserved_at_cutover": true,
+  "ledger_32_byte_payment_processed": true,
+  "ledger_33_byte_rejection": "RejectResponse { reject_code: CanisterError, reject_message: \"Error from Canister dllsh-pd777-77776-qaaaa-cai: Canister called `ic0.trap` with message: 'the memo field is too large'.\\nConsider gracefully handling failures from this canister or altering the canister to handle exceptions. See documentation: https://docs.internetcomputer.org/references/execution-errors#trapped-explicitly\", error_code: CanisterCalledTrap, certified: true }",
+  "normal_wasm": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "old_invalid_position": 2,
+  "payments": [
+    {
+      "admitted_purchase_window_cycles": "213657669",
+      "admitted_purchase_window_wall_ms": 91,
+      "amount": 10000000,
+      "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
+      "memo": "FIRE 1 0 1|é😀",
+      "normalized_bytes": 63,
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680f60000000100000106c3a9f09f9880",
+      "position": 3,
+      "raw_memo_hex": "464952452031203020317cc3a9f09f9880"
+    },
+    {
+      "admitted_purchase_window_cycles": "281611165",
+      "admitted_purchase_window_wall_ms": 69,
+      "amount": 10000000,
+      "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
+      "memo": "FIRE 1 0 64|Charge!",
+      "normalized_bytes": 64,
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680f6000000010000400743686172676521",
+      "position": 4,
+      "raw_memo_hex": "46495245203120302036347c43686172676521"
+    },
+    {
+      "admitted_purchase_window_cycles": "295812212",
+      "admitted_purchase_window_wall_ms": 72,
+      "amount": 0,
+      "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
+      "memo": "FIRE 1 0 1|No",
+      "normalized_bytes": 59,
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000000000f600000001000001024e6f",
+      "position": 5,
+      "raw_memo_hex": "464952452031203020317c4e6f"
+    },
+    {
+      "admitted_purchase_window_cycles": "333660647",
+      "admitted_purchase_window_wall_ms": 74,
+      "amount": 1000000000,
+      "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
+      "memo": "FIRE 1 0 1|Twin",
+      "normalized_bytes": 61,
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055000000003b9aca00f600000001000001045477696e",
+      "position": 6,
+      "raw_memo_hex": "464952452031203020317c5477696e"
+    },
+    {
+      "admitted_purchase_window_cycles": "386574296",
+      "admitted_purchase_window_wall_ms": 78,
+      "amount": 1000000000,
+      "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
+      "memo": "FIRE 1 0 1|Twin",
+      "normalized_bytes": 61,
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055000000003b9aca00f600000001000001045477696e",
+      "position": 7,
+      "raw_memo_hex": "464952452031203020317c5477696e"
+    },
+    {
+      "admitted_purchase_window_cycles": "405374347",
+      "admitted_purchase_window_wall_ms": 79,
+      "amount": 10000000,
+      "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
+      "memo": "FIRE 1 0 1|Bad|Text",
+      "normalized_bytes": 57,
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680000000000000000000",
+      "position": 8,
+      "raw_memo_hex": "464952452031203020317c4261647c54657874"
+    },
+    {
+      "admitted_purchase_window_cycles": "403049584",
+      "admitted_purchase_window_wall_ms": 83,
+      "amount": 0,
+      "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
+      "memo": "FIRE 1 0 1|123456789012345678901",
+      "normalized_bytes": 78,
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000000000f60000000100000115313233343536373839303132333435363738393031",
+      "position": 9,
+      "raw_memo_hex": "464952452031203020317c313233343536373839303132333435363738393031"
+    },
+    {
+      "admitted_purchase_window_cycles": "514226939",
+      "admitted_purchase_window_wall_ms": 95,
+      "amount": 100000000,
+      "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
+      "memo": "NEW 0 1|Hello!",
+      "normalized_bytes": 63,
+      "normalized_hex": "42545a50415930337a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef0000000005f5e100c6000001ffffff000648656c6c6f21",
+      "position": 10,
+      "raw_memo_hex": "4e4557203020317c48656c6c6f21"
+    },
+    {
+      "admitted_purchase_window_cycles": "507770757",
+      "admitted_purchase_window_wall_ms": 97,
+      "amount": 1000000000,
+      "cost_scope": "normal Wasm admitted purchase plus mandatory game/controller work; not isolated annotation overhead or a target-subnet quote",
+      "memo": "FIRE 1 0 1|﻿A",
+      "normalized_bytes": 61,
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055000000003b9aca00f60000000100000104efbbbf41",
+      "position": 11,
+      "raw_memo_hex": "464952452031203020317cefbbbf41"
+    },
+    {
+      "admitted_purchase_window_cycles": "653877316",
+      "admitted_purchase_window_wall_ms": 103,
+      "amount": 1000000000,
+      "cost_scope": "normal Wasm admitted explicit additional Build plus mandatory game/controller work",
+      "memo": "NEW 0 1 452578|Build!",
+      "normalized_bytes": 63,
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055000000003b9aca00c600000106e7e200064275696c6421",
+      "position": 12,
+      "raw_memo_hex": "4e455720302031203435323537387c4275696c6421"
+    }
+  ],
+  "production_module_upgrade": null,
+  "receipts": [
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "2"
+      },
+      "reason": "MALFORMED_MEMO",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "10000000"
+        }
+      ],
+      "position": {
+        "$integer": "3"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "10000000"
+        }
+      ],
+      "position": {
+        "$integer": "4"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 64,
+      "status": "partially_applied",
+      "stop_reason": "insufficient_payment"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "0"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "5"
+      },
+      "reason": "UNDERFUNDED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "1000000000"
+      },
+      "amount_used": {
+        "$integer": "40000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "40000000"
+        }
+      ],
+      "position": {
+        "$integer": "6"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "960000000"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "1000000000"
+      },
+      "amount_used": {
+        "$integer": "90000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "90000000"
+        }
+      ],
+      "position": {
+        "$integer": "7"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "910000000"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "8"
+      },
+      "reason": "MALFORMED_MEMO",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "0"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "9"
+      },
+      "reason": "UNDERFUNDED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "7a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "100000000"
+      },
+      "amount_used": {
+        "$integer": "100000000"
+      },
+      "cannon": 2,
+      "kind": "purchase_completed",
+      "new_cannon": true,
+      "per_item_prices": [
+        {
+          "$integer": "100000000"
+        }
+      ],
+      "position": {
+        "$integer": "10"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "1000000000"
+      },
+      "amount_used": {
+        "$integer": "160000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "160000000"
+        }
+      ],
+      "position": {
+        "$integer": "11"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "840000000"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "1000000000"
+      },
+      "amount_used": {
+        "$integer": "400000000"
+      },
+      "cannon": 3,
+      "kind": "purchase_completed",
+      "new_cannon": true,
+      "per_item_prices": [
+        {
+          "$integer": "400000000"
+        }
+      ],
+      "position": {
+        "$integer": "12"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "600000000"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    }
+  ],
+  "rules": {
+    "config_hash": "26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a",
+    "rules_hash": "5f53d5ea243b2dc8806f96bff9deab5a795702f2ff4e16f45475320b7be40120",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+  },
+  "scope": "synthetic initial state; actual valueless official Ledger/Index and normal game Wasm; not production",
+  "source_cursor": 13,
+  "state_preserved_at_cutover": true,
+  "status": "PASS",
+  "unpublished_annotated_execution_upgrade": null,
+  "whole_processing_cycles": "25283151546"
+}

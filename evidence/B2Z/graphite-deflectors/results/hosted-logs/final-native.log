@@ -1,0 +1,585 @@
+﻿2026-11-17T07:45:42.6394646Z Current runner version: '2.338.2'
+2026-11-17T07:45:42.6415734Z ##[group]Runner Image Provisioner
+2026-11-17T07:45:42.6416497Z Hosted Compute Agent
+2026-11-17T07:45:42.6417034Z Version: 20261103.629
+2026-11-17T07:45:42.6417646Z Commit: 15dbd9ccb5dbf34fae002b6ed1a2670f52df37bc
+2026-11-17T07:45:42.6418334Z Build Date: 2026-11-03T17:26:59Z
+2026-11-17T07:45:42.6418923Z Worker ID: {bab73cec-4e30-4323-aaf0-7bdb7bd16214}
+2026-11-17T07:45:42.6419549Z Region: westus3
+2026-11-17T07:45:42.6420424Z Cloud: Azure
+2026-11-17T07:45:42.6420898Z ##[endgroup]
+2026-11-17T07:45:42.6422363Z ##[group]Operating System
+2026-11-17T07:45:42.6422904Z Ubuntu
+2026-11-17T07:45:42.6423351Z 24.04.5
+2026-11-17T07:45:42.6423940Z LTS
+2026-11-17T07:45:42.6424442Z ##[endgroup]
+2026-11-17T07:45:42.6425207Z ##[group]Runner Image
+2026-11-17T07:45:42.6425732Z Image: ubuntu-24.04
+2026-11-17T07:45:42.6426208Z Version: 20261111.370.1
+2026-11-17T07:45:42.6427382Z Included Software: https://github.com/actions/runner-images/blob/ubuntu24/20261111.370/images/ubuntu/Ubuntu2404-Readme.md
+2026-11-17T07:45:42.6428704Z Image Release: https://github.com/actions/runner-images/releases/tag/ubuntu24%2F20261111.370
+2026-11-17T07:45:42.6429518Z ##[endgroup]
+2026-11-17T07:45:42.6430694Z ##[group]GITHUB_TOKEN Permissions
+2026-11-17T07:45:42.6432554Z Contents: read
+2026-11-17T07:45:42.6433050Z Metadata: read
+2026-11-17T07:45:42.6433615Z ##[endgroup]
+2026-11-17T07:45:42.6435340Z Secret source: Actions
+2026-11-17T07:45:42.6436255Z Cache mode: write
+2026-11-17T07:45:42.6437004Z Prepare workflow directory
+2026-11-17T07:45:42.6788235Z Prepare all required actions
+2026-11-17T07:45:42.6827064Z Getting action download info
+2026-11-17T07:45:42.9642569Z Download action repository 'actions/checkout@11d5960a326750d5838078e36cf38b85af677262' (SHA:11d5960a326750d5838078e36cf38b85af677262)
+2026-11-17T07:45:43.1413769Z Download action repository 'actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065' (SHA:a26af69be951a213d495a4c3e4e4022e16d87065)
+2026-11-17T07:45:43.2867587Z Download action repository 'actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020' (SHA:49933ea5288caeca8642d1e84afbd3f7d6820020)
+2026-11-17T07:45:43.4107989Z Download action repository 'actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02' (SHA:ea165f8d65b6e75b540449e92b4886f43607fa02)
+2026-11-17T07:45:43.6474744Z Complete job name: Native conformance
+2026-11-17T07:45:43.7211964Z ##[group]Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+2026-11-17T07:45:43.7212837Z with:
+2026-11-17T07:45:43.7213257Z   ref: 14704e4221afda77229f6f932f2f82be98ffbd6b
+2026-11-17T07:45:43.7213851Z   repository: aodl/balls-2-the-wallz
+2026-11-17T07:45:43.7217384Z   token: ***
+2026-11-17T07:45:43.7217795Z   ssh-strict: true
+2026-11-17T07:45:43.7218189Z   ssh-user: git
+2026-11-17T07:45:43.7218586Z   persist-credentials: true
+2026-11-17T07:45:43.7219014Z   clean: true
+2026-11-17T07:45:43.7219403Z   sparse-checkout-cone-mode: true
+2026-11-17T07:45:43.7220116Z   fetch-depth: 1
+2026-11-17T07:45:43.7220504Z   fetch-tags: false
+2026-11-17T07:45:43.7220956Z   show-progress: true
+2026-11-17T07:45:43.7221369Z   lfs: false
+2026-11-17T07:45:43.7221735Z   submodules: false
+2026-11-17T07:45:43.7222142Z   set-safe-directory: true
+2026-11-17T07:45:43.7222587Z   allow-unsafe-pr-checkout: false
+2026-11-17T07:45:43.7223282Z env:
+2026-11-17T07:45:43.7223655Z   CARGO_TERM_COLOR: always
+2026-11-17T07:45:43.7224136Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-17T07:45:43.7224563Z ##[endgroup]
+2026-11-17T07:45:43.9194561Z Syncing repository: aodl/balls-2-the-wallz
+2026-11-17T07:45:43.9196094Z ##[group]Getting Git version info
+2026-11-17T07:45:43.9197120Z Working directory is '/home/runner/work/balls-2-the-wallz/balls-2-the-wallz'
+2026-11-17T07:45:43.9198684Z [command]/usr/bin/git version
+2026-11-17T07:45:43.9263868Z git version 2.56.1
+2026-11-17T07:45:43.9289057Z ##[endgroup]
+2026-11-17T07:45:43.9294506Z Temporarily overriding HOME='/home/runner/work/_temp/109a23a1-7971-46de-810c-715d8517583a' before making global git config changes
+2026-11-17T07:45:43.9296723Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T07:45:43.9298854Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/balls-2-the-wallz/balls-2-the-wallz
+2026-11-17T07:45:43.9345254Z Deleting the contents of '/home/runner/work/balls-2-the-wallz/balls-2-the-wallz'
+2026-11-17T07:45:43.9348548Z ##[group]Initializing the repository
+2026-11-17T07:45:43.9352719Z [command]/usr/bin/git init /home/runner/work/balls-2-the-wallz/balls-2-the-wallz
+2026-11-17T07:45:43.9442781Z hint: Using 'master' as the name for the initial branch. This default branch name
+2026-11-17T07:45:43.9444506Z hint: will change to "main" in Git 3.0. To configure the initial branch name
+2026-11-17T07:45:43.9445849Z hint: to use in all of your new repositories, which will suppress this warning,
+2026-11-17T07:45:43.9446867Z hint: call:
+2026-11-17T07:45:43.9447428Z hint:
+2026-11-17T07:45:43.9448243Z hint: 	git config --global init.defaultBranch <name>
+2026-11-17T07:45:43.9449258Z hint:
+2026-11-17T07:45:43.9450297Z hint: Names commonly chosen instead of 'master' are 'main', 'trunk' and
+2026-11-17T07:45:43.9451747Z hint: 'development'. The just-created branch can be renamed via this command:
+2026-11-17T07:45:43.9452887Z hint:
+2026-11-17T07:45:43.9453492Z hint: 	git branch -m <name>
+2026-11-17T07:45:43.9454187Z hint:
+2026-11-17T07:45:43.9455090Z hint: Disable this message with "git config set advice.defaultBranchName false"
+2026-11-17T07:45:43.9456630Z Initialized empty Git repository in /home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.git/
+2026-11-17T07:45:43.9460959Z [command]/usr/bin/git remote add origin https://github.com/aodl/balls-2-the-wallz
+2026-11-17T07:45:43.9586738Z ##[endgroup]
+2026-11-17T07:45:43.9587905Z ##[group]Disabling automatic garbage collection
+2026-11-17T07:45:43.9589339Z [command]/usr/bin/git config --local gc.auto 0
+2026-11-17T07:45:43.9619485Z ##[endgroup]
+2026-11-17T07:45:43.9620742Z ##[group]Setting up auth
+2026-11-17T07:45:43.9625527Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T07:45:43.9662397Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T07:45:43.9976975Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T07:45:44.0013660Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T07:45:44.0217342Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T07:45:44.0252811Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T07:45:44.0455323Z [command]/usr/bin/git config --local http.https://github.com/.extraheader AUTHORIZATION: basic ***
+2026-11-17T07:45:44.0497438Z ##[endgroup]
+2026-11-17T07:45:44.0498179Z ##[group]Fetching the repository
+2026-11-17T07:45:44.0506698Z [command]/usr/bin/git -c protocol.version=2 fetch --no-tags --prune --no-recurse-submodules --depth=1 origin 14704e4221afda77229f6f932f2f82be98ffbd6b
+2026-11-17T07:45:57.6132021Z From https://github.com/aodl/balls-2-the-wallz
+2026-11-17T07:45:57.6132794Z  * branch            14704e4221afda77229f6f932f2f82be98ffbd6b -> FETCH_HEAD
+2026-11-17T07:45:57.6136704Z ##[endgroup]
+2026-11-17T07:45:57.6137295Z ##[group]Determining the checkout info
+2026-11-17T07:45:57.6138113Z ##[endgroup]
+2026-11-17T07:45:57.6144729Z [command]/usr/bin/git sparse-checkout disable
+2026-11-17T07:45:57.6206022Z [command]/usr/bin/git config --local --unset-all extensions.worktreeConfig
+2026-11-17T07:45:57.6241422Z ##[group]Checking out the ref
+2026-11-17T07:45:57.6245054Z [command]/usr/bin/git checkout --progress --force 14704e4221afda77229f6f932f2f82be98ffbd6b
+2026-11-17T07:45:58.6444793Z Updating files:  63% (4435/7003)
+2026-11-17T07:45:58.6473872Z Updating files:  64% (4482/7003)
+2026-11-17T07:45:58.6534116Z Updating files:  65% (4552/7003)
+2026-11-17T07:45:58.6910174Z Updating files:  66% (4622/7003)
+2026-11-17T07:45:58.7231146Z Updating files:  67% (4693/7003)
+2026-11-17T07:45:58.7733026Z Updating files:  68% (4763/7003)
+2026-11-17T07:45:58.8049923Z Updating files:  69% (4833/7003)
+2026-11-17T07:45:58.8349570Z Updating files:  70% (4903/7003)
+2026-11-17T07:45:58.8641942Z Updating files:  71% (4973/7003)
+2026-11-17T07:45:58.8731066Z Updating files:  72% (5043/7003)
+2026-11-17T07:45:58.8891784Z Updating files:  73% (5113/7003)
+2026-11-17T07:45:58.9038597Z Updating files:  74% (5183/7003)
+2026-11-17T07:45:58.9375445Z Updating files:  75% (5253/7003)
+2026-11-17T07:45:58.9448049Z Updating files:  76% (5323/7003)
+2026-11-17T07:45:58.9961013Z Updating files:  77% (5393/7003)
+2026-11-17T07:45:59.0076747Z Updating files:  78% (5463/7003)
+2026-11-17T07:45:59.0660270Z Updating files:  79% (5533/7003)
+2026-11-17T07:45:59.0991931Z Updating files:  80% (5603/7003)
+2026-11-17T07:45:59.1048079Z Updating files:  81% (5673/7003)
+2026-11-17T07:45:59.1480680Z Updating files:  82% (5743/7003)
+2026-11-17T07:45:59.1521194Z Updating files:  83% (5813/7003)
+2026-11-17T07:45:59.1640163Z Updating files:  84% (5883/7003)
+2026-11-17T07:45:59.1719894Z Updating files:  85% (5953/7003)
+2026-11-17T07:45:59.1758285Z Updating files:  86% (6023/7003)
+2026-11-17T07:45:59.1783159Z Updating files:  87% (6093/7003)
+2026-11-17T07:45:59.1807188Z Updating files:  88% (6163/7003)
+2026-11-17T07:45:59.1843083Z Updating files:  89% (6233/7003)
+2026-11-17T07:45:59.1887945Z Updating files:  90% (6303/7003)
+2026-11-17T07:45:59.1947093Z Updating files:  91% (6373/7003)
+2026-11-17T07:45:59.2224332Z Updating files:  92% (6443/7003)
+2026-11-17T07:45:59.2258729Z Updating files:  93% (6513/7003)
+2026-11-17T07:45:59.2426601Z Updating files:  94% (6583/7003)
+2026-11-17T07:45:59.2463088Z Updating files:  95% (6653/7003)
+2026-11-17T07:45:59.2495243Z Updating files:  96% (6723/7003)
+2026-11-17T07:45:59.2528186Z Updating files:  97% (6793/7003)
+2026-11-17T07:45:59.2575069Z Updating files:  98% (6863/7003)
+2026-11-17T07:45:59.2646403Z Updating files:  99% (6933/7003)
+2026-11-17T07:45:59.2646708Z Updating files: 100% (7003/7003)
+2026-11-17T07:45:59.2647199Z Updating files: 100% (7003/7003), done.
+2026-11-17T07:45:59.2701921Z Note: switching to '14704e4221afda77229f6f932f2f82be98ffbd6b'.
+2026-11-17T07:45:59.2702225Z 
+2026-11-17T07:45:59.2702463Z You are in 'detached HEAD' state. You can look around, make experimental
+2026-11-17T07:45:59.2702967Z changes and commit them, and you can discard any commits you make in this
+2026-11-17T07:45:59.2703462Z state without impacting any branches by switching back to a branch.
+2026-11-17T07:45:59.2703798Z 
+2026-11-17T07:45:59.2704171Z If you want to create a new branch to retain commits you create, you may
+2026-11-17T07:45:59.2704706Z do so (now or later) by using -c with the switch command. Example:
+2026-11-17T07:45:59.2705024Z 
+2026-11-17T07:45:59.2705159Z   git switch -c <new-branch-name>
+2026-11-17T07:45:59.2705357Z 
+2026-11-17T07:45:59.2705486Z Or undo this operation with:
+2026-11-17T07:45:59.2705677Z 
+2026-11-17T07:45:59.2705787Z   git switch -
+2026-11-17T07:45:59.2705935Z 
+2026-11-17T07:45:59.2706275Z Turn off this advice by setting config variable advice.detachedHead to false
+2026-11-17T07:45:59.2706638Z 
+2026-11-17T07:45:59.2706980Z HEAD is now at 14704e4 Qualify merged cannon previews without losing physical barrel and muzzle coverage
+2026-11-17T07:45:59.2824307Z ##[endgroup]
+2026-11-17T07:45:59.2879940Z [command]/usr/bin/git log -1 --format=%H
+2026-11-17T07:45:59.2912073Z 14704e4221afda77229f6f932f2f82be98ffbd6b
+2026-11-17T07:45:59.3131136Z ##[group]Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+2026-11-17T07:45:59.3131455Z with:
+2026-11-17T07:45:59.3131627Z   python-version: 3.11
+2026-11-17T07:45:59.3131817Z   check-latest: false
+2026-11-17T07:45:59.3133981Z   token: ***
+2026-11-17T07:45:59.3134342Z   update-environment: true
+2026-11-17T07:45:59.3134543Z   allow-prereleases: false
+2026-11-17T07:45:59.3134727Z   freethreaded: false
+2026-11-17T07:45:59.3134893Z env:
+2026-11-17T07:45:59.3135050Z   CARGO_TERM_COLOR: always
+2026-11-17T07:45:59.3135240Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-17T07:45:59.3135419Z ##[endgroup]
+2026-11-17T07:45:59.4240710Z ##[group]Installed versions
+2026-11-17T07:45:59.4322723Z (node:2133) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T07:45:59.4323612Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T07:45:59.4324420Z Successfully set up CPython (3.11.18)
+2026-11-17T07:45:59.4325186Z ##[endgroup]
+2026-11-17T07:45:59.4498278Z ##[group]Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+2026-11-17T07:45:59.4498772Z with:
+2026-11-17T07:45:59.4499012Z   node-version: 24
+2026-11-17T07:45:59.4499274Z   always-auth: false
+2026-11-17T07:45:59.4499561Z   check-latest: false
+2026-11-17T07:45:59.4503750Z   token: ***
+2026-11-17T07:45:59.4503999Z env:
+2026-11-17T07:45:59.4504233Z   CARGO_TERM_COLOR: always
+2026-11-17T07:45:59.4504530Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-17T07:45:59.4504871Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:45:59.4505402Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:45:59.4505972Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:45:59.4506511Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:45:59.4507085Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:45:59.4507669Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:45:59.4508171Z ##[endgroup]
+2026-11-17T07:45:59.5721595Z Found in cache @ /opt/hostedtoolcache/node/24.22.2/x64
+2026-11-17T07:45:59.5724206Z (node:2141) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T07:45:59.5724798Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T07:45:59.5726811Z ##[group]Environment details
+2026-11-17T07:45:59.9109104Z node: v24.22.2
+2026-11-17T07:45:59.9109418Z npm: 11.19.1
+2026-11-17T07:45:59.9109734Z yarn: 1.22.22
+2026-11-17T07:45:59.9110879Z ##[endgroup]
+2026-11-17T07:45:59.9243080Z ##[group]Run npm ci --ignore-scripts
+2026-11-17T07:45:59.9243400Z [36;1mnpm ci --ignore-scripts[0m
+2026-11-17T07:45:59.9271695Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:45:59.9271909Z env:
+2026-11-17T07:45:59.9272079Z   CARGO_TERM_COLOR: always
+2026-11-17T07:45:59.9272296Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-17T07:45:59.9272535Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:45:59.9272879Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:45:59.9273218Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:45:59.9273525Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:45:59.9273881Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:45:59.9274180Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:45:59.9274432Z ##[endgroup]
+2026-11-17T07:46:02.2503285Z 
+2026-11-17T07:46:02.2512220Z added 15 packages, and audited 16 packages in 2s
+2026-11-17T07:46:02.2513199Z 
+2026-11-17T07:46:02.2513733Z 5 packages are looking for funding
+2026-11-17T07:46:02.2514371Z   run `npm fund` for details
+2026-11-17T07:46:02.2514538Z 
+2026-11-17T07:46:02.2514646Z found 0 vulnerabilities
+2026-11-17T07:46:02.2894783Z ##[group]Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown
+2026-11-17T07:46:02.2895558Z [36;1mrustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown[0m
+2026-11-17T07:46:02.2915975Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:46:02.2916186Z env:
+2026-11-17T07:46:02.2916528Z   CARGO_TERM_COLOR: always
+2026-11-17T07:46:02.2916731Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-17T07:46:02.2916982Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:02.2917327Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:46:02.2917666Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:02.2917969Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:02.2918268Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:02.2918603Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:46:02.2918868Z ##[endgroup]
+2026-11-17T07:46:02.3720708Z info: syncing channel updates for 1.94.1-x86_64-unknown-linux-gnu
+2026-11-17T07:46:02.5819184Z info: latest update on 2026-03-26 for version 1.94.1 (e408947bf 2026-03-25)
+2026-11-17T07:46:11.4670822Z info: downloading 6 components
+2026-11-17T07:46:11.4671150Z 
+2026-11-17T07:46:11.4741283Z   1.94.1-x86_64-unknown-linux-gnu installed - rustc 1.94.1 (e408947bf 2026-03-25)
+2026-11-17T07:46:11.4741645Z 
+2026-11-17T07:46:11.4894626Z ##[group]Run cargo +1.94.1 fetch --manifest-path Cargo.toml --locked
+2026-11-17T07:46:11.4895033Z [36;1mcargo +1.94.1 fetch --manifest-path Cargo.toml --locked[0m
+2026-11-17T07:46:11.4913529Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:46:11.4913743Z env:
+2026-11-17T07:46:11.4913910Z   CARGO_TERM_COLOR: always
+2026-11-17T07:46:11.4914113Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-17T07:46:11.4914365Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:11.4914709Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:46:11.4915042Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:11.4915339Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:11.4915631Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:11.4915925Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:46:11.4916192Z ##[endgroup]
+2026-11-17T07:46:11.5136761Z [1m[92m    Updating[0m git repository `https://github.com/aodl/dtr.git`
+2026-11-17T07:46:12.1071852Z ##[group]Run cargo +1.94.1 fetch --manifest-path native/Cargo.toml --locked
+2026-11-17T07:46:12.1072522Z [36;1mcargo +1.94.1 fetch --manifest-path native/Cargo.toml --locked[0m
+2026-11-17T07:46:12.1096446Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:46:12.1096762Z env:
+2026-11-17T07:46:12.1097020Z   CARGO_TERM_COLOR: always
+2026-11-17T07:46:12.1097333Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-17T07:46:12.1097711Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:12.1098258Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:46:12.1098785Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:12.1099293Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:12.1099949Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:12.1100433Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:46:12.1100856Z ##[endgroup]
+2026-11-17T07:46:12.1302703Z [1m[92m    Updating[0m crates.io index
+2026-11-17T07:46:12.3098456Z [1m[92m Downloading[0m crates ...
+2026-11-17T07:46:12.3877327Z [1m[92m  Downloaded[0m cfg-if v1.0.5
+2026-11-17T07:46:12.3895014Z [1m[92m  Downloaded[0m crypto-common v0.1.7
+2026-11-17T07:46:12.3906639Z [1m[92m  Downloaded[0m block-buffer v0.10.4
+2026-11-17T07:46:12.3920187Z [1m[92m  Downloaded[0m generic-array v0.14.7
+2026-11-17T07:46:12.3937212Z [1m[92m  Downloaded[0m version_check v0.9.5
+2026-11-17T07:46:12.3951721Z [1m[92m  Downloaded[0m sha2 v0.10.9
+2026-11-17T07:46:12.3984013Z [1m[92m  Downloaded[0m num-integer v0.1.47
+2026-11-17T07:46:12.4004289Z [1m[92m  Downloaded[0m num-traits v0.2.19
+2026-11-17T07:46:12.4035483Z [1m[92m  Downloaded[0m digest v0.10.7
+2026-11-17T07:46:12.4056859Z [1m[92m  Downloaded[0m serde v1.0.228
+2026-11-17T07:46:12.4092997Z [1m[92m  Downloaded[0m typenum v1.20.1
+2026-11-17T07:46:12.4122731Z [1m[92m  Downloaded[0m num-bigint v0.4.6
+2026-11-17T07:46:12.4161269Z [1m[92m  Downloaded[0m serde_json v1.0.145
+2026-11-17T07:46:12.4219021Z [1m[92m  Downloaded[0m memchr v2.8.3
+2026-11-17T07:46:12.4261820Z [1m[92m  Downloaded[0m proc-macro2 v1.0.107
+2026-11-17T07:46:12.4284971Z [1m[92m  Downloaded[0m serde_derive v1.0.228
+2026-11-17T07:46:12.4309058Z [1m[92m  Downloaded[0m num-rational v0.4.2
+2026-11-17T07:46:12.4318797Z [1m[92m  Downloaded[0m autocfg v1.5.1
+2026-11-17T07:46:12.4333471Z [1m[92m  Downloaded[0m serde_core v1.0.228
+2026-11-17T07:46:12.4355931Z [1m[92m  Downloaded[0m syn v2.0.119
+2026-11-17T07:46:12.4437470Z [1m[92m  Downloaded[0m ryu v1.0.23
+2026-11-17T07:46:12.4462311Z [1m[92m  Downloaded[0m quote v1.0.47
+2026-11-17T07:46:12.4482891Z [1m[92m  Downloaded[0m unicode-ident v1.0.26
+2026-11-17T07:46:12.4504227Z [1m[92m  Downloaded[0m itoa v1.0.18
+2026-11-17T07:46:12.4515431Z [1m[92m  Downloaded[0m cpufeatures v0.2.17
+2026-11-17T07:46:12.4534334Z [1m[92m  Downloaded[0m libc v0.2.190
+2026-11-17T07:46:12.5084874Z ##[group]Run python -B tools/check_dtr_provenance.py --manifest Cargo.toml --manifest native/Cargo.toml --output .work/ci-dtr-native.json
+2026-11-17T07:46:12.5085717Z [36;1mpython -B tools/check_dtr_provenance.py --manifest Cargo.toml --manifest native/Cargo.toml --output .work/ci-dtr-native.json[0m
+2026-11-17T07:46:12.5106590Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:46:12.5106807Z env:
+2026-11-17T07:46:12.5107058Z   CARGO_TERM_COLOR: always
+2026-11-17T07:46:12.5107274Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-17T07:46:12.5107537Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:12.5107961Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:46:12.5108298Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:12.5108666Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:12.5108974Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:12.5109329Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:46:12.5109718Z ##[endgroup]
+2026-11-17T07:46:13.2532625Z {
+2026-11-17T07:46:13.2533188Z   "required_rust_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2533678Z   "release_contract": {
+2026-11-17T07:46:13.2534168Z     "required_rust_revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2534944Z     "status": "Published application-checkpoint revision; B2Z v6 integration/qualification pending",
+2026-11-17T07:46:13.2535716Z     "npm_archive": "vendor/dtr/dtr-timeline-runtime-0.15.0.tgz",
+2026-11-17T07:46:13.2536274Z     "npm_archive_sha256": "22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720"
+2026-11-17T07:46:13.2536628Z   },
+2026-11-17T07:46:13.2536794Z   "source_graphs": [
+2026-11-17T07:46:13.2536979Z     {
+2026-11-17T07:46:13.2537167Z       "manifest": "Cargo.toml",
+2026-11-17T07:46:13.2537415Z       "locked": [
+2026-11-17T07:46:13.2537589Z         {
+2026-11-17T07:46:13.2537777Z           "name": "dtr-core",
+2026-11-17T07:46:13.2538004Z           "version": "0.15.0",
+2026-11-17T07:46:13.2538572Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2539079Z           "checksum": null
+2026-11-17T07:46:13.2539270Z         },
+2026-11-17T07:46:13.2539432Z         {
+2026-11-17T07:46:13.2539823Z           "name": "life-conformance",
+2026-11-17T07:46:13.2540071Z           "version": "0.15.0",
+2026-11-17T07:46:13.2540675Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2541152Z           "checksum": null
+2026-11-17T07:46:13.2541335Z         }
+2026-11-17T07:46:13.2541492Z       ]
+2026-11-17T07:46:13.2541643Z     },
+2026-11-17T07:46:13.2541793Z     {
+2026-11-17T07:46:13.2542258Z       "manifest": "native/Cargo.toml",
+2026-11-17T07:46:13.2542487Z       "locked": [
+2026-11-17T07:46:13.2542661Z         {
+2026-11-17T07:46:13.2542822Z           "name": "dtr-core",
+2026-11-17T07:46:13.2543037Z           "version": "0.15.0",
+2026-11-17T07:46:13.2543537Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2543995Z           "checksum": null
+2026-11-17T07:46:13.2544218Z         },
+2026-11-17T07:46:13.2544372Z         {
+2026-11-17T07:46:13.2544545Z           "name": "dtr-host",
+2026-11-17T07:46:13.2544750Z           "version": "0.15.0",
+2026-11-17T07:46:13.2545221Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2545659Z           "checksum": null
+2026-11-17T07:46:13.2545835Z         },
+2026-11-17T07:46:13.2545986Z         {
+2026-11-17T07:46:13.2546157Z           "name": "dtr-wire",
+2026-11-17T07:46:13.2546361Z           "version": "0.15.0",
+2026-11-17T07:46:13.2547003Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2547467Z           "checksum": null
+2026-11-17T07:46:13.2547646Z         }
+2026-11-17T07:46:13.2547801Z       ]
+2026-11-17T07:46:13.2547952Z     },
+2026-11-17T07:46:13.2548100Z     {
+2026-11-17T07:46:13.2548331Z       "manifest": "canisters/runtime-lab/Cargo.toml",
+2026-11-17T07:46:13.2548583Z       "locked": [
+2026-11-17T07:46:13.2548748Z         {
+2026-11-17T07:46:13.2548915Z           "name": "dtr-core",
+2026-11-17T07:46:13.2549132Z           "version": "0.15.0",
+2026-11-17T07:46:13.2549799Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2550271Z           "checksum": null
+2026-11-17T07:46:13.2550460Z         },
+2026-11-17T07:46:13.2550618Z         {
+2026-11-17T07:46:13.2550789Z           "name": "dtr-host",
+2026-11-17T07:46:13.2551003Z           "version": "0.15.0",
+2026-11-17T07:46:13.2551488Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2551946Z           "checksum": null
+2026-11-17T07:46:13.2552143Z         },
+2026-11-17T07:46:13.2552302Z         {
+2026-11-17T07:46:13.2552539Z           "name": "dtr-wire",
+2026-11-17T07:46:13.2552780Z           "version": "0.15.0",
+2026-11-17T07:46:13.2553280Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2553737Z           "checksum": null
+2026-11-17T07:46:13.2553914Z         }
+2026-11-17T07:46:13.2554064Z       ]
+2026-11-17T07:46:13.2554214Z     },
+2026-11-17T07:46:13.2554362Z     {
+2026-11-17T07:46:13.2554580Z       "manifest": "tools/s09-integration/Cargo.toml",
+2026-11-17T07:46:13.2554853Z       "locked": [
+2026-11-17T07:46:13.2555025Z         {
+2026-11-17T07:46:13.2555187Z           "name": "dtr-core",
+2026-11-17T07:46:13.2555400Z           "version": "0.15.0",
+2026-11-17T07:46:13.2555882Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2556326Z           "checksum": null
+2026-11-17T07:46:13.2556516Z         },
+2026-11-17T07:46:13.2556668Z         {
+2026-11-17T07:46:13.2556828Z           "name": "dtr-host",
+2026-11-17T07:46:13.2557038Z           "version": "0.15.0",
+2026-11-17T07:46:13.2557504Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2557944Z           "checksum": null
+2026-11-17T07:46:13.2558118Z         },
+2026-11-17T07:46:13.2558266Z         {
+2026-11-17T07:46:13.2558430Z           "name": "dtr-wire",
+2026-11-17T07:46:13.2558767Z           "version": "0.15.0",
+2026-11-17T07:46:13.2559240Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2559949Z           "checksum": null
+2026-11-17T07:46:13.2560201Z         }
+2026-11-17T07:46:13.2560355Z       ]
+2026-11-17T07:46:13.2560511Z     },
+2026-11-17T07:46:13.2560662Z     {
+2026-11-17T07:46:13.2560903Z       "manifest": "tools/fixtures/dtr-consumer-rust/Cargo.toml",
+2026-11-17T07:46:13.2561172Z       "locked": [
+2026-11-17T07:46:13.2561333Z         {
+2026-11-17T07:46:13.2561496Z           "name": "dtr-core",
+2026-11-17T07:46:13.2561711Z           "version": "0.15.0",
+2026-11-17T07:46:13.2562190Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2562633Z           "checksum": null
+2026-11-17T07:46:13.2562810Z         },
+2026-11-17T07:46:13.2562970Z         {
+2026-11-17T07:46:13.2563136Z           "name": "dtr-host",
+2026-11-17T07:46:13.2563473Z           "version": "0.15.0",
+2026-11-17T07:46:13.2563947Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2564398Z           "checksum": null
+2026-11-17T07:46:13.2564581Z         },
+2026-11-17T07:46:13.2564738Z         {
+2026-11-17T07:46:13.2564934Z           "name": "dtr-source-model",
+2026-11-17T07:46:13.2565163Z           "version": "0.15.0",
+2026-11-17T07:46:13.2565653Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2566101Z           "checksum": null
+2026-11-17T07:46:13.2566283Z         },
+2026-11-17T07:46:13.2566442Z         {
+2026-11-17T07:46:13.2566604Z           "name": "dtr-wire",
+2026-11-17T07:46:13.2566814Z           "version": "0.15.0",
+2026-11-17T07:46:13.2567308Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2567758Z           "checksum": null
+2026-11-17T07:46:13.2567947Z         }
+2026-11-17T07:46:13.2568100Z       ]
+2026-11-17T07:46:13.2568249Z     },
+2026-11-17T07:46:13.2568396Z     {
+2026-11-17T07:46:13.2568579Z       "manifest": "Cargo.toml",
+2026-11-17T07:46:13.2568776Z       "resolved": [
+2026-11-17T07:46:13.2568973Z         {
+2026-11-17T07:46:13.2569143Z           "name": "dtr-core",
+2026-11-17T07:46:13.2569397Z           "version": "0.15.0",
+2026-11-17T07:46:13.2570080Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2570539Z           "checksum": null
+2026-11-17T07:46:13.2570726Z         },
+2026-11-17T07:46:13.2570884Z         {
+2026-11-17T07:46:13.2571071Z           "name": "life-conformance",
+2026-11-17T07:46:13.2571311Z           "version": "0.15.0",
+2026-11-17T07:46:13.2571803Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2572249Z           "checksum": null
+2026-11-17T07:46:13.2572433Z         }
+2026-11-17T07:46:13.2572588Z       ]
+2026-11-17T07:46:13.2572739Z     },
+2026-11-17T07:46:13.2572888Z     {
+2026-11-17T07:46:13.2573073Z       "manifest": "native/Cargo.toml",
+2026-11-17T07:46:13.2573284Z       "resolved": [
+2026-11-17T07:46:13.2573449Z         {
+2026-11-17T07:46:13.2573619Z           "name": "dtr-core",
+2026-11-17T07:46:13.2573832Z           "version": "0.15.0",
+2026-11-17T07:46:13.2574310Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2574747Z           "checksum": null
+2026-11-17T07:46:13.2574925Z         },
+2026-11-17T07:46:13.2575072Z         {
+2026-11-17T07:46:13.2575346Z           "name": "dtr-host",
+2026-11-17T07:46:13.2575548Z           "version": "0.15.0",
+2026-11-17T07:46:13.2576019Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2576460Z           "checksum": null
+2026-11-17T07:46:13.2576638Z         },
+2026-11-17T07:46:13.2576798Z         {
+2026-11-17T07:46:13.2576960Z           "name": "dtr-wire",
+2026-11-17T07:46:13.2577167Z           "version": "0.15.0",
+2026-11-17T07:46:13.2577638Z           "source": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+2026-11-17T07:46:13.2578073Z           "checksum": null
+2026-11-17T07:46:13.2578256Z         }
+2026-11-17T07:46:13.2578400Z       ]
+2026-11-17T07:46:13.2578548Z     }
+2026-11-17T07:46:13.2578698Z   ],
+2026-11-17T07:46:13.2578857Z   "status": "PASS"
+2026-11-17T07:46:13.2579024Z }
+2026-11-17T07:46:13.2643024Z ##[group]Run python -B tools/check.py native --output .work/ci-native
+2026-11-17T07:46:13.2643706Z [36;1mpython -B tools/check.py native --output .work/ci-native[0m
+2026-11-17T07:46:13.2668003Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:46:13.2668211Z env:
+2026-11-17T07:46:13.2668380Z   CARGO_TERM_COLOR: always
+2026-11-17T07:46:13.2668590Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-17T07:46:13.2668859Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:13.2669213Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:46:13.2669559Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:13.2670118Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:13.2670422Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:46:13.2670754Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:46:13.2671029Z ##[endgroup]
+2026-11-17T07:46:13.5164977Z cargo-lock PASS
+2026-11-17T07:46:14.8392435Z cargo-tests PASS
+2026-11-17T07:46:15.1546913Z native-vectors PASS
+2026-11-17T07:46:15.1710781Z portable-lock PASS
+2026-11-17T07:48:18.4950646Z portable-rust-tests PASS
+2026-11-17T07:48:19.3616109Z native-public-game PASS
+2026-11-17T07:48:21.1312513Z agent-native-forecast-equality PASS
+2026-11-17T07:48:22.3992600Z native-public-host PASS
+2026-11-17T07:48:22.5642337Z portable-format PASS
+2026-11-17T07:48:27.3441791Z portable-clippy PASS
+2026-11-17T07:48:27.4089247Z cargo-format PASS
+2026-11-17T07:48:27.8755420Z cargo-clippy PASS
+2026-11-17T07:48:27.8758778Z OVERALL PASS
+2026-11-17T07:48:27.8846420Z ##[group]Run python -B tools/verify_deflector_contact_checkpoint.py --output .work/ci-deflector-contact
+2026-11-17T07:48:27.8847024Z [36;1mpython -B tools/verify_deflector_contact_checkpoint.py --output .work/ci-deflector-contact[0m
+2026-11-17T07:48:27.8865046Z shell: /usr/bin/bash -e {0}
+2026-11-17T07:48:27.8865250Z env:
+2026-11-17T07:48:27.8865421Z   CARGO_TERM_COLOR: always
+2026-11-17T07:48:27.8865627Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-17T07:48:27.8865890Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:48:27.8866229Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:48:27.8866556Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:48:27.8866853Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:48:27.8867149Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:48:27.8867446Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:48:27.8867735Z ##[endgroup]
+2026-11-17T07:48:27.9918225Z [1m[92m    Finished[0m `dev` profile [unoptimized + debuginfo] target(s) in 0.04s
+2026-11-17T07:48:27.9929907Z [1m[92m     Running[0m `native/target/debug/examples/deflector_contact_checkpoint`
+2026-11-17T07:48:27.9960600Z PASS 11 JS/native/oracle exact geometry vectors; no installed-game claim
+2026-11-17T07:48:28.0071812Z ##[group]Run actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+2026-11-17T07:48:28.0072272Z with:
+2026-11-17T07:48:28.0072445Z   name: native-evidence
+2026-11-17T07:48:28.0072859Z   path: .work/ci-native/environment.json
+.work/ci-native/verification.json
+.work/ci-native/logs/**
+.work/ci-deflector-contact/**
+
+2026-11-17T07:48:28.0073314Z   if-no-files-found: warn
+2026-11-17T07:48:28.0073504Z   retention-days: 14
+2026-11-17T07:48:28.0073678Z   compression-level: 6
+2026-11-17T07:48:28.0073856Z   overwrite: false
+2026-11-17T07:48:28.0074035Z   include-hidden-files: false
+2026-11-17T07:48:28.0074232Z env:
+2026-11-17T07:48:28.0074389Z   CARGO_TERM_COLOR: always
+2026-11-17T07:48:28.0074574Z   RUSTUP_TOOLCHAIN: 1.94.1
+2026-11-17T07:48:28.0074803Z   pythonLocation: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:48:28.0075140Z   PKG_CONFIG_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib/pkgconfig
+2026-11-17T07:48:28.0075507Z   Python_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:48:28.0075809Z   Python2_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:48:28.0076103Z   Python3_ROOT_DIR: /opt/hostedtoolcache/Python/3.11.18/x64
+2026-11-17T07:48:28.0076396Z   LD_LIBRARY_PATH: /opt/hostedtoolcache/Python/3.11.18/x64/lib
+2026-11-17T07:48:28.0076648Z ##[endgroup]
+2026-11-17T07:48:28.1442109Z (node:5256) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T07:48:28.1442793Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T07:48:28.1561634Z Multiple search paths detected. Calculating the least common ancestor of all paths
+2026-11-17T07:48:28.1565909Z The least common ancestor is /home/runner/work/balls-2-the-wallz/balls-2-the-wallz/.work. This will be the root directory of the artifact
+2026-11-17T07:48:28.1566954Z With the provided path, there will be 15 files uploaded
+2026-11-17T07:48:28.1567789Z Artifact name is valid!
+2026-11-17T07:48:28.1569047Z Root directory input is valid!
+2026-11-17T07:48:28.4883256Z Beginning upload of artifact content to blob storage
+2026-11-17T07:48:28.5178834Z (node:5256) [DEP0169] DeprecationWarning: `url.parse()` behavior is not standardized and prone to errors that have security implications. Use the WHATWG URL API instead. CVEs are not issued for `url.parse()` vulnerabilities.
+2026-11-17T07:48:28.7297458Z Uploaded bytes 10725
+2026-11-17T07:48:28.7860425Z Finished uploading artifact content to blob storage!
+2026-11-17T07:48:28.7861489Z SHA256 digest of uploaded artifact zip is c7e5a52810de81ebf1d1e4168a2cb29895f48ffae292a33c4a9fda31b3837390
+2026-11-17T07:48:28.7862447Z Finalizing artifact upload
+2026-11-17T07:48:29.1502014Z Artifact native-evidence.zip successfully finalized. Artifact ID 14309203752
+2026-11-17T07:48:29.1503009Z Artifact native-evidence has been successfully uploaded! Final size is 10725 bytes. Artifact ID is 14309203752
+2026-11-17T07:48:29.1507951Z Artifact download URL: https://github.com/aodl/balls-2-the-wallz/actions/runs/44041131981/artifacts/14309203752
+2026-11-17T07:48:29.1694154Z Post job cleanup.
+2026-11-17T07:48:29.2714977Z (node:5270) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T07:48:29.2715662Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T07:48:29.2896176Z Post job cleanup.
+2026-11-17T07:48:29.3945560Z (node:5278) [DEP0040] DeprecationWarning: The `punycode` module is deprecated. Please use a userland alternative instead.
+2026-11-17T07:48:29.3946645Z (Use `node --trace-deprecation ...` to show where the warning was created)
+2026-11-17T07:48:29.4103058Z Post job cleanup.
+2026-11-17T07:48:29.4845352Z [command]/usr/bin/git version
+2026-11-17T07:48:29.4882453Z git version 2.56.1
+2026-11-17T07:48:29.4914388Z Temporarily overriding HOME='/home/runner/work/_temp/b17b9b9f-9d3f-4dc0-bd6c-8dd1b853623f' before making global git config changes
+2026-11-17T07:48:29.4915543Z Adding repository directory to the temporary git global config as a safe directory
+2026-11-17T07:48:29.4918584Z [command]/usr/bin/git config --global --add safe.directory /home/runner/work/balls-2-the-wallz/balls-2-the-wallz
+2026-11-17T07:48:29.4953932Z [command]/usr/bin/git config --local --name-only --get-regexp core\.sshCommand
+2026-11-17T07:48:29.4987683Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'core\.sshCommand' && git config --local --unset-all 'core.sshCommand' || :"
+2026-11-17T07:48:29.5217428Z [command]/usr/bin/git config --local --name-only --get-regexp http\.https\:\/\/github\.com\/\.extraheader
+2026-11-17T07:48:29.5243201Z http.https://github.com/.extraheader
+2026-11-17T07:48:29.5253517Z [command]/usr/bin/git config --local --unset-all http.https://github.com/.extraheader
+2026-11-17T07:48:29.5291815Z [command]/usr/bin/git submodule foreach --recursive sh -c "git config --local --name-only --get-regexp 'http\.https\:\/\/github\.com\/\.extraheader' && git config --local --unset-all 'http.https://github.com/.extraheader' || :"
+2026-11-17T07:48:29.5523306Z [command]/usr/bin/git config --local --name-only --get-regexp ^includeIf\.gitdir:
+2026-11-17T07:48:29.5556514Z [command]/usr/bin/git submodule foreach --recursive git config --local --show-origin --name-only --get-regexp remote.origin.url
+2026-11-17T07:48:29.5945096Z Cleaning up orphan processes
+2026-11-17T07:48:29.6250064Z ##[warning]Node.js 20 is deprecated. The following actions target Node.js 20 but are being forced to run on Node.js 24: actions/checkout@11d5960a326750d5838078e36cf38b85af677262, actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020, actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065, actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02. For more information see: https://github.blog/changelog/2025-09-19-deprecation-of-node-20-on-github-actions-runners/

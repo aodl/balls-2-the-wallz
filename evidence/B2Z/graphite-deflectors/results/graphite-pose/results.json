@@ -1,0 +1,8 @@
+{
+  "status": "FAIL",
+  "scope": "Retained mainnet pose in an offline actual-composer/renderer fixture; no certificate/payment claim.",
+  "page_errors": [
+    "Cannot read properties of null (reading 'computeBoundingBox')"
+  ],
+  "error": "Page.wait_for_function: Timeout 30000ms exceeded."
+}

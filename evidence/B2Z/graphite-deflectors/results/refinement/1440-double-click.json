@@ -1,0 +1,58 @@
+[
+  {
+    "name": "pointerdown",
+    "at": 37956.5,
+    "now": 38433.30000001192,
+    "detail": 0,
+    "type": "mouse",
+    "cell": ""
+  },
+  {
+    "name": "pointerup",
+    "at": 38494.200000047684,
+    "now": 38832.700000047684,
+    "detail": 0,
+    "type": "mouse",
+    "cell": ""
+  },
+  {
+    "name": "click",
+    "at": 38494.200000047684,
+    "now": 38833.30000001192,
+    "detail": 1,
+    "type": "mouse",
+    "cell": ""
+  },
+  {
+    "name": "pointerdown",
+    "at": 38891,
+    "now": 38891.700000047684,
+    "detail": 0,
+    "type": "mouse",
+    "cell": ""
+  },
+  {
+    "name": "pointerup",
+    "at": 38955.60000002384,
+    "now": 39325.60000002384,
+    "detail": 0,
+    "type": "mouse",
+    "cell": ""
+  },
+  {
+    "name": "click",
+    "at": 38955.60000002384,
+    "now": 39328.10000002384,
+    "detail": 2,
+    "type": "mouse",
+    "cell": ""
+  },
+  {
+    "name": "dblclick",
+    "at": 39328.200000047684,
+    "now": 39328.200000047684,
+    "detail": 2,
+    "type": null,
+    "cell": ""
+  }
+]

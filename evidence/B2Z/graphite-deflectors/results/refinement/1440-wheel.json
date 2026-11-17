@@ -1,0 +1,25 @@
+{
+  "events": [
+    {
+      "dy": -100,
+      "mode": 0,
+      "target": "board",
+      "ctrl": false,
+      "scale": 48
+    },
+    {
+      "dy": -100,
+      "mode": 0,
+      "target": "board",
+      "ctrl": false,
+      "scale": 58.62733239168816
+    }
+  ],
+  "camera": [
+    997.3978627658189,
+    999.0925893954441,
+    71.60758548678098
+  ],
+  "animation": null,
+  "following": null
+}

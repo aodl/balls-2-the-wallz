@@ -1,0 +1,2 @@
+# Preserve the byte-exact original owner handoff checksum.
+supporting/ACCEPTANCE_MATRIX.csv -text

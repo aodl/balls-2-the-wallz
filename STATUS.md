@@ -1,3 +1,23 @@
+# Isolated graphite/Deflector checkpoint — not deployed
+
+17 November2026: this worktree is `feature/b2z-graphite-deflectors`, based on
+`316593fce1d7bf6177f739e49aad639af588f8d9`. The graphite visual/frontend is frozen
+at build source `0e2740c97d2067420c2d191eaee66b54eb5dc4c9`, JavaScript
+`25ac2af801426d57c20d2066782e8d523c45b8d0b6fbcebaca464332751971db`, complete80-file
+inventory `ab046a31801a07dcd3f13b782872b4c2125f71712c158bcce47a14fd96c4cd12`.
+Qualification source `14704e4221afda77229f6f932f2f82be98ffbd6b` passed all six
+substantive hosted gates in run44041131981. Actual conclusions are recorded in [the checkpoint report](evidence/B2Z/graphite-deflectors/REPORT.md).
+The authoritative Deflector feature is **not implemented/qualified**: numeric and
+progress bounds remain unresolved; there is no Deflector Wasm or certified rules
+identity. Do not mistake shared geometry or contact vectors for a working mechanic.
+[Captures](evidence/B2Z/graphite-deflectors/GALLERY.md) and
+[separate release decisions](evidence/B2Z/graphite-deflectors/RELEASE_DECISIONS.md)
+retain that distinction. Existing production, Rules11 source and frozen artifacts
+remain intact. No deployment, paid-backend, payment, funding or settings action
+occurred. The production snapshot below remains the installed release.
+
+---
+
 # Current production — Rules11-compatible frontend80; backend Rules7
 
 16 November2026: the owner-authorised exact80-file frontend is installed on

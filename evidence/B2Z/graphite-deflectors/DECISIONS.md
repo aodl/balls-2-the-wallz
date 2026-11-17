@@ -1,6 +1,6 @@
 # Decision register — owner intent and provisional candidate policy
 
-The unchanged original [decision register](reference/../CODEX_PROMPT.md) is
+The unchanged original [decision register](supporting/DECISION_REGISTER.md) is
 implemented only to the actual scopes recorded in REPORT. No release authority
 follows from this document.
 

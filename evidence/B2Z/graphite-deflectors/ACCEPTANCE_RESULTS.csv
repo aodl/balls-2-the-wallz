@@ -1,0 +1,45 @@
+ID,Area,Test,Status,Actual_scope
+SAFE-01,Scope,Reconcile ongoing frontend80/Rules11 checkout and production identity,PASS,Isolated source/worktree; protected original80 freeze and staging hashes unchanged
+SAFE-02,Scope,No production changes under this brief,PASS,No production mutation; signed metadata/HTTP/current Rules7 read-only observations
+VIS-01,References,Actual rendered cannon/Deflector match selected families,PARTIAL,Actual indexed renderer/application captures; subjective owner visual acceptance pending
+VIS-02,Tile bounds,Cannon base and all rotating assembly extents,PASS,Analytic radius plus every65536 heading; shared real/ghost canonical geometry
+VIS-03,Tile bounds,Deflector plate fixed to grid while wedge rotates,PASS,Fixed plate and contained rotating wedge in art fixture; not authenticated game structures
+VIS-04,Identity,Palette across players/islands/account changes,PARTIAL,"Canonical real owner/payer theme preserved; eight controlled palette extremes, not eight actual paid players"
+VIS-05,States,Hover/selection/dormancy/previews,PARTIAL,Real/selected/preview cannon native journeys pass; dormant/Deflector interaction matrix not fully qualified
+VIS-06,LOD,Close/medium/wide and wrap seam,PARTIAL,Bounded physical size/far marker/seam regression; representative hardware and full Deflector LOD/picking unqualified
+HUD-01,Layout,Shared title/amount and From/To grid,PASS,Final exact freeze nine mainnet-backed panels: both divider and copy axes0px mismatch
+HUD-02,Layout,Read-only financial values,PASS,Read-only values/full inline disclosure/person icon; actual screenshots and DOM
+HUD-03,Safety,Clipboard API/native/manual denial,PASS,Final freeze9API+9native/external paste comparisons and denial/manual fallback
+HUD-04,Safety,Copied proposal edits and Keep/Update,PASS,Final hosted controlled native Update/Keep and payer tests; unchanged financial code
+HUD-05,Layout,Readiness transitions without changed action content,PASS,"Final freeze24s browser-side read fault, automatic recovery and0px drift"
+HUD-06,Accessibility,Contrast and touch targets on all palette extremes,PARTIAL,Pure contrast bounds and44px/14px actual fields; physical-device/text-zoom matrix not fully verified
+HUD-07,Regression,"320x640 cell0 camera[3.6575453715563526,3.6575453715563526,64] heading347.15",PASS,"Final25ac exact visible-cell0 pose, original8/72/52 headings and native gesture checks; joint cry covered only supporting controlled cases"
+ACT-01,New action,Dedicated Deflector icon alongside Build cannon,NOT_IMPLEMENTED,No distinct supporting sixth purchase action yet
+ACT-02,Capability,Rules7/11 without Deflector support,PASS,Rules7/11 offer no Deflector command or fake capability activation
+ACT-03,Placement,Legal default/hover/change/no-sites,NOT_IMPLEMENTED,Deflector legal destination/default quote workflow absent
+ACT-04,Input,Ghost arrow and near-aim drag vs outside pan,NOT_IMPLEMENTED,Deflector aim/editor workflow absent; existing cannon aiming preserved
+ACT-05,Inspection,Selected enemy/Deflector without purchase permission,NOT_IMPLEMENTED,Deflector inspection/permission workflow absent
+RULE-01,Clearance,Enemy distances0-5 cardinal/diagonal/seam/corner,PARTIAL,Existing Rules11 clearance parity preserved; no new Deflector admission
+RULE-02,Placement,Own active island; no cannon/Deflector/live ball overlap,NOT_IMPLEMENTED,No authoritative Deflector occupancy/placement path
+RULE-03,Lifecycle,Capture/pruning/neutralisation/relabel/retirement,NOT_IMPLEMENTED,No authoritative Deflector topology/lifecycle
+RULE-04,Economics,Configured price/caps/underpay/overpay/repeat memo,NOT_IMPLEMENTED,"Price/caps are provisional unconsumed policy JSON, not financial execution"
+PHY-01,Contact,Different positive-duration entry paths,PARTIAL,"11 exact JS/Rust/Fraction contact vectors only, no verified game turns"
+PHY-02,Contact,Glancing/tangent/corner paths,PARTIAL,"Illustrative positive/corner/tangent geometry tests, not all canonical game paths"
+PHY-03,Motion,Turn position and speed policy,FAIL,Old integer-intercept representation fails exact interior-turn counterexample; successor unresolved
+PHY-04,Ordering,Equal-time capture/destruction/entry/build,NOT_IMPLEMENTED,Authoritative interior scheduler/tie/generation invalidation absent
+PHY-05,Loops,"A->B->C, A<->B, corner/grazing/wall loops",NOT_QUALIFIED,No progress/rearm proof or installed adversarial loops
+PHY-06,Numeric,Long arbitrary-heading turn sequence,FAIL,Naive rational-anchor proposal lacks lifetime bound; abstract denominator-growth negative retained
+PHY-07,Rendering,Verified trajectory through turn and follow camera,NOT_IMPLEMENTED,No authenticated redirect animation/trail/follow integration
+PHY-08,Audio/War Cry,Redirect event classification,NOT_IMPLEMENTED,No redirect event; none fabricated as launch/capture/audio
+PRO-01,Memo,New DEFLECT grammar and old parsers,NOT_IMPLEMENTED,DEFLECT grammar proposed only; old parsers/memos unchanged
+PRO-02,Trust,Forged owner/config/event/certificate/source,PARTIAL,Existing certificate/source negatives preserved; no new Deflector protocol verifier to qualify
+MIG-01,History,Old rules/schema/receipt/replay identity,PASS,"Existing Rules7/9/10/11 fixtures/receipts/replay retained, unchanged53backend inputs"
+MIG-02,Migration,Intended predecessor to new identity on disposable game,NOT_IMPLEMENTED,No new schema/Deflector migration or cutover
+MIG-03,Recovery,Every-work-unit/upgrade with pending contact or payment,NOT_IMPLEMENTED,No pending Deflector encounter/payment recovery path
+INT-01,Installed,Official valueless Ledger/Index buys real Deflector,NOT_RUN,No disposable valueless Deflector purchase/redirect; no debug stand-in counted
+INT-02,Observers,Two browsers same installed redirect chain,NOT_RUN,No two-observer authenticated Deflector chain
+PERF-01,Renderer,Matched baseline/new populations and camera poses,MEASURED,"12 matched A/B/B/A scenes; raw draw/RAF quantiles, calls, triangles and repeated controls; no hardware pass"
+PERF-02,Cycles,Sparse and adversarial loops at candidate caps,NOT_RUN,No authoritative Deflector instruction/cycle benchmark
+PERF-03,Idle,No-motion/minimised/context loss/restoration,PARTIAL,Existing context/lifecycle and idle regressions pass; full new mechanic recovery unavailable
+REL-01,Qualification,New exact-source six gates + new installed cases,PARTIAL,Final visual six-gate status in REPORT; additional Deflector installed qualification absent
+REL-02,Release,Separate visuals and authoritative capability packages,PARTIAL,Exact visual80 freeze available; no qualified Deflector Wasm/config/schema identity
