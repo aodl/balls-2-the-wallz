@@ -1,0 +1,38 @@
+{
+  "cost_scope": "Remaining whole publication/controller/source work after module recovery; not isolated Deflector overhead",
+  "cycles": "182366366",
+  "event_bytes": 6826,
+  "events": 40,
+  "initial_balls": 2,
+  "initial_deflectors": 0,
+  "interrupted_stage": "running",
+  "label": "loss",
+  "normal_wasm": "dfc6a7bbe22a0d7688aa18975fdef434a153f84f4dbdf7be59d4cb96783947e1",
+  "receipt": {
+    "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+    "amount": {
+      "$integer": "10000000"
+    },
+    "amount_used": {
+      "$integer": "10000000"
+    },
+    "kind": "deflector_built",
+    "position": {
+      "$integer": "1"
+    },
+    "reason": "ACCEPTED",
+    "remainder": {
+      "$integer": "0"
+    },
+    "status": "applied",
+    "structure": {
+      "cell": 119,
+      "id": 1,
+      "orientation": "NW",
+      "owner": 1
+    }
+  },
+  "scope": "Synthetic population setup only; genuine official valueless Ledger/Index payment, normal-module execution, durable-stage upgrade and independent replay. Not production.",
+  "status": "PASS",
+  "wall_ms": 1023
+}

@@ -1,0 +1,8 @@
+
+running 1 test
+test boundary_deflector_installed::boundary_deflector_paid_cancellation_and_revival ... {"status":"PASS","segments":4,"gameplay_segments":4,"application_checkpoints":0,"assigned":["2","3","4"],"comparison":"Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture","work_budget":23}
+{"status":"PASS","segments":2,"gameplay_segments":2,"application_checkpoints":0,"assigned":["2","3"],"comparison":"Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture","work_budget":23}
+ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 86 filtered out; finished in 281.70s
+

@@ -1,0 +1,8 @@
+
+running 1 test
+test boundary_deflector_installed::boundary_deflector_paid_destruction_and_elapsed_expiry_after_real_activation ... Expected disposable prepared-record downgrade rejection: Err(RejectResponse { reject_code: CanisterError, reject_message: "Error from Canister dfj7p-ut777-77776-qaaba-cai: Canister called `ic0.trap` with message: 'unknown field `deflector_transition`, expected one of `version`, `revision`, `image`, `publication_hex`, `publication_hash`, `source`, `run`, `retention`, `world_transition`, `million_transition`, `playability_transition`, `lifecycle_context`, `entry_transition`, `clearance_transition`, `war_cry_transition`, `combined_transition`, `lifecycle_barrier`, `lifecycle_error`'\nCanister Backtrace:\nic_cdk::api::trap\ncanister_post_upgrade\n.\nConsider gracefully handling failures from this canister or altering the canister to handle exceptions. See documentation: https://docs.internetcomputer.org/references/execution-errors#trapped-explicitly", error_code: CanisterCalledTrap, certified: true })
+{"status":"PASS","segments":35,"gameplay_segments":28,"application_checkpoints":7,"assigned":["2","3"],"comparison":"Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture","work_budget":23}
+ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 86 filtered out; finished in 411.46s
+

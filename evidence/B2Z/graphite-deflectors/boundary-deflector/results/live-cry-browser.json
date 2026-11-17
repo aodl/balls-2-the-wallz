@@ -1,0 +1,1108 @@
+{
+  "status": "PASS",
+  "scope": "Two real browsers of a pinned disposable IC. Native wall-time speech, no injected event/world.",
+  "observers": [
+    {
+      "verified_redirect_presentation": {
+        "frames": 72,
+        "states": [
+          {
+            "time": 3,
+            "vx": 22630,
+            "vy": 22625,
+            "x0": "-41676",
+            "y0": "-42690",
+            "den": "1",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.2666,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-108196170",
+            "y0": "-110525002",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.2666,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "228696394",
+            "y0": "231025226",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.4665,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-122100042",
+            "y0": "231025226",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.4665,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-122100042",
+            "y0": "-124428874",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.6165,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "242600266",
+            "y0": "244929098",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.7332999999999994,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-136003914",
+            "y0": "244929098",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.7332999999999994,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-136003914",
+            "y0": "-138332746",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.7332999999999994,
+            "vx": -22627,
+            "vy": 22627,
+            "x0": "256504138",
+            "y0": "-138332746",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.883199999999999,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "256504138",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 4,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-149907786",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": null
+          }
+        ],
+        "structures": [
+          {
+            "cell": 24026,
+            "id": 1,
+            "orientation": "NE",
+            "owner": 1
+          },
+          {
+            "cell": 26024,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          },
+          {
+            "cell": 24022,
+            "id": 3,
+            "orientation": "SW",
+            "owner": 1
+          },
+          {
+            "cell": 22024,
+            "id": 4,
+            "orientation": "NW",
+            "owner": 1
+          }
+        ]
+      },
+      "public_pan_to_deflectors": {
+        "gestures": 9,
+        "target": {
+          "x": 24.5,
+          "y": 24.5,
+          "sx": 195,
+          "sy": 299.9999943857331,
+          "visible": true,
+          "score": 122.00000561426691
+        }
+      },
+      "live_verified_redirects": {
+        "frames": 945,
+        "states": [
+          {
+            "time": 3,
+            "vx": 22630,
+            "vy": 22625,
+            "x0": "-41676",
+            "y0": "-42690",
+            "den": "1",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.2666,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-108196170",
+            "y0": "-110525002",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.2666,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "228696394",
+            "y0": "231025226",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.4665,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-122100042",
+            "y0": "231025226",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.4665,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-122100042",
+            "y0": "-124428874",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.6165,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "242600266",
+            "y0": "244929098",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.7332999999999994,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-136003914",
+            "y0": "244929098",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.7332999999999994,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-136003914",
+            "y0": "-138332746",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.7332999999999994,
+            "vx": -22627,
+            "vy": 22627,
+            "x0": "256504138",
+            "y0": "-138332746",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.883199999999999,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "256504138",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 4,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-149907786",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": null
+          },
+          {
+            "time": 4.133400000000002,
+            "vx": -22627,
+            "vy": 22627,
+            "x0": "270408010",
+            "y0": "-152236618",
+            "den": "2263",
+            "source": "7",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.205251270000002,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "270408010",
+            "y0": "272736842",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          }
+        ],
+        "structures": [
+          {
+            "cell": 22024,
+            "id": 4,
+            "orientation": "NW",
+            "owner": 1
+          },
+          {
+            "cell": 24022,
+            "id": 3,
+            "orientation": "SW",
+            "owner": 1
+          },
+          {
+            "cell": 24026,
+            "id": 1,
+            "orientation": "NE",
+            "owner": 1
+          },
+          {
+            "cell": 26024,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          }
+        ]
+      },
+      "at": 1794955925713,
+      "born": 1794955922169,
+      "key": "41cc8027f1213c940c3eacfb63442d35034c6970b2e6da2e3aefcba0a556ab55/8/0/18/4",
+      "cannon": 4,
+      "text": "Together!",
+      "head": "10",
+      "identity": {
+        "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+        "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "time": 8,
+      "quantity": 5,
+      "tag": "BDI",
+      "pointer": "none",
+      "rect": {
+        "x": 60,
+        "y": 152,
+        "width": 88.59375,
+        "height": 34.890625,
+        "top": 152,
+        "right": 148.59375,
+        "bottom": 186.890625,
+        "left": 60
+      },
+      "camera": [
+        10.341569569719923,
+        10.341569569719923,
+        64
+      ]
+    },
+    {
+      "verified_redirect_presentation": {
+        "frames": 56,
+        "states": [
+          {
+            "time": 3,
+            "vx": 22630,
+            "vy": 22625,
+            "x0": "-41676",
+            "y0": "-42690",
+            "den": "1",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.2666999999999997,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-108196170",
+            "y0": "-110525002",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.4166999999999996,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "228696394",
+            "y0": "231025226",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.616599999999999,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "242600266",
+            "y0": "244929098",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.8166999999999995,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-136003914",
+            "y0": "-138332746",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.8166999999999995,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "256504138",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.9332999999999996,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-149907786",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": null
+          }
+        ],
+        "structures": [
+          {
+            "cell": 24026,
+            "id": 1,
+            "orientation": "NE",
+            "owner": 1
+          },
+          {
+            "cell": 26024,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          },
+          {
+            "cell": 24022,
+            "id": 3,
+            "orientation": "SW",
+            "owner": 1
+          },
+          {
+            "cell": 22024,
+            "id": 4,
+            "orientation": "NW",
+            "owner": 1
+          }
+        ]
+      },
+      "public_pan_to_deflectors": {
+        "gestures": 9,
+        "target": {
+          "x": 24.5,
+          "y": 24.5,
+          "sx": 195,
+          "sy": 299.9999943857331,
+          "visible": true,
+          "score": 122.00000561426691
+        }
+      },
+      "live_verified_redirects": {
+        "frames": 414,
+        "states": [
+          {
+            "time": 3,
+            "vx": 22630,
+            "vy": 22625,
+            "x0": "-41676",
+            "y0": "-42690",
+            "den": "1",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.2666999999999997,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-108196170",
+            "y0": "-110525002",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.4166999999999996,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "228696394",
+            "y0": "231025226",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.616599999999999,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "242600266",
+            "y0": "244929098",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.8166999999999995,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-136003914",
+            "y0": "-138332746",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.8166999999999995,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "256504138",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.9332999999999996,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-149907786",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": null
+          },
+          {
+            "time": 4.227194795800001,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "270408010",
+            "y0": "272736842",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.3451918225,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-163811658",
+            "y0": "-166140490",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.3451918225,
+            "vx": -22627,
+            "vy": 22627,
+            "x0": "284311882",
+            "y0": "-166140490",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.5137660217,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-177715530",
+            "y0": "286640714",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.5137660217,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-177715530",
+            "y0": "-180044362",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.641301290800001,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "298215754",
+            "y0": "300544586",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.773184012500001,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-191619402",
+            "y0": "-193948234",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.989884012500001,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "312119626",
+            "y0": "314448458",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 5.0564840124999995,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-205523274",
+            "y0": "314448458",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              5,
+              6
+            ]
+          },
+          {
+            "time": 5.139784012499999,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-205523274",
+            "y0": "-207852106",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              5,
+              6
+            ]
+          },
+          {
+            "time": 5.339784012499999,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-219427146",
+            "y0": "328352330",
+            "den": "2263",
+            "source": "10",
+            "displayed_interval": [
+              5,
+              6
+            ]
+          }
+        ],
+        "structures": [
+          {
+            "cell": 22024,
+            "id": 4,
+            "orientation": "NW",
+            "owner": 1
+          },
+          {
+            "cell": 24022,
+            "id": 3,
+            "orientation": "SW",
+            "owner": 1
+          },
+          {
+            "cell": 24026,
+            "id": 1,
+            "orientation": "NE",
+            "owner": 1
+          },
+          {
+            "cell": 26024,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          }
+        ]
+      },
+      "at": 1794955928307,
+      "born": 1794955921930,
+      "key": "41cc8027f1213c940c3eacfb63442d35034c6970b2e6da2e3aefcba0a556ab55/8/0/18/4",
+      "cannon": 4,
+      "text": "Together!",
+      "head": "10",
+      "identity": {
+        "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+        "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "time": 8,
+      "quantity": 5,
+      "tag": "BDI",
+      "pointer": "none",
+      "rect": {
+        "x": 60,
+        "y": 152,
+        "width": 88.59375,
+        "height": 34.890625,
+        "top": 152,
+        "right": 148.59375,
+        "bottom": 186.890625,
+        "left": 60
+      },
+      "camera": [
+        10.341569569719923,
+        10.341569569719923,
+        64
+      ]
+    }
+  ],
+  "transport_failures": [
+    {
+      "at_epoch_ms": 1794955898480.8232,
+      "url": "http://127.0.0.1:40645/audio/b2z-v1/sfx/cannon-launch-soft-00052a3c9bb1f50d.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794955898463.5962,
+        "domainLookupStart": 0.841,
+        "domainLookupEnd": 0.859,
+        "connectStart": 0.859,
+        "secureConnectionStart": -1,
+        "connectEnd": 1.037,
+        "requestStart": 1.146,
+        "responseStart": 2.317,
+        "responseEnd": 11.228
+      }
+    },
+    {
+      "at_epoch_ms": 1794955904131.921,
+      "url": "http://127.0.0.1:40645/configuration-deflector.bin",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794955904084.844,
+        "domainLookupStart": 2.556,
+        "domainLookupEnd": 2.583,
+        "connectStart": 2.583,
+        "secureConnectionStart": -1,
+        "connectEnd": 2.815,
+        "requestStart": 2.919,
+        "responseStart": 8.073,
+        "responseEnd": 43.459
+      }
+    },
+    {
+      "at_epoch_ms": 1794955910282.6106,
+      "url": "http://127.0.0.1:40645/audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794955910265.477,
+        "domainLookupStart": 0.531,
+        "domainLookupEnd": 0.559,
+        "connectStart": 0.559,
+        "secureConnectionStart": -1,
+        "connectEnd": 2.656,
+        "requestStart": 2.771,
+        "responseStart": 3.867,
+        "responseEnd": 26.35
+      }
+    },
+    {
+      "at_epoch_ms": 1794955957164.4202,
+      "url": "http://127.0.0.1:40645/audio/b2z-v1/music/008-6a0965d52f29842d.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794955957142.335,
+        "domainLookupStart": 0.342,
+        "domainLookupEnd": 0.365,
+        "connectStart": 0.365,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.533,
+        "requestStart": 0.626,
+        "responseStart": 3.098,
+        "responseEnd": 16.289
+      }
+    },
+    {
+      "at_epoch_ms": 1794955965157.9429,
+      "url": "http://127.0.0.1:40645/audio/b2z-v1/music/009-752cf09ae99741b3.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794955965130.429,
+        "domainLookupStart": 0.377,
+        "domainLookupEnd": 0.403,
+        "connectStart": 0.403,
+        "secureConnectionStart": -1,
+        "connectEnd": 1.045,
+        "requestStart": 1.182,
+        "responseStart": 2.631,
+        "responseEnd": 19.144
+      }
+    },
+    {
+      "at_epoch_ms": 1794955973223.5508,
+      "url": "http://127.0.0.1:40645/audio/b2z-v1/music/010-6de1162e34b4268f.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794955973193.7969,
+        "domainLookupStart": 0.674,
+        "domainLookupEnd": 0.699,
+        "connectStart": 0.699,
+        "secureConnectionStart": -1,
+        "connectEnd": 0.912,
+        "requestStart": 1.013,
+        "responseStart": 4.296,
+        "responseEnd": 23.747
+      }
+    },
+    {
+      "at_epoch_ms": 1794955981413.979,
+      "url": "http://127.0.0.1:40645/audio/b2z-v1/music/011-8a18bb8efc6b46e0.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794955981346.9172,
+        "domainLookupStart": 0.768,
+        "domainLookupEnd": 0.794,
+        "connectStart": 0.794,
+        "secureConnectionStart": -1,
+        "connectEnd": 1.162,
+        "requestStart": 3.018,
+        "responseStart": 7.981,
+        "responseEnd": 58.597
+      }
+    }
+  ],
+  "visibility_context": "Ordinary default context; no Playwright focus emulation",
+  "visibility": [
+    {
+      "seconds": 5,
+      "at": 1794955934.1604288,
+      "bubble": 1
+    },
+    {
+      "seconds": 35,
+      "at": 1794955969.5768745,
+      "bubble": 1
+    }
+  ],
+  "fade": {
+    "age_ms": 55589,
+    "opacity": 0.8732
+  },
+  "native_lifetime_probe": {
+    "samples": [
+      {
+        "age_ms": 55194,
+        "opacity": 0.9622,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 55451,
+        "opacity": 0.9104,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 55591,
+        "opacity": 0.886,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 55796,
+        "opacity": 0.8438,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 55991,
+        "opacity": 0.8032,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 56297,
+        "opacity": 0.7414,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 56391,
+        "opacity": 0.7264,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 56591,
+        "opacity": 0.6858,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 56792,
+        "opacity": 0.6524,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57057,
+        "opacity": 0.5892,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57190,
+        "opacity": 0.5632,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57391,
+        "opacity": 0.5264,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57591,
+        "opacity": 0.483,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57802,
+        "opacity": 0.441,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57990,
+        "opacity": 0.4062,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58192,
+        "opacity": 0.364,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58603,
+        "opacity": 0.28,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58791,
+        "opacity": 0.2436,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58991,
+        "opacity": 0.2062,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59384,
+        "opacity": 0.1252,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59590,
+        "opacity": 0.0824,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59790,
+        "opacity": 0.0436,
+        "visibility": "visible"
+      }
+    ],
+    "expired": {
+      "at": 1794955982024,
+      "age_ms": 60094
+    }
+  },
+  "expiry": {
+    "at": 1794955982024,
+    "age_ms": 60094,
+    "repeat_render_does_not_restart": true
+  },
+  "first_hidden_age_expiry": "PASS first observer also expired without replay",
+  "errors": [],
+  "forbidden": [],
+  "browser": "153.0.8010.12"
+}

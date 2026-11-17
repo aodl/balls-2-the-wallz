@@ -1,0 +1,29 @@
+{
+  "contacts": 10003,
+  "redirects": 10003,
+  "reflections": 0,
+  "ticks": 679,
+  "max_den": "11315",
+  "max_numerator_bits": 38,
+  "chain": "9827f69cef68e26f5b7960ab5dadf673ac69ec26d23e58eaf7a933e18073ef2e",
+  "samples": [
+    {
+      "target": 1500,
+      "tick": 102,
+      "contacts": 1503,
+      "state_hash": "c39c724b47d8285ea8e741d0c74669c4c5cf5b16f6ba4a3a015ebf8736685b45",
+      "chain": "b5b2740f147986ac2603b0383e77ebd6710b0158a18ca23cf9a9023804754919"
+    },
+    {
+      "target": 10000,
+      "tick": 679,
+      "contacts": 10003,
+      "state_hash": "c474bf0e2834bd0f117f3d2dfa4b32a9eeaac4fae111d5c96fc14196fea1705e",
+      "chain": "9827f69cef68e26f5b7960ab5dadf673ac69ec26d23e58eaf7a933e18073ef2e"
+    }
+  ],
+  "minimum_step": [
+    "256",
+    "11315"
+  ]
+}

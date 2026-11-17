@@ -13,9 +13,8 @@ test('all construction planners share protected structure occupancy, including i
  const b=w.balls[0];b.x0=2048n;b.vx=-32000;b.vy=0;validateWorld(w);for(const cell of[1001,1002]){assert(occupiedCells(w).has(cell));assert.equal(prepareDeflectorPurchase(w,ACCOUNT,10000000n,encodeDeflectorMemo({kind:'deflect',cell,orientation:'NE'})).reason,'SITE_OCCUPIED');}
 });
 
-test('protected occupancy invalidates pending capture even if an old strike record survives until validation',()=>{
- const w=successorWorld(),b=w.balls[0],p={id:1,ball:b.id,owner:1,defender:2,from:1001,to:1002,axis:'x',born:[0n,1n],deadline:[1n,16n],position:[1536n,1n]};
- w.deflectors=[{id:1,owner:1,cell:1002,orientation:'NE'}];w.next_deflector_id=2;assert.equal(validStrike(w,p),false);assert.throws(()=>CaptureJob.capture(w,1002,b.id),/INVALID_CAPTURE/);assert.equal(w.deflectors.length,1);
+test('a genuine adjacent hostile strike and capture are blocked specifically by protected occupancy',()=>{
+ const v=fixture.protection,w=decodeWorld(Buffer.from(v.before_hex,'hex')),protectedWorld=decodeWorld(Buffer.from(v.protected_hex,'hex')),strike=decodeCanonical(Buffer.from(v.strike_hex,'hex'));assert(validStrike(w,strike));assert.doesNotThrow(()=>CaptureJob.capture(w,v.target,v.ball));assert.equal(validStrike(protectedWorld,strike),false);assert.throws(()=>CaptureJob.capture(protectedWorld,v.target,v.ball),/INVALID_CAPTURE/);assert.equal(protectedWorld.deflectors.length,1);
 });
 test('reviving or expiring the dormant cannon never restores a destroyed Deflector',async()=>{
  const {B2zCursor}=await import('../../packages/kernels/b2z/kernel.mjs'),{DEFLECTOR_IDENTITY}=await import('../../packages/kernels/b2z/world.mjs'),{encodeDeflectorPayment}=await import('../../packages/protocol/deflector.mjs'),{expireV6}=await import('../../packages/kernels/b2z/lifecycle-v6.mjs');

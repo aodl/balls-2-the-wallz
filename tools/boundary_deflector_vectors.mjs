@@ -2,7 +2,7 @@
 import fs from'node:fs';import{B2zCursor}from'../packages/kernels/b2z/kernel.mjs';
 import{DEFLECTOR_IDENTITY,encodeWorld,decodeWorld}from'../packages/kernels/b2z/world.mjs';
 import{encodeCanonical,decodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';import{sha256}from'@dtr/timeline-runtime/runtime/seal';
-import{successorWorld,ACCOUNT,enemyWorld,capacityWorld,diamondWorld,steepWorld,lossWorld,interactionWorld,delayedLossWorld}from'../tests/scenarios/boundary-deflector.mjs';
+import{successorWorld,ACCOUNT,enemyWorld,capacityWorld,diamondWorld,steepWorld,lossWorld,interactionWorld,delayedLossWorld,cancellationWorld,seamLossWorld}from'../tests/scenarios/boundary-deflector.mjs';
 import{encodeDeflectorPayment}from'../packages/protocol/deflector.mjs';
 const hex=b=>Buffer.from(b).toString('hex'),rows=[];
 function row(name,world,commands,recover=false,rawInputs=null){
@@ -22,6 +22,7 @@ row('toroidal-blocked-vertex',successorWorld(40960,0),[{command:{kind:'deflect',
 row('toroidal-contact',successorWorld(32768,0),[{command:{kind:'deflect',cell:999,orientation:'NE'}}]);
 for(const[reason,options,cell]of[['underfunded',{amount:9999999n},1002],['wrong-account',{account:'02'.repeat(32)},1002],['occupied',{},4004]])row(reason,successorWorld(),[{...options,command:{kind:'deflect',cell,orientation:'SE'}}]);
 row('war-cry-preserved',successorWorld(),[{command:{kind:'deflect',cell:1002,orientation:'NE'}},{command:{kind:'fire',cannon:1,angle:0,quantity:1},cry:'é😀'}],true);
+row('paid-structure-occupancy-and-first-entry',successorWorld(),[{command:{kind:'deflect',cell:4005,orientation:'NE'}},{amount:1000000000n,command:{kind:'move_cannon',cannon:1,cell:4005}},{amount:1000000000n,command:{kind:'new',angle:0,quantity:1,cell:4005}},{command:{kind:'deflect',cell:1001,orientation:'NE'}},{command:{kind:'deflect',cell:4004,orientation:'NE'}},{account:'02'.repeat(32),amount:1000000000n,command:{kind:'new',angle:0,quantity:1,cell:null}}],true);
 row('ordinary-bare-fire',successorWorld(),[{command:{kind:'fire',cannon:1,angle:0,quantity:1}}]);
 row('immutable-four-direction-diamond',diamondWorld(),[],true);
 row('nearby-deflector-rejection',successorWorld(),[1002,2001].map(cell=>({command:{kind:'deflect',cell,orientation:'NE'}})));
@@ -50,7 +51,15 @@ for(const name of['bridge_left','wall_pair','mutual']){
  if(name==='bridge_left'){w.deflectors=[{id:1,owner:1,cell:104,orientation:'NE'}];w.next_deflector_id=2;}
  row('successor-topology-'+name,w,[],true);
 }
+row('paid-cancellation-before-future-bridge',cancellationWorld(),[119,103].map((cell,i)=>({command:{kind:'deflect',cell,orientation:i?'SE':'NW'}})));
+let cancellation=decodeWorld(Buffer.from(rows.find(r=>r.name==='paid-cancellation-before-future-bridge').outputs.state.hex,'hex'));let cancelled=false;
+for(let step=1;step<=9&&!cancelled;step++){
+ row('future-bridge-cancellation-step-'+step,cancellation,step===1?[{account:'02'.repeat(32),amount:1000000000n,command:{kind:'fire',cannon:3,angle:49152,quantity:1},cry:'Hold!'}]:[],true);
+ const last=rows.at(-1);cancelled=decodeCanonical(Buffer.from(last.outputs.events.hex,'hex')).events.some(e=>e.cancelled_capture);cancellation=decodeWorld(Buffer.from(last.outputs.state.hex,'hex'));
+}
+if(!cancelled||cancellation.deflectors.length!==2||!cancellation.balls.some(b=>b.id===2)||cancellation.balls.some(b=>b.id===1))throw Error('real bridge cancellation or surviving Deflector invariant');
 row('paid-stable-before-future-bridge-loss',delayedLossWorld(),[119,103].map((cell,i)=>({command:{kind:'deflect',cell,orientation:i?'SE':'NW'}})));
+row('paid-safe-then-toroidal-bridge-loss',seamLossWorld(),[{command:{kind:'deflect',cell:4,orientation:'NW'}}],true);
 row('paid-safe-then-genuine-bridge-loss',lossWorld(),[{command:{kind:'deflect',cell:119,orientation:'NW'}}],true);
 const revived=JSON.parse(fs.readFileSync('tests/fixtures/boundary-deflector-topology-v12.json'));row('revival-does-not-restore-destroyed-deflector',decodeWorld(Buffer.from(revived.cases.left.state_hex,'hex')),[{amount:1000000000n,command:{kind:'fire',cannon:2,angle:0,quantity:1},cry:'Return!'}],true);
 const cryA=rows.find(r=>r.name==='successor-retains-annotation/fire'),cryB=rows.find(r=>r.name==='successor-retains-annotation/fire-alt');if(cryA.outputs.state.sha256!==cryB.outputs.state.sha256)throw Error('cosmetic War Cry changed gameplay');

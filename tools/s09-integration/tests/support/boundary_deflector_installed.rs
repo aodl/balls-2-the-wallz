@@ -637,6 +637,12 @@ fn boundary_deflector_capacity_and_paid_ownership_loss() {
             "DEFLECT 119 NW",
             "ACCEPTED",
         ),
+        (
+            "seam",
+            "paid-safe-then-toroidal-bridge-loss",
+            "DEFLECT 4 NW",
+            "ACCEPTED",
+        ),
     ] {
         let out = root.join(label);
         std::fs::create_dir_all(&out).unwrap();
@@ -772,7 +778,7 @@ fn boundary_deflector_capacity_and_paid_ownership_loss() {
                 .flatten()
                 .collect();
             assert_eq!(removed.len(), 1);
-            assert_eq!(removed[0]["cell"], 119);
+            assert_eq!(removed[0]["cell"], if label == "seam" { 4 } else { 119 });
         }
         let parsed = b2z_protocol::deflector::parse_text(memo.as_bytes()).unwrap();
         let mut raw = b"BTZPAY04".to_vec();
@@ -1204,6 +1210,22 @@ fn boundary_deflector_paid_destruction_two_observers() {
             .unwrap()
             .success()
     );
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(&repo)
+            .args([
+                "tools/verify_deflector_replay_negatives.mjs",
+                out.join("authenticated-after/authenticated-history.json")
+                    .to_str()
+                    .unwrap(),
+                out.join("deflector-replay-negatives.json")
+                    .to_str()
+                    .unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
     let mut removed = vec![];
     for entry in std::fs::read_dir(out.join("authenticated-after")).unwrap() {
         let path = entry.unwrap().path();
@@ -1229,5 +1251,592 @@ fn boundary_deflector_paid_destruction_two_observers() {
         &out,
         "result.json",
         &serde_json::json!({"status":"PASS","scope":"Actual valueless official Ledger/Index, normal module, later enemy FIRE, two independent authenticated native observers and independent replay; no production operation","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"payments":trace["inputs"],"removed":removed,"surviving":ds}),
+    );
+}
+
+fn deflector_payment_bytes(payer: Principal, amount: u64, memo: &str) -> String {
+    let parsed = b2z_protocol::deflector::parse_text(memo.as_bytes()).unwrap();
+    let mut raw = b"BTZPAY04".to_vec();
+    raw.extend(AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).as_bytes());
+    raw.extend(amount.to_be_bytes());
+    raw.extend(b2z_protocol::deflector::encode(parsed.command).unwrap());
+    raw.push(parsed.cry.len() as u8);
+    raw.extend(parsed.cry.as_bytes());
+    hex(&raw)
+}
+#[test]
+fn boundary_deflector_paid_cancellation_and_revival() {
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let root = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
+        .join("boundary-island-lifecycle");
+    std::fs::create_dir_all(&root).unwrap();
+    let fixtures: serde_json::Value = serde_json::from_slice(
+        &std::fs::read(repo.join("tests/fixtures/boundary-deflector-v12.json")).unwrap(),
+    )
+    .unwrap();
+    for mode in ["cancellation", "revival"] {
+        let out = root.join(mode);
+        std::fs::create_dir_all(&out).unwrap();
+        let name = if mode == "cancellation" {
+            "paid-cancellation-before-future-bridge"
+        } else {
+            "paid-safe-then-genuine-bridge-loss"
+        };
+        let row = fixtures["rows"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["name"] == name)
+            .unwrap();
+        let mut world =
+            World::decode(&unhex(row["initial_hex"].as_str().unwrap()).unwrap()).unwrap();
+        let payers = [
+            Principal::self_authenticating([9; 32]),
+            Principal::self_authenticating([10; 32]),
+        ];
+        for player in [1u32, 2] {
+            let original = format!("{player:02x}").repeat(32);
+            let account =
+                AccountIdentifier::new(&payers[(player - 1) as usize], &DEFAULT_SUBACCOUNT)
+                    .to_hex();
+            world
+                .playability
+                .as_mut()
+                .unwrap()
+                .players
+                .iter_mut()
+                .find(|p| p.id == player)
+                .unwrap()
+                .account = account.clone();
+            for c in &mut world.cannons {
+                if c.account == original {
+                    c.account = account.clone();
+                }
+            }
+            for c in &mut world.credits {
+                if c.account == original {
+                    c.account = account.clone();
+                }
+            }
+        }
+        world.credits.sort_by(|a, b| a.account.cmp(&b.account));
+        let initial = world.encode().unwrap();
+        let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers(
+            bytes("B2Z_S14_TEST_WASM"),
+            initial.clone(),
+            10000,
+            0,
+            &[payers[1]],
+        );
+        playability_installed::funding_paused(&pic, id, true);
+        pic.upgrade_canister(
+            id,
+            bytes("B2Z_S14_WASM"),
+            encode_args(()).unwrap(),
+            Some(controller()),
+        )
+        .unwrap();
+        assert_eq!(arena_world(&pic, id).encode().unwrap(), initial);
+        let mut rows = vec![];
+        let mut payments = BTreeMap::new();
+        playability_installed::record(&pic, id, &mut rows, &out);
+        let memos = if mode == "cancellation" {
+            vec!["DEFLECT 119 NW", "DEFLECT 103 SE"]
+        } else {
+            vec!["DEFLECT 119 NW"]
+        };
+        for memo in memos {
+            let n = transfer_text(&pic, ledger, payers[0], id, 10000000, memo.as_bytes());
+            payments.insert(n, deflector_payment_bytes(payers[0], 10000000, memo));
+        }
+        let last = *payments.keys().last().unwrap();
+        for _ in 0..180 {
+            if status(&pic, id).source.admitted_to_exclusive > last {
+                break;
+            }
+            tick(&pic);
+        }
+        assert!(status(&pic, id).source.admitted_to_exclusive > last);
+        playability_installed::one_tick(&pic, id);
+        playability_installed::record(&pic, id, &mut rows, &out);
+
+        let (payer, memo) = if mode == "cancellation" {
+            (payers[1], "FIRE 3 270 1|Hold!")
+        } else {
+            (payers[0], "FIRE 2 0 1|Back!")
+        };
+        let n = transfer_text(&pic, ledger, payer, id, 1000000000, memo.as_bytes());
+        payments.insert(n, deflector_payment_bytes(payer, 1000000000, memo));
+        for _ in 0..180 {
+            if status(&pic, id).source.admitted_to_exclusive > n {
+                break;
+            }
+            tick(&pic);
+        }
+        assert!(status(&pic, id).source.admitted_to_exclusive > n);
+        playability_installed::one_tick(&pic, id);
+        // Neutral captures use existing reflection/return travel. Do not
+        // assume a newly launched ball can reach a ten-tile bridge in one seal.
+        if mode == "cancellation" {
+            for _ in 0..8 {
+                if !arena_world(&pic, id).balls.iter().any(|b| b.id == 1) {
+                    break;
+                }
+                playability_installed::record(&pic, id, &mut rows, &out);
+                playability_installed::one_tick(&pic, id);
+            }
+        }
+        let final_world = arena_world(&pic, id);
+        playability_installed::record(&pic, id, &mut rows, &out);
+        save(
+            &out,
+            "before-assertions.json",
+            &serde_json::json!({"world_hex":hex(&final_world.encode().unwrap()),"publication":observe(&pic,id).1,"positions":payments.keys().collect::<Vec<_>>() }),
+        );
+        if mode == "cancellation" {
+            assert_eq!(final_world.deflectors.as_ref().unwrap().len(), 2);
+            assert_eq!(final_world.player_at(115), Some(1));
+            assert!(final_world.balls.iter().any(|b| b.id == 2 && b.owner == 1));
+            assert!(!final_world.balls.iter().any(|b| b.id == 1));
+            assert!(
+                final_world
+                    .playability
+                    .as_ref()
+                    .unwrap()
+                    .life(1)
+                    .unwrap()
+                    .deadline_ns
+                    .is_none()
+            );
+        } else {
+            assert!(final_world.deflectors.as_ref().unwrap().is_empty());
+            assert!(
+                final_world
+                    .playability
+                    .as_ref()
+                    .unwrap()
+                    .life(2)
+                    .unwrap()
+                    .deadline_ns
+                    .is_none()
+            );
+            assert!(
+                final_world
+                    .balls
+                    .iter()
+                    .any(|b| b.owner == 1 && b.cell >= 120)
+            );
+        }
+
+        playability_installed::record(&pic, id, &mut rows, &out);
+        let mut artifacts = vec![];
+        let mut assigned = vec![];
+        let mut audit_events = vec![];
+        for p in &rows {
+            let n = p.head.segment_id.as_ref().unwrap().0.to_string();
+            let raw = std::fs::read(out.join(format!("publication-{n}-artifact-1.bin"))).unwrap();
+            let audit: serde_json::Value = decode(&raw).unwrap();
+            audit_events.extend(audit["events"].as_array().unwrap().iter().cloned());
+            artifacts.push(serde_json::json!({"segment_id":n,"events_hex":hex(&raw)}));
+            if let Some(s) = &p.head.seal {
+                assigned.extend(
+                    payments
+                        .keys()
+                        .filter(|n| {
+                            s.source_from.0 <= (**n).into()
+                                && s.source_to_exclusive.0 > (**n).into()
+                        })
+                        .map(|n| n.to_string()),
+                );
+            }
+        }
+        assert_eq!(assigned.len(), payments.len());
+        if mode == "cancellation" {
+            assert!(audit_events.iter().any(|e| e["cancelled_capture"] == true));
+            assert!(!audit_events.iter().any(|e| {
+                e.get("removed_deflectors")
+                    .and_then(|v| v.as_array())
+                    .is_some_and(|a| !a.is_empty())
+            }));
+        }
+
+        save(
+            &out,
+            "trace.json",
+            &serde_json::json!({"status":"PASS","initial_world_hex":hex(&initial),"publications":rows,"inputs":payments.iter().map(|(n,p)|serde_json::json!({"position":n.to_string(),"payload_hex":p})).collect::<Vec<_>>(),"assigned":assigned,"artifact_events":artifacts,"epoch_metadata":{}}),
+        );
+        assert!(
+            std::process::Command::new("node")
+                .current_dir(&repo)
+                .args([
+                    "tools/replay_s14.mjs",
+                    out.join("trace.json").to_str().unwrap(),
+                    out.join("replay.json").to_str().unwrap()
+                ])
+                .status()
+                .unwrap()
+                .success()
+        );
+        save(
+            &out,
+            "result.json",
+            &serde_json::json!({"status":"PASS","scope":"Synthetic initial territory; actual valueless Ledger/Index, normal-module topology/lifecycle and independent replay. Not production.","mode":mode,"normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"final_world":hex(&arena_world(&pic,id).encode().unwrap()),"events":audit_events}),
+        );
+    }
+}
+
+#[test]
+fn boundary_deflector_paid_occupancy_and_automatic_first_entry() {
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
+        .join("boundary-occupancy-entry");
+    std::fs::create_dir_all(&out).unwrap();
+    let fixtures: serde_json::Value = serde_json::from_slice(
+        &std::fs::read(repo.join("tests/fixtures/boundary-deflector-v12.json")).unwrap(),
+    )
+    .unwrap();
+    let row = fixtures["rows"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|r| r["name"] == "paid-structure-occupancy-and-first-entry")
+        .unwrap();
+    let mut world = World::decode(&unhex(row["initial_hex"].as_str().unwrap()).unwrap()).unwrap();
+    let payers = [
+        Principal::self_authenticating([9; 32]),
+        Principal::self_authenticating([10; 32]),
+    ];
+    let account = AccountIdentifier::new(&payers[0], &DEFAULT_SUBACCOUNT).to_hex();
+    for c in &mut world.cannons {
+        c.account = account.clone();
+    }
+    for c in &mut world.credits {
+        c.account = account.clone();
+    }
+    world.playability.as_mut().unwrap().players[0].account = account;
+    let initial = world.encode().unwrap();
+    let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers(
+        bytes("B2Z_S14_TEST_WASM"),
+        initial.clone(),
+        10000,
+        0,
+        &[payers[1]],
+    );
+    playability_installed::funding_paused(&pic, id, true);
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    assert_eq!(arena_world(&pic, id).encode().unwrap(), initial);
+    let mut rows = vec![];
+    playability_installed::record(&pic, id, &mut rows, &out);
+    let mut payments = BTreeMap::new();
+    let mut expected = BTreeMap::new();
+    for (sender, memo, amount, reason) in [
+        (payers[0], "DEFLECT 4005 NE", 10000000, "ACCEPTED"),
+        (payers[0], "MOVE 1 4005", 1000000000, "SITE_OCCUPIED"),
+        (
+            payers[0],
+            "NEW 0 1 4005",
+            1000000000,
+            "ILLEGAL_ADJACENT_SITE",
+        ),
+        (payers[0], "DEFLECT 1001 NE", 10000000, "SITE_OCCUPIED"),
+        (payers[0], "DEFLECT 4004 NE", 10000000, "SITE_OCCUPIED"),
+        (payers[1], "NEW 0 1", 1000000000, "ACCEPTED"),
+    ] {
+        let n = transfer_text(&pic, ledger, sender, id, amount, memo.as_bytes());
+        payments.insert(n, deflector_payment_bytes(sender, amount, memo));
+        expected.insert(n, reason);
+    }
+    let last = *payments.keys().last().unwrap();
+    for _ in 0..180 {
+        if status(&pic, id).source.admitted_to_exclusive > last {
+            break;
+        }
+        tick(&pic);
+    }
+    assert!(status(&pic, id).source.admitted_to_exclusive > last);
+    playability_installed::one_tick(&pic, id);
+    playability_installed::record(&pic, id, &mut rows, &out);
+    let final_world = arena_world(&pic, id);
+    assert_eq!(final_world.deflectors.as_ref().unwrap().len(), 1);
+    assert_eq!(final_world.cannons.len(), 2);
+    assert!(final_world.cannons.iter().all(|c| c.cell != 4005));
+    assert_eq!(
+        final_world.cannons.iter().find(|c| c.id == 1).unwrap().cell,
+        4004
+    );
+    let mut artifacts = vec![];
+    let mut assigned = vec![];
+    let mut receipts = vec![];
+    for p in &rows {
+        let n = p.head.segment_id.as_ref().unwrap().0.to_string();
+        let raw = std::fs::read(out.join(format!("publication-{n}-artifact-1.bin"))).unwrap();
+        let audit: serde_json::Value = decode(&raw).unwrap();
+        receipts.extend(audit["receipts"].as_array().unwrap().iter().cloned());
+        artifacts.push(serde_json::json!({"segment_id":n,"events_hex":hex(&raw)}));
+        if let Some(s) = &p.head.seal {
+            assigned.extend(
+                payments
+                    .keys()
+                    .filter(|n| {
+                        s.source_from.0 <= (**n).into() && s.source_to_exclusive.0 > (**n).into()
+                    })
+                    .map(|n| n.to_string()),
+            );
+        }
+    }
+    assert_eq!(assigned.len(), payments.len());
+    for (n, reason) in expected {
+        let receipt = receipts
+            .iter()
+            .find(|r| r["position"]["$integer"].as_str() == Some(n.to_string().as_str()))
+            .unwrap();
+        assert_eq!(receipt["reason"], reason);
+        if reason != "ACCEPTED" {
+            assert_eq!(receipt["amount_used"]["$integer"], "0");
+            assert_eq!(receipt["remainder"], receipt["amount"]);
+        }
+    }
+    save(
+        &out,
+        "trace.json",
+        &serde_json::json!({"status":"PASS","initial_world_hex":hex(&initial),"publications":rows,"inputs":payments.iter().map(|(n,p)|serde_json::json!({"position":n.to_string(),"payload_hex":p})).collect::<Vec<_>>(),"assigned":assigned,"artifact_events":artifacts,"epoch_metadata":{}}),
+    );
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(&repo)
+            .args([
+                "tools/replay_s14.mjs",
+                out.join("trace.json").to_str().unwrap(),
+                out.join("replay.json").to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
+    save(
+        &out,
+        "result.json",
+        &serde_json::json!({"status":"PASS","scope":"Official valueless Ledger/Index; normal-module construction/Move/first-entry occupancy and independent replay; not production","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"receipts":receipts,"structures":final_world.deflectors,"cannons":final_world.cannons}),
+    );
+}
+
+#[test]
+fn boundary_deflector_paid_destruction_and_elapsed_expiry_after_real_activation() {
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
+        .join("boundary-real-lifecycle");
+    std::fs::create_dir_all(&out).unwrap();
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(&repo)
+            .args([
+                "tools/boundary_deflector_expiry_fixture.mjs",
+                out.join("genesis.bin").to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
+    let mut world = World::decode(&std::fs::read(out.join("genesis.bin")).unwrap()).unwrap();
+    let payers = [
+        Principal::self_authenticating([9; 32]),
+        Principal::self_authenticating([10; 32]),
+    ];
+    for (player, payer) in [(1u32, payers[0]), (2, payers[1])] {
+        let original = format!("{player:02x}").repeat(32);
+        let account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+        for c in &mut world.cannons {
+            if c.account == original {
+                c.account = account.clone();
+            }
+        }
+        for c in &mut world.credits {
+            if c.account == original {
+                c.account = account.clone();
+            }
+        }
+    }
+    world.credits.sort_by(|a, b| a.account.cmp(&b.account));
+    let initial = world.encode().unwrap();
+    let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers(
+        bytes("B2Z_S14_WASM"),
+        initial.clone(),
+        10000,
+        0,
+        &[payers[1]],
+    );
+    playability_installed::funding_paused(&pic, id, true);
+    let mut rows = vec![];
+    let mut payments = BTreeMap::new();
+    playability_installed::record(&pic, id, &mut rows, &out);
+    for kind in [
+        "torus",
+        "million",
+        "playability",
+        "entry",
+        "combined",
+        "deflector",
+    ] {
+        playability_installed::one_tick(&pic, id);
+        playability_installed::record(&pic, id, &mut rows, &out);
+        if kind == "torus" || kind == "million" {
+            playability_installed::old_transition(&pic, id, kind);
+        } else {
+            war_cry_installed::transition(&pic, id, kind);
+        }
+        playability_installed::record(&pic, id, &mut rows, &out);
+    }
+    assert_eq!(arena_world(&pic, id).version, 7);
+    let site = arena_world(&pic, id)
+        .cannons
+        .iter()
+        .find(|c| c.id == 1)
+        .unwrap()
+        .cell
+        + 1;
+    let memo = format!("DEFLECT {site} NE");
+    let n = transfer_text(&pic, ledger, payers[0], id, 10000000, memo.as_bytes());
+    payments.insert(n, deflector_payment_bytes(payers[0], 10000000, &memo));
+    for _ in 0..180 {
+        if status(&pic, id).source.admitted_to_exclusive > n {
+            break;
+        }
+        tick(&pic);
+    }
+    assert!(status(&pic, id).source.admitted_to_exclusive > n);
+    playability_installed::one_tick(&pic, id);
+    playability_installed::record(&pic, id, &mut rows, &out);
+    assert_eq!(arena_world(&pic, id).deflectors.as_ref().unwrap().len(), 1);
+    let memo = "FIRE 2 180 1|Forward!";
+    let n = transfer_text(&pic, ledger, payers[1], id, 1000000000, memo.as_bytes());
+    payments.insert(n, deflector_payment_bytes(payers[1], 1000000000, memo));
+    for _ in 0..180 {
+        if status(&pic, id).source.admitted_to_exclusive > n {
+            break;
+        }
+        tick(&pic);
+    }
+    assert!(status(&pic, id).source.admitted_to_exclusive > n);
+    for _ in 0..64 {
+        playability_installed::one_tick(&pic, id);
+        playability_installed::record(&pic, id, &mut rows, &out);
+        if arena_world(&pic, id)
+            .playability
+            .as_ref()
+            .unwrap()
+            .life(1)
+            .unwrap()
+            .deadline_ns
+            .is_some()
+        {
+            break;
+        }
+    }
+    let dormant = arena_world(&pic, id);
+    assert!(dormant.deflectors.as_ref().unwrap().is_empty());
+    let deadline = dormant
+        .playability
+        .as_ref()
+        .unwrap()
+        .life(1)
+        .unwrap()
+        .deadline_ns
+        .as_ref()
+        .unwrap()
+        .0
+        .to_string()
+        .parse::<u64>()
+        .unwrap();
+    let current = pic.get_time().as_nanos_since_unix_epoch();
+    assert!(deadline >= current);
+    pic.advance_time(Duration::from_nanos(deadline - current + 1));
+    for _ in 0..1800 {
+        pic.advance_time(Duration::from_millis(50));
+        for _ in 0..4 {
+            pic.tick();
+        }
+        if !arena_world(&pic, id).cannons.iter().any(|c| c.id == 1) {
+            break;
+        }
+    }
+    let final_world = arena_world(&pic, id);
+    assert!(!final_world.cannons.iter().any(|c| c.id == 1));
+    assert!(final_world.deflectors.as_ref().unwrap().is_empty());
+    assert_eq!(final_world.time, dormant.time);
+    assert_eq!(final_world.balls, dormant.balls);
+    assert_eq!(final_world.received_e8s, dormant.received_e8s);
+    assert_eq!(final_world.credits, dormant.credits);
+    playability_installed::record(&pic, id, &mut rows, &out);
+    let mut artifacts = vec![];
+    let mut assigned = vec![];
+    let mut metadata = BTreeMap::new();
+    let mut audit_events = vec![];
+    for p in &rows {
+        let n = p.head.segment_id.as_ref().unwrap().0.to_string();
+        let raw = std::fs::read(out.join(format!("publication-{n}-artifact-1.bin"))).unwrap();
+        let audit: serde_json::Value = decode(&raw).unwrap();
+        audit_events.extend(audit["events"].as_array().unwrap().iter().cloned());
+        artifacts.push(serde_json::json!({"segment_id":n,"events_hex":hex(&raw)}));
+        if let Some(s) = &p.head.seal {
+            assigned.extend(
+                payments
+                    .keys()
+                    .filter(|n| {
+                        s.source_from.0 <= (**n).into() && s.source_to_exclusive.0 > (**n).into()
+                    })
+                    .map(|n| n.to_string()),
+            );
+        }
+        if let Some(epoch) = &p.epoch {
+            if !metadata.contains_key(&epoch.transition_hash) {
+                let raw: Vec<u8> = get_query(
+                    &pic,
+                    id,
+                    "epoch_metadata",
+                    candid::encode_one(epoch.transition_hash.clone()).unwrap(),
+                );
+                assert_eq!(dtr_wire::hash(&raw), epoch.metadata_hash);
+                metadata.insert(epoch.transition_hash.clone(), hex(&raw));
+            }
+        }
+    }
+    assert_eq!(assigned.len(), 2);
+    assert!(
+        audit_events
+            .iter()
+            .any(|e| e["kind"] == "cannon_expired" && e["cannon"] == 1)
+    );
+    assert!(audit_events.iter().any(|e| {
+        e.get("removed_deflectors")
+            .and_then(|v| v.as_array())
+            .is_some_and(|a| a.len() == 1)
+    }));
+    save(
+        &out,
+        "trace.json",
+        &serde_json::json!({"status":"PASS","initial_world_hex":hex(&initial),"publications":rows,"inputs":payments.iter().map(|(n,p)|serde_json::json!({"position":n.to_string(),"payload_hex":p})).collect::<Vec<_>>(),"assigned":assigned,"artifact_events":artifacts,"epoch_metadata":metadata}),
+    );
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(&repo)
+            .args([
+                "tools/replay_s14.mjs",
+                out.join("trace.json").to_str().unwrap(),
+                out.join("replay.json").to_str().unwrap()
+            ])
+            .status()
+            .unwrap()
+            .success()
+    );
+    save(
+        &out,
+        "result.json",
+        &serde_json::json!({"status":"PASS","scope":"Normal module from synthetic v3 genesis, real authenticated lifecycle/entry/Rules11/Rules12 transitions, actual valueless Ledger payments, committed Deflector destruction and virtual24h expiry; independent replay; not production","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"deadline_ns":deadline.to_string(),"final_world":hex(&final_world.encode().unwrap())}),
     );
 }

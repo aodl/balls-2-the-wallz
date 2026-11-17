@@ -319,6 +319,11 @@ jobs:
             .work/ci-integration/s14-local/normal.wasm
             .work/ci-integration/s14-local/deployment/boundary-deflector/**
             .work/ci-integration/s14-local/deployment/boundary-capacity-loss/**
+            .work/ci-integration/s14-local/deployment/boundary-ownership/**
+            .work/ci-integration/s14-local/deployment/boundary-destruction-observers/**
+            .work/ci-integration/s14-local/deployment/boundary-island-lifecycle/**
+            .work/ci-integration/s14-local/deployment/boundary-occupancy-entry/**
+            .work/ci-integration/s14-local/deployment/boundary-real-lifecycle/**
             .work/ci-integration/s14-local/logs/**
             .work/ci-integration/s14-local/deployment/browser.log
             .work/ci-integration/s14-local/deployment/clearance-*.json

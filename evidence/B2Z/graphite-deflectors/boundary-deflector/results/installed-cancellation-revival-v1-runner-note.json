@@ -1,0 +1,7 @@
+{
+  "scope": "Completed local Rust test and per-case replay evidence; outer tool-owned Python wrapper exited143 without writing its final summary. Not a complete hosted/runner pass.",
+  "rust_test_result": "PASS",
+  "wrapper_result": "STOPPED143",
+  "log_sha256": "e150915e77f81bc99dfc06aeb018ac6034a462a62c063f2b25cd1ab2a298b8f4",
+  "original_result_preserved": ".work/boundary-deflector/installed-cancellation-revival-v1/result.json"
+}

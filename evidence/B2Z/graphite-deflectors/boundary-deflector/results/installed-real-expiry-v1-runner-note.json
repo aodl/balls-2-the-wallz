@@ -1,0 +1,7 @@
+{
+  "scope": "Completed local Rust test and per-case replay evidence; outer tool-owned Python wrapper exited143 without writing its final summary. Not a complete hosted/runner pass.",
+  "rust_test_result": "PASS",
+  "wrapper_result": "STOPPED143",
+  "log_sha256": "41118a59d969b43bd3357195f693e49056f5aeb7df9612818e6b4fc9c0ab2d24",
+  "original_result_preserved": ".work/boundary-deflector/installed-real-expiry-v1/result.json"
+}

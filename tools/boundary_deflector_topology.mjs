@@ -1,9 +1,10 @@
 /** New successor-only atomic topology vectors. Historical fixtures stay immutable. */
 import fs from'node:fs';import assert from'node:assert/strict';
 import{encodeCanonical,decodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';import{sha256}from'@dtr/timeline-runtime/runtime/seal';
-import{decodeWorld,encodeWorld,validateWorld,scaledOwnership,setOwner}from'../packages/kernels/b2z/world.mjs';
+import{decodeWorld,encodeWorld,validateWorld,scaledOwnership,setOwner,validStrike}from'../packages/kernels/b2z/world.mjs';
 import{migrateDeflectorWorld}from'../packages/kernels/b2z/deflectors-v12.mjs';import{CaptureJob}from'../packages/kernels/b2z/capture-v6.mjs';
 import{expireV6}from'../packages/kernels/b2z/lifecycle-v6.mjs';import{dueFences}from'../packages/kernels/b2z/playability.mjs';
+import{interactionWorld}from'../tests/scenarios/boundary-deflector.mjs';
 const source=JSON.parse(fs.readFileSync('tests/fixtures/capture-v6.json')),cases={};
 for(const name of[...Object.keys(source.cases),'unsupported-no-cannon','toroidal-split']){
  const v=source.cases[name==='unsupported-no-cannon'||name==='toroidal-split'?'left':name],w=migrateDeflectorWorld(decodeWorld(Buffer.from(v.before_hex,'hex')));let target=v.target;
@@ -26,5 +27,6 @@ for(const name of[...Object.keys(source.cases),'unsupported-no-cannon','toroidal
  const deadline=w.playability.lifecycle.filter(l=>l.deadline_ns!==undefined).reduce((n,l)=>l.deadline_ns>n?l.deadline_ns:n,0n);let expiry=null;if(deadline){const fences=dueFences(w,deadline),e=expireV6(w,deadline,fences);expiry={observed_ns:String(deadline),fences_hex:Buffer.from(encodeCanonical(fences)).toString('hex'),outputs:Object.fromEntries(Object.entries(e.output).map(([k,b])=>[k,{hex:Buffer.from(b).toString('hex'),sha256:sha256(b)}]))};assert(!decodeWorld(e.output.state).deflectors.some(d=>removed.includes(d.id)));}
  cases[name]={expiry,before_hex:Buffer.from(before).toString('hex'),target,ball:v.ball,pairs:v.pairs,state_hex:Buffer.from(encodeWorld(w)).toString('hex'),event_hex:Buffer.from(encodeCanonical(event)).toString('hex'),state_sha256:sha256(encodeWorld(w)),event_sha256:sha256(encodeCanonical(event)),removed,retained,work};
 }
-const text=JSON.stringify({scope:'Successor atomic proposals restored after every work unit. Separate from installed qualification.',cases},null,2)+'\n',path=process.argv[2];
+const w=interactionWorld(1,2);for(let cell=1500;cell<=1502;cell++)setOwner(w,cell,1);w.balls[0].cell=1502;w.balls[0].x0=514560n;validateWorld(w);const before=encodeWorld(w),strike={id:1,ball:1,owner:1,defender:2,from:1502,to:1503,axis:'x',born:[0n,1n],deadline:[1n,16n],position:[1536n,1n]};assert(validStrike(w,strike));assert.doesNotThrow(()=>CaptureJob.capture(w,1503,1));w.deflectors=[{id:1,owner:2,cell:1503,orientation:'NE'}];w.next_deflector_id=2;validateWorld(w);assert(!validStrike(w,strike));assert.throws(()=>CaptureJob.capture(w,1503,1));const protection={before_hex:Buffer.from(before).toString('hex'),protected_hex:Buffer.from(encodeWorld(w)).toString('hex'),strike_hex:Buffer.from(encodeCanonical(strike)).toString('hex'),ball:1,target:1503};
+const text=JSON.stringify({protection,scope:'Successor atomic proposals restored after every work unit. Separate from installed qualification.',cases},null,2)+'\n',path=process.argv[2];
 if(process.argv.includes('--check'))assert.equal(fs.readFileSync(path,'utf8'),text);else fs.writeFileSync(path,text);console.log('PASS',Object.keys(cases).length,'successor capture/cancellation/dormancy/seam vectors');

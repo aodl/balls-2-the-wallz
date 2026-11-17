@@ -75,3 +75,19 @@ fn successor_topology_removal_and_cancellation_match_independent_js() {
         assert_eq!(w.encode().unwrap(), committed);
     }
 }
+
+#[test]
+fn genuine_adjacent_enemy_capture_and_strike_are_blocked_only_by_structure() {
+    let f = fixture();
+    let v = &f["protection"];
+    let w = World::decode(&unhex(v["before_hex"].as_str().unwrap()).unwrap()).unwrap();
+    let protected = World::decode(&unhex(v["protected_hex"].as_str().unwrap()).unwrap()).unwrap();
+    let strike: b2z_native::world::Strike =
+        decode(&unhex(v["strike_hex"].as_str().unwrap()).unwrap()).unwrap();
+    assert!(w.valid_strike(&strike));
+    assert!(Job::capture(&w, 1503, 1).is_ok());
+    assert!(!protected.valid_strike(&strike));
+    let before = protected.encode().unwrap();
+    assert!(Job::capture(&protected, 1503, 1).is_err());
+    assert_eq!(protected.encode().unwrap(), before);
+}

@@ -65,3 +65,22 @@ export function interactionWorld(attacker=1,defender=2,face='W'){
 
 /** Destruction demonstration starts stable; only a later real enemy FIRE cuts it. */
 export function delayedLossWorld(){const w=lossWorld();w.balls[1].vx=32000;w.balls[1].vy=0;return validateWorld(w);}
+
+/** A later bridge attempt isolates two friendly balls without an anchor.
+ * The existing atomic pairing must cancel the transfer and preserve the survivor. */
+export function cancellationWorld(){
+ const w=delayedLossWorld();w.cannons=w.cannons.filter(c=>c.id!==2);w.cannons.find(c=>c.id===3).cell=10115;w.playability.lifecycle=w.playability.lifecycle.filter(l=>l.cannon!==2);
+ w.balls=[{id:1,owner:1,cell:117,x0:120320n,y0:512n,vx:1,vy:0,den:1n},{id:2,owner:1,cell:118,x0:121344n,y0:512n,vx:1,vy:0,den:1n},{id:3,owner:2,cell:10115,x0:118272n,y0:10752n,vx:1,vy:0,den:1n}];
+ setOwner(w,1115,0);setOwner(w,10115,3);w.next_ball_id=4;return validateWorld(w);
+}
+
+/** Identical paid loss geometry translated across x=999/0, no new physics. */
+export function seamLossWorld(){
+ const w=lossWorld(),old=w.ownership.overrides,shift=c=>Math.floor(c/1000)*1000+(c%1000+885)%1000;w.ownership=scaledOwnership(Array(1024).fill(0));for(const r of old)for(let c=r.start;c<r.end;c++)setOwner(w,shift(c),r.owner);for(const c of w.cannons)c.cell=shift(c.cell);for(const b of w.balls){b.cell=shift(b.cell);b.x0=(b.x0-117760n+1024000n)%1024000n;}return validateWorld(w);
+}
+
+/** Real historical lifecycle activation rehearsal: no fabricated Root markers. */
+export function expiryPredecessorWorld(){
+ const cells=Array(128).fill(0);cells[50]=1;cells[51]=1;cells[52]=2;
+ return validateWorld({version:3,width:16,height:8,cells,cannons:[{id:1,cell:50,account:ACCOUNT},{id:2,cell:52,account:'02'.repeat(32)}],balls:[{id:1,owner:1,cell:51,x0:3584n,y0:3584n,vx:1,vy:0},{id:2,owner:2,cell:52,x0:4608n,y0:3584n,vx:0,vy:1}],time:[0n,1n],next_cannon_id:3,next_ball_id:3,pending:[],next_strike_id:1,received_e8s:0n,credits:[{account:ACCOUNT,units:[0n,1n]},{account:'02'.repeat(32),units:[0n,1n]}]});
+}

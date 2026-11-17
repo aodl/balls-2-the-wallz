@@ -21,7 +21,7 @@ maximum numerator41bits, no mirror response, chain
 `bd2ae809042dec76a8aa64694369e53d30f50ae17773ec1077c88e5f128d3b03`.
 The matching native execution completed with identical full JSON and chain hash; this is a local JS/native parity pass, not hosted or installed qualification.
 
-The current native interpreter passed141 shared complete state/event/score vectors,
+The current native interpreter passed143 shared complete state/event/score vectors,
 including exact bytes and durable restore (376.35seconds). The expanded fixture adds
 near-parallel incoming shots after cannon reflections, toroidal exact corners and
 real strike-driven ownership loss. The focused current JS
@@ -117,3 +117,66 @@ disposable Ledger genesis balances. The removal browser stopped because PocketIC
 returned the valid loopback hostname `localhost` while the harness checked only
 `127.0.0.1`. Corrections are limited to disposable payer setup and an explicit
 loopback URL allowlist; no runtime, integrity or timeout guarantee was relaxed.
+
+## Current frozen frontend and local acceptance continuation
+
+Clean frontend runtime/build source is
+`c99aa6a859fe48d4de4f34a8332f93498510cb52`. Its81-file inventory contains80 public
+assets plus the consumed upload policy: JavaScript
+`c5b688ae74527cb30e7b50f06141d429f237eef0297ed7eba0192d268e0d8c9b`, inventory
+`b1aec90f85c5a4b4220f160900b93bcf400b53e65cd4894a0695854c546d456e`.
+The unchanged audio manifest remains
+`76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c`.
+All61 sound files match the qualified graphite predecessor. Exact consumed-input
+parity and full-byte frontend reproduction pass locally. This freeze is not yet
+a six-gate-qualified release. An earlier dirty-source build is retained only at
+`.work/boundary-deflector/build-attempts/dirty-0861243`, never relabelled as clean.
+
+The final local synthetic native-browser controls journey passes1440×900,
+390×844 and320×640 with real clipboard/paste, touch/keyboard input, all four actual
+wedge-matrix directions,44px targets, frozen Update/Keep, protected/reconnecting
+editor availability, zero status-only panel drift and WebGL context restoration.
+[Actual application captures](GALLERY.md) retain the approved shared panel.
+These are synthetic scene tests, not production or physical-device acceptance.
+
+Focused normal-module local installed passes now include eight genuine paid
+ownership/front-rear combinations, with exact independent replay and no direct
+capture or strike against the occupied tile. A separate live disposable test
+purchases structures119NW/103SE, then admits a real enemy `FIRE 3 270 1|Advance!`
+after two native observers are ready. The bridge cut destroys only119;103 survives,
+cannon2 becomes dormant, and both observers reconstruct identical committed
+structure changes. Strict pinned-certificate/query-wire capture reconstructs five
+publications with all paid inputs assigned once. Six additional independent replay
+negatives reject forged/omitted destruction, changed purchased orientation,
+missing events, reordered source positions and duplicate payments.
+
+Whole remaining-publication cost observations after a durable-stage normal-module
+upgrade:64-ball/256-structure case5020881768 cycles; paid ownership-loss
+case182366366 cycles. These include controller/source/game work and are **not**
+isolated Deflector overhead. Matched software renderer measurements and their
+shared-host limitations are retained in `results/renderer-*.json`.
+
+The ordinary local source checker passed, including2015 JS tests, protocol/source
+fixtures, syntax/exports, docs and Python tool tests. It began at an earlier
+checkpoint while further test-only cases were added; it is not exact-final-source
+or hosted qualification. Final hosted CI must cover the complete published source.
+
+## Installed addendum completion and runner limits
+
+Local normal-module cases now demonstrate actual paid cancellation with one
+friendly survivor and both structures retained; paid revival without restoring a
+destroyed structure; real paid seam-crossing loss; and automatic dormant-cannon
+expiry after virtual24h. The expiry test starts from a synthetic v3 genesis and
+executes real torus, million, playability, entry, Rules11 and successor epochs.
+It does not forge a completed Root marker or weaken the lifecycle guard.
+Independent replay matches35 publications,28 gameplay intervals and7 checkpoints.
+The earlier schema7-genesis expiry attempt was explicitly stopped because it
+correctly lacked the completed historical lifecycle marker; its raw evidence is
+retained. No new test hook or production lifecycle change was introduced.
+
+For the two long addendum runs, the Rust test printed exactly one passing test and
+wrote its complete per-case results/replays, but the outer tool-owned Python
+wrapper exited143 and left its summary RUNNING. The reviewed runner notes preserve
+that distinction. These are completed local runtime-case results, **not** full
+runner or hosted qualification passes. Final CI must finish normally on exact
+published source; no process interruption is relabelled as a six-gate pass.

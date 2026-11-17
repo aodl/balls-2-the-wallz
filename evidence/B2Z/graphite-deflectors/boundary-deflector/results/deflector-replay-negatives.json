@@ -1,0 +1,26 @@
+{
+  "status": "PASS",
+  "scope": "Independent exact replay of captured disposable normal-module history plus adversarial changes; certificate evidence remains separately pinned",
+  "authenticated_history": ".work/boundary-deflector/installed-destruction-v3/deployment/boundary-destruction-observers/authenticated-after/authenticated-history.json",
+  "positive": {
+    "status": "PASS",
+    "segments": 5,
+    "gameplay_segments": 5,
+    "application_checkpoints": 0,
+    "assigned": [
+      "2",
+      "3",
+      "4"
+    ],
+    "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+    "work_budget": 23
+  },
+  "negatives": [
+    "forged structure removal",
+    "omitted committed structure removal",
+    "changed purchased orientation",
+    "missing authenticated event artifact",
+    "reordered source positions",
+    "duplicate normalized payment position"
+  ]
+}
