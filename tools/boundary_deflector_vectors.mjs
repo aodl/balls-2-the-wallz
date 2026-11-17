@@ -2,7 +2,7 @@
 import fs from'node:fs';import{B2zCursor}from'../packages/kernels/b2z/kernel.mjs';
 import{DEFLECTOR_IDENTITY,encodeWorld,decodeWorld}from'../packages/kernels/b2z/world.mjs';
 import{encodeCanonical,decodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';import{sha256}from'@dtr/timeline-runtime/runtime/seal';
-import{successorWorld,ACCOUNT,enemyWorld,capacityWorld,diamondWorld,steepWorld,lossWorld}from'../tests/scenarios/boundary-deflector.mjs';
+import{successorWorld,ACCOUNT,enemyWorld,capacityWorld,diamondWorld,steepWorld,lossWorld,interactionWorld,delayedLossWorld}from'../tests/scenarios/boundary-deflector.mjs';
 import{encodeDeflectorPayment}from'../packages/protocol/deflector.mjs';
 const hex=b=>Buffer.from(b).toString('hex'),rows=[];
 function row(name,world,commands,recover=false,rawInputs=null){
@@ -12,6 +12,7 @@ function row(name,world,commands,recover=false,rawInputs=null){
  const observed=world.playability.elapsed_ns+1n;cursor.finalizeElapsed(observed);const outputs=Object.fromEntries(Object.entries(cursor.result()).map(([k,b])=>[k,{hex:hex(b),sha256:sha256(b)}]));
  rows.push({name,initial_hex:hex(initial),inputs_hex:hex(encodeCanonical(inputs)),context_hex:hex(encodeCanonical(context)),observed_ns:String(observed),recover_each_work_unit:recover,outputs});
 }
+for(const attacker of[1,2])for(const defender of[1,2])for(const face of['W','E'])for(const orientation of['NE','SE','SW','NW'])row(`ownership-${attacker}-${defender}-${face}-${orientation}`,interactionWorld(attacker,defender,face),[{account:defender.toString(16).padStart(2,'0').repeat(32),command:{kind:'deflect',cell:face==='W'?1503:1496,orientation}}]);
 const poses={W:{cell:1002,heading:0},N:{cell:2001,heading:16384},E:{cell:1000,heading:32768},S:{cell:1,heading:49152}};
 for(const orientation of['NE','SE','SW','NW'])for(const[face,p]of Object.entries(poses))for(const delta of[-4096,0,4096])row(`${orientation}-${face}-${delta}`,successorWorld((p.heading+delta+65536)%65536),[{command:{kind:'deflect',cell:p.cell,orientation}}]);
 for(const orientation of['NE','SE','SW','NW'])row('near-parallel-cannon-reflection-'+orientation,steepWorld(),[{command:{kind:'deflect',cell:1002,orientation}}]);
@@ -49,7 +50,9 @@ for(const name of['bridge_left','wall_pair','mutual']){
  if(name==='bridge_left'){w.deflectors=[{id:1,owner:1,cell:104,orientation:'NE'}];w.next_deflector_id=2;}
  row('successor-topology-'+name,w,[],true);
 }
+row('paid-stable-before-future-bridge-loss',delayedLossWorld(),[119,103].map((cell,i)=>({command:{kind:'deflect',cell,orientation:i?'SE':'NW'}})));
 row('paid-safe-then-genuine-bridge-loss',lossWorld(),[{command:{kind:'deflect',cell:119,orientation:'NW'}}],true);
+const revived=JSON.parse(fs.readFileSync('tests/fixtures/boundary-deflector-topology-v12.json'));row('revival-does-not-restore-destroyed-deflector',decodeWorld(Buffer.from(revived.cases.left.state_hex,'hex')),[{amount:1000000000n,command:{kind:'fire',cannon:2,angle:0,quantity:1},cry:'Return!'}],true);
 const cryA=rows.find(r=>r.name==='successor-retains-annotation/fire'),cryB=rows.find(r=>r.name==='successor-retains-annotation/fire-alt');if(cryA.outputs.state.sha256!==cryB.outputs.state.sha256)throw Error('cosmetic War Cry changed gameplay');
 const result={scope:'New provisional Rules12 public-output vectors. Python Fraction oracle independently covers contact algebra. Not installed qualification.',identity:DEFLECTOR_IDENTITY,rows};
 const text=JSON.stringify(result,null,2)+'\n';if(process.argv.includes('--check')){if(fs.readFileSync(process.argv[2],'utf8')!==text)throw Error('Stale new Deflector vectors');}else fs.writeFileSync(process.argv[2],text);console.log('PASS',process.argv.includes('--check')?'checked':'generated',rows.length,'new vectors; no historical fixtures changed');

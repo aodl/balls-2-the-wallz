@@ -13,19 +13,19 @@ replaces the rejected rearm experiment; this remains provisional owner policy.
 The adjacent negative control produced195494 contacts/tick. See the decision
 register and numerical proof; neither constitutes production authority.
 
-Current numerical evidence includes the independent Python Fraction160-face oracle,
+Current local numerical evidence includes the independent Python Fraction160-face oracle,
 all65536 launch headings and11 algebraic JS/Rust chains up to100000 redirects.
 Actual JavaScript immutable-diamond execution completed100010 redirects over6789
 successive kernel seals with periodic cursor restoration: denominator<=11315,
 maximum numerator41bits, no mirror response, chain
 `bd2ae809042dec76a8aa64694369e53d30f50ae17773ec1077c88e5f128d3b03`.
-The matching long native execution is still running; do not call it a parity pass.
+The matching native execution completed with identical full JSON and chain hash; this is a local JS/native parity pass, not hosted or installed qualification.
 
-The current native interpreter passed109 shared complete state/event/score vectors,
+The current native interpreter passed141 shared complete state/event/score vectors,
 including exact bytes and durable restore (376.35seconds). The expanded fixture adds
 near-parallel incoming shots after cannon reflections, toroidal exact corners and
 real strike-driven ownership loss. The focused current JS
-suite passed25 tests. A topology regression exposed stale structures during
+suite passed40 tests including the capture-island addendum. A topology regression exposed stale structures during
 private split validation; JS/Rust now remove them atomically and include the exact
 removed list in the authenticated capture output. No old goldens were rewritten.
 
@@ -44,11 +44,17 @@ logical horizon10^9, the legal two-Deflector corridor produced4161 events,
 produced2817 events,960 redirects and385333 bytes. Both remain inside existing
 limits. This is synthetic JS execution, not isolated IC instruction/cycle cost.
 
-Normal-module compilation and installed-harness compilation have succeeded at
-intermediate sources. The post-topology normal build has completed; its test-hooks setup build is running;
-no new backend has been frozen or installed on production. Official valueless
-Ledger/Index paid Deflectors, actual installed redirects, upgrade/certificate/
-financial/replay negatives and two authenticated observers still require execution.
+Local normal module `dfc6a7bbe22a0d7688aa18975fdef434a153f84f4dbdf7be59d4cb96783947e1`
+compiled and passed the focused installed Rules11 upgrade, paid purchases, actual
+redirects, independent replay, strict certificate/source/artifact negatives and
+two native authenticated observers. Both observers received a fresh actual
+valueless Ledger FIRE with `Together!` after they were ready; its successful launch
+produced the same authenticated bubble, native5/35-second visibility and55+5-second
+lifetime. Separate maximum-capacity and paid ownership-loss installed tests passed.
+These dirty-source local rehearsals do not qualify the final frozen/hosted module.
+Additional paid ownership-combination and two-observer destruction tests are in
+progress; their initial harness failures are retained, not reported as passes.
+No backend has been installed on production.
 The installed suite now contains dedicated64-ball/256-structure and actual paid
 ownership-loss cases with normal-module interruption and independent replay.
 
@@ -90,3 +96,24 @@ forward-compatible state-preserving recovery, never reinstall/reset/reindex.
 See [DECISIONS.md](DECISIONS.md) and [RELEASE_PLAN.md](RELEASE_PLAN.md) for
 provisional gameplay/economics and separately approvable frontend/backend steps.
 This is an ongoing implementation checkpoint, not completion or release approval.
+
+## Capture/island addendum checkpoint
+
+The owner confirmed direct-capture immunity for all ball owners and non-anchor
+lifecycle semantics. Thirty-two ownership/face/orientation cursor cases pass JS;
+the shared public-output fixture and native runner retain exact byte parity.
+Fourteen new atomic capture cases include surviving, dormant, unanchored,
+cancelled, unsupported and seam-split sections, with restoration after every
+private work unit and unchanged committed bytes until completion. Native capture
+hashes agree. JS tests additionally cover protected pending-strike validation,
+shared cannon/Deflector/ball occupancy, first-entry exclusion and revival/expiry
+without resurrecting destroyed structures. Native explicit expiry vectors and
+installed observer-destruction qualification are being added. See the final
+coverage register before treating any requirement as fully qualified.
+
+Earlier local attempts remain retained. The new ownership installed attempt
+stopped because its second synthetic payer had not been included in the official
+disposable Ledger genesis balances. The removal browser stopped because PocketIC
+returned the valid loopback hostname `localhost` while the harness checked only
+`127.0.0.1`. Corrections are limited to disposable payer setup and an explicit
+loopback URL allowlist; no runtime, integrity or timeout guarantee was relaxed.

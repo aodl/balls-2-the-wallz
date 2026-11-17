@@ -168,3 +168,10 @@ chains, cursor restoration and shared public-output vectors. Record actual compl
 counts/hashes in the closeout report; a started or running job is not a pass.
 Native arithmetic and software-rendered captures do not imply IC certification,
 physical-phone performance, subjective audio acceptance or completed hosted CI.
+
+The owner explicitly confirmed the corrected compass table on2026-11-17.
+`config/rules/v12-boundary-deflector.json` is the one authoritative mapping;
+`generate_playability.mjs` pins generated JS and Rust orientation tables shared
+by parsing, execution and rendering. Cannon/Fire and historical heading semantics
+are unchanged. Actual renderer matrix regressions check the wedge's local+X tip
+projects along the intended outgoing world vector for all four directions.

@@ -1,11 +1,12 @@
 /** Exact four-direction trajectory algebra; admission is separately versioned. */
 import {gcd, heading, rat, cmp} from './math.mjs';
+import{ORIENTATIONS,DEFLECTOR_HEADINGS}from'../../protocol/deflector-orientation.generated.mjs';
 
 export const DIAGONAL_COMPONENT = 22627;
-export const DEFLECTOR_DIRECTIONS = Object.freeze(['NE', 'SE', 'SW', 'NW']);
+export const DEFLECTOR_DIRECTIONS = ORIENTATIONS;
 // Canonical heading increases towards positive y (south). Preserve cannon math;
 // the owner's direction/face table takes precedence over its inverted angles.
-const ANGLES = Object.freeze([57344, 8192, 24576, 40960]);
+const ANGLES = Object.freeze(ORIENTATIONS.map(d=>DEFLECTOR_HEADINGS[d]));
 export function orientationHeading(orientation){const i=DEFLECTOR_DIRECTIONS.indexOf(orientation);if(i<0)throw Error('deflector orientation');return ANGLES[i];}
 export function directionVelocity(orientation) {
   const i = DEFLECTOR_DIRECTIONS.indexOf(orientation);

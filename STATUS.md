@@ -1,3 +1,17 @@
+# Boundary Deflector continuation — not deployed, qualification incomplete
+
+The isolated `feature/b2z-boundary-deflector` worktree implements the four-direction
+boundary successor to Rules11. Exact rational trajectories, paid adapter7,
+protected non-anchor structures, graphite controls and migration are implemented.
+Local numerical, native and disposable installed evidence is retained under
+`evidence/B2Z/graphite-deflectors/boundary-deflector/`; final frozen identities and
+six hosted gates are still required. No current candidate is production approved.
+The original graphite/Rules11 freezes and the paid Rules7 game remain untouched.
+The previous graphite checkpoint below is historical, not this implementation's
+current feature status. P09 remains FAIL/unqualified.
+
+---
+
 # Isolated graphite/Deflector checkpoint — not deployed
 
 17 November2026: this worktree is `feature/b2z-graphite-deflectors`, based on

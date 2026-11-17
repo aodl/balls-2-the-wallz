@@ -1,7 +1,7 @@
 //! Adapter7 only. Historical codecs never accept these commands.
 use crate::{v6, war_cry, MemoError};
 pub const MEMO_ADAPTER_VERSION: u8 = 7;
-pub const ORIENTATIONS: [&str; 4] = ["NE", "SE", "SW", "NW"];
+include!("deflector_orientation_generated.rs");
 #[derive(Clone, Copy, Debug, PartialEq, Eq)]
 pub enum Command {
     Deflect { cell: u32, orientation: u8 },

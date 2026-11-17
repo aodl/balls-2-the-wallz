@@ -3,7 +3,8 @@ import{validRat}from'./math.mjs';
  * All arithmetic values remain exact. Owner is immutable for an authenticated
  * ball ID and is taken from its verified initial snapshot or spawn event.
  */
-const orientations=['NE','SE','SW','NW'],faces=['N','E','S','W'];
+import{ORIENTATIONS as orientations}from'../../protocol/deflector-orientation.generated.mjs';
+const faces=['N','E','S','W'];
 const decimal=(v,max)=>{if(typeof v!=='string'||v.length>max||!/^(0|-?[1-9][0-9]*)$/.test(v))throw Error('Deflector decimal integer');return BigInt(v);};
 export function packDeflectorEvent(e){
  if(e.kind!=='motion')return e;const b=e.ball_state,c=e.deflector_contact;

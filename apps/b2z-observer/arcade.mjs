@@ -1,4 +1,4 @@
-import{deflectorSupported,snappedDeflectorDegrees,orientationFromDegrees}from'./deflector-policy.mjs';
+import{deflectorSupported,snappedDeflectorDegrees,orientationFromDegrees,deflectorDegrees}from'./deflector-policy.mjs';
 import{deflectorSites}from'./deflector-sites.mjs';
 import {paneAccent} from './theme.mjs';
 import {fitCry,validateCry}from'../../packages/protocol/war-cry.mjs';
@@ -225,7 +225,7 @@ export function createArcade(doc){
   intentContext:()=>[context,world?.version,declaration?.account,id,selected()?.cell,mode,intentVersion].join('/'),revision:()=>revision,
 
   aimAt(dx,dy){if(mode==='deflect'){worldAngle=snappedDeflectorDegrees(Math.atan2(dy,dx)*180/Math.PI);degrees=displayHeading(worldAngle);keepPrevious=false;clearDraft();refresh();return;}if(mode!=='ball'&&mode!=='start')return;degrees=String(Math.round(worldToScreen(Math.atan2(dy,dx)*180/Math.PI)*100)/100%360);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
-  setDeflectorOrientation(value){if(mode!=='deflect'||!deflectorSupported(config)||!['NE','SE','SW','NW'].includes(value))return false;worldAngle=String({NE:315,SE:45,SW:135,NW:225}[value]);degrees=displayHeading(worldAngle);keepPrevious=false;clearDraft();refresh();return true;},
+  setDeflectorOrientation(value){if(mode!=='deflect'||!deflectorSupported(config)||!['NE','SE','SW','NW'].includes(value))return false;worldAngle=deflectorDegrees(value);degrees=displayHeading(worldAngle);keepPrevious=false;clearDraft();refresh();return true;},
   setHeading(value){if(!Number.isFinite(value))return;if(mode==='deflect'){worldAngle=snappedDeflectorDegrees(encodedHeading(String((value%360+360)%360)));degrees=displayHeading(worldAngle);keepPrevious=false;clearDraft();refresh();return;}degrees=String((value%360+360)%360);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
   destinationState:()=>({ready:moveReady,cell:defaultMove,key:moveKey,stats:moveSearch?.stats,cacheBytes:moveLegality?.bytes,cacheInspections:moveLegality?.inspected()}),
   proposedAction:()=>Object.freeze({mode,cell,degrees,worldAngle,quantity,...(warCrySupported(config)?{cry}:{} )}),

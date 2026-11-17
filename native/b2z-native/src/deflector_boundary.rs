@@ -101,13 +101,11 @@ impl Trajectory {
     }
 }
 pub fn face_velocity(orientation: &str, face: &str) -> Result<(bool, i32, i32)> {
-    let angle = match orientation {
-        "NE" => 57344,
-        "SE" => 8192,
-        "SW" => 24576,
-        "NW" => 40960,
-        _ => return Err("orientation".into()),
-    };
+    let ordinal = b2z_protocol::deflector::ORIENTATIONS
+        .iter()
+        .position(|d| *d == orientation)
+        .ok_or("orientation")?;
+    let angle = b2z_protocol::deflector::HEADINGS[ordinal];
     let (x, y) = b2z_mechanics::heading(angle, 32000).map_err(|_| "heading")?;
     let (nx, ny) = match face {
         "N" => (0, -1),

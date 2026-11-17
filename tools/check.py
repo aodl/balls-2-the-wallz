@@ -131,6 +131,7 @@ def planned_checks(mode,outdir):
       ('entry-rules-vectors',['node','tools/entry_vectors.mjs','--check'],'normal',('node',),120),
       ('clearance-rules-vectors',['node','tools/clearance_vectors.mjs','--check'],'normal',('node',),120),
       ('combined-rules-vectors',['node','tools/combined_vectors.mjs','--check'],'normal',('node',),300),
+      ('boundary-deflector-topology-vectors',['node','tools/boundary_deflector_topology.mjs','tests/fixtures/boundary-deflector-topology-v12.json','--check'],'normal',('node',),120),
       ('boundary-deflector-vectors',['node','tools/boundary_deflector_vectors.mjs','tests/fixtures/boundary-deflector-v12.json','--check'],'normal',('node',),300),
       ('adjacent-cannon-vectors',['node','tools/adjacent_cannon_vectors.mjs','--check'],'normal',('node',),120),
       ('observer-recordings',['node','tools/build_observer_recordings.mjs','--check'],'normal',('node',),180),

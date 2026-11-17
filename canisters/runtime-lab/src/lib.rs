@@ -3222,12 +3222,11 @@ fn prepare_deflector_transition() -> std::result::Result<Vec<u8>, String> {
     }
     if h.record.journal.head.seal.is_none()
         && h.record.journal.stage.is_none()
-        && !h
-            .record
+        && h.record
             .journal
             .epoch
             .as_ref()
-            .is_some_and(|e| e.version == 3)
+            .is_none_or(|e| e.version != 3)
     {
         return Err("finish one Rules11 interval before Deflector preparation".into());
     }

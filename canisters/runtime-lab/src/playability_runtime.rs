@@ -442,12 +442,11 @@ pub fn deflector_candidate<K: Kernel>(
     let state = unhex(&h.record.journal.head.state_hex)?;
     let old = World::decode(&state)?;
     if h.record.journal.head.seal.is_none()
-        && !h
-            .record
+        && h.record
             .journal
             .epoch
             .as_ref()
-            .is_some_and(|e| e.version == 3)
+            .is_none_or(|e| e.version != 3)
     {
         return Err(
             "deflector requires a completed Rules11 interval, not a consecutive rules epoch".into(),

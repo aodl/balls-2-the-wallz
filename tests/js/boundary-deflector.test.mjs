@@ -131,3 +131,19 @@ test('a paid safe Deflector is removed by a subsequent genuine bridge strike',as
 test('simultaneous toroidal corner retains canonical blocked vertex semantics',()=>{
  const w=successorWorld(40960,0),r=run(w,[{command:{kind:'deflect',cell:999999,orientation:'NE'}}]),a=unpackDeflectorAudit(decodeCanonical(r.events),w.balls),e=a.events.find(e=>e.kind==='motion');assert(e.vertex_blocked);assert.equal(e.deflector_contact,undefined);assert.equal(e.ball_state.cell,0);assert.deepEqual([e.ball_state.vx,e.ball_state.vy],[22627,22627]);const next=a.events.find(x=>x.kind==='motion'&&x.sequence>e.sequence);assert(next&&next.time[0]*e.time[1]>e.time[0]*next.time[1]);
 });
+
+test('owner-approved compass mapping is shared and opposite outputs preserve cannon headings',async()=>{
+ const {ORIENTATIONS,DEFLECTOR_HEADINGS}=await import('../../packages/protocol/deflector-orientation.generated.mjs'),{orientationHeading,directionVelocity}=await import('../../packages/kernels/b2z/deflector-boundary.mjs'),{heading}=await import('../../packages/kernels/b2z/math.mjs'),{orientationFromDegrees,deflectorDegrees}=await import('../../apps/b2z-observer/deflector-policy.mjs');
+ const expected={NE:[57344,22627,-22627,'N','S'],SE:[8192,22627,22627,'E','W'],SW:[24576,-22627,22627,'S','N'],NW:[40960,-22627,-22627,'W','E']};
+ for(const [name,[angle,x,y,front,rear]]of Object.entries(expected)){assert.equal(DEFLECTOR_HEADINGS[name],angle);assert.equal(orientationHeading(name),angle);assert.deepEqual(directionVelocity(name),[x,y]);assert.deepEqual(heading(angle,32000),[x,y]);assert.equal(orientationFromDegrees(deflectorDegrees(name)),name);const a=faceVelocity(name,front),b=faceVelocity(name,rear);assert(a.front&&!b.front);assert.deepEqual([a.vx,a.vy],[x,y]);assert.deepEqual([b.vx,b.vy],[-x,-y]);const opposite=ORIENTATIONS[(ORIENTATIONS.indexOf(name)+2)%4];assert.equal((angle+32768)%65536,orientationHeading(opposite));}
+ assert.deepEqual(heading(0,32000),[32000,0]);assert.deepEqual(heading(16384,32000),[0,32000]);assert.deepEqual(heading(32768,32000),[-32000,0]);assert.deepEqual(heading(49152,32000),[0,-32000]);
+});
+
+test('all ownership combinations redirect at the protected boundary without capturing or arming it',async()=>{
+ const{interactionWorld}=await import('../scenarios/boundary-deflector.mjs'),{playerAt}=await import('../../packages/kernels/b2z/world.mjs'),{CaptureJob}=await import('../../packages/kernels/b2z/capture-v6.mjs');
+ for(const attacker of[1,2])for(const defender of[1,2])for(const face of['W','E'])for(const orientation of['NE','SE','SW','NW']){
+  const w=interactionWorld(attacker,defender,face),cell=face==='W'?1503:1496,account=defender.toString(16).padStart(2,'0').repeat(32),r=run(w,[{account,command:{kind:'deflect',cell,orientation}}]),state=decodeWorld(r.state),audit=unpackDeflectorAudit(decodeCanonical(r.events),w.balls);
+  assert.equal(audit.receipts[0].reason,'ACCEPTED');const impact=audit.events.find(e=>e.ball===1&&e.deflector_contact);assert(impact,`${attacker}/${defender}/${face}/${orientation}`);assert.equal(impact.deflector_contact.face,face);const v=faceVelocity(orientation,face);assert.deepEqual([impact.ball_state.vx,impact.ball_state.vy],[v.vx,v.vy]);assert.notEqual(impact.ball_state.cell,cell);assert.equal(state.balls.find(b=>b.id===1).owner,attacker);assert.equal(playerAt(state,cell),defender);assert.equal(state.deflectors[0].owner,defender);assert(!state.pending.some(p=>p.to===cell));assert(!audit.events.some(e=>(e.target===cell&&e.kind==='capture')||(e.kind==='strike_armed'&&e.strike.to===cell)));assert.equal(state.cannons.length,2);assert.equal(state.balls.length,2);
+  const protectedWorld=structuredClone(w);protectedWorld.deflectors=[{id:1,cell,owner:defender,orientation}];protectedWorld.next_deflector_id=2;validateWorld(protectedWorld);assert.throws(()=>CaptureJob.capture(protectedWorld,cell,1),/INVALID_CAPTURE/);
+ }
+});

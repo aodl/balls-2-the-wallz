@@ -1,3 +1,4 @@
+import{ORIENTATIONS}from'../../packages/protocol/deflector-orientation.generated.mjs';
 /** Validated presentation facts, never local construction or ball simulation. */
 import{gcd,validRat,cmp,rat}from'../../packages/kernels/b2z/math.mjs';
 import{encodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';
@@ -11,7 +12,7 @@ export function validateRationalTrack(b){
  check(b.deflector_rearm===undefined,'unsupported rearm field');
 }
 function structure(view,d){
- check(d&&Object.keys(d).sort().join(',')==='cell,id,orientation,owner'&&Number.isSafeInteger(d.id)&&d.id>0&&d.id<4294967295&&Number.isSafeInteger(d.cell)&&d.cell>=0&&d.cell<1000000&&['NE','SE','SW','NW'].includes(d.orientation),'entity');
+ check(d&&Object.keys(d).sort().join(',')==='cell,id,orientation,owner'&&Number.isSafeInteger(d.id)&&d.id>0&&d.id<4294967295&&Number.isSafeInteger(d.cell)&&d.cell>=0&&d.cell<1000000&&ORIENTATIONS.includes(d.orientation),'entity');
  check(view.playability.players.some(p=>p.id===d.owner)&&view.playerForTerritory(view.owner(d.cell))===d.owner,'canonical owner');
  check(![...view.cannons.values()].some(c=>c.cell===d.cell),'cannon conflict');
 }

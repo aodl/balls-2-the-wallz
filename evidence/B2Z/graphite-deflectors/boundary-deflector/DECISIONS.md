@@ -7,7 +7,7 @@ qualification; the closeout report must supply the final artifact hashes.
 | Decision | Candidate treatment | Required owner decision |
 |---|---|---|
 | Contact law | Every genuine single face uses orientation/front-rear only; position continuous, canonical diagonal speed | Confirm final gameplay policy |
-| Heading conflict | Positive-y south existing helper: NE57344, SE8192, SW24576, NW40960; named face table preserved | Approve corrected numeric labels; cannon math unchanged |
+| Heading conflict | Positive-y south existing helper: NE57344, SE8192, SW24576, NW40960; named face table preserved | Confirmed by owner2026-11-17 for development; cannon math unchanged |
 | Vertex | Existing simultaneous blocked-vertex response, no invented front/rear classification | Approve explicit exceptional policy |
 | Adjacent trap | Reject Deflectors at toroidal Chebyshev tile distance<2; includes diagonals/seams | Approve one-clear-tile spacing as a new provisional placement restriction |
 | Rearm research | Rejected; no incoming-dependent mirror fallback/cooldown/ignored hit | No rearm implementation is proposed for release |

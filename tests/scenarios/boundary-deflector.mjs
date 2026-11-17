@@ -44,3 +44,24 @@ export function lossWorld(){
  w.balls[0].vx=1;w.balls[0].vy=0;w.balls.push({id:2,owner:2,cell:1115,x0:118272n,y0:1536n,vx:0,vy:-32000,den:1n});
  w.next_cannon_id=4;w.next_ball_id=3;Object.assign(w.playability,{next_player_id:3,next_territory_id:4,players:[{id:1,account:ACCOUNT},{id:2,account:'02'.repeat(32)}],territories:[{id:1,player:1},{id:3,player:2}],lifecycle:[{cannon:1,player:1,generation:1},{cannon:2,player:1,generation:1},{cannon:3,player:2,generation:1}]});w.credits.push({account:'02'.repeat(32),units:[0n,1n]});return validateWorld(w);
 }
+
+/** A genuine hostile frontier, with a purchasable device four cells behind it.
+ * Owner combinations are explicit; collision response must never branch on them. */
+export function interactionWorld(attacker=1,defender=2,face='W'){
+ const w=successorWorld(0,1499),account=id=>id.toString(16).padStart(2,'0').repeat(32);
+ w.ownership=scaledOwnership(Array.from({length:1024},(_,i)=>i%32<16?attacker:defender));
+ w.cannons=[{id:1,cell:1498,account:account(attacker),heading:0},{id:2,cell:1510,account:account(defender),heading:0}];
+ w.balls=[{id:1,owner:attacker,cell:1499,x0:511488n,y0:1536n,vx:32000,vy:0,den:1n},{id:2,owner:defender,cell:1510,x0:522752n,y0:1536n,vx:0,vy:32000,den:1n}];
+ w.next_cannon_id=3;w.next_ball_id=3;w.credits=[1,2].map(id=>({account:account(id),units:[0n,1n]}));
+ Object.assign(w.playability,{next_player_id:3,next_territory_id:3,players:[1,2].map(id=>({id,account:account(id)})),territories:[...new Set([attacker,defender])].sort().map(id=>({id,player:id})),lifecycle:[{cannon:1,player:attacker,generation:1},{cannon:2,player:defender,generation:1}]});
+ if(face==='E'){
+  w.ownership=scaledOwnership(Array.from({length:1024},(_,i)=>i%32<16?defender:attacker));
+  const mirror=cell=>Math.floor(cell/1000)*1000+999-cell%1000;
+  for(const c of w.cannons)c.cell=mirror(c.cell);
+  for(const b of w.balls){b.cell=mirror(b.cell);b.x0=1024000n-b.x0;b.vx=b.vx?-b.vx:0;}
+ }else if(face!=='W')throw Error('interaction face');
+ return validateWorld(w);
+}
+
+/** Destruction demonstration starts stable; only a later real enemy FIRE cuts it. */
+export function delayedLossWorld(){const w=lossWorld();w.balls[1].vx=32000;w.balls[1].vy=0;return validateWorld(w);}

@@ -37,7 +37,7 @@ try:
      expect(button).to_have_attribute('aria-pressed','true');memo=page.locator('#text-memo').inner_text();assert memo.startswith('DEFLECT ')and memo.endswith(' '+name),memo
      hit=page.evaluate('(r)=>{const e=document.elementFromPoint(r.x+r.width/2,r.y+r.height/2);return e.closest("button")?.dataset.deflectorOrientation}',rect);assert hit==name
      after=page.evaluate('fixture.summary()');assert after['camera']==before['camera']and after['selected']==before['selected'];assert after['balls']==before['balls']and after['cannons']==before['cannons']
-     inspect=page.evaluate('fixture.inspect()');assert inspect['ghostKind']=='deflector';assert len(inspect['deflectorGhostParts']['base'])==16 and len(inspect['deflectorGhostParts']['turret'])==16
+     inspect=page.evaluate('fixture.inspect()');assert inspect['ghostKind']=='deflector';assert len(inspect['deflectorGhostParts']['base'])==16 and len(inspect['deflectorGhostParts']['turret'])==16;matrix=inspect['deflectorGhostParts']['turret'];signs={'NE':(1,-1),'SE':(1,1),'SW':(-1,1),'NW':(-1,-1)}[name];norm=(matrix[0]**2+matrix[2]**2)**.5;assert norm>0 and matrix[0]*signs[0]/norm>.7 and matrix[2]*signs[1]/norm>.7,(name,matrix)
      row['orientations'].append({'name':name,'memo':memo,'button':rect,'hit':hit,'render':inspect});page.screenshot(path=str(out/f'{width}-{name}.png'))
     # Keyboard interaction remains inside the same reserved editor.
     page.locator('[data-deflector-orientation="NE"]').focus();page.keyboard.press('Enter');expect(page.locator('#text-memo')).to_have_text(__import__('re').compile(r'DEFLECT \d+ NE'))

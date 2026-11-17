@@ -19,8 +19,8 @@ outgoing components have canonical magnitude22627 at nominal speed32000.
 **Coordinate conflict resolved explicitly in the candidate:** the owner brief's
 binary labels would point in the wrong directions under the existing heading
 helper. Named directions and the normative front-face table take precedence:
-NE=57344, SE=8192, SW=24576, NW=40960. Cannon precision/math are unchanged. This
-mapping is pinned in the new candidate configuration, requiring owner review.
+NE=57344, SE=8192, SW=24576, NW=40960. Cannon precision/math are unchanged. The owner confirmed this
+mapping; it is pinned in the new candidate configuration.
 
 Use the existing boundary-crossing scheduler, occupancy classification, intent
 ordering and blocked-vertex response. Keep the open-space source cell on impact.
@@ -118,3 +118,49 @@ strict root decoder. From preparation onward use forward-compatible recovery;
 after epoch commit old frontends are also incompatible rollback targets. Use a
 qualified compatible frontend first and state-preserving forward recovery, never
 reinstall/reset/reindex paid history or reverse the authenticated epoch.
+
+The owner explicitly confirmed the corrected compass table on2026-11-17.
+`config/rules/v12-boundary-deflector.json` is the one authoritative mapping;
+`generate_playability.mjs` pins generated JS and Rust orientation tables shared
+by parsing, execution and rendering. Cannon/Fire and historical heading semantics
+are unchanged. Actual renderer matrix regressions check the wedge's local+X tip
+projects along the intended outgoing world vector for all four directions.
+
+## Capture immunity and island survival — owner addendum
+
+Every live Deflector protects its occupied tile against direct capture, for all
+ball owners. Boundary classification blocks entry before capture intent is made;
+strike validation/arming and atomic capture admission also reject that tile.
+Neither a friendly nor an enemy ball can acquire or destroy it by direct contact.
+Front/rear output uses only the stored compass orientation and genuine face.
+Ball identity, funding player, nominal speed and exact contact point are retained.
+
+Cannons alone anchor. A friendly ball anywhere on the connected cannon-bearing
+island keeps its cannons active, regardless of which cannon launched it. Deflectors
+never enter anchor counts, pool counts, firing prices, revival or grace periods.
+After a split, cannon+friendly-ball sections survive; cannon/no-ball sections
+release ordinary land and retain only dormant cannon cells. A ball-bearing
+section without a cannon invokes the existing atomic cancellation/annihilation
+pairing; unpaired balls are preserved. Empty unanchored sections cannot persist.
+Deflectors do not change these classifications.
+
+Committed ownership loss destroys only affected structures, in the same atomic
+operation. The authenticated `removed_deflectors` facts carry their original IDs,
+owner, cell and orientation. Collision lookup and observer reconstruction then
+remove that occupancy. Destroyed structures are never transferred to the attacker,
+refunded, made dormant or restored by a later cannon revival. Expiry retains no
+orphan structure. A cancelled topology proposal must not emit removals from the
+discarded proposal; any removals caused by the final committed annihilation cleanup
+remain valid and separately recorded.
+
+All occupied structures and the inclusive live-ball boundary closure participate
+in cannon/Deflector placement and Move restrictions. Automatic first entry uses
+the same blocked-cell set, not a frontend exception. Ownership and structures are
+validated together; an occupied Deflector cannot sustain an unsupported island.
+
+Executed successor regressions are maintained in
+`tests/js/boundary-deflector.test.mjs`,
+`tests/js/boundary-deflector-topology.test.mjs`, the shared
+`boundary-deflector-v12.json` and `boundary-deflector-topology-v12.json` fixtures,
+and the native tests of the same names. Installed paid ownership/contact and
+committed-destruction/two-observer tests remain separate qualification scopes.

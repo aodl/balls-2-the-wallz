@@ -3,7 +3,8 @@ import{encodeV6Memo,decodeV6Memo}from'./memo-v6.mjs';
 import{parseWarCryMemo,encodeAnnotatedPayment,readAnnotatedPayment}from'./war-cry.mjs';
 import{be,uint}from'../../node_modules/@dtr/timeline-runtime/packages/protocol/bytes.mjs';
 export const DEFLECTOR_ADAPTER=7;
-export const ORIENTATIONS=Object.freeze(['NE','SE','SW','NW']);
+import{ORIENTATIONS}from'./deflector-orientation.generated.mjs';
+export{ORIENTATIONS}from'./deflector-orientation.generated.mjs';
 export function encodeDeflectorMemo(c){
  if(c?.kind!=='deflect')return encodeV6Memo(c);
  const o=ORIENTATIONS.indexOf(c.orientation);
