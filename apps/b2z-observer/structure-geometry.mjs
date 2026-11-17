@@ -2,14 +2,14 @@
  * Fixed base and rotating upper use two shared batches per family. No textures,
  * groups, lights, per-player materials or fullscreen effects are introduced. */
 import * as T from 'three';
-import {mergeGeometries} from 'three/addons/utils/BufferGeometryUtils.js';
+import {mergeGeometries,mergeVertices} from 'three/addons/utils/BufferGeometryUtils.js';
 export const STRUCTURE_BOUNDS=Object.freeze({cannon:{baseWidth:.84,upperRadius:.43,height:.45},deflector:{baseWidth:.88,upperRadius:.42,height:.18}});
 function colour(g,ink,accent=false){
  const n=g.attributes.position.count,c=new T.Color(ink),rgb=new Float32Array(n*3),mask=new Float32Array(n);
  for(let i=0;i<n;i++){rgb.set([c.r,c.g,c.b],i*3);mask[i]=accent?1:0;}
  g.setAttribute('color',new T.BufferAttribute(rgb,3));g.setAttribute('accentChannel',new T.BufferAttribute(mask,1));g.deleteAttribute('uv');return g;
 }
-function combine(gs){const flat=gs.map(g=>g.index?g.toNonIndexed():g),out=mergeGeometries(flat,false);for(const g of new Set([...flat,...gs]))g.dispose();if(!out)throw Error('Incompatible structure attributes');out.computeBoundingBox();out.computeBoundingSphere();return out;}
+function combine(gs){const flat=gs.map(g=>g.index?g.toNonIndexed():g),out=mergeGeometries(flat,false);for(const g of new Set([...flat,...gs]))g.dispose();if(!out)throw Error('Incompatible structure attributes');const indexed=mergeVertices(out,1e-6);out.dispose();indexed.computeBoundingBox();indexed.computeBoundingSphere();return indexed;}
 function plate(width,bottom,top){
  const half=width/2,cut=width*.13,points=[[-half+cut,-half],[half-cut,-half],[half,-half+cut],[half,half-cut],[half-cut,half],[-half+cut,half],[-half,half-cut],[-half,-half+cut]],positions=[],indices=[];
  for(const [h,s] of [[bottom,.92],[bottom+.025,1],[top-.018,1],[top,.91]])for(const [x,z]of points)positions.push(x*s,h,z*s);

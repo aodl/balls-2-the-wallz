@@ -24,7 +24,12 @@ try:
   for width,height in [(1440,900),(390,844),(320,640)]:
    c=b.new_context(viewport={'width':width,'height':height});page=c.new_page();page.on('pageerror',lambda e:report['errors'].append(str(e)));page.goto(f'http://127.0.0.1:{s.server_port}');page.wait_for_function('()=>!!globalThis.graphite')
    for count,scale in ([(1,64),(128,8)]if a.smoke else[(1,64),(32,20),(128,8),(128,2)]):
-    page.evaluate('(p)=>graphite.scene(p)',{'cannons':count,'scale':scale});measurement=page.evaluate('graphite.measure(4)'if a.smoke else'graphite.measure(60)');report['rows'].append({'width':width,'height':height,'cannons':count,'scale':scale,**measurement});page.screenshot(path=str(out/f'{width}-{count}-{scale}.png'))
+    page.evaluate('(p)=>graphite.scene(p)',{'cannons':count,'scale':scale});measurement=page.evaluate('graphite.measure(4)'if a.smoke else'graphite.measure(60)');report['rows'].append({'width':width,'height':height,'cannons':count,'scale':scale,**measurement});
+    if not a.baseline_root:
+     assert measurement['stats']['structure_uploads']is False,'unchanged structures uploaded during animation-only frames'
+     before=page.evaluate('graphite.inspect().barrels');assert page.evaluate('graphite.heading(16384).structure_uploads')is True;assert page.evaluate('graphite.inspect().barrels')!=before
+     assert page.evaluate('graphite.heading(16384).structure_uploads')is False
+    page.screenshot(path=str(out/f'{width}-{count}-{scale}.png'))
    if not a.baseline_root:
     for angle in ([0,45]if a.smoke else[0,22.5,45,90,135,180,225,270,315]):
      page.evaluate('(angle)=>graphite.scene({cannons:1,deflectors:1,scale:160,angle})',angle);page.screenshot(path=str(out/f'{width}-models-{angle}.png'))

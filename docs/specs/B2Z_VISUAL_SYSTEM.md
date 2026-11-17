@@ -18,8 +18,12 @@ transparency retain readable outlines and opaque surfaces.
 with no external textures. Each family uses two shared opaque instanced batches:
 fixed base and rotating upper, plus the existing shared inexpensive shadow path.
 A vertex mask tints only authored light strips. There is no player-specific
-material, point light, bloom, shadow map or postprocess. The current final merged
-buffers are flat-normal triangle lists for predictable hard armour planes.
+material, point light, bloom, shadow map or postprocess. The final merged buffers use indexed vertices while retaining hard armour-plane
+normals and light-mask boundaries. Cannon vertices are369 rather than780;
+Deflector vertices are226 rather than348. Structure transforms/colours are cached
+against camera/entity/heading/palette identity, with context-restore invalidation.
+Animation-only frames do not upload unchanged body instances. The contrast cache
+is bounded to1024 hues; account input cannot grow it without limit.
 
 The cannon has260 triangles:84 fixed base and176 upper. Its base spans.84 tile;
 the upper radius is below.43 tile, height below.45. The substantial barrel,
