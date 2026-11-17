@@ -1048,7 +1048,7 @@ fn boundary_deflector_paid_destruction_two_observers() {
         bytes("B2Z_S14_TEST_WASM"),
         initial.clone(),
         10000,
-        0,
+        3600,
         &[payers[1]],
     );
     playability_installed::funding_paused(&pic, id, true);
