@@ -25,10 +25,10 @@ fn boundary_deflector_rules11_upgrade_paid_redirect_and_replay() {
         b.deflector_rearm = None;
     }
     // Two old-policy intervals precede activation. Place the original ball so
-    // its exact unmodified trajectory reaches cell1001's centre at logical2.
+    // its exact unmodified trajectory reaches cell2003's centre at logical2.
     let b = &mut world.balls[0];
-    let x = (1536i64 - 2 * i64::from(b.vx)).rem_euclid(1024000);
-    let y = (1536i64 - 2 * i64::from(b.vy)).rem_euclid(1024000);
+    let x = (3584i64 - 2 * i64::from(b.vx)).rem_euclid(1024000);
+    let y = (2560i64 - 2 * i64::from(b.vy)).rem_euclid(1024000);
     b.x0 = Int(x.into());
     b.y0 = Int(y.into());
     b.cell = (y / 1024 * 1000 + x / 1024) as usize;
@@ -159,7 +159,7 @@ fn boundary_deflector_rules11_upgrade_paid_redirect_and_replay() {
     assert_eq!(observe(&pic, id).0.publication, publication);
     assert_eq!(status(&pic, id).source.admitted_to_exclusive, source);
     let mut last_old = 0;
-    for text in ["DEFLECT 1002 NE", "FIRE 1 0 1|Before"] {
+    for text in ["DEFLECT 2004 NE", "FIRE 1 0 1|Before"] {
         let position = transfer_text(&pic, ledger, payer, id, 10000000, text.as_bytes());
         last_old = position;
         let parsed = b2z_protocol::war_cry::parse_text(text.as_bytes()).ok();
@@ -187,7 +187,7 @@ fn boundary_deflector_rules11_upgrade_paid_redirect_and_replay() {
     assert!(status(&pic, id).source.admitted_to_exclusive > last_old);
     playability_installed::one_tick(&pic, id);
     playability_installed::record(&pic, id, &mut rows, &out);
-    assert_eq!(arena_world(&pic, id).balls[0].cell, 1001);
+    assert_eq!(arena_world(&pic, id).balls[0].cell, 2003);
     let before = arena_world(&pic, id).encode().unwrap();
     let finance = funding_tests::preserved_finance(&pic, id);
     let publication = observe(&pic, id).0.publication;
@@ -254,11 +254,11 @@ fn boundary_deflector_rules11_upgrade_paid_redirect_and_replay() {
     };
     // The same admitted batch creates the blocker before the ball reaches it.
     let mut last = 0;
-    for (cell, orientation) in [(1002, "NE"), (2001, "SE"), (1000, "SW"), (1, "NW")] {
+    for (cell, orientation) in [(2004, "NE"), (4002, "SE"), (2000, "SW"), (2, "NW")] {
         last = send(payer, &format!("DEFLECT {cell} {orientation}"), 10000000);
     }
     for (sender, text, amount) in [
-        (payer, "DEFLECT 1002 NW", 10000000),
+        (payer, "DEFLECT 2004 NW", 10000000),
         (payer, "DEFLECT 4004 NE", 10000000),
         (payer, "DEFLECT 1004 NE", 9999999),
         (extra, "DEFLECT 1005 NE", 10000000),
@@ -483,4 +483,204 @@ fn boundary_deflector_rules11_upgrade_paid_redirect_and_replay() {
         "result.json",
         &serde_json::json!({"status":"PASS","scope":"Disposable official valueless Ledger/Index; normal Wasm and exact Rules11 predecessor; no production operation","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"identity":observe(&pic,id).1.identity,"world_finance_cursor_publication_preserved_on_module_upgrade":true,"state_exactly_extended_at_epoch":true,"admitted_upgrade_preserved":true,"historical_payments":historical_payments,"payments":sent,"receipts":receipts,"contacts":contacts,"annotations":annotations,"purchase_tick_cycles":processing_cycles.to_string(),"purchase_tick_wall_ms":started.elapsed().as_millis(),"cost_scope":"full admitted batch plus game/controller work, not isolated Deflector overhead"}),
     );
+}
+
+#[test]
+fn boundary_deflector_capacity_and_paid_ownership_loss() {
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let root = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
+        .join("boundary-capacity-loss");
+    std::fs::create_dir_all(&root).unwrap();
+    let fixtures: serde_json::Value = serde_json::from_slice(
+        &std::fs::read(repo.join("tests/fixtures/boundary-deflector-v12.json")).unwrap(),
+    )
+    .unwrap();
+    for (label, name, memo, reason) in [
+        (
+            "capacity",
+            "global-capacity-64-balls-256-structures",
+            "DEFLECT 300031 NE",
+            "DEFLECTOR_CAPACITY",
+        ),
+        (
+            "loss",
+            "paid-safe-then-genuine-bridge-loss",
+            "DEFLECT 119 NW",
+            "ACCEPTED",
+        ),
+    ] {
+        let out = root.join(label);
+        std::fs::create_dir_all(&out).unwrap();
+        let row = fixtures["rows"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["name"] == name)
+            .unwrap();
+        let mut world =
+            World::decode(&unhex(row["initial_hex"].as_str().unwrap()).unwrap()).unwrap();
+        let payer = Principal::self_authenticating([9; 32]);
+        let account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+        let original = world
+            .playability
+            .as_ref()
+            .unwrap()
+            .players
+            .iter()
+            .find(|p| p.id == 1)
+            .unwrap()
+            .account
+            .clone();
+        for p in &mut world.playability.as_mut().unwrap().players {
+            if p.id == 1 {
+                p.account = account.clone();
+            }
+        }
+        for c in &mut world.cannons {
+            if c.account == original {
+                c.account = account.clone();
+            }
+        }
+        for c in &mut world.credits {
+            if c.account == original {
+                c.account = account.clone();
+            }
+        }
+        world.validate().unwrap();
+        let initial = world.encode().unwrap();
+        let (pic, id, ledger, _) = arena_setup_world(bytes("B2Z_S14_TEST_WASM"), initial.clone());
+        playability_installed::funding_paused(&pic, id, true);
+        let before = arena_world(&pic, id).encode().unwrap();
+        let finance = funding_tests::preserved_finance(&pic, id);
+        let publication = observe(&pic, id).0.publication;
+        pic.upgrade_canister(
+            id,
+            bytes("B2Z_S14_WASM"),
+            encode_args(()).unwrap(),
+            Some(controller()),
+        )
+        .unwrap();
+        assert_eq!(arena_world(&pic, id).encode().unwrap(), before);
+        assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
+        assert_eq!(observe(&pic, id).0.publication, publication);
+        let mut rows = vec![];
+        playability_installed::record(&pic, id, &mut rows, &out);
+        let position = transfer_text(&pic, ledger, payer, id, 10000000, memo.as_bytes());
+        for _ in 0..180 {
+            if status(&pic, id).source.admitted_to_exclusive > position {
+                break;
+            }
+            tick(&pic);
+        }
+        assert!(status(&pic, id).source.admitted_to_exclusive > position);
+        // Stage genuine normal-module work and preserve its durable continuation.
+        playability_installed::configuration(&pic, id, 1);
+        let mut stage = None;
+        for _ in 0..100 {
+            pic.advance_time(Duration::from_millis(50));
+            for _ in 0..4 {
+                pic.tick();
+            }
+            let w: playability_installed::BoundaryWork =
+                get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+            if w.phase.is_some() {
+                stage = w.phase;
+                break;
+            }
+        }
+        get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+        assert!(stage.is_some());
+        let before = arena_world(&pic, id).encode().unwrap();
+        let finance = funding_tests::preserved_finance(&pic, id);
+        let publication = observe(&pic, id).0.publication;
+        let cursor = status(&pic, id).source.admitted_to_exclusive;
+        pic.upgrade_canister(
+            id,
+            bytes("B2Z_S14_WASM"),
+            encode_args(()).unwrap(),
+            Some(controller()),
+        )
+        .unwrap();
+        assert_eq!(arena_world(&pic, id).encode().unwrap(), before);
+        assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
+        assert_eq!(observe(&pic, id).0.publication, publication);
+        assert_eq!(status(&pic, id).source.admitted_to_exclusive, cursor);
+        let resumed: playability_installed::BoundaryWork =
+            get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+        assert_eq!(resumed.phase, stage);
+        let cycles = pic.cycle_balance(id);
+        let begin = std::time::Instant::now();
+        playability_installed::one_tick(&pic, id);
+        let debit = cycles - pic.cycle_balance(id);
+        playability_installed::record(&pic, id, &mut rows, &out);
+        let last = rows.last().unwrap();
+        let n = last.head.segment_id.as_ref().unwrap().0.to_string();
+        let event_bytes =
+            std::fs::read(out.join(format!("publication-{n}-artifact-1.bin"))).unwrap();
+        let audit: serde_json::Value = decode(&event_bytes).unwrap();
+        let receipt = audit["receipts"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["position"]["$integer"].as_str() == Some(position.to_string().as_str()))
+            .unwrap();
+        assert_eq!(receipt["reason"], reason);
+        let final_world = arena_world(&pic, id);
+        assert_eq!(final_world.received_e8s.0, world.received_e8s.0 + 10000000);
+        if label == "capacity" {
+            assert_eq!(final_world.deflectors.as_ref().unwrap().len(), 256);
+            assert_eq!(receipt["amount_used"]["$integer"], "0");
+            assert_eq!(receipt["remainder"], receipt["amount"]);
+        } else {
+            assert_eq!(receipt["amount_used"]["$integer"], "10000000");
+            assert!(final_world.deflectors.as_ref().unwrap().is_empty());
+            let removed: Vec<_> = audit["events"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .filter_map(|e| e.get("removed_deflectors").and_then(|v| v.as_array()))
+                .flatten()
+                .collect();
+            assert_eq!(removed.len(), 1);
+            assert_eq!(removed[0]["cell"], 119);
+        }
+        let parsed = b2z_protocol::deflector::parse_text(memo.as_bytes()).unwrap();
+        let mut raw = b"BTZPAY04".to_vec();
+        raw.extend(AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).as_bytes());
+        raw.extend(10000000u64.to_be_bytes());
+        raw.extend(b2z_protocol::deflector::encode(parsed.command).unwrap());
+        raw.push(0);
+        let mut assigned = vec![];
+        let mut artifacts = vec![];
+        for p in &rows {
+            let n = p.head.segment_id.as_ref().unwrap().0.to_string();
+            let bytes = std::fs::read(out.join(format!("publication-{n}-artifact-1.bin"))).unwrap();
+            artifacts.push(serde_json::json!({"segment_id":n,"events_hex":hex(&bytes)}));
+            if let Some(s) = &p.head.seal {
+                if s.source_from.0 <= position.into() && s.source_to_exclusive.0 > position.into() {
+                    assigned.push(position.to_string());
+                }
+            }
+        }
+        assert_eq!(assigned.len(), 1);
+        let trace = serde_json::json!({"status":"PASS","initial_world_hex":hex(&initial),"publications":rows,"inputs":[{"position":position.to_string(),"payload_hex":hex(&raw)}],"assigned":assigned,"artifact_events":artifacts,"epoch_metadata":{}});
+        save(&out, "trace.json", &trace);
+        assert!(
+            std::process::Command::new("node")
+                .current_dir(&repo)
+                .args([
+                    "tools/replay_s14.mjs",
+                    out.join("trace.json").to_str().unwrap(),
+                    out.join("replay.json").to_str().unwrap()
+                ])
+                .status()
+                .unwrap()
+                .success()
+        );
+        save(
+            &out,
+            "result.json",
+            &serde_json::json!({"status":"PASS","scope":"Synthetic population setup only; genuine official valueless Ledger/Index payment, normal-module execution, durable-stage upgrade and independent replay. Not production.","label":label,"normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"initial_balls":world.balls.len(),"initial_deflectors":world.deflectors.as_ref().unwrap().len(),"receipt":receipt,"interrupted_stage":stage,"event_bytes":event_bytes.len(),"events":audit["events"].as_array().unwrap().len(),"cycles":debit.to_string(),"wall_ms":begin.elapsed().as_millis(),"cost_scope":"Remaining whole publication/controller/source work after module recovery; not isolated Deflector overhead"}),
+        );
+    }
 }

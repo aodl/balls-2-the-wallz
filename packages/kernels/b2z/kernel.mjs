@@ -242,15 +242,14 @@ export class B2zCursor {
       if (this.resolving >= this.intents.length) { this.phase = 'expire'; return; }
       const i = this.intents[this.resolving++], b = this.world.balls.find(b => b.id === i.ball);
       if (!b) return;
-      if(this.world.version===7&&b.deflector_rearm&&cmp(this.world.time,b.deflector_rearm)>=0)delete b.deflector_rearm;
       const {passX,passY,vertexBlocked}=passage(this.world,b,i);
       const sx=Math.sign(b.vx),sy=Math.sign(b.vy);
       const xy = position(b, this.world.time);
       let deflector_contact;
       const target=this.world.version===7&&!(i.x&&i.y)?i.targets.find(t=>deflectorAt(this.world,t.target)?.id===i.deflector_target):null;
       if(target){const d=deflectorAt(this.world,target.target),face=i.x?(b.vx>0?'W':'E'):(b.vy>0?'N':'S');
-        const response=contactResponse(b,this.world.time,d.orientation,face,i.x?i.xwall:i.ywall,b.deflector_rearm??null);
-        Object.assign(b,response.trajectory,{deflector_rearm:response.armed_at});
+        const response=contactResponse(b,this.world.time,d.orientation,face,i.x?i.xwall:i.ywall);
+        Object.assign(b,response.trajectory);
         deflector_contact={id:d.id,orientation:d.orientation,face,kind:response.kind,...(response.front===undefined?{}:{front:response.front})};
       }else{if (i.x && !passX) reflected(b, 'x', i.xwall);if (i.y && !passY) reflected(b, 'y', i.ywall);}
       const oldCell = b.cell;

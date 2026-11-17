@@ -9,8 +9,6 @@
   "deflector_orientations": "NE-SE-SW-NW",
   "deflector_contact": "blocked-tile-boundary-front-rear-1",
   "deflector_corner": "existing-blocked-vertex-1",
-  "deflector_rearm_component_distance": 4096,
-  "deflector_unarmed_contact": "explicit-cannon-reflection-1",
   "trajectory_denominator_max": 65536,
   "trajectory_numerator_max": "6553600000000000000",
   "max_segment_ticks": 1,
@@ -21,5 +19,6 @@
     "SW": 24576,
     "NW": 40960
   },
-  "deflector_motion_format": "fixed-slot-boundary-motion-1"
+  "deflector_motion_format": "decimal-fixed-slot-boundary-motion-1",
+  "deflector_min_chebyshev": 2
 }

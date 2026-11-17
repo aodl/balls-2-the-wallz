@@ -7,45 +7,59 @@ Qualified graphite and Rules11 frozen assets remain unchanged.
 
 ## Current checkpoint and unresolved closeout
 
-Exact shared-denominator algebra has passed Python Fraction/JS/Rust160 face vectors,
-all65536 cannon headings,11 long mathematical chains including100000 redirects,
-and an83-case exact JS/native public-output comparison. The larger84-case matrix
-adds64 balls/256 structures and awaits its complete final requalification.
+The current candidate has no rearm/cooldown or mirror fallback. Every ordinary
+contact uses orientation and face. Toroidal Chebyshev minimum Deflector spacing2
+replaces the rejected rearm experiment; this remains provisional owner policy.
+The adjacent negative control produced195494 contacts/tick. See the decision
+register and numerical proof; neither constitutes production authority.
 
-Native Chromium composer/renderer journeys passed1440×900,390×844,320×640,
-including exact recipient/amount/memo copy and native paste, four directions,
-Update/Keep restoration, and zero status-panel drift. The retained320×640/347.15°
-Fire pose also passed the executed fixture. These are synthetic controlled scenes,
-not installed IC payment or physical-phone evidence. Later source changes still
-need final exact-source browser qualification.
+Current numerical evidence includes the independent Python Fraction160-face oracle,
+all65536 launch headings and11 algebraic JS/Rust chains up to100000 redirects.
+Actual JavaScript immutable-diamond execution completed100010 redirects over6789
+successive kernel seals with periodic cursor restoration: denominator<=11315,
+maximum numerator41bits, no mirror response, chain
+`bd2ae809042dec76a8aa64694369e53d30f50ae17773ec1077c88e5f128d3b03`.
+The matching long native execution is still running; do not call it a parity pass.
 
-A real full-kernel boxed64-ball stress reached758133 event bytes at the logical
-horizon with all2816 contacts retained. Actual cursor restore-and-continue passed;
-maximum observed raw cursor1323364 bytes and observed JS heap46632624 bytes.
-These are synthetic JavaScript measurements, not isolated subnet cycle costs.
+The current native interpreter passed103 shared complete state/event/score vectors,
+including exact bytes and durable restore. The expanded108-vector fixture adds
+near-parallel incoming shots after cannon reflections and real strike-driven
+ownership loss; its final native rerun is outstanding. The focused current JS
+suite passed25 tests. A topology regression exposed stale structures during
+private split validation; JS/Rust now remove them atomically and include the exact
+removed list in the authenticated capture output. No old goldens were rewritten.
 
-The first unconditional adjacent-Deflector experiment exceeded195000 contacts/tick.
-The provisional rearm-reflection experiment is **rejected for final gameplay**:
-it would violate the owner's incoming-direction-independent ordinary-contact rule.
-A minimum separation placement policy is now being investigated instead. Do not
-qualify or activate the rearm checkpoint/configuration as the requested mechanic.
-All failed numeric/artifact/qualification attempts remain in `.work/boundary-deflector`.
-The old midpoint report and freezes are retained as historical evidence.
+Native Chromium composer/renderer journeys separately passed1440×900,390×844 and
+320×640: four44px directions, actual hit targets, native recipient/amount/memo
+Copy/paste, Update/Keep, protected/reconnecting local-editor availability, zero
+status geometry drift and actual WebGL loss/restore. These are synthetic Rules12
+scenes, not IC authentication, real payment or physical-phone evidence. The earlier
+320×640/347.15° Fire pose fixture passed; final exact-source browser/hosted checks
+remain required. Actual desktop/mobile screenshots and native-input videos are
+retained under `.work/boundary-deflector/current-spacing/browser-*-v2`.
 
-Cold normal Wasm compilation succeeded; it is a development build, not a frozen
-qualified artifact. Installed Ledger/Index, migration/replay/two observers and
-final hosted six-gate qualification are still outstanding. The first source run
-failed naming/export inventories, a legacy unversioned reference helper, and
-resource deadlines. Naming and the helper have focused passing corrections;
-new export inventory entries are explicit, not relaxed. Planner hard timeouts,
-full source completion and exact installed qualification remain unresolved.
-The first host epoch extension test incorrectly attempted consecutive rules
-epochs; the candidate now requires an ordinary Rules11 boundary and the corrected
-test is pending. No historical expected output was rewritten.
+Full-kernel budget17 stress restores every third continuation. At64 balls and
+logical horizon10^9, the legal two-Deflector corridor produced4161 events,
+1408 redirects and566136 event bytes; the immutable four-direction diamond
+produced2817 events,960 redirects and385333 bytes. Both remain inside existing
+limits. This is synthetic JS execution, not isolated IC instruction/cycle cost.
+
+Normal-module compilation and installed-harness compilation have succeeded at
+intermediate sources. New post-topology normal/test-hooks builds are running;
+no new backend has been frozen or installed on production. Official valueless
+Ledger/Index paid Deflectors, actual installed redirects, upgrade/certificate/
+financial/replay negatives and two authenticated observers still require execution.
+The installed suite now contains dedicated64-ball/256-structure and actual paid
+ownership-loss cases with normal-module interruption and independent replay.
+
+The corrected native host epoch-sequence test passed: an ordinary completed
+Rules11 boundary is required before successor preparation. Earlier source failures
+and incomplete/SIGTERM runs remain raw evidence, not successful qualification.
+Full source and all six exact-source hosted gates remain outstanding.
 
 ## Protected production, read-only observation
 
-2026-11-17T19:52Z and later anonymous authenticated observations confirm:
+2026-11-17T21:30:24Z and earlier anonymous authenticated observations confirm:
 backend module612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948;
 Rules7 hash982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f;
 configuration8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80;
@@ -72,3 +86,7 @@ No payments, funding, cycles, controller/settings or production backend operatio
 were performed. Old modules become unsafe after the new durable preparation
 record as well as after the authenticated schema/adapter epoch; use qualified
 forward-compatible state-preserving recovery, never reinstall/reset/reindex.
+
+See [DECISIONS.md](DECISIONS.md) and [RELEASE_PLAN.md](RELEASE_PLAN.md) for
+provisional gameplay/economics and separately approvable frontend/backend steps.
+This is an ongoing implementation checkpoint, not completion or release approval.

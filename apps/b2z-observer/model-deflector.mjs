@@ -8,7 +8,7 @@ export function validateRationalTrack(b){
  check(gcd(gcd(b.x0,b.y0),b.den)===1n,'canonical trajectory');
  check(b.den===1n||Math.abs(b.vx)===22627&&Math.abs(b.vy)===22627,'diagonal class');
  check(b.vx*b.vx+b.vy*b.vy<=32001*32001,'speed bound');
- if(b.deflector_rearm!==undefined){validRat(b.deflector_rearm);check(cmp(b.deflector_rearm,rat(0))>=0&&cmp(b.deflector_rearm,rat(1000000001))<=0,'rearm clock');}
+ check(b.deflector_rearm===undefined,'unsupported rearm field');
 }
 function structure(view,d){
  check(d&&Object.keys(d).sort().join(',')==='cell,id,orientation,owner'&&Number.isSafeInteger(d.id)&&d.id>0&&d.id<4294967295&&Number.isSafeInteger(d.cell)&&d.cell>=0&&d.cell<1000000&&['NE','SE','SW','NW'].includes(d.orientation),'entity');
@@ -17,6 +17,7 @@ function structure(view,d){
 }
 export function validateDeflectorSnapshot(view,w){
  check(Array.isArray(w.deflectors)&&w.deflectors.length<=256&&Number.isSafeInteger(w.next_deflector_id)&&w.next_deflector_id>0&&w.next_deflector_id<=4294967295,'capacity');
+ const cells=new Set(w.deflectors.map(d=>d.cell));for(const d of w.deflectors)for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)if(dx||dy)check(!cells.has(((Math.floor(d.cell/1000)+dy+1000)%1000)*1000+(d.cell%1000+dx+1000)%1000),'spacing');
  const ids=new Set(),counts=new Map();let prior=-1;
  for(const d of w.deflectors){structure(view,d);check(d.cell>prior&&!ids.has(d.id)&&d.id<w.next_deflector_id,'order/counter');prior=d.cell;ids.add(d.id);counts.set(d.owner,(counts.get(d.owner)??0)+1);check(counts.get(d.owner)<=16,'player capacity');check(!w.balls.some(b=>b.cell===d.cell),'ball in structure');}
 }

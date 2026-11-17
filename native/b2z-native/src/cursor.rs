@@ -892,13 +892,6 @@ impl Cursor {
             return Ok(());
         };
         let mut b = self.world.balls[index].clone();
-        if self.world.version == 7
-            && b.deflector_rearm
-                .as_ref()
-                .is_some_and(|r| &self.world.time >= r)
-        {
-            b.deflector_rearm = None;
-        }
         let (pass_x, pass_y, vertex_blocked) = crate::geometry::passage(&self.world, &b, &i);
         let sx = b.vx.signum() as i64;
         let sy = b.vy.signum() as i64;

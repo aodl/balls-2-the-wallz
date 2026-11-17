@@ -157,8 +157,13 @@ pub struct SplitJob {
     connected_shortcut: bool,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     operations: Vec<Value>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    removed_deflectors: Vec<crate::world::Deflector>,
 }
 impl SplitJob {
+    pub fn take_removed_deflectors(&mut self) -> Vec<crate::world::Deflector> {
+        std::mem::take(&mut self.removed_deflectors)
+    }
     pub fn new(w: &World, label: u32, removed: usize, fill: u32) -> Result<Self> {
         if w.owner(removed) == Some(label)
             || territory_v6::player(w, label).is_none()
@@ -187,6 +192,7 @@ impl SplitJob {
             unanchored_balls: vec![],
             connected_shortcut: false,
             operations: vec![],
+            removed_deflectors: vec![],
         })
     }
     /// For an actual capture, the predecessor label is connected and the
@@ -312,6 +318,10 @@ impl SplitJob {
             }
             "reconcile" => {
                 if self.part == self.parts.len() {
+                    if w.version == 7 {
+                        self.removed_deflectors
+                            .extend(crate::deflectors_v12::remove_lost(w));
+                    }
                     w.validate()?;
                     self.phase = "done".into();
                 } else {

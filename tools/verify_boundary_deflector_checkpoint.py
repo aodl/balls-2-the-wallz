@@ -17,5 +17,12 @@ chains += [{'id':'negative-arithmetic-only','heading':3700,'start':'-999000000',
 j=json.loads(subprocess.check_output(['node','tools/boundary_deflector_long_chain.mjs',str(out/'chains.json')],text=True));r=native(out/'chains.json');assert j==r
 for path,value in [('face-results.json',js),('chain-results.json',j)]: (out/path).write_text(json.dumps(value,indent=2)+'\n')
 subprocess.run(['node','tools/boundary_deflector_stress.mjs',str(out/'all-headings.json')],check=True)
+# Full immutable legal diamond through actual seals, rather than algebra only.
+subprocess.run(['node','tools/boundary_deflector_scheduler_chain.mjs','--input',str(out/'scheduler-input.json'),'10000'],check=True)
+scheduler_js=json.loads(subprocess.check_output(['node','tools/boundary_deflector_scheduler_chain.mjs',str(out/'scheduler-input.json')],text=True))
+scheduler_rust=json.loads(subprocess.check_output(cargo[:-1]+['boundary_deflector_scheduler_chain'],input=(out/'scheduler-input.json').read_text(),text=True))
+assert scheduler_js==scheduler_rust
+assert scheduler_js['redirects']>=10000 and scheduler_js['reflections']==0
+(out/'scheduler-results.json').write_text(json.dumps(scheduler_js,indent=2)+'\n')
 (out/'results.json').write_text(json.dumps({'status':'PASS','scope':__doc__,'oracle_faces':len(js),'exact_js_rust_chains':len(j),'all_cannon_headings':65536,'maximum_tested_chain':100000},indent=2)+'\n')
 print('PASS exact Fraction/JS/Rust faces and long chains; separate installed qualification required')

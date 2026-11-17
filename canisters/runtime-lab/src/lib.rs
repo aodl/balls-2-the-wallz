@@ -3220,10 +3220,19 @@ fn prepare_deflector_transition() -> std::result::Result<Vec<u8>, String> {
     {
         return Err("only exact Rules11 world can activate Deflector rules-12".into());
     }
-    if h.record.journal.head.seal.is_none() && h.record.journal.stage.is_none()
-        && !h.record.journal.epoch.as_ref().is_some_and(|e|e.version==3) {
+    if h.record.journal.head.seal.is_none()
+        && h.record.journal.stage.is_none()
+        && !h
+            .record
+            .journal
+            .epoch
+            .as_ref()
+            .is_some_and(|e| e.version == 3)
+    {
         return Err("finish one Rules11 interval before Deflector preparation".into());
     }
+    // Refuse an incompatible legacy trajectory before writing a new root field.
+    b2z_native::deflectors_v12::migrate(&w)?;
     if r.run.segment_ticks > 1 {
         return Err("Deflector successor requires an existing publication allowance of at most1 tick; no settings changed".into());
     }

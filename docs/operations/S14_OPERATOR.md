@@ -399,7 +399,7 @@ and graphite frontend25ac2af8…; do not overwrite their frozen directories.
 
 A future candidate release requires independently qualified compatible frontend,
 normal successor Wasm, exact Rules11 predecessor, schema7/adapter7 identity and
-an approved decision register (heading mapping, rearm exception, one-tick allowance,
+an approved decision register (heading mapping, minimum Deflector spacing, one-tick allowance,
 0.1ICP and capacities). Current Europe remains Rules7. No direct Rules7→Deflector
 shortcut is supported. Rules7→Rules11 is a separate owner decision and maintenance.
 

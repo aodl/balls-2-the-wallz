@@ -173,6 +173,12 @@ impl Job {
                 // and phase identify the next mutation without a board scan.
                 let done = j.step(&mut self.proposal)?;
                 self.operations.extend(j.take_operations());
+                if self.proposal.version == 7 {
+                    self.removed_deflectors
+                        .as_mut()
+                        .ok_or("structure event")?
+                        .extend(j.take_removed_deflectors());
+                }
                 if done {
                     if j.phase == "needs_pair" {
                         let defender = *j.unanchored_balls.first().ok_or("MISSING_CAPTURE_PAIR")?;

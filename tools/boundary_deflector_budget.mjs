@@ -3,11 +3,11 @@ import{unpackDeflectorAudit}from'../packages/kernels/b2z/deflector-events.mjs';
 import fs from'node:fs';import{performance}from'node:perf_hooks';
 import{B2zCursor}from'../packages/kernels/b2z/kernel.mjs';import{encodeWorld,decodeWorld,DEFLECTOR_IDENTITY}from'../packages/kernels/b2z/world.mjs';
 import{decodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';import{sha256}from'@dtr/timeline-runtime/runtime/seal';
-import{successorWorld}from'../tests/scenarios/boundary-deflector.mjs';
+import{successorWorld,diamondWorld}from'../tests/scenarios/boundary-deflector.mjs';
 const results=[];
 for(const layout of["corridor","box"])for(const horizon of[0,999999999])for(const count of[1,64])for(const ticks of[1]){
- const w=successorWorld();w.deflectors=[{id:1,owner:1,cell:1002,orientation:'NE'},{id:2,owner:1,cell:2001,orientation:'NE'}];w.next_deflector_id=3;
- if(layout==="box"){w.deflectors=[1,1000,1002,2001].map((cell,i)=>({id:i+1,owner:1,cell,orientation:"NE"}));w.next_deflector_id=5;}
+ const w=layout==="box"?diamondWorld():successorWorld();w.deflectors=[{id:1,owner:1,cell:1002,orientation:'NE'},{id:2,owner:1,cell:3000,orientation:'NE'}];w.next_deflector_id=3;
+ if(layout==="box")Object.assign(w,diamondWorld());
  if(horizon){w.time=[BigInt(horizon),1n];for(const b of w.balls){b.x0-=BigInt(b.vx)*BigInt(horizon);b.y0-=BigInt(b.vy)*BigInt(horizon);}}
  w.balls=Array.from({length:count},(_,i)=>({...w.balls[0],id:i+1}));w.next_ball_id=count+1;
  let c=new B2zCursor(encodeWorld(w),[],{...DEFLECTOR_IDENTITY,logical_start:BigInt(horizon),logical_end:BigInt(horizon+ticks)});const start=performance.now();let calls=0,snapshotMax=0,work=0;

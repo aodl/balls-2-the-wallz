@@ -49,7 +49,7 @@ export class CaptureJob {
   step(original){
     const w=this.proposal;
     if(this.phase==='split'){
-      const j=this.split,done=j.step(w);this.operations.push(...j.takeOperations());
+      const j=this.split,done=j.step(w);this.operations.push(...j.takeOperations());if(w.version===7)this.removed_deflectors.push(...j.takeRemovedDeflectors());
       if(done){
         if(j.phase==='needs_pair'){const d=j.unanchored_balls[0];if(d===undefined)throw Error('MISSING_CAPTURE_PAIR');this.pair(original,[[this.ball,d]]);}
         else{this.fences.push(...j.fences);for(const p of j.parts)if(!p.cannons.length)this.ranges.push(...p.ranges);this.split=null;this.phase='merge_scan';}

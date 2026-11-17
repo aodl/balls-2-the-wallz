@@ -57,7 +57,7 @@ requires both component magnitudes D in the future schema validator.
 Initial integer-trajectory boundary-time denominator is at most M. Later boundary
 time denominator divides dD<=1,482,424,832<2^31. A pending-strike deadline adds the
 existing1/16 tick; its denominator is at most16dD<2^35, numerator at most H*16dD
-<2^65. Rearm time adds4096/D and stays within denominator dD. Integer segment heads
+<2^65. Integer segment heads
 introduce no new factors. Equal-time ordering uses exact fraction comparison.
 
 Raw arithmetic before gcd cancellation can exceed stored sizes. The largest
@@ -78,97 +78,93 @@ crossing is strictly later even if its sign changes. Tangent v_normal=0 cannot
 attempt entry. At simultaneous axes, perform the established blocked-vertex/
 passage response with no front/rear classification. Recompute the next crossing
 from the resulting source/open cell; do not select an axis by callback order.
-Future integration must retain existing frozen intent, annihilation-before-resolve,
+Integration retains existing frozen intent, annihilation-before-resolve,
 owner/ball resolution and strike-expiry ordering, revalidate actual occupancy and
-invalidate removed-generation contacts. This paragraph specifies obligations, not
-proof that those unimplemented integration paths have already passed.
+invalidate removed-generation contacts. Installed tests remain a separate qualification obligation.
 
-## Necessary provisional resource exception
+## Progress without changing the contact law
 
-Strictly positive steps are insufficient. The canonical8191 launch gives velocity
-(22630,22625). Starting at a tile centre, its first vertical boundary is256/2263
-coordinate units short of a corner. Two perpendicular NE Deflectors send the ball
-back and forth at step256/51204901 ticks: approximately200019 contacts/tick. The
-actual shared crossing-helper fixture reaches195494 contacts before tick1 because
-the first entry consumed part of that tick. This exceeds the existing131072-event
-capacity for one ball. The unguarded policy is NOT acceptable for paid admission.
+Every ordinary impact redirects. There is no rearm state, mirror fallback, dropped
+collision, cooldown or artificial pause. A prior research safeguard was rejected
+for violating that contract; its source and negative findings remain in
+[SUPERSEDED_REARM_RESEARCH.md](SUPERSEDED_REARM_RESEARCH.md).
 
-Candidate safeguard: after an active redirect, rearm the ball at t+4096/D, four
-tile lengths of canonical diagonal component travel. Before that exact simulated
-time, an occupied Deflector contact uses ordinary cannon-style blocked-face
-reflection and records an explicit `deflector_rearm_reflection` motion outcome.
-No crossing is skipped, delayed or dropped; ownership/capture remain separate.
-Exact corners still use the blocked-vertex rule. An eligible single face uses its
-orientation/front/rear policy with an explicit `deflector_redirect` outcome.
-This is a visible, provisional exception to unconditional face redirection and must
-be included in certified candidate configuration and final owner policy review.
+The unconditional adjacent-NE pair is a real counterexample to economical
+processing: heading8191 produces velocity(22630,22625), and a centre launch
+passes only256/2263 coordinate units from a corner. The shared scheduler produces
+195494 impacts before tick1, above the existing131072-event capacity. This is a
+resource failure, not denominator growth or a zero-time loop.
 
-Between active redirects, only ordinary reflections change signs. Each axis needs
-Q/D simulated time between its own successive crossings. In a window length T,
-active redirects are at most floor(TD/(4Q))+1. Partitioning at those redirects gives
-at most 2TD/Q +2(floor(TD/(4Q))+2) axis crossings, at most(5/2)TD/Q+4 per ball,
-plus the bounded first pre-diagonal interval. Simultaneous axes count as one motion.
-The synthetic one-tick fixture records44 contacts and6 eligible redirects with the
-candidate guard, preserving every remaining contact as a reflection.
+The candidate therefore requires **toroidal Chebyshev tile distance at least2
+between any two Deflectors**, including diagonals and seams. This is a provisional
+placement-policy decision requiring final owner approval. The backend checks all
+nine candidate-neighbour cells and rejects with `DEFLECTOR_TOO_CLOSE`; schema
+validation independently rejects an impossible adjacent stored pair. No cannon
+spacing is changed. A paid rejection retains the existing accounting semantics.
 
-For candidate admission, pin a maximum successor seal duration of1 tick. This
-is a new provisional rules/configuration bound, not a change to the paid game's
-operating settings. Preparation and commit require the existing configured segment
-allowance already be at most1; ordinary1-tick operation is preserved verbatim.
-The kernel rejects a longer successor seal. Old identities retain their64-tick
-contract and history. No deadline is extended.
+For distinct legal Deflector tiles, their closed squares have toroidal L-infinity
+separation at leastQ. After the first redirect the maximum coordinate speed isD,
+so different successive Deflector contacts are separated by at leastQ/D ticks.
+For a repeated contact with the same tile, the outgoing normal points away. To
+return, that coordinate must reverse at a different parallel grid line at leastQ
+away and then return: at least2Q/D ticks. A perpendicular wall can reverse only
+the tangent, not the outward normal. A corner uses the existing blocked-vertex
+response and cannot create another same-time ordinary impact. Thus there are at
+most floor(DT/Q)+2 ordinary Deflector contacts in any window of durationT.
 
-For a reachable normal-speed ball, sum of pre-first-redirect axis rates is at most
-45258/Q<45 per tick. Partitioning once at that first redirect and applying the
-rearm bound gives a conservative64T+8 boundary motions per ball in an integer
-window T<=1. At64 balls this is at most4608 motions. A motion can arm at most one
-strike and that strike can produce at most one later resolution/cancellation;
-thus at most13824 associated events. Initial pending strikes contribute at most64,
-annihilation cleanup at most64, and final lifecycle stamping one. Commands all run
-before the motion phase: at most256 Deflectors,128 one-per-cannon Moves,128 retained
-cannon constructions,64 new balls and64 purchase-completion events can be created.
-Removed structures are a bounded list in their existing topology event, not a new
-per-structure event stream. The total is below20000, retaining the existing131072
-event limit. Invalid transfers produce receipts, not unbounded success events;
-the existing4096-input cap remains. These are conservative count bounds, not a
-claim of measured instruction cost or full topology/byte-budget qualification.
+Between those contacts, each coordinate has constant component magnitudeD and
+can reverse only on its own grid crossings. Each full cell consumesQ coordinate
+travel. A Deflector can reverse its tangent strictly inside a cell, introducing
+at most one additional partial-cell crossing. Counting both axes therefore gives
+at most2DT/Q+R+4 boundary motions after the first redirect, with R as above.
+Before the first redirect, the launch-speed bound gives summed axis rates less
+than45/tick. Splitting at that first redirect yields the conservative total
+**72T+8 motions per ball**, for integer windows0<T<=1. Simultaneous axes count
+as one motion. This bounds work without forbidding legitimate collision counts,
+modifying outgoing headings or weakening the existing event/deadline limits.
 
-The numerical constructor supports the old validator's wider integer components
-conservatively for arithmetic research. Successor admission validates normal-speed
-squared magnitude<=32001^2, and d>1 requires both components D. Rules11 migration
-checks this reachable normal-game speed precondition before changing anything.
-It must fail without mutation on an unsupported synthetic old state, rather than
-silently rescale a ball. Actual installed source, output-byte, instruction/cycle,
-source-starvation and durable-recovery measurements remain required in checkpointG.
+Canonical sidedness keeps the outside source cell. On an ordinary hit its normal
+next crossing is a full cell away; the tangent starts strictly inside its interval.
+Consequently the next event is strictly later. Arbitrarily short near-corner pairs
+are possible, but their total frequency is bounded by the argument above. Equal
+ball times retain existing canonical owner/ball ordering and frozen intent handling;
+occupancy is revalidated after topology changes. Capture/annihilation and pending
+strike ordering are unchanged. Removed structures cannot resolve stale intents.
 
-### Serialization correction, measured during integration
+## Serialization and bounded operating allowance
 
-The draft8-tick allowance was rejected:64 balls exceeded the canonical structural
-bound. At1 tick with stale rearm metadata the same stress emitted1063392 bytes,
-above1048576. Expired rearm is now cleared at the next actual boundary;64-ball
-corridor output is904416 bytes/2817 events. The successor allowance is1 tick,
-not8. These are actual kernel/serializer measurements, not installed cycle proof
-or a universal byte bound for every possible topology/input batch. The original
-negative JSON/logs remain under `.work/boundary-deflector/budget-v1*`.
+The successor accepts at most **one logical tick per publication**. Prepare and
+commit require the stored operating allowance already be at most1; they never
+silently alter it. Old identities and historic output limits remain unchanged.
+This allowance is provisional and requires a separate future operating decision.
+The earlier8-tick and2-tick experiments exceeded existing structural/byte bounds.
+Their failures remain evidence; no output limit or deadline was raised.
 
-### Canonical schema7 motion representation
+Schema7 motion wire is
+`[0, sequence, [time_num,time_den], ball_id, from_cell, track, contact, vertex]`,
+where `track=[cell,x0_num,y0_num,vx,vy,den]` and contact is null or
+`[structure_id,orientation_index,face_index,0,front_boolean]`. Orientation order
+is NE/SE/SW/NW; face order N/E/S/W. The only contact kind is0, redirect. Exact
+integer/rational components are canonical decimal strings, with bounded lengths
+and no plus, leading zeros or negative zero. Owner is immutable for a ball ID and
+is reconstructed from the authenticated initial state or authenticated spawn.
+The decoder expands this new versioned wire before ordering/trajectory/endpoint
+checks. Historic audit bytes and private durable event fields are unchanged.
 
-The full verbose64-ball enclosed box produced1300960 bytes, and a first partial
-packing still produced1056233 bytes near the logical horizon. Both are retained
-negative evidence. The final fixed-slot motion record is
-`[0, sequence, time, ball_id, from_cell, track, contact_or_null, vertex_blocked]`,
-where `track=[cell,x0,y0,vx,vy,den,rearm_or_null]` and contact is
-`[structure_id, orientation_index, face_index, kind_index, front_or_null]`.
-Orientation order is NE/SE/SW/NW; face order N/E/S/W; kind0=active redirect,
-1=rearm reflection. Front is a boolean only for kind0. Owner is immutable for a
-ball ID and comes from the authenticated initial snapshot or its authenticated
-spawn event. All integers/rationals remain exact canonical values. This is an
-explicit new schema7 event encoding, never a rewrite of earlier audit bytes.
-The presentation decoder rejects verbose/invalid motion wire under schema7 and
-expands records before existing ordering, trajectory and endpoint validation.
+Executed current full-kernel stress restores its cursor every third bounded
+17-unit step. At64 balls and logical horizon10^9, the legal two-Deflector corridor
+produces4161 events,1408 genuine redirects and566136 event bytes. The immutable
+four-direction diamond produces2817 events,960 redirects and385333 bytes. All
+contacts obey orientation/face. These fit existing1MiB/event limits and prove
+progress for those stress cases; they are not a universal financial/topology byte
+bound or installed subnet instruction/cycle measurement. Installed maximum-capacity
+and paid-command qualification remain separate requirements.
 
-Executed full-kernel stress at64 balls and the maximum logical horizon emits
-758133 bytes/2817 events in the enclosed box; all2816 actual contacts survive.
-The open corridor emits fewer bytes. Event/canonical/1MiB limits are unchanged.
-These cases do not by themselves prove every possible input/topology byte budget;
-installed financial/capacity checks and source qualification remain mandatory.
+## Evidence scope
+
+Python Fraction supplies an independent160-case contact oracle. JS and Rust run
+all canonical launch headings, long algebraic chains, full-kernel immutable diamond
+chains, cursor restoration and shared public-output vectors. Record actual completed
+counts/hashes in the closeout report; a started or running job is not a pass.
+Native arithmetic and software-rendered captures do not imply IC certification,
+physical-phone performance, subjective audio acceptance or completed hosted CI.

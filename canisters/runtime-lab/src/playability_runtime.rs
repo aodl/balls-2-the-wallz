@@ -1185,7 +1185,16 @@ mod tests {
                 );
                 combined.record = before.clone();
                 apply_rules(&mut combined, &deflect_out, &deflect_metadata, deflect_id);
-                assert_eq!(combined.record.inbox, before.inbox);
+                assert_eq!(combined.record.inbox.cursor, before.inbox.cursor);
+                assert_eq!(combined.record.inbox.retired_to, before.inbox.retired_to);
+                assert_eq!(
+                    combined.record.inbox.source_anchor,
+                    before.inbox.source_anchor
+                );
+                assert_eq!(combined.record.inbox.pending, before.inbox.pending);
+                assert_eq!(combined.record.inbox.reservation, before.inbox.reservation);
+                assert_eq!(combined.record.inbox.revision, before.inbox.revision + 1);
+                assert_ne!(combined.record.inbox.last_ack, before.inbox.last_ack);
                 assert!(
                     deflector_candidate(&combined, &ready(8), &annotation_source, observed)
                         .is_err()

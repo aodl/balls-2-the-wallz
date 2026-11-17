@@ -18,5 +18,5 @@ try{
  const r=await fetch(`https://${frontend}.icp0.io/app.mjs`);if(!r.ok)throw Error('frontend body HTTP '+r.status);report.served_js_sha256=sha256(new Uint8Array(await r.arrayBuffer()));
  try{report.operational_signed_query=await operationalReader(agent,backend)();report.operational_scope='Signed operational query, not certified gameplay or payment authority';}catch(e){report.operational_unavailable=String(e);}
  report.status='PASS';
-}catch(e){report.status='BLOCKED';report.error=String(e);process.exitCode=2;}
+}catch(e){report.status=/fetch failed|ECONN|ENOTFOUND|network unavailable|timed out/i.test(String(e))?'BLOCKED':'FAIL';report.error=String(e);process.exitCode=report.status==='BLOCKED'?2:1;}
 await fs.writeFile(out,JSON.stringify(report,(_k,v)=>typeof v==='bigint'?String(v):v,2)+'\n');console.log(JSON.stringify(report,(_k,v)=>typeof v==='bigint'?String(v):v));

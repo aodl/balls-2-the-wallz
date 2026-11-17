@@ -40,23 +40,20 @@ abs(numerator)<=6553600000000000000, logical time<=1000000000. Fractional balls
 must have both component magnitudes22627. No host floating point affects execution.
 See the [proof and executed stress](../../evidence/B2Z/graphite-deflectors/boundary-deflector/NUMERICAL_PROOF.md).
 
-A tight perpendicular arrangement permits about195494 contacts in one tick for
-one legitimate incoming heading. The unconditional redirect policy is therefore
-not economical. **Provisional exception requiring approval:** after an active
-redirect, rearm at t+4096/22627. Every actual Deflector contact before rearm uses
-ordinary cannon-style face reflection and an explicit
-`deflector_rearm_reflection` annotation; it is neither skipped nor delayed.
-Armed contacts emit `deflector_redirect` and front/rear. Expired rearm metadata is
-cleared at the next real boundary event. Exact vertices retain their separate
-exception. No wall-clock cooldown, dropped collision or deleted ball.
+A tight adjacent arrangement permits195494 contacts in one tick. The rejected
+rearm/reflection experiment violated the required contact law and is retained only
+as historical negative research. The candidate instead requires **toroidal
+Chebyshev tile distance>=2 between Deflectors**. Adjacent cardinal/diagonal sites,
+including seams, reject as `DEFLECTOR_TOO_CLOSE`. This provisional placement policy
+requires owner approval. Every accepted ordinary impact always redirects according
+to orientation and face; there is no cooldown or skipped/mirror response.
 
-The candidate accepts at most **one logical tick per publication**. Historical
-limits remain unchanged. Prepare/commit and subsequent start configuration reject
-larger allowances rather than changing operating policy. The first eight-tick
-proposal failed actual structural/artifact stress and is retained as negative
-evidence. The fixed-slot schema7 motion encoding retains exact values; a measured64-ball
-enclosed box at maximum logical time produces758133 event bytes; broader
-installed/capacity qualification must still establish release suitability.
+The candidate accepts at most **one logical tick per publication**. Prepare/commit
+and subsequent start configuration reject larger allowances instead of changing
+operating policy. Historical limits remain unchanged. The exact decimal fixed-slot
+schema7 encoding fits the measured64-ball maximum-horizon corridor at566136 event
+bytes and4161 events; the legal diamond uses385333 bytes and2817 events. Full
+installed/capacity and financial qualification remain distinct requirements.
 
 ## State, lifecycle and processing-time placement
 
@@ -116,6 +113,8 @@ structures and den1; projection back to6 must exactly match predecessor state by
 Metadata version8 binds source/cursor, ledger cutover, adapter6→7, old/new identity,
 state hashes and preserved predecessor projection. Idempotent identical commits;
 stale/conflicting manifests fail. No production operation is authorised here.
-After activation old modules/frontends are incompatible rollback targets. Use a
+The new durable preparation record is already incompatible with the old module's
+strict root decoder. From preparation onward use forward-compatible recovery;
+after epoch commit old frontends are also incompatible rollback targets. Use a
 qualified compatible frontend first and state-preserving forward recovery, never
 reinstall/reset/reindex paid history or reverse the authenticated epoch.

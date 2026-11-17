@@ -26,7 +26,21 @@ export function capacityWorld(){
   const id=i+1,account=id.toString(16).padStart(2,'0').repeat(32),x=Math.floor((i+.5)*1000/16);
   w.cannons.push({id,cell:100000+x,account,heading:0});w.credits.push({account,units:[0n,1n]});p.players.push({id,account});p.territories.push({id,player:id});p.lifecycle.push({cannon:id,player:id,generation:1});
   for(let j=0;j<4;j++)w.balls.push({id:i*4+j+1,owner:id,cell:102000+x,x0:BigInt(x*1024+512),y0:104960n,vx:0,vy:32000,den:1n});
-  for(let j=0;j<16;j++)w.deflectors.push({id:i*16+j+1,owner:id,cell:104000+x+j-8,orientation:['NE','SE','SW','NW'][j%4]});
+  for(let j=0;j<16;j++)w.deflectors.push({id:i*16+j+1,owner:id,cell:(104+Math.floor(j/4)*2)*1000+x+(j%4)*2-2,orientation:['NE','SE','SW','NW'][j%4]});
  }
  w.deflectors.sort((a,b)=>a.cell-b.cell);w.next_deflector_id=257;w.next_ball_id=65;w.next_cannon_id=17;return validateWorld(w);
+}
+
+/** Four immutable, separated devices form an exact repeating diamond. */
+export function diamondWorld(){const w=successorWorld(8191,2003);w.deflectors=[[2004,'NE'],[4002,'SE'],[2000,'SW'],[2,'NW']].map(([cell,orientation],i)=>({id:i+1,owner:1,cell,orientation})).sort((a,b)=>a.cell-b.cell);w.next_deflector_id=5;return validateWorld(w);}
+
+/** Near-parallel incoming shot: cannon walls reflect only y before an east exit. */
+export function steepWorld(){const w=successorWorld(16383);w.balls[0].x0=2047n;for(const[id,cell]of[[2,1],[3,2001]]){w.cannons.push({id,cell,account:ACCOUNT,heading:0});w.playability.lifecycle.push({cannon:id,player:1,generation:1});}w.next_cannon_id=4;return validateWorld(w);}
+
+/** A currently safe right branch loses its bridge to a real later enemy strike. */
+export function lossWorld(){
+ const w=successorWorld(0,101);w.ownership=scaledOwnership(Array(1024).fill(0));for(let cell=100;cell<=120;cell++)setOwner(w,cell,1);setOwner(w,1115,3);
+ w.cannons=[{id:1,cell:100,account:ACCOUNT,heading:0},{id:2,cell:120,account:ACCOUNT,heading:0},{id:3,cell:1115,account:'02'.repeat(32),heading:49152}];
+ w.balls[0].vx=1;w.balls[0].vy=0;w.balls.push({id:2,owner:2,cell:1115,x0:118272n,y0:1536n,vx:0,vy:-32000,den:1n});
+ w.next_cannon_id=4;w.next_ball_id=3;Object.assign(w.playability,{next_player_id:3,next_territory_id:4,players:[{id:1,account:ACCOUNT},{id:2,account:'02'.repeat(32)}],territories:[{id:1,player:1},{id:3,player:2}],lifecycle:[{cannon:1,player:1,generation:1},{cannon:2,player:1,generation:1},{cannon:3,player:2,generation:1}]});w.credits.push({account:'02'.repeat(32),units:[0n,1n]});return validateWorld(w);
 }

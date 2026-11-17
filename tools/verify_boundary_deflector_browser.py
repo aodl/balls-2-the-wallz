@@ -7,7 +7,7 @@ from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
 from fluid_playability_browser import settled_panel,settled
 from panel_geometry_browser import verify_status_geometry,apply_status
-p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);a=p.parse_args();out=a.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1]
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--width',type=int);a=p.parse_args();out=a.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1]
 subprocess.run(['node','tools/fixtures/prepare-playability-actions.mjs',str(out/'fixture.json')],check=True)
 subprocess.run(['node_modules/.bin/esbuild','tools/fixtures/playability-action-browser.mjs','--bundle','--platform=browser','--format=esm','--outfile='+str(out/'fixture.mjs')],check=True)
 (out/'wallet.html').write_text('<!doctype html><title>Read-only paste, no transaction</title><textarea id="paste"></textarea>')
@@ -24,7 +24,7 @@ try:
  with sync_playwright()as pw:
   browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
   try:
-   for width,height in [(1440,900),(390,844),(320,640)]:
+   for width,height in [(w,h)for w,h in [(1440,900),(390,844),(320,640)]if a.width is None or w==a.width]:
     context=browser.new_context(viewport={'width':width,'height':height},has_touch=width<700,permissions=['clipboard-read','clipboard-write'],record_video_dir=str(out/f'video-{width}'));page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.goto(f'http://127.0.0.1:{s.server_port}/?case=deflector&deflector');page.wait_for_function('()=>!!window.fixture')
     page.locator('#identify-button').click();page.locator('#sending-account').fill('aaaaa-aa');page.locator('#identity-save').click();page.locator('#close-panel').click()
     # Controlled scene setup only, followed by real public UI input.
@@ -63,9 +63,9 @@ try:
     before_restore=page.locator('#text-memo').text_content();page.evaluate('globalThis.restoreDeflectorGl=document.getElementById("board").getContext("webgl2").getExtension("WEBGL_lose_context");restoreDeflectorGl.loseContext()');page.wait_for_timeout(400);page.evaluate('restoreDeflectorGl.restoreContext()');page.wait_for_function('()=>!document.getElementById("board").getContext("webgl2").isContextLost()');page.wait_for_timeout(400);assert page.locator('#text-memo').text_content()==before_restore;expect(page.locator('#deflector-directions')).to_be_visible();assert page.evaluate('fixture.inspect().ghostKind')=='deflector';row['context_restore']='PASS actual WebGL loss/restore, same proposal and editor'
     row['source_geometry']=before;row['panel']=page.locator('#workspace').bounding_box();row['errors']=errors;assert not errors;report['rows'].append(row);save();context.close()
    # An unsupported certified-policy fixture must offer no Deflector action.
-   c=browser.new_context(viewport={'width':320,'height':640});page=c.new_page();page.goto(f'http://127.0.0.1:{s.server_port}/?case=quantityLive');page.wait_for_function('()=>!!window.fixture');expect(page.locator('#deflect-action')).to_be_hidden();c.close()
+   c=browser.new_context(viewport={'width':320,'height':640});page=c.new_page();page.goto(f'http://127.0.0.1:{s.server_port}/?case=quantityLive&entry');page.wait_for_function('()=>!!window.fixture');expect(page.locator('#deflect-action')).to_be_hidden();expect(page.locator('#war-cry-editor')).to_be_hidden();report['unsupported_rules7']='PASS explicit Rules7 configuration hides Deflector and War Cry';c.close()
   finally:browser.close()
- report['status']='PASS';save();print('PASS boundary Deflector native controls at three widths; synthetic scene scope')
+ report['status']='PASS';save();print(f'PASS boundary Deflector native controls at {len(report["rows"])} viewport(s); synthetic scene scope')
 except Exception:
  report['status']='FAIL';report['error']=traceback.format_exc();save();raise
 finally:s.shutdown();s.server_close()

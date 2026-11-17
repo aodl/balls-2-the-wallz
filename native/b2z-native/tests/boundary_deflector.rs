@@ -13,6 +13,12 @@ fn exact_boundary_public_outputs_and_recovery() {
         f["identity"]
     );
     for row in f["rows"].as_array().unwrap() {
+        if let Ok(filter) = std::env::var("B2Z_BOUNDARY_VECTOR_FILTER") {
+            if row["name"].as_str() != Some(filter.as_str()) {
+                continue;
+            }
+        }
+        eprintln!("boundary vector {}", row["name"]);
         let initial = unhex(row["initial_hex"].as_str().unwrap()).unwrap();
         let inputs: Vec<Input> =
             decode(&unhex(row["inputs_hex"].as_str().unwrap()).unwrap()).unwrap();
@@ -27,6 +33,9 @@ fn exact_boundary_public_outputs_and_recovery() {
         loop {
             let (_, done) = c.step(budget).unwrap();
             count += 1;
+            if count % 1000 == 0 {
+                eprintln!("boundary progress {} work calls {}", row["name"], count);
+            }
             if budget == 1 || count % 13 == 0 {
                 let b = c.snapshot().unwrap();
                 c = Cursor::restore(&b, &hash(&b)).unwrap();
@@ -36,7 +45,8 @@ fn exact_boundary_public_outputs_and_recovery() {
             }
             assert!(count < 100000, "{}", row["name"]);
         }
-        c.finalize_elapsed(1).unwrap();
+        c.finalize_elapsed(row["observed_ns"].as_str().unwrap().parse().unwrap())
+            .unwrap();
         let out = c.result().unwrap();
         World::decode(&out.state).unwrap();
         for (kind, bytes) in [

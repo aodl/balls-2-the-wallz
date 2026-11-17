@@ -42,13 +42,28 @@ pub fn validate_ball(b: &Ball) -> Result<()> {
     {
         return Err("successor velocity class".into());
     }
-    if let Some(r) = &b.deflector_rearm {
-        r.check()?;
-        if r < &Rat::integer(0) || r > &Rat::integer(1000000001) {
-            return Err("rearm clock".into());
-        }
+    if b.deflector_rearm.is_some() {
+        return Err("rearm is not part of the boundary policy".into());
     }
     Ok(())
+}
+pub fn separation(w: &World, cell: usize) -> bool {
+    let x = (cell % w.width) as i64;
+    let y = (cell / w.width) as i64;
+    for dy in -1..=1 {
+        for dx in -1..=1 {
+            if (dx != 0 || dy != 0)
+                && at(
+                    w,
+                    crate::world::wrap_cell(x + dx, y + dy, w.width, w.height),
+                )
+                .is_some()
+            {
+                return false;
+            }
+        }
+    }
+    true
 }
 pub fn validate(w: &World) -> Result<()> {
     let ds = w.deflectors.as_ref().ok_or("structure state")?;
@@ -70,6 +85,9 @@ pub fn validate(w: &World) -> Result<()> {
             || !b2z_protocol::deflector::ORIENTATIONS.contains(&d.orientation.as_str())
         {
             return Err("deflector identity/occupancy".into());
+        }
+        if !separation(w, d.cell) {
+            return Err("deflector spacing".into());
         }
         let count = counts.entry(d.owner).or_insert(0);
         *count += 1;
@@ -103,18 +121,22 @@ pub fn remove_lost(w: &mut World) -> Vec<Deflector> {
     w.deflectors = Some(kept);
     gone
 }
-pub fn contact(b: &mut Ball, t: &Rat, d: &Deflector, face: &str, wall: i64) -> Result<Value> {
+pub fn contact(b: &mut Ball, t: &Rat, d: &Deflector, face: &str, _wall: i64) -> Result<Value> {
     let old = trajectory(b)?;
-    let blocked = b.deflector_rearm.as_ref().is_some_and(|r| t < r);
-    let (new, front) = if blocked {
-        (
-            old.reflect(usize::from(!matches!(face, "E" | "W")), wall)?,
-            None,
-        )
-    } else {
-        let (f, x, y) = face_velocity(&d.orientation, face)?;
-        (old.redirect(t, x, y)?, Some(f))
+    let (axis, nx, ny) = match face {
+        "N" => (1, 0i64, -1i64),
+        "E" => (0, 1, 0),
+        "S" => (1, 0, 1),
+        "W" => (0, -1, 0),
+        _ => return Err("contact face".into()),
     };
+    if i64::from(b.vx) * nx + i64::from(b.vy) * ny >= 0
+        || old.position(t)?[axis] != Rat::integer(_wall)
+    {
+        return Err("not a genuine face entry".into());
+    }
+    let (front, vx, vy) = face_velocity(&d.orientation, face)?;
+    let new = old.redirect(t, vx, vy)?;
     if old.position(t)? != new.position(t)? {
         return Err("discontinuous contact".into());
     }
@@ -123,14 +145,9 @@ pub fn contact(b: &mut Ball, t: &Rat, d: &Deflector, face: &str, wall: i64) -> R
     b.den = Some(Int(new.den.into()));
     b.vx = new.vx;
     b.vy = new.vy;
-    if !blocked {
-        b.deflector_rearm = Some(t.add(&Rat::new(4096.into(), 22627.into())?)?);
-    }
-    let mut out = json!({"id":d.id,"orientation":d.orientation,"face":face,"kind":if blocked{"deflector_rearm_reflection"}else{"deflector_redirect"}});
-    if let Some(f) = front {
-        out["front"] = json!(f);
-    }
-    Ok(out)
+    Ok(
+        json!({"id":d.id,"orientation":d.orientation,"face":face,"kind":"deflector_redirect","front":front}),
+    )
 }
 pub fn migrate(old: &World) -> Result<World> {
     old.validate()?;
@@ -195,6 +212,9 @@ pub fn prepare(
     if crate::purchases_v6::occupied_cells(w)?.contains(&cell) {
         return fail("SITE_OCCUPIED");
     }
+    if !separation(w, cell) {
+        return fail("DEFLECTOR_TOO_CLOSE");
+    }
     if !crate::purchases_v6::enemy_clearance(w, owner, cell) {
         return fail("ENEMY_TERRITORY_TOO_CLOSE");
     }
@@ -206,55 +226,50 @@ pub fn prepare(
     })
 }
 
-/// Schema7 fixed-slot wire packing. Internal durable cursor events stay typed.
+/// Lossless schema7 decimal wire. Internal durable events remain typed.
 pub fn pack_event(e: &Value) -> Result<Value> {
     if e["kind"] != "motion" {
         return Ok(e.clone());
     }
+    let dec = |v: &Value| {
+        v["$integer"]
+            .as_str()
+            .map(str::to_owned)
+            .ok_or_else(|| "integer event field".to_string())
+    };
     let b = &e["ball_state"];
-    let mut out = e.clone();
-    out["ball_state"] = json!([
-        b["cell"],
-        b["x0"],
-        b["y0"],
-        b["vx"],
-        b["vy"],
-        b["den"],
-        b.get("deflector_rearm").cloned().unwrap_or(Value::Null)
-    ]);
-    if e["vertex_blocked"] == false {
-        out.as_object_mut().unwrap().remove("vertex_blocked");
-    }
-    if let Some(c) = e.get("deflector_contact") {
-        let orientation = b2z_protocol::deflector::ORIENTATIONS
+    let c = e.get("deflector_contact");
+    let contact = if let Some(c) = c {
+        let o = b2z_protocol::deflector::ORIENTATIONS
             .iter()
             .position(|x| c["orientation"].as_str() == Some(x))
             .ok_or("contact orientation")?;
-        let face = ["N", "E", "S", "W"]
+        let f = ["N", "E", "S", "W"]
             .iter()
             .position(|x| c["face"].as_str() == Some(x))
             .ok_or("contact face")?;
-        let kind = match c["kind"].as_str() {
-            Some("deflector_redirect") => 0,
-            Some("deflector_rearm_reflection") => 1,
-            _ => return Err("contact kind".into()),
-        };
-        out["deflector_contact"] = json!([
-            c["id"],
-            orientation,
-            face,
-            kind,
-            c.get("front").cloned().unwrap_or(Value::Null)
-        ]);
-    }
+        if c["kind"] != "deflector_redirect" || !c["front"].is_boolean() {
+            return Err("contact kind".into());
+        }
+        json!([c["id"], o, f, 0, c["front"]])
+    } else {
+        Value::Null
+    };
     Ok(json!([
         0,
         e["sequence"],
-        e["time"],
+        [dec(&e["time"][0])?, dec(&e["time"][1])?],
         e["ball"],
         e["from_cell"],
-        out["ball_state"],
-        out.get("deflector_contact").cloned().unwrap_or(Value::Null),
+        [
+            b["cell"],
+            dec(&b["x0"])?,
+            dec(&b["y0"])?,
+            b["vx"],
+            b["vy"],
+            dec(&b["den"])?
+        ],
+        contact,
         e["vertex_blocked"]
     ]))
 }

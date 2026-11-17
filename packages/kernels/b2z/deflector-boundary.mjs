@@ -1,8 +1,7 @@
-/** Four-direction numerical checkpoint. Not yet an admitted rules identity. */
-import {gcd, heading, rat, cmp, add} from './math.mjs';
+/** Exact four-direction trajectory algebra; admission is separately versioned. */
+import {gcd, heading, rat, cmp} from './math.mjs';
 
 export const DIAGONAL_COMPONENT = 22627;
-export const REARM_TICKS = Object.freeze([4096n,22627n]);
 export const DEFLECTOR_DIRECTIONS = Object.freeze(['NE', 'SE', 'SW', 'NW']);
 // Canonical heading increases towards positive y (south). Preserve cannon math;
 // the owner's direction/face table takes precedence over its inverted angles.
@@ -57,21 +56,11 @@ export function assertContinuous(before, after, time) {
   const a=exactPosition(before,time),b=exactPosition(after,time);
   if (a.some((v,i)=>cmp(v,b[i])!==0)) throw new Error('discontinuous contact');
 }
-/** Provisional resource safeguard: each suppressed turn is an explicit ordinary
- * blocked-face reflection, never a dropped crossing or delayed simulation time.
- * Four tile lengths at canonical diagonal component speed separate active turns.
- */
-export function contactResponse(b, time, orientation, face, wall, armedAt=null) {
-  const faceAxis=['E','W'].includes(face)?'x':face==='N'||face==='S'?'y':null;
-  if(!faceAxis)throw new Error('single face required');
-  if(cmp(time,timeAtFace(b,faceAxis,wall))!==0)throw new Error('wrong contact time');
-  const normal={N:[0,-1],E:[1,0],S:[0,1],W:[-1,0]}[face];
-  if(b.vx*normal[0]+b.vy*normal[1]>=0)throw new Error('not attempting entry');
-  if(armedAt&&cmp(time,armedAt)<0){
-    const next=reflectExact(b,faceAxis,wall);assertContinuous(b,next,time);
-    return{trajectory:next,armed_at:armedAt,kind:'deflector_rearm_reflection'};
-  }
-  const out=faceVelocity(orientation,face),next=redirectAt(b,time,out.vx,out.vy);
-  assertContinuous(b,next,time);
-  return{trajectory:next,armed_at:add(time,REARM_TICKS),kind:'deflector_redirect',front:out.front};
+/** Every ordinary contact chooses its velocity solely from orientation/face. */
+export function contactResponse(b,time,orientation,face,wall){
+ const axis=['E','W'].includes(face)?'x':face==='N'||face==='S'?'y':null;if(!axis)throw Error('single face required');
+ if(cmp(time,timeAtFace(b,axis,wall))!==0)throw Error('wrong contact time');
+ const normal={N:[0,-1],E:[1,0],S:[0,1],W:[-1,0]}[face];if(b.vx*normal[0]+b.vy*normal[1]>=0)throw Error('not attempting entry');
+ const out=faceVelocity(orientation,face),next=redirectAt(b,time,out.vx,out.vy);assertContinuous(b,next,time);
+ return{trajectory:next,kind:'deflector_redirect',front:out.front};
 }
