@@ -99,3 +99,11 @@ Rules7/9/10 identities and fixtures, direct state-preserving Rules7 cutover, exa
 source adapter6 semantics and both policy gates. Production remains Rules7 until
 a separately authorised backend operation. New compatibility assets are distinct
 from the approved79-file frontend freeze; never mix their staging directories.
+
+Isolated graphite/Deflector work follows [the visual system](docs/specs/B2Z_VISUAL_SYSTEM.md)
+and [numeric/capability checkpoint](docs/specs/B2Z_DEFLECTORS.md). Preserve approved
+panel axes, full financial values and measured editor reservations. Test all model
+headings/world footprints and actual shader/renderer costs; never infer game-state
+support from a synthetic render fixture. Contact-oracle parity is not installed
+purchase, scheduler, replay or migration qualification. Keep Deflector commands
+unavailable until an exact supporting authenticated policy is implemented.

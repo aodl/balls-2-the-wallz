@@ -11,7 +11,7 @@ s=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(H,directory=
 with sync_playwright()as p:
  b=p.chromium.launch(headless=True,chromium_sandbox=True)
  try:
-  for variant in ['normal','no-guide','overdraw']:
+  for variant in ['normal','no-guide','overdraw','body-mask']:
    c=b.new_context(viewport={'width':500,'height':400});page=c.new_page();page.goto(f'http://127.0.0.1:{s.server_port}/{variant}/');page.wait_for_function('()=>!!globalThis.fixture');page.locator('#identify-button').click();page.locator('#sending-account').fill('aaaaa-aa');page.locator('#identity-save').click();page.locator('#close-panel').click();page.evaluate('fixture.render("additional","initial");fixture.select(1)');page.locator('#fire-action').click()
    for scale in [48,96]:
     for angle in [0,45,90,135,180,225,270,315]:
@@ -19,9 +19,10 @@ with sync_playwright()as p:
    page.screenshot(path=str(out/(variant+'.png')));c.close();print('captured',variant,flush=True)
   for scale in [48,96]:
    for angle in [0,45,90,135,180,225,270,315]:
-    base=pixels[('no-guide',scale,angle)];fixed=pixels[('normal',scale,angle)];bad=pixels[('overdraw',scale,angle)];mask=[]
-    # Erode the actual neutral gunmetal/outline mask by one pixel, excluding edges.
-    def body(i):v=base[i*4:i*4+3];return max(v)<150 and max(v)-min(v)<25 and base[i*4+3]==255
+    solid=pixels[('body-mask',scale,angle)];base=pixels[('no-guide',scale,angle)];fixed=pixels[('normal',scale,angle)];bad=pixels[('overdraw',scale,angle)];mask=[]
+    # Erode an independently rendered white actual-body mask; owner hue and
+    # selection materials cannot erase this geometric occlusion contract.
+    def body(i):v=solid[i*4:i*4+3];return min(v)>=250 and solid[i*4+3]==255
     for y in range(1,127):
      for x in range(1,127):
       i=y*128+x

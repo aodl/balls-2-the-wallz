@@ -378,3 +378,14 @@ cutover use a separately retained qualified Rules11-compatible recovery frontend
 Remaining backend approvals and the durable-decoder/forward-recovery stop
 conditions remain in RELEASE_DECISIONS; the frontend operation changes none of
 them. Keep P09 FAIL and physical-device/audio limitations explicit.
+
+## Isolated graphite/Deflector development — not a release operation
+
+The visual work and numeric checkpoint live on `feature/b2z-graphite-deflectors`;
+see [release decisions](../../evidence/B2Z/graphite-deflectors/RELEASE_DECISIONS.md).
+Its staging/freeze is separate from `.work/s14/assets` and the deployed80-file
+Rules11-compatible freeze/rollback. No production command is authorised by that
+development brief. A rendered wedge or exact contact probe is not an authenticated
+mechanic or supporting payment capability. No Deflector normal Wasm is qualified.
+Do not use the unchanged Rules11 module as a Deflector release. Future numeric,
+schema, source, migration, exact artifact and capability approvals remain separate.
