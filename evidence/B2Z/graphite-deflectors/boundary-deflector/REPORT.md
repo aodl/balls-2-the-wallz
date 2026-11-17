@@ -21,10 +21,10 @@ maximum numerator41bits, no mirror response, chain
 `bd2ae809042dec76a8aa64694369e53d30f50ae17773ec1077c88e5f128d3b03`.
 The matching long native execution is still running; do not call it a parity pass.
 
-The current native interpreter passed103 shared complete state/event/score vectors,
-including exact bytes and durable restore. The expanded108-vector fixture adds
-near-parallel incoming shots after cannon reflections and real strike-driven
-ownership loss; its final native rerun is outstanding. The focused current JS
+The current native interpreter passed109 shared complete state/event/score vectors,
+including exact bytes and durable restore (376.35seconds). The expanded fixture adds
+near-parallel incoming shots after cannon reflections, toroidal exact corners and
+real strike-driven ownership loss. The focused current JS
 suite passed25 tests. A topology regression exposed stale structures during
 private split validation; JS/Rust now remove them atomically and include the exact
 removed list in the authenticated capture output. No old goldens were rewritten.
@@ -45,7 +45,7 @@ produced2817 events,960 redirects and385333 bytes. Both remain inside existing
 limits. This is synthetic JS execution, not isolated IC instruction/cycle cost.
 
 Normal-module compilation and installed-harness compilation have succeeded at
-intermediate sources. New post-topology normal/test-hooks builds are running;
+intermediate sources. The post-topology normal build has completed; its test-hooks setup build is running;
 no new backend has been frozen or installed on production. Official valueless
 Ledger/Index paid Deflectors, actual installed redirects, upgrade/certificate/
 financial/replay negatives and two authenticated observers still require execution.

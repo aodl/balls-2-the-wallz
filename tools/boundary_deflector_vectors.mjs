@@ -17,6 +17,7 @@ for(const orientation of['NE','SE','SW','NW'])for(const[face,p]of Object.entries
 for(const orientation of['NE','SE','SW','NW'])row('near-parallel-cannon-reflection-'+orientation,steepWorld(),[{command:{kind:'deflect',cell:1002,orientation}}]);
 row('corridor-with-recovery',successorWorld(),[1002,3000].map(cell=>({command:{kind:'deflect',cell,orientation:'NE'}})),true);
 row('blocked-vertex',successorWorld(8192),[{command:{kind:'deflect',cell:2002,orientation:'NE'}}]);
+row('toroidal-blocked-vertex',successorWorld(40960,0),[{command:{kind:'deflect',cell:999999,orientation:'NE'}}]);
 row('toroidal-contact',successorWorld(32768,0),[{command:{kind:'deflect',cell:999,orientation:'NE'}}]);
 for(const[reason,options,cell]of[['underfunded',{amount:9999999n},1002],['wrong-account',{account:'02'.repeat(32)},1002],['occupied',{},4004]])row(reason,successorWorld(),[{...options,command:{kind:'deflect',cell,orientation:'SE'}}]);
 row('war-cry-preserved',successorWorld(),[{command:{kind:'deflect',cell:1002,orientation:'NE'}},{command:{kind:'fire',cannon:1,angle:0,quantity:1},cry:'é😀'}],true);
@@ -49,5 +50,6 @@ for(const name of['bridge_left','wall_pair','mutual']){
  row('successor-topology-'+name,w,[],true);
 }
 row('paid-safe-then-genuine-bridge-loss',lossWorld(),[{command:{kind:'deflect',cell:119,orientation:'NW'}}],true);
+const cryA=rows.find(r=>r.name==='successor-retains-annotation/fire'),cryB=rows.find(r=>r.name==='successor-retains-annotation/fire-alt');if(cryA.outputs.state.sha256!==cryB.outputs.state.sha256)throw Error('cosmetic War Cry changed gameplay');
 const result={scope:'New provisional Rules12 public-output vectors. Python Fraction oracle independently covers contact algebra. Not installed qualification.',identity:DEFLECTOR_IDENTITY,rows};
 const text=JSON.stringify(result,null,2)+'\n';if(process.argv.includes('--check')){if(fs.readFileSync(process.argv[2],'utf8')!==text)throw Error('Stale new Deflector vectors');}else fs.writeFileSync(process.argv[2],text);console.log('PASS',process.argv.includes('--check')?'checked':'generated',rows.length,'new vectors; no historical fixtures changed');

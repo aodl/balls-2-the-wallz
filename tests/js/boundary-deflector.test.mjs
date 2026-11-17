@@ -127,3 +127,7 @@ test('near-parallel arrival after cannon reflections still uses only the contact
 test('a paid safe Deflector is removed by a subsequent genuine bridge strike',async()=>{
  const {lossWorld}=await import('../scenarios/boundary-deflector.mjs'),w=lossWorld(),r=run(w,[{command:{kind:'deflect',cell:119,orientation:'NW'}}]),a=unpackDeflectorAudit(decodeCanonical(r.events),w.balls);assert.equal(a.receipts[0].reason,'ACCEPTED');assert(a.events.some(e=>e.kind==='deflector_built'));const cut=a.events.find(e=>e.removed_deflectors?.length);assert(cut);assert.equal(cut.removed_deflectors[0].cell,119);assert.deepEqual(decodeWorld(r.state).deflectors,[]);assert.equal(decodeWorld(r.state).received_e8s,10000000n);
 });
+
+test('simultaneous toroidal corner retains canonical blocked vertex semantics',()=>{
+ const w=successorWorld(40960,0),r=run(w,[{command:{kind:'deflect',cell:999999,orientation:'NE'}}]),a=unpackDeflectorAudit(decodeCanonical(r.events),w.balls),e=a.events.find(e=>e.kind==='motion');assert(e.vertex_blocked);assert.equal(e.deflector_contact,undefined);assert.equal(e.ball_state.cell,0);assert.deepEqual([e.ball_state.vx,e.ball_state.vy],[22627,22627]);const next=a.events.find(x=>x.kind==='motion'&&x.sequence>e.sequence);assert(next&&next.time[0]*e.time[1]>e.time[0]*next.time[1]);
+});
