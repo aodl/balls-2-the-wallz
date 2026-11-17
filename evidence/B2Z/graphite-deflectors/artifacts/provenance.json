@@ -1,13 +1,13 @@
 {
-  "source": "d854133bd7e38ea4002079e6bc5d01de3e53e45a",
+  "source": "0e2740c97d2067420c2d191eaee66b54eb5dc4c9",
   "source_dirty": false,
   "files": 80,
   "public_files": 79,
-  "inventory_sha256": "7ecd9af739cab4dfb806d79172b90a448f3cf0193fb21513eebddc9a931320b7",
-  "javascript_sha256": "c06aaa0d69fef9a9d1570898c0e33269892fccf099d06a473a24442a4758daaa",
+  "inventory_sha256": "ab046a31801a07dcd3f13b782872b4c2125f71712c158bcce47a14fd96c4cd12",
+  "javascript_sha256": "25ac2af801426d57c20d2066782e8d523c45b8d0b6fbcebaca464332751971db",
   "audio_manifest_sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
   "unchanged_audio_files": 61,
-  "total_asset_bytes": 76357095,
+  "total_asset_bytes": 76361371,
   "normal_wasm_sha256": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
   "backend_build_source": "89bfdd6b6500a57cdbb827aa9cb9a8351547d995",
   "backend_build_environment": {
@@ -1239,7 +1239,7 @@
     },
     {
       "path": "apps/b2z-observer/render.mjs",
-      "sha256": "45df48ca1e2614a5e8e09f770d859befb24b1dc3d7694bcb6905628c62ed2ebd"
+      "sha256": "2a4aa138f66a066a4726c834fd1a1c949b116048da869b3e1fd7ad1c09b0b744"
     },
     {
       "path": "apps/b2z-observer/replay-tools.mjs",
@@ -1259,7 +1259,7 @@
     },
     {
       "path": "apps/b2z-observer/structure-geometry.mjs",
-      "sha256": "63d92b7c1fb652e877d5152f4744291049080f46a418ae70e1553d4a19c8d4f8"
+      "sha256": "6e2720a29d30194aa902192cb0ac02205ede496585fb2a558ab29e6fea1d37d0"
     },
     {
       "path": "apps/b2z-observer/style.css",
@@ -1279,7 +1279,7 @@
     },
     {
       "path": "apps/b2z-observer/theme.mjs",
-      "sha256": "336367f264159da9098b5ea28d4cf09357208a20414d2262245631a3524e2a32"
+      "sha256": "cd99fbfcf70c8297b19be0aa980191153146c9b8b772f8ebff275e37fbb8e797"
     },
     {
       "path": "apps/b2z-observer/torus-identity.generated.mjs",

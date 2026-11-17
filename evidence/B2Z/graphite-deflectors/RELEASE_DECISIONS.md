@@ -3,10 +3,10 @@
 ## Visual/frontend candidate
 
 The visual-only80-file freeze is `.work/graphite-deflectors/frozen/frontend` in the
-isolated worktree. Frozen build source `d854133bd7e38ea4002079e6bc5d01de3e53e45a`;
-JavaScript `c06aaa0d69fef9a9d1570898c0e33269892fccf099d06a473a24442a4758daaa`;
-complete inventory `7ecd9af739cab4dfb806d79172b90a448f3cf0193fb21513eebddc9a931320b7`.
-The source qualification continuation is fa935d3818e727444e1e214963fb68904e9f6d40;
+isolated worktree. Frozen build source `0e2740c97d2067420c2d191eaee66b54eb5dc4c9`;
+JavaScript `25ac2af801426d57c20d2066782e8d523c45b8d0b6fbcebaca464332751971db`;
+complete inventory `ab046a31801a07dcd3f13b782872b4c2125f71712c158bcce47a14fd96c4cd12`.
+The final indexed-source qualification continuation is recorded in REPORT;
 consult REPORT for actual final hosted conclusions. No old green CI qualifies it.
 It retains certified Rules7/9/10/11 capability policy; no Deflector decoder,
 financial command or counterfeit supporting identity is added.
