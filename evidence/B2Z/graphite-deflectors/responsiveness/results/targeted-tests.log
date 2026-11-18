@@ -1,0 +1,36 @@
+✔ complete quantized-heading sweep keeps both rotating models inside their tile (186.883733ms)
+✔ contrast adjustment preserves light account hues and safely lifts dark examples (1.251993ms)
+✔ contrast palette cache remains bounded under many distinct declared colours (220.092243ms)
+✔ merged cannon upper retains a real dark muzzle, owner rim and substantial barrel (3.702979ms)
+✔ cold H plays the completed authenticated interval without H+1 and keeps authority H (165.905351ms)
+✔ pruned predecessor falls back without an unauthenticated segment (115.390457ms)
+✔ late history cannot rewind the committed snapshot or continue downloading chunks (75.985793ms)
+✔ bad predecessor/state rejects optional motion and preserves an explicit integrity failure alongside snapshot fallback (126.141183ms)
+✔ genesis and zero-time checkpoints do not query historical motion (0.638407ms)
+✔ guide clipping is directional and only affects actual UI collisions (0.509506ms)
+✔ aim vicinity is bounded screen space and never active for Move/inspection (2.623031ms)
+✔ an eligible different Build tile wins over the surrounding aim halo (0.635707ms)
+✔ UX-12 diamond matches ground projection, inverse and transparent corners (1.67142ms)
+✔ UX-02/12 shared picking consumes illegal placement without retargeting (1.661319ms)
+✔ UX-04 hidden due-time work is quiet, single-flight, resumes and never resurrects (7.517488ms)
+✔ UX-04/05 warm return preserves usable slow coverage and bounds playback lag (0.759909ms)
+✔ UX-04 scoped observation deadline reaches the underlying fetch; abort never changes global fetch (11.232532ms)
+✔ UX-12 reflected tails retain bounded real path and expire by wall time at varied sampling rates (2.881334ms)
+✔ UX-04 actual SDK observation query cancellation reaches its pending transport (20.515341ms)
+✔ UX-06 delayed replies cannot relabel old certificates or pre-hide health as fresh (0.499006ms)
+✔ UX-04 fresh slow-tier information never consumes a retained remainder (0.269803ms)
+✔ UX-04 an optional retained-history deadline cancels its SDK fetch without stopping current observation (34.327503ms)
+✔ UX-06 precedence distinguishes producer, verification, delivery and presentation (1.656619ms)
+✔ UX-04/11 workers are independently single-flight, visibility-safe and fenced on teardown (8.837104ms)
+✔ UX-12 effects use displayed displacement, unwrap seams and clear discontinuities (1.790321ms)
+✔ UX-06 network failure is reconnecting; verification failure never leaves copying enabled (0.371404ms)
+✔ UX-06 optional operational loss never masquerades as delivery; readiness changes without label flicker (0.84331ms)
+✔ observation transport retires an ignored abort and fences its late response (127.126095ms)
+ℹ tests 28
+ℹ suites 0
+ℹ pass 28
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1770.172394

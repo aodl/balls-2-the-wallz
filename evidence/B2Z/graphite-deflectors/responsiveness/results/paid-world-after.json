@@ -1,0 +1,53 @@
+{
+  "at": "2026-11-18T19:58:47.818Z",
+  "module_hash": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "root": "8e837284ad1a004dd3440e173e8981c6a220cd86010cfe63e6b32ad58d19eedb",
+  "identity": {
+    "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+    "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+    "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "head": {
+    "logical_end": "11769",
+    "manifest_hash": "4738ea5ce05136a6b7540aa931d35286131fd06a5827d05a315b595f395d6fc7",
+    "seal": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "epoch_hash": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+      "input_count": 0,
+      "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+      "logical_end": "11769",
+      "logical_start": "11768",
+      "previous_manifest": "ccf992c3ab4498147ba9a1ec01b3b9b6f1088b0415a25de52287c9f38b80540b",
+      "previous_state": "b216421b846ad3b7f853be88a41a02ee730402f302f2342fb0dcb83ad377ffac",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "segment_id": "11774",
+      "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+      "source_from": "40180669",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+      "source_to_exclusive": "40180669"
+    },
+    "segment_id": "11774",
+    "source_to_exclusive": "40180669",
+    "state_hash": "04e555d2e51601dd2e7aaebe297d5be5b3e88850f8bef1e251491f1ec242efc0"
+  },
+  "world": {
+    "received_e8s": "100000000",
+    "cannons": 1,
+    "balls": 1
+  },
+  "chain": [
+    {
+      "head": 11774,
+      "root": "8e837284ad1a004dd3440e173e8981c6a220cd86010cfe63e6b32ad58d19eedb",
+      "manifest": "4738ea5ce05136a6b7540aa931d35286131fd06a5827d05a315b595f395d6fc7",
+      "source_cursor": "40180669",
+      "state": "04e555d2e51601dd2e7aaebe297d5be5b3e88850f8bef1e251491f1ec242efc0",
+      "events": "73dd35779fc2fa40e05f5d3a382b44656b4d933e2779059ccf4df4ea6f29119b",
+      "scores": "f090b2895b818ec367de70f5af3be8707ad6471040fe15369f55e6cc851f00f4",
+      "receipts": [],
+      "received_e8s": "100000000"
+    }
+  ]
+}

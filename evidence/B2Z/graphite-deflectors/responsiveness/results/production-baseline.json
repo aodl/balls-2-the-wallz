@@ -1,0 +1,1845 @@
+{
+  "browser": "153.0.8010.12",
+  "rows": [
+    {
+      "view": [
+        1440,
+        900
+      ],
+      "cache": "cold",
+      "sample": 0,
+      "load": {
+        "first": {
+          "at": 2540.2,
+          "world": 2566.2000000476837,
+          "cert": 2179.5,
+          "history": {
+            "requests": 2,
+            "bytes": 18485,
+            "outcome": "interval",
+            "elapsedMs": 379
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            644
+          ],
+          [
+            "first-contentful-paint",
+            644
+          ]
+        ],
+        "nav": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 1138.6000000238419,
+          "navigationId": 751,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.30000007152557373,
+          "domainLookupStart": 2.700000047683716,
+          "domainLookupEnd": 19,
+          "connectStart": 19,
+          "secureConnectionStart": 60.800000071525574,
+          "connectEnd": 111.30000007152557,
+          "requestStart": 111.60000002384186,
+          "responseStart": 332.3000000715256,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 332.3000000715256,
+          "responseEnd": 336.5,
+          "transferSize": 4724,
+          "encodedBodySize": 4424,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 0,
+          "unloadEventEnd": 0,
+          "domInteractive": 390.8000000715256,
+          "domContentLoadedEventStart": 1138.3999999761581,
+          "domContentLoadedEventEnd": 1138.3999999761581,
+          "domComplete": 1138.5,
+          "loadEventStart": 1138.6000000238419,
+          "loadEventEnd": 1138.6000000238419,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          "entryType": "resource",
+          "startTime": 385,
+          "duration": 585.3000000715256,
+          "navigationId": 751,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 385,
+          "domainLookupStart": 385,
+          "domainLookupEnd": 385,
+          "connectStart": 385,
+          "secureConnectionStart": 385,
+          "connectEnd": 385,
+          "requestStart": 394.89999997615814,
+          "responseStart": 812,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 812,
+          "responseEnd": 970.3000000715256,
+          "transferSize": 454394,
+          "encodedBodySize": 454094,
+          "decodedBodySize": 2174499,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "WebKit WebGL",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          9012
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/style.css",
+          12187
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          457280
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23239
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          814
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "lab_status",
+          779
+        ],
+        [
+          "observation_bundle",
+          26135
+        ],
+        [
+          "source_descriptor",
+          408
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/configuration-deflector.bin",
+          6024
+        ],
+        [
+          "retained_publication",
+          4384
+        ],
+        [
+          "retained_artifact_chunk",
+          14637
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 3.1258480000542477,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 184,
+        "LayoutObjects": 63,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 419,
+        "Resources": 12,
+        "ContextLifecycleStateObservers": 13,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 2529,
+        "LayoutCount": 7,
+        "RecalcStyleCount": 88,
+        "LayoutDuration": 0.011855,
+        "RecalcStyleDuration": 0.016174,
+        "DevToolsCommandDuration": 0.023207,
+        "ScriptDuration": 0.200501,
+        "V8CompileDuration": 0,
+        "TaskDuration": 1.249186,
+        "TaskOtherDuration": 0.997449,
+        "ThreadTime": 0.7157709999999999,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 16560084,
+        "JSHeapTotalSize": 26484736,
+        "FirstMeaningfulPaint": 550106.714477,
+        "DomContentLoaded": 1.1687469999305904,
+        "NavigationStart": 0.06776600005105138
+      }
+    },
+    {
+      "view": [
+        1440,
+        900
+      ],
+      "cache": "warm",
+      "sample": 0,
+      "load": {
+        "first": {
+          "at": 1705.5,
+          "world": 1727.8000000715256,
+          "cert": 1393.6000000238419,
+          "history": {
+            "requests": 2,
+            "bytes": 18485,
+            "outcome": "interval",
+            "elapsedMs": 328.2999999523163
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            700
+          ],
+          [
+            "first-contentful-paint",
+            700
+          ]
+        ],
+        "nav": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 777.7000000476837,
+          "navigationId": 5960,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 1.3000000715255737,
+          "domainLookupStart": 1.3000000715255737,
+          "domainLookupEnd": 1.3000000715255737,
+          "connectStart": 1.3000000715255737,
+          "secureConnectionStart": 1.3000000715255737,
+          "connectEnd": 1.3000000715255737,
+          "requestStart": 3.5,
+          "responseStart": 191.30000007152557,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 191.30000007152557,
+          "responseEnd": 192.80000007152557,
+          "transferSize": 4724,
+          "encodedBodySize": 4424,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 326.8000000715256,
+          "unloadEventEnd": 326.8000000715256,
+          "domInteractive": 355,
+          "domContentLoadedEventStart": 777.5,
+          "domContentLoadedEventEnd": 777.6000000238419,
+          "domComplete": 777.7000000476837,
+          "loadEventStart": 777.7000000476837,
+          "loadEventEnd": 777.7000000476837,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "low"
+          }
+        },
+        "app": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          "entryType": "resource",
+          "startTime": 353.2000000476837,
+          "duration": 301.39999997615814,
+          "navigationId": 5960,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 353.2000000476837,
+          "domainLookupStart": 353.2000000476837,
+          "domainLookupEnd": 353.2000000476837,
+          "connectStart": 353.2000000476837,
+          "secureConnectionStart": 353.2000000476837,
+          "connectEnd": 353.2000000476837,
+          "requestStart": 355,
+          "responseStart": 579.4000000953674,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 579.4000000953674,
+          "responseEnd": 654.6000000238419,
+          "transferSize": 454394,
+          "encodedBodySize": 454094,
+          "decodedBodySize": 2174499,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "WebKit WebGL",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          7582
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/style.css",
+          11863
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          457271
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          833
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "observation_bundle",
+          26135
+        ],
+        [
+          "source_descriptor",
+          431
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/configuration-deflector.bin",
+          4708
+        ],
+        [
+          "retained_publication",
+          4510
+        ],
+        [
+          "retained_artifact_chunk",
+          14641
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 2.1822610000381246,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 244,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 419,
+        "Resources": 11,
+        "ContextLifecycleStateObservers": 13,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 1607,
+        "LayoutCount": -1,
+        "RecalcStyleCount": -26,
+        "LayoutDuration": -0.010203,
+        "RecalcStyleDuration": 0.0008519999999999986,
+        "DevToolsCommandDuration": 0.0018719999999999987,
+        "ScriptDuration": -0.128559,
+        "V8CompileDuration": 0,
+        "TaskDuration": -0.31628900000000004,
+        "TaskOtherDuration": -0.18025100000000005,
+        "ThreadTime": -0.245485,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 4620520,
+        "JSHeapTotalSize": 6877184,
+        "FirstMeaningfulPaint": -550106.714477,
+        "DomContentLoaded": 2.773560000001453,
+        "NavigationStart": 3.134520999970846
+      },
+      "interaction": {
+        "frames": 178,
+        "p50_ms": 66.7,
+        "p95_ms": 166.7,
+        "worst_ms": 266.6000000000022,
+        "errors": [],
+        "hardware": "WebKit WebGL"
+      },
+      "steady_wire": [
+        [
+          "lab_status",
+          804
+        ],
+        [
+          "observation_bundle",
+          26135
+        ],
+        [
+          "observation_bundle",
+          26134
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/audio/b2z-v1/music/005-4bf13903e457fd94.flac",
+          1419979
+        ],
+        [
+          "observation_bundle",
+          26158
+        ],
+        [
+          "lab_status",
+          804
+        ],
+        [
+          "observation_bundle",
+          26135
+        ],
+        [
+          "observation_bundle",
+          26159
+        ]
+      ]
+    },
+    {
+      "view": [
+        1440,
+        900
+      ],
+      "cache": "cold",
+      "sample": 1,
+      "load": {
+        "first": {
+          "at": 2997.9,
+          "world": 3023,
+          "cert": 2634.600000023842,
+          "history": {
+            "requests": 2,
+            "bytes": 18485,
+            "outcome": "interval",
+            "elapsedMs": 379.1999999284744
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            452
+          ],
+          [
+            "first-contentful-paint",
+            452
+          ]
+        ],
+        "nav": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 1609.3000000715256,
+          "navigationId": 650,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 1.9000000953674316,
+          "domainLookupStart": 4.800000071525574,
+          "domainLookupEnd": 12.800000071525574,
+          "connectStart": 12.800000071525574,
+          "secureConnectionStart": 22.300000071525574,
+          "connectEnd": 40.700000047683716,
+          "requestStart": 41,
+          "responseStart": 192,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 192,
+          "responseEnd": 193.60000002384186,
+          "transferSize": 4724,
+          "encodedBodySize": 4424,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 0,
+          "unloadEventEnd": 0,
+          "domInteractive": 221.30000007152557,
+          "domContentLoadedEventStart": 1609,
+          "domContentLoadedEventEnd": 1609.1000000238419,
+          "domComplete": 1609.3000000715256,
+          "loadEventStart": 1609.3000000715256,
+          "loadEventEnd": 1609.3000000715256,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          "entryType": "resource",
+          "startTime": 218.30000007152557,
+          "duration": 1216.1000000238419,
+          "navigationId": 650,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 218.30000007152557,
+          "domainLookupStart": 218.30000007152557,
+          "domainLookupEnd": 218.30000007152557,
+          "connectStart": 218.30000007152557,
+          "secureConnectionStart": 218.30000007152557,
+          "connectEnd": 218.30000007152557,
+          "requestStart": 222.30000007152557,
+          "responseStart": 1397.5,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 1397.5,
+          "responseEnd": 1434.4000000953674,
+          "transferSize": 454394,
+          "encodedBodySize": 454094,
+          "decodedBodySize": 2174499,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "WebKit WebGL",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          9012
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/style.css",
+          12185
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          457308
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          971
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23081
+        ],
+        [
+          "observation_bundle",
+          26158
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "lab_status",
+          779
+        ],
+        [
+          "source_descriptor",
+          408
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/configuration-deflector.bin",
+          6004
+        ],
+        [
+          "retained_publication",
+          4383
+        ],
+        [
+          "retained_artifact_chunk",
+          14661
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 3.453984000021592,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 184,
+        "LayoutObjects": 63,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 417,
+        "Resources": 12,
+        "ContextLifecycleStateObservers": 13,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 2529,
+        "LayoutCount": 7,
+        "RecalcStyleCount": 86,
+        "LayoutDuration": 0.008728,
+        "RecalcStyleDuration": 0.017717,
+        "DevToolsCommandDuration": 0.021802000000000002,
+        "ScriptDuration": 0.161739,
+        "V8CompileDuration": 0,
+        "TaskDuration": 1.087519,
+        "TaskOtherDuration": 0.877533,
+        "ThreadTime": 0.713536,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 16889200,
+        "JSHeapTotalSize": 25698304,
+        "FirstMeaningfulPaint": 550142.829656,
+        "DomContentLoaded": 1.6471219999948516,
+        "NavigationStart": 0.10903999989386648
+      }
+    },
+    {
+      "view": [
+        1440,
+        900
+      ],
+      "cache": "warm",
+      "sample": 1,
+      "load": {
+        "first": {
+          "at": 1366.8,
+          "world": 1372.1999999284744,
+          "cert": 992.1000000238419,
+          "history": {
+            "requests": 2,
+            "bytes": 18485,
+            "outcome": "interval",
+            "elapsedMs": 374.6999999284744
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            280
+          ],
+          [
+            "first-contentful-paint",
+            280
+          ]
+        ],
+        "nav": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 491.6999999284744,
+          "navigationId": 5694,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.6999999284744263,
+          "domainLookupStart": 0.6999999284744263,
+          "domainLookupEnd": 0.6999999284744263,
+          "connectStart": 0.6999999284744263,
+          "secureConnectionStart": 0.6999999284744263,
+          "connectEnd": 0.6999999284744263,
+          "requestStart": 3,
+          "responseStart": 13,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 13,
+          "responseEnd": 14.5,
+          "transferSize": 4724,
+          "encodedBodySize": 4424,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 95.39999997615814,
+          "unloadEventEnd": 95.39999997615814,
+          "domInteractive": 120,
+          "domContentLoadedEventStart": 491.5,
+          "domContentLoadedEventEnd": 491.5,
+          "domComplete": 491.6999999284744,
+          "loadEventStart": 491.6999999284744,
+          "loadEventEnd": 491.6999999284744,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          "entryType": "resource",
+          "startTime": 118.60000002384186,
+          "duration": 269.89999997615814,
+          "navigationId": 5694,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 118.60000002384186,
+          "domainLookupStart": 118.60000002384186,
+          "domainLookupEnd": 118.60000002384186,
+          "connectStart": 118.60000002384186,
+          "secureConnectionStart": 118.60000002384186,
+          "connectEnd": 118.60000002384186,
+          "requestStart": 124.89999997615814,
+          "responseStart": 366.6999999284744,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 366.6999999284744,
+          "responseEnd": 388.5,
+          "transferSize": 454394,
+          "encodedBodySize": 454094,
+          "decodedBodySize": 2174499,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "WebKit WebGL",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          7581
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/style.css",
+          11885
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          457270
+        ],
+        [
+          "observation_bundle",
+          26139
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          855
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23081
+        ],
+        [
+          "source_descriptor",
+          408
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/configuration-deflector.bin",
+          4711
+        ],
+        [
+          "retained_publication",
+          4513
+        ],
+        [
+          "retained_artifact_chunk",
+          14661
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 1.7741219999734312,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 241,
+        "LayoutObjects": 63,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 412,
+        "Resources": 10,
+        "ContextLifecycleStateObservers": 13,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 1605,
+        "LayoutCount": -1,
+        "RecalcStyleCount": -29,
+        "LayoutDuration": -0.007095,
+        "RecalcStyleDuration": -0.004152000000000001,
+        "DevToolsCommandDuration": -0.0015779999999999995,
+        "ScriptDuration": -0.08827800000000001,
+        "V8CompileDuration": 0,
+        "TaskDuration": -0.374618,
+        "TaskOtherDuration": -0.27351499999999995,
+        "ThreadTime": -0.26350700000000005,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 4112500,
+        "JSHeapTotalSize": 7925760,
+        "FirstMeaningfulPaint": 3.3911089999601245,
+        "DomContentLoaded": 2.4467429999494925,
+        "NavigationStart": 3.56431899999734
+      }
+    },
+    {
+      "view": [
+        1440,
+        900
+      ],
+      "cache": "cold",
+      "sample": 2,
+      "load": {
+        "first": {
+          "at": 2510.4,
+          "world": 2534.899999976158,
+          "cert": 1901.1999999284744,
+          "history": {
+            "requests": 2,
+            "bytes": 18485,
+            "outcome": "interval",
+            "elapsedMs": 625.1000000238419
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            368
+          ],
+          [
+            "first-contentful-paint",
+            368
+          ]
+        ],
+        "nav": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 543.1999999284744,
+          "navigationId": 7567,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 2.6999999284744263,
+          "domainLookupStart": 6.299999952316284,
+          "domainLookupEnd": 7.799999952316284,
+          "connectStart": 7.799999952316284,
+          "secureConnectionStart": 15.599999904632568,
+          "connectEnd": 31.5,
+          "requestStart": 31.699999928474426,
+          "responseStart": 241,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 241,
+          "responseEnd": 242.39999997615814,
+          "transferSize": 4724,
+          "encodedBodySize": 4424,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 0,
+          "unloadEventEnd": 0,
+          "domInteractive": 265.39999997615814,
+          "domContentLoadedEventStart": 542.7999999523163,
+          "domContentLoadedEventEnd": 543,
+          "domComplete": 543.0999999046326,
+          "loadEventStart": 543.1999999284744,
+          "loadEventEnd": 543.1999999284744,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          "entryType": "resource",
+          "startTime": 263.6999999284744,
+          "duration": 58.800000071525574,
+          "navigationId": 7567,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 263.6999999284744,
+          "domainLookupStart": 263.6999999284744,
+          "domainLookupEnd": 263.6999999284744,
+          "connectStart": 263.6999999284744,
+          "secureConnectionStart": 263.6999999284744,
+          "connectEnd": 263.6999999284744,
+          "requestStart": 269.89999997615814,
+          "responseStart": 283.59999990463257,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 283.59999990463257,
+          "responseEnd": 322.5,
+          "transferSize": 454394,
+          "encodedBodySize": 454094,
+          "decodedBodySize": 2174499,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "WebKit WebGL",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          9014
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/style.css",
+          12188
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          457287
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23240
+        ],
+        [
+          "lab_status",
+          792
+        ],
+        [
+          "observation_bundle",
+          26134
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          803
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "source_descriptor",
+          432
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/configuration-deflector.bin",
+          6003
+        ],
+        [
+          "retained_publication",
+          4382
+        ],
+        [
+          "retained_artifact_chunk",
+          14636
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 3.0718359999591485,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 181,
+        "LayoutObjects": 63,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 421,
+        "Resources": 11,
+        "ContextLifecycleStateObservers": 13,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 2486,
+        "LayoutCount": 7,
+        "RecalcStyleCount": 122,
+        "LayoutDuration": 0.016052,
+        "RecalcStyleDuration": 0.026024,
+        "DevToolsCommandDuration": 0.021187,
+        "ScriptDuration": 0.164515,
+        "V8CompileDuration": 0,
+        "TaskDuration": 1.2310349999999999,
+        "TaskOtherDuration": 1.003257,
+        "ThreadTime": 0.73812,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 16263984,
+        "JSHeapTotalSize": 26484736,
+        "FirstMeaningfulPaint": 550148.199786,
+        "DomContentLoaded": 0.5710950000211596,
+        "NavigationStart": 0.07768700004089624
+      }
+    },
+    {
+      "view": [
+        1440,
+        900
+      ],
+      "cache": "warm",
+      "sample": 2,
+      "load": {
+        "first": {
+          "at": 2874,
+          "world": 2886.100000023842,
+          "cert": 1849.1000000238419,
+          "history": {
+            "requests": 2,
+            "bytes": 18485,
+            "outcome": "interval",
+            "elapsedMs": 1031.2000000476837
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            584
+          ],
+          [
+            "first-contentful-paint",
+            584
+          ]
+        ],
+        "nav": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 804,
+          "navigationId": 3974,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.20000004768371582,
+          "domainLookupStart": 0.20000004768371582,
+          "domainLookupEnd": 0.20000004768371582,
+          "connectStart": 0.20000004768371582,
+          "secureConnectionStart": 0.20000004768371582,
+          "connectEnd": 0.20000004768371582,
+          "requestStart": 3.600000023841858,
+          "responseStart": 275.7000000476837,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 275.7000000476837,
+          "responseEnd": 277.10000002384186,
+          "transferSize": 4724,
+          "encodedBodySize": 4424,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 358.39999997615814,
+          "unloadEventEnd": 358.39999997615814,
+          "domInteractive": 388,
+          "domContentLoadedEventStart": 803.3999999761581,
+          "domContentLoadedEventEnd": 803.6000000238419,
+          "domComplete": 803.8000000715256,
+          "loadEventStart": 804,
+          "loadEventEnd": 804,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          "entryType": "resource",
+          "startTime": 386.8000000715256,
+          "duration": 307.5,
+          "navigationId": 3974,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 386.8000000715256,
+          "domainLookupStart": 386.8000000715256,
+          "domainLookupEnd": 386.8000000715256,
+          "connectStart": 386.8000000715256,
+          "secureConnectionStart": 386.8000000715256,
+          "connectEnd": 386.8000000715256,
+          "requestStart": 389.60000002384186,
+          "responseStart": 676.8000000715256,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 676.8000000715256,
+          "responseEnd": 694.3000000715256,
+          "transferSize": 454394,
+          "encodedBodySize": 454094,
+          "decodedBodySize": 2174499,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "WebKit WebGL",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/audio/b2z-v1/manifest.json",
+          35503
+        ],
+        [
+          "lab_status",
+          804
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          7582
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/style.css",
+          12577
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          457266
+        ],
+        [
+          "observation_bundle",
+          26168
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          827
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23081
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "source_descriptor",
+          432
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/configuration-deflector.bin",
+          4749
+        ],
+        [
+          "retained_publication",
+          4470
+        ],
+        [
+          "retained_artifact_chunk",
+          14664
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 3.3487900000764057,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 256,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 428,
+        "Resources": 13,
+        "ContextLifecycleStateObservers": 13,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 1700,
+        "LayoutCount": 0,
+        "RecalcStyleCount": 7,
+        "LayoutDuration": -0.013940000000000001,
+        "RecalcStyleDuration": -0.0061179999999999984,
+        "DevToolsCommandDuration": -0.002066000000000002,
+        "ScriptDuration": -0.091446,
+        "V8CompileDuration": 0,
+        "TaskDuration": -0.3870929999999999,
+        "TaskOtherDuration": -0.27352300000000007,
+        "ThreadTime": -0.234916,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 4570500,
+        "JSHeapTotalSize": 6877184,
+        "FirstMeaningfulPaint": 3.384364000055939,
+        "DomContentLoaded": 3.4303930000169203,
+        "NavigationStart": 3.1696529999608174
+      }
+    },
+    {
+      "view": [
+        320,
+        640
+      ],
+      "cache": "cold",
+      "sample": 0,
+      "load": {
+        "first": {
+          "at": 2305.3,
+          "world": 2324.600000023842,
+          "cert": 1853.5,
+          "history": {
+            "requests": 2,
+            "bytes": 18485,
+            "outcome": "interval",
+            "elapsedMs": 460.2999999523163
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            708
+          ],
+          [
+            "first-contentful-paint",
+            708
+          ]
+        ],
+        "nav": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 847,
+          "navigationId": 3347,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.20000004768371582,
+          "domainLookupStart": 1.2000000476837158,
+          "domainLookupEnd": 78.10000002384186,
+          "connectStart": 78.10000002384186,
+          "secureConnectionStart": 86,
+          "connectEnd": 98.40000009536743,
+          "requestStart": 98.60000002384186,
+          "responseStart": 327.5,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 327.5,
+          "responseEnd": 329.2000000476837,
+          "transferSize": 4724,
+          "encodedBodySize": 4424,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 0,
+          "unloadEventEnd": 0,
+          "domInteractive": 351.8000000715256,
+          "domContentLoadedEventStart": 845.2000000476837,
+          "domContentLoadedEventEnd": 846.6000000238419,
+          "domComplete": 846.9000000953674,
+          "loadEventStart": 847,
+          "loadEventEnd": 847,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          "entryType": "resource",
+          "startTime": 350,
+          "duration": 281.40000009536743,
+          "navigationId": 3347,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 350,
+          "domainLookupStart": 350,
+          "domainLookupEnd": 350,
+          "connectStart": 350,
+          "secureConnectionStart": 350,
+          "connectEnd": 350,
+          "requestStart": 356.2000000476837,
+          "responseStart": 597.3000000715256,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 597.3000000715256,
+          "responseEnd": 631.4000000953674,
+          "transferSize": 454394,
+          "encodedBodySize": 454094,
+          "decodedBodySize": 2174499,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "WebKit WebGL",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          9018
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/style.css",
+          11873
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          457597
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "observation_bundle",
+          26304
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          803
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "source_descriptor",
+          408
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/configuration-deflector.bin",
+          6028
+        ],
+        [
+          "retained_publication",
+          4384
+        ],
+        [
+          "retained_artifact_chunk",
+          14637
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 2.6857610000297427,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 184,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 421,
+        "Resources": 12,
+        "ContextLifecycleStateObservers": 13,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 2529,
+        "LayoutCount": 8,
+        "RecalcStyleCount": 89,
+        "LayoutDuration": 0.043587,
+        "RecalcStyleDuration": 0.01981,
+        "DevToolsCommandDuration": 0.026358,
+        "ScriptDuration": 0.166955,
+        "V8CompileDuration": 0,
+        "TaskDuration": 1.069601,
+        "TaskOtherDuration": 0.812891,
+        "ThreadTime": 0.7092200000000001,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 16637116,
+        "JSHeapTotalSize": 27009024,
+        "FirstMeaningfulPaint": 550155.211895,
+        "DomContentLoaded": 0.8941489999415353,
+        "NavigationStart": 0.09930100000929087
+      }
+    },
+    {
+      "view": [
+        320,
+        640
+      ],
+      "cache": "warm",
+      "sample": 0,
+      "load": {
+        "first": {
+          "at": 2754.7,
+          "world": 2762.2000000476837,
+          "cert": 2372.100000023842,
+          "history": {
+            "requests": 2,
+            "bytes": 18485,
+            "outcome": "interval",
+            "elapsedMs": 385
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            148
+          ],
+          [
+            "first-contentful-paint",
+            148
+          ]
+        ],
+        "nav": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 1502,
+          "navigationId": 3092,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.30000007152557373,
+          "domainLookupStart": 0.30000007152557373,
+          "domainLookupEnd": 0.30000007152557373,
+          "connectStart": 0.30000007152557373,
+          "secureConnectionStart": 0.30000007152557373,
+          "connectEnd": 0.30000007152557373,
+          "requestStart": 6.900000095367432,
+          "responseStart": 58,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 58,
+          "responseEnd": 65.20000004768372,
+          "transferSize": 4724,
+          "encodedBodySize": 4424,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 91.40000009536743,
+          "unloadEventEnd": 91.40000009536743,
+          "domInteractive": 111.10000002384186,
+          "domContentLoadedEventStart": 1501.7000000476837,
+          "domContentLoadedEventEnd": 1501.9000000953674,
+          "domComplete": 1502,
+          "loadEventStart": 1502,
+          "loadEventEnd": 1502,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          "entryType": "resource",
+          "startTime": 109.40000009536743,
+          "duration": 1279.5,
+          "navigationId": 3092,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "h2",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 109.40000009536743,
+          "domainLookupStart": 109.40000009536743,
+          "domainLookupEnd": 109.40000009536743,
+          "connectStart": 109.40000009536743,
+          "secureConnectionStart": 109.40000009536743,
+          "connectEnd": 109.40000009536743,
+          "requestStart": 112,
+          "responseStart": 1371.2000000476837,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 1371.2000000476837,
+          "responseEnd": 1388.9000000953674,
+          "transferSize": 454394,
+          "encodedBodySize": 454094,
+          "decodedBodySize": 2174499,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "WebKit WebGL",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/",
+          7585
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/style.css",
+          11865
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/app.mjs",
+          457294
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          827
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "observation_bundle",
+          26165
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "source_descriptor",
+          432
+        ],
+        [
+          "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io/configuration-deflector.bin",
+          4708
+        ],
+        [
+          "retained_publication",
+          4383
+        ],
+        [
+          "retained_artifact_chunk",
+          14767
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 3.1326170000247657,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 247,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 421,
+        "Resources": 12,
+        "ContextLifecycleStateObservers": 13,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 1650,
+        "LayoutCount": -1,
+        "RecalcStyleCount": -9,
+        "LayoutDuration": -0.041694,
+        "RecalcStyleDuration": -0.0019349999999999992,
+        "DevToolsCommandDuration": -0.010217,
+        "ScriptDuration": -0.087644,
+        "V8CompileDuration": 0,
+        "TaskDuration": -0.2550769999999999,
+        "TaskOtherDuration": -0.113587,
+        "ThreadTime": -0.21926600000000002,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 4811852,
+        "JSHeapTotalSize": 5566464,
+        "FirstMeaningfulPaint": 2.1568540000589564,
+        "DomContentLoaded": 3.37355000001844,
+        "NavigationStart": 2.717077999957837
+      },
+      "interaction": {
+        "frames": 183,
+        "p50_ms": 33.3,
+        "p95_ms": 66.8,
+        "worst_ms": 166.70000000000073,
+        "errors": [],
+        "hardware": "WebKit WebGL"
+      },
+      "steady_wire": [
+        [
+          "observation_bundle",
+          26518
+        ],
+        [
+          "observation_bundle",
+          26542
+        ],
+        [
+          "observation_bundle",
+          26518
+        ],
+        [
+          "lab_status",
+          833
+        ],
+        [
+          "observation_bundle",
+          26519
+        ],
+        [
+          "observation_bundle",
+          26543
+        ],
+        [
+          "observation_bundle",
+          26519
+        ],
+        [
+          "lab_status",
+          804
+        ],
+        [
+          "observation_bundle",
+          26680
+        ]
+      ]
+    }
+  ]
+}
