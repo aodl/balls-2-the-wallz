@@ -1,0 +1,57 @@
+{
+  "at": "2026-11-18T13:15:27.772Z",
+  "status": "PASS",
+  "scope": "Anonymous mainnet read-only queries and certified canister paths; no production mutation",
+  "modules": [
+    {
+      "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "module_hash": "612ad0d089c637f32cd1a050cbb9dc01ae6245145b9640086c009dbde8a8e948",
+      "certificate_verified": true
+    },
+    {
+      "id": "s2jxj-liaaa-aaaas-amynq-cai",
+      "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+      "certificate_verified": true
+    }
+  ],
+  "identity": {
+    "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+    "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+    "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "head": "11531",
+  "root": "6683dd7dca634a60d42ba8d7852a3b2b9a5cec96a1a7a1aaed4b998a642d7271",
+  "world": {
+    "version": 6,
+    "cannons": 1,
+    "balls": 1,
+    "state_hash": "11f1709d353b5044bdad924b62b055affdad88661a07a88267dcfc18de957d1a"
+  },
+  "served_js_sha256": "bc2872444e4574ae818983e2d7ede46f7ff0c4c2d71b198b9b821c344636321c",
+  "operational_signed_query": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "2",
+      "publication_ticks": "1",
+      "completed_segments": "11528",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40180669"
+    }
+  },
+  "operational_scope": "Signed operational query, not certified gameplay or payment authority"
+}

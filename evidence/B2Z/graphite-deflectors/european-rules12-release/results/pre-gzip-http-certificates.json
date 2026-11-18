@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "at": "2026-11-18T13:16:19.623Z",
+  "pinned_mainnet_root": true,
+  "default_time_verification_unchanged": true,
+  "protocol": "https://docs.internetcomputer.org/references/http-gateway-protocol-spec/",
+  "scope": "Restricted exact-path default CEL/no-request certificate profile used by these actual assets. Native pinned SDK BLS/delegation/canister/freshness; RI response-header plus body hashes; witness membership; changed-response negative. Not a general CEL interpreter.",
+  "rows": [
+    {
+      "file": "agent-api.md",
+      "sha256": "7fb2c75a01d06accd7f9046bbf76e89280b86949c71d6ad90baa44f0f8dd6612",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "v2_exact_path_expression_body_status_and_listed_headers": true
+    },
+    {
+      "file": "app.mjs",
+      "sha256": "99026c4e7699e6d57aeaef2033d5cd5888b188224470133e7d106268c43a383f",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "v2_exact_path_expression_body_status_and_listed_headers": true
+    },
+    {
+      "file": "index.html",
+      "sha256": "15513d7a0e377133fde13179d4a99d61911358eadd5fd6019248786307a57f9f",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "v2_exact_path_expression_body_status_and_listed_headers": true
+    },
+    {
+      "file": "style.css",
+      "sha256": "3f4be5c2160f149894d808f8f2fc8660c95db80922dfd2c9ae9a387c116f33f4",
+      "certificate_signature_freshness_canister_binding": true,
+      "witness_root_matches_certified_data": true,
+      "v2_exact_path_expression_body_status_and_listed_headers": true
+    }
+  ]
+}

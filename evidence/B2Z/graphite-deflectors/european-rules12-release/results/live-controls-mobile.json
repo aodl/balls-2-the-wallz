@@ -1,0 +1,1442 @@
+{
+  "status": "FAIL",
+  "scope": "Actual deployed authenticated mainnet state, native mouse/keyboard/emulated-touch and copy/paste. No payments. Emulated viewport is not physical hardware.",
+  "views": [
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "startup_seconds": 7.488322071032599,
+      "initial": {
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "composer": {
+          "mode": "inspect",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "11533",
+          "manifest_hash": "4dbcfc5e698d49077931f35913b3c4adf120cf8f7dac54d30c896f7cd94c1168",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "11533",
+            "logical_start": "11532",
+            "previous_manifest": "bdac7196f48796ecee682c3534e3c3d765e768ca6e7969699fef1c7b91deea25",
+            "previous_state": "7d4e5412a8617d491e0a1bdfa29b4c20032740a5e85ecb032439ae5c166ca1af",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "11536",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "11536",
+          "source_to_exclusive": "40180669",
+          "state_hash": "24b1b1dc9167ed6c4fad0fab01751a62935f7dbc5dbc0d1bc834bf7157e84d55"
+        },
+        "error": "",
+        "ready": true,
+        "status": {
+          "kind": "waiting",
+          "label": "Waiting for next on-chain update",
+          "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+          "canPrepare": true
+        },
+        "available": 11533,
+        "playhead": 11532.000666
+      },
+      "available_cannons": [
+        {
+          "id": 1,
+          "cell": 0,
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "dormant": null
+        }
+      ],
+      "returning_owner": {
+        "status": "PASS",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owned_cannons": 1,
+        "camera": [
+          17.991163426625462,
+          19.991163426625462,
+          1.8884060010420785
+        ],
+        "no_new_proposal": true
+      },
+      "selection_no_focus": "PASS",
+      "actions": {
+        "fire": {
+          "amount": "0.1 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "abbreviated": "s5ir5\u2026",
+          "memo": "FIRE 1 37.5 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Help: Ledger fee separate",
+          "warning": "Payments and unused ICP are kept; no automatic refunds.",
+          "prompt": "Aim & Pay",
+          "disabled": false,
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 328,
+            "top": 221,
+            "right": 368,
+            "bottom": 549,
+            "left": 8
+          },
+          "native_copy_attempts": [
+            {
+              "event": {
+                "ready": true,
+                "disabled": false,
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "prevented": true
+              },
+              "pasted": "s5ir5-gqaaa-aaaas-amyna-cai"
+            }
+          ],
+          "exact_copy": "PASS native API, Control+C and external read-only Control+V",
+          "geometry": {
+            "title": {
+              "x": 18,
+              "y": 283,
+              "width": 170,
+              "height": 56,
+              "top": 283,
+              "right": 188,
+              "bottom": 339,
+              "left": 18
+            },
+            "from": {
+              "x": 18,
+              "y": 339,
+              "width": 170,
+              "height": 69,
+              "top": 339,
+              "right": 188,
+              "bottom": 408,
+              "left": 18
+            },
+            "to": {
+              "x": 188,
+              "y": 339,
+              "width": 126,
+              "height": 69,
+              "top": 339,
+              "right": 314,
+              "bottom": 408,
+              "left": 188
+            },
+            "copies": [
+              {
+                "rect": {
+                  "x": 314,
+                  "y": 289,
+                  "width": 44,
+                  "height": 44,
+                  "top": 289,
+                  "right": 358,
+                  "bottom": 333,
+                  "left": 314
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 314,
+                  "y": 351.5,
+                  "width": 44,
+                  "height": 44,
+                  "top": 351.5,
+                  "right": 358,
+                  "bottom": 395.5,
+                  "left": 314
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 314,
+                  "y": 413,
+                  "width": 44,
+                  "height": 44,
+                  "top": 413,
+                  "right": 358,
+                  "bottom": 457,
+                  "left": 314
+                },
+                "font": 14
+              }
+            ],
+            "finance": [
+              {
+                "id": "transfer-amount",
+                "font": 16.64
+              },
+              {
+                "id": "paying-account",
+                "font": 14.4
+              },
+              {
+                "id": "payment-owner",
+                "font": 14.4
+              },
+              {
+                "id": "text-memo",
+                "font": 14
+              }
+            ],
+            "payerIcon": "<circle cx=\"12\" cy=\"7\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></circle><path d=\"M4 21v-2a8 8 0 0 1 16 0v2Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></path>"
+          }
+        },
+        "move": {
+          "amount": "0.0001 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "abbreviated": "s5ir5\u2026",
+          "memo": "MOVE 1 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Help: Ledger fee separate",
+          "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+          "prompt": "Move & Pay",
+          "disabled": false,
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 368,
+            "top": 221,
+            "right": 368,
+            "bottom": 589,
+            "left": 8
+          },
+          "native_copy_attempts": [
+            {
+              "event": {
+                "ready": false,
+                "disabled": true,
+                "value": "",
+                "prevented": true
+              },
+              "pasted": ""
+            },
+            {
+              "event": {
+                "ready": true,
+                "disabled": false,
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "prevented": true
+              },
+              "pasted": "s5ir5-gqaaa-aaaas-amyna-cai"
+            }
+          ],
+          "exact_copy": "PASS native API, Control+C and external read-only Control+V",
+          "geometry": {
+            "title": {
+              "x": 18,
+              "y": 283,
+              "width": 170,
+              "height": 56,
+              "top": 283,
+              "right": 188,
+              "bottom": 339,
+              "left": 18
+            },
+            "from": {
+              "x": 18,
+              "y": 339,
+              "width": 170,
+              "height": 69,
+              "top": 339,
+              "right": 188,
+              "bottom": 408,
+              "left": 18
+            },
+            "to": {
+              "x": 188,
+              "y": 339,
+              "width": 126,
+              "height": 69,
+              "top": 339,
+              "right": 314,
+              "bottom": 408,
+              "left": 188
+            },
+            "copies": [
+              {
+                "rect": {
+                  "x": 314,
+                  "y": 289,
+                  "width": 44,
+                  "height": 44,
+                  "top": 289,
+                  "right": 358,
+                  "bottom": 333,
+                  "left": 314
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 314,
+                  "y": 351.5,
+                  "width": 44,
+                  "height": 44,
+                  "top": 351.5,
+                  "right": 358,
+                  "bottom": 395.5,
+                  "left": 314
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 314,
+                  "y": 413,
+                  "width": 44,
+                  "height": 44,
+                  "top": 413,
+                  "right": 358,
+                  "bottom": 457,
+                  "left": 314
+                },
+                "font": 14
+              }
+            ],
+            "finance": [
+              {
+                "id": "transfer-amount",
+                "font": 16.64
+              },
+              {
+                "id": "paying-account",
+                "font": 14.4
+              },
+              {
+                "id": "payment-owner",
+                "font": 14.4
+              },
+              {
+                "id": "text-memo",
+                "font": 14
+              }
+            ],
+            "payerIcon": "<circle cx=\"12\" cy=\"7\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></circle><path d=\"M4 21v-2a8 8 0 0 1 16 0v2Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></path>"
+          }
+        },
+        "build": {
+          "amount": "4 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "abbreviated": "s5ir5\u2026",
+          "memo": "NEW 37.5 1 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Help: Ledger fee separate",
+          "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+          "prompt": "Build, Aim & Pay",
+          "disabled": false,
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 368,
+            "top": 221,
+            "right": 368,
+            "bottom": 589,
+            "left": 8
+          },
+          "native_copy_attempts": [
+            {
+              "event": {
+                "ready": true,
+                "disabled": false,
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "prevented": true
+              },
+              "pasted": "s5ir5-gqaaa-aaaas-amyna-cai"
+            }
+          ],
+          "exact_copy": "PASS native API, Control+C and external read-only Control+V",
+          "geometry": {
+            "title": {
+              "x": 18,
+              "y": 283,
+              "width": 170,
+              "height": 56,
+              "top": 283,
+              "right": 188,
+              "bottom": 339,
+              "left": 18
+            },
+            "from": {
+              "x": 18,
+              "y": 339,
+              "width": 170,
+              "height": 69,
+              "top": 339,
+              "right": 188,
+              "bottom": 408,
+              "left": 18
+            },
+            "to": {
+              "x": 188,
+              "y": 339,
+              "width": 126,
+              "height": 69,
+              "top": 339,
+              "right": 314,
+              "bottom": 408,
+              "left": 188
+            },
+            "copies": [
+              {
+                "rect": {
+                  "x": 314,
+                  "y": 289,
+                  "width": 44,
+                  "height": 44,
+                  "top": 289,
+                  "right": 358,
+                  "bottom": 333,
+                  "left": 314
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 314,
+                  "y": 351.5,
+                  "width": 44,
+                  "height": 44,
+                  "top": 351.5,
+                  "right": 358,
+                  "bottom": 395.5,
+                  "left": 314
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 314,
+                  "y": 413,
+                  "width": 44,
+                  "height": 44,
+                  "top": 413,
+                  "right": 358,
+                  "bottom": 457,
+                  "left": 314
+                },
+                "font": 14
+              }
+            ],
+            "finance": [
+              {
+                "id": "transfer-amount",
+                "font": 16.64
+              },
+              {
+                "id": "paying-account",
+                "font": 14.4
+              },
+              {
+                "id": "payment-owner",
+                "font": 14.4
+              },
+              {
+                "id": "text-memo",
+                "font": 14
+              }
+            ],
+            "payerIcon": "<circle cx=\"12\" cy=\"7\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></circle><path d=\"M4 21v-2a8 8 0 0 1 16 0v2Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></path>"
+          }
+        }
+      },
+      "quantity_update_keep": "PASS exact restored count/memo, stationary button slot, no camera/heading movement",
+      "headings": [
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "212.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "257.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "302.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "347.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 249,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "32.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 11,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "77.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 11,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "122.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 11,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "167.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 11,
+            "y": 132,
+            "width": 130,
+            "height": 46
+          }
+        }
+      ],
+      "manual_attempts": [
+        {
+          "expect": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "actual": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "selection": {
+            "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "start": 0,
+            "end": 27
+          },
+          "event": {
+            "ready": true,
+            "disabled": false,
+            "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "prevented": true
+          }
+        }
+      ],
+      "denied_clipboard_fallback": "PASS controlled native-API rejection, full-value manual native selection/paste",
+      "zoom_bounds": "PASS actual min/max and intended target disabled states",
+      "final": {
+        "camera": [
+          997.9609893666686,
+          1.2102762953929869,
+          96
+        ],
+        "composer": {
+          "mode": "inspect",
+          "cell": null,
+          "degrees": "167.15",
+          "worldAngle": "37.5",
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "11536",
+          "manifest_hash": "03fade1196ee8bb14498c2082301bc7eb5e36babf4f63825c215ec0b3470a5ce",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "11536",
+            "logical_start": "11535",
+            "previous_manifest": "d1490cd754a1e5642facce64ebf844f3550fa3169b8c44125c5735f04f51887e",
+            "previous_state": "5ec8f5a3563f3efffab16bc53e8f91e82ff606a70baf5d885394a139fbe8ec38",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "11539",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "11539",
+          "source_to_exclusive": "40180669",
+          "state_hash": "7727bbfd255a06a896b545761c5aaea1835ef7c622f90a4ff38a5d5e9e748c29"
+        },
+        "error": "",
+        "ready": true,
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 11536,
+        "playhead": 11534.398065244244
+      },
+      "errors": [],
+      "forbidden_posts": [],
+      "startup_summary": {
+        "frame_count": 1349,
+        "saw_loading_spinner": true,
+        "first_authenticated_frame": {
+          "at": 5669.100000023842,
+          "ready": true,
+          "head": "11536",
+          "reference": "11533,1",
+          "display": 11532,
+          "available": 11533,
+          "history": {
+            "requests": 2,
+            "bytes": 18356,
+            "outcome": "interval",
+            "elapsedMs": 760.1000000238419
+          },
+          "note": "Waiting for next on-chain update",
+          "spinnerVisible": true,
+          "balls": [
+            [
+              1,
+              982.5859375,
+              17.9453125
+            ]
+          ]
+        },
+        "progress_within_first_head": true
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "startup_seconds": 3.3774514209944755,
+      "initial": {
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "composer": {
+          "mode": "inspect",
+          "cell": null,
+          "degrees": "0",
+          "worldAngle": "225",
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "11536",
+          "manifest_hash": "03fade1196ee8bb14498c2082301bc7eb5e36babf4f63825c215ec0b3470a5ce",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "11536",
+            "logical_start": "11535",
+            "previous_manifest": "d1490cd754a1e5642facce64ebf844f3550fa3169b8c44125c5735f04f51887e",
+            "previous_state": "5ec8f5a3563f3efffab16bc53e8f91e82ff606a70baf5d885394a139fbe8ec38",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "11539",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "11539",
+          "source_to_exclusive": "40180669",
+          "state_hash": "7727bbfd255a06a896b545761c5aaea1835ef7c622f90a4ff38a5d5e9e748c29"
+        },
+        "error": "",
+        "ready": true,
+        "status": {
+          "kind": "waiting",
+          "label": "Waiting for next on-chain update",
+          "detail": "Motion is limited to verified coverage. Trickle can produce one tick per 100 seconds.",
+          "canPrepare": true
+        },
+        "available": 11536,
+        "playhead": 11535.000167
+      },
+      "available_cannons": [
+        {
+          "id": 1,
+          "cell": 0,
+          "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "dormant": null
+        }
+      ],
+      "returning_owner": {
+        "status": "PASS",
+        "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+        "owned_cannons": 1,
+        "camera": [
+          21.9135216614186,
+          23.9135216614186,
+          1.501890152875571
+        ],
+        "no_new_proposal": true
+      },
+      "selection_no_focus": "PASS",
+      "actions": {
+        "fire": {
+          "amount": "0.1 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "abbreviated": "s5ir5\u2026",
+          "memo": "FIRE 1 217.5 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Help: Ledger fee separate",
+          "warning": "Payments and unused ICP are kept; no automatic refunds.",
+          "prompt": "Aim & Pay",
+          "disabled": false,
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 296,
+            "top": 221,
+            "right": 312,
+            "bottom": 517,
+            "left": 8
+          },
+          "native_copy_attempts": [
+            {
+              "event": {
+                "ready": false,
+                "disabled": true,
+                "value": "",
+                "prevented": true
+              },
+              "pasted": ""
+            },
+            {
+              "event": {
+                "ready": true,
+                "disabled": false,
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "prevented": true
+              },
+              "pasted": "s5ir5-gqaaa-aaaas-amyna-cai"
+            }
+          ],
+          "exact_copy": "PASS native API, Control+C and external read-only Control+V",
+          "geometry": {
+            "title": {
+              "x": 18,
+              "y": 283,
+              "width": 142,
+              "height": 56,
+              "top": 283,
+              "right": 160,
+              "bottom": 339,
+              "left": 18
+            },
+            "from": {
+              "x": 18,
+              "y": 339,
+              "width": 142,
+              "height": 69,
+              "top": 339,
+              "right": 160,
+              "bottom": 408,
+              "left": 18
+            },
+            "to": {
+              "x": 160,
+              "y": 339,
+              "width": 98,
+              "height": 69,
+              "top": 339,
+              "right": 258,
+              "bottom": 408,
+              "left": 160
+            },
+            "copies": [
+              {
+                "rect": {
+                  "x": 258,
+                  "y": 289,
+                  "width": 44,
+                  "height": 44,
+                  "top": 289,
+                  "right": 302,
+                  "bottom": 333,
+                  "left": 258
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 258,
+                  "y": 351.5,
+                  "width": 44,
+                  "height": 44,
+                  "top": 351.5,
+                  "right": 302,
+                  "bottom": 395.5,
+                  "left": 258
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 258,
+                  "y": 413,
+                  "width": 44,
+                  "height": 44,
+                  "top": 413,
+                  "right": 302,
+                  "bottom": 457,
+                  "left": 258
+                },
+                "font": 14
+              }
+            ],
+            "finance": [
+              {
+                "id": "transfer-amount",
+                "font": 14.4
+              },
+              {
+                "id": "paying-account",
+                "font": 14
+              },
+              {
+                "id": "payment-owner",
+                "font": 14
+              },
+              {
+                "id": "text-memo",
+                "font": 14
+              }
+            ],
+            "payerIcon": "<circle cx=\"12\" cy=\"7\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></circle><path d=\"M4 21v-2a8 8 0 0 1 16 0v2Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></path>"
+          }
+        },
+        "move": {
+          "amount": "0.0001 ICP",
+          "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "abbreviated": "s5ir5\u2026",
+          "memo": "MOVE 1 1",
+          "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+          "fee": "Help: Ledger fee separate",
+          "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+          "prompt": "Move & Pay",
+          "disabled": false,
+          "panel": {
+            "x": 8,
+            "y": 221,
+            "width": 304,
+            "height": 295,
+            "top": 221,
+            "right": 312,
+            "bottom": 516,
+            "left": 8
+          },
+          "native_copy_attempts": [
+            {
+              "event": {
+                "ready": true,
+                "disabled": false,
+                "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+                "prevented": true
+              },
+              "pasted": "s5ir5-gqaaa-aaaas-amyna-cai"
+            }
+          ],
+          "exact_copy": "PASS native API, Control+C and external read-only Control+V",
+          "geometry": {
+            "title": {
+              "x": 18,
+              "y": 283,
+              "width": 142,
+              "height": 56,
+              "top": 283,
+              "right": 160,
+              "bottom": 339,
+              "left": 18
+            },
+            "from": {
+              "x": 18,
+              "y": 339,
+              "width": 142,
+              "height": 69,
+              "top": 339,
+              "right": 160,
+              "bottom": 408,
+              "left": 18
+            },
+            "to": {
+              "x": 160,
+              "y": 339,
+              "width": 98,
+              "height": 69,
+              "top": 339,
+              "right": 258,
+              "bottom": 408,
+              "left": 160
+            },
+            "copies": [
+              {
+                "rect": {
+                  "x": 258,
+                  "y": 289,
+                  "width": 44,
+                  "height": 44,
+                  "top": 289,
+                  "right": 302,
+                  "bottom": 333,
+                  "left": 258
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 258,
+                  "y": 351.5,
+                  "width": 44,
+                  "height": 44,
+                  "top": 351.5,
+                  "right": 302,
+                  "bottom": 395.5,
+                  "left": 258
+                },
+                "font": 14
+              },
+              {
+                "rect": {
+                  "x": 258,
+                  "y": 413,
+                  "width": 44,
+                  "height": 44,
+                  "top": 413,
+                  "right": 302,
+                  "bottom": 457,
+                  "left": 258
+                },
+                "font": 14
+              }
+            ],
+            "finance": [
+              {
+                "id": "transfer-amount",
+                "font": 14.4
+              },
+              {
+                "id": "paying-account",
+                "font": 14
+              },
+              {
+                "id": "payment-owner",
+                "font": 14
+              },
+              {
+                "id": "text-memo",
+                "font": 14
+              }
+            ],
+            "payerIcon": "<circle cx=\"12\" cy=\"7\" r=\"4\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></circle><path d=\"M4 21v-2a8 8 0 0 1 16 0v2Z\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.7\"></path>"
+          }
+        }
+      },
+      "critical_347_15": {
+        "at": "2026-11-18T13:28:32.553Z",
+        "camera": [
+          3.6575453715563526,
+          3.6575453715563526,
+          64
+        ],
+        "viewport": {
+          "width": 320,
+          "height": 640,
+          "left": 0,
+          "top": 0,
+          "visibleWidth": 320,
+          "visibleHeight": 640
+        },
+        "composer": {
+          "mode": "ball",
+          "cell": null,
+          "degrees": "347.15",
+          "worldAngle": null,
+          "quantity": 1
+        },
+        "identity": {
+          "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+          "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "head": {
+          "logical_end": "11536",
+          "manifest_hash": "03fade1196ee8bb14498c2082301bc7eb5e36babf4f63825c215ec0b3470a5ce",
+          "seal": {
+            "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+            "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+            "input_count": 0,
+            "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+            "logical_end": "11536",
+            "logical_start": "11535",
+            "previous_manifest": "d1490cd754a1e5642facce64ebf844f3550fa3169b8c44125c5735f04f51887e",
+            "previous_state": "5ec8f5a3563f3efffab16bc53e8f91e82ff606a70baf5d885394a139fbe8ec38",
+            "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+            "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+            "segment_id": "11539",
+            "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+            "source_from": "40180669",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+            "source_to_exclusive": "40180669"
+          },
+          "segment_id": "11539",
+          "source_to_exclusive": "40180669",
+          "state_hash": "7727bbfd255a06a896b545761c5aaea1835ef7c622f90a4ff38a5d5e9e748c29"
+        },
+        "ready": true,
+        "error": "",
+        "deliveryError": "",
+        "status": {
+          "kind": "slow",
+          "label": "Slow \u00b7 delayed",
+          "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+          "canPrepare": true
+        },
+        "available": 11536,
+        "playhead": 11535.110996000021,
+        "operational": {
+          "run": {
+            "last_error": [],
+            "world_transition": false,
+            "idle": false,
+            "pace": {
+              "nominal_milli": 10,
+              "supported_milli": 10,
+              "mode": "Trickle",
+              "admission_open": true,
+              "performance_limited": false
+            },
+            "segment_ticks": "2",
+            "publication_ticks": "1",
+            "completed_segments": "11536",
+            "running": true
+          },
+          "source": {
+            "last_error": [],
+            "binding_checked": true,
+            "pending_records": 0,
+            "admitted_to_exclusive": "40180669"
+          }
+        },
+        "quantity": {
+          "hidden": false,
+          "inert": false,
+          "placement": "dock",
+          "rect": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46,
+            "top": 526,
+            "right": 140,
+            "bottom": 572,
+            "left": 10
+          },
+          "text": "1",
+          "targets": [
+            {
+              "id": "quantity-minus",
+              "disabled": true,
+              "rect": {
+                "x": 11,
+                "y": 527,
+                "width": 44,
+                "height": 44,
+                "top": 527,
+                "right": 55,
+                "bottom": 571,
+                "left": 11
+              },
+              "hit": true
+            },
+            {
+              "id": "quantity-plus",
+              "disabled": false,
+              "rect": {
+                "x": 95,
+                "y": 527,
+                "width": 44,
+                "height": 44,
+                "top": 527,
+                "right": 139,
+                "bottom": 571,
+                "left": 95
+              },
+              "hit": true
+            }
+          ],
+          "corners": [
+            true,
+            true,
+            true,
+            true
+          ]
+        },
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 296,
+          "top": 221,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "scroll": {
+          "x": 8,
+          "y": 275,
+          "width": 304,
+          "height": 242,
+          "top": 275,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        },
+        "scrollContent": 272,
+        "board": {
+          "x": 0,
+          "y": 0,
+          "width": 320,
+          "height": 640,
+          "top": 0,
+          "right": 320,
+          "bottom": 640,
+          "left": 0
+        },
+        "cyclesVisibility": "hidden",
+        "focus": "aim-handle",
+        "source_point": {
+          "x": 0.5,
+          "y": 0.5,
+          "sx": 160,
+          "sy": 155.00000000000458,
+          "visible": true,
+          "score": 164.99999999999542,
+          "hit": "board"
+        }
+      },
+      "quantity_update_keep": "PASS exact restored count/memo, stationary button slot, no camera/heading movement",
+      "headings": [
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "32.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "77.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "122.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "167.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "212.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "257.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "302.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        },
+        {
+          "composer": {
+            "mode": "ball",
+            "cell": null,
+            "degrees": "347.15",
+            "worldAngle": null,
+            "quantity": 2
+          },
+          "quantity_box": {
+            "x": 10,
+            "y": 526,
+            "width": 130,
+            "height": 46
+          }
+        }
+      ],
+      "manual_attempts": [
+        {
+          "expect": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "actual": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "selection": {
+            "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "start": 0,
+            "end": 27
+          },
+          "event": {
+            "ready": true,
+            "disabled": false,
+            "value": "s5ir5-gqaaa-aaaas-amyna-cai",
+            "prevented": true
+          }
+        }
+      ],
+      "denied_clipboard_fallback": "PASS controlled native-API rejection, full-value manual native selection/paste"
+    }
+  ],
+  "error": "TimeoutError('Locator.select_text: Timeout 29765ms exceeded.\\nCall log:\\n  - attempting selectText action\\n    2 \u00d7 waiting for element to be visible\\n      - element is not visible\\n    - retrying selectText action\\n    - waiting 20ms\\n    2 \u00d7 waiting for element to be visible\\n      - element is not visible\\n    - retrying selectText action\\n      - waiting 100ms\\n    37 \u00d7 waiting for element to be visible\\n       - element is not visible\\n     - retrying selectText action\\n       - waiting 500ms\\n')",
+  "failure_state": {
+    "camera": [
+      4.157545371556353,
+      4.157545371556353,
+      64
+    ],
+    "composer": {
+      "mode": "start",
+      "cell": 1,
+      "degrees": "167.15",
+      "worldAngle": "37.5",
+      "quantity": 1
+    },
+    "identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "head": {
+      "logical_end": "11537",
+      "manifest_hash": "fd0b300c7204b24a37e6ef1a6e30fc9fe57062f650caa2109a1392baa5940712",
+      "seal": {
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+        "epoch_hash": "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "11537",
+        "logical_start": "11536",
+        "previous_manifest": "03fade1196ee8bb14498c2082301bc7eb5e36babf4f63825c215ec0b3470a5ce",
+        "previous_state": "7727bbfd255a06a896b545761c5aaea1835ef7c622f90a4ff38a5d5e9e748c29",
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "11540",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "11540",
+      "source_to_exclusive": "40180669",
+      "state_hash": "9ba73de9d811890f6f4b2b7658caefc8bfbfd2c4d1894325e9ced990c8e227e6"
+    },
+    "error": "",
+    "ready": true,
+    "status": {
+      "kind": "slow",
+      "label": "Slow \u00b7 delayed",
+      "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+      "canPrepare": true
+    },
+    "available": 11537,
+    "playhead": 11535.988460000188
+  },
+  "failure_payment": {
+    "amount": "4 ICP",
+    "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "abbreviated": "s5ir5\u2026",
+    "memo": "NEW 37.5 1 1",
+    "payer": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+    "fee": "Help: Ledger fee separate",
+    "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+    "prompt": "Build, Aim & Pay",
+    "disabled": false,
+    "panel": {
+      "x": 8,
+      "y": 221,
+      "width": 304,
+      "height": 295,
+      "top": 221,
+      "right": 312,
+      "bottom": 516,
+      "left": 8
+    }
+  }
+}

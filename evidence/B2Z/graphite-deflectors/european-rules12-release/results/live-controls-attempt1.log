@@ -1,0 +1,5 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z-boundary-deflector/.work/european-rules12-release/live-controls-ready-event.py", line 75, in <module>
+    p.evaluate('denyClipboard=true');ready(p);p.locator('[data-copy=owner]').click();assert p.locator('#manual-value').input_value()==v['recipient'];p.locator('#manual-value').focus();p.locator('#manual-value').select_text();p.keyboard.press('Control+C');assert pasted(ctx,p)==v['recipient'];p.locator('#manual-handoff').click();p.evaluate('denyClipboard=false');row['denied_clipboard_fallback']='PASS controlled native-API rejection, full-value manual native selection/paste'
+                                                                                                                                                                                                                                                                      ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

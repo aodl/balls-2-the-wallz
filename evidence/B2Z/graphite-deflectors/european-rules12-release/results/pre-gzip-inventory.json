@@ -1,0 +1,22 @@
+[
+  {
+    "sha256": "7fb2c75a01d06accd7f9046bbf76e89280b86949c71d6ad90baa44f0f8dd6612",
+    "bytes": 2978,
+    "path": "agent-api.md"
+  },
+  {
+    "sha256": "99026c4e7699e6d57aeaef2033d5cd5888b188224470133e7d106268c43a383f",
+    "bytes": 443760,
+    "path": "app.mjs"
+  },
+  {
+    "sha256": "15513d7a0e377133fde13179d4a99d61911358eadd5fd6019248786307a57f9f",
+    "bytes": 4248,
+    "path": "index.html"
+  },
+  {
+    "sha256": "3f4be5c2160f149894d808f8f2fc8660c95db80922dfd2c9ae9a387c116f33f4",
+    "bytes": 8372,
+    "path": "style.css"
+  }
+]

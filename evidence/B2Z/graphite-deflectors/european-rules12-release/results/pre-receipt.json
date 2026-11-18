@@ -1,0 +1,40 @@
+{
+  "Ok": {
+    "account": [],
+    "actual_quantity": [],
+    "amount_used_e8s": [],
+    "canonical_receipt": [],
+    "event_artifact_hash": [],
+    "ledger_position": "40180668",
+    "per_item_e8s": [],
+    "reason": [],
+    "requested_quantity": [],
+    "retained_remainder_e8s": [],
+    "search_retained": true,
+    "searched_segment": [
+      "11532"
+    ],
+    "state": {
+      "certified_reply": false,
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "epoch_hash": [
+        "f5707e5039d58a4deed635e641c10cb63ed94f66fdda4ca0e18346b20e13dd68"
+      ],
+      "logical_end": "11529",
+      "manifest_hash": "48de7a717d1e293a8fdf1b77382681ab4c121a7803f3ede6697a882d420ccdab",
+      "publication_hash": "0616815280af85744f93e385d7769bbd58470070e02fa46ccbd3293f73662b85",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "segment_id": [
+        "11532"
+      ],
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+      "source_to_exclusive": "40180669",
+      "state_hash": "da43a75e279541d01fee585757f91c90dbee8cb0f253bfd4f658fc6dca8bc0cb"
+    },
+    "status": {
+      "UnknownOrNotRetained": null
+    },
+    "stop_reason": []
+  }
+}
