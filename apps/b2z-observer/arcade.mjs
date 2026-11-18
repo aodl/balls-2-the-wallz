@@ -76,8 +76,27 @@ export function createArcade(doc){
   text('transfer-amount',formatIcp(BigInt(q.amount)));text('payment-owner',shortRecipient(q.owner));$('recipient-reveal').setAttribute('aria-label',`Show full receiving principal ${q.owner}`);$('recipient-reveal').title=q.owner;if($('full-recipient').textContent!==q.owner){text('full-recipient',q.owner);$('recipient-full').hidden=true;$('recipient-reveal').setAttribute('aria-expanded','false');};text('text-memo',q.memo);text('paying-account',shortRecipient(q.payer??q.account));text('full-payer',q.payer??q.account);$('payer-reveal').setAttribute('aria-label',`Show full sending account ${q.payer??q.account}`);
   text('payment-risk',paymentWarning(q));$('payment-risk').title=clearanceActive(config)&&['move','start','deflect'].includes(q.action)&&Number.isSafeInteger(q.cell)?'A new enemy claim within four cells can also invalidate the action.':'';$('amount-detail').hidden=q.action!=='start';text('amount-detail',q.action==='start'?'1 ball':'');
  }
+ let quoteBlocked=false;
+ function paymentReadiness(){
+  const controls=$('transfer-controls'),disabled=busy||!status.canPrepare||Boolean(warning)||view==='action'&&(quoteBlocked||(['ball','start'].includes(mode)&&(composing||Boolean(cryProblem))));
+  if(controls.disabled!==disabled)controls.disabled=disabled;
+  const label=status.canPrepare?'Payment instructions':'Payment instructions temporarily unavailable';
+  if(controls.getAttribute('aria-label')!==label)controls.setAttribute('aria-label',label);
+ }
+ function refreshAction(){
+  if(view==='action'){
+   const c=selected();
+   text('panel-title',c?`Cannon #${c.id}`:'New cannon');text('action-prompt',mode==='deflect'?'Deflect & Pay':mode==='move'?'Move & Pay':mode==='start'?(mine().length?'Build, Aim & Pay':'Join & Pay'):'Aim & Pay');
+   quote=candidate();$('war-cry').disabled=cryBudget===0||!globalThis.Intl?.Segmenter;$('war-cry').title=$('war-cry').disabled?(cryBudget===0?'No space remains in this memo':'War Cry requires grapheme support in this browser'):'Public on-chain text';if(!composing&&!cryProblem&&$('war-cry').value!==cry)$('war-cry').value=cry;if(manual&&instructionKey(manual.q)!==instructionKey(packet??quote)){manual=null;$('manual-copy').hidden=true;}const differs=Boolean(packet&&instructionKey(quote)!==instructionKey(packet)),changed=differs&&!keepPrevious;
+   $('replace-choice').hidden=!changed;$('prepared-card').hidden=Boolean(changed||(!packet&&(!quote||quote.reason)));
+   if(!$('prepared-card').hidden)renderPacket(packet??quote);
+   quoteBlocked=Boolean(quote?.reason||differs);paymentReadiness();
+   text('preparation-note',warning||quote?.reason||'');
+   text('placement-note',planningBehind?'Preview uses the latest verified position.':mode==='start'&&!mine().length?'Automatic first site.':'');
+  }
+ }
  function refresh(){
-  $('transfer-controls').disabled=busy||!status.canPrepare||Boolean(warning);
+  paymentReadiness();
   const c=selected(),own=Boolean(c&&declaration&&c.account===declaration.account);$('entry-note').hidden=!entryPending||!declaration;
   $('join-action').hidden=Boolean(world&&declaration&&mine().length);$('centre-cannon').hidden=!mine().length;text('centre-cannon',mine().length===1?'My cannon':'My cannons');
   $('context-actions').hidden=!own;$('fire-action').hidden=!own;$('move-action').hidden=!own;$('build-action').hidden=!own||!(world?.version>=6);$('build-action').disabled=Boolean(own&&world?.version>=6&&!buildSites().length);$('build-action').setAttribute('aria-describedby','inspect-note');$('build-action').title=$('build-action').disabled?'No legal build destination':'Build';$('build-action').setAttribute('aria-description',$('build-action').disabled?buildReason():'Build another cannon');$('fire-action').setAttribute('aria-label',c?.dormant?'Revive':'Fire');$('fire-action').title=c?.dormant?'Revive':'Fire';$('fire-action').dataset.revive=String(Boolean(c?.dormant));
@@ -90,15 +109,7 @@ export function createArcade(doc){
   $('deflector-directions').hidden=!(view==='action'&&mode==='deflect'&&deflectorSupported(config));for(const b of doc.querySelectorAll('[data-deflector-orientation]'))b.setAttribute('aria-pressed',String(mode==='deflect'&&b.dataset.deflectorOrientation===orientationFromDegrees(worldAngle??encodedHeading(degrees))));
   const cryActive=warCrySupported(config)&&view==='action'&&['ball','start'].includes(mode);$('war-cry-editor').hidden=!cryActive;const cryInput=$('war-cry');if(!composing&&!cryProblem&&cryInput.value!==cry)cryInput.value=cry;
   text('quantity-count',String(quantity));text('quantity-description',`${quantity>1?'Up to':'Request'} ${quantity} ball${quantity===1?'':'s'}; capacity may limit fulfilment.`);$('quantity-minus').disabled=quantity<=1;$('quantity-plus').disabled=quantity>=MAX_QUANTITY;$('quantity-controls').dataset.active=String(view==='action'&&mode==='ball'&&world?.version>=6&&own);$('join-direction').hidden=mode!=='start'||Boolean(mine().length);for(const b of doc.querySelectorAll('[data-heading]'))b.setAttribute('aria-pressed',String(Number(degrees)===Number(b.dataset.heading)));
-  if(view==='action'){
-   text('panel-title',c?`Cannon #${c.id}`:'New cannon');text('action-prompt',mode==='deflect'?'Deflect & Pay':mode==='move'?'Move & Pay':mode==='start'?(mine().length?'Build, Aim & Pay':'Join & Pay'):'Aim & Pay');
-   quote=candidate();$('war-cry').disabled=cryBudget===0||!globalThis.Intl?.Segmenter;$('war-cry').title=$('war-cry').disabled?(cryBudget===0?'No space remains in this memo':'War Cry requires grapheme support in this browser'):'Public on-chain text';if(!composing&&!cryProblem&&$('war-cry').value!==cry)$('war-cry').value=cry;if(manual&&instructionKey(manual.q)!==instructionKey(packet??quote)){manual=null;$('manual-copy').hidden=true;}const differs=Boolean(packet&&instructionKey(quote)!==instructionKey(packet)),changed=differs&&!keepPrevious;
-   $('replace-choice').hidden=!changed;$('prepared-card').hidden=Boolean(changed||(!packet&&(!quote||quote.reason)));
-   if(!$('prepared-card').hidden)renderPacket(packet??quote);
-   $('transfer-controls').disabled=busy||!status.canPrepare||Boolean(quote?.reason)||differs||Boolean(warning);
-   text('preparation-note',warning||quote?.reason||'');$('transfer-controls').setAttribute('aria-label',status.canPrepare?'Payment instructions':'Payment instructions temporarily unavailable');
-   text('placement-note',planningBehind?'Preview uses the latest verified position.':mode==='start'&&!mine().length?'Automatic first site.':'');
-  }
+  refreshAction();
   emit();
  }
  function updateRoster(){
@@ -215,7 +226,7 @@ export function createArcade(doc){
    if(id!==null&&!refs.some(c=>c.id===id)){id=null;mode='inspect';if(packet)warning='The copied target is no longer present. Saved instructions remain in Account.';else{warning='';text('copy-feedback','');}if(view==='action'||view==='inspect'){show('roster','Choose a cannon');text('roster-note','The selected cannon is no longer present. Choose another.');}}
    updateRoster();activity();refresh();resolveEntry();
   },
-  status(input){if(typeof input.worldReady==='boolean')observationReady=input.worldReady;status=input.resolved??experienceStatus({...input,world});if(!destination)status={...status,canPrepare:false};const now=performance.now();const central=['connecting','catching-up','waiting','reconnecting'].includes(status.kind);if(central){waitingSince??=now;}else waitingSince=null;const waiting=central&&(status.kind==='connecting'||now-waitingSince>=350);$('motion-wait').hidden=!waiting;$('motion-wait').dataset.kind=status.kind;text('waiting-label',status.label);text('arena-note',status.label);$('status-button').title=status.label;text('status-explanation',status.detail||status.label);refresh();resolveEntry();return{available:status.canPrepare,label:status.label};},
+  status(input){if(typeof input.worldReady==='boolean')observationReady=input.worldReady;status=input.resolved??experienceStatus({...input,world});if(!destination)status={...status,canPrepare:false};const now=performance.now();const central=['connecting','catching-up','waiting','reconnecting'].includes(status.kind);if(central){waitingSince??=now;}else waitingSince=null;const waiting=central&&(status.kind==='connecting'||now-waitingSince>=350);$('motion-wait').hidden=!waiting;$('motion-wait').dataset.kind=status.kind;text('waiting-label',status.label);text('arena-note',status.label);$('status-button').title=status.label;text('status-explanation',status.detail||status.label);paymentReadiness();resolveEntry();return{available:status.canPrepare,label:status.label};},
   action,selectCannon(n){intentVersion++;const c=refs.find(c=>c.id===n);if(!c)return false;rememberDraft();id=n;keepPrevious=false;mode='inspect';cell=null;clearDraft();persist();show('inspect',`Cannon #${n}`);refresh();return true;},
   cancel({entry=true}={}){if(entry)cancelEntryNavigation();intentVersion++;rememberDraft();if(['inspect','action'].includes(view))id=null;view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;manual=null;$('manual-copy').hidden=true;if(!packet){warning='';text('copy-feedback','');}emit();(opener?.isConnected&&opener!==doc.body&&opener.getClientRects().length?opener:$('board')).focus({preventScroll:true});},
   presentation(v){const c=selected(),displayed=v?.cannons.get(id),behind=Boolean(c&&(!displayed||displayed.cell!==c.cell));if(behind!==planningBehind){planningBehind=behind;refresh();}},
@@ -224,7 +235,21 @@ export function createArcade(doc){
   hasCannon:n=>refs.some(c=>c.id===n),selectedCannon:()=>id,account:()=>declaration?.account??null,mode:()=>mode,canPay:()=>status.canPrepare,active:()=>view!==null,selected,angle:()=>degrees,context:()=>view,anchor:()=>view==='action'&&mode==='start'&&!mine().length?null:selected(),
   intentContext:()=>[context,world?.version,declaration?.account,id,selected()?.cell,mode,intentVersion].join('/'),revision:()=>revision,
 
-  aimAt(dx,dy){if(mode==='deflect'){worldAngle=snappedDeflectorDegrees(Math.atan2(dy,dx)*180/Math.PI);degrees=displayHeading(worldAngle);keepPrevious=false;clearDraft();refresh();return;}if(mode!=='ball'&&mode!=='start')return;degrees=String(Math.round(worldToScreen(Math.atan2(dy,dx)*180/Math.PI)*100)/100%360);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
+  aimAt(dx,dy){
+   if(mode==='deflect'){
+    const angle=snappedDeflectorDegrees(Math.atan2(dy,dx)*180/Math.PI);
+    if(angle===worldAngle)return;
+    worldAngle=angle;degrees=displayHeading(angle);
+    for(const button of doc.querySelectorAll('[data-deflector-orientation]'))button.setAttribute('aria-pressed',String(button.dataset.deflectorOrientation===orientationFromDegrees(angle)));
+   }else{
+    if(mode!=='ball'&&mode!=='start')return;
+    const next=String(Math.round(worldToScreen(Math.atan2(dy,dx)*180/Math.PI)*100)/100%360);
+    if(next===degrees&&worldAngle===null)return;
+    degrees=next;worldAngle=null;
+   }
+   if(view==='action'&&mode==='start'&&!mine().length)for(const button of doc.querySelectorAll('[data-heading]'))button.setAttribute('aria-pressed',String(Number(degrees)===Number(button.dataset.heading)));
+   keepPrevious=false;clearDraft();refreshAction();emit();
+  },
   setDeflectorOrientation(value){if(mode!=='deflect'||!deflectorSupported(config)||!['NE','SE','SW','NW'].includes(value))return false;worldAngle=deflectorDegrees(value);degrees=displayHeading(worldAngle);keepPrevious=false;clearDraft();refresh();return true;},
   setHeading(value){if(!Number.isFinite(value))return;if(mode==='deflect'){worldAngle=snappedDeflectorDegrees(encodedHeading(String((value%360+360)%360)));degrees=displayHeading(worldAngle);keepPrevious=false;clearDraft();refresh();return;}degrees=String((value%360+360)%360);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
   destinationState:()=>({ready:moveReady,cell:defaultMove,key:moveKey,stats:moveSearch?.stats,cacheBytes:moveLegality?.bytes,cacheInspections:moveLegality?.inspected()}),

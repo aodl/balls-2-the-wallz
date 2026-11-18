@@ -93,7 +93,7 @@ def verify_playability_scene(page, context, out, configuration, record, report, 
     delayed = []
     def delayed_reply(route):
         request = route.request
-        if delayed or b'observation_bundle' not in (request.post_data_buffer or b''):
+        if delayed or b'observation' not in (request.post_data_buffer or b''):
             route.continue_(); return
         response = route.fetch()
         body = response.body()

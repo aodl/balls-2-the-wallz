@@ -24,7 +24,7 @@ import {readBytes,validateIndex,loadEntry,prefetchRetained} from './transport.mj
 import {decodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {idleArena} from './play-reference.mjs';
 import {observationFailure,liveDeliveryDiagnostics,liveDeliveryFailure,liveDeliverySuccess,rememberLiveAcceptance,deliveryRetryMs} from './live-delivery.mjs';
-const resolveExperience=experienceResolver();
+const resolveExperience=experienceResolver(),reducedMotion=matchMedia('(prefers-reduced-motion: reduce)');
 const $=id=>document.getElementById(id),canvas=$('board');
 let audio;try{audio=createAudioUI(document);}catch{audio={fail(){},effectsReady:()=>false,begin:()=>null,flush(){},fence(){},lifecycle(){},dispose(){},inspect:()=>({unavailable:true})};}globalThis.__b2zAudio=()=>audio.inspect();
 const speech=createSpeechLayer(document);let speechContinuous=false,visibleSpeechScope=null;
@@ -170,20 +170,25 @@ async function startLive(recording,startupRetries=0,verificationFloor=null){
   return acquireLive(s,startupRetries);
 }
 async function acquireLive(s,startupRetries=0){
-  s.busy=true;const recording=s.recording;
+  s.busy=true;const recording=s.recording,attempt=new AbortController();
+  const scoped=AbortSignal.any([s.abort.signal,attempt.signal]);
   try{
-    let ticket;
+    let ticket,policy;
     if(recording.deployment){
       const module=await import('./mainnet.mjs');
       if(!s.client){const connection=await deploymentConnection(recording.deployment,{signal:s.abort.signal});
-       s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;s.readStatus=connection.readStatus;
+       s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;s.readStatus=connection.readStatus;s.readSource=connection.readSource;
        if(connection.readCycles)cycleMonitor=publicCycleMonitor({read:connection.readCycles,onState(value){if(active(s)){s.publicCycles=value;s.publicCyclesAt=performance.now();renderCycleReadout(document,value);}}});
       }
       void refreshOperational(performance.now());
       ticket=await certifiedTicket(s,await s.client.observation());
-      const source=await deploymentSource(recording.deployment,ticket);
-      const config=await module.certifiedConfiguration(ticket);s.certifiedAt=performance.now();
-      s.config=config;s.source=source;
+      s.certifiedAt=performance.now();
+      policy=Promise.all([
+       s.readSource?s.readSource(ticket):deploymentSource(recording.deployment,ticket),
+       module.certifiedConfiguration(ticket,scoped)
+      ]);
+      // Attach a handler while required state bytes are still in flight.
+      void policy.catch(()=>{});
     }else{
       const rootKey=await readBytes('/s10-live/root-key.der',1024,signal(s));
       if(await sha256Web(rootKey)!==recording.root_key_sha256)throw new Error('configured live root fingerprint mismatch');
@@ -204,12 +209,12 @@ async function acquireLive(s,startupRetries=0){
       // segment zero; reject a server that cannot provide this explicit anchor.
       state=await assembler.finish();
     }else {
-      const artifacts=liveArtifacts(s,ticket),history=startupPlayback(ticket,artifacts,s.client,{signal:s.abort.signal});
+      const artifacts=liveArtifacts(s,ticket),history=startupPlayback(ticket,artifacts,s.client,{signal:scoped});
       // Both promises are joined even if a required artifact fails first.
-      const results=await Promise.allSettled([artifacts,history]);
-      for(const result of results)if(result.status==='rejected')throw result.reason;
-      ({state,events}=results[0].value);s.startupHistory=results[1].value;
+      const [latest,startup]=await Promise.all([artifacts,history,policy]);
+      ({state,events}=latest);s.startupHistory=startup;
     }
+    if(policy)[s.source,s.config]=await policy;
     if(!active(s))return;
     const world=snapshot(state,ticket.publication.identity),time=timeNumber(world.time);
     if(s.verificationFloor){const floor=new PublicationSequence();floor.accept(s.verificationFloor);if(ticket.root_hash===s.verificationFloor.root_hash)floor.accept(ticket);else floor.resync(ticket);}
@@ -234,7 +239,7 @@ async function acquireLive(s,startupRetries=0){
     s.failureKind=observationFailure(e);
     if(s.failureKind==='delivery'){s.deliveryError=String(e?.message??e);s.retryFailures++;s.nextDue=performance.now()+deliveryRetryMs(s.retryFailures);}
     else{s.error=e;showError(e);}
-  }finally{s.busy=false;if(active(s)){if(s.ready&&!s.error){s.failureKind=null;s.deliveryError=null;s.retryFailures=0;}updateHud();draw();}}
+  }finally{attempt.abort();s.busy=false;if(active(s)){if(s.ready&&!s.error){s.failureKind=null;s.deliveryError=null;s.retryFailures=0;}updateHud();draw();}}
 }
 async function epochConfiguration(s,ticket){
   const prior=s.sequence.last?.publication;
@@ -320,7 +325,7 @@ async function pumpLive(now,s){
   if(now<s.nextDue||!document.hidden&&!s.warmRecovery&&(s.queue.length>=LIVE_BUFFER_LIMITS.segments||s.clock.state().buffer>=32))return;s.busy=true;
   let observed=null;const acceptedBefore=s.sequence.last;
   try{
-    const started=performance.now(),response=await s.client.observation();s.fetchMs=performance.now()-started;const verifying=performance.now();
+    const started=performance.now(),response=await s.client.observation({lean:true});s.fetchMs=performance.now()-started;const verifying=performance.now();
     const current=await certifiedTicket(s,response);observed=current;s.verifyMs=performance.now()-verifying;if(!active(s))return;
     globalThis.__dtrLive.certificates++;s.certifiedAt=performance.now();
     const prior=s.sequence.last,past=prior.publication.head.segment_id,next=current.publication.head.segment_id;
@@ -406,10 +411,11 @@ function draw(){
  if(!cameraRestored){const p=arcade.camera();if(p?.projection==='isometric-1'&&[p.x,p.y,p.scale].every(Number.isFinite)&&p.scale>0){camera.x=p.x;camera.y=p.y;camera.scale=p.scale;camera.constrain();focusOnNextDraw=false;}cameraRestored=true;}
  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon())??v.cannons.values().next().value;if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
  arcade.presentation(v);const points=ballPoints.get(v,visibleTime);shell.advance(v,visibleTime,performance.now(),JSON.stringify(session?.sequence.last?.publication.identity??{}),points);
- try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,points,audioEligible:audio.effectsReady()&&zoomGain(camera.scale)>0,followed:shell.followedBall(),hover:shell.hover(),selection:arcade.moveSelection(),selected:arcade.selectedCannon(),guideObstacles:shell.guideObstacles(),aim:arcade.aim(),reducedMotion:matchMedia('(prefers-reduced-motion: reduce)').matches});if(session&&!renderError){session.lastRenderedAt=performance.now();session.lastRenderedPlayhead=visibleTime;if(session.returnStartedAt!==undefined&&session.firstWarmRenderAt===null)session.firstWarmRenderAt=session.lastRenderedAt;}}
+ try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,points,audioEligible:audio.effectsReady()&&zoomGain(camera.scale)>0,followed:shell.followedBall(),hover:shell.hover(),selection:arcade.moveSelection(),selected:arcade.selectedCannon(),guideObstacles:shell.guideObstacles(),aim:arcade.aim(),reducedMotion:reducedMotion.matches});if(session&&!renderError){session.lastRenderedAt=performance.now();session.lastRenderedPlayhead=visibleTime;if(session.returnStartedAt!==undefined&&session.firstWarmRenderAt===null)session.firstWarmRenderAt=session.lastRenderedAt;}}
  catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='The arena could not be rendered. '+String(error?.message??error);}
  const drawnPose=audioPose(camera);shell.update(v,arenaRenderer.surface());
- canvas.setAttribute('aria-label',`B2Z isometric arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`);
+ const label=`B2Z isometric arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`;
+ if(canvas.getAttribute('aria-label')!==label)canvas.setAttribute('aria-label',label);
  if(!renderError&&drawnPose===audioPose(camera))return {camera,canvasRect:rect,membership:arenaRenderer.audioMembership(),occluders:[]};
 }
 function presentVerified(s,time){
@@ -454,7 +460,7 @@ function frame(now){
     const state=s.clock.state(),pace=s.operational?.run.pace;globalThis.__dtrLive.playback={wall_ms:now,frame_ms:elapsed*1000,verified_ticks:state.available,consumed_ticks:state.playhead,admitted_ticks:s.admittedTicks??0,played_ticks:s.playedTicks??0,buffer_ticks:state.buffer,buffer_target_ticks:s.clock.target,buffer_bytes:s.bytes,queue_segments:s.queue.length,certificate_time_ns:s.certificateTimeNs??null,certificate_age_ms:s.certificateAgeMs??null,catchup_segments:s.catchupSegments??0,catchup_ms:s.catchupMs??0,phase:phase(),rate:state.rate,elastic:s.elastic?.state(),presentation_lag_ticks:s.referenceWorld?Math.max(0,timeNumber(s.referenceWorld.time)-s.clock.playhead):0,nominal_rate:Number(pace?.nominal_milli??0)/1000,supported_rate:presentationPace(s),presentation_rate:s.nominalRate??0,target_rate:Number(pace?.nominal_milli??0)/1000,performance_limited:Boolean(pace?.performance_limited),fetch_ms:s.fetchMs??0,verify_ms:s.verifyMs??0,artifact_ms:s.artifactMs??0,derive_ms:s.deriveMs??0,artifact_bundle:Boolean(s.bundleUsed),artifact_bundle_fallbacks:s.bundleFallbacks??0,artifact_bundle_error:s.bundleError??null,delivery_failures:s.retryFailures,delivery_error:s.deliveryError??null,backend_segments:Number(s.operational?.run.completed_segments??0n),segment_ticks:Number(s.operational?.run.publication_ticks??s.operational?.run.segment_ticks??2n)};
   }
   if(!audioCollector)try{audio.begin({account:arcade.account(),previous:priorAudioTime,time:visibleTime,elapsed,now,ready:Boolean(s?.ready&&!s.error),failed:Boolean(s?.error||renderError),camera});}catch(error){audio.fail(error);}
-  const drawn=draw();if(drawn&&visible){try{speech.draw(visible,camera,shell.speechObstacles(drawn.canvasRect),visibleSpeechScope);}catch{speech.clear();}}if(now-lastHud>100){updateHud();lastHud=now;}try{if(drawn)audio.flush({...drawn,occluders:audio.effectsReady()?shell.audioOccluders(drawn.canvasRect):[],time:visibleTime,elapsed,continuous:elapsed>0&&elapsed<=.25,failed:Boolean(s?.error||renderError)});else{audio.flush({camera,membership:null,occluders:[],time:visibleTime,elapsed,continuous:elapsed>0&&elapsed<=.25,failed:true});audio.fence();}}catch(error){audio.fail(error);}
+  const drawn=draw();if(drawn&&visible){try{speech.draw(visible,camera,()=>shell.speechObstacles(drawn.canvasRect),visibleSpeechScope);}catch{speech.clear();}}if(now-lastHud>100){updateHud();lastHud=now;}try{if(drawn)audio.flush({...drawn,occluders:audio.effectsReady()?shell.audioOccluders(drawn.canvasRect):[],time:visibleTime,elapsed,continuous:elapsed>0&&elapsed<=.25,failed:Boolean(s?.error||renderError)});else{audio.flush({camera,membership:null,occluders:[],time:visibleTime,elapsed,continuous:elapsed>0&&elapsed<=.25,failed:true});audio.fence();}}catch(error){audio.fail(error);}
   requestAnimationFrame(frame);
 }
 $('retry').addEventListener('click',()=>{const s=session;if(!s){void bootstrap();return;}if(s.busy)return;void(s.mode==='live'?startLive(s.recording,0,s.sequence.last??s.verificationFloor):s.mode==='local'?startLocal(s.recording):start(s.recording));});

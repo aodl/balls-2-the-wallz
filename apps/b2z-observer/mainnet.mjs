@@ -19,8 +19,8 @@ export function mainnetPolicy(value){
 export async function mainnetConnection(policy,{signal}={}){
   policy=mainnetPolicy(policy);
   const agent=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:0,fetch:observationFetch(undefined,signal)});
-  const base=await boundedObservationClient(policy,{signal}),client=artifactDeliveryClient(agent,policy.canister_id,base);
-  return {verifyCertificate:certificateVerifier({network:'ic'}),client,readStatus:operationalReader(agent,policy.canister_id),readCycles:publicStatusReader(policy)};
+  const base=await boundedObservationClient(policy,{signal,agent}),client=artifactDeliveryClient(agent,policy.canister_id,base);
+  return {verifyCertificate:certificateVerifier({network:'ic'}),client,readStatus:operationalReader(agent,policy.canister_id),readCycles:publicStatusReader(policy),readSource:ticket=>certifiedSource(policy,ticket,{agent})};
 }
 function artifactBundleReader(agent,canisterId){
  const actor=Actor.createActor(({IDL})=>IDL.Service({artifact_bundle:IDL.Func([IDL.Nat64,IDL.Text],[IDL.Variant({Ok:IDL.Vec(IDL.Vec(IDL.Nat8)),Err:IDL.Text})],['query'])}),{agent,canisterId});
@@ -31,7 +31,8 @@ function artifactDeliveryClient(agent,canisterId,base){
  const actor=Actor.createActor(({IDL})=>IDL.Service({observation_bundle:IDL.Func([],[IDL.Variant({Ok:IDL.Record({observation:IDL.Record({publication:IDL.Vec(IDL.Nat8),certificate:IDL.Opt(IDL.Vec(IDL.Nat8))}),artifacts:IDL.Vec(IDL.Vec(IDL.Nat8))}),Err:IDL.Text})],['query'])}),{agent,canisterId});
  let cached=null,atomicAvailable=true;
  return Object.freeze({...base,
-  observation:async()=>{
+  observation:async({lean=false}={})=>{
+   if(lean)return base.observation();
    let failure;
    for(let attempt=0;atomicAvailable&&attempt<1;attempt++){
     try{
@@ -68,9 +69,9 @@ export function operationalReader(agent,canisterId){
   })})],['query'])}),{agent,canisterId});
   return async()=>{const r=await actor.lab_status();if(!r.Ok)throw new Error('status unavailable');r.Ok.run.idle=r.Ok.run.idle?.[0]??false;r.Ok.run.world_transition=r.Ok.run.world_transition?.[0]??false;r.Ok.run.publication_ticks=r.Ok.run.publication_ticks?.[0]??r.Ok.run.segment_ticks;r.Ok.run.pace=r.Ok.run.pace?.[0]??{mode:'Legacy',nominal_milli:500,admission_open:true};r.Ok.run.pace.supported_milli=r.Ok.run.pace.supported_milli?.[0]??r.Ok.run.pace.nominal_milli;r.Ok.run.pace.performance_limited=r.Ok.run.pace.performance_limited?.[0]??false;return r.Ok;};
 }
-export async function certifiedSource(policy,ticket){
+export async function certifiedSource(policy,ticket,{agent,signal}={}){
   policy=mainnetPolicy(policy);
-  const agent=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:0,fetch:observationFetch()});
+  agent??=await HttpAgent.create({host:policy.host,shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true,retryTimes:0,fetch:observationFetch(undefined,signal)});
   const actor=Actor.createActor(({IDL})=>IDL.Service({source_descriptor:IDL.Func([],[IDL.Variant({Ok:IDL.Vec(IDL.Nat8),Err:IDL.Text})],['query'])}),{agent,canisterId:policy.canister_id});
   const result=await actor.source_descriptor();if(!result.Ok)throw new Error('source descriptor unavailable');
   const bytes=Uint8Array.from(result.Ok);
@@ -84,10 +85,10 @@ export async function verifiedSourceDescriptor(bytes,ticket,expected){
   return Object.freeze({network,ledger:ledger.toText(),index:index.toText(),owner:owner.toText(),subaccount,recipient});
 }
 
-export async function certifiedConfiguration(ticket){
+export async function certifiedConfiguration(ticket,signal){
   const name=CONFIGURATION_ASSETS[ticket.publication.identity.config_hash];
   if(!name)throw new Error('configuration not bound: unsupported profile');
-  const bytes=await readBytes(new URL('./'+name,import.meta.url),65536,AbortSignal.timeout(10000));
+  const bytes=await readBytes(new URL('./'+name,import.meta.url),65536,signal?AbortSignal.any([signal,AbortSignal.timeout(10000)]):AbortSignal.timeout(10000));
   if(await sha256Web(bytes)!==ticket.publication.identity.config_hash)throw new Error('configuration not bound by certified publication');
   return decodeCanonical(bytes);
 }

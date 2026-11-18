@@ -1,4 +1,5 @@
 #!/usr/bin/env node
+import {transform} from 'esbuild';
 import {extendAudioAssets} from './audio_assets.mjs';
 /** Extend the frozen observer builder with v6 configuration, public docs and approved optional audio.
  * Offline asset preparation; no runner, identity, deployment or MCP opt-in. */
@@ -21,6 +22,12 @@ execFileSync(process.execPath,['tools/build_observer_mainnet.mjs',...process.arg
 for(const [source,name]of[['apps/b2z-observer/configuration-playability.bin','configuration-playability.bin'],['apps/b2z-observer/configuration-entry.bin','configuration-entry.bin'],['apps/b2z-observer/configuration-clearance.bin','configuration-clearance.bin'],['apps/b2z-observer/configuration-war-cry.bin','configuration-war-cry.bin'],['apps/b2z-observer/configuration-combined.bin','configuration-combined.bin'],['apps/b2z-observer/configuration-deflector.bin','configuration-deflector.bin'],['docs/operations/B2Z_AGENT_API.md','agent-api.md'],['canisters/runtime-lab/runtime-lab.did','backend.did']])await copyFile(source,out+'/'+name);
 await mkdir(out+'/cursors',{recursive:true});await copyFile('apps/b2z-observer/cursors/reticle.svg',out+'/cursors/reticle.svg');
 const manifest=JSON.parse(await readFile(out+'/build-manifest.json','utf8'));
+if(!values['local-test-config']){
+ const path=out+'/app.mjs',source=await readFile(path,'utf8');
+ const {code}=await transform(source,{minify:true,format:'esm',legalComments:'eof'});
+ const bytes=Buffer.from(code);await writeFile(path,bytes);
+ manifest.files['app.mjs']={sha256:sha(bytes),bytes:bytes.length};
+}
 for(const name of ['cursors/reticle.svg','configuration-playability.bin','configuration-entry.bin','configuration-clearance.bin','configuration-war-cry.bin','configuration-combined.bin','configuration-deflector.bin','agent-api.md','backend.did']){const bytes=await readFile(out+'/'+name);manifest.files[name]={sha256:sha(bytes),bytes:bytes.length};}
 manifest.supported_configuration_assets=CONFIGURATION_ASSETS;manifest.base_builder_sha256=sha(builder);manifest.playability_wrapper_sha256=sha(await readFile(new URL(import.meta.url)));manifest.mcp_service_discovery='INACTIVE; no architecture manifest or terms opt-in';
 await extendAudioAssets(out,manifest);

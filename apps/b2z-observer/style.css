@@ -26,8 +26,8 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 
 :root{--selected:#f5c77e;--preview:#ffdf9d;--ghost:#829ba6;--ghost-barrel:#b4c5cc;--guide:#ffedc9;--guide-under:#101317;--eligible:#bddde9}
 /* Fluid instrument surfaces: one toolbar and one progressive action section. */
-:root{--glass:#20262deb;--glass-edge:#7a858b;--glass-solid:#20262d;--control:#2b333b;--pressed:#544831}
-.panel{background:var(--glass);border-color:var(--glass-edge);border-radius:8px;box-shadow:0 10px 24px #0006;bottom:auto}
+:root{--graphite-surface:linear-gradient(155deg,#2a3439,#192125);--graphite-rail:linear-gradient(160deg,#354148,#202a2f);--graphite-edge:#829498;--graphite-depth:inset 0 1px #ebffff28,0 5px 12px #0006;--control:#2b333b;--pressed:#544831}
+.panel{background:var(--graphite-surface);border-color:var(--graphite-edge);border-radius:8px;box-shadow:var(--graphite-depth);bottom:auto}
 .panel-header{padding:4px 6px;gap:4px;min-height:52px;justify-content:space-between}
 .panel-header>button,#context-actions>button{width:44px;height:44px;min-width:44px;padding:10px;display:inline-flex;align-items:center;justify-content:center;border-radius:5px;background:transparent;border:1px solid transparent;flex-shrink:0}
 .panel-header>button:hover,#context-actions>button:hover{background:var(--control);border-color:var(--line)}
@@ -61,11 +61,9 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 .panel[data-expanded=true] #action-view{animation:instrument-in 180ms ease-out}
 @keyframes instrument-in{from{opacity:.1;clip-path:inset(0 0 100%);transform:translateY(-3px)}to{opacity:1;clip-path:inset(0);transform:translateY(0)}}
 #board[data-cursor=ball]{cursor:pointer}
-@supports(backdrop-filter:blur(4px)){.panel{backdrop-filter:blur(4px)}}
-@media(max-width:700px){.panel{background:#20262df5;backdrop-filter:none}.panel-header{padding:4px 6px}.panel-body{padding:7px 10px 10px}.wallet-fields>div{grid-template-columns:45px minmax(0,1fr) auto}.wallet-fields button{padding:6px}.heading-chip{max-width:145px}}
+@media(max-width:700px){.panel-header{padding:4px 6px}.panel-body{padding:7px 10px 10px}.wallet-fields>div{grid-template-columns:45px minmax(0,1fr) auto}.wallet-fields button{padding:6px}.heading-chip{max-width:145px}}
 @media(prefers-reduced-motion:reduce){.panel #action-view{animation:none}}
-@media(prefers-reduced-transparency:reduce){.panel{background:var(--glass-solid);backdrop-filter:none}}
-@media(forced-colors:active){.panel{background:Canvas;backdrop-filter:none;border:1px solid CanvasText}.panel-header button[aria-pressed=true]{outline:2px solid Highlight}.panel button:disabled{opacity:1;color:GrayText}}
+@media(forced-colors:active){.panel{background:Canvas;border:1px solid CanvasText}.panel-header button[aria-pressed=true]{outline:2px solid Highlight}.panel button:disabled{opacity:1;color:GrayText}}
 
 /* Keep focused precision fields clear of fractional scrollport edges. */
 #action-inputs input,#action-inputs select{scroll-margin-block:3px}
@@ -74,16 +72,15 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 #status-button{min-width:44px;overflow-wrap:anywhere;white-space:normal}
 
 /* UXR-03..05/09..13/20/24/25: stable toolbar, one usable instrument scroll. */
-:root{--glass:#20262dcc;--glass-edge:#8c989e;--glass-solid:#20262d}
-.panel{overflow:visible;backdrop-filter:blur(7px);background:var(--glass)}
+.panel{overflow:visible}
 .panel-header{justify-content:flex-start;gap:4px}
 .panel-header h1{margin-right:auto}
-.panel[data-surface=context]{background:none;border:0;box-shadow:none;backdrop-filter:none;pointer-events:none}
-.panel[data-surface=context] .panel-header{width:calc(12px + var(--tool-count,5)*44px + (var(--tool-count,5) - 1)*4px);background:var(--glass);border:1px solid var(--glass-edge);border-radius:7px 7px 0 0;box-shadow:0 3px 12px #0004;pointer-events:auto;backdrop-filter:blur(7px);position:relative;z-index:1}
+.panel[data-surface=context]{background:none;border:0;box-shadow:none;pointer-events:none}
+.panel[data-surface=context] .panel-header{width:calc(12px + var(--tool-count,5)*44px + (var(--tool-count,5) - 1)*4px);background:var(--graphite-rail);border:1px solid var(--graphite-edge);border-radius:7px 7px 0 0;box-shadow:var(--graphite-depth);pointer-events:auto;position:relative;z-index:1}
 .panel[data-surface=context][data-expanded=false] .panel-header{border-radius:7px}
 .panel .panel-body{padding:0;display:block;flex:none;height:var(--body-height,auto);max-height:var(--body-space,460px);overflow:hidden;transition:height 180ms ease,opacity 180ms ease;opacity:1}
 .panel .panel-scroll{height:100%;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 10px 10px;pointer-events:auto}
-.panel[data-surface=context] .panel-body{background:var(--glass);border-radius:0 7px 7px 7px;backdrop-filter:blur(7px);box-shadow:0 6px 16px #0005}
+.panel[data-surface=context] .panel-body{background:var(--graphite-surface);border-radius:0 7px 7px 7px;box-shadow:var(--graphite-depth)}
 .panel[data-surface=context][data-expanded=false] .panel-body{padding:0;height:0;opacity:0;pointer-events:none;box-shadow:none}
 .panel[data-surface=context][data-expanded=false] .panel-scroll{padding-block:0;pointer-events:none}
 .panel[data-expanded=true] #action-view{animation:none}
@@ -114,13 +111,11 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 #motion-wait{font-size:.85rem;gap:7px;top:36%;text-shadow:0 1px 3px #000}
 .spinner{width:24px;height:24px;box-shadow:none;border-width:2px}
 #cycles-display{opacity:.8;font-size:11px}
-@supports not (backdrop-filter:blur(4px)){.panel,.panel[data-surface=context] .panel-header,.panel[data-surface=context] .panel-body{background:var(--glass-solid)}}
 @media(prefers-reduced-motion:reduce){.panel .panel-body{transition:none}}
-@media(prefers-reduced-transparency:reduce){.panel,.panel[data-surface=context] .panel-header,.panel[data-surface=context] .panel-body{background:var(--glass-solid);backdrop-filter:none}}
-@media(forced-colors:active){.panel,.panel[data-surface=context] .panel-header,.panel[data-surface=context] .panel-body{background:Canvas;backdrop-filter:none;color:CanvasText}.wallet-fields dd{background:Canvas}}
+@media(forced-colors:active){.panel,.panel[data-surface=context] .panel-header,.panel[data-surface=context] .panel-body{background:Canvas;color:CanvasText}.wallet-fields dd{background:Canvas}}
 .quantity-stepper>label{max-width:32px}.quantity-stepper input{width:44px}.heading-chip{max-width:90px;gap:0}.heading-chip input{width:72px}.panel-scroll{scrollbar-width:thin}
-#toolbar-hint{position:absolute;left:0;bottom:calc(100% + 4px);max-width:100%;padding:5px 8px;margin:0;background:var(--glass-solid);border:1px solid var(--line);border-radius:4px;font-size:.78rem;z-index:8;pointer-events:none}
-.panel[data-surface=context]>#inspect-note{pointer-events:none;background:var(--glass-solid);padding:4px 8px;margin:0;font-size:.78rem;max-width:260px}
+#toolbar-hint{position:absolute;left:0;bottom:calc(100% + 4px);max-width:100%;padding:5px 8px;margin:0;background:var(--paper);border:1px solid var(--line);border-radius:4px;font-size:.78rem;z-index:8;pointer-events:none}
+.panel[data-surface=context]>#inspect-note{pointer-events:none;background:var(--paper);padding:4px 8px;margin:0;font-size:.78rem;max-width:260px}
 .panel-scroll{transition:padding-block 180ms ease}
 @media(prefers-reduced-motion:reduce){.panel-scroll{transition:none}}
 .panel-header button:disabled{opacity:1;color:#aab6c1;background:transparent;border-color:transparent}
@@ -248,15 +243,14 @@ button{border-radius:var(--radius);background:#2a3037;transition:background-colo
 :root{--player-accent:#c3d1d5;--accent:var(--player-accent);--paper:#20282b;--control:#293237;--line:#85969b;--ink:#f1f5f4;--quiet:#c0cdd0;--cannon-base:#242a2e;--cannon-turret:#454c52;--cannon-barrel:#4c555d}
 button{background:linear-gradient(160deg,#354046,#232b30);border-color:#85969b;box-shadow:inset 0 1px 0 #e5f1f018,0 2px 3px #0003}
 button:hover{background:#39464c}button:disabled{box-shadow:none}
-.panel,.panel-scroll,#quantity-controls,#war-cry-editor,.camera-controls button,.audio-controls button,#identify-button,#status-button{background:linear-gradient(150deg,#2c373bfa,#1c2428fa);box-shadow:inset 0 1px 0 #e5f1f025,0 4px 9px #0004;border-color:#85969b}
-.panel-header{background:linear-gradient(155deg,#354147fa,#202a2ffa);border-top-color:#b0bdc0}
-.panel-header button[aria-pressed=true]{background:#303c42;border-color:var(--player-accent);box-shadow:inset 0 -3px 0 var(--player-accent)}
+#quantity-controls,#war-cry-editor,#deflector-directions,.camera-controls button,.audio-controls button,#identify-button,#status-button{background:var(--graphite-surface);box-shadow:var(--graphite-depth);border-color:var(--graphite-edge)}
+.panel-header{background:var(--graphite-rail);border-top-color:#a9b9bd}
+.panel-header button[aria-pressed=true],#deflector-directions button[aria-pressed=true]{background:linear-gradient(165deg,#3b474c,#263136);border-color:var(--player-accent);color:var(--player-accent);box-shadow:inset 0 -2px var(--player-accent)}
 .payment-price{color:var(--ink)}.payment-information{background:#244451;border-color:#83bed5;color:#a6d8ef}
 #quantity-controls button,#war-cry-editor input{background:transparent}
-@media(prefers-reduced-transparency:reduce){.panel,.panel-scroll,.panel-header,#quantity-controls,#war-cry-editor{background:#20282b;backdrop-filter:none}}
-@media(forced-colors:active){button,.panel,.panel-scroll,.panel-header,#quantity-controls,#war-cry-editor,.payment-information{background:Canvas;color:CanvasText;border-color:CanvasText;box-shadow:none}.panel-header button[aria-pressed=true]{outline:2px solid Highlight;outline-offset:-3px}.payment-price{color:CanvasText}}
+@media(prefers-reduced-transparency:reduce){:root{--graphite-surface:#222b30;--graphite-rail:#2a3439}}
+@media(forced-colors:active){button,.panel,.panel-scroll,.panel-header,#quantity-controls,#war-cry-editor,#deflector-directions,.payment-information{background:Canvas;color:CanvasText;border-color:CanvasText;box-shadow:none}.panel-header button[aria-pressed=true],#deflector-directions button[aria-pressed=true]{background:Canvas;color:Highlight;box-shadow:none;outline:2px solid Highlight;outline-offset:-3px}.payment-price{color:CanvasText}}
 
 /* One measured arena editor: Deflector choices reuse its reserved dock/locks. */
-#deflector-directions{display:flex;gap:0;height:46px;border:1px solid var(--line);border-radius:8px;background:var(--control);touch-action:manipulation}
+#deflector-directions{display:flex;gap:0;height:46px;border:1px solid var(--line);border-radius:8px;touch-action:manipulation}
 #deflector-directions button{width:44px;min-width:44px;height:44px;padding:0;border:0;border-radius:4px;background:transparent;font-size:14px;font-weight:700}
-#deflector-directions button[aria-pressed=true]{background:var(--pressed);box-shadow:inset 0 -3px var(--accent);color:var(--ink)}

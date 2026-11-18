@@ -1158,3 +1158,24 @@ have no dormant grace, revival, ball pool or free territory. Preserve these fact
 in previews/help and distinguish direct protection from subsequent territorial
 loss. Public trajectory inspection carries the exact shared denominator; a
 numerator alone is not a schema7 position.
+
+
+### Graphite delivery and presentation
+
+Mainnet startup overlaps signed source, bound configuration and the bounded
+authenticated opening interval. Startup chooses a snapshot or a retained
+interval before the first useful view, and cancels the optional retained
+queries when their deadline expires. After startup, steady polls fetch only the
+signed observation and verify the certificate every time. A changed head still
+needs the exact bound state, events and scores before acceptance. Operational
+freshness and the verified payment gate are independent of visual playback.
+
+Status-only changes update payment readiness without recomputing the quote or
+placement. Arena aim motion composes the latest pointer sample at most once per
+frame, or on release if it has not painted. Quantity locks and layout measurement
+remain independent. The neutral graphite planes use local unlit owner-colour
+strips and a restrained selected contour. Display-referred terrain texture
+bytes keep their own palette. The render backing is capped at 1.5 DPR and
+2,073,600 pixels with MSAA off. The panel uses opaque shared graphite shading
+and no backdrop filtering, while retaining forced-colour and reduced-motion
+treatments and the existing payment axes.

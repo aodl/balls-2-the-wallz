@@ -68,3 +68,25 @@ test('UX-06 delayed replies cannot relabel old certificates or pre-hide health a
 test('UX-04 fresh slow-tier information never consumes a retained remainder',()=>{
  const state={playhead:0,available:1};assert.equal(recentPresentationPoint(state,1,35),0);assert.equal(recentPresentationPoint(state,.01,35),0);
 });
+
+test('UX-04 an optional retained-history deadline cancels its SDK fetch without stopping current observation',async()=>{
+ const session=new AbortController(),optional=new AbortController(),signals=[];
+ const client=await boundedObservationClient({network:'ic',host:'https://icp-api.io',canister_id:'s5ir5-gqaaa-aaaas-amyna-cai'},{
+  signal:session.signal,fetch:async(_input,{signal})=>{
+   signals.push(signal);
+   signal.throwIfAborted();
+   return new Promise((_resolve,reject)=>signal.addEventListener('abort',()=>reject(signal.reason),{once:true}));
+  }
+ });
+ const history=client.publication(1,{signal:optional.signal});
+ const stopHistory=setTimeout(()=>optional.abort(),15);
+ await assert.rejects(history);
+ clearTimeout(stopHistory);
+ assert.ok(signals.length>0&&signals.every(signal=>signal.aborted));
+ assert.ok(!session.signal.aborted);
+ const prior=signals.length,current=client.observation();
+ const stopCurrent=setTimeout(()=>session.abort(),15);
+ await assert.rejects(current);
+ clearTimeout(stopCurrent);
+ assert.ok(signals.length>prior);
+});

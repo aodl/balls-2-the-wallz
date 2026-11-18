@@ -24,9 +24,9 @@ test('merged cannon upper retains a real dark muzzle, owner rim and substantial 
  const {base,upper}=structureGeometry('cannon'),p=upper.attributes.position,c=upper.attributes.color,m=upper.attributes.accentChannel;
  let dark=0,rim=0,barrel=0;
  for(let i=0;i<p.count;i++){
-  if(Math.abs(p.getX(i)-.364)<1e-6&&Math.max(c.getX(i),c.getY(i),c.getZ(i))<.01&&m.getX(i)===0)dark++;
-  if(Math.abs(p.getX(i)-.368)<1e-6&&m.getX(i)===1)rim++;
-  if(Math.abs(p.getX(i)-.125)<1e-6&&Math.hypot(p.getY(i)-.285,p.getZ(i))>.07)barrel++;
+  if(Math.abs(p.getX(i)-.419)<1e-6&&Math.max(c.getX(i),c.getY(i),c.getZ(i))<.01&&m.getX(i)===0)dark++;
+  if(Math.abs(p.getX(i)-.421)<1e-6&&m.getX(i)===1)rim++;
+  if(Math.abs(p.getX(i)-.126)<1e-6&&Math.hypot(p.getY(i)-.282,p.getZ(i))>.07)barrel++;
  }
  assert(dark>=9,'dark muzzle disc omitted');assert(rim>=16,'ownership muzzle rim omitted');assert(barrel>=8,'barrel body omitted');base.dispose();upper.dispose();
 });

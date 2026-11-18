@@ -21,24 +21,40 @@ function box(w,h,d,x,y,z,ink,accent=false){return colour(new T.BoxGeometry(w,h,d
 function tube(r1,r2,length,x,y,ink){return colour(new T.CylinderGeometry(r1,r2,length,8,1,false).rotateZ(-Math.PI/2).translate(x,y,0),ink);}
 export function structureGeometry(kind='cannon'){
  if(!['cannon','deflector'].includes(kind))throw Error('structure family');
- const def=kind==='deflector',base=combine([colour(plate(def?.88:.84,.012,def?.075:.145),'#414a50'),box(.19,.018,.009,0,def?.042:.072,-(def?.441:.421),'#dfe8d8',true),box(.19,.018,.009,0,def?.042:.072,def?.441:.421,'#dfe8d8',true)]);
+ const def=kind==='deflector',base=combine([colour(plate(def?.88:.84,.012,def?.075:.145),'#353b40'),box(.19,.022,.010,0,def?.044:.073,-(def?.441:.421),'#dfe8d8',true),box(.19,.022,.010,0,def?.044:.073,def?.441:.421,'#dfe8d8',true)]);
  let upper;
  if(!def){
-  const hull=colour(new T.CylinderGeometry(.235,.285,.23,8,1,false).translate(-.055,.265,0),'#68737b');
-  const cap=colour(new T.CylinderGeometry(.205,.235,.065,8,1,false).translate(-.055,.412,0),'#505a62');
-  const collar=tube(.126,.145,.09,.095,.285,'#879199'),barrel=tube(.077,.094,.24,.245,.285,'#697780');
-  const rim=colour(new T.RingGeometry(.058,.080,8).rotateY(Math.PI/2).translate(.368,.285,0),'#e5eddb',true);
-  const recess=colour(new T.CircleGeometry(.058,8).rotateY(Math.PI/2).translate(.364,.285,0),'#080d10');
+  const hull=colour(new T.CylinderGeometry(.235,.285,.23,8,1,false).translate(-.075,.263,0),'#515b63');
+  const cap=colour(new T.CylinderGeometry(.205,.235,.065,8,1,false).translate(-.075,.409,0),'#383f47');
+  const collar=tube(.132,.148,.105,.098,.282,'#727c84'),barrel=tube(.077,.094,.292,.272,.282,'#515b65');
+  const rim=colour(new T.RingGeometry(.054,.082,8).rotateY(Math.PI/2).translate(.421,.282,0),'#e5eddb',true);
+  const recess=colour(new T.CircleGeometry(.055,8).rotateY(Math.PI/2).translate(.419,.282,0),'#030506');
   upper=combine([hull,cap,collar,barrel,rim,recess,box(.14,.018,.009,-.09,.335,-.235,'#e5eddb',true),box(.14,.018,.009,-.09,.335,.235,'#e5eddb',true)]);
  }else{
-  const shape=new T.BufferGeometry(),p=[.39,.11,0,-.28,.11,-.24,-.28,.11,.24,.39,.15,0,-.28,.17,-.24,-.28,.17,.24];shape.setAttribute('position',new T.Float32BufferAttribute(p,3));shape.setIndex([3,4,5,0,2,1,0,4,3,0,1,4,1,5,4,1,2,5,2,3,5,2,0,3]);const wedge=shape.toNonIndexed();shape.dispose();wedge.computeVertexNormals();colour(wedge,'#65727b');
-  const edge=(a,b)=>{const dx=b[0]-a[0],dz=b[1]-a[1],g=new T.BoxGeometry(Math.hypot(dx,dz),.010,.014);g.rotateY(-Math.atan2(dz,dx));g.translate((a[0]+b[0])/2,.177,(a[1]+b[1])/2);return colour(g,'#e5eddb',true);};
+  const shape=new T.BufferGeometry(),p=[.39,.11,0,-.28,.11,-.24,-.28,.11,.24,.39,.15,0,-.28,.17,-.24,-.28,.17,.24];shape.setAttribute('position',new T.Float32BufferAttribute(p,3));shape.setIndex([3,4,5,0,2,1,0,4,3,0,1,4,1,5,4,1,2,5,2,3,5,2,0,3]);const wedge=shape.toNonIndexed();shape.dispose();wedge.computeVertexNormals();colour(wedge,'#515e68');
+  const edge=(a,b)=>{const dx=b[0]-a[0],dz=b[1]-a[1],g=new T.BoxGeometry(Math.hypot(dx,dz),.015,.022);g.rotateY(-Math.atan2(dz,dx));g.translate((a[0]+b[0])/2,.177,(a[1]+b[1])/2);return colour(g,'#e5eddb',true);};
   upper=combine([wedge,edge([-.28,-.24],[.39,0]),edge([.39,0],[-.28,.24])]);
  }
  return {base,upper};
 }
 /** Vertex mask keeps metal graphite while only the authored strips use owner hue. */
-export function structureMaterial(){
- const m=new T.MeshLambertMaterial({vertexColors:true,flatShading:true});
- m.onBeforeCompile=s=>{s.vertexShader='attribute float accentChannel;\n'+s.vertexShader;s.vertexShader=s.vertexShader.replace('#include <color_vertex>',`vColor=vec4(color,1.);\n#ifdef USE_INSTANCING_COLOR\nvColor.rgb=mix(vColor.rgb,instanceColor.rgb,accentChannel);\n#endif`);};m.customProgramCacheKey=()=> 'b2z-graphite-mask-1';return m;
+export function structureMaterial(lift=0){
+ const m=new T.MeshLambertMaterial({vertexColors:true,flatShading:true,toneMapped:false});
+ m.onBeforeCompile=shader=>{
+  shader.vertexShader='attribute float accentChannel;\nvarying float vAccentChannel;\n'+shader.vertexShader;
+  shader.vertexShader=shader.vertexShader.replace('#include <color_vertex>',`vAccentChannel=accentChannel;
+vColor=vec4(color,1.);
+#ifdef USE_INSTANCING_COLOR
+vColor.rgb=mix(vColor.rgb,instanceColor.rgb,accentChannel);
+#endif`);
+  shader.uniforms.graphiteLift={value:lift};
+  shader.fragmentShader='varying float vAccentChannel;\nuniform float graphiteLift;\n'+shader.fragmentShader;
+  shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',`
+    // The neutral body's illumination is independent of the owner colour.
+    vec3 strip=mix(vColor.rgb,vec3(1.),.16);
+    outgoingLight=mix(outgoingLight*(1.+graphiteLift),strip,vAccentChannel);
+    #include <opaque_fragment>`);
+ };
+ m.customProgramCacheKey=()=> 'b2z-graphite-mask-2';
+ return m;
 }
