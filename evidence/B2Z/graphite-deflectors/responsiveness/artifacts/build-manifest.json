@@ -1,5 +1,5 @@
 {
-  "source_commit": "d4857e1afab8424ae5da32acfa212cc609e0c9bd",
+  "source_commit": "fedb50ed1c8a5e39ac0a29d247657301df58afe6",
   "source_dirty": false,
   "canister_ids_sha256": "838d16de7c4ccc713442d6220ecb1b6305b6ddc8ca93d93cae0646c731304deb",
   "local_test_only": false,
@@ -127,6 +127,7 @@
     "apps/b2z-observer/territory-entry.mjs",
     "apps/b2z-observer/quantity-placement.mjs",
     "apps/b2z-observer/shell.mjs",
+    "apps/b2z-observer/render-quality.mjs",
     "node_modules/three/build/three.core.js",
     "node_modules/three/build/three.module.js",
     "node_modules/three/examples/jsm/utils/BufferGeometryUtils.js",
@@ -172,8 +173,8 @@
       "bytes": 15241
     },
     "app.mjs": {
-      "sha256": "0cf3bdcb39c6abdb108ceedd96eb36101ecb80794a86b5246ad4f0e06995325c",
-      "bytes": 1097778
+      "sha256": "50c8556bcdb7a24de318fba5ebb496f6b2ec5031dfaa6de10ac97974387f7df7",
+      "bytes": 1098174
     },
     "style.css": {
       "sha256": "3ec993f310be9d19a35d9511e196baf88181a53d828fa19bd3d8b6d1d632656e",

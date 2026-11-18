@@ -1,13 +1,13 @@
 {
-  "source": "d4857e1afab8424ae5da32acfa212cc609e0c9bd",
+  "source": "fedb50ed1c8a5e39ac0a29d247657301df58afe6",
   "source_dirty": false,
   "files": 81,
   "public_files": 80,
-  "inventory_sha256": "bef3a48f03ef33254738a958b619734e30da5c587fde8d6759a2cc795fd0c7b9",
-  "javascript_sha256": "0cf3bdcb39c6abdb108ceedd96eb36101ecb80794a86b5246ad4f0e06995325c",
+  "inventory_sha256": "137f32c93728602eafa269b031fa3325c675767211ab9e4388a079370e857cf3",
+  "javascript_sha256": "50c8556bcdb7a24de318fba5ebb496f6b2ec5031dfaa6de10ac97974387f7df7",
   "audio_manifest_sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
   "unchanged_audio_files": 61,
-  "total_asset_bytes": 75316241,
+  "total_asset_bytes": 75316681,
   "normal_wasm_sha256": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
   "normal_wasm_provenance": "Unchanged deployed and qualified Rules12 normal module. The responsiveness release is frontend assets only.",
   "inputs": [
@@ -25,7 +25,7 @@
     },
     {
       "path": "apps/b2z-observer/app.mjs",
-      "sha256": "562bc321dfe1bac1b82bd4cc497778a709d89e142e308a4cbe643a12ecfc71b6"
+      "sha256": "69e904aaee730b6ba5eed55fa90b24232ba1042f7a01b6d85527f2789418e483"
     },
     {
       "path": "apps/b2z-observer/arcade.mjs",
@@ -1260,8 +1260,12 @@
       "sha256": "1bc60dd4c53d90a009805497de431729268efd1917ead1a9f5ef61444a73d78d"
     },
     {
+      "path": "apps/b2z-observer/render-quality.mjs",
+      "sha256": "d8f72c737c6534ee263d0e517ef9e0ea9c5c6d78364481aa5112ab12d6cb8ab0"
+    },
+    {
       "path": "apps/b2z-observer/render.mjs",
-      "sha256": "316f47db702f1f6f11b05d2c3f10957c50c975db24eeb2a9252ea5eae47bcd3f"
+      "sha256": "ec3456e2413bd5dae59d8bdc5cdfa4f1cd8c9617ff4709b91d84db680d310302"
     },
     {
       "path": "apps/b2z-observer/replay-tools.mjs",
