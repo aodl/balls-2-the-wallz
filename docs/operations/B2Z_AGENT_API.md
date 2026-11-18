@@ -89,3 +89,22 @@ official Ledger as B2Z-owned. This release supplies no MCP payment execution;
 do not disguise, proxy or rename financial calls to bypass connector limits.
 Autonomous paid play needs a separately permitted user-controlled wallet/signer
 with genuine authorisation and spending limits. It is outside this release.
+
+## Successor schema7 trajectory inspection (not production activation)
+
+The Deflector successor's `nearby_region` ball records add optional
+`trajectory_denominator : opt nat`. `None` means the historical integer
+intercepts (denominator1). Schema7 supplies `Some(den)` even when den is1;
+`x_intercept` and `y_intercept` are then the exact common-denominator numerators:
+position = numerator / den + integer velocity × logical time. Do not round them
+or assume the numerators alone are positions. The extra optional Candid field
+preserves the old wire record for historical clients, but clients must still
+reject unsupported `StateRef.schema_hash` identities before interpreting data.
+
+The typed region remains a convenience subset of cannon/ball/territory data;
+canonical Deflector entities and immutable orientations are in the authenticated
+schema7 state artifact. The existing typed `QuoteAction` variants are unchanged.
+DEFLECT support must be established from the exact authenticated successor
+configuration, then composed using its canonical Ledger grammar and processing-
+time legality. A local flag or this document cannot enable it. No player query
+submits an action, signs a payment or grants an allowance.

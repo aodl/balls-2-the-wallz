@@ -1,0 +1,22 @@
+{
+  "canonical_ball": {
+    "cell": 23980,
+    "den": {
+      "$integer": "11315"
+    },
+    "id": 1,
+    "owner": 1,
+    "vx": -22627,
+    "vy": 22627,
+    "x0": {
+      "$integer": "11615525632"
+    },
+    "y0": {
+      "$integer": "17379328"
+    }
+  },
+  "module": "3d122cd2674c7daa3a4067df9ffa0b1cb8726083e4fc510fa3ae4b12c2611b62",
+  "reply_denominator": null,
+  "reply_x": "11615525632",
+  "reply_y": "17379328"
+}

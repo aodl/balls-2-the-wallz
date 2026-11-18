@@ -180,3 +180,34 @@ wrapper exited143 and left its summary RUNNING. The reviewed runner notes preser
 that distinction. These are completed local runtime-case results, **not** full
 runner or hosted qualification passes. Final CI must finish normally on exact
 published source; no process interruption is relabelled as a six-gate pass.
+
+## Superseded bootstrap and proven read-only API correction
+
+The first published30808d3 bootstrap passed hosted Source, Native, Packaged and
+Browser. Hosted Wasm compilation/Candid/format/Clippy passed; the outer artifact
+pin correctly rejected the local bootstrap hash. Actual hosted normal artifact
+`3d122cd2674c7daa3a4067df9ffa0b1cb8726083e4fc510fa3ae4b12c2611b62` is retained
+separately. Its local exact-module launch/finance/replay/two-observer test passed
+with native returning entry, real fresh speech and5/35-second visibility, after
+retaining an earlier slow-delivery failure. A removal-observer probe race was
+identified: the current verified map changed before its passive RAF sample was
+read. Waiting for both actual map and matching native sample corrects the
+instrumentation without changing timeouts, runtime, financial readiness or trust.
+
+A subsequent public API audit found a real missing field: schema7's typed
+`nearby_region` response exposed intercept numerators without their denominator.
+A genuine valueless Ledger Deflector purchase and normal3d redirect reproduced
+this failure; the canonical ball has a fractional denominator while the typed
+reply omits it. The old-source negative is retained in
+`results/rational-api-old-hosted-negative.json` and
+`results/rational-api-old-hosted-reply.json`. This is a query representation fault,
+not a trajectory discontinuity or paid-world mutation.
+
+The correction adds an optional `trajectory_denominator` to the existing typed
+ball reply, updates generated Candid and its public contract, and tests exact
+rational reconstruction plus legacy Candid compatibility. No dependency, rules
+identity, world encoding, physics, audio, model, panel or payment interpretation
+changes. This genuine runtime/interface correction requires a new normal Wasm
+and complete frontend freeze (the latter carries public Candid/help assets).
+The c99 frontend and both local/hosted bootstrap modules remain superseded and
+unaltered. They are not the final qualified candidates.

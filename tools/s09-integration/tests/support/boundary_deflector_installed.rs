@@ -1840,3 +1840,94 @@ fn boundary_deflector_paid_destruction_and_elapsed_expiry_after_real_activation(
         &serde_json::json!({"status":"PASS","scope":"Normal module from synthetic v3 genesis, real authenticated lifecycle/entry/Rules11/Rules12 transitions, actual valueless Ledger payments, committed Deflector destruction and virtual24h expiry; independent replay; not production","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"deadline_ns":deadline.to_string(),"final_world":hex(&final_world.encode().unwrap())}),
     );
 }
+
+#[test]
+fn boundary_deflector_typed_region_reports_exact_rational_intercepts() {
+    #[derive(CandidType, Deserialize)]
+    struct BallReply {
+        ball_id: u32,
+        x_intercept: candid::Int,
+        y_intercept: candid::Int,
+        trajectory_denominator: Option<candid::Nat>,
+    }
+    #[derive(CandidType, Deserialize)]
+    struct RegionReply {
+        balls: Vec<BallReply>,
+    }
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
+        .join("boundary-rational-api");
+    std::fs::create_dir_all(&out).unwrap();
+    let fixtures: serde_json::Value = serde_json::from_slice(
+        &std::fs::read(repo.join("tests/fixtures/boundary-deflector-v12.json")).unwrap(),
+    )
+    .unwrap();
+    let row = fixtures["rows"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|r| r["name"] == "corridor-with-recovery")
+        .unwrap();
+    let mut world = World::decode(&unhex(row["initial_hex"].as_str().unwrap()).unwrap()).unwrap();
+    let payer = Principal::self_authenticating([9; 32]);
+    let account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+    for c in &mut world.cannons {
+        c.account = account.clone();
+    }
+    for c in &mut world.credits {
+        c.account = account.clone();
+    }
+    world.playability.as_mut().unwrap().players[0].account = account;
+    let initial = world.encode().unwrap();
+    let (pic, id, ledger, _) = arena_setup_world(bytes("B2Z_S14_TEST_WASM"), initial);
+    playability_installed::funding_paused(&pic, id, true);
+    pic.upgrade_canister(
+        id,
+        bytes("B2Z_S14_WASM"),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    let n = transfer_text(&pic, ledger, payer, id, 10000000, b"DEFLECT 1002 NE");
+    for _ in 0..180 {
+        if status(&pic, id).source.admitted_to_exclusive > n {
+            break;
+        }
+        tick(&pic);
+    }
+    assert!(status(&pic, id).source.admitted_to_exclusive > n);
+    playability_installed::one_tick(&pic, id);
+    let final_world = arena_world(&pic, id);
+    let b = final_world
+        .balls
+        .iter()
+        .find(|b| b.den.as_ref().is_some_and(|d| d.0 > 1.into()))
+        .unwrap();
+    let reply: RegionReply = get_query(
+        &pic,
+        id,
+        "nearby_region",
+        encode_args((b.cell as u32, 1u8, 1u8)).unwrap(),
+    );
+    let ball = reply.balls.iter().find(|r| r.ball_id == b.id).unwrap();
+    save(
+        &out,
+        "before-assertions.json",
+        &serde_json::json!({"module":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"canonical_ball":b,"reply_x":ball.x_intercept.0.to_string(),"reply_y":ball.y_intercept.0.to_string(),"reply_denominator":ball.trajectory_denominator.as_ref().map(|d|d.0.to_string())}),
+    );
+    assert!(
+        ball.trajectory_denominator.is_some(),
+        "schema7 typed region omitted its required exact trajectory denominator"
+    );
+    assert_eq!(
+        ball.trajectory_denominator.as_ref().unwrap().0,
+        b.den.as_ref().unwrap().0.to_biguint().unwrap()
+    );
+    assert_eq!(ball.x_intercept.0, b.x0.0);
+    assert_eq!(ball.y_intercept.0, b.y0.0);
+    save(
+        &out,
+        "result.json",
+        &serde_json::json!({"status":"PASS","scope":"Actual official valueless Ledger purchase and normal-module redirect; typed read-only region checked against publication-bound canonical trajectory state; independent certificate/replay qualification remains separate. No production operation.","normal_wasm":dtr_wire::hash(&bytes("B2Z_S14_WASM")),"ball":b,"denominator":ball.trajectory_denominator.as_ref().unwrap().0.to_string()}),
+    );
+}

@@ -1,0 +1,1340 @@
+{
+  "status": "PASS",
+  "scope": "Two real browsers of a pinned disposable IC. Native wall-time speech, no injected event/world.",
+  "observers": [
+    {
+      "verified_redirect_presentation": {
+        "frames": 82,
+        "states": [
+          {
+            "time": 3,
+            "vx": 22630,
+            "vy": 22625,
+            "x0": "-41676",
+            "y0": "-42690",
+            "den": "1",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.2665999999999995,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-108196170",
+            "y0": "-110525002",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.5165999999999995,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-122100042",
+            "y0": "-124428874",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.7665999999999995,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-136003914",
+            "y0": "-138332746",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.8833,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "256504138",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 4,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-149907786",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": null
+          }
+        ],
+        "structures": [
+          {
+            "cell": 24026,
+            "id": 1,
+            "orientation": "NE",
+            "owner": 1
+          },
+          {
+            "cell": 26024,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          },
+          {
+            "cell": 24022,
+            "id": 3,
+            "orientation": "SW",
+            "owner": 1
+          },
+          {
+            "cell": 22024,
+            "id": 4,
+            "orientation": "NW",
+            "owner": 1
+          }
+        ]
+      },
+      "public_pan_to_deflectors": {
+        "gestures": 9,
+        "target": {
+          "x": 24.5,
+          "y": 24.5,
+          "sx": 195,
+          "sy": 299.9999943857331,
+          "visible": true,
+          "score": 122.00000561426691
+        }
+      },
+      "live_verified_redirects": {
+        "frames": 1778,
+        "states": [
+          {
+            "time": 3,
+            "vx": 22630,
+            "vy": 22625,
+            "x0": "-41676",
+            "y0": "-42690",
+            "den": "1",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.2665999999999995,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-108196170",
+            "y0": "-110525002",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.5165999999999995,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-122100042",
+            "y0": "-124428874",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.7665999999999995,
+            "vx": 22627,
+            "vy": 22627,
+            "x0": "-136003914",
+            "y0": "-138332746",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.8833,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "256504138",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 4,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-149907786",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": null
+          },
+          {
+            "time": 4.163180799999993,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "270408010",
+            "y0": "272736842",
+            "den": "2263",
+            "source": "7",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.413180799999993,
+            "vx": -22627,
+            "vy": 22627,
+            "x0": "284311882",
+            "y0": "-166140490",
+            "den": "2263",
+            "source": "8",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.663180799999993,
+            "vx": -22627,
+            "vy": 22627,
+            "x0": "298215754",
+            "y0": "-180044362",
+            "den": "2263",
+            "source": "8",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          }
+        ],
+        "structures": [
+          {
+            "cell": 22024,
+            "id": 4,
+            "orientation": "NW",
+            "owner": 1
+          },
+          {
+            "cell": 24022,
+            "id": 3,
+            "orientation": "SW",
+            "owner": 1
+          },
+          {
+            "cell": 24026,
+            "id": 1,
+            "orientation": "NE",
+            "owner": 1
+          },
+          {
+            "cell": 26024,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          }
+        ]
+      },
+      "at": 1794960883590,
+      "born": 1794960858715,
+      "key": "cc928ea3e9354284732676daafcec3e10ca40ff82c68866918d04fd8541c2581/8/0/18/4",
+      "cannon": 4,
+      "text": "Together!",
+      "head": "13",
+      "identity": {
+        "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+        "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "time": 11,
+      "quantity": 5,
+      "tag": "BDI",
+      "pointer": "none",
+      "rect": {
+        "x": 241,
+        "y": 152,
+        "width": 88.59375,
+        "height": 34.890625,
+        "top": 152,
+        "right": 329.59375,
+        "bottom": 186.890625,
+        "left": 241
+      },
+      "camera": [
+        10.341569569719923,
+        10.341569569719923,
+        64
+      ]
+    },
+    {
+      "verified_redirect_presentation": {
+        "frames": 145,
+        "states": [
+          {
+            "time": 3,
+            "vx": 22630,
+            "vy": 22625,
+            "x0": "-41676",
+            "y0": "-42690",
+            "den": "1",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.1001000000000003,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "214792522",
+            "y0": "217121354",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.3501000000000003,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "228696394",
+            "y0": "231025226",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.6001000000000003,
+            "vx": -22627,
+            "vy": 22627,
+            "x0": "242600266",
+            "y0": "-124428874",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.8501000000000003,
+            "vx": -22627,
+            "vy": 22627,
+            "x0": "256504138",
+            "y0": "-138332746",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 4,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-149907786",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": null
+          }
+        ],
+        "structures": [
+          {
+            "cell": 24026,
+            "id": 1,
+            "orientation": "NE",
+            "owner": 1
+          },
+          {
+            "cell": 26024,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          },
+          {
+            "cell": 24022,
+            "id": 3,
+            "orientation": "SW",
+            "owner": 1
+          },
+          {
+            "cell": 22024,
+            "id": 4,
+            "orientation": "NW",
+            "owner": 1
+          }
+        ]
+      },
+      "public_pan_to_deflectors": {
+        "gestures": 9,
+        "target": {
+          "x": 24.5,
+          "y": 24.5,
+          "sx": 195,
+          "sy": 299.9999943857331,
+          "visible": true,
+          "score": 122.00000561426691
+        }
+      },
+      "live_verified_redirects": {
+        "frames": 590,
+        "states": [
+          {
+            "time": 3,
+            "vx": 22630,
+            "vy": 22625,
+            "x0": "-41676",
+            "y0": "-42690",
+            "den": "1",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.1001000000000003,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "214792522",
+            "y0": "217121354",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.3501000000000003,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "228696394",
+            "y0": "231025226",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.6001000000000003,
+            "vx": -22627,
+            "vy": 22627,
+            "x0": "242600266",
+            "y0": "-124428874",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 3.8501000000000003,
+            "vx": -22627,
+            "vy": 22627,
+            "x0": "256504138",
+            "y0": "-138332746",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": [
+              3,
+              4
+            ]
+          },
+          {
+            "time": 4,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-149907786",
+            "y0": "258832970",
+            "den": "2263",
+            "source": "6",
+            "displayed_interval": null
+          },
+          {
+            "time": 4.25,
+            "vx": 22627,
+            "vy": -22627,
+            "x0": "-163811658",
+            "y0": "272736842",
+            "den": "2263",
+            "source": "7",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.5,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "284311882",
+            "y0": "286640714",
+            "den": "2263",
+            "source": "7",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          },
+          {
+            "time": 4.75,
+            "vx": -22627,
+            "vy": -22627,
+            "x0": "298215754",
+            "y0": "300544586",
+            "den": "2263",
+            "source": "7",
+            "displayed_interval": [
+              4,
+              5
+            ]
+          }
+        ],
+        "structures": [
+          {
+            "cell": 22024,
+            "id": 4,
+            "orientation": "NW",
+            "owner": 1
+          },
+          {
+            "cell": 24022,
+            "id": 3,
+            "orientation": "SW",
+            "owner": 1
+          },
+          {
+            "cell": 24026,
+            "id": 1,
+            "orientation": "NE",
+            "owner": 1
+          },
+          {
+            "cell": 26024,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          }
+        ]
+      },
+      "at": 1794960895844,
+      "born": 1794960866542,
+      "key": "cc928ea3e9354284732676daafcec3e10ca40ff82c68866918d04fd8541c2581/8/0/18/4",
+      "cannon": 4,
+      "text": "Together!",
+      "head": "13",
+      "identity": {
+        "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+        "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+      },
+      "time": 11,
+      "quantity": 5,
+      "tag": "BDI",
+      "pointer": "none",
+      "rect": {
+        "x": 241,
+        "y": 152,
+        "width": 88.59375,
+        "height": 34.890625,
+        "top": 152,
+        "right": 329.59375,
+        "bottom": 186.890625,
+        "left": 241
+      },
+      "camera": [
+        10.341569569719923,
+        10.341569569719923,
+        64
+      ]
+    }
+  ],
+  "transport_failures": [
+    {
+      "at_epoch_ms": 1794960683045.7395,
+      "url": "http://127.0.0.1:32827/configuration-deflector.bin",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960682959.815,
+        "domainLookupStart": 4.88,
+        "domainLookupEnd": 4.906,
+        "connectStart": 4.906,
+        "secureConnectionStart": -1,
+        "connectEnd": 5.12,
+        "requestStart": 6.79,
+        "responseStart": 14.385,
+        "responseEnd": 96.626
+      }
+    },
+    {
+      "at_epoch_ms": 1794960729279.5562,
+      "url": "http://127.0.0.1:32827/configuration-deflector.bin",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960729087.9,
+        "domainLookupStart": 12.078,
+        "domainLookupEnd": 12.102,
+        "connectStart": 12.102,
+        "secureConnectionStart": -1,
+        "connectEnd": 12.334,
+        "requestStart": 12.452,
+        "responseStart": 34.839,
+        "responseEnd": 367.828
+      }
+    },
+    {
+      "at_epoch_ms": 1794960744290.8416,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960744205.086,
+        "domainLookupStart": 2.68,
+        "domainLookupEnd": 2.777,
+        "connectStart": 2.777,
+        "secureConnectionStart": -1,
+        "connectEnd": 2.952,
+        "requestStart": 3.108,
+        "responseStart": 23.43,
+        "responseEnd": 87.186
+      }
+    },
+    {
+      "at_epoch_ms": 1794960748532.938,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/009-752cf09ae99741b3.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960748165.833,
+        "domainLookupStart": 11.683,
+        "domainLookupEnd": 11.708,
+        "connectStart": 11.708,
+        "secureConnectionStart": -1,
+        "connectEnd": 11.951,
+        "requestStart": 12.069,
+        "responseStart": 77.024,
+        "responseEnd": 287.462
+      }
+    },
+    {
+      "at_epoch_ms": 1794960750210.9783,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/003-5a9a811a71e0dbf5.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960749938.3582,
+        "domainLookupStart": 5.935,
+        "domainLookupEnd": 5.962,
+        "connectStart": 5.962,
+        "secureConnectionStart": -1,
+        "connectEnd": 6.29,
+        "requestStart": 8.411,
+        "responseStart": 25.651,
+        "responseEnd": 231.816
+      }
+    },
+    {
+      "at_epoch_ms": 1794960756795.5881,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/010-6de1162e34b4268f.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960756480.827,
+        "domainLookupStart": 10.112,
+        "domainLookupEnd": 10.139,
+        "connectStart": 10.139,
+        "secureConnectionStart": -1,
+        "connectEnd": 10.361,
+        "requestStart": 10.488,
+        "responseStart": 52.922,
+        "responseEnd": 243.271
+      }
+    },
+    {
+      "at_epoch_ms": 1794960766591.1138,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/005-4bf13903e457fd94.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960766178.824,
+        "domainLookupStart": 11.478,
+        "domainLookupEnd": 11.572,
+        "connectStart": 11.572,
+        "secureConnectionStart": -1,
+        "connectEnd": 13.055,
+        "requestStart": 18.128,
+        "responseStart": 47.133,
+        "responseEnd": 436.876
+      }
+    },
+    {
+      "at_epoch_ms": 1794960773000.2495,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/012-01e06f63ca07d0ae.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960772615.374,
+        "domainLookupStart": 5.512,
+        "domainLookupEnd": 5.543,
+        "connectStart": 5.543,
+        "secureConnectionStart": -1,
+        "connectEnd": 5.799,
+        "requestStart": 5.929,
+        "responseStart": 39.394,
+        "responseEnd": 178.673
+      }
+    },
+    {
+      "at_epoch_ms": 1794960783781.0564,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/007-a3a654ad7e6ccf3b.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960783411.353,
+        "domainLookupStart": 20.667,
+        "domainLookupEnd": 20.694,
+        "connectStart": 20.694,
+        "secureConnectionStart": -1,
+        "connectEnd": 21.213,
+        "requestStart": 21.302,
+        "responseStart": 45.737,
+        "responseEnd": 304.233
+      }
+    },
+    {
+      "at_epoch_ms": 1794960789293.8684,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/014-837b53aa95a943b5.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960789031.82,
+        "domainLookupStart": 4.334,
+        "domainLookupEnd": 4.431,
+        "connectStart": 4.431,
+        "secureConnectionStart": -1,
+        "connectEnd": 4.655,
+        "requestStart": 18.767,
+        "responseStart": 46.917,
+        "responseEnd": 182.035
+      }
+    },
+    {
+      "at_epoch_ms": 1794960807773.4526,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/010-6de1162e34b4268f.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960807420.9058,
+        "domainLookupStart": 14.976,
+        "domainLookupEnd": 15.004,
+        "connectStart": 15.004,
+        "secureConnectionStart": -1,
+        "connectEnd": 15.233,
+        "requestStart": 15.342,
+        "responseStart": 58.255,
+        "responseEnd": 333.023
+      }
+    },
+    {
+      "at_epoch_ms": 1794960814252.4949,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/017-7f4e43a4cf5d162b.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960813888.2292,
+        "domainLookupStart": 2.925,
+        "domainLookupEnd": 2.95,
+        "connectStart": 2.95,
+        "secureConnectionStart": -1,
+        "connectEnd": 3.15,
+        "requestStart": 3.247,
+        "responseStart": 37.064,
+        "responseEnd": 303.312
+      }
+    },
+    {
+      "at_epoch_ms": 1794960822896.9336,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/018-cd646c231bb0e032.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960822324.2332,
+        "domainLookupStart": 20.418,
+        "domainLookupEnd": 20.444,
+        "connectStart": 20.444,
+        "secureConnectionStart": -1,
+        "connectEnd": 20.68,
+        "requestStart": 20.787,
+        "responseStart": 98.535,
+        "responseEnd": 603.207
+      }
+    },
+    {
+      "at_epoch_ms": 1794960835060.236,
+      "url": "http://127.0.0.1:32827/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "6b853d3c6ac73be3861a14691537d5af775c7a9cc4b4649f54c864054d634deb",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 0,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": -1,
+        "responseStart": -1,
+        "responseEnd": -1
+      }
+    },
+    {
+      "at_epoch_ms": 1794960838948.9944,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/020-e854dac44dcbcd65.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960838651.1382,
+        "domainLookupStart": 23.887,
+        "domainLookupEnd": 23.909,
+        "connectStart": 23.909,
+        "secureConnectionStart": -1,
+        "connectEnd": 27.593,
+        "requestStart": 31.246,
+        "responseStart": 65.24,
+        "responseEnd": 270.725
+      }
+    },
+    {
+      "at_epoch_ms": 1794960845327.0977,
+      "url": "http://127.0.0.1:32827/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "6b853d3c6ac73be3861a14691537d5af775c7a9cc4b4649f54c864054d634deb",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 0,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": -1,
+        "responseStart": -1,
+        "responseEnd": -1
+      }
+    },
+    {
+      "at_epoch_ms": 1794960847762.1204,
+      "url": "http://127.0.0.1:32827/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "6b853d3c6ac73be3861a14691537d5af775c7a9cc4b4649f54c864054d634deb",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 0,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": -1,
+        "responseStart": -1,
+        "responseEnd": -1
+      }
+    },
+    {
+      "at_epoch_ms": 1794960847789.0012,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/021-0053cc0eb9d2a475.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960847505.693,
+        "domainLookupStart": 13.838,
+        "domainLookupEnd": 14.365,
+        "connectStart": 14.365,
+        "secureConnectionStart": -1,
+        "connectEnd": 14.577,
+        "requestStart": 23.974,
+        "responseStart": 78.481,
+        "responseEnd": 323.526
+      }
+    },
+    {
+      "at_epoch_ms": 1794960848421.0034,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/015-e35652430b453d65.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960848172.9512,
+        "domainLookupStart": 2.921,
+        "domainLookupEnd": 2.945,
+        "connectStart": 2.945,
+        "secureConnectionStart": -1,
+        "connectEnd": 3.188,
+        "requestStart": 3.296,
+        "responseStart": 48.919,
+        "responseEnd": 177.833
+      }
+    },
+    {
+      "at_epoch_ms": 1794960880256.9746,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/025-b3d815be06bfb494.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960880072.5852,
+        "domainLookupStart": 8.587,
+        "domainLookupEnd": 8.722,
+        "connectStart": 8.722,
+        "secureConnectionStart": -1,
+        "connectEnd": 8.941,
+        "requestStart": 12.04,
+        "responseStart": 46.656,
+        "responseEnd": 230.457
+      }
+    },
+    {
+      "at_epoch_ms": 1794960888918.0544,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/026-cc3cdb40392b4641.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960888253.194,
+        "domainLookupStart": 61.064,
+        "domainLookupEnd": 61.092,
+        "connectStart": 61.092,
+        "secureConnectionStart": -1,
+        "connectEnd": 61.346,
+        "requestStart": 61.482,
+        "responseStart": 132.639,
+        "responseEnd": 571.328
+      }
+    },
+    {
+      "at_epoch_ms": 1794960892986.0586,
+      "url": "http://127.0.0.1:32827/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "c77b5153d8b99f45d47bc998784ea795ad4117120e97fe9c85317da43217d008",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 0,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": -1,
+        "responseStart": -1,
+        "responseEnd": -1
+      }
+    },
+    {
+      "at_epoch_ms": 1794960899514.9988,
+      "url": "http://127.0.0.1:32827/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "26bb783ad1c6b1a7f38fedf95def0e32e48559de8f9a27a7178c2ee94a22ccbb",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 0,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": -1,
+        "responseStart": -1,
+        "responseEnd": -1
+      }
+    },
+    {
+      "at_epoch_ms": 1794960918398.1401,
+      "url": "http://127.0.0.1:32827/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "c67b483b64ddd7a22f8afe3e3df4a52022f68d9ab9da3e045e586c3e3cfd7416",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 0,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": -1,
+        "responseStart": -1,
+        "responseEnd": -1
+      }
+    },
+    {
+      "at_epoch_ms": 1794960931441.9539,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/025-b3d815be06bfb494.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960930919.946,
+        "domainLookupStart": 10.527,
+        "domainLookupEnd": 10.659,
+        "connectStart": 10.659,
+        "secureConnectionStart": -1,
+        "connectEnd": 10.878,
+        "requestStart": 10.986,
+        "responseStart": 57.836,
+        "responseEnd": 396.458
+      }
+    },
+    {
+      "at_epoch_ms": 1794960947939.0237,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/027-64598ff9932ebab9.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960947367.449,
+        "domainLookupStart": 21.519,
+        "domainLookupEnd": 21.546,
+        "connectStart": 21.546,
+        "secureConnectionStart": -1,
+        "connectEnd": 21.808,
+        "requestStart": 21.927,
+        "responseStart": 109.389,
+        "responseEnd": 498.1
+      }
+    },
+    {
+      "at_epoch_ms": 1794960950703.083,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/026-cc3cdb40392b4641.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960950459.478,
+        "domainLookupStart": 3.311,
+        "domainLookupEnd": 3.351,
+        "connectStart": 3.351,
+        "secureConnectionStart": -1,
+        "connectEnd": 3.56,
+        "requestStart": 3.889,
+        "responseStart": 29.012,
+        "responseEnd": 193.66
+      }
+    },
+    {
+      "at_epoch_ms": 1794960951425.0237,
+      "url": "http://127.0.0.1:32827/audio/b2z-v1/music/027-64598ff9932ebab9.flac",
+      "request_sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 1794960951053.4148,
+        "domainLookupStart": 15.755,
+        "domainLookupEnd": 15.787,
+        "connectStart": 15.787,
+        "secureConnectionStart": -1,
+        "connectEnd": 16.067,
+        "requestStart": 18.8,
+        "responseStart": 37.877,
+        "responseEnd": 210.744
+      }
+    },
+    {
+      "at_epoch_ms": 1794960956343.6938,
+      "url": "http://127.0.0.1:32827/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "d27ae81767f6086681d5ccf552b8a61cce2fcfdd89c396917d25f521fc8b61ae",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 0,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": -1,
+        "responseStart": -1,
+        "responseEnd": -1
+      }
+    },
+    {
+      "at_epoch_ms": 1794960958876.126,
+      "url": "http://127.0.0.1:32827/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "d27ae81767f6086681d5ccf552b8a61cce2fcfdd89c396917d25f521fc8b61ae",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 0,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": -1,
+        "responseStart": -1,
+        "responseEnd": -1
+      }
+    },
+    {
+      "at_epoch_ms": 1794960966860.9678,
+      "url": "http://127.0.0.1:32827/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "d27ae81767f6086681d5ccf552b8a61cce2fcfdd89c396917d25f521fc8b61ae",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 0,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": -1,
+        "responseStart": -1,
+        "responseEnd": -1
+      }
+    },
+    {
+      "at_epoch_ms": 1794960971462.8647,
+      "url": "http://127.0.0.1:32827/api/v3/canister/dfj7p-ut777-77776-qaaba-cai/query",
+      "request_sha256": "099e0b96591e51f09fce5408d70fe578f6df875dc36b30e8ff718cb7c54edf15",
+      "failure": "net::ERR_ABORTED",
+      "timing": {
+        "startTime": 0,
+        "domainLookupStart": -1,
+        "domainLookupEnd": -1,
+        "connectStart": -1,
+        "secureConnectionStart": -1,
+        "connectEnd": -1,
+        "requestStart": -1,
+        "responseStart": -1,
+        "responseEnd": -1
+      }
+    }
+  ],
+  "entry_attempts": [
+    {
+      "at": 1794960687839,
+      "now": 9439.399999976158,
+      "visibility": "visible",
+      "status": {
+        "kind": "stopped",
+        "label": "Game paused",
+        "detail": "Finishing earlier verified motion.",
+        "canPrepare": false
+      },
+      "certificateTimeNs": "1794960681001520644",
+      "certificateAgeMs": 1707.479296,
+      "certifiedAt": 4597.5,
+      "operationalAt": 4327.699999988079,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "pocketic-local",
+            "canister": "dfj7p-ut777-77776-qaaba-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+              "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+              "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+              "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+            },
+            "epoch": "bae734804d9c6d28e47e57cf69b86b2de8db80c82682f22a61640b1da2f13466",
+            "format": null,
+            "head": "6",
+            "root": "2c1eef4d690f01cdf08ee5a9779e4a08a992bca62157162e782f96746a5bfe30",
+            "certificate_time_ns": "1794960681001520644"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "root": "2c1eef4d690f01cdf08ee5a9779e4a08a992bca62157162e782f96746a5bfe30",
+      "referenceCannons": 4
+    },
+    {
+      "at": 1794960738462,
+      "now": 17069.799999952316,
+      "visibility": "visible",
+      "status": {
+        "kind": "stopped",
+        "label": "Game paused",
+        "detail": "Finishing earlier verified motion.",
+        "canPrepare": false
+      },
+      "certificateTimeNs": "1794960708770127791",
+      "certificateAgeMs": 19681.872128,
+      "certifiedAt": 7813.699999988079,
+      "operationalAt": 15041.099999964237,
+      "delivery": {
+        "failures": 0,
+        "recoveries": 0,
+        "evicted": 0,
+        "active": null,
+        "blocking": null,
+        "history": [],
+        "acceptedHeads": [
+          {
+            "mode": "certificate-verifier",
+            "network": "pocketic-local",
+            "canister": "dfj7p-ut777-77776-qaaba-cai",
+            "version": 8,
+            "identity": {
+              "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+              "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+              "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+              "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+            },
+            "epoch": "bae734804d9c6d28e47e57cf69b86b2de8db80c82682f22a61640b1da2f13466",
+            "format": null,
+            "head": "6",
+            "root": "2c1eef4d690f01cdf08ee5a9779e4a08a992bca62157162e782f96746a5bfe30",
+            "certificate_time_ns": "1794960708770127791"
+          }
+        ],
+        "acceptedEvicted": 0
+      },
+      "root": "2c1eef4d690f01cdf08ee5a9779e4a08a992bca62157162e782f96746a5bfe30",
+      "referenceCannons": 4
+    }
+  ],
+  "visibility_context": "Ordinary default context; no Playwright focus emulation",
+  "visibility": [
+    {
+      "seconds": 5,
+      "at": 1794960905.6730027,
+      "bubble": 1
+    },
+    {
+      "seconds": 35,
+      "at": 1794960950.0321145,
+      "bubble": 0
+    }
+  ],
+  "native_lifetime_probe": {
+    "samples": [
+      {
+        "age_ms": 55272,
+        "opacity": 0.9564,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 55864,
+        "opacity": 0.8372,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 56982,
+        "opacity": 0.614,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57279,
+        "opacity": 0.5582,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57890,
+        "opacity": 0.4302,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 57951,
+        "opacity": 0.4202,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58237,
+        "opacity": 0.3596,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58359,
+        "opacity": 0.3356,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 58552,
+        "opacity": 0.308,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59066,
+        "opacity": 0.1908,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59151,
+        "opacity": 0.1754,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59353,
+        "opacity": 0.139,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59551,
+        "opacity": 0.114,
+        "visibility": "visible"
+      },
+      {
+        "age_ms": 59960,
+        "opacity": 0.0092,
+        "visibility": "visible"
+      }
+    ],
+    "expired": {
+      "at": 1794960926696,
+      "age_ms": 60154
+    }
+  },
+  "fade": {
+    "age_ms": 55272,
+    "opacity": 0.9564,
+    "visibility": "visible",
+    "scope": "Passive native DOM/computed output captured concurrently with the other observer real-tab journey"
+  },
+  "expiry": {
+    "at": 1794960926696,
+    "age_ms": 60154,
+    "repeat_render_does_not_restart": true
+  },
+  "first_hidden_age_expiry": "PASS first observer also expired without replay",
+  "errors": [],
+  "forbidden": [],
+  "browser": "153.0.8010.12"
+}

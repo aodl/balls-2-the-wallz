@@ -164,3 +164,22 @@ Executed successor regressions are maintained in
 `boundary-deflector-v12.json` and `boundary-deflector-topology-v12.json` fixtures,
 and the native tests of the same names. Installed paid ownership/contact and
 committed-destruction/two-observer tests remain separate qualification scopes.
+
+Equal-time admission retains the existing frozen-intent rule. If an earlier
+committed topology operation removes a Deflector, the saved structure ID is
+invalidated and cannot cause its orientation response. A previously blocked
+crossing remains blocked for that already-admitted batch, as it does for existing
+ownership changes; later classification sees the ordinary resulting terrain and
+may capture/pass under the unchanged rules. No stale structure index survives,
+no zero-time re-entry is introduced, and no abandoned topology proposal is applied.
+The shared stale-contact regression covers this ordering in both implementations.
+
+The bounded typed `nearby_region` convenience API carries
+`trajectory_denominator : opt nat` with each ball. Historical absence means1;
+schema7 supplies its exact positive denominator. Its intercept fields are the
+corresponding numerators. Clients must verify/recompute against the named
+`StateRef` and reject unsupported schemas. A missing denominator for a fractional
+schema7 trajectory is not a successful position report. The installed regression
+first fails against the retained old normal module, then checks the corrected
+module against its canonical publication state. This additive query field changes
+neither deterministic world encoding nor rules/configuration identity.

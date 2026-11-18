@@ -91,3 +91,35 @@ fn genuine_adjacent_enemy_capture_and_strike_are_blocked_only_by_structure() {
     assert!(Job::capture(&protected, 1503, 1).is_err());
     assert_eq!(protected.encode().unwrap(), before);
 }
+
+#[test]
+fn committed_loss_fences_frozen_structure_id_and_subsequent_admission() {
+    use b2z_native::geometry::{classify, next_crossing, passage};
+    let f = fixture();
+    let v = &f["stale_contact"];
+    let mut w = World::decode(&unhex(v["before_hex"].as_str().unwrap()).unwrap()).unwrap();
+    let crossing = next_crossing(&w.balls[1], w.width, &w.time).unwrap();
+    let intent = classify(&w, &w.balls[1], crossing.clone());
+    assert_eq!(intent.deflector_target, Some(2));
+    let mut j = Job::capture(&w, 103, 2).unwrap();
+    while !j.step(&mut w).unwrap() {
+        j = decode(&encode(&j).unwrap()).unwrap();
+    }
+    assert_eq!(dtr_wire::hex(&w.encode().unwrap()), v["after_hex"]);
+    assert_eq!(
+        dtr_wire::hex(&encode(&j.event().unwrap()).unwrap()),
+        v["event_hex"]
+    );
+    assert!(!w
+        .deflectors
+        .as_ref()
+        .unwrap()
+        .iter()
+        .any(|d| Some(d.id) == intent.deflector_target));
+    let fresh = classify(&w, &w.balls[1], crossing);
+    assert_eq!(fresh.deflector_target, None);
+    let attack = fresh.attack.unwrap();
+    assert_eq!(attack.target, Some(104));
+    assert_eq!(attack.defender, 0);
+    assert_eq!(passage(&w, &w.balls[1], &intent), (false, false, false));
+}

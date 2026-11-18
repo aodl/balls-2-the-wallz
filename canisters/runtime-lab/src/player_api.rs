@@ -110,6 +110,9 @@ pub struct BallView {
     cell: u32,
     x_intercept: candid::Int,
     y_intercept: candid::Int,
+    /// Schema7 intercept fields are exact numerators. None means historical1;
+    /// schema7 always supplies its canonical positive common denominator.
+    trajectory_denominator: Option<Nat>,
     velocity_x: i32,
     velocity_y: i32,
 }
@@ -434,6 +437,23 @@ fn region_cells(w: &World, cell: u32, width: u8, height: u8) -> Result<Vec<CellV
     }
     Ok(cells)
 }
+fn ball_view(b: &b2z_native::world::Ball) -> BallView {
+    BallView {
+        ball_id: b.id,
+        player_id: b.owner,
+        cell: b.cell as u32,
+        x_intercept: candid::Int(b.x0.0.clone()),
+        y_intercept: candid::Int(b.y0.0.clone()),
+        trajectory_denominator: b.den.as_ref().map(|d| {
+            Nat(d
+                .0
+                .to_biguint()
+                .expect("validated positive trajectory denominator"))
+        }),
+        velocity_x: b.vx,
+        velocity_y: b.vy,
+    }
+}
 pub fn nearby_region(cell: u32, width: u8, height: u8) -> Result<Region> {
     if cell >= 1_000_000 || width == 0 || height == 0 || width > 16 || height > 16 {
         return Err("REGION_BOUNDS".into());
@@ -451,15 +471,7 @@ pub fn nearby_region(cell: u32, width: u8, height: u8) -> Result<Region> {
         .balls
         .iter()
         .filter(|b| has(b.cell))
-        .map(|b| BallView {
-            ball_id: b.id,
-            player_id: b.owner,
-            cell: b.cell as u32,
-            x_intercept: candid::Int(b.x0.0.clone()),
-            y_intercept: candid::Int(b.y0.0.clone()),
-            velocity_x: b.vx,
-            velocity_y: b.vy,
-        })
+        .map(ball_view)
         .collect();
     Ok(Region {
         state: reference(&r, &p)?,
@@ -1075,5 +1087,76 @@ mod tests {
             quote_items_with_rules(&w, account, &action, true, false).unwrap(),
             quote_items_with_rules(&w, account, &action, true, true).unwrap()
         );
+    }
+}
+
+#[cfg(test)]
+mod rational_region_tests {
+    use super::*;
+    #[test]
+    fn typed_region_retains_exact_shared_denominator_and_legacy_integer_view() {
+        let vectors: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/boundary-deflector-v12.json"
+        ))
+        .unwrap();
+        let row = vectors["rows"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|r| r["name"] == "corridor-with-recovery")
+            .unwrap();
+        let w = World::decode(&unhex(row["outputs"]["state"]["hex"].as_str().unwrap()).unwrap())
+            .unwrap();
+        let b = w
+            .balls
+            .iter()
+            .find(|b| b.den.as_ref().is_some_and(|d| d.0 > 1.into()))
+            .unwrap();
+        let reply = ball_view(b);
+        let wire = candid::encode_one(reply).unwrap();
+        let decoded: BallView = candid::decode_one(&wire).unwrap();
+        assert_eq!(
+            decoded.trajectory_denominator.as_ref().unwrap().0,
+            b.den.as_ref().unwrap().0.to_biguint().unwrap()
+        );
+        assert_eq!(decoded.x_intercept.0, b.x0.0);
+        assert_eq!(decoded.y_intercept.0, b.y0.0);
+        let d = decoded.trajectory_denominator.unwrap().0;
+
+        let actual = b2z_native::world::position(b, &w.time).unwrap();
+
+        let dx = Rat::new(decoded.x_intercept.0, d.clone().into()).unwrap();
+        let dy = Rat::new(decoded.y_intercept.0, d.into()).unwrap();
+        assert_eq!(
+            actual[0],
+            dx.add(&w.time.mul_i(i64::from(b.vx)).unwrap()).unwrap()
+        );
+        assert_eq!(
+            actual[1],
+            dy.add(&w.time.mul_i(i64::from(b.vy)).unwrap()).unwrap()
+        );
+        let initial = World::decode(&unhex(row["initial_hex"].as_str().unwrap()).unwrap()).unwrap();
+        let mut old = initial.balls[0].clone();
+        old.den = None;
+        let legacy = ball_view(&old);
+        assert!(legacy.trajectory_denominator.is_none());
+        #[derive(CandidType, Deserialize)]
+        struct LegacyBall {
+            ball_id: u32,
+            player_id: u32,
+            cell: u32,
+            x_intercept: candid::Int,
+            y_intercept: candid::Int,
+            velocity_x: i32,
+            velocity_y: i32,
+        }
+        let old_wire = candid::encode_one(&legacy).unwrap();
+        let compatibility: LegacyBall = candid::decode_one(&old_wire).unwrap();
+        assert_eq!(compatibility.ball_id, old.id);
+        assert_eq!(compatibility.x_intercept.0, old.x0.0);
+        assert_eq!(compatibility.y_intercept.0, old.y0.0);
+        let legacy_wire = candid::encode_one(compatibility).unwrap();
+        let restored: BallView = candid::decode_one(&legacy_wire).unwrap();
+        assert!(restored.trajectory_denominator.is_none());
     }
 }

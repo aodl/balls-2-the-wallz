@@ -1,0 +1,1 @@
+Unqualified c99/30808 freeze retained unchanged. The exact hosted normal3d122cd2 omitted the rational denominator in the typed nearby_region convenience query. A real installed regression proves the failure. Gameplay/certificate/native evidence is retained separately; this is not the final candidate.

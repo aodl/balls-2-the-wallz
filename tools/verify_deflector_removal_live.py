@@ -25,13 +25,20 @@ try:
     ctx.route('**/*',guard)
     ctx.add_init_script('''globalThis.structureProbe={samples:[]};let signature='';function probe(){const e=globalThis.__b2zExperience;if(e?.session?.ready&&e.visible?.version===7){const ds=[...e.visible.deflectors.values()].sort((a,b)=>a.id-b.id),s=JSON.stringify(ds);if(s!==signature){signature=s;structureProbe.samples.push({at:Date.now(),time:e.visibleTime,structures:ds,publication:String(e.session.sequence.last.publication.head.segment_id),identity:e.session.sequence.last.publication.identity});}}requestAnimationFrame(probe)}requestAnimationFrame(probe);''')
     page=ctx.new_page();pages.append(page);page.on('pageerror',lambda e:errors.append(str(e)));page.goto(f'http://127.0.0.1:{port}/',wait_until='domcontentloaded');page.wait_for_function('()=>__b2zExperience?.session?.ready',timeout=60000);assert page.evaluate('__b2zExperience.session.config.rules_version')==12
-    page.locator('#join-action').click();page.locator('#sending-account').fill(c['listening_account']);page.locator('#identity-save').click();page.wait_for_function('()=>document.getElementById("workspace").hidden');page.wait_for_function('()=>__b2zExperience.visible.deflectors.size===2',timeout=45000)
+    page.locator('#join-action').click();page.locator('#sending-account').fill(c['listening_account']);page.locator('#identity-save').click();page.wait_for_function('()=>document.getElementById("workspace").hidden');page.wait_for_function('()=>__b2zExperience.visible.deflectors.size===2&&structureProbe.samples.at(-1)?.structures.length===2',timeout=45000)
     page.locator('#centre-cannon').click();page.locator('#own-cannons button').filter(has_text='Cannon #2 ·').click();page.wait_for_timeout(500);page.screenshot(path=str(out/f'observer-{i}-before.png'));report['observers'].append({'before':page.evaluate('structureProbe.samples.at(-1)')});save()
    Path(c['observer_ready_marker']).write_text('Both native observers authenticated the two paid structures.\n')
    for i,page in enumerate(pages):
-    page.bring_to_front();page.wait_for_function('()=>__b2zExperience.visible.deflectors.size===1&&[...__b2zExperience.visible.deflectors.values()][0].cell===103',timeout=60000);assert not page.evaluate('String(__b2zExperience.session.error??"")');report['observers'][i]['after']=page.evaluate('structureProbe.samples.at(-1)');report['observers'][i]['samples']=page.evaluate('structureProbe.samples');page.screenshot(path=str(out/f'observer-{i}-after.png'));save()
+    page.bring_to_front();page.wait_for_function('()=>__b2zExperience.visible.deflectors.size===1&&[...__b2zExperience.visible.deflectors.values()][0].cell===103&&structureProbe.samples.at(-1)?.structures.length===1&&structureProbe.samples.at(-1).structures[0].cell===103',timeout=60000);assert not page.evaluate('String(__b2zExperience.session.error??"")');report['observers'][i]['after']=page.evaluate('structureProbe.samples.at(-1)');report['observers'][i]['samples']=page.evaluate('structureProbe.samples');page.screenshot(path=str(out/f'observer-{i}-after.png'));save()
    assert report['observers'][0]['before']['structures']==report['observers'][1]['before']['structures'];assert report['observers'][0]['after']['structures']==report['observers'][1]['after']['structures'];assert all(x['after']['time']>=x['before']['time']for x in report['observers']);assert not forbidden and not errors
    report.update(status='PASS',errors=errors,forbidden=forbidden);save()
+  except Exception as error:
+   report.update(status='FAIL',error=repr(error),errors=errors,forbidden=forbidden)
+   for i,page in enumerate(pages):
+    try:
+     report.setdefault('failure_diagnostics',[]).append(page.evaluate('({status:__b2zExperience.status,error:String(__b2zExperience.session.error),visible:[...__b2zExperience.visible.deflectors.values()],probe:structureProbe})'));page.screenshot(path=str(out/f'observer-{i}-failure.png'))
+    except Exception:pass
+   save();raise
   finally:
    for ctx in contexts:ctx.close()
    browser.close()

@@ -5,6 +5,9 @@ type BallView = record {
   velocity_x : int32;
   velocity_y : int32;
   y_intercept : int;
+  // Schema7 intercept fields are exact numerators. None means historical1;
+  // schema7 always supplies its canonical positive common denominator.
+  trajectory_denominator : opt nat;
   x_intercept : int;
 };
 type CannonReply = record { state : StateRef; cannon : opt CannonView };
@@ -323,13 +326,12 @@ service : (blob, nat64, IndexConfig) -> {
   artifact_chunk : (text, nat8, nat16) -> (Result_2) query;
   cannon_state : (nat32) -> (Result_3) query;
   clearance_transition_status : () -> (Result_2) query;
-  war_cry_transition_status : () -> (Result_2) query;
   combined_transition_status : () -> (Result_2) query;
-  deflector_transition_status : () -> (Result_2) query;
   // Derives the rules-9 metadata once. No caller-supplied world, time or identities.
   commit_clearance_transition : (text) -> (Result_2);
-  commit_war_cry_transition : (text) -> (Result_2);
+  // Derives the combined rules-11 metadata once. No caller-supplied world, time or identities.
   commit_combined_transition : (text) -> (Result_2);
+  // Derives the Deflector rules-12 metadata once. No caller-supplied world, time or identities.
   commit_deflector_transition : (text) -> (Result_2);
   // Derives the rules-7 metadata once. No caller-supplied world, time or identities.
   commit_entry_transition : (text) -> (Result_2);
@@ -341,9 +343,12 @@ service : (blob, nat64, IndexConfig) -> {
   // Derive the new world from the actual durable committed state, once. Expected
   // manifest protects against a stale operator view; there is no arbitrary replacement.
   commit_torus_transition : (text) -> (Result_2);
+  // Derives the War Cry rules-10 metadata once. No caller-supplied world, time or identities.
+  commit_war_cry_transition : (text) -> (Result_2);
   controller_funding : () -> (Result_4) query;
   controller_runtime : () -> (Result_5) query;
   controller_work : () -> (Result_6) query;
+  deflector_transition_status : () -> (Result_2) query;
   entry_transition_status : () -> (Result_2) query;
   // Content-addressed application metadata. Hash against the independently
   // authenticated epoch.metadata_hash; this convenience reply is not certified.
@@ -363,7 +368,6 @@ service : (blob, nat64, IndexConfig) -> {
   player_state : (text) -> (Result_13) query;
   poke : (vec PokeMatch) -> ();
   prepare_clearance_transition : () -> (Result_2);
-  prepare_war_cry_transition : () -> (Result_2);
   prepare_combined_transition : () -> (Result_2);
   prepare_deflector_transition : () -> (Result_2);
   // Change only first-entry rules at the exact committed rules-v6 predecessor.
@@ -378,6 +382,7 @@ service : (blob, nat64, IndexConfig) -> {
   // Begins only the reviewed v3→v4 cutover. Never accepts state, identities or a
   // caller-supplied Ledger height. The fenced worker obtains its own watermarks.
   prepare_torus_transition : () -> (Result_2);
+  prepare_war_cry_transition : () -> (Result_2);
   retained_artifact_chunk : (nat64, text, nat8, nat16) -> (Result_2) query;
   retained_publication : (nat64) -> (Result_2) query;
   retention_status : () -> (Result_14) query;
@@ -387,4 +392,5 @@ service : (blob, nat64, IndexConfig) -> {
   source_descriptor : () -> (Result_2) query;
   start_autonomous : (RunConfig) -> (Result_8);
   torus_transition_status : () -> (Result_2) query;
+  war_cry_transition_status : () -> (Result_2) query;
 }
