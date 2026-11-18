@@ -48,3 +48,15 @@ Run `graphite-structures.test.mjs`, existing financial/editor tests,
 browser qualification. `verify_graphite_browser.py` provides synthetic render-only
 turntables/populations and measured calls/triangles/update timing. Keep timings
 separate from installed backend cycle cost and physical GPU qualification.
+
+### Machined cannon refinement
+
+The cannon keeps its fixed square plate, rotating hull, short barrel and
+authored muzzle. Existing cap, collar and top-bevel faces receive neutral
+pale graphite trim. The dark octagonal hull and bore retain their silhouette.
+Four near-black hex heads are stamped flush into the fixed plate corners.
+They use 24 small coplanar-with-each-other triangles on a plane just above the
+mounting deck. Existing owner light slits are shorter and the masked muzzle
+ring remains independent of the neutral trim and selection lift. The revised
+cannon uses 284 triangles and 397 indexed vertices in the same two batches.
+The Deflector geometry is unchanged.

@@ -30,3 +30,28 @@ test('merged cannon upper retains a real dark muzzle, owner rim and substantial 
  }
  assert(dark>=9,'dark muzzle disc omitted');assert(rim>=16,'ownership muzzle rim omitted');assert(barrel>=8,'barrel body omitted');base.dispose();upper.dispose();
 });
+
+test('cannon has four fixed neutral bolt heads and neutral structural trim',()=>{
+ const {base,upper}=structureGeometry();
+ const bolts=new Set();
+ const p=base.attributes.position,c=base.attributes.color,mask=base.attributes.accentChannel;
+ for(let i=0;i<p.count;i++){
+  if(Math.abs(p.getY(i)-.146)>1e-6)continue;
+  assert.equal(mask.getX(i),0);
+  assert(Math.max(c.getX(i),c.getY(i),c.getZ(i))<.006);
+  assert(Math.min(Math.abs(p.getX(i)),Math.abs(p.getZ(i)))>.23);
+  bolts.add([Math.sign(p.getX(i)),Math.sign(p.getZ(i))].join(','));
+ }
+ assert.equal(bolts.size,4);
+ const u=upper.attributes.position,tint=upper.attributes.color,accent=upper.attributes.accentChannel;
+ let collar=0,cap=0;
+ for(let i=0;i<u.count;i++){
+  if(Math.min(tint.getX(i),tint.getY(i),tint.getZ(i))<.36)continue;
+  if(accent.getX(i))continue;
+  if(u.getY(i)>.375)cap++;
+  else if(u.getX(i)>.04&&u.getX(i)<.16)collar++;
+ }
+ assert(cap>=8&&collar>=8,'neutral armour trim must not be part of the owner accent mask');
+ assert.equal((base.index.count+upper.index.count)/3,284);
+ base.dispose();upper.dispose();
+});

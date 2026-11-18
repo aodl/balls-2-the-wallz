@@ -19,17 +19,38 @@ function plate(width,bottom,top){
 }
 function box(w,h,d,x,y,z,ink,accent=false){return colour(new T.BoxGeometry(w,h,d).translate(x,y,z),ink,accent);}
 function tube(r1,r2,length,x,y,ink){return colour(new T.CylinderGeometry(r1,r2,length,8,1,false).rotateZ(-Math.PI/2).translate(x,y,0),ink);}
+// Colour only the existing mesh faces. Flat normals let the metal band stay
+// crisp without a second surface, material or lighting pass.
+function faceFinish(geometry,ink,includes){
+ const tint=new T.Color(ink),normal=geometry.attributes.normal,position=geometry.attributes.position,colors=geometry.attributes.color;
+ for(let i=0;i<position.count;i++){
+  if(includes(normal.getY(i),position.getY(i)))colors.setXYZ(i,tint.r,tint.g,tint.b);
+ }
+ return geometry;
+}
+function cannonBase(){
+ const deck=faceFinish(colour(plate(.84,.012,.145),'#242b30'),'#465054',(up)=>up>.99);
+ faceFinish(deck,'#9da8a8',(up,y)=>up>.25&&up<.99&&y>.126);
+ // A stamped hexagonal bolt head sits flush just above the deck. It never
+ // rotates with the turret and needs only six triangles in the base batch.
+ const fasteners=[];
+ for(const x of [-.289,.289])for(const z of [-.289,.289]){
+  fasteners.push(colour(new T.CircleGeometry(.054,6).rotateX(-Math.PI/2).translate(x,.146,z),'#07090a'));
+ }
+ return combine([deck,...fasteners,box(.15,.019,.010,0,.073,-.421,'#dfe8d8',true),box(.15,.019,.010,0,.073,.421,'#dfe8d8',true)]);
+}
 export function structureGeometry(kind='cannon'){
  if(!['cannon','deflector'].includes(kind))throw Error('structure family');
- const def=kind==='deflector',base=combine([colour(plate(def?.88:.84,.012,def?.075:.145),'#353b40'),box(.19,.022,.010,0,def?.044:.073,-(def?.441:.421),'#dfe8d8',true),box(.19,.022,.010,0,def?.044:.073,def?.441:.421,'#dfe8d8',true)]);
+ const def=kind==='deflector';
+ const base=def?combine([colour(plate(.88,.012,.075),'#353b40'),box(.19,.022,.010,0,.044,-.441,'#dfe8d8',true),box(.19,.022,.010,0,.044,.441,'#dfe8d8',true)]):cannonBase();
  let upper;
  if(!def){
-  const hull=colour(new T.CylinderGeometry(.235,.285,.23,8,1,false).translate(-.075,.263,0),'#515b63');
-  const cap=colour(new T.CylinderGeometry(.205,.235,.065,8,1,false).translate(-.075,.409,0),'#383f47');
-  const collar=tube(.132,.148,.105,.098,.282,'#727c84'),barrel=tube(.077,.094,.292,.272,.282,'#515b65');
+  const hull=colour(new T.CylinderGeometry(.235,.285,.23,8,1,false).translate(-.075,.263,0),'#333d44');
+  const cap=faceFinish(colour(new T.CylinderGeometry(.205,.235,.065,8,1,false).translate(-.075,.409,0),'#242c32'),'#aeb7b6',up=>up>0&&up<.85);
+  const collar=tube(.132,.148,.105,.098,.282,'#b2bdbd'),barrel=tube(.077,.094,.292,.272,.282,'#465158');
   const rim=colour(new T.RingGeometry(.054,.082,8).rotateY(Math.PI/2).translate(.421,.282,0),'#e5eddb',true);
   const recess=colour(new T.CircleGeometry(.055,8).rotateY(Math.PI/2).translate(.419,.282,0),'#030506');
-  upper=combine([hull,cap,collar,barrel,rim,recess,box(.14,.018,.009,-.09,.335,-.235,'#e5eddb',true),box(.14,.018,.009,-.09,.335,.235,'#e5eddb',true)]);
+  upper=combine([hull,cap,collar,barrel,rim,recess,box(.112,.018,.009,-.09,.335,-.235,'#e5eddb',true),box(.112,.018,.009,-.09,.335,.235,'#e5eddb',true)]);
  }else{
   const shape=new T.BufferGeometry(),p=[.39,.11,0,-.28,.11,-.24,-.28,.11,.24,.39,.15,0,-.28,.17,-.24,-.28,.17,.24];shape.setAttribute('position',new T.Float32BufferAttribute(p,3));shape.setIndex([3,4,5,0,2,1,0,4,3,0,1,4,1,5,4,1,2,5,2,3,5,2,0,3]);const wedge=shape.toNonIndexed();shape.dispose();wedge.computeVertexNormals();colour(wedge,'#515e68');
   const edge=(a,b)=>{const dx=b[0]-a[0],dz=b[1]-a[1],g=new T.BoxGeometry(Math.hypot(dx,dz),.015,.022);g.rotateY(-Math.atan2(dz,dx));g.translate((a[0]+b[0])/2,.177,(a[1]+b[1])/2);return colour(g,'#e5eddb',true);};
