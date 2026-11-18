@@ -1,0 +1,40 @@
+(
+  variant {
+    Ok = record {
+      last_error = opt "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })";
+      total_cycles_reported = "1766023380000";
+      last_plan_ns = 1_794_130_796_502_691_675 : nat64;
+      observed_fee = opt record {
+        e8s = 10_000 : nat64;
+        observed_at_ns = 1_794_994_192_446_170_194 : nat64;
+      };
+      last_refund = null;
+      total_converted_e8s = "99990000";
+      last_success = opt record {
+        block_index = 40_180_668 : nat64;
+        completed_at_ns = 1_794_130_803_390_992_707 : nat64;
+        plan = record {
+          to = blob "\01\db\2d\f2\65\57\f2\37\05\b1\73\37\28\e7\28\d3\f4\4d\17\e3\0f\fd\79\ee\98\86\a9\64\2f\e5\91\09";
+          cmc = "rkp4c-7iaaa-aaaaa-aaaca-cai";
+          created_at_time_ns = 1_794_130_796_502_691_675 : nat64;
+          beneficiary = "s5ir5-gqaaa-aaaas-amyna-cai";
+          memo = 1_347_768_404 : nat64;
+          fee_e8s = 10_000 : nat64;
+          amount_e8s = 99_990_000 : nat64;
+          ledger = "ryjl3-tyaaa-aaaaa-aaaba-cai";
+        };
+        cycles = "1_766_023_380_000";
+      };
+      version = 1 : nat32;
+      lease_started_ns = 1_794_994_190_157_042_528 : nat64;
+      nonce = 3_008 : nat64;
+      observed_balance = opt record {
+        e8s = 0 : nat64;
+        observed_at_ns = 1_794_994_190_157_042_528 : nat64;
+      };
+      halted = false;
+      phase = variant { Idle };
+      paused = false;
+    }
+  },
+)

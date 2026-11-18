@@ -1,0 +1,67 @@
+{
+  "status": "PASS",
+  "scope": "Focused local disposable rehearsal; not hosted or production evidence",
+  "test": "readiness_bench::release_readiness_matched",
+  "source": "a8dc078915e61e83912f6335b3ea5b75ad1218d1",
+  "source_dirty": true,
+  "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "test_hooks_wasm": "31efb0c5afb2f244ca0e7d0dcd42c8b60fb7aa800ff8edabeb6ca43c727e475e",
+  "binary_sha256": "9533d0cf33e416519446c37e27d51af55a093d96bcea161d3249c1fda2ced0a3",
+  "pinned_artifacts": {
+    "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+    "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+    "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+  },
+  "check": {
+    "id": "installed",
+    "command": [
+      "/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c",
+      "readiness_bench::release_readiness_matched",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "elapsed_seconds": 265.809,
+    "timeout_seconds": 900,
+    "log": "logs/installed.log",
+    "pocketic_server_exit": null
+  },
+  "rows": [
+    {
+      "cycles": "54348392929",
+      "deflectors": 256,
+      "effective": 1,
+      "elapsed_ns": "1250000001",
+      "events": 5714,
+      "final_logical": "2",
+      "index_calls": 1,
+      "initial_balls": 64,
+      "initial_cannons": 16,
+      "initial_current_work": 0,
+      "initial_logical": "0",
+      "initial_world": "eca25eda3aff4f6408377702d32107690465a535335423299e26bc017023b291",
+      "label": "capacity-C",
+      "metrics": {
+        "max_instructions": 3127405907,
+        "messages": 5,
+        "persist_instructions": 1804098723,
+        "publish_instructions": 1321852500,
+        "seal_instructions": 453641284,
+        "step_instructions": 3980435924
+      },
+      "mode": "Normal",
+      "payload_bytes": 670427,
+      "post_gap_first_ns": null,
+      "publication_ns": [
+        "250000001",
+        "1250000001"
+      ],
+      "publications": 2,
+      "stored": 1,
+      "ticks": 2,
+      "work_units": 632
+    }
+  ]
+}

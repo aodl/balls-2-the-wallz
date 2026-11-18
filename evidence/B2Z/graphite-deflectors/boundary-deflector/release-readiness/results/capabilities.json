@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "scope": "Exact frozen config bytes and qualified source capability functions. Browser authenticity and proposals checked separately.",
+  "rows": [
+    {
+      "rules": 7,
+      "identity": {
+        "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80"
+      },
+      "file": "configuration-entry.bin",
+      "clearance": false,
+      "war_cry": false,
+      "deflector": false
+    },
+    {
+      "rules": 11,
+      "identity": {
+        "rules_hash": "5d0ca4591a782b609ef10d9db46d4bd93042b0fcdd738d8d1f920840c05b7756",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "config_hash": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df"
+      },
+      "file": "configuration-combined.bin",
+      "clearance": true,
+      "war_cry": true,
+      "deflector": false
+    },
+    {
+      "rules": 12,
+      "identity": {
+        "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b"
+      },
+      "file": "configuration-deflector.bin",
+      "clearance": true,
+      "war_cry": true,
+      "deflector": true
+    }
+  ]
+}

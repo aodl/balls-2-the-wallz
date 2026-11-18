@@ -1,0 +1,25 @@
+(
+  variant {
+    Ok = record {
+      metrics = record {
+        last_seal_instructions = 37_739_020 : nat64;
+        last_step_instructions = 67_711_373 : nat64;
+        last_instructions = 239_171_223 : nat64;
+        messages = 11_393 : nat64;
+        max_actions = 5 : nat32;
+        seal_instructions = 342_237_628_597 : nat64;
+        step_instructions = 675_360_107_233 : nat64;
+        publish_instructions = 270_614_401_580 : nat64;
+        last_publish_instructions = 27_445_176 : nat64;
+        max_instructions = 254_554_822 : nat64;
+        persist_instructions = 517_194_373_693 : nat64;
+        last_persist_instructions = 53_283_387 : nat64;
+      };
+      instruction_yield = 600_000_000 : nat64;
+      message_work_limit = 2_048 : nat64;
+      total_cycles = 1_727_915_756_480 : nat;
+      phase_action_limit = 8 : nat32;
+      liquid_cycles = 1_671_582_995_390 : nat;
+    }
+  },
+)

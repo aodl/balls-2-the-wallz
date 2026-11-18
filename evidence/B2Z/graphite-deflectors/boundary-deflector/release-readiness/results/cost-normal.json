@@ -1,0 +1,139 @@
+{
+  "status": "PASS",
+  "scope": "Focused local disposable rehearsal; not hosted or production evidence",
+  "test": "readiness_bench::release_readiness_matched",
+  "source": "a8dc078915e61e83912f6335b3ea5b75ad1218d1",
+  "source_dirty": true,
+  "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "test_hooks_wasm": "31efb0c5afb2f244ca0e7d0dcd42c8b60fb7aa800ff8edabeb6ca43c727e475e",
+  "binary_sha256": "9533d0cf33e416519446c37e27d51af55a093d96bcea161d3249c1fda2ced0a3",
+  "pinned_artifacts": {
+    "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+    "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+    "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+  },
+  "check": {
+    "id": "installed",
+    "command": [
+      "/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c",
+      "readiness_bench::release_readiness_matched",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "elapsed_seconds": 438.884,
+    "timeout_seconds": 900,
+    "log": "logs/installed.log",
+    "pocketic_server_exit": null
+  },
+  "rows": [
+    {
+      "cycles": "541603010",
+      "deflectors": 0,
+      "effective": 2,
+      "elapsed_ns": "2000000001",
+      "events": 180,
+      "final_logical": "8",
+      "index_calls": 1,
+      "initial_balls": 1,
+      "initial_cannons": 1,
+      "initial_current_work": 0,
+      "initial_logical": "4",
+      "initial_world": "03f80810003fb2d97e1d5af3fc6e868679bb651f4e896fc97a62efcc88b49d3a",
+      "label": "normal-A",
+      "metrics": {
+        "max_instructions": 205386133,
+        "messages": 2,
+        "persist_instructions": 65094666,
+        "publish_instructions": 47846437,
+        "seal_instructions": 30921375,
+        "step_instructions": 182666961
+      },
+      "mode": "Normal",
+      "payload_bytes": 60641,
+      "post_gap_first_ns": null,
+      "publication_ns": [
+        "50000001",
+        "2000000001"
+      ],
+      "publications": 2,
+      "stored": 2,
+      "ticks": 4,
+      "work_units": 896
+    },
+    {
+      "cycles": "730208310",
+      "deflectors": 0,
+      "effective": 1,
+      "elapsed_ns": "3000000001",
+      "events": 182,
+      "final_logical": "8",
+      "index_calls": 1,
+      "initial_balls": 1,
+      "initial_cannons": 1,
+      "initial_current_work": 0,
+      "initial_logical": "4",
+      "initial_world": "03f80810003fb2d97e1d5af3fc6e868679bb651f4e896fc97a62efcc88b49d3a",
+      "label": "normal-B",
+      "metrics": {
+        "max_instructions": 134434043,
+        "messages": 4,
+        "persist_instructions": 91952495,
+        "publish_instructions": 60261831,
+        "seal_instructions": 58099105,
+        "step_instructions": 202631169
+      },
+      "mode": "Normal",
+      "payload_bytes": 75441,
+      "post_gap_first_ns": null,
+      "publication_ns": [
+        "50000001",
+        "1000000001",
+        "2000000001",
+        "3000000001"
+      ],
+      "publications": 4,
+      "stored": 1,
+      "ticks": 4,
+      "work_units": 902
+    },
+    {
+      "cycles": "655161793",
+      "deflectors": 0,
+      "effective": 1,
+      "elapsed_ns": "3000000001",
+      "events": 182,
+      "final_logical": "8",
+      "index_calls": 1,
+      "initial_balls": 1,
+      "initial_cannons": 1,
+      "initial_current_work": 0,
+      "initial_logical": "4",
+      "initial_world": "fe2c1be3069c0df33fdb46cce5726ebc0f767ee64cfa417f883136ae6e8f7b58",
+      "label": "normal-C",
+      "metrics": {
+        "max_instructions": 119249658,
+        "messages": 4,
+        "persist_instructions": 66571590,
+        "publish_instructions": 44554579,
+        "seal_instructions": 67855684,
+        "step_instructions": 196537864
+      },
+      "mode": "Normal",
+      "payload_bytes": 45777,
+      "post_gap_first_ns": null,
+      "publication_ns": [
+        "50000001",
+        "1000000001",
+        "2000000001",
+        "3000000001"
+      ],
+      "publications": 4,
+      "stored": 1,
+      "ticks": 4,
+      "work_units": 902
+    }
+  ]
+}

@@ -1,0 +1,309 @@
+[
+  {
+    "label": "readiness-cost-v1",
+    "runner": {
+      "status": "FAIL",
+      "scope": "Focused local disposable rehearsal; not hosted or production evidence",
+      "test": "readiness_bench::release_readiness_matched",
+      "source": "a8dc078915e61e83912f6335b3ea5b75ad1218d1",
+      "source_dirty": true,
+      "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+      "test_hooks_wasm": "31efb0c5afb2f244ca0e7d0dcd42c8b60fb7aa800ff8edabeb6ca43c727e475e",
+      "binary_sha256": "86ccfda907d9ac8aa5ff1efbf1ed4b9a65ace7559832fc8161a7d8e45989e39e",
+      "pinned_artifacts": {
+        "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+        "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+      },
+      "check": {
+        "id": "installed",
+        "command": [
+          "/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c",
+          "readiness_bench::release_readiness_matched",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 19.478,
+        "timeout_seconds": 900,
+        "log": "logs/installed.log",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      }
+    },
+    "diagnostic_tail": [
+      "thread 'readiness_bench::release_readiness_matched' (3519801) panicked at tests/s14_index.rs:343:86:",
+      "called `Result::unwrap()` on an `Err` value: RejectResponse { reject_code: CanisterError, reject_message: \"Error from Canister dfj7p-ut777-77776-qaaba-cai: Canister has no update method 'test_liquid_budget'..\\nCheck that the method being called is exported by the target canister. See documentation: https://docs.internetcomputer.org/references/execution-errors#method-not-found\", error_code: CanisterMethodNotFound, certified: true }",
+      "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
+      "FAILED",
+      "",
+      "failures:",
+      "",
+      "failures:",
+      "    readiness_bench::release_readiness_matched",
+      "",
+      "test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 88 filtered out; finished in 19.47s",
+      ""
+    ]
+  },
+  {
+    "label": "readiness-cost-v3",
+    "runner": {
+      "status": "FAIL",
+      "scope": "Focused local disposable rehearsal; not hosted or production evidence",
+      "test": "readiness_bench::release_readiness_matched",
+      "source": "a8dc078915e61e83912f6335b3ea5b75ad1218d1",
+      "source_dirty": true,
+      "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+      "test_hooks_wasm": "31efb0c5afb2f244ca0e7d0dcd42c8b60fb7aa800ff8edabeb6ca43c727e475e",
+      "binary_sha256": "64bfa305b22609f9c62e24072f05dc76ac3968b3de74f766ea7d077e1df01e60",
+      "pinned_artifacts": {
+        "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+        "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+      },
+      "check": {
+        "id": "installed",
+        "command": [
+          "/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c",
+          "readiness_bench::release_readiness_matched",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 45.871,
+        "timeout_seconds": 900,
+        "log": "logs/installed.log",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      }
+    },
+    "diagnostic_tail": [
+      "  left: \"Normal\"",
+      " right: \"Trickle\"",
+      "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
+      "FAILED",
+      "",
+      "failures:",
+      "",
+      "failures:",
+      "    readiness_bench::release_readiness_matched",
+      "",
+      "test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 88 filtered out; finished in 45.83s",
+      ""
+    ]
+  },
+  {
+    "label": "readiness-cost-v4",
+    "runner": {
+      "status": "FAIL",
+      "scope": "Focused local disposable rehearsal; not hosted or production evidence",
+      "test": "readiness_bench::release_readiness_matched",
+      "source": "a8dc078915e61e83912f6335b3ea5b75ad1218d1",
+      "source_dirty": true,
+      "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+      "test_hooks_wasm": "31efb0c5afb2f244ca0e7d0dcd42c8b60fb7aa800ff8edabeb6ca43c727e475e",
+      "binary_sha256": "13d96d19aaa16368eb86f5f38c64d3615a9848fad22a1da74b03956087b87288",
+      "pinned_artifacts": {
+        "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+        "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+      },
+      "check": {
+        "id": "installed",
+        "command": [
+          "/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c",
+          "readiness_bench::release_readiness_matched",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 101,
+        "status": "FAIL",
+        "elapsed_seconds": 128.94,
+        "timeout_seconds": 900,
+        "log": "logs/installed.log",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      }
+    },
+    "diagnostic_tail": [
+      "thread 'readiness_bench::release_readiness_matched' (3522752) panicked at tests/support/playability_installed.rs:272:23:",
+      "prepare_deflector_transition: finish one Rules11 interval before Deflector preparation",
+      "note: run with `RUST_BACKTRACE=1` environment variable to display a backtrace",
+      "FAILED",
+      "",
+      "failures:",
+      "",
+      "failures:",
+      "    readiness_bench::release_readiness_matched",
+      "",
+      "test result: FAILED. 0 passed; 1 failed; 0 ignored; 0 measured; 88 filtered out; finished in 128.89s",
+      ""
+    ]
+  },
+  {
+    "label": "readiness-v7-trickle",
+    "runner": {
+      "status": "FAIL",
+      "scope": "Focused local disposable rehearsal; not hosted or production evidence",
+      "test": "readiness_bench::release_readiness_matched",
+      "source": "a8dc078915e61e83912f6335b3ea5b75ad1218d1",
+      "source_dirty": true,
+      "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+      "test_hooks_wasm": "31efb0c5afb2f244ca0e7d0dcd42c8b60fb7aa800ff8edabeb6ca43c727e475e",
+      "binary_sha256": "9533d0cf33e416519446c37e27d51af55a093d96bcea161d3249c1fda2ced0a3",
+      "pinned_artifacts": {
+        "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+        "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+      },
+      "check": {
+        "id": "installed",
+        "command": [
+          "/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c",
+          "readiness_bench::release_readiness_matched",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 124,
+        "status": "FAIL",
+        "elapsed_seconds": 900.185,
+        "timeout_seconds": 900,
+        "log": "logs/installed.log",
+        "reason": "Expected exactly one passing installed test",
+        "pocketic_server_exit": null
+      }
+    },
+    "diagnostic_tail": [
+      "",
+      "running 1 test",
+      "test readiness_bench::release_readiness_matched ... READINESS {\"cycles\":\"1149126338\",\"deflectors\":0,\"effective\":1,\"elapsed_ns\":\"300000000001\",\"events\":182,\"final_logical\":\"7\",\"index_calls\":6,\"initial_balls\":1,\"initial_cannons\":1,\"initial_current_work\":0,\"initial_logical\":\"3\",\"initial_world\":\"8a51e0dacfe1c2f0310d74d54a32771ca380949c03502404723f429ec86e5925\",\"label\":\"trickle-A\",\"metrics\":{\"max_instructions\":134386956,\"messages\":4,\"persist_instructions\":91828402,\"publish_instructions\":60266012,\"seal_instructions\":58085737,\"step_instructions\":202616250},\"mode\":\"Trickle\",\"payload_bytes\":75416,\"post_gap_first_ns\":null,\"publication_ns\":[\"2000000001\",\"100000000001\",\"200000000001\",\"300000000001\"],\"publications\":4,\"stored\":2,\"ticks\":4,\"work_units\":902}"
+    ]
+  },
+  {
+    "label": "readiness-v7-gap",
+    "runner": {
+      "status": "FAIL",
+      "scope": "Focused local disposable rehearsal; not hosted or production evidence",
+      "test": "readiness_bench::release_readiness_matched",
+      "source": "a8dc078915e61e83912f6335b3ea5b75ad1218d1",
+      "source_dirty": true,
+      "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+      "test_hooks_wasm": "31efb0c5afb2f244ca0e7d0dcd42c8b60fb7aa800ff8edabeb6ca43c727e475e",
+      "binary_sha256": "9533d0cf33e416519446c37e27d51af55a093d96bcea161d3249c1fda2ced0a3",
+      "pinned_artifacts": {
+        "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+        "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+      },
+      "check": {
+        "id": "installed",
+        "command": [
+          "/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c",
+          "readiness_bench::release_readiness_matched",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": 124,
+        "status": "FAIL",
+        "elapsed_seconds": 900.088,
+        "timeout_seconds": 900,
+        "log": "logs/installed.log",
+        "reason": "Expected exactly one passing installed test",
+        "pocketic_server_exit": null
+      }
+    },
+    "diagnostic_tail": [
+      "",
+      "running 1 test",
+      "test readiness_bench::release_readiness_matched ... READINESS {\"cycles\":\"1068271290\",\"deflectors\":0,\"effective\":1,\"elapsed_ns\":\"822000000001\",\"events\":182,\"final_logical\":\"7\",\"index_calls\":5,\"initial_balls\":1,\"initial_cannons\":1,\"initial_current_work\":0,\"initial_logical\":\"3\",\"initial_world\":\"8a51e0dacfe1c2f0310d74d54a32771ca380949c03502404723f429ec86e5925\",\"label\":\"gap-A\",\"metrics\":{\"max_instructions\":134326204,\"messages\":4,\"persist_instructions\":91792090,\"publish_instructions\":60179775,\"seal_instructions\":58276312,\"step_instructions\":202418587},\"mode\":\"Trickle\",\"payload_bytes\":75416,\"post_gap_first_ns\":\"622000000001\",\"publication_ns\":[\"2000000001\",\"622000000001\",\"722000000001\",\"822000000001\"],\"publications\":4,\"stored\":2,\"ticks\":4,\"work_units\":902}"
+    ]
+  },
+  {
+    "label": "readiness-v8-trickle",
+    "runner": {
+      "status": "FAIL",
+      "scope": "Focused local disposable rehearsal; not hosted or production evidence",
+      "test": "readiness_bench::release_readiness_matched",
+      "source": "a8dc078915e61e83912f6335b3ea5b75ad1218d1",
+      "source_dirty": true,
+      "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+      "test_hooks_wasm": "31efb0c5afb2f244ca0e7d0dcd42c8b60fb7aa800ff8edabeb6ca43c727e475e",
+      "binary_sha256": "8a2d4409074d968b76128e56d0c596837bec101ad7882295901b898ca06bc5fc",
+      "pinned_artifacts": {
+        "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+        "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+      },
+      "check": {
+        "id": "installed",
+        "command": [
+          "/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c",
+          "readiness_bench::release_readiness_matched",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": -15,
+        "status": "FAIL",
+        "elapsed_seconds": 283.797,
+        "timeout_seconds": 900,
+        "log": "logs/installed.log",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      }
+    },
+    "diagnostic_tail": [
+      "",
+      "running 1 test",
+      "test readiness_bench::release_readiness_matched ... "
+    ]
+  },
+  {
+    "label": "readiness-v8-gap",
+    "runner": {
+      "status": "FAIL",
+      "scope": "Focused local disposable rehearsal; not hosted or production evidence",
+      "test": "readiness_bench::release_readiness_matched",
+      "source": "a8dc078915e61e83912f6335b3ea5b75ad1218d1",
+      "source_dirty": true,
+      "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+      "test_hooks_wasm": "31efb0c5afb2f244ca0e7d0dcd42c8b60fb7aa800ff8edabeb6ca43c727e475e",
+      "binary_sha256": "8a2d4409074d968b76128e56d0c596837bec101ad7882295901b898ca06bc5fc",
+      "pinned_artifacts": {
+        "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+        "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+        "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+      },
+      "check": {
+        "id": "installed",
+        "command": [
+          "/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c",
+          "readiness_bench::release_readiness_matched",
+          "--exact",
+          "--nocapture",
+          "--test-threads=1"
+        ],
+        "exit_code": -15,
+        "status": "FAIL",
+        "elapsed_seconds": 283.796,
+        "timeout_seconds": 900,
+        "log": "logs/installed.log",
+        "pocketic_server_exit": null,
+        "reason": "Expected exactly one passing installed test"
+      }
+    },
+    "diagnostic_tail": [
+      "",
+      "running 1 test",
+      "test readiness_bench::release_readiness_matched ... "
+    ]
+  }
+]

@@ -1,0 +1,141 @@
+{
+  "status": "PASS",
+  "scope": "Focused local disposable rehearsal; not hosted or production evidence",
+  "test": "readiness_bench::release_readiness_matched",
+  "source": "a8dc078915e61e83912f6335b3ea5b75ad1218d1",
+  "source_dirty": true,
+  "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "test_hooks_wasm": "31efb0c5afb2f244ca0e7d0dcd42c8b60fb7aa800ff8edabeb6ca43c727e475e",
+  "binary_sha256": "7a0318b5dc711f673267700c8febaf4806c9c58de55982981a4ef0dc428ce22d",
+  "pinned_artifacts": {
+    "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+    "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+    "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+  },
+  "check": {
+    "id": "installed",
+    "command": [
+      "/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c",
+      "readiness_bench::release_readiness_matched",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "elapsed_seconds": 151.298,
+    "timeout_seconds": 900,
+    "log": "logs/installed.log",
+    "pocketic_server_exit": null
+  },
+  "rows": [
+    {
+      "cycles": "1050191668",
+      "deflectors": 0,
+      "effective": 1,
+      "elapsed_ns": "840000000001",
+      "events": 182,
+      "final_logical": "7",
+      "index_calls": 5,
+      "initial_balls": 1,
+      "initial_cannons": 1,
+      "initial_current_work": 0,
+      "initial_logical": "3",
+      "initial_world": "edfb1ecfbe44fc2aa834ae23b3f39751a25e2116fa3780852b48af742e44bce1",
+      "label": "gap-A",
+      "metrics": {
+        "max_instructions": 134324972,
+        "messages": 4,
+        "persist_instructions": 91791859,
+        "publish_instructions": 60178521,
+        "seal_instructions": 58275691,
+        "step_instructions": 202416926
+      },
+      "mode": "Trickle",
+      "payload_bytes": 75416,
+      "post_gap_first_ns": "640000000001",
+      "publication_ns": [
+        "10000000001",
+        "640000000001",
+        "740000000001",
+        "840000000001"
+      ],
+      "publications": 4,
+      "stored": 2,
+      "ticks": 4,
+      "work_units": 902
+    },
+    {
+      "cycles": "1050191668",
+      "deflectors": 0,
+      "effective": 1,
+      "elapsed_ns": "840000000001",
+      "events": 182,
+      "final_logical": "7",
+      "index_calls": 5,
+      "initial_balls": 1,
+      "initial_cannons": 1,
+      "initial_current_work": 0,
+      "initial_logical": "3",
+      "initial_world": "edfb1ecfbe44fc2aa834ae23b3f39751a25e2116fa3780852b48af742e44bce1",
+      "label": "gap-B",
+      "metrics": {
+        "max_instructions": 134324972,
+        "messages": 4,
+        "persist_instructions": 91791859,
+        "publish_instructions": 60178521,
+        "seal_instructions": 58275691,
+        "step_instructions": 202416926
+      },
+      "mode": "Trickle",
+      "payload_bytes": 75416,
+      "post_gap_first_ns": "640000000001",
+      "publication_ns": [
+        "10000000001",
+        "640000000001",
+        "740000000001",
+        "840000000001"
+      ],
+      "publications": 4,
+      "stored": 1,
+      "ticks": 4,
+      "work_units": 902
+    },
+    {
+      "cycles": "1004190201",
+      "deflectors": 0,
+      "effective": 1,
+      "elapsed_ns": "840000000001",
+      "events": 182,
+      "final_logical": "7",
+      "index_calls": 5,
+      "initial_balls": 1,
+      "initial_cannons": 1,
+      "initial_current_work": 0,
+      "initial_logical": "3",
+      "initial_world": "4f9433f3e4c516f2a424459a51f337ecb47c8b814c72f848d3810db5eb61b1ec",
+      "label": "gap-C",
+      "metrics": {
+        "max_instructions": 119596402,
+        "messages": 4,
+        "persist_instructions": 66490637,
+        "publish_instructions": 44528110,
+        "seal_instructions": 67745544,
+        "step_instructions": 196713904
+      },
+      "mode": "Trickle",
+      "payload_bytes": 45752,
+      "post_gap_first_ns": "640000000001",
+      "publication_ns": [
+        "10000000001",
+        "640000000001",
+        "740000000001",
+        "840000000001"
+      ],
+      "publications": 4,
+      "stored": 1,
+      "ticks": 4,
+      "work_units": 902
+    }
+  ]
+}

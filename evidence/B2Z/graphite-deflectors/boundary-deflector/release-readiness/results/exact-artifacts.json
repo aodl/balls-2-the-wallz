@@ -1,0 +1,22 @@
+{
+  "status": "PASS",
+  "normal_wasm_sha256": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "normal_rules11_sha256": "5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43",
+  "matches_retained_hosted_wasm_and_installed_gate": true,
+  "candidate_inventory_sha256": "0b14bcccf7f1ed76bcfd4039b6aabcfb1965c7e6b94e437e3cc46d7e165d7c3e",
+  "candidate_js_sha256": "c5b688ae74527cb30e7b50f06141d429f237eef0297ed7eba0192d268e0d8c9b",
+  "rollback_inventory_sha256": "e8a9303538dbb2cc5028b21cf5ae97caacdb9c438497a35a567e30a9071a0c67",
+  "rollback_js_sha256": "bc2872444e4574ae818983e2d7ede46f7ff0c4c2d71b198b9b821c344636321c",
+  "unchanged_audio_files": 61,
+  "audio_manifest_sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
+  "identical_network_binding_and_upload_policy": true,
+  "changed_vs_live_assets": [
+    "agent-api.md",
+    "app.mjs",
+    "backend.did",
+    "build-manifest.json",
+    "configuration-deflector.bin",
+    "index.html",
+    "style.css"
+  ]
+}

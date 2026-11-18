@@ -1,0 +1,19 @@
+{
+  "version": 1,
+  "canisters": {
+    "observer": {
+      "type": "assets",
+      "source": [
+        ".work/s14/assets/"
+      ]
+    }
+  },
+  "networks": {
+    "ic": {
+      "providers": [
+        "https://icp-api.io"
+      ],
+      "type": "persistent"
+    }
+  }
+}

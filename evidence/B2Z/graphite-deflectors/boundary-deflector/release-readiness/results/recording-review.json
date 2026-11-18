@@ -1,0 +1,44 @@
+[
+  {
+    "recording": "boundary-deflector",
+    "position": 1,
+    "width": 368,
+    "height": 800,
+    "duration": 69.68
+  },
+  {
+    "recording": "boundary-deflector",
+    "position": 5,
+    "width": 368,
+    "height": 800,
+    "duration": 69.68
+  },
+  {
+    "recording": "boundary-deflector",
+    "position": 10,
+    "width": 368,
+    "height": 800,
+    "duration": 69.68
+  },
+  {
+    "recording": "boundary-destruction-observers",
+    "position": 1,
+    "width": 368,
+    "height": 800,
+    "duration": 7.68
+  },
+  {
+    "recording": "boundary-destruction-observers",
+    "position": 5,
+    "width": 368,
+    "height": 800,
+    "duration": 7.68
+  },
+  {
+    "recording": "boundary-destruction-observers",
+    "position": 7.66,
+    "width": 368,
+    "height": 800,
+    "duration": 7.68
+  }
+]

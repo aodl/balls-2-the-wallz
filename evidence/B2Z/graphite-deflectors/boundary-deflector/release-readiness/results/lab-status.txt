@@ -1,0 +1,48 @@
+(
+  variant {
+    Ok = record {
+      run = record {
+        last_error = null;
+        last_segment_work = 223 : nat64;
+        callback_count = 11_395 : nat64;
+        world_transition = false;
+        idle = false;
+        pace = record {
+          nominal_milli = 10 : nat32;
+          supported_milli = 10 : nat32;
+          mode = "Trickle";
+          admission_open = true;
+          performance_limited = false;
+        };
+        generation = 1 : nat64;
+        work_budget = 512 : nat32;
+        total_work = 2_600_766 : nat64;
+        current_segment_work = 0 : nat64;
+        segment_ticks = 2 : nat64;
+        publication_ticks = 1 : nat64;
+        max_segment_work = 1_027 : nat64;
+        completed_segments = 11_395 : nat64;
+        running = true;
+        pacing_seconds = 1 : nat32;
+      };
+      source = record {
+        last_error = null;
+        receiving_subaccount = 0 : nat64;
+        index_calls = 15_002 : nat64;
+        binding_checked = true;
+        reconciliation_requested = false;
+        event_horizon = null;
+        network = "ic";
+        pending_records = 0 : nat32;
+        ledger = principal "ryjl3-tyaaa-aaaaa-aaaba-cai";
+        index = principal "qhbym-qaaaa-aaaaa-aaafq-cai";
+        recipient_account = blob "\c5\84\87\86\9d\46\ef\04\94\c7\d7\c0\31\2b\27\60\ab\b7\16\4e\af\d2\3f\00\09\a4\2b\95\45\f5\3b\de";
+        admitted_to_exclusive = 40_180_669 : nat64;
+        scan_in_flight = false;
+      };
+      version = 7 : nat32;
+      revision = 34_193 : nat64;
+      publication_hash = "eac9190d9aceecc04b6cbd28bb2138c3890ff8b6ec940222c0c61d991418ffb7";
+    }
+  },
+)

@@ -1,0 +1,57 @@
+{
+  "cycles": "1_723_649_512_030",
+  "idle_cycles_burned_per_day": "1_877_758_703",
+  "module_hash": [
+    [
+      97,
+      42,
+      208,
+      208,
+      137,
+      198,
+      55,
+      243,
+      44,
+      209,
+      160,
+      80,
+      203,
+      185,
+      220,
+      1,
+      174,
+      98,
+      69,
+      20,
+      91,
+      150,
+      64,
+      8,
+      108,
+      0,
+      157,
+      189,
+      232,
+      168,
+      233,
+      72
+    ]
+  ],
+  "reserved_cycles": "0",
+  "settings": {
+    "controllers": [
+      "amzih-bssz4-twanl-zf6nr-bqsnn-d7rlt-eerbc-oe7vv-uggn5-3naqo-3ae",
+      "zkkkd-i34qc-367ln-e2u7o-ezznu-dkfqh-gtfvz-cviph-6qa4v-evtfs-wqe"
+    ],
+    "log_visibility": {
+      "public": null
+    },
+    "snapshot_visibility": {
+      "controllers": null
+    },
+    "status_visibility": {
+      "public": null
+    }
+  },
+  "version": "167678"
+}

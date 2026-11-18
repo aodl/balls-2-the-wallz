@@ -1,0 +1,33 @@
+diff --git a/tools/s09-integration/tests/s14_index.rs b/tools/s09-integration/tests/s14_index.rs
+index de4d294..f2ce708 100644
+--- a/tools/s09-integration/tests/s14_index.rs
++++ b/tools/s09-integration/tests/s14_index.rs
+@@ -3273,12 +3273,15 @@ fn arena_setup_world_fee_clock_payers(
+     assert!(payers.len() <= 5); // Four ordinary agents plus the retained fixture payer.
+     let ledger = deploy_ledger_fee(&pic, &bytes("ICP_LEDGER_WASM"), &payers, fee);
+     let index = create_controlled(&pic);
+-    let id = create_controlled(&pic);
+-    for c in [id, index] {
+-        if c != id || std::env::var_os("B2Z_PROFILE_INITIAL_CYCLES").is_none() {
+-            pic.add_cycles(c, 100_000_000_000_000);
+-        }
+-    }
++    let id = pic.create_canister_with_params(
++        Some(controller()),
++        pocket_ic::CreateCanisterParams {
++            cycles: Some(readiness_bench::fixture_cycles()),
++            settings: Some(CanisterSettings { controllers: Some(vec![controller()]), ..Default::default() }),
++            placement: Some(pocket_ic::CreateCanisterPlacement::SubnetId(pic.topology().get_app_subnets()[0])),
++        },
++    ).unwrap();
++    pic.add_cycles(index, 100_000_000_000_000);
+     pic.install_canister(
+         index,
+         bytes("ICP_INDEX_WASM"),
+@@ -7003,3 +7006,6 @@ mod war_cry_installed;
+ 
+ #[path = "support/boundary_deflector_installed.rs"]
+ mod boundary_deflector_installed;
++
++#[path = "../../../.work/release-readiness/bench.rs"]
++mod readiness_bench;

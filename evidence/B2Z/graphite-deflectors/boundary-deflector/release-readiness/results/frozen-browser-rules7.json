@@ -1,0 +1,270 @@
+{
+  "status": "PASS",
+  "scope": "Exact frozen stage served on localhost with genuine certified European Rules7 data and read-only browser actions",
+  "rows": [
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "cell": 0,
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "rules": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "quantity": {
+        "hidden": false,
+        "inert": false,
+        "placement": "dock",
+        "rect": {
+          "x": 10,
+          "y": 526,
+          "width": 130,
+          "height": 46,
+          "top": 526,
+          "right": 140,
+          "bottom": 572,
+          "left": 10
+        },
+        "text": "1",
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "disabled": true,
+            "rect": {
+              "x": 11,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 55,
+              "bottom": 571,
+              "left": 11
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "disabled": false,
+            "rect": {
+              "x": 95,
+              "y": 527,
+              "width": 44,
+              "height": 44,
+              "top": 527,
+              "right": 139,
+              "bottom": 571,
+              "left": 95
+            },
+            "hit": true
+          }
+        ],
+        "corners": [
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "fire": {
+        "amount": "0.1 ICP",
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "abbreviated": "s5ir5\u2026",
+        "memo": "FIRE 1 217.5 1",
+        "payer": "f6a7f\u2026",
+        "fee": "Help: Ledger fee separate",
+        "warning": "Payments and unused ICP are kept; no automatic refunds.",
+        "prompt": "Aim & Pay",
+        "disabled": false,
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 296,
+          "top": 221,
+          "right": 312,
+          "bottom": 517,
+          "left": 8
+        }
+      },
+      "war_cry_hidden": true,
+      "deflector_hidden": true,
+      "MOVE": {
+        "amount": "0.0001 ICP",
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "abbreviated": "s5ir5\u2026",
+        "memo": "MOVE 1 1",
+        "payer": "f6a7f\u2026",
+        "fee": "Help: Ledger fee separate",
+        "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+        "prompt": "Move & Pay",
+        "disabled": false,
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        }
+      },
+      "NEW": {
+        "amount": "4 ICP",
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "abbreviated": "s5ir5\u2026",
+        "memo": "NEW 37.5 1 1",
+        "payer": "f6a7f\u2026",
+        "fee": "Help: Ledger fee separate",
+        "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+        "prompt": "Build, Aim & Pay",
+        "disabled": false,
+        "panel": {
+          "x": 8,
+          "y": 221,
+          "width": 304,
+          "height": 295,
+          "top": 221,
+          "right": 312,
+          "bottom": 516,
+          "left": 8
+        }
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "cell": 0,
+      "camera": [
+        3.279287805121612,
+        0.22587215908856706,
+        88
+      ],
+      "rules": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "quantity": {
+        "hidden": false,
+        "inert": false,
+        "placement": "floating",
+        "rect": {
+          "x": 465,
+          "y": 429,
+          "width": 130,
+          "height": 46,
+          "top": 429,
+          "right": 595,
+          "bottom": 475,
+          "left": 465
+        },
+        "text": "1",
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "disabled": true,
+            "rect": {
+              "x": 466,
+              "y": 430,
+              "width": 44,
+              "height": 44,
+              "top": 430,
+              "right": 510,
+              "bottom": 474,
+              "left": 466
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "disabled": false,
+            "rect": {
+              "x": 550,
+              "y": 430,
+              "width": 44,
+              "height": 44,
+              "top": 430,
+              "right": 594,
+              "bottom": 474,
+              "left": 550
+            },
+            "hit": true
+          }
+        ],
+        "corners": [
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "fire": {
+        "amount": "0.1 ICP",
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "abbreviated": "s5ir5\u2026",
+        "memo": "FIRE 1 217.5 1",
+        "payer": "f6a7f\u2026",
+        "fee": "Help: Ledger fee separate",
+        "warning": "Payments and unused ICP are kept; no automatic refunds.",
+        "prompt": "Aim & Pay",
+        "disabled": true,
+        "panel": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 328,
+          "top": 334,
+          "right": 1021,
+          "bottom": 662,
+          "left": 661
+        }
+      },
+      "war_cry_hidden": true,
+      "deflector_hidden": true,
+      "MOVE": {
+        "amount": "0.0001 ICP",
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "abbreviated": "s5ir5\u2026",
+        "memo": "MOVE 1 1",
+        "payer": "f6a7f\u2026",
+        "fee": "Help: Ledger fee separate",
+        "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+        "prompt": "Move & Pay",
+        "disabled": false,
+        "panel": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 368,
+          "top": 334,
+          "right": 1021,
+          "bottom": 702,
+          "left": 661
+        }
+      },
+      "NEW": {
+        "amount": "4 ICP",
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "abbreviated": "s5ir5\u2026",
+        "memo": "NEW 37.5 1 1",
+        "payer": "f6a7f\u2026",
+        "fee": "Help: Ledger fee separate",
+        "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+        "prompt": "Build, Aim & Pay",
+        "disabled": false,
+        "panel": {
+          "x": 661,
+          "y": 334,
+          "width": 360,
+          "height": 368,
+          "top": 334,
+          "right": 1021,
+          "bottom": 702,
+          "left": 661
+        }
+      }
+    }
+  ]
+}
