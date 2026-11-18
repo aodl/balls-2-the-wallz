@@ -1175,7 +1175,9 @@ placement. Arena aim motion composes the latest pointer sample at most once per
 frame, or on release if it has not painted. Quantity locks and layout measurement
 remain independent. The neutral graphite planes use local unlit owner-colour
 strips and a restrained selected contour. Display-referred terrain texture
-bytes keep their own palette. The render backing is capped at 1.5 DPR and
-2,073,600 pixels with MSAA off. The panel uses opaque shared graphite shading
+bytes keep their own palette. The render backing starts at the former one-million-pixel ceiling and uses
+sustained foreground cadence to choose a lower fill budget on slow renderers
+or raise it on capable renderers. The ceiling is 1.5 DPR and 2,073,600 pixels,
+with MSAA off. The panel uses opaque shared graphite shading
 and no backdrop filtering, while retaining forced-colour and reduced-motion
 treatments and the existing payment axes.
