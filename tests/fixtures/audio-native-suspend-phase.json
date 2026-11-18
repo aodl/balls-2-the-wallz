@@ -1,0 +1,166 @@
+{
+  "scope": "32 actual Chromium153 native AudioContext suspensions against unchanged9afcd audio runtime, captured2026-11-18. Raw strict comparison fails7; scheduler.stop saves Math.floor(source position). No physical output claim.",
+  "browser": "153.0.8010.12",
+  "rows": [
+    {
+      "before": 1446271,
+      "after": 1446783,
+      "delta_source_frames": 512
+    },
+    {
+      "before": 1447295,
+      "after": 1447806,
+      "delta_source_frames": 511
+    },
+    {
+      "before": 1448318,
+      "after": 1453566,
+      "delta_source_frames": 5248
+    },
+    {
+      "before": 1462782,
+      "after": 1467006,
+      "delta_source_frames": 4224
+    },
+    {
+      "before": 1475710,
+      "after": 1484414,
+      "delta_source_frames": 8704
+    },
+    {
+      "before": 1489662,
+      "after": 1490558,
+      "delta_source_frames": 896
+    },
+    {
+      "before": 1491070,
+      "after": 1492478,
+      "delta_source_frames": 1408
+    },
+    {
+      "before": 1492990,
+      "after": 1494014.0000000002,
+      "delta_source_frames": 1024.0000000002328
+    },
+    {
+      "before": 1495934.0000000002,
+      "after": 1495934,
+      "delta_source_frames": -2.3283064365386963e-10
+    },
+    {
+      "before": 1495934.0000000002,
+      "after": 1495934,
+      "delta_source_frames": -2.3283064365386963e-10
+    },
+    {
+      "before": 1497854,
+      "after": 1497854,
+      "delta_source_frames": 0
+    },
+    {
+      "before": 1498366.0000000002,
+      "after": 1500286.0000000002,
+      "delta_source_frames": 1920.0
+    },
+    {
+      "before": 1502206.0000000002,
+      "after": 1502206,
+      "delta_source_frames": -2.3283064365386963e-10
+    },
+    {
+      "before": 1502206,
+      "after": 1502206,
+      "delta_source_frames": 0
+    },
+    {
+      "before": 1502590.0000000002,
+      "after": 1517054,
+      "delta_source_frames": 14463.999999999767
+    },
+    {
+      "before": 1519870,
+      "after": 1523326.0000000002,
+      "delta_source_frames": 3456.000000000233
+    },
+    {
+      "before": 1525630.0000000002,
+      "after": 1534334.0000000002,
+      "delta_source_frames": 8704.0
+    },
+    {
+      "before": 1537790.0000000002,
+      "after": 1539198.0000000002,
+      "delta_source_frames": 1408.0
+    },
+    {
+      "before": 1540606.0000000002,
+      "after": 1541630,
+      "delta_source_frames": 1023.9999999997672
+    },
+    {
+      "before": 1542654.0000000002,
+      "after": 1542654.0000000002,
+      "delta_source_frames": 0.0
+    },
+    {
+      "before": 1543550,
+      "after": 1547390.0000000002,
+      "delta_source_frames": 3840.000000000233
+    },
+    {
+      "before": 1558014.0000000002,
+      "after": 1567614.0000000002,
+      "delta_source_frames": 9600.0
+    },
+    {
+      "before": 1571966,
+      "after": 1571966,
+      "delta_source_frames": 0
+    },
+    {
+      "before": 1573374.0000000005,
+      "after": 1573374,
+      "delta_source_frames": -4.656612873077393e-10
+    },
+    {
+      "before": 1573374,
+      "after": 1575806.0000000002,
+      "delta_source_frames": 2432.000000000233
+    },
+    {
+      "before": 1576702,
+      "after": 1578109.9999999998,
+      "delta_source_frames": 1407.9999999997672
+    },
+    {
+      "before": 1579518,
+      "after": 1591677.9999999998,
+      "delta_source_frames": 12159.999999999767
+    },
+    {
+      "before": 1595902.0000000002,
+      "after": 1595902,
+      "delta_source_frames": -2.3283064365386963e-10
+    },
+    {
+      "before": 1597437.9999999998,
+      "after": 1597437,
+      "delta_source_frames": -0.9999999997671694
+    },
+    {
+      "before": 1598333.0000000005,
+      "after": 1598333,
+      "delta_source_frames": -4.656612873077393e-10
+    },
+    {
+      "before": 1601276.9999999995,
+      "after": 1607547.9999999995,
+      "delta_source_frames": 6271.0
+    },
+    {
+      "before": 1608444,
+      "after": 1608444,
+      "delta_source_frames": 0
+    }
+  ]
+}

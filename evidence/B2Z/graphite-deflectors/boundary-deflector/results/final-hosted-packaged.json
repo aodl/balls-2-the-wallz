@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S14",
+  "started_utc": "2026-11-18T00:44:07.225264+00:00",
+  "overall": "PASS",
+  "dtr": {
+    "remote": "https://github.com/aodl/dtr.git",
+    "revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+    "tree": "1e487a321de4f515510da01ac74ef66e4e9a71a6"
+  },
+  "checks": [
+    {
+      "id": "rust-consumer-published",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "run",
+        "--locked"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 5.733,
+      "timeout_seconds": 1200,
+      "log": "logs/rust-consumer-published.log"
+    },
+    {
+      "id": "published-source-location",
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "metadata",
+        "--locked",
+        "--format-version",
+        "1"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.214,
+      "timeout_seconds": 120,
+      "log": "logs/published-source-location.log"
+    },
+    {
+      "id": "published-source-archive",
+      "command": [
+        "git",
+        "-C",
+        "/home/runner/.cache/b2z-consumers/dtr-consumers-qs3t2awy/cargo-home/git/checkouts/dtr-2e9e0c309015e5c2/282d709",
+        "archive",
+        "--format=tar",
+        "--output",
+        "/home/runner/.cache/b2z-consumers/dtr-consumers-qs3t2awy/source.tar",
+        "282d709143dacb4bca769a4d6e72b97fc93ef518"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.004,
+      "timeout_seconds": 120,
+      "log": "logs/published-source-archive.log"
+    },
+    {
+      "id": "dtr-npm-install",
+      "command": [
+        "npm",
+        "ci",
+        "--ignore-scripts"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 2.52,
+      "timeout_seconds": 600,
+      "log": "logs/dtr-npm-install.log"
+    },
+    {
+      "id": "dtr-npm-pack",
+      "command": [
+        "npm",
+        "pack",
+        "--ignore-scripts",
+        "--pack-destination",
+        "/home/runner/.cache/b2z-consumers/dtr-consumers-qs3t2awy/distribution"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.264,
+      "timeout_seconds": 300,
+      "log": "logs/dtr-npm-pack.log"
+    },
+    {
+      "id": "javascript-consumer-lock",
+      "command": [
+        "npm",
+        "install",
+        "--package-lock-only",
+        "--ignore-scripts"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.515,
+      "timeout_seconds": 600,
+      "log": "logs/javascript-consumer-lock.log"
+    },
+    {
+      "id": "javascript-consumer-install",
+      "command": [
+        "npm",
+        "ci",
+        "--ignore-scripts"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.415,
+      "timeout_seconds": 600,
+      "log": "logs/javascript-consumer-install.log"
+    },
+    {
+      "id": "javascript-consumer-api",
+      "command": [
+        "npm",
+        "test"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "elapsed_seconds": 0.164,
+      "timeout_seconds": 600,
+      "log": "logs/javascript-consumer-api.log"
+    }
+  ],
+  "tools": {
+    "git": {
+      "command": [
+        "git",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "git version 2.56.1"
+    },
+    "node": {
+      "command": [
+        "node",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "v24.22.2"
+    },
+    "npm": {
+      "command": [
+        "npm",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "11.19.1"
+    },
+    "cargo": {
+      "command": [
+        "cargo",
+        "+1.94.1",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "cargo 1.94.1 (29ea6fb6a 2026-03-24)"
+    },
+    "rustc": {
+      "command": [
+        "rustc",
+        "+1.94.1",
+        "--version"
+      ],
+      "exit_code": 0,
+      "text": "rustc 1.94.1 (e408947bf 2026-03-25)"
+    }
+  },
+  "b2z": {
+    "remote": "https://github.com/aodl/balls-2-the-wallz",
+    "revision": "5124797b283d3474c16edc6d40c3141634bb2237",
+    "tree": "fbaa57ce5010b52506aca87c80160ab61931d2d1",
+    "working_tree_changes": []
+  },
+  "rust_consumer": {
+    "lock_sha256": "136ccb0d982c40cec379f4c032692d86e95c0bbb7f44f5d04f97bdcad4498759",
+    "sources": {
+      "dtr-core": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+      "dtr-host": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+      "dtr-source-model": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518",
+      "dtr-wire": "git+https://github.com/aodl/dtr.git?rev=282d709143dacb4bca769a4d6e72b97fc93ef518#282d709143dacb4bca769a4d6e72b97fc93ef518"
+    },
+    "cargo_home_started_empty": true,
+    "git_url_rewrites_disabled": true,
+    "explicit_remote_git_commands": false,
+    "location": "disposable directory outside source trees"
+  },
+  "resolved_source": {
+    "revision": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+    "tree": "1e487a321de4f515510da01ac74ef66e4e9a71a6",
+    "tracked_changes": [],
+    "origin": "ordinary Cargo Git dependency resolution into an initially empty CARGO_HOME"
+  },
+  "package": {
+    "packaging_tool": "11.19.1",
+    "files": [
+      "README.md",
+      "docs/EPOCH_TRANSITION.md",
+      "index.mjs",
+      "package.json",
+      "packages/client/ic-certificate.mjs",
+      "packages/client/playout.mjs",
+      "packages/client/verification.mjs",
+      "packages/kernels/life-input.mjs",
+      "packages/kernels/life.mjs",
+      "packages/observation/publication.mjs",
+      "packages/protocol/bytes.mjs",
+      "packages/protocol/epoch-codec.mjs",
+      "packages/protocol/seal-codec.mjs",
+      "packages/runtime/canonical.mjs",
+      "packages/runtime/coordinator.mjs",
+      "packages/runtime/epoch.mjs",
+      "packages/runtime/journal.mjs",
+      "packages/runtime/runner.mjs",
+      "packages/runtime/seal.mjs",
+      "packages/source/inbox.mjs",
+      "packages/source/scan.mjs",
+      "packages/source/wakeup.mjs",
+      "packages/storage/chunks.mjs"
+    ],
+    "file_count": 23,
+    "fresh_sha256": "22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720",
+    "fresh_integrity": "sha512-DV/YC5bmSSoifJqdQjFFdL1IH0QVTda/8ppbityy2vEDy0smACGZSQ+N+dM8YGiMiUeBfd4IKRq7pKfxlwsvhQ==",
+    "vendor_sha256": "22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720",
+    "vendor_integrity": "sha512-DV/YC5bmSSoifJqdQjFFdL1IH0QVTda/8ppbityy2vEDy0smACGZSQ+N+dM8YGiMiUeBfd4IKRq7pKfxlwsvhQ==",
+    "vendor_packaging_tool": "npm 11.12.1",
+    "payload_source_correspondence": "PASS",
+    "byte_reproduction": {
+      "status": "NOT_RUN",
+      "reason": "vendor used npm 11.12.1; current packaging used npm 11.19.1"
+    }
+  },
+  "javascript_consumer": {
+    "lock_sha256": "f80a1a5c49c8313dd649d5a884b4ef24769483c5d340828b3223df92a31303ac",
+    "location": "disposable directory outside source trees"
+  }
+}

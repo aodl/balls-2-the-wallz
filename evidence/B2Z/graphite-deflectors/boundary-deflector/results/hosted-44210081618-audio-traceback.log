@@ -1,0 +1,7 @@
+2026-11-18T00:55:42.7275050Z Traceback (most recent call last):
+2026-11-18T00:55:42.7275955Z   File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/verify_audio_browser.py", line 56, in <module>
+2026-11-18T00:55:42.7276803Z     verify_audio_lifecycle(page,c,url,out,report)
+2026-11-18T00:55:42.7278230Z   File "/home/runner/work/balls-2-the-wallz/balls-2-the-wallz/tools/audio_lifecycle_browser.py", line 21, in verify_audio_lifecycle
+2026-11-18T00:55:42.7280071Z     phase=page.evaluate('__b2zAudio().music.phase');assert phase>=identity['phase'];page.evaluate('audioContextsQA.at(-1).close()');page.wait_for_function('()=>__b2zAudio().contextState==="closed"');page.locator('#board').click(position={'x':160,'y':180});page.wait_for_function('()=>__b2zAudio().music.active&&__b2zAudio().fxBuffers===7',timeout=60000)
+2026-11-18T00:55:42.7281125Z                                                            ^^^^^^^^^^^^^^^^^^^^^^^^
+2026-11-18T00:55:42.7281398Z AssertionError

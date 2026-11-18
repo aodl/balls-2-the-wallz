@@ -1,0 +1,96 @@
+{
+  "status": "PASS_NUMERIC_CHECKPOINT_ONLY",
+  "scope": "No source admission, structure purchase, migration or installed-game qualification",
+  "heading_orientation_conflict": "Names/front faces use NE=(+D,-D); existing helper8192 is SE. Cannon helper unchanged.",
+  "all_heading_count": 65536,
+  "first_ordinary_contacts": 65532,
+  "max_canonical_component": 32000,
+  "stats": {
+    "contacts": 177032,
+    "corners": 4,
+    "max_den": "31999",
+    "max_numerator_bits": 41,
+    "max_time_numerator_bits": 41,
+    "max_time_denominator_bits": 30
+  },
+  "chains": [
+    {
+      "interactions": 1500,
+      "elapsed_ms": 8.464382,
+      "final_den": "30001",
+      "initial_den": "30001",
+      "minimum_step": [
+        "9670656",
+        "678832627"
+      ],
+      "final_time": [
+        "23052353024",
+        "678832627"
+      ]
+    },
+    {
+      "interactions": 10000,
+      "elapsed_ms": 52.44691700000004,
+      "final_den": "30001",
+      "initial_den": "30001",
+      "minimum_step": [
+        "9670656",
+        "678832627"
+      ],
+      "final_time": [
+        "153616705024",
+        "678832627"
+      ]
+    },
+    {
+      "interactions": 100000,
+      "elapsed_ms": 454.468162,
+      "final_den": "30001",
+      "initial_den": "30001",
+      "minimum_step": [
+        "9670656",
+        "678832627"
+      ],
+      "final_time": [
+        "1536062785024",
+        "678832627"
+      ]
+    }
+  ],
+  "adversarial_corner_corridor": {
+    "canonical_launch": {
+      "angle": 8191,
+      "vx": 22630,
+      "vy": 22625,
+      "axis": "x",
+      "epsilon": [
+        "256",
+        "2263"
+      ],
+      "time": [
+        "256",
+        "11315"
+      ],
+      "point": [
+        [
+          "2048",
+          "1"
+        ],
+        [
+          "4634368",
+          "2263"
+        ]
+      ]
+    },
+    "epsilon": [
+      "256",
+      "2263"
+    ],
+    "step": [
+      "256",
+      "51204901"
+    ],
+    "contacts_per_tick_floor": "200019",
+    "conclusion": "Strictly positive times alone are insufficient for economical scheduling. A separately specified candidate progress policy is required."
+  }
+}

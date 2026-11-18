@@ -6,6 +6,20 @@ Final release approval must name the exact source, normal Wasm, rules/schema/
 configuration/source-adapter identities, frontend inventory and six hosted gates
 from REPORT.md. A test-hooks/diagnostic module is never a production candidate.
 
+## Selected artifacts, still awaiting final hosted closeout
+
+Qualification source5124797b283d3474c16edc6d40c3141634bb2237; clean runtime/build
+source9afcd80cf6c92e6f4ed3b0e268005146337c36a1. Select only normal Wasm
+`2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13`,
+3792812 bytes, retained in `.work/boundary-deflector/frozen/backend/runtime-lab.wasm`.
+The local353699 and older3d122c/dfc6a7 modules are not substitutes.
+
+The81-file compatible graphite frontend has JavaScript
+`c5b688ae74527cb30e7b50f06141d429f237eef0297ed7eba0192d268e0d8c9b` and inventory
+`0b14bcccf7f1ed76bcfd4039b6aabcfb1965c7e6b94e437e3cc46d7e165d7c3e`,
+retained in `.work/boundary-deflector/frozen/frontend`. No deployment approval is
+implied by these identities or by future green qualification.
+
 ## Frontend decision
 
 First approve the separately frozen compatible graphite/Deflector frontend after

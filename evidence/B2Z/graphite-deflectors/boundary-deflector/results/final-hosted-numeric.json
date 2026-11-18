@@ -1,0 +1,8 @@
+{
+  "status": "PASS",
+  "scope": "Independent exact arithmetic oracle and JS/Rust long-chain parity; not IC evidence.",
+  "oracle_faces": 160,
+  "exact_js_rust_chains": 11,
+  "all_cannon_headings": 65536,
+  "maximum_tested_chain": 100000
+}

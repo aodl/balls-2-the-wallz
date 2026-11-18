@@ -1,0 +1,31 @@
+{
+  "status": "PASS",
+  "scope": "Focused local disposable rehearsal; not hosted or production evidence",
+  "test": "boundary_deflector_installed::boundary_deflector_typed_region_reports_exact_rational_intercepts",
+  "source": "5124797b283d3474c16edc6d40c3141634bb2237",
+  "source_dirty": false,
+  "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "test_hooks_wasm": "2bd642351f31c8d90e1833be86cf976cfb458ebff30550906b19b5e7e186a60f",
+  "binary_sha256": "2834daeafc443cf6cd3207d9872d6030eaf9027a1dd96a05bf982146a8807894",
+  "pinned_artifacts": {
+    "POCKET_IC_BIN": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db",
+    "ICP_LEDGER_WASM": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc",
+    "ICP_INDEX_WASM": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+  },
+  "check": {
+    "id": "installed",
+    "command": [
+      "/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c",
+      "boundary_deflector_installed::boundary_deflector_typed_region_reports_exact_rational_intercepts",
+      "--exact",
+      "--nocapture",
+      "--test-threads=1"
+    ],
+    "exit_code": 0,
+    "status": "PASS",
+    "elapsed_seconds": 77.653,
+    "timeout_seconds": 900,
+    "log": "logs/installed.log",
+    "pocketic_server_exit": null
+  }
+}

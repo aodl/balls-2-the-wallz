@@ -10,8 +10,9 @@ The existing canonical helper has east=0 and positive-y south. Its8192 vector is
 (+22627,+22627), i.e. southeast, not northeast. The owner instruction's named
 front/rear face table is preserved by mapping NE/SE/SW/NW to canonical headings
 57344/8192/24576/40960. Existing cannon math and precision are unchanged. Stored
-orientation will be an enumeration, not arbitrary angle input. The numeric-table
-correction has been raised explicitly; it is not a silent change of cannon axes.
+orientation will be an enumeration, not arbitrary angle input. The owner explicitly approved this numeric-table correction; the generated
+shared mapping is consumed by parser, JS/native execution, renderer and tests.
+Cannon axes and historical interpretation remain unchanged.
 
 ## Exact common denominator
 

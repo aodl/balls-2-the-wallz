@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "scope": "Audio qualification harness/docs-only correction; all consumed runtime/build/dependency inputs and every retained frozen asset unchanged",
+  "runtime_build_source": "9afcd80cf6c92e6f4ed3b0e268005146337c36a1",
+  "checked_inputs": 480,
+  "files": 81,
+  "javascript": "c5b688ae74527cb30e7b50f06141d429f237eef0297ed7eba0192d268e0d8c9b",
+  "inventory": "0b14bcccf7f1ed76bcfd4039b6aabcfb1965c7e6b94e437e3cc46d7e165d7c3e",
+  "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13"
+}

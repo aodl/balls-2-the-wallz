@@ -1,4 +1,119 @@
-# Boundary Deflector development — not yet a release candidate
+# Four-direction boundary Deflector — qualification closeout
+
+**Status: final hosted qualification in progress; no production release or
+activation.** Work remains isolated on `feature/b2z-boundary-deflector`. The
+owner’s all-ball/capture/island addendum and corrected compass mapping are part
+of this candidate. Rules11, the qualified graphite freeze, and paid production
+remain unchanged.
+
+## Exact selected artifacts
+
+| Item | Identity |
+|---|---|
+| Earlier qualification source (Browser FAIL) | `5124797b283d3474c16edc6d40c3141634bb2237` |
+| Clean runtime/frontend build source | `9afcd80cf6c92e6f4ed3b0e268005146337c36a1` |
+| Frontend JavaScript | `c5b688ae74527cb30e7b50f06141d429f237eef0297ed7eba0192d268e0d8c9b` |
+| Complete81-file inventory (80 public + policy) | `0b14bcccf7f1ed76bcfd4039b6aabcfb1965c7e6b94e437e3cc46d7e165d7c3e` |
+| Selected normal backend Wasm | `2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13` (3792812 bytes) |
+| Rules12 | `1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c` |
+| Schema7 | `b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2` |
+| Configuration | `251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b` |
+| Source/memo adapter |7, `BTZPAY04` |
+| Audio manifest | `76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c`; all61 files unchanged |
+
+Retained selected assets: `.work/boundary-deflector/frozen/frontend` and
+`.work/boundary-deflector/frozen/backend/runtime-lab.wasm`. Every file and consumed
+input is pinned by [artifacts/provenance.json](artifacts/provenance.json) and
+[frontend-inventory.json](artifacts/frontend-inventory.json). The normal Wasm was
+produced on hostedced0d262; final5124797 has identical consumed inputs and pins
+that actual hosted artifact. Distinct local353699, old hosted3d122c and prior
+frontend freezes remain retained and superseded, not relabelled.
+
+[Final six-gate run44210081618](https://github.com/aodl/balls-2-the-wallz/actions/runs/44210081618)
+tests exact published5124797. Source, Native, Packaged and strict normal-Wasm
+gates have passed. Browser FAILS at the native audio suspend phase comparison;
+its four-direction step was skipped. Installed-IC is still running. The failure
+and raw assertion traceback are retained; this is not a qualified candidate. The
+informational inventory job is never counted as qualification. The earlier
+44202343189 run was superseded after the proven typed-region denominator defect;
+44209258892 was the corrected hosted-artifact bootstrap whose local pin correctly
+failed. Both original results and cancellations are retained.
+
+## What this candidate implements
+
+- Four compass orientations from one generated authoritative mapping; genuine
+  ordinary face contact uses arrow/opposite direction regardless of incoming
+  angle or ball ownership. Exact contact position and canonical speed persist.
+  Exact vertices retain the established blocked-vertex exception.
+- Reduced shared rational intercepts with a proven non-growing denominator, exact
+  JS/native serialization, bounded event times and no host floating-point physics.
+  No midpoint, teleport, incoming-dependent mirror, cooldown or skipped impact.
+- Separate paid structures, unique occupancy, protected direct-capture/strike
+  targets and processing-time clearance. Cannons alone anchor territory; friendly
+  balls sustain cannon-bearing islands. Committed support loss atomically destroys
+  affected Deflectors, while cancelled proposals preserve them.
+- Canonical `DEFLECT <cell> NE|SE|SW|NW`, provisional0.1ICP/16player/256world,
+  exact-once official Ledger/Index admission, deterministic receipts and no refund.
+  Rules11 clearance/War Cry and all earlier interpretations remain identifiable.
+- Capability-gated sixth toolbar action, four44px directions, translucent
+  tile-aligned graphite preview, full-value copying and frozen Update/Keep.
+  Unsupported Rules7/11 cannot generate a DEFLECT payment. Approved panels,
+  quantity dock, audio and returning-player workflows are retained.
+
+## Evidence and acceptance boundaries
+
+[NUMERICAL_PROOF.md](NUMERICAL_PROOF.md) supplies the denominator/horizon/progress
+proof and measured adverse adjacent-layout failure. Independent Fraction160-face
+oracle, all65536 cannon headings,11 exact JS/native algebraic chains and actual
+100010-redirect scheduler parity are retained. The149 shared native vectors
+compare complete canonical world/events/scores and cursor recovery.
+
+[ADDENDUM_COVERAGE.md](ADDENDUM_COVERAGE.md) maps all25 owner cases to JS/native
+and disposable evidence. Real valueless official Ledger purchases demonstrate
+construction/rejections, all-ball ownership cases, actual redirects, paid bridge
+cuts, cancelled capture with a friendly survivor, revival without restoration,
+seam loss and real24-hour dormant expiry. Exact-source hosted repetition remains
+pending. Setup fixtures are explicitly synthetic; subsequent payments, normal
+module execution and replay are genuine disposable IC operations.
+
+[GALLERY.md](GALLERY.md) links actual1440×900/390×844/320×640 application captures
+and native-input videos, plus two authenticated observers of fresh paid War Cry
+and Deflector destruction. The corrected local353699 module’s destruction runner
+passed226.778 seconds, strict certificate/wire capture and independent replay.
+The selected exact hosted2cb2fe artifact independently passed the real paid
+rational-query regression in77.653 seconds. These are not production/physical-
+phone acceptance or a substitute for the final hosted installed gate.
+
+Resource evidence includes legal64-ball corridors/diamonds,256 structures, bounded
+work-unit recovery and shared instanced geometry (260 cannon/116 Deflector
+triangles). Whole-publication cycle costs are labelled as such; isolated subnet
+Deflector instruction overhead is not established. Shared-host software frame
+measurements are not representative phone performance. P09 remains FAIL/
+unqualified; physical listening, Firefox/Safari output and BFCache limitations
+remain unresolved. No new music or Deflector audio was introduced.
+
+## Separate release decisions
+
+[DECISIONS.md](DECISIONS.md) retains provisional price/caps, spacing>=2, exact
+corner response and one-tick allowance for explicit future owner approval.
+Spacing prevents the measured195494-contact/tick adjacent trap without changing
+the contact law. The implementation rejects an incompatible stored allowance;
+it does not alter operating settings.
+
+[RELEASE_PLAN.md](RELEASE_PLAN.md) separates frontend approval from Rules11→12
+normal-module installation, controller preparation, exact-manifest epoch commit
+and resume. Production remains Rules7; its prior Rules7→11 decision must happen
+separately. The first persisted preparation record already makes blind old-module
+rollback unsafe; use a compatible state-preserving forward recovery. No world
+reset, cursor rewind, Ledger rescan or invented refund is a recovery procedure.
+
+The latest [anonymous authenticated mainnet observation](results/read-only-mainnet-closeout.json)
+retains backend612ad0/Rules7/config8eca/source54d9 and served frontendbc2872,
+runningTrickle/open/healthy at its recorded timestamp. No production backend,
+frontend, payment, funding, controller, settings or autonomous-mode operation was
+performed by this work. Mutable publication advancement is ordinary game activity.
+
+# Historical development records
 
 No production operation is authorised or performed. Work is isolated on
 `feature/b2z-boundary-deflector`, based on graphite8590fa6c79036df768f46277273e64fbc3165d85.
@@ -250,3 +365,32 @@ correctly rejected the initial local hash. This evidence-only continuation pins
 the actual hosted artifact and requires a new complete hosted six-gate result.
 The81-file frontend freeze and all consumed runtime/build/dependency inputs remain
 identical to clean9afcd; no rebuild or security assertion change is involved.
+
+The selected exact hosted2cb2fe normal module passed the same genuine Ledger/
+redirect/rational-query regression in77.653 seconds at clean published5124797.
+This is an exact-artifact local disposable positive, not an inference from the
+local353699 build. Full hosted run44210081618 is the qualification run for the
+strictly pinned selected artifact.
+
+## Proven native phase assertion correction — unchanged release bytes
+
+Run44210081618 passed Source/Native/Packaged/strict Wasm, then Browser failed
+in `audio_lifecycle_browser.py` at `after >= before`: the existing scheduler
+stores `Math.floor(position())` on stop. Native32-suspension diagnostics against
+unchanged audio reproduced7 failures; the largest was0.999999999767 source
+frames, with other losses2.33e-10–4.66e-10 frames. Every sample retained its exact
+saved integer frame. This is measured contract mismatch, not an assumed flaky
+transport/audio fault or a P09 performance finding. Original assertion/failure
+JSON, traceback, negative harness and32 native samples remain retained.
+
+The test now requires `after >= floor(before)`, records both values and the
+minimum saved frame, and still rejects loss of even one complete saved frame,
+restart-at-zero and nonfinite state. Focused3 Python regression tests and all
+existing music scheduler tests pass. Corrected actual native suspend/close and
+one-context recreation passed with game session/clock/queue identities intact.
+No production or audio runtime was changed; no timeout, peak, certificate, hash,
+source or financial assertion was relaxed. All consumed inputs,81 frontend files
+and selected normal2cb2fe remain exact; no frontend/backend rebuild is needed.
+A full exact-source qualification continuation is required for this test fix;
+the previous Browser failure remains FAIL and its skipped Deflector step is not
+called passed.

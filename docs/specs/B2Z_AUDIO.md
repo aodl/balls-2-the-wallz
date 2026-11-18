@@ -114,6 +114,12 @@ error latch. Working lanes remain independent. Closed contexts permit one bounde
 recreation on a meaningful trigger after old native decode completes. Late async
 completion cannot restart muted/disposed output. No periodic context creation.
 
+The existing scheduler saves an integer48000Hz source-frame position with
+`Math.floor(position())` on stop. Native suspend/close tests compare resumed
+position against that saved integer frame, rather than requiring a fractional
+AudioContext snapshot to survive integer storage. Losing a full saved frame or
+restarting at zero is a test failure. This changes no audio scheduling or mix.
+
 BroadcastChannel leases establish one audible owner where available. Hidden tabs
 release; visible returns reclaim an expired/released lease. Between visible windows,
 latest deliberate activation wins stably. Ownership loss never persists a mute.
