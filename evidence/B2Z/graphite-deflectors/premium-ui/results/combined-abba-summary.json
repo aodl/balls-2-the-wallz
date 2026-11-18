@@ -1,0 +1,552 @@
+{
+  "before": {
+    "1440": {
+      "cold_world": {
+        "n": 4,
+        "median": 3840.1,
+        "range": [
+          3438.7,
+          7939.2
+        ]
+      },
+      "warm_world": {
+        "n": 4,
+        "median": 2517.35,
+        "range": [
+          2250.7,
+          3079.5
+        ]
+      },
+      "cold_shell": {
+        "n": 4,
+        "median": 436.0,
+        "range": [
+          408,
+          1348
+        ]
+      },
+      "cold_js_bytes": {
+        "n": 4,
+        "median": 316954.0,
+        "range": [
+          316954,
+          316954
+        ]
+      },
+      "frame_p95_per_run": {
+        "n": 2,
+        "median": 1391.65,
+        "range": [
+          683.4,
+          2099.9
+        ]
+      },
+      "frame_p50_per_run": {
+        "n": 2,
+        "median": 349.95,
+        "range": [
+          266.7,
+          433.2
+        ]
+      },
+      "actions_driver_proxy": {
+        "n": 6,
+        "median": 6822.85,
+        "range": [
+          4916.48,
+          18848.92
+        ]
+      },
+      "native_click_to_frame": {
+        "n": 14,
+        "median": 254.85,
+        "range": [
+          36.3,
+          1715.5
+        ]
+      },
+      "window_layout_count": {
+        "n": 2,
+        "median": 142.5,
+        "range": [
+          141,
+          144
+        ]
+      },
+      "window_layout_ms": {
+        "n": 2,
+        "median": 230.96,
+        "range": [
+          137.85,
+          324.08
+        ]
+      },
+      "window_recalc_ms": {
+        "n": 2,
+        "median": 663.45,
+        "range": [
+          584.84,
+          742.06
+        ]
+      },
+      "error_count": 0
+    },
+    "390": {
+      "cold_world": {
+        "n": 2,
+        "median": 3945.85,
+        "range": [
+          3287.8,
+          4603.9
+        ]
+      },
+      "warm_world": {
+        "n": 2,
+        "median": 2174.1,
+        "range": [
+          2145.2,
+          2203
+        ]
+      },
+      "cold_shell": {
+        "n": 2,
+        "median": 546.0,
+        "range": [
+          244,
+          848
+        ]
+      },
+      "cold_js_bytes": {
+        "n": 2,
+        "median": 316954.0,
+        "range": [
+          316954,
+          316954
+        ]
+      },
+      "frame_p95_per_run": {
+        "n": 2,
+        "median": 841.65,
+        "range": [
+          450,
+          1233.3
+        ]
+      },
+      "frame_p50_per_run": {
+        "n": 2,
+        "median": 233.3,
+        "range": [
+          183.3,
+          283.3
+        ]
+      },
+      "actions_driver_proxy": {
+        "n": 6,
+        "median": 3536.36,
+        "range": [
+          3158.54,
+          4051.17
+        ]
+      },
+      "native_click_to_frame": {
+        "n": 14,
+        "median": 179.9,
+        "range": [
+          88.4,
+          358.6
+        ]
+      },
+      "window_layout_count": {
+        "n": 2,
+        "median": 103.5,
+        "range": [
+          100,
+          107
+        ]
+      },
+      "window_layout_ms": {
+        "n": 2,
+        "median": 188.56,
+        "range": [
+          127.69,
+          249.43
+        ]
+      },
+      "window_recalc_ms": {
+        "n": 2,
+        "median": 428.1,
+        "range": [
+          318.96,
+          537.25
+        ]
+      },
+      "error_count": 0
+    },
+    "320": {
+      "cold_world": {
+        "n": 2,
+        "median": 5009.6,
+        "range": [
+          3331.9,
+          6687.3
+        ]
+      },
+      "warm_world": {
+        "n": 2,
+        "median": 3519.0,
+        "range": [
+          2006.3,
+          5031.7
+        ]
+      },
+      "cold_shell": {
+        "n": 2,
+        "median": 346.0,
+        "range": [
+          268,
+          424
+        ]
+      },
+      "cold_js_bytes": {
+        "n": 2,
+        "median": 316954.0,
+        "range": [
+          316954,
+          316954
+        ]
+      },
+      "frame_p95_per_run": {
+        "n": 2,
+        "median": 724.95,
+        "range": [
+          349.9,
+          1100
+        ]
+      },
+      "frame_p50_per_run": {
+        "n": 2,
+        "median": 158.35,
+        "range": [
+          133.4,
+          183.3
+        ]
+      },
+      "actions_driver_proxy": {
+        "n": 6,
+        "median": 2963.27,
+        "range": [
+          1772.86,
+          6926.96
+        ]
+      },
+      "native_click_to_frame": {
+        "n": 14,
+        "median": 193.75,
+        "range": [
+          42.8,
+          1233.5
+        ]
+      },
+      "window_layout_count": {
+        "n": 2,
+        "median": 103.0,
+        "range": [
+          99,
+          107
+        ]
+      },
+      "window_layout_ms": {
+        "n": 2,
+        "median": 101.31,
+        "range": [
+          88.74,
+          113.88
+        ]
+      },
+      "window_recalc_ms": {
+        "n": 2,
+        "median": 393.76,
+        "range": [
+          287.26,
+          500.26
+        ]
+      },
+      "error_count": 0
+    }
+  },
+  "after": {
+    "1440": {
+      "cold_world": {
+        "n": 4,
+        "median": 3881.9,
+        "range": [
+          3174.7,
+          4450.3
+        ]
+      },
+      "warm_world": {
+        "n": 4,
+        "median": 2726.6,
+        "range": [
+          2332.9,
+          4832.4
+        ]
+      },
+      "cold_shell": {
+        "n": 4,
+        "median": 364.0,
+        "range": [
+          300,
+          536
+        ]
+      },
+      "cold_js_bytes": {
+        "n": 4,
+        "median": 317188.0,
+        "range": [
+          317188,
+          317188
+        ]
+      },
+      "frame_p95_per_run": {
+        "n": 2,
+        "median": 1300.0,
+        "range": [
+          983.3,
+          1616.7
+        ]
+      },
+      "frame_p50_per_run": {
+        "n": 2,
+        "median": 374.95,
+        "range": [
+          333.3,
+          416.6
+        ]
+      },
+      "actions_driver_proxy": {
+        "n": 6,
+        "median": 6820.79,
+        "range": [
+          5009.25,
+          9818.86
+        ]
+      },
+      "native_click_to_frame": {
+        "n": 14,
+        "median": 265.8,
+        "range": [
+          39.2,
+          2875.2
+        ]
+      },
+      "window_layout_count": {
+        "n": 2,
+        "median": 144.5,
+        "range": [
+          142,
+          147
+        ]
+      },
+      "window_layout_ms": {
+        "n": 2,
+        "median": 194.9,
+        "range": [
+          180.79,
+          209.01
+        ]
+      },
+      "window_recalc_ms": {
+        "n": 2,
+        "median": 980.22,
+        "range": [
+          894.67,
+          1065.77
+        ]
+      },
+      "error_count": 0
+    },
+    "390": {
+      "cold_world": {
+        "n": 2,
+        "median": 3685.85,
+        "range": [
+          3653.5,
+          3718.2
+        ]
+      },
+      "warm_world": {
+        "n": 2,
+        "median": 2365.6,
+        "range": [
+          2279.5,
+          2451.7
+        ]
+      },
+      "cold_shell": {
+        "n": 2,
+        "median": 372.0,
+        "range": [
+          368,
+          376
+        ]
+      },
+      "cold_js_bytes": {
+        "n": 2,
+        "median": 317188.0,
+        "range": [
+          317188,
+          317188
+        ]
+      },
+      "frame_p95_per_run": {
+        "n": 2,
+        "median": 891.6,
+        "range": [
+          533.3,
+          1249.9
+        ]
+      },
+      "frame_p50_per_run": {
+        "n": 2,
+        "median": 225.05,
+        "range": [
+          216.7,
+          233.4
+        ]
+      },
+      "actions_driver_proxy": {
+        "n": 6,
+        "median": 4046.03,
+        "range": [
+          3161.02,
+          6458.95
+        ]
+      },
+      "native_click_to_frame": {
+        "n": 14,
+        "median": 192.95,
+        "range": [
+          43.7,
+          425.3
+        ]
+      },
+      "window_layout_count": {
+        "n": 2,
+        "median": 98.0,
+        "range": [
+          97,
+          99
+        ]
+      },
+      "window_layout_ms": {
+        "n": 2,
+        "median": 132.0,
+        "range": [
+          129.14,
+          134.87
+        ]
+      },
+      "window_recalc_ms": {
+        "n": 2,
+        "median": 648.25,
+        "range": [
+          637.33,
+          659.17
+        ]
+      },
+      "error_count": 0
+    },
+    "320": {
+      "cold_world": {
+        "n": 2,
+        "median": 7198.25,
+        "range": [
+          7125,
+          7271.5
+        ]
+      },
+      "warm_world": {
+        "n": 2,
+        "median": 2451.45,
+        "range": [
+          2094.4,
+          2808.5
+        ]
+      },
+      "cold_shell": {
+        "n": 2,
+        "median": 916.0,
+        "range": [
+          880,
+          952
+        ]
+      },
+      "cold_js_bytes": {
+        "n": 2,
+        "median": 317188.0,
+        "range": [
+          317188,
+          317188
+        ]
+      },
+      "frame_p95_per_run": {
+        "n": 2,
+        "median": 950.0,
+        "range": [
+          783.3,
+          1116.7
+        ]
+      },
+      "frame_p50_per_run": {
+        "n": 2,
+        "median": 158.35,
+        "range": [
+          150.1,
+          166.6
+        ]
+      },
+      "actions_driver_proxy": {
+        "n": 6,
+        "median": 2782.39,
+        "range": [
+          2272.74,
+          8687.29
+        ]
+      },
+      "native_click_to_frame": {
+        "n": 14,
+        "median": 146.95,
+        "range": [
+          21.5,
+          803
+        ]
+      },
+      "window_layout_count": {
+        "n": 2,
+        "median": 100.0,
+        "range": [
+          95,
+          105
+        ]
+      },
+      "window_layout_ms": {
+        "n": 2,
+        "median": 128.15,
+        "range": [
+          112.56,
+          143.75
+        ]
+      },
+      "window_recalc_ms": {
+        "n": 2,
+        "median": 610.38,
+        "range": [
+          542.36,
+          678.4
+        ]
+      },
+      "error_count": 0
+    }
+  }
+}

@@ -1,0 +1,7 @@
+PASS 81 exact frozen files
+PASS 80 public bodies and headers. Verify IC-v2 witnesses and signed inventory next.
+PASS certified modules, controllers and subnet and signed 80-asset inventory
+PASS all80 mainnet v2 HTTP body/header/path witnesses and fresh BLS certificate bindings
+PASS 4 registered gzip representations and decompressed identities
+PASS all4 mainnet v2 HTTP body/header/path witnesses and fresh BLS certificate bindings
+s2jxj-liaaa-aaaas-amynq-cai

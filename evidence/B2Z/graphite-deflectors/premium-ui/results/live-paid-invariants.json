@@ -1,0 +1,109 @@
+{
+  "status": "PASS",
+  "before": {
+    "at": "2026-11-18T23:21:09.825Z",
+    "module": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+    "root": "5ed747561d2a0321ef7551f74a620b559b58e6a93e07f46d0b72451a381f9986"
+  },
+  "after": {
+    "at": "2026-11-18T23:23:23.509Z",
+    "module": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+    "root": "a85f8b2f1e4bc85a1b46efbfe6709fa514116e24c82633bbb1328a9048b7f7f4"
+  },
+  "identity": {
+    "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+    "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+    "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "before_head": {
+    "logical_end": "11890",
+    "manifest_hash": "2d6e4db1154214feb3506550bd36f8ea0c7917be1eff1eb3554fe5d1eaed0abd",
+    "seal": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "epoch_hash": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+      "input_count": 0,
+      "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+      "logical_end": "11890",
+      "logical_start": "11889",
+      "previous_manifest": "8c20fabcfbaaffb0e42c0668583c8ed6331a454bc25c910812de405587093828",
+      "previous_state": "b01eaf573b7dd186679386675d7204ce5156702e252f7870f4d739895623673b",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "segment_id": "11895",
+      "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+      "source_from": "40180669",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+      "source_to_exclusive": "40180669"
+    },
+    "segment_id": "11895",
+    "source_to_exclusive": "40180669",
+    "state_hash": "9c8a3dc6b4a5c73fd483c0280a4623ed4d4a7796322da0e518571a780b0891aa"
+  },
+  "after_head": {
+    "logical_end": "11892",
+    "manifest_hash": "dda30145c1304bbed580d6bda7ea2c0852f55a2c276ef3811f558df19d016767",
+    "seal": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "epoch_hash": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+      "input_count": 0,
+      "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+      "logical_end": "11892",
+      "logical_start": "11891",
+      "previous_manifest": "945c9e3f24fcd929a67c0fcb9ab3c5a109bb2f8a1fb9475ab85d9ae96e4815de",
+      "previous_state": "7f8056f9b9568671258834e7f1036803740a0db9012d34557e495c9851856517",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "segment_id": "11897",
+      "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+      "source_from": "40180669",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+      "source_to_exclusive": "40180669"
+    },
+    "segment_id": "11897",
+    "source_to_exclusive": "40180669",
+    "state_hash": "913022cc64669aa8fd97f9a7f845609addd6d0d731363cb8e475667bb2773f86"
+  },
+  "continuity": [
+    {
+      "head": 11897,
+      "root": "a85f8b2f1e4bc85a1b46efbfe6709fa514116e24c82633bbb1328a9048b7f7f4",
+      "manifest": "dda30145c1304bbed580d6bda7ea2c0852f55a2c276ef3811f558df19d016767",
+      "source_cursor": "40180669",
+      "state": "913022cc64669aa8fd97f9a7f845609addd6d0d731363cb8e475667bb2773f86",
+      "events": "532e39be5b2e5fa10dbb840d8b1f334806108265f4552d0e723caefb332fca62",
+      "scores": "93f6ca7bfe7529f3021be7666eeae3ee523721cd2f9f8fcbd09870a63161e8bf",
+      "receipts": [],
+      "received_e8s": "100000000"
+    },
+    {
+      "head": 11896,
+      "root": "d6c0060651598f0c7061a80c029562095afdd8826386133dccd12c97b93e2856",
+      "manifest": "945c9e3f24fcd929a67c0fcb9ab3c5a109bb2f8a1fb9475ab85d9ae96e4815de",
+      "source_cursor": "40180669",
+      "state": "7f8056f9b9568671258834e7f1036803740a0db9012d34557e495c9851856517",
+      "events": "45b8e011b7d82b6c4e2d7b8f23135c4cf27e80ca4110e5d16423532d9d2782ea",
+      "scores": "7957197d002058612157d2c874c8241c638da275fc6a97588f73b95cd27299ba",
+      "receipts": [],
+      "received_e8s": "100000000"
+    },
+    {
+      "head": 11895,
+      "root": "5ed747561d2a0321ef7551f74a620b559b58e6a93e07f46d0b72451a381f9986",
+      "manifest": "2d6e4db1154214feb3506550bd36f8ea0c7917be1eff1eb3554fe5d1eaed0abd",
+      "prior": true
+    }
+  ],
+  "version": 7,
+  "received_e8s": "100000000",
+  "verified_unchanged": [
+    "module",
+    "rule/schema/config/source identity",
+    "canonical cannons",
+    "deflectors",
+    "next cannon/deflector IDs",
+    "received_e8s",
+    "source cursor"
+  ],
+  "automatic_progress": "World movement and exact territory-time score accrual continued between certified heads. Score credits are nonfinancial. No new paid inputs or receipts."
+}

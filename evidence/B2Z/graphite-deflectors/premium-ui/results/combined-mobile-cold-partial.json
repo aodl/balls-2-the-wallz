@@ -1,0 +1,57 @@
+[
+  {
+    "wave": 0,
+    "variant": "A",
+    "certificate": 3025.2000000476837,
+    "world": 3660.2000000476837,
+    "after_certificate": 635,
+    "paint": 344,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 0,
+    "variant": "B",
+    "certificate": 2601.5,
+    "world": 3171.600000023842,
+    "after_certificate": 570.1000000238419,
+    "paint": 168,
+    "app_bytes": 317188,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 0,
+    "variant": "B",
+    "certificate": 2615,
+    "world": 3250.399999976158,
+    "after_certificate": 635.3999999761581,
+    "paint": 308,
+    "app_bytes": 317188,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 0,
+    "variant": "A",
+    "certificate": 2189,
+    "world": 2823.100000023842,
+    "after_certificate": 634.1000000238419,
+    "paint": 252,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 1,
+    "variant": "A",
+    "certificate": 4743.200000047684,
+    "world": 6069.600000023842,
+    "after_certificate": 1326.3999999761581,
+    "paint": 288,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  }
+]

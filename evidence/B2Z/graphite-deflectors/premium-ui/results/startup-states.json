@@ -1,0 +1,10 @@
+{
+  "loading": {
+    "text": "Catching up with on-chain activity ...",
+    "copy_disabled": true
+  },
+  "renderer-unavailable": {
+    "text": "This browser could not start the 3D arena. WebGL 2 is required.",
+    "copy_disabled": true
+  }
+}

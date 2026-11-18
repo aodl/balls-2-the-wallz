@@ -1,0 +1,195 @@
+[
+  {
+    "release": "A",
+    "initial": {
+      "style": "http://127.0.0.1:8697/",
+      "initialStatus": "Catching up with on-chain activity ..."
+    },
+    "trust": "slow",
+    "error": "",
+    "failureKind": null,
+    "deliveryError": null,
+    "certificateAgeMs": 1252.087296,
+    "diagnostics": {
+      "failures": 0,
+      "recoveries": 0,
+      "evicted": 0,
+      "active": null,
+      "blocking": null,
+      "history": [],
+      "acceptedHeads": [
+        {
+          "mode": "certificate-verifier",
+          "network": "ic",
+          "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "version": 8,
+          "identity": {
+            "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+            "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+            "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "epoch": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+          "format": null,
+          "head": "11888",
+          "root": "6d870665abf3f14d263104772420560bc732daf8ea604a649660c3c5c3b9c465",
+          "certificate_time_ns": "1795043367407846807"
+        },
+        {
+          "mode": "certificate-verifier",
+          "network": "ic",
+          "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "version": 8,
+          "identity": {
+            "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+            "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+            "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "epoch": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+          "format": null,
+          "head": "11889",
+          "root": "a302dfb7911e3b9525e2ec69eb703f6299b7d66b6398d3c2df37b7e319f7c7c1",
+          "certificate_time_ns": "1795043398928912513"
+        }
+      ],
+      "acceptedEvicted": 0
+    },
+    "status": "Slow \u00b7 delayed",
+    "copy": true,
+    "ready": true,
+    "last": "11889"
+  },
+  {
+    "release": "B",
+    "initial": {
+      "style": "http://127.0.0.1:8698/",
+      "initialStatus": "Catching up with on-chain activity ..."
+    },
+    "trust": "slow",
+    "error": "",
+    "failureKind": null,
+    "deliveryError": null,
+    "certificateAgeMs": 23229.27616,
+    "diagnostics": {
+      "failures": 0,
+      "recoveries": 0,
+      "evicted": 0,
+      "active": null,
+      "blocking": null,
+      "history": [],
+      "acceptedHeads": [
+        {
+          "mode": "certificate-verifier",
+          "network": "ic",
+          "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "version": 8,
+          "identity": {
+            "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+            "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+            "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "epoch": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+          "format": null,
+          "head": "11889",
+          "root": "a302dfb7911e3b9525e2ec69eb703f6299b7d66b6398d3c2df37b7e319f7c7c1",
+          "certificate_time_ns": "1795043402392522922"
+        }
+      ],
+      "acceptedEvicted": 0
+    },
+    "status": "Slow \u00b7 delayed",
+    "copy": true,
+    "ready": true,
+    "last": "11889"
+  },
+  {
+    "release": "B",
+    "initial": {
+      "style": "http://127.0.0.1:8698/",
+      "initialStatus": "Catching up with on-chain activity ..."
+    },
+    "trust": "slow",
+    "error": "",
+    "failureKind": null,
+    "deliveryError": null,
+    "certificateAgeMs": 27562.231296,
+    "diagnostics": {
+      "failures": 0,
+      "recoveries": 0,
+      "evicted": 0,
+      "active": null,
+      "blocking": null,
+      "history": [],
+      "acceptedHeads": [
+        {
+          "mode": "certificate-verifier",
+          "network": "ic",
+          "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "version": 8,
+          "identity": {
+            "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+            "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+            "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "epoch": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+          "format": null,
+          "head": "11889",
+          "root": "a302dfb7911e3b9525e2ec69eb703f6299b7d66b6398d3c2df37b7e319f7c7c1",
+          "certificate_time_ns": "1795043431574100060"
+        }
+      ],
+      "acceptedEvicted": 0
+    },
+    "status": "Slow \u00b7 delayed",
+    "copy": true,
+    "ready": true,
+    "last": "11889"
+  },
+  {
+    "release": "A",
+    "initial": {
+      "style": "http://127.0.0.1:8697/",
+      "initialStatus": "Catching up with on-chain activity ..."
+    },
+    "trust": "slow",
+    "error": "",
+    "failureKind": null,
+    "deliveryError": null,
+    "certificateAgeMs": 1540.43776,
+    "diagnostics": {
+      "failures": 0,
+      "recoveries": 0,
+      "evicted": 0,
+      "active": null,
+      "blocking": null,
+      "history": [],
+      "acceptedHeads": [
+        {
+          "mode": "certificate-verifier",
+          "network": "ic",
+          "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+          "version": 8,
+          "identity": {
+            "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+            "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+            "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+            "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+          },
+          "epoch": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+          "format": null,
+          "head": "11889",
+          "root": "a302dfb7911e3b9525e2ec69eb703f6299b7d66b6398d3c2df37b7e319f7c7c1",
+          "certificate_time_ns": "1795043477808312659"
+        }
+      ],
+      "acceptedEvicted": 0
+    },
+    "status": "Slow \u00b7 delayed",
+    "copy": true,
+    "ready": true,
+    "last": "11889"
+  }
+]

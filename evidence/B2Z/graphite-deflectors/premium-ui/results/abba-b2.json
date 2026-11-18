@@ -1,0 +1,4158 @@
+{
+  "browser": "153.0.8010.12",
+  "rows": [
+    {
+      "view": [
+        1440,
+        900
+      ],
+      "cache": "cold",
+      "sample": 0,
+      "load": {
+        "first": {
+          "at": 1384.8,
+          "world": 1409.6999999284744,
+          "cert": 921.6000000238419,
+          "history": {
+            "requests": 2,
+            "bytes": 18398,
+            "outcome": "interval",
+            "elapsedMs": 474.40000009536743
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            124
+          ],
+          [
+            "first-contentful-paint",
+            124
+          ]
+        ],
+        "nav": {
+          "name": "http://127.0.0.1:8682/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 255.29999995231628,
+          "navigationId": 8419,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.19999992847442627,
+          "domainLookupStart": 2.600000023841858,
+          "domainLookupEnd": 2.6999999284744263,
+          "connectStart": 2.6999999284744263,
+          "secureConnectionStart": 0,
+          "connectEnd": 3.399999976158142,
+          "requestStart": 5.899999976158142,
+          "responseStart": 8,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 8,
+          "responseEnd": 12.5,
+          "transferSize": 4722,
+          "encodedBodySize": 4422,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 0,
+          "unloadEventEnd": 0,
+          "domInteractive": 42.60000002384186,
+          "domContentLoadedEventStart": 251.19999992847443,
+          "domContentLoadedEventEnd": 251.29999995231628,
+          "domComplete": 255.29999995231628,
+          "loadEventStart": 255.29999995231628,
+          "loadEventEnd": 255.29999995231628,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "http://127.0.0.1:8682/app.mjs",
+          "entryType": "resource",
+          "startTime": 41.39999997615814,
+          "duration": 29.600000023841858,
+          "navigationId": 8419,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 41.39999997615814,
+          "domainLookupStart": 48.699999928474426,
+          "domainLookupEnd": 48.699999928474426,
+          "connectStart": 48.699999928474426,
+          "secureConnectionStart": 0,
+          "connectEnd": 48.89999997615814,
+          "requestStart": 49.799999952316284,
+          "responseStart": 54.799999952316284,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 54.799999952316284,
+          "responseEnd": 71,
+          "transferSize": 317254,
+          "encodedBodySize": 316954,
+          "decodedBodySize": 1098174,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "http://127.0.0.1:8682/",
+          5718
+        ],
+        [
+          "http://127.0.0.1:8682/style.css",
+          10651
+        ],
+        [
+          "http://127.0.0.1:8682/app.mjs",
+          318270
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23263
+        ],
+        [
+          "lab_status",
+          792
+        ],
+        [
+          "observation_bundle",
+          26454
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          803
+        ],
+        [
+          "http://127.0.0.1:8682/configuration-deflector.bin",
+          3246
+        ],
+        [
+          "source_descriptor",
+          408
+        ],
+        [
+          "retained_publication",
+          4383
+        ],
+        [
+          "retained_artifact_chunk",
+          14550
+        ],
+        [
+          "observation",
+          6492
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 2.305413000052795,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 201,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 421,
+        "Resources": 13,
+        "ContextLifecycleStateObservers": 15,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 2552,
+        "LayoutCount": 9,
+        "RecalcStyleCount": 74,
+        "LayoutDuration": 0.023259,
+        "RecalcStyleDuration": 0.020118,
+        "DevToolsCommandDuration": 0.049942,
+        "ScriptDuration": 0.200259,
+        "V8CompileDuration": 0,
+        "TaskDuration": 1.571342,
+        "TaskOtherDuration": 1.2777640000000001,
+        "ThreadTime": 0.7547740000000001,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 14094776,
+        "JSHeapTotalSize": 25812992,
+        "FirstMeaningfulPaint": 0,
+        "DomContentLoaded": 0.2925610000966117,
+        "NavigationStart": 0.08932500006631017
+      }
+    },
+    {
+      "view": [
+        1440,
+        900
+      ],
+      "cache": "warm",
+      "sample": 0,
+      "load": {
+        "first": {
+          "at": 1193.6,
+          "world": 1203.7999999523163,
+          "cert": 714.7999999523163,
+          "history": {
+            "requests": 2,
+            "bytes": 18398,
+            "outcome": "interval",
+            "elapsedMs": 479.7000000476837
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            396
+          ],
+          [
+            "first-contentful-paint",
+            396
+          ]
+        ],
+        "nav": {
+          "name": "http://127.0.0.1:8682/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 314.2999999523163,
+          "navigationId": 9807,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.20000004768371582,
+          "domainLookupStart": 3.399999976158142,
+          "domainLookupEnd": 3.399999976158142,
+          "connectStart": 3.399999976158142,
+          "secureConnectionStart": 0,
+          "connectEnd": 3.899999976158142,
+          "requestStart": 4,
+          "responseStart": 6,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 6,
+          "responseEnd": 8.600000023841858,
+          "transferSize": 4722,
+          "encodedBodySize": 4422,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 206.39999997615814,
+          "unloadEventEnd": 206.39999997615814,
+          "domInteractive": 236.60000002384186,
+          "domContentLoadedEventStart": 308.2999999523163,
+          "domContentLoadedEventEnd": 309.7000000476837,
+          "domComplete": 314.2999999523163,
+          "loadEventStart": 314.2999999523163,
+          "loadEventEnd": 314.2999999523163,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "http://127.0.0.1:8682/app.mjs",
+          "entryType": "resource",
+          "startTime": 231.89999997615814,
+          "duration": 0,
+          "navigationId": 9807,
+          "initiatorType": "script",
+          "deliveryType": "cache",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 231.89999997615814,
+          "domainLookupStart": 231.89999997615814,
+          "domainLookupEnd": 231.89999997615814,
+          "connectStart": 231.89999997615814,
+          "secureConnectionStart": 0,
+          "connectEnd": 231.89999997615814,
+          "requestStart": 231.89999997615814,
+          "responseStart": 231.89999997615814,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 0,
+          "responseEnd": 231.89999997615814,
+          "transferSize": 0,
+          "encodedBodySize": 316954,
+          "decodedBodySize": 1098174,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "http://127.0.0.1:8682/audio/b2z-v1/manifest.json",
+          33542
+        ],
+        [
+          "http://127.0.0.1:8682/style.css",
+          0
+        ],
+        [
+          "http://127.0.0.1:8682/app.mjs",
+          0
+        ],
+        [
+          "http://127.0.0.1:8682/",
+          5718
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          803
+        ],
+        [
+          "observation_bundle",
+          26454
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "http://127.0.0.1:8682/configuration-deflector.bin",
+          3246
+        ],
+        [
+          "source_descriptor",
+          408
+        ],
+        [
+          "retained_publication",
+          4383
+        ],
+        [
+          "retained_artifact_chunk",
+          14574
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 1.9397299999836832,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 259,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 419,
+        "Resources": 9,
+        "ContextLifecycleStateObservers": 15,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 1738,
+        "LayoutCount": -1,
+        "RecalcStyleCount": -15,
+        "LayoutDuration": -0.020936,
+        "RecalcStyleDuration": -0.00575,
+        "DevToolsCommandDuration": -0.0016429999999999986,
+        "ScriptDuration": -0.10692499999999999,
+        "V8CompileDuration": 0,
+        "TaskDuration": -0.34798799999999996,
+        "TaskOtherDuration": -0.21273399999999998,
+        "ThreadTime": -0.21070100000000003,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 8617700,
+        "JSHeapTotalSize": 24502272,
+        "FirstMeaningfulPaint": 0,
+        "DomContentLoaded": 2.3815429999958724,
+        "NavigationStart": 2.3243929999880493
+      },
+      "action_driver_ms_including_paint_proxy": [
+        [
+          "move",
+          1224.7522339457646
+        ],
+        [
+          "build",
+          1213.7014050967991
+        ],
+        [
+          "deflect",
+          854.7338469652459
+        ]
+      ],
+      "input_to_next_animation_callback": [
+        {
+          "id": null,
+          "ms": 53.5
+        },
+        {
+          "id": "quantity-plus",
+          "ms": 60
+        },
+        {
+          "id": "move-action",
+          "ms": 189.10000002384186
+        },
+        {
+          "id": "build-action",
+          "ms": 138.89999997615814
+        },
+        {
+          "id": "deflect-action",
+          "ms": 72.20000004768372
+        },
+        {
+          "id": "",
+          "ms": 97.89999997615814
+        },
+        {
+          "id": null,
+          "ms": 109.5
+        }
+      ],
+      "native_event_timing": [
+        {
+          "name": "pointerdown",
+          "delay": 44.60000002384186,
+          "handler": 2.100000023841858,
+          "duration": 120,
+          "target": "aim-handle"
+        },
+        {
+          "name": "pointerup",
+          "delay": 43.699999928474426,
+          "handler": 0.7000000476837158,
+          "duration": 136,
+          "target": "board"
+        },
+        {
+          "name": "click",
+          "delay": 44.799999952316284,
+          "handler": 0.10000002384185791,
+          "duration": 136,
+          "target": "board"
+        },
+        {
+          "name": "pointerdown",
+          "delay": 49.800000071525574,
+          "handler": 1.1999999284744263,
+          "duration": 144,
+          "target": "quantity-plus"
+        },
+        {
+          "name": "pointerup",
+          "delay": 51.60000002384186,
+          "handler": 0.10000002384185791,
+          "duration": 144,
+          "target": "quantity-plus"
+        },
+        {
+          "name": "click",
+          "delay": 51.90000009536743,
+          "handler": 1,
+          "duration": 144,
+          "target": "quantity-plus"
+        },
+        {
+          "name": "pointerdown",
+          "delay": 63.89999997615814,
+          "handler": 2.5,
+          "duration": 496,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 68.10000002384186,
+          "handler": 0.09999990463256836,
+          "duration": 488,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 68.19999992847443,
+          "handler": 11.900000095367432,
+          "duration": 488,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 127,
+          "handler": 0.7999999523162842,
+          "duration": 248,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 128.69999992847443,
+          "handler": 0.10000002384185791,
+          "duration": 248,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 128.79999995231628,
+          "handler": 5.5,
+          "duration": 248,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 49.300000071525574,
+          "handler": 0.8999999761581421,
+          "duration": 208,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 50.5,
+          "handler": 0,
+          "duration": 208,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 50.60000002384186,
+          "handler": 7.199999928474426,
+          "duration": 208,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 92.39999997615814,
+          "handler": 0.8000000715255737,
+          "duration": 208,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 93.60000002384186,
+          "handler": 0.09999990463256836,
+          "duration": 208,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 93.79999995231628,
+          "handler": 0.8999999761581421,
+          "duration": 208,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 86.39999997615814,
+          "handler": 1.7000000476837158,
+          "duration": 240,
+          "target": "board"
+        },
+        {
+          "name": "pointerup",
+          "delay": 101.70000004768372,
+          "handler": 0.19999992847442627,
+          "duration": 224,
+          "target": "board"
+        },
+        {
+          "name": "click",
+          "delay": 102.20000004768372,
+          "handler": 0,
+          "duration": 224,
+          "target": "board"
+        }
+      ],
+      "long_tasks": [
+        {
+          "name": "self",
+          "start": 11749.799999952316,
+          "duration": 55
+        },
+        {
+          "name": "self",
+          "start": 11806.100000023842,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 11858.600000023842,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 11916.399999976158,
+          "duration": 63
+        },
+        {
+          "name": "self",
+          "start": 11980.700000047684,
+          "duration": 121
+        },
+        {
+          "name": "self",
+          "start": 12103.100000023842,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 12156.399999976158,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 12207.5,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 12350.700000047684,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 12404.899999976158,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 12556.100000023842,
+          "duration": 62
+        },
+        {
+          "name": "self",
+          "start": 12621.299999952316,
+          "duration": 62
+        },
+        {
+          "name": "self",
+          "start": 12684.600000023842,
+          "duration": 58
+        },
+        {
+          "name": "self",
+          "start": 12743.399999976158,
+          "duration": 55
+        },
+        {
+          "name": "self",
+          "start": 12800.600000023842,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 12852.899999976158,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 12906.600000023842,
+          "duration": 59
+        },
+        {
+          "name": "self",
+          "start": 13078.200000047684,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 13130.100000023842,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 13181.5,
+          "duration": 56
+        },
+        {
+          "name": "self",
+          "start": 13238.5,
+          "duration": 68
+        },
+        {
+          "name": "self",
+          "start": 13316.299999952316,
+          "duration": 60
+        },
+        {
+          "name": "self",
+          "start": 13379,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 13431.700000047684,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 13483.600000023842,
+          "duration": 55
+        },
+        {
+          "name": "self",
+          "start": 13541.200000047684,
+          "duration": 53
+        },
+        {
+          "name": "self",
+          "start": 13597.100000023842,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 13797,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 13849.899999976158,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 13903.399999976158,
+          "duration": 74
+        },
+        {
+          "name": "self",
+          "start": 13984.799999952316,
+          "duration": 63
+        },
+        {
+          "name": "self",
+          "start": 14048.899999976158,
+          "duration": 55
+        },
+        {
+          "name": "self",
+          "start": 14156,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 14211.5,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 14265.399999976158,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 14404,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 14505.899999976158,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 14559.299999952316,
+          "duration": 63
+        },
+        {
+          "name": "self",
+          "start": 14623.899999976158,
+          "duration": 56
+        },
+        {
+          "name": "self",
+          "start": 14685.700000047684,
+          "duration": 59
+        },
+        {
+          "name": "self",
+          "start": 14746.399999976158,
+          "duration": 53
+        },
+        {
+          "name": "self",
+          "start": 14850.399999976158,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 14902.299999952316,
+          "duration": 53
+        },
+        {
+          "name": "self",
+          "start": 14956.899999976158,
+          "duration": 61
+        },
+        {
+          "name": "self",
+          "start": 15161.299999952316,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 15211.700000047684,
+          "duration": 64
+        },
+        {
+          "name": "self",
+          "start": 15279.100000023842,
+          "duration": 55
+        },
+        {
+          "name": "self",
+          "start": 15342.600000023842,
+          "duration": 62
+        },
+        {
+          "name": "self",
+          "start": 15457,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 15511,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 15564,
+          "duration": 89
+        },
+        {
+          "name": "self",
+          "start": 15748.200000047684,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 15852.200000047684,
+          "duration": 58
+        },
+        {
+          "name": "self",
+          "start": 15966.5,
+          "duration": 60
+        },
+        {
+          "name": "self",
+          "start": 16027.5,
+          "duration": 57
+        },
+        {
+          "name": "self",
+          "start": 16188.399999976158,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 16291.5,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 16346.799999952316,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 16544.100000023842,
+          "duration": 64
+        },
+        {
+          "name": "self",
+          "start": 16657,
+          "duration": 78
+        },
+        {
+          "name": "self",
+          "start": 16890,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 16957.799999952316,
+          "duration": 77
+        },
+        {
+          "name": "self",
+          "start": 17036.600000023842,
+          "duration": 74
+        },
+        {
+          "name": "self",
+          "start": 17111.899999976158,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 17213.100000023842,
+          "duration": 58
+        },
+        {
+          "name": "self",
+          "start": 17323.100000023842,
+          "duration": 63
+        },
+        {
+          "name": "self",
+          "start": 17389.700000047684,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 17445.899999976158,
+          "duration": 58
+        },
+        {
+          "name": "self",
+          "start": 17555.700000047684,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 17697.600000023842,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 17751.899999976158,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 17803.700000047684,
+          "duration": 55
+        },
+        {
+          "name": "self",
+          "start": 17859.399999976158,
+          "duration": 58
+        },
+        {
+          "name": "self",
+          "start": 17918.299999952316,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 17970.600000023842,
+          "duration": 62
+        },
+        {
+          "name": "self",
+          "start": 18038.899999976158,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 18094.100000023842,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 18149.700000047684,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 18204.700000047684,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 18257.700000047684,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 18311.899999976158,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 18453.299999952316,
+          "duration": 59
+        },
+        {
+          "name": "self",
+          "start": 18514.200000047684,
+          "duration": 60
+        },
+        {
+          "name": "self",
+          "start": 18575.5,
+          "duration": 59
+        },
+        {
+          "name": "self",
+          "start": 18634.899999976158,
+          "duration": 63
+        },
+        {
+          "name": "self",
+          "start": 18701.100000023842,
+          "duration": 61
+        },
+        {
+          "name": "self",
+          "start": 18814,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 18866.100000023842,
+          "duration": 53
+        },
+        {
+          "name": "self",
+          "start": 18921.5,
+          "duration": 57
+        },
+        {
+          "name": "self",
+          "start": 18982.200000047684,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 19040.799999952316,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 19136.100000023842,
+          "duration": 57
+        },
+        {
+          "name": "self",
+          "start": 19194.299999952316,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 19247.5,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 19300.600000023842,
+          "duration": 60
+        },
+        {
+          "name": "self",
+          "start": 19365.100000023842,
+          "duration": 60
+        },
+        {
+          "name": "self",
+          "start": 19478,
+          "duration": 53
+        },
+        {
+          "name": "self",
+          "start": 19534.299999952316,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 19591.299999952316,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 19643.299999952316,
+          "duration": 57
+        },
+        {
+          "name": "self",
+          "start": 19801.100000023842,
+          "duration": 62
+        },
+        {
+          "name": "self",
+          "start": 19864.200000047684,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 19919.700000047684,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 19973.200000047684,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 20029.600000023842,
+          "duration": 71
+        },
+        {
+          "name": "self",
+          "start": 20206,
+          "duration": 53
+        },
+        {
+          "name": "self",
+          "start": 20262.100000023842,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 20313.200000047684,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 20456.5,
+          "duration": 58
+        },
+        {
+          "name": "self",
+          "start": 20516.600000023842,
+          "duration": 55
+        },
+        {
+          "name": "self",
+          "start": 20573.299999952316,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 20624.200000047684,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 20680.700000047684,
+          "duration": 75
+        },
+        {
+          "name": "self",
+          "start": 20760.399999976158,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 20864.799999952316,
+          "duration": 63
+        },
+        {
+          "name": "self",
+          "start": 20933.100000023842,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 21012.799999952316,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 21158.200000047684,
+          "duration": 62
+        },
+        {
+          "name": "self",
+          "start": 21223.399999976158,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 21277.399999976158,
+          "duration": 60
+        },
+        {
+          "name": "self",
+          "start": 21370.399999976158,
+          "duration": 368
+        },
+        {
+          "name": "self",
+          "start": 21745.600000023842,
+          "duration": 112
+        },
+        {
+          "name": "self",
+          "start": 21861.899999976158,
+          "duration": 113
+        },
+        {
+          "name": "self",
+          "start": 21980.799999952316,
+          "duration": 113
+        },
+        {
+          "name": "self",
+          "start": 22097.399999976158,
+          "duration": 97
+        },
+        {
+          "name": "self",
+          "start": 22195.799999952316,
+          "duration": 57
+        },
+        {
+          "name": "self",
+          "start": 22257.5,
+          "duration": 90
+        },
+        {
+          "name": "self",
+          "start": 22353.299999952316,
+          "duration": 92
+        },
+        {
+          "name": "self",
+          "start": 22446.5,
+          "duration": 111
+        },
+        {
+          "name": "self",
+          "start": 22562.399999976158,
+          "duration": 138
+        },
+        {
+          "name": "self",
+          "start": 22708.100000023842,
+          "duration": 100
+        },
+        {
+          "name": "self",
+          "start": 22810,
+          "duration": 95
+        },
+        {
+          "name": "self",
+          "start": 22907.200000047684,
+          "duration": 93
+        },
+        {
+          "name": "self",
+          "start": 23045.200000047684,
+          "duration": 95
+        },
+        {
+          "name": "self",
+          "start": 23141.799999952316,
+          "duration": 129
+        },
+        {
+          "name": "self",
+          "start": 23336,
+          "duration": 68
+        },
+        {
+          "name": "self",
+          "start": 23405.399999976158,
+          "duration": 58
+        },
+        {
+          "name": "self",
+          "start": 23467,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 23521.299999952316,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 23666.799999952316,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 23771.799999952316,
+          "duration": 56
+        },
+        {
+          "name": "self",
+          "start": 23828.5,
+          "duration": 68
+        },
+        {
+          "name": "self",
+          "start": 23896.899999976158,
+          "duration": 53
+        },
+        {
+          "name": "self",
+          "start": 23950.200000047684,
+          "duration": 53
+        },
+        {
+          "name": "self",
+          "start": 24009.899999976158,
+          "duration": 69
+        },
+        {
+          "name": "self",
+          "start": 24081.899999976158,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 24144.299999952316,
+          "duration": 113
+        },
+        {
+          "name": "self",
+          "start": 24259.299999952316,
+          "duration": 103
+        },
+        {
+          "name": "self",
+          "start": 24364.600000023842,
+          "duration": 97
+        },
+        {
+          "name": "self",
+          "start": 24467.399999976158,
+          "duration": 111
+        },
+        {
+          "name": "self",
+          "start": 24627.200000047684,
+          "duration": 105
+        },
+        {
+          "name": "self",
+          "start": 24734.700000047684,
+          "duration": 98
+        },
+        {
+          "name": "self",
+          "start": 24834.299999952316,
+          "duration": 96
+        },
+        {
+          "name": "self",
+          "start": 24932,
+          "duration": 96
+        },
+        {
+          "name": "self",
+          "start": 25029.700000047684,
+          "duration": 95
+        },
+        {
+          "name": "self",
+          "start": 25126.200000047684,
+          "duration": 109
+        },
+        {
+          "name": "self",
+          "start": 25280.799999952316,
+          "duration": 112
+        },
+        {
+          "name": "self",
+          "start": 25394.399999976158,
+          "duration": 96
+        },
+        {
+          "name": "self",
+          "start": 25494.600000023842,
+          "duration": 92
+        },
+        {
+          "name": "self",
+          "start": 25589.899999976158,
+          "duration": 96
+        },
+        {
+          "name": "self",
+          "start": 25687,
+          "duration": 103
+        },
+        {
+          "name": "self",
+          "start": 25794.399999976158,
+          "duration": 123
+        },
+        {
+          "name": "self",
+          "start": 25919.600000023842,
+          "duration": 114
+        },
+        {
+          "name": "self",
+          "start": 26078.600000023842,
+          "duration": 98
+        },
+        {
+          "name": "self",
+          "start": 26177.100000023842,
+          "duration": 93
+        },
+        {
+          "name": "self",
+          "start": 26275.299999952316,
+          "duration": 168
+        },
+        {
+          "name": "self",
+          "start": 26444.600000023842,
+          "duration": 210
+        },
+        {
+          "name": "self",
+          "start": 26659,
+          "duration": 116
+        },
+        {
+          "name": "self",
+          "start": 26776.899999976158,
+          "duration": 105
+        },
+        {
+          "name": "self",
+          "start": 26927.600000023842,
+          "duration": 90
+        },
+        {
+          "name": "self",
+          "start": 27020.399999976158,
+          "duration": 125
+        },
+        {
+          "name": "self",
+          "start": 27146.700000047684,
+          "duration": 111
+        },
+        {
+          "name": "self",
+          "start": 27262.5,
+          "duration": 108
+        },
+        {
+          "name": "self",
+          "start": 27372.5,
+          "duration": 99
+        },
+        {
+          "name": "self",
+          "start": 27472.700000047684,
+          "duration": 94
+        },
+        {
+          "name": "self",
+          "start": 27568.200000047684,
+          "duration": 96
+        },
+        {
+          "name": "self",
+          "start": 27666,
+          "duration": 97
+        },
+        {
+          "name": "self",
+          "start": 27806.299999952316,
+          "duration": 104
+        },
+        {
+          "name": "self",
+          "start": 27911.100000023842,
+          "duration": 110
+        },
+        {
+          "name": "self",
+          "start": 28022.700000047684,
+          "duration": 108
+        },
+        {
+          "name": "self",
+          "start": 28133.399999976158,
+          "duration": 98
+        },
+        {
+          "name": "self",
+          "start": 28232.100000023842,
+          "duration": 98
+        },
+        {
+          "name": "self",
+          "start": 28332.600000023842,
+          "duration": 97
+        },
+        {
+          "name": "self",
+          "start": 28431.600000023842,
+          "duration": 111
+        },
+        {
+          "name": "self",
+          "start": 28594.399999976158,
+          "duration": 110
+        },
+        {
+          "name": "self",
+          "start": 28706,
+          "duration": 105
+        },
+        {
+          "name": "self",
+          "start": 28812.5,
+          "duration": 98
+        },
+        {
+          "name": "self",
+          "start": 28915.5,
+          "duration": 112
+        },
+        {
+          "name": "self",
+          "start": 29034.799999952316,
+          "duration": 103
+        },
+        {
+          "name": "self",
+          "start": 29167.200000047684,
+          "duration": 133
+        },
+        {
+          "name": "self",
+          "start": 29301.600000023842,
+          "duration": 58
+        },
+        {
+          "name": "self",
+          "start": 29362.799999952316,
+          "duration": 93
+        },
+        {
+          "name": "self",
+          "start": 29457.399999976158,
+          "duration": 102
+        },
+        {
+          "name": "self",
+          "start": 29561.799999952316,
+          "duration": 95
+        },
+        {
+          "name": "self",
+          "start": 29658,
+          "duration": 97
+        },
+        {
+          "name": "self",
+          "start": 29756.5,
+          "duration": 123
+        },
+        {
+          "name": "self",
+          "start": 29881.700000047684,
+          "duration": 113
+        },
+        {
+          "name": "self",
+          "start": 29996.200000047684,
+          "duration": 100
+        },
+        {
+          "name": "self",
+          "start": 30145.799999952316,
+          "duration": 89
+        },
+        {
+          "name": "self",
+          "start": 30235.899999976158,
+          "duration": 93
+        },
+        {
+          "name": "self",
+          "start": 30329.299999952316,
+          "duration": 99
+        },
+        {
+          "name": "self",
+          "start": 30431.299999952316,
+          "duration": 118
+        },
+        {
+          "name": "self",
+          "start": 30550.700000047684,
+          "duration": 116
+        },
+        {
+          "name": "self",
+          "start": 30667.799999952316,
+          "duration": 101
+        },
+        {
+          "name": "self",
+          "start": 30772.299999952316,
+          "duration": 103
+        },
+        {
+          "name": "self",
+          "start": 30924.100000023842,
+          "duration": 91
+        },
+        {
+          "name": "self",
+          "start": 31015.899999976158,
+          "duration": 104
+        },
+        {
+          "name": "self",
+          "start": 31124,
+          "duration": 111
+        },
+        {
+          "name": "self",
+          "start": 31236.299999952316,
+          "duration": 113
+        },
+        {
+          "name": "self",
+          "start": 31359.299999952316,
+          "duration": 97
+        },
+        {
+          "name": "self",
+          "start": 31458.899999976158,
+          "duration": 100
+        },
+        {
+          "name": "self",
+          "start": 31561.799999952316,
+          "duration": 95
+        },
+        {
+          "name": "self",
+          "start": 31700.399999976158,
+          "duration": 100
+        },
+        {
+          "name": "self",
+          "start": 31801.700000047684,
+          "duration": 119
+        },
+        {
+          "name": "self",
+          "start": 31922.299999952316,
+          "duration": 106
+        },
+        {
+          "name": "self",
+          "start": 32028.700000047684,
+          "duration": 99
+        },
+        {
+          "name": "self",
+          "start": 32128.700000047684,
+          "duration": 101
+        },
+        {
+          "name": "self",
+          "start": 32232.299999952316,
+          "duration": 95
+        },
+        {
+          "name": "self",
+          "start": 32328.700000047684,
+          "duration": 103
+        },
+        {
+          "name": "self",
+          "start": 32434.100000023842,
+          "duration": 131
+        },
+        {
+          "name": "self",
+          "start": 32566.5,
+          "duration": 123
+        },
+        {
+          "name": "self",
+          "start": 32733.600000023842,
+          "duration": 93
+        },
+        {
+          "name": "self",
+          "start": 32827.700000047684,
+          "duration": 99
+        },
+        {
+          "name": "self",
+          "start": 32927.299999952316,
+          "duration": 93
+        },
+        {
+          "name": "self",
+          "start": 33020.60000002384,
+          "duration": 120
+        },
+        {
+          "name": "self",
+          "start": 33149,
+          "duration": 127
+        },
+        {
+          "name": "self",
+          "start": 33278.799999952316,
+          "duration": 105
+        },
+        {
+          "name": "self",
+          "start": 33388.200000047684,
+          "duration": 98
+        },
+        {
+          "name": "self",
+          "start": 33487,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 33542.39999997616,
+          "duration": 89
+        },
+        {
+          "name": "self",
+          "start": 33633.39999997616,
+          "duration": 95
+        },
+        {
+          "name": "self",
+          "start": 33732.200000047684,
+          "duration": 111
+        },
+        {
+          "name": "self",
+          "start": 33844,
+          "duration": 107
+        },
+        {
+          "name": "self",
+          "start": 33953.700000047684,
+          "duration": 93
+        },
+        {
+          "name": "self",
+          "start": 34052,
+          "duration": 93
+        },
+        {
+          "name": "self",
+          "start": 34146.299999952316,
+          "duration": 112
+        },
+        {
+          "name": "self",
+          "start": 34260.200000047684,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 34312.39999997616,
+          "duration": 98
+        },
+        {
+          "name": "self",
+          "start": 34411.10000002384,
+          "duration": 124
+        },
+        {
+          "name": "self",
+          "start": 34535.700000047684,
+          "duration": 122
+        },
+        {
+          "name": "self",
+          "start": 34669.89999997616,
+          "duration": 98
+        },
+        {
+          "name": "self",
+          "start": 34768.200000047684,
+          "duration": 98
+        },
+        {
+          "name": "self",
+          "start": 34867.10000002384,
+          "duration": 105
+        },
+        {
+          "name": "self",
+          "start": 34974.5,
+          "duration": 100
+        },
+        {
+          "name": "self",
+          "start": 35076.60000002384,
+          "duration": 116
+        },
+        {
+          "name": "self",
+          "start": 35193.39999997616,
+          "duration": 56
+        },
+        {
+          "name": "self",
+          "start": 35252.39999997616,
+          "duration": 103
+        }
+      ],
+      "interaction_performance_delta": {
+        "Timestamp": 23.627854999969713,
+        "AudioHandlers": 6,
+        "AudioWorkletProcessors": 0,
+        "Documents": 0,
+        "Frames": 0,
+        "JSEventListeners": 371,
+        "LayoutObjects": 88,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 286,
+        "Resources": 44,
+        "ContextLifecycleStateObservers": 0,
+        "V8PerContextDatas": 0,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 0,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 0,
+        "ArrayBufferContents": 9522,
+        "LayoutCount": 133,
+        "RecalcStyleCount": 772,
+        "LayoutDuration": 0.038109000000000004,
+        "RecalcStyleDuration": 0.17225100000000002,
+        "DevToolsCommandDuration": 0.15696200000000002,
+        "ScriptDuration": 1.630484,
+        "V8CompileDuration": 0,
+        "TaskDuration": 23.551552,
+        "TaskOtherDuration": 21.553746,
+        "ThreadTime": 3.731122,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": -7142632,
+        "JSHeapTotalSize": 1835008,
+        "FirstMeaningfulPaint": 0,
+        "DomContentLoaded": 0.0,
+        "NavigationStart": 0.0
+      },
+      "render": {
+        "time": 11816.342986000063,
+        "deflectors": 0,
+        "structure_triangles": 260,
+        "pixel_budget": 786432,
+        "buffer_width": 1121,
+        "buffer_height": 701,
+        "structure_uploads": false,
+        "instance_upload_bytes": 33160,
+        "draw_calls": 22,
+        "triangles": 3188,
+        "tiles": 4,
+        "pieces": 1,
+        "effects": 2,
+        "geometries": 23,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 528,
+        "tails": 14,
+        "motion": {
+          "balls": 1,
+          "tiles": 2,
+          "pathPoints": 14,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      },
+      "computed_panel": {
+        "backdrop": "none",
+        "background": "linear-gradient(rgb(65, 77, 81) 0px, rgb(43, 53, 57) 17%, rgb(32, 41, 45) 60%, rgb(20, 29, 32) 100%)"
+      },
+      "interaction": {
+        "frames": 278,
+        "p50_ms": 66.7,
+        "p95_ms": 150,
+        "worst_ms": 400.1000000000022,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "steady_wire": [
+        [
+          "observation",
+          6468
+        ],
+        [
+          "http://127.0.0.1:8682/audio/b2z-v1/music/006-13c63a85b790037a.flac",
+          1342340
+        ],
+        [
+          "observation",
+          6492
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "observation",
+          6468
+        ],
+        [
+          "artifact_bundle",
+          19288
+        ],
+        [
+          "observation",
+          6491
+        ],
+        [
+          "lab_status",
+          780
+        ]
+      ]
+    },
+    {
+      "view": [
+        1440,
+        900
+      ],
+      "cache": "cold",
+      "sample": 1,
+      "load": {
+        "first": {
+          "at": 1391.6,
+          "world": 1418.6000000238419,
+          "cert": 924.6000000238419,
+          "history": {
+            "requests": 2,
+            "bytes": 18404,
+            "outcome": "interval",
+            "elapsedMs": 480.60000002384186
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            116
+          ],
+          [
+            "first-contentful-paint",
+            116
+          ]
+        ],
+        "nav": {
+          "name": "http://127.0.0.1:8682/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 242.89999997615814,
+          "navigationId": 6182,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.6000000238418579,
+          "domainLookupStart": 6.600000023841858,
+          "domainLookupEnd": 6.600000023841858,
+          "connectStart": 6.600000023841858,
+          "secureConnectionStart": 0,
+          "connectEnd": 6.799999952316284,
+          "requestStart": 7,
+          "responseStart": 10.399999976158142,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 10.399999976158142,
+          "responseEnd": 11.700000047683716,
+          "transferSize": 4722,
+          "encodedBodySize": 4422,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 0,
+          "unloadEventEnd": 0,
+          "domInteractive": 41.10000002384186,
+          "domContentLoadedEventStart": 238.60000002384186,
+          "domContentLoadedEventEnd": 238.70000004768372,
+          "domComplete": 242.89999997615814,
+          "loadEventStart": 242.89999997615814,
+          "loadEventEnd": 242.89999997615814,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "http://127.0.0.1:8682/app.mjs",
+          "entryType": "resource",
+          "startTime": 35.5,
+          "duration": 31,
+          "navigationId": 6182,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 35.5,
+          "domainLookupStart": 42.299999952316284,
+          "domainLookupEnd": 42.299999952316284,
+          "connectStart": 42.299999952316284,
+          "secureConnectionStart": 0,
+          "connectEnd": 42.5,
+          "requestStart": 42.799999952316284,
+          "responseStart": 44.89999997615814,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 44.89999997615814,
+          "responseEnd": 66.5,
+          "transferSize": 317254,
+          "encodedBodySize": 316954,
+          "decodedBodySize": 1098174,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "http://127.0.0.1:8682/",
+          5718
+        ],
+        [
+          "http://127.0.0.1:8682/style.css",
+          10651
+        ],
+        [
+          "http://127.0.0.1:8682/app.mjs",
+          318270
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "observation_bundle",
+          25650
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          827
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "lab_status",
+          779
+        ],
+        [
+          "http://127.0.0.1:8682/configuration-deflector.bin",
+          3246
+        ],
+        [
+          "source_descriptor",
+          407
+        ],
+        [
+          "retained_publication",
+          4383
+        ],
+        [
+          "retained_artifact_chunk",
+          14556
+        ],
+        [
+          "observation",
+          6491
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 2.217223000014201,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 201,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 420,
+        "Resources": 13,
+        "ContextLifecycleStateObservers": 15,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 2526,
+        "LayoutCount": 9,
+        "RecalcStyleCount": 73,
+        "LayoutDuration": 0.024062,
+        "RecalcStyleDuration": 0.018709,
+        "DevToolsCommandDuration": 0.055463,
+        "ScriptDuration": 0.17685599999999999,
+        "V8CompileDuration": 0,
+        "TaskDuration": 1.488346,
+        "TaskOtherDuration": 1.213256,
+        "ThreadTime": 0.783672,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 12091832,
+        "JSHeapTotalSize": 27123712,
+        "FirstMeaningfulPaint": 0,
+        "DomContentLoaded": 0.27751000004354864,
+        "NavigationStart": 0.09017799992579967
+      }
+    },
+    {
+      "view": [
+        1440,
+        900
+      ],
+      "cache": "warm",
+      "sample": 1,
+      "load": {
+        "first": {
+          "at": 924.8,
+          "world": 939.5,
+          "cert": 548.8000000715256,
+          "history": {
+            "requests": 2,
+            "bytes": 18404,
+            "outcome": "interval",
+            "elapsedMs": 379.09999990463257
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            296
+          ],
+          [
+            "first-contentful-paint",
+            296
+          ]
+        ],
+        "nav": {
+          "name": "http://127.0.0.1:8682/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 186.5,
+          "navigationId": 8393,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.30000007152557373,
+          "domainLookupStart": 2.4000000953674316,
+          "domainLookupEnd": 2.4000000953674316,
+          "connectStart": 2.4000000953674316,
+          "secureConnectionStart": 0,
+          "connectEnd": 3,
+          "requestStart": 3.200000047683716,
+          "responseStart": 5.900000095367432,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 5.900000095367432,
+          "responseEnd": 7.100000023841858,
+          "transferSize": 4722,
+          "encodedBodySize": 4422,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 54.800000071525574,
+          "unloadEventEnd": 54.800000071525574,
+          "domInteractive": 84.10000002384186,
+          "domContentLoadedEventStart": 184.40000009536743,
+          "domContentLoadedEventEnd": 184.60000002384186,
+          "domComplete": 186.40000009536743,
+          "loadEventStart": 186.5,
+          "loadEventEnd": 186.5,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "http://127.0.0.1:8682/app.mjs",
+          "entryType": "resource",
+          "startTime": 81.5,
+          "duration": 0,
+          "navigationId": 8393,
+          "initiatorType": "script",
+          "deliveryType": "cache",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 81.5,
+          "domainLookupStart": 81.5,
+          "domainLookupEnd": 81.5,
+          "connectStart": 81.5,
+          "secureConnectionStart": 0,
+          "connectEnd": 81.5,
+          "requestStart": 81.5,
+          "responseStart": 81.5,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 0,
+          "responseEnd": 81.5,
+          "transferSize": 0,
+          "encodedBodySize": 316954,
+          "decodedBodySize": 1098174,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "http://127.0.0.1:8682/style.css",
+          0
+        ],
+        [
+          "http://127.0.0.1:8682/app.mjs",
+          0
+        ],
+        [
+          "http://127.0.0.1:8682/",
+          5718
+        ],
+        [
+          "lab_status",
+          804
+        ],
+        [
+          "observation_bundle",
+          25480
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          802
+        ],
+        [
+          "http://127.0.0.1:8682/configuration-deflector.bin",
+          3246
+        ],
+        [
+          "source_descriptor",
+          407
+        ],
+        [
+          "retained_publication",
+          4383
+        ],
+        [
+          "retained_artifact_chunk",
+          14556
+        ],
+        [
+          "observation",
+          6492
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 1.6881039999425411,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 259,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 418,
+        "Resources": 10,
+        "ContextLifecycleStateObservers": 15,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 1515,
+        "LayoutCount": -1,
+        "RecalcStyleCount": -24,
+        "LayoutDuration": -0.021834,
+        "RecalcStyleDuration": -0.007247999999999999,
+        "DevToolsCommandDuration": 0.023020999999999993,
+        "ScriptDuration": -0.04083999999999999,
+        "V8CompileDuration": 0,
+        "TaskDuration": -0.1916930000000001,
+        "TaskOtherDuration": -0.14479200000000003,
+        "ThreadTime": -0.23636099999999993,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 4223936,
+        "JSHeapTotalSize": 14802944,
+        "FirstMeaningfulPaint": 0,
+        "DomContentLoaded": 2.1791380000067875,
+        "NavigationStart": 2.233306000009179
+      }
+    },
+    {
+      "view": [
+        390,
+        844
+      ],
+      "cache": "cold",
+      "sample": 0,
+      "load": {
+        "first": {
+          "at": 1714.3,
+          "world": 1788.2999999523163,
+          "cert": 1223.7999999523163,
+          "history": {
+            "requests": 2,
+            "bytes": 18404,
+            "outcome": "interval",
+            "elapsedMs": 539.2999999523163
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            84
+          ],
+          [
+            "first-contentful-paint",
+            84
+          ]
+        ],
+        "nav": {
+          "name": "http://127.0.0.1:8682/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 234.39999997615814,
+          "navigationId": 319,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.2999999523162842,
+          "domainLookupStart": 2.100000023841858,
+          "domainLookupEnd": 2.1999999284744263,
+          "connectStart": 2.1999999284744263,
+          "secureConnectionStart": 0,
+          "connectEnd": 2.399999976158142,
+          "requestStart": 2.5,
+          "responseStart": 4,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 4,
+          "responseEnd": 5.100000023841858,
+          "transferSize": 4722,
+          "encodedBodySize": 4422,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 0,
+          "unloadEventEnd": 0,
+          "domInteractive": 33.199999928474426,
+          "domContentLoadedEventStart": 231.79999995231628,
+          "domContentLoadedEventEnd": 232,
+          "domComplete": 234.39999997615814,
+          "loadEventStart": 234.39999997615814,
+          "loadEventEnd": 234.39999997615814,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "http://127.0.0.1:8682/app.mjs",
+          "entryType": "resource",
+          "startTime": 28.199999928474426,
+          "duration": 26.5,
+          "navigationId": 319,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 28.199999928474426,
+          "domainLookupStart": 33.5,
+          "domainLookupEnd": 33.5,
+          "connectStart": 33.5,
+          "secureConnectionStart": 0,
+          "connectEnd": 34.5,
+          "requestStart": 36.199999928474426,
+          "responseStart": 37.199999928474426,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 37.199999928474426,
+          "responseEnd": 54.699999928474426,
+          "transferSize": 317254,
+          "encodedBodySize": 316954,
+          "decodedBodySize": 1098174,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "http://127.0.0.1:8682/",
+          5718
+        ],
+        [
+          "http://127.0.0.1:8682/style.css",
+          10651
+        ],
+        [
+          "http://127.0.0.1:8682/app.mjs",
+          318270
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23263
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "observation_bundle",
+          25493
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          803
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "http://127.0.0.1:8682/configuration-deflector.bin",
+          3246
+        ],
+        [
+          "source_descriptor",
+          407
+        ],
+        [
+          "retained_publication",
+          4382
+        ],
+        [
+          "retained_artifact_chunk",
+          14579
+        ],
+        [
+          "observation",
+          6492
+        ],
+        [
+          "lab_status",
+          779
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 2.9477789999218658,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 205,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 424,
+        "Resources": 14,
+        "ContextLifecycleStateObservers": 15,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 2663,
+        "LayoutCount": 9,
+        "RecalcStyleCount": 78,
+        "LayoutDuration": 0.017297,
+        "RecalcStyleDuration": 0.030412,
+        "DevToolsCommandDuration": 0.065132,
+        "ScriptDuration": 0.197829,
+        "V8CompileDuration": 0,
+        "TaskDuration": 2.224692,
+        "TaskOtherDuration": 1.914022,
+        "ThreadTime": 0.948648,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 17649884,
+        "JSHeapTotalSize": 28172288,
+        "FirstMeaningfulPaint": 0,
+        "DomContentLoaded": 0.2557469999883324,
+        "NavigationStart": 0.0648209999781102
+      }
+    },
+    {
+      "view": [
+        390,
+        844
+      ],
+      "cache": "warm",
+      "sample": 0,
+      "load": {
+        "first": {
+          "at": 1272.6,
+          "world": 1311.7999999523163,
+          "cert": 797.1999999284744,
+          "history": {
+            "requests": 2,
+            "bytes": 18404,
+            "outcome": "interval",
+            "elapsedMs": 498.5
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            260
+          ],
+          [
+            "first-contentful-paint",
+            260
+          ]
+        ],
+        "nav": {
+          "name": "http://127.0.0.1:8682/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 218,
+          "navigationId": 2605,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.5,
+          "domainLookupStart": 5,
+          "domainLookupEnd": 5.100000023841858,
+          "connectStart": 5.100000023841858,
+          "secureConnectionStart": 0,
+          "connectEnd": 7.5,
+          "requestStart": 7.600000023841858,
+          "responseStart": 13.399999976158142,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 13.399999976158142,
+          "responseEnd": 14.799999952316284,
+          "transferSize": 4722,
+          "encodedBodySize": 4422,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 60.699999928474426,
+          "unloadEventEnd": 60.699999928474426,
+          "domInteractive": 107.10000002384186,
+          "domContentLoadedEventStart": 211.79999995231628,
+          "domContentLoadedEventEnd": 212,
+          "domComplete": 218,
+          "loadEventStart": 218,
+          "loadEventEnd": 218,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "http://127.0.0.1:8682/app.mjs",
+          "entryType": "resource",
+          "startTime": 97.10000002384186,
+          "duration": 0,
+          "navigationId": 2605,
+          "initiatorType": "script",
+          "deliveryType": "cache",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 97.10000002384186,
+          "domainLookupStart": 97.10000002384186,
+          "domainLookupEnd": 97.10000002384186,
+          "connectStart": 97.10000002384186,
+          "secureConnectionStart": 0,
+          "connectEnd": 97.10000002384186,
+          "requestStart": 97.10000002384186,
+          "responseStart": 97.10000002384186,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 0,
+          "responseEnd": 97.10000002384186,
+          "transferSize": 0,
+          "encodedBodySize": 316954,
+          "decodedBodySize": 1098174,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "http://127.0.0.1:8682/audio/b2z-v1/manifest.json",
+          33542
+        ],
+        [
+          "http://127.0.0.1:8682/style.css",
+          0
+        ],
+        [
+          "http://127.0.0.1:8682/app.mjs",
+          0
+        ],
+        [
+          "http://127.0.0.1:8682/",
+          5718
+        ],
+        [
+          "lab_status",
+          779
+        ],
+        [
+          "observation_bundle",
+          25481
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          803
+        ],
+        [
+          "http://127.0.0.1:8682/configuration-deflector.bin",
+          3246
+        ],
+        [
+          "retained_publication",
+          4407
+        ],
+        [
+          "source_descriptor",
+          408
+        ],
+        [
+          "retained_artifact_chunk",
+          14555
+        ],
+        [
+          "observation",
+          6492
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 2.4050249999854714,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 261,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 418,
+        "Resources": 10,
+        "ContextLifecycleStateObservers": 15,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 1767,
+        "LayoutCount": -1,
+        "RecalcStyleCount": -24,
+        "LayoutDuration": -0.014135,
+        "RecalcStyleDuration": -0.0066890000000000005,
+        "DevToolsCommandDuration": 0.019912,
+        "ScriptDuration": -0.074181,
+        "V8CompileDuration": 0,
+        "TaskDuration": -0.3331390000000001,
+        "TaskOtherDuration": -0.258046,
+        "ThreadTime": -0.29358399999999996,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 10124060,
+        "JSHeapTotalSize": 17424384,
+        "FirstMeaningfulPaint": 0,
+        "DomContentLoaded": 3.0049740000395104,
+        "NavigationStart": 3.0249329999787733
+      },
+      "action_driver_ms_including_paint_proxy": [
+        [
+          "move",
+          567.607184057124
+        ],
+        [
+          "build",
+          631.2259229598567
+        ],
+        [
+          "deflect",
+          467.4187219934538
+        ]
+      ],
+      "input_to_next_animation_callback": [
+        {
+          "id": null,
+          "ms": 28.399999976158142
+        },
+        {
+          "id": "quantity-plus",
+          "ms": 31.5
+        },
+        {
+          "id": "move-action",
+          "ms": 65
+        },
+        {
+          "id": "build-action",
+          "ms": 68.70000004768372
+        },
+        {
+          "id": "deflect-action",
+          "ms": 43.40000009536743
+        },
+        {
+          "id": "",
+          "ms": 46.89999997615814
+        },
+        {
+          "id": null,
+          "ms": 55.299999952316284
+        }
+      ],
+      "native_event_timing": [
+        {
+          "name": "pointerdown",
+          "delay": 21.100000023841858,
+          "handler": 2.1999999284744263,
+          "duration": 56,
+          "target": "aim-handle"
+        },
+        {
+          "name": "pointerup",
+          "delay": 22.899999976158142,
+          "handler": 0.6000000238418579,
+          "duration": 64,
+          "target": "board"
+        },
+        {
+          "name": "click",
+          "delay": 23.799999952316284,
+          "handler": 0.10000002384185791,
+          "duration": 64,
+          "target": "board"
+        },
+        {
+          "name": "pointerdown",
+          "delay": 21.40000009536743,
+          "handler": 1.1999999284744263,
+          "duration": 64,
+          "target": "quantity-plus"
+        },
+        {
+          "name": "pointerup",
+          "delay": 22.899999976158142,
+          "handler": 0.10000002384185791,
+          "duration": 64,
+          "target": "quantity-plus"
+        },
+        {
+          "name": "click",
+          "delay": 23,
+          "handler": 1.100000023841858,
+          "duration": 64,
+          "target": "quantity-plus"
+        },
+        {
+          "name": "pointerdown",
+          "delay": 24.5,
+          "handler": 1.100000023841858,
+          "duration": 200,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 25.899999976158142,
+          "handler": 0.10000002384185791,
+          "duration": 200,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 26,
+          "handler": 4,
+          "duration": 200,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 49,
+          "handler": 1,
+          "duration": 144,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 50.10000002384186,
+          "handler": 0.10000002384185791,
+          "duration": 144,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 50.200000047683716,
+          "handler": 10.5,
+          "duration": 144,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 24.799999952316284,
+          "handler": 0.8999999761581421,
+          "duration": 104,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 26,
+          "handler": 0.10000002384185791,
+          "duration": 104,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 26.100000023841858,
+          "handler": 7.200000047683716,
+          "duration": 104,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 41.10000002384186,
+          "handler": 0.7999999523162842,
+          "duration": 96,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 42,
+          "handler": 0.09999990463256836,
+          "duration": 96,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 42.199999928474426,
+          "handler": 1.100000023841858,
+          "duration": 96,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 44,
+          "handler": 0.40000009536743164,
+          "duration": 104,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 45.699999928474426,
+          "handler": 0.10000002384185791,
+          "duration": 120,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 45.89999997615814,
+          "handler": 0.10000002384185791,
+          "duration": 120,
+          "target": ""
+        }
+      ],
+      "long_tasks": [
+        {
+          "name": "self",
+          "start": 14043.899999976158,
+          "duration": 55
+        },
+        {
+          "name": "self",
+          "start": 16592.5,
+          "duration": 105
+        },
+        {
+          "name": "self",
+          "start": 16981.100000023842,
+          "duration": 153
+        },
+        {
+          "name": "self",
+          "start": 17233.699999928474,
+          "duration": 66
+        },
+        {
+          "name": "self",
+          "start": 17301.399999976158,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 17836,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 17902.5,
+          "duration": 56
+        },
+        {
+          "name": "self",
+          "start": 18356.799999952316,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 18410.899999976158,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 18553.399999976158,
+          "duration": 70
+        },
+        {
+          "name": "self",
+          "start": 19142.699999928474,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 19194,
+          "duration": 74
+        },
+        {
+          "name": "self",
+          "start": 19413.100000023842,
+          "duration": 85
+        },
+        {
+          "name": "self",
+          "start": 19499.299999952316,
+          "duration": 68
+        },
+        {
+          "name": "self",
+          "start": 19865.899999976158,
+          "duration": 68
+        },
+        {
+          "name": "self",
+          "start": 20463.799999952316,
+          "duration": 72
+        },
+        {
+          "name": "self",
+          "start": 20537.100000023842,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 20838.899999976158,
+          "duration": 55
+        },
+        {
+          "name": "self",
+          "start": 20970.199999928474,
+          "duration": 52
+        },
+        {
+          "name": "self",
+          "start": 21110.399999976158,
+          "duration": 63
+        },
+        {
+          "name": "self",
+          "start": 21174.5,
+          "duration": 60
+        },
+        {
+          "name": "self",
+          "start": 21236.100000023842,
+          "duration": 50
+        },
+        {
+          "name": "self",
+          "start": 21769.199999928474,
+          "duration": 59
+        },
+        {
+          "name": "self",
+          "start": 21830.199999928474,
+          "duration": 83
+        },
+        {
+          "name": "self",
+          "start": 22454.100000023842,
+          "duration": 64
+        },
+        {
+          "name": "self",
+          "start": 22518.600000023842,
+          "duration": 57
+        },
+        {
+          "name": "self",
+          "start": 23050.199999928474,
+          "duration": 51
+        },
+        {
+          "name": "self",
+          "start": 23103,
+          "duration": 67
+        },
+        {
+          "name": "self",
+          "start": 23170.600000023842,
+          "duration": 53
+        },
+        {
+          "name": "self",
+          "start": 23735.100000023842,
+          "duration": 61
+        },
+        {
+          "name": "self",
+          "start": 23796.600000023842,
+          "duration": 59
+        },
+        {
+          "name": "self",
+          "start": 23953.5,
+          "duration": 56
+        }
+      ],
+      "interaction_performance_delta": {
+        "Timestamp": 11.999173999996856,
+        "AudioHandlers": 4,
+        "AudioWorkletProcessors": 0,
+        "Documents": 0,
+        "Frames": 0,
+        "JSEventListeners": 316,
+        "LayoutObjects": 82,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 196,
+        "Resources": 27,
+        "ContextLifecycleStateObservers": 0,
+        "V8PerContextDatas": 0,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 0,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 0,
+        "ArrayBufferContents": 7646,
+        "LayoutCount": 95,
+        "RecalcStyleCount": 694,
+        "LayoutDuration": 0.029457,
+        "RecalcStyleDuration": 0.09284600000000001,
+        "DevToolsCommandDuration": 0.15048,
+        "ScriptDuration": 1.3370770000000003,
+        "V8CompileDuration": 0,
+        "TaskDuration": 11.947140000000001,
+        "TaskOtherDuration": 10.337279999999998,
+        "ThreadTime": 2.46032,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 9998972,
+        "JSHeapTotalSize": 524288,
+        "FirstMeaningfulPaint": 0,
+        "DomContentLoaded": 0.0,
+        "NavigationStart": 0.0
+      },
+      "render": {
+        "time": 11817.228991000042,
+        "deflectors": 0,
+        "structure_triangles": 260,
+        "pixel_budget": 786432,
+        "buffer_width": 390,
+        "buffer_height": 844,
+        "structure_uploads": false,
+        "instance_upload_bytes": 27064,
+        "draw_calls": 21,
+        "triangles": 3512,
+        "tiles": 4,
+        "pieces": 1,
+        "effects": 2,
+        "geometries": 23,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 483,
+        "tails": 41,
+        "motion": {
+          "balls": 1,
+          "tiles": 2,
+          "pathPoints": 41,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      },
+      "computed_panel": {
+        "backdrop": "none",
+        "background": "linear-gradient(rgb(65, 77, 81) 0px, rgb(43, 53, 57) 17%, rgb(32, 41, 45) 60%, rgb(20, 29, 32) 100%)"
+      },
+      "interaction": {
+        "frames": 281,
+        "p50_ms": 33.4,
+        "p95_ms": 83.3,
+        "worst_ms": 150.09999999999854,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "steady_wire": [
+        [
+          "observation",
+          6519
+        ],
+        [
+          "observation",
+          6471
+        ],
+        [
+          "observation",
+          6492
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "observation",
+          6468
+        ],
+        [
+          "observation",
+          6648
+        ],
+        [
+          "observation",
+          6495
+        ],
+        [
+          "observation",
+          6468
+        ],
+        [
+          "lab_status",
+          804
+        ]
+      ]
+    },
+    {
+      "view": [
+        320,
+        640
+      ],
+      "cache": "cold",
+      "sample": 0,
+      "load": {
+        "first": {
+          "at": 1261.9,
+          "world": 1285.5,
+          "cert": 790.3999999761581,
+          "history": {
+            "requests": 2,
+            "bytes": 18404,
+            "outcome": "interval",
+            "elapsedMs": 480.2000000476837
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            100
+          ],
+          [
+            "first-contentful-paint",
+            100
+          ]
+        ],
+        "nav": {
+          "name": "http://127.0.0.1:8682/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 237,
+          "navigationId": 4231,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.2999999523162842,
+          "domainLookupStart": 2.899999976158142,
+          "domainLookupEnd": 3,
+          "connectStart": 3,
+          "secureConnectionStart": 0,
+          "connectEnd": 3.1999999284744263,
+          "requestStart": 3.5,
+          "responseStart": 5.899999976158142,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 5.899999976158142,
+          "responseEnd": 8.799999952316284,
+          "transferSize": 4722,
+          "encodedBodySize": 4422,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 0,
+          "unloadEventEnd": 0,
+          "domInteractive": 30.799999952316284,
+          "domContentLoadedEventStart": 233.5,
+          "domContentLoadedEventEnd": 233.59999990463257,
+          "domComplete": 237,
+          "loadEventStart": 237,
+          "loadEventEnd": 237,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "http://127.0.0.1:8682/app.mjs",
+          "entryType": "resource",
+          "startTime": 29,
+          "duration": 27.199999928474426,
+          "navigationId": 4231,
+          "initiatorType": "script",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 29,
+          "domainLookupStart": 36,
+          "domainLookupEnd": 36,
+          "connectStart": 36,
+          "secureConnectionStart": 0,
+          "connectEnd": 36.199999928474426,
+          "requestStart": 36.39999997615814,
+          "responseStart": 37.199999928474426,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 37.199999928474426,
+          "responseEnd": 56.199999928474426,
+          "transferSize": 317254,
+          "encodedBodySize": 316954,
+          "decodedBodySize": 1098174,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "http://127.0.0.1:8682/",
+          5718
+        ],
+        [
+          "http://127.0.0.1:8682/style.css",
+          10651
+        ],
+        [
+          "http://127.0.0.1:8682/app.mjs",
+          318270
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          0
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23240
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          814
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "observation_bundle",
+          25481
+        ],
+        [
+          "http://127.0.0.1:8682/configuration-deflector.bin",
+          3246
+        ],
+        [
+          "source_descriptor",
+          432
+        ],
+        [
+          "retained_publication",
+          4383
+        ],
+        [
+          "retained_artifact_chunk",
+          14556
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 1.81855500000529,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 200,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 418,
+        "Resources": 13,
+        "ContextLifecycleStateObservers": 15,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 2552,
+        "LayoutCount": 9,
+        "RecalcStyleCount": 65,
+        "LayoutDuration": 0.026448,
+        "RecalcStyleDuration": 0.022784,
+        "DevToolsCommandDuration": 0.043137,
+        "ScriptDuration": 0.158113,
+        "V8CompileDuration": 0,
+        "TaskDuration": 1.181938,
+        "TaskOtherDuration": 0.9314560000000001,
+        "ThreadTime": 0.706481,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 14041096,
+        "JSHeapTotalSize": 25550848,
+        "FirstMeaningfulPaint": 0,
+        "DomContentLoaded": 0.26976599998306483,
+        "NavigationStart": 0.0900019999826327
+      }
+    },
+    {
+      "view": [
+        320,
+        640
+      ],
+      "cache": "warm",
+      "sample": 0,
+      "load": {
+        "first": {
+          "at": 894.6,
+          "world": 923.8000000715256,
+          "cert": 529.2000000476837,
+          "history": {
+            "requests": 2,
+            "bytes": 18404,
+            "outcome": "interval",
+            "elapsedMs": 382.2000000476837
+          }
+        },
+        "paint": [
+          [
+            "first-paint",
+            208
+          ],
+          [
+            "first-contentful-paint",
+            208
+          ]
+        ],
+        "nav": {
+          "name": "http://127.0.0.1:8682/",
+          "entryType": "navigation",
+          "startTime": 0,
+          "duration": 176.80000007152557,
+          "navigationId": 1811,
+          "initiatorType": "navigation",
+          "deliveryType": "",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/html",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 0.30000007152557373,
+          "domainLookupStart": 1.5,
+          "domainLookupEnd": 1.600000023841858,
+          "connectStart": 1.600000023841858,
+          "secureConnectionStart": 0,
+          "connectEnd": 2.5,
+          "requestStart": 3,
+          "responseStart": 4,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 4,
+          "responseEnd": 6.800000071525574,
+          "transferSize": 4722,
+          "encodedBodySize": 4422,
+          "decodedBodySize": 15241,
+          "responseStatus": 200,
+          "serverTiming": [],
+          "unloadEventStart": 57.5,
+          "unloadEventEnd": 57.5,
+          "domInteractive": 85.60000002384186,
+          "domContentLoadedEventStart": 174.39999997615814,
+          "domContentLoadedEventEnd": 174.5,
+          "domComplete": 176.80000007152557,
+          "loadEventStart": 176.80000007152557,
+          "loadEventEnd": 176.80000007152557,
+          "type": "navigate",
+          "redirectCount": 0,
+          "activationStart": 0,
+          "criticalCHRestart": 0,
+          "notRestoredReasons": null,
+          "confidence": {
+            "randomizedTriggerRate": 0.4994798,
+            "value": "high"
+          }
+        },
+        "app": {
+          "name": "http://127.0.0.1:8682/app.mjs",
+          "entryType": "resource",
+          "startTime": 81.80000007152557,
+          "duration": 0,
+          "navigationId": 1811,
+          "initiatorType": "script",
+          "deliveryType": "cache",
+          "nextHopProtocol": "http/1.0",
+          "renderBlockingStatus": "non-blocking",
+          "contentType": "text/javascript",
+          "contentEncoding": "gzip",
+          "workerStart": 0,
+          "workerRouterEvaluationStart": 0,
+          "workerCacheLookupStart": 0,
+          "workerMatchedSourceType": "",
+          "workerFinalSourceType": "",
+          "redirectStart": 0,
+          "redirectEnd": 0,
+          "fetchStart": 81.80000007152557,
+          "domainLookupStart": 81.80000007152557,
+          "domainLookupEnd": 81.80000007152557,
+          "connectStart": 81.80000007152557,
+          "secureConnectionStart": 0,
+          "connectEnd": 81.80000007152557,
+          "requestStart": 81.80000007152557,
+          "responseStart": 81.80000007152557,
+          "firstInterimResponseStart": 0,
+          "finalResponseHeadersStart": 0,
+          "responseEnd": 81.80000007152557,
+          "transferSize": 0,
+          "encodedBodySize": 316954,
+          "decodedBodySize": 1098174,
+          "responseStatus": 200,
+          "serverTiming": []
+        },
+        "renderer": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)",
+        "dpr": 1
+      },
+      "load_wire": [
+        [
+          "observation",
+          6492
+        ],
+        [
+          "http://127.0.0.1:8682/style.css",
+          0
+        ],
+        [
+          "http://127.0.0.1:8682/app.mjs",
+          0
+        ],
+        [
+          "http://127.0.0.1:8682/",
+          5718
+        ],
+        [
+          "observation_bundle",
+          25480
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/read_state",
+          23082
+        ],
+        [
+          "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+          803
+        ],
+        [
+          "http://127.0.0.1:8682/configuration-deflector.bin",
+          3246
+        ],
+        [
+          "retained_publication",
+          4383
+        ],
+        [
+          "source_descriptor",
+          408
+        ],
+        [
+          "retained_artifact_chunk",
+          14580
+        ]
+      ],
+      "performance_delta": {
+        "Timestamp": 1.5230959999607876,
+        "AudioHandlers": 5,
+        "AudioWorkletProcessors": 0,
+        "Documents": 2,
+        "Frames": 3,
+        "JSEventListeners": 257,
+        "LayoutObjects": 64,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": 416,
+        "Resources": 9,
+        "ContextLifecycleStateObservers": 15,
+        "V8PerContextDatas": 2,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": 2,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 2,
+        "ArrayBufferContents": 1932,
+        "LayoutCount": -1,
+        "RecalcStyleCount": -15,
+        "LayoutDuration": -0.023410999999999998,
+        "RecalcStyleDuration": -0.010896,
+        "DevToolsCommandDuration": -0.010327000000000003,
+        "ScriptDuration": -0.052500000000000005,
+        "V8CompileDuration": 0,
+        "TaskDuration": -0.12023399999999995,
+        "TaskOtherDuration": -0.0230999999999999,
+        "ThreadTime": -0.18402600000000002,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": 15360520,
+        "JSHeapTotalSize": 21356544,
+        "FirstMeaningfulPaint": 0,
+        "DomContentLoaded": 1.7915600000414997,
+        "NavigationStart": 1.8506030000280589
+      },
+      "action_driver_ms_including_paint_proxy": [
+        [
+          "move",
+          472.489582025446
+        ],
+        [
+          "build",
+          504.06145001761615
+        ],
+        [
+          "deflect",
+          482.38899698480964
+        ]
+      ],
+      "input_to_next_animation_callback": [
+        {
+          "id": null,
+          "ms": 22.40000009536743
+        },
+        {
+          "id": "quantity-plus",
+          "ms": 25.100000023841858
+        },
+        {
+          "id": "move-action",
+          "ms": 50.699999928474426
+        },
+        {
+          "id": "build-action",
+          "ms": 41
+        },
+        {
+          "id": "deflect-action",
+          "ms": 41.800000071525574
+        },
+        {
+          "id": "",
+          "ms": 39
+        },
+        {
+          "id": null,
+          "ms": 32.89999997615814
+        }
+      ],
+      "native_event_timing": [
+        {
+          "name": "pointerdown",
+          "delay": 14.200000047683716,
+          "handler": 1.7999999523162842,
+          "duration": 48,
+          "target": "aim-handle"
+        },
+        {
+          "name": "pointerup",
+          "delay": 16.300000071525574,
+          "handler": 0.6000000238418579,
+          "duration": 48,
+          "target": "board"
+        },
+        {
+          "name": "click",
+          "delay": 17.200000047683716,
+          "handler": 0.10000002384185791,
+          "duration": 48,
+          "target": "board"
+        },
+        {
+          "name": "pointerdown",
+          "delay": 18.5,
+          "handler": 0.9000000953674316,
+          "duration": 56,
+          "target": "quantity-plus"
+        },
+        {
+          "name": "pointerup",
+          "delay": 20,
+          "handler": 0.10000002384185791,
+          "duration": 56,
+          "target": "quantity-plus"
+        },
+        {
+          "name": "click",
+          "delay": 20.100000023841858,
+          "handler": 0.8999999761581421,
+          "duration": 56,
+          "target": "quantity-plus"
+        },
+        {
+          "name": "pointerdown",
+          "delay": 17.399999976158142,
+          "handler": 1,
+          "duration": 200,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 19,
+          "handler": 0,
+          "duration": 200,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 19.09999990463257,
+          "handler": 3.9000000953674316,
+          "duration": 200,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 28.199999928474426,
+          "handler": 0.7000000476837158,
+          "duration": 80,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 29.799999952316284,
+          "handler": 0.10000002384185791,
+          "duration": 80,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 29.899999976158142,
+          "handler": 6.100000023841858,
+          "duration": 80,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 27.09999990463257,
+          "handler": 0.9000000953674316,
+          "duration": 88,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 28.40000009536743,
+          "handler": 0.09999990463256836,
+          "duration": 88,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 28.5,
+          "handler": 4.900000095367432,
+          "duration": 88,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 33.39999997615814,
+          "handler": 0.8999999761581421,
+          "duration": 80,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 34,
+          "handler": 0.19999992847442627,
+          "duration": 80,
+          "target": ""
+        },
+        {
+          "name": "click",
+          "delay": 34.199999928474426,
+          "handler": 0.8000000715255737,
+          "duration": 80,
+          "target": ""
+        },
+        {
+          "name": "pointerdown",
+          "delay": 29.199999928474426,
+          "handler": 0.40000009536743164,
+          "duration": 72,
+          "target": ""
+        },
+        {
+          "name": "pointerup",
+          "delay": 26.199999928474426,
+          "handler": 0,
+          "duration": 80,
+          "target": "recipient-reveal"
+        },
+        {
+          "name": "click",
+          "delay": 26.199999928474426,
+          "handler": 0.20000004768371582,
+          "duration": 80,
+          "target": ""
+        }
+      ],
+      "long_tasks": [
+        {
+          "name": "self",
+          "start": 7886.5,
+          "duration": 66
+        },
+        {
+          "name": "self",
+          "start": 10347.399999976158,
+          "duration": 136
+        },
+        {
+          "name": "self",
+          "start": 10577.100000023842,
+          "duration": 53
+        },
+        {
+          "name": "self",
+          "start": 10807.100000023842,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 11254.5,
+          "duration": 73
+        },
+        {
+          "name": "self",
+          "start": 12348.399999976158,
+          "duration": 54
+        },
+        {
+          "name": "self",
+          "start": 12410,
+          "duration": 59
+        },
+        {
+          "name": "self",
+          "start": 13924.100000023842,
+          "duration": 108
+        }
+      ],
+      "interaction_performance_delta": {
+        "Timestamp": 9.648038999992423,
+        "AudioHandlers": 2,
+        "AudioWorkletProcessors": 0,
+        "Documents": -4,
+        "Frames": -5,
+        "JSEventListeners": -336,
+        "LayoutObjects": -191,
+        "MediaKeySessions": 0,
+        "MediaKeys": 0,
+        "Nodes": -27,
+        "Resources": -26,
+        "ContextLifecycleStateObservers": -7,
+        "V8PerContextDatas": -4,
+        "WorkerGlobalScopes": 0,
+        "UACSSResources": 0,
+        "RTCPeerConnections": 0,
+        "ResourceFetchers": -4,
+        "AdSubframes": 0,
+        "DetachedScriptStates": 0,
+        "ArrayBufferContents": -2320,
+        "LayoutCount": 108,
+        "RecalcStyleCount": 697,
+        "LayoutDuration": 0.027746999999999997,
+        "RecalcStyleDuration": 0.078209,
+        "DevToolsCommandDuration": 0.16445400000000002,
+        "ScriptDuration": 1.4075509999999998,
+        "V8CompileDuration": 0,
+        "TaskDuration": 9.60243,
+        "TaskOtherDuration": 7.924469,
+        "ThreadTime": 2.350983,
+        "ProcessTime": 0,
+        "JSHeapUsedSize": -8451484,
+        "JSHeapTotalSize": 2621440,
+        "FirstMeaningfulPaint": 0,
+        "DomContentLoaded": 0.0,
+        "NavigationStart": 0.0
+      },
+      "render": {
+        "time": 11817.150494000029,
+        "deflectors": 0,
+        "structure_triangles": 260,
+        "pixel_budget": 1000000,
+        "buffer_width": 320,
+        "buffer_height": 640,
+        "structure_uploads": false,
+        "instance_upload_bytes": 19024,
+        "draw_calls": 21,
+        "triangles": 2912,
+        "tiles": 4,
+        "pieces": 1,
+        "effects": 2,
+        "geometries": 23,
+        "textures": 1,
+        "terrain_revision": 1,
+        "terrain_bytes": 4000000,
+        "terrain_dirty_rows": 1000,
+        "preview_cells": 288,
+        "tails": 34,
+        "motion": {
+          "balls": 1,
+          "tiles": 2,
+          "pathPoints": 34,
+          "pointLimit": 64,
+          "totalPointLimit": 8192,
+          "ballLimit": 4096,
+          "tileLimit": 128
+        }
+      },
+      "computed_panel": {
+        "backdrop": "none",
+        "background": "linear-gradient(rgb(65, 77, 81) 0px, rgb(43, 53, 57) 17%, rgb(32, 41, 45) 60%, rgb(20, 29, 32) 100%)"
+      },
+      "interaction": {
+        "frames": 288,
+        "p50_ms": 33.3,
+        "p95_ms": 66.6,
+        "worst_ms": 166.6999999999989,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "steady_wire": [
+        [
+          "observation",
+          6491
+        ],
+        [
+          "lab_status",
+          779
+        ],
+        [
+          "observation",
+          6468
+        ],
+        [
+          "observation",
+          6492
+        ],
+        [
+          "observation",
+          6492
+        ],
+        [
+          "http://127.0.0.1:8682/audio/b2z-v1/music/004-f3bfe0c913ec1cfd.flac",
+          1394763
+        ],
+        [
+          "lab_status",
+          780
+        ],
+        [
+          "observation",
+          6468
+        ],
+        [
+          "observation",
+          6492
+        ],
+        [
+          "observation",
+          6472
+        ]
+      ]
+    }
+  ]
+}

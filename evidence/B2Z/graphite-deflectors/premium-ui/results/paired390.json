@@ -1,0 +1,178 @@
+[
+  {
+    "wave": 0,
+    "variant": "A",
+    "certificate": 996.7999999523163,
+    "world": 1355.1999999284744,
+    "after_certificate": 358.39999997615814,
+    "paint": 120,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 0,
+    "variant": "B",
+    "certificate": 857.3000000715256,
+    "world": 1281.5,
+    "after_certificate": 424.1999999284744,
+    "paint": 76,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 0,
+    "variant": "B",
+    "certificate": 881.7000000476837,
+    "world": 1386.3000000715256,
+    "after_certificate": 504.60000002384186,
+    "paint": 164,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 0,
+    "variant": "A",
+    "certificate": 836,
+    "world": 1317.1999999284744,
+    "after_certificate": 481.1999999284744,
+    "paint": 92,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 1,
+    "variant": "A",
+    "certificate": 834,
+    "world": 1304.1999999284744,
+    "after_certificate": 470.1999999284744,
+    "paint": 112,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 1,
+    "variant": "B",
+    "certificate": 1273.1999999284744,
+    "world": 1751.6999999284744,
+    "after_certificate": 478.5,
+    "paint": 156,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 1,
+    "variant": "B",
+    "certificate": 1299,
+    "world": 1818.6999999284744,
+    "after_certificate": 519.6999999284744,
+    "paint": 136,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 1,
+    "variant": "A",
+    "certificate": 1300.5,
+    "world": 1886,
+    "after_certificate": 585.5,
+    "paint": 148,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 2,
+    "variant": "A",
+    "certificate": 1533.7000000476837,
+    "world": 2174.600000023842,
+    "after_certificate": 640.8999999761581,
+    "paint": 284,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 2,
+    "variant": "B",
+    "certificate": 1961.7000000476837,
+    "world": 2565.2999999523163,
+    "after_certificate": 603.5999999046326,
+    "paint": 292,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 2,
+    "variant": "B",
+    "certificate": 2127.899999976158,
+    "world": 2863.5,
+    "after_certificate": 735.6000000238419,
+    "paint": 148,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 2,
+    "variant": "A",
+    "certificate": 2111.1999999284744,
+    "world": 2568.2999999523163,
+    "after_certificate": 457.10000002384186,
+    "paint": 308,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 3,
+    "variant": "A",
+    "certificate": 1985.8999999761581,
+    "world": 2527.899999976158,
+    "after_certificate": 542,
+    "paint": 196,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 3,
+    "variant": "B",
+    "certificate": 2345.7000000476837,
+    "world": 2889.3000000715256,
+    "after_certificate": 543.6000000238419,
+    "paint": 204,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 3,
+    "variant": "B",
+    "certificate": 1806.1999999284744,
+    "world": 2373.1999999284744,
+    "after_certificate": 567,
+    "paint": 180,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  },
+  {
+    "wave": 3,
+    "variant": "A",
+    "certificate": 1629.8999999761581,
+    "world": 2166.899999976158,
+    "after_certificate": 537,
+    "paint": 180,
+    "app_bytes": 316954,
+    "dpr": 1,
+    "cert_status": true
+  }
+]

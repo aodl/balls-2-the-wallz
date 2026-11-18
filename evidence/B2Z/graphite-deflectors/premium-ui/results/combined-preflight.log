@@ -1,0 +1,56 @@
+PASS exact source and all six substantive hosted gates
+PASS 81 exact frozen files
+PASS 81 exact frozen files
+PASS certified modules, controllers and subnet and signed 80-asset inventory
+true
+{
+  "at": "2026-11-18T23:12:36.453Z",
+  "module": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "root": "ba5b300fe4370e43e1f9688ef790235dad744f22d2515477cfd85c8ebd50b2e7",
+  "identity": {
+    "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+    "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+    "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "head": {
+    "logical_end": "11885",
+    "manifest_hash": "9217563754672f0e22d44593c6f8dfa708d23cd0ded825e5b1990e9ef060c978",
+    "seal": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "epoch_hash": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+      "input_count": 0,
+      "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+      "logical_end": "11885",
+      "logical_start": "11884",
+      "previous_manifest": "21f58152f1e226ae1de5ab26ba78d3e9adb57161aa264bd368cdd64fa6d56e1e",
+      "previous_state": "c02cc3682078bf422827fd7f6c240e5ee730fab4b2b295244f5f5d0c8db49c52",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "segment_id": "11890",
+      "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+      "source_from": "40180669",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+      "source_to_exclusive": "40180669"
+    },
+    "segment_id": "11890",
+    "source_to_exclusive": "40180669",
+    "state_hash": "779d029f82e0903a93af7e7d88cb103698e59e3f1a0dbf0e231c7b174c8420b3"
+  },
+  "chain": [
+    {
+      "head": 11890,
+      "root": "ba5b300fe4370e43e1f9688ef790235dad744f22d2515477cfd85c8ebd50b2e7",
+      "manifest": "9217563754672f0e22d44593c6f8dfa708d23cd0ded825e5b1990e9ef060c978",
+      "source_cursor": "40180669",
+      "state": "779d029f82e0903a93af7e7d88cb103698e59e3f1a0dbf0e231c7b174c8420b3",
+      "events": "1f11b673ac68066da09af1d7d592acd34d39bba571f834e9bc536c4bcd942086",
+      "scores": "7dbc565a85de1f0f872b1f3fd9af02b2b32341f8f21c596569108c20ca905e95",
+      "receipts": [],
+      "received_e8s": "100000000"
+    }
+  ]
+}
+{"at":"2026-11-18T23:12:40.972Z","status":"PASS","scope":"Anonymous mainnet read-only queries and certified canister paths; no production mutation","modules":[{"id":"s5ir5-gqaaa-aaaas-amyna-cai","module_hash":"2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13","certificate_verified":true},{"id":"s2jxj-liaaa-aaaas-amynq-cai","module_hash":"04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62","certificate_verified":true}],"identity":{"config_hash":"251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b","rules_hash":"1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c","schema_hash":"b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2","source_id":"54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"},"head":"11890","root":"ba5b300fe4370e43e1f9688ef790235dad744f22d2515477cfd85c8ebd50b2e7","world":{"version":7,"cannons":1,"balls":1,"state_hash":"779d029f82e0903a93af7e7d88cb103698e59e3f1a0dbf0e231c7b174c8420b3"},"served_js_sha256":"50c8556bcdb7a24de318fba5ebb496f6b2ec5031dfaa6de10ac97974387f7df7","operational_signed_query":{"run":{"last_error":[],"world_transition":false,"idle":false,"pace":{"nominal_milli":10,"supported_milli":10,"mode":"Trickle","admission_open":true,"performance_limited":false},"segment_ticks":"1","publication_ticks":"1","completed_segments":"11885","running":true},"source":{"last_error":[],"binding_checked":true,"pending_records":0,"admitted_to_exclusive":"40180669"}},"operational_scope":"Signed operational query, not certified gameplay or payment authority"}
+true
+PASS exact European observer target and controller identity

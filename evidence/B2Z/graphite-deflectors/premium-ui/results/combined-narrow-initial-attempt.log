@@ -1,0 +1,8 @@
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z-boundary-deflector/.work/premium-graphite/cannon-journey.py", line 45, in <module>
+    try:quantity=qa.editor(page,source['cell'])
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/codexdev/src/b2z-boundary-deflector/.work/premium-graphite/live_common.py", line 14, in editor
+    point=p.evaluate('(cell)=>{const q=__b2zCamera.cellPoint(cell);return{...q,hit:document.elementFromPoint(q.sx,q.sy)?.id}}',cell);assert point['visible'],('SOURCE_OFFSCREEN',point,d);assert point['hit']in ['board','aim-handle'],('SOURCE_COVERED',point,d);assert not d['error']and d['identity']['rules_hash']==RULES7;d['source_point']=point;return d
+                                                                                                                                                                                                                                                                         ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError

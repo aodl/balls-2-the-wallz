@@ -1,0 +1,26 @@
+{
+  "lime": {
+    "color": "#b2e17f",
+    "price": "color(srgb 0.743333 0.9 0.573333)",
+    "action": "Join & Pay",
+    "disabled": false
+  },
+  "magenta": {
+    "color": "#e17fcf",
+    "price": "color(srgb 0.9 0.573333 0.84)",
+    "action": "Join & Pay",
+    "disabled": false
+  },
+  "cyan": {
+    "color": "#7fc1e1",
+    "price": "color(srgb 0.573333 0.793333 0.9)",
+    "action": "Join & Pay",
+    "disabled": false
+  },
+  "amber": {
+    "color": "#e1ac7f",
+    "price": "color(srgb 0.9 0.723333 0.573333)",
+    "action": "Join & Pay",
+    "disabled": false
+  }
+}

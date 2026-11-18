@@ -1,0 +1,22 @@
+{
+  "lime": {
+    "account": "db436f29910e659919de5d6e0509e3f7d090bce127bb537bdc119da241969487",
+    "color": "#b2e17f",
+    "address": "aaaaa-aa-64cdjai.2"
+  },
+  "magenta": {
+    "account": "5bd022b28647de11447226e1b05b2a93311fda56cf36f637521b0930242b6470",
+    "color": "#e17fcf",
+    "address": "aaaaa-aa-nfqkciq.5"
+  },
+  "cyan": {
+    "account": "644541dd7aa1092fad3eea6068e160407e5dab5428e7236ca9c4a6f05f123653",
+    "color": "#7fc1e1",
+    "address": "aaaaa-aa-r3miyji.b"
+  },
+  "amber": {
+    "account": "117fc6697beb20f591a4cc9fad58ac564953c1505672aaa4cc0a44870448a50c",
+    "color": "#e1ac7f",
+    "address": "aaaaa-aa-cc6btbq.c"
+  }
+}

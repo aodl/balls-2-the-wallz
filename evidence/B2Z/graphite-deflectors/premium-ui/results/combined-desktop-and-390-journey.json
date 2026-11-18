@@ -1,0 +1,186 @@
+{
+  "1440": {
+    "identity": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "deflector": {
+      "amount": "0.1 ICP",
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "abbreviated": "s5ir5\u2026",
+      "memo": "DEFLECT 1 SE",
+      "payer": "f6a7f\u2026",
+      "fee": "Help: Ledger fee separate",
+      "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+      "prompt": "Deflect & Pay",
+      "disabled": true,
+      "panel": {
+        "x": 661,
+        "y": 334,
+        "width": 360,
+        "height": 368,
+        "top": 334,
+        "right": 1021,
+        "bottom": 702,
+        "left": 661
+      }
+    },
+    "camera": [
+      3.279287805121612,
+      0.22587215908856706,
+      88
+    ],
+    "mobile_347_15": null,
+    "head": {
+      "logical_end": "11849",
+      "manifest_hash": "3569a64decd36c5f5fde0a23cf2dcb04ec2db88f5ece3ee3700b9b83444772b4",
+      "seal": {
+        "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+        "epoch_hash": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "11849",
+        "logical_start": "11848",
+        "previous_manifest": "850a500daf362c2d523d19b9107b6b176a18ffc47459ec41fdd7046976617d25",
+        "previous_state": "9878aeca16917e26c5459ec6b89b18ce71f384ce5f781f590ae29ebd396a94e6",
+        "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "segment_id": "11854",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "11854",
+      "source_to_exclusive": "40180669",
+      "state_hash": "1ab39e6ecb8f6ee7c5eb5ea3753ae4fbccd11e548e37ee40c4fe7c0e95bf1052"
+    },
+    "renderer": {
+      "time": 11848.293286999975,
+      "deflectors": 0,
+      "structure_triangles": 284,
+      "pixel_budget": 1000000,
+      "buffer_width": 1264,
+      "buffer_height": 790,
+      "structure_uploads": false,
+      "instance_upload_bytes": 35344,
+      "draw_calls": 19,
+      "triangles": 2984,
+      "tiles": 4,
+      "pieces": 1,
+      "effects": 0,
+      "geometries": 23,
+      "textures": 1,
+      "terrain_revision": 2,
+      "terrain_bytes": 4000000,
+      "terrain_dirty_rows": 0,
+      "preview_cells": 624,
+      "tails": 0,
+      "motion": {
+        "balls": 1,
+        "tiles": 0,
+        "pathPoints": 0,
+        "pointLimit": 64,
+        "totalPointLimit": 8192,
+        "ballLimit": 4096,
+        "tileLimit": 128
+      }
+    },
+    "errors": [],
+    "forbidden_posts": []
+  },
+  "390": {
+    "identity": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "deflector": {
+      "amount": "0.1 ICP",
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "abbreviated": "s5ir5\u2026",
+      "memo": "DEFLECT 1 SE",
+      "payer": "f6a7f\u2026",
+      "fee": "Help: Ledger fee separate",
+      "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+      "prompt": "Deflect & Pay",
+      "disabled": false,
+      "panel": {
+        "x": 8,
+        "y": 221,
+        "width": 360,
+        "height": 368,
+        "top": 221,
+        "right": 368,
+        "bottom": 589,
+        "left": 8
+      }
+    },
+    "camera": [
+      5.609482510336875,
+      5.609482510336875,
+      64
+    ],
+    "mobile_347_15": null,
+    "head": {
+      "logical_end": "11851",
+      "manifest_hash": "0ce5a8d6bab96cc94d11ec654d21a8541276390d590b4d740d6d38386bb49f42",
+      "seal": {
+        "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+        "epoch_hash": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "11851",
+        "logical_start": "11850",
+        "previous_manifest": "d4fbba6f0a1180e24b9f791c2e5f6a982d2f1d84ecf86b2e09a80667dbde338a",
+        "previous_state": "606cc326a4577ea8934fb7c2a56c655ff1b38314674997fd35e2ea70b0fc6856",
+        "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "segment_id": "11856",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "11856",
+      "source_to_exclusive": "40180669",
+      "state_hash": "0c8274baff43d2989861139ccdfcce6fe19a161ed24f37af12b0bf033787524d"
+    },
+    "renderer": {
+      "time": 11850.566958000063,
+      "deflectors": 0,
+      "structure_triangles": 284,
+      "pixel_budget": 786432,
+      "buffer_width": 390,
+      "buffer_height": 844,
+      "structure_uploads": false,
+      "instance_upload_bytes": 22072,
+      "draw_calls": 21,
+      "triangles": 2336,
+      "tiles": 4,
+      "pieces": 1,
+      "effects": 1,
+      "geometries": 23,
+      "textures": 1,
+      "terrain_revision": 9,
+      "terrain_bytes": 4000000,
+      "terrain_dirty_rows": 0,
+      "preview_cells": 483,
+      "tails": 2,
+      "motion": {
+        "balls": 1,
+        "tiles": 1,
+        "pathPoints": 2,
+        "pointLimit": 64,
+        "totalPointLimit": 8192,
+        "ballLimit": 4096,
+        "tileLimit": 128
+      }
+    },
+    "errors": [],
+    "forbidden_posts": []
+  }
+}

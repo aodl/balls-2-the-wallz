@@ -1,0 +1,278 @@
+{
+  "320": {
+    "identity": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "deflector": {
+      "amount": "0.1 ICP",
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "abbreviated": "s5ir5\u2026",
+      "memo": "DEFLECT 1 SE",
+      "payer": "f6a7f\u2026",
+      "fee": "Help: Ledger fee separate",
+      "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+      "prompt": "Deflect & Pay",
+      "disabled": false,
+      "panel": {
+        "x": 8,
+        "y": 202,
+        "width": 304,
+        "height": 294,
+        "top": 202,
+        "right": 312,
+        "bottom": 496,
+        "left": 8
+      }
+    },
+    "camera": [
+      3.6575453715563526,
+      3.6575453715563526,
+      64
+    ],
+    "mobile_347_15": {
+      "at": "2026-11-18T22:21:16.435Z",
+      "camera": [
+        4.058816762525112,
+        4.058816762525112,
+        64
+      ],
+      "viewport": {
+        "width": 320,
+        "height": 640,
+        "left": 0,
+        "top": 0,
+        "visibleWidth": 320,
+        "visibleHeight": 640
+      },
+      "composer": {
+        "mode": "ball",
+        "cell": null,
+        "degrees": "347.15",
+        "worldAngle": null,
+        "quantity": 1,
+        "cry": ""
+      },
+      "identity": {
+        "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+        "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "head": {
+        "logical_end": "11854",
+        "manifest_hash": "7d0a846241a8c98c17008ed6405f91544f8d773541de18eb20d3bbaa8f856ced",
+        "seal": {
+          "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+          "epoch_hash": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+          "input_count": 0,
+          "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+          "logical_end": "11854",
+          "logical_start": "11853",
+          "previous_manifest": "b9ba25cac2996ab8197948ca8220d74fe7c32794ebcf1db9bf4257d2a8e2e582",
+          "previous_state": "32a0e918aca31264f20293b89f1d84255e8710dc58f9d441aeab66db1558f6db",
+          "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+          "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+          "segment_id": "11859",
+          "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+          "source_from": "40180669",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+          "source_to_exclusive": "40180669"
+        },
+        "segment_id": "11859",
+        "source_to_exclusive": "40180669",
+        "state_hash": "1e69903b9e7caaeb937691f9d687653d94b386821f9da202c95805f3c4533596"
+      },
+      "ready": true,
+      "error": "",
+      "deliveryError": "",
+      "status": {
+        "kind": "slow",
+        "label": "Slow \u00b7 delayed",
+        "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+        "canPrepare": false
+      },
+      "available": 11854,
+      "playhead": 11853.495979000081,
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "11854",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      },
+      "quantity": {
+        "hidden": false,
+        "inert": false,
+        "placement": "dock",
+        "rect": {
+          "x": 10,
+          "y": 503.1875,
+          "width": 130,
+          "height": 46,
+          "top": 503.1875,
+          "right": 140,
+          "bottom": 549.1875,
+          "left": 10
+        },
+        "text": "1",
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "disabled": true,
+            "rect": {
+              "x": 11,
+              "y": 504.1875,
+              "width": 44,
+              "height": 44,
+              "top": 504.1875,
+              "right": 55,
+              "bottom": 548.1875,
+              "left": 11
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "disabled": false,
+            "rect": {
+              "x": 95,
+              "y": 504.1875,
+              "width": 44,
+              "height": 44,
+              "top": 504.1875,
+              "right": 139,
+              "bottom": 548.1875,
+              "left": 95
+            },
+            "hit": true
+          }
+        ],
+        "corners": [
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "panel": {
+        "x": 8,
+        "y": 200,
+        "width": 304,
+        "height": 294,
+        "top": 200,
+        "right": 312,
+        "bottom": 494,
+        "left": 8
+      },
+      "scroll": {
+        "x": 8,
+        "y": 254,
+        "width": 304,
+        "height": 240,
+        "top": 254,
+        "right": 312,
+        "bottom": 494,
+        "left": 8
+      },
+      "scrollContent": 272,
+      "board": {
+        "x": 0,
+        "y": 0,
+        "width": 320,
+        "height": 640,
+        "top": 0,
+        "right": 320,
+        "bottom": 640,
+        "left": 0
+      },
+      "cyclesVisibility": "hidden",
+      "focus": "aim-handle",
+      "source_point": {
+        "x": 0.5,
+        "y": 0.5,
+        "sx": 160,
+        "sy": 134.0312499999979,
+        "visible": true,
+        "score": 185.9687500000021,
+        "hit": "board"
+      }
+    },
+    "head": {
+      "logical_end": "11854",
+      "manifest_hash": "7d0a846241a8c98c17008ed6405f91544f8d773541de18eb20d3bbaa8f856ced",
+      "seal": {
+        "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+        "epoch_hash": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "11854",
+        "logical_start": "11853",
+        "previous_manifest": "b9ba25cac2996ab8197948ca8220d74fe7c32794ebcf1db9bf4257d2a8e2e582",
+        "previous_state": "32a0e918aca31264f20293b89f1d84255e8710dc58f9d441aeab66db1558f6db",
+        "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "segment_id": "11859",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "11859",
+      "source_to_exclusive": "40180669",
+      "state_hash": "1e69903b9e7caaeb937691f9d687653d94b386821f9da202c95805f3c4533596"
+    },
+    "renderer": {
+      "time": 11853.730971000106,
+      "deflectors": 0,
+      "structure_triangles": 284,
+      "pixel_budget": 786432,
+      "buffer_width": 320,
+      "buffer_height": 640,
+      "structure_uploads": false,
+      "instance_upload_bytes": 14452,
+      "draw_calls": 21,
+      "triangles": 2036,
+      "tiles": 4,
+      "pieces": 1,
+      "effects": 1,
+      "geometries": 23,
+      "textures": 1,
+      "terrain_revision": 1,
+      "terrain_bytes": 4000000,
+      "terrain_dirty_rows": 1000,
+      "preview_cells": 255,
+      "tails": 6,
+      "motion": {
+        "balls": 1,
+        "tiles": 1,
+        "pathPoints": 6,
+        "pointLimit": 64,
+        "totalPointLimit": 8192,
+        "ballLimit": 4096,
+        "tileLimit": 128
+      }
+    },
+    "errors": [],
+    "forbidden_posts": []
+  }
+}

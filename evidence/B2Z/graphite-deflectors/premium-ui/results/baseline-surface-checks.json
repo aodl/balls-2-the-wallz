@@ -1,0 +1,734 @@
+{
+  "1440": {
+    "geometry": {
+      "axes": [
+        841,
+        841
+      ],
+      "copies": [
+        [
+          989,
+          44,
+          44
+        ],
+        [
+          989,
+          44,
+          44
+        ],
+        [
+          989,
+          44,
+          44
+        ]
+      ],
+      "price": "rgb(241, 245, 244)",
+      "paymentFonts": [
+        16.64,
+        16,
+        14,
+        14
+      ],
+      "railBlur": "none",
+      "cardBlur": "none",
+      "corner": "none",
+      "payer": "#b4e17f",
+      "memoInside": true,
+      "scroll": [
+        275,
+        275
+      ]
+    },
+    "32-byte-fire": {
+      "amount": "0.1 ICP",
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "abbreviated": "s5ir5\u2026",
+      "memo": "FIRE 1 37.5 1|\u00e9\ud83d\ude80xxxxxxxxxxxx",
+      "payer": "f6a7f\u2026",
+      "fee": "Help: Ledger fee separate",
+      "warning": "Payments and unused ICP are kept; no automatic refunds.",
+      "prompt": "Aim & Pay",
+      "disabled": false,
+      "panel": {
+        "x": 661,
+        "y": 334,
+        "width": 360,
+        "height": 329,
+        "top": 334,
+        "right": 1021,
+        "bottom": 663,
+        "left": 661
+      }
+    },
+    "copy": "exact fields",
+    "update_keep": "exact before and after",
+    "manual": "full editable selection source is readonly",
+    "trusted_event_to_raf_ms": [
+      {
+        "key": "identify-button",
+        "type": "click",
+        "ms": 73.39999997615814
+      },
+      {
+        "key": "help-button",
+        "type": "click",
+        "ms": 19
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 56.39999997615814
+      },
+      {
+        "key": "join-action",
+        "type": "click",
+        "ms": 59.699999928474426
+      },
+      {
+        "key": "sending-account",
+        "type": "input",
+        "ms": 7.299999952316284
+      },
+      {
+        "key": "identity-save",
+        "type": "click",
+        "ms": 87.20000004768372
+      },
+      {
+        "key": "centre-cannon",
+        "type": "click",
+        "ms": 96.79999995231628
+      },
+      {
+        "key": "fire-action",
+        "type": "click",
+        "ms": 110
+      },
+      {
+        "key": "war-cry",
+        "type": "input",
+        "ms": 37.10000002384186
+      },
+      {
+        "key": "owner",
+        "type": "click",
+        "ms": 62.39999997615814
+      },
+      {
+        "key": "amount",
+        "type": "click",
+        "ms": 55.700000047683716
+      },
+      {
+        "key": "text",
+        "type": "click",
+        "ms": 61.800000071525574
+      },
+      {
+        "key": "recipient-reveal",
+        "type": "click",
+        "ms": 56.60000002384186
+      },
+      {
+        "key": "recipient-reveal",
+        "type": "click",
+        "ms": 104.20000004768372
+      },
+      {
+        "key": "quantity-plus",
+        "type": "click",
+        "ms": 63.800000071525574
+      },
+      {
+        "key": "keep-instructions",
+        "type": "click",
+        "ms": 147
+      },
+      {
+        "key": "quantity-plus",
+        "type": "click",
+        "ms": 96.79999995231628
+      },
+      {
+        "key": "replace-instructions",
+        "type": "click",
+        "ms": 129.79999995231628
+      },
+      {
+        "key": "text",
+        "type": "click",
+        "ms": 66
+      },
+      {
+        "key": "payer-change",
+        "type": "click",
+        "ms": 33.40000009536743
+      },
+      {
+        "key": "sending-account",
+        "type": "input",
+        "ms": 11.700000047683716
+      },
+      {
+        "key": "identity-save",
+        "type": "click",
+        "ms": 89.5
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 77.80000007152557
+      },
+      {
+        "key": "identify-button",
+        "type": "click",
+        "ms": 238.89999997615814
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 86.5
+      },
+      {
+        "key": "status-button",
+        "type": "click",
+        "ms": 28.299999952316284
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 13
+      },
+      {
+        "key": "centre-cannon",
+        "type": "click",
+        "ms": 131.5
+      },
+      {
+        "key": "move-action",
+        "type": "click",
+        "ms": 187.89999997615814
+      },
+      {
+        "key": "build-action",
+        "type": "click",
+        "ms": 301.39999997615814
+      },
+      {
+        "key": "deflect-action",
+        "type": "click",
+        "ms": 172.60000002384186
+      },
+      {
+        "key": "NE",
+        "type": "click",
+        "ms": 98.70000004768372
+      },
+      {
+        "key": "SE",
+        "type": "click",
+        "ms": 98
+      },
+      {
+        "key": "SW",
+        "type": "click",
+        "ms": 101.79999995231628
+      },
+      {
+        "key": "NW",
+        "type": "click",
+        "ms": 98.30000007152557
+      }
+    ],
+    "errors": [],
+    "blocked_updates": []
+  },
+  "390": {
+    "geometry": {
+      "axes": [
+        188,
+        188
+      ],
+      "copies": [
+        [
+          336,
+          44,
+          44
+        ],
+        [
+          336,
+          44,
+          44
+        ],
+        [
+          336,
+          44,
+          44
+        ]
+      ],
+      "price": "rgb(241, 245, 244)",
+      "paymentFonts": [
+        16.64,
+        16,
+        14,
+        14
+      ],
+      "railBlur": "none",
+      "cardBlur": "none",
+      "corner": "none",
+      "payer": "#b4e17f",
+      "memoInside": true,
+      "scroll": [
+        275,
+        275
+      ]
+    },
+    "32-byte-fire": {
+      "amount": "0.1 ICP",
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "abbreviated": "s5ir5\u2026",
+      "memo": "FIRE 1 37.5 1|\u00e9\ud83d\ude80xxxxxxxxxxxx",
+      "payer": "f6a7f\u2026",
+      "fee": "Help: Ledger fee separate",
+      "warning": "Payments and unused ICP are kept; no automatic refunds.",
+      "prompt": "Aim & Pay",
+      "disabled": false,
+      "panel": {
+        "x": 8,
+        "y": 221,
+        "width": 360,
+        "height": 329,
+        "top": 221,
+        "right": 368,
+        "bottom": 550,
+        "left": 8
+      }
+    },
+    "copy": "exact fields",
+    "update_keep": "exact before and after",
+    "manual": "full editable selection source is readonly",
+    "trusted_event_to_raf_ms": [
+      {
+        "key": "identify-button",
+        "type": "click",
+        "ms": 60
+      },
+      {
+        "key": "help-button",
+        "type": "click",
+        "ms": 33.09999990463257
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 30.200000047683716
+      },
+      {
+        "key": "join-action",
+        "type": "click",
+        "ms": 49.10000002384186
+      },
+      {
+        "key": "sending-account",
+        "type": "input",
+        "ms": 6.200000047683716
+      },
+      {
+        "key": "identity-save",
+        "type": "click",
+        "ms": 48.5
+      },
+      {
+        "key": "centre-cannon",
+        "type": "click",
+        "ms": 24.200000047683716
+      },
+      {
+        "key": "fire-action",
+        "type": "click",
+        "ms": 53.300000071525574
+      },
+      {
+        "key": "war-cry",
+        "type": "input",
+        "ms": 27.100000023841858
+      },
+      {
+        "key": "owner",
+        "type": "click",
+        "ms": 30.600000023841858
+      },
+      {
+        "key": "amount",
+        "type": "click",
+        "ms": 29.800000071525574
+      },
+      {
+        "key": "text",
+        "type": "click",
+        "ms": 30.100000023841858
+      },
+      {
+        "key": "recipient-reveal",
+        "type": "click",
+        "ms": 34.39999997615814
+      },
+      {
+        "key": "recipient-reveal",
+        "type": "click",
+        "ms": 29.800000071525574
+      },
+      {
+        "key": "quantity-plus",
+        "type": "click",
+        "ms": 31.699999928474426
+      },
+      {
+        "key": "keep-instructions",
+        "type": "click",
+        "ms": 40.5
+      },
+      {
+        "key": "quantity-plus",
+        "type": "click",
+        "ms": 31.5
+      },
+      {
+        "key": "replace-instructions",
+        "type": "click",
+        "ms": 41.60000002384186
+      },
+      {
+        "key": "text",
+        "type": "click",
+        "ms": 14.299999952316284
+      },
+      {
+        "key": "payer-change",
+        "type": "click",
+        "ms": 36.60000002384186
+      },
+      {
+        "key": "sending-account",
+        "type": "input",
+        "ms": 7.799999952316284
+      },
+      {
+        "key": "identity-save",
+        "type": "click",
+        "ms": 30
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 33.5
+      },
+      {
+        "key": "identify-button",
+        "type": "click",
+        "ms": 34.89999997615814
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 28.299999952316284
+      },
+      {
+        "key": "status-button",
+        "type": "click",
+        "ms": 29.300000071525574
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 29.899999976158142
+      },
+      {
+        "key": "centre-cannon",
+        "type": "click",
+        "ms": 33.60000002384186
+      },
+      {
+        "key": "move-action",
+        "type": "click",
+        "ms": 66.60000002384186
+      },
+      {
+        "key": "build-action",
+        "type": "click",
+        "ms": 75.5
+      },
+      {
+        "key": "deflect-action",
+        "type": "click",
+        "ms": 69.10000002384186
+      },
+      {
+        "key": "NE",
+        "type": "click",
+        "ms": 57.60000002384186
+      },
+      {
+        "key": "SE",
+        "type": "click",
+        "ms": 49.59999990463257
+      },
+      {
+        "key": "SW",
+        "type": "click",
+        "ms": 52.60000002384186
+      },
+      {
+        "key": "NW",
+        "type": "click",
+        "ms": 52
+      }
+    ],
+    "errors": [],
+    "blocked_updates": []
+  },
+  "320": {
+    "geometry": {
+      "axes": [
+        160,
+        160
+      ],
+      "copies": [
+        [
+          280,
+          44,
+          44
+        ],
+        [
+          280,
+          44,
+          44
+        ],
+        [
+          280,
+          44,
+          44
+        ]
+      ],
+      "price": "rgb(241, 245, 244)",
+      "paymentFonts": [
+        14.4,
+        14,
+        14,
+        14
+      ],
+      "railBlur": "none",
+      "cardBlur": "none",
+      "corner": "none",
+      "payer": "#b4e17f",
+      "memoInside": true,
+      "scroll": [
+        240,
+        273
+      ]
+    },
+    "32-byte-fire": {
+      "amount": "0.1 ICP",
+      "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "abbreviated": "s5ir5\u2026",
+      "memo": "FIRE 1 217.5 1|\u00e9\ud83d\ude80xxxxxxxxxxx",
+      "payer": "f6a7f\u2026",
+      "fee": "Help: Ledger fee separate",
+      "warning": "Payments and unused ICP are kept; no automatic refunds.",
+      "prompt": "Aim & Pay",
+      "disabled": false,
+      "panel": {
+        "x": 8,
+        "y": 200,
+        "width": 304,
+        "height": 294,
+        "top": 200,
+        "right": 312,
+        "bottom": 494,
+        "left": 8
+      }
+    },
+    "copy": "exact fields",
+    "update_keep": "exact before and after",
+    "manual": "full editable selection source is readonly",
+    "trusted_event_to_raf_ms": [
+      {
+        "key": "identify-button",
+        "type": "click",
+        "ms": 47.700000047683716
+      },
+      {
+        "key": "help-button",
+        "type": "click",
+        "ms": 30.399999976158142
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 24.399999976158142
+      },
+      {
+        "key": "join-action",
+        "type": "click",
+        "ms": 24
+      },
+      {
+        "key": "sending-account",
+        "type": "input",
+        "ms": 5.399999976158142
+      },
+      {
+        "key": "identity-save",
+        "type": "click",
+        "ms": 38.90000009536743
+      },
+      {
+        "key": "centre-cannon",
+        "type": "click",
+        "ms": 42.5
+      },
+      {
+        "key": "fire-action",
+        "type": "click",
+        "ms": 46.89999997615814
+      },
+      {
+        "key": "war-cry",
+        "type": "input",
+        "ms": 22.700000047683716
+      },
+      {
+        "key": "owner",
+        "type": "click",
+        "ms": 25.5
+      },
+      {
+        "key": "amount",
+        "type": "click",
+        "ms": 25.399999976158142
+      },
+      {
+        "key": "text",
+        "type": "click",
+        "ms": 25.699999928474426
+      },
+      {
+        "key": "recipient-reveal",
+        "type": "click",
+        "ms": 20
+      },
+      {
+        "key": "recipient-reveal",
+        "type": "click",
+        "ms": 24.399999976158142
+      },
+      {
+        "key": "quantity-plus",
+        "type": "click",
+        "ms": 25
+      },
+      {
+        "key": "keep-instructions",
+        "type": "click",
+        "ms": 24.5
+      },
+      {
+        "key": "quantity-plus",
+        "type": "click",
+        "ms": 24.5
+      },
+      {
+        "key": "replace-instructions",
+        "type": "click",
+        "ms": 25.700000047683716
+      },
+      {
+        "key": "text",
+        "type": "click",
+        "ms": 28.700000047683716
+      },
+      {
+        "key": "payer-change",
+        "type": "click",
+        "ms": 27.200000047683716
+      },
+      {
+        "key": "sending-account",
+        "type": "input",
+        "ms": 3.600000023841858
+      },
+      {
+        "key": "identity-save",
+        "type": "click",
+        "ms": 26.700000047683716
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 19.799999952316284
+      },
+      {
+        "key": "identify-button",
+        "type": "click",
+        "ms": 22
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 21
+      },
+      {
+        "key": "status-button",
+        "type": "click",
+        "ms": 21.799999952316284
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 21.5
+      },
+      {
+        "key": "centre-cannon",
+        "type": "click",
+        "ms": 29.399999976158142
+      },
+      {
+        "key": "move-action",
+        "type": "click",
+        "ms": 55.300000071525574
+      },
+      {
+        "key": "build-action",
+        "type": "click",
+        "ms": 42.300000071525574
+      },
+      {
+        "key": "deflect-action",
+        "type": "click",
+        "ms": 47.799999952316284
+      },
+      {
+        "key": "NE",
+        "type": "click",
+        "ms": 35.89999997615814
+      },
+      {
+        "key": "SE",
+        "type": "click",
+        "ms": 38.39999997615814
+      },
+      {
+        "key": "SW",
+        "type": "click",
+        "ms": 36.300000071525574
+      },
+      {
+        "key": "NW",
+        "type": "click",
+        "ms": 38.09999990463257
+      }
+    ],
+    "errors": [],
+    "blocked_updates": []
+  }
+}

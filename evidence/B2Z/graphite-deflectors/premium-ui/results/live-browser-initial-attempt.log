@@ -1,0 +1,11 @@
+127.0.0.1 - - [18/Nov/2026 23:25:05] "GET /paste.html HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2026 23:25:11] "GET /paste.html HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2026 23:25:19] "GET /paste.html HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2026 23:29:07] "GET /paste.html HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2026 23:29:10] "GET /paste.html HTTP/1.1" 200 -
+127.0.0.1 - - [18/Nov/2026 23:29:19] "GET /paste.html HTTP/1.1" 200 -
+Traceback (most recent call last):
+  File "/home/codexdev/src/b2z-boundary-deflector/.work/premium-graphite/surfaces.py", line 104, in <module>
+    assert page.locator('#manual-value').input_value()==qa.payment(page)['memo']
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+AssertionError
