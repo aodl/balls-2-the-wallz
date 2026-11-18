@@ -37,7 +37,7 @@ jobs:
         run: python -B tools/check_dtr_provenance.py --locks-only --output .work/ci-dtr-source.json
       - run: python -B tools/check.py source --output .work/ci-source
       - name: Reproduce exact graphite responsiveness frontend freeze
-        run: python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/graphite-deflectors/responsiveness/artifacts --output .work/ci-frozen-panel
+        run: python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/graphite-deflectors/premium-ui/artifacts --output .work/ci-frozen-panel
       - name: Upload source evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
