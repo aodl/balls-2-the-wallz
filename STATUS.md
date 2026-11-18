@@ -1,14 +1,20 @@
-# Boundary Deflector continuation — not deployed, qualification incomplete
+# Boundary Deflector — qualified, not deployed
 
-The isolated `feature/b2z-boundary-deflector` worktree implements the four-direction
-boundary successor to Rules11. Exact rational trajectories, paid adapter7,
-protected non-anchor structures, graphite controls and migration are implemented.
-Local numerical, native and disposable installed evidence is retained under
-`evidence/B2Z/graphite-deflectors/boundary-deflector/`; final frozen identities and
-six hosted gates are still required. No current candidate is production approved.
-The original graphite/Rules11 freezes and the paid Rules7 game remain untouched.
-The previous graphite checkpoint below is historical, not this implementation's
-current feature status. P09 remains FAIL/unqualified.
+Isolated branch `feature/b2z-boundary-deflector`, exact source
+`f819257311e43ae41332b83e7b40921c1418f1bf`, passed all six substantive hosted gates:
+https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550 . Rules12/schema7/
+adapter7, all-ball protected non-anchor Deflectors and exact rational boundary
+turns are implemented. The normal Wasm is2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13;
+81-file frontend inventory is0b14bcccf7f1ed76bcfd4039b6aabcfb1965c7e6b94e437e3cc46d7e165d7c3e.
+The report, captures, provisional decision register and separate rollout/recovery
+plan are under `evidence/B2Z/graphite-deflectors/boundary-deflector/`.
+
+Production remains the paid Rules7 game and unchanged80-file frontend; the fresh
+read-only observation is recorded2026-11-18. No production mutation is authorised
+or performed. Price/caps/spacing/one-tick allowance still require owner approval.
+Graphite and Rules11 freezes remain intact. P09 remains FAIL/unqualified; physical
+phone/listening and other platform limitations remain. Earlier entries below are
+historical checkpoints, not the current feature status.
 
 ---
 

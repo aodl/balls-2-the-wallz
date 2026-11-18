@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "checkpoint": "S14",
+  "git_revision": "f819257311e43ae41332b83e7b40921c1418f1bf",
+  "started_utc": "2026-11-18T01:14:57.774398+00:00",
+  "mode": "integration",
+  "archived_not_release_requirements": [
+    "arena-lab-v4",
+    "cross-language-private-cursor-bytes"
+  ],
+  "checks": [
+    {
+      "id": "s14-index-poke-local-slice",
+      "command": [
+        "/opt/hostedtoolcache/Python/3.11.18/x64/bin/python",
+        "-B",
+        "tools/verify_s14_local.py",
+        "--output",
+        ".work/ci-integration/s14-local"
+      ],
+      "status": "PASS",
+      "exit_code": 0,
+      "log": "logs/s14-index-poke-local-slice.log",
+      "elapsed_seconds": 4309.673,
+      "timeout_seconds": 7200,
+      "exit_contract": "project-wrapper-exit-2-is-blocked"
+    }
+  ],
+  "tested_artifacts": [],
+  "overall": "PASS"
+}

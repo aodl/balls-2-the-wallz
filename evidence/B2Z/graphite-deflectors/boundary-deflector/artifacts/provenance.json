@@ -2179,8 +2179,16 @@
     "index.html",
     "style.css"
   ],
-  "qualification_scope": "Combined Rules12 boundary Deflector frontend/backend candidate; not a claim of completed installed or hosted qualification",
+  "qualification_scope": "Exact-source qualified Rules12 boundary Deflector frontend and normal backend; provisional policy, no production deployment or activation",
   "local_normal_wasm_sha256": "353699e4276fbcf52eae116a9b1fdb2923861fb9735635eb6207d3ebe22c50a3",
   "hosted_normal_build_source": "ced0d2621f33980329eb0d8546534f403d7bcdc3",
-  "hosted_normal_build_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44209258892"
+  "hosted_normal_build_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44209258892",
+  "qualification_source": "f819257311e43ae41332b83e7b40921c1418f1bf",
+  "qualification_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550",
+  "qualification_status": "PASS all six substantive hosted gates; no production approval",
+  "retained_normal_gzip": {
+    "path": "vendor/b2z/rules12-2cb2fe02.wasm.gz",
+    "sha256": "fcf567fe4bf3a3ba75b683ef29f544a632b38b84dba670871556a0497a7bdbed",
+    "decompressed_sha256": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13"
+  }
 }

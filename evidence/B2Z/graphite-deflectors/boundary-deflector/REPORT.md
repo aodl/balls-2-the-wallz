@@ -1,16 +1,23 @@
-# Four-direction boundary Deflector — qualification closeout
+# Four-direction boundary Deflector — qualified development candidates
 
-**Status: final hosted qualification in progress; no production release or
-activation.** Work remains isolated on `feature/b2z-boundary-deflector`. The
-owner’s all-ball/capture/island addendum and corrected compass mapping are part
-of this candidate. Rules11, the qualified graphite freeze, and paid production
-remain unchanged.
+**PASS: all six substantive hosted gates on exact published source
+`f819257311e43ae41332b83e7b40921c1418f1bf`. No production deployment or activation.**
+[Qualification44214091550](https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550)
+completed successfully2026-11-18. The selected normal artifact is the same in the
+Wasm gate and installed-game suite. Pricing, capacity, spacing, operating allowance
+and production maintenance still require separate owner decisions.
 
-## Exact selected artifacts
+## Exact source and selected artifacts
+
+Work is isolated on `feature/b2z-boundary-deflector`, based on graphite
+`8590fa6c79036df768f46277273e64fbc3165d85`. The protected graphite branch remains
+at that head; combined Rules11 remains `316593fce1d7bf6177f739e49aad639af588f8d9`.
+Neither existing qualified freeze was overwritten. Later evidence-only publication
+must preserve the consumed-input parity recorded below.
 
 | Item | Identity |
 |---|---|
-| Earlier qualification source (Browser FAIL) | `5124797b283d3474c16edc6d40c3141634bb2237` |
+| Qualified published source | `f819257311e43ae41332b83e7b40921c1418f1bf` |
 | Clean runtime/frontend build source | `9afcd80cf6c92e6f4ed3b0e268005146337c36a1` |
 | Frontend JavaScript | `c5b688ae74527cb30e7b50f06141d429f237eef0297ed7eba0192d268e0d8c9b` |
 | Complete81-file inventory (80 public + policy) | `0b14bcccf7f1ed76bcfd4039b6aabcfb1965c7e6b94e437e3cc46d7e165d7c3e` |
@@ -21,101 +28,205 @@ remain unchanged.
 | Source/memo adapter |7, `BTZPAY04` |
 | Audio manifest | `76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c`; all61 files unchanged |
 
-Retained selected assets: `.work/boundary-deflector/frozen/frontend` and
-`.work/boundary-deflector/frozen/backend/runtime-lab.wasm`. Every file and consumed
-input is pinned by [artifacts/provenance.json](artifacts/provenance.json) and
-[frontend-inventory.json](artifacts/frontend-inventory.json). The normal Wasm was
-produced on hostedced0d262; final5124797 has identical consumed inputs and pins
-that actual hosted artifact. Distinct local353699, old hosted3d122c and prior
-frontend freezes remain retained and superseded, not relabelled.
+Retained deployment candidates are `.work/boundary-deflector/frozen/frontend`
+and `.work/boundary-deflector/frozen/backend/runtime-lab.wasm`. The exact hosted
+normal module is also retained losslessly as `vendor/b2z/rules12-2cb2fe02.wasm.gz`;
+its decompressed bytes are verified2cb2fe. Every file and
+consumed input is pinned by [provenance](artifacts/provenance.json) and
+[complete inventory](artifacts/frontend-inventory.json). Hosted sourcef819257
+reproduced every frontend byte and the exact selected normal module. Local353699,
+old hosted3d122c, the c99 frontend and earlier research freezes remain separately
+retained and superseded; no rebuilt artifact is relabelled as an old candidate.
 
-[Final six-gate run44210081618](https://github.com/aodl/balls-2-the-wallz/actions/runs/44210081618)
-tests exact published5124797. Source, Native, Packaged and strict normal-Wasm
-gates have passed. Browser FAILS at the native audio suspend phase comparison;
-its four-direction step was skipped. Installed-IC is still running. The failure
-and raw assertion traceback are retained; this is not a qualified candidate. The
-informational inventory job is never counted as qualification. The earlier
-44202343189 run was superseded after the proven typed-region denominator defect;
-44209258892 was the corrected hosted-artifact bootstrap whose local pin correctly
-failed. Both original results and cancellations are retained.
+## Hosted exact-source qualification
 
-## What this candidate implements
+| Substantive gate | Final conclusion |
+|---|---|
+| Source conformance | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm, Candid, format, Clippy and strict artifact pin | PASS |
+| Browser HTTP and Web Crypto | PASS |
+| S14 and million-cell installed-IC | PASS |
 
-- Four compass orientations from one generated authoritative mapping; genuine
-  ordinary face contact uses arrow/opposite direction regardless of incoming
-  angle or ball ownership. Exact contact position and canonical speed persist.
-  Exact vertices retain the established blocked-vertex exception.
-- Reduced shared rational intercepts with a proven non-growing denominator, exact
-  JS/native serialization, bounded event times and no host floating-point physics.
-  No midpoint, teleport, incoming-dependent mirror, cooldown or skipped impact.
-- Separate paid structures, unique occupancy, protected direct-capture/strike
-  targets and processing-time clearance. Cannons alone anchor territory; friendly
-  balls sustain cannon-bearing islands. Committed support loss atomically destroys
-  affected Deflectors, while cancelled proposals preserve them.
-- Canonical `DEFLECT <cell> NE|SE|SW|NW`, provisional0.1ICP/16player/256world,
-  exact-once official Ledger/Index admission, deterministic receipts and no refund.
-  Rules11 clearance/War Cry and all earlier interpretations remain identifiable.
-- Capability-gated sixth toolbar action, four44px directions, translucent
-  tile-aligned graphite preview, full-value copying and frozen Update/Keep.
-  Unsupported Rules7/11 cannot generate a DEFLECT payment. Approved panels,
-  quantity dock, audio and returning-player workflows are retained.
+[Actual hosted jobs](results/qualification-f819257/hosted-jobs.json) bind all
+conclusions to exactf819257. The informational inventory job is not a gate.
+[Installed suite](results/qualification-f819257/installed-suite.json) completed
+73 checks, including65 installed cases and all8 Deflector-specific cases, with
+no failures. The installed normal hash is exactly2cb2fe. Test-hooks31efb0 was used
+only where setup requires it and is not a release candidate. Official pinned
+PocketIC/Ledger/Index identities are retained in that result.
 
-## Evidence and acceptance boundaries
+The full suite retains million-cell normal/cold/Lifeline operating windows,
+source/certificate validation, financial/funding invariants, historical replay
+and independent reconstruction. Qualified execution does not authorise production
+use or resolve the separate Rules11 maintenance limitations.
 
-[NUMERICAL_PROOF.md](NUMERICAL_PROOF.md) supplies the denominator/horizon/progress
-proof and measured adverse adjacent-layout failure. Independent Fraction160-face
-oracle, all65536 cannon headings,11 exact JS/native algebraic chains and actual
-100010-redirect scheduler parity are retained. The149 shared native vectors
-compare complete canonical world/events/scores and cursor recovery.
+## Implemented physical and lifecycle contract
 
-[ADDENDUM_COVERAGE.md](ADDENDUM_COVERAGE.md) maps all25 owner cases to JS/native
-and disposable evidence. Real valueless official Ledger purchases demonstrate
-construction/rejections, all-ball ownership cases, actual redirects, paid bridge
-cuts, cancelled capture with a friendly survivor, revival without restoration,
-seam loss and real24-hour dormant expiry. Exact-source hosted repetition remains
-pending. Setup fixtures are explicitly synthetic; subsequent payments, normal
-module execution and replay are genuine disposable IC operations.
+The generated authoritative mapping is NE57344(+,-), SE8192(+,+), SW24576(-,+),
+NW40960(-,-), with positive Y south. Cannon headings and historical physics are
+unchanged. Every genuine ordinary contact selects arrow/opposite direction from
+orientation and face only, for friendly and enemy balls alike. Position is exact
+and continuous at the cannon-style tile boundary; velocity uses the canonical
+speed32000 helper (diagonal components22627). Exact vertices retain the existing
+blocked-vertex exception with no invented front/rear face. Tangencies do not turn.
 
-[GALLERY.md](GALLERY.md) links actual1440×900/390×844/320×640 application captures
-and native-input videos, plus two authenticated observers of fresh paid War Cry
-and Deflector destruction. The corrected local353699 module’s destruction runner
-passed226.778 seconds, strict certificate/wire capture and independent replay.
-The selected exact hosted2cb2fe artifact independently passed the real paid
-rational-query regression in77.653 seconds. These are not production/physical-
-phone acceptance or a substitute for the final hosted installed gate.
+Deflectors have separate IDs and occupancy, are direct-capture/strike immune,
+and cannot manufacture balls, claim land or anchor islands. Cannons alone anchor;
+friendly balls sustain cannon-bearing islands. Committed support loss atomically
+removes only affected Deflectors and emits authenticated removals. Cancelled
+proposals do not destroy structures; actual subsequent dormancy/pruning still
+uses the established cannon/ball rules. Destroyed structures are never transferred,
+refunded, given a dormant grace period or silently restored on revival.
 
-Resource evidence includes legal64-ball corridors/diamonds,256 structures, bounded
-work-unit recovery and shared instanced geometry (260 cannon/116 Deflector
-triangles). Whole-publication cycle costs are labelled as such; isolated subnet
-Deflector instruction overhead is not established. Shared-host software frame
-measurements are not representative phone performance. P09 remains FAIL/
-unqualified; physical listening, Firefox/Safari output and BFCache limitations
-remain unresolved. No new music or Deflector audio was introduced.
+Canonical purchase is `DEFLECT <cell> NE|SE|SW|NW`. Processing-time account,
+price, owned-active-site, live-ball closure, structure occupancy, enemy clearance,
+spacing and capacities are authoritative in JS/native. First Join remains its
+existing policy with occupied Deflectors excluded. Rules11 clearance and War Cry,
+legacy memo interpretation, retained-payment accounting and semantic spawn seeds
+remain intact. DEFLECT cannot carry War Cry and never emits a launch annotation.
 
-## Separate release decisions
+## Numerical and scheduler proof
 
-[DECISIONS.md](DECISIONS.md) retains provisional price/caps, spacing>=2, exact
-corner response and one-tick allowance for explicit future owner approval.
-Spacing prevents the measured195494-contact/tick adjacent trap without changing
-the contact law. The implementation rejects an incompatible stored allowance;
-it does not alter operating settings.
+[NUMERICAL_PROOF.md](NUMERICAL_PROOF.md) proves a positive reduced shared
+denominator, at most65536 conservatively and32000 for normal launch histories;
+it cannot grow after first redirection. Intercept numerators remain below2^63
+through the permitted horizon10^9; intermediate arithmetic and event-time bounds
+are explicit. No rounding, midpoint, teleport, incoming-dependent mirror,
+cooldown or skipped contact is used in consensus. Normal reflections and torus
+translations preserve the denominator. Schema7 validation and serialization
+enforce the new representation; migration inserts denominator1 exactly.
 
-[RELEASE_PLAN.md](RELEASE_PLAN.md) separates frontend approval from Rules11→12
-normal-module installation, controller preparation, exact-manifest epoch commit
-and resume. Production remains Rules7; its prior Rules7→11 decision must happen
-separately. The first persisted preparation record already makes blind old-module
-rollback unsafe; use a compatible state-preserving forward recovery. No world
-reset, cursor rewind, Ledger rescan or invented refund is a recovery procedure.
+Executed evidence includes the independent Fraction160-face oracle, all65536
+cannon headings,11 JS/native algebraic chains up to100000 redirects,149 shared
+complete successor state/event/score vectors, and actual immutable scheduler
+parity through100010 redirects with periodic cursor restoration. That chain is
+`bd2ae809042dec76a8aa64694369e53d30f50ae17773ec1077c88e5f128d3b03`.
+The final hosted gate repeats10003 real scheduler redirects with chain
+`9827f69cef68e26f5b7960ab5dadf673ac69ec26d23e58eaf7a933e18073ef2e`.
+All-heading arithmetic measured maximum denominator31999 and41-bit numerators;
+near-horizon algebraic cases reached58-bit numerators with no denominator growth.
+These arithmetic/scheduler results are separate from installed IC evidence.
 
-The latest [anonymous authenticated mainnet observation](results/read-only-mainnet-closeout.json)
-retains backend612ad0/Rules7/config8eca/source54d9 and served frontendbc2872,
-runningTrickle/open/healthy at its recorded timestamp. No production backend,
-frontend, payment, funding, controller, settings or autonomous-mode operation was
-performed by this work. Mutable publication advancement is ordinary game activity.
+The measured adjacent trap produced195494 contacts/tick, above existing limits.
+The qualified candidate instead requires toroidal Chebyshev spacing>=2 between
+Deflectors and a stored segment allowance<=1. The proof bounds motion work without
+changing contact responses. Both restrictions are provisional owner decisions;
+preparation rejects an incompatible allowance rather than silently changing it.
+
+## Actual disposable purchases, upgrades, replay and observers
+
+[Final installed summaries](results/qualification-f819257/installed/) cover:
+
+- Exact Rules11 normal predecessor5ffb6cc2 upgraded state-preservingly to2cb2fe;
+  world, finance, source cursor and publication chain preserved. Preparation,
+  admitted-stage interruption, exact-manifest commit, idempotence/conflicts,
+  old-decoder negative and denominator1/empty-structure extension passed.
+- Real valueless official Ledger/Index constructions in all four directions,
+  invalid/occupied/insufficient/wrong-account/capacity/clearance rejections,
+  cannon Move/New occupancy and automatic first entry. Exactly-once receipts,
+  actual boundary turns, partial/zero launch behaviour and War Cry coexistence.
+- Eight ownership/front-rear contact cases; protected tiles never capture or arm
+  an attack. Paid bridge loss, surviving structures, cancelled capture with a
+  friendly survivor, revival without restoration, seam loss and actual dormant
+  expiry after real historical activation and virtual24h.
+- Two actual native observers agreeing on purchased Deflectors, redirects,
+  successful-launch speech and later destruction. Strict signed-wire capture,
+  independent exact replay and six Deflector/source/order tampering negatives.
+- Actual typed-region rational-query positive on the selected normal module.
+  The old exact-hosted-module omission remains a retained failing negative.
+
+[ADDENDUM_COVERAGE.md](ADDENDUM_COVERAGE.md) maps all25 owner cases and distinguishes
+unit/native, installed and replay scope. Every-work-unit cursor restoration is
+proven in JS/native; physical module upgrades cover selected durable stages, not
+every possible work unit. Synthetic initial setups are labelled; later payments,
+normal-module execution, authentication and replay are genuine disposable IC.
+No fixture is represented as a production transaction.
+
+## Frontend, native interaction and measured resources
+
+[GALLERY.md](GALLERY.md) links the approved panel reference and actual desktop,
+390×844 and320×640 captures, all four model directions, native-input videos and
+hosted two-observer captures. Final hosted controls pass44px targets, actual
+`elementFromPoint`, mouse/touch/keyboard, exact recipient/amount/memo Clipboard API,
+external paste/manual fallback, Update/Keep, protected/reconnect local editor
+availability, zero status-only panel drift and actual WebGL restoration. The
+original320×640/347.15° quantity regression also passes on exact final source.
+Review of the final raw results confirms187 sampled quantity-heading states are
+visible/non-inert, and434 status samples preserve identical workspace rectangles
+and full payment values. The curated control summary retains first/last samples,
+all-sample assertions and the original raw artifact path/hash.
+Unsupported Rules7/11 cannot offer a DEFLECT memo; local configuration alone grants
+no capability. Approved payment structure, audio, returning entry and verified
+startup/reconnect remain intact.
+
+Legal64-ball corridor/diamond stress fits existing event/work bounds;256-structure
+installed recovery and replay passed. Final hosted whole-publication observations:
+capacity case5020880856 cycles/2817 events/282330 event bytes; ownership-loss
+case182366612 cycles/40 events/6826 bytes. The main admitted batch records470548858
+cycles. These include controller/source/game work, not isolated Deflector overhead;
+wall times include their test context and are not a hardware performance comparison.
+
+Matched software-renderer evidence retains shared instancing,260-triangle cannons,
+116-triangle Deflectors,6 draw calls for128 cannons plus256 Deflectors, and no idle
+instance uploads. Frame p50/p95/p99 and memory counters are in the retained renderer
+results. Shared-host/software observations are not physical-phone qualification.
+No recurring backend query/timer or per-structure light was added.
+
+## Failures retained and narrowly corrected
+
+The former midpoint/unbounded-denominator and rearm experiments remain rejected
+historical evidence. Bootstrap44202343189 was superseded after the actual typed
+region omitted denominator; a genuine normal-module Ledger/redirect negative
+proved the fault.9afcd adds the backward-compatible optional denominator, Candid
+and documented schema-aware reading;53 host tests and actual old/new-module
+negatives/positives passed. The frontend JavaScript stayed unchanged; Candid/API
+help assets required the new complete inventory.
+
+Corrected bootstrap44209258892 compiled normally but correctly failed its local
+Wasm pin; the actual hosted2cb2fe was selected and pinned without weakening the
+check. Run44210081618 then failed the unquantized native audio phase assertion.
+Thirty-two actual native suspensions reproduced7 sub-frame comparison failures;
+all retained the scheduler's deliberately floored integer source frame. The test
+now checks that exact contract and rejects a complete saved-frame loss, restart
+or nonfinite state. Runtime/music/assets/timeouts/peak/hash/source/financial rules
+were unchanged. Finalf819257 passes the complete native audio and Deflector step.
+All earlier failed/cancelled runs remain identified; no partial run is called green.
+P09 remains a separate FAIL/unqualified performance limitation.
+
+## Production preservation and separate release decisions
+
+At2026-11-18T02:28:14.418Z the [fresh anonymous authenticated mainnet observation](results/read-only-mainnet-final.json)
+confirms backend612ad0/Rules7/config8eca/source54d9 and served frontendbc2872,
+with asset module04e565 unchanged. Operation is runningTrickle, admission open,
+source healthy and pending source records0; no transition is in progress. Stored
+segment allowance remains2 while effective publications are1. The probe does not
+read liquid balance/treasury or infer runway/funding. Publication advancement is
+normal autonomous activity, not an asset deployment or state reset.
+
+No production frontend/backend mutation, payment, funding, allowance, controller,
+settings, rules preparation/commit or autonomous-mode operation occurred. Both
+protected prior workstreams and their frozen artifacts remain intact.
+
+[DECISIONS.md](DECISIONS.md) retains provisional0.1ICP,16/player,256/world,
+spacing>=2, corner exception and one-tick allowance for explicit owner review.
+[RELEASE_PLAN.md](RELEASE_PLAN.md) separates a frontend-only approval from the
+prior Rules7→11 decision, then exact normal Rules11→12 installation, controller
+preparation, authenticated epoch commit and resume. A compatible frontend and
+schema-aware typed consumers must precede activation. The first persisted
+preparation record is already unsafe for a blind old-module downgrade; use a
+qualified state-preserving forward recovery, never reset/reinstall/rewind/reindex
+or invented refunds.
+
+Physical phone/dense-scene hardware performance, physical listening, Firefox/Safari
+output, BFCache and isolated subnet instruction overhead remain unverified. P09
+is still FAIL/unqualified. These qualifications do not authorise a public launch
+or settle the provisional economy/placement decisions.
 
 # Historical development records
 
-No production operation is authorised or performed. Work is isolated on
+No production mutation is authorised or performed. Work is isolated on
 `feature/b2z-boundary-deflector`, based on graphite8590fa6c79036df768f46277273e64fbc3165d85.
 The combined branch remains316593fce1d7bf6177f739e49aad639af588f8d9.
 Qualified graphite and Rules11 frozen assets remain unchanged.

@@ -1,8 +1,9 @@
 # Boundary Deflector candidate decisions
 
 No entry below authorises production. Rules11 and graphite freezes remain intact.
-The requested successor is Rules12/schema7/adapter7, subject to final exact-source
-qualification; the closeout report must supply the final artifact hashes.
+The successor is Rules12/schema7/adapter7, qualified atf819257 by all six hosted
+gates. REPORT.md supplies exact artifacts. All production policy decisions below
+remain separately approvable.
 
 | Decision | Candidate treatment | Required owner decision |
 |---|---|---|

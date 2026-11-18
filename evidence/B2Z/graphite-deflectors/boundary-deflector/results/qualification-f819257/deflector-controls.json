@@ -1,0 +1,5692 @@
+{
+  "status": "PASS",
+  "scope": "Actual shared composer/renderer native input on a synthetic Rules12 scene.\nNot IC authentication, a Ledger payment or physical-device evidence.\n",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "orientations": [
+        {
+          "name": "NE",
+          "memo": "DEFLECT 3003 NE",
+          "button": {
+            "x": 442,
+            "y": 175,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "NE",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                0.7071067690849304,
+                0,
+                -0.7071067690849304,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0.7071067690849304,
+                0,
+                0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              4.383883476257324,
+              2.616116523742676
+            ],
+            "guide": [
+              3.796984910964966,
+              3.203015089035034
+            ],
+            "ghost": null
+          }
+        },
+        {
+          "name": "SE",
+          "memo": "DEFLECT 3003 SE",
+          "button": {
+            "x": 486,
+            "y": 175,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "SE",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                0.7071067690849304,
+                0,
+                0.7071067690849304,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                -0.7071067690849304,
+                -0.0,
+                0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              5.030930995941162,
+              5.030930995941162
+            ],
+            "guide": [
+              3.796984910964966,
+              3.796984910964966
+            ],
+            "ghost": null
+          }
+        },
+        {
+          "name": "SW",
+          "memo": "DEFLECT 3003 SW",
+          "button": {
+            "x": 530,
+            "y": 175,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "SW",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                -0.7071067690849304,
+                0,
+                0.7071067690849304,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                -0.7071067690849304,
+                -0.0,
+                -0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              2.616116523742676,
+              4.383883476257324
+            ],
+            "guide": [
+              3.203015089035034,
+              3.796984910964966
+            ],
+            "ghost": null
+          }
+        },
+        {
+          "name": "NW",
+          "memo": "DEFLECT 3003 NW",
+          "button": {
+            "x": 574,
+            "y": 175,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "NW",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                -0.7071067690849304,
+                0,
+                -0.7071067690849304,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0.7071067690849304,
+                0,
+                -0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              2.7408230304718018,
+              2.7408230304718018
+            ],
+            "guide": [
+              3.203015089035034,
+              3.203015089035034
+            ],
+            "ghost": null
+          }
+        }
+      ],
+      "status_geometry": {
+        "baseline": {
+          "tag": "baseline",
+          "at": 3635.899999999907,
+          "action": {
+            "mode": "deflect",
+            "cell": 3003,
+            "degrees": "180",
+            "worldAngle": "45",
+            "quantity": 1,
+            "cry": ""
+          },
+          "selected": 1,
+          "disabled": false,
+          "values": {
+            "transfer-amount": "0.1 ICP",
+            "payment-owner": "s5ir5\u2026",
+            "text-memo": "DEFLECT 3003 SE",
+            "paying-account": "aaaaa\u2026",
+            "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+          },
+          "workspace": {
+            "x": 661,
+            "y": 334,
+            "width": 360,
+            "height": 368,
+            "top": 334,
+            "right": 1021,
+            "bottom": 702,
+            "left": 661
+          },
+          "header": {
+            "x": 661,
+            "y": 334,
+            "width": 296,
+            "height": 54,
+            "top": 334,
+            "right": 957,
+            "bottom": 388,
+            "left": 661
+          },
+          "body": {
+            "x": 661,
+            "y": 388,
+            "width": 360,
+            "height": 314,
+            "top": 388,
+            "right": 1021,
+            "bottom": 702,
+            "left": 661
+          },
+          "content": {
+            "height": 294.1875,
+            "scrollHeight": 294
+          },
+          "scroll": {
+            "height": 314,
+            "scrollHeight": 314,
+            "top": 0
+          },
+          "target": "314px",
+          "space": "440px",
+          "camera": [
+            7.279287805121385,
+            4.225872159088794,
+            88
+          ],
+          "time": 0,
+          "sameClock": true,
+          "sameWorld": true,
+          "status": "Live"
+        },
+        "transitions": [
+          {
+            "case": "healthy",
+            "disabled": false,
+            "sample_count": 18,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "healthy-before",
+              "at": 3640.899999999907,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "healthy-settled",
+              "at": 4005.100000000093,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "status-failure",
+            "disabled": true,
+            "sample_count": 16,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "status-failure-before",
+              "at": 4010.3000000000466,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "status-failure-settled",
+              "at": 4355.300000000047,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "status-recovered",
+            "disabled": false,
+            "sample_count": 17,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "status-recovered-before",
+              "at": 4361.899999999907,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "status-recovered-settled",
+              "at": 4739.199999999953,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "delivery-failure",
+            "disabled": true,
+            "sample_count": 16,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "delivery-failure-before",
+              "at": 4748.100000000093,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "delivery-failure-settled",
+              "at": 5088.800000000047,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            }
+          },
+          {
+            "case": "prolonged-outage",
+            "disabled": true,
+            "sample_count": 14,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "prolonged-outage-before",
+              "at": 5099.800000000047,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            },
+            "last": {
+              "tag": "prolonged-outage-settled",
+              "at": 5478.399999999907,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            }
+          },
+          {
+            "case": "recovered",
+            "disabled": false,
+            "sample_count": 15,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "recovered-before",
+              "at": 5495.800000000047,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            },
+            "last": {
+              "tag": "recovered-settled",
+              "at": 5856.100000000093,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "long-waiting-label",
+            "disabled": false,
+            "sample_count": 17,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "long-waiting-label-before",
+              "at": 5875.300000000047,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "long-waiting-label-settled",
+              "at": 6239.300000000047,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Waiting for next on-chain update"
+            }
+          },
+          {
+            "case": "short-live-label",
+            "disabled": false,
+            "sample_count": 17,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "short-live-label-before",
+              "at": 6255.699999999953,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Waiting for next on-chain update"
+            },
+            "last": {
+              "tag": "short-live-label-settled",
+              "at": 6622.600000000093,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 661,
+                "y": 334,
+                "width": 360,
+                "height": 368,
+                "top": 334,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "header": {
+                "x": 661,
+                "y": 334,
+                "width": 296,
+                "height": 54,
+                "top": 334,
+                "right": 957,
+                "bottom": 388,
+                "left": 661
+              },
+              "body": {
+                "x": 661,
+                "y": 388,
+                "width": 360,
+                "height": 314,
+                "top": 388,
+                "right": 1021,
+                "bottom": 702,
+                "left": 661
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "440px",
+              "camera": [
+                7.279287805121385,
+                4.225872159088794,
+                88
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          }
+        ],
+        "max_drift_px": 0
+      },
+      "clipboard": {
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "amount": "0.1",
+        "memo": "DEFLECT 3003 SE",
+        "scope": "Native Copy and external read-only paste, no payment"
+      },
+      "update_keep": "PASS exact previous memo and visible orientation restored; deliberate Update accepts new orientation",
+      "context_restore": "PASS actual WebGL loss/restore, same proposal and editor",
+      "source_geometry": {
+        "account": "2d0e897f7e862d2b57d9bc9ea5c65f9a24ac6c074575f47898314b8d6cb0929d",
+        "selected": 1,
+        "cannons": 1,
+        "balls": 1,
+        "camera": [
+          7.279287805121385,
+          4.225872159088794,
+          88
+        ],
+        "time": 0,
+        "queue": 0,
+        "clock": null,
+        "stats": {
+          "time": 0,
+          "deflectors": 0,
+          "structure_triangles": 260,
+          "structure_uploads": false,
+          "instance_upload_bytes": 35448,
+          "draw_calls": 21,
+          "triangles": 3094,
+          "tiles": 4,
+          "pieces": 2,
+          "effects": 0,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 623,
+          "tails": 0,
+          "motion": {
+            "balls": 1,
+            "tiles": 0,
+            "pathPoints": 0,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "panel": {
+        "x": 661,
+        "y": 334,
+        "width": 360,
+        "height": 368
+      },
+      "errors": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "orientations": [
+        {
+          "name": "NE",
+          "memo": "DEFLECT 3003 NE",
+          "button": {
+            "x": 11,
+            "y": 731,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "NE",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                0.7071067690849304,
+                0,
+                -0.7071067690849304,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0.7071067690849304,
+                0,
+                0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              4.715339660644531,
+              2.2846601009368896
+            ],
+            "guide": [
+              3.796984910964966,
+              3.203015089035034
+            ],
+            "ghost": null
+          }
+        },
+        {
+          "name": "SE",
+          "memo": "DEFLECT 3003 SE",
+          "button": {
+            "x": 55,
+            "y": 731,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "SE",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                0.7071067690849304,
+                0,
+                0.7071067690849304,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                -0.7071067690849304,
+                -0.0,
+                0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              5.605030059814453,
+              5.605030059814453
+            ],
+            "guide": [
+              3.796984910964966,
+              3.796984910964966
+            ],
+            "ghost": null
+          }
+        },
+        {
+          "name": "SW",
+          "memo": "DEFLECT 3003 SW",
+          "button": {
+            "x": 99,
+            "y": 731,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "SW",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                -0.7071067690849304,
+                0,
+                0.7071067690849304,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                -0.7071067690849304,
+                -0.0,
+                -0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              2.2846601009368896,
+              4.715339660644531
+            ],
+            "guide": [
+              3.203015089035034,
+              3.796984910964966
+            ],
+            "ghost": null
+          }
+        },
+        {
+          "name": "NW",
+          "memo": "DEFLECT 3003 NW",
+          "button": {
+            "x": 143,
+            "y": 731,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "NW",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                -0.7071067690849304,
+                0,
+                -0.7071067690849304,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0.7071067690849304,
+                0,
+                -0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              1.3949697017669678,
+              1.3949697017669678
+            ],
+            "guide": [
+              3.203015089035034,
+              3.203015089035034
+            ],
+            "ghost": null
+          }
+        }
+      ],
+      "status_geometry": {
+        "baseline": {
+          "tag": "baseline",
+          "at": 2874,
+          "action": {
+            "mode": "deflect",
+            "cell": 3003,
+            "degrees": "180",
+            "worldAngle": "45",
+            "quantity": 1,
+            "cry": ""
+          },
+          "selected": 1,
+          "disabled": false,
+          "values": {
+            "transfer-amount": "0.1 ICP",
+            "payment-owner": "s5ir5\u2026",
+            "text-memo": "DEFLECT 3003 SE",
+            "paying-account": "aaaaa\u2026",
+            "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+          },
+          "workspace": {
+            "x": 8,
+            "y": 221,
+            "width": 360,
+            "height": 368,
+            "top": 221,
+            "right": 368,
+            "bottom": 589,
+            "left": 8
+          },
+          "header": {
+            "x": 8,
+            "y": 221,
+            "width": 296,
+            "height": 54,
+            "top": 221,
+            "right": 304,
+            "bottom": 275,
+            "left": 8
+          },
+          "body": {
+            "x": 8,
+            "y": 275,
+            "width": 360,
+            "height": 314,
+            "top": 275,
+            "right": 368,
+            "bottom": 589,
+            "left": 8
+          },
+          "content": {
+            "height": 294.1875,
+            "scrollHeight": 294
+          },
+          "scroll": {
+            "height": 314,
+            "scrollHeight": 314,
+            "top": 0
+          },
+          "target": "314px",
+          "space": "446px",
+          "camera": [
+            9.183581668801708,
+            9.183581668801708,
+            64
+          ],
+          "time": 0,
+          "sameClock": true,
+          "sameWorld": true,
+          "status": "Live"
+        },
+        "transitions": [
+          {
+            "case": "healthy",
+            "disabled": false,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "healthy-before",
+              "at": 2877.1999999999534,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "healthy-settled",
+              "at": 3237.6999999999534,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "status-failure",
+            "disabled": true,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "status-failure-before",
+              "at": 3242.600000000093,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "status-failure-settled",
+              "at": 3604.5,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "status-recovered",
+            "disabled": false,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "status-recovered-before",
+              "at": 3611.5,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "status-recovered-settled",
+              "at": 3971.1999999999534,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "delivery-failure",
+            "disabled": true,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "delivery-failure-before",
+              "at": 3981,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "delivery-failure-settled",
+              "at": 4337.600000000093,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            }
+          },
+          {
+            "case": "prolonged-outage",
+            "disabled": true,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "prolonged-outage-before",
+              "at": 4349.300000000047,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            },
+            "last": {
+              "tag": "prolonged-outage-settled",
+              "at": 4688,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            }
+          },
+          {
+            "case": "recovered",
+            "disabled": false,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "recovered-before",
+              "at": 4703.800000000047,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            },
+            "last": {
+              "tag": "recovered-settled",
+              "at": 5071.5,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "long-waiting-label",
+            "disabled": false,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "long-waiting-label-before",
+              "at": 5089.699999999953,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "long-waiting-label-settled",
+              "at": 5454.300000000047,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Waiting for next on-chain update"
+            }
+          },
+          {
+            "case": "short-live-label",
+            "disabled": false,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "short-live-label-before",
+              "at": 5473.5,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Waiting for next on-chain update"
+            },
+            "last": {
+              "tag": "short-live-label-settled",
+              "at": 5837.600000000093,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 221,
+                "width": 360,
+                "height": 368,
+                "top": 221,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 221,
+                "width": 296,
+                "height": 54,
+                "top": 221,
+                "right": 304,
+                "bottom": 275,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 275,
+                "width": 360,
+                "height": 314,
+                "top": 275,
+                "right": 368,
+                "bottom": 589,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 314,
+                "scrollHeight": 314,
+                "top": 0
+              },
+              "target": "314px",
+              "space": "446px",
+              "camera": [
+                9.183581668801708,
+                9.183581668801708,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          }
+        ],
+        "max_drift_px": 0
+      },
+      "clipboard": {
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "amount": "0.1",
+        "memo": "DEFLECT 3003 SE",
+        "scope": "Native Copy and external read-only paste, no payment"
+      },
+      "update_keep": "PASS exact previous memo and visible orientation restored; deliberate Update accepts new orientation",
+      "context_restore": "PASS actual WebGL loss/restore, same proposal and editor",
+      "source_geometry": {
+        "account": "2d0e897f7e862d2b57d9bc9ea5c65f9a24ac6c074575f47898314b8d6cb0929d",
+        "selected": 1,
+        "cannons": 1,
+        "balls": 1,
+        "camera": [
+          9.183581668801708,
+          9.183581668801708,
+          64
+        ],
+        "time": 0,
+        "queue": 0,
+        "clock": null,
+        "stats": {
+          "time": 0,
+          "deflectors": 0,
+          "structure_triangles": 260,
+          "structure_uploads": true,
+          "instance_upload_bytes": 21844,
+          "draw_calls": 21,
+          "triangles": 2370,
+          "tiles": 4,
+          "pieces": 2,
+          "effects": 0,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 478,
+          "tails": 0,
+          "motion": {
+            "balls": 1,
+            "tiles": 0,
+            "pathPoints": 0,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "panel": {
+        "x": 8,
+        "y": 221,
+        "width": 360,
+        "height": 368
+      },
+      "errors": []
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "orientations": [
+        {
+          "name": "NE",
+          "memo": "DEFLECT 3003 NE",
+          "button": {
+            "x": 11,
+            "y": 505,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "NE",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                0.7071067690849304,
+                0,
+                -0.7071067690849304,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0.7071067690849304,
+                0,
+                0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              4.715339660644531,
+              2.2846601009368896
+            ],
+            "guide": [
+              3.796984910964966,
+              3.203015089035034
+            ],
+            "ghost": null
+          }
+        },
+        {
+          "name": "SE",
+          "memo": "DEFLECT 3003 SE",
+          "button": {
+            "x": 55,
+            "y": 505,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "SE",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                0.7071067690849304,
+                0,
+                0.7071067690849304,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                -0.7071067690849304,
+                -0.0,
+                0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              5.605030059814453,
+              5.605030059814453
+            ],
+            "guide": [
+              3.796984910964966,
+              3.796984910964966
+            ],
+            "ghost": null
+          }
+        },
+        {
+          "name": "SW",
+          "memo": "DEFLECT 3003 SW",
+          "button": {
+            "x": 99,
+            "y": 505,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "SW",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                -0.7071067690849304,
+                0,
+                0.7071067690849304,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                -0.7071067690849304,
+                -0.0,
+                -0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              2.2846601009368896,
+              4.715339660644531
+            ],
+            "guide": [
+              3.203015089035034,
+              3.796984910964966
+            ],
+            "ghost": null
+          }
+        },
+        {
+          "name": "NW",
+          "memo": "DEFLECT 3003 NW",
+          "button": {
+            "x": 143,
+            "y": 505,
+            "width": 44,
+            "height": 44
+          },
+          "hit": "NW",
+          "render": {
+            "ghostKind": "deflector",
+            "deflectorGhostParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ],
+              "turret": [
+                -0.7071067690849304,
+                0,
+                -0.7071067690849304,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0.7071067690849304,
+                0,
+                -0.7071067690849304,
+                0,
+                3.5,
+                0,
+                3.5,
+                1
+              ]
+            },
+            "ghostStyle": {
+              "wireframe": false,
+              "opacity": 0.48,
+              "depthTest": true,
+              "depthWrite": false,
+              "body": "7fdce1",
+              "barrel": "7fdce1"
+            },
+            "guideDepth": {
+              "test": true,
+              "write": false,
+              "height": 0.02800000086426735
+            },
+            "selectedContours": 1,
+            "selectedBodies": 1,
+            "cannonParts": {
+              "base": [
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                0,
+                0,
+                0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ],
+              "turret": [
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                0,
+                0,
+                -0.0,
+                1,
+                0,
+                4.5,
+                0,
+                4.5,
+                1
+              ]
+            },
+            "ghostParts": {
+              "base": [],
+              "turret": []
+            },
+            "followed": null,
+            "surfaceBound": true,
+            "previewSpan": 1,
+            "hover": null,
+            "barrels": [
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              0,
+              0,
+              -0.0,
+              1,
+              0,
+              4.5,
+              0,
+              4.5,
+              1
+            ],
+            "guideEnd": [
+              2.437809705734253,
+              2.437809705734253
+            ],
+            "guide": [
+              3.203015089035034,
+              3.203015089035034
+            ],
+            "ghost": null
+          }
+        }
+      ],
+      "status_geometry": {
+        "baseline": {
+          "tag": "baseline",
+          "at": 2663.5,
+          "action": {
+            "mode": "deflect",
+            "cell": 3003,
+            "degrees": "180",
+            "worldAngle": "45",
+            "quantity": 1,
+            "cry": ""
+          },
+          "selected": 1,
+          "disabled": false,
+          "values": {
+            "transfer-amount": "0.1 ICP",
+            "payment-owner": "s5ir5\u2026",
+            "text-memo": "DEFLECT 3003 SE",
+            "paying-account": "aaaaa\u2026",
+            "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+          },
+          "workspace": {
+            "x": 8,
+            "y": 202,
+            "width": 304,
+            "height": 294,
+            "top": 202,
+            "right": 312,
+            "bottom": 496,
+            "left": 8
+          },
+          "header": {
+            "x": 8,
+            "y": 202,
+            "width": 296,
+            "height": 54,
+            "top": 202,
+            "right": 304,
+            "bottom": 256,
+            "left": 8
+          },
+          "body": {
+            "x": 8,
+            "y": 256,
+            "width": 304,
+            "height": 240,
+            "top": 256,
+            "right": 312,
+            "bottom": 496,
+            "left": 8
+          },
+          "content": {
+            "height": 294.1875,
+            "scrollHeight": 294
+          },
+          "scroll": {
+            "height": 240,
+            "scrollHeight": 312,
+            "top": 60
+          },
+          "target": "240px",
+          "space": "240px",
+          "camera": [
+            7.231644530021185,
+            7.231644530021185,
+            64
+          ],
+          "time": 0,
+          "sameClock": true,
+          "sameWorld": true,
+          "status": "Live"
+        },
+        "transitions": [
+          {
+            "case": "healthy",
+            "disabled": false,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "healthy-before",
+              "at": 2666.4000000001397,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "healthy-settled",
+              "at": 3028.5,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "status-failure",
+            "disabled": true,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "status-failure-before",
+              "at": 3033.4000000001397,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "status-failure-settled",
+              "at": 3395.100000000093,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "status-recovered",
+            "disabled": false,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "status-recovered-before",
+              "at": 3402.4000000001397,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "status-recovered-settled",
+              "at": 3761.7000000001863,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "delivery-failure",
+            "disabled": true,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "delivery-failure-before",
+              "at": 3771.3000000000466,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "delivery-failure-settled",
+              "at": 4128.200000000186,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            }
+          },
+          {
+            "case": "prolonged-outage",
+            "disabled": true,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "prolonged-outage-before",
+              "at": 4140,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            },
+            "last": {
+              "tag": "prolonged-outage-settled",
+              "at": 4495.300000000047,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            }
+          },
+          {
+            "case": "recovered",
+            "disabled": false,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "recovered-before",
+              "at": 4511.40000000014,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": true,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Reconnecting"
+            },
+            "last": {
+              "tag": "recovered-settled",
+              "at": 4878.200000000186,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          },
+          {
+            "case": "long-waiting-label",
+            "disabled": false,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "long-waiting-label-before",
+              "at": 4894.40000000014,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            },
+            "last": {
+              "tag": "long-waiting-label-settled",
+              "at": 5261.5,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Waiting for next on-chain update"
+            }
+          },
+          {
+            "case": "short-live-label",
+            "disabled": false,
+            "sample_count": 19,
+            "all_payment_values_equal_baseline": true,
+            "all_workspace_rects_equal_baseline": true,
+            "first": {
+              "tag": "short-live-label-before",
+              "at": 5280.200000000186,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Waiting for next on-chain update"
+            },
+            "last": {
+              "tag": "short-live-label-settled",
+              "at": 5645,
+              "action": {
+                "mode": "deflect",
+                "cell": 3003,
+                "degrees": "180",
+                "worldAngle": "45",
+                "quantity": 1,
+                "cry": ""
+              },
+              "selected": 1,
+              "disabled": false,
+              "values": {
+                "transfer-amount": "0.1 ICP",
+                "payment-owner": "s5ir5\u2026",
+                "text-memo": "DEFLECT 3003 SE",
+                "paying-account": "aaaaa\u2026",
+                "payment-risk": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent."
+              },
+              "workspace": {
+                "x": 8,
+                "y": 202,
+                "width": 304,
+                "height": 294,
+                "top": 202,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "header": {
+                "x": 8,
+                "y": 202,
+                "width": 296,
+                "height": 54,
+                "top": 202,
+                "right": 304,
+                "bottom": 256,
+                "left": 8
+              },
+              "body": {
+                "x": 8,
+                "y": 256,
+                "width": 304,
+                "height": 240,
+                "top": 256,
+                "right": 312,
+                "bottom": 496,
+                "left": 8
+              },
+              "content": {
+                "height": 294.1875,
+                "scrollHeight": 294
+              },
+              "scroll": {
+                "height": 240,
+                "scrollHeight": 312,
+                "top": 60
+              },
+              "target": "240px",
+              "space": "240px",
+              "camera": [
+                7.231644530021185,
+                7.231644530021185,
+                64
+              ],
+              "time": 0,
+              "sameClock": true,
+              "sameWorld": true,
+              "status": "Live"
+            }
+          }
+        ],
+        "max_drift_px": 0
+      },
+      "clipboard": {
+        "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "amount": "0.1",
+        "memo": "DEFLECT 3003 SE",
+        "scope": "Native Copy and external read-only paste, no payment"
+      },
+      "update_keep": "PASS exact previous memo and visible orientation restored; deliberate Update accepts new orientation",
+      "context_restore": "PASS actual WebGL loss/restore, same proposal and editor",
+      "source_geometry": {
+        "account": "2d0e897f7e862d2b57d9bc9ea5c65f9a24ac6c074575f47898314b8d6cb0929d",
+        "selected": 1,
+        "cannons": 1,
+        "balls": 1,
+        "camera": [
+          7.231644530021185,
+          7.231644530021185,
+          64
+        ],
+        "time": 0,
+        "queue": 0,
+        "clock": null,
+        "stats": {
+          "time": 0,
+          "deflectors": 0,
+          "structure_triangles": 260,
+          "structure_uploads": true,
+          "instance_upload_bytes": 14852,
+          "draw_calls": 21,
+          "triangles": 2002,
+          "tiles": 4,
+          "pieces": 2,
+          "effects": 0,
+          "geometries": 23,
+          "textures": 1,
+          "terrain_revision": 1,
+          "terrain_bytes": 4000000,
+          "terrain_dirty_rows": 1000,
+          "preview_cells": 286,
+          "tails": 0,
+          "motion": {
+            "balls": 1,
+            "tiles": 0,
+            "pathPoints": 0,
+            "pointLimit": 64,
+            "totalPointLimit": 8192,
+            "ballLimit": 4096,
+            "tileLimit": 128
+          }
+        }
+      },
+      "panel": {
+        "x": 8,
+        "y": 202,
+        "width": 304,
+        "height": 294
+      },
+      "errors": []
+    }
+  ],
+  "unsupported_rules7": "PASS explicit Rules7 configuration hides Deflector and War Cry",
+  "reviewed_summary": {
+    "scope": "Full financial values, geometry and control assertions retained; verbose body text/cache/animation snapshots remain in original hosted evidence",
+    "raw_path": ".work/boundary-deflector/hosted-44214091550/browser-evidence/ci-boundary-controls/results.json",
+    "raw_sha256": "e14c8eee6f7d75423ef2f3400b85e49f7104dc1683ced430a13591a50d3a9e10",
+    "hosted_artifact": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550/artifacts/14388516655"
+  }
+}

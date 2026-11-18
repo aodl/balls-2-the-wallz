@@ -1,0 +1,1020 @@
+{
+  "admitted_upgrade_preserved": true,
+  "annotations": [
+    {
+      "ball": {
+        "cell": 4004,
+        "id": 2,
+        "owner": 1,
+        "vx": 32000,
+        "vy": 0,
+        "x0": {
+          "$integer": "-59392"
+        },
+        "y0": {
+          "$integer": "4608"
+        }
+      },
+      "cannon": 1,
+      "heading": 0,
+      "kind": "ball_spawned",
+      "launch_annotation": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cry": "Before",
+        "position": {
+          "$integer": "3"
+        },
+        "version": 1
+      },
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 3,
+        "next_territory_id": 3,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "reactivated_cannons": [],
+      "revived": false,
+      "sequence": 0,
+      "time": [
+        {
+          "$integer": "2"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": {
+        "cell": 4004,
+        "den": {
+          "$integer": "1"
+        },
+        "id": 3,
+        "owner": 1,
+        "vx": 32000,
+        "vy": 0,
+        "x0": {
+          "$integer": "-91392"
+        },
+        "y0": {
+          "$integer": "4608"
+        }
+      },
+      "cannon": 1,
+      "heading": 0,
+      "kind": "ball_spawned",
+      "launch_annotation": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cry": "Boundary!",
+        "position": {
+          "$integer": "13"
+        },
+        "version": 1
+      },
+      "metadata_delta": {
+        "lifecycle": [],
+        "next_player_id": 3,
+        "next_territory_id": 3,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "reactivated_cannons": [],
+      "revived": false,
+      "sequence": 4,
+      "time": [
+        {
+          "$integer": "3"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "ball": {
+        "cell": 5005,
+        "den": {
+          "$integer": "1"
+        },
+        "id": 4,
+        "owner": 1,
+        "vx": 32000,
+        "vy": 0,
+        "x0": {
+          "$integer": "-90368"
+        },
+        "y0": {
+          "$integer": "5632"
+        }
+      },
+      "cannon": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cell": 5005,
+        "heading": 0,
+        "id": 4
+      },
+      "frontier_other": -1,
+      "kind": "cannon_spawned",
+      "launch_annotation": {
+        "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+        "cry": "Build!",
+        "position": {
+          "$integer": "16"
+        },
+        "version": 1
+      },
+      "metadata_delta": {
+        "lifecycle": [
+          {
+            "cannon": 4,
+            "generation": 1,
+            "player": 1
+          }
+        ],
+        "next_player_id": 3,
+        "next_territory_id": 3,
+        "players": [],
+        "retired_cannons": [],
+        "retired_territories": [],
+        "territories": []
+      },
+      "ownership_ops": [
+        {
+          "cell": 5005,
+          "kind": "set",
+          "owner": 1
+        }
+      ],
+      "patch": [
+        5005
+      ],
+      "placement_class": 4,
+      "player": 1,
+      "previous_owners": [
+        1
+      ],
+      "reactivated_cannons": [],
+      "sequence": 7,
+      "time": [
+        {
+          "$integer": "3"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    }
+  ],
+  "contacts": [
+    [
+      0,
+      12,
+      [
+        "6830",
+        "2263"
+      ],
+      1,
+      24025,
+      [
+        24025,
+        "214792522",
+        "-96621130",
+        -22627,
+        22627,
+        "2263"
+      ],
+      [
+        1,
+        0,
+        3,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      18,
+      [
+        "14261022",
+        "4654991"
+      ],
+      1,
+      25024,
+      [
+        25024,
+        "214792522",
+        "217121354",
+        -22627,
+        -22627,
+        "2263"
+      ],
+      [
+        2,
+        1,
+        0,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      30,
+      [
+        "161494346",
+        "51204901"
+      ],
+      1,
+      24023,
+      [
+        24023,
+        "-108196170",
+        "217121354",
+        22627,
+        -22627,
+        "2263"
+      ],
+      [
+        3,
+        2,
+        1,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      36,
+      [
+        "163823178",
+        "51204901"
+      ],
+      1,
+      23024,
+      [
+        23024,
+        "-108196170",
+        "-110525002",
+        22627,
+        22627,
+        "2263"
+      ],
+      [
+        4,
+        3,
+        2,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      48,
+      [
+        "168446282",
+        "51204901"
+      ],
+      1,
+      24025,
+      [
+        24025,
+        "228696394",
+        "-110525002",
+        -22627,
+        22627,
+        "2263"
+      ],
+      [
+        1,
+        0,
+        3,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      55,
+      [
+        "170775114",
+        "51204901"
+      ],
+      1,
+      25024,
+      [
+        25024,
+        "228696394",
+        "231025226",
+        -22627,
+        -22627,
+        "2263"
+      ],
+      [
+        2,
+        1,
+        0,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      67,
+      [
+        "175398218",
+        "51204901"
+      ],
+      1,
+      24023,
+      [
+        24023,
+        "-122100042",
+        "231025226",
+        22627,
+        -22627,
+        "2263"
+      ],
+      [
+        3,
+        2,
+        1,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      75,
+      [
+        "177727050",
+        "51204901"
+      ],
+      1,
+      23024,
+      [
+        23024,
+        "-122100042",
+        "-124428874",
+        22627,
+        22627,
+        "2263"
+      ],
+      [
+        4,
+        3,
+        2,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      87,
+      [
+        "182350154",
+        "51204901"
+      ],
+      1,
+      24025,
+      [
+        24025,
+        "242600266",
+        "-124428874",
+        -22627,
+        22627,
+        "2263"
+      ],
+      [
+        1,
+        0,
+        3,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      93,
+      [
+        "184678986",
+        "51204901"
+      ],
+      1,
+      25024,
+      [
+        25024,
+        "242600266",
+        "244929098",
+        -22627,
+        -22627,
+        "2263"
+      ],
+      [
+        2,
+        1,
+        0,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      105,
+      [
+        "189302090",
+        "51204901"
+      ],
+      1,
+      24023,
+      [
+        24023,
+        "-136003914",
+        "244929098",
+        22627,
+        -22627,
+        "2263"
+      ],
+      [
+        3,
+        2,
+        1,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      111,
+      [
+        "191630922",
+        "51204901"
+      ],
+      1,
+      23024,
+      [
+        23024,
+        "-136003914",
+        "-138332746",
+        22627,
+        22627,
+        "2263"
+      ],
+      [
+        4,
+        3,
+        2,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      123,
+      [
+        "196254026",
+        "51204901"
+      ],
+      1,
+      24025,
+      [
+        24025,
+        "256504138",
+        "-138332746",
+        -22627,
+        22627,
+        "2263"
+      ],
+      [
+        1,
+        0,
+        3,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      130,
+      [
+        "198582858",
+        "51204901"
+      ],
+      1,
+      25024,
+      [
+        25024,
+        "256504138",
+        "258832970",
+        -22627,
+        -22627,
+        "2263"
+      ],
+      [
+        2,
+        1,
+        0,
+        0,
+        false
+      ],
+      false
+    ],
+    [
+      0,
+      142,
+      [
+        "203205962",
+        "51204901"
+      ],
+      1,
+      24023,
+      [
+        24023,
+        "-149907786",
+        "258832970",
+        22627,
+        -22627,
+        "2263"
+      ],
+      [
+        3,
+        2,
+        1,
+        0,
+        false
+      ],
+      false
+    ]
+  ],
+  "cost_scope": "full admitted batch plus game/controller work, not isolated Deflector overhead",
+  "historical_payments": [
+    {
+      "memo": "DEFLECT 2004 NE",
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680000000000000000000",
+      "position": 2
+    },
+    {
+      "memo": "FIRE 1 0 1|Before",
+      "normalized_hex": "42545a5041593033c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000002625a00f600000001000001064265666f7265",
+      "position": 3
+    }
+  ],
+  "identity": {
+    "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+    "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+    "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+    "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+  },
+  "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "payments": [
+    {
+      "amount": 10000000,
+      "memo": "DEFLECT 24026 NE",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680b7005dda0000000000",
+      "position": 4
+    },
+    {
+      "amount": 10000000,
+      "memo": "DEFLECT 26024 SE",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680b70065a80100000000",
+      "position": 5
+    },
+    {
+      "amount": 10000000,
+      "memo": "DEFLECT 24022 SW",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680b7005dd60200000000",
+      "position": 6
+    },
+    {
+      "amount": 10000000,
+      "memo": "DEFLECT 22024 NW",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680b70056080300000000",
+      "position": 7
+    },
+    {
+      "amount": 10000000,
+      "memo": "DEFLECT 24026 NW",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680b7005dda0300000000",
+      "position": 8
+    },
+    {
+      "amount": 10000000,
+      "memo": "DEFLECT 4004 NE",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680b7000fa40000000000",
+      "position": 9
+    },
+    {
+      "amount": 9999999,
+      "memo": "DEFLECT 1004 NE",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055000000000098967fb70003ec0000000000",
+      "position": 10
+    },
+    {
+      "amount": 10000000,
+      "memo": "DEFLECT 1005 NE",
+      "normalized_hex": "42545a50415930347a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef0000000000989680b70003ed0000000000",
+      "position": 11
+    },
+    {
+      "amount": 10000000,
+      "memo": "DEFLECT 1006 45",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680000000000000000000",
+      "position": 12
+    },
+    {
+      "amount": 1000000000,
+      "memo": "FIRE 1 0 1|Boundary!",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055000000003b9aca00f60000000100000109426f756e6461727921",
+      "position": 13
+    },
+    {
+      "amount": 10000000,
+      "memo": "DEFLECT 300300 NE",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680b704950c0000000000",
+      "position": 14
+    },
+    {
+      "amount": 10000,
+      "memo": "MOVE 1 4005",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000002710d600000001000fa500",
+      "position": 15
+    },
+    {
+      "amount": 1000000000,
+      "memo": "NEW 0 1 5005|Build!",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055000000003b9aca00c600000100138d00064275696c6421",
+      "position": 16
+    },
+    {
+      "amount": 1600000000,
+      "memo": "NEW 0 1 300300|Unsafe!",
+      "normalized_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055000000005f5e1000c600000104950c0007556e7361666521",
+      "position": 17
+    }
+  ],
+  "purchase_tick_cycles": "470548858",
+  "purchase_tick_wall_ms": 79520,
+  "receipts": [
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "2"
+      },
+      "reason": "MALFORMED_MEMO",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "40000000"
+      },
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "10000000"
+        }
+      ],
+      "position": {
+        "$integer": "3"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "30000000"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "kind": "deflector_built",
+      "position": {
+        "$integer": "4"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied",
+      "structure": {
+        "cell": 24026,
+        "id": 1,
+        "orientation": "NE",
+        "owner": 1
+      }
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "kind": "deflector_built",
+      "position": {
+        "$integer": "5"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied",
+      "structure": {
+        "cell": 26024,
+        "id": 2,
+        "orientation": "SE",
+        "owner": 1
+      }
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "kind": "deflector_built",
+      "position": {
+        "$integer": "6"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied",
+      "structure": {
+        "cell": 24022,
+        "id": 3,
+        "orientation": "SW",
+        "owner": 1
+      }
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "kind": "deflector_built",
+      "position": {
+        "$integer": "7"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied",
+      "structure": {
+        "cell": 22024,
+        "id": 4,
+        "orientation": "NW",
+        "owner": 1
+      }
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "8"
+      },
+      "reason": "SITE_OCCUPIED",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "9"
+      },
+      "reason": "SITE_OCCUPIED",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "9999999"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "10"
+      },
+      "reason": "UNDERFUNDED",
+      "remainder": {
+        "$integer": "9999999"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "7a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "11"
+      },
+      "reason": "NOT_OWN_TERRITORY",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "12"
+      },
+      "reason": "MALFORMED_MEMO",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "1000000000"
+      },
+      "amount_used": {
+        "$integer": "40000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "40000000"
+        }
+      ],
+      "position": {
+        "$integer": "13"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "960000000"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "14"
+      },
+      "reason": "ENEMY_TERRITORY_TOO_CLOSE",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "after": 4005,
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "10000"
+      },
+      "before": 4004,
+      "cannon": 1,
+      "kind": "cannon_moved",
+      "position": {
+        "$integer": "15"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "1000000000"
+      },
+      "amount_used": {
+        "$integer": "900000000"
+      },
+      "cannon": 4,
+      "kind": "purchase_completed",
+      "new_cannon": true,
+      "per_item_prices": [
+        {
+          "$integer": "900000000"
+        }
+      ],
+      "position": {
+        "$integer": "16"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "100000000"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "1600000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "17"
+      },
+      "reason": "ENEMY_TERRITORY_TOO_CLOSE",
+      "remainder": {
+        "$integer": "1600000000"
+      },
+      "status": "rejected"
+    }
+  ],
+  "scope": "Disposable official valueless Ledger/Index; normal Wasm and exact Rules11 predecessor; no production operation",
+  "state_exactly_extended_at_epoch": true,
+  "status": "PASS",
+  "world_finance_cursor_publication_preserved_on_module_upgrade": true
+}

@@ -1,9 +1,12 @@
-# Capture/island addendum coverage — ongoing qualification
+# Capture/island addendum — qualified evidence scopes
 
-All results below are local, at their recorded sources. Final hosted exact-source
-qualification is still outstanding. A native fixture is not an installed IC game;
-a synthetic initial world is labelled even when subsequent Ledger payments and
-normal-module execution are real.
+Final exact publishedf819257 passed all six hosted gates inrun44214091550,
+including65 installed cases and8 Deflector-specific normal-module cases. The
+normal artifact2cb2fe is identical in the Wasm and installed gates. Final installed
+summaries and replay results are under `results/qualification-f819257/installed/`.
+Original local runs and interruptions remain historical evidence. A native fixture
+is not an installed IC game; synthetic setup stays labelled even when later Ledger
+payments and normal-module execution are real.
 
 | Owner cases | JS/native evidence | Disposable normal-module evidence |
 |---|---|---|
@@ -11,11 +14,11 @@ normal-module execution are real.
 | 5–6: four orientations, front/rear, angle independence | All four faces ×4 orientations ×3 incoming angles,160 independent Fraction vectors, near-parallel cannon reflections; shared compass table | Four paid orientations and actual redirects in main upgrade; front/rear contacts in ownership test PASS |
 | 7–10: direct capture/strike immunity, outside occupancy | Adjacent hostile positive control permits strike/capture without structure, rejects both with it; scheduler contacts remain outside | Paid ownership test checks no capture/armed strike to the occupied tile PASS |
 | 11–12: supported island survives; no-ball cannon section loses D |14 capture vectors with every-unit restore and exact expiry outputs | Paid bridge cut removes119, leaves103 and dormant cannon2; two browsers + signed-wire independent replay PASS |
-| 13–15: unanchored balls, unsupported empty section, cancelled transfer | Unanchored/unpaired/direct-priority/unsupported vectors preserve existing atomic pairing; no D anchor | Paid cancellation, survivor and independent replay PASS locally; outer runner interruption is separately retained |
+| 13–15: unanchored balls, unsupported empty section, cancelled transfer | Unanchored/unpaired/direct-priority/unsupported vectors preserve existing atomic pairing; no D anchor | Final hosted paid cancellation, survivor and independent replay PASS; original local runner interruption retained |
 | 16: remove only committed affected structures | Original bytes unchanged until final commit; exact removed list and retained owner IDs | Native observers agree on119 removal/103 survival; forged/omitted destruction replay negatives PASS |
-| 17: revival never restores a destroyed structure | JS real cursor paid revival; shared native revival vector | Paid revival and independent replay PASS locally; see runner interruption note |
+| 17: revival never restores a destroyed structure | JS real cursor paid revival; shared native revival vector | Final hosted paid revival and independent replay PASS; original runner note retained |
 | 18: expiry leaves no orphan | Shared native exact expiry state/events/scores and JS expiry checks | Actual v3→torus→million→lifecycle→Rules11→successor activation, paid destruction and virtual24h expiry PASS;35 publications independently replayed. Earlier insufficient genesis retained |
-| 19: toroidal split/capture | Shifted seam split and ordinary/seam contact/corner vectors | Real paid seam-loss and independent replay PASS locally |
+| 19: toroidal split/capture | Shifted seam split and ordinary/seam contact/corner vectors | Final hosted real paid seam-loss and independent replay PASS |
 | 20–22: unique occupancy, ball closure, automatic entry | Shared occupied set; cannon Move/New and D admission; inclusive boundary and explicit entry-search exclusion | Actual paid Move/New/D conflicts and first automatic Join PASS; no payment goes to production |
 | 23: authenticated removals replay | Exact emitted ownership/removal bytes; omission/forgery negatives | Five-publication pinned-certificate/query-wire capture and second independent replay PASS |
 | 24: interruption/restart | Shared cursor every-work-unit restoration; atomic topology every-unit restore; long-chain recovery | Normal-module upgrade at admitted purchase/work stages, current-world/finance/source/publication preserved PASS. Not a claim of a physical module upgrade at every possible work unit |

@@ -3,7 +3,10 @@
 This specification supersedes the abandoned arbitrary-angle/interior-midpoint
 proposal. Its negative numerical evidence remains in the historical graphite
 report and [superseded specification](../../evidence/B2Z/graphite-deflectors/boundary-deflector/SUPERSEDED_MIDPOINT_SPEC.md).
-Candidate implementation is not production activation or completed qualification.
+Exact source `f819257311e43ae41332b83e7b40921c1418f1bf` passed all six hosted
+gates in [run44214091550](https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550).
+See the [closeout and release decisions](../../evidence/B2Z/graphite-deflectors/boundary-deflector/REPORT.md).
+Qualification is not production approval; marked policy defaults remain provisional.
 The paid European Rules7 world and both qualified predecessor freezes are protected.
 
 ## Direction and contact

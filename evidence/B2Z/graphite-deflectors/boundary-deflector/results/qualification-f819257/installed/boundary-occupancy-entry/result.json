@@ -1,0 +1,150 @@
+{
+  "cannons": [
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "cell": 4004,
+      "heading": 0,
+      "id": 1
+    },
+    {
+      "account": "7a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef",
+      "cell": 504504,
+      "heading": 0,
+      "id": 2
+    }
+  ],
+  "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "receipts": [
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "kind": "deflector_built",
+      "position": {
+        "$integer": "2"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied",
+      "structure": {
+        "cell": 4005,
+        "id": 1,
+        "orientation": "NE",
+        "owner": 1
+      }
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "1000000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "3"
+      },
+      "reason": "SITE_OCCUPIED",
+      "remainder": {
+        "$integer": "1000000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "1000000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "4"
+      },
+      "reason": "ILLEGAL_ADJACENT_SITE",
+      "remainder": {
+        "$integer": "1000000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "5"
+      },
+      "reason": "SITE_OCCUPIED",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "6"
+      },
+      "reason": "SITE_OCCUPIED",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    {
+      "account": "7a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef",
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "1000000000"
+      },
+      "amount_used": {
+        "$integer": "100000000"
+      },
+      "cannon": 2,
+      "kind": "purchase_completed",
+      "new_cannon": true,
+      "per_item_prices": [
+        {
+          "$integer": "100000000"
+        }
+      ],
+      "position": {
+        "$integer": "7"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "900000000"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    }
+  ],
+  "scope": "Official valueless Ledger/Index; normal-module construction/Move/first-entry occupancy and independent replay; not production",
+  "status": "PASS",
+  "structures": [
+    {
+      "cell": 4005,
+      "id": 1,
+      "orientation": "NE",
+      "owner": 1
+    }
+  ]
+}

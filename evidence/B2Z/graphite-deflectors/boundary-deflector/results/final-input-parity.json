@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "scope": "Evidence/docs/artifact-retention-only closeout; no consumed runtime/build/dependency input changed after exact qualifiedf819257",
+  "qualified_source": "f819257311e43ae41332b83e7b40921c1418f1bf",
+  "runtime_build_source": "9afcd80cf6c92e6f4ed3b0e268005146337c36a1",
+  "checked_unique_inputs": 480,
+  "all81_frozen_files_verified": true,
+  "frontend_javascript": "c5b688ae74527cb30e7b50f06141d429f237eef0297ed7eba0192d268e0d8c9b",
+  "frontend_inventory": "0b14bcccf7f1ed76bcfd4039b6aabcfb1965c7e6b94e437e3cc46d7e165d7c3e",
+  "selected_normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "gzip_decompresses_to_exact_qualified_normal": true,
+  "predecessor_rules11_normal_unchanged": true
+}

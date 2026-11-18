@@ -1,0 +1,22 @@
+{
+  "ball": {
+    "cell": 23980,
+    "den": {
+      "$integer": "11315"
+    },
+    "id": 1,
+    "owner": 1,
+    "vx": -22627,
+    "vy": 22627,
+    "x0": {
+      "$integer": "11615525632"
+    },
+    "y0": {
+      "$integer": "17379328"
+    }
+  },
+  "denominator": "11315",
+  "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "scope": "Actual official valueless Ledger purchase and normal-module redirect; typed read-only region checked against publication-bound canonical trajectory state; independent certificate/replay qualification remains separate. No production operation.",
+  "status": "PASS"
+}

@@ -6,13 +6,15 @@ Final release approval must name the exact source, normal Wasm, rules/schema/
 configuration/source-adapter identities, frontend inventory and six hosted gates
 from REPORT.md. A test-hooks/diagnostic module is never a production candidate.
 
-## Selected artifacts, still awaiting final hosted closeout
+## Qualified selected artifacts — no production approval
 
-Qualification source5124797b283d3474c16edc6d40c3141634bb2237; clean runtime/build
+Qualification sourcef819257311e43ae41332b83e7b40921c1418f1bf; clean runtime/build
 source9afcd80cf6c92e6f4ed3b0e268005146337c36a1. Select only normal Wasm
 `2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13`,
 3792812 bytes, retained in `.work/boundary-deflector/frozen/backend/runtime-lab.wasm`.
-The local353699 and older3d122c/dfc6a7 modules are not substitutes.
+A lossless retained copy is `vendor/b2z/rules12-2cb2fe02.wasm.gz`; decompress
+and verify the full2cb2fe hash before any later approved installation. The
+local353699 and older3d122c/dfc6a7 modules are not substitutes.
 
 The81-file compatible graphite frontend has JavaScript
 `c5b688ae74527cb30e7b50f06141d429f237eef0297ed7eba0192d268e0d8c9b` and inventory
@@ -35,6 +37,10 @@ No frontend deployment is authorised here.
 Before Deflector activation retain a qualified frontend that recognises both the
 exact Rules11 predecessor and exact Rules12 successor. A pre-successor frontend
 is not a post-cutover rollback. Keep a compatible recovery frontend independently.
+Typed read-only API consumers must recognise schema7 and use the optional
+`trajectory_denominator` when interpreting intercept numerators. Missing means1
+only for a known historical integer schema; a schema7 omission is an error.
+Candid record compatibility alone does not make an old integer-only reader safe.
 
 ## Rules11 is the required predecessor
 
@@ -43,6 +49,9 @@ qualified Rules11 normal predecessor is
 `5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43`.
 Any Rules7→11 maintenance is a separate owner decision under its existing report.
 This task does not approve or substitute a direct production Rules7→12 shortcut.
+Existing Rules11 mixed-module/browser-interruption limitations remain as
+recorded in that workstream; successor qualification does not relabel them as
+passed or remove its separate production maintenance prerequisites.
 
 ## Rules11→12 proposal
 

@@ -1,0 +1,61 @@
+{
+  "attacker": 1,
+  "contacts": [
+    [
+      0,
+      37,
+      [
+        "62",
+        "125"
+      ],
+      1,
+      1497,
+      [
+        1497,
+        "62213126",
+        "1594874",
+        22627,
+        -22627,
+        "125"
+      ],
+      [
+        1,
+        2,
+        1,
+        0,
+        false
+      ],
+      false
+    ]
+  ],
+  "defender": 2,
+  "face": "E",
+  "normal_wasm": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "orientation": "SW",
+  "receipt": {
+    "account": "7a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef",
+    "amount": {
+      "$integer": "10000000"
+    },
+    "amount_used": {
+      "$integer": "10000000"
+    },
+    "kind": "deflector_built",
+    "position": {
+      "$integer": "2"
+    },
+    "reason": "ACCEPTED",
+    "remainder": {
+      "$integer": "0"
+    },
+    "status": "applied",
+    "structure": {
+      "cell": 1496,
+      "id": 1,
+      "orientation": "SW",
+      "owner": 2
+    }
+  },
+  "scope": "Synthetic frontier constructor; actual official valueless Ledger/Index, normal Wasm, protected enemy/friendly collision and independent replay; not production",
+  "status": "PASS"
+}

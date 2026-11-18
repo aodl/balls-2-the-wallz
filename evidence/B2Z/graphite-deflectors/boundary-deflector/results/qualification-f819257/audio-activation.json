@@ -1,0 +1,739 @@
+{
+  "scope": "Actual game modules, native Web Audio/FLAC, production-equivalent headers. No IC network.",
+  "mode": "integrated-app",
+  "checks": [
+    {
+      "id": "L01",
+      "status": "PASS",
+      "observation": "Enabled intent by default; browser permission remains independent"
+    },
+    {
+      "id": "unified-control",
+      "status": "PASS",
+      "observation": "Ordinary gesture activates both; one icon mutes, survives reload and unrelated gesture; one icon restores both"
+    }
+  ],
+  "errors": [],
+  "controlled_native_decode_delay_ms": 500,
+  "initial": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 0,
+    "lastError": "",
+    "unlocked": true,
+    "blocked": false,
+    "hidden": false,
+    "usable": true,
+    "settings": {
+      "version": 2,
+      "enabled": true
+    },
+    "ownership": {
+      "id": "e0269fea-65b7-4f94-a556-d50b475d5388",
+      "owner": "e0269fea-65b7-4f94-a556-d50b475d5388",
+      "owns": true,
+      "coordinated": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 7,
+    "music": {
+      "starts": 2,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200,
+      "active": true,
+      "nodes": 2,
+      "queuedNodes": 2,
+      "buffers": 3,
+      "phase": 170752,
+      "coveredSeconds": 12.442666666666668
+    },
+    "loader": {
+      "fetches": 11,
+      "cacheHits": 0,
+      "decodes": 10,
+      "maxFetches": 1,
+      "maxEncoded": 6773340,
+      "maxDecodes": 1,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 423,
+      "lateFrames": 0,
+      "disabled": 171,
+      "inspected": 1,
+      "classified": 1
+    },
+    "seen": 1,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 1,
+      "candidates": 1,
+      "eligible": 1,
+      "starts": 0,
+      "dropped": 1,
+      "maxVoices": 0,
+      "frames": 339,
+      "maxFrameMs": 0.6000000000931323,
+      "maxReservedPeak": 0,
+      "reconciliations": 10,
+      "contextCreations": 1,
+      "inspectionLimit": 128,
+      "flushP95": 0.09999999986030161,
+      "flushP99": 0.10000000009313226
+    },
+    "mix": {
+      "master": 0.8,
+      "music": 1,
+      "effects": 1,
+      "effectsReservedPeak": 0.2
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "displayed_effects": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 2,
+    "lastError": "",
+    "unlocked": true,
+    "blocked": false,
+    "hidden": false,
+    "usable": true,
+    "settings": {
+      "version": 2,
+      "enabled": true
+    },
+    "ownership": {
+      "id": "e0269fea-65b7-4f94-a556-d50b475d5388",
+      "owner": "e0269fea-65b7-4f94-a556-d50b475d5388",
+      "owns": true,
+      "coordinated": true
+    },
+    "activeVoices": 1,
+    "fxBuffers": 7,
+    "music": {
+      "starts": 5,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200,
+      "active": true,
+      "nodes": 2,
+      "queuedNodes": 2,
+      "buffers": 3,
+      "phase": 518400,
+      "coveredSeconds": 13.200000000000001
+    },
+    "loader": {
+      "fetches": 12,
+      "cacheHits": 3,
+      "decodes": 14,
+      "maxFetches": 1,
+      "maxEncoded": 6773340,
+      "maxDecodes": 1,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 1,
+      "retained": 1,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 930,
+      "lateFrames": 0,
+      "disabled": 174,
+      "inspected": 3,
+      "classified": 3
+    },
+    "seen": 2,
+    "cooldowns": 1,
+    "stats": {
+      "inspections": 3,
+      "candidates": 2,
+      "eligible": 2,
+      "starts": 1,
+      "dropped": 1,
+      "maxVoices": 1,
+      "frames": 845,
+      "maxFrameMs": 0.6000000000931323,
+      "maxReservedPeak": 0.065,
+      "reconciliations": 25,
+      "contextCreations": 1,
+      "inspectionLimit": 128,
+      "flushP95": 0.10000000009313226,
+      "flushP99": 0.10000000009313226
+    },
+    "mix": {
+      "master": 0.8,
+      "music": 1,
+      "effects": 1,
+      "effectsReservedPeak": 0.2
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "muted": {
+    "contextState": "running",
+    "loading": false,
+    "gameReady": true,
+    "generation": 3,
+    "lastError": "",
+    "unlocked": true,
+    "blocked": false,
+    "hidden": false,
+    "usable": false,
+    "settings": {
+      "version": 2,
+      "enabled": false
+    },
+    "ownership": {
+      "id": "e0269fea-65b7-4f94-a556-d50b475d5388",
+      "owner": null,
+      "owns": false,
+      "coordinated": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 7,
+    "music": {
+      "starts": 5,
+      "underruns": 0,
+      "maxBuffers": 3,
+      "maxNodes": 2,
+      "maxDecoded": 9331200,
+      "active": false,
+      "nodes": 2,
+      "queuedNodes": 0,
+      "buffers": 0,
+      "phase": 520319,
+      "coveredSeconds": 0
+    },
+    "loader": {
+      "fetches": 12,
+      "cacheHits": 3,
+      "decodes": 14,
+      "maxFetches": 1,
+      "maxEncoded": 6773340,
+      "maxDecodes": 1,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 0
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 932,
+      "lateFrames": 0,
+      "disabled": 174,
+      "inspected": 3,
+      "classified": 3
+    },
+    "seen": 2,
+    "cooldowns": 1,
+    "stats": {
+      "inspections": 3,
+      "candidates": 2,
+      "eligible": 2,
+      "starts": 1,
+      "dropped": 1,
+      "maxVoices": 1,
+      "frames": 847,
+      "maxFrameMs": 0.6000000000931323,
+      "maxReservedPeak": 0.065,
+      "reconciliations": 27,
+      "contextCreations": 1,
+      "inspectionLimit": 128,
+      "flushP95": 0.10000000009313226,
+      "flushP99": 0.10000000009313226
+    },
+    "mix": {
+      "master": 0.8,
+      "music": 1,
+      "effects": 1,
+      "effectsReservedPeak": 0.2
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "controlled_freeze_resume": {
+    "before": {
+      "contextState": "running",
+      "loading": false,
+      "gameReady": true,
+      "generation": 0,
+      "lastError": "",
+      "unlocked": true,
+      "blocked": false,
+      "hidden": false,
+      "usable": true,
+      "settings": {
+        "version": 2,
+        "enabled": true
+      },
+      "ownership": {
+        "id": "a9fbd442-dded-48c9-9032-6c9ce94e63d2",
+        "owner": "a9fbd442-dded-48c9-9032-6c9ce94e63d2",
+        "owns": true,
+        "coordinated": true
+      },
+      "activeVoices": 0,
+      "fxBuffers": 7,
+      "music": {
+        "starts": 2,
+        "underruns": 0,
+        "maxBuffers": 3,
+        "maxNodes": 2,
+        "maxDecoded": 9331200,
+        "active": true,
+        "nodes": 2,
+        "queuedNodes": 2,
+        "buffers": 3,
+        "phase": 169343.99999999997,
+        "coveredSeconds": 12.472
+      },
+      "loader": {
+        "fetches": 0,
+        "cacheHits": 11,
+        "decodes": 10,
+        "maxFetches": 1,
+        "maxEncoded": 6773340,
+        "maxDecodes": 1,
+        "cacheDisabled": false,
+        "encoded": 0,
+        "pending": 0,
+        "decodePending": 0
+      },
+      "events": {
+        "inspected": 0,
+        "retained": 0,
+        "dropped": 0
+      },
+      "eventTotals": {
+        "frames": 402,
+        "lateFrames": 0,
+        "disabled": 153,
+        "inspected": 1,
+        "classified": 1
+      },
+      "seen": 1,
+      "cooldowns": 0,
+      "stats": {
+        "inspections": 1,
+        "candidates": 1,
+        "eligible": 1,
+        "starts": 0,
+        "dropped": 1,
+        "maxVoices": 0,
+        "frames": 327,
+        "maxFrameMs": 0.10000000009313226,
+        "maxReservedPeak": 0,
+        "reconciliations": 9,
+        "contextCreations": 1,
+        "inspectionLimit": 128,
+        "flushP95": 0.09999999986030161,
+        "flushP99": 0.10000000009313226
+      },
+      "mix": {
+        "master": 0.8,
+        "music": 1,
+        "effects": 1,
+        "effectsReservedPeak": 0.2
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.010020833333333333,
+      "outputLatency": 0.032
+    },
+    "after": {
+      "contextState": "running",
+      "loading": false,
+      "gameReady": true,
+      "generation": 2,
+      "lastError": "",
+      "unlocked": true,
+      "blocked": false,
+      "hidden": false,
+      "usable": true,
+      "settings": {
+        "version": 2,
+        "enabled": true
+      },
+      "ownership": {
+        "id": "a9fbd442-dded-48c9-9032-6c9ce94e63d2",
+        "owner": "a9fbd442-dded-48c9-9032-6c9ce94e63d2",
+        "owns": true,
+        "coordinated": true
+      },
+      "activeVoices": 0,
+      "fxBuffers": 7,
+      "music": {
+        "starts": 4,
+        "underruns": 0,
+        "maxBuffers": 3,
+        "maxNodes": 2,
+        "maxDecoded": 9331200,
+        "active": true,
+        "nodes": 2,
+        "queuedNodes": 2,
+        "buffers": 2,
+        "phase": 169343,
+        "coveredSeconds": 12.530687500000003
+      },
+      "loader": {
+        "fetches": 0,
+        "cacheHits": 14,
+        "decodes": 12,
+        "maxFetches": 1,
+        "maxEncoded": 6773340,
+        "maxDecodes": 1,
+        "cacheDisabled": false,
+        "encoded": 6178445,
+        "pending": 1,
+        "decodePending": 0
+      },
+      "events": {
+        "inspected": 0,
+        "retained": 0,
+        "dropped": 0
+      },
+      "eventTotals": {
+        "frames": 589,
+        "lateFrames": 0,
+        "disabled": 273,
+        "inspected": 1,
+        "classified": 1
+      },
+      "seen": 1,
+      "cooldowns": 0,
+      "stats": {
+        "inspections": 1,
+        "candidates": 1,
+        "eligible": 1,
+        "starts": 0,
+        "dropped": 1,
+        "maxVoices": 0,
+        "frames": 454,
+        "maxFrameMs": 0.10000000009313226,
+        "maxReservedPeak": 0,
+        "reconciliations": 18,
+        "contextCreations": 1,
+        "inspectionLimit": 128,
+        "flushP95": 0.09999999986030161,
+        "flushP99": 0.10000000009313226
+      },
+      "mix": {
+        "master": 0.8,
+        "music": 1,
+        "effects": 1,
+        "effectsReservedPeak": 0.2
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.010020833333333333,
+      "outputLatency": 0.032
+    },
+    "status": "PASS controlled events, not native visibility"
+  },
+  "audio_hash_rejection": {
+    "contextState": "running",
+    "loading": true,
+    "gameReady": true,
+    "generation": 0,
+    "lastError": "Audio hash",
+    "unlocked": true,
+    "blocked": false,
+    "hidden": false,
+    "usable": true,
+    "settings": {
+      "version": 2,
+      "enabled": true
+    },
+    "ownership": {
+      "id": "4af714a6-6ed0-4cbe-a695-e0343146b499",
+      "owner": "4af714a6-6ed0-4cbe-a695-e0343146b499",
+      "owns": true,
+      "coordinated": true
+    },
+    "activeVoices": 0,
+    "fxBuffers": 0,
+    "music": {
+      "starts": 0,
+      "underruns": 0,
+      "maxBuffers": 1,
+      "maxNodes": 0,
+      "maxDecoded": 3110400,
+      "active": false,
+      "nodes": 0,
+      "queuedNodes": 0,
+      "buffers": 1,
+      "phase": 0,
+      "coveredSeconds": 0
+    },
+    "loader": {
+      "fetches": 4,
+      "cacheHits": 0,
+      "decodes": 2,
+      "maxFetches": 1,
+      "maxEncoded": 6773340,
+      "maxDecodes": 1,
+      "cacheDisabled": false,
+      "encoded": 0,
+      "pending": 0,
+      "decodePending": 1
+    },
+    "events": {
+      "inspected": 0,
+      "retained": 0,
+      "dropped": 0
+    },
+    "eventTotals": {
+      "frames": 34,
+      "lateFrames": 0,
+      "disabled": 34,
+      "inspected": 0,
+      "classified": 0
+    },
+    "seen": 0,
+    "cooldowns": 0,
+    "stats": {
+      "inspections": 0,
+      "candidates": 0,
+      "eligible": 0,
+      "starts": 0,
+      "dropped": 0,
+      "maxVoices": 0,
+      "frames": 19,
+      "maxFrameMs": 0.10000000009313226,
+      "maxReservedPeak": 0,
+      "reconciliations": 4,
+      "contextCreations": 1,
+      "inspectionLimit": 128,
+      "flushP95": 0.10000000009313226,
+      "flushP99": 0.10000000009313226
+    },
+    "mix": {
+      "master": 0.8,
+      "music": 1,
+      "effects": 1,
+      "effectsReservedPeak": 0.2
+    },
+    "sampleRate": 48000,
+    "baseLatency": 0.010020833333333333,
+    "outputLatency": 0.032
+  },
+  "audio_hash_recovery": {
+    "status": "PASS verified refetch; game unaffected",
+    "state": {
+      "contextState": "running",
+      "loading": false,
+      "gameReady": true,
+      "generation": 0,
+      "lastError": "Audio hash",
+      "unlocked": true,
+      "blocked": false,
+      "hidden": false,
+      "usable": true,
+      "settings": {
+        "version": 2,
+        "enabled": true
+      },
+      "ownership": {
+        "id": "4af714a6-6ed0-4cbe-a695-e0343146b499",
+        "owner": "4af714a6-6ed0-4cbe-a695-e0343146b499",
+        "owns": true,
+        "coordinated": true
+      },
+      "activeVoices": 0,
+      "fxBuffers": 7,
+      "music": {
+        "starts": 2,
+        "underruns": 0,
+        "maxBuffers": 3,
+        "maxNodes": 2,
+        "maxDecoded": 9331200,
+        "active": true,
+        "nodes": 2,
+        "queuedNodes": 2,
+        "buffers": 3,
+        "phase": 92800.00000000001,
+        "coveredSeconds": 14.066666666666668
+      },
+      "loader": {
+        "fetches": 12,
+        "cacheHits": 0,
+        "decodes": 10,
+        "maxFetches": 1,
+        "maxEncoded": 6773340,
+        "maxDecodes": 1,
+        "cacheDisabled": false,
+        "encoded": 0,
+        "pending": 0,
+        "decodePending": 0
+      },
+      "events": {
+        "inspected": 0,
+        "retained": 0,
+        "dropped": 0
+      },
+      "eventTotals": {
+        "frames": 158,
+        "lateFrames": 0,
+        "disabled": 38,
+        "inspected": 0,
+        "classified": 0
+      },
+      "seen": 0,
+      "cooldowns": 0,
+      "stats": {
+        "inspections": 0,
+        "candidates": 0,
+        "eligible": 0,
+        "starts": 0,
+        "dropped": 0,
+        "maxVoices": 0,
+        "frames": 141,
+        "maxFrameMs": 0.10000000009313226,
+        "maxReservedPeak": 0,
+        "reconciliations": 7,
+        "contextCreations": 1,
+        "inspectionLimit": 128,
+        "flushP95": 0.09999999986030161,
+        "flushP99": 0.10000000009313226
+      },
+      "mix": {
+        "master": 0.8,
+        "music": 1,
+        "effects": 1,
+        "effectsReservedPeak": 0.2
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.010020833333333333,
+      "outputLatency": 0.032
+    }
+  },
+  "native_suspend_phase": {
+    "before": 305535,
+    "saved_source_frame": 305535,
+    "after": 305919,
+    "delta_source_frames": 384
+  },
+  "native_close_phase": {
+    "before": 305919,
+    "saved_source_frame": 305919,
+    "after": 501247,
+    "delta_source_frames": 195328
+  },
+  "native_context_recovery": {
+    "status": "PASS controlled actual native suspend/close; one ordinary gesture, one recreation, phase and game references retained",
+    "state": {
+      "contextState": "running",
+      "loading": false,
+      "gameReady": true,
+      "generation": 5,
+      "lastError": "",
+      "unlocked": true,
+      "blocked": false,
+      "hidden": false,
+      "usable": true,
+      "settings": {
+        "version": 2,
+        "enabled": true
+      },
+      "ownership": {
+        "id": "a9fbd442-dded-48c9-9032-6c9ce94e63d2",
+        "owner": "a9fbd442-dded-48c9-9032-6c9ce94e63d2",
+        "owns": true,
+        "coordinated": true
+      },
+      "activeVoices": 0,
+      "fxBuffers": 7,
+      "music": {
+        "starts": 3,
+        "underruns": 0,
+        "maxBuffers": 3,
+        "maxNodes": 2,
+        "maxDecoded": 9331200,
+        "active": true,
+        "nodes": 2,
+        "queuedNodes": 2,
+        "buffers": 3,
+        "phase": 501247,
+        "coveredSeconds": 13.557354166666666
+      },
+      "loader": {
+        "fetches": 0,
+        "cacheHits": 11,
+        "decodes": 11,
+        "maxFetches": 1,
+        "maxEncoded": 6773340,
+        "maxDecodes": 1,
+        "cacheDisabled": false,
+        "encoded": 0,
+        "pending": 0,
+        "decodePending": 0
+      },
+      "events": {
+        "inspected": 0,
+        "retained": 0,
+        "dropped": 0
+      },
+      "eventTotals": {
+        "frames": 1237,
+        "lateFrames": 0,
+        "disabled": 407,
+        "inspected": 3,
+        "classified": 3
+      },
+      "seen": 3,
+      "cooldowns": 1,
+      "stats": {
+        "inspections": 3,
+        "candidates": 3,
+        "eligible": 3,
+        "starts": 1,
+        "dropped": 2,
+        "maxVoices": 1,
+        "frames": 1035,
+        "maxFrameMs": 0.5999999998603016,
+        "maxReservedPeak": 0.065,
+        "reconciliations": 33,
+        "contextCreations": 2,
+        "inspectionLimit": 128,
+        "flushP95": 0.10000000009313226,
+        "flushP99": 0.10000000009313226
+      },
+      "mix": {
+        "master": 0.8,
+        "music": 1,
+        "effects": 1,
+        "effectsReservedPeak": 0.2
+      },
+      "sampleRate": 48000,
+      "baseLatency": 0.010020833333333333,
+      "outputLatency": 0.032
+    }
+  },
+  "game_error": null,
+  "status": "PASS",
+  "browser": "153.0.8010.12",
+  "audio_requests": 12
+}

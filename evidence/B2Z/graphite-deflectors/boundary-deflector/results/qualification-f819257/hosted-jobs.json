@@ -1,0 +1,925 @@
+{
+  "conclusion": "success",
+  "headSha": "f819257311e43ae41332b83e7b40921c1418f1bf",
+  "jobs": [
+    {
+      "completedAt": "2026-11-18T01:17:30Z",
+      "conclusion": "success",
+      "databaseId": 134499702666,
+      "name": "Native conformance",
+      "startedAt": "2026-11-18T01:13:50Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-18T01:13:54Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-18T01:13:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:19Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 2,
+          "startedAt": "2026-11-18T01:13:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:20Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 3,
+          "startedAt": "2026-11-18T01:14:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:24Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "number": 4,
+          "startedAt": "2026-11-18T01:14:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:27Z",
+          "conclusion": "success",
+          "name": "Install locked JS dependencies for native forecast equality",
+          "number": 5,
+          "startedAt": "2026-11-18T01:14:24Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:36Z",
+          "conclusion": "success",
+          "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+          "number": 6,
+          "startedAt": "2026-11-18T01:14:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:37Z",
+          "conclusion": "success",
+          "name": "Run cargo +1.94.1 fetch --manifest-path Cargo.toml --locked",
+          "number": 7,
+          "startedAt": "2026-11-18T01:14:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:37Z",
+          "conclusion": "success",
+          "name": "Run cargo +1.94.1 fetch --manifest-path native/Cargo.toml --locked",
+          "number": 8,
+          "startedAt": "2026-11-18T01:14:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:38Z",
+          "conclusion": "success",
+          "name": "Assert exact DTR release provenance",
+          "number": 9,
+          "startedAt": "2026-11-18T01:14:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:45Z",
+          "conclusion": "success",
+          "name": "Run python -B tools/check.py native --output .work/ci-native",
+          "number": 10,
+          "startedAt": "2026-11-18T01:14:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:45Z",
+          "conclusion": "success",
+          "name": "Historical midpoint arithmetic regression (not gameplay qualification)",
+          "number": 11,
+          "startedAt": "2026-11-18T01:16:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:17:24Z",
+          "conclusion": "success",
+          "name": "Four-direction exact oracle and bounded JS/native chains",
+          "number": 12,
+          "startedAt": "2026-11-18T01:16:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:17:26Z",
+          "conclusion": "success",
+          "name": "Upload native evidence",
+          "number": 13,
+          "startedAt": "2026-11-18T01:17:24Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:17:26Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "number": 24,
+          "startedAt": "2026-11-18T01:17:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:17:26Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 25,
+          "startedAt": "2026-11-18T01:17:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:17:26Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 26,
+          "startedAt": "2026-11-18T01:17:26Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:17:26Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 27,
+          "startedAt": "2026-11-18T01:17:26Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550/job/134499702666"
+    },
+    {
+      "completedAt": "2026-11-18T01:16:37Z",
+      "conclusion": "success",
+      "databaseId": 134499703010,
+      "name": "Source conformance",
+      "startedAt": "2026-11-18T01:13:50Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-18T01:13:54Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-18T01:13:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:20Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 2,
+          "startedAt": "2026-11-18T01:13:54Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:20Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 3,
+          "startedAt": "2026-11-18T01:14:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:28Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "number": 4,
+          "startedAt": "2026-11-18T01:14:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:31Z",
+          "conclusion": "success",
+          "name": "Run npm ci --ignore-scripts",
+          "number": 5,
+          "startedAt": "2026-11-18T01:14:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:32Z",
+          "conclusion": "success",
+          "name": "Assert exact DTR release provenance",
+          "number": 6,
+          "startedAt": "2026-11-18T01:14:31Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:32Z",
+          "conclusion": "success",
+          "name": "Run python -B tools/check.py source --output .work/ci-source",
+          "number": 7,
+          "startedAt": "2026-11-18T01:14:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:32Z",
+          "conclusion": "success",
+          "name": "Reproduce exact boundary Deflector frontend freeze",
+          "number": 8,
+          "startedAt": "2026-11-18T01:16:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:34Z",
+          "conclusion": "success",
+          "name": "Upload source evidence",
+          "number": 9,
+          "startedAt": "2026-11-18T01:16:32Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:34Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "number": 16,
+          "startedAt": "2026-11-18T01:16:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:34Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 17,
+          "startedAt": "2026-11-18T01:16:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:35Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 18,
+          "startedAt": "2026-11-18T01:16:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:35Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 19,
+          "startedAt": "2026-11-18T01:16:35Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550/job/134499703010"
+    },
+    {
+      "completedAt": "2026-11-18T01:30:59Z",
+      "conclusion": "success",
+      "databaseId": 134499703127,
+      "name": "Browser HTTP and Web Crypto",
+      "startedAt": "2026-11-18T01:13:50Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-18T01:13:52Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-18T01:13:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:14Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 2,
+          "startedAt": "2026-11-18T01:13:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:14Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 3,
+          "startedAt": "2026-11-18T01:14:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:19Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "number": 4,
+          "startedAt": "2026-11-18T01:14:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:21Z",
+          "conclusion": "success",
+          "name": "Run npm ci --ignore-scripts",
+          "number": 5,
+          "startedAt": "2026-11-18T01:14:19Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:25Z",
+          "conclusion": "success",
+          "name": "Run python -m pip install --require-hashes -r tools/browser-requirements.txt",
+          "number": 6,
+          "startedAt": "2026-11-18T01:14:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:34Z",
+          "conclusion": "success",
+          "name": "Run python -m playwright install chromium",
+          "number": 7,
+          "startedAt": "2026-11-18T01:14:25Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:34Z",
+          "conclusion": "success",
+          "name": "Assert exact DTR release provenance",
+          "number": 8,
+          "startedAt": "2026-11-18T01:14:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:50Z",
+          "conclusion": "success",
+          "name": "Capture lifecycle HTTP/browser and independent replay regressions",
+          "number": 9,
+          "startedAt": "2026-11-18T01:14:34Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:15:37Z",
+          "conclusion": "success",
+          "name": "Run python -B tools/check.py browser --output .work/ci-browser",
+          "number": 10,
+          "startedAt": "2026-11-18T01:14:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:15:43Z",
+          "conclusion": "success",
+          "name": "Optional audio cache cancellation retains strict HTTP observation guarantees",
+          "number": 11,
+          "startedAt": "2026-11-18T01:15:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:17:14Z",
+          "conclusion": "success",
+          "name": "Minimal human interface contract journeys (UX-01 through UX-13)",
+          "number": 12,
+          "startedAt": "2026-11-18T01:15:43Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:17:50Z",
+          "conclusion": "success",
+          "name": "Tactical projection, interaction and GPU seam regressions",
+          "number": 13,
+          "startedAt": "2026-11-18T01:17:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:18:55Z",
+          "conclusion": "success",
+          "name": "Fluid camera, ball follow, compact controls and guide depth",
+          "number": 14,
+          "startedAt": "2026-11-18T01:17:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:19:55Z",
+          "conclusion": "success",
+          "name": "Player refinement target integrity and panel geometry",
+          "number": 15,
+          "startedAt": "2026-11-18T01:18:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:20:12Z",
+          "conclusion": "success",
+          "name": "Final visual composition and input modality",
+          "number": 16,
+          "startedAt": "2026-11-18T01:19:55Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:21:21Z",
+          "conclusion": "success",
+          "name": "Human playtest direct interaction, stable status and toroidal seam acceptance",
+          "number": 17,
+          "startedAt": "2026-11-18T01:20:12Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:22:57Z",
+          "conclusion": "success",
+          "name": "Readiness-only panel geometry across actions, viewport contraction and reduced motion",
+          "number": 18,
+          "startedAt": "2026-11-18T01:21:21Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:23:20Z",
+          "conclusion": "success",
+          "name": "Returning entry, exact compact copying and arena quantity",
+          "number": 19,
+          "startedAt": "2026-11-18T01:22:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:24:39Z",
+          "conclusion": "success",
+          "name": "Retained cell-zero quantity availability, dock and native gesture invariant",
+          "number": 20,
+          "startedAt": "2026-11-18T01:23:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:26:03Z",
+          "conclusion": "success",
+          "name": "Approved read-only panel and capability-gated War Cry editors",
+          "number": 21,
+          "startedAt": "2026-11-18T01:24:39Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:26:56Z",
+          "conclusion": "success",
+          "name": "Combined Rules11 shared panel, editor availability and native input",
+          "number": 22,
+          "startedAt": "2026-11-18T01:26:03Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:27:04Z",
+          "conclusion": "success",
+          "name": "Graphite actual renderer shader, model and capacity smoke",
+          "number": 23,
+          "startedAt": "2026-11-18T01:26:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:30:20Z",
+          "conclusion": "success",
+          "name": "Approved lossless audio, native scheduler and integrated displayed cues",
+          "number": 24,
+          "startedAt": "2026-11-18T01:27:04Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:30:48Z",
+          "conclusion": "success",
+          "name": "Four-direction controls, exact clipboard and frozen-copy fixture",
+          "number": 25,
+          "startedAt": "2026-11-18T01:30:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:30:56Z",
+          "conclusion": "success",
+          "name": "Upload browser evidence",
+          "number": 26,
+          "startedAt": "2026-11-18T01:30:48Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:30:57Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "number": 50,
+          "startedAt": "2026-11-18T01:30:56Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:30:57Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 51,
+          "startedAt": "2026-11-18T01:30:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:30:57Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 52,
+          "startedAt": "2026-11-18T01:30:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:30:57Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 53,
+          "startedAt": "2026-11-18T01:30:57Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550/job/134499703127"
+    },
+    {
+      "completedAt": "2026-11-18T01:16:29Z",
+      "conclusion": "success",
+      "databaseId": 134499703149,
+      "name": "Runtime-lab Wasm",
+      "startedAt": "2026-11-18T01:13:50Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-18T01:13:53Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-18T01:13:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:10Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 2,
+          "startedAt": "2026-11-18T01:13:53Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:22Z",
+          "conclusion": "success",
+          "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+          "number": 3,
+          "startedAt": "2026-11-18T01:14:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:24Z",
+          "conclusion": "success",
+          "name": "Run cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked",
+          "number": 4,
+          "startedAt": "2026-11-18T01:14:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:24Z",
+          "conclusion": "success",
+          "name": "Assert exact DTR release provenance",
+          "number": 5,
+          "startedAt": "2026-11-18T01:14:24Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:27Z",
+          "conclusion": "success",
+          "name": "Run python3 -B tools/check.py wasm --output .work/ci-wasm",
+          "number": 6,
+          "startedAt": "2026-11-18T01:14:24Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:27Z",
+          "conclusion": "success",
+          "name": "Verify exact normal boundary Deflector candidate module",
+          "number": 7,
+          "startedAt": "2026-11-18T01:16:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:28Z",
+          "conclusion": "success",
+          "name": "Upload Wasm evidence",
+          "number": 8,
+          "startedAt": "2026-11-18T01:16:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:28Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 16,
+          "startedAt": "2026-11-18T01:16:28Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:16:28Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "startedAt": "2026-11-18T01:16:28Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550/job/134499703149"
+    },
+    {
+      "completedAt": "2026-11-18T01:14:40Z",
+      "conclusion": "success",
+      "databaseId": 134499703261,
+      "name": "Packaged DTR and clean consumers",
+      "startedAt": "2026-11-18T01:13:50Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-18T01:13:52Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-18T01:13:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:11Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 2,
+          "startedAt": "2026-11-18T01:13:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:11Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 3,
+          "startedAt": "2026-11-18T01:14:11Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:14Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "number": 4,
+          "startedAt": "2026-11-18T01:14:11Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:22Z",
+          "conclusion": "success",
+          "name": "Run rustup toolchain install 1.94.1 --profile minimal",
+          "number": 5,
+          "startedAt": "2026-11-18T01:14:14Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:23Z",
+          "conclusion": "success",
+          "name": "Assert exact DTR release provenance",
+          "number": 6,
+          "startedAt": "2026-11-18T01:14:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:37Z",
+          "conclusion": "success",
+          "name": "Run python -B tools/verify_dtr_consumers.py --output .work/ci-package-consumers",
+          "number": 7,
+          "startedAt": "2026-11-18T01:14:23Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:38Z",
+          "conclusion": "success",
+          "name": "Upload package-consumer evidence",
+          "number": 8,
+          "startedAt": "2026-11-18T01:14:37Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:38Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "number": 14,
+          "startedAt": "2026-11-18T01:14:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:38Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 15,
+          "startedAt": "2026-11-18T01:14:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:38Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 16,
+          "startedAt": "2026-11-18T01:14:38Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:38Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 17,
+          "startedAt": "2026-11-18T01:14:38Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550/job/134499703261"
+    },
+    {
+      "completedAt": "2026-11-18T02:27:13Z",
+      "conclusion": "success",
+      "databaseId": 134499703278,
+      "name": "S14 and million-cell installed-IC qualification",
+      "startedAt": "2026-11-18T01:13:50Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-18T01:13:52Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-18T01:13:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:15Z",
+          "conclusion": "success",
+          "name": "Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 2,
+          "startedAt": "2026-11-18T01:13:52Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:15Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 3,
+          "startedAt": "2026-11-18T01:14:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:20Z",
+          "conclusion": "success",
+          "name": "Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "number": 4,
+          "startedAt": "2026-11-18T01:14:15Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:22Z",
+          "conclusion": "success",
+          "name": "Run npm ci",
+          "number": 5,
+          "startedAt": "2026-11-18T01:14:20Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:27Z",
+          "conclusion": "success",
+          "name": "Run python -m pip install --require-hashes -r tools/browser-requirements.txt",
+          "number": 6,
+          "startedAt": "2026-11-18T01:14:22Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:36Z",
+          "conclusion": "success",
+          "name": "Run python -m playwright install chromium",
+          "number": 7,
+          "startedAt": "2026-11-18T01:14:27Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:45Z",
+          "conclusion": "success",
+          "name": "Run rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown",
+          "number": 8,
+          "startedAt": "2026-11-18T01:14:36Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:47Z",
+          "conclusion": "success",
+          "name": "Run cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked",
+          "number": 9,
+          "startedAt": "2026-11-18T01:14:45Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:50Z",
+          "conclusion": "success",
+          "name": "Run cargo +1.94.1 fetch --manifest-path tools/s09-integration/Cargo.toml --locked",
+          "number": 10,
+          "startedAt": "2026-11-18T01:14:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:50Z",
+          "conclusion": "success",
+          "name": "Run cargo +1.94.1 fetch --manifest-path tools/s14-index-fixture/Cargo.toml --locked",
+          "number": 11,
+          "startedAt": "2026-11-18T01:14:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:57Z",
+          "conclusion": "success",
+          "name": "Run python -B tools/fetch_s09_artifacts.py --destination /home/runner/dtr-s09-artifacts --record .work/ci-s14-artifacts.json",
+          "number": 12,
+          "startedAt": "2026-11-18T01:14:50Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:14:57Z",
+          "conclusion": "success",
+          "name": "Assert exact DTR release provenance",
+          "number": 13,
+          "startedAt": "2026-11-18T01:14:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T02:26:47Z",
+          "conclusion": "success",
+          "name": "Run python -B tools/check.py integration --output .work/ci-integration",
+          "number": 14,
+          "startedAt": "2026-11-18T01:14:57Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T02:27:10Z",
+          "conclusion": "success",
+          "name": "Upload local IC evidence",
+          "number": 15,
+          "startedAt": "2026-11-18T02:26:47Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T02:27:10Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020",
+          "number": 28,
+          "startedAt": "2026-11-18T02:27:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T02:27:10Z",
+          "conclusion": "success",
+          "name": "Post Run actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065",
+          "number": 29,
+          "startedAt": "2026-11-18T02:27:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T02:27:10Z",
+          "conclusion": "success",
+          "name": "Post Run actions/checkout@11d5960a326750d5838078e36cf38b85af677262",
+          "number": 30,
+          "startedAt": "2026-11-18T02:27:10Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T02:27:10Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 31,
+          "startedAt": "2026-11-18T02:27:10Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550/job/134499703278"
+    },
+    {
+      "completedAt": "2026-11-18T01:13:54Z",
+      "conclusion": "success",
+      "databaseId": 134499703487,
+      "name": "BLOCKED production inventory (not a pass)",
+      "startedAt": "2026-11-18T01:13:50Z",
+      "status": "completed",
+      "steps": [
+        {
+          "completedAt": "2026-11-18T01:13:51Z",
+          "conclusion": "success",
+          "name": "Set up job",
+          "number": 1,
+          "startedAt": "2026-11-18T01:13:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:13:51Z",
+          "conclusion": "success",
+          "name": "Run echo '::warning::BLOCKED: user-operated mainnet deployment, financial/settlement gates and measured target-subnet capacity remain unexecuted.'",
+          "number": 2,
+          "startedAt": "2026-11-18T01:13:51Z",
+          "status": "completed"
+        },
+        {
+          "completedAt": "2026-11-18T01:13:51Z",
+          "conclusion": "success",
+          "name": "Complete job",
+          "number": 3,
+          "startedAt": "2026-11-18T01:13:51Z",
+          "status": "completed"
+        }
+      ],
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44214091550/job/134499703487"
+    }
+  ],
+  "status": "completed",
+  "substantive_gates": [
+    "Source conformance",
+    "Native conformance",
+    "Packaged DTR and clean consumers",
+    "Runtime-lab Wasm",
+    "Browser HTTP and Web Crypto",
+    "S14 and million-cell installed-IC qualification"
+  ],
+  "informational_inventory_is_not_a_gate": true
+}
