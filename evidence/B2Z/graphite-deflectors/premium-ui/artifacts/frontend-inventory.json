@@ -326,8 +326,8 @@
   },
   {
     "path": "build-manifest.json",
-    "sha256": "e9b3b1939f6bb54be7a791b2e32682eb4979d6b496d93e64ec7d559adabfcd71",
-    "bytes": 23411
+    "sha256": "3221191acf82f64a3cbae69c203e2c01fdfdfc0e0b7b0bbd8310ffcf9e9b7e5d",
+    "bytes": 23412
   },
   {
     "path": "configuration-clearance.bin",

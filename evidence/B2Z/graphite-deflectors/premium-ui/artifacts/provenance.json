@@ -1,13 +1,13 @@
 {
-  "source": "b9defc539d7d7775b32ce5d26d43de82167f24fb",
+  "source": "4525ff81ac4b019abfde0eb501fa24d25fcc2fdb",
   "source_dirty": false,
   "files": 81,
   "public_files": 80,
-  "inventory_sha256": "ad9926764ab9066ef6b76ab876e14877889772a712a71192581c7de1634d8b67",
-  "javascript_sha256": "50c8556bcdb7a24de318fba5ebb496f6b2ec5031dfaa6de10ac97974387f7df7",
+  "inventory_sha256": "3ea59d7c6d8df7a2f1aa7bb2ce27e7e48243e021dca4abcadaea1dd85cd3c909",
+  "javascript_sha256": "f82a845e7b7d33e883e659bc68d390f1944e0b925e6d541264785af511dff12c",
   "audio_manifest_sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
   "unchanged_audio_files": 61,
-  "total_asset_bytes": 75319566,
+  "total_asset_bytes": 75320115,
   "normal_wasm_sha256": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
   "normal_wasm_provenance": "Unchanged deployed and qualified Rules12 module. Premium UI release is frontend assets only.",
   "inputs": [
@@ -1285,7 +1285,7 @@
     },
     {
       "path": "apps/b2z-observer/structure-geometry.mjs",
-      "sha256": "1a6071aec661ad294e978a85eb8085c3f87874285e237cd0b03ca4a002bb6bc3"
+      "sha256": "a0403605a9946e2c5e6effd9ea09a3e438d7027acde58f9224a471b6e3087bb1"
     },
     {
       "path": "apps/b2z-observer/style.css",
