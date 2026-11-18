@@ -25,7 +25,7 @@ index de4d294..f2ce708 100644
          index,
          bytes("ICP_INDEX_WASM"),
 @@ -7003,3 +7006,6 @@ mod war_cry_installed;
- 
+
  #[path = "support/boundary_deflector_installed.rs"]
  mod boundary_deflector_installed;
 +

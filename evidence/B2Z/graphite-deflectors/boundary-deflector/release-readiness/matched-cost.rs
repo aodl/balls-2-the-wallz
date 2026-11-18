@@ -81,7 +81,7 @@ fn release_readiness_matched() {
         world.validate().unwrap();
         FIXTURE_CYCLES.with(|cycles| cycles.set(if trickle { 1_750_000_000_000 } else { 100_000_000_000_000 }));
         let (pic, id, _, _) = arena_setup_world(bytes("B2Z_S14_TEST_WASM"), world.encode().unwrap());
-        
+
         playability_installed::funding_paused(&pic, id, true);
         if demand == 0 && !(idle && v12) {
             war_cry_installed::transition(&pic, id, "entry");
