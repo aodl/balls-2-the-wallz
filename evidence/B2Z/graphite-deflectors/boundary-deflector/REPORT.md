@@ -211,3 +211,24 @@ changes. This genuine runtime/interface correction requires a new normal Wasm
 and complete frontend freeze (the latter carries public Candid/help assets).
 The c99 frontend and both local/hosted bootstrap modules remain superseded and
 unaltered. They are not the final qualified candidates.
+
+## Corrected clean freeze and installed API positive
+
+Clean runtime/build source `9afcd80cf6c92e6f4ed3b0e268005146337c36a1`
+produces81 files (80 public plus consumed upload policy). JavaScript remains
+`c5b688ae74527cb30e7b50f06141d429f237eef0297ed7eba0192d268e0d8c9b`;
+complete inventory is
+`0b14bcccf7f1ed76bcfd4039b6aabcfb1965c7e6b94e437e3cc46d7e165d7c3e`.
+All61 existing audio files remain identical. The local normal bootstrap Wasm is
+`353699e4276fbcf52eae116a9b1fdb2923861fb9735635eb6207d3ebe22c50a3`
+(3792341 bytes), distinct from the future selected hosted artifact.
+
+The corrected exact-module disposable API regression passed in71.317 seconds:
+a real valueless Ledger construction and actual redirect produce a fractional
+canonical trajectory, and the typed query reconstructs the same exact position
+using its exposed denominator. The old exact-hosted-module negative remains FAIL.
+The installed runner records a dirty evidence/docs working tree; the normal Wasm
+itself was built from clean9afcd, and consumed input parity is checked separately.
+No new UI, music, geometry, price, capture or payment behaviour was introduced.
+Full qualification of this replacement is still pending; earlier hosted passes
+do not qualify these changed normal runtime bytes.

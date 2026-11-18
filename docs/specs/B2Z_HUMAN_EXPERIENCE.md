@@ -1125,10 +1125,11 @@ Player accents resolve the real owner in the arena and the declared payer in the
 pane; inspection cannot confer authority. Physical structures remain tile-sized
 at every heading/zoom. Far markers are presentation, not enlarged occupancy.
 
-The [Deflector design checkpoint](B2Z_DEFLECTORS.md) is not a supported payment
-capability or authenticated mechanic yet. Build deflector/Deflect & Pay requires
-a future exact supporting identity, complete deterministic execution and replay;
-Rules7/11 must not offer an unsupported memo or fabricated redirect. Original
+The original graphite-only checkpoint did not implement an authoritative
+Deflector. The [boundary successor](B2Z_DEFLECTORS.md) below now has deterministic
+execution, real disposable Ledger purchases and authenticated replay/observer
+evidence; final exact-source qualification is recorded separately. Rules7/11
+still must not offer its unsupported memo or fabricate a redirect. Original
 references remain immutable; actual candidate captures are labelled separately.
 
 ## Four-direction Deflector candidate (UX-02/03/05/07/08/10/11/12/13)
@@ -1147,3 +1148,13 @@ exact boundary contact. Keep fixed tile-aligned bases, owner-coloured graphite
 accents, existing instanced silhouettes and audio. Native fixture control evidence
 is `tools/verify_boundary_deflector_browser.py`; it is not certified payment evidence.
 Disposable official Ledger/Index and independent observer qualification is separate.
+
+Deflectors protect their occupied tile from direct capture by any ball. Their
+front/rear direction applies equally to friendly and enemy balls. Only cannons
+anchor territory; friendly balls sustain cannon-bearing islands. A committed
+loss of support destroys affected Deflectors with authenticated removal facts,
+while a cancelled ownership transfer cannot apply discarded removals. Deflectors
+have no dormant grace, revival, ball pool or free territory. Preserve these facts
+in previews/help and distinguish direct protection from subsequent territorial
+loss. Public trajectory inspection carries the exact shared denominator; a
+numerator alone is not a schema7 position.
