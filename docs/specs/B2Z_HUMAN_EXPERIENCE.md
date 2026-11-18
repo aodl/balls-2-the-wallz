@@ -1181,3 +1181,20 @@ or raise it on capable renderers. The ceiling is 1.5 DPR and 2,073,600 pixels,
 with MSAA off. The panel uses opaque shared graphite shading
 and no backdrop filtering, while retaining forced-colour and reduced-motion
 treatments and the existing payment axes.
+
+#### Machined graphite instrument surfaces
+
+The contextual rail, card frame and content well have distinct material depths.
+The active action has a visible underline. A ready payment instrument adds a
+small resolved-payer accent to the frame and exact price. Unavailable prices and
+frame details use neutral ink. Information remains cyan, replacement decisions
+and preparation warnings use warm ink, and rendering errors have a distinct
+error treatment. Account, Help, status, roster, disclosure and arena controls
+share the same raised and recessed material system. No new controls or panels
+are part of this treatment.
+
+The corner and seam are decorative, pointer-transparent, static, and never
+contribute to geometry. Financial value rows, exact copying, editor reservations
+and operational freshness keep their existing contracts. Forced colours uses
+system outlines and removes decorative highlights. Reduced transparency uses
+solid surfaces with shallower shadows.
