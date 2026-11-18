@@ -43,3 +43,17 @@ Rules11 War Cry semantics preserved alongside purchased Deflectors:
 
 `results/live-cry-browser.json` records matching successful-launch provenance,
 ordinary5/35-second visibility transitions and55+5-second bubble lifetime.
+
+Corrected API normal module353699e4, actual paid destruction rehearsal:
+
+| Observer | Before | After |
+|---|---|---|
+|0|![Before0](captures/corrected-removal-0-before.png)|![After0](captures/corrected-removal-0-after.png)|
+|1|![Before1](captures/corrected-removal-1-before.png)|![After1](captures/corrected-removal-1-after.png)|
+
+[Corrected observer0 video](captures/corrected-removal-0.webm),
+[corrected observer1 video](captures/corrected-removal-1.webm).
+The full runner passed226.778 seconds; both actual verified maps and passive
+render samples agree. Strict signed-wire capture, independent replay and six
+Deflector-specific tampering negatives passed. This is local disposable
+normal-module evidence, not final hosted or production acceptance.

@@ -232,3 +232,21 @@ itself was built from clean9afcd, and consumed input parity is checked separatel
 No new UI, music, geometry, price, capture or payment behaviour was introduced.
 Full qualification of this replacement is still pending; earlier hosted passes
 do not qualify these changed normal runtime bytes.
+
+The corrected353699 normal module also passed the complete two-observer
+paid-destruction runner in226.778 seconds. Structure119 was removed only upon
+committed support loss,103 retained, and both browsers agreed. Independent
+signed-wire replay and all six destruction/source/order tampering negatives
+passed. New captures are linked in GALLERY.md; historical captures are preserved.
+
+## Selected corrected hosted normal artifact
+
+Hosted bootstrap44209258892 built the corrected exact sourceced0d262 and passed
+normal compilation, Candid equality, format and Clippy. Its actual normal artifact
+is `2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13`
+(3792812 bytes). The previous local353699 artifact differs due to build-path
+bytes and remains preserved separately; it is not relabelled. The strict pin
+correctly rejected the initial local hash. This evidence-only continuation pins
+the actual hosted artifact and requires a new complete hosted six-gate result.
+The81-file frontend freeze and all consumed runtime/build/dependency inputs remain
+identical to clean9afcd; no rebuild or security assertion change is involved.

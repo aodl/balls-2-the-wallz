@@ -8,8 +8,8 @@
   "audio_manifest_sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
   "unchanged_audio_files": 61,
   "total_asset_bytes": 76393632,
-  "normal_wasm_sha256": "353699e4276fbcf52eae116a9b1fdb2923861fb9735635eb6207d3ebe22c50a3",
-  "normal_wasm_provenance": "Local normal bootstrap artifact; hosted path-bearing build must be retained distinctly and selected before final qualification/release. No production installation.",
+  "normal_wasm_sha256": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "normal_wasm_provenance": "Selected normal artifact from hosted44209258892 at exact published sourceced0d2621f33980329eb0d8546534f403d7bcdc3. Hosted compiler/Candid/format/Clippy passed. Final strict pin and full six gates remain required. Local path-bearing353699 module is distinct and is not substituted.",
   "inputs": [
     {
       "path": "Cargo.lock",
@@ -2179,5 +2179,8 @@
     "index.html",
     "style.css"
   ],
-  "qualification_scope": "Combined Rules12 boundary Deflector frontend/backend candidate; not a claim of completed installed or hosted qualification"
+  "qualification_scope": "Combined Rules12 boundary Deflector frontend/backend candidate; not a claim of completed installed or hosted qualification",
+  "local_normal_wasm_sha256": "353699e4276fbcf52eae116a9b1fdb2923861fb9735635eb6207d3ebe22c50a3",
+  "hosted_normal_build_source": "ced0d2621f33980329eb0d8546534f403d7bcdc3",
+  "hosted_normal_build_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44209258892"
 }

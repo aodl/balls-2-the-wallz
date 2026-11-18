@@ -1,0 +1,35 @@
+{
+  "normal_wasm": "353699e4276fbcf52eae116a9b1fdb2923861fb9735635eb6207d3ebe22c50a3",
+  "payments": [
+    {
+      "payload_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680b70000770300000000",
+      "position": "2"
+    },
+    {
+      "payload_hex": "42545a5041593034c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d9090550000000000989680b70000670100000000",
+      "position": "3"
+    },
+    {
+      "payload_hex": "42545a50415930347a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef000000003b9aca00f600000003c0000108416476616e636521",
+      "position": "4"
+    }
+  ],
+  "removed": [
+    {
+      "cell": 119,
+      "id": 1,
+      "orientation": "NW",
+      "owner": 1
+    }
+  ],
+  "scope": "Actual valueless official Ledger/Index, normal module, later enemy FIRE, two independent authenticated native observers and independent replay; no production operation",
+  "status": "PASS",
+  "surviving": [
+    {
+      "cell": 103,
+      "id": 2,
+      "orientation": "SE",
+      "owner": 1
+    }
+  ]
+}

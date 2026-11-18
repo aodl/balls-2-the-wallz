@@ -1,0 +1,192 @@
+{
+  "status": "PASS",
+  "scope": "Two native observers reconstruct paid structures and later committed destruction.\nNo injected world/event, private camera change, gameplay submission or mainnet.\n",
+  "observers": [
+    {
+      "before": {
+        "at": 1794962295717,
+        "time": 1,
+        "structures": [
+          {
+            "cell": 119,
+            "id": 1,
+            "orientation": "NW",
+            "owner": 1
+          },
+          {
+            "cell": 103,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          }
+        ],
+        "publication": "0",
+        "identity": {
+          "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+          "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+          "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+          "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+        }
+      },
+      "after": {
+        "at": 1794962340385,
+        "time": 2.133199999999997,
+        "structures": [
+          {
+            "cell": 103,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          }
+        ],
+        "publication": "4",
+        "identity": {
+          "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+          "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+          "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+          "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+        }
+      },
+      "samples": [
+        {
+          "at": 1794962295717,
+          "time": 1,
+          "structures": [
+            {
+              "cell": 119,
+              "id": 1,
+              "orientation": "NW",
+              "owner": 1
+            },
+            {
+              "cell": 103,
+              "id": 2,
+              "orientation": "SE",
+              "owner": 1
+            }
+          ],
+          "publication": "0",
+          "identity": {
+            "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+            "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+            "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          }
+        },
+        {
+          "at": 1794962340385,
+          "time": 2.133199999999997,
+          "structures": [
+            {
+              "cell": 103,
+              "id": 2,
+              "orientation": "SE",
+              "owner": 1
+            }
+          ],
+          "publication": "4",
+          "identity": {
+            "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+            "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+            "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          }
+        }
+      ]
+    },
+    {
+      "before": {
+        "at": 1794962311138,
+        "time": 1,
+        "structures": [
+          {
+            "cell": 119,
+            "id": 1,
+            "orientation": "NW",
+            "owner": 1
+          },
+          {
+            "cell": 103,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          }
+        ],
+        "publication": "0",
+        "identity": {
+          "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+          "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+          "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+          "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+        }
+      },
+      "after": {
+        "at": 1794962331827,
+        "time": 2.2667000000000006,
+        "structures": [
+          {
+            "cell": 103,
+            "id": 2,
+            "orientation": "SE",
+            "owner": 1
+          }
+        ],
+        "publication": "4",
+        "identity": {
+          "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+          "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+          "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+          "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+        }
+      },
+      "samples": [
+        {
+          "at": 1794962311138,
+          "time": 1,
+          "structures": [
+            {
+              "cell": 119,
+              "id": 1,
+              "orientation": "NW",
+              "owner": 1
+            },
+            {
+              "cell": 103,
+              "id": 2,
+              "orientation": "SE",
+              "owner": 1
+            }
+          ],
+          "publication": "0",
+          "identity": {
+            "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+            "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+            "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          }
+        },
+        {
+          "at": 1794962331827,
+          "time": 2.2667000000000006,
+          "structures": [
+            {
+              "cell": 103,
+              "id": 2,
+              "orientation": "SE",
+              "owner": 1
+            }
+          ],
+          "publication": "4",
+          "identity": {
+            "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+            "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+            "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+            "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+          }
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "forbidden": []
+}
