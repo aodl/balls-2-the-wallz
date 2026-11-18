@@ -1,0 +1,194 @@
+{
+  "cannon": {
+    "id": 1,
+    "cell": 0,
+    "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+    "dormant": null
+  },
+  "state": {
+    "at": "2026-11-18T15:56:14.563Z",
+    "camera": [
+      3.279287805121612,
+      0.22587215908856706,
+      88
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "left": 0,
+      "top": 0,
+      "visibleWidth": 1440,
+      "visibleHeight": 900
+    },
+    "composer": {
+      "mode": "ball",
+      "cell": null,
+      "degrees": "167.15",
+      "worldAngle": "37.5",
+      "quantity": 1,
+      "cry": ""
+    },
+    "identity": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "head": {
+      "logical_end": "11623",
+      "manifest_hash": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+      "seal": null,
+      "segment_id": "11628",
+      "source_to_exclusive": "40180669",
+      "state_hash": "7f73b6971cb1e48f452e0cd552495a9ac5eb97eb0c934ab19333e44f11c1dd87"
+    },
+    "ready": true,
+    "error": "",
+    "deliveryError": "",
+    "status": {
+      "kind": "stopped",
+      "label": "Game paused",
+      "detail": "Paused by the operator.",
+      "canPrepare": false
+    },
+    "available": 11623,
+    "playhead": 11623,
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "11623",
+        "running": false
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "quantity": {
+      "hidden": false,
+      "inert": false,
+      "placement": "floating",
+      "rect": {
+        "x": 389,
+        "y": 244.1875,
+        "width": 130,
+        "height": 46,
+        "top": 244.1875,
+        "right": 519,
+        "bottom": 290.1875,
+        "left": 389
+      },
+      "text": "1",
+      "targets": [
+        {
+          "id": "quantity-minus",
+          "disabled": true,
+          "rect": {
+            "x": 390,
+            "y": 245.1875,
+            "width": 44,
+            "height": 44,
+            "top": 245.1875,
+            "right": 434,
+            "bottom": 289.1875,
+            "left": 390
+          },
+          "hit": true
+        },
+        {
+          "id": "quantity-plus",
+          "disabled": false,
+          "rect": {
+            "x": 474,
+            "y": 245.1875,
+            "width": 44,
+            "height": 44,
+            "top": 245.1875,
+            "right": 518,
+            "bottom": 289.1875,
+            "left": 474
+          },
+          "hit": true
+        }
+      ],
+      "corners": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 328,
+      "top": 334,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    },
+    "scroll": {
+      "x": 661,
+      "y": 388,
+      "width": 360,
+      "height": 274,
+      "top": 388,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    },
+    "scrollContent": 274,
+    "board": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "top": 0,
+      "right": 1440,
+      "bottom": 900,
+      "left": 0
+    },
+    "cyclesVisibility": "hidden",
+    "focus": "fire-action"
+  },
+  "payment": {
+    "amount": "0.1 ICP",
+    "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "abbreviated": "s5ir5\u2026",
+    "memo": "FIRE 1 37.5 1",
+    "payer": "f6a7f\u2026",
+    "fee": "Help: Ledger fee separate",
+    "warning": "Payments and unused ICP are kept; no automatic refunds.",
+    "prompt": "Aim & Pay",
+    "disabled": true,
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 328,
+      "top": 334,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    }
+  },
+  "war_cry_available": true,
+  "deflector_available": true,
+  "browser": "153.0.8010.12",
+  "forbidden_posts": [],
+  "errors": []
+}

@@ -1,0 +1,105 @@
+{
+  "Ok": {
+    "entries": [
+      {
+        "bytes": "30468",
+        "current": false,
+        "publication_hash": "b33377a3de9a304f108185e4db5f025abe595f9f51bf72347e49b0f1bb49fb0d",
+        "segment_id": "11613"
+      },
+      {
+        "bytes": "30944",
+        "current": false,
+        "publication_hash": "a24ab7e321e0c332e622f65d2123b05cf14e6d9e1152f36a0c9965d9453fcb5c",
+        "segment_id": "11614"
+      },
+      {
+        "bytes": "30672",
+        "current": false,
+        "publication_hash": "eb707f848ff7f4e7359a1821ccda732730fea5a26f3ef62e8eb11bbb9dde41e5",
+        "segment_id": "11615"
+      },
+      {
+        "bytes": "33187",
+        "current": false,
+        "publication_hash": "d27752bf9696cc438e33022a3e8c4301e5ed4121957feaba3b121a1ed72d4691",
+        "segment_id": "11616"
+      },
+      {
+        "bytes": "30441",
+        "current": false,
+        "publication_hash": "16400f02290655065ccaf4a0cec2653196031ee759f56c789454a20e32ba14c7",
+        "segment_id": "11617"
+      },
+      {
+        "bytes": "30439",
+        "current": false,
+        "publication_hash": "2d3c11eb344b7d3515b56a40a4094375085b14c27c0cc5e94b812fbbcfbf4e50",
+        "segment_id": "11618"
+      },
+      {
+        "bytes": "30407",
+        "current": false,
+        "publication_hash": "79dddbc3675380a392d2b0609e57912db79a45c99f01f7189b0c21e4ad297025",
+        "segment_id": "11619"
+      },
+      {
+        "bytes": "30530",
+        "current": false,
+        "publication_hash": "283e40f4d47936857491dcf3a4181241aff9a708e9ecdfef32b4b9685a6a3da0",
+        "segment_id": "11620"
+      },
+      {
+        "bytes": "30996",
+        "current": false,
+        "publication_hash": "a31169e666f13412c3bf1dea72f96b8fc7d27ff60ec1d010f5f8ed0cf3f4d8e5",
+        "segment_id": "11621"
+      },
+      {
+        "bytes": "31426",
+        "current": false,
+        "publication_hash": "71ab470efbbc74a72e8e5392db41e1def8b4d8680eef6a8f9e334b18e93efec1",
+        "segment_id": "11622"
+      },
+      {
+        "bytes": "18838",
+        "current": false,
+        "publication_hash": "f05e7256220a2eaacc315f2f159cbd5cdd150d19964e0ac624f10e564ed2c919",
+        "segment_id": "11623"
+      },
+      {
+        "bytes": "30984",
+        "current": false,
+        "publication_hash": "1d57caaebd5625e0ce329f5cc6d3cc8d44a4bdccfbba3e599360cdd10eff58ab",
+        "segment_id": "11624"
+      },
+      {
+        "bytes": "30496",
+        "current": false,
+        "publication_hash": "0d1991b202df47569951625a10af1928c066455faa8624f6f823cde8e087945f",
+        "segment_id": "11625"
+      },
+      {
+        "bytes": "30124",
+        "current": false,
+        "publication_hash": "055445bb2727de051d99a2235d51ab72a73d152e32901e6fa3090af72030a7b8",
+        "segment_id": "11626"
+      },
+      {
+        "bytes": "30431",
+        "current": false,
+        "publication_hash": "e2d591b28ead85923ff6e340644a369c2621f66fb3a3f4cd2c06b55162d05c17",
+        "segment_id": "11627"
+      },
+      {
+        "bytes": "19011",
+        "current": true,
+        "publication_hash": "0f43dece07f961fbcbc43f0c5e9eb6b8e7084d871cf019a81d5cf18776ca9e05",
+        "segment_id": "11628"
+      }
+    ],
+    "max_bytes": "8388608",
+    "max_segments": 16,
+    "retained_bytes": "469394"
+  }
+}

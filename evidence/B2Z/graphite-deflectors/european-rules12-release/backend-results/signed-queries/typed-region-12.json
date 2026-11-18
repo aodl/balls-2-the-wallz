@@ -1,0 +1,48 @@
+{
+  "Ok": {
+    "balls": [
+      {
+        "ball_id": 1,
+        "cell": 39977,
+        "player_id": 1,
+        "trajectory_denominator": [
+          "1"
+        ],
+        "velocity_x": -25387,
+        "velocity_y": 19481,
+        "x_intercept": "296_073_900",
+        "y_intercept": "-226_387_556"
+      }
+    ],
+    "cannons": [],
+    "cells": [
+      {
+        "cell": 39977,
+        "island_id": 1,
+        "player_id": 1
+      }
+    ],
+    "logical_time": {
+      "denominator": "1",
+      "numerator": "11_623"
+    },
+    "state": {
+      "certified_reply": false,
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "epoch_hash": [
+        "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688"
+      ],
+      "logical_end": "11623",
+      "manifest_hash": "9b489857f8cdb46d22f3235a8bdddbe8e6eca57e52d0a1340e726e446a8b8688",
+      "publication_hash": "0f43dece07f961fbcbc43f0c5e9eb6b8e7084d871cf019a81d5cf18776ca9e05",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "segment_id": [
+        "11628"
+      ],
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+      "source_to_exclusive": "40180669",
+      "state_hash": "7f73b6971cb1e48f452e0cd552495a9ac5eb97eb0c934ab19333e44f11c1dd87"
+    }
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "state": {
+    "at": "2026-11-18T15:49:18.525Z",
+    "camera": [
+      3.279287805121612,
+      0.22587215908856706,
+      88
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "left": 0,
+      "top": 0,
+      "visibleWidth": 1440,
+      "visibleHeight": 900
+    },
+    "composer": {
+      "mode": "ball",
+      "cell": null,
+      "degrees": "167.15",
+      "worldAngle": "37.5",
+      "quantity": 1,
+      "cry": ""
+    },
+    "identity": {
+      "config_hash": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df",
+      "rules_hash": "5d0ca4591a782b609ef10d9db46d4bd93042b0fcdd738d8d1f920840c05b7756",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "head": {
+      "logical_end": "11619",
+      "manifest_hash": "90d32ed34b15a75f084a120c90f68bf2c999315439c10d35818b5a9643c267c9",
+      "seal": null,
+      "segment_id": "11623",
+      "source_to_exclusive": "40180669",
+      "state_hash": "8ca606adeef00cf08b76bbe9d4c5c895c8d492338a2abc0d643e547c0806f064"
+    },
+    "ready": true,
+    "error": "",
+    "deliveryError": "",
+    "status": {
+      "kind": "stopped",
+      "label": "Game paused",
+      "detail": "Finishing earlier verified motion.",
+      "canPrepare": false
+    },
+    "available": 11619,
+    "playhead": 11618.861092000352,
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "2",
+        "publication_ticks": "1",
+        "completed_segments": "11619",
+        "running": false
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "quantity": {
+      "hidden": false,
+      "inert": false,
+      "placement": "floating",
+      "rect": {
+        "x": 389,
+        "y": 244.1875,
+        "width": 130,
+        "height": 46,
+        "top": 244.1875,
+        "right": 519,
+        "bottom": 290.1875,
+        "left": 389
+      },
+      "text": "1",
+      "targets": [
+        {
+          "id": "quantity-minus",
+          "disabled": true,
+          "rect": {
+            "x": 390,
+            "y": 245.1875,
+            "width": 44,
+            "height": 44,
+            "top": 245.1875,
+            "right": 434,
+            "bottom": 289.1875,
+            "left": 390
+          },
+          "hit": true
+        },
+        {
+          "id": "quantity-plus",
+          "disabled": false,
+          "rect": {
+            "x": 474,
+            "y": 245.1875,
+            "width": 44,
+            "height": 44,
+            "top": 245.1875,
+            "right": 518,
+            "bottom": 289.1875,
+            "left": 474
+          },
+          "hit": true
+        }
+      ],
+      "corners": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 194,
+      "top": 334,
+      "right": 1021,
+      "bottom": 528,
+      "left": 661
+    },
+    "scroll": {
+      "x": 661,
+      "y": 388,
+      "width": 360,
+      "height": 140,
+      "top": 388,
+      "right": 1021,
+      "bottom": 528,
+      "left": 661
+    },
+    "scrollContent": 140,
+    "board": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "top": 0,
+      "right": 1440,
+      "bottom": 900,
+      "left": 0
+    },
+    "cyclesVisibility": "hidden",
+    "focus": ""
+  },
+  "payment": {
+    "amount": "0.1 ICP",
+    "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "abbreviated": "s5ir5\u2026",
+    "memo": "FIRE 1 37.5 1",
+    "payer": "f6a7f\u2026",
+    "fee": "Help: Ledger fee separate",
+    "warning": "Payments and unused ICP are kept; no automatic refunds.",
+    "prompt": "Aim & Pay",
+    "disabled": true,
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 194,
+      "top": 334,
+      "right": 1021,
+      "bottom": 528,
+      "left": 661
+    }
+  },
+  "war_cry_hidden": false,
+  "deflector_hidden": true,
+  "recent_http": [
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    },
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    },
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    },
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    },
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    },
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    },
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    },
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    },
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    },
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    },
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    },
+    {
+      "url": "https://icp-api.io/api/v3/canister/s5ir5-gqaaa-aaaas-amyna-cai/query",
+      "status": 200
+    }
+  ],
+  "forbidden_posts": [],
+  "errors": [],
+  "browser": "153.0.8010.12"
+}

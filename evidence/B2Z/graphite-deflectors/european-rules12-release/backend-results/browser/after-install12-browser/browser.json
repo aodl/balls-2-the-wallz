@@ -1,0 +1,210 @@
+{
+  "cannon": {
+    "id": 1,
+    "cell": 0,
+    "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+    "dormant": null
+  },
+  "state": {
+    "at": "2026-11-18T15:53:59.126Z",
+    "camera": [
+      3.279287805121612,
+      0.22587215908856706,
+      88
+    ],
+    "viewport": {
+      "width": 1440,
+      "height": 900,
+      "left": 0,
+      "top": 0,
+      "visibleWidth": 1440,
+      "visibleHeight": 900
+    },
+    "composer": {
+      "mode": "ball",
+      "cell": null,
+      "degrees": "167.15",
+      "worldAngle": "37.5",
+      "quantity": 1,
+      "cry": "CHARGE!"
+    },
+    "identity": {
+      "config_hash": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df",
+      "rules_hash": "5d0ca4591a782b609ef10d9db46d4bd93042b0fcdd738d8d1f920840c05b7756",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "head": {
+      "logical_end": "11623",
+      "manifest_hash": "0040736c2ae5c529f9e098e3d9a0aa40c86a34f42f590f4726065bbae49d65fe",
+      "seal": {
+        "config_hash": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df",
+        "epoch_hash": "90d32ed34b15a75f084a120c90f68bf2c999315439c10d35818b5a9643c267c9",
+        "input_count": 0,
+        "input_root": "4ef2d37c280d2566f3e3dd7d242e791657e8f35c8396f045dc9b23852d957182",
+        "logical_end": "11623",
+        "logical_start": "11622",
+        "previous_manifest": "8eebe95e702ce23edcd25e11883a8935639e663a064ace52a1722aa818bae075",
+        "previous_state": "4e6214ace336032f8cf9c04b8f12bbe459dc929cf8c1e053c90a7c3edc13cafa",
+        "rules_hash": "5d0ca4591a782b609ef10d9db46d4bd93042b0fcdd738d8d1f920840c05b7756",
+        "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+        "segment_id": "11627",
+        "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+        "source_from": "40180669",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+        "source_to_exclusive": "40180669"
+      },
+      "segment_id": "11627",
+      "source_to_exclusive": "40180669",
+      "state_hash": "e28d11176d58dbf3a4628889665c44f246dee9fd085a54e9e744a7e7804af73a"
+    },
+    "ready": true,
+    "error": "",
+    "deliveryError": "",
+    "status": {
+      "kind": "slow",
+      "label": "Slow \u00b7 delayed",
+      "detail": "Playing earlier verified activity. Wallet instructions use the latest authenticated state.",
+      "canPrepare": true
+    },
+    "available": 11623,
+    "playhead": 11622.07016200001,
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "11623",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "quantity": {
+      "hidden": false,
+      "inert": false,
+      "placement": "floating",
+      "rect": {
+        "x": 389,
+        "y": 244.1875,
+        "width": 130,
+        "height": 46,
+        "top": 244.1875,
+        "right": 519,
+        "bottom": 290.1875,
+        "left": 389
+      },
+      "text": "1",
+      "targets": [
+        {
+          "id": "quantity-minus",
+          "disabled": true,
+          "rect": {
+            "x": 390,
+            "y": 245.1875,
+            "width": 44,
+            "height": 44,
+            "top": 245.1875,
+            "right": 434,
+            "bottom": 289.1875,
+            "left": 390
+          },
+          "hit": true
+        },
+        {
+          "id": "quantity-plus",
+          "disabled": false,
+          "rect": {
+            "x": 474,
+            "y": 245.1875,
+            "width": 44,
+            "height": 44,
+            "top": 245.1875,
+            "right": 518,
+            "bottom": 289.1875,
+            "left": 474
+          },
+          "hit": true
+        }
+      ],
+      "corners": [
+        true,
+        true,
+        true,
+        true
+      ]
+    },
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 328,
+      "top": 334,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    },
+    "scroll": {
+      "x": 661,
+      "y": 388,
+      "width": 360,
+      "height": 274,
+      "top": 388,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    },
+    "scrollContent": 274,
+    "board": {
+      "x": 0,
+      "y": 0,
+      "width": 1440,
+      "height": 900,
+      "top": 0,
+      "right": 1440,
+      "bottom": 900,
+      "left": 0
+    },
+    "cyclesVisibility": "hidden",
+    "focus": "war-cry"
+  },
+  "payment": {
+    "amount": "0.1 ICP",
+    "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "abbreviated": "s5ir5\u2026",
+    "memo": "FIRE 1 37.5 1|CHARGE!",
+    "payer": "f6a7f\u2026",
+    "fee": "Help: Ledger fee separate",
+    "warning": "Payments and unused ICP are kept; no automatic refunds.",
+    "prompt": "Aim & Pay",
+    "disabled": false,
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 328,
+      "top": 334,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    }
+  },
+  "war_cry_available": true,
+  "deflector_unavailable": true,
+  "browser": "153.0.8010.12",
+  "forbidden_posts": [],
+  "errors": []
+}

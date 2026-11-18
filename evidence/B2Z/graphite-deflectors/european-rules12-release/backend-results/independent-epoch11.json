@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "epoch": "90d32ed34b15a75f084a120c90f68bf2c999315439c10d35818b5a9643c267c9",
+  "predecessor": "11622",
+  "successor": "11623",
+  "metadata_hash": "90737a51dd1fec020a65a5ac529f13d4742ed828ea5f0468f2490d2a903e153b",
+  "context": {
+    "version": 7,
+    "migration": "B2Z_CLEARANCE_WAR_CRY_RULES_11",
+    "old_identity": {
+      "config_hash": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+      "rules_hash": "982a6f78d3187d62e9a79240407cdeffa2fc830d4c385aaeffb1d507a2d9d82f",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "new_identity": {
+      "rules_hash": "5d0ca4591a782b609ef10d9db46d4bd93042b0fcdd738d8d1f920840c05b7756",
+      "schema_hash": "b1ebc114f7d06be5e170cb75ffdc3dee148b7e3a9cb24b563a4401adb69cd790",
+      "config_hash": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "previous_state": "8ca606adeef00cf08b76bbe9d4c5c895c8d492338a2abc0d643e547c0806f064",
+    "new_state": "8ca606adeef00cf08b76bbe9d4c5c895c8d492338a2abc0d643e547c0806f064",
+    "logical_boundary": [
+      "11619",
+      "1"
+    ],
+    "source_cursor": "40180669",
+    "ledger_cutover": "40533747",
+    "account_history_complete_through": "40533747",
+    "index_synced": "40533747",
+    "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+    "memo_adapter_before": 4,
+    "memo_adapter_after": 6
+  },
+  "state_equivalence": "exact predecessor bytes"
+}

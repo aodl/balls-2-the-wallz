@@ -1,0 +1,16 @@
+{
+  "lifecycle_barrier": null,
+  "lifecycle_error": null,
+  "transition": {
+    "index_synced": {
+      "$integer": "40533858"
+    },
+    "ledger_cutover": {
+      "$integer": "40533858"
+    },
+    "metadata_hex": null,
+    "phase": "ready",
+    "transition_hash": null,
+    "version": 8
+  }
+}

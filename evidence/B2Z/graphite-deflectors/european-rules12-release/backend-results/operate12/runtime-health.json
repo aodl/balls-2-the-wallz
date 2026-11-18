@@ -1,0 +1,20 @@
+{
+  "certified_gameplay": false,
+  "discontinuity": "upgrade/startup: measuring",
+  "known_treasury_credit_delta": "0",
+  "liquid_cycles": "1_530_754_082_180",
+  "net_decline_cycles": [],
+  "observed_at_ns": "1795017603263522353",
+  "reservation_gap_end": "56_563_968_060",
+  "reservation_gap_start": "56_563_968_060",
+  "resets": "0",
+  "runtime_started_ns": "1795017195681189257",
+  "sample_count": 1,
+  "sample_end_ns": "1795017495932820085",
+  "sample_end_total_cycles": "1_506_017_641_235",
+  "sample_scope": "source-fallback callback before outgoing calls; current-message execution reserve included; query balances are separate observations",
+  "sample_start_ns": "1795017495932820085",
+  "sample_start_total_cycles": "1_506_017_641_235",
+  "total_cycles": "1_587_368_279_720",
+  "version": 1
+}

@@ -1,0 +1,112 @@
+{
+  "status": "PASS",
+  "viewport": [
+    1440,
+    900
+  ],
+  "identity": {
+    "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+    "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+    "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "cannon": {
+    "id": 1,
+    "cell": 0,
+    "account": "f6a7fde8fed980f87e4c9ec6fe04820c9fd709a8a6e85deb6aea3c1c1d30c0df",
+    "dormant": null
+  },
+  "quantity_pose": null,
+  "orientations": [
+    {
+      "direction": "NE",
+      "memo": "DEFLECT 1 NE",
+      "hit": "NE",
+      "rect": {
+        "x": 504,
+        "y": 282,
+        "width": 44,
+        "height": 44
+      }
+    },
+    {
+      "direction": "SE",
+      "memo": "DEFLECT 1 SE",
+      "hit": "SE",
+      "rect": {
+        "x": 548,
+        "y": 282,
+        "width": 44,
+        "height": 44
+      }
+    },
+    {
+      "direction": "SW",
+      "memo": "DEFLECT 1 SW",
+      "hit": "SW",
+      "rect": {
+        "x": 592,
+        "y": 282,
+        "width": 44,
+        "height": 44
+      }
+    },
+    {
+      "direction": "NW",
+      "memo": "DEFLECT 1 NW",
+      "hit": "NW",
+      "rect": {
+        "x": 636,
+        "y": 282,
+        "width": 44,
+        "height": 44
+      }
+    }
+  ],
+  "payment": {
+    "amount": "0.1 ICP",
+    "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "abbreviated": "s5ir5\u2026",
+    "memo": "DEFLECT 1 NW",
+    "payer": "f6a7f\u2026",
+    "fee": "Help: Ledger fee separate",
+    "warning": "If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.",
+    "prompt": "Deflect & Pay",
+    "disabled": false,
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 368,
+      "top": 334,
+      "right": 1021,
+      "bottom": 702,
+      "left": 661
+    }
+  },
+  "fire": {
+    "amount": "0.1 ICP",
+    "recipient": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "abbreviated": "s5ir5\u2026",
+    "memo": "FIRE 1 37.5 1|CHARGE!",
+    "payer": "f6a7f\u2026",
+    "fee": "Help: Ledger fee separate",
+    "warning": "Payments and unused ICP are kept; no automatic refunds.",
+    "prompt": "Aim & Pay",
+    "disabled": false,
+    "panel": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 328,
+      "top": 334,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    }
+  },
+  "clipboard": "exact native Copy and external paste",
+  "update_keep": "PASS",
+  "errors": [],
+  "forbidden_posts": []
+}
