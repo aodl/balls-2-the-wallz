@@ -204,10 +204,13 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  function freeze(q,h){const saved=packet?.id&&instructionKey(packet)===instructionKey(q)?packet:h.freeze(q);if(q.backend===source?.owner&&q.account===declaration?.account){packet=saved;if(q.cannon!==null&&!refs.some(c=>c.id===q.cannon&&c.account===q.account))warning='The copied target is no longer present. Saved instructions remain in Account.';}activity();return saved;}
  function savedNote(h){return h.persisted()?'Instructions saved; no payment sent.':'Instructions kept for this visit only; device storage is unavailable. No payment sent.';}
  for(const b of copyControls)b.addEventListener('click',async()=>{
-  refresh();if(!mayHandoff())return;const q=packet??quote,h=history,value=paymentCopyValue(q,b.dataset.copy);busy=true;refresh();
+  refresh();if(!mayHandoff())return;const q=packet??quote,h=history,value=paymentCopyValue(q,b.dataset.copy);let fallback=null;busy=true;refresh();
   try{await navigator.clipboard.writeText(value);freeze(q,h);text('copy-feedback','Copied. '+savedNote(h));b.dataset.copied='true';setTimeout(()=>{delete b.dataset.copied;},1500);}
-  catch{if(!paymentCurrent()||view!=='action'||instructionKey(packet??quote)!==instructionKey(q))return;manual={q,h,value,field:b.dataset.copy};$('manual-copy').hidden=false;$('manual-value').value=value;text('copy-feedback','Clipboard unavailable. Copy the exact value below.');$('manual-value').focus();$('manual-value').select();}
-  finally{busy=false;refresh();}
+  catch{if(!paymentCurrent()||view!=='action'||instructionKey(packet??quote)!==instructionKey(q))return;manual=fallback={q,h,value,field:b.dataset.copy};$('manual-copy').hidden=false;$('manual-value').value=value;text('copy-feedback','Clipboard unavailable. Copy the exact value below.');}
+  finally{
+   busy=false;refresh();
+   if(fallback&&manual===fallback&&mayHandoff()){$('manual-value').focus();$('manual-value').select();}
+  }
  });
  // UX-08: native Copy bypasses clipboard.writeText (including the fallback).
  // Freeze conservatively on the event, without claiming that the OS write worked.

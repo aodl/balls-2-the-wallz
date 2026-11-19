@@ -21,13 +21,21 @@ class ObserverServerTests(unittest.TestCase):
         status,headers,body=self.get('/apps/b2z-observer/')
         self.assertEqual(status,200);self.assertIn(b'Verifying game',body)
         # UX-01/05/11: trust starts undecided; attribute order is not a contract.
-        controls=[]
+        controls=[];copies={};local={}
         class Fields(HTMLParser):
             def handle_starttag(self,tag,attrs):
                 row=dict(attrs)
                 if tag=='fieldset' and row.get('id')=='transfer-controls':controls.append(row)
+                if tag=='button' and 'data-copy' in row:copies[row['data-copy']]=row
+                if tag=='button' and row.get('id') in {'payer-reveal','recipient-reveal','payer-change'}:
+                    local[row['id']]=row
         Fields().feed(body.decode('utf-8'))
-        self.assertEqual(len(controls),1);self.assertIn('disabled',controls[0])
+        self.assertEqual(len(controls),1);self.assertNotIn('disabled',controls[0])
+        self.assertEqual(controls[0]['data-payment-ready'],'false')
+        self.assertEqual(set(copies),{'amount','owner','text'})
+        self.assertTrue(all('disabled' in row for row in copies.values()))
+        self.assertEqual(set(local),{'payer-reveal','recipient-reveal','payer-change'})
+        self.assertTrue(all('disabled' not in row for row in local.values()))
         # Approved panel: risk describes controls; network fee remains documented in Help.
         self.assertEqual(set(controls[0]['aria-describedby'].split()),{'payment-risk'})
         self.assertIn("frame-ancestors 'none'",headers['Content-Security-Policy'])

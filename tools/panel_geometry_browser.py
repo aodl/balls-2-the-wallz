@@ -74,6 +74,7 @@ def verify_independent_controls(page):
  page.locator('[data-copy=text]').click()
  page.locator('#manual-copy').wait_for(state='visible')
  assert page.locator('#manual-value').input_value()==original
+ assert page.locator('#manual-value').evaluate('node=>node===document.activeElement')
  apply_status(page,{'operationalFresh':False})
  assert page.locator('#manual-value').is_disabled() and page.locator('#manual-handoff').is_disabled()
  assert all(button.is_disabled() for button in page.locator('[data-copy]').all())
