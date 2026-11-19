@@ -1,27 +1,33 @@
-import {contextSiteReason, contextStructures} from '../../packages/kernels/b2z/context-structures.mjs';
-import {occupiedCells} from '../../packages/kernels/b2z/purchases-v6.mjs';
-import {ownerAt,playerAt,wrapCell} from '../../packages/kernels/b2z/world.mjs';
+import {structureMap,structureOccupancy,structureSiteReason,wrapSite} from '../../packages/protocol/structure-sites.mjs';
+import {islandAt} from './action-quote-v6.mjs';
 import {cellDistance} from '../../packages/protocol/territory-clearance.mjs';
 
 const worlds = new WeakMap();
 export function contextSites(world) {
   if(worlds.has(world))return worlds.get(world);
-  const occupied = occupiedCells(world),structures = contextStructures(world);
+  const territories=new Map(world.playability.territories.map(t=>[t.id,t.player]));
+  const playerAt=cell=>territories.get(islandAt(world,cell))??0;
+  const cannonOwners=new Map(world.playability.lifecycle.map(c=>[c.cannon,c.player]));
+  const occupied=structureOccupancy(world),structures=structureMap(world,id=>cannonOwners.get(id));
+  const activeIslands=new Set(world.balls.filter(b=>playerAt(b.cell)===b.owner).map(b=>islandAt(world,b.cell)));
+  const active=cell=>activeIslands.has(islandAt(world,cell));
   const accounts=new Map(world.playability.players.map(p=>[p.account,p.id]));
   const state={
     owner:account=>accounts.get(account),
-    owns:(account,cell)=>accounts.has(account)&&accounts.get(account)===playerAt(world,cell),
+    owns:(account,cell)=>accounts.has(account)&&accounts.get(account)===playerAt(cell),
     hasStructure:cell=>structures.has(cell),
-    reason:(account,cell, options={})=>contextSiteReason(world,accounts.get(account),cell,{...options,occupied,structures}),
+    active,
+    reason:(account,cell, options={})=>structureSiteReason({width:world.width,height:world.height,owner:accounts.get(account),cell,
+      ...options,occupied,structures,ownerAt:playerAt,active}),
     occupiedKey:[...occupied].sort((a,b)=>a-b).join(','),
-    activeKey:[...new Set(world.balls.map(b=>ownerAt(world,b.cell)))].sort((a,b)=>a-b).join(','),
+    activeKey:[...activeIslands].sort((a,b)=>a-b).join(','),
     candidates(account,moving,source){
       const owner=accounts.get(account),found=new Set();
       for(const [at,structure] of structures){
         if(structure.owner!==owner||moving?.kind===structure.kind&&moving.id===structure.id)continue;
         const x=at%world.width,y=Math.floor(at/world.width);
         for(let dy=-3;dy<=3;dy++)for(let dx=-3;dx<=3;dx++){
-          const cell=wrapCell(x+dx,y+dy,world.width,world.height);
+          const cell=wrapSite(x+dx,y+dy,world.width,world.height);
           if(cell!==at&&cell!==source)found.add(cell);
         }
       }

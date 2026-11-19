@@ -35,6 +35,7 @@ export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quanti
  if(successor&&['deflector_move','deflector_reorient'].includes(kind)){
   const d=w.deflectors.find(d=>d.id===deflector);
   check(d,'NO_DEFLECTOR');check(d.owner===contextSites(w).owner(account),'NOT_OWNER');
+  check(contextSites(w).active(d.cell),'NO_ACTIVE_ISLAND');
   if(kind==='deflector_move'){
    check(cell!==d.cell,'SAME_LOCATION');
    const why=contextSites(w).reason(account,cell,{moving:{kind:'deflector',id:deflector},deflector:true});check(!why,why);
