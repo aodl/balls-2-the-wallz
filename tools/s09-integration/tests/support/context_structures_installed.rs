@@ -276,7 +276,10 @@ fn context_structures_rules12_upgrade_official_payments_and_authenticated_replay
         "operations.json",
         &json!({"receipts":receipts,"expected":expected,"operations":operations,"contacts":contacts,"measured_paid_tick_cycles":processing_cycles.to_string(),"prior_module_sha256":dtr_wire::hash(&retained_wasm()),"successor_module_sha256":dtr_wire::hash(&bytes("B2Z_S14_WASM"))}),
     );
-    pic.set_time(pocket_ic::Time::from(std::time::SystemTime::now()));
+    let wall_clock = pocket_ic::Time::from(std::time::SystemTime::now());
+    if wall_clock.as_nanos_since_unix_epoch() > pic.get_time().as_nanos_since_unix_epoch() {
+        pic.set_time(wall_clock);
+    }
     let mut live =
         PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
     let gateway = live.make_live(None);

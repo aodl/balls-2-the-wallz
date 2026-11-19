@@ -30,5 +30,19 @@ if(!values['local-test-config']){
 }
 for(const name of ['cursors/reticle.svg','configuration-playability.bin','configuration-entry.bin','configuration-clearance.bin','configuration-war-cry.bin','configuration-combined.bin','configuration-deflector.bin','configuration-context.bin','agent-api.md','backend.did']){const bytes=await readFile(out+'/'+name);manifest.files[name]={sha256:sha(bytes),bytes:bytes.length};}
 manifest.supported_configuration_assets=CONFIGURATION_ASSETS;manifest.base_builder_sha256=sha(builder);manifest.playability_wrapper_sha256=sha(await readFile(new URL(import.meta.url)));manifest.mcp_service_discovery='INACTIVE; no architecture manifest or terms opt-in';
+// The historical base builder remains byte-pinned for delivery qualification.
+const branding={
+ 'balls-to-the-wallz-b2z-wordmark.svg':'0e5090613b73948228b406845244f7eb0d42df9a3ed0a2fc6fb2b5398066296b',
+ 'balls-to-the-wallz-b2-icon-matched.svg':'42bd1317cbf53a0566b24e8ef477d0de759aeaae914b27fa3718e9829a87d872',
+ 'favicon.ico':'e34ccbadc26ea0c6745d275041daea741ebc9fbba1899d59ae14e54fcffccceb',
+ '404.html':null,
+ 'not-found.css':null,
+};
+for(const [name,expected] of Object.entries(branding)){
+ const source='apps/b2z-observer/'+name,bytes=await readFile(source),digest=sha(bytes);
+ if(expected!==null&&digest!==expected)throw Error('Official branding asset changed: '+name);
+ await copyFile(source,out+'/'+name);
+ manifest.files[name]={sha256:digest,bytes:bytes.length};
+}
 await extendAudioAssets(out,manifest);
 await writeFile(out+'/build-manifest.json',JSON.stringify(manifest,null,2)+'\n');

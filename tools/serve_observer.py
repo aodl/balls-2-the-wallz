@@ -15,6 +15,8 @@ LIVE_CANISTER=None
 IC_GATEWAY=None
 GENERATED_ASSETS=None
 DEPLOYMENT_ASSETS=None
+BRANDING_ASSETS={'balls-to-the-wallz-b2z-wordmark.svg','balls-to-the-wallz-b2-icon-matched.svg',
+                 'favicon.ico','404.html','not-found.css'}
 PROXY_TRACE=None
 QUERY_METHODS=('observation_bundle','retained_publication','artifact_bundle','retained_artifact_chunk','artifact_chunk','lab_status','observation')
 def query_method(body):
@@ -40,16 +42,18 @@ def observer_dependency_error(root=ROOT):
     return ('installed DTR observer modules are missing: '+', '.join(missing)
       +'. Run `npm ci --ignore-scripts` from the B2Z repository root before starting the observer.')
 class ObserverHandler(http.server.SimpleHTTPRequestHandler):
-    extensions_map={**http.server.SimpleHTTPRequestHandler.extensions_map,'.mjs':'text/javascript','.bin':'application/octet-stream','.flac':'audio/flac'}
+    extensions_map={**http.server.SimpleHTTPRequestHandler.extensions_map,'.mjs':'text/javascript','.bin':'application/octet-stream','.flac':'audio/flac','.ico':'image/x-icon'}
     def __init__(self,*args,**kwargs):super().__init__(*args,directory=str(ROOT),**kwargs)
     def do_GET(self):
         raw=unquote(urlsplit(self.path).path)
         audio_route=bool(re.fullmatch(r'/audio/b2z-v1/(?:manifest\.json|(?:music/[0-9]{3}|sfx/[a-z-]+)-[0-9a-f]{16}\.flac)',raw))
+        if raw.removeprefix('/') in BRANDING_ASSETS:
+            return self.serve_explicit((DEPLOYMENT_ASSETS or ROOT/'apps/b2z-observer')/raw[1:])
         if DEPLOYMENT_ASSETS is not None and audio_route:
             return self.serve_explicit(DEPLOYMENT_ASSETS/raw.removeprefix('/'))
         if DEPLOYMENT_ASSETS is not None:
             name='index.html' if raw=='/' else raw.removeprefix('/')
-            if name in {'index.html','app.mjs','style.css','icon.svg','configuration.bin','configuration-legacy.bin','configuration-torus.bin','configuration-million.bin','configuration-playability.bin','configuration-entry.bin','configuration-clearance.bin','configuration-war-cry.bin','configuration-combined.bin','configuration-deflector.bin','backend.did','agent-api.md','deployment.json','build-manifest.json'}:
+            if name in {'index.html','app.mjs','style.css','icon.svg','configuration.bin','configuration-legacy.bin','configuration-torus.bin','configuration-million.bin','configuration-playability.bin','configuration-entry.bin','configuration-clearance.bin','configuration-war-cry.bin','configuration-combined.bin','configuration-deflector.bin','configuration-context.bin','backend.did','agent-api.md','deployment.json','build-manifest.json'}:
                 return self.serve_explicit(DEPLOYMENT_ASSETS/name)
         if DEPLOYMENT_ASSETS is not None and re.fullmatch(r'/recordings/(?:index\.json|(?:dense|admission|severance|near-impact)/[0-9]{3}/(?:catalog|(?:state|events|scores|render)-[0-9]+)\.bin)',raw):
             return self.serve_explicit(DEPLOYMENT_ASSETS/raw.removeprefix('/'))
