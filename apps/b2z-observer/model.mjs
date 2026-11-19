@@ -1,8 +1,8 @@
-import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorRemovals,matchesDeflectors}from'./model-deflector.mjs';
+import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorOperation,applyDeflectorRemovals,matchesDeflectors}from'./model-deflector.mjs';
 import {launchAnnotationValidator}from'./war-cry-events.mjs';
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -11,7 +11,8 @@ import {projectAnimationEvents} from '../../packages/kernels/b2z/animation-proje
 import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
-const playabilityIdentity=(id,version=6)=>(version===7?[DEFLECTOR_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>Object.keys(expected).every(k=>id?.[k]===expected[k]));
+const playabilityIdentity=(id,version=6)=>(version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>Object.keys(expected).every(k=>id?.[k]===expected[k]));
+const contextIdentity=id=>Object.keys(CONTEXT_IDENTITY).every(key=>id?.[key]===CONTEXT_IDENTITY[key]);
 function check(ok,message){if(!ok)throw new Error('observer: '+message);}
 function integer(n,max=4294967295){check(Number.isSafeInteger(n)&&n>=0&&n<=max,'integer bounds');return n;}
 export function timeNumber(r){validRat(r);const n=Number(r[0])/Number(r[1]);check(Number.isFinite(n)&&n>=0&&n<=1e9,'time bounds');return n;}
@@ -51,7 +52,8 @@ export function snapshot(bytes,identity){
 }
 /** Mutable presentation state. No ledger account/price/scoring decisions are made here. */
 export class B2zView {
-  constructor(w){
+  constructor(w,contextStructures=false){
+    this.contextStructures=contextStructures;
     this.torus=w.version>=4;this.version=w.version;this.width=w.width;this.height=w.height;this.cells=w.version<5?[...w.cells]:null;
     this.ownership=w.version>=5?structuredClone(w.ownership):null;this.territoryRevision=0;
     this.cannons=new Map(w.cannons.map(c=>[c.id,{...c}]));
@@ -97,7 +99,7 @@ export class B2zView {
   removeBalls(ids){for(const id of ids){this.balls.delete(id);this.motionKnots?.delete(id);for(const [key,p] of this.pending)if(p.ball===id)this.pending.delete(key);}}
   apply(e){
     const t=timeNumber(e.time);this.lastEvent=e.kind.replaceAll('_',' ');
-    if(applyDeflectorBuilt(this,e))return;
+    if(applyDeflectorBuilt(this,e)||applyDeflectorOperation(this,e))return;
     if(this.version>=6){if(applyV6Event(this,e)){applyDeflectorRemovals(this,e);if(e.launch_annotation){const id=typeof e.cannon==='object'?e.cannon.id:e.cannon;check(this.cannons.get(id)?.account===e.launch_annotation.account,'launch annotation funding account');}this.effects=this.effects.filter(x=>t-x.t<2).slice(-64);return;}check(['trajectory','cannon_moved','strike_armed','strike_cancelled'].includes(e.kind),'unsupported v6 event');}
     if(e.kind==='trajectory'){
       check(this.balls.has(e.ball.id),'unknown trajectory');const b=this.version>=6?trackV6(e.ball,this.version===7):track(e.ball,this.version===5?65536:4096);
@@ -169,13 +171,13 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
   if(initial.version>=6||final.version>=6)check(initial.version>=6&&final.version===initial.version&&playabilityIdentity(publication.identity,initial.version),'playability rules/config/schema identity');
   const validateAnnotation=launchAnnotationValidator(p.receipts,publication.identity);
-  const model=new B2zView(initial);let prior=initial.time,seq=-1;
+  const contextStructures=contextIdentity(publication.identity),model=new B2zView(initial,contextStructures);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version>=6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'animation event order/range');
     seq=e.sequence;prior=e.time;if(e.launch_annotation!==undefined)validateAnnotation(e);model.apply(e);
   }
   model.matches(final);
-  return {start:Number(s.logical_start),end:Number(s.logical_end),initial,final,events:p.events,receipts:p.receipts,
+  return {start:Number(s.logical_start),end:Number(s.logical_end),initial,final,events:p.events,receipts:p.receipts,contextStructures,
     bytes:initialBytes.length+finalBytes.length+renderBytes.length};
 }
 /** The native host intentionally publishes no render artifact. Derive the
@@ -198,17 +200,17 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
   if(initial.version>=6||final.version>=6)check(initial.version>=6&&final.version===initial.version&&playabilityIdentity(publication.identity,initial.version),'playability rules/config/schema identity');
   const validateAnnotation=launchAnnotationValidator(p.receipts,publication.identity);
-  const model=new B2zView(initial);let prior=initial.time,seq=-1;
+  const contextStructures=contextIdentity(publication.identity),model=new B2zView(initial,contextStructures);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version>=6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'derived animation event order/range');
     seq=e.sequence;prior=e.time;if(e.launch_annotation!==undefined)validateAnnotation(e);model.apply(e);
   }
   model.matches(final);
-  return {start:Number(s.logical_start),end:Number(s.logical_end),initial,final,events:p.events,receipts:p.receipts,
+  return {start:Number(s.logical_start),end:Number(s.logical_end),initial,final,events:p.events,receipts:p.receipts,contextStructures,
     bytes:initialBytes.length+finalBytes.length+eventBytes.length};
 }
 export class SegmentPlayer {
-  constructor(segment,provenance=null){this.segment=segment;this.provenance=provenance;this.view=new B2zView(segment.initial);this.index=0;this.time=segment.start;}
+  constructor(segment,provenance=null){this.segment=segment;this.provenance=provenance;this.view=new B2zView(segment.initial,segment.contextStructures);this.index=0;this.time=segment.start;}
   advance(time,collector=null,displayed=null){
     check(Number.isFinite(time)&&time>=this.time&&time<=this.segment.end,'playhead bounds');this.time=time;
     if(this.view.version>=6)this.view.logicalTime=time;
@@ -303,9 +305,16 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
   check(events.events.every((e,i)=>e.sequence===i&&cmp(e.time,initial.time)===0),'checkpoint event ordering');
   check(scores.version===final.version&&Array.isArray(scores.area_time)&&scores.area_time.length===0,'checkpoint scores');
   const context=events.events[0]?.context;
-  if(final.version===7&&initial.version===6){
+  if(events.events[0]?.kind==='context_rules_activated'){
+    check(initial.version===7&&final.version===7&&publication.version===8&&publication.epoch.version===2&&events.events.length===1,'Rules13 checkpoint format');
+    check(Object.keys(DEFLECTOR_IDENTITY).every(k=>prior.identity[k]===DEFLECTOR_IDENTITY[k])&&contextIdentity(publication.identity),'Rules13 exact identities');
+    check(context&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash,'Rules13 metadata commitment');
+    const expected={version:9,migration:'B2Z_CONTEXT_STRUCTURES_RULES_13',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:7,memo_adapter_after:8};
+    check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'Rules13 source boundary');
+    check(publication.head.state_hash===prior.head.state_hash&&sameCanonical(initial,final),'Rules13 unchanged world');
+  }else if(final.version===7&&initial.version===6){
     check(publication.version===8&&publication.epoch.version===2&&events.events.length===1&&events.events[0].kind==='deflector_rules_activated','Deflector checkpoint format');
-    check(playabilityIdentity(prior.identity,6)&&sameCanonical(Object.fromEntries(Object.keys(COMBINED_IDENTITY).map(k=>[k,prior.identity[k]])),COMBINED_IDENTITY)&&playabilityIdentity(publication.identity,7),'Deflector exact predecessor/successor');
+    check(playabilityIdentity(prior.identity,6)&&sameCanonical(Object.fromEntries(Object.keys(COMBINED_IDENTITY).map(k=>[k,prior.identity[k]])),COMBINED_IDENTITY)&&Object.keys(DEFLECTOR_IDENTITY).every(k=>publication.identity[k]===DEFLECTOR_IDENTITY[k]),'Deflector exact predecessor/successor');
     check(context&&context.version===8&&context.migration==='B2Z_BOUNDARY_DEFLECTOR_RULES_12'&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash,'Deflector context commitment');
     const expected={version:8,migration:'B2Z_BOUNDARY_DEFLECTOR_RULES_12',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:publication.head.state_hash,preserved_predecessor_projection:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:6,memo_adapter_after:7};
     check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'Deflector source/epoch boundary');

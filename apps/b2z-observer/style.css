@@ -357,3 +357,5 @@ input,select,textarea{border-radius:6px}
  }
  #transfer-controls[data-payment-ready=true] #transfer-amount,#transfer-controls[data-payment-ready=false] #transfer-amount{color:CanvasText}
 }
+
+canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}

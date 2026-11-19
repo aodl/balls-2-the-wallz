@@ -28,6 +28,22 @@ export function applyDeflectorBuilt(view,e){
  check(e.reason==='ACCEPTED'&&e.status==='applied'&&e.structure.id===view.next_deflector_id&&!view.deflectors.has(e.structure.id)&&![...view.deflectors.values()].some(d=>d.cell===e.structure.cell),'construction binding');
  view.deflectors.set(e.structure.id,structuredClone(e.structure));view.next_deflector_id++;return true;
 }
+export function applyDeflectorOperation(view,event){
+ const moving=event.kind==='deflector_moved';
+ if(!moving&&event.kind!=='deflector_reoriented')return false;
+ check(view.version===7&&view.contextStructures,'operation capability');
+ const before=event.before,after=event.structure;
+ structure(view,before);structure(view,after);
+ check(event.reason==='ACCEPTED'&&event.status==='applied'&&equal(view.deflectors.get(before.id),before)
+   &&before.id===after.id&&before.owner===after.owner,'operation predecessor');
+ if(moving){
+   check(before.cell!==after.cell&&before.orientation===after.orientation,'movement fields');
+   const dx=other=>Math.abs(after.cell%1000-other.cell%1000);
+   const dy=other=>Math.abs(Math.floor(after.cell/1000)-Math.floor(other.cell/1000));
+   check(![...view.deflectors.values()].some(other=>other.id!==after.id&&Math.min(dx(other),1000-dx(other))<2&&Math.min(dy(other),1000-dy(other))<2),'move spacing');
+ }else check(before.cell===after.cell&&before.orientation!==after.orientation,'reorientation fields');
+ view.deflectors.set(after.id,structuredClone(after));return true;
+}
 export function applyDeflectorRemovals(view,e){
  if(view.version!==7)return;const gone=e.removed_deflectors??[];check(Array.isArray(gone)&&gone.length<=256,'removal bounds');const seen=new Set();
  for(const d of gone){check(!seen.has(d.id)&&equal(view.deflectors.get(d.id),d),'removal identity');seen.add(d.id);view.deflectors.delete(d.id);}

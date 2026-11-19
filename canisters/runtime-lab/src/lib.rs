@@ -173,6 +173,8 @@ struct Root {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     deflector_transition: Option<transition::Transition>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    context_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_barrier: Option<playability_runtime::Barrier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_error: Option<String>,
@@ -283,6 +285,7 @@ fn active_transition(r: &Root) -> AppResult<Option<&transition::Transition>> {
         r.war_cry_transition.as_ref(),
         r.combined_transition.as_ref(),
         r.deflector_transition.as_ref(),
+        r.context_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -303,6 +306,7 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.war_cry_transition.as_ref(),
         r.combined_transition.as_ref(),
         r.deflector_transition.as_ref(),
+        r.context_transition.as_ref(),
     ]
     .map(|t| t.is_some_and(|t| t.holding()));
     if flags.into_iter().filter(|v| *v).count() > 1 {
@@ -324,6 +328,8 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.combined_transition.as_mut()
     } else if flags[7] {
         r.deflector_transition.as_mut()
+    } else if flags[8] {
+        r.context_transition.as_mut()
     } else {
         None
     })
@@ -341,6 +347,7 @@ fn transition_evidence<'a>(
         r.war_cry_transition.as_ref(),
         r.combined_transition.as_ref(),
         r.deflector_transition.as_ref(),
+        r.context_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -497,6 +504,12 @@ fn root() -> AppResult<Root> {
             return Err("deflector transition version".into());
         }
     }
+    if let Some(t) = &r.context_transition {
+        t.validate()?;
+        if t.version != 9 {
+            return Err("Rules13 transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -548,6 +561,7 @@ fn root() -> AppResult<Root> {
         r.war_cry_transition.as_ref(),
         r.combined_transition.as_ref(),
         r.deflector_transition.as_ref(),
+        r.context_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -832,6 +846,7 @@ fn persist_inner(
         war_cry_transition: old.and_then(|r| r.war_cry_transition.clone()),
         combined_transition: old.and_then(|r| r.combined_transition.clone()),
         deflector_transition: old.and_then(|r| r.deflector_transition.clone()),
+        context_transition: old.and_then(|r| r.context_transition.clone()),
         lifecycle_context: old.and_then(|r| r.lifecycle_context.clone()),
         lifecycle_barrier: old.and_then(|r| r.lifecycle_barrier.clone()),
         lifecycle_error: old.and_then(|r| r.lifecycle_error.clone()),
@@ -964,6 +979,12 @@ fn save_root_only(r: &Root) -> AppResult<()> {
             return Err("deflector transition version".into());
         }
     }
+    if let Some(t) = &r.context_transition {
+        t.validate()?;
+        if t.version != 9 {
+            return Err("Rules13 transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -981,6 +1002,12 @@ fn save_root_only(r: &Root) -> AppResult<()> {
         != (publication.identity.config_hash == hash(b2z_native::deflectors_v12::configuration()))
     {
         return Err("deflector source/config capability mismatch".into());
+    }
+    if (r.source.memo_adapter_version == b2z_protocol::context_structures::MEMO_ADAPTER_VERSION)
+        != (publication.identity.config_hash
+            == b2z_native::context_structures::configuration_hash())
+    {
+        return Err("Rules13 source/config capability mismatch".into());
     }
     validate_retention(&r.retention, &publication)?;
     let bytes = encode(r)?;
@@ -3345,6 +3372,162 @@ fn commit_deflector_transition(
     request_reconciliation()?;
     encode(&next.deflector_transition)
 }
+#[ic_cdk::update]
+fn prepare_context_transition() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    refresh_pace();
+    if !PACE.with(|p| p.borrow().hint().admission_open) {
+        return Err("resource protection forbids Rules13 cutover".into());
+    }
+    let mut r = root()?;
+    let h = host(&r)?;
+    if let Some(t) = &r.context_transition {
+        return encode(t);
+    }
+    if r.run.running {
+        return Err("pause autonomous gameplay before Rules13 cutover".into());
+    }
+    if active_transition(&r)?.is_some() {
+        return Err("finish existing world transition first".into());
+    }
+    let expected = b2z_native::deflectors_v12::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("Rules13 requires exact Rules12 predecessor".into());
+    }
+    let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
+    if w.version != 7
+        || r.source.memo_adapter_version != b2z_protocol::deflector::MEMO_ADAPTER_VERSION
+    {
+        return Err("only exact Rules12 world can activate Rules13".into());
+    }
+    if h.record.journal.head.seal.is_none()
+        && h.record.journal.stage.is_none()
+        && h.record
+            .journal
+            .epoch
+            .as_ref()
+            .is_none_or(|e| e.version != 3)
+    {
+        return Err("finish one Rules12 interval before Rules13 preparation".into());
+    }
+    if r.run.segment_ticks > 1 {
+        return Err("Rules13 successor requires an existing publication allowance of at most1 tick; no settings changed".into());
+    }
+    if !r.source.binding_checked
+        || r.source.in_flight
+        || r.source.pending.is_some()
+        || r.source.last_error.is_some()
+        || r.run.last_error.is_some()
+        || r.lifecycle_error.is_some()
+        || r.lifecycle_barrier.is_some()
+    {
+        return Err(
+            "finish existing source reconciliation and recover errors before cutover".into(),
+        );
+    }
+    r.context_transition = Some(transition::Transition::context_structures());
+    save_root_only(&r)?;
+    ARENA_IDLE.with(|f| {
+        f.set(
+            !runtime_needs_simulation(&h, active_transition(&r).expect("validated transition"))
+                .expect("validated runtime"),
+        )
+    });
+    install_run_timer(&r.run);
+    request_reconciliation()?;
+    encode(&r.context_transition)
+}
+#[ic_cdk::query]
+fn context_transition_status() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    let r = root()?;
+    encode(
+        &serde_json::json!({"transition":r.context_transition,"lifecycle_error":r.lifecycle_error,"lifecycle_barrier":r.lifecycle_barrier}),
+    )
+}
+/// Derives the Rules13 metadata once. No caller-supplied world, time or identities.
+#[ic_cdk::update]
+fn commit_context_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    if unhex(&expected_previous_manifest)?.len() != 32 {
+        return Err("expected manifest hash".into());
+    }
+    let mut r = root()?;
+    let mut h = host(&r)?;
+    let t = r
+        .context_transition
+        .as_ref()
+        .ok_or("prepare Rules13 cutover first")?;
+    if t.phase == "complete" {
+        if t.previous_manifest.as_deref() != Some(&expected_previous_manifest) {
+            return Err("conflicting Rules13 transition retry".into());
+        }
+        let expected = b2z_native::context_structures::identity()?;
+        let identity =
+            serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+        if ["rules_hash", "config_hash", "schema_hash"]
+            .iter()
+            .any(|k| identity[*k] != expected[*k])
+        {
+            return Err("completed Rules13 transition has been superseded".into());
+        }
+        return encode(t);
+    }
+    if r.run.running
+        || r.run.last_error.is_some()
+        || r.lifecycle_barrier.is_some()
+        || r.lifecycle_error.is_some()
+    {
+        return Err(
+            "Rules13 activation requires paused error-free autonomous configuration".into(),
+        );
+    }
+    if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
+        return Err("insufficient liquid cycles for safe transition".into());
+    }
+    refresh_pace();
+    if !PACE.with(|p| p.borrow().hint().admission_open) {
+        return Err("resource protection forbids Rules13 activation".into());
+    }
+    if h.record.journal.head.manifest_hash != expected_previous_manifest {
+        return Err("old committed manifest changed".into());
+    }
+    if r.run.segment_ticks > 1 {
+        return Err("Rules13 publication allowance exceeds candidate bound".into());
+    }
+    let (output, metadata, identity) = playability_runtime::context_candidate(&h, t, &r.source)?;
+    let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
+    h.apply(Action::Transition {
+        epoch: Box::new(epoch.clone()),
+        state_hex: hex(&output.state),
+        event_hex: hex(&output.events),
+        score_hex: hex(&output.scores),
+    })?;
+    let t = r.context_transition.as_mut().unwrap();
+    t.phase = "complete".into();
+    t.metadata_hex = Some(hex(&metadata));
+    t.transition_hash = Some(epoch.transition_hash);
+    t.previous_manifest = Some(expected_previous_manifest);
+    // New adapter only after the drained authenticated boundary.
+    r.source.memo_adapter_version = b2z_protocol::context_structures::MEMO_ADAPTER_VERSION;
+    r.source.requested = true;
+    // Preserve existing lifecycle evidence, deadlines and recovery state.
+    let next = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
+    refresh_pace();
+    install_run_timer(&next.run);
+    playability_runtime::install(&next)?;
+    request_reconciliation()?;
+    encode(&next.context_transition)
+}
 /// Content-addressed application metadata. Hash against the independently
 /// authenticated epoch.metadata_hash; this convenience reply is not certified.
 #[ic_cdk::query]
@@ -3362,6 +3545,7 @@ fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, Strin
         r.war_cry_transition.as_ref(),
         r.combined_transition.as_ref(),
         r.deflector_transition.as_ref(),
+        r.context_transition.as_ref(),
     ]
     .into_iter()
     .flatten()

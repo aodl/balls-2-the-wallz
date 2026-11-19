@@ -1,3 +1,4 @@
+import {prepareContextDeflector} from './context-structures.mjs';
 /** Pure v6 command/capture continuations. No ambient clock, IC or Ledger calls. */
 import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
@@ -9,7 +10,7 @@ import {validateWorld} from './world.mjs';
 import{prepareDeflectorPurchase}from'./deflectors-v12.mjs';
 const rejected=(c,p,reason)=>c.receipt(p,{reason,status:'rejected',amount_used:0n,remainder:p.amount});
 function place(c,p,plan,r){
- const made=placeNew(c.world,p.account,p.amount,plan,r,!!c.v6.entry_rules),batch=PurchaseBatch.afterNew(p.account,p.amount,made.cannon.id,plan);
+ const made=placeNew(c.world,p.account,p.amount,plan,r,!!c.v6.entry_rules,!!c.v6.context_rules),batch=PurchaseBatch.afterNew(p.account,p.amount,made.cannon.id,plan);
  c.world=made.world;c.emit(made.event);c.areaDirty=true;
  Object.assign(c.v6,{plan:null,payment:p,batch:{...batch}});c.phase='v6_purchase';
 }
@@ -18,13 +19,20 @@ export function workV6(c,readPayment){
    if(c.inputIndex===c.inputs.length){c.restartSearch();return true;}
    const p=readPayment(c.inputs[c.inputIndex].payload_hex);if(c.v6.war_cry_rules)c.v6.pending_cry=p.cry||null;
    if(c.world.received_e8s+p.amount>=1n<<128n)throw Error('treasury overflow');
-   const plan=(c.v6.deflector_rules?prepareDeflectorPurchase(c.world,p.account,p.amount,p.memo):null)??(c.v6.clearance_rules?preparePurchaseClearance:preparePurchase)(c.world,p.account,p.amount,p.memo,c.moved);c.world.received_e8s+=p.amount;
+   const plan=c.v6.context_rules?(prepareContextDeflector(c.world,p.account,p.amount,p.memo)??preparePurchase(c.world,p.account,p.amount,p.memo,c.moved,true)):(c.v6.deflector_rules?prepareDeflectorPurchase(c.world,p.account,p.amount,p.memo):null)??(c.v6.clearance_rules?preparePurchaseClearance:preparePurchase)(c.world,p.account,p.amount,p.memo,c.moved);c.world.received_e8s+=p.amount;
    const payment={account:p.account,amount:p.amount};
    if(plan.kind==='rejected')rejected(c,payment,plan.reason);
    else if(plan.kind==='deflect'){
      const structure={id:c.world.next_deflector_id++,cell:plan.cell,owner:plan.owner,orientation:plan.orientation};
      c.world.deflectors.push(structure);c.world.deflectors.sort((a,b)=>a.cell-b.cell);
-     c.receipt(payment,{reason:'ACCEPTED',kind:'deflector_built',structure,status:'applied',amount_used:plan.price,remainder:p.amount-plan.price});
+     c.receipt(payment,{reason:'ACCEPTED',kind:'deflector_built',structure:{...structure},status:'applied',amount_used:plan.price,remainder:p.amount-plan.price});
+   }else if(plan.kind==='deflector_move'||plan.kind==='deflector_reorient'){
+     const structure=c.world.deflectors.find(d=>d.id===plan.id),before={...structure};
+     if(plan.kind==='deflector_move'){
+       structure.cell=plan.cell;
+       c.world.deflectors.sort((a,b)=>a.cell-b.cell);
+     }else structure.orientation=plan.orientation;
+     c.receipt(payment,{reason:'ACCEPTED',kind:plan.kind==='deflector_move'?'deflector_moved':'deflector_reoriented',before,structure:{...structure},status:'applied',amount_used:plan.price,remainder:p.amount-plan.price});
    }else if(plan.kind==='move'){
      const cannon=c.world.cannons.find(x=>x.id===plan.cannon),before=cannon.cell;cannon.cell=plan.cell;c.moved.push(cannon.id);
      c.receipt(payment,{reason:'ACCEPTED',kind:'cannon_moved',status:'applied',cannon:cannon.id,before,after:plan.cell,amount_used:plan.price,remainder:p.amount-plan.price});
@@ -73,7 +81,7 @@ export function finalizeCursorElapsed(c,observedNs){
 
 export function validateV6Cursor(c){
  const s=c.v6;
- if(!s||Boolean(s.deflector_rules)!==(c.world.version===7)||s.finalized&&c.phase!=='done'||s.births.length>V6_POLICY.max_cannons||new Set(s.births.map(f=>f.cannon)).size!==s.births.length
+ if(!s||s.context_rules&&!s.deflector_rules||Boolean(s.deflector_rules)!==(c.world.version===7)||s.finalized&&c.phase!=='done'||s.births.length>V6_POLICY.max_cannons||new Set(s.births.map(f=>f.cannon)).size!==s.births.length
    ||(s.capture!==null)!==(c.phase==='v6_topology')||(s.batch!==null)!==(c.phase==='v6_purchase')
    ||(s.plan!==null)!==(c.phase==='v6_spawn')||(s.payment!==null)!==['v6_spawn','v6_purchase'].includes(c.phase)
    ||c.phase==='v6_spawn'&&!c.spawnJob||['spawn','topology'].includes(c.phase))throw Error('V6_CURSOR_PHASE');

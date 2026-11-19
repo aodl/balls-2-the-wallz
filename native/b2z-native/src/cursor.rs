@@ -152,6 +152,32 @@ pub(crate) fn read_payment_deflectors(s: &str) -> Result<Payment> {
     p.memo = b[48..56].to_vec();
     Ok(p)
 }
+pub(crate) fn read_payment_context(s: &str) -> Result<Payment> {
+    let bytes = unhex(s)?;
+    if !(57..=88).contains(&bytes.len())
+        || !bytes.starts_with(b2z_protocol::context_structures::NORMALIZED_PAYMENT)
+    {
+        return Err("adapter8 payment envelope".into());
+    }
+    let mut previous = bytes.clone();
+    previous[7] = b'4';
+    if matches!(bytes[48], 0xb8 | 0xb9) {
+        if bytes.len() != 57 || bytes[56] != 0 {
+            return Err("Deflector operation annotation".into());
+        }
+        previous[48..56].copy_from_slice(&b2z_protocol::encode(b2z_protocol::Command::Angle(0)));
+    }
+    let mut payment = read_payment_deflectors(&hex(&previous))?;
+    payment.memo = bytes[48..56].to_vec();
+    Ok(payment)
+}
+fn semantic_context_payment(s: &str) -> Result<String> {
+    read_payment_context(s)?;
+    let mut bytes = unhex(s)?;
+    bytes.truncate(56);
+    bytes[7] = b'2';
+    Ok(hex(&bytes))
+}
 fn semantic_deflector_payment(s: &str) -> Result<String> {
     read_payment_deflectors(s)?;
     let mut b = unhex(s)?;
@@ -421,7 +447,9 @@ impl Cursor {
         let war_cry = crate::war_cry::identity()?;
         let combined = crate::combined_v11::identity()?;
         let deflector = crate::deflectors_v12::identity()?;
-        let is_deflector = context.get("config_hash") == deflector.get("config_hash");
+        let structure_context = crate::context_structures::identity()?;
+        let is_context = context.get("config_hash") == structure_context.get("config_hash");
+        let is_deflector = is_context || context.get("config_hash") == deflector.get("config_hash");
         let is_combined = is_deflector || context.get("config_hash") == combined.get("config_hash");
         let is_war_cry = is_combined || context.get("config_hash") == war_cry.get("config_hash");
         let is_clearance =
@@ -437,7 +465,9 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_deflector {
+        let expected = if is_context {
+            structure_context
+        } else if is_deflector {
             deflector
         } else if is_combined {
             combined
@@ -504,7 +534,9 @@ impl Cursor {
                     .map(|i| {
                         Ok(Input {
                             position: i.position.clone(),
-                            payload_hex: if is_deflector {
+                            payload_hex: if is_context {
+                                semantic_context_payment(&i.payload_hex)?
+                            } else if is_deflector {
                                 semantic_deflector_payment(&i.payload_hex)?
                             } else {
                                 semantic_payment(&i.payload_hex)?
@@ -533,6 +565,7 @@ impl Cursor {
                     war_cry_rules: is_war_cry,
                     clearance_rules: is_clearance,
                     deflector_rules: is_deflector,
+                    context_rules: is_context,
                     ..Default::default()
                 }
             }),

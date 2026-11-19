@@ -125,6 +125,10 @@ def main():
         rules11.write_bytes(gzip.decompress((ROOT/'vendor/b2z/rules11-5ffb6cc2.wasm.gz').read_bytes()))
         assert hashlib.sha256(rules11.read_bytes()).hexdigest()=='5ffb6cc2c1cd377ef36a847df309fc21ead8e4b66d97d49200ca00d80b3e8a43'
         env['B2Z_RULES11_PRIOR_WASM']=str(rules11)
+        rules12=out/'rules12-predecessor.wasm'
+        rules12.write_bytes(gzip.decompress((ROOT/'vendor/b2z/rules12-2cb2fe02.wasm.gz').read_bytes()))
+        assert hashlib.sha256(rules12.read_bytes()).hexdigest()=='2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13'
+        env['B2Z_RULES12_PRIOR_WASM']=str(rules12)
         env['B2Z_CMC_MOCK_WASM']=str(ROOT/'tools/cmc-funding-fixture/target/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm')
         if a.funding_prior_wasm:
             if hashlib.sha256(a.funding_prior_wasm.read_bytes()).hexdigest()!='53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec':raise ValueError('funding upgrade requires exact installed 53b219 module')
@@ -187,8 +191,11 @@ def main():
                 # default 60-second idle TTL without making an IC request.
                 # The test deadline and independent server hard TTL stay bounded.
                 server=start_pocketic(files['POCKET_IC_BIN'],case_out,hard_ttl_seconds=case_timeout+60,idle_ttl_seconds=case_timeout+30)
+                case_env={**env,'POCKET_IC_SERVER_URL':server[3]}
+                if name=='context_structures_installed::matched_rules12_rules13_trickle_cost':
+                    case_env['B2Z_PROFILE_INITIAL_CYCLES']='2400000000000'
                 try:
-                    row=execute(case_id,[binaries[0],name,'--exact',*(['--ignored'] if ignored else []),'--nocapture','--test-threads=1'],out,case_timeout,{**env,'POCKET_IC_SERVER_URL':server[3]})
+                    row=execute(case_id,[binaries[0],name,'--exact',*(['--ignored'] if ignored else []),'--nocapture','--test-threads=1'],out,case_timeout,case_env)
                     row['test']=name
                     text=(out/row['log']).read_text();combined.append(text)
                     row=installed_case_result(row,text,server[0].poll())

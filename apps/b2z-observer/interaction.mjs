@@ -3,18 +3,20 @@ import {aimingArrow} from './guide-clearance.mjs';
 import {heading} from '../../packages/kernels/b2z/math.mjs';
 function segmentDistance(p,a,b){const dx=b.x-a.x,dy=b.y-a.y,t=Math.max(0,Math.min(1,((p.x-a.x)*dx+(p.y-a.y)*dy)/(dx*dx+dy*dy||1)));return Math.hypot(p.x-a.x-t*dx,p.y-a.y-t*dy);}
 /** Pointer-down owns the entire gesture. Move never supplies an aim. */
-export function aimingVicinity(camera,aim,p,pointerType='mouse',selection=null,obstacles=[]){
+export function aimingVicinity(camera,aim,p,pointerType='mouse',selection=null,obstacles=[],preferSite=null){
  if(!aim)return false;
  const arrow=aimingArrow(camera,aim,obstacles),width=pointerType==='mouse'?9:16;
  if(arrow&&arrow.screen.some((b,i)=>i>0&&segmentDistance(p,arrow.screen[i-1],b)<=width))return true;
  // An explicitly eligible different Build tile remains a destination target,
  // including a neighbour whose centre falls inside the generous touch halo.
  if(['new','deflect'].includes(selection?.kind)){const cell=camera.cell(p.x,p.y);if(cell!==selection.cell&&(selection.legal?selection.legal(cell):selection.cells.includes(cell)))return false;}
+ const site=preferSite&&camera.cell(p.x,p.y);
+ if(site!==null&&site!==false&&site!==aim.cannon.cell&&preferSite?.(site))return false;
  const at=camera.cellPoint(aim.cannon.cell);
  const radius=Math.min(pointerType==='touch'?88:76,Math.max(pointerType==='touch'?60:52,camera.scale*.72));
  return at.visible&&Math.hypot(p.x-at.sx,p.y-at.sy)<=radius;
 }
-export function resolveInteraction(camera,cannons,p,selection=null,aim=null,balls=[]){
+export function resolveInteraction(camera,cannons,p,selection=null,aim=null,balls=[],deflectors=null){
  const cell=camera.cell(p.x,p.y);
  if(selection)return{kind:cell!==null&&(selection.legal?selection.legal(cell):selection.cells.includes(cell))?'place':'invalid',cell};
  let best=null;
@@ -22,6 +24,11 @@ export function resolveInteraction(camera,cannons,p,selection=null,aim=null,ball
   const at=camera.cellPoint(c.cell),lod=camera.scale<4?Math.min(8,4/camera.scale):1,[dx,dy]=heading(aim?.cannon.id===c.id&&aim.cannon.cell===c.cell?aim.heading:c.heading??0),top=camera.screen(at.x,at.y,.24*lod),end=camera.screen(at.x+dx/1024*.52*lod,at.y+dy/1024*.52*lod,.27*lod);
   const distance=Math.min(Math.hypot(p.x-at.sx,p.y-at.sy),segmentDistance(p,top,end)),radius=Math.max(18,camera.scale*.36*lod);
   if(distance<=radius&&(!best||distance<best.distance))best={kind:'cannon',id:c.id,cell:c.cell,distance,depth:at.x+at.y+.24*lod};
+ }
+ for(const d of deflectors?.values()??[]){
+  const centre=camera.cellPoint(d.cell),at=camera.screen(centre.x,centre.y,.11);
+  const distance=Math.hypot(p.x-at.x,p.y-at.y),radius=Math.max(12,camera.scale*.32);
+  if(centre.visible&&distance<=radius&&(!best||distance<best.distance))best={kind:'deflector',id:d.id,cell:d.cell,distance,depth:centre.x+centre.y+.11};
  }
  // Larger x+y+height is nearer this fixed orthographic camera. A hidden ball
  // behind a cannon cannot steal its hit; practical halos still have bounded targets.

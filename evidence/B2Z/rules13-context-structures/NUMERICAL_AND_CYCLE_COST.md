@@ -1,0 +1,7 @@
+# Numerical bounds and cycle use
+
+Move and Reorient only change structure state. Existing ball trajectory coefficients, denominators and rounding remain unchanged. The payment phase applies operations atomically before the ensuing scheduled ball contacts. Existing corner handling, rational boundary arithmetic, scheduler order and bounded work continuation are reused.
+
+The authenticated production baseline was Rules12 running one-tick Trickle at 10 milliticks/s. Four read-only controller samples from 19:47:48 through 19:50:51 UTC on 19 November 2026 showed 855,851,951 fewer total cycles in 183 seconds, equivalent to approximately 0.404T cycles/day if sustained. Total cycles fell from 2,796,101,949,491 to 2,795,246,097,540. Liquid cycles fell from 2,739,286,833,971 to 2,738,430,982,020. Funding remained idle with unchanged cumulative conversion counters. No owner top-up was observed within that sample. The short net-balance observation cannot explain a prior top-up or establish a regression against the earlier, unmatched Rules7 observation.
+
+Rules13 adds no timers or periodic queries. Lookup examines at most 49 neighbouring cells. The frontend reuses verified placement facts and bounds working sets for Move searches. The matched disposable debit comparison and feature-specific paid processing numbers require separate reporting because the latter include one-time interpreter and source work.

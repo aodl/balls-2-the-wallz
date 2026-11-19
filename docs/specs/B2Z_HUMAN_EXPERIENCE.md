@@ -1232,3 +1232,22 @@ The contextual rail and panel now share a thin neutral join, one clean outline
 and a recessed lower inlay. Ready price and active action carry payer accents.
 Status colours are neutral, cyan, amber or red by meaning, and the fixed HUD
 area keeps routine status changes out of panel layout.
+
+
+## Rules13 context structures (UX-02/03/07/08/10/11/12)
+
+Only the exact authenticated Rules13 configuration enables these context menus.
+An owned cannon opens Fire/Aim (or Revive) with Focus and Close still available.
+Selection leaves the camera where it is. An owned empty tile opens Focus,
+Build Cannon, Build Deflector and Close, and preserves the selected canonical
+cell when opening a construction editor. An owned Deflector opens Focus,
+Reorient, Move and Close. Enemy inspection offers no owned commands.
+Rules12 retains the existing construction route from the cannon toolbar.
+
+An open destination picker takes precedence over passive tile selection.
+Explicit Focus frames each context. Construction and relocation check active
+ownership, occupancy, another friendly structure at distance 1–3, and enemy
+clearance. Selected but ineligible sites disclose the reason. Deflector
+directions use screen N/E/S/W while preserving physical diagonal headings.
+Local proposals and authenticated structures remain visually distinct.
+Existing readiness, exact clipboard and Update/Keep contracts still apply.

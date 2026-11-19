@@ -3,6 +3,7 @@
 pub mod capture_v6;
 pub mod clearance_v9;
 pub mod combined_v11;
+pub mod context_structures;
 mod cursor;
 mod cursor_v6;
 pub mod deflector_boundary;

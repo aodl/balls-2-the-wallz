@@ -331,6 +331,8 @@ service : (blob, nat64, IndexConfig) -> {
   commit_clearance_transition : (text) -> (Result_2);
   // Derives the combined rules-11 metadata once. No caller-supplied world, time or identities.
   commit_combined_transition : (text) -> (Result_2);
+  // Derives the Rules13 metadata once. No caller-supplied world, time or identities.
+  commit_context_transition : (text) -> (Result_2);
   // Derives the Deflector rules-12 metadata once. No caller-supplied world, time or identities.
   commit_deflector_transition : (text) -> (Result_2);
   // Derives the rules-7 metadata once. No caller-supplied world, time or identities.
@@ -345,6 +347,7 @@ service : (blob, nat64, IndexConfig) -> {
   commit_torus_transition : (text) -> (Result_2);
   // Derives the War Cry rules-10 metadata once. No caller-supplied world, time or identities.
   commit_war_cry_transition : (text) -> (Result_2);
+  context_transition_status : () -> (Result_2) query;
   controller_funding : () -> (Result_4) query;
   controller_runtime : () -> (Result_5) query;
   controller_work : () -> (Result_6) query;
@@ -369,6 +372,7 @@ service : (blob, nat64, IndexConfig) -> {
   poke : (vec PokeMatch) -> ();
   prepare_clearance_transition : () -> (Result_2);
   prepare_combined_transition : () -> (Result_2);
+  prepare_context_transition : () -> (Result_2);
   prepare_deflector_transition : () -> (Result_2);
   // Change only first-entry rules at the exact committed rules-v6 predecessor.
   // The existing fenced source worker obtains its own Ledger/Index watermarks.

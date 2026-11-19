@@ -491,6 +491,94 @@ pub fn deflector_candidate<K: Kernel>(
     ))
 }
 
+pub fn context_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    t.validate()?;
+    h.validate()?;
+    let committed_anchor = h
+        .record
+        .journal
+        .head
+        .seal
+        .as_ref()
+        .map(|s| &s.source_anchor)
+        .or_else(|| h.record.journal.epoch.as_ref().map(|e| &e.source_anchor));
+    if committed_anchor != Some(&h.record.inbox.source_anchor) {
+        return Err("Rules13 source anchor differs from authenticated predecessor".into());
+    }
+    if t.version != 9
+        || t.phase != "ready"
+        || source.pending.is_some()
+        || source.in_flight
+        || !source.binding_checked
+        || source.last_error.is_some()
+        || source.memo_adapter_version != b2z_protocol::deflector::MEMO_ADAPTER_VERSION
+    {
+        return Err("Rules13 source cutover not drained".into());
+    }
+    let expected = b2z_native::deflectors_v12::identity()?;
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != expected[*k])
+    {
+        return Err("Rules13 requires exact Rules12 predecessor identity".into());
+    }
+    let state = unhex(&h.record.journal.head.state_hex)?;
+    let old = World::decode(&state)?;
+    if h.record.journal.head.seal.is_none()
+        && h.record
+            .journal
+            .epoch
+            .as_ref()
+            .is_none_or(|e| e.version != 3)
+    {
+        return Err(
+            "Rules13 requires a completed Rules12 interval, not a consecutive rules epoch".into(),
+        );
+    }
+    if old.version != 7
+        || !old.time.0.is_integer()
+        || old.time.0.to_integer() != h.record.journal.head.logical_end.0
+        || Int(source.cursor.into()) != h.record.inbox.cursor
+        || h.record.journal.stage.is_some()
+        || !h.record.inbox.pending.is_empty()
+        || h.record.inbox.cursor != h.record.inbox.retired_to
+    {
+        return Err("Rules13 requires committed gameplay/source boundary".into());
+    }
+    let mut id = b2z_native::context_structures::identity()?;
+    id["source_id"] = json!(h.record.journal.identity.source_id);
+    let identity: Identity = serde_json::from_value(id).map_err(|e| e.to_string())?;
+    if old.encode()? != state {
+        return Err("noncanonical Rules12 state at Rules13 boundary".into());
+    }
+    let metadata = json!({
+        "version":9,"migration":"B2Z_CONTEXT_STRUCTURES_RULES_13",
+        "old_identity":h.record.journal.identity,"new_identity":identity,
+        "previous_state":hash(&state),"new_state":hash(&state),
+        "logical_boundary":old.time,"source_cursor":Int(source.cursor.into()),
+        "ledger_cutover":t.ledger_cutover,"account_history_complete_through":t.ledger_cutover,
+        "index_synced":t.index_synced,"source_anchor":h.record.inbox.source_anchor,
+        "memo_adapter_before":source.memo_adapter_version,
+        "memo_adapter_after":b2z_protocol::context_structures::MEMO_ADAPTER_VERSION
+    });
+    Ok((
+        Output {
+            state,
+            events: encode(
+                &json!({"version":7,"receipts":[],"events":[{"kind":"context_rules_activated","sequence":0,"time":old.time,"context":metadata}]}),
+            )?,
+            scores: encode(&json!({"version":7,"area_time":[]}))?,
+        },
+        encode(&metadata)?,
+        identity,
+    ))
+}
+
 use super::{
     ensure_run_timer, host, install_run_timer, pace, persist, request_reconciliation, root,
     save_root_only, Root,

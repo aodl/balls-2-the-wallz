@@ -22,7 +22,7 @@ pub(super) fn transition(pic: &PocketIc, id: Principal, kind: &str) {
         }
     }
     assert!(ready, "drained {kind} boundary");
-    if matches!(kind, "combined" | "deflector") {
+    if matches!(kind, "combined" | "deflector" | "context") {
         let before = arena_world(pic, id).encode().unwrap();
         let finance = funding_tests::preserved_finance(pic, id);
         let publication = observe(pic, id).0.publication;
@@ -34,20 +34,24 @@ pub(super) fn transition(pic: &PocketIc, id: Principal, kind: &str) {
         );
         let phase: serde_json::Value = decode(&raw).unwrap();
         assert_eq!(phase["transition"]["phase"], "ready");
-        if kind == "deflector" {
+        if matches!(kind, "deflector" | "context") {
             let expected_module = pic
                 .canister_status(id, Some(controller()))
                 .unwrap()
                 .module_hash;
             let downgrade = pic.upgrade_canister(
                 id,
-                bytes("B2Z_RULES11_PRIOR_WASM"),
+                bytes(if kind == "deflector" {
+                    "B2Z_RULES11_PRIOR_WASM"
+                } else {
+                    "B2Z_RULES12_PRIOR_WASM"
+                }),
                 encode_args(()).unwrap(),
                 Some(controller()),
             );
             assert!(
                 downgrade.is_err(),
-                "old Rules11 module must not accept the new durable preparation record"
+                "old predecessor module must not accept the new durable preparation record"
             );
             eprintln!("Expected disposable prepared-record downgrade rejection: {downgrade:?}");
             assert_eq!(

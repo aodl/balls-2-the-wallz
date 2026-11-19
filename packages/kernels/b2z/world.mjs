@@ -1,3 +1,4 @@
+import {CONTEXT_POLICY} from '../../protocol/context-structures.generated.mjs';
 import {CLEARANCE_POLICY} from './clearance.generated.mjs';
 import {COMBINED_POLICY} from './combined.generated.mjs';
 import {DEFLECTOR_POLICY} from './deflector.generated.mjs';
@@ -44,6 +45,9 @@ export const COMBINED_CONFIG=Object.freeze({...ENTRY_CONFIG,...COMBINED_POLICY})
 export const COMBINED_IDENTITY=Object.freeze({...ENTRY_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_CLEARANCE_WAR_CRY_RULES_11')),config_hash:sha256(encodeCanonical(COMBINED_CONFIG))});
 export const DEFLECTOR_CONFIG=Object.freeze({...COMBINED_CONFIG,...DEFLECTOR_POLICY,version:7});
 export const DEFLECTOR_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_BOUNDARY_DEFLECTOR_RULES_12')),schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_07_BOUNDED_DIAGONAL_DEFLECTORS')),config_hash:sha256(encodeCanonical(DEFLECTOR_CONFIG))});
+// Rules13 retains schema7, while configuration gates new commands and pricing.
+export const CONTEXT_CONFIG=Object.freeze({...DEFLECTOR_CONFIG,...CONTEXT_POLICY});
+export const CONTEXT_IDENTITY=Object.freeze({...DEFLECTOR_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_CONTEXT_STRUCTURES_RULES_13')),config_hash:sha256(encodeCanonical(CONTEXT_CONFIG))});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{

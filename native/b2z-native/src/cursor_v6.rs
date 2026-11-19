@@ -25,6 +25,8 @@ pub(crate) struct State {
     pub war_cry_rules: bool,
     #[serde(default, skip_serializing_if = "is_false")]
     pub deflector_rules: bool,
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub context_rules: bool,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pending_cry: Option<String>,
     pub plan: Option<Plan>,
@@ -40,7 +42,8 @@ fn is_false(v: &bool) -> bool {
 impl Cursor {
     pub(crate) fn validate_v6(&self) -> Result<()> {
         let s = self.v6.as_ref().ok_or("V6_CURSOR")?;
-        if s.deflector_rules != (self.world.version == 7)
+        if s.context_rules && !s.deflector_rules
+            || s.deflector_rules != (self.world.version == 7)
             || s.finalized && self.phase != "done"
             || s.births.len() > playability::MAX_CANNONS
             || s.births
@@ -75,7 +78,10 @@ impl Cursor {
                     self.restart_search()?;
                     return Ok(true);
                 }
-                let payment = if self.v6.as_ref().unwrap().deflector_rules {
+                let context = self.v6.as_ref().unwrap().context_rules;
+                let payment = if context {
+                    crate::cursor::read_payment_context(&self.inputs[self.input_index].payload_hex)?
+                } else if self.v6.as_ref().unwrap().deflector_rules {
                     crate::cursor::read_payment_deflectors(
                         &self.inputs[self.input_index].payload_hex,
                     )?
@@ -93,14 +99,24 @@ impl Cursor {
                 if tally >= BigInt::from(1) << 128usize {
                     return Err("treasury overflow".into());
                 }
-                let plan = purchases_v6::prepare_with_clearance(
-                    &self.world,
-                    &payment.saved.account,
-                    amount,
-                    &payment.memo,
-                    &self.moved,
-                    self.v6.as_ref().unwrap().clearance_rules,
-                )?;
+                let plan = if context {
+                    crate::context_structures::prepare(
+                        &self.world,
+                        &payment.saved.account,
+                        amount,
+                        &payment.memo,
+                        &self.moved,
+                    )?
+                } else {
+                    purchases_v6::prepare_with_clearance(
+                        &self.world,
+                        &payment.saved.account,
+                        amount,
+                        &payment.memo,
+                        &self.moved,
+                        self.v6.as_ref().unwrap().clearance_rules,
+                    )?
+                };
                 self.world.received_e8s.0 = tally;
                 match &plan {
                     Plan::Rejected { reason } => self.v6_reject(&payment.saved, reason)?,
@@ -123,6 +139,27 @@ impl Cursor {
                         ds.push(d.clone());
                         ds.sort_by_key(|d| d.cell);
                         self.receipt(&payment.saved,json!({"reason":"ACCEPTED","kind":"deflector_built","structure":d,"status":"applied","amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
+                    }
+                    Plan::DeflectorMove { id, cell, price } => {
+                        let ds = self.world.deflectors.as_mut().ok_or("structure state")?;
+                        let d = ds.iter_mut().find(|d| d.id == *id).ok_or("NO_DEFLECTOR")?;
+                        let before = d.clone();
+                        d.cell = *cell;
+                        let after = d.clone();
+                        ds.sort_by_key(|d| d.cell);
+                        self.receipt(&payment.saved,json!({"reason":"ACCEPTED","kind":"deflector_moved","before":before,"structure":after,"status":"applied","amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
+                    }
+                    Plan::DeflectorReorient {
+                        id,
+                        orientation,
+                        price,
+                    } => {
+                        let ds = self.world.deflectors.as_mut().ok_or("structure state")?;
+                        let d = ds.iter_mut().find(|d| d.id == *id).ok_or("NO_DEFLECTOR")?;
+                        let before = d.clone();
+                        d.orientation = orientation.clone();
+                        let after = d.clone();
+                        self.receipt(&payment.saved,json!({"reason":"ACCEPTED","kind":"deflector_reoriented","before":before,"structure":after,"status":"applied","amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
                     }
                     Plan::Move {
                         cannon,
@@ -277,13 +314,14 @@ impl Cursor {
         placement: &Placement,
     ) -> Result<()> {
         let amount = payment.amount.0.to_u64().ok_or("PAYMENT_AMOUNT")?;
-        let created = purchases_v6::place_new_with_policy(
+        let created = purchases_v6::place_new_with_context(
             &self.world,
             &payment.account,
             amount,
             plan,
             placement,
             self.v6.as_ref().unwrap().entry_rules,
+            self.v6.as_ref().unwrap().context_rules,
         )?;
         let batch = Batch::after_new(payment.account.clone(), amount, created.cannon.id, plan)?;
         self.world = created.world;

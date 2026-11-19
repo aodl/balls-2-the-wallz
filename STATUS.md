@@ -1,3 +1,14 @@
+# Rules13 context structures — development candidate
+
+This isolated continuation implements object-specific action toolbars, explicit
+owned-tile construction, three-tile friendly-structure proximity, and paid
+Deflector movement and reorientation. Production was independently verified as
+Rules12 and remains unchanged. The candidate retains schema7, the one-tick
+allowance and the previous Deflector physics. Both new operation prices remain
+provisional. See [Rules13 evidence](evidence/B2Z/rules13-context-structures/REPORT.md).
+
+---
+
 # Boundary Deflector — qualified, not deployed
 
 Isolated branch `feature/b2z-boundary-deflector`, exact source

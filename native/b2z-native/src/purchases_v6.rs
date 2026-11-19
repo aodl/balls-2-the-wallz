@@ -21,6 +21,16 @@ pub enum Plan {
         orientation: String,
         price: Int,
     },
+    DeflectorMove {
+        id: u32,
+        cell: usize,
+        price: Int,
+    },
+    DeflectorReorient {
+        id: u32,
+        orientation: String,
+        price: Int,
+    },
     Rejected {
         reason: String,
     },
@@ -139,6 +149,18 @@ pub fn place_new_with_policy(
     placement: &crate::spawn::Placement,
     entry_rules: bool,
 ) -> Result<Created> {
+    place_new_with_context(world, account, amount, plan, placement, entry_rules, false)
+}
+
+pub(crate) fn place_new_with_context(
+    world: &World,
+    account: &str,
+    amount: u64,
+    plan: &Plan,
+    placement: &crate::spawn::Placement,
+    entry_rules: bool,
+    context_rules: bool,
+) -> Result<Created> {
     let Plan::New {
         angle,
         quantity,
@@ -161,7 +183,7 @@ pub fn place_new_with_policy(
         Command::Legacy(Legacy::Angle(*angle))
     };
     let memo = b2z_protocol::v6::encode(command).map_err(|_| "NEW_CANNON_PLAN")?;
-    if prepare(world, account, amount, &memo, &[])? != *plan {
+    if prepare_with_context(world, account, amount, &memo, &[], context_rules)? != *plan {
         return Err("STALE_PURCHASE_PLAN".into());
     }
     let patch = if *first {
@@ -176,7 +198,9 @@ pub fn place_new_with_policy(
         if placement.kind != 4
             || placement.patch != [placement.cell]
             || cell.is_some_and(|c| c != placement.cell)
-            || !adjacent_sites(world, player.ok_or("UNKNOWN_PLAYER")?)?.contains(&placement.cell)
+            || !context_rules
+                && !adjacent_sites(world, player.ok_or("UNKNOWN_PLAYER")?)?
+                    .contains(&placement.cell)
         {
             return Err("ILLEGAL_ADJACENT_SITE".into());
         }
@@ -301,6 +325,17 @@ pub fn prepare(
     memo: &[u8],
     moved: &[u32],
 ) -> Result<Plan> {
+    prepare_with_context(world, account, amount, memo, moved, false)
+}
+
+pub(crate) fn prepare_with_context(
+    world: &World,
+    account: &str,
+    amount: u64,
+    memo: &[u8],
+    moved: &[u32],
+    context_rules: bool,
+) -> Result<Plan> {
     if world.version < 6 {
         return Err("EXPECTED_V6".into());
     }
@@ -375,6 +410,22 @@ pub fn prepare(
             if mine.is_empty() {
                 if cell.is_some() {
                     return Ok(reject("FIRST_PLACEMENT_AUTOMATIC"));
+                }
+            } else if context_rules {
+                let Some(site) = cell else {
+                    return Ok(reject("EXPLICIT_OWNED_SITE_REQUIRED"));
+                };
+                let site = site as usize;
+                let owner = player.ok_or("UNKNOWN_PLAYER")?;
+                if let Some(reason) =
+                    crate::context_structures::site_reason(world, owner, site, None, false)?
+                {
+                    return Ok(reject(reason));
+                }
+                if crate::territory_v6::balls(world, world.owner(site).unwrap_or(0))
+                    >= MAX_PURCHASE_BALLS_PER_ISLAND
+                {
+                    return Ok(reject("BALL_CAPACITY"));
                 }
             } else {
                 let player = player.ok_or("UNKNOWN_PLAYER")?;
@@ -453,6 +504,21 @@ pub fn prepare(
             }
             if moved.contains(&cannon) {
                 return Ok(reject("MOVE_LIMIT"));
+            }
+            if context_rules {
+                if cell as usize == c.cell {
+                    return Ok(reject("SAME_LOCATION"));
+                }
+                let owner = world.player_for_cannon(cannon).ok_or("UNKNOWN_PLAYER")?;
+                if let Some(reason) = crate::context_structures::site_reason(
+                    world,
+                    owner,
+                    cell as usize,
+                    Some(crate::context_structures::Structure::Cannon(cannon)),
+                    false,
+                )? {
+                    return Ok(reject(reason));
+                }
             }
             if world.player_at(cell as usize) != world.player_for_cannon(cannon) {
                 return Ok(reject("NOT_OWN_TERRITORY"));
