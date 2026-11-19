@@ -57,7 +57,7 @@ fn test_world(payer: Principal) -> World {
             entry.account = account.clone();
         }
     }
-    let elapsed = (std::time::SystemTime::now() - Duration::from_secs(120))
+    let elapsed = (std::time::SystemTime::now() - Duration::from_secs(1800))
         .duration_since(std::time::UNIX_EPOCH)
         .unwrap()
         .as_nanos() as u64;
@@ -85,6 +85,25 @@ fn wait_admitted(pic: &PocketIc, id: Principal, pos: u64) {
     panic!("Ledger position {pos} not admitted");
 }
 
+// Use the real Trickle driver and advance the disposable wall clock one
+// second at a time. Check the controller after each timer slice.
+fn complete_one_trickle_tick(pic: &PocketIc, id: Principal) {
+    let target = status(pic, id).run.completed_segments + 1;
+    playability_installed::configuration(pic, id, 512);
+    for _ in 0..300 {
+        tick(pic);
+        let run = status(pic, id).run;
+        assert!(run.last_error.is_none(), "{:?}", run.last_error);
+        if run.completed_segments == target {
+            get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
+            assert_eq!(status(pic, id).run.completed_segments, target);
+            return;
+        }
+        assert!(run.completed_segments < target);
+    }
+    panic!("Trickle did not publish one tick in the bounded clock window");
+}
+
 #[test]
 fn context_structures_rules12_upgrade_official_payments_and_authenticated_replay() {
     let out =
@@ -98,7 +117,7 @@ fn context_structures_rules12_upgrade_official_payments_and_authenticated_replay
         bytes("B2Z_S14_TEST_WASM"),
         initial.clone(),
         10000,
-        60,
+        500,
         &[extra],
     );
     playability_installed::funding_paused(&pic, id, true);
@@ -143,7 +162,7 @@ fn context_structures_rules12_upgrade_official_payments_and_authenticated_replay
     send(payer, "DEFLECT 300300 NW", 10000000, 7, "ACCEPTED");
     let historic = send(payer, "DROT 1 N", 10000, 7, "MALFORMED_MEMO");
     wait_admitted(&pic, id, historic);
-    playability_installed::one_tick(&pic, id);
+    complete_one_trickle_tick(&pic, id);
     playability_installed::record_bundled(&pic, id, &mut history, &out);
     let prior = arena_world(&pic, id).encode().unwrap();
     let prior_finance = funding_tests::preserved_finance(&pic, id);
@@ -205,7 +224,7 @@ fn context_structures_rules12_upgrade_official_payments_and_authenticated_replay
     assert_eq!(observe(&pic, id).0.publication, admitted);
     assert_eq!(funding_tests::preserved_finance(&pic, id), admitted_finance);
     let started = pic.cycle_balance(id);
-    playability_installed::one_tick(&pic, id);
+    complete_one_trickle_tick(&pic, id);
     let processing_cycles = started - pic.cycle_balance(id);
     playability_installed::record_bundled(&pic, id, &mut history, &out);
     let state = arena_world(&pic, id);
@@ -394,7 +413,7 @@ fn matched_rules12_rules13_trickle_cost() {
             playability_installed::configuration(&pic, id, 512);
             get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
             assert_eq!(arena_world(&pic, id).encode().unwrap(), initial);
-            playability_installed::one_tick(&pic, id);
+            complete_one_trickle_tick(&pic, id);
             let sealed = arena_world(&pic, id).encode().unwrap();
             if activate_context {
                 upgrade(&pic, id, bytes("B2Z_S14_WASM"));
@@ -408,7 +427,7 @@ fn matched_rules12_rules13_trickle_cost() {
             let before_metrics = super::playability_profile::metric_values(&pic, id);
             let baseline = status(&pic, id);
             let before = pic.cycle_balance(id);
-            playability_installed::one_tick(&pic, id);
+            complete_one_trickle_tick(&pic, id);
             let after = status(&pic, id);
             let remaining = pic.cycle_balance(id);
             let mut world = arena_world(&pic, id);

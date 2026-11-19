@@ -1,0 +1,544 @@
+{
+  "contacts": 1,
+  "expected": {
+    "10": [
+      "DROT 2 N",
+      "SAME_ORIENTATION",
+      10000
+    ],
+    "11": [
+      "DROT 2 E",
+      "ACCEPTED",
+      10000
+    ],
+    "12": [
+      "DMOVE 2 4006",
+      "ACCEPTED",
+      10000
+    ],
+    "13": [
+      "MOVE 1 4009",
+      "ACCEPTED",
+      10000
+    ],
+    "14": [
+      "NEW 0 1 5007|Ready",
+      "ACCEPTED",
+      400000000
+    ],
+    "15": [
+      "DEFLECT 4010 W",
+      "ENEMY_TERRITORY_TOO_CLOSE",
+      10000000
+    ],
+    "16": [
+      "DROT 9001 W",
+      "NO_DEFLECTOR",
+      10000
+    ],
+    "17": [
+      "DROT 2 NE",
+      "MALFORMED_MEMO",
+      10000
+    ],
+    "18": [
+      "DEFLECT 4006 E",
+      "SITE_OCCUPIED",
+      10000000
+    ],
+    "19": [
+      "DMOVE 2 4007",
+      "NOT_OWNER",
+      10000
+    ],
+    "2": [
+      "DEFLECT 300300 NW",
+      "ACCEPTED",
+      10000000
+    ],
+    "20": [
+      "FIRE 1 180 1|Contact",
+      "ACCEPTED",
+      100000000
+    ],
+    "3": [
+      "DROT 1 N",
+      "MALFORMED_MEMO",
+      10000
+    ],
+    "4": [
+      "MOVE 1 4005",
+      "NO_FRIENDLY_STRUCTURE_NEARBY",
+      10000
+    ],
+    "5": [
+      "NEW 0 1",
+      "EXPLICIT_OWNED_SITE_REQUIRED",
+      400000000
+    ],
+    "6": [
+      "NEW 0 1 5004",
+      "NOT_OWN_TERRITORY",
+      400000000
+    ],
+    "7": [
+      "NEW 0 1 299999",
+      "NO_FRIENDLY_STRUCTURE_NEARBY",
+      400000000
+    ],
+    "8": [
+      "DEFLECT 4007 N",
+      "ACCEPTED",
+      10000000
+    ],
+    "9": [
+      "DMOVE 2 4008",
+      "NO_FRIENDLY_STRUCTURE_NEARBY",
+      10000
+    ]
+  },
+  "measured_paid_tick_cycles": "466229482",
+  "operations": [
+    {
+      "amount_used": {
+        "$integer": "10000"
+      },
+      "before": {
+        "cell": 4007,
+        "id": 2,
+        "orientation": "NW",
+        "owner": 1
+      },
+      "kind": "deflector_reoriented",
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "sequence": 1,
+      "status": "applied",
+      "structure": {
+        "cell": 4007,
+        "id": 2,
+        "orientation": "NE",
+        "owner": 1
+      },
+      "time": [
+        {
+          "$integer": "1"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    },
+    {
+      "amount_used": {
+        "$integer": "10000"
+      },
+      "before": {
+        "cell": 4007,
+        "id": 2,
+        "orientation": "NE",
+        "owner": 1
+      },
+      "kind": "deflector_moved",
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "sequence": 2,
+      "status": "applied",
+      "structure": {
+        "cell": 4006,
+        "id": 2,
+        "orientation": "NE",
+        "owner": 1
+      },
+      "time": [
+        {
+          "$integer": "1"
+        },
+        {
+          "$integer": "1"
+        }
+      ]
+    }
+  ],
+  "prior_module_sha256": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "receipts": {
+    "10": {
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "10"
+      },
+      "reason": "SAME_ORIENTATION",
+      "remainder": {
+        "$integer": "10000"
+      },
+      "status": "rejected"
+    },
+    "11": {
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "10000"
+      },
+      "before": {
+        "cell": 4007,
+        "id": 2,
+        "orientation": "NW",
+        "owner": 1
+      },
+      "kind": "deflector_reoriented",
+      "position": {
+        "$integer": "11"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied",
+      "structure": {
+        "cell": 4007,
+        "id": 2,
+        "orientation": "NE",
+        "owner": 1
+      }
+    },
+    "12": {
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "10000"
+      },
+      "before": {
+        "cell": 4007,
+        "id": 2,
+        "orientation": "NE",
+        "owner": 1
+      },
+      "kind": "deflector_moved",
+      "position": {
+        "$integer": "12"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied",
+      "structure": {
+        "cell": 4006,
+        "id": 2,
+        "orientation": "NE",
+        "owner": 1
+      }
+    },
+    "13": {
+      "after": 4009,
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "10000"
+      },
+      "before": 4004,
+      "cannon": 1,
+      "kind": "cannon_moved",
+      "position": {
+        "$integer": "13"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied"
+    },
+    "14": {
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "400000000"
+      },
+      "amount_used": {
+        "$integer": "400000000"
+      },
+      "cannon": 3,
+      "kind": "purchase_completed",
+      "new_cannon": true,
+      "per_item_prices": [
+        {
+          "$integer": "400000000"
+        }
+      ],
+      "position": {
+        "$integer": "14"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    "15": {
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "15"
+      },
+      "reason": "ENEMY_TERRITORY_TOO_CLOSE",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    "16": {
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "16"
+      },
+      "reason": "NO_DEFLECTOR",
+      "remainder": {
+        "$integer": "10000"
+      },
+      "status": "rejected"
+    },
+    "17": {
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "17"
+      },
+      "reason": "MALFORMED_MEMO",
+      "remainder": {
+        "$integer": "10000"
+      },
+      "status": "rejected"
+    },
+    "18": {
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "18"
+      },
+      "reason": "SITE_OCCUPIED",
+      "remainder": {
+        "$integer": "10000000"
+      },
+      "status": "rejected"
+    },
+    "19": {
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "19"
+      },
+      "reason": "NOT_OWNER",
+      "remainder": {
+        "$integer": "10000"
+      },
+      "status": "rejected"
+    },
+    "2": {
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "kind": "deflector_built",
+      "position": {
+        "$integer": "2"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied",
+      "structure": {
+        "cell": 300300,
+        "id": 1,
+        "orientation": "NW",
+        "owner": 1
+      }
+    },
+    "20": {
+      "actual_quantity": 1,
+      "amount": {
+        "$integer": "100000000"
+      },
+      "amount_used": {
+        "$integer": "40000000"
+      },
+      "cannon": 1,
+      "kind": "purchase_completed",
+      "new_cannon": false,
+      "per_item_prices": [
+        {
+          "$integer": "40000000"
+        }
+      ],
+      "position": {
+        "$integer": "20"
+      },
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "60000000"
+      },
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    "3": {
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "3"
+      },
+      "reason": "MALFORMED_MEMO",
+      "remainder": {
+        "$integer": "10000"
+      },
+      "status": "rejected"
+    },
+    "4": {
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "4"
+      },
+      "reason": "NO_FRIENDLY_STRUCTURE_NEARBY",
+      "remainder": {
+        "$integer": "10000"
+      },
+      "status": "rejected"
+    },
+    "5": {
+      "amount": {
+        "$integer": "400000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "5"
+      },
+      "reason": "EXPLICIT_OWNED_SITE_REQUIRED",
+      "remainder": {
+        "$integer": "400000000"
+      },
+      "status": "rejected"
+    },
+    "6": {
+      "amount": {
+        "$integer": "400000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "6"
+      },
+      "reason": "NOT_OWN_TERRITORY",
+      "remainder": {
+        "$integer": "400000000"
+      },
+      "status": "rejected"
+    },
+    "7": {
+      "amount": {
+        "$integer": "400000000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "7"
+      },
+      "reason": "NO_FRIENDLY_STRUCTURE_NEARBY",
+      "remainder": {
+        "$integer": "400000000"
+      },
+      "status": "rejected"
+    },
+    "8": {
+      "amount": {
+        "$integer": "10000000"
+      },
+      "amount_used": {
+        "$integer": "10000000"
+      },
+      "kind": "deflector_built",
+      "position": {
+        "$integer": "8"
+      },
+      "reason": "ACCEPTED",
+      "remainder": {
+        "$integer": "0"
+      },
+      "status": "applied",
+      "structure": {
+        "cell": 4007,
+        "id": 2,
+        "orientation": "NW",
+        "owner": 1
+      }
+    },
+    "9": {
+      "amount": {
+        "$integer": "10000"
+      },
+      "amount_used": {
+        "$integer": "0"
+      },
+      "position": {
+        "$integer": "9"
+      },
+      "reason": "NO_FRIENDLY_STRUCTURE_NEARBY",
+      "remainder": {
+        "$integer": "10000"
+      },
+      "status": "rejected"
+    }
+  },
+  "successor_module_sha256": "8b9e47efc766b71a049f70154b4e5081f870bbfa4d367f412ec464b8d45e41ae",
+  "scope": "Valueless Ledger and Index on disposable PocketIC. Synthetic genesis only; exact predecessor and successor normal Wasm processed all paid inputs."
+}

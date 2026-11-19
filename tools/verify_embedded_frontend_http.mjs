@@ -6,8 +6,18 @@ import {disposableProofs,hex} from './lib/disposable_http_proofs.mjs';
 const [host,id,release,out]=process.argv.slice(2);
 const info=JSON.parse(await readFile(release+'/module.json'));
 const entries=JSON.parse(await readFile(release+'/embedded-inventory.json'));
-const {module,request,checkProof}=await disposableProofs(host,id);
+const {module,request:requestOnce,checkProof}=await disposableProofs(host,id);
 assert.equal(module,info.sha256);
+const timeouts=[];
+async function request(path,encoding,method='GET'){
+ try{return await requestOnce(path,encoding,method);}
+ catch(error){
+  if(!error.message.endsWith(' timed out'))throw error;
+  timeouts.push(error.message);
+  console.warn(error.message+'; retrying the read once');
+  return requestOnce(path,encoding,method);
+ }
+}
 const certifiedHeaders=['content-type','content-length','content-encoding','cache-control','content-security-policy','permissions-policy',
  'referrer-policy','strict-transport-security','x-content-type-options','x-frame-options','x-xss-protection','cross-origin-resource-policy'];
 const header=(response,key)=>response.h[key];
@@ -43,7 +53,7 @@ for(const asset of entries){
    assert.equal(header(response,'content-type'),'audio/flac');
    assert.equal(header(response,'cache-control'),'public, max-age=31536000, immutable');
   }
-  variants.push({encoding:variant.encoding,sha256:hex(response.body),bytes:response.body.byteLength});
+  variants.push({encoding:variant.encoding,sha256:hex(response.body),bytes:response.body.byteLength,elapsed_ms:response.elapsedMs});
  }
  const head=await request(asset.path,'identity','HEAD');
  const mime={html:'text/html; charset=utf-8',css:'text/css; charset=utf-8',mjs:'text/javascript; charset=utf-8',
@@ -82,5 +92,5 @@ for(const url of ['/','/blah','/nonexistent/page','/nonexistent/page/','/nonexis
   routes.push({url,method,status:response.status,proof});
  }
 }
-await writeFile(out,JSON.stringify({status:'PASS',module,id,files:results,routes,negative},null,2)+'\n');
+await writeFile(out,JSON.stringify({status:'PASS',module,id,files:results,routes,negative,timeouts},null,2)+'\n');
 console.log('PASS immutable frontend',module,results.length+' actual GET/HEAD responses',routes.length+' alternate routes');

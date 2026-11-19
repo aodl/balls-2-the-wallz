@@ -1,0 +1,151 @@
+{
+  "status": "PASS",
+  "scope": "Actual disposable IC; pinned BLS/canister/freshness, signed query transport, authenticated predecessor/artifacts, independent replay; not production",
+  "root_key_sha256": "968c6c2122d3577878be624c1dc37609286f2f9ad7ee2cdae5d6bd45f0a05e8c",
+  "certificate_root": "b5368e1304a69658f91bbce7aaafb47ca8df1d6cf61ee30b69e84cc096bdff4b",
+  "head": 2,
+  "packets": [
+    {
+      "method": "observation",
+      "file": "0000.cbor",
+      "request_sha256": "6e08005e674450441cc4ebe9b3cf6e39841d1f40fa2f865389985d16b57ea033",
+      "response_sha256": "e095106ab995617e2b404c322d4f578630520028e71e397468c9374b2933a448",
+      "bytes": 8784,
+      "status": 200
+    },
+    {
+      "method": "retained_publication",
+      "file": "0001.cbor",
+      "request_sha256": "3a7a347e93376a07426a9f2ea0c6d492521672f4349cee8472c3fff48bd1b0cf",
+      "response_sha256": "cdc1e8b63a891aaa114b4cbc4327e9bd16fd13c6fc9d7d985b7de9471b1f024e",
+      "bytes": 6574,
+      "status": 200
+    },
+    {
+      "method": "retained_publication",
+      "file": "0002.cbor",
+      "request_sha256": "66f989cf4ac7633304861bdf1bc70ed9c0a15cfcf6b9ee662332198c469631e4",
+      "response_sha256": "2ab71bc8d724ed34dabbb0154906472f0e1dac9b808329c9e39c102a9c836121",
+      "bytes": 2279,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0003.cbor",
+      "request_sha256": "0cd69d06d11ae6c8ea6fb9db6b87dce61f256ec9b5123bf0745db25614a01e41",
+      "response_sha256": "1fa5b434696934dd93d33a1608d0d6b0c6970d9409023dadfe83f2cc8f2bee3c",
+      "bytes": 3821,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0004.cbor",
+      "request_sha256": "8d61d0eb360f20214c6b0bf2581b40e4b389cd8784e1f29459c78ca7912119e3",
+      "response_sha256": "dd1d5532f938f691b2e91163d2511a4dedaca6ebda929d143132561089e57957",
+      "bytes": 4981,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0005.cbor",
+      "request_sha256": "7b295e7c3376c1f2d4029ff70277c1f7230d0c783ae830db94ab0856240faa5b",
+      "response_sha256": "e6e24f1f3968291c016eb0df7072557def1ecdb835b6693a3e247906b3691a5a",
+      "bytes": 365,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0006.cbor",
+      "request_sha256": "e0d09ada41fd942f6342c06909234c6d8631f6d5d8e6999dcb61efc7c8154535",
+      "response_sha256": "28b2189c3de1cfb9aada728846e4bd381c48b2ed8335d20fb3e0a13112f7eb7e",
+      "bytes": 3821,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0007.cbor",
+      "request_sha256": "01a127d3f46bc0e91c00e1b771d3aa464c101f7dafab93ae9edf6facd7ceeb36",
+      "response_sha256": "56dfb114d2c335ed3f31668ab3f1b436d4e8d998aba5a8dbd0acd93ff3baf94d",
+      "bytes": 1579,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0008.cbor",
+      "request_sha256": "67b682db48f308a444c9fbacaed5b16f43f1bf860ceb40f4fc9604dd79460500",
+      "response_sha256": "d831dd3c6fce39e2b792a9131d32821c203dbf3834f3c20587ff7c922cc9b9b7",
+      "bytes": 231,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0009.cbor",
+      "request_sha256": "5a0515f3bdaabc72d3f11515a1b8a5cf8edb7976e290fae3e7338adb588f6777",
+      "response_sha256": "bbe180d31f12bf324b69594c82de32bef49987c491c9f5f3de0ffb58584b63d9",
+      "bytes": 4287,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0010.cbor",
+      "request_sha256": "eb2da6486bd0b50692121c83b3af7ec0e71b2edfb602fc181bafadb2c632df4d",
+      "response_sha256": "fe3d1aba439e6ec2ea48c022f700aa439f8b811f3d8e60756262123f5fcd21fd",
+      "bytes": 16590,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0011.cbor",
+      "request_sha256": "43b04bcdfbb4dd046af191e34f0bec4c4bbd4e885f3d5c12703efcd708d55292",
+      "response_sha256": "01857fc62c514fda5279038cecf86e99cc0cc3cbfa8e2d09cabaa1dc5ba2f7ca",
+      "bytes": 2591,
+      "status": 200
+    },
+    {
+      "method": "retained_artifact_chunk",
+      "file": "0012.cbor",
+      "request_sha256": "783dc1fd028fd0b2f2f859154c10814a56faf9e765dc3fa08fe0860090877742",
+      "response_sha256": "d0cc79d438678cc0c22a34095cac1f9aa9ceab36da8a8cc974d548a0f6009ce5",
+      "bytes": 365,
+      "status": 200
+    }
+  ],
+  "wire_bytes": 56268,
+  "independent": {
+    "status": "PASS",
+    "segments": 3,
+    "gameplay_segments": 2,
+    "application_checkpoints": 1,
+    "assigned": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "20"
+    ],
+    "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+    "work_budget": 23
+  },
+  "negatives": [
+    "changed normalized cry",
+    "incomplete events",
+    "altered launch text",
+    "wrong source publication",
+    "wrong canister binding",
+    "damaged certificate"
+  ]
+}

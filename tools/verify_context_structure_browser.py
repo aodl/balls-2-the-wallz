@@ -49,6 +49,7 @@ with (out/"server.log").open("w") as log:
                 page.wait_for_function("()=>__b2zExperience?.session?.ready",timeout=90000)
                 assert page.evaluate("__b2zExperience.session.config.rules_version")==13
                 assert page.evaluate("!__b2zExperience.session.error")
+                page.wait_for_function("()=>__b2zExperience.session.operational?.run.pace.mode==='Trickle'")
                 canvas=page.locator("#board")
                 camera=lambda:page.evaluate("[__b2zCamera.x,__b2zCamera.y,__b2zCamera.scale]")
                 def settle():

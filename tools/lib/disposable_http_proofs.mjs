@@ -45,15 +45,16 @@ const binding=await Certificate.create({certificate:delegation.certificate,rootK
 const subnetKey=lookupResultToBuffer(binding.lookup_path(['subnet',subnetId.toUint8Array(),'public_key']));
 assert.equal(subnetKey.length,133);
 function request(path,encoding,method="GET"){
+ const began=performance.now();
  return new Promise((resolve,reject)=>{
   const req=httpRequest(new URL(path,host),{method,headers:{Host:id+'.localhost:'+server.port,'Accept-Encoding':encoding}},res=>{
    const chunks=[];
    res.on('data',c=>chunks.push(c));
    res.on('error',reject);
-   res.on('end',()=>resolve({status:res.statusCode,h:res.headers,body:Buffer.concat(chunks)}));
+   res.on('end',()=>resolve({status:res.statusCode,h:res.headers,body:Buffer.concat(chunks),elapsedMs:performance.now()-began}));
   });
   req.on('error',reject);
-  req.setTimeout(30_000,()=>req.destroy(new Error('asset request timed out')));
+  req.setTimeout(30_000,()=>req.destroy(new Error(method+' '+path+' ('+encoding+') timed out')));
   req.end();
  });
 }

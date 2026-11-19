@@ -192,7 +192,7 @@ def main():
                 # The test deadline and independent server hard TTL stay bounded.
                 server=start_pocketic(files['POCKET_IC_BIN'],case_out,hard_ttl_seconds=case_timeout+60,idle_ttl_seconds=case_timeout+30)
                 case_env={**env,'POCKET_IC_SERVER_URL':server[3]}
-                if name=='context_structures_installed::matched_rules12_rules13_trickle_cost':
+                if name.startswith('context_structures_installed::'):
                     case_env['B2Z_PROFILE_INITIAL_CYCLES']='2400000000000'
                 try:
                     row=execute(case_id,[binaries[0],name,'--exact',*(['--ignored'] if ignored else []),'--nocapture','--test-threads=1'],out,case_timeout,case_env)
