@@ -1,0 +1,112 @@
+{
+  "before": {
+    "at": "2026-11-19T11:52:53.463Z",
+    "status": "PASS",
+    "modules": [
+      {
+        "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "module_hash": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+        "certificate_verified": true
+      },
+      {
+        "id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+        "certificate_verified": true
+      }
+    ],
+    "head": "12346",
+    "root": "733093a30ee338ace6457ea5a72354da0c1781feeb0fe64739b90b4f17a58cf0",
+    "identity": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "world": {
+      "version": 7,
+      "cannons": 1,
+      "balls": 1,
+      "state_hash": "d1b4a59a761543ebe783f5333cbcb7ae7a3804c60c98c265b4a6269a556c6647"
+    },
+    "operational_signed_query": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "12341",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "served_js_sha256": "f82a845e7b7d33e883e659bc68d390f1944e0b925e6d541264785af511dff12c"
+  },
+  "after": {
+    "at": "2026-11-19T11:54:10.459Z",
+    "status": "PASS",
+    "modules": [
+      {
+        "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "module_hash": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+        "certificate_verified": true
+      },
+      {
+        "id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+        "certificate_verified": true
+      }
+    ],
+    "head": "12347",
+    "root": "b55888c71a34b9a54a40d49e1149ea16c22e14d3e8d8efb10ccc70d8c7052252",
+    "identity": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "world": {
+      "version": 7,
+      "cannons": 1,
+      "balls": 1,
+      "state_hash": "e68448365a21d188cc482d4758abf3a2e0e97fd20ad95a91a2a04ba0fed7519e"
+    },
+    "operational_signed_query": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "12342",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "served_js_sha256": "f15de5448fb260a0a7495f659495fd6755e080116ecd473635367c9e0c5bf4d0"
+  }
+}

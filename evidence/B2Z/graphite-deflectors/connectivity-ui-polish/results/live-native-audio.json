@@ -1,0 +1,29 @@
+{
+  "status": "PASS",
+  "scope": "Actual deployed European game; ordinary raw sandboxed Chromium, actual native decoded/output stream; no autoplay/throttling flags. No physical-output/listening claim.",
+  "browser": "153.0.8010.12",
+  "cycles": [
+    {
+      "seconds": 5,
+      "resumed_ms": 3094.7538920445368,
+      "same_verified_objects": true
+    },
+    {
+      "seconds": 35,
+      "resumed_ms": 3099.5365120470524,
+      "same_verified_objects": true
+    },
+    {
+      "seconds": 8,
+      "resumed_ms": 3173.4331710031256,
+      "same_verified_objects": true
+    }
+  ],
+  "first_sound_button": "PASS",
+  "saved_mute": "PASS reload and unrelated game gesture preserve explicit mute",
+  "two_tabs": "PASS deliberate activation/hidden yield/automatic visible reclaim",
+  "audio_failure_recovery": "PASS browser-only optional music transport fault, ordinary gesture recovery; not a subnet outage",
+  "errors": [],
+  "forbidden_posts": [],
+  "native_output_sample_count": 1359
+}

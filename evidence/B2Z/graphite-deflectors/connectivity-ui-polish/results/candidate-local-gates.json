@@ -1,0 +1,14 @@
+{
+  "source": "083443c4d1f066241017f6e941fbfd7964c145de",
+  "inventory_sha256": "557569b78dbf49052d3990bd68253cbb68c23e034d47f49565a65080b3a8301d",
+  "verified_candidate_observation_seconds": 324,
+  "sampled_false_reconnecting": 0,
+  "sampled_steady_central_spinner": 0,
+  "four_matched_performance_waves_complete": true,
+  "local_latency_regression_found": false,
+  "controlled_delivery_probe": "PASS",
+  "matched_natural_size_visual_comparison_reviewed": true,
+  "scope": "Chromium on shared SwiftShader host, authenticated European source, disposable fetch failures only",
+  "hosted_qualification_source": "a9f453974d0051317186b2d0060f29f2e330267b",
+  "frontend_after_harness_change": "byte-identical to exact local candidate"
+}

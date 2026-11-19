@@ -1,0 +1,26 @@
+{
+  "events": [
+    {
+      "name": "pageshow",
+      "persisted": false
+    }
+  ],
+  "retained": false,
+  "rules": null,
+  "reasons": {
+    "src": null,
+    "id": null,
+    "url": "http://127.0.0.1:8726/",
+    "name": null,
+    "reasons": [
+      {
+        "reason": "masked"
+      }
+    ],
+    "children": []
+  },
+  "draft": false,
+  "spinner": true,
+  "unexpected_writes": 0,
+  "status": "BLOCKED_NO_NATIVE_BFCACHE_HIT"
+}

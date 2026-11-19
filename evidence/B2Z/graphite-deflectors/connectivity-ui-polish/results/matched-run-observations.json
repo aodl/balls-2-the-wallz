@@ -1,0 +1,754 @@
+{
+  "a1": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          576
+        ],
+        [
+          "first-contentful-paint",
+          576
+        ]
+      ],
+      "first_world_ms": 10267.3,
+      "first_certified_ms": 9399,
+      "js_bytes": 317188,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          740
+        ],
+        [
+          "first-contentful-paint",
+          740
+        ]
+      ],
+      "first_world_ms": 5626,
+      "first_certified_ms": 3582.6999999284744,
+      "js_bytes": 317188,
+      "frame_timing": {
+        "frames": 317,
+        "p50_ms": 666.7,
+        "p95_ms": 2399.9,
+        "p99_ms": 3383.3,
+        "worst_ms": 4733.200000000012,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 414,
+        "median": 389.5,
+        "maximum": 3708
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          424
+        ],
+        [
+          "first-contentful-paint",
+          424
+        ]
+      ],
+      "first_world_ms": 3462.2,
+      "first_certified_ms": 2825.2000000476837,
+      "js_bytes": 317188,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          252
+        ],
+        [
+          "first-contentful-paint",
+          252
+        ]
+      ],
+      "first_world_ms": 2053.6,
+      "first_certified_ms": 1432.0999999046326,
+      "js_bytes": 317188,
+      "frame_timing": {
+        "frames": 285,
+        "p50_ms": 100,
+        "p95_ms": 333.3,
+        "p99_ms": 700,
+        "worst_ms": 983.3999999999942,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 317,
+        "median": 90,
+        "maximum": 722
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          156
+        ],
+        [
+          "first-contentful-paint",
+          156
+        ]
+      ],
+      "first_world_ms": 1866.1,
+      "first_certified_ms": 1419.8999999761581,
+      "js_bytes": 317188,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          284
+        ],
+        [
+          "first-contentful-paint",
+          284
+        ]
+      ],
+      "first_world_ms": 1327.7,
+      "first_certified_ms": 860.2000000476837,
+      "js_bytes": 317188,
+      "frame_timing": {
+        "frames": 282,
+        "p50_ms": 50.1,
+        "p95_ms": 199.9,
+        "p99_ms": 533.4,
+        "worst_ms": 733.3999999999996,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 170,
+        "median": 65.5,
+        "maximum": 450
+      }
+    }
+  ],
+  "b1": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          180
+        ],
+        [
+          "first-contentful-paint",
+          180
+        ]
+      ],
+      "first_world_ms": 2017.7,
+      "first_certified_ms": 1462.7000000476837,
+      "js_bytes": 317783,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          520
+        ],
+        [
+          "first-contentful-paint",
+          520
+        ]
+      ],
+      "first_world_ms": 1584.4,
+      "first_certified_ms": 1049.7999999523163,
+      "js_bytes": 317783,
+      "frame_timing": {
+        "frames": 273,
+        "p50_ms": 100,
+        "p95_ms": 266.7,
+        "p99_ms": 1233.2,
+        "worst_ms": 1566.5999999999985,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 283,
+        "median": 90,
+        "maximum": 1275
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          192
+        ],
+        [
+          "first-contentful-paint",
+          192
+        ]
+      ],
+      "first_world_ms": 1796.2,
+      "first_certified_ms": 1347.6000000238419,
+      "js_bytes": 317783,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          328
+        ],
+        [
+          "first-contentful-paint",
+          328
+        ]
+      ],
+      "first_world_ms": 1307.1,
+      "first_certified_ms": 858,
+      "js_bytes": 317783,
+      "frame_timing": {
+        "frames": 276,
+        "p50_ms": 66.6,
+        "p95_ms": 283.3,
+        "p99_ms": 683.3,
+        "worst_ms": 766.7000000000007,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 172,
+        "median": 78.5,
+        "maximum": 750
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          136
+        ],
+        [
+          "first-contentful-paint",
+          136
+        ]
+      ],
+      "first_world_ms": 2781.5,
+      "first_certified_ms": 2334.5,
+      "js_bytes": 317783,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          308
+        ],
+        [
+          "first-contentful-paint",
+          308
+        ]
+      ],
+      "first_world_ms": 1960.9,
+      "first_certified_ms": 1517.5,
+      "js_bytes": 317783,
+      "frame_timing": {
+        "frames": 273,
+        "p50_ms": 50,
+        "p95_ms": 100,
+        "p99_ms": 166.7,
+        "worst_ms": 300,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 126,
+        "median": 61.0,
+        "maximum": 281
+      }
+    }
+  ],
+  "b2": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          148
+        ],
+        [
+          "first-contentful-paint",
+          148
+        ]
+      ],
+      "first_world_ms": 2519.1,
+      "first_certified_ms": 2005.2999999523163,
+      "js_bytes": 317783,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          432
+        ],
+        [
+          "first-contentful-paint",
+          432
+        ]
+      ],
+      "first_world_ms": 1346.7,
+      "first_certified_ms": 890.3999999761581,
+      "js_bytes": 317783,
+      "frame_timing": {
+        "frames": 268,
+        "p50_ms": 100,
+        "p95_ms": 299.9,
+        "p99_ms": 999.9,
+        "worst_ms": 1300.1000000000058,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 278,
+        "median": 95.0,
+        "maximum": 1285
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          376
+        ],
+        [
+          "first-contentful-paint",
+          376
+        ]
+      ],
+      "first_world_ms": 2271.5,
+      "first_certified_ms": 1749.3000000715256,
+      "js_bytes": 317783,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          372
+        ],
+        [
+          "first-contentful-paint",
+          372
+        ]
+      ],
+      "first_world_ms": 1308.6,
+      "first_certified_ms": 848.3999999761581,
+      "js_bytes": 317783,
+      "frame_timing": {
+        "frames": 277,
+        "p50_ms": 66.6,
+        "p95_ms": 133.3,
+        "p99_ms": 266.7,
+        "worst_ms": 683.3000000000011,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 172,
+        "median": 80.0,
+        "maximum": 452
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          160
+        ],
+        [
+          "first-contentful-paint",
+          160
+        ]
+      ],
+      "first_world_ms": 1754.5,
+      "first_certified_ms": 1235.2999999523163,
+      "js_bytes": 317783,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          304
+        ],
+        [
+          "first-contentful-paint",
+          304
+        ]
+      ],
+      "first_world_ms": 1338.5,
+      "first_certified_ms": 849.3000000715256,
+      "js_bytes": 317783,
+      "frame_timing": {
+        "frames": 281,
+        "p50_ms": 50,
+        "p95_ms": 100,
+        "p99_ms": 433.3,
+        "worst_ms": 466.59999999999854,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 121,
+        "median": 59,
+        "maximum": 459
+      }
+    }
+  ],
+  "a2": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          188
+        ],
+        [
+          "first-contentful-paint",
+          188
+        ]
+      ],
+      "first_world_ms": 2027,
+      "first_certified_ms": 1548.8000000715256,
+      "js_bytes": 317188,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          240
+        ],
+        [
+          "first-contentful-paint",
+          240
+        ]
+      ],
+      "first_world_ms": 1342.5,
+      "first_certified_ms": 860,
+      "js_bytes": 317188,
+      "frame_timing": {
+        "frames": 275,
+        "p50_ms": 150,
+        "p95_ms": 383.3,
+        "p99_ms": 1116.7,
+        "worst_ms": 1200,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 326,
+        "median": 100.0,
+        "maximum": 1194
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          160
+        ],
+        [
+          "first-contentful-paint",
+          160
+        ]
+      ],
+      "first_world_ms": 1763.1,
+      "first_certified_ms": 1286.8999999761581,
+      "js_bytes": 317188,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          268
+        ],
+        [
+          "first-contentful-paint",
+          268
+        ]
+      ],
+      "first_world_ms": 1389.1,
+      "first_certified_ms": 1022.6000000238419,
+      "js_bytes": 317188,
+      "frame_timing": {
+        "frames": 273,
+        "p50_ms": 83.3,
+        "p95_ms": 466.6,
+        "p99_ms": 766.6,
+        "worst_ms": 1000,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 237,
+        "median": 85,
+        "maximum": 818
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "cache": "cold",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          292
+        ],
+        [
+          "first-contentful-paint",
+          292
+        ]
+      ],
+      "first_world_ms": 3831.8,
+      "first_certified_ms": 3284.600000023842,
+      "js_bytes": 317188,
+      "frame_timing": null,
+      "long_tasks_over_50_ms": {
+        "count": 0,
+        "median": null,
+        "maximum": null
+      }
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "cache": "warm",
+      "dpr": 1,
+      "shell_first_paint_ms": [
+        [
+          "first-paint",
+          224
+        ],
+        [
+          "first-contentful-paint",
+          224
+        ]
+      ],
+      "first_world_ms": 1355.6,
+      "first_certified_ms": 791.2999999523163,
+      "js_bytes": 317188,
+      "frame_timing": {
+        "frames": 281,
+        "p50_ms": 66.6,
+        "p95_ms": 200,
+        "p99_ms": 516.7,
+        "worst_ms": 583.3999999999978,
+        "errors": [],
+        "hardware": "ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver)"
+      },
+      "long_tasks_over_50_ms": {
+        "count": 190,
+        "median": 70.0,
+        "maximum": 419
+      }
+    }
+  ]
+}

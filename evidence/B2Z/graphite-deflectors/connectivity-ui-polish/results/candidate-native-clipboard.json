@@ -1,0 +1,110 @@
+{
+  "1440": {
+    "geometry": {
+      "axes": [
+        841,
+        841
+      ],
+      "copies": [
+        [
+          989,
+          44,
+          44
+        ],
+        [
+          989,
+          44,
+          44
+        ],
+        [
+          989,
+          44,
+          44
+        ]
+      ],
+      "paymentFonts": [
+        16.64,
+        16,
+        14,
+        14
+      ]
+    },
+    "copy": "exact fields",
+    "update_keep": "exact before and after",
+    "manual": "full editable selection source is readonly",
+    "errors": [],
+    "blocked_updates": []
+  },
+  "390": {
+    "geometry": {
+      "axes": [
+        188,
+        188
+      ],
+      "copies": [
+        [
+          336,
+          44,
+          44
+        ],
+        [
+          336,
+          44,
+          44
+        ],
+        [
+          336,
+          44,
+          44
+        ]
+      ],
+      "paymentFonts": [
+        16.64,
+        16,
+        14,
+        14
+      ]
+    },
+    "copy": "exact fields",
+    "update_keep": "exact before and after",
+    "manual": "full editable selection source is readonly",
+    "errors": [],
+    "blocked_updates": []
+  },
+  "320": {
+    "geometry": {
+      "axes": [
+        160,
+        160
+      ],
+      "copies": [
+        [
+          280,
+          44,
+          44
+        ],
+        [
+          280,
+          44,
+          44
+        ],
+        [
+          280,
+          44,
+          44
+        ]
+      ],
+      "paymentFonts": [
+        14.4,
+        14,
+        14,
+        14
+      ]
+    },
+    "copy": "exact fields",
+    "update_keep": "exact before and after",
+    "manual": "full editable selection source is readonly",
+    "errors": [],
+    "blocked_updates": []
+  }
+}

@@ -1,0 +1,8 @@
+   Compiling dtr-s09-integration v0.1.0 (/home/codexdev/src/b2z-boundary-deflector/tools/s09-integration)
+    Finished `test` profile [unoptimized + debuginfo] target(s) in 19.95s
+     Running tests/s14_index.rs (tools/s09-integration/target/debug/deps/s14_index-5296eac0a22bf19c)
+
+running 1 test
+test million_browser_output_isolation_preserves_existing_evidence ... ok
+
+test result: ok. 1 passed; 0 failed; 0 ignored; 0 measured; 87 filtered out; finished in 0.00s

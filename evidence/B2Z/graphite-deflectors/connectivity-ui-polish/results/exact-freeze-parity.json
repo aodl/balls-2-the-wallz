@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "scope": "Offline exact frozen-artifact reproduction/input parity. Never installs or deploys.",
+  "tested_source": "475158995f739a4d81ea725541a64acd69c181b3",
+  "frozen_source": "475158995f739a4d81ea725541a64acd69c181b3",
+  "normal_wasm_sha256": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "inventory_sha256": "557569b78dbf49052d3990bd68253cbb68c23e034d47f49565a65080b3a8301d",
+  "files": 81,
+  "backend_only": false,
+  "checked_inputs_count": 481
+}

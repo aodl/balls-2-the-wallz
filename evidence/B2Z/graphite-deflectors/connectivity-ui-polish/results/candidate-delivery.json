@@ -1,0 +1,240 @@
+{
+  "pose": {
+    "viewport": {
+      "width": 320,
+      "height": 640,
+      "left": 0,
+      "top": 0,
+      "visibleWidth": 320,
+      "visibleHeight": 640
+    },
+    "quantity": {
+      "hidden": false,
+      "inert": false,
+      "placement": "dock",
+      "rect": {
+        "x": 10,
+        "y": 503.1875,
+        "width": 130,
+        "height": 46,
+        "top": 503.1875,
+        "right": 140,
+        "bottom": 549.1875,
+        "left": 10
+      },
+      "text": "1",
+      "targets": [
+        {
+          "id": "quantity-minus",
+          "disabled": true,
+          "rect": {
+            "x": 11,
+            "y": 504.1875,
+            "width": 44,
+            "height": 44,
+            "top": 504.1875,
+            "right": 55,
+            "bottom": 548.1875,
+            "left": 11
+          },
+          "hit": true
+        },
+        {
+          "id": "quantity-plus",
+          "disabled": false,
+          "rect": {
+            "x": 95,
+            "y": 504.1875,
+            "width": 44,
+            "height": 44,
+            "top": 504.1875,
+            "right": 139,
+            "bottom": 548.1875,
+            "left": 95
+          },
+          "hit": true
+        }
+      ],
+      "corners": [
+        true,
+        true,
+        true,
+        true
+      ]
+    }
+  },
+  "single_observation_failure": {
+    "before": {
+      "root": "1058010b700fc8eab06862ebfe1853d4bfc5c5711cac8f7751431ecae56ac62d",
+      "head": "12275",
+      "status": "delayed",
+      "copy": [
+        false,
+        false,
+        false
+      ],
+      "spinner": false,
+      "panel": {
+        "x": 8,
+        "y": 200,
+        "width": 304,
+        "height": 294,
+        "top": 200,
+        "right": 312,
+        "bottom": 494,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "amount": "0.1 ICP",
+      "manualDisabled": true,
+      "error": "",
+      "outage": null,
+      "failures": 0,
+      "recoveries": 0
+    },
+    "brief": {
+      "root": "1058010b700fc8eab06862ebfe1853d4bfc5c5711cac8f7751431ecae56ac62d",
+      "head": "12275",
+      "status": "delayed",
+      "copy": [
+        false,
+        false,
+        false
+      ],
+      "spinner": false,
+      "panel": {
+        "x": 8,
+        "y": 200,
+        "width": 304,
+        "height": 294,
+        "top": 200,
+        "right": 312,
+        "bottom": 494,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "amount": "0.1 ICP",
+      "manualDisabled": true,
+      "error": "",
+      "outage": "delivery-unavailable",
+      "failures": 1,
+      "recoveries": 0
+    },
+    "attempts": [
+      "observation"
+    ],
+    "recovered": {
+      "root": "1058010b700fc8eab06862ebfe1853d4bfc5c5711cac8f7751431ecae56ac62d",
+      "head": "12275",
+      "status": "delayed",
+      "copy": [
+        false,
+        false,
+        false
+      ],
+      "spinner": false,
+      "panel": {
+        "x": 8,
+        "y": 200,
+        "width": 304,
+        "height": 294,
+        "top": 200,
+        "right": 312,
+        "bottom": 494,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "amount": "0.1 ICP",
+      "manualDisabled": true,
+      "error": "",
+      "outage": null,
+      "failures": 0,
+      "recoveries": 1
+    }
+  },
+  "sustained_failure": {
+    "attempts": 8,
+    "during": {
+      "root": "1058010b700fc8eab06862ebfe1853d4bfc5c5711cac8f7751431ecae56ac62d",
+      "head": "12275",
+      "status": "delivery",
+      "copy": [
+        true,
+        true,
+        true
+      ],
+      "spinner": false,
+      "panel": {
+        "x": 8,
+        "y": 200,
+        "width": 304,
+        "height": 294,
+        "top": 200,
+        "right": 312,
+        "bottom": 494,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "amount": "0.1 ICP",
+      "manualDisabled": true,
+      "error": "",
+      "outage": "delivery-unavailable",
+      "failures": 3,
+      "recoveries": 1
+    },
+    "after": {
+      "root": "1058010b700fc8eab06862ebfe1853d4bfc5c5711cac8f7751431ecae56ac62d",
+      "head": "12275",
+      "status": "delayed",
+      "copy": [
+        false,
+        false,
+        false
+      ],
+      "spinner": false,
+      "panel": {
+        "x": 8,
+        "y": 200,
+        "width": 304,
+        "height": 294,
+        "top": 200,
+        "right": 312,
+        "bottom": 494,
+        "left": 8
+      },
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "amount": "0.5 ICP",
+      "manualDisabled": true,
+      "error": "",
+      "outage": null,
+      "failures": 0,
+      "recoveries": 2
+    },
+    "same_session_clock_queue": true,
+    "local_quantity_and_war_cry_preserved": true
+  },
+  "status": "PASS",
+  "persisted_lifecycle": "Controlled PageTransitionEvent, same verified session, clock and queue",
+  "unexpected_writes": 0,
+  "browser_errors": []
+}

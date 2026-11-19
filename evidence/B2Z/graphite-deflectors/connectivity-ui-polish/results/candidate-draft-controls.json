@@ -1,0 +1,16 @@
+{
+  "status": "PASS",
+  "frozen_packet_keep_update": true,
+  "clipboard_did_not_change_automatically": true,
+  "deflector_directions": [
+    "NE",
+    "SE",
+    "SW",
+    "NW"
+  ],
+  "edited_fire_draft_preserved_on_return_and_recovery": true,
+  "keyboard_aim_and_quantity_available_during_outage": true,
+  "requests_blocked": 12,
+  "unexpected_writes": 0,
+  "browser_errors": 0
+}

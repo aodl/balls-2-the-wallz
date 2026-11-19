@@ -1,0 +1,852 @@
+{
+  "before-observation": {
+    "browser_seconds": 314.885,
+    "sample_count": 365,
+    "status_counts": {
+      "slow": 346,
+      "reconnecting": 19
+    },
+    "heads": [
+      "12251",
+      "12252",
+      "12253",
+      "12254"
+    ],
+    "request_metrics": {
+      "artifact_bundle": {
+        "count": 3,
+        "per_min": 0.57,
+        "latency_median_ms": 252,
+        "latency_p95_ms": null,
+        "encoded_bytes": 60217,
+        "non_200_or_cancelled": 0
+      },
+      "lab_status": {
+        "count": 124,
+        "per_min": 23.63,
+        "latency_median_ms": 272.0,
+        "latency_p95_ms": 423,
+        "encoded_bytes": 99246,
+        "non_200_or_cancelled": 0
+      },
+      "observation": {
+        "count": 205,
+        "per_min": 39.06,
+        "latency_median_ms": 268,
+        "latency_p95_ms": 394,
+        "encoded_bytes": 1330519,
+        "non_200_or_cancelled": 0
+      },
+      "query": {
+        "count": 5,
+        "per_min": 0.95,
+        "latency_median_ms": 242,
+        "latency_p95_ms": null,
+        "encoded_bytes": 4114,
+        "non_200_or_cancelled": 0
+      },
+      "read_state": {
+        "count": 2,
+        "per_min": 0.38,
+        "latency_median_ms": 297.5,
+        "latency_p95_ms": null,
+        "encoded_bytes": 46163,
+        "non_200_or_cancelled": 0
+      }
+    },
+    "spinner_samples": 15,
+    "copy_disabled_samples": 27,
+    "status_changes_per_min": 2.29,
+    "copy_changes_per_min": 2.67,
+    "transitions": [],
+    "sampled_runs": [
+      {
+        "status": "slow",
+        "copyDisabled": false,
+        "head": "12251",
+        "start": 52.928,
+        "end": 133.044,
+        "witness_age_on_receipt_ms": [
+          1339.231488,
+          1409.870592,
+          1450.183168,
+          1510.167296,
+          1523.104256,
+          1530.394112,
+          1590.72256,
+          1657.011968,
+          1680.448256,
+          1689.53344,
+          1693.0624,
+          1723.423488,
+          1724.13824,
+          1754.21056,
+          1769.551104,
+          1781.19936,
+          1787.0208,
+          1823.63648,
+          1827.18848,
+          1838.27456,
+          1839.784448,
+          1843.257088,
+          1872.259584,
+          1881.263104,
+          1918.454784,
+          1923.0592,
+          1991.791872,
+          2434.92224,
+          2583.265024,
+          2712.448256,
+          2720.210432,
+          2891.444736,
+          3209.636352,
+          3210.870784,
+          3275.454976,
+          3822.32576,
+          3851.104256,
+          3871.210496,
+          3919.01184,
+          4203.167232,
+          4915.210496,
+          5617.53344,
+          5999.262976,
+          7526.870528,
+          8548.059392,
+          8639.325696,
+          9434.011904,
+          10348.636416,
+          10545.011968,
+          10607.062272,
+          12291.636224,
+          12588.325632,
+          14722.104064,
+          16173.444864,
+          23564.636416
+        ],
+        "highest_operational_age_ms": 7296,
+        "samples": 97
+      },
+      {
+        "status": "slow",
+        "copyDisabled": false,
+        "head": "12252",
+        "start": 133.895,
+        "end": 204.584,
+        "witness_age_on_receipt_ms": [
+          1263.07328,
+          1368.196864,
+          1383.873536,
+          1387.825408,
+          1409.396992,
+          1430.976768,
+          1462.759168,
+          1522.617856,
+          1523.81824,
+          1618.709504,
+          1644.2304,
+          1715.136,
+          1715.301632,
+          1723.423488,
+          1725.718272,
+          1729.467392,
+          1738.385152,
+          1739.6352,
+          1786.851584,
+          2212.8256,
+          2378.818304,
+          2529.136128,
+          2569.232384,
+          2620.873472,
+          2653.1968,
+          3118.279424,
+          3137.916416,
+          3511.81824,
+          3656.397056,
+          3678.746624,
+          4317.7088,
+          4598.818304,
+          7394.8736,
+          7476.851712,
+          8494.85184,
+          10671.279616,
+          11232.2304,
+          16222.976768,
+          16673.718272,
+          16713.467392,
+          17195.976704,
+          17643.467264,
+          17693.746688,
+          18248.42368,
+          18520.97664,
+          18838.818304,
+          21414.746624,
+          21549.825536,
+          21641.30176,
+          23949.230336,
+          24696.2304
+        ],
+        "highest_operational_age_ms": 5770,
+        "samples": 86
+      },
+      {
+        "status": "slow",
+        "copyDisabled": true,
+        "head": "12252",
+        "start": 205.513,
+        "end": 206.203,
+        "witness_age_on_receipt_ms": [
+          36350.279424
+        ],
+        "highest_operational_age_ms": 1615,
+        "samples": 2
+      },
+      {
+        "status": "slow",
+        "copyDisabled": false,
+        "head": "12252",
+        "start": 206.832,
+        "end": 206.832,
+        "witness_age_on_receipt_ms": [
+          1524.88064
+        ],
+        "highest_operational_age_ms": 2253,
+        "samples": 1
+      },
+      {
+        "status": "slow",
+        "copyDisabled": true,
+        "head": "12252",
+        "start": 207.839,
+        "end": 208.47,
+        "witness_age_on_receipt_ms": [
+          34408.851712
+        ],
+        "highest_operational_age_ms": 1886,
+        "samples": 2
+      },
+      {
+        "status": "reconnecting",
+        "copyDisabled": false,
+        "head": "12252",
+        "start": 209.324,
+        "end": 209.324,
+        "witness_age_on_receipt_ms": [
+          27851.718144
+        ],
+        "highest_operational_age_ms": 2737,
+        "samples": 1
+      },
+      {
+        "status": "slow",
+        "copyDisabled": false,
+        "head": "12252",
+        "start": 209.959,
+        "end": 216.034,
+        "witness_age_on_receipt_ms": [
+          5417.880576,
+          7480.88064,
+          17622.709504,
+          27851.718144
+        ],
+        "highest_operational_age_ms": 5170,
+        "samples": 8
+      },
+      {
+        "status": "slow",
+        "copyDisabled": true,
+        "head": "12252",
+        "start": 217.772,
+        "end": 217.772,
+        "witness_age_on_receipt_ms": [
+          43705.851648
+        ],
+        "highest_operational_age_ms": 2745,
+        "samples": 1
+      },
+      {
+        "status": "reconnecting",
+        "copyDisabled": true,
+        "head": "12252",
+        "start": 218.605,
+        "end": 221.413,
+        "witness_age_on_receipt_ms": [
+          39030.718208,
+          43705.851648
+        ],
+        "highest_operational_age_ms": 4259,
+        "samples": 4
+      },
+      {
+        "status": "slow",
+        "copyDisabled": false,
+        "head": "12252",
+        "start": 222.139,
+        "end": 223.789,
+        "witness_age_on_receipt_ms": [
+          23114.396928
+        ],
+        "highest_operational_age_ms": 2953,
+        "samples": 2
+      },
+      {
+        "status": "slow",
+        "copyDisabled": true,
+        "head": "12252",
+        "start": 225.637,
+        "end": 225.637,
+        "witness_age_on_receipt_ms": [
+          37088.617728
+        ],
+        "highest_operational_age_ms": 4818,
+        "samples": 1
+      },
+      {
+        "status": "reconnecting",
+        "copyDisabled": true,
+        "head": "12252",
+        "start": 226.319,
+        "end": 226.319,
+        "witness_age_on_receipt_ms": [
+          37088.617728
+        ],
+        "highest_operational_age_ms": 2507,
+        "samples": 1
+      },
+      {
+        "status": "reconnecting",
+        "copyDisabled": false,
+        "head": "12252",
+        "start": 228.749,
+        "end": 228.749,
+        "witness_age_on_receipt_ms": [
+          2034.740736
+        ],
+        "highest_operational_age_ms": 4934,
+        "samples": 1
+      },
+      {
+        "status": "slow",
+        "copyDisabled": false,
+        "head": "12252",
+        "start": 229.336,
+        "end": 233.948,
+        "witness_age_on_receipt_ms": [
+          1323.972352,
+          1363.556352,
+          2034.740736,
+          3497.357568
+        ],
+        "highest_operational_age_ms": 4012,
+        "samples": 6
+      },
+      {
+        "status": "slow",
+        "copyDisabled": false,
+        "head": "12253",
+        "start": 234.619,
+        "end": 266.194,
+        "witness_age_on_receipt_ms": [
+          1323.972352,
+          1341.36832,
+          1502.460928,
+          1582.30912,
+          1763.233536,
+          1764.740096,
+          1977.655808,
+          2020.28672,
+          2457.460992,
+          2774.739968,
+          2975.286784,
+          3733.975552,
+          3910.972416,
+          4003.286784,
+          4640.368384,
+          5012.972288,
+          9121.460992,
+          10906.460928,
+          11939.460864,
+          12513.972224,
+          13536.975616,
+          18886.972416,
+          19768.28672,
+          20028.975616,
+          20811.286784
+        ],
+        "highest_operational_age_ms": 6232,
+        "samples": 38
+      },
+      {
+        "status": "slow",
+        "copyDisabled": true,
+        "head": "12253",
+        "start": 267.282,
+        "end": 267.282,
+        "witness_age_on_receipt_ms": [
+          30048.975616
+        ],
+        "highest_operational_age_ms": 1678,
+        "samples": 1
+      },
+      {
+        "status": "reconnecting",
+        "copyDisabled": true,
+        "head": "12253",
+        "start": 268.076,
+        "end": 268.076,
+        "witness_age_on_receipt_ms": [
+          30048.975616
+        ],
+        "highest_operational_age_ms": 2470,
+        "samples": 1
+      },
+      {
+        "status": "reconnecting",
+        "copyDisabled": false,
+        "head": "12253",
+        "start": 268.817,
+        "end": 268.817,
+        "witness_age_on_receipt_ms": [
+          1919.600128
+        ],
+        "highest_operational_age_ms": 3204,
+        "samples": 1
+      },
+      {
+        "status": "slow",
+        "copyDisabled": false,
+        "head": "12253",
+        "start": 269.536,
+        "end": 275.884,
+        "witness_age_on_receipt_ms": [
+          1276.249344,
+          1919.600128,
+          2566.249216,
+          10781.309184,
+          11611.309056,
+          13062.739968,
+          22312.368384
+        ],
+        "highest_operational_age_ms": 3119,
+        "samples": 10
+      },
+      {
+        "status": "slow",
+        "copyDisabled": true,
+        "head": "12253",
+        "start": 276.715,
+        "end": 277.348,
+        "witness_age_on_receipt_ms": [
+          31372.28672
+        ],
+        "highest_operational_age_ms": 2794,
+        "samples": 2
+      },
+      {
+        "status": "reconnecting",
+        "copyDisabled": true,
+        "head": "12253",
+        "start": 277.919,
+        "end": 285.535,
+        "witness_age_on_receipt_ms": [
+          34684.655872,
+          37899.286784,
+          45044.972288,
+          47458.975488
+        ],
+        "highest_operational_age_ms": 5956,
+        "samples": 8
+      },
+      {
+        "status": "slow",
+        "copyDisabled": false,
+        "head": "12253",
+        "start": 287.92,
+        "end": 325.175,
+        "witness_age_on_receipt_ms": [
+          1485.988352,
+          1931.77344,
+          2240.261376,
+          2255.288576,
+          2310.294528,
+          2513.171712,
+          2570.652928,
+          3343.209984,
+          3587.17952,
+          3697.261312,
+          4585.5488,
+          10251.261184,
+          10563.17184,
+          11149.773568,
+          22883.77344,
+          24349.179648
+        ],
+        "highest_operational_age_ms": 7649,
+        "samples": 36
+      },
+      {
+        "status": "slow",
+        "copyDisabled": true,
+        "head": "12253",
+        "start": 325.796,
+        "end": 326.481,
+        "witness_age_on_receipt_ms": [
+          38148.171776
+        ],
+        "highest_operational_age_ms": 2089,
+        "samples": 2
+      },
+      {
+        "status": "reconnecting",
+        "copyDisabled": true,
+        "head": "12253",
+        "start": 327.316,
+        "end": 327.899,
+        "witness_age_on_receipt_ms": [
+          39569.171712
+        ],
+        "highest_operational_age_ms": 2920,
+        "samples": 2
+      },
+      {
+        "status": "slow",
+        "copyDisabled": false,
+        "head": "12253",
+        "start": 328.697,
+        "end": 333.828,
+        "witness_age_on_receipt_ms": [
+          1464.855808,
+          1693.495808,
+          1924.077056,
+          14980.548864
+        ],
+        "highest_operational_age_ms": 3798,
+        "samples": 7
+      },
+      {
+        "status": "slow",
+        "copyDisabled": false,
+        "head": "12254",
+        "start": 334.612,
+        "end": 367.813,
+        "witness_age_on_receipt_ms": [
+          1358.567936,
+          1389.269504,
+          1407.302912,
+          1459.558656,
+          1586.2848,
+          1605.838592,
+          1625.096192,
+          1677.605888,
+          1731.261184,
+          1736.064768,
+          1812.971776,
+          1832.963072,
+          1924.077056,
+          2229.302784,
+          2322.55872,
+          2442.567936,
+          2556.284928,
+          2899.96288,
+          3050.971904,
+          3207.838464,
+          3724.269312,
+          4231.963136,
+          6021.302784,
+          7768.26112,
+          8246.971904,
+          13685.558784,
+          17507.97184,
+          18493.971712
+        ],
+        "highest_operational_age_ms": 3261,
+        "samples": 44
+      }
+    ]
+  },
+  "observation": {
+    "browser_seconds": 324.022,
+    "sample_count": 224,
+    "status_counts": {
+      "delayed": 221,
+      "stale": 3
+    },
+    "heads": [
+      "12261",
+      "12262",
+      "12263",
+      "12264",
+      "12265"
+    ],
+    "request_metrics": {
+      "artifact_bundle": {
+        "count": 4,
+        "per_min": 0.74,
+        "latency_median_ms": 318.5,
+        "latency_p95_ms": null,
+        "encoded_bytes": 78095,
+        "non_200_or_cancelled": 0
+      },
+      "lab_status": {
+        "count": 120,
+        "per_min": 22.22,
+        "latency_median_ms": 315.0,
+        "latency_p95_ms": 490,
+        "encoded_bytes": 97057,
+        "non_200_or_cancelled": 0
+      },
+      "observation": {
+        "count": 54,
+        "per_min": 10.0,
+        "latency_median_ms": 334.5,
+        "latency_p95_ms": 499,
+        "encoded_bytes": 350665,
+        "non_200_or_cancelled": 0
+      },
+      "query": {
+        "count": 5,
+        "per_min": 0.93,
+        "latency_median_ms": 287,
+        "latency_p95_ms": null,
+        "encoded_bytes": 4062,
+        "non_200_or_cancelled": 0
+      },
+      "read_state": {
+        "count": 2,
+        "per_min": 0.37,
+        "latency_median_ms": 439.0,
+        "latency_p95_ms": null,
+        "encoded_bytes": 46187,
+        "non_200_or_cancelled": 0
+      }
+    },
+    "spinner_samples": 0,
+    "copy_disabled_samples": 3,
+    "status_changes_per_min": 1.11,
+    "copy_changes_per_min": 1.11,
+    "transitions": [
+      {
+        "t": 88.794,
+        "kind": "transition",
+        "at": 13727,
+        "label": "Playback delayed",
+        "copyDisabled": true,
+        "spinner": false
+      },
+      {
+        "t": 88.796,
+        "kind": "transition",
+        "at": 69450,
+        "label": "Playback delayed",
+        "copyDisabled": false,
+        "spinner": false
+      },
+      {
+        "t": 91.172,
+        "kind": "transition",
+        "at": 90576,
+        "label": "Verification delayed",
+        "copyDisabled": true,
+        "spinner": false
+      },
+      {
+        "t": 93.208,
+        "kind": "transition",
+        "at": 92123,
+        "label": "Playback delayed",
+        "copyDisabled": false,
+        "spinner": false
+      },
+      {
+        "t": 191.064,
+        "kind": "transition",
+        "at": 190293,
+        "label": "Verification delayed",
+        "copyDisabled": true,
+        "spinner": false
+      },
+      {
+        "t": 192.595,
+        "kind": "transition",
+        "at": 191342,
+        "label": "Playback delayed",
+        "copyDisabled": false,
+        "spinner": false
+      },
+      {
+        "t": 294.592,
+        "kind": "transition",
+        "at": 293799,
+        "label": "Verification delayed",
+        "copyDisabled": true,
+        "spinner": false
+      },
+      {
+        "t": 295.899,
+        "kind": "transition",
+        "at": 294975,
+        "label": "Playback delayed",
+        "copyDisabled": false,
+        "spinner": false
+      },
+      {
+        "t": 390.164,
+        "kind": "transition",
+        "at": 389531,
+        "label": "Verification delayed",
+        "copyDisabled": true,
+        "spinner": false
+      },
+      {
+        "t": 391.338,
+        "kind": "transition",
+        "at": 390578,
+        "label": "Playback delayed",
+        "copyDisabled": false,
+        "spinner": false
+      }
+    ],
+    "sampled_runs": [
+      {
+        "status": "delayed",
+        "copyDisabled": false,
+        "head": "12261",
+        "start": 88.183,
+        "end": 89.755,
+        "witness_age_on_receipt_ms": [
+          2699
+        ],
+        "highest_operational_age_ms": 7833,
+        "samples": 2
+      },
+      {
+        "status": "delayed",
+        "copyDisabled": false,
+        "head": "12262",
+        "start": 92.723,
+        "end": 189.546,
+        "witness_age_on_receipt_ms": [
+          1783,
+          1841,
+          2094,
+          2112,
+          2360,
+          2468,
+          2511,
+          2725,
+          3038,
+          3293,
+          3358,
+          3725,
+          4086,
+          8694
+        ],
+        "highest_operational_age_ms": 7609,
+        "samples": 59
+      },
+      {
+        "status": "stale",
+        "copyDisabled": true,
+        "head": "12262",
+        "start": 190.694,
+        "end": 190.694,
+        "witness_age_on_receipt_ms": [
+          1783
+        ],
+        "highest_operational_age_ms": 2321,
+        "samples": 1
+      },
+      {
+        "status": "delayed",
+        "copyDisabled": false,
+        "head": "12263",
+        "start": 192.227,
+        "end": 292.11,
+        "witness_age_on_receipt_ms": [
+          1383,
+          1483,
+          1771,
+          1794,
+          1833,
+          1835,
+          1925,
+          2154,
+          2415,
+          2875,
+          2940,
+          2952,
+          3287,
+          3393,
+          3854
+        ],
+        "highest_operational_age_ms": 6144,
+        "samples": 76
+      },
+      {
+        "status": "stale",
+        "copyDisabled": true,
+        "head": "12263",
+        "start": 294.273,
+        "end": 294.273,
+        "witness_age_on_receipt_ms": [
+          2875
+        ],
+        "highest_operational_age_ms": 4945,
+        "samples": 1
+      },
+      {
+        "status": "delayed",
+        "copyDisabled": false,
+        "head": "12264",
+        "start": 295.54,
+        "end": 388.751,
+        "witness_age_on_receipt_ms": [
+          1579,
+          1658,
+          1724,
+          1728,
+          1770,
+          1852,
+          1880,
+          1938,
+          2261,
+          2480,
+          2924,
+          3484,
+          4618,
+          6862,
+          7108
+        ],
+        "highest_operational_age_ms": 11275,
+        "samples": 69
+      },
+      {
+        "status": "stale",
+        "copyDisabled": true,
+        "head": "12264",
+        "start": 389.92,
+        "end": 389.92,
+        "witness_age_on_receipt_ms": [
+          1880
+        ],
+        "highest_operational_age_ms": 2268,
+        "samples": 1
+      },
+      {
+        "status": "delayed",
+        "copyDisabled": false,
+        "head": "12265",
+        "start": 390.966,
+        "end": 412.205,
+        "witness_age_on_receipt_ms": [
+          1521,
+          1928,
+          2497,
+          2512,
+          3096
+        ],
+        "highest_operational_age_ms": 5373,
+        "samples": 15
+      }
+    ]
+  }
+}

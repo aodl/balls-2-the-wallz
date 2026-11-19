@@ -1,0 +1,549 @@
+{
+  "1440": {
+    "geometry": {
+      "axes": [
+        841,
+        841
+      ],
+      "copies": [
+        [
+          989,
+          44,
+          44
+        ],
+        [
+          989,
+          44,
+          44
+        ],
+        [
+          989,
+          44,
+          44
+        ]
+      ],
+      "price": "color(srgb 0.75 0.9 0.573333)",
+      "paymentFonts": [
+        16.64,
+        16,
+        14,
+        14
+      ],
+      "railBlur": "none",
+      "cardBlur": "none",
+      "corner": "none",
+      "payer": "#b4e17f",
+      "memoInside": true,
+      "scroll": [
+        275,
+        275
+      ]
+    },
+    "mobile_pose": null,
+    "32-byte-fire": {
+      "memo_bytes": 32,
+      "price": "0.1 ICP",
+      "recipient_length": 27
+    },
+    "copy": "exact fields",
+    "update_keep": "exact before and after",
+    "manual": "full editable selection source is readonly",
+    "trusted_event_to_raf_ms": [
+      {
+        "key": "identify-button",
+        "type": "click",
+        "ms": 55.39999997615814
+      },
+      {
+        "key": "help-button",
+        "type": "click",
+        "ms": 54.300000071525574
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 53.299999952316284
+      },
+      {
+        "key": "join-action",
+        "type": "click",
+        "ms": 57.200000047683716
+      },
+      {
+        "key": "sending-account",
+        "type": "input",
+        "ms": 4
+      },
+      {
+        "key": "identity-save",
+        "type": "click",
+        "ms": 75.30000007152557
+      },
+      {
+        "key": "centre-cannon",
+        "type": "click",
+        "ms": 80.29999995231628
+      },
+      {
+        "key": "fire-action",
+        "type": "click",
+        "ms": 92.10000002384186
+      },
+      {
+        "key": "war-cry",
+        "type": "input",
+        "ms": 31.300000071525574
+      },
+      {
+        "key": "owner",
+        "type": "click",
+        "ms": 70.89999997615814
+      },
+      {
+        "key": "amount",
+        "type": "click",
+        "ms": 70.29999995231628
+      },
+      {
+        "key": "text",
+        "type": "click",
+        "ms": 12.700000047683716
+      },
+      {
+        "key": "recipient-reveal",
+        "type": "click",
+        "ms": 58.40000009536743
+      },
+      {
+        "key": "recipient-reveal",
+        "type": "click",
+        "ms": 79.60000002384186
+      },
+      {
+        "key": "quantity-plus",
+        "type": "click",
+        "ms": 72.29999995231628
+      },
+      {
+        "key": "keep-instructions",
+        "type": "click",
+        "ms": 60.800000071525574
+      },
+      {
+        "key": "quantity-plus",
+        "type": "click",
+        "ms": 61.10000002384186
+      },
+      {
+        "key": "replace-instructions",
+        "type": "click",
+        "ms": 61.300000071525574
+      },
+      {
+        "key": "text",
+        "type": "click",
+        "ms": 164.10000002384186
+      },
+      {
+        "key": "payer-change",
+        "type": "click",
+        "ms": 70.20000004768372
+      },
+      {
+        "key": "sending-account",
+        "type": "input",
+        "ms": 5.099999904632568
+      },
+      {
+        "key": "identity-save",
+        "type": "click",
+        "ms": 57.299999952316284
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 50.300000071525574
+      },
+      {
+        "key": "identify-button",
+        "type": "click",
+        "ms": 60.89999997615814
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 52
+      },
+      {
+        "key": "status-button",
+        "type": "click",
+        "ms": 55.800000071525574
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 55.39999997615814
+      },
+      {
+        "key": "centre-cannon",
+        "type": "click",
+        "ms": 57.89999997615814
+      },
+      {
+        "key": "move-action",
+        "type": "click",
+        "ms": 103.79999995231628
+      },
+      {
+        "key": "build-action",
+        "type": "click",
+        "ms": 105.40000009536743
+      },
+      {
+        "key": "deflect-action",
+        "type": "click",
+        "ms": 102.19999992847443
+      },
+      {
+        "key": "NE",
+        "type": "click",
+        "ms": 99.89999997615814
+      },
+      {
+        "key": "SE",
+        "type": "click",
+        "ms": 99.29999995231628
+      },
+      {
+        "key": "SW",
+        "type": "click",
+        "ms": 111
+      },
+      {
+        "key": "NW",
+        "type": "click",
+        "ms": 95.89999997615814
+      }
+    ],
+    "errors": [],
+    "blocked_updates": []
+  },
+  "320": {
+    "geometry": {
+      "axes": [
+        160,
+        160
+      ],
+      "copies": [
+        [
+          280,
+          44,
+          44
+        ],
+        [
+          280,
+          44,
+          44
+        ],
+        [
+          280,
+          44,
+          44
+        ]
+      ],
+      "price": "color(srgb 0.75 0.9 0.573333)",
+      "paymentFonts": [
+        14.4,
+        14,
+        14,
+        14
+      ],
+      "railBlur": "none",
+      "cardBlur": "none",
+      "corner": "none",
+      "payer": "#b4e17f",
+      "memoInside": true,
+      "scroll": [
+        240,
+        273
+      ]
+    },
+    "mobile_pose": {
+      "camera": [
+        3.6575453715563526,
+        3.6575453715563526,
+        64
+      ],
+      "quantity": {
+        "hidden": false,
+        "inert": false,
+        "placement": "dock",
+        "rect": {
+          "x": 10,
+          "y": 503.1875,
+          "width": 130,
+          "height": 46,
+          "top": 503.1875,
+          "right": 140,
+          "bottom": 549.1875,
+          "left": 10
+        },
+        "text": "1",
+        "targets": [
+          {
+            "id": "quantity-minus",
+            "disabled": true,
+            "rect": {
+              "x": 11,
+              "y": 504.1875,
+              "width": 44,
+              "height": 44,
+              "top": 504.1875,
+              "right": 55,
+              "bottom": 548.1875,
+              "left": 11
+            },
+            "hit": true
+          },
+          {
+            "id": "quantity-plus",
+            "disabled": false,
+            "rect": {
+              "x": 95,
+              "y": 504.1875,
+              "width": 44,
+              "height": 44,
+              "top": 504.1875,
+              "right": 139,
+              "bottom": 548.1875,
+              "left": 95
+            },
+            "hit": true
+          }
+        ],
+        "corners": [
+          true,
+          true,
+          true,
+          true
+        ]
+      },
+      "panel": {
+        "x": 8,
+        "y": 200,
+        "width": 304,
+        "height": 294,
+        "top": 200,
+        "right": 312,
+        "bottom": 494,
+        "left": 8
+      },
+      "scroll": {
+        "x": 8,
+        "y": 254,
+        "width": 304,
+        "height": 240,
+        "top": 254,
+        "right": 312,
+        "bottom": 494,
+        "left": 8
+      },
+      "source_point": {
+        "x": 0.5,
+        "y": 0.5,
+        "sx": 160,
+        "sy": 155.00000000000458,
+        "visible": true,
+        "score": 164.99999999999542,
+        "hit": "board"
+      }
+    },
+    "32-byte-fire": {
+      "memo_bytes": 32,
+      "price": "0.1 ICP",
+      "recipient_length": 27
+    },
+    "copy": "exact fields",
+    "update_keep": "exact before and after",
+    "manual": "full editable selection source is readonly",
+    "trusted_event_to_raf_ms": [
+      {
+        "key": "identify-button",
+        "type": "click",
+        "ms": 39
+      },
+      {
+        "key": "help-button",
+        "type": "click",
+        "ms": 7.799999952316284
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 19.300000071525574
+      },
+      {
+        "key": "join-action",
+        "type": "click",
+        "ms": 22.799999952316284
+      },
+      {
+        "key": "sending-account",
+        "type": "input",
+        "ms": 6.400000095367432
+      },
+      {
+        "key": "identity-save",
+        "type": "click",
+        "ms": 41.89999997615814
+      },
+      {
+        "key": "centre-cannon",
+        "type": "click",
+        "ms": 55.60000002384186
+      },
+      {
+        "key": "fire-action",
+        "type": "click",
+        "ms": 44.799999952316284
+      },
+      {
+        "key": "war-cry",
+        "type": "input",
+        "ms": 26.300000071525574
+      },
+      {
+        "key": "owner",
+        "type": "click",
+        "ms": 26.699999928474426
+      },
+      {
+        "key": "amount",
+        "type": "click",
+        "ms": 22
+      },
+      {
+        "key": "text",
+        "type": "click",
+        "ms": 25.600000023841858
+      },
+      {
+        "key": "recipient-reveal",
+        "type": "click",
+        "ms": 6.399999976158142
+      },
+      {
+        "key": "recipient-reveal",
+        "type": "click",
+        "ms": 24.799999952316284
+      },
+      {
+        "key": "quantity-plus",
+        "type": "click",
+        "ms": 25
+      },
+      {
+        "key": "keep-instructions",
+        "type": "click",
+        "ms": 26.600000023841858
+      },
+      {
+        "key": "quantity-plus",
+        "type": "click",
+        "ms": 24.90000009536743
+      },
+      {
+        "key": "replace-instructions",
+        "type": "click",
+        "ms": 23.800000071525574
+      },
+      {
+        "key": "text",
+        "type": "click",
+        "ms": 42
+      },
+      {
+        "key": "payer-change",
+        "type": "click",
+        "ms": 28.699999928474426
+      },
+      {
+        "key": "sending-account",
+        "type": "input",
+        "ms": 4.700000047683716
+      },
+      {
+        "key": "identity-save",
+        "type": "click",
+        "ms": 24.100000023841858
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 22
+      },
+      {
+        "key": "identify-button",
+        "type": "click",
+        "ms": 20.600000023841858
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 42
+      },
+      {
+        "key": "status-button",
+        "type": "click",
+        "ms": 24.199999928474426
+      },
+      {
+        "key": "close-panel",
+        "type": "click",
+        "ms": 20.399999976158142
+      },
+      {
+        "key": "centre-cannon",
+        "type": "click",
+        "ms": 23.899999976158142
+      },
+      {
+        "key": "move-action",
+        "type": "click",
+        "ms": 48.700000047683716
+      },
+      {
+        "key": "build-action",
+        "type": "click",
+        "ms": 41.60000002384186
+      },
+      {
+        "key": "deflect-action",
+        "type": "click",
+        "ms": 34.39999997615814
+      },
+      {
+        "key": "NE",
+        "type": "click",
+        "ms": 34.800000071525574
+      },
+      {
+        "key": "SE",
+        "type": "click",
+        "ms": 39.39999997615814
+      },
+      {
+        "key": "SW",
+        "type": "click",
+        "ms": 39.299999952316284
+      },
+      {
+        "key": "NW",
+        "type": "click",
+        "ms": 37
+      }
+    ],
+    "errors": [],
+    "blocked_updates": []
+  }
+}

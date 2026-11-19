@@ -1,0 +1,12 @@
+{
+  "status": "PASS",
+  "at": "2026-11-19T09:22:57.016Z",
+  "canister": "s2jxj-liaaa-aaaas-amynq-cai",
+  "inventory_sha256": "3ea59d7c6d8df7a2f1aa7bb2ce27e7e48243e021dca4abcadaea1dd85cd3c909",
+  "javascript_sha256": "f82a845e7b7d33e883e659bc68d390f1944e0b925e6d541264785af511dff12c",
+  "signed_public_inventory_count": 80,
+  "verified_identity_http_v2_responses": 80,
+  "verified_alternate_gzip_responses": 4,
+  "frontend_canister_module_unchanged": true,
+  "deployed_recovery_path": ".work/premium-graphite/combined/stage"
+}
