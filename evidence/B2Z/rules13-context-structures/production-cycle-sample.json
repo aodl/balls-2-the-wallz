@@ -198,6 +198,52 @@
         "total_converted_e8s": "99990000",
         "total_cycles_reported": "1766023380000"
       }
+    },
+    {
+      "at": "2026-11-19T21:25:49Z",
+      "total_cycles": 2770454243668,
+      "liquid_cycles": 2713639128148,
+      "pace": {
+        "admission_open": true,
+        "mode": "Trickle",
+        "nominal_milli": 10,
+        "performance_limited": false,
+        "supported_milli": 10
+      },
+      "completed_segments": "12609",
+      "callbacks": "12609",
+      "work_units": "2875773",
+      "started_instruction_metrics": {
+        "last_instructions": "231395017",
+        "last_persist_instructions": "46302618",
+        "last_publish_instructions": "23275347",
+        "last_seal_instructions": "48177754",
+        "last_step_instructions": "66736772",
+        "max_actions": 3,
+        "max_instructions": "266428271",
+        "messages": "986",
+        "persist_instructions": "46678650992",
+        "publish_instructions": "23398927421",
+        "seal_instructions": "47957970623",
+        "step_instructions": "66947649712"
+      },
+      "funding_phase": {
+        "Idle": null
+      },
+      "funding_error": [
+        "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+      ],
+      "conversion_totals": {
+        "total_converted_e8s": "99990000",
+        "total_cycles_reported": "1766023380000"
+      }
     }
-  ]
+  ],
+  "extended_interval": {
+    "seconds": 5881,
+    "delta_cycles": 25647705823,
+    "completed_segments": 59,
+    "net_cycles_per_publication": 434706878,
+    "illustrative_cycles_per_day": 376800167167
+  }
 }

@@ -8,6 +8,8 @@ Rules13 adds no timers or periodic queries. Lookup examines at most 49 neighbour
 
 The longer read-only interval from 19:47:48 to 20:24:36 UTC covered 22 completed publications and callbacks. Total cycles fell by 9,572,897,773 over 2,208 seconds, averaging 435,131,717 net cycles per completed tick and an illustrative 0.375T cycles/day. Both endpoints were Trickle with open admission; the conversion counters were unchanged. This is a quiet Rules12 observation and includes source and scheduled overhead. [Read-only samples](production-cycle-sample.json)
 
+A final controller read at 21:25:49 UTC extended the baseline to 5,881 seconds and 59 publications. Total cycles fell by 25,647,705,823, or about 435 million net cycles per publication and an illustrative 0.377T cycles/day. The final total was 2,770,454,243,668 cycles, of which 2,713,639,128,148 were reported liquid. Trickle, open admissions, zero pending records and unchanged conversion totals persisted across the sampled endpoints. The retained idle funding error was an `icrc1_balance_of` deadline, while the game source reported no error. [Extended read-only sample](production-cycle-sample.json)
+
 ## Matched disposable Trickle
 
 Each pair ran one measured logical tick on equivalent starting terrain, trajectory and structure data against the exact retained Rules12 normal module and the locally frozen Rules13 normal module. After execution the logical state hashes agreed. The game-state comparison fixes only the independent test clocks' observed wall-clock completion field to the common genesis value.
