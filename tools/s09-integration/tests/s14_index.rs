@@ -4657,7 +4657,31 @@ fn million_browser_output_isolation_preserves_existing_evidence() {
         std::fs::read(legacy.join("historical-evidence")).unwrap(),
         b"legacy"
     );
+    let first = vec![serde_json::json!({"segment_id": 1})];
+    let second = vec![serde_json::json!({"segment_id": 2})];
+    let timing = sustained.join("publication-timing.json");
+    publish_browser_timing(&sustained, &first);
+    let in_flight = std::fs::File::open(&timing).unwrap();
+    publish_browser_timing(&sustained, &second);
+    assert_eq!(
+        serde_json::from_reader::<_, Vec<serde_json::Value>>(in_flight).unwrap(),
+        first
+    );
+    assert_eq!(
+        serde_json::from_reader::<_, Vec<serde_json::Value>>(
+            std::fs::File::open(&timing).unwrap()
+        )
+        .unwrap(),
+        second
+    );
     std::fs::remove_dir_all(base).unwrap();
+}
+
+fn publish_browser_timing(out: &Path, rows: &[serde_json::Value]) {
+    let staged = out.join("publication-timing.json.tmp");
+    std::fs::write(&staged, serde_json::to_vec_pretty(rows).unwrap()).unwrap();
+    // Python reads while the installed-game driver is still recording snapshots.
+    std::fs::rename(staged, out.join("publication-timing.json")).unwrap();
 }
 
 fn million_browser_qualification(sustained: bool) {
@@ -4791,11 +4815,7 @@ fn million_browser_qualification(sustained: bool) {
                 publication_timing.push(serde_json::json!({"segment_id":current.run.completed_segments,"publication_ticks":current.run.publication_ticks.expect("publication tick count"),"query_started_epoch_ms":query_started_epoch_ms,"query_completed_epoch_ms":query_completed_epoch_ms,"first_observed_replica_time_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"wall_seconds":began.elapsed().as_secs_f64(),"status_query_ms":query_started.elapsed().as_secs_f64()*1000.,"pace":current.run.pace}));
                 last_observed = current.run.completed_segments;
             }
-            std::fs::write(
-                out.join("publication-timing.json"),
-                serde_json::to_vec_pretty(&publication_timing).unwrap(),
-            )
-            .unwrap();
+            publish_browser_timing(&out, &publication_timing);
             next_observation = std::time::Instant::now() + Duration::from_secs(2);
         }
         // make_live owns wall-clock progression. Explicit tick() calls here
@@ -4820,11 +4840,7 @@ fn million_browser_qualification(sustained: bool) {
     );
     let world = arena_world(&pic, id);
     assert_eq!((world.width, world.height), (1000, 1000));
-    std::fs::write(
-        out.join("publication-timing.json"),
-        serde_json::to_vec_pretty(&publication_timing).unwrap(),
-    )
-    .unwrap();
+    publish_browser_timing(&out, &publication_timing);
     pic.stop_live();
     assert!(
         std::process::Command::new("node")
