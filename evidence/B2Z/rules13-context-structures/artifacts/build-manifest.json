@@ -1,5 +1,5 @@
 {
-  "source_commit": "e9942e38fc57510a2659cd1dd6c9b0df1771ac11",
+  "source_commit": "444f9166f9e56da2137b954d021ac7d647691bb8",
   "source_dirty": false,
   "canister_ids_sha256": "838d16de7c4ccc713442d6220ecb1b6305b6ddc8ca93d93cae0646c731304deb",
   "local_test_only": false,
@@ -175,16 +175,16 @@
   "configuration": "configuration.bin",
   "files": {
     "index.html": {
-      "sha256": "353ab4660f4c5268431c34d178a7fb2743a1080932a951b62f0d5fa06c243a74",
-      "bytes": 15750
+      "sha256": "66c07c27af42c86995f172ce4ce7502a13367142e58795f01346839954f26f18",
+      "bytes": 15958
     },
     "app.mjs": {
       "sha256": "0f05aab6522f57f0f2e03003a3e710a8c039f2bafda921d2af5a7c6965af7e71",
       "bytes": 1121823
     },
     "style.css": {
-      "sha256": "f509c85a748b5c82485b7e1b8f4bb9a5ff1a6ea120e4d49f05abd940dd387db2",
-      "bytes": 36866
+      "sha256": "ee2c681cb86a3e00e6e9074cfd3db5938fc7ab02ffb4ac9f83309f9227f8b529",
+      "bytes": 36781
     },
     "icon.svg": {
       "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
@@ -253,6 +253,26 @@
     "backend.did": {
       "sha256": "b6ff891dc7e6e60efb6645c04d7658812d2c35a8fd8310b098956addb4c0a423",
       "bytes": 13515
+    },
+    "balls-to-the-wallz-b2z-wordmark.svg": {
+      "sha256": "0e5090613b73948228b406845244f7eb0d42df9a3ed0a2fc6fb2b5398066296b",
+      "bytes": 10981
+    },
+    "balls-to-the-wallz-b2-icon-matched.svg": {
+      "sha256": "42bd1317cbf53a0566b24e8ef477d0de759aeaae914b27fa3718e9829a87d872",
+      "bytes": 12829
+    },
+    "favicon.ico": {
+      "sha256": "e34ccbadc26ea0c6745d275041daea741ebc9fbba1899d59ae14e54fcffccceb",
+      "bytes": 66640
+    },
+    "404.html": {
+      "sha256": "66d908c0d86ad70b61f5183b3688ccda9aabe4f049100198a7e7e21526776988",
+      "bytes": 1128
+    },
+    "not-found.css": {
+      "sha256": "af3eb000ef7ab32449807d4cce89174a7039a891ddbac10ca3b16633f44b14f4",
+      "bytes": 2265
     },
     "audio/b2z-v1/manifest.json": {
       "sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
@@ -514,7 +534,7 @@
     "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622": "configuration-legacy.bin"
   },
   "base_builder_sha256": "915e0e0ca6ff6c31a6252832e1dbc03fcab21a3f1763689ec1d5f40c9b610d38",
-  "playability_wrapper_sha256": "e8fd9596bb05f6f1fc1aa82f174df2a08f42aa83f5cbdc1286fbce830c17bb7c",
+  "playability_wrapper_sha256": "632e06e7ffc64231a35747ec57cd787d322f14165b6298c03c0ac739c3192a81",
   "mcp_service_discovery": "INACTIVE; no architecture manifest or terms opt-in",
   "audio_assets_builder_sha256": "0bb1df499c184a9f9a617b085d8b07ac6bc434fd4ced0d4e811bc483833943e0",
   "audio": {

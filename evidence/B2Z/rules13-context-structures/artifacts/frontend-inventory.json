@@ -5,6 +5,11 @@
     "bytes": 3895
   },
   {
+    "path": "404.html",
+    "sha256": "66d908c0d86ad70b61f5183b3688ccda9aabe4f049100198a7e7e21526776988",
+    "bytes": 1128
+  },
+  {
     "path": "agent-api.md",
     "sha256": "94fb88adb23d20a0e50741abc07d84fa6c09dbb80462b96a5bdad6a1d45f8ea0",
     "bytes": 7294
@@ -325,9 +330,19 @@
     "bytes": 13515
   },
   {
+    "path": "balls-to-the-wallz-b2-icon-matched.svg",
+    "sha256": "42bd1317cbf53a0566b24e8ef477d0de759aeaae914b27fa3718e9829a87d872",
+    "bytes": 12829
+  },
+  {
+    "path": "balls-to-the-wallz-b2z-wordmark.svg",
+    "sha256": "0e5090613b73948228b406845244f7eb0d42df9a3ed0a2fc6fb2b5398066296b",
+    "bytes": 10981
+  },
+  {
     "path": "build-manifest.json",
-    "sha256": "a037f57295ee9612d05ac21f2760967bd43fbe8f3c52718fb5ce8b6c7b8fb422",
-    "bytes": 23955
+    "sha256": "0d301cd19ae72a70e440062c0eded711ef375491dc4a65796370a6339c4c25f9",
+    "bytes": 24668
   },
   {
     "path": "configuration-clearance.bin",
@@ -395,18 +410,28 @@
     "bytes": 89
   },
   {
+    "path": "favicon.ico",
+    "sha256": "e34ccbadc26ea0c6745d275041daea741ebc9fbba1899d59ae14e54fcffccceb",
+    "bytes": 66640
+  },
+  {
     "path": "icon.svg",
     "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
     "bytes": 235
   },
   {
     "path": "index.html",
-    "sha256": "353ab4660f4c5268431c34d178a7fb2743a1080932a951b62f0d5fa06c243a74",
-    "bytes": 15750
+    "sha256": "66c07c27af42c86995f172ce4ce7502a13367142e58795f01346839954f26f18",
+    "bytes": 15958
+  },
+  {
+    "path": "not-found.css",
+    "sha256": "af3eb000ef7ab32449807d4cce89174a7039a891ddbac10ca3b16633f44b14f4",
+    "bytes": 2265
   },
   {
     "path": "style.css",
-    "sha256": "f509c85a748b5c82485b7e1b8f4bb9a5ff1a6ea120e4d49f05abd940dd387db2",
-    "bytes": 36866
+    "sha256": "ee2c681cb86a3e00e6e9074cfd3db5938fc7ab02ffb4ac9f83309f9227f8b529",
+    "bytes": 36781
   }
 ]

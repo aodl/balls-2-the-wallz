@@ -228,12 +228,22 @@ jobs:
           python -B tools/verify_audio_visibility.py --fixture-dir .work/ci-audio/assets --policy-dir .work/ci-audio/policy-build --output .work/ci-audio-visibility
       - name: Four-direction controls, exact clipboard and frozen-copy fixture
         run: python -B tools/verify_boundary_deflector_browser.py --output .work/ci-boundary-controls
+      - name: Frozen official emblems, header and standalone not-found browser acceptance
+        run: |
+          python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules13-context-structures/artifacts --output .work/ci-branding-freeze
+          python -B tools/serve_observer.py --deployment-assets .work/ci-branding-freeze/reproduced --port 8199 > .work/ci-branding-server.log 2>&1 &
+          observer_pid=$!
+          trap 'kill "$observer_pid"' EXIT
+          curl --fail --silent --retry 10 --retry-connrefused http://127.0.0.1:8199/404.html > /dev/null
+          python -B tools/verify_observer_branding_browser.py --url http://127.0.0.1:8199 --output .work/ci-branding
       - name: Upload browser evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
         with:
           name: browser-evidence
           path: |
+            .work/ci-branding/**
+            .work/ci-branding-server.log
             .work/ci-browser/environment.json
             .work/ci-browser/verification.json
             .work/ci-browser/logs/**

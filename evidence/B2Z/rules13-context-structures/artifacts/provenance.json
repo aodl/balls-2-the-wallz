@@ -1,10 +1,14 @@
 {
-  "source": "e9942e38fc57510a2659cd1dd6c9b0df1771ac11",
+  "source": "444f9166f9e56da2137b954d021ac7d647691bb8",
   "source_dirty": false,
   "normal_wasm_sha256": "8b9e47efc766b71a049f70154b4e5081f870bbfa4d367f412ec464b8d45e41ae",
   "normal_wasm_scope": "Local Linux candidate; hosted qualification archives the exact normal module from its own build.",
-  "inventory_sha256": "44d8acd5e3d8f7c1758f7c1d8eea62344aef64b3995482cb4db181d791bc9b0a",
+  "inventory_sha256": "0937150728a7957b11d72189b9dd606f1a9207882a9fe7e6151cfe088d91dcd5",
   "inputs": [
+    {
+      "path": "apps/b2z-observer/404.html",
+      "sha256": "66d908c0d86ad70b61f5183b3688ccda9aabe4f049100198a7e7e21526776988"
+    },
     {
       "path": "apps/b2z-observer/action-quote-v6.mjs",
       "sha256": "98fea4c6f069ab269b9238ce796a1dfa3c42614f397c78610ebe1cb400dba09c"
@@ -302,6 +306,14 @@
       "sha256": "1d5762d4c5eda7a495d241b3e7f5012452fdee10ecb6568a19d75ed0a4dde2de"
     },
     {
+      "path": "apps/b2z-observer/balls-to-the-wallz-b2-icon-matched.svg",
+      "sha256": "42bd1317cbf53a0566b24e8ef477d0de759aeaae914b27fa3718e9829a87d872"
+    },
+    {
+      "path": "apps/b2z-observer/balls-to-the-wallz-b2z-wordmark.svg",
+      "sha256": "0e5090613b73948228b406845244f7eb0d42df9a3ed0a2fc6fb2b5398066296b"
+    },
+    {
       "path": "apps/b2z-observer/bounded-observation.mjs",
       "sha256": "971266822b595269c249bf3bbd67ddd748db810495094faed6158595143c0f92"
     },
@@ -406,6 +418,10 @@
       "sha256": "b2e9309f92f7724c308646f4edc4e09b2c90f9de0d613519277d8b55a9c158d5"
     },
     {
+      "path": "apps/b2z-observer/favicon.ico",
+      "sha256": "e34ccbadc26ea0c6745d275041daea741ebc9fbba1899d59ae14e54fcffccceb"
+    },
+    {
       "path": "apps/b2z-observer/guide-clearance.mjs",
       "sha256": "81af1f36bbf86af18a77ee2ce2bbedaf211282b9f6b9c9c9eacaae4686a2e41c"
     },
@@ -427,7 +443,7 @@
     },
     {
       "path": "apps/b2z-observer/index.html",
-      "sha256": "89c3a2bff2a4bdc0f71bb7c2780ff3555fc6fd4b278a55c881f2722c15cbb4cc"
+      "sha256": "b55b112387df138b1e8821f3272372cafd6e75d8e192501ffb4072cd50b72897"
     },
     {
       "path": "apps/b2z-observer/interaction.mjs",
@@ -464,6 +480,10 @@
     {
       "path": "apps/b2z-observer/motion-effects.mjs",
       "sha256": "e2f5544325b4e2d99a3e4fd10ae3672fcf11b1f75102593090124a7ddb3a9c60"
+    },
+    {
+      "path": "apps/b2z-observer/not-found.css",
+      "sha256": "af3eb000ef7ab32449807d4cce89174a7039a891ddbac10ca3b16633f44b14f4"
     },
     {
       "path": "apps/b2z-observer/observation-loop.mjs",
@@ -1295,7 +1315,7 @@
     },
     {
       "path": "apps/b2z-observer/style.css",
-      "sha256": "f509c85a748b5c82485b7e1b8f4bb9a5ff1a6ea120e4d49f05abd940dd387db2"
+      "sha256": "ee2c681cb86a3e00e6e9074cfd3db5938fc7ab02ffb4ac9f83309f9227f8b529"
     },
     {
       "path": "apps/b2z-observer/terrain-surface.mjs",
@@ -1915,7 +1935,7 @@
     },
     {
       "path": "tools/build_observer_playability.mjs",
-      "sha256": "e8fd9596bb05f6f1fc1aa82f174df2a08f42aa83f5cbdc1286fbce830c17bb7c"
+      "sha256": "632e06e7ffc64231a35747ec57cd787d322f14165b6298c03c0ac739c3192a81"
     }
   ],
   "backend_inputs": [
