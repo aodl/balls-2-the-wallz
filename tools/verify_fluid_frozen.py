@@ -21,7 +21,7 @@ with sync_playwright()as pw:
     if page.locator('#roster-view').is_visible():page.locator('#own-cannons button').first.click()
     if page.locator('#locate-context').is_visible():page.locator('#locate-context').click()
     page.locator('#fire-action').click();set_heading(page,'45');page.wait_for_timeout(1000)
-    if not page.locator('#transfer-controls').evaluate('(n)=>n.disabled'):
+    if not page.locator('[data-copy=text]').is_disabled():
      memo=page.locator('#text-memo').inner_text();assert memo==f'FIRE {world["cannons"][0]["id"]} 255 1';assert page.locator('#full-recipient').text_content()==world['source']['owner'];assert page.locator('#full-payer').text_content()==sender;expect(page.locator('#payment-risk')).to_contain_text('no automatic refunds');page.locator('[data-copy="text"]').click();page.wait_for_function('(m)=>copied.at(-1)===m',arg=memo);set_heading(page,'90');expect(page.locator('#replace-choice')).to_be_visible();page.locator('#keep-instructions').click();expect(page.locator('#text-memo')).to_have_text(memo);handoff={'memo':memo,'utf8':list(memo.encode()),'amount':page.locator('#transfer-amount').inner_text(),'payer':sender}
     else:handoff={'unavailable_reason':page.locator('#preparation-note').inner_text(),'scope':'No admission bypass; disposable fixtures qualify payment interactions.'}
     page.screenshot(path=str(out/f'{w}-verified.png'));assert page.evaluate('()=>{const c=__b2zExperience.clock,q=__b2zExperience.queue;document.getElementById("close-panel").click();return c===__b2zExperience.clock&&q===__b2zExperience.queue}')

@@ -15,6 +15,19 @@ export function retainLatestVerifiedInterval(session,limits){
  if(skipped){session.clock.playhead=at;session.presentationSkip=true;}
  return skipped;
 }
+/** Renew authority only after the already-verified ticket reaches the accepted
+ * sequence floor. Retained predecessors and rejected replica replies cannot
+ * change the certificate attached to the latest complete reference world. */
+export function acceptObservationFreshness(s,ticket,now,wallNow=Date.now()){
+ if(s.sequence.last?.root_hash!==ticket.root_hash)return false;
+ const head=ticket.publication.head.segment_id,ns=String(ticket.certificate_time_ns);
+ if(s.pendingAuthorityHead!==undefined&&head!==null&&head>=s.pendingAuthorityHead)delete s.pendingAuthorityHead;
+ // An older signed witness for the identical root cannot replace a fresher one.
+ if(s.freshnessRoot===ticket.root_hash&&BigInt(ns)<BigInt(s.certificateTimeNs))return false;
+ s.freshnessRoot=ticket.root_hash;s.certificateTimeNs=ns;
+ s.certificateAgeMs=wallNow-Number(BigInt(ns)/1000000n);s.certifiedAt=now;
+ return true;
+}
 /** A received response does not make an old certificate fresh. Use both clocks. */
 export function freshObservation(s,now,wallNow=Date.now()){
  if(!Number.isFinite(s?.certifiedAt)||now<s.certifiedAt)return false;

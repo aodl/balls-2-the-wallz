@@ -6,7 +6,9 @@ PANEL_SNAPSHOT = r'''(tag)=>{
  const f=fixture,c=document.getElementById('workspace'),body=c.querySelector('.panel-body'),scroll=c.querySelector('.panel-scroll'),content=c.querySelector('.panel-content');
  const rect=n=>n.getBoundingClientRect().toJSON(),text=id=>document.getElementById(id).textContent;
  const summary=f.summary();
- return {tag,at:performance.now(),action:f.proposal(),selected:summary.selected,prepared:!document.getElementById('prepared-card').hidden,disabled:document.getElementById('transfer-controls').disabled,
+ return {tag,at:performance.now(),action:f.proposal(),selected:summary.selected,prepared:!document.getElementById('prepared-card').hidden,disabled:[...c.querySelectorAll('[data-copy]')].map(button=>button.disabled),
+  local:['payer-reveal','payer-change','recipient-reveal','close-panel'].map(id=>document.getElementById(id).disabled),
+  central:!document.getElementById('motion-wait').hidden,
   values:Object.fromEntries(['transfer-amount','payment-owner','text-memo','paying-account','payment-risk'].map(id=>[id,text(id)])),
   workspace:rect(c),header:rect(c.querySelector('.panel-header')),body:rect(body),content:{height:content.getBoundingClientRect().height,scrollHeight:content.scrollHeight},scroll:{height:scroll.clientHeight,scrollHeight:scroll.scrollHeight,top:scroll.scrollTop},
   target:c.style.getPropertyValue('--body-height'),space:c.style.getPropertyValue('--body-space'),cache:f.shell.layoutState?.()??null,
@@ -34,22 +36,61 @@ def verify_status_geometry(page,output=None,prefix='panel'):
  install_capture(page);apply_status(page,{})
  settled_panel(page)
  page.evaluate('window.panelPinnedWorld=fixture.world();fixture.markClock();const n=document.querySelector(".panel-scroll");n.scrollTop=Math.min(60,n.scrollHeight-n.clientHeight)')
- base=page.evaluate('capturePanelGeometry("baseline")');assert base['prepared']and not base['disabled'],base
+ base=page.evaluate('capturePanelGeometry("baseline")');assert base['prepared']and base['disabled']==[False]*3,base
  assert base['cache']is None or not base['cache']['dirty']and not base['cache']['pendingFrame'],base
  rows=[]
  for label,override in STATUS_CASES:
   samples=sample_transition(page,label,override);settled_panel(page);samples.append(page.evaluate('label=>capturePanelGeometry(label+"-settled")',label))
-  expected_disabled=bool(override.get('deliveryError')or override.get('operationalFresh')is False)
+  expected_disabled=bool(override.get('deliverySustained') or override.get('fresh') is False or override.get('operationalFresh') is False)
   for sample in samples:
-   if not sample['tag'].endswith('-before'):assert sample['disabled']==expected_disabled,(label,sample)
+   if not sample['tag'].endswith('-before'):assert sample['disabled']==[expected_disabled]*3,(label,sample)
+   assert sample['local']==[False]*4 and not sample['central'],(label,sample)
    assert sample['prepared']and sample['values']==base['values'],(label,base,sample)
    assert sample['action']==base['action']and sample['selected']==base['selected'],(label,base,sample)
    assert sample['camera']==base['camera']and not sample['cameraActive'],(label,base,sample)
    assert sample['clock']==base['clock']and sample['queue']==base['queue']and sample['time']==base['time']and sample['sameClock']and sample['sameWorld'],(label,base,sample)
    assert abs(sample['scroll']['top']-base['scroll']['top'])<=1,(label,base,sample)
-   assert 'Reconnecting'not in sample['bodyText'],(label,sample)
+   assert 'Connection delayed' not in sample['bodyText'],(label,sample)
    for part in ['workspace','header','body']:
     assert all(abs(sample[part][k]-base[part][k])<=1 for k in ['x','y','width','height']),(label,part,base,sample)
   rows.append({'case':label,'disabled':expected_disabled,'samples':samples})
   if output:(output/(prefix+'-status-geometry.json')).write_text(json.dumps({'baseline':base,'transitions':rows},indent=2)+'\n')
  return {'baseline':base,'transitions':rows,'max_drift_px':max(abs(sample['workspace'][k]-base['workspace'][k])for row in rows for sample in row['samples']for k in ['x','y','width','height'])}
+
+
+def verify_independent_controls(page):
+ """Exercise the generated browser handoff and real keyboard Copy at stale authority."""
+ apply_status(page,{})
+ page.locator('#fire-action').click()
+ settled_panel(page)
+ memo=page.locator('#text-memo')
+ original=memo.text_content()
+ page.evaluate("""()=>{
+  const clipboard=navigator.clipboard;
+  clipboard.writeText=async()=>{throw new DOMException('Controlled write denial','NotAllowedError')};
+  window.blockedNativeCopy=[];
+  document.addEventListener('copy',event=>blockedNativeCopy.push({trusted:event.isTrusted,cancelled:event.defaultPrevented}));
+ }""")
+ page.locator('[data-copy=text]').click()
+ page.locator('#manual-copy').wait_for(state='visible')
+ assert page.locator('#manual-value').input_value()==original
+ apply_status(page,{'operationalFresh':False})
+ assert page.locator('#manual-value').is_disabled() and page.locator('#manual-handoff').is_disabled()
+ assert all(button.is_disabled() for button in page.locator('[data-copy]').all())
+ page.locator('#recipient-reveal').focus()
+ page.keyboard.press('Enter')
+ assert page.locator('#full-recipient').is_visible()
+ page.keyboard.press('Control+c')
+ page.wait_for_function('()=>blockedNativeCopy.some(event=>event.trusted&&event.cancelled)')
+ page.locator('#payer-reveal').focus()
+ page.keyboard.press('Enter')
+ assert page.locator('#full-payer').is_visible()
+ page.locator('#quantity-plus').click()
+ assert memo.text_content()!=original
+ assert page.locator('[data-copy=text]').is_disabled()
+ page.locator('#payer-change').focus()
+ page.keyboard.press('Enter')
+ assert page.locator('#identity-form').is_visible()
+ assert page.locator('#sending-account').evaluate('node=>node===document.activeElement')
+ apply_status(page,{})
+ return {'native_copy_blocked':True,'manual_handoff_blocked':True,'from_to_inspection':True,'local_quantity':True,'payer_reassociation':True}

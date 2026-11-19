@@ -10,7 +10,7 @@ test('UX-06 precedence distinguishes producer, verification, delivery and presen
  const slow={...base.operational,run:{...base.operational.run,pace:{mode:'Trickle',supported_milli:10,admission_open:true}}};
  assert.equal(status({operational:slow}).label,'Slow');assert.equal(status({operational:slow,phase:'BUFFERING'}).label,'Waiting for next on-chain update');
  assert.equal(status({operational:slow,phase:'ERROR'}).label,'Unable to verify game data.');
- assert.equal(status({operational:slow,fresh:false}).label,'Reconnecting');
+ assert.equal(status({operational:slow,fresh:false}).label,'Verification delayed');
  const protectedRun={...slow,run:{...slow.run,pace:{mode:'ReserveProtection',admission_open:false}}};
  assert.equal(status({operational:protectedRun}).label,'Game paused · low energy');assert.equal(status({operational:protectedRun,fundingActive:true}).label,'Refuelling');
  assert.equal(status({operational:{...protectedRun,run:{...protectedRun.run,running:false}}}).label,'Game paused');
@@ -37,17 +37,52 @@ test('UX-12 effects use displayed displacement, unwrap seams and clear discontin
  assert.ok(sample(.2,1,.3,500).length>0,'UXR-08 tile wake holds then fades independently of tails');assert.equal(sample(.2,1,.3,2300).length,0);assert.equal(sample(500,500,.4,600).length,0);
  m.reset();assert.equal(sample(.5,1,.5,700).length,0);assert.equal(sample(.7,1,.6,800,{reducedMotion:true}).length,0);
 });
-test('UX-06 network failure is reconnecting; verification failure never leaves copying enabled',()=>{
- assert.equal(status({phase:'ERROR',failureKind:'delivery',deliveryError:'Failed to fetch'}).label,'Reconnecting');
- assert.equal(status({phase:'PLAYING',failureKind:'verification',deliveryError:'artifact integrity'}).label,'Unable to verify game data.');
- assert.equal(status({phase:'PLAYING',failureKind:'verification',deliveryError:'artifact integrity'}).canPrepare,false);
- assert.equal(status({phase:'PLAYING',failureKind:'delivery',deliveryError:'Failed to fetch'}).canPrepare,false);
+test('UX-06 transport, authority and verifier states are independent',()=>{
+ const recentLoss={failureKind:'delivery',deliveryError:'HTTP 503'};
+ assert.equal(status({...recentLoss,verified:false}).label,'Connection delayed · retrying');
+ assert.equal(status(recentLoss).label,'Live');
+ assert.equal(status(recentLoss).canPrepare,true,'recent certified and operational authority still applies');
+ for(const input of [{...recentLoss,deliverySustained:true},{...recentLoss,fresh:false}]){
+  assert.equal(status(input).label,'Connection delayed · retrying');
+  assert.equal(status(input).canPrepare,false);
+ }
+ assert.equal(status({authorityPending:true}).canPrepare,false);
+ assert.equal(status({operationalFresh:false}).label,'Copy unavailable');
+ assert.equal(status({operationalFresh:false}).canPrepare,false);
+ assert.equal(status({failureKind:'verification',deliverySustained:true}).label,'Unable to verify game data.');
+ assert.equal(status({failureKind:'verification'}).canPrepare,false);
+ assert.equal(status({}).label,'Live','recovery clears the global warning without a hold timer');
 });
 
-test('UX-06 optional operational loss never masquerades as delivery; readiness changes without label flicker',async()=>{
- const {experienceResolver}=await import('../../apps/b2z-observer/experience-status.mjs'),resolve=experienceResolver();
- assert.equal(resolve(base,0).label,'Live');assert.equal(resolve({...base,operationalFresh:false},100).label,'Live');assert.equal(resolve({...base,operationalFresh:false},100).canPrepare,false);
- const failed={...base,deliveryError:'HTTP 503',failureKind:'delivery'};assert.equal(resolve(failed,200).label,'Live');assert.equal(resolve(failed,200).canPrepare,false);assert.equal(resolve(failed,901).label,'Reconnecting');assert.equal(resolve(base,1000).label,'Reconnecting');assert.equal(resolve(base,2200).label,'Live');assert.equal(resolve({...base,failureKind:'verification'},2201).kind,'verification-error');
+test('only current-root acceptance renews authority and older witnesses cannot shorten it',async()=>{
+ const {acceptObservationFreshness,freshObservation}=await import('../../apps/b2z-observer/warm-return.mjs');
+ const ticket=(root_hash,head,ms)=>({root_hash,certificate_time_ns:BigInt(ms)*1000000n,publication:{head:{segment_id:BigInt(head)}}});
+ const good=ticket('accepted',21,9000),old=ticket('rejected',20,1000),s={sequence:{last:good}};
+ assert(acceptObservationFreshness(s,good,1000,10000));
+ assert.equal(acceptObservationFreshness(s,old,5000,14000),false);
+ assert.equal(acceptObservationFreshness(s,ticket('accepted',21,2000),5000,14000),false);
+ assert.equal(s.certificateTimeNs,'9000000000');
+ assert(freshObservation(s,9000,18000));
+ assert(!freshObservation(s,31000,40000),'unchanged old witness must still expire');
+ s.pendingAuthorityHead=22n;
+ assert(acceptObservationFreshness(s,ticket('accepted',21,40000),32000,41000));
+ assert.equal(s.pendingAuthorityHead,22n,'accepted old head cannot clear the signed newer-head barrier');
+ const next=ticket('successor',22,41000);s.sequence.last=next;
+ assert(acceptObservationFreshness(s,next,33000,42000));
+ assert.equal(s.pendingAuthorityHead,undefined);
+});
+
+test('unchanged Trickle head is observed at bounded cadence without delaying fast producers',async()=>{
+ const {unchangedObservationMs,sustainedDelivery}=await import('../../apps/b2z-observer/live-delivery.mjs');
+ const rate=(milli,ticks=1)=>({run:{running:true,publication_ticks:ticks,pace:{supported_milli:milli}}});
+ assert.equal(unchangedObservationMs(),500);
+ assert.equal(unchangedObservationMs(rate(1000)),500);
+ assert.equal(unchangedObservationMs(rate(10)),4000);
+ assert.equal(unchangedObservationMs(rate(50,2)),2000);
+ const s={deliveryError:'HTTP 503',retryFailures:1,deliveryFailureSince:200};
+ assert.equal(sustainedDelivery(s,9000),false);
+ s.retryFailures=3;assert.equal(sustainedDelivery(s,2200),false);assert.equal(sustainedDelivery(s,2700),true);
+ delete s.deliveryError;assert.equal(sustainedDelivery(s,3000),false);
 });
 
 test('observation transport retires an ignored abort and fences its late response',async()=>{

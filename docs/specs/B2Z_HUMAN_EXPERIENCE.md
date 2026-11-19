@@ -1198,3 +1198,37 @@ contribute to geometry. Financial value rows, exact copying, editor reservations
 and operational freshness keep their existing contracts. Forced colours uses
 system outlines and removes decorative highlights. Reduced transparency uses
 solid surfaces with shallower shadows.
+
+#### Independent connectivity, playback and payment authority
+
+The HUD distinguishes delayed verified playback, sustained delivery failure,
+a stale accepted witness, unavailable operational confirmation, and a hard
+verification failure. Routine Trickle waits and background delivery retries do
+not obscure the last verified arena. Initial acquisition can use the centre
+spinner. An integrity error keeps its explicit Retry verification action.
+
+Only a verified witness for the complete accepted reference world can refresh
+its 30-second authority. An older witness for that same root never replaces a
+newer one. A signed newer head whose artifacts are incomplete fences quoting
+until the observer authenticates and admits the new reference world.
+Operational readiness retains its separate 15-second limit and lifecycle
+generation fence. A single transport error does not withdraw evidence that
+still satisfies both limits. Sustained delivery failure, known stale evidence,
+unhealthy processing, protection, pause and integrity failure block handoff.
+
+The three Copy controls and manual payment handoff carry the disabled state.
+From and To inspection, payer reassociation, local proposal editors, camera
+and Close remain usable with the retained world. API, native and manual Copy
+each recheck current authority at invocation. Copied packet Update/Keep rules
+and canonical bytes are unchanged.
+
+Steady unchanged-head reads follow the observed producer cadence, between
+500 ms and 4 s. Trickle normally checks every 4 s and refreshes promptly on
+observed producer progress or a visibility return. Reads accelerate toward
+the existing freshness deadline. Retained history binding, DTR chain checks,
+cryptographic expiry and bounded retry remain required.
+
+The contextual rail and panel now share a thin neutral join, one clean outline
+and a recessed lower inlay. Ready price and active action carry payer accents.
+Status colours are neutral, cyan, amber or red by meaning, and the fixed HUD
+area keeps routine status changes out of panel layout.

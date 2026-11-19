@@ -16,7 +16,7 @@
  --graphite-surface:linear-gradient(155deg,#29353a 0%,#222d30 36%,#182225 100%);
  --graphite-rail:linear-gradient(#414d51 0,#2b3539 17%,#20292d 60%,#141d20 100%);
  --graphite-raised:linear-gradient(#3c484c 0%,#303b3f 26%,#212c30 78%,#182226 100%);
- --graphite-seam:linear-gradient(90deg,#99aeb0,#607378 64%,#323f43);
+ --instrument-radius:7px;
  --graphite-depth:inset 0 1px #d9eeeb46,0 3px 6px #0008;
  --well-depth:inset 0 2px 4px #0008;
  --info-ink:#b4e5f7;
@@ -115,36 +115,22 @@ input,select,textarea{border-radius:6px}
 .panel-header{justify-content:flex-start;gap:4px}
 .panel-header h1{margin-right:auto}
 .panel[data-surface=context]{background:none;border:0;box-shadow:none;pointer-events:none}
-.panel[data-surface=context] .panel-header{width:calc(12px + var(--tool-count,5)*44px + (var(--tool-count,5) - 1)*4px);background:var(--graphite-rail);border:1px solid var(--graphite-edge);border-bottom-color:#121a1d;border-radius:7px 7px 3px 3px;box-shadow:inset 0 1px #d9eeeb62,0 3px #11191c,0 5px 6px #000a;pointer-events:auto;position:relative;z-index:1}
-.panel[data-surface=context][data-expanded=false] .panel-header{border-radius:7px}
+.panel[data-surface=context] .panel-header{width:calc(12px + var(--tool-count,5)*44px + (var(--tool-count,5) - 1)*4px);background:var(--graphite-rail);border:1px solid var(--graphite-edge);border-bottom-color:#5d6e71;border-radius:var(--instrument-radius) var(--instrument-radius) 0 0;box-shadow:inset 0 1px #d9eeeb4b,0 1px 2px #0006;pointer-events:auto;position:relative;z-index:1}
+.panel[data-surface=context][data-expanded=false] .panel-header{border-radius:var(--instrument-radius)}
 .panel .panel-body{padding:0;display:block;flex:none;height:var(--body-height,auto);max-height:var(--body-space,460px);overflow:hidden;transition:height 180ms ease,opacity 180ms ease;opacity:1}
 .panel .panel-scroll{height:100%;min-height:0;overflow-y:auto;overscroll-behavior:contain;padding:8px 10px 10px;pointer-events:auto}
+/* Match the visible rail join with one continuous rim. Keep the lower inlay
+   clear of the rounded footprint and the scrolling edge. */
 .panel[data-surface=context] .panel-body{
  position:relative;
- /* Metallic perimeter, stepped inside edge, and a quiet content plane. */
- background:linear-gradient(160deg,#293438,#1b2528) center / calc(100% - 10px) calc(100% - 10px) no-repeat,
-            linear-gradient(155deg,#526468,#273437 42%,#435459 92%,#222e32);
- border-radius:3px 9px 8px 8px;
- box-shadow:inset 0 0 0 1px #708387,inset 0 2px #becdcbb3,0 4px 0 #121b1e,0 7px 11px #0009
-}
-.panel[data-surface=context] .panel-body::before,
-.panel[data-surface=context] .panel-body::after{
- content:"";position:absolute;pointer-events:none
-}
-.panel[data-surface=context] .panel-body::before{
- top:0;left:1px;width:56px;height:11px;
- background:var(--graphite-seam);
- clip-path:polygon(0 100%,0 55%,7px 0,100% 0,calc(100% - 4px) 2px,9px 2px)
+ background:var(--graphite-surface);
+ border-radius:0 var(--instrument-radius) var(--instrument-radius) var(--instrument-radius);
+ box-shadow:inset 0 0 0 1px #728487,inset 0 -3px #141d21,0 4px 7px #0008
 }
 .panel[data-surface=context] .panel-body::after{
- bottom:1px;left:calc(50% - 28px);width:56px;height:2px;
- background:var(--graphite-seam);border-radius:1px
-}
-.panel[data-surface=context] .panel-body:has(#prepared-card:not([hidden]) #transfer-controls:enabled)::before{
- background:linear-gradient(90deg,var(--accent) 65%,#839a9a)
-}
-.panel[data-surface=context] .panel-body:has(#prepared-card:not([hidden]) #transfer-controls:enabled)::after{
- background:linear-gradient(90deg,transparent,var(--accent),transparent)
+ content:"";position:absolute;pointer-events:none;
+ bottom:3px;left:36%;right:36%;height:1px;border-radius:1px;
+ background:linear-gradient(90deg,transparent,#9eb1ad,transparent)
 }
 .panel[data-surface=context][data-expanded=false] .panel-body{padding:0;height:0;opacity:0;pointer-events:none;box-shadow:none}
 .panel[data-surface=context][data-expanded=false] .panel-scroll{padding-block:0;pointer-events:none}
@@ -198,13 +184,22 @@ input,select,textarea{border-radius:6px}
 /* Human playtest correction: conspicuous, nonblocking verified-coverage feedback. */
 #motion-wait{top:43%;gap:12px;font-size:.9rem;text-shadow:0 1px 5px #000,0 0 10px #ffffff55}
 .spinner{width:52px;height:52px;border-width:3px;box-shadow:0 0 14px #ffffff55}
-#motion-wait[data-kind=waiting] .spinner{animation:waiting-spin 1.2s linear infinite;opacity:1}
+#motion-wait[data-kind=connecting] .spinner{animation:waiting-spin 1.2s linear infinite;opacity:1}
 @media(prefers-reduced-motion:reduce){#motion-wait .spinner{animation:none}}
 
 .direction-pad{display:grid;grid-template-columns:repeat(3,44px);gap:3px;align-items:center;text-align:center}.direction-pad button{padding:5px}.direction-pad [aria-pressed=true]{background:#635137;border-color:var(--accent)}#join-direction{grid-column:1/-1}#join-direction legend{font-size:.85rem;color:var(--quiet)}
 
 /* Delivery labels cannot change chrome height or displace an open instrument. */
 #status-button{height:calc(2.6em + 10px);min-height:44px;padding:5px 9px;line-height:1.15;display:flex;align-items:center}#arena-note{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:2;overflow:hidden}
+#status-button{width:170px}
+#status-button[data-kind=delayed]{color:var(--info-ink)}
+#status-button:is([data-kind=delivery],[data-kind=stale],[data-kind=operational],[data-kind=source-error],[data-kind=protection]){
+ color:var(--warning-ink);border-color:#aa9167
+}
+#status-button:is([data-kind=verification-error],[data-kind=render-error]){
+ color:#ffd6d1;border-color:#c99591;background:#422a29
+}
+
 
 #cycles-display{width:150px;height:48px;min-height:48px;justify-content:center}#cycle-unavailable{white-space:normal;line-height:13px;text-align:left}#cycle-values{display:flex;flex-direction:column;gap:5px}
 /* Independent audio surface: no Fire/Move/Build slots or payment geometry. */
@@ -260,20 +255,20 @@ input,select,textarea{border-radius:6px}
 .payment-grid .identity-summary:hover{text-decoration:underline}
 .payment-grid #paying-account,.payment-grid #payment-owner{background:none;font-weight:650;white-space:nowrap;font-size:.9rem;overflow:hidden;text-overflow:clip;user-select:none}
 .payment-from #payer-change{margin-left:auto;flex:none}
-.payment-grid>[data-copy],.payment-grid #payer-change{width:44px;height:44px;min-height:44px;align-self:center;display:flex;justify-content:center;align-items:center;border:1px solid var(--line);border-radius:7px;padding:8px;margin-top:5px;margin-bottom:5px}
-#transfer-controls:enabled #transfer-amount{color:color-mix(in srgb,var(--accent) 85%,white)}
-#transfer-controls:disabled #transfer-amount{color:var(--quiet)}
+.payment-grid>[data-copy],.payment-grid #payer-change{width:44px;height:44px;min-height:44px;align-self:center;display:flex;justify-content:center;align-items:center;border:1px solid var(--line);border-radius:var(--instrument-radius);padding:8px;margin-top:5px;margin-bottom:5px}
+#transfer-controls[data-payment-ready=true] #transfer-amount{color:color-mix(in srgb,var(--accent) 85%,white)}
+#transfer-controls[data-payment-ready=false] #transfer-amount{color:var(--quiet)}
 .payment-grid>[data-copy]:enabled,.payment-grid #payer-change:enabled{
- border-top-color:#aabdbe;border-bottom-color:#53676b
+ border-top-color:#9eafb0;border-bottom-color:#697e81;box-shadow:inset 0 1px #d9eeeb26,0 1px 2px #0006
 }
 .payment-grid>[data-copy]:enabled:hover,.payment-grid #payer-change:enabled:hover{border-color:var(--accent)}
 .payment-grid>.payment-memo{grid-column:1/3;gap:12px;min-height:54px;padding-right:8px}
 .payment-memo #text-memo{overflow-wrap:anywhere;white-space:pre-wrap;unicode-bidi:plaintext;user-select:text;background:none;font-family:inherit;line-height:1.45;font-weight:650;padding:0}
 .payment-grid>.payment-inspection{grid-column:1/-1;min-height:44px;overflow-wrap:anywhere;display:flex;gap:8px;align-items:center}
 .payment-inspection>span:last-child{user-select:text;unicode-bidi:plaintext;min-width:0}
-.payment-information{display:flex;align-items:flex-start;gap:9px;border:1px solid #83bed5;border-radius:7px;background:linear-gradient(145deg,#253e49,#1c313a);box-shadow:inset 0 1px #b4e5f748,var(--well-depth);padding:10px;color:var(--info-ink)}
+.payment-information{display:flex;align-items:flex-start;gap:9px;border:1px solid #83bed5;border-radius:var(--instrument-radius);background:linear-gradient(145deg,#253e49,#1c313a);box-shadow:inset 0 1px #b4e5f748,var(--well-depth);padding:10px;color:var(--info-ink)}
 .payment-information>svg{flex:none;margin-top:1px}.payment-information #payment-risk{color:#ecf3f5;font-size:.875rem;line-height:1.45;margin:0;padding:0;border-left:1px solid #95c2d0;padding-left:10px}
-#transfer-controls:disabled .payment-information{opacity:1}
+#transfer-controls[data-payment-ready=false] .payment-information{opacity:1}
 @media(max-width:360px){.payment-grid{font-size:.875rem}.payment-title #action-prompt{font-size:.875rem}.payment-price #transfer-amount{font-size:.9rem}.payment-title,.payment-price,.payment-from,.payment-to{gap:4px}.payment-grid .payment-title,.payment-grid .payment-from{padding-right:4px;margin-right:0}.payment-grid #paying-account,.payment-grid #payment-owner{font-size:.875rem}.payment-from #payer-change{min-width:44px}.payment-grid>.payment-memo{gap:8px}}
 @media(forced-colors:active){.payment-information{background:Canvas;color:CanvasText;border-color:CanvasText}.payment-information #payment-risk{color:CanvasText}.payment-grid .payment-title,.payment-grid .payment-from,.payment-grid>div{border-color:CanvasText}}
 
@@ -354,11 +349,11 @@ input,select,textarea{border-radius:6px}
  #replace-choice,.payment-grid>.payment-inspection,#motion-wait #waiting-label,#render-error{
   background:Canvas;color:CanvasText;border-color:CanvasText;box-shadow:none
  }
- .panel[data-surface=context] .panel-body::before,.panel[data-surface=context] .panel-body::after,
+ .panel[data-surface=context] .panel-body::after,
  .panel-header button[aria-pressed=true]::after{display:none}
  .panel-header button[aria-pressed=true],#deflector-directions button[aria-pressed=true],
  .direction-pad [aria-pressed=true]{
   color:Highlight;box-shadow:none;outline:2px solid Highlight;outline-offset:-3px
  }
- #transfer-controls:enabled #transfer-amount,#transfer-controls:disabled #transfer-amount{color:CanvasText}
+ #transfer-controls[data-payment-ready=true] #transfer-amount,#transfer-controls[data-payment-ready=false] #transfer-amount{color:CanvasText}
 }

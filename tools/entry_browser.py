@@ -58,7 +58,7 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
         wait_file(page,out/'clearance-paused',180000)
         wait_until(page,lambda:page.evaluate('''()=>{const s=__b2zExperience.session;return s.operational?.run.running===false&&performance.now()-s.operationalAt<15000}''')and page.locator('[data-copy=text]').is_disabled(),30000)
         assert page.locator('[data-copy=text]').is_disabled()
-        paused=page.evaluate('''()=>({at:performance.now(),head:String(__b2zExperience.session.sequence.last.publication.head.segment_id),rules:__b2zExperience.session.config.rules_version,running:__b2zExperience.session.operational.run.running,operationalAge:performance.now()-__b2zExperience.session.operationalAt,canPay:__b2zExperience.arcade?.canPay?.()??null,label:document.querySelector('#arena-note').textContent,copyDisabled:document.querySelector('#transfer-controls').disabled,memo:document.querySelector('#text-memo').textContent})''')
+        paused=page.evaluate('''()=>({at:performance.now(),head:String(__b2zExperience.session.sequence.last.publication.head.segment_id),rules:__b2zExperience.session.config.rules_version,running:__b2zExperience.session.operational.run.running,operationalAge:performance.now()-__b2zExperience.session.operationalAt,canPay:__b2zExperience.arcade?.canPay?.()??null,label:document.querySelector('#arena-note').textContent,copyDisabled:document.querySelector('[data-copy=text]').disabled,memo:document.querySelector('#text-memo').textContent})''')
         assert paused['rules']==7 and paused['running']is False and paused['copyDisabled']
         (out/'browser-clearance-pause-seen').write_text(json.dumps(paused,indent=2)+'\n')
         report['combined_operational_pause']=paused;save()

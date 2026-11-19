@@ -38,7 +38,7 @@ def verify_refinement(page,width,height,out):
   page.mouse.click(p['sx'],p['sy']);page.wait_for_timeout(650);settled(page)
   if operation in ['pan','zoom']:
    page.wait_for_function('(x)=>String(fixture.proposal().cell??"")===String(x.target)',arg={'id':'move-cell'if kind=='move'else'new-cell','target':target},timeout=5000)
-  value=chosen_cell(page);memo=page.locator('#text-memo').text_content();ready=page.locator('#prepared-card').is_visible()and not page.locator('#transfer-controls').evaluate('(n)=>n.disabled')
+  value=chosen_cell(page);memo=page.locator('#text-memo').text_content();ready=page.locator('#prepared-card').is_visible()and not page.locator('[data-copy=text]').is_disabled()
   if operation in ['mode','removed','focus']:assert value in ['',str(target)],(operation,target,value,memo)
   else:assert value in ['',str(target)],(operation,target,value,memo)
   if operation in ['revision','removed']:assert not ready,(operation,value,memo)
@@ -88,7 +88,7 @@ def verify_refinement(page,width,height,out):
  assert page.evaluate('fixture.sameClock()');page.screenshot(path=str(out/f'{width}-navigation.png'))
  # Ordinary waiting is compact; actual catch-up remains truthful, never a
  # permanent spinner for routine slow production or optional telemetry.
- page.evaluate('fixture.playbackScale(1000)');page.wait_for_function('()=>fixture.summary().queue===0',timeout=8000);page.wait_for_timeout(750);assert page.locator('#motion-wait').is_visible();expect(page.locator('#arena-note')).to_have_text('Waiting for next on-chain update')
+ page.evaluate('fixture.playbackScale(1000)');page.wait_for_function('()=>fixture.summary().queue===0',timeout=8000);page.wait_for_timeout(750);assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Waiting for next on-chain update')
  # Explicit panel-aware Focus and precision/caret survive a latest-state refresh.
  prepare('fire');page.evaluate('fixture.camera.pan(Math.min(190,innerWidth*.35),0);fixture.draw()');expect(page.locator('#focus-cannon')).to_be_enabled();page.locator('#focus-cannon').click();settled(page);expect(page.locator('#focus-cannon')).to_be_disabled()
  page.locator('#recipient-reveal').click();page.locator('#full-recipient').focus();set_heading(page,'37.25');page.evaluate('fixture.publish("additional","final")');assert page.locator('#full-recipient').evaluate('(n)=>document.activeElement===n');assert heading_value(page)=='37.25'

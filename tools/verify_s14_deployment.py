@@ -24,7 +24,7 @@ def identify_account(page,account=None):
     page.locator('#close-panel').click()
 def review_instructions(page):
     if page.locator('#replace-instructions').is_visible():
-        assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled')
+        assert page.locator('[data-copy=text]').is_disabled()
         page.locator('#replace-instructions').click()
 def select_cannon(page,cannon=None):
     selected=page.evaluate('__b2zTools.selection()')
@@ -113,7 +113,7 @@ def receipt_rows(page):
 def verify_torus_scene(page,context,out,record,report,save):
     (out/'browser-scene-ready').write_text('certified genesis visible\n')
     choose_action(page,'ball')
-    wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
+    wait_until(page,lambda:not page.locator('[data-copy=text]').is_disabled(),30000)
     assert '32 × 32' in world_text(page)
     assert 'wraparound' in world_text(page)
     select_cannon(page);choose_action(page,'ball');wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
@@ -230,7 +230,7 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     assert '1,000 × 1,000' in world_text(page)
     assert 'wraparound' in world_text(page)
     choose_action(page,'ball')
-    wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
+    wait_until(page,lambda:not page.locator('[data-copy=text]').is_disabled(),30000)
     select_cannon(page);choose_action(page,'move')
     # Numeric entry and exact board picking avoid 1,000,000 DOM options.
     assert page.locator('#move-cell,#new-cell,#angle-degrees').count()==0
@@ -318,7 +318,7 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
     # Require Slow only once verified presentation actually advances; never let
     # producer wording conceal buffering, a delivery failure or an auth error.
     report['lifeline_status_before_settle']=page.evaluate('()=>({label:document.querySelector("#arena-note").textContent,status:__b2zExperience.status,playback:__dtrLive.playback})')
-    wait_until(page,lambda:page.evaluate('''()=>{const p=__dtrLive.playback,s=__b2zExperience.status;const expected=p.presentation_lag_ticks/.05>10?'Slow · delayed':'Slow';return p.target_rate===.05&&p.consumed_ticks<p.verified_ticks&&['PLAYING','DEGRADED_BUFFER'].includes(p.phase)&&s.kind==='slow'&&s.label===expected&&document.querySelector('#arena-note').textContent===expected;}'''),15000)
+    wait_until(page,lambda:page.evaluate('''()=>{const p=__dtrLive.playback,s=__b2zExperience.status;const delayed=p.presentation_lag_ticks/.05>10,expected=delayed?'Playback delayed':'Slow';return p.target_rate===.05&&p.consumed_ticks<p.verified_ticks&&['PLAYING','DEGRADED_BUFFER'].includes(p.phase)&&s.kind===(delayed?'delayed':'slow')&&s.label===expected&&document.querySelector('#arena-note').textContent===expected;}'''),15000)
     record('UX-06-lifeline-label-follows-advancing-verified-presentation')
     page.wait_for_timeout(4000)
     measure_mode('lifeline',50,.035,.065)
@@ -345,7 +345,7 @@ def verify_epoch_transition(page,context,out,record,report,save):
     progress('bootstrap')
     wait_until(page,lambda:'16 × 8' in world_text(page),30000)
     choose_action(page,'ball')
-    wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
+    wait_until(page,lambda:not page.locator('[data-copy=text]').is_disabled(),30000)
     select_cannon(page);choose_action(page,'move')
     old_cell=different_owned_cell(page);choose_action(page,'move');choose_cell(page,str(old_cell));wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#text-memo').inner_text()==f'MOVE {old_cell}'
@@ -360,17 +360,17 @@ def verify_epoch_transition(page,context,out,record,report,save):
     old_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)')
     page.bring_to_front();(out/'browser-transition-ready').write_text('verified old-world MOVE prepared\n');progress('old-packet-verified')
     wait_until(page,lambda:'Game paused' in page.locator('#arena-note').text_content(),30000)
-    choose_action(page,'move',review=False);assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled');assert page.locator('[data-copy="text"]').is_disabled()
+    choose_action(page,'move',review=False);assert page.locator('[data-copy=text]').is_disabled();assert page.locator('[data-copy="text"]').is_disabled()
     (out/'browser-fence-seen').write_text('payment preparation held; frozen packet retained\n');progress('source-fence-verified')
     wait_until(page,lambda:'32 × 32' in world_text(page),60000)
     assert 'wraparound' in world_text(page)
     choose_action(page,'move',review=False)
     wait_until(page,lambda:page.locator('#replace-choice').is_visible() and page.locator('#replace-choice').is_visible(),30000)
-    assert page.locator('#transfer-controls').evaluate('(node)=>node.disabled');assert page.locator('[data-copy="text"]').is_disabled()
+    assert page.locator('[data-copy=text]').is_disabled();assert page.locator('[data-copy="text"]').is_disabled()
     assert page.locator('#replace-choice').is_visible()
     assert page.evaluate('Boolean(__b2zExperience.session.ready)') # saved packet remains in scoped local history
     mapped=(old_cell//16+12)*32+old_cell%16+8
-    choose_cell(page,str(mapped));review_instructions(page);wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000);wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
+    choose_cell(page,str(mapped));review_instructions(page);wait_until(page,lambda:not page.locator('[data-copy=text]').is_disabled(),30000);wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     progress('new-epoch-packet-verified');assert page.locator('#text-memo').inner_text()==f'MOVE {mapped}'
     assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'
     page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
@@ -688,7 +688,7 @@ def main():
             report['join_no_refresh']={'confirmed_to_visible_ms':page.evaluate('performance.now()')-confirmed_ms,'navigations':len(navigation_count),'camera_scale':page.evaluate('__b2zCamera.scale'),'source':'Real disposable Ledger/Index admission, certified artifacts, verified playout, rendered entity counters'}
             (out/'browser-first-receipt-seen').write_text('first authenticated receipt and presentation observed\n')
             select_cannon(page);choose_action(page,'ball')
-            wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
+            wait_until(page,lambda:not page.locator('[data-copy=text]').is_disabled(),30000)
             report['receipt_coordination']='Controller holds each paid setup publication until its receipt is authenticated; replica and certificates stay live. All holds end before measured playback/reconnect. Retention and full seal replay are unchanged.'
             record('first-index-payment-wakes-idle-arena')
             page.screenshot(path=str(out/'arcade-first-cannon.png'),full_page=True)
@@ -736,7 +736,7 @@ def main():
             assert page.evaluate('__b2zExperience.session.referenceWorld.cannons.length')==1
             (out/'browser-paid-receipts-seen').write_text('all three authenticated outcomes observed\n')
             close_players(page);choose_action(page,'ball')
-            wait_until(page,lambda:not page.locator('#transfer-controls').evaluate('(node)=>node.disabled'),30000)
+            wait_until(page,lambda:not page.locator('[data-copy=text]').is_disabled(),30000)
             page.keyboard.press('Escape');open_players(page)
             assert len(navigation_count)==1,navigation_count
             record('paid-join-ball-fallback-and-legal-move-visible-once-without-refresh',receipts)
@@ -839,7 +839,7 @@ def main():
             open_settings(page)
             page.evaluate('__b2zTools.delivery(true)');(out/'browser-disconnected').write_text('paused\n')
             target=int(wait_file(page,out/'harness-upgrade-ready',90000))
-            wait_until(page,lambda:page.locator('#transfer-controls').evaluate('(node)=>node.disabled') and page.locator('[data-copy="text"]').is_disabled(),20000)
+            wait_until(page,lambda:page.locator('[data-copy=text]').is_disabled() and page.locator('[data-copy="text"]').is_disabled(),20000)
             close_players(page);choose_action(page,'ball')
             set_heading(page,'0');review_instructions(page);assert page.locator('#text-memo').inner_text()=='ANGLE 225'
             assert page.locator('#aim-handle').is_enabled()
@@ -879,13 +879,13 @@ def main():
                 negative.goto(url,timeout=30000)
                 try:
                     if fault=='unavailable-config':
-                        wait_until(negative,lambda:negative.locator('#arena-note').inner_text()=='Reconnecting',30000)
+                        wait_until(negative,lambda:negative.locator('#arena-note').inner_text()=='Connection delayed · retrying',30000)
                         assert negative.locator('body').get_attribute('data-phase')!='ERROR'
                     else:wait_until(negative,lambda:negative.locator('body').get_attribute('data-phase')=='ERROR',30000)
                 except Exception:
                     report['negative_state']=negative.evaluate("({phase:document.body.dataset.phase,error:document.querySelector('#observation-error').textContent,connected:Boolean(globalThis.__dtrLive?.connected)})");save();raise
-                assert negative.locator('#transfer-controls').evaluate('(n)=>n.disabled')
-                assert negative.locator('#arena-note').inner_text()==('Reconnecting'if fault=='unavailable-config'else'Unable to verify game data.')
+                assert negative.locator('[data-copy=text]').is_disabled()
+                assert negative.locator('#arena-note').inner_text()==('Connection delayed · retrying'if fault=='unavailable-config'else'Unable to verify game data.')
                 assert not negative.evaluate('Boolean(globalThis.__dtrLive?.connected)')
                 if fault=='unavailable-config':
                     # A missing transport response is recoverable, unlike a

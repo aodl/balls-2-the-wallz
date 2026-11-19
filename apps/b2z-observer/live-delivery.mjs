@@ -47,7 +47,7 @@ export function liveDeliveryFailure(s,error,current,accepted,now){
  const event={id:++d.failures,at_ms:now,message,kind:stale?'stale-certified-observation':unavailable?'retained-publication-unavailable':network?'delivery-unavailable':'delivery-or-verification-error',rejected,accepted:floor,resynchronisations:s.resyncs??0,recovered_at_ms:null};
  if(!stale&&!unavailable&&!network)d.blocking??=event;
  d.active=event;d.history.push(event);if(d.history.length>64){d.history.shift();d.evicted++;}
- s.deliveryError=message;s.retryFailures++;
+ s.deliveryError=message;s.deliveryFailureSince??=now;s.retryFailures++;
  return !stale&&!unavailable&&!network; // Integrity fails closed immediately; availability never poisons a session.
 }
 export function liveDeliverySuccess(s,verifiedAccepted,now){
@@ -58,22 +58,37 @@ export function liveDeliverySuccess(s,verifiedAccepted,now){
  const context=event?.rejected??event?.accepted;
  const networkContext=(!context&&ticket)||sameContext(ticket,context)||(ticket&&event?.accepted&&known(d,event.accepted)&&sameDeployment(ticket,event.accepted));
  if(!s.error&&event?.kind==='delivery-unavailable'&&networkContext&&s.sequence?.last?.root_hash===ticket?.root&&known(d,ticket)&&(!event.rejected||event.rejected.head===null||ticket.head!==null&&BigInt(ticket.head)>=BigInt(event.rejected.head))){
-  event.recovered_at_ms=now;d.recoveries++;if(d.blocking===event)d.blocking=null;d.active=d.blocking;s.deliveryError=d.blocking?.message??null;return;
+  event.recovered_at_ms=now;d.recoveries++;if(d.blocking===event)d.blocking=null;d.active=d.blocking;s.deliveryError=d.blocking?.message??null;if(!s.deliveryError)s.deliveryFailureSince=null;return;
  }
 
  // Availability is recovered only after the existing artifact verification and
  // authenticated snapshot-resync path completes. An unchanged head, ordinary
  // retry success, invalid certificate or conflicting chain cannot clear it.
  if(!s.error&&event?.kind==='retained-publication-unavailable'&&sameContext(ticket,event.rejected)&&ticket.head!==null&&BigInt(ticket.head)>=BigInt(event.rejected.head)&&(s.resyncs??0)>event.resynchronisations&&s.sequence?.last?.root_hash===ticket.root&&known(d,ticket)){
-  event.recovered_at_ms=now;d.recoveries++;d.active=d.blocking;s.deliveryError=d.blocking?.message??null;return;
+  event.recovered_at_ms=now;d.recoveries++;d.active=d.blocking;s.deliveryError=d.blocking?.message??null;if(!s.deliveryError)s.deliveryFailureSince=null;return;
  }
  const forwardEpoch=ticket&&sameDeployment(ticket,event?.accepted)&&known(d,event.accepted)&&s.sequence?.last?.root_hash===ticket.root;
  if(s.error||event?.kind!=='stale-certified-observation'||!(sameContext(ticket,event.accepted)||forwardEpoch)||ticket.head===null)return;
  const head=BigInt(ticket.head),floor=BigInt(event.accepted.head);
  if(head<floor||head===floor&&ticket.root!==event.accepted.root)return;
- event.recovered_at_ms=now;d.recoveries++;d.active=d.blocking;s.deliveryError=d.blocking?.message??null;
+ event.recovered_at_ms=now;d.recoveries++;d.active=d.blocking;s.deliveryError=d.blocking?.message??null;if(!s.deliveryError)s.deliveryFailureSince=null;
  // Keep the original event/context in bounded history, including after recovery.
 }
 
 /** Bounded read-only retry, including long outages. Hidden scheduling remains external. */
 export function deliveryRetryMs(failures,random=Math.random){return Math.min(30000,500*2**Math.min(6,Math.max(0,failures-1)))*(.8+.2*random());}
+
+
+/** Pace only unchanged-head reads. Keep certificate refresh below the 30s
+ * authority window even at Trickle, and keep fast producers near 500ms. */
+export function unchangedObservationMs(status){
+ const run=status?.run,pace=run?.pace;
+ const ticks=Number(run?.publication_ticks??run?.segment_ticks);
+ const milli=Number(pace?.supported_milli??pace?.nominal_milli);
+ if(!Number.isFinite(ticks)||ticks<=0||!Number.isFinite(milli))return 500;
+ if(!run.running||milli<=0)return 4000;
+ return Math.max(500,Math.min(4000,Math.ceil(ticks*50000/milli)));
+}
+export function sustainedDelivery(s,now){
+ return Boolean(s?.deliveryError&&s.retryFailures>=2&&now-(s.deliveryFailureSince??now)>=2500);
+}
