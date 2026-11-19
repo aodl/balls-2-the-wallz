@@ -1,0 +1,68 @@
+{
+  "status": "PASS",
+  "profiles": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "structures": [
+        [
+          1,
+          300300,
+          "NW"
+        ],
+        [
+          2,
+          4006,
+          "NE"
+        ]
+      ],
+      "exact_clipboard": "DROT 2 N",
+      "starting_and_destination_focus": "explicit only",
+      "query_only": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "structures": [
+        [
+          1,
+          300300,
+          "NW"
+        ],
+        [
+          2,
+          4006,
+          "NE"
+        ]
+      ],
+      "exact_clipboard": "DROT 2 N",
+      "starting_and_destination_focus": "explicit only",
+      "query_only": true
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "structures": [
+        [
+          1,
+          300300,
+          "NW"
+        ],
+        [
+          2,
+          4006,
+          "NE"
+        ]
+      ],
+      "exact_clipboard": "DROT 2 N",
+      "starting_and_destination_focus": "explicit only",
+      "query_only": true
+    }
+  ]
+}

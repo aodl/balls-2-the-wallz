@@ -1,0 +1,256 @@
+{
+  "status": "PASS",
+  "scope": "Retained mainnet pose in an offline actual-composer/renderer fixture; no certificate/payment claim.",
+  "page_errors": [],
+  "public_route": {
+    "camera": [
+      3.676682010172044,
+      3.676682010172044,
+      64
+    ],
+    "heading": "347.15",
+    "panel": {
+      "x": 8,
+      "y": 220,
+      "width": 304,
+      "height": 297,
+      "top": 220,
+      "right": 312,
+      "bottom": 517,
+      "left": 8
+    },
+    "hidden": false,
+    "focus": "aim-handle"
+  },
+  "exact_pose": {
+    "camera": [
+      3.6575453715563526,
+      3.6575453715563526,
+      64
+    ],
+    "heading": "347.15",
+    "hidden": false,
+    "quantity": {
+      "x": 10,
+      "y": 526,
+      "width": 130,
+      "height": 46,
+      "top": 526,
+      "right": 140,
+      "bottom": 572,
+      "left": 10
+    },
+    "viewport": {
+      "width": 320,
+      "height": 640,
+      "visual": {
+        "width": 320,
+        "height": 640,
+        "left": 0,
+        "top": 0
+      }
+    },
+    "focus": "aim-handle"
+  },
+  "matrix": [
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "dpr": 1,
+      "heading_cases": 17,
+      "status_cases": 6,
+      "resize_cases": 2,
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "payment_scrollport": {
+        "x": 8,
+        "y": 274,
+        "width": 304,
+        "height": 192
+      },
+      "native_aim_pinch": "PASS fixed editor, second finger remains board-owned, scale changes without heading mutation",
+      "cancelled_release": "PASS native touch cancellation and controlled freeze; no late release after1.2s",
+      "ball_follow_hide": "PASS native B shortcut and Escape"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 2,
+      "heading_cases": 17,
+      "status_cases": 6,
+      "resize_cases": 2,
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "payment_scrollport": {
+        "x": 8,
+        "y": 274,
+        "width": 360,
+        "height": 140
+      },
+      "ball_follow_hide": "PASS native B shortcut and Escape"
+    },
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "dpr": 1,
+      "heading_cases": 17,
+      "status_cases": 6,
+      "resize_cases": 4,
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "payment_scrollport": {
+        "x": 661,
+        "y": 388,
+        "width": 360,
+        "height": 140
+      },
+      "ball_follow_hide": "PASS native B shortcut and Escape"
+    },
+    {
+      "viewport": [
+        320,
+        350
+      ],
+      "dpr": 1,
+      "heading_cases": 17,
+      "status_cases": 6,
+      "resize_cases": 4,
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "payment_scrollport": {
+        "x": 8,
+        "y": 208,
+        "width": 304,
+        "height": 134
+      },
+      "ball_follow_hide": "PASS native B shortcut and Escape"
+    },
+    {
+      "viewport": [
+        320,
+        300
+      ],
+      "dpr": 2,
+      "heading_cases": 17,
+      "status_cases": 6,
+      "resize_cases": 4,
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "payment_scrollport": {
+        "x": 8,
+        "y": 196,
+        "width": 304,
+        "height": 96
+      },
+      "ball_follow_hide": "PASS native B shortcut and Escape"
+    },
+    {
+      "viewport": [
+        390,
+        430
+      ],
+      "dpr": 1,
+      "heading_cases": 17,
+      "status_cases": 6,
+      "resize_cases": 4,
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "payment_scrollport": {
+        "x": 8,
+        "y": 208,
+        "width": 360,
+        "height": 140
+      },
+      "ball_follow_hide": "PASS native B shortcut and Escape"
+    },
+    {
+      "viewport": [
+        640,
+        320
+      ],
+      "dpr": 1,
+      "heading_cases": 17,
+      "status_cases": 6,
+      "resize_cases": 4,
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "payment_scrollport": {
+        "x": 8,
+        "y": 208,
+        "width": 360,
+        "height": 104
+      },
+      "ball_follow_hide": "PASS native B shortcut and Escape"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "dpr": 3,
+      "heading_cases": 17,
+      "status_cases": 6,
+      "resize_cases": 2,
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "payment_scrollport": {
+        "x": 8,
+        "y": 274,
+        "width": 304,
+        "height": 192
+      }
+    },
+    {
+      "viewport": [
+        320,
+        240
+      ],
+      "dpr": 1,
+      "heading_cases": 17,
+      "status_cases": 6,
+      "resize_cases": 4,
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "payment_scrollport": {
+        "x": 8,
+        "y": 62,
+        "width": 304,
+        "height": 170
+      },
+      "ball_follow_hide": "PASS native B shortcut and Escape"
+    },
+    {
+      "viewport": [
+        320,
+        180
+      ],
+      "dpr": 1,
+      "heading_cases": 17,
+      "status_cases": 6,
+      "resize_cases": 4,
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "payment_scrollport": {
+        "x": 8,
+        "y": 62,
+        "width": 304,
+        "height": 110
+      },
+      "ball_follow_hide": "PASS native B shortcut and Escape"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "dpr": 1,
+      "heading_cases": 17,
+      "status_cases": 6,
+      "resize_cases": 2,
+      "protected_preview": "PASS local edit and Keep with copying disabled",
+      "payment_scrollport": {
+        "x": 8,
+        "y": 274,
+        "width": 360,
+        "height": 140
+      },
+      "ball_follow_hide": "PASS native B shortcut and Escape"
+    }
+  ]
+}

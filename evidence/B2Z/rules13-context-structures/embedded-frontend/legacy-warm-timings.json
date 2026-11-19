@@ -1,0 +1,75 @@
+{
+  "module": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+  "site": "uqqxf-5h777-77774-qaaaa-cai",
+  "scope": "Five warm loopback requests in identical DFX network, no physical device estimate",
+  "rows": [
+    {
+      "path": "/",
+      "encoding": "identity",
+      "sha256": "c464a10c3333e7b210e2a83a0c862ef09ed487fefb30698434d859fdd3185ea3",
+      "wire_bytes": 15372,
+      "first_request_ms": 55.74314099999992,
+      "samples_ms": [
+        6.3937730000002375,
+        7.675888000000214,
+        7.933891000000131,
+        8.284494999999879,
+        9.11020499999995
+      ],
+      "median_ms": 7.933891000000131,
+      "min_ms": 6.3937730000002375,
+      "max_ms": 9.11020499999995
+    },
+    {
+      "path": "/app.mjs",
+      "encoding": "gzip",
+      "sha256": "1761afd54f53dd76af298ef2c11972e1c0077ede3ee16c6540e58ac70333ec54",
+      "wire_bytes": 317627,
+      "first_request_ms": 19.236721000000216,
+      "samples_ms": [
+        9.666010999999799,
+        10.221916999999848,
+        10.240818000000218,
+        10.79642399999966,
+        11.444331000000147
+      ],
+      "median_ms": 10.240818000000218,
+      "min_ms": 9.666010999999799,
+      "max_ms": 11.444331000000147
+    },
+    {
+      "path": "/configuration-deflector.bin",
+      "encoding": "identity",
+      "sha256": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "wire_bytes": 1947,
+      "first_request_ms": 8.319895999999972,
+      "samples_ms": [
+        4.3118500000000495,
+        4.4118499999999585,
+        4.577453000000332,
+        4.6182529999996405,
+        5.000157000000399
+      ],
+      "median_ms": 4.577453000000332,
+      "min_ms": 4.3118500000000495,
+      "max_ms": 5.000157000000399
+    },
+    {
+      "path": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+      "encoding": "identity",
+      "sha256": "978533bbde679a0d487e5d237eff2c43d2678a2471d4df6f7393b0e60c07b67f",
+      "wire_bytes": 1354668,
+      "first_request_ms": 41.79217999999992,
+      "samples_ms": [
+        25.927098000000115,
+        26.161601000000246,
+        27.32501400000001,
+        40.19056200000023,
+        40.93707099999983
+      ],
+      "median_ms": 27.32501400000001,
+      "min_ms": 25.927098000000115,
+      "max_ms": 40.93707099999983
+    }
+  ]
+}

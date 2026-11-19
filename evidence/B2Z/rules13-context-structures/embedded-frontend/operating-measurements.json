@@ -15,7 +15,11 @@
       "query_instructions": 16346923385,
       "module_hash": "b8a2252c59db613379a6cdc09f88f00e4e68758ca612c9b67d8eea7b47b927f7"
     },
-    "net_cycles_before_minus_after": 184312741561
+    "net_cycles_before_minus_after": 184312741561,
+    "after_http_and_browser_sweeps": {
+      "query_instructions": 34913762533,
+      "cumulative_query_response_bytes": 641025762
+    }
   },
   "fresh_system_subnet_install": {
     "elapsed_seconds": 193.53,
@@ -35,5 +39,26 @@
     },
     "net_cycles_before_minus_after": 0
   },
-  "test_scope": "DFX loopback PocketIC. Upgraded existing application-subnet canister with the exact legacy snapshot retained. The separate first fresh install was on a system subnet."
+  "test_scope": "DFX loopback PocketIC. Upgraded existing application-subnet canister with the exact legacy snapshot retained. The separate first fresh install was on a system subnet.",
+  "fresh_application_subnet_install": {
+    "before": {
+      "balance_cycles": 99999998056000,
+      "memory_bytes": 222,
+      "idle_cycles_per_day": 2268
+    },
+    "after": {
+      "balance_cycles": 99820150032842,
+      "memory_bytes": 154723525,
+      "idle_cycles_per_day": 1581153175
+    },
+    "elapsed_seconds": 325.64,
+    "net_cycles_before_minus_after": 179848023158
+  },
+  "immutable_to_immutable_recovery": {
+    "alternate_install_seconds": 164.09,
+    "restoration_seconds": 221.84,
+    "initial_module": "b8a2252c59db613379a6cdc09f88f00e4e68758ca612c9b67d8eea7b47b927f7",
+    "alternate_module": "ab62aaa52053784f400b05a813f38ca67100878473d358b50b99ada2c8547746",
+    "restored_module": "b8a2252c59db613379a6cdc09f88f00e4e68758ca612c9b67d8eea7b47b927f7"
+  }
 }

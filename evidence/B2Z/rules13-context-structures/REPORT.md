@@ -14,3 +14,30 @@ The [branding evidence](branding/VISUAL_ACCEPTANCE.md) records exact official as
 browser comparisons. The [embedded frontend](embedded-frontend/ARCHITECTURE.md) is the
 owner-directed replacement architecture. Its release identity is the whole raw Wasm.
 The earlier legacy assets-only frontend staging remains development evidence.
+
+## Release artifacts and verification
+
+| Artifact | Exact SHA-256 | Scope |
+| --- | --- | --- |
+| Raw immutable frontend Wasm | `b8a2252c59db613379a6cdc09f88f00e4e68758ca612c9b67d8eea7b47b927f7` | Independent local and hosted builds match. This exact raw image was installed and recovered on disposable infrastructure. |
+| Embedded application JavaScript | `5fb32ecfe5c61d607a4acc84c6b314e57d08e7b6596abc70279218408045c07e` | Frozen browser source `907536df11cbd620b48ea9cde62bc07ebeb6a373`. |
+| Rules13 hosted normal backend Wasm | `d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd` | Hosted normal output for source `e16f37f9256ff4caf18ea7524f888ed2fcc374d0`. |
+| Rules13 local normal backend Wasm | `8b9e47efc766b71a049f70154b4e5081f870bbfa4d367f412ec464b8d45e41ae` | Local installed-game, independent replay and browser rehearsal. Toolchain path bytes differ from the hosted output. |
+
+The exact embedded candidate authenticated the European Rules12 world with its frozen production binding. The same observer source authenticated disposable Rules13 using that environment's pinned backend binding. The three context toolbars and exact native Deflector clipboard output passed at 1440×900, 390×844 and 320×640. The disposable upgrade and paid-source rehearsal used official Ledger and Index interfaces and reconstructed structure changes and contacts from authenticated publications. [Browser results](BROWSER_ACCEPTANCE.md) · [Official Ledger and replay results](INSTALLED_GAME_ACCEPTANCE.md) · [Upgrade and recovery](UPGRADE_AND_RECOVERY.md)
+
+The 21:11 UTC read-only check certified the legacy frontend module and the production Rules12 backend at publication 12605. The signed operational reply reported running Trickle at 10 milliticks/s, one tick per publication, open admissions and zero pending source records. True branded arbitrary-path HTTP 404 was demonstrated with the disposable embedded module. [Production observation](production-final-observation.json) · [404 routing evidence](branding/NOT_FOUND_ROUTING.md) · [Module installation and recovery plan](embedded-frontend/RELEASE_PLAN.md)
+
+## Hosted qualification at publication of this evidence
+
+| Gate | Result |
+| --- | --- |
+| Source conformance | PASS |
+| Native conformance | PASS |
+| Packaged DTR and clean consumers | PASS |
+| Runtime-lab Wasm | PASS |
+| Browser HTTP and Web Crypto | PASS |
+| S14 and million-cell installed-IC qualification | In progress |
+| Immutable frontend Wasm and content identity | PASS |
+
+The full hosted installed-IC matrix is separate from the completed local Rules13 Ledger, replay, recovery and browser rehearsal. Check the installed job's final conclusion and rehash its normal Wasm before promotion. The informational production-inventory job is outside the release gates. [Exact-source hosted run](https://github.com/aodl/balls-2-the-wallz/actions/runs/44614474451)

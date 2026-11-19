@@ -7,3 +7,17 @@ The authenticated production baseline was Rules12 running one-tick Trickle at 10
 Rules13 adds no timers or periodic queries. Lookup examines at most 49 neighbouring cells. The frontend reuses verified placement facts and bounds working sets for Move searches. The matched disposable debit comparison and feature-specific paid processing numbers require separate reporting because the latter include one-time interpreter and source work.
 
 The longer read-only interval from 19:47:48 to 20:24:36 UTC covered 22 completed publications and callbacks. Total cycles fell by 9,572,897,773 over 2,208 seconds, averaging 435,131,717 net cycles per completed tick and an illustrative 0.375T cycles/day. Both endpoints were Trickle with open admission; the conversion counters were unchanged. This is a quiet Rules12 observation and includes source and scheduled overhead. [Read-only samples](production-cycle-sample.json)
+
+## Matched disposable Trickle
+
+Each pair ran one measured logical tick on equivalent starting terrain, trajectory and structure data against the exact retained Rules12 normal module and the locally frozen Rules13 normal module. After execution the logical state hashes agreed. The game-state comparison fixes only the independent test clocks' observed wall-clock completion field to the common genesis value.
+
+| Workload | Rules12 cycles | Rules13 cycles | Rules12 / Rules13 callbacks |
+| --- | ---: | ---: | --- |
+| Quiet, one ball | 269,939,185 | 256,082,879 | 1 / 1 |
+| One-ball recurring Deflector diamond | 279,588,944 | 264,296,705 | 1 / 1 |
+| 64 balls, 256 Deflectors | 7,750,117,976 | 5,557,726,969 | 3 / 2 |
+
+Each Rules12 measurement had two Index reads and each Rules13 measurement had one. The whole-window debits include source and controller activity. Quiet step instructions were 50,087,856 against 50,060,548, a difference much smaller than the debit difference. These paired single-tick observations show no recurring idle-cost increase in the measured workloads. They cannot establish a production saving or a representative dense-world daily rate. Those would require multiple matched windows with the same source phase. [Raw paired measurements](disposable/matched-cycle-cost.json)
+
+The separate active paid-input scenario processed 17 input records in one measured simulation interval, including valid Reorient and Move, ordinary purchases and retained-payment rejections. Its gross controller window was 466,223,241 cycles in the original Normal preparation rehearsal. This includes simulation, persistence and any overlapping work. It is not the isolated debit of one Deflector modification. [Paid-input scenario](disposable/validated-ledger-operations.json)

@@ -1,0 +1,147 @@
+{
+  "rows": [
+    {
+      "windows": [
+        {
+          "callbacks": 1,
+          "cycles": "269939185",
+          "index_calls": 2,
+          "instruction_deltas": {
+            "persist_instructions": 13099909,
+            "publish_instructions": 10511654,
+            "seal_instructions": 17750839,
+            "step_instructions": 50087856
+          },
+          "logical_state_hash": "904e7a2a27b6feea363cef1ca701f9a554bdaafdf1681b7e9e0ba2e11e2c23bf",
+          "pace": "Trickle",
+          "publication_bytes": [
+            3558,
+            4077,
+            161
+          ],
+          "rules": "Rules12",
+          "state_hash": "90556ddf28fbce28db57d8f90af609a0b7ca78483ff7af6518c5aee70370d409",
+          "ticks": 1
+        },
+        {
+          "callbacks": 1,
+          "cycles": "256082879",
+          "index_calls": 1,
+          "instruction_deltas": {
+            "persist_instructions": 19543962,
+            "publish_instructions": 12958411,
+            "seal_instructions": 17764214,
+            "step_instructions": 50060548
+          },
+          "logical_state_hash": "904e7a2a27b6feea363cef1ca701f9a554bdaafdf1681b7e9e0ba2e11e2c23bf",
+          "pace": "Trickle",
+          "publication_bytes": [
+            3558,
+            4077,
+            161
+          ],
+          "rules": "Rules13",
+          "state_hash": "be7abca010f1914e266ce41d3665e8e3151778b1a0ed4405d5824a8679f991c1",
+          "ticks": 1
+        }
+      ],
+      "world": "quiet-one-ball"
+    },
+    {
+      "windows": [
+        {
+          "callbacks": 1,
+          "cycles": "279588944",
+          "index_calls": 2,
+          "instruction_deltas": {
+            "persist_instructions": 13551652,
+            "publish_instructions": 11261911,
+            "seal_instructions": 16460897,
+            "step_instructions": 59027594
+          },
+          "logical_state_hash": "3a6372689e0bff642ede977bffb138c2f329d50c7e79881510798a129436677e",
+          "pace": "Trickle",
+          "publication_bytes": [
+            3306,
+            4959,
+            153
+          ],
+          "rules": "Rules12",
+          "state_hash": "71146380dc95b4a39b7759e91e71516207242b8586648b5d4e6c60629711a026",
+          "ticks": 1
+        },
+        {
+          "callbacks": 1,
+          "cycles": "264296705",
+          "index_calls": 1,
+          "instruction_deltas": {
+            "persist_instructions": 19864534,
+            "publish_instructions": 13690821,
+            "seal_instructions": 16322085,
+            "step_instructions": 58862873
+          },
+          "logical_state_hash": "3a6372689e0bff642ede977bffb138c2f329d50c7e79881510798a129436677e",
+          "pace": "Trickle",
+          "publication_bytes": [
+            3306,
+            4959,
+            153
+          ],
+          "rules": "Rules13",
+          "state_hash": "289844970b2730a0c07a23956a95e4c9a49496e7fb52196e48b10c0df878f916",
+          "ticks": 1
+        }
+      ],
+      "world": "one-ball-adversarial-diamond"
+    },
+    {
+      "windows": [
+        {
+          "callbacks": 3,
+          "cycles": "7750117976",
+          "index_calls": 2,
+          "instruction_deltas": {
+            "persist_instructions": 1171105563,
+            "publish_instructions": 732007929,
+            "seal_instructions": 344479340,
+            "step_instructions": 2250053847
+          },
+          "logical_state_hash": "616dd73d65952fc766a83b44145f648f1add9490303ab0d9e0f7d95084d927c6",
+          "pace": "Trickle",
+          "publication_bytes": [
+            33211,
+            311559,
+            2283
+          ],
+          "rules": "Rules12",
+          "state_hash": "0c405b2dc82d18e698a94c727fe9ca075bfa444cac01569993f43b2f6b4a30d2",
+          "ticks": 1
+        },
+        {
+          "callbacks": 2,
+          "cycles": "5557726969",
+          "index_calls": 1,
+          "instruction_deltas": {
+            "persist_instructions": 674984051,
+            "publish_instructions": 624874728,
+            "seal_instructions": 119766428,
+            "step_instructions": 2028506834
+          },
+          "logical_state_hash": "616dd73d65952fc766a83b44145f648f1add9490303ab0d9e0f7d95084d927c6",
+          "pace": "Trickle",
+          "publication_bytes": [
+            33211,
+            311559,
+            2283
+          ],
+          "rules": "Rules13",
+          "state_hash": "07b3b2e318575872661c443b2788dfa43037351a4f3b40bc2187570d886c8486",
+          "ticks": 1
+        }
+      ],
+      "world": "64-balls-256-deflectors"
+    }
+  ],
+  "scope": "Matched disposable canonical starting worlds and one-tick segment allowance; balances selected for Trickle. Whole-window backend debit includes controller and overlapping source work. Gameplay hashes normalise only the observed wall-clock completion time. No live estimate.",
+  "status": "PASS"
+}

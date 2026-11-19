@@ -1,0 +1,57 @@
+{
+  "at": "2026-11-19T21:11:36.381Z",
+  "status": "PASS",
+  "scope": "Anonymous mainnet read-only queries and certified canister paths; no production mutation",
+  "modules": [
+    {
+      "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "module_hash": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+      "certificate_verified": true
+    },
+    {
+      "id": "s2jxj-liaaa-aaaas-amynq-cai",
+      "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62",
+      "certificate_verified": true
+    }
+  ],
+  "identity": {
+    "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+    "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+    "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "head": "12605",
+  "root": "115136469cb7da574187dd833a6c6f6f6717d012d55185ad29b58988bacac75b",
+  "world": {
+    "version": 7,
+    "cannons": 1,
+    "balls": 1,
+    "state_hash": "28de238bf4c088a4986271775388f3c0b0a60f2e2d99dc6925342bb7b0bb7b2a"
+  },
+  "served_js_sha256": "f15de5448fb260a0a7495f659495fd6755e080116ecd473635367c9e0c5bf4d0",
+  "operational_signed_query": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "1",
+      "publication_ticks": "1",
+      "completed_segments": "12600",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40180669"
+    }
+  },
+  "operational_scope": "Signed operational query, not certified gameplay or payment authority"
+}
