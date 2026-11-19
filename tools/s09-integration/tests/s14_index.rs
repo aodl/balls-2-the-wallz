@@ -4668,10 +4668,8 @@ fn million_browser_output_isolation_preserves_existing_evidence() {
         first
     );
     assert_eq!(
-        serde_json::from_reader::<_, Vec<serde_json::Value>>(
-            std::fs::File::open(&timing).unwrap()
-        )
-        .unwrap(),
+        serde_json::from_reader::<_, Vec<serde_json::Value>>(std::fs::File::open(&timing).unwrap())
+            .unwrap(),
         second
     );
     std::fs::remove_dir_all(base).unwrap();
