@@ -1,9 +1,9 @@
 {
-  "source": "444f9166f9e56da2137b954d021ac7d647691bb8",
+  "source": "907536df11cbd620b48ea9cde62bc07ebeb6a373",
   "source_dirty": false,
   "normal_wasm_sha256": "8b9e47efc766b71a049f70154b4e5081f870bbfa4d367f412ec464b8d45e41ae",
   "normal_wasm_scope": "Local Linux candidate; hosted qualification archives the exact normal module from its own build.",
-  "inventory_sha256": "0937150728a7957b11d72189b9dd606f1a9207882a9fe7e6151cfe088d91dcd5",
+  "inventory_sha256": "7e279aa4a123ded14de653e387c569fb2daf530c4fb83241b98fcadbd64e83b8",
   "inputs": [
     {
       "path": "apps/b2z-observer/404.html",
@@ -475,7 +475,7 @@
     },
     {
       "path": "apps/b2z-observer/model.mjs",
-      "sha256": "7801948df2f0e6397ea70beeaa81954e6f4e9cb31dedeec93298e18e027d795c"
+      "sha256": "367a630b8dae54cc74e33212d8bef0dfa7eace1fc7ebfb3b3d778ce77fb0dd95"
     },
     {
       "path": "apps/b2z-observer/motion-effects.mjs",
@@ -1299,7 +1299,7 @@
     },
     {
       "path": "apps/b2z-observer/shell.mjs",
-      "sha256": "1b8b779e414bfce4f802841a1642426903cf5adcc5cdfd29f9cc0d786a43c129"
+      "sha256": "f2b5693f7e0a9d976e001201a0aa12bed9779ac9ca054bd37c008b622fb48146"
     },
     {
       "path": "apps/b2z-observer/speech-bubbles.mjs",

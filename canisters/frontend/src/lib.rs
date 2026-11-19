@@ -114,11 +114,13 @@ fn build_site() -> Site {
     directory.sort_by_key(|file| file.path());
     let mut configs = Vec::new();
     let mut assets = Vec::new();
+    let mut representations = Vec::new();
     let mut heads = BTreeMap::new();
     for file in directory {
         let path = file.path().to_str().expect("UTF-8 path");
         assets.push(Asset::new(path, file.contents()));
         if path.ends_with(".gz") {
+            representations.push(Asset::new(path, file.contents()));
             continue;
         }
         let content_type = mime(path).unwrap_or_else(|| panic!("Unknown public MIME for {path}"));
@@ -155,6 +157,10 @@ fn build_site() -> Site {
     }
     get.certify_assets(assets, configs)
         .expect("certify embedded public files");
+    // Encodings occupy the original URL. The library also registers their
+    // storage filenames by default; remove those redundant exact routes.
+    get.delete_assets(representations, std::iter::empty::<AssetConfig>())
+        .expect("keep storage files off the public URL namespace");
     let missing = head(
         "/",
         ASSETS_DIR.get_file("404.html").expect("branded 404"),

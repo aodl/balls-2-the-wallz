@@ -32,7 +32,7 @@ with (out/"server.log").open("w") as log:
             results=[]
             for width,height in [(1440,900),(390,844),(320,640)]:
                 ctx=browser.new_context(viewport={"width":width,"height":height},has_touch=width<400,
-                                        reduced_motion="reduce",permissions=["clipboard-write"])
+                                        reduced_motion="reduce",permissions=["clipboard-read","clipboard-write"])
                 writes,errors=[],[]
                 def guard(route):
                     if route.request.method=="POST" and not route.request.url.endswith(("/query","/read_state")):
@@ -137,9 +137,19 @@ with (out/"server.log").open("w") as log:
                 expected=f"DROT {config['structure']} N"
                 assert page.locator("#text-memo").text_content()==expected
                 assert page.locator("#transfer-amount").text_content()=="0.0001 ICP"
+                page.bring_to_front()
                 page.locator("[data-copy=text]").click(timeout=30000)
-                page.wait_for_function("s=>copied.at(-1)===s",arg=expected)
-                activate("#keep-instructions") if page.locator("#keep-instructions").is_visible() else None
+                try:
+                    page.wait_for_function("s=>copied.at(-1)===s",arg=expected,timeout=12000)
+                    assert page.evaluate("navigator.clipboard.readText()")==expected
+                except Exception:
+                    capture("clipboard-diagnostic")
+                    print(page.evaluate("""()=>({recentClipboard:copied.at(-1), focused:document.hasFocus(),
+                        copyFeedback:document.querySelector('#copy-feedback').textContent,
+                        paymentReady:document.querySelector('#transfer-controls').dataset.paymentReady,
+                        manual:!document.querySelector('#manual-copy').hidden,
+                        status:__b2zExperience.status?.label})"""),flush=True)
+                    raise
                 capture("deflector-reorient-payment")
                 activate("#move-action")
                 page.wait_for_function("()=>__b2zExperience.composer.mode==='deflector_move'")

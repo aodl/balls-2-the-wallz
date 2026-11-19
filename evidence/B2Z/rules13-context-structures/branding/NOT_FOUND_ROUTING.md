@@ -1,5 +1,7 @@
 # Not-found routing
 
+The immutable embedded successor supersedes the hosting options discussed in this legacy rehearsal. See [immutable frontend architecture](../embedded-frontend/ARCHITECTURE.md).
+
 **Static branded page PASS. Arbitrary-path certified 404 BLOCKED on the installed renderer.**
 
 The production frontend module `04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62` was freshly confirmed with certified read-only metadata. A disposable observer installed the identical compressed module, then served the candidate including `/404.html`.

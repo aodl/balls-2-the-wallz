@@ -9,3 +9,8 @@ Development started at `dc6de1da69a097a64eba0bd157eda8b1c6a48430`. The preserved
 | Configuration | `1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0` |
 
 Source/memo adapter8 uses BTZPAY05. The price assumptions and procedure are in [economics](ECONOMICS_AND_OWNER_DECISIONS.md) and [release plan](RELEASE_PLAN.md).
+
+The [branding evidence](branding/VISUAL_ACCEPTANCE.md) records exact official assets and
+browser comparisons. The [embedded frontend](embedded-frontend/ARCHITECTURE.md) is the
+owner-directed replacement architecture. Its release identity is the whole raw Wasm.
+The earlier legacy assets-only frontend staging remains development evidence.

@@ -93,6 +93,41 @@ jobs:
           if-no-files-found: warn
           retention-days: 14
 
+  embedded-frontend:
+    name: Immutable frontend Wasm and content identity
+    runs-on: ubuntu-24.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          ref: ${{ github.event.pull_request.head.sha || github.sha }}
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: rustup toolchain install 1.94.1 --profile minimal --target wasm32-unknown-unknown
+      - run: cargo +1.94.1 fetch --manifest-path canisters/frontend/Cargo.toml --locked
+      - name: Build from the exact frozen observer inventory
+        run: |
+          assets=evidence/B2Z/rules13-context-structures/artifacts
+          python -B tools/verify_approved_panel_freeze.py --artifacts "$assets" --output .work/ci-embedded-assets
+          python -B tools/build_embedded_frontend.py --observer .work/ci-embedded-assets/reproduced --inventory "$assets/frontend-inventory.json" --output .work/ci-embedded
+          python -B tools/verify_embedded_frontend_builds.py --observer .work/ci-embedded-assets/reproduced --inventory "$assets/frontend-inventory.json" --first-build .work/ci-embedded --output .work/ci-embedded-repro
+      - name: Archive exact public frontend module and inventory
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: embedded-frontend-wasm
+          path: |
+            .work/ci-embedded/frontend.wasm
+            .work/ci-embedded/module.json
+            .work/ci-embedded/embedded-inventory.json
+            .work/ci-embedded-repro/results.json
+          if-no-files-found: error
+          retention-days: 14
+
   package-consumers:
     name: Packaged DTR and clean consumers
     runs-on: ubuntu-24.04
