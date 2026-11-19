@@ -1,0 +1,81 @@
+{
+  "status": "PASS",
+  "seconds": 147.312,
+  "hosted_run": 44614474451,
+  "hosted_normal_artifact": 14574552269,
+  "predecessor": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+  "successor": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+  "official_ledger_inputs": 19,
+  "authenticated_replay_publications": 3,
+  "verified_contacts": 1,
+  "actual_structure_events": 2,
+  "browser": {
+    "status": "PASS",
+    "profiles": [
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "structures": [
+          [
+            1,
+            300300,
+            "NW"
+          ],
+          [
+            2,
+            4006,
+            "NE"
+          ]
+        ],
+        "exact_clipboard": "DROT 2 N",
+        "starting_and_destination_focus": "explicit only",
+        "query_only": true
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "structures": [
+          [
+            1,
+            300300,
+            "NW"
+          ],
+          [
+            2,
+            4006,
+            "NE"
+          ]
+        ],
+        "exact_clipboard": "DROT 2 N",
+        "starting_and_destination_focus": "explicit only",
+        "query_only": true
+      },
+      {
+        "viewport": [
+          320,
+          640
+        ],
+        "structures": [
+          [
+            1,
+            300300,
+            "NW"
+          ],
+          [
+            2,
+            4006,
+            "NE"
+          ]
+        ],
+        "exact_clipboard": "DROT 2 N",
+        "starting_and_destination_focus": "explicit only",
+        "query_only": true
+      }
+    ]
+  },
+  "first_local_attempt": "Chromium could not start because its user-scoped runtime libraries were not on the search path. Paid assertions and independent replay had already passed. Added the existing library directory and reran the complete unchanged test."
+}
