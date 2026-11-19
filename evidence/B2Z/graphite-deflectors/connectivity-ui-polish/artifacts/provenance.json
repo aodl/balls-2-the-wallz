@@ -1,13 +1,13 @@
 {
-  "source": "0f824f701266a25ca9424f852e420444be75225b",
+  "source": "475158995f739a4d81ea725541a64acd69c181b3",
   "source_dirty": false,
   "files": 81,
   "public_files": 80,
-  "inventory_sha256": "a32b0396b944c0715d0e5df8c8235c60ad10be588d71e981b7e78140d33dfcf4",
-  "javascript_sha256": "3ecd5ea873246f51ddfb7e868b2569063b8b0e885c341da62f04c0c96a3842e5",
+  "inventory_sha256": "557569b78dbf49052d3990bd68253cbb68c23e034d47f49565a65080b3a8301d",
+  "javascript_sha256": "f15de5448fb260a0a7495f659495fd6755e080116ecd473635367c9e0c5bf4d0",
   "audio_manifest_sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
   "unchanged_audio_files": 61,
-  "total_asset_bytes": 75322110,
+  "total_asset_bytes": 75322146,
   "normal_wasm_sha256": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
   "normal_wasm_provenance": "Same live Rules12 normal module. Connectivity and UI polish affects frontend assets only.",
   "inputs": [
@@ -29,7 +29,7 @@
     },
     {
       "path": "apps/b2z-observer/arcade.mjs",
-      "sha256": "6a9a5d6bee54241a36f5c9c3deeb722133da860fc8434ad25768f94dc222abb6"
+      "sha256": "fc8b873e6abbfa3b54216491405d4bdfcaab536e06ed3c3aa623f3881cdbf90e"
     },
     {
       "path": "apps/b2z-observer/audio-contact.mjs",
