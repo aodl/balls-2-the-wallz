@@ -1,0 +1,248 @@
+{
+  "status": "PASS",
+  "chromium": "153.0.8010.12",
+  "cases": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "layout": {
+        "logo": {
+          "x": 16,
+          "y": 14.46875,
+          "width": 114,
+          "height": 41.4375
+        },
+        "status": {
+          "x": 1135.390625,
+          "y": 12,
+          "width": 170,
+          "height": 46.390625
+        },
+        "account": {
+          "x": 1315.390625,
+          "y": 13.1875,
+          "width": 108.609375,
+          "height": 44
+        }
+      },
+      "enlarged": {
+        "logo": {
+          "x": 16,
+          "y": 32.671875,
+          "width": 114,
+          "height": 41.4375
+        },
+        "status": {
+          "x": 1070.796875,
+          "y": 12,
+          "width": 170,
+          "height": 82.796875
+        },
+        "account": {
+          "x": 1250.796875,
+          "y": 20.203125,
+          "width": 173.203125,
+          "height": 66.390625
+        }
+      },
+      "browser_favicon_resources": [],
+      "browser_requests": [
+        "/",
+        "/app.mjs",
+        "/balls-to-the-wallz-b2z-wordmark.svg",
+        "/style.css"
+      ]
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "layout": {
+        "logo": {
+          "x": 10,
+          "y": 18.40625,
+          "width": 85.796875,
+          "height": 31.1875
+        },
+        "status": {
+          "x": 108.46875,
+          "y": 12,
+          "width": 170,
+          "height": 44
+        },
+        "account": {
+          "x": 285.46875,
+          "y": 12,
+          "width": 94.53125,
+          "height": 44
+        }
+      },
+      "enlarged": {
+        "logo": {
+          "x": 10,
+          "y": 38.5625,
+          "width": 67.296875,
+          "height": 24.453125
+        },
+        "status": {
+          "x": 84.296875,
+          "y": 12,
+          "width": 137.640625,
+          "height": 77.59375
+        },
+        "account": {
+          "x": 228.9375,
+          "y": 22.5,
+          "width": 151.0625,
+          "height": 56.59375
+        }
+      },
+      "browser_favicon_resources": [],
+      "browser_requests": [
+        "/",
+        "/app.mjs",
+        "/balls-to-the-wallz-b2z-wordmark.svg",
+        "/style.css"
+      ]
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "layout": {
+        "logo": {
+          "x": 10,
+          "y": 24.046875,
+          "width": 54.765625,
+          "height": 19.90625
+        },
+        "status": {
+          "x": 71.765625,
+          "y": 12,
+          "width": 136.703125,
+          "height": 44
+        },
+        "account": {
+          "x": 215.46875,
+          "y": 12,
+          "width": 94.53125,
+          "height": 44
+        }
+      },
+      "enlarged": {
+        "logo": {
+          "x": 10,
+          "y": 42.078125,
+          "width": 48,
+          "height": 17.4375
+        },
+        "status": {
+          "x": 65,
+          "y": 12,
+          "width": 86.9375,
+          "height": 77.59375
+        },
+        "account": {
+          "x": 158.9375,
+          "y": 22.5,
+          "width": 151.0625,
+          "height": 56.59375
+        }
+      },
+      "browser_favicon_resources": [],
+      "browser_requests": [
+        "/",
+        "/app.mjs",
+        "/balls-to-the-wallz-b2z-wordmark.svg",
+        "/style.css"
+      ]
+    },
+    {
+      "viewport": [
+        568,
+        320
+      ],
+      "layout": {
+        "logo": {
+          "x": 10,
+          "y": 17.640625,
+          "width": 90,
+          "height": 32.703125
+        },
+        "status": {
+          "x": 286.46875,
+          "y": 12,
+          "width": 170,
+          "height": 44
+        },
+        "account": {
+          "x": 463.46875,
+          "y": 12,
+          "width": 94.53125,
+          "height": 44
+        }
+      },
+      "enlarged": {
+        "logo": {
+          "x": 10,
+          "y": 34.4375,
+          "width": 90,
+          "height": 32.703125
+        },
+        "status": {
+          "x": 229.9375,
+          "y": 12,
+          "width": 170,
+          "height": 77.59375
+        },
+        "account": {
+          "x": 406.9375,
+          "y": 22.5,
+          "width": 151.0625,
+          "height": 56.59375
+        }
+      },
+      "browser_favicon_resources": [],
+      "browser_requests": [
+        "/",
+        "/app.mjs",
+        "/balls-to-the-wallz-b2z-wordmark.svg",
+        "/style.css"
+      ]
+    },
+    {
+      "not_found_viewport": [
+        1440,
+        900
+      ],
+      "http_status": 200,
+      "javascript_disabled": true,
+      "keyboard_return": true,
+      "forced_colours": false
+    },
+    {
+      "not_found_viewport": [
+        320,
+        640
+      ],
+      "http_status": 200,
+      "javascript_disabled": true,
+      "keyboard_return": true,
+      "forced_colours": false
+    },
+    {
+      "not_found_viewport": [
+        568,
+        320
+      ],
+      "http_status": 200,
+      "javascript_disabled": true,
+      "keyboard_return": true,
+      "forced_colours": true
+    }
+  ]
+}

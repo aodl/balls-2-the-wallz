@@ -186,3 +186,25 @@ schema7 trajectory is not a successful position report. The installed regression
 first fails against the retained old normal module, then checks the corrected
 module against its canonical publication state. This additive query field changes
 neither deterministic world encoding nor rules/configuration identity.
+
+## Rules13 successor
+
+The exact certified Rules13 configuration enables Ledger-funded movement and
+reorientation. Existing Rules12 structures keep their schema7 identity, position
+and stored diagonal. The Rules13 controls label those four diagonals N/E/S/W
+under the fixed camera projection. Adapter8 carries the new label vocabulary.
+
+Construction and relocation retain existing Deflector spacing, occupied-site
+closure and enemy clearance. They additionally need another friendly cannon or
+Deflector at toroidal Chebyshev distance 1–3. The moving Deflector cannot satisfy
+that requirement itself. Reorientation keeps the current tile and does not
+repeat the placement checks. Move preserves orientation and Reorient preserves
+the cell. Both preserve identity and ownership. An unchanged cell or direction
+is rejected when processing the corresponding command.
+
+The payment phase commits accepted changes before the ensuing exact boundary
+contacts. Operations do not change any ball track directly. Confirmed structure
+events describe the before and after values. A structure whose supporting land
+has been lost remains retired and cannot be modified by a later payment.
+Rules12 and older published segments retain their original grammar and rules.
+See the [Rules13 policy and release evidence](../../evidence/B2Z/rules13-context-structures/REPORT.md).

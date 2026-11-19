@@ -411,11 +411,21 @@ fn matched_rules12_rules13_trickle_cost() {
             playability_installed::one_tick(&pic, id);
             let after = status(&pic, id);
             let remaining = pic.cycle_balance(id);
-            let state = dtr_wire::hash(&arena_world(&pic, id).encode().unwrap());
+            let mut world = arena_world(&pic, id);
+            let state = dtr_wire::hash(&world.encode().unwrap());
+            // Independent fake clocks advance differently during controller
+            // cutover messages. Compare canonical gameplay after fixing only
+            // the observed wall-clock completion time to the common genesis.
+            world.playability.as_mut().unwrap().elapsed_ns = World::decode(&initial)
+                .unwrap()
+                .playability
+                .unwrap()
+                .elapsed_ns;
+            let logical_state = dtr_wire::hash(&world.encode().unwrap());
             if let Some(expected) = final_state.as_ref() {
-                assert_eq!(&state, expected, "{label}");
+                assert_eq!(&logical_state, expected, "{label}");
             } else {
-                final_state = Some(state.clone());
+                final_state = Some(logical_state.clone());
             }
             let after_metrics = super::playability_profile::metric_values(&pic, id);
             let instruction_deltas: BTreeMap<_, _> = [
@@ -433,7 +443,7 @@ fn matched_rules12_rules13_trickle_cost() {
             })
             .collect();
             pair.push(json!({
-                "rules":version, "cycles":(before-remaining).to_string(), "state_hash":state,
+                "rules":version, "cycles":(before-remaining).to_string(), "state_hash":state, "logical_state_hash":logical_state,
                 "ticks":after.run.completed_segments-baseline.run.completed_segments,
                 "callbacks":after.run.callback_count-baseline.run.callback_count,
                 "index_calls":after.source.index_calls-baseline.source.index_calls,
@@ -447,7 +457,7 @@ fn matched_rules12_rules13_trickle_cost() {
         &out,
         "matched-cycle-cost.json",
         &json!({
-            "status":"PASS","scope":"Matched disposable canonical starting worlds and one-tick segment allowance; balances selected for Trickle. Whole-window backend debit includes controller and overlapping source work. No live estimate.", "rows":rows
+            "status":"PASS","scope":"Matched disposable canonical starting worlds and one-tick segment allowance; balances selected for Trickle. Whole-window backend debit includes controller and overlapping source work. Gameplay hashes normalise only the observed wall-clock completion time. No live estimate.", "rows":rows
         }),
     );
 }

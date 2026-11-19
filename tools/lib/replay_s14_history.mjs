@@ -33,17 +33,17 @@ export function replayHistory(trace,{diagnostic}={}){
   if(p.head.seal===null){
    check([7,8,9].includes(p.version)&&p.epoch,'unsupported replay checkpoint');
    const before=unhex(host.committed().state_hex),old=decodeWorld(before);let out,metadata;
-   if(p.version===7&&old.version!==6){
-    const raw=trace.epoch_metadata?.[p.epoch.transition_hash]??trace.metadata_hex;check(typeof raw==='string','missing historical transition metadata');
-    const proof=decodeCanonical(unhex(raw)),proposed=stageTorusMigration(before,{...proof,identity:host.publicationRecord().journal.identity});
-    metadata=encodeCanonical(proposed.transition);check(hex(metadata)===raw,'application transition metadata mismatch');out=emptyOutput(proposed.state,4);
-   }else if(p.version===8&&old.version===7&&p.identity.config_hash===CONTEXT_IDENTITY.config_hash){
+   if([7,8].includes(p.version)&&old.version===7&&p.identity.config_hash===CONTEXT_IDENTITY.config_hash){
     const audit=decodeCanonical(eventBytes(p)),context=audit.events[0]?.context,prior=host.publicationRecord().journal;
     check(audit.version===7&&audit.events.length===1&&audit.events[0].kind==='context_rules_activated'&&context,'Rules13 activation context');
     check(Object.keys(DEFLECTOR_IDENTITY).every(k=>prior.identity[k]===DEFLECTOR_IDENTITY[k])&&Object.keys(CONTEXT_IDENTITY).every(k=>p.identity[k]===CONTEXT_IDENTITY[k])&&p.identity.source_id===prior.identity.source_id,'Rules13 transition identity');
     const expected={version:9,migration:'B2Z_CONTEXT_STRUCTURES_RULES_13',old_identity:prior.identity,new_identity:p.identity,previous_state:sha256(before),new_state:sha256(before),logical_boundary:old.time,source_cursor:host.committed().source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:host.committed().seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:7,memo_adapter_after:8};
     check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&equal(context,expected),'Rules13 cutover context mismatch');
     metadata=encodeCanonical(expected);out=emptyOutput(before,7,[{kind:'context_rules_activated',sequence:0,time:old.time,context:expected}]);
+   }else if(p.version===7&&old.version!==6){
+    const raw=trace.epoch_metadata?.[p.epoch.transition_hash]??trace.metadata_hex;check(typeof raw==='string','missing historical transition metadata');
+    const proof=decodeCanonical(unhex(raw)),proposed=stageTorusMigration(before,{...proof,identity:host.publicationRecord().journal.identity});
+    metadata=encodeCanonical(proposed.transition);check(hex(metadata)===raw,'application transition metadata mismatch');out=emptyOutput(proposed.state,4);
    }else if(p.version===8&&old.version===6&&p.identity.config_hash===DEFLECTOR_IDENTITY.config_hash){
     const audit=decodeCanonical(eventBytes(p)),context=audit.events[0]?.context;
     check(audit.version===7&&audit.events.length===1&&audit.events[0].kind==='deflector_rules_activated'&&context,'Deflector activation context missing');

@@ -1,0 +1,203 @@
+{
+  "scope": "Production Rules12 read-only controller samples. Total and liquid counters are sampled within each request batch. No production updates.",
+  "interval_seconds": 2208,
+  "delta_cycles": 9572897773,
+  "completed_segments": 22,
+  "samples": [
+    {
+      "at": "2026-11-19T19:47:48Z",
+      "total_cycles": 2796101949491,
+      "liquid_cycles": 2739286833971,
+      "pace": {
+        "admission_open": true,
+        "mode": "Trickle",
+        "nominal_milli": 10,
+        "performance_limited": false,
+        "supported_milli": 10
+      },
+      "completed_segments": "12550",
+      "callbacks": "12550",
+      "work_units": "2862476",
+      "started_instruction_metrics": {
+        "last_instructions": "234213147",
+        "last_persist_instructions": "47101627",
+        "last_publish_instructions": "23812905",
+        "last_seal_instructions": "48259193",
+        "last_step_instructions": "68160814",
+        "max_actions": 3,
+        "max_instructions": "266428271",
+        "messages": "927",
+        "persist_instructions": "43909312459",
+        "publish_instructions": "22013103318",
+        "seal_instructions": "45109042007",
+        "step_instructions": "62971062731"
+      },
+      "funding_phase": {
+        "Idle": null
+      },
+      "funding_error": [
+        "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+      ],
+      "conversion_totals": {
+        "total_converted_e8s": "99990000",
+        "total_cycles_reported": "1766023380000"
+      }
+    },
+    {
+      "at": "2026-11-19T19:48:49Z",
+      "total_cycles": 2796005152995,
+      "liquid_cycles": 2739190037475,
+      "pace": {
+        "admission_open": true,
+        "mode": "Trickle",
+        "nominal_milli": 10,
+        "performance_limited": false,
+        "supported_milli": 10
+      },
+      "completed_segments": "12550",
+      "callbacks": "12550",
+      "work_units": "2862476",
+      "started_instruction_metrics": {
+        "last_instructions": "234213147",
+        "last_persist_instructions": "47101627",
+        "last_publish_instructions": "23812905",
+        "last_seal_instructions": "48259193",
+        "last_step_instructions": "68160814",
+        "max_actions": 3,
+        "max_instructions": "266428271",
+        "messages": "927",
+        "persist_instructions": "43909312459",
+        "publish_instructions": "22013103318",
+        "seal_instructions": "45109042007",
+        "step_instructions": "62971062731"
+      },
+      "funding_phase": {
+        "Idle": null
+      },
+      "funding_error": [
+        "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+      ],
+      "conversion_totals": {
+        "total_converted_e8s": "99990000",
+        "total_cycles_reported": "1766023380000"
+      }
+    },
+    {
+      "at": "2026-11-19T19:49:50Z",
+      "total_cycles": 2795603991260,
+      "liquid_cycles": 2738788875740,
+      "pace": {
+        "admission_open": true,
+        "mode": "Trickle",
+        "nominal_milli": 10,
+        "performance_limited": false,
+        "supported_milli": 10
+      },
+      "completed_segments": "12551",
+      "callbacks": "12551",
+      "work_units": "2862699",
+      "started_instruction_metrics": {
+        "last_instructions": "233458707",
+        "last_persist_instructions": "47121903",
+        "last_publish_instructions": "23306828",
+        "last_seal_instructions": "48229988",
+        "last_step_instructions": "67184404",
+        "max_actions": 3,
+        "max_instructions": "266428271",
+        "messages": "928",
+        "persist_instructions": "43956434362",
+        "publish_instructions": "22036410146",
+        "seal_instructions": "45157271995",
+        "step_instructions": "63038247135"
+      },
+      "funding_phase": {
+        "Idle": null
+      },
+      "funding_error": [
+        "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+      ],
+      "conversion_totals": {
+        "total_converted_e8s": "99990000",
+        "total_cycles_reported": "1766023380000"
+      }
+    },
+    {
+      "at": "2026-11-19T19:50:51Z",
+      "total_cycles": 2795246097540,
+      "liquid_cycles": 2738430982020,
+      "pace": {
+        "admission_open": true,
+        "mode": "Trickle",
+        "nominal_milli": 10,
+        "performance_limited": false,
+        "supported_milli": 10
+      },
+      "completed_segments": "12552",
+      "callbacks": "12552",
+      "work_units": "2862922",
+      "started_instruction_metrics": {
+        "last_instructions": "232055579",
+        "last_persist_instructions": "46498037",
+        "last_publish_instructions": "23305494",
+        "last_seal_instructions": "48204082",
+        "last_step_instructions": "67187256",
+        "max_actions": 3,
+        "max_instructions": "266428271",
+        "messages": "929",
+        "persist_instructions": "44002932399",
+        "publish_instructions": "22059715640",
+        "seal_instructions": "45205476077",
+        "step_instructions": "63105434391"
+      },
+      "funding_phase": {
+        "Idle": null
+      },
+      "funding_error": [
+        "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+      ],
+      "conversion_totals": {
+        "total_converted_e8s": "99990000",
+        "total_cycles_reported": "1766023380000"
+      }
+    },
+    {
+      "at": "2026-11-19T20:24:36Z",
+      "total_cycles": 2786529051718,
+      "liquid_cycles": 2729713936198,
+      "pace": {
+        "admission_open": true,
+        "mode": "Trickle",
+        "nominal_milli": 10,
+        "performance_limited": false,
+        "supported_milli": 10
+      },
+      "completed_segments": "12572",
+      "callbacks": "12572",
+      "work_units": "2867422",
+      "started_instruction_metrics": {
+        "last_instructions": "232247333",
+        "last_persist_instructions": "46998591",
+        "last_publish_instructions": "23200981",
+        "last_seal_instructions": "48243350",
+        "last_step_instructions": "66584283",
+        "max_actions": 3,
+        "max_instructions": "266428271",
+        "messages": "949",
+        "persist_instructions": "44940968739",
+        "publish_instructions": "22529257035",
+        "seal_instructions": "46171829978",
+        "step_instructions": "64453700667"
+      },
+      "funding_phase": {
+        "Idle": null
+      },
+      "funding_error": [
+        "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+      ],
+      "conversion_totals": {
+        "total_converted_e8s": "99990000",
+        "total_cycles_reported": "1766023380000"
+      }
+    }
+  ]
+}

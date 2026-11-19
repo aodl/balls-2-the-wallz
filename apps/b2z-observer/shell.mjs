@@ -185,7 +185,7 @@ export function createShell(doc,camera,arcade,onPick){
   doc.documentElement.classList.toggle('cannon-context',Boolean(c&&!card.hidden&&!off));
   const m=measure(),expanded=context==='action',lowerObstacles=[m.mini,quantityReservation==='rail'?quantityRail(m,visibleBounds()):m.cycles,m.buttons];
   const obstacles=[...lowerObstacles];if(expanded&&cardBounds)obstacles.push(cardBounds);
-  $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':'Focus cannon';
+  $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':$('focus-cannon').getAttribute('aria-label');
   if(card.hidden||off){positionQuantity();if(card.hidden)narrowPositionKey='';committedLayoutRevision=layoutRevision;return;}
   const bounds=visibleBounds(),W=bounds.width,H=bounds.height,top=quantityReservation==='inline'?bounds.top+8:Math.max(m.top,bounds.top+8),narrow=W<=700,cw=Math.min(360,W-16);
   let x=bounds.left+W-cw-8,y=top,bottom=bounds.top+H-(short?8:72);
