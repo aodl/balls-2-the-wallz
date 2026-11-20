@@ -21,12 +21,14 @@ class ObserverServerTests(unittest.TestCase):
         status,headers,body=self.get('/apps/b2z-observer/')
         self.assertEqual(status,200);self.assertIn(b'Verifying game',body)
         # UX-01/05/11: trust starts undecided; attribute order is not a contract.
-        controls=[];copies={};local={}
+        controls=[];copies={};local={};self_tags={}
         class Fields(HTMLParser):
             def handle_starttag(self,tag,attrs):
                 row=dict(attrs)
                 if tag=='fieldset' and row.get('id')=='transfer-controls':controls.append(row)
                 if tag=='button' and 'data-copy' in row:copies[row['data-copy']]=row
+                if row.get('id') in {'paying-account','payment-owner'}:
+                    self_tags[row['id']]=tag
                 if tag=='button' and row.get('id') in {'payer-reveal','recipient-reveal','payer-change'}:
                     local[row['id']]=row
         Fields().feed(body.decode('utf-8'))
@@ -34,10 +36,11 @@ class ObserverServerTests(unittest.TestCase):
         self.assertEqual(controls[0]['data-payment-ready'],'false')
         self.assertEqual(set(copies),{'amount','owner','text'})
         self.assertTrue(all('disabled' in row for row in copies.values()))
-        self.assertEqual(set(local),{'payer-reveal','recipient-reveal','payer-change'})
+        self.assertEqual(set(local),{'payer-change'})
+        self.assertEqual(self_tags,{'paying-account':'span','payment-owner':'span'})
         self.assertTrue(all('disabled' not in row for row in local.values()))
         # Approved panel: risk describes controls; network fee remains documented in Help.
-        self.assertEqual(set(controls[0]['aria-describedby'].split()),{'payment-risk'})
+        self.assertEqual(set(controls[0]['aria-describedby'].split()),{'payment-risk','payment-guidance'})
         self.assertIn("frame-ancestors 'none'",headers['Content-Security-Policy'])
         self.assertEqual(headers['X-Content-Type-Options'],'nosniff')
     def test_module_mime(self):

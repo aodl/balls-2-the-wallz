@@ -112,13 +112,13 @@ def verify_player_controls(page,width,height):
  page.locator('#fire-action').click();settled_panel(page);assert page.locator('#text-memo').text_content()==fire_memo;assert page.locator('#quantity-controls').is_visible()
  # Keyboard viewport contraction retains an editable heading, then restores space.
  if width<=700:
-  page.locator('#recipient-reveal').click();page.locator('#full-recipient').focus();page.set_viewport_size({'width':width,'height':400});page.wait_for_function('(w)=>fixture.camera.viewport.height===400&&fixture.camera.viewport.width===w',arg=width);page.locator('#full-recipient').scroll_into_view_if_needed();bounds=page.locator('#full-recipient').evaluate('(n)=>{const r=n.getBoundingClientRect(),p=n.closest(".panel-body").getBoundingClientRect();return {focus:n===document.activeElement,top:r.top,bottom:r.bottom,bodyTop:p.top,bodyBottom:p.bottom}}');assert bounds['focus']and bounds['top']>=bounds['bodyTop']and bounds['bottom']<=bounds['bodyBottom'],bounds
+  page.locator('[data-copy=owner]').focus();page.set_viewport_size({'width':width,'height':400});page.wait_for_function('(w)=>fixture.camera.viewport.height===400&&fixture.camera.viewport.width===w',arg=width);page.locator('[data-copy=owner]').scroll_into_view_if_needed();bounds=page.locator('[data-copy=owner]').evaluate('(n)=>{const r=n.getBoundingClientRect(),p=n.closest(".panel-body").getBoundingClientRect();return {focus:n===document.activeElement,top:r.top,bottom:r.bottom,bodyTop:p.top,bodyBottom:p.bottom}}');assert bounds['focus']and bounds['top']>=bounds['bodyTop']and bounds['bottom']<=bounds['bodyBottom'],bounds
   page.set_viewport_size({'width':width,'height':height});page.wait_for_function('(h)=>fixture.camera.viewport.height===h',arg=height)
  # A cancelled aim does not turn into a board tap; two fingers own the camera.
  if width<=700:
   # Finish keyboard accommodation, then explicitly focus the working area.
   # A pinch starts on the arena, not on the card/Close control below it.
-  page.locator('#full-recipient').blur();page.locator('#recipient-reveal').click()
+  page.locator('[data-copy=owner]').blur()
   if page.locator('#focus-cannon').is_enabled():page.locator('#focus-cannon').click();page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
   cdp=page.context.new_cdp_session(page);h=page.locator('#aim-handle').bounding_box();x,y=h['x']+22,h['y']+22;selected=page.evaluate('fixture.summary().selected')
   assert page.evaluate('([x,y])=>document.elementFromPoint(x,y)===document.getElementById("aim-handle")',[x,y])

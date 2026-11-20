@@ -7,7 +7,7 @@ PANEL_SNAPSHOT = r'''(tag)=>{
  const rect=n=>n.getBoundingClientRect().toJSON(),text=id=>document.getElementById(id).textContent;
  const summary=f.summary();
  return {tag,at:performance.now(),action:f.proposal(),selected:summary.selected,prepared:!document.getElementById('prepared-card').hidden,disabled:[...c.querySelectorAll('[data-copy]')].map(button=>button.disabled),
-  local:['payer-reveal','payer-change','recipient-reveal','close-panel'].map(id=>document.getElementById(id).disabled),
+  local:['payer-change','close-panel'].map(id=>document.getElementById(id).disabled),
   central:!document.getElementById('motion-wait').hidden,
   values:Object.fromEntries(['transfer-amount','payment-owner','text-memo','paying-account','payment-risk'].map(id=>[id,text(id)])),
   workspace:rect(c),header:rect(c.querySelector('.panel-header')),body:rect(body),content:{height:content.getBoundingClientRect().height,scrollHeight:content.scrollHeight},scroll:{height:scroll.clientHeight,scrollHeight:scroll.scrollHeight,top:scroll.scrollTop},
@@ -44,7 +44,7 @@ def verify_status_geometry(page,output=None,prefix='panel'):
   expected_disabled=bool(override.get('deliverySustained') or override.get('fresh') is False or override.get('operationalFresh') is False)
   for sample in samples:
    if not sample['tag'].endswith('-before'):assert sample['disabled']==[expected_disabled]*3,(label,sample)
-   assert sample['local']==[False]*4 and not sample['central'],(label,sample)
+   assert sample['local']==[False]*2 and not sample['central'],(label,sample)
    assert sample['prepared']and sample['values']==base['values'],(label,base,sample)
    assert sample['action']==base['action']and sample['selected']==base['selected'],(label,base,sample)
    assert sample['camera']==base['camera']and not sample['cameraActive'],(label,base,sample)
@@ -78,14 +78,12 @@ def verify_independent_controls(page):
  apply_status(page,{'operationalFresh':False})
  assert page.locator('#manual-value').is_disabled() and page.locator('#manual-handoff').is_disabled()
  assert all(button.is_disabled() for button in page.locator('[data-copy]').all())
- page.locator('#recipient-reveal').focus()
- page.keyboard.press('Enter')
- assert page.locator('#full-recipient').is_visible()
+ assert page.locator('#recipient-reveal, #payer-reveal').count()==0
+ assert page.locator('#full-recipient').text_content()
+ assert page.locator('#full-payer').text_content()
+ page.locator('#payment-owner').select_text()
  page.keyboard.press('Control+c')
  page.wait_for_function('()=>blockedNativeCopy.some(event=>event.trusted&&event.cancelled)')
- page.locator('#payer-reveal').focus()
- page.keyboard.press('Enter')
- assert page.locator('#full-payer').is_visible()
  page.locator('#quantity-plus').click()
  assert memo.text_content()!=original
  assert page.locator('[data-copy=text]').is_disabled()
