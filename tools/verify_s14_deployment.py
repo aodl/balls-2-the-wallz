@@ -724,7 +724,7 @@ def main():
             assert page.locator('#transfer-amount').inner_text()=='0.1 ICP'
             # UX-02/03: the icon toolbar replaces the old action dialog header.
             assert page.locator('#fire-action').get_attribute('aria-pressed')=='true'
-            assert page.locator('#action-prompt').inner_text()=='Aim & Pay'
+            assert page.locator('#action-prompt').inner_text()=='Pay to Fire'
             # Player-centred UX-12: display angles are clockwise from screen up.
             # Pointer capture lets the handle aim across the card without panning.
             # Wait for entry composition before constructing a stationary pointer

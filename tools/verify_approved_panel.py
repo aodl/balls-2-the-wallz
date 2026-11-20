@@ -15,7 +15,7 @@ s=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(H,directory=
 def save():(out/'results.json').write_text(json.dumps(report,indent=2)+'\n')
 def geometry(page):return page.evaluate('''()=>{const r=s=>document.querySelector(s).getBoundingClientRect().toJSON();return{title:r('.payment-title'),from:r('.payment-from'),to:r('.payment-to'),amount:r('.payment-price'),copies:[...document.querySelectorAll('[data-copy]')].map(n=>n.getBoundingClientRect().toJSON()),panel:r('#workspace'),scroll:r('.panel-scroll'),quantity:r('#quantity-controls'),group:r('#launch-editors'),cry:r('#war-cry-editor'),hidden:document.getElementById('launch-editors').hidden,fields:[...document.querySelectorAll('#prepared-card input,#prepared-card textarea')].length,buttons:document.querySelectorAll('#prepared-card [data-copy]').length}}''')
 def align(page):
- d=geometry(page);d['summaries']=page.locator('.payment-grid .identity-summary span').evaluate_all('(nodes)=>nodes.map(n=>({id:n.id,text:n.textContent,width:n.clientWidth,scroll:n.scrollWidth}))');assert all(x['scroll']<=x['width']for x in d['summaries']),d['summaries'];assert d['fields']==0 and d['buttons']==3;assert abs(d['title']['right']-d['from']['right'])<=1,d;centers=[x['x']+x['width']/2 for x in d['copies']];assert max(centers)-min(centers)<=1,d;assert all(x['width']>=44 and x['height']>=44 for x in d['copies']);assert d['from']['right']<=d['to']['left']+1;return d
+ d=geometry(page);d['summaries']=page.locator('.payment-grid .identity-summary span:not(.sr-only)').evaluate_all('(nodes)=>nodes.map(n=>({id:n.id,text:n.textContent,width:n.clientWidth,scroll:n.scrollWidth}))');assert all(x['scroll']<=x['width']for x in d['summaries']),d['summaries'];assert d['fields']==0 and d['buttons']==3;assert abs(d['title']['right']-d['from']['right'])<=1,d;centers=[x['x']+x['width']/2 for x in d['copies']];assert max(centers)-min(centers)<=1,d;assert all(x['width']>=44 and x['height']>=44 for x in d['copies']);assert d['from']['right']<=d['to']['left']+1;return d
 with sync_playwright()as pw:
  b=pw.chromium.launch(headless=True,chromium_sandbox=True)
  try:
@@ -26,7 +26,7 @@ with sync_playwright()as pw:
     dpr=3 if enabled and w==320 else 2 if enabled and w==390 else 1
     ctx=b.new_context(viewport={'width':w,'height':h},device_scale_factor=dpr,has_touch=w<700,permissions=['clipboard-read','clipboard-write'],record_video_dir=str(out/f'video-{w}-{enabled}'));page=ctx.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));ctx.add_init_script("globalThis.copied=[];const wr=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async s=>{await wr(s);copied.push(s)}");page.goto(url+'/?case=quantityLive'+('&combined=1'if a.combined else'&war-cry=1'if enabled else''));open_fire(page);row={'width':w,'height':h,'dpr':dpr,'capability':enabled,'rules_policy':'combined11'if a.combined else'warcry10'if enabled else'legacy6','actions':{}};report['views'].append(row);save()
     assert page.locator('#war-cry').is_visible()==enabled
-    for action,prompt in [('fire','Aim & Pay'),('move','Move & Pay'),('build','Build, Aim & Pay')]:
+    for action,prompt in [('fire','Pay to Fire'),('move','Pay to Move'),('build','Pay to Build & Fire')]:
      if action!='fire':
       page.locator('#'+action+'-action').click();settled_panel(page)
       if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click();settled_panel(page)
@@ -54,7 +54,7 @@ with sync_playwright()as pw:
       if action=='fire':assert page.locator('#quantity-controls').is_visible();assert page.locator('#war-cry').is_visible()==enabled
      for field,value in [('owner',page.locator('#full-recipient').text_content()),('amount',page.locator('#transfer-amount').text_content().replace(' ICP','')),('text',page.locator('#text-memo').text_content())]:
       page.locator('[data-copy='+field+']').click();page.wait_for_function('(v)=>copied.at(-1)===v',arg=value)
-     page.locator('#recipient-reveal').click();assert page.locator('#full-recipient').is_visible();assert page.locator('#full-recipient').text_content()=='s5ir5-gqaaa-aaaas-amyna-cai';page.locator('#recipient-reveal').click();settled_panel(page);page.screenshot(path=str(out/f'{w}-{enabled}-{action}.png'));save()
+     assert page.locator('#recipient-reveal').count()==0;assert page.locator('#payment-owner').evaluate('(n)=>n.tagName')=='SPAN';assert page.locator('#full-recipient').text_content()=='s5ir5-gqaaa-aaaas-amyna-cai';settled_panel(page);page.screenshot(path=str(out/f'{w}-{enabled}-{action}.png'));save()
     # Reopen Fire, exact camera pose; fixture geometry control is not production acceptance.
     page.locator('#fire-action').click();settled_panel(page);page.evaluate('fixture.shell.controller.cancel();Object.assign(fixture.camera,{x:3.6575453715563526,y:3.6575453715563526,scale:64});fixture.setHeading(347.15);fixture.draw()');page.wait_for_timeout(500)
     if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click();settled_panel(page)

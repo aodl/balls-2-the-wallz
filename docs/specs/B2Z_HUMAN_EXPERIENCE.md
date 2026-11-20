@@ -1251,3 +1251,29 @@ clearance. Selected but ineligible sites disclose the reason. Deflector
 directions use screen N/E/S/W while preserving physical diagonal headings.
 Local proposals and authenticated structures remain visually distinct.
 Existing readiness, exact clipboard and Update/Keep contracts still apply.
+
+## Rules13 experience continuation
+
+The minimap compass sets which canonical direction points up. Rotation changes
+the projection, screen picking and minimap together over 320 ms. Reduced motion
+applies the endpoint immediately. Rotation keeps the focal point, zoom,
+selection, payment draft and exact copied packet. Canonical direction labels
+and memo bytes retain their North-up meaning in every view.
+
+Selecting a ball shows one pointer-transparent dashed guide based on its
+currently presented verified position and velocity. It ends at a viewport or
+HUD boundary. The guide describes the uninterrupted heading and includes no
+predicted collision. Panning disengages follow while leaving the selected
+heading available. Escape clears the selection and guide.
+
+Owner-coloured grid lines use the same terrain atlas and antialiasing path as
+the tile faces. Only the line shade changes with ownership. Neutral tiles keep
+a neutral grid, and the renderer attenuates lines at overview zoom.
+
+Wallet panels keep three aligned Copy controls and the reassociation control.
+Their visible principal abbreviations are plain text. The full account remains
+available in Account and the full recipient is accessible and copied exactly.
+Fire and additional cannon construction show the requested ball count. The
+title and construction terminology are player-facing. Stored protocol names
+remain stable. The optional Shout editor retains Rules13's Fire and New
+capabilities. Safety and retention information appears before wallet handoff.

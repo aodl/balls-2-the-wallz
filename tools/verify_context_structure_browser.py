@@ -131,7 +131,7 @@ with (out/"server.log").open("w") as log:
                 activate("#close-panel")
                 pick(config["new_deflector_cell"])
                 toolbar(["focus-cannon","reorient-action","move-action","close-panel"])
-                assert page.locator("#panel-title").text_content()==f"Deflector #{config['structure']}"
+                assert page.locator("#panel-title").text_content()==f"Diverter #{config['structure']}"
                 activate("#reorient-action")
                 page.wait_for_function("()=>document.querySelector('#preparation-note').textContent.includes('different direction')")
                 direction.nth(0).click()
