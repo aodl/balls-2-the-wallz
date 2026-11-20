@@ -24,8 +24,11 @@ def status(page,kind):
 
 def open_fire(page):
  page.wait_for_function('()=>Boolean(globalThis.fixture)');account=page.evaluate('fixture.world().cannons[0].account');page.locator('#join-action').click();page.locator('#sending-account').fill(account);page.locator('#identity-save').click();page.wait_for_function('()=>document.getElementById("workspace").hidden');settled(page);page.locator('#centre-cannon').click();settled(page)
- if page.locator('#own-cannons button').first.is_visible():page.locator('#own-cannons button').first.click();settled(page)
- if page.locator('#focus-cannon').is_enabled():page.locator('#focus-cannon').click();settled(page)
+ if page.locator('#own-cannons button').first.is_visible():page.locator('#own-cannons button').first.click()
+ # Focus can become disabled when the latest layout confirms that the
+ # cannon is already framed. Resolve this after the layout, not mid-frame.
+ settled_panel(page)
+ if page.locator('#focus-cannon').is_enabled():page.locator('#focus-cannon').click();settled_panel(page)
  page.locator('#fire-action').click();settled_panel(page);settled(page);page.evaluate('globalThis.quantityIdentity=document.getElementById("quantity-controls")')
 
 def verify_quantity_matrix(browser,url,out,report,save,width=None,height=None):
