@@ -686,6 +686,13 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
         replay.success(),
         "official transaction history must authenticate and replay"
     );
+    let root_key = pic.root_key().unwrap();
+    std::fs::write(out.join("root-key.der"), &root_key).unwrap();
+    save(
+        &out,
+        "metadata.json",
+        &json!({"network":"pocketic-local","canister_id":id.to_text(),"root_key_sha256":dtr_wire::hash(&root_key)}),
+    );
     let browser = std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap())
         .current_dir(&repo)
         .args([
