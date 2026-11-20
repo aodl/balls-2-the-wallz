@@ -79,6 +79,29 @@ with (out / "server.log").open("w") as log:
                 assert observed["rules"] == 14
                 assert sorted(a["text"] for a in observed["annotations"]) == expected, observed
                 assert len({a["position"] for a in observed["annotations"]}) == len(expected)
+                page.locator("#join-action").click()
+                page.locator("#sending-account").fill(config["listening_account"])
+                page.locator("#identity-save").click()
+                page.wait_for_function("()=>document.getElementById('workspace').hidden")
+                page.wait_for_function("()=>__b2zExperience.visible?.deflectors.get(2)?.cell===4006")
+                # Frame the observed structure in the fixture. Selection itself
+                # follows the ordinary board input and uses the verified model.
+                point = page.evaluate("()=>{__b2zCamera.frameCell(4006);return __b2zCamera.cellPoint(4006)}")
+                page.wait_for_function(
+                    "p=>document.elementFromPoint(p.sx,p.sy)?.id==='board'", arg=point
+                )
+                if width < 400:
+                    page.touchscreen.tap(point["sx"], point["sy"])
+                else:
+                    page.mouse.click(point["sx"], point["sy"])
+                page.locator("#reorient-action").click()
+                page.locator("#deflector-directions button").filter(has_text="N").click()
+                page.get_by_placeholder("Shout (optional)").fill("Hold")
+                assert page.locator("#text-memo").text_content() == "DROT 2 N|Hold"
+                assert page.locator("#transfer-amount").text_content() == "0.0001 ICP"
+                assert page.locator("[data-copy=text]").is_disabled()
+                observed["local_reorient_memo"] = "DROT 2 N|Hold"
+                observed["paused_copy_disabled"] = True
                 assert not errors and not mutations, (errors, mutations)
                 page.screenshot(path=out / f"{width}-certified-shout-world.png")
                 result.append({"viewport": [width, height], **observed})
