@@ -213,13 +213,19 @@ export function createShell(doc,camera,arcade,onPick){
   const obstacles=[...lowerObstacles];if(expanded&&cardBounds)obstacles.push(cardBounds);
   $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':$('focus-cannon').getAttribute('aria-label');
   if(card.hidden||off){positionQuantity();if(card.hidden)narrowPositionKey='';committedLayoutRevision=layoutRevision;return;}
-  const bounds=visibleBounds(),W=bounds.width,H=bounds.height,top=quantityReservation==='inline'?bounds.top+8:Math.max(m.top,bounds.top+8),narrow=W<=700,cw=Math.min(360,W-16);
+  const bounds=visibleBounds(),W=bounds.width,H=bounds.height,narrow=W<=700,cw=Math.min(360,W-16);
+  if(!motion.rotation)narrowQuarter=camera.quarter;
+  let top=quantityReservation==='inline'?bounds.top+8:Math.max(m.top,bounds.top+8);
+  if(narrow&&narrowQuarter&&!short&&at&&arcade.structureContexts?.()){
+   // The hidden roster still contributes to the chrome's bounding box. The
+   // four-button toolbar fits beside audio, and the body starts below it.
+   top=Math.max(bounds.top+8,m.headerBottom+8,m.sound.bottom-m.headerHeight+8);
+  }
   let x=bounds.left+W-cw-8,y=top,bottom=bounds.top+H-(short?8:72);
   if(at){
    if(narrow){x=bounds.left+8;y=short?Math.max(top,Math.min(154,H-158)):Math.min(top+96,Math.max(top,H-360));
     // Keep the layout fixed during the quarter turn, then clear the new aim
     // orbit using the card. The selected tile and camera centre stay put.
-    if(!motion.rotation)narrowQuarter=camera.quarter;
     const key=[c.id,c.cell,bounds.left,bounds.top,W,H,short,locateGeneration,narrowQuarter].join('/');
     if(key!==narrowPositionKey){narrowPositionKey=key;narrowY=y;narrowAimClearance=0;narrowAimTop=0;narrowAimBottom=Infinity;
      if(!short&&narrowQuarter&&at.sx+64>x&&at.sx-64<x+cw){
