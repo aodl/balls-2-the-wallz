@@ -1,0 +1,49 @@
+{
+  "status": "PASS",
+  "identity": {
+    "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+    "rules_hash": "9879184552562df4a523bc22b3a34c04c6ddea1dbb17c6d9a039937188a3bb15",
+    "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "cannon_id": 1,
+  "quotes": {},
+  "outage": {
+    "blocked_reads": 6,
+    "duration_seconds": 8.131866942043416,
+    "copy_disabled": true,
+    "same_session_clock_queue": true,
+    "panel_before": {
+      "x": 795,
+      "y": 376,
+      "width": 360,
+      "height": 401,
+      "top": 376,
+      "right": 1155,
+      "bottom": 777,
+      "left": 795
+    },
+    "panel_during": {
+      "x": 795,
+      "y": 376,
+      "width": 360,
+      "height": 401,
+      "top": 376,
+      "right": 1155,
+      "bottom": 777,
+      "left": 795
+    },
+    "panel_after": {
+      "x": 795,
+      "y": 376,
+      "width": 360,
+      "height": 401,
+      "top": 376,
+      "right": 1155,
+      "bottom": 777,
+      "left": 795
+    }
+  },
+  "errors": [],
+  "forbidden_posts": []
+}

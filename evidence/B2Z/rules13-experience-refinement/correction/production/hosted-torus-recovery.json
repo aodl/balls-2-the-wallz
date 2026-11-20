@@ -1,0 +1,120 @@
+{
+  "status": "PASS",
+  "retained_gap": {
+    "hold_requested": {
+      "head": 3,
+      "root": "8828c1f77443471730ad0750d58192ffc85b4dd779aba771051fdd606122dfcc",
+      "version": 6,
+      "busy": true,
+      "hidden": false,
+      "resyncs": 0,
+      "phase": "PLAYING",
+      "error": "",
+      "delivery_error": "",
+      "verified_size": [
+        16,
+        8
+      ],
+      "visible_size": [
+        16,
+        8
+      ]
+    },
+    "held": {
+      "head": 3,
+      "root": "8828c1f77443471730ad0750d58192ffc85b4dd779aba771051fdd606122dfcc",
+      "version": 6,
+      "busy": false,
+      "hidden": false,
+      "resyncs": 0,
+      "phase": "PLAYING",
+      "error": "",
+      "delivery_error": "",
+      "verified_size": [
+        16,
+        8
+      ],
+      "visible_size": [
+        16,
+        8
+      ]
+    },
+    "primary_head": 24,
+    "before_release": {
+      "head": 3,
+      "root": "8828c1f77443471730ad0750d58192ffc85b4dd779aba771051fdd606122dfcc",
+      "version": 6,
+      "busy": false,
+      "hidden": false,
+      "resyncs": 0,
+      "phase": "STALLED",
+      "error": "",
+      "delivery_error": "",
+      "verified_size": [
+        16,
+        8
+      ],
+      "visible_size": [
+        16,
+        8
+      ]
+    },
+    "recovered": {
+      "head": 25,
+      "root": "9af17718a1b94448746f50f3a20556d5b4cb7dfa160aedfa434e2aaf7fb0492f",
+      "version": 7,
+      "busy": false,
+      "hidden": false,
+      "resyncs": 1,
+      "phase": "BUFFERING",
+      "error": "",
+      "delivery_error": "",
+      "verified_size": [
+        32,
+        32
+      ],
+      "visible_size": [
+        32,
+        32
+      ]
+    }
+  },
+  "stages": [
+    {
+      "stage": "bootstrap",
+      "elapsed_seconds": 0
+    },
+    {
+      "stage": "old-packet-verified",
+      "elapsed_seconds": 4.603
+    },
+    {
+      "stage": "source-fence-verified",
+      "elapsed_seconds": 5.764
+    },
+    {
+      "stage": "new-epoch-packet-verified",
+      "elapsed_seconds": 23.616
+    },
+    {
+      "stage": "new-epoch-playback-measured",
+      "elapsed_seconds": 45.418
+    },
+    {
+      "stage": "retained-gap-proved",
+      "elapsed_seconds": 45.445
+    },
+    {
+      "stage": "retained-gap-recovered",
+      "elapsed_seconds": 45.955
+    }
+  ],
+  "epoch_playback": {
+    "seconds": 19.4825,
+    "verified_ticks_per_second": 1.0265622994995507,
+    "displayed_ticks_per_second": 1.0265148659350556,
+    "stalled_samples": 0,
+    "nominal_rate": 1,
+    "qualification": "One-ball authenticated v7 epoch on local IC wall time"
+  }
+}

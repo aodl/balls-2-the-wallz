@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "snapshot_id": "0000000000000001000000000240661b0101",
+  "actual_snapshot_memory_bytes": 230613831,
+  "balance_after_snapshot": 1033315569599,
+  "snapshot_window_net_debit": 2269986603,
+  "actual_floor": 446897197020,
+  "planning_reserve": 374451128482,
+  "headroom_after_floor_and_reserve": 211967244097,
+  "idle_cycles_per_day": 14896573234
+}

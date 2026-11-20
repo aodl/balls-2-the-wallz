@@ -1,0 +1,71 @@
+{
+  "status": "completed",
+  "conclusion": "success",
+  "source": "39fe7bc4333ae63afb37c732b19fdaa184215dc0",
+  "jobs": [
+    {
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 136441912569,
+      "startedAt": "2026-11-20T17:09:51Z",
+      "completedAt": "2026-11-20T17:13:09Z"
+    },
+    {
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 136441912886,
+      "startedAt": "2026-11-20T17:09:51Z",
+      "completedAt": "2026-11-20T17:09:54Z"
+    },
+    {
+      "name": "Source conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 136441912949,
+      "startedAt": "2026-11-20T17:09:51Z",
+      "completedAt": "2026-11-20T17:12:53Z"
+    },
+    {
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 136441912951,
+      "startedAt": "2026-11-20T17:09:51Z",
+      "completedAt": "2026-11-20T18:30:31Z"
+    },
+    {
+      "name": "Native conformance",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 136441913114,
+      "startedAt": "2026-11-20T17:09:51Z",
+      "completedAt": "2026-11-20T17:13:22Z"
+    },
+    {
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 136441913149,
+      "startedAt": "2026-11-20T17:09:51Z",
+      "completedAt": "2026-11-20T17:26:45Z"
+    },
+    {
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 136441913331,
+      "startedAt": "2026-11-20T17:09:51Z",
+      "completedAt": "2026-11-20T17:10:36Z"
+    },
+    {
+      "name": "Immutable frontend Wasm and content identity",
+      "status": "completed",
+      "conclusion": "success",
+      "id": 136441913365,
+      "startedAt": "2026-11-20T17:09:51Z",
+      "completedAt": "2026-11-20T17:11:23Z"
+    }
+  ]
+}
