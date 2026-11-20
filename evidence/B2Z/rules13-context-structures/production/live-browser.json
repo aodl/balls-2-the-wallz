@@ -1,0 +1,119 @@
+{
+  "browser": "153.0.8010.12",
+  "profiles": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "cell": 999001,
+      "rules": 13,
+      "four_button_cannon_and_tile": true,
+      "automatic_fire_quote": false,
+      "exact_clipboard": true,
+      "previous_packet_kept": true,
+      "payment_status": {
+        "kind": "delayed",
+        "canPrepare": true,
+        "detail": "Presenting earlier verified activity. Payment authority uses the latest authenticated state.",
+        "ready": "true",
+        "reason": "",
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": 1,
+          "publication_ticks": 1,
+          "completed_segments": 13146,
+          "running": true
+        },
+        "memo": "DEFLECT 999001 W"
+      },
+      "compatibility_errors": [],
+      "diverter_structure_present": false
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "cell": 999001,
+      "rules": 13,
+      "four_button_cannon_and_tile": true,
+      "automatic_fire_quote": false,
+      "exact_clipboard": true,
+      "previous_packet_kept": true,
+      "payment_status": {
+        "kind": "delayed",
+        "canPrepare": true,
+        "detail": "Presenting earlier verified activity. Payment authority uses the latest authenticated state.",
+        "ready": "true",
+        "reason": "",
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": 1,
+          "publication_ticks": 1,
+          "completed_segments": 13146,
+          "running": true
+        },
+        "memo": "DEFLECT 999001 W"
+      },
+      "compatibility_errors": [],
+      "diverter_structure_present": false
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "cell": 999001,
+      "rules": 13,
+      "four_button_cannon_and_tile": true,
+      "automatic_fire_quote": false,
+      "exact_clipboard": true,
+      "previous_packet_kept": true,
+      "payment_status": {
+        "kind": "delayed",
+        "canPrepare": true,
+        "detail": "Presenting earlier verified activity. Payment authority uses the latest authenticated state.",
+        "ready": "true",
+        "reason": "",
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": 1,
+          "publication_ticks": 1,
+          "completed_segments": 13147,
+          "running": true
+        },
+        "memo": "DEFLECT 999001 W"
+      },
+      "compatibility_errors": [],
+      "diverter_structure_present": false
+    }
+  ]
+}

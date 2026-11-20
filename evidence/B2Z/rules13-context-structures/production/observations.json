@@ -396,5 +396,45 @@
     "fresh_paused": true,
     "copy_disabled": true,
     "forbidden_requests": 0
+  },
+  "final": {
+    "at": "2026-11-20T12:20:42.220Z",
+    "module": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+    "root": "7c112cfb18b8f6f745b7560d385a44f6c2c35b15bd3ac1ab2a66e62ea13d28d4",
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "13146",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "logical_end": "13146",
+    "segment_id": "13152",
+    "manifest_hash": "393a94534f7316f29344cd395b7c5f6b3bf891555c1c6d5ec48f5dfaea55cbdd",
+    "state_hash": "29c018377ea13f1358e0723aac32901cbcb4cb8ca0781ac8720f9be9d9583738",
+    "source_to_exclusive": "40180669",
+    "identity": {
+      "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+      "rules_hash": "9879184552562df4a523bc22b3a34c04c6ddea1dbb17c6d9a039937188a3bb15",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    }
   }
 }
