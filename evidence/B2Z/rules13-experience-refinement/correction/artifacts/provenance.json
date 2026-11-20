@@ -1,9 +1,9 @@
 {
-  "source": "3274f879b399f9c467fc5306124259d2019d65b7",
+  "source": "28504dbe66f3eb74b5e10ca1d23da44b2c62999d",
   "source_dirty": false,
   "normal_wasm_sha256": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
   "normal_wasm_scope": "Hosted Rules13 release artifact, retained without rebuilding or redeploying.",
-  "inventory_sha256": "2703fe304735d9b047d76d0e7ee9c909101f1ab9471a24bf87406ba7b8bc0ea7",
+  "inventory_sha256": "b9f51f604d9af73f3bf91ccd559ca50c287f996353edf89e8b8adef43a8e03c3",
   "inputs": [
     {
       "path": "apps/b2z-observer/404.html",
@@ -1299,7 +1299,7 @@
     },
     {
       "path": "apps/b2z-observer/shell.mjs",
-      "sha256": "3c645abc622c4b13893848792a65d9e0a0424ef98785ef37afc8ebf4ce1c1acd"
+      "sha256": "09b52abd1297df6d227cdf56afa486a8c3dfe55b56c40340785ad87de399f085"
     },
     {
       "path": "apps/b2z-observer/speech-bubbles.mjs",
