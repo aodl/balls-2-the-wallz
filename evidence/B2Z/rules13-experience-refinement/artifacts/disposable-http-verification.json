@@ -1,0 +1,2127 @@
+{
+  "status": "PASS",
+  "module": "11d9a93d53da527dac1a707e08b8599f7018826aee22b8ef1952f4021f801570",
+  "id": "uxrrr-q7777-77774-qaaaq-cai",
+  "files": [
+    {
+      "path": "/404.html",
+      "variants": [
+        {
+          "bytes": 1128,
+          "embedded_path": "404.html",
+          "encoding": "identity",
+          "sha256": "66d908c0d86ad70b61f5183b3688ccda9aabe4f049100198a7e7e21526776988"
+        },
+        {
+          "bytes": 586,
+          "embedded_path": "404.html.gz",
+          "encoding": "gzip",
+          "sha256": "086506cab15848bc2179f36b60ef83cad090151a44b9a039691faa5dd752284c"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "66d908c0d86ad70b61f5183b3688ccda9aabe4f049100198a7e7e21526776988",
+          "bytes": 1128,
+          "elapsed_ms": 57.752565000000004
+        },
+        {
+          "encoding": "gzip",
+          "sha256": "086506cab15848bc2179f36b60ef83cad090151a44b9a039691faa5dd752284c",
+          "bytes": 586,
+          "elapsed_ms": 17.160396999999875
+        }
+      ],
+      "head": true,
+      "mime": "text/html; charset=utf-8"
+    },
+    {
+      "path": "/agent-api.md",
+      "variants": [
+        {
+          "bytes": 7294,
+          "embedded_path": "agent-api.md",
+          "encoding": "identity",
+          "sha256": "94fb88adb23d20a0e50741abc07d84fa6c09dbb80462b96a5bdad6a1d45f8ea0"
+        },
+        {
+          "bytes": 3478,
+          "embedded_path": "agent-api.md.gz",
+          "encoding": "gzip",
+          "sha256": "42daafefa936d61204d8a40ee2cecef3bdab2c5e8b2671e6b7f354191c50337e"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "94fb88adb23d20a0e50741abc07d84fa6c09dbb80462b96a5bdad6a1d45f8ea0",
+          "bytes": 7294,
+          "elapsed_ms": 7.758888999999954
+        },
+        {
+          "encoding": "gzip",
+          "sha256": "42daafefa936d61204d8a40ee2cecef3bdab2c5e8b2671e6b7f354191c50337e",
+          "bytes": 3478,
+          "elapsed_ms": 10.474819999999909
+        }
+      ],
+      "head": true,
+      "mime": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/app.mjs",
+      "variants": [
+        {
+          "bytes": 1125962,
+          "embedded_path": "app.mjs",
+          "encoding": "identity",
+          "sha256": "e3e09d5ff8e4be6a8e9fb8d08d1c851484825f863a65ae1a81c252449c38d8c4"
+        },
+        {
+          "bytes": 324063,
+          "embedded_path": "app.mjs.gz",
+          "encoding": "gzip",
+          "sha256": "e41d71417b152ed60cf19bb5d0cc5c60bbf2f1612202019ae475e99e1f68bdb3"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "e3e09d5ff8e4be6a8e9fb8d08d1c851484825f863a65ae1a81c252449c38d8c4",
+          "bytes": 1125962,
+          "elapsed_ms": 37.972136999999975
+        },
+        {
+          "encoding": "gzip",
+          "sha256": "e41d71417b152ed60cf19bb5d0cc5c60bbf2f1612202019ae475e99e1f68bdb3",
+          "bytes": 324063,
+          "elapsed_ms": 15.018973000000187
+        }
+      ],
+      "head": true,
+      "mime": "text/javascript; charset=utf-8"
+    },
+    {
+      "path": "/audio/b2z-v1/manifest.json",
+      "variants": [
+        {
+          "bytes": 32250,
+          "embedded_path": "audio/b2z-v1/manifest.json",
+          "encoding": "identity",
+          "sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c",
+          "bytes": 32250,
+          "elapsed_ms": 9.77511299999992
+        }
+      ],
+      "head": true,
+      "mime": "application/json"
+    },
+    {
+      "path": "/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+      "variants": [
+        {
+          "bytes": 1354668,
+          "embedded_path": "audio/b2z-v1/music/000-978533bbde679a0d.flac",
+          "encoding": "identity",
+          "sha256": "978533bbde679a0d487e5d237eff2c43d2678a2471d4df6f7393b0e60c07b67f"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "978533bbde679a0d487e5d237eff2c43d2678a2471d4df6f7393b0e60c07b67f",
+          "bytes": 1354668,
+          "elapsed_ms": 40.65596800000003
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+      "variants": [
+        {
+          "bytes": 1254402,
+          "embedded_path": "audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+          "encoding": "identity",
+          "sha256": "7ab28b46da414f75d809207f1477c5d015586120ab63d54cfa672f5a790b6da5"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "7ab28b46da414f75d809207f1477c5d015586120ab63d54cfa672f5a790b6da5",
+          "bytes": 1254402,
+          "elapsed_ms": 35.181503999999904
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+      "variants": [
+        {
+          "bytes": 1235689,
+          "embedded_path": "audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+          "encoding": "identity",
+          "sha256": "ab9e812cea73ff2d10db8b4a7fbf6cfa47ed1ca27c095916f14b55d64804ccb3"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "ab9e812cea73ff2d10db8b4a7fbf6cfa47ed1ca27c095916f14b55d64804ccb3",
+          "bytes": 1235689,
+          "elapsed_ms": 33.55148599999984
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/003-5a9a811a71e0dbf5.flac",
+      "variants": [
+        {
+          "bytes": 1308010,
+          "embedded_path": "audio/b2z-v1/music/003-5a9a811a71e0dbf5.flac",
+          "encoding": "identity",
+          "sha256": "5a9a811a71e0dbf5a0c944c2d04c65328f588c7a3fffe33b2079c2196b2610d7"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "5a9a811a71e0dbf5a0c944c2d04c65328f588c7a3fffe33b2079c2196b2610d7",
+          "bytes": 1308010,
+          "elapsed_ms": 37.73503400000027
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/004-f3bfe0c913ec1cfd.flac",
+      "variants": [
+        {
+          "bytes": 1393475,
+          "embedded_path": "audio/b2z-v1/music/004-f3bfe0c913ec1cfd.flac",
+          "encoding": "identity",
+          "sha256": "f3bfe0c913ec1cfd849364079ad2bccfcce530b3402c646d55b06887699fbf60"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "f3bfe0c913ec1cfd849364079ad2bccfcce530b3402c646d55b06887699fbf60",
+          "bytes": 1393475,
+          "elapsed_ms": 35.65860999999995
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/005-4bf13903e457fd94.flac",
+      "variants": [
+        {
+          "bytes": 1415984,
+          "embedded_path": "audio/b2z-v1/music/005-4bf13903e457fd94.flac",
+          "encoding": "identity",
+          "sha256": "4bf13903e457fd940d1038f947f2a0e2d8407678dd53646e2b2a9fad9d25d2e8"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "4bf13903e457fd940d1038f947f2a0e2d8407678dd53646e2b2a9fad9d25d2e8",
+          "bytes": 1415984,
+          "elapsed_ms": 36.69872200000009
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/006-13c63a85b790037a.flac",
+      "variants": [
+        {
+          "bytes": 1341052,
+          "embedded_path": "audio/b2z-v1/music/006-13c63a85b790037a.flac",
+          "encoding": "identity",
+          "sha256": "13c63a85b790037ab0ec0b137d89feca7bbe84e2fb612b2fda816d37f6c20ac4"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "13c63a85b790037ab0ec0b137d89feca7bbe84e2fb612b2fda816d37f6c20ac4",
+          "bytes": 1341052,
+          "elapsed_ms": 35.99291400000038
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/007-a3a654ad7e6ccf3b.flac",
+      "variants": [
+        {
+          "bytes": 1398802,
+          "embedded_path": "audio/b2z-v1/music/007-a3a654ad7e6ccf3b.flac",
+          "encoding": "identity",
+          "sha256": "a3a654ad7e6ccf3b401a4686717b4e2977284ded47fd013c1cae73bb4352e40c"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "a3a654ad7e6ccf3b401a4686717b4e2977284ded47fd013c1cae73bb4352e40c",
+          "bytes": 1398802,
+          "elapsed_ms": 35.460207999999966
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/008-6a0965d52f29842d.flac",
+      "variants": [
+        {
+          "bytes": 1440073,
+          "embedded_path": "audio/b2z-v1/music/008-6a0965d52f29842d.flac",
+          "encoding": "identity",
+          "sha256": "6a0965d52f29842dedcfcbadc6906de395af399999474a208de5af20450bb75b"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "6a0965d52f29842dedcfcbadc6906de395af399999474a208de5af20450bb75b",
+          "bytes": 1440073,
+          "elapsed_ms": 36.29551800000036
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/009-752cf09ae99741b3.flac",
+      "variants": [
+        {
+          "bytes": 1447886,
+          "embedded_path": "audio/b2z-v1/music/009-752cf09ae99741b3.flac",
+          "encoding": "identity",
+          "sha256": "752cf09ae99741b3f798d52c56e61b0c4cb5b7fefbe3cc370688669f05074cce"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "752cf09ae99741b3f798d52c56e61b0c4cb5b7fefbe3cc370688669f05074cce",
+          "bytes": 1447886,
+          "elapsed_ms": 38.48524300000008
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/010-6de1162e34b4268f.flac",
+      "variants": [
+        {
+          "bytes": 1462734,
+          "embedded_path": "audio/b2z-v1/music/010-6de1162e34b4268f.flac",
+          "encoding": "identity",
+          "sha256": "6de1162e34b4268f786b579df90abf279bc3575d20fc712f2ca1d8d13518b8c5"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "6de1162e34b4268f786b579df90abf279bc3575d20fc712f2ca1d8d13518b8c5",
+          "bytes": 1462734,
+          "elapsed_ms": 37.005425999999716
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/011-8a18bb8efc6b46e0.flac",
+      "variants": [
+        {
+          "bytes": 1519930,
+          "embedded_path": "audio/b2z-v1/music/011-8a18bb8efc6b46e0.flac",
+          "encoding": "identity",
+          "sha256": "8a18bb8efc6b46e06e226c4ca8a7c4a70b8e699d4d9f61ccc956b1895ce89b13"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "8a18bb8efc6b46e06e226c4ca8a7c4a70b8e699d4d9f61ccc956b1895ce89b13",
+          "bytes": 1519930,
+          "elapsed_ms": 38.712645000000066
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/012-01e06f63ca07d0ae.flac",
+      "variants": [
+        {
+          "bytes": 1511800,
+          "embedded_path": "audio/b2z-v1/music/012-01e06f63ca07d0ae.flac",
+          "encoding": "identity",
+          "sha256": "01e06f63ca07d0ae4bf88ed7b5689efb763e36c5584592bd9f913ab88b0f5fc9"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "01e06f63ca07d0ae4bf88ed7b5689efb763e36c5584592bd9f913ab88b0f5fc9",
+          "bytes": 1511800,
+          "elapsed_ms": 39.534153999999944
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/013-f8a6c8b91760e70e.flac",
+      "variants": [
+        {
+          "bytes": 1600065,
+          "embedded_path": "audio/b2z-v1/music/013-f8a6c8b91760e70e.flac",
+          "encoding": "identity",
+          "sha256": "f8a6c8b91760e70e67e97e3493e836f23a190972a87e2248b37da9286b319cdf"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "f8a6c8b91760e70e67e97e3493e836f23a190972a87e2248b37da9286b319cdf",
+          "bytes": 1600065,
+          "elapsed_ms": 40.80216900000005
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/014-837b53aa95a943b5.flac",
+      "variants": [
+        {
+          "bytes": 1394585,
+          "embedded_path": "audio/b2z-v1/music/014-837b53aa95a943b5.flac",
+          "encoding": "identity",
+          "sha256": "837b53aa95a943b5c83c9ab8e8a9c1cc4265360a6c5d6ff4db709866e00c1b2f"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "837b53aa95a943b5c83c9ab8e8a9c1cc4265360a6c5d6ff4db709866e00c1b2f",
+          "bytes": 1394585,
+          "elapsed_ms": 34.084691999999905
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/015-e35652430b453d65.flac",
+      "variants": [
+        {
+          "bytes": 1384312,
+          "embedded_path": "audio/b2z-v1/music/015-e35652430b453d65.flac",
+          "encoding": "identity",
+          "sha256": "e35652430b453d65f625e26a3752ddf134c82bd33029a10127fb8db8e106a7e6"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "e35652430b453d65f625e26a3752ddf134c82bd33029a10127fb8db8e106a7e6",
+          "bytes": 1384312,
+          "elapsed_ms": 33.26088299999992
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/016-2168c415461a767c.flac",
+      "variants": [
+        {
+          "bytes": 1494257,
+          "embedded_path": "audio/b2z-v1/music/016-2168c415461a767c.flac",
+          "encoding": "identity",
+          "sha256": "2168c415461a767c3a13d2361078439721a7156b2df2cf6e7db3cbc6cc3e1efc"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "2168c415461a767c3a13d2361078439721a7156b2df2cf6e7db3cbc6cc3e1efc",
+          "bytes": 1494257,
+          "elapsed_ms": 37.805835000000116
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/017-7f4e43a4cf5d162b.flac",
+      "variants": [
+        {
+          "bytes": 1588032,
+          "embedded_path": "audio/b2z-v1/music/017-7f4e43a4cf5d162b.flac",
+          "encoding": "identity",
+          "sha256": "7f4e43a4cf5d162b2171319aa2ed9697ece111690f1034eaa24a33811ea03c3d"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "7f4e43a4cf5d162b2171319aa2ed9697ece111690f1034eaa24a33811ea03c3d",
+          "bytes": 1588032,
+          "elapsed_ms": 39.90325900000062
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/018-cd646c231bb0e032.flac",
+      "variants": [
+        {
+          "bytes": 1499842,
+          "embedded_path": "audio/b2z-v1/music/018-cd646c231bb0e032.flac",
+          "encoding": "identity",
+          "sha256": "cd646c231bb0e03281768f42ca6ec8c5170f94b0d1641527d8ca9d2b45212429"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "cd646c231bb0e03281768f42ca6ec8c5170f94b0d1641527d8ca9d2b45212429",
+          "bytes": 1499842,
+          "elapsed_ms": 42.11578399999962
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/019-d9dcce5e55fccf6e.flac",
+      "variants": [
+        {
+          "bytes": 1421552,
+          "embedded_path": "audio/b2z-v1/music/019-d9dcce5e55fccf6e.flac",
+          "encoding": "identity",
+          "sha256": "d9dcce5e55fccf6e86e6f9971d0974cf711b78477187f8f5859ad4b30047f1ae"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "d9dcce5e55fccf6e86e6f9971d0974cf711b78477187f8f5859ad4b30047f1ae",
+          "bytes": 1421552,
+          "elapsed_ms": 34.07029199999943
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/020-e854dac44dcbcd65.flac",
+      "variants": [
+        {
+          "bytes": 1474801,
+          "embedded_path": "audio/b2z-v1/music/020-e854dac44dcbcd65.flac",
+          "encoding": "identity",
+          "sha256": "e854dac44dcbcd65ed354ed2209bff20e1f6226a9f2a84491cde280a91488342"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "e854dac44dcbcd65ed354ed2209bff20e1f6226a9f2a84491cde280a91488342",
+          "bytes": 1474801,
+          "elapsed_ms": 51.48019199999999
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/021-0053cc0eb9d2a475.flac",
+      "variants": [
+        {
+          "bytes": 1462383,
+          "embedded_path": "audio/b2z-v1/music/021-0053cc0eb9d2a475.flac",
+          "encoding": "identity",
+          "sha256": "0053cc0eb9d2a4751ca5cf70b24f82e3d0e7a2e2dfd04abe1074412f714b2d52"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "0053cc0eb9d2a4751ca5cf70b24f82e3d0e7a2e2dfd04abe1074412f714b2d52",
+          "bytes": 1462383,
+          "elapsed_ms": 34.712798999999904
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/022-9ebd709381955bf9.flac",
+      "variants": [
+        {
+          "bytes": 1482253,
+          "embedded_path": "audio/b2z-v1/music/022-9ebd709381955bf9.flac",
+          "encoding": "identity",
+          "sha256": "9ebd709381955bf9c739cd81de178f0cb1436317ed8e86f499b39942ba5d6e5d"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "9ebd709381955bf9c739cd81de178f0cb1436317ed8e86f499b39942ba5d6e5d",
+          "bytes": 1482253,
+          "elapsed_ms": 42.59178900000006
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/023-59e1236bb33062e5.flac",
+      "variants": [
+        {
+          "bytes": 1431199,
+          "embedded_path": "audio/b2z-v1/music/023-59e1236bb33062e5.flac",
+          "encoding": "identity",
+          "sha256": "59e1236bb33062e557985564d7bf3c90a7e9ef0bc1f2359b870e1744f9c27bf8"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "59e1236bb33062e557985564d7bf3c90a7e9ef0bc1f2359b870e1744f9c27bf8",
+          "bytes": 1431199,
+          "elapsed_ms": 34.73689900000045
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/024-041c140c3e948c0d.flac",
+      "variants": [
+        {
+          "bytes": 1404641,
+          "embedded_path": "audio/b2z-v1/music/024-041c140c3e948c0d.flac",
+          "encoding": "identity",
+          "sha256": "041c140c3e948c0dda47328f7af592935e82d45426bc7a26dd796ee90cc326ec"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "041c140c3e948c0dda47328f7af592935e82d45426bc7a26dd796ee90cc326ec",
+          "bytes": 1404641,
+          "elapsed_ms": 40.64926800000012
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/025-b3d815be06bfb494.flac",
+      "variants": [
+        {
+          "bytes": 1242087,
+          "embedded_path": "audio/b2z-v1/music/025-b3d815be06bfb494.flac",
+          "encoding": "identity",
+          "sha256": "b3d815be06bfb49484872e44e98a1d927a92dcc683aae1369e360e7ad5bfcfc1"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "b3d815be06bfb49484872e44e98a1d927a92dcc683aae1369e360e7ad5bfcfc1",
+          "bytes": 1242087,
+          "elapsed_ms": 30.894054999999753
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/026-cc3cdb40392b4641.flac",
+      "variants": [
+        {
+          "bytes": 1276315,
+          "embedded_path": "audio/b2z-v1/music/026-cc3cdb40392b4641.flac",
+          "encoding": "identity",
+          "sha256": "cc3cdb40392b4641eca7f6fd4a55ca7b064f6f4070d7f3049737ffd7fccf8a45"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "cc3cdb40392b4641eca7f6fd4a55ca7b064f6f4070d7f3049737ffd7fccf8a45",
+          "bytes": 1276315,
+          "elapsed_ms": 46.82543900000019
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/027-64598ff9932ebab9.flac",
+      "variants": [
+        {
+          "bytes": 1341801,
+          "embedded_path": "audio/b2z-v1/music/027-64598ff9932ebab9.flac",
+          "encoding": "identity",
+          "sha256": "64598ff9932ebab9ec8b91d60910ddaade31c4724946fbf99beb41ba2e0fdce0"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "64598ff9932ebab9ec8b91d60910ddaade31c4724946fbf99beb41ba2e0fdce0",
+          "bytes": 1341801,
+          "elapsed_ms": 33.356682999999975
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/028-24c195f5b8f77c5b.flac",
+      "variants": [
+        {
+          "bytes": 1323001,
+          "embedded_path": "audio/b2z-v1/music/028-24c195f5b8f77c5b.flac",
+          "encoding": "identity",
+          "sha256": "24c195f5b8f77c5b56c96b5a5c9c8a080cfb2428bc758a3e723387f1e7c1f3a4"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "24c195f5b8f77c5b56c96b5a5c9c8a080cfb2428bc758a3e723387f1e7c1f3a4",
+          "bytes": 1323001,
+          "elapsed_ms": 32.589074999999866
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/029-ac52e6b415d35c71.flac",
+      "variants": [
+        {
+          "bytes": 1346897,
+          "embedded_path": "audio/b2z-v1/music/029-ac52e6b415d35c71.flac",
+          "encoding": "identity",
+          "sha256": "ac52e6b415d35c71e57d38d1a1a6e91b47da69b0e72bd33a49092d2e0e5d0311"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "ac52e6b415d35c71e57d38d1a1a6e91b47da69b0e72bd33a49092d2e0e5d0311",
+          "bytes": 1346897,
+          "elapsed_ms": 34.557896999999684
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/030-601ae0b00a50cf31.flac",
+      "variants": [
+        {
+          "bytes": 1306303,
+          "embedded_path": "audio/b2z-v1/music/030-601ae0b00a50cf31.flac",
+          "encoding": "identity",
+          "sha256": "601ae0b00a50cf31dd77a085ad8ec933772ed666908403ee064688eabfcd139a"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "601ae0b00a50cf31dd77a085ad8ec933772ed666908403ee064688eabfcd139a",
+          "bytes": 1306303,
+          "elapsed_ms": 31.76026499999989
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/031-91fc9d7d00634258.flac",
+      "variants": [
+        {
+          "bytes": 1344068,
+          "embedded_path": "audio/b2z-v1/music/031-91fc9d7d00634258.flac",
+          "encoding": "identity",
+          "sha256": "91fc9d7d006342587b09906bc0619c6819e3a3af2cda3d82bb9d3866a168b3f1"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "91fc9d7d006342587b09906bc0619c6819e3a3af2cda3d82bb9d3866a168b3f1",
+          "bytes": 1344068,
+          "elapsed_ms": 33.295882999999776
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/032-cd7886d01d110959.flac",
+      "variants": [
+        {
+          "bytes": 1477670,
+          "embedded_path": "audio/b2z-v1/music/032-cd7886d01d110959.flac",
+          "encoding": "identity",
+          "sha256": "cd7886d01d110959288ee2946ee62a964e27f0d1757ec3d85968c4d0c1a0254d"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "cd7886d01d110959288ee2946ee62a964e27f0d1757ec3d85968c4d0c1a0254d",
+          "bytes": 1477670,
+          "elapsed_ms": 34.354794999999285
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/033-57b4a3df81bf24e6.flac",
+      "variants": [
+        {
+          "bytes": 1524419,
+          "embedded_path": "audio/b2z-v1/music/033-57b4a3df81bf24e6.flac",
+          "encoding": "identity",
+          "sha256": "57b4a3df81bf24e6eb73b15c645701c4bedb4ca04125dc5b6b52e9ec757944f5"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "57b4a3df81bf24e6eb73b15c645701c4bedb4ca04125dc5b6b52e9ec757944f5",
+          "bytes": 1524419,
+          "elapsed_ms": 43.40919899999972
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/034-98a099fe7a6eb4a0.flac",
+      "variants": [
+        {
+          "bytes": 1536526,
+          "embedded_path": "audio/b2z-v1/music/034-98a099fe7a6eb4a0.flac",
+          "encoding": "identity",
+          "sha256": "98a099fe7a6eb4a06c2180a947d63b7f86d0182171e7ac120539d5824e1d9116"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "98a099fe7a6eb4a06c2180a947d63b7f86d0182171e7ac120539d5824e1d9116",
+          "bytes": 1536526,
+          "elapsed_ms": 36.44911900000079
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/035-9e6aaca300a74182.flac",
+      "variants": [
+        {
+          "bytes": 1510429,
+          "embedded_path": "audio/b2z-v1/music/035-9e6aaca300a74182.flac",
+          "encoding": "identity",
+          "sha256": "9e6aaca300a741828e64da529dfef1b2a0250f73d651af4a11a1acdbf9189441"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "9e6aaca300a741828e64da529dfef1b2a0250f73d651af4a11a1acdbf9189441",
+          "bytes": 1510429,
+          "elapsed_ms": 35.16640400000051
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/036-6633c68f9f5a1ed6.flac",
+      "variants": [
+        {
+          "bytes": 1592760,
+          "embedded_path": "audio/b2z-v1/music/036-6633c68f9f5a1ed6.flac",
+          "encoding": "identity",
+          "sha256": "6633c68f9f5a1ed60b473d3f53747f7fd22d51f01e5564e993fdba6f91819b54"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "6633c68f9f5a1ed60b473d3f53747f7fd22d51f01e5564e993fdba6f91819b54",
+          "bytes": 1592760,
+          "elapsed_ms": 40.063161000000036
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/037-e9e76ddc65f4dae0.flac",
+      "variants": [
+        {
+          "bytes": 1636180,
+          "embedded_path": "audio/b2z-v1/music/037-e9e76ddc65f4dae0.flac",
+          "encoding": "identity",
+          "sha256": "e9e76ddc65f4dae0d0df119727697ac6953545e44897549fc7d2d9ebca770511"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "e9e76ddc65f4dae0d0df119727697ac6953545e44897549fc7d2d9ebca770511",
+          "bytes": 1636180,
+          "elapsed_ms": 54.73392899999999
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/038-3a72de09ed721511.flac",
+      "variants": [
+        {
+          "bytes": 1664812,
+          "embedded_path": "audio/b2z-v1/music/038-3a72de09ed721511.flac",
+          "encoding": "identity",
+          "sha256": "3a72de09ed72151192cf9d7702c4c33258cdf84d878616781aeaaad7c1db9e54"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "3a72de09ed72151192cf9d7702c4c33258cdf84d878616781aeaaad7c1db9e54",
+          "bytes": 1664812,
+          "elapsed_ms": 39.84215899999981
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/039-4d32d148feef91d2.flac",
+      "variants": [
+        {
+          "bytes": 1598669,
+          "embedded_path": "audio/b2z-v1/music/039-4d32d148feef91d2.flac",
+          "encoding": "identity",
+          "sha256": "4d32d148feef91d2e4374fc2680fb79de8bec2756f301611f51f75854a9a92d8"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "4d32d148feef91d2e4374fc2680fb79de8bec2756f301611f51f75854a9a92d8",
+          "bytes": 1598669,
+          "elapsed_ms": 46.48903500000051
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/040-f61e4d02b52e2342.flac",
+      "variants": [
+        {
+          "bytes": 1429391,
+          "embedded_path": "audio/b2z-v1/music/040-f61e4d02b52e2342.flac",
+          "encoding": "identity",
+          "sha256": "f61e4d02b52e23423b4d4259734f42c3492bff22c1f3006ed694a130f8e64834"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "f61e4d02b52e23423b4d4259734f42c3492bff22c1f3006ed694a130f8e64834",
+          "bytes": 1429391,
+          "elapsed_ms": 35.3064059999997
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/041-9a8da6cd0a526b32.flac",
+      "variants": [
+        {
+          "bytes": 1348917,
+          "embedded_path": "audio/b2z-v1/music/041-9a8da6cd0a526b32.flac",
+          "encoding": "identity",
+          "sha256": "9a8da6cd0a526b325aebde37c23ddcad2be84dc5bdead209628aca921222f076"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "9a8da6cd0a526b325aebde37c23ddcad2be84dc5bdead209628aca921222f076",
+          "bytes": 1348917,
+          "elapsed_ms": 32.98367899999994
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/042-ac772140522270b4.flac",
+      "variants": [
+        {
+          "bytes": 1464061,
+          "embedded_path": "audio/b2z-v1/music/042-ac772140522270b4.flac",
+          "encoding": "identity",
+          "sha256": "ac772140522270b4a20ddccbf075cdec09fa190e6d4cfcdfee1d324d527481ad"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "ac772140522270b4a20ddccbf075cdec09fa190e6d4cfcdfee1d324d527481ad",
+          "bytes": 1464061,
+          "elapsed_ms": 34.35389500000019
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/043-2c460e278e88ab13.flac",
+      "variants": [
+        {
+          "bytes": 1432278,
+          "embedded_path": "audio/b2z-v1/music/043-2c460e278e88ab13.flac",
+          "encoding": "identity",
+          "sha256": "2c460e278e88ab138d3297292a04bd817862cdb93e38c5ad4231d6b4ea2f0c65"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "2c460e278e88ab138d3297292a04bd817862cdb93e38c5ad4231d6b4ea2f0c65",
+          "bytes": 1432278,
+          "elapsed_ms": 56.903354000000036
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/044-dde8cc578bcf7431.flac",
+      "variants": [
+        {
+          "bytes": 1546445,
+          "embedded_path": "audio/b2z-v1/music/044-dde8cc578bcf7431.flac",
+          "encoding": "identity",
+          "sha256": "dde8cc578bcf7431ff0fc25804cfb693f760785c7659b5baa6744d831e6b6d03"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "dde8cc578bcf7431ff0fc25804cfb693f760785c7659b5baa6744d831e6b6d03",
+          "bytes": 1546445,
+          "elapsed_ms": 43.18139699999847
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/045-210a3a96ec7e2678.flac",
+      "variants": [
+        {
+          "bytes": 1564721,
+          "embedded_path": "audio/b2z-v1/music/045-210a3a96ec7e2678.flac",
+          "encoding": "identity",
+          "sha256": "210a3a96ec7e267832201e5bb315c0f2e170ed8629fdcc127445cad06c26c4cf"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "210a3a96ec7e267832201e5bb315c0f2e170ed8629fdcc127445cad06c26c4cf",
+          "bytes": 1564721,
+          "elapsed_ms": 38.1099379999996
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/046-d727238bc1e57a9f.flac",
+      "variants": [
+        {
+          "bytes": 1561456,
+          "embedded_path": "audio/b2z-v1/music/046-d727238bc1e57a9f.flac",
+          "encoding": "identity",
+          "sha256": "d727238bc1e57a9ffa5e2bcff49711e15b604f872a9a4bcd2e9678c9fb702e38"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "d727238bc1e57a9ffa5e2bcff49711e15b604f872a9a4bcd2e9678c9fb702e38",
+          "bytes": 1561456,
+          "elapsed_ms": 35.981213000000935
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/047-77fb039c12c797d6.flac",
+      "variants": [
+        {
+          "bytes": 1459258,
+          "embedded_path": "audio/b2z-v1/music/047-77fb039c12c797d6.flac",
+          "encoding": "identity",
+          "sha256": "77fb039c12c797d6c3697f528f4a9598f6e349680b2d5b258c815222a30e6929"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "77fb039c12c797d6c3697f528f4a9598f6e349680b2d5b258c815222a30e6929",
+          "bytes": 1459258,
+          "elapsed_ms": 79.26651200000015
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/048-53ac1f64316cb328.flac",
+      "variants": [
+        {
+          "bytes": 1475356,
+          "embedded_path": "audio/b2z-v1/music/048-53ac1f64316cb328.flac",
+          "encoding": "identity",
+          "sha256": "53ac1f64316cb3283855159eaf14c2dd8fb503fdc0d80d60f8dda855d0917901"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "53ac1f64316cb3283855159eaf14c2dd8fb503fdc0d80d60f8dda855d0917901",
+          "bytes": 1475356,
+          "elapsed_ms": 34.788001000000804
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/049-4e9038e965eb50a8.flac",
+      "variants": [
+        {
+          "bytes": 1327274,
+          "embedded_path": "audio/b2z-v1/music/049-4e9038e965eb50a8.flac",
+          "encoding": "identity",
+          "sha256": "4e9038e965eb50a896ef0b22bf631ab18d82b2b6708a0e427e647114fff0fa05"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "4e9038e965eb50a896ef0b22bf631ab18d82b2b6708a0e427e647114fff0fa05",
+          "bytes": 1327274,
+          "elapsed_ms": 31.452461999999286
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/music/050-0bea9a768b71ccb2.flac",
+      "variants": [
+        {
+          "bytes": 1191008,
+          "embedded_path": "audio/b2z-v1/music/050-0bea9a768b71ccb2.flac",
+          "encoding": "identity",
+          "sha256": "0bea9a768b71ccb2a13f4b23b82383254d4ba9135818fe79f2b9fe54f6497a49"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "0bea9a768b71ccb2a13f4b23b82383254d4ba9135818fe79f2b9fe54f6497a49",
+          "bytes": 1191008,
+          "elapsed_ms": 31.03915699999925
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/sfx/cannon-launch-full-726a4bc9aa376db1.flac",
+      "variants": [
+        {
+          "bytes": 152596,
+          "embedded_path": "audio/b2z-v1/sfx/cannon-launch-full-726a4bc9aa376db1.flac",
+          "encoding": "identity",
+          "sha256": "726a4bc9aa376db17c3f1c60f27d0ec34c3d8fa18c1d108b8f20540530e2c046"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "726a4bc9aa376db17c3f1c60f27d0ec34c3d8fa18c1d108b8f20540530e2c046",
+          "bytes": 152596,
+          "elapsed_ms": 9.982014999999592
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/sfx/cannon-launch-soft-00052a3c9bb1f50d.flac",
+      "variants": [
+        {
+          "bytes": 150941,
+          "embedded_path": "audio/b2z-v1/sfx/cannon-launch-soft-00052a3c9bb1f50d.flac",
+          "encoding": "identity",
+          "sha256": "00052a3c9bb1f50dda6f2aca6aa620f04b6bfdcff3405ebab13039ae503bffac"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "00052a3c9bb1f50dda6f2aca6aa620f04b6bfdcff3405ebab13039ae503bffac",
+          "bytes": 150941,
+          "elapsed_ms": 11.93783699999949
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+      "variants": [
+        {
+          "bytes": 8334,
+          "embedded_path": "audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+          "encoding": "identity",
+          "sha256": "e561a8e1413e5b8904c236eb3ed33e440f97175903c6de8a57d7b6aa3b25602a"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "e561a8e1413e5b8904c236eb3ed33e440f97175903c6de8a57d7b6aa3b25602a",
+          "bytes": 8334,
+          "elapsed_ms": 7.197383000000627
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/sfx/friendly-contact-b-c46c20436673ab27.flac",
+      "variants": [
+        {
+          "bytes": 9518,
+          "embedded_path": "audio/b2z-v1/sfx/friendly-contact-b-c46c20436673ab27.flac",
+          "encoding": "identity",
+          "sha256": "c46c20436673ab275d316bceba07520eba533bf96d29dacf5f862fc65685d737"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "c46c20436673ab275d316bceba07520eba533bf96d29dacf5f862fc65685d737",
+          "bytes": 9518,
+          "elapsed_ms": 7.107082000000446
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/sfx/neutral-contact-3c37d8751e36c470.flac",
+      "variants": [
+        {
+          "bytes": 3697,
+          "embedded_path": "audio/b2z-v1/sfx/neutral-contact-3c37d8751e36c470.flac",
+          "encoding": "identity",
+          "sha256": "3c37d8751e36c470224d342df0f16ac5bbb969115d215f5eaeea0070e91574ee"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "3c37d8751e36c470224d342df0f16ac5bbb969115d215f5eaeea0070e91574ee",
+          "bytes": 3697,
+          "elapsed_ms": 6.989279999999781
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/sfx/territory-soft-swell-377399da11d31316.flac",
+      "variants": [
+        {
+          "bytes": 189251,
+          "embedded_path": "audio/b2z-v1/sfx/territory-soft-swell-377399da11d31316.flac",
+          "encoding": "identity",
+          "sha256": "377399da11d313163a84e551b00fb739da60d0f8dcc5b50b175539d6785a0726"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "377399da11d313163a84e551b00fb739da60d0f8dcc5b50b175539d6785a0726",
+          "bytes": 189251,
+          "elapsed_ms": 10.777524000000994
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/sfx/wall-ripple-a-3644a32147c83a21.flac",
+      "variants": [
+        {
+          "bytes": 105841,
+          "embedded_path": "audio/b2z-v1/sfx/wall-ripple-a-3644a32147c83a21.flac",
+          "encoding": "identity",
+          "sha256": "3644a32147c83a2111f2eadea9f8003ae81a6ac009b82a9f32c7769698f2bfce"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "3644a32147c83a2111f2eadea9f8003ae81a6ac009b82a9f32c7769698f2bfce",
+          "bytes": 105841,
+          "elapsed_ms": 12.785447000000204
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/sfx/wall-ripple-b-b00a94f8e88ec309.flac",
+      "variants": [
+        {
+          "bytes": 106109,
+          "embedded_path": "audio/b2z-v1/sfx/wall-ripple-b-b00a94f8e88ec309.flac",
+          "encoding": "identity",
+          "sha256": "b00a94f8e88ec3097ed25a0d290eb1e0bd4ed8c3a0955af3501843280583695e"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "b00a94f8e88ec3097ed25a0d290eb1e0bd4ed8c3a0955af3501843280583695e",
+          "bytes": 106109,
+          "elapsed_ms": 9.585209999999279
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/audio/b2z-v1/sfx/wall-ripple-c-12d52c1290972681.flac",
+      "variants": [
+        {
+          "bytes": 107976,
+          "embedded_path": "audio/b2z-v1/sfx/wall-ripple-c-12d52c1290972681.flac",
+          "encoding": "identity",
+          "sha256": "12d52c1290972681fd96cc8de535dc5d7ffc784655cb3a6b541623733cbe5936"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "12d52c1290972681fd96cc8de535dc5d7ffc784655cb3a6b541623733cbe5936",
+          "bytes": 107976,
+          "elapsed_ms": 9.217706000001272
+        }
+      ],
+      "head": true,
+      "mime": "audio/flac"
+    },
+    {
+      "path": "/backend.did",
+      "variants": [
+        {
+          "bytes": 13515,
+          "embedded_path": "backend.did",
+          "encoding": "identity",
+          "sha256": "b6ff891dc7e6e60efb6645c04d7658812d2c35a8fd8310b098956addb4c0a423"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "b6ff891dc7e6e60efb6645c04d7658812d2c35a8fd8310b098956addb4c0a423",
+          "bytes": 13515,
+          "elapsed_ms": 7.306984000000739
+        }
+      ],
+      "head": true,
+      "mime": "text/plain; charset=utf-8"
+    },
+    {
+      "path": "/balls-to-the-wallz-b2-icon-matched.svg",
+      "variants": [
+        {
+          "bytes": 12829,
+          "embedded_path": "balls-to-the-wallz-b2-icon-matched.svg",
+          "encoding": "identity",
+          "sha256": "42bd1317cbf53a0566b24e8ef477d0de759aeaae914b27fa3718e9829a87d872"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "42bd1317cbf53a0566b24e8ef477d0de759aeaae914b27fa3718e9829a87d872",
+          "bytes": 12829,
+          "elapsed_ms": 7.26678400000128
+        }
+      ],
+      "head": true,
+      "mime": "image/svg+xml"
+    },
+    {
+      "path": "/balls-to-the-wallz-b2z-wordmark.svg",
+      "variants": [
+        {
+          "bytes": 10981,
+          "embedded_path": "balls-to-the-wallz-b2z-wordmark.svg",
+          "encoding": "identity",
+          "sha256": "0e5090613b73948228b406845244f7eb0d42df9a3ed0a2fc6fb2b5398066296b"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "0e5090613b73948228b406845244f7eb0d42df9a3ed0a2fc6fb2b5398066296b",
+          "bytes": 10981,
+          "elapsed_ms": 7.425484999999753
+        }
+      ],
+      "head": true,
+      "mime": "image/svg+xml"
+    },
+    {
+      "path": "/configuration-clearance.bin",
+      "variants": [
+        {
+          "bytes": 1245,
+          "embedded_path": "configuration-clearance.bin",
+          "encoding": "identity",
+          "sha256": "0567d064106d26a14791f9d07bd64a2e4f87b26789dbef7167b2ee7e96114153"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "0567d064106d26a14791f9d07bd64a2e4f87b26789dbef7167b2ee7e96114153",
+          "bytes": 1245,
+          "elapsed_ms": 307.7607389999994
+        }
+      ],
+      "head": true,
+      "mime": "application/octet-stream"
+    },
+    {
+      "path": "/configuration-combined.bin",
+      "variants": [
+        {
+          "bytes": 1385,
+          "embedded_path": "configuration-combined.bin",
+          "encoding": "identity",
+          "sha256": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df",
+          "bytes": 1385,
+          "elapsed_ms": 7.063680999999633
+        }
+      ],
+      "head": true,
+      "mime": "application/octet-stream"
+    },
+    {
+      "path": "/configuration-context.bin",
+      "variants": [
+        {
+          "bytes": 2275,
+          "embedded_path": "configuration-context.bin",
+          "encoding": "identity",
+          "sha256": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+          "bytes": 2275,
+          "elapsed_ms": 7.784988999999769
+        }
+      ],
+      "head": true,
+      "mime": "application/octet-stream"
+    },
+    {
+      "path": "/configuration-deflector.bin",
+      "variants": [
+        {
+          "bytes": 1947,
+          "embedded_path": "configuration-deflector.bin",
+          "encoding": "identity",
+          "sha256": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+          "bytes": 1947,
+          "elapsed_ms": 6.800278000000617
+        }
+      ],
+      "head": true,
+      "mime": "application/octet-stream"
+    },
+    {
+      "path": "/configuration-entry.bin",
+      "variants": [
+        {
+          "bytes": 1163,
+          "embedded_path": "configuration-entry.bin",
+          "encoding": "identity",
+          "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80",
+          "bytes": 1163,
+          "elapsed_ms": 6.790877999999793
+        }
+      ],
+      "head": true,
+      "mime": "application/octet-stream"
+    },
+    {
+      "path": "/configuration-legacy.bin",
+      "variants": [
+        {
+          "bytes": 368,
+          "embedded_path": "configuration-legacy.bin",
+          "encoding": "identity",
+          "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622",
+          "bytes": 368,
+          "elapsed_ms": 6.777178000000276
+        }
+      ],
+      "head": true,
+      "mime": "application/octet-stream"
+    },
+    {
+      "path": "/configuration-million.bin",
+      "variants": [
+        {
+          "bytes": 469,
+          "embedded_path": "configuration-million.bin",
+          "encoding": "identity",
+          "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03",
+          "bytes": 469,
+          "elapsed_ms": 6.8937800000003335
+        }
+      ],
+      "head": true,
+      "mime": "application/octet-stream"
+    },
+    {
+      "path": "/configuration-playability.bin",
+      "variants": [
+        {
+          "bytes": 994,
+          "embedded_path": "configuration-playability.bin",
+          "encoding": "identity",
+          "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68",
+          "bytes": 994,
+          "elapsed_ms": 8.182894000001397
+        }
+      ],
+      "head": true,
+      "mime": "application/octet-stream"
+    },
+    {
+      "path": "/configuration-torus.bin",
+      "variants": [
+        {
+          "bytes": 386,
+          "embedded_path": "configuration-torus.bin",
+          "encoding": "identity",
+          "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4",
+          "bytes": 386,
+          "elapsed_ms": 9.049204000000827
+        }
+      ],
+      "head": true,
+      "mime": "application/octet-stream"
+    },
+    {
+      "path": "/configuration-war-cry.bin",
+      "variants": [
+        {
+          "bytes": 1303,
+          "embedded_path": "configuration-war-cry.bin",
+          "encoding": "identity",
+          "sha256": "26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a",
+          "bytes": 1303,
+          "elapsed_ms": 6.69797699999981
+        }
+      ],
+      "head": true,
+      "mime": "application/octet-stream"
+    },
+    {
+      "path": "/configuration.bin",
+      "variants": [
+        {
+          "bytes": 367,
+          "embedded_path": "configuration.bin",
+          "encoding": "identity",
+          "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42",
+          "bytes": 367,
+          "elapsed_ms": 6.661877000000459
+        }
+      ],
+      "head": true,
+      "mime": "application/octet-stream"
+    },
+    {
+      "path": "/cursors/reticle.svg",
+      "variants": [
+        {
+          "bytes": 338,
+          "embedded_path": "cursors/reticle.svg",
+          "encoding": "identity",
+          "sha256": "9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892",
+          "bytes": 338,
+          "elapsed_ms": 7.79768999999942
+        }
+      ],
+      "head": true,
+      "mime": "image/svg+xml"
+    },
+    {
+      "path": "/favicon.ico",
+      "variants": [
+        {
+          "bytes": 66640,
+          "embedded_path": "favicon.ico",
+          "encoding": "identity",
+          "sha256": "e34ccbadc26ea0c6745d275041daea741ebc9fbba1899d59ae14e54fcffccceb"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "e34ccbadc26ea0c6745d275041daea741ebc9fbba1899d59ae14e54fcffccceb",
+          "bytes": 66640,
+          "elapsed_ms": 41.42977600000086
+        }
+      ],
+      "head": true,
+      "mime": "image/x-icon"
+    },
+    {
+      "path": "/icon.svg",
+      "variants": [
+        {
+          "bytes": 235,
+          "embedded_path": "icon.svg",
+          "encoding": "identity",
+          "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888",
+          "bytes": 235,
+          "elapsed_ms": 7.0577809999995225
+        }
+      ],
+      "head": true,
+      "mime": "image/svg+xml"
+    },
+    {
+      "path": "/index.html",
+      "variants": [
+        {
+          "bytes": 17065,
+          "embedded_path": "index.html",
+          "encoding": "identity",
+          "sha256": "2d3c1963aa651850ee53ca30d67b10ff88b5aa3c8574522e7534cf7fb0d825f2"
+        },
+        {
+          "bytes": 4962,
+          "embedded_path": "index.html.gz",
+          "encoding": "gzip",
+          "sha256": "0623b13ccd06a0493a69a9e7c2fd05d2a5dab0cf6a9b41e3ae0f49086b8291a2"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "2d3c1963aa651850ee53ca30d67b10ff88b5aa3c8574522e7534cf7fb0d825f2",
+          "bytes": 17065,
+          "elapsed_ms": 8.220694999999978
+        },
+        {
+          "encoding": "gzip",
+          "sha256": "0623b13ccd06a0493a69a9e7c2fd05d2a5dab0cf6a9b41e3ae0f49086b8291a2",
+          "bytes": 4962,
+          "elapsed_ms": 16.76479300000028
+        }
+      ],
+      "head": true,
+      "mime": "text/html; charset=utf-8"
+    },
+    {
+      "path": "/not-found.css",
+      "variants": [
+        {
+          "bytes": 2265,
+          "embedded_path": "not-found.css",
+          "encoding": "identity",
+          "sha256": "af3eb000ef7ab32449807d4cce89174a7039a891ddbac10ca3b16633f44b14f4"
+        },
+        {
+          "bytes": 974,
+          "embedded_path": "not-found.css.gz",
+          "encoding": "gzip",
+          "sha256": "a154194ebbb7003250a0dff9e69c41f4fffa9b243690d15a561cf7d82efb8bf8"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "af3eb000ef7ab32449807d4cce89174a7039a891ddbac10ca3b16633f44b14f4",
+          "bytes": 2265,
+          "elapsed_ms": 7.775489000001471
+        },
+        {
+          "encoding": "gzip",
+          "sha256": "a154194ebbb7003250a0dff9e69c41f4fffa9b243690d15a561cf7d82efb8bf8",
+          "bytes": 974,
+          "elapsed_ms": 7.1990829999995185
+        }
+      ],
+      "head": true,
+      "mime": "text/css; charset=utf-8"
+    },
+    {
+      "path": "/style.css",
+      "variants": [
+        {
+          "bytes": 38216,
+          "embedded_path": "style.css",
+          "encoding": "identity",
+          "sha256": "c31710f9723f30c4e8fa4a69064d14c11dc68dba7d57e5230b9e0770e83b32a9"
+        },
+        {
+          "bytes": 9512,
+          "embedded_path": "style.css.gz",
+          "encoding": "gzip",
+          "sha256": "8776a6b99be9041037715d3e37221227713d5945e4ef450a68fd95f9efbb11be"
+        }
+      ],
+      "verified_variants": [
+        {
+          "encoding": "identity",
+          "sha256": "c31710f9723f30c4e8fa4a69064d14c11dc68dba7d57e5230b9e0770e83b32a9",
+          "bytes": 38216,
+          "elapsed_ms": 11.104027999999744
+        },
+        {
+          "encoding": "gzip",
+          "sha256": "8776a6b99be9041037715d3e37221227713d5945e4ef450a68fd95f9efbb11be",
+          "bytes": 9512,
+          "elapsed_ms": 7.426585000001069
+        }
+      ],
+      "head": true,
+      "mime": "text/css; charset=utf-8"
+    }
+  ],
+  "routes": [
+    {
+      "url": "/",
+      "method": "GET",
+      "status": 200,
+      "proof": [
+        "http_expr",
+        "",
+        "<$>"
+      ]
+    },
+    {
+      "url": "/",
+      "method": "HEAD",
+      "status": 200,
+      "proof": [
+        "http_expr",
+        "",
+        "<$>"
+      ]
+    },
+    {
+      "url": "/blah",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/blah",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/nonexistent/page",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/nonexistent/page",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/nonexistent/page/",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/nonexistent/page/",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/nonexistent/page?example=1",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/nonexistent/page?example=1",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/missing.js",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/missing.js",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/missing.css",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/missing.css",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/missing.svg",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/missing.svg",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/missing.bin",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/missing.bin",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/missing.flac",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/missing.flac",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/app.mjs.gz",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/app.mjs.gz",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/.ic-assets.json5",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/.ic-assets.json5",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/build-manifest.json",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/build-manifest.json",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/deployment.json",
+      "method": "GET",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    },
+    {
+      "url": "/deployment.json",
+      "method": "HEAD",
+      "status": 404,
+      "proof": [
+        "http_expr",
+        "",
+        "<*>"
+      ]
+    }
+  ],
+  "negative": true,
+  "timeouts": []
+}
