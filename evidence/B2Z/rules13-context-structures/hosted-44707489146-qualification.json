@@ -1,0 +1,416 @@
+{
+  "hosted_run_id": 44707489146,
+  "conclusion": "success",
+  "headSha": "2e7f1b44995e14c5786c61abe5cb4c148e91c4e0",
+  "jobs": [
+    {
+      "conclusion": "success",
+      "name": "Runtime-lab Wasm",
+      "status": "completed",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44707489146/job/136190868099"
+    },
+    {
+      "conclusion": "success",
+      "name": "Source conformance",
+      "status": "completed",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44707489146/job/136190868220"
+    },
+    {
+      "conclusion": "success",
+      "name": "Browser HTTP and Web Crypto",
+      "status": "completed",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44707489146/job/136190868314"
+    },
+    {
+      "conclusion": "success",
+      "name": "Native conformance",
+      "status": "completed",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44707489146/job/136190868355"
+    },
+    {
+      "conclusion": "success",
+      "name": "Packaged DTR and clean consumers",
+      "status": "completed",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44707489146/job/136190868459"
+    },
+    {
+      "conclusion": "success",
+      "name": "Immutable frontend Wasm and content identity",
+      "status": "completed",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44707489146/job/136190868460"
+    },
+    {
+      "conclusion": "success",
+      "name": "BLOCKED production inventory (not a pass)",
+      "status": "completed",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44707489146/job/136190868494"
+    },
+    {
+      "conclusion": "success",
+      "name": "S14 and million-cell installed-IC qualification",
+      "status": "completed",
+      "url": "https://github.com/aodl/balls-2-the-wallz/actions/runs/44707489146/job/136190868566"
+    }
+  ],
+  "normal_installed_wasm_sha256": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+  "immutable_frontend_wasm_sha256": "b8a2252c59db613379a6cdc09f88f00e4e68758ca612c9b67d8eea7b47b927f7",
+  "installed_cases": [
+    {
+      "test": "arena_pacing_modes_reduce_expenditure_and_preserve_pending_reserve_payments",
+      "status": "PASS",
+      "elapsed_seconds": 100.865
+    },
+    {
+      "test": "arena_reserve_preserves_admitted_and_index_pending_payments",
+      "status": "PASS",
+      "elapsed_seconds": 6.961
+    },
+    {
+      "test": "b2z_callback_trap_recovers_through_fallback_without_reset",
+      "status": "PASS",
+      "elapsed_seconds": 3.947
+    },
+    {
+      "test": "boundary_deflector_installed::boundary_deflector_capacity_and_paid_ownership_loss",
+      "status": "PASS",
+      "elapsed_seconds": 15.819
+    },
+    {
+      "test": "boundary_deflector_installed::boundary_deflector_paid_all_ball_ownership_contacts",
+      "status": "PASS",
+      "elapsed_seconds": 36.552
+    },
+    {
+      "test": "boundary_deflector_installed::boundary_deflector_paid_cancellation_and_revival",
+      "status": "PASS",
+      "elapsed_seconds": 13.622
+    },
+    {
+      "test": "boundary_deflector_installed::boundary_deflector_paid_destruction_and_elapsed_expiry_after_real_activation",
+      "status": "PASS",
+      "elapsed_seconds": 17.435
+    },
+    {
+      "test": "boundary_deflector_installed::boundary_deflector_paid_destruction_two_observers",
+      "status": "PASS",
+      "elapsed_seconds": 19.117
+    },
+    {
+      "test": "boundary_deflector_installed::boundary_deflector_paid_occupancy_and_automatic_first_entry",
+      "status": "PASS",
+      "elapsed_seconds": 6.079
+    },
+    {
+      "test": "boundary_deflector_installed::boundary_deflector_rules11_upgrade_paid_redirect_and_replay",
+      "status": "PASS",
+      "elapsed_seconds": 89.976
+    },
+    {
+      "test": "boundary_deflector_installed::boundary_deflector_typed_region_reports_exact_rational_intercepts",
+      "status": "PASS",
+      "elapsed_seconds": 4.514
+    },
+    {
+      "test": "bounded_history_windows_drain_256_257_and_513_without_skipping",
+      "status": "PASS",
+      "elapsed_seconds": 18.417
+    },
+    {
+      "test": "complete_index_range_backpressure_preserves_both_documents",
+      "status": "PASS",
+      "elapsed_seconds": 0.214
+    },
+    {
+      "test": "context_structures_installed::context_structures_rules12_upgrade_official_payments_and_authenticated_replay",
+      "status": "PASS",
+      "elapsed_seconds": 35.385
+    },
+    {
+      "test": "context_structures_installed::matched_rules12_rules13_trickle_cost",
+      "status": "PASS",
+      "elapsed_seconds": 40.851
+    },
+    {
+      "test": "controlled_index_pagination_lag_failure_and_upgrade",
+      "status": "PASS",
+      "elapsed_seconds": 3.98
+    },
+    {
+      "test": "deployed_bundle_live_index_payments_reconnect_and_upgrade",
+      "status": "PASS",
+      "elapsed_seconds": 328.143
+    },
+    {
+      "test": "empty_arena_all_player_elimination_preserves_scores_then_idles",
+      "status": "PASS",
+      "elapsed_seconds": 4.606
+    },
+    {
+      "test": "empty_arena_initial_rejected_payment_wakeup_and_browser_closed_activation",
+      "status": "PASS",
+      "elapsed_seconds": 13.534
+    },
+    {
+      "test": "entry_installed::clearance_rules9_on_normal_installed_module",
+      "status": "PASS",
+      "elapsed_seconds": 206.112
+    },
+    {
+      "test": "entry_installed::combined_clearance_on_normal_installed_module",
+      "status": "PASS",
+      "elapsed_seconds": 154.452
+    },
+    {
+      "test": "europe::europe_empty_reconciliation_and_maintenance_costs",
+      "status": "PASS",
+      "elapsed_seconds": 40.048
+    },
+    {
+      "test": "europe::europe_fresh_normal_empty_genesis_authenticated_epochs_and_external_payment",
+      "status": "PASS",
+      "elapsed_seconds": 5.254
+    },
+    {
+      "test": "europe::europe_hint_costs_and_independent_fallback",
+      "status": "PASS",
+      "elapsed_seconds": 10.431
+    },
+    {
+      "test": "europe::europe_low_floor_transition_and_recovery_headroom",
+      "status": "PASS",
+      "elapsed_seconds": 14.178
+    },
+    {
+      "test": "europe::europe_trickle_bounded_real_cadence",
+      "status": "PASS",
+      "elapsed_seconds": 108.766
+    },
+    {
+      "test": "europe::europe_trickle_pending_payment_recovers_after_replenishment",
+      "status": "PASS",
+      "elapsed_seconds": 7.57
+    },
+    {
+      "test": "million_browser_output_isolation_preserves_existing_evidence",
+      "status": "PASS",
+      "elapsed_seconds": 0.004
+    },
+    {
+      "test": "playability_installed::atomic_capture_rejects_incomplete_or_tampered_artifacts",
+      "status": "PASS",
+      "elapsed_seconds": 0.008
+    },
+    {
+      "test": "playability_installed::human_corrections_certified_startup_and_transient_recovery",
+      "status": "PASS",
+      "elapsed_seconds": 336.657
+    },
+    {
+      "test": "public_runtime_health_is_bounded_operational_and_anonymous",
+      "status": "PASS",
+      "elapsed_seconds": 2.9
+    },
+    {
+      "test": "slow_index_calls_coalesce_timers_and_fence_late_responses",
+      "status": "PASS",
+      "elapsed_seconds": 6.705
+    },
+    {
+      "test": "source::tests::annotated_adapter_retains_exact_utf8_but_old_adapter_and_spenders_never_gain_it",
+      "status": "PASS",
+      "elapsed_seconds": 0.004
+    },
+    {
+      "test": "source::tests::bounded_windows_drain_256_257_and_1025_sparse_records_across_restore",
+      "status": "PASS",
+      "elapsed_seconds": 0.465
+    },
+    {
+      "test": "source::tests::classification_preserves_memo_and_delegation_rules",
+      "status": "PASS",
+      "elapsed_seconds": 0.004
+    },
+    {
+      "test": "source::tests::duplicate_nonadvancing_inconsistent_and_overflow_pages_rejected",
+      "status": "PASS",
+      "elapsed_seconds": 0.004
+    },
+    {
+      "test": "source::tests::durable_pending_and_capacity_never_advance_admission",
+      "status": "PASS",
+      "elapsed_seconds": 0.032
+    },
+    {
+      "test": "source::tests::empty_history_and_unchanged_account_are_safe",
+      "status": "PASS",
+      "elapsed_seconds": 0.004
+    },
+    {
+      "test": "source::tests::exact_numeric_subaccount_derivation",
+      "status": "PASS",
+      "elapsed_seconds": 0.004
+    },
+    {
+      "test": "source::tests::full_nat64_source_positions_and_subaccounts_survive_durable_codec",
+      "status": "PASS",
+      "elapsed_seconds": 0.004
+    },
+    {
+      "test": "source::tests::invalid_text_then_valid_payment_preserves_ids_digests_and_pending",
+      "status": "PASS",
+      "elapsed_seconds": 0.004
+    },
+    {
+      "test": "source::tests::poke_target_positive_nat_and_bounded_vector",
+      "status": "PASS",
+      "elapsed_seconds": 0.004
+    },
+    {
+      "test": "source::tests::sparse_pages_frozen_high_and_oldest_first",
+      "status": "PASS",
+      "elapsed_seconds": 0.004
+    },
+    {
+      "test": "source::tests::v6_adapter_is_explicit_and_preserves_normalized_history",
+      "status": "PASS",
+      "elapsed_seconds": 0.004
+    },
+    {
+      "test": "torus_all_player_elimination_sleeps_without_a_browser",
+      "status": "PASS",
+      "elapsed_seconds": 5.201
+    },
+    {
+      "test": "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+      "status": "PASS",
+      "elapsed_seconds": 49.98
+    },
+    {
+      "test": "torus_browser_scene_camera_and_continuous_supported_playback",
+      "status": "PASS",
+      "elapsed_seconds": 163.733
+    },
+    {
+      "test": "torus_delayed_official_index_paginates_old_history_and_holds_new_rows",
+      "status": "PASS",
+      "elapsed_seconds": 4.953
+    },
+    {
+      "test": "torus_local_index_orientation_and_pending_upgrade_preserve_exact_replay",
+      "status": "PASS",
+      "elapsed_seconds": 34.846
+    },
+    {
+      "test": "torus_paid_v3_cutover_preserves_history_pending_inputs_and_upgrade",
+      "status": "PASS",
+      "elapsed_seconds": 10.022
+    },
+    {
+      "test": "upstream_index_poke_fallback_upgrade_and_replay",
+      "status": "PASS",
+      "elapsed_seconds": 11.735
+    },
+    {
+      "test": "upstream_text_memos_normalize_once_and_preserve_pending_upgrade",
+      "status": "PASS",
+      "elapsed_seconds": 11.41
+    },
+    {
+      "test": "war_cry_installed::combined_real_ledger_index_launch_and_independent_replay",
+      "status": "PASS",
+      "elapsed_seconds": 86.84
+    },
+    {
+      "test": "war_cry_installed::war_cry_real_ledger_index_launch_and_independent_replay",
+      "status": "PASS",
+      "elapsed_seconds": 88.102
+    },
+    {
+      "test": "million_browser_normal_lifeline_and_cold_reconnect",
+      "status": "PASS",
+      "elapsed_seconds": 221.82
+    },
+    {
+      "test": "million_browser_sustained_normal_and_cold_lifeline",
+      "status": "PASS",
+      "elapsed_seconds": 1292.629
+    },
+    {
+      "test": "million_max_population_production_probe",
+      "status": "PASS",
+      "elapsed_seconds": 9.353
+    },
+    {
+      "test": "million_paid_v4_cutover_preserves_state_and_uses_second_epoch",
+      "status": "PASS",
+      "elapsed_seconds": 14.587
+    },
+    {
+      "test": "funding_tests::funding_actual_changed_fee_dust_accumulation_and_rejected_game_payments",
+      "status": "PASS",
+      "elapsed_seconds": 10.351
+    },
+    {
+      "test": "funding_tests::funding_bounded_empty_maintenance_overhead",
+      "status": "PASS",
+      "elapsed_seconds": 4.455
+    },
+    {
+      "test": "funding_tests::funding_expired_ambiguous_transfer_never_creates_replacement",
+      "status": "PASS",
+      "elapsed_seconds": 5.484
+    },
+    {
+      "test": "funding_tests::funding_lifeline_recovers_without_gameplay_or_browser",
+      "status": "PASS",
+      "elapsed_seconds": 3.551
+    },
+    {
+      "test": "funding_tests::funding_low_liquid_cycles_defer_then_recover_without_browser",
+      "status": "PASS",
+      "elapsed_seconds": 3.644
+    },
+    {
+      "test": "funding_tests::funding_pending_upgrade_duplicates_notification_retry_and_new_deposits",
+      "status": "PASS",
+      "elapsed_seconds": 25.453
+    },
+    {
+      "test": "funding_tests::funding_real_ledger_join_sweep_index_and_upgrade_preserve_history",
+      "status": "PASS",
+      "elapsed_seconds": 5.661
+    },
+    {
+      "test": "funding_tests::funding_refund_and_terminal_notification_halt_with_evidence",
+      "status": "PASS",
+      "elapsed_seconds": 11.9
+    },
+    {
+      "test": "funding_tests::funding_torus_cutover_preserves_pending_finance_and_outgoing_classification",
+      "status": "PASS",
+      "elapsed_seconds": 15.155
+    }
+  ],
+  "s14_branding": {
+    "name": "B2Z-branding-with-preserved-wire-identity",
+    "status": "PASS",
+    "details": ""
+  },
+  "s14_steady_playback": {
+    "seconds": 59.74759999999998,
+    "produced_ticks_per_second": 1.0042244374669447,
+    "consumed_ticks_per_second": 0.9956675986491236,
+    "stalled_samples": 0,
+    "buffer_min": 15.494301046314604,
+    "buffer_max": 18.61511141171465,
+    "fetch_ms_max": 310.9000000001397,
+    "verification_ms_max": 38.800000000046566,
+    "artifact_ms_max": 67.89999999990687,
+    "backend_ticks_per_second_bounds": [
+      0.9707502895513799,
+      1.0376985853825096
+    ],
+    "nominal_rate": 1
+  },
+  "rules13_browser_profiles": 3
+}
