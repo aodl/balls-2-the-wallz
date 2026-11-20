@@ -59,3 +59,5 @@ The test-only correction waits until each observer's independently observed
 foreground return. The complete hosted rerun uses the same frozen Wasm and
 asset inventory. Production stays on the previous frontend until this exact
 rerun finishes successfully. [Failed installed case data](hosted-hidden-speech-failure.json) · [Current full hosted rerun](https://github.com/aodl/balls-2-the-wallz/actions/runs/44764887931)
+
+The browser job on exact source `55e33b97eaca384461344a38738892cead3d8b43` passed all HTTP/Web Crypto and browser cases, including the 11-case quantity matrix and the 320×640 cell-zero 347.15° pose. A second disposable browser probe used the raw hosted candidate and the signed European Rules13 source. All three profiles preserved the original draft under Keep, then replaced it with `FIRE 1 37.5 2` only after explicit Update. The browser guard blocked all non-query calls. [Hosted browser gate](https://github.com/aodl/balls-2-the-wallz/actions/runs/44764887931/job/136386731860) · [Exact Update and Keep exercise](browser/disposable-explicit-update.json)
