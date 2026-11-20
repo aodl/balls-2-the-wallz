@@ -489,13 +489,14 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
     std::fs::create_dir_all(&out).unwrap();
     let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let payer = Principal::self_authenticating([9; 32]);
+    let joining = Principal::self_authenticating([10; 32]);
     let initial = test_world(payer).encode().unwrap();
     let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers(
         bytes("B2Z_S14_TEST_WASM"),
         initial.clone(),
         10000,
         500,
-        &[],
+        &[joining],
     );
     let predecessor = bytes("B2Z_RULES13_PRIOR_WASM");
     assert_eq!(
@@ -511,8 +512,8 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
 
     let mut inputs = BTreeMap::new();
     let mut expected = BTreeMap::new();
-    let mut send = |text: &str, amount: u64, adapter: u8, reason: &str| {
-        let position = transfer_text(&pic, ledger, payer, id, amount, text.as_bytes());
+    let mut send = |sender: Principal, text: &str, amount: u64, adapter: u8, reason: &str| {
+        let position = transfer_text(&pic, ledger, sender, id, amount, text.as_bytes());
         let (tag, directive, cry) = if adapter == 7 {
             let p = predecessor_codec::parse_text(text.as_bytes()).ok();
             (
@@ -539,7 +540,7 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
             )
         };
         let mut raw = tag.to_vec();
-        raw.extend(funding_account(payer).as_bytes());
+        raw.extend(funding_account(sender).as_bytes());
         raw.extend(amount.to_be_bytes());
         raw.extend(directive);
         raw.push(cry.len() as u8);
@@ -548,7 +549,7 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
         expected.insert(position, reason.to_owned());
         position
     };
-    let historic_deflector = send("DEFLECT 300300 NW", 10000000, 7, "ACCEPTED");
+    let historic_deflector = send(payer, "DEFLECT 300300 NW", 10000000, 7, "ACCEPTED");
     wait_admitted(&pic, id, historic_deflector);
     complete_one_trickle_tick(&pic, id);
     playability_installed::record_bundled(&pic, id, &mut history, &out);
@@ -560,7 +561,7 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
     );
     playability_installed::record_bundled(&pic, id, &mut history, &out);
 
-    let history_payment = send("DROT 1 W|Old", 10000, 8, "MALFORMED_MEMO");
+    let history_payment = send(payer, "DROT 1 W|Old", 10000, 8, "MALFORMED_MEMO");
     wait_admitted(&pic, id, history_payment);
     complete_one_trickle_tick(&pic, id);
     playability_installed::record_bundled(&pic, id, &mut history, &out);
@@ -594,9 +595,10 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
         ("MOVE 1 4009|Forward", 10000, "ACCEPTED"),
         ("NEW 0 1 5007|Ready", 400000000, "ACCEPTED"),
     ] {
-        send(text, amount, 9, reason);
+        send(payer, text, amount, 9, reason);
     }
-    let last = send("FIRE 1 180 1|Contact", 100000000, 9, "ACCEPTED");
+    send(payer, "FIRE 1 180 1|Contact", 100000000, 9, "ACCEPTED");
+    let last = send(joining, "NEW 0 1|Hello", 100000000, 9, "ACCEPTED");
     drop(send);
     wait_admitted(&pic, id, last);
     let admitted = observe(&pic, id).0.publication;
@@ -641,7 +643,9 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
     announcements.sort();
     assert_eq!(
         announcements,
-        ["Advance", "Contact", "Forward", "Ready", "Shield", "Turn"]
+        [
+            "Advance", "Contact", "Forward", "Hello", "Ready", "Shield", "Turn"
+        ]
     );
     save(
         &out,
@@ -682,5 +686,17 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
         replay.success(),
         "official transaction history must authenticate and replay"
     );
+    let browser = std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap())
+        .current_dir(repo)
+        .args([
+            "tools/verify_shout_browser.py",
+            "--configuration",
+            out.join("configuration.json").to_str().unwrap(),
+            "--output",
+            out.join("browser").to_str().unwrap(),
+        ])
+        .status()
+        .unwrap();
+    assert!(browser.success(), "two independent Shout browser observers");
     live.stop_live();
 }
