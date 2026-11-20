@@ -252,10 +252,10 @@ export function createShell(doc,camera,arcade,onPick){
  let trajectoryKey='';
  function drawTrajectory(){
   const ball=lastPoints.find(b=>b.id===selectedBall),layer=$('trajectory-guide');
-  if(!ball||!lastView){layer.hidden=true;return;}
+  if(!ball||!lastView){layer.toggleAttribute('hidden',true);return;}
   const m=measure(),rects=[...m.guideObstacles,minimapArea(m.mini),m.buttons,m.sound,!card.hidden&&cardBounds,quantitySlot?.rect].filter(Boolean);
   const guide=trajectoryGuide(camera,ball,lastView.balls.get(ball.id),rects);
-  layer.hidden=!guide;if(!guide)return;
+  layer.toggleAttribute('hidden',!guide);if(!guide)return;
   const {start,end,wings}=guide,key=[start.x,start.y,end.x,end.y].join('/');
   if(trajectoryKey===key)return;trajectoryKey=key;
   for(const n of [$('trajectory-dots'),$('trajectory-fade')])for(const [k,v] of Object.entries({x1:start.x,y1:start.y,x2:end.x,y2:end.y}))n.setAttribute(k,v);
