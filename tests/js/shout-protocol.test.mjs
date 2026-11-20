@@ -73,9 +73,10 @@ test('only accepted actions get a Shout and annotation cannot change play or rec
  assert.throws(()=>validateLaunchAnnotations([{...event,action_annotation:{...event.action_annotation,cell:999999}}],receipts,SHOUT_IDENTITY));
  if(process.env.B2Z_SHOUT_NATIVE){
   const hex=bytes=>Buffer.from(bytes).toString('hex');
-  const input=JSON.stringify({initial_hex:hex(state),inputs_hex:hex(encodeCanonical(annotated.items)),context_hex:hex(encodeCanonical(annotated.context)),observed_ns:'1',max_work:100000});
-  const native=JSON.parse(execFileSync(process.env.B2Z_SHOUT_NATIVE,['segment-json'],{input,encoding:'utf8',timeout:20000,maxBuffer:1048576}));
+  const input=JSON.stringify({initial_hex:hex(state),inputs_hex:hex(encodeCanonical(annotated.items)),context_hex:hex(encodeCanonical(annotated.context)),observed_ns:'1',max_work:100000,restore_between_slices:true});
+  const native=JSON.parse(execFileSync(process.env.B2Z_SHOUT_NATIVE,['segment-json'],{input,encoding:'utf8',timeout:120000,maxBuffer:1048576}));
   assert.equal(native.status,'complete');
+  assert(native.restored>0);
   for(const name of ['state','scores','events'])assert.equal(native[name+'_hex'],hex(annotated.result[name]),name);
  }
 });

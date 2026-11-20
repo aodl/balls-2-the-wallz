@@ -69,8 +69,11 @@ fn main_inner() -> Result<()> {
             .ok_or("segment work bound")? as usize;
         let mut cursor = begin(&request)?;
         let mut used = 0usize;
+        let restore_between_slices = request["restore_between_slices"].as_bool().unwrap_or(false);
+        let mut restored = 0;
         loop {
-            let (work, done) = cursor.step((limit - used).min(64))?;
+            let slice = if restore_between_slices { 31 } else { 64 };
+            let (work, done) = cursor.step((limit - used).min(slice))?;
             used += work;
             if done {
                 cursor.finalize_elapsed(
@@ -83,7 +86,7 @@ fn main_inner() -> Result<()> {
                 let out = cursor.result()?;
                 println!(
                     "{}",
-                    serde_json::json!({"status":"complete","used":used,"state_hex":hex(&out.state),"events_hex":hex(&out.events),"scores_hex":hex(&out.scores)})
+                    serde_json::json!({"status":"complete","used":used,"restored":restored,"state_hex":hex(&out.state),"events_hex":hex(&out.events),"scores_hex":hex(&out.scores)})
                 );
                 break;
             }
@@ -93,6 +96,11 @@ fn main_inner() -> Result<()> {
                     serde_json::json!({"status":"bounded_incomplete","used":used})
                 );
                 break;
+            }
+            if restore_between_slices {
+                let snapshot = cursor.snapshot()?;
+                cursor = Cursor::restore(&snapshot, &hash(&snapshot))?;
+                restored += 1;
             }
         }
         return Ok(());

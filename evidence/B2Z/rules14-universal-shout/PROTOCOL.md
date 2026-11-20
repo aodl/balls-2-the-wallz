@@ -13,3 +13,9 @@ The development observer gates the editor on exact configuration bytes and check
 This branch is a development candidate. It lacks a qualified installed-canister epoch transition, disposable Ledger/Index and browser qualification. A paid rollout still needs the exact predecessor-bound drain/commit protocol, interruption and compatible recovery proof, authenticated independent replay and the complete hosted qualification. Production still requires a separate activation decision.
 
 Local checks passed for JS and Rust parsing, Rust source classification, an exact JS/native state, event and score comparison, and rejection of forged action annotations. The installed epoch and official Ledger paths remain outside that evidence.
+
+The native conformance runner also restores the canonical cursor between
+31-work-unit slices. The mixed accepted and rejected action scenario completed
+after native restores and matched the independently restored JS state's event,
+score and state bytes. This fixture exercises continuation serialization. It
+does not cover installed storage, Ledger delivery or epoch recovery.
