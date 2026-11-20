@@ -28,3 +28,8 @@ the Rust source state and normalized payload. Official Ledger/Index and epoch
 qualification are still required.
 
 The native coordinator exercises Rules12 → Rules13 → Rules14, including rejection at a consecutive unsealed rules epoch, rejection with pending work or the wrong source adapter, exact unchanged world and cursor, canonical restore, and another ordinary publication. JavaScript independently replays the Rules13 → Rules14 boundary and a paid reorientation in a controlled history, rejecting forged source-adapter and anchor preimages. The Rust host suite passed 55 tests including Candid equality. The focused JavaScript suite passed 13 tests. These results are synthetic/native evidence.
+
+See the [focused installed rehearsal](INSTALLED_REHEARSAL.md) for the exact
+normal predecessor, official valueless Ledger/Index tests, same-module
+recovery, replay and two-browser result. Complete hosted qualification and
+consolidation with the release frontend are still pending.

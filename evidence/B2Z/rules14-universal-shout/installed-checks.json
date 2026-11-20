@@ -1,0 +1,68 @@
+{
+  "overall": "PASS",
+  "source_revision": "28efdfd2dca067f653ebd7fd0ec522e95e227aa7",
+  "artifacts": [
+    {
+      "name": "POCKET_IC_BIN",
+      "sha256": "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db"
+    },
+    {
+      "name": "ICP_LEDGER_WASM",
+      "sha256": "7fbe869c855f9b8bec902a533811e17e122894b3fe07ca15f946d786f1e06acc"
+    },
+    {
+      "name": "ICP_INDEX_WASM",
+      "sha256": "6090e959fe05a4e283f935bd7670d51a4cebd5728c6676012d6f8b3bab8a8d30"
+    },
+    {
+      "name": "normal",
+      "sha256": "73787d23ee27888719cad7a390469e7cde95735d653601f76dd3e3006474f2c8"
+    },
+    {
+      "name": "test-hooks",
+      "sha256": "aec05e081a56dcf213483babeef215292234403d830572adc62d0d8e05307612"
+    }
+  ],
+  "checks": [
+    {
+      "id": "prepare-operator-genesis",
+      "status": "PASS",
+      "elapsed_seconds": 0.118
+    },
+    {
+      "id": "build-normal",
+      "status": "PASS",
+      "elapsed_seconds": 38.178
+    },
+    {
+      "id": "build-test-hooks",
+      "status": "PASS",
+      "elapsed_seconds": 40.565
+    },
+    {
+      "id": "host-tests",
+      "status": "PASS",
+      "elapsed_seconds": 6.295
+    },
+    {
+      "id": "build-slow-index-fixture",
+      "status": "PASS",
+      "elapsed_seconds": 0.216
+    },
+    {
+      "id": "build-cmc-fixture",
+      "status": "PASS",
+      "elapsed_seconds": 0.166
+    },
+    {
+      "id": "harness-build",
+      "status": "PASS",
+      "elapsed_seconds": 0.717
+    },
+    {
+      "id": "installed-index-integration--context_structures_installed-shout_rules13_upgrade_official_payments_and_recovery",
+      "status": "PASS",
+      "elapsed_seconds": 60.695
+    }
+  ]
+}
