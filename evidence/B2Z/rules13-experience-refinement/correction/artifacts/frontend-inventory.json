@@ -341,7 +341,7 @@
   },
   {
     "path": "build-manifest.json",
-    "sha256": "04a8a0281354535ab488d7a4f8ab8fbc4c7c08eaa07c0a06660d0ceaa94e73de",
+    "sha256": "55a52f2411d2a98a63350beecd6276b1fdb1cdda89e38715af70fea9abdd8044",
     "bytes": 24668
   },
   {
@@ -431,7 +431,7 @@
   },
   {
     "path": "style.css",
-    "sha256": "038a687c4cfe1f6c0a88b594d2eb7446b3c72d535de049fdb4b5d8742ada3abb",
-    "bytes": 38260
+    "sha256": "c0f66614ce648ba251ecc2b6b083928ccf3b99c080ffbae8c9bc6356f6e93a1a",
+    "bytes": 38195
   }
 ]
