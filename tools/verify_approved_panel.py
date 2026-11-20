@@ -107,9 +107,10 @@ with sync_playwright()as pw:
      proposal=page.evaluate('fixture.proposal()')
      touch=lambda i,x:{'x':x,'y':y,'id':i}
      dev.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[touch(11,left),touch(22,right)]})
-     dev.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[touch(11,left-20),touch(22,right+20)]})
+     dev.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[touch(11,left+20),touch(22,right-20)]})
      dev.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
-     assert page.evaluate('fixture.summary().camera')!=before and page.evaluate('fixture.proposal()')==proposal
+     after=page.evaluate('fixture.summary().camera')
+     assert after[2]<before[2] and page.evaluate('fixture.proposal()')==proposal,(before,after,proposal,page.evaluate('fixture.proposal()'))
      row['rotated_native_pinch']='PASS actual touch zoom with unchanged canonical draft and East at top'
 
     row['sweep']='PASS full forward/reverse, original pose, active group bounds';page.screenshot(path=str(out/f'{w}-{enabled}-347.png'));row['final']=geometry(page);row['errors']=errors;assert not errors;save()
