@@ -2255,13 +2255,26 @@ fn deployed_bundle_live_index_payments_reconnect_and_upgrade() {
             )
             .unwrap();
         }
+        let query_started_epoch_ms = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_millis();
         let s = status(&pic, id);
+        let query_completed_epoch_ms = std::time::SystemTime::now()
+            .duration_since(std::time::UNIX_EPOCH)
+            .unwrap()
+            .as_millis();
         if began.elapsed().as_secs() > last_timing {
             last_timing = began.elapsed().as_secs();
-            timing.push(serde_json::json!({"wall_ms":began.elapsed().as_millis(),"ic_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"segments":s.run.completed_segments,"running":s.run.running,"pace":s.run.pace.as_ref().map(|p|p.nominal_milli)}));
+            timing.push(serde_json::json!({"wall_ms":began.elapsed().as_millis(),"ic_ns":pic.get_time().as_nanos_since_unix_epoch().to_string(),"segments":s.run.completed_segments,"running":s.run.running,"pace":s.run.pace.as_ref().map(|p|p.nominal_milli),"publication_ticks":s.run.publication_ticks,"query_started_epoch_ms":query_started_epoch_ms,"query_completed_epoch_ms":query_completed_epoch_ms}));
             std::fs::write(
-                out.join("producer-timing.json"),
+                out.join("producer-timing-next.json"),
                 serde_json::to_vec(&timing).unwrap(),
+            )
+            .unwrap();
+            std::fs::rename(
+                out.join("producer-timing-next.json"),
+                out.join("producer-timing.json"),
             )
             .unwrap();
         }

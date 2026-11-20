@@ -658,7 +658,13 @@ def main():
                 if selector=='[data-copy="text"]':assert page.evaluate('Array.from(new TextEncoder().encode(__copiedText))')==list(b'ANGLE 37.5')
             assert page.locator('[data-copy="hex"],[data-copy="recipient"]').count()==0
             record('exact-authenticated-principal-amount-and-UTF8-text-copy')
-            page.evaluate('''()=>{globalThis.__s15Timing=[];setInterval(()=>{const p=globalThis.__dtrLive?.playback;if(p&&globalThis.__s15Timing.length<1200)globalThis.__s15Timing.push({...p,resyncs:globalThis.__dtrLive.resyncs});},250);}''')
+            page.evaluate('''()=>{globalThis.__s15Timing=[];setInterval(()=>{
+                const p=globalThis.__dtrLive?.playback,s=globalThis.__b2zExperience?.session;
+                if(p&&globalThis.__s15Timing.length<2400)globalThis.__s15Timing.push({
+                    ...p,resyncs:globalThis.__dtrLive.resyncs,wall_epoch_ms:performance.timeOrigin+p.wall_ms,
+                    operational_age_ms:performance.now()-s?.operationalAt
+                });
+            },250);}''')
             for width,height in [(1440,900),(768,1024),(390,844)]:
                 page.set_viewport_size({'width':width,'height':height});page.evaluate('scrollTo(0,0)')
                 page.wait_for_timeout(150)
@@ -829,17 +835,37 @@ def main():
                 (out/'acquisition-telemetry.json').write_text(json.dumps(acquisition,indent=2)+'\n')
                 report['steady_acquisition_last']=acquisition['last'];save()
             report['steady_acquisition']={'milliseconds':page.evaluate('performance.now()')-acquisition_start,'at_start':page.evaluate('__dtrLive.playback'),'scope':'Natural verified buffering after immediate historical startup; no clock/queue mutation.'}
-            trace_start=page.evaluate('performance.now()');report['recording_playback_start_ms']=trace_start;page.wait_for_timeout(45000)
+            trace_start=page.evaluate('performance.now()');report['recording_playback_start_ms']=trace_start;page.wait_for_timeout(70000)
             samples=page.evaluate('globalThis.__s15Timing');(out/'playback-telemetry.json').write_text(json.dumps(samples,indent=2)+'\n')
             steady=[x for x in samples if x['wall_ms']>trace_start+10000]
-            if len(steady)>2:
-                seconds=(steady[-1]['wall_ms']-steady[0]['wall_ms'])/1000
-                report['steady_playback']={'seconds':seconds,'produced_ticks_per_second':(steady[-1]['admitted_ticks']-steady[0]['admitted_ticks'])/seconds,'consumed_ticks_per_second':(steady[-1]['played_ticks']-steady[0]['played_ticks'])/seconds,'stalled_samples':sum(x['phase']=='STALLED' for x in steady),'buffer_min':min(x['buffer_ticks'] for x in steady),'buffer_max':max(x['buffer_ticks'] for x in steady),'fetch_ms_max':max(x['fetch_ms'] for x in steady),'verification_ms_max':max(x['verify_ms'] for x in steady),'artifact_ms_max':max(x['artifact_ms'] for x in steady),'backend_reported_ticks_per_second':(steady[-1]['backend_segments']-steady[0]['backend_segments'])*steady[-1]['segment_ticks']/seconds,'nominal_rate':steady[-1]['nominal_rate']}
-                assert report['steady_playback']['stalled_samples']==0,report['steady_playback']
-                assert report['steady_playback']['nominal_rate']==1,report['steady_playback']
-                for key in ['produced_ticks_per_second','consumed_ticks_per_second','backend_reported_ticks_per_second']:
-                    assert .9<=report['steady_playback'][key]<=1.15,(key,report['steady_playback'])
-                assert steady[-1]['resyncs']==steady[0]['resyncs'],report['steady_playback']
+            assert len(steady)>2,'missing steady playback samples'
+            first,last=steady[0],steady[-1]
+            seconds=(last['wall_ms']-first['wall_ms'])/1000
+            # Browser status replies are cached between queries. Measure actual
+            # producer progress using the controller polls that bracket both
+            # endpoints of this exact browser window, including query uncertainty.
+            for sample in (first,last):
+                assert 0<=sample['operational_age_ms']<15000,sample
+            producer_timing=out/'producer-timing.json'
+            wait_until(page,lambda:json.loads(producer_timing.read_text())[-1]['query_started_epoch_ms']>=last['wall_epoch_ms'],5000)
+            polls=json.loads(producer_timing.read_text())
+            def bracket(epoch):
+                before=[p for p in polls if p['query_completed_epoch_ms']<=epoch]
+                after=[p for p in polls if p['query_started_epoch_ms']>=epoch]
+                assert before and after,'independent controller polls must bracket the playback window'
+                return before[-1],after[0]
+            start_low,start_high=bracket(first['wall_epoch_ms'])
+            end_low,end_high=bracket(last['wall_epoch_ms'])
+            assert all(p['running'] and p['pace']==1000 and p['publication_ticks']==last['segment_ticks']>0 for p in (start_low,start_high,end_low,end_high))
+            low=(end_low['segments']-start_high['segments'])*last['segment_ticks']/seconds
+            high=(end_high['segments']-start_low['segments'])*last['segment_ticks']/seconds
+            report['steady_playback']={'seconds':seconds,'produced_ticks_per_second':(last['admitted_ticks']-first['admitted_ticks'])/seconds,'consumed_ticks_per_second':(last['played_ticks']-first['played_ticks'])/seconds,'stalled_samples':sum(x['phase']=='STALLED' for x in steady),'buffer_min':min(x['buffer_ticks'] for x in steady),'buffer_max':max(x['buffer_ticks'] for x in steady),'fetch_ms_max':max(x['fetch_ms'] for x in steady),'verification_ms_max':max(x['verify_ms'] for x in steady),'artifact_ms_max':max(x['artifact_ms'] for x in steady),'backend_ticks_per_second_bounds':[low,high],'nominal_rate':last['nominal_rate']}
+            assert report['steady_playback']['stalled_samples']==0,report['steady_playback']
+            assert report['steady_playback']['nominal_rate']==1,report['steady_playback']
+            for key in ['produced_ticks_per_second','consumed_ticks_per_second']:
+                assert .9<=report['steady_playback'][key]<=1.15,(key,report['steady_playback'])
+            assert .9<=low<=high<=1.15,report['steady_playback']
+            assert last['resyncs']==first['resyncs'],report['steady_playback']
             report['playback_telemetry']={'first':samples[0] if samples else None,'last':samples[-1] if samples else None,'phases':sorted(set(x['phase'] for x in samples)),'qualification':'Verified logical time retrieved versus consumed; finite bounded local observation, not a production throughput claim.'}
             # UX-04/05/11: controlled Chromium engine suspension while the genuine
             # disposable producer runs. Headless focus emulation does not deliver
