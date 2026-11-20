@@ -482,7 +482,6 @@ fn matched_rules12_rules13_trickle_cost() {
 }
 
 #[test]
-#[ignore = "requires the exact qualified Rules13 module via --rules13-prior-wasm"]
 fn shout_rules13_upgrade_official_payments_and_recovery() {
     use b2z_protocol::shout;
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("shout");

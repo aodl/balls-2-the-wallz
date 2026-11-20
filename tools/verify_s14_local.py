@@ -130,9 +130,13 @@ def main():
         rules12.write_bytes(gzip.decompress((ROOT/'vendor/b2z/rules12-2cb2fe02.wasm.gz').read_bytes()))
         assert hashlib.sha256(rules12.read_bytes()).hexdigest()=='2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13'
         env['B2Z_RULES12_PRIOR_WASM']=str(rules12)
-        if a.rules13_prior_wasm:
-            if hashlib.sha256(a.rules13_prior_wasm.read_bytes()).hexdigest()!='d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd':raise ValueError('Shout rehearsal requires the exact qualified Rules13 module')
-            env['B2Z_RULES13_PRIOR_WASM']=str(a.rules13_prior_wasm.resolve())
+        rules13=a.rules13_prior_wasm
+        if not rules13:
+            rules13=out/'rules13-predecessor.wasm'
+            rules13.write_bytes(gzip.decompress((ROOT/'vendor/b2z/rules13-d17fb92e.wasm.gz').read_bytes()))
+        if hashlib.sha256(rules13.read_bytes()).hexdigest()!='d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd':
+            raise ValueError('Shout rehearsal requires the exact qualified Rules13 module')
+        env['B2Z_RULES13_PRIOR_WASM']=str(rules13.resolve())
         env['B2Z_CMC_MOCK_WASM']=str(ROOT/'tools/cmc-funding-fixture/target/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm')
         if a.funding_prior_wasm:
             if hashlib.sha256(a.funding_prior_wasm.read_bytes()).hexdigest()!='53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec':raise ValueError('funding upgrade requires exact installed 53b219 module')
@@ -209,7 +213,7 @@ def main():
                     stop_pocketic(*server[:3]);server=None
             (out/'logs'/(identifier+'.log')).write_text('\n'.join(combined))
         million_tests={'million_paid_v4_cutover_preserves_state_and_uses_second_epoch','million_max_population_production_probe','million_browser_normal_lifeline_and_cold_reconnect','million_browser_sustained_normal_and_cold_lifeline'}
-        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or bool(a.pacing_prior_wasm) or a.test_filter in million_tests or a.test_filter in {'context_structures_installed::shout_rules13_upgrade_official_payments_and_recovery','entry_installed::european_rules7_upgrade_and_clearance','entry_installed::full_world_upgrade_and_first_entry','entry_installed::european_rules7_upgrade_and_combined_clearance','entry_installed::european_rules7_upgrade_before_browser_and_combined_clearance','war_cry_installed::combined_european_rules7_launch_upgrade','war_cry_installed::war_cry_european_rules7_upgrade'})
+        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or bool(a.pacing_prior_wasm) or a.test_filter in million_tests or a.test_filter in {'entry_installed::european_rules7_upgrade_and_clearance','entry_installed::full_world_upgrade_and_first_entry','entry_installed::european_rules7_upgrade_and_combined_clearance','entry_installed::european_rules7_upgrade_before_browser_and_combined_clearance','war_cry_installed::combined_european_rules7_launch_upgrade','war_cry_installed::war_cry_european_rules7_upgrade'})
         if not a.test_filter:
             installed_suite('installed-million-integration',['million_'],ignored=True)
         if not a.test_filter:
