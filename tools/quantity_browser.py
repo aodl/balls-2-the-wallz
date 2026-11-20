@@ -57,13 +57,18 @@ def verify_quantity_matrix(browser,url,out,report,save,width=None,height=None):
     assert p.locator('[data-copy=text]').is_disabled()==(k!='healthy');assert p.evaluate('''()=>['full-recipient','transfer-amount','text-memo','paying-account'].map(id=>{const n=document.getElementById(id);return n.value??n.textContent})''')==fields;row['statuses'].append({'kind':k,'rects':samples})
    copies=p.evaluate('copyAudit.length');p.locator('[data-copy=text]').click();p.wait_for_function('(n)=>copyAudit.length>n',arg=copies);status(p,'protected');before_protected=p.locator('#quantity-count').text_content();p.locator('#quantity-plus').click();assert p.locator('#quantity-count').text_content()==str(int(before_protected)+1)and p.locator('[data-copy=text]').is_disabled();editor(p);p.locator('#keep-instructions').click();assert p.locator('#quantity-count').text_content()==before_protected;status(p,'healthy');row['protected_preview']='PASS local edit and Keep with copying disabled';
    assert p.locator('#recipient-reveal,#payer-reveal').count()==0
-   before_summary=p.locator('#workspace').bounding_box()
    for selector in ['.payment-from .identity-summary','.payment-to .identity-summary']:
     summary=p.locator(selector)
     assert summary.evaluate("n=>!n.closest('button,a,summary,[role=button]')&&n.tabIndex===-1")
+    summary.scroll_into_view_if_needed()
+    settled_panel(p)
+    panel=p.locator('#workspace')
+    scroll=p.locator('.panel-scroll')
+    before_summary=panel.bounding_box()
+    before_scroll=scroll.evaluate('n=>n.scrollTop')
     summary.click()
     settled_panel(p);editor(p)
-    assert p.locator('#workspace').bounding_box()==before_summary
+    assert panel.bounding_box()==before_summary and scroll.evaluate('n=>n.scrollTop')==before_scroll,(selector,before_summary,panel.bounding_box())
    r=p.locator('#quantity-plus').bounding_box();p.mouse.move(r['x']+22,r['y']+22);p.mouse.down();locked=p.locator('#quantity-controls').bounding_box();p.evaluate('fixture.setHeading(347.15)');p.wait_for_timeout(80);assert p.locator('#quantity-controls').bounding_box()==locked;p.mouse.up();editor(p)
    p.evaluate("globalThis.quantityEvents=[];for(const type of ['pointerdown','pointerup','click'])document.addEventListener(type,e=>{if(e.target.closest?.('#quantity-controls'))quantityEvents.push({type,at:performance.now(),height:innerHeight,count:document.getElementById('quantity-count').textContent,layout:fixture.shell.layoutState()})},true);addEventListener('resize',()=>quantityEvents.push({type:'resize',at:performance.now(),height:innerHeight,count:document.getElementById('quantity-count').textContent,layout:fixture.shell.layoutState()}))");n=p.locator('#quantity-count').text_content();r=p.locator('#quantity-plus').bounding_box();p.mouse.move(r['x']+22,r['y']+22);p.mouse.down();resize(p,{'width':w,'height':h-40 if h>300 else h+20});p.wait_for_timeout(80);p.mouse.up();row['resize_events']=p.evaluate('quantityEvents');save();assert p.locator('#quantity-count').text_content()==n and p.evaluate('fixture.proposal().mode')=='ball';editor(p);resize(p,{'width':w,'height':h});settled_panel(p);editor(p)
    p.screenshot(path=str(out/f'{w}-{h}-{dpr}-347.png'));row['final']=editor(p);row['audio_occlusion']=p.evaluate('fixture.audioProbe()');qr=row['final']['rect'];assert sum(abs(m['left']-qr['left'])<1 and abs(m['top']-qr['top'])<1 and abs(m['right']-qr['right'])<1 and abs(m['bottom']-qr['bottom'])<1 for m in row['audio_occlusion']['masks'])==1;row['payment_scrollport']=p.locator('.panel-scroll').bounding_box();assert row['payment_scrollport']['height']>=min(96,h-68)
