@@ -217,10 +217,10 @@ export function createShell(doc,camera,arcade,onPick){
   let x=bounds.left+W-cw-8,y=top,bottom=bounds.top+H-(short?8:72);
   if(at){
    if(narrow){x=bounds.left+8;y=short?Math.max(top,Math.min(154,H-158)):Math.min(top+96,Math.max(top,H-360));
-    const key=[c.id,c.cell,bounds.left,bounds.top,W,H,short,quantityReserved,locateGeneration].join('/');
+    const key=[c.id,c.cell,bounds.left,bounds.top,W,H,short,locateGeneration].join('/');
     if(key!==narrowPositionKey){narrowPositionKey=key;narrowY=y;narrowAimClearance=0;
      const above=camera.scale*.60+2,below=camera.scale*.17+2,half=camera.scale*.62+2;
-     if(!short&&aim&&at.sy>=top&&at.sy<y+m.headerHeight&&at.sx+half>x&&at.sx-half<x+cw)narrowAimClearance=at.sy+below+8;
+     if(!short&&at.sy>=top&&at.sy<y+m.headerHeight&&at.sx+half>x&&at.sx-half<x+cw)narrowAimClearance=at.sy+below+8;
      if(!short&&motion.animation?.owner!=='focus'&&at.sx+half>x&&at.sx-half<x+cw&&at.sy+below+4>y&&at.sy-above-4<y+m.headerHeight){const bottom=Math.min(H-72,...lowerObstacles.filter(r=>r.width).map(r=>r.top-8));narrowY=Math.max(top,Math.min(at.sy+below+8,bottom-m.headerHeight-96));}
     }y=narrowY;
    }
@@ -229,12 +229,15 @@ export function createShell(doc,camera,arcade,onPick){
   if(quantityReservation==='inline')y=top;
   else if(quantityReserved&&short){const strip=quantityDockStrip({viewport:bounds,top:Math.max(m.headerBottom+10,bounds.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound]});y=Math.max(strip?strip.bottom+8:top,Math.min(y,bottom-m.headerHeight-96));}
   for(const obstacle of(short?[]:lowerObstacles))if(obstacle.width&&x+cw>obstacle.left&&x<obstacle.right)bottom=Math.min(bottom,obstacle.top-8);
-  if(quantityReserved&&!short){
+  if(narrow&&at&&!short){
+   // The collapsed toolbar and its expanded actions share an anchor. The
+   // quantity rail can shorten the scrollport without moving that anchor.
+   const panelBottom=Math.min(bounds.top+H-72,...[minimapArea(m.mini),m.buttons].filter(r=>r.width&&x+cw>r.left&&x<r.right).map(r=>r.top-8));
+   const clear=Math.min(narrowAimClearance,bottom-m.headerHeight-96);
+   y=Math.max(top,clear,Math.min(y,panelBottom-m.headerHeight-240));
+  }else if(quantityReserved&&!short){
    const useful=Math.min(240,Math.max(0,m.desired-m.headerHeight));
-   // Prefer a larger scrollport when it leaves the near-cannon touch strip
-   // clear. Latch clearance with the layout so a drag cannot move the panel.
-   const clear=narrow?Math.min(narrowAimClearance,bottom-m.headerHeight-96):0;
-   y=Math.max(top,clear,Math.min(y,bottom-m.headerHeight-useful));
+   y=Math.max(top,Math.min(y,bottom-m.headerHeight-useful));
   }
   // One natural scroll, with useful space even under a contracted keyboard.
   const minimum=quantityReserved?Math.min(96,Math.max(0,bottom-top-m.headerHeight)):96,room=Math.floor(Math.max(minimum,bottom-y-m.headerHeight)),bodyHeight=context==='inspect'?0:Math.min(room,Math.max(0,m.desired-m.headerHeight)),next=[Math.round(x),Math.round(y),Math.round(cw),Math.round(room),Math.ceil(bodyHeight)].join('/');
