@@ -423,6 +423,8 @@ def main():
     server=None;browser=None;wire_capture=None
     try:
         assets=out/'assets';production=out/'mainnet-assets'
+        scene_only=any((a.human_corrections_scene_only,a.scene_only,a.million_scene_only,
+                        a.transition_only,a.paid_v8_scene_only,a.playability_scene_only,a.entry_scene_only))
         if os.environ.get('S14_QUAL_PREBUILT_ROOT'):
             prebuilt=Path(os.environ['S14_QUAL_PREBUILT_ROOT'])
             assert configuration==json.loads((prebuilt/'local-policy.json').read_text()),'prepared local root/canister/endpoint binding differs'
@@ -430,7 +432,10 @@ def main():
             shutil.copytree(prebuilt/'mainnet-assets',production)
             production_id=json.loads((production/'build-manifest.json').read_text())['deployment']['canister_id']
         else:
-            builder='tools/build_observer_playability.mjs' if (a.human_corrections_scene_only or a.playability_scene_only or a.entry_scene_only) else 'tools/build_observer_mainnet.mjs'
+            # The full deployment journey needs the official branding assets.
+            # Historical scene probes keep their existing build profiles.
+            full_assets=not scene_only or a.human_corrections_scene_only or a.playability_scene_only or a.entry_scene_only
+            builder='tools/build_observer_playability.mjs' if full_assets else 'tools/build_observer_mainnet.mjs'
             subprocess.run(['node',builder,'--local-test-config',str(local),'--output',str(assets)],cwd=ROOT,check=True,timeout=120)
             # A committed real deployment mapping must never be bypassed to build
             # mainnet assets for a disposable test principal. Production-policy
@@ -583,7 +588,7 @@ def main():
             if page.locator('body').get_attribute('data-phase')=='ERROR':
                 message=page.locator('#observation-error').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
-            if a.human_corrections_scene_only or a.scene_only or a.million_scene_only or a.transition_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only):
+            if scene_only:
                 if not (a.human_corrections_scene_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)):identify_account(page)
                 if a.human_corrections_scene_only:
                     from human_corrections_browser import verify_certified_lifecycle
@@ -612,16 +617,16 @@ def main():
             wordmark='/balls-to-the-wallz-b2z-wordmark.svg'
             assert brand.get_attribute('src')==wordmark
             assert brand.is_visible()
-            assert brand.evaluate("""async img=>{
+            assert brand.evaluate("""async (img,path)=>{
                 await img.decode();
                 const src=new URL(img.currentSrc);
                 const rect=img.getBoundingClientRect();
                 const style=getComputedStyle(img);
-                return src.origin===location.origin && src.pathname==='/balls-to-the-wallz-b2z-wordmark.svg'
+                return src.origin===location.origin && src.pathname===path
                     && img.naturalWidth===1711 && img.naturalHeight===622
                     && rect.width>0 && rect.height>0 && rect.top>=0 && rect.left>=0
                     && rect.right<=innerWidth && rect.bottom<=innerHeight && Number(style.opacity)>0;
-            }""")
+            }""",wordmark)
             brand_asset=context.request.get(url.rstrip('/')+wordmark)
             assert brand_asset.status==200
             assert brand_asset.headers['content-type'].split(';')[0]=='image/svg+xml'
