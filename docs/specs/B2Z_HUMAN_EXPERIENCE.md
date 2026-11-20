@@ -1288,3 +1288,8 @@ temporary pose untouched. The narrow payment layout gives the cannon's near
 aiming area priority over the optional extra scroll height. Settlement keeps
 at least the established payment scroll minimum and leaves the panel stationary
 while a pointer gesture owns the arena.
+
+After a compass turn, the narrow Rules13 card clears the newly projected aiming
+area while the camera keeps its focal point. The player can begin an aim drag
+and add a second touch to pinch. The gesture keeps the last deliberate aim and
+does not change an already copied payment packet.
