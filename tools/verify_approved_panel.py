@@ -90,6 +90,28 @@ with sync_playwright()as pw:
      if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click()
      assert page.locator('#text-memo').text_content().endswith('|進め');row['native_ime']='PASS composing copy fence and committed Unicode memo'
      gesture_probes(page,ctx,row)
+     # The same real touch route must work after an actual compass rotation.
+     page.locator('[data-board-quarter="1"]').click()
+     page.wait_for_function('()=>fixture.camera.quarter===1&&!fixture.shell.controller.active')
+     fingers=page.evaluate('''()=>{
+      const source=fixture.camera.cellPoint(fixture.aim().cannon.cell);
+      for(let y=95;y<innerHeight-90;y+=12){
+       const xs=[50,115,190,252].filter(x=>document.elementFromPoint(x,y)?.id==='board'&&Math.hypot(source.sx-x,source.sy-y)>84);
+       if(xs.length>=2)return {a:xs[0],b:xs.at(-1),y};
+      }
+      return null;
+     }''')
+     assert fingers
+     left,right,y=fingers['a'],fingers['b'],fingers['y']
+     before=page.evaluate('fixture.summary().camera')
+     proposal=page.evaluate('fixture.proposal()')
+     touch=lambda i,x:{'x':x,'y':y,'id':i}
+     dev.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[touch(11,left),touch(22,right)]})
+     dev.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[touch(11,left-20),touch(22,right+20)]})
+     dev.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
+     assert page.evaluate('fixture.summary().camera')!=before and page.evaluate('fixture.proposal()')==proposal
+     row['rotated_native_pinch']='PASS actual touch zoom with unchanged canonical draft and East at top'
+
     row['sweep']='PASS full forward/reverse, original pose, active group bounds';page.screenshot(path=str(out/f'{w}-{enabled}-347.png'));row['final']=geometry(page);row['errors']=errors;assert not errors;save()
     if enabled:
      # First Join is direction-anchored, never attached to a fabricated cannon.

@@ -90,7 +90,38 @@ def verify_quantity_matrix(browser,url,out,report,save,width=None,height=None):
 def gesture_probes(p,c,row):
  # Real touch aim -> pinch preserves the target and cannot hit a relocated minus.
  p.evaluate("document.documentElement.style.fontSize='16px';for(const side of ['left','right','top','bottom'])document.documentElement.style.setProperty('--quantity-safe-'+side,'0px')");resize(p,{'width':321,'height':640});resize(p,{'width':320,'height':640});settled_panel(p)
- p.locator('#board').focus();q=p.locator('#quantity-controls').bounding_box();point=p.evaluate('fixture.camera.cellPoint(fixture.aim().cannon.cell)');x,y=point['sx']-26,point['sy']+4;dev=c.new_cdp_session(p);assert p.evaluate('([x,y])=>document.elementFromPoint(x,y)?.id==="board"',[x,y]);dev.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y,'id':11}]});dev.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x+15,'y':y-14,'id':11}]});assert p.locator('#quantity-controls').bounding_box()==q;degrees=p.evaluate('fixture.proposal().degrees');camera=p.evaluate('fixture.summary().camera');assert p.evaluate('([x,y])=>document.elementFromPoint(x+90,y)?.id==="board"',[x,y]);dev.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x+15,'y':y-14,'id':11},{'x':x+90,'y':y,'id':22}]});dev.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x-5,'y':y-25,'id':11},{'x':x+115,'y':y+10,'id':22}]});assert p.locator('#quantity-controls').bounding_box()==q;dev.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]});assert p.evaluate('fixture.summary().camera')!=camera and p.evaluate('fixture.proposal().degrees')==degrees;editor(p);row['native_aim_pinch']='PASS fixed editor, second finger remains board-owned, scale changes without heading mutation'
+ p.evaluate('''()=>{window.aimPinchTrace=[];for(const type of ['pointerdown','pointermove','pointerup','pointercancel','gotpointercapture','lostpointercapture'])document.addEventListener(type,event=>{if(aimPinchTrace.length<64)aimPinchTrace.push({type,id:event.pointerId,x:event.clientX,y:event.clientY,target:event.target.id,captured:document.getElementById('board').hasPointerCapture(event.pointerId),angles:fixture.proposal().degrees,camera:fixture.summary().camera})},true)}''')
+ p.locator('#board').focus()
+ q=p.locator('#quantity-controls').bounding_box()
+ point=p.evaluate('fixture.camera.cellPoint(fixture.aim().cannon.cell)')
+ x,y=point['sx']-26,point['sy']+4
+ dev=c.new_cdp_session(p)
+ row['native_pinch_start']=p.evaluate('''([x,y])=>({
+   x,y,source:fixture.camera.cellPoint(fixture.aim().cannon.cell),
+   viewport:[innerWidth,innerHeight,visualViewport.width,visualViewport.height,visualViewport.scale],
+   hits:document.elementsFromPoint(x,y).map(e=>[e.id,e.tagName,e.className]),
+   layout:fixture.shell.layoutState(),events:aimPinchTrace})''',[x,y])
+ assert p.evaluate('([x,y])=>document.elementFromPoint(x,y)?.id==="board"',[x,y]),row['native_pinch_start']
+ def touch(kind,*fingers):
+  dev.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[{'id':i,'x':x,'y':y} for i,x,y in fingers]})
+ touch('touchStart',(11,x,y))
+ touch('touchMove',(11,x+15,y-14))
+ assert p.locator('#quantity-controls').bounding_box()==q
+ degrees=p.evaluate('fixture.proposal().degrees')
+ camera=p.evaluate('fixture.summary().camera')
+ assert p.evaluate('([x,y])=>document.elementFromPoint(x+90,y)?.id==="board"',[x,y])
+ touch('touchStart',(11,x+15,y-14),(22,x+90,y))
+ touch('touchMove',(11,x-5,y-25),(22,x+115,y+10))
+ assert p.locator('#quantity-controls').bounding_box()==q
+ touch('touchEnd')
+ assert p.evaluate('fixture.summary().camera')!=camera and p.evaluate('fixture.proposal().degrees')==degrees
+ editor(p)
+ row['native_pinch_events']=p.evaluate('aimPinchTrace')
+ down=[e['id'] for e in row['native_pinch_events'] if e['type']=='pointerdown' and e['target']=='board']
+ assert len(set(down))==2,row['native_pinch_events']
+ assert p.evaluate("(ids)=>ids.every(id=>!document.getElementById('board').hasPointerCapture(id))",down)
+ row['native_aim_pinch']='PASS fixed editor, second finger remains board-owned, scale changes without heading mutation'
+
  n=p.locator('#quantity-count').text_content();r=p.locator('#quantity-plus').bounding_box();dev.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':r['x']+22,'y':r['y']+22,'id':33}]});dev.send('Input.dispatchTouchEvent',{'type':'touchCancel','touchPoints':[]});assert p.locator('#quantity-count').text_content()==n;editor(p)
  p.mouse.move(r['x']+22,r['y']+22);p.mouse.down();p.evaluate('document.dispatchEvent(new Event("freeze"))');p.wait_for_timeout(1200);p.mouse.up();assert p.locator('#quantity-count').text_content()==n;editor(p);row['cancelled_release']='PASS native touch cancellation and controlled freeze; no late release after1.2s'
 

@@ -1277,3 +1277,14 @@ Fire and additional cannon construction show the requested ball count. The
 title and construction terminology are player-facing. Stored protocol names
 remain stable. The optional Shout editor retains Rules13's Fire and New
 capabilities. Safety and retention information appears before wallet handoff.
+
+An existing cannon's automatic Fire draft converts its binary heading to the
+nearest circular centidegree before using the existing Ledger memo parser.
+The rendered aim uses the heading decoded from those same canonical memo bytes.
+
+The contracted editing layout may temporarily pan the view. Expansion restores
+the previous camera pose for the same action if the player has left that
+temporary pose untouched. The narrow payment layout gives the cannon's near
+aiming area priority over the optional extra scroll height. Settlement keeps
+at least the established payment scroll minimum and leaves the panel stationary
+while a pointer gesture owns the arena.

@@ -9,8 +9,10 @@ import{quantityPlacement,quantityDockStrip}from'./quantity-placement.mjs';
 import{displayedBalls}from'./ball-presentation.mjs';
 export function createShell(doc,camera,arcade,onPick){
  const $=id=>doc.getElementById(id),canvas=$('board'),card=$('workspace'),handle=$('aim-handle'),ring=$('aim-ring'),cleanups=[];
- let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null;
+ let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null,narrowAimClearance=0;
  let pendingTerritory=null,quantitySlot=null;const quantityPointers=new Map(),quantityWidget=$('launch-editors');let quantitySize={width:130,height:46},quantityDocked=false,quantityContext='',quantityReserved=false,quantityReservation='none',quantityClickCancelled=false;
+ let contractedCamera=null;
+ const cameraPose=()=>[camera.x,camera.y,camera.scale,camera.angle];
  const anchorCache=playerAnchor(),reducedMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
  function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale,quarter:camera.quarter});},400);}
  function zoomButtons(){const a=motion.zoomAvailability();for(const [id,enabled] of [['zoom-in',a.in],['zoom-out',a.out],['fit',a.overview]]){const b=$(id);if(b.disabled===enabled)b.disabled=!enabled;}}
@@ -181,8 +183,28 @@ export function createShell(doc,camera,arcade,onPick){
  function position(){
   if([...quantityPointers.values()].some(p=>p.viewport!==quantityViewport())){quantityClickCancelled=true;clearInput();quantitySlot=null;quantityContext='';}
   const reserve=Boolean(arcade.launchEditor?.().active&&arcade.aim()),reservation=reserve?(Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity)<280?'inline':Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity)<520?'strip':'rail'):'none';if(reservation!==quantityReservation){quantityReserved=reserve;quantityReservation=reservation;card.dataset.quantityReserved=reservation;doc.documentElement.classList.toggle('quantity-constrained',reservation==='inline');doc.documentElement.classList.toggle('quantity-rail',reservation==='rail');audioMask=null;layoutDirty=true;}
-  const editing=Boolean(doc.activeElement?.closest?.('#action-inputs')),height=Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity),short=(editing||arcade.context()==='action')&&height<520;doc.documentElement.classList.toggle('short-edit',short);if(short!==wasShort){wasShort=short;layoutDirty=true;}
-  const viewport=[camera.viewport.width,height].join('/');if(viewport!==lastViewport){lastViewport=viewport;layoutDirty=true;const c=arcade.anchor?.();if((editing||arcade.context()==='action')&&c&&!pointers.size){const p=camera.cellPoint(c.cell);if(short||!p.visible){motion.cancel();camera.pan(short?camera.viewport.width-42-p.sx:0,measure().top+(short?24:80)-p.sy);}}}
+  const editing=Boolean(doc.activeElement?.closest?.('#action-inputs')),height=Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity),short=(editing||arcade.context()==='action')&&height<520;
+  const changedShort=short!==wasShort,viewport=[camera.viewport.width,height].join('/');
+  if(contractedCamera&&(contractedCamera.context!==arcade.intentContext()||cameraPose().some((n,i)=>n!==contractedCamera.applied[i])))contractedCamera=null;
+  if(changedShort&&short&&lastViewport&&arcade.anchor?.()&&!pointers.size){
+   const pose=cameraPose();contractedCamera={context:arcade.intentContext(),pose,applied:pose};
+  }
+  doc.documentElement.classList.toggle('short-edit',short);if(changedShort){wasShort=short;layoutDirty=true;}
+  if(viewport!==lastViewport){
+   lastViewport=viewport;layoutDirty=true;
+   const c=arcade.anchor?.();
+   if(!short&&contractedCamera&&!pointers.size){
+    // Leaving the keyboard layout removes its temporary pan. The player may
+    // have changed the view while contracted, in which case it was released above.
+    const [x,y,scale]=contractedCamera.pose;
+    motion.cancel();camera.scale=scale;camera.centre(x,y);
+   }else if((editing||arcade.context()==='action')&&c&&!pointers.size){
+    const p=camera.cellPoint(c.cell);
+    if(short||!p.visible){motion.cancel();camera.pan(short?camera.viewport.width-42-p.sx:0,measure().top+(short?24:80)-p.sy);}
+   }
+  }
+  if(!short)contractedCamera=null;
+  else if(contractedCamera)contractedCamera.applied=cameraPose();
   const aim=arcade.aim(),p=aim?camera.cellPoint(aim.cannon.cell):null;const aimLabel=aim?.kind==='deflect'?`Diverter direction ${aim.direction??aim.orientation}. Use arrow keys to cycle four directions.`:'Aim cannon',hideAim=short||!p?.visible;if(handle.getAttribute('aria-label')!==aimLabel)handle.setAttribute('aria-label',aimLabel);if(handle.hidden!==hideAim)handle.hidden=ring.hidden=hideAim;
   if(p?.visible){const a=aim.angle*Math.PI/180,end=camera.screen(p.x+Math.cos(a),p.y+Math.sin(a)),dx=end.x-p.sx,dy=end.y-p.sy,d=Math.hypot(dx,dy);for(const [node,k,value]of [[handle,'left',p.sx+dx/d*38-22],[handle,'top',p.sy+dy/d*38-22],[ring,'left',p.sx-38],[ring,'top',p.sy-38]]){const px=`${value}px`;if(node.style[k]!==px)node.style[k]=px;}}
   const context=arcade.context?.(),c=['inspect','action'].includes(context)?arcade.anchor?.():null,at=c?camera.cellPoint(c.cell):null,off=Boolean(at&&!at.visible);$('locate-context').hidden=card.hidden||!off;card.classList.toggle('offscreen',off);card.inert=off;$('focus-cannon').hidden=!c;
@@ -196,8 +218,9 @@ export function createShell(doc,camera,arcade,onPick){
   if(at){
    if(narrow){x=bounds.left+8;y=short?Math.max(top,Math.min(154,H-158)):Math.min(top+96,Math.max(top,H-360));
     const key=[c.id,c.cell,bounds.left,bounds.top,W,H,short,quantityReserved,locateGeneration].join('/');
-    if(key!==narrowPositionKey){narrowPositionKey=key;narrowY=y;
+    if(key!==narrowPositionKey){narrowPositionKey=key;narrowY=y;narrowAimClearance=0;
      const above=camera.scale*.60+2,below=camera.scale*.17+2,half=camera.scale*.62+2;
+     if(!short&&aim&&at.sy>=top&&at.sy<y+m.headerHeight&&at.sx+half>x&&at.sx-half<x+cw)narrowAimClearance=at.sy+below+8;
      if(!short&&motion.animation?.owner!=='focus'&&at.sx+half>x&&at.sx-half<x+cw&&at.sy+below+4>y&&at.sy-above-4<y+m.headerHeight){const bottom=Math.min(H-72,...lowerObstacles.filter(r=>r.width).map(r=>r.top-8));narrowY=Math.max(top,Math.min(at.sy+below+8,bottom-m.headerHeight-96));}
     }y=narrowY;
    }
@@ -206,7 +229,13 @@ export function createShell(doc,camera,arcade,onPick){
   if(quantityReservation==='inline')y=top;
   else if(quantityReserved&&short){const strip=quantityDockStrip({viewport:bounds,top:Math.max(m.headerBottom+10,bounds.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound]});y=Math.max(strip?strip.bottom+8:top,Math.min(y,bottom-m.headerHeight-96));}
   for(const obstacle of(short?[]:lowerObstacles))if(obstacle.width&&x+cw>obstacle.left&&x<obstacle.right)bottom=Math.min(bottom,obstacle.top-8);
-  if(quantityReserved&&!short){const useful=Math.min(240,Math.max(0,m.desired-m.headerHeight));y=Math.max(top,Math.min(y,bottom-m.headerHeight-useful));}
+  if(quantityReserved&&!short){
+   const useful=Math.min(240,Math.max(0,m.desired-m.headerHeight));
+   // Prefer a larger scrollport when it leaves the near-cannon touch strip
+   // clear. Latch clearance with the layout so a drag cannot move the panel.
+   const clear=narrow?Math.min(narrowAimClearance,bottom-m.headerHeight-96):0;
+   y=Math.max(top,clear,Math.min(y,bottom-m.headerHeight-useful));
+  }
   // One natural scroll, with useful space even under a contracted keyboard.
   const minimum=quantityReserved?Math.min(96,Math.max(0,bottom-top-m.headerHeight)):96,room=Math.floor(Math.max(minimum,bottom-y-m.headerHeight)),bodyHeight=context==='inspect'?0:Math.min(room,Math.max(0,m.desired-m.headerHeight)),next=[Math.round(x),Math.round(y),Math.round(cw),Math.round(room),Math.ceil(bodyHeight)].join('/');
   if(next!==positionKey){audioMask=null;positionKey=next;card.style.left=`${Math.round(x)}px`;card.style.top=`${Math.round(y)}px`;card.style.width=`${cw}px`;card.style.maxHeight='none';card.style.setProperty('--body-space',`${Math.floor(room)}px`);card.style.setProperty('--body-height',`${Math.ceil(bodyHeight)}px`);}
@@ -215,7 +244,7 @@ export function createShell(doc,camera,arcade,onPick){
   if(compose!==compositionKey){compositionKey=compose;if(narrow&&c&&expanded&&!pointers.size&&!arcade.structureContexts?.()){
    const intended=motion.animation?.owner==='focus'?Object.assign(Object.create(Object.getPrototypeOf(camera)),camera,motion.animation.to):camera;
    const target=previewComposition(intended,c.cell,site,{left:8,right:W-8,top:m.headerBottom+8,bottom:y-6},{interactive:!short&&Boolean(aim)});
-   if(target){if(short){motion.cancel();Object.assign(camera,target);}else motion.go(target,{owner:'composition'});}
+   if(target){if(short){motion.cancel();Object.assign(camera,target);if(contractedCamera)contractedCamera.applied=cameraPose();}else motion.go(target,{owner:'composition'});}
   }}
   positionQuantity();committedLayoutRevision=layoutRevision;
  }

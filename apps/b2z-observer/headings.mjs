@@ -6,5 +6,9 @@ export function screenToWorld(angle){const a=Number(angle);if(String(angle).trim
 export function encodedHeading(display){const world=screenToWorld(display),rounded=(Math.round(world*100)%36000)/100;return describeTextMemo('angle',String(rounded)).text.slice(6);}
 export const displayHeading=world=>String(Math.round(worldToScreen(world)*100)/100%360);
 export function storedHeadingForMemo(heading){
-  return String((Math.round(heading*36000/65536)%36000)/100);
+  if(!Number.isInteger(heading)||heading<0||heading>65535)throw Error('HEADING_BOUNDS');
+  // Scale and round in integer units. The largest numerator fits in 32 bits.
+  const centidegrees=Math.floor((heading*36000+32768)/65536)%36000;
+  const whole=Math.floor(centidegrees/100),fraction=centidegrees%100;
+  return fraction===0?String(whole):`${whole}.${fraction%10===0?fraction/10:String(fraction).padStart(2,'0')}`;
 }
