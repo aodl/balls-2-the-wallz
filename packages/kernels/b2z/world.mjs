@@ -48,6 +48,8 @@ export const DEFLECTOR_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder
 // Rules13 retains schema7, while configuration gates new commands and pricing.
 export const CONTEXT_CONFIG=Object.freeze({...DEFLECTOR_CONFIG,...CONTEXT_POLICY});
 export const CONTEXT_IDENTITY=Object.freeze({...DEFLECTOR_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_CONTEXT_STRUCTURES_RULES_13')),config_hash:sha256(encodeCanonical(CONTEXT_CONFIG))});
+export const SHOUT_CONFIG=Object.freeze({...CONTEXT_CONFIG,rules_version:14,memo_adapter_version:9,normalized_payment:'BTZPAY06',shout_capability:'btz-successful-action-shout-1'});
+export const SHOUT_IDENTITY=Object.freeze({...CONTEXT_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_ACTION_SHOUT_RULES_14')),config_hash:sha256(encodeCanonical(SHOUT_CONFIG))});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{

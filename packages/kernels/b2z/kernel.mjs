@@ -1,4 +1,6 @@
 import {readContextPayment,semanticContextPayment} from '../../protocol/context-structures.mjs';
+import {readShoutPayment,semanticShoutPayment} from '../../protocol/shout.mjs';
+import {SHOUT_IDENTITY} from './world.mjs';
 import{packDeflectorEvent}from'./deflector-events.mjs';
 import{readDeflectorPayment,semanticDeflectorPayment}from'../../protocol/deflector.mjs';
 import{deflectorAt}from'./deflectors-v12.mjs';
@@ -22,6 +24,7 @@ export function encodePayment(account, amount, command) {
   return concat(ascii('BTZPAY02'), unhex(account, 32), be(amount, 8), encodeMemo(command));
 }
 function readPayment(payload,annotations=false,deflectors=false) {
+  if(deflectors===14)return readShoutPayment(unhex(payload));
   if(deflectors===13)return readContextPayment(unhex(payload));
   if(deflectors)return readDeflectorPayment(unhex(payload));
   const bytes=unhex(payload);if(annotations&&bytes.length>=8&&new TextDecoder().decode(bytes.slice(0,8))==='BTZPAY03')return readAnnotatedPayment(bytes);
@@ -127,17 +130,17 @@ export function matchStrikes(world, incoming) {
 
 export class B2zCursor {
   constructor(state, inputs, seal, {cacheAreas = true, fastTopology = true} = {}) {
-    const identity=seal.config_hash===CONTEXT_IDENTITY.config_hash?CONTEXT_IDENTITY:seal.config_hash===DEFLECTOR_IDENTITY.config_hash?DEFLECTOR_IDENTITY:seal.config_hash===COMBINED_IDENTITY.config_hash?COMBINED_IDENTITY:seal.config_hash===WAR_CRY_IDENTITY.config_hash?WAR_CRY_IDENTITY:seal.config_hash===CLEARANCE_IDENTITY.config_hash?CLEARANCE_IDENTITY:seal.config_hash===ENTRY_IDENTITY.config_hash?ENTRY_IDENTITY:seal.config_hash===PLAYABILITY_IDENTITY.config_hash?PLAYABILITY_IDENTITY:seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
+    const identity=seal.config_hash===SHOUT_IDENTITY.config_hash?SHOUT_IDENTITY:seal.config_hash===CONTEXT_IDENTITY.config_hash?CONTEXT_IDENTITY:seal.config_hash===DEFLECTOR_IDENTITY.config_hash?DEFLECTOR_IDENTITY:seal.config_hash===COMBINED_IDENTITY.config_hash?COMBINED_IDENTITY:seal.config_hash===WAR_CRY_IDENTITY.config_hash?WAR_CRY_IDENTITY:seal.config_hash===CLEARANCE_IDENTITY.config_hash?CLEARANCE_IDENTITY:seal.config_hash===ENTRY_IDENTITY.config_hash?ENTRY_IDENTITY:seal.config_hash===PLAYABILITY_IDENTITY.config_hash?PLAYABILITY_IDENTITY:seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
     for (const k of Object.keys(identity)) if (seal[k] !== identity[k]) throw new Error('B2Z rule/config/schema identity');
     if(identity!==B2Z_IDENTITY)this.joinE8s=PRELAUNCH_CONFIG.join_e8s;
-    const contextRules=identity===CONTEXT_IDENTITY,deflectorRules=contextRules||identity===DEFLECTOR_IDENTITY;
-    this.world = decodeWorld(state);if(deflectorRules||identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY)this.v6={plan:null,payment:null,batch:null,capture:null,births:[],finalized:false,...([ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY].includes(identity)?{entry_rules:true}:{}),...([CLEARANCE_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY].includes(identity)?{clearance_rules:true}:{}),...([WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY].includes(identity)?{war_cry_rules:true,pending_cry:null}:{}),...(deflectorRules?{deflector_rules:true}:{}),...(contextRules?{context_rules:true}:{})};if(this.world.version!==(deflectorRules?7:identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY?6:identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
+    const shoutRules=identity===SHOUT_IDENTITY,contextRules=shoutRules||identity===CONTEXT_IDENTITY,deflectorRules=contextRules||identity===DEFLECTOR_IDENTITY;
+    this.world = decodeWorld(state);if(deflectorRules||identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY)this.v6={plan:null,payment:null,batch:null,capture:null,births:[],finalized:false,...([ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY].includes(identity)?{entry_rules:true}:{}),...([CLEARANCE_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY].includes(identity)?{clearance_rules:true}:{}),...([WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY].includes(identity)?{war_cry_rules:true,pending_cry:null}:{}),...(deflectorRules?{deflector_rules:true}:{}),...(contextRules?{context_rules:true}:{}),...(shoutRules?{shout_rules:true}:{})};if(this.world.version!==(deflectorRules?7:identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY?6:identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
     this.start = rat(uint(seal.logical_start)); this.end = rat(uint(seal.logical_end));
     if (cmp(this.world.time, this.start) !== 0 || cmp(this.end, this.start) <= 0
         || cmp(sub(this.end, this.start), rat(deflectorRules?DEFLECTOR_CONFIG.max_segment_ticks:LIMITS.max_segment_ticks)) > 0
         || cmp(this.end, rat(1000000000)) > 0 || inputs.length > 4096) throw new Error('B2Z segment context');
     this.seedBase = sha256(encodeCanonical({domain: 'BTZ-SPAWN-INPUT-03', state: sha256(deflectorRules?semanticDeflectorWorld(state):state),
-      inputs: sha256(encodeCanonical([WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY].includes(identity)?this.inputs.map(i=>({...i,payload_hex:hex((contextRules?semanticContextPayment:deflectorRules?semanticDeflectorPayment:semanticPayment)(unhex(i.payload_hex)))})):this.inputs)), logical_start: this.start}));
+      inputs: sha256(encodeCanonical([WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY].includes(identity)?this.inputs.map(i=>({...i,payload_hex:hex((shoutRules?semanticShoutPayment:contextRules?semanticContextPayment:deflectorRules?semanticDeflectorPayment:semanticPayment)(unhex(i.payload_hex)))})):this.inputs)), logical_start: this.start}));
     this.initialCredits = cloneCanonical(this.world.credits);
     this.phase = 'commands'; this.events = []; this.receipts = [];
     this.scan = 0; this.candidates = []; this.intents = []; this.nextTime = this.start;
@@ -156,7 +159,12 @@ export class B2zCursor {
   receipt(payment, outcome) {
     const i = this.inputs[this.inputIndex++];
     this.receipts.push({position: uint(i.position), account: payment.account, amount: payment.amount, ...outcome});
-    if (outcome.reason === 'ACCEPTED') this.emit(outcome);
+    if (outcome.reason === 'ACCEPTED') {
+      const cry=this.v6?.shout_rules&&this.v6.pending_cry;
+      const action=outcome.kind==='cannon_moved'?{kind:'cannon',id:outcome.cannon,cell:outcome.after}
+        : ['deflector_built','deflector_moved','deflector_reoriented'].includes(outcome.kind)?{kind:'deflector',id:outcome.structure.id,cell:outcome.structure.cell}:null;
+      this.emit(cry&&action?{...outcome,action_annotation:{version:1,position:uint(i.position),account:payment.account,cry,...action}}:outcome);
+    }
     if(this.v6?.war_cry_rules)this.v6.pending_cry=null;
   }
   restartSearch() {
@@ -170,7 +178,7 @@ export class B2zCursor {
     this.world.pending = valid;
   }
   work() {
-    if(this.world.version>=6&&workV6(this,payload=>readPayment(payload,!!this.v6.war_cry_rules,this.v6.context_rules?13:!!this.v6.deflector_rules)))return;
+    if(this.world.version>=6&&workV6(this,payload=>readPayment(payload,!!this.v6.war_cry_rules,this.v6.shout_rules?14:this.v6.context_rules?13:!!this.v6.deflector_rules)))return;
     if (this.phase === 'commands') {
       if (this.inputIndex < this.inputs.length) {
         const i = this.inputs[this.inputIndex], payment = readPayment(i.payload_hex);

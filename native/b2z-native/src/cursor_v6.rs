@@ -27,6 +27,8 @@ pub(crate) struct State {
     pub deflector_rules: bool,
     #[serde(default, skip_serializing_if = "is_false")]
     pub context_rules: bool,
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub shout_rules: bool,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pending_cry: Option<String>,
     pub plan: Option<Plan>,
@@ -42,7 +44,8 @@ fn is_false(v: &bool) -> bool {
 impl Cursor {
     pub(crate) fn validate_v6(&self) -> Result<()> {
         let s = self.v6.as_ref().ok_or("V6_CURSOR")?;
-        if s.context_rules && !s.deflector_rules
+        if s.shout_rules && !s.context_rules
+            || s.context_rules && !s.deflector_rules
             || s.deflector_rules != (self.world.version == 7)
             || s.finalized && self.phase != "done"
             || s.births.len() > playability::MAX_CANNONS
@@ -79,7 +82,9 @@ impl Cursor {
                     return Ok(true);
                 }
                 let context = self.v6.as_ref().unwrap().context_rules;
-                let payment = if context {
+                let payment = if self.v6.as_ref().unwrap().shout_rules {
+                    crate::cursor::read_payment_shout(&self.inputs[self.input_index].payload_hex)?
+                } else if context {
                     crate::cursor::read_payment_context(&self.inputs[self.input_index].payload_hex)?
                 } else if self.v6.as_ref().unwrap().deflector_rules {
                     crate::cursor::read_payment_deflectors(

@@ -178,6 +178,17 @@ fn semantic_context_payment(s: &str) -> Result<String> {
     bytes[7] = b'2';
     Ok(hex(&bytes))
 }
+pub(crate) fn read_payment_shout(s: &str) -> Result<Payment> {
+    let mut bytes = unhex(s)?;
+    let shout = b2z_protocol::shout::annotation(&bytes).map_err(|_| "adapter9 payment envelope")?;
+    let cry = (!shout.is_empty()).then(|| shout.to_owned());
+    bytes.truncate(57);
+    bytes[7] = b'5';
+    bytes[56] = 0;
+    let mut payment = read_payment_context(&hex(&bytes))?;
+    payment.cry = cry;
+    Ok(payment)
+}
 fn semantic_deflector_payment(s: &str) -> Result<String> {
     read_payment_deflectors(s)?;
     let mut b = unhex(s)?;
@@ -448,7 +459,14 @@ impl Cursor {
         let combined = crate::combined_v11::identity()?;
         let deflector = crate::deflectors_v12::identity()?;
         let structure_context = crate::context_structures::identity()?;
-        let is_context = context.get("config_hash") == structure_context.get("config_hash");
+        let mut shout = structure_context.clone();
+        shout["rules_hash"] = json!(hash(b"B2Z_ACTION_SHOUT_RULES_14"));
+        shout["config_hash"] = json!(hash(include_bytes!(
+            "../../../apps/b2z-observer/configuration-shout.bin"
+        )));
+        let is_shout = context.get("config_hash") == shout.get("config_hash");
+        let is_context =
+            is_shout || context.get("config_hash") == structure_context.get("config_hash");
         let is_deflector = is_context || context.get("config_hash") == deflector.get("config_hash");
         let is_combined = is_deflector || context.get("config_hash") == combined.get("config_hash");
         let is_war_cry = is_combined || context.get("config_hash") == war_cry.get("config_hash");
@@ -465,7 +483,9 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_context {
+        let expected = if is_shout {
+            shout
+        } else if is_context {
             structure_context
         } else if is_deflector {
             deflector
@@ -534,7 +554,11 @@ impl Cursor {
                     .map(|i| {
                         Ok(Input {
                             position: i.position.clone(),
-                            payload_hex: if is_context {
+                            payload_hex: if is_shout {
+                                let normalized = unhex(&i.payload_hex)?;
+                                hex(&b2z_protocol::shout::semantic_payment(&normalized)
+                                    .map_err(|_| "adapter9 payment envelope")?)
+                            } else if is_context {
                                 semantic_context_payment(&i.payload_hex)?
                             } else if is_deflector {
                                 semantic_deflector_payment(&i.payload_hex)?
@@ -566,6 +590,7 @@ impl Cursor {
                     clearance_rules: is_clearance,
                     deflector_rules: is_deflector,
                     context_rules: is_context,
+                    shout_rules: is_shout,
                     ..Default::default()
                 }
             }),
@@ -631,7 +656,7 @@ impl Cursor {
         ));
         Ok(())
     }
-    pub(crate) fn receipt(&mut self, p: &PaymentSaved, outcome: Value) -> Result<()> {
+    pub(crate) fn receipt(&mut self, p: &PaymentSaved, mut outcome: Value) -> Result<()> {
         let pos = self
             .inputs
             .get(self.input_index)
@@ -644,6 +669,25 @@ impl Cursor {
             outcome.clone(),
         ));
         if outcome.get("reason").and_then(Value::as_str) == Some("ACCEPTED") {
+            if let Some(cry) = self
+                .v6
+                .as_ref()
+                .filter(|s| s.shout_rules)
+                .and_then(|s| s.pending_cry.as_ref())
+            {
+                let target = match outcome["kind"].as_str() {
+                    Some("cannon_moved") => Some(("cannon", &outcome["cannon"], &outcome["after"])),
+                    Some("deflector_built" | "deflector_moved" | "deflector_reoriented") => Some((
+                        "deflector",
+                        &outcome["structure"]["id"],
+                        &outcome["structure"]["cell"],
+                    )),
+                    _ => None,
+                };
+                if let Some((kind, id, cell)) = target {
+                    outcome["action_annotation"] = json!({"version":1,"position":pos,"account":p.account,"cry":cry,"kind":kind,"id":id,"cell":cell});
+                }
+            }
             self.emit(outcome)?;
         }
         if let Some(s) = self.v6.as_mut() {

@@ -81,7 +81,7 @@ export function finalizeCursorElapsed(c,observedNs){
 
 export function validateV6Cursor(c){
  const s=c.v6;
- if(!s||s.context_rules&&!s.deflector_rules||Boolean(s.deflector_rules)!==(c.world.version===7)||s.finalized&&c.phase!=='done'||s.births.length>V6_POLICY.max_cannons||new Set(s.births.map(f=>f.cannon)).size!==s.births.length
+ if(!s||s.shout_rules&&!s.context_rules||s.context_rules&&!s.deflector_rules||Boolean(s.deflector_rules)!==(c.world.version===7)||s.finalized&&c.phase!=='done'||s.births.length>V6_POLICY.max_cannons||new Set(s.births.map(f=>f.cannon)).size!==s.births.length
    ||(s.capture!==null)!==(c.phase==='v6_topology')||(s.batch!==null)!==(c.phase==='v6_purchase')
    ||(s.plan!==null)!==(c.phase==='v6_spawn')||(s.payment!==null)!==['v6_spawn','v6_purchase'].includes(c.phase)
    ||c.phase==='v6_spawn'&&!c.spawnJob||['spawn','topology'].includes(c.phase))throw Error('V6_CURSOR_PHASE');

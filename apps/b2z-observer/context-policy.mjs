@@ -1,12 +1,17 @@
 import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {CONTEXT_CONFIGURATION_HEX} from './context-capability.generated.mjs';
+import {SHOUT_CONFIG} from '../../packages/kernels/b2z/world.mjs';
 
 const capabilities = new WeakMap();
-export function contextSupported(config){
-  if(!config||typeof config!=='object')return false;
+const toHex=bytes=>Array.from(bytes,byte=>byte.toString(16).padStart(2,'0')).join('');
+const shoutHex=toHex(encodeCanonical(SHOUT_CONFIG));
+function version(config){
+  if(!config||typeof config!=='object')return 0;
   if(!capabilities.has(config)){
-    const hex=Array.from(encodeCanonical(config),byte=>byte.toString(16).padStart(2,'0')).join('');
-    capabilities.set(config,hex===CONTEXT_CONFIGURATION_HEX);
+    const hex=toHex(encodeCanonical(config));
+    capabilities.set(config,hex===shoutHex?14:hex===CONTEXT_CONFIGURATION_HEX?13:0);
   }
   return capabilities.get(config);
 }
+export const contextSupported=config=>version(config)>=13;
+export const shoutSupported=config=>version(config)===14;

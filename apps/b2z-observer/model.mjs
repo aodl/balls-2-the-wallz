@@ -1,3 +1,4 @@
+import {SHOUT_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorOperation,applyDeflectorRemovals,matchesDeflectors}from'./model-deflector.mjs';
 import {launchAnnotationValidator}from'./war-cry-events.mjs';
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
@@ -11,8 +12,16 @@ import {projectAnimationEvents} from '../../packages/kernels/b2z/animation-proje
 import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
-const playabilityIdentity=(id,version=6)=>(version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>Object.keys(expected).every(k=>id?.[k]===expected[k]));
-const contextIdentity=id=>Object.keys(CONTEXT_IDENTITY).every(key=>id?.[key]===CONTEXT_IDENTITY[key]);
+const identityMatches=(id,expected)=>Object.keys(expected).every(key=>id?.[key]===expected[key]);
+const playabilityIdentity=(id,version=6)=>(version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>identityMatches(id,expected));
+const contextIdentity=id=>identityMatches(id,CONTEXT_IDENTITY)||identityMatches(id,SHOUT_IDENTITY);
+function verifyShoutTarget(model,annotation){
+  const a=annotation;
+  const target=a.kind==='cannon'?model.cannons.get(a.id):model.deflectors.get(a.id);
+  const account=a.kind==='cannon'?target?.account:model.playability.players.find(p=>p.id===target?.owner)?.account;
+  check(target?.cell===a.cell&&account===a.account,'action annotation funding and destination');
+}
+
 function check(ok,message){if(!ok)throw new Error('observer: '+message);}
 function integer(n,max=4294967295){check(Number.isSafeInteger(n)&&n>=0&&n<=max,'integer bounds');return n;}
 export function timeNumber(r){validRat(r);const n=Number(r[0])/Number(r[1]);check(Number.isFinite(n)&&n>=0&&n<=1e9,'time bounds');return n;}
@@ -174,7 +183,7 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   const contextStructures=contextIdentity(publication.identity),model=new B2zView(initial,contextStructures);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version>=6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'animation event order/range');
-    seq=e.sequence;prior=e.time;if(e.launch_annotation!==undefined)validateAnnotation(e);model.apply(e);
+    seq=e.sequence;prior=e.time;validateAnnotation(e);model.apply(e);if(e.action_annotation)verifyShoutTarget(model,e.action_annotation);
   }
   model.matches(final);
   return {start:Number(s.logical_start),end:Number(s.logical_end),initial,final,events:p.events,receipts:p.receipts,contextStructures,
@@ -203,7 +212,7 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
   const contextStructures=contextIdentity(publication.identity),model=new B2zView(initial,contextStructures);let prior=initial.time,seq=-1;
   for(const e of p.events){
     timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version>=6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'derived animation event order/range');
-    seq=e.sequence;prior=e.time;if(e.launch_annotation!==undefined)validateAnnotation(e);model.apply(e);
+    seq=e.sequence;prior=e.time;validateAnnotation(e);model.apply(e);if(e.action_annotation)verifyShoutTarget(model,e.action_annotation);
   }
   model.matches(final);
   return {start:Number(s.logical_start),end:Number(s.logical_end),initial,final,events:p.events,receipts:p.receipts,contextStructures,
@@ -220,7 +229,7 @@ export class SegmentPlayer {
       const e=this.segment.events[this.index++];let cue=null;
       if(collector?.enabled)try{cue=collector.prepare(e,this.view,this.provenance,this.index-first-1,due-first);}catch{try{collector.fail?.();}catch{}collector=null;}
       this.view.apply(e); // Never swallow an actual model/validation failure.
-      if(displayed&&e.launch_annotation)displayed(e,this.view,this.provenance);
+      if(displayed&&(e.launch_annotation||e.action_annotation))displayed(e,this.view,this.provenance);
       if(cue)try{collector.accept(cue);}catch{try{collector.fail?.();}catch{}collector=null;}
     }
     if(this.view.version>=6)this.view.logicalTime=time;

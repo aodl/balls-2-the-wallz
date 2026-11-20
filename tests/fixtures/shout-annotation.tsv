@@ -1,0 +1,11 @@
+accept	FIRE 1 0 1|steady
+accept	NEW 0 1|hello
+accept	MOVE 1 0|é
+accept	DEFLECT 0 N|🛡️
+accept	DROT 42 W|turn
+accept	DMOVE 42 999999|abcdefghijklmno
+reject	DMOVE 42 999999|abcdefghijklmnopq
+reject	DROT 42 W|
+reject	DEFLECT 0 NW|text
+reject	MOVE 1 0|a|b
+reject	ANGLE 0|legacy

@@ -2,6 +2,7 @@
 #![forbid(unsafe_code)]
 pub mod context_structures;
 pub mod deflector;
+pub mod shout;
 pub mod v6;
 pub mod war_cry;
 

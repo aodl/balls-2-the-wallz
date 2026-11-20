@@ -1,3 +1,5 @@
+import {fitShout} from '../../packages/protocol/shout.mjs';
+import {shoutSupported} from './context-policy.mjs';
 import {contextSupported} from './context-policy.mjs';
 import {contextReason,contextSites,firstContextDestination} from './context-sites.mjs';
 import {SCREEN_ORIENTATIONS,screenDirection} from '../../packages/protocol/context-structures.mjs';
@@ -63,6 +65,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   if(mine().length){const account=declaration.account,w=world;api.cancel({entry:false});const token=entryGeneration;doc.dispatchEvent(new CustomEvent('b2z-return-territory',{detail:{world:w,account,current:()=>entryGeneration===token&&declaration?.account===account}}));}
   else action('start');
  }
+ const shoutActive=()=>mode!=='inspect'&&(shoutSupported(config)||warCrySupported(config)&&['ball','start'].includes(mode));
  function candidate(){
   if(!world||!config||!destination)return {reason:'Waiting for verified payment instructions.'};
   if(!declaration)return {reason:'Choose your sending account.'};
@@ -78,10 +81,10 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    let q;
    if(world.version>=6)q=prepareQuoteV6(world,config,declaration.account,{kind:{start:'new',ball:'fire',move:'move',deflect:'deflect',deflector_move:mode,deflector_reorient:mode}[mode],cannon:id,deflector:deflectorId,angle,quantity:requested,cell});
    else{if(mode==='start'&&mine().length)throw Error('ACCOUNT_ALREADY_HAS_CANNON');if(mode==='move'&&!c.owns(cell))throw Error('ILLEGAL_MOVE');const memo=mode==='move'?describeTextMemo('move',String(cell)):m;q={amount:mode==='start'?config.join_e8s:mode==='move'?config.move_e8s:c.next_ball_e8s,memo:memo.text,memo_bytes:new TextEncoder().encode(memo.text)};if(q.amount===null)throw Error('BALL_CAPACITY');}
-   let annotation={};if(warCrySupported(config)&&['ball','start'].includes(mode)){
+   let annotation={};if(shoutActive()){
     if(composing||cryProblem)return{reason:cryProblem||'Finish War Cry composition before copying.'};
-    const fitted=fitCry(q.memo,cry);cryBudget=fitted.available;if(fitted.shortened){cry=fitted.cry;text('war-cry-note','Shortened to fit memo');}q={...q,memo:fitted.memo,memo_bytes:new TextEncoder().encode(fitted.memo)};
-    annotation={cry,capability:'btz-war-cry-1',capability_config:config.rules_version};
+    const fitted=(shoutSupported(config)?fitShout:fitCry)(q.memo,cry);cryBudget=fitted.available;if(fitted.shortened){cry=fitted.cry;text('war-cry-note','Shortened to fit memo');}q={...q,memo:fitted.memo,memo_bytes:new TextEncoder().encode(fitted.memo)};
+    annotation={cry,capability:shoutSupported(config)?'btz-successful-action-shout-1':'btz-war-cry-1',capability_config:config.rules_version};
    }
    return {...annotation,account:declaration.account,payer:declaration.display??declaration.principal??declaration.account,network:source.network,backend:source.owner,action:mode,cannon:mode==='start'?null:id,...(successor?{structure:deflectorId}:{}),angle:mode==='move'||movingDeflector?null:angle,cell,requested:q.requested??requested,maximum_fill:q.maximum_fill??1,amount:q.amount,memo:q.memo,hex:Array.from(q.memo_bytes,b=>b.toString(16).padStart(2,'0')).join(''),owner:destination.primary,subaccount:String(source.subaccount),recipient:destination.legacy,rules:config.rules_version??world.version,snapshot:revision};
   }catch(error){const reasons={ENEMY_TERRITORY_TOO_CLOSE:'Too close to enemy territory.',DIFFERENT_TILE:'Choose a different tile.',BALL_CAPACITY:'Ball capacity reached.',ILLEGAL_MOVE:'Choose a legal highlighted destination.',DEFLECTOR_TOO_CLOSE:'Leave one clear tile between deflectors.',ILLEGAL_DEFLECTOR_SITE:'Choose a legal owned tile for the deflector.',UNSUPPORTED_DEFLECTOR:'Deflectors are unavailable under the active verified rules.',NOT_OWNER:'Choose one of your cannons.',NO_ADJACENT_SITE:'No adjacent site is currently available.',NO_ELIGIBLE_SPAWN:'No first site is currently available.',PLAYER_CANNON_CAPACITY:'Your cannon capacity is reached.',CANNON_CAPACITY:'Cannon capacity is reached.',QUANTITY_BOUNDS:'Choose between 1 and 64 balls.',CELL_BOUNDS:'Choose a destination cell.',ILLEGAL_ADJACENT_SITE:'That site is no longer eligible. Choose another.',ACCOUNTING_CAPACITY:'Player capacity reached.',HEADING_BOUNDS:'Heading must be between 0 and 359.99°.'};return {reason:(successor?contextReason(error.message):undefined)??reasons[error.message]??(mode==='move'?'Choose a legal destination.':'Enter a heading from 0 to 359.99° and a valid quantity.')};}
@@ -95,7 +98,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  function paymentReadiness(){
   const controls=$('transfer-controls');
   const disabled=view!=='action'||busy||!status.canPrepare||Boolean(warning)||quoteBlocked
-   ||(['ball','start'].includes(mode)&&(composing||Boolean(cryProblem)));
+   ||(shoutActive()&&(composing||Boolean(cryProblem)));
   const ready=String(!disabled);
   if(controls.dataset.paymentReady!==ready)controls.dataset.paymentReady=ready;
   for(const button of copyControls)if(button.disabled!==disabled)button.disabled=disabled;
@@ -158,7 +161,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   }
   $('deflector-directions').hidden=!(view==='action'&&orientationMode()&&deflectorSupported(config));
   setDirections();
-  const cryActive=warCrySupported(config)&&view==='action'&&['ball','start'].includes(mode);$('war-cry-editor').hidden=!cryActive;const cryInput=$('war-cry');if(!composing&&!cryProblem&&cryInput.value!==cry)cryInput.value=cry;
+  const cryActive=view==='action'&&shoutActive();$('war-cry-editor').hidden=!cryActive;const cryInput=$('war-cry');if(!composing&&!cryProblem&&cryInput.value!==cry)cryInput.value=cry;
   text('quantity-count',String(quantity));text('quantity-description',`${quantity>1?'Up to':'Request'} ${quantity} ball${quantity===1?'':'s'}; capacity may limit fulfilment.`);$('quantity-minus').disabled=quantity<=1;$('quantity-plus').disabled=quantity>=MAX_QUANTITY;$('quantity-controls').dataset.active=String(qtyActive());$('join-direction').hidden=mode!=='start'||Boolean(mine().length);for(const b of doc.querySelectorAll('[data-heading]'))b.setAttribute('aria-pressed',String(Number(degrees)===Number(b.dataset.heading)));
   refreshAction();
   emit();
@@ -410,7 +413,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   setHeading(value){if(!Number.isFinite(value))return;if(orientationMode()){worldAngle=snappedDeflectorDegrees(encodedHeading(String((value%360+360)%360)));degrees=displayHeading(worldAngle);keepPrevious=false;clearDraft();refresh();return;}degrees=String((value%360+360)%360);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
   destinationState:()=>({ready:moveReady,cell:defaultMove,key:moveKey,stats:moveSearch?.stats,cacheBytes:moveLegality?.bytes,cacheInspections:moveLegality?.inspected()}),
   proposedAction:()=>Object.freeze({mode,cell,degrees,worldAngle,quantity,...(warCrySupported(config)?{cry}:{} )}),
-  launchEditor:()=>({active:view==='action'&&(orientationMode()&&deflectorSupported(config)||['ball','start'].includes(mode)&&(mode==='ball'||warCrySupported(config))),kind:orientationMode()?'orientation':'launch',cryActive:warCrySupported(config)&&view==='action'&&['ball','start'].includes(mode),first:mode==='start'&&!mine().length}),
+  launchEditor:()=>({active:view==='action'&&(shoutActive()||orientationMode()&&deflectorSupported(config)||['ball','start'].includes(mode)&&(mode==='ball'||warCrySupported(config))),kind:orientationMode()?'orientation':!['ball','start'].includes(mode)?'action':'launch',cryActive:view==='action'&&shoutActive(),first:mode==='start'&&!mine().length}),
   adjustAngle(delta){if(orientationMode()){worldAngle=snappedDeflectorDegrees(Number(worldAngle??encodedHeading(degrees))+Math.sign(delta)*90);degrees=displayHeading(worldAngle);keepPrevious=false;clearDraft();refresh();return;}degrees=((Number(degrees)+delta+360)%360).toFixed(2);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
   aim(){
    if(view!=='action'||!['ball','start','deflect','deflector_reorient'].includes(mode)||mode==='start'&&!mine().length)return null;

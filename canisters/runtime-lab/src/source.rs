@@ -524,19 +524,27 @@ fn classify_with(
             if &to != recipient || &from == recipient {
                 return Ok(None);
             }
-            if adapter == b2z_protocol::context_structures::MEMO_ADAPTER_VERSION {
+            let shout = adapter == b2z_protocol::shout::MEMO_ADAPTER_VERSION;
+            if shout || adapter == b2z_protocol::context_structures::MEMO_ADAPTER_VERSION {
                 use b2z_protocol::context_structures as codec;
-                let parsed = if spender.is_none() {
-                    codec::decode_ledger(tx.memo, tx.icrc1_memo.as_deref()).ok()
-                } else {
+                let parsed = if spender.is_some() {
                     None
+                } else if shout {
+                    b2z_protocol::shout::decode_ledger(tx.memo, tx.icrc1_memo.as_deref()).ok()
+                } else {
+                    codec::decode_ledger(tx.memo, tx.icrc1_memo.as_deref()).ok()
                 };
                 let memo = parsed
                     .as_ref()
                     .and_then(|a| codec::encode(a.command).ok())
                     .unwrap_or(INVALID_MEMO);
                 let cry = parsed.as_ref().map(|a| a.cry.as_bytes()).unwrap_or(&[]);
-                let mut payload = codec::NORMALIZED_PAYMENT.to_vec();
+                let mut payload = if shout {
+                    b2z_protocol::shout::NORMALIZED_PAYMENT
+                } else {
+                    codec::NORMALIZED_PAYMENT
+                }
+                .to_vec();
                 payload.extend(from.as_bytes());
                 payload.extend(amount.e8s.to_be_bytes());
                 payload.extend(memo);
@@ -696,6 +704,31 @@ mod tests {
         .unwrap();
         assert_eq!(blocked.len(), 57);
         assert_eq!(&blocked[48..56], &[0; 8]);
+    }
+    #[test]
+    fn shout_source_normalizes_exact_text_only_in_successor() {
+        let mut row = tx(100);
+        let recipient = account(&fresh().recipient_hex).unwrap();
+        row.transaction.icrc1_memo = Some("DROT 1 W|🛡️".as_bytes().to_vec());
+        let normalized = |row: &TransactionWithId, adapter| {
+            unhex(
+                &classify_with(&row.transaction, &recipient, adapter)
+                    .unwrap()
+                    .unwrap(),
+            )
+            .unwrap()
+        };
+        let old = normalized(&row, 8);
+        assert_eq!(&old[..8], b"BTZPAY05");
+        assert_eq!(&old[48..], &[0; 9]);
+        let shout = normalized(&row, 9);
+        assert_eq!(&shout[..8], b"BTZPAY06");
+        assert_eq!(&shout[8..48], &old[8..48]);
+        assert_eq!(b2z_protocol::shout::annotation(&shout).unwrap(), "🛡️");
+        if let Operation::Transfer { spender, .. } = &mut row.transaction.operation {
+            *spender = Some(receiving_account(owner(), 2).to_string());
+        }
+        assert_eq!(&normalized(&row, 9)[48..], &[0; 9]);
     }
     #[test]
     fn sparse_pages_frozen_high_and_oldest_first() {
