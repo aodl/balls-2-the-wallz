@@ -9,7 +9,7 @@ import{quantityPlacement,quantityDockStrip}from'./quantity-placement.mjs';
 import{displayedBalls}from'./ball-presentation.mjs';
 export function createShell(doc,camera,arcade,onPick){
  const $=id=>doc.getElementById(id),canvas=$('board'),card=$('workspace'),handle=$('aim-handle'),ring=$('aim-ring'),cleanups=[];
- let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null,narrowAimClearance=0;
+ let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null,narrowAimClearance=0,narrowAimTop=0,narrowAimBottom=Infinity,narrowQuarter=camera.quarter;
  let pendingTerritory=null,quantitySlot=null;const quantityPointers=new Map(),quantityWidget=$('launch-editors');let quantitySize={width:130,height:46},quantityDocked=false,quantityContext='',quantityReserved=false,quantityReservation='none',quantityClickCancelled=false;
  let contractedCamera=null;
  const cameraPose=()=>[camera.x,camera.y,camera.scale,camera.angle];
@@ -217,8 +217,17 @@ export function createShell(doc,camera,arcade,onPick){
   let x=bounds.left+W-cw-8,y=top,bottom=bounds.top+H-(short?8:72);
   if(at){
    if(narrow){x=bounds.left+8;y=short?Math.max(top,Math.min(154,H-158)):Math.min(top+96,Math.max(top,H-360));
-    const key=[c.id,c.cell,bounds.left,bounds.top,W,H,short,locateGeneration].join('/');
-    if(key!==narrowPositionKey){narrowPositionKey=key;narrowY=y;narrowAimClearance=0;
+    // Keep the layout fixed during the quarter turn, then clear the new aim
+    // orbit using the card. The selected tile and camera centre stay put.
+    if(!motion.rotation)narrowQuarter=camera.quarter;
+    const key=[c.id,c.cell,bounds.left,bounds.top,W,H,short,locateGeneration,narrowQuarter].join('/');
+    if(key!==narrowPositionKey){narrowPositionKey=key;narrowY=y;narrowAimClearance=0;narrowAimTop=0;narrowAimBottom=Infinity;
+     if(!short&&narrowQuarter&&at.sx+64>x&&at.sx-64<x+cw){
+      const upper=at.sy-64,lower=at.sy+64;
+      const hudBottom=Math.min(bottom,...[minimapArea(m.mini),m.buttons].filter(r=>r.width&&x+cw>r.left&&x<r.right).map(r=>r.top-8));
+      if(upper-top>=hudBottom-lower&&upper-top>=m.headerHeight+96)narrowAimBottom=upper;
+      else if(hudBottom-lower>=m.headerHeight+96)narrowAimTop=lower;
+     }
      const above=camera.scale*.60+2,below=camera.scale*.17+2,half=camera.scale*.62+2;
      if(!short&&at.sy>=top&&at.sy<y+m.headerHeight&&at.sx+half>x&&at.sx-half<x+cw)narrowAimClearance=at.sy+below+8;
      if(!short&&motion.animation?.owner!=='focus'&&at.sx+half>x&&at.sx-half<x+cw&&at.sy+below+4>y&&at.sy-above-4<y+m.headerHeight){const bottom=Math.min(H-72,...lowerObstacles.filter(r=>r.width).map(r=>r.top-8));narrowY=Math.max(top,Math.min(at.sy+below+8,bottom-m.headerHeight-96));}
@@ -233,8 +242,9 @@ export function createShell(doc,camera,arcade,onPick){
    // The collapsed toolbar and its expanded actions share an anchor. The
    // quantity rail can shorten the scrollport without moving that anchor.
    const panelBottom=Math.min(bounds.top+H-72,...[minimapArea(m.mini),m.buttons].filter(r=>r.width&&x+cw>r.left&&x<r.right).map(r=>r.top-8));
-   const clear=Math.min(narrowAimClearance,bottom-m.headerHeight-96);
-   y=Math.max(top,clear,Math.min(y,panelBottom-m.headerHeight-240));
+   bottom=Math.min(bottom,narrowAimBottom);
+   const clear=Math.min(Math.max(narrowAimClearance,narrowAimTop),bottom-m.headerHeight-96);
+   y=Math.max(top,clear,Math.min(y,Math.min(panelBottom,narrowAimBottom)-m.headerHeight-240));
   }else if(quantityReserved&&!short){
    const useful=Math.min(240,Math.max(0,m.desired-m.headerHeight));
    y=Math.max(top,Math.min(y,bottom-m.headerHeight-useful));
