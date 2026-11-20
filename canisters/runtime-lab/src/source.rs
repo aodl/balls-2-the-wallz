@@ -203,6 +203,7 @@ impl SourceState {
             b2z_protocol::war_cry::MEMO_ADAPTER_VERSION,
             b2z_protocol::deflector::MEMO_ADAPTER_VERSION,
             b2z_protocol::context_structures::MEMO_ADAPTER_VERSION,
+            b2z_protocol::shout::MEMO_ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -276,6 +277,7 @@ impl SourceState {
             b2z_protocol::war_cry::MEMO_ADAPTER_VERSION,
             b2z_protocol::deflector::MEMO_ADAPTER_VERSION,
             b2z_protocol::context_structures::MEMO_ADAPTER_VERSION,
+            b2z_protocol::shout::MEMO_ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -729,6 +731,25 @@ mod tests {
             *spender = Some(receiving_account(owner(), 2).to_string());
         }
         assert_eq!(&normalized(&row, 9)[48..], &[0; 9]);
+    }
+    #[test]
+    fn shout_adapter_survives_source_page_serialization() {
+        let mut state = fresh();
+        state.memo_adapter_version = b2z_protocol::shout::MEMO_ADAPTER_VERSION;
+        let mut row = tx(100);
+        row.transaction.icrc1_memo = Some("DROT 1 W|🛡️".as_bytes().to_vec());
+        let mut response = page(&[100], Some(100));
+        response.transactions[0] = row;
+        state.page(response).unwrap();
+
+        let bytes = dtr_wire::encode(&state).unwrap();
+        let restored: SourceState = dtr_wire::decode(&bytes).unwrap();
+        restored.validate().unwrap();
+        let (cursor, inputs, _) = restored.admission(&"00".repeat(32)).unwrap();
+        assert_eq!(cursor, 101);
+        assert_eq!(inputs.len(), 1);
+        let payment = unhex(&inputs[0].payload_hex).unwrap();
+        assert_eq!(b2z_protocol::shout::annotation(&payment).unwrap(), "🛡️");
     }
     #[test]
     fn sparse_pages_frozen_high_and_oldest_first() {

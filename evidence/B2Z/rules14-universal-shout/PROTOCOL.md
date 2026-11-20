@@ -19,3 +19,10 @@ The native conformance runner also restores the canonical cursor between
 after native restores and matched the independently restored JS state's event,
 score and state bytes. This fixture exercises continuation serialization. It
 does not cover installed storage, Ledger delivery or epoch recovery.
+
+The native source adapter now persists adapter9 through an interrupted page
+read. The source test normalizes a valueless annotated transaction fixture,
+serializes and decodes the source state, revalidates it, and admits the original
+source position exactly once with the original UTF-8 text. This test exercises
+the Rust source state and normalized payload. Official Ledger/Index and epoch
+qualification are still required.
