@@ -6,7 +6,7 @@ export function createMinimap(canvas,camera,onNavigate=()=>{},{controller=null,o
  const ctx=canvas.getContext('2d'),image=document.createElement('canvas'),rebased=document.createElement('canvas');let revision=-1,key='',cutKey='',listeners=[],rect=canvas.getBoundingClientRect(),drag=null;
  const resize=new ResizeObserver(()=>{rect=canvas.getBoundingClientRect();key='';});resize.observe(canvas);
  const listen=(event,fn)=>{canvas.addEventListener(event,fn);listeners.push(()=>canvas.removeEventListener(event,fn));};
- const currentOrigin=()=>drag?.origin??origin(),transform=()=>diamondMap(camera.width,camera.height,rect.width,rect.height,currentOrigin());
+ const currentOrigin=()=>drag?.origin??origin(),transform=()=>diamondMap(camera.width,camera.height,rect.width,rect.height,currentOrigin(),camera.angle);
  function location(e){const map=transform(),x=e.clientX-rect.left,y=e.clientY-rect.top;return map.contains(x,y)?map.inverse(x,y):null;}
  function navigate(p,immediate){if(immediate){controller?.manual();camera.centre(p.x,p.y);}else if(controller)controller.go(p,{owner:'minimap'});else camera.centre(p.x,p.y);}
  listen('pointerdown',e=>{if(e.button!==0)return;const p=location(e);if(!p)return;controller?.cancel({follow:true});drag={id:e.pointerId,x:e.clientX,y:e.clientY,moved:false,origin:origin(),last:p};canvas.setPointerCapture(e.pointerId);canvas.focus({preventScroll:true});e.preventDefault();e.stopPropagation();});
@@ -15,10 +15,10 @@ export function createMinimap(canvas,camera,onNavigate=()=>{},{controller=null,o
  for(const event of ['pointerup','pointercancel','lostpointercapture'])listen(event,end);
  listen('keydown',e=>{const d={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key];if(d){const map=transform(),p=map.project(camera.x,camera.y),w=map.inverse(p.x+d[0]*12,p.y+d[1]*12);navigate(w,false);onNavigate();e.preventDefault();e.stopPropagation();}});
  return{draw(v,surface,selected,account,ball=null,proposal=null){
-  if(!surface)return;const size=Math.max(1,rect.width),backing=minimapBacking(size,rect.height,globalThis.devicePixelRatio??1),anchor=currentOrigin(),next=[surface.revision,camera.x,camera.y,camera.scale,camera.viewport.width,camera.viewport.height,size,backing.width,backing.height,selected,account,proposal?.cell,proposal?.key,v.entityKey(),anchor?.x,anchor?.y,ball?.x,ball?.y].join('/');if(next===key)return;key=next;
+  if(!surface)return;const size=Math.max(1,rect.width),backing=minimapBacking(size,rect.height,globalThis.devicePixelRatio??1),anchor=currentOrigin(),next=[surface.revision,camera.x,camera.y,camera.scale,camera.angle,camera.viewport.width,camera.viewport.height,size,backing.width,backing.height,selected,account,proposal?.cell,proposal?.key,v.entityKey(),anchor?.x,anchor?.y,ball?.x,ball?.y].join('/');if(next===key)return;key=next;
   if(revision!==surface.revision){const initial=revision<0||image.width!==v.width||image.height!==v.height;revision=surface.revision;if(initial){image.width=v.width;image.height=v.height;}const paint=image.getContext('2d'),rects=initial?surface.layout.rects:surface.dirtyRows.flatMap(y=>surface.layout.rows[y].map(r=>({x:r.start,y,width:r.end-r.start,height:1})));for(const tile of rects){const n=(tile.y*v.width+tile.x)*4;paint.fillStyle=`rgb(${surface.rgba[n]},${surface.rgba[n+1]},${surface.rgba[n+2]})`;paint.fillRect(tile.x,tile.y,tile.width,tile.height);}}
   const height=Math.max(1,rect.height);if(canvas.width!==backing.width||canvas.height!==backing.height){canvas.width=backing.width;canvas.height=backing.height;}ctx.setTransform(backing.width/size,0,0,backing.height/height,0,0);ctx.clearRect(0,0,size,height);
-  const map=diamondMap(v.width,v.height,size,height,anchor),o=map.projectCut(0,0),a=map.projectCut(1,0),b=map.projectCut(0,1);
+  const map=diamondMap(v.width,v.height,size,height,anchor,camera.angle),o=map.projectCut(0,0),a=map.projectCut(1,0),b=map.projectCut(0,1);
   // Join the at-most-four canonical rectangles BEFORE diamond projection.
   // Projecting each independently antialiases their internal edges and leaves
   // a visible translucent cross even across a uniformly owned toroidal seam.

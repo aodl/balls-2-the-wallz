@@ -27,3 +27,22 @@ export function movementArrow(camera,source,destination){
  if(!p.visible||distance<=.34)return null;
  const x=p.x+Math.cos(a)*distance,y=p.y+Math.sin(a)*distance,tip=Math.min(.24,distance*.2);return{height:.38,world:[[p.x+Math.cos(a)*.34,p.y+Math.sin(a)*.34],[x,y],[x+Math.cos(a+2.6)*tip,y+Math.sin(a+2.6)*tip],[x,y],[x+Math.cos(a-2.6)*tip,y+Math.sin(a-2.6)*tip]]};
 }
+
+/** Local heading only, starting at the selected ball's verified presentation. */
+export function trajectoryGuide(camera,ball,velocity,obstacles=[]){
+ if(!ball||!velocity||(!velocity.vx&&!velocity.vy))return null;
+ const {width,height}=camera.viewport,p=camera.point(ball.x,ball.y,.14);
+ const start={x:p.sx,y:p.sy},margin=12;
+ if(!p.visible||start.x<margin||start.y<margin||start.x>width-margin||start.y>height-margin)return null;
+ const next=camera.screen(p.x+velocity.vx/1024,p.y+velocity.vy/1024,.14);
+ const speed=Math.hypot(next.x-start.x,next.y-start.y);
+ if(!speed)return null;
+ const dx=(next.x-start.x)/speed,dy=(next.y-start.y)/speed;
+ const edgeX=dx>0?(width-margin-start.x)/dx:dx<0?(margin-start.x)/dx:Infinity;
+ const edgeY=dy>0?(height-margin-start.y)/dy:dy<0?(margin-start.y)/dy:Infinity;
+ const reach=Math.min(edgeX,edgeY,Math.hypot(width,height)*.72);
+ const length=reach*guideClearance(start,{x:start.x+dx*reach,y:start.y+dy*reach},obstacles);
+ if(length<22)return null;
+ const x=start.x+dx*length,y=start.y+dy*length;
+ return{start,end:{x,y},wings:[{x:x-9*dx+4*dy,y:y-9*dy-4*dx},{x:x-9*dx-4*dy,y:y-9*dy+4*dx}]};
+}

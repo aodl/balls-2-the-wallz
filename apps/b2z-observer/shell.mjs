@@ -4,7 +4,7 @@ import{createMinimap}from'./minimap.mjs';
 import{CameraController,focusedOn,wheelZoom,previewComposition}from'./camera-controller.mjs';
 import{playerAnchor}from'./player-anchor.mjs';
 import{accountTerritoryFrame}from'./territory-entry.mjs';
-import{aimingArrow}from'./guide-clearance.mjs';
+import{aimingArrow,trajectoryGuide}from'./guide-clearance.mjs';
 import{quantityPlacement,quantityDockStrip}from'./quantity-placement.mjs';
 import{displayedBalls}from'./ball-presentation.mjs';
 export function createShell(doc,camera,arcade,onPick){
@@ -12,7 +12,7 @@ export function createShell(doc,camera,arcade,onPick){
  let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null;
  let pendingTerritory=null,quantitySlot=null;const quantityPointers=new Map(),quantityWidget=$('launch-editors');let quantitySize={width:130,height:46},quantityDocked=false,quantityContext='',quantityReserved=false,quantityReservation='none',quantityClickCancelled=false;
  const anchorCache=playerAnchor(),reducedMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
- function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale});},400);}
+ function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale,quarter:camera.quarter});},400);}
  function zoomButtons(){const a=motion.zoomAvailability();for(const [id,enabled] of [['zoom-in',a.in],['zoom-out',a.out],['fit',a.overview]]){const b=$(id);if(b.disabled===enabled)b.disabled=!enabled;}}
  const motion=new CameraController(camera,{reducedMotion,onChange:zoomButtons,onSettled:save});
  const listen=(node,event,fn,options)=>{if(!node)return;node.addEventListener(event,fn,options);cleanups.push(()=>node.removeEventListener(event,fn,options));};
@@ -22,6 +22,9 @@ export function createShell(doc,camera,arcade,onPick){
  for(const event of ['pointerup','pointercancel'])listen(doc,event,e=>{const press=quantityPointers.get(e.pointerId);if(press&&(event==='pointercancel'||press.viewport!==quantityViewport()))quantityClickCancelled=true;quantityPointers.delete(e.pointerId);},true);
  listen(quantityWidget,'keydown',e=>{if(!e.repeat&&['Enter',' '].includes(e.key))quantityClickCancelled=false;});
  for(const event of ['dblclick','click']){listen(quantityWidget,event,e=>{if(quantityClickCancelled){quantityClickCancelled=false;e.preventDefault();e.stopImmediatePropagation();}},true);listen(quantityWidget,event,e=>e.stopPropagation());}
+ const compass=[...doc.querySelectorAll('[data-board-quarter]')];
+ function syncCompass(){const target=motion.rotation?.target??camera.angle,quarter=(Math.round(-target/(Math.PI/2))+4)%4;for(const b of compass){const pressed=String(Number(b.dataset.boardQuarter)===quarter);if(b.getAttribute('aria-pressed')!==pressed)b.setAttribute('aria-pressed',pressed);const slot=String((Number(b.dataset.boardQuarter)-quarter+4)%4);if(b.dataset.compassSlot!==slot)b.dataset.compassSlot=slot;}}
+ for(const button of compass)listen(button,'click',()=>{cancelTap();motion.rotate(Number(button.dataset.boardQuarter));syncCompass();});
  const map=createMinimap($('minimap'),camera,save,{controller:motion,origin:()=>anchor});
  // Long-press discovers an icon without activating it; keyboard gets the same
  // explicit name/reason. This is local feedback, never a gesture/game command.
@@ -88,16 +91,16 @@ export function createShell(doc,camera,arcade,onPick){
  }
  function down(e){if(e.button!==0)return;arcade.cancelEntryNavigation?.();keyboardTarget=null;const p=point(e);nativePairWorld=lastTap&&Math.hypot(p.x-lastTap.p.x,p.y-lastTap.p.y)<=7?lastTap.world:null;pointers.set(e.pointerId,p);canvas.setPointerCapture(e.pointerId);motion.cancel();
   if(pointers.size===1){origin=last=p;moved=false;pinched=false;owner=e.currentTarget===handle||aimingVicinity(camera,arcade.aim(),p,e.pointerType,arcade.moveSelection(),guideRects(),preferSite)?'aim':'pan';canvas.dataset.cursor=owner==='aim'?'aim':'camera';aimOrigin=arcade.aim()?camera.cellPoint(arcade.aim().cannon.cell):null;
-   const hit=resolve(p);if(hit.kind!=='ball'||hit.id!==selectedBall)stopFollowing();
+   const hit=resolve(p);if(hit.kind!=='ball'||hit.id!==selectedBall)motion.stopFollow();
    if(owner==='aim'){cancelTap();if(e.currentTarget!==handle&&Math.hypot(p.x-aimOrigin.sx,p.y-aimOrigin.sy)>6)aimAt(p);}
   }
-  else{pendingAim=null;pinch=pair();owner='camera';pinched=true;moved=true;cancelTap();stopFollowing();motion.manual();}
+  else{pendingAim=null;pinch=pair();owner='camera';pinched=true;moved=true;cancelTap();motion.manual();}
   if(e.currentTarget!==handle)canvas.focus({preventScroll:true});e.preventDefault();
  }
  listen(canvas,'pointerdown',down);listen(handle,'pointerdown',down);
  listen(canvas,'pointermove',e=>{if(!pointers.has(e.pointerId))return;const p=point(e);pointers.set(e.pointerId,p);
   if(pointers.size>=2){const next=pair();if(pinch){camera.zoom(next.d/Math.max(1,pinch.d),pinch.x,pinch.y);camera.pan(next.x-pinch.x,next.y-pinch.y);}pinch=next;save();zoomButtons();return;}
-  if(!last||pinched)return;if(owner==='aim'){pendingAim=p;moved=true;}else{if(Math.hypot(p.x-origin.x,p.y-origin.y)>6){moved=true;cancelTap();stopFollowing();motion.manual();}if(moved){camera.pan(p.x-last.x,p.y-last.y);save();}}last=p;
+  if(!last||pinched)return;if(owner==='aim'){pendingAim=p;moved=true;}else{if(Math.hypot(p.x-origin.x,p.y-origin.y)>6){moved=true;cancelTap();motion.manual();}if(moved){camera.pan(p.x-last.x,p.y-last.y);save();}}last=p;
  });
  function resolve(p){
   if(aimingVicinity(camera,arcade.aim(),p,p.pointerType??'mouse',arcade.moveSelection(),guideRects(),preferSite))return {kind:'aim'};
@@ -140,13 +143,13 @@ export function createShell(doc,camera,arcade,onPick){
  listen(canvas,'pointerup',e=>{const isTap=pointers.has(e.pointerId)&&owner==='pan'&&!moved&&!pinched,p=point(e);if(pointers.has(e.pointerId))flushAim();pointers.delete(e.pointerId);if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);if(isTap){if(e.pointerType==='touch')completedTouch={at:performance.now(),x:e.clientX,y:e.clientY};tap(p,e.pointerType,e.timeStamp);}if(!pointers.size){origin=last=pinch=aimOrigin=null;owner=null;pinched=false;}});
  const cancel=e=>{if(!pointers.has(e.pointerId))return;pointers.delete(e.pointerId);pendingAim=null;owner=null;moved=true;pinched=true;pinch=null;cancelTap();};listen(canvas,'pointercancel',cancel);listen(canvas,'lostpointercapture',cancel);
  listen(canvas,'wheel',e=>{e.preventDefault();const p=point(e),{discrete,factor}=wheelZoom(e,camera.viewport.height);
-  if(discrete){arcade.cancelEntryNavigation?.();if(motion.zoom(factor,p.x,p.y,{keepFollow:false,duration:130}))stopFollowing();}
-  else{arcade.cancelEntryNavigation?.();motion.manual();stopFollowing();camera.zoom(factor,p.x,p.y);save();zoomButtons();}
+  if(discrete){arcade.cancelEntryNavigation?.();motion.zoom(factor,p.x,p.y,{keepFollow:false,duration:130});}
+  else{arcade.cancelEntryNavigation?.();motion.manual();camera.zoom(factor,p.x,p.y);save();zoomButtons();}
  },{passive:false});
  listen(handle,'keydown',e=>{const n={ArrowLeft:-1,ArrowRight:1,ArrowUp:-1,ArrowDown:1}[e.key];if(n){arcade.adjustAngle(n*(e.altKey?.01:e.shiftKey?5:1));e.preventDefault();e.stopPropagation();}});
  listen(canvas,'keydown',e=>{const d={ArrowLeft:[40,0],ArrowRight:[-40,0],ArrowUp:[0,40],ArrowDown:[0,-40]}[e.key];
   if(d&&e.altKey&&(arcade.moveSelection()||arcade.structureContexts?.())){
-   cancelTap();stopFollowing();const selection=arcade.moveSelection(),context=arcade.intentContext(),n=keyboardTarget?.context===context?keyboardTarget.cell:selection?.cell??arcade.anchor()?.cell??camera.cell(camera.viewport.width/2,camera.viewport.height/2)??0,step={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key],x=(n%camera.width+step[0]+camera.width)%camera.width,y=(Math.floor(n/camera.width)+step[1]+camera.height)%camera.height;
+   cancelTap();stopFollowing();const selection=arcade.moveSelection(),context=arcade.intentContext(),n=keyboardTarget?.context===context?keyboardTarget.cell:selection?.cell??arcade.anchor()?.cell??camera.cell(camera.viewport.width/2,camera.viewport.height/2)??0,step=camera.tileStep(...{ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key]),x=(n%camera.width+step[0]+camera.width)%camera.width,y=(Math.floor(n/camera.width)+step[1]+camera.height)%camera.height;
    keyboardTarget={cell:y*camera.width+x,context};pointer=null;const p=camera.cellPoint(keyboardTarget.cell);if(!p.visible)motion.go(motion.target(c=>c.centre(x+.5,y+.5)),{owner:'keyboard'});e.preventDefault();
   }
   else if(d){arcade.cancelEntryNavigation?.();keyboardTarget=null;cancelTap();stopFollowing();motion.go(motion.target(c=>c.pan(...d)),{owner:'keyboard'});e.preventDefault();}
@@ -179,11 +182,11 @@ export function createShell(doc,camera,arcade,onPick){
   const reserve=Boolean(arcade.launchEditor?.().active&&arcade.aim()),reservation=reserve?(Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity)<280?'inline':Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity)<520?'strip':'rail'):'none';if(reservation!==quantityReservation){quantityReserved=reserve;quantityReservation=reservation;card.dataset.quantityReserved=reservation;doc.documentElement.classList.toggle('quantity-constrained',reservation==='inline');doc.documentElement.classList.toggle('quantity-rail',reservation==='rail');audioMask=null;layoutDirty=true;}
   const editing=Boolean(doc.activeElement?.closest?.('#action-inputs')),height=Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity),short=(editing||arcade.context()==='action')&&height<520;doc.documentElement.classList.toggle('short-edit',short);if(short!==wasShort){wasShort=short;layoutDirty=true;}
   const viewport=[camera.viewport.width,height].join('/');if(viewport!==lastViewport){lastViewport=viewport;layoutDirty=true;const c=arcade.anchor?.();if((editing||arcade.context()==='action')&&c&&!pointers.size){const p=camera.cellPoint(c.cell);if(short||!p.visible){motion.cancel();camera.pan(short?camera.viewport.width-42-p.sx:0,measure().top+(short?24:80)-p.sy);}}}
-  const aim=arcade.aim(),p=aim?camera.cellPoint(aim.cannon.cell):null;const aimLabel=aim?.kind==='deflect'?`Deflector direction ${aim.direction??aim.orientation}; use arrow keys to cycle four directions`:'Aim cannon',hideAim=short||!p?.visible;if(handle.getAttribute('aria-label')!==aimLabel)handle.setAttribute('aria-label',aimLabel);if(handle.hidden!==hideAim)handle.hidden=ring.hidden=hideAim;
+  const aim=arcade.aim(),p=aim?camera.cellPoint(aim.cannon.cell):null;const aimLabel=aim?.kind==='deflect'?`Diverter direction ${aim.direction??aim.orientation}. Use arrow keys to cycle four directions.`:'Aim cannon',hideAim=short||!p?.visible;if(handle.getAttribute('aria-label')!==aimLabel)handle.setAttribute('aria-label',aimLabel);if(handle.hidden!==hideAim)handle.hidden=ring.hidden=hideAim;
   if(p?.visible){const a=aim.angle*Math.PI/180,end=camera.screen(p.x+Math.cos(a),p.y+Math.sin(a)),dx=end.x-p.sx,dy=end.y-p.sy,d=Math.hypot(dx,dy);for(const [node,k,value]of [[handle,'left',p.sx+dx/d*38-22],[handle,'top',p.sy+dy/d*38-22],[ring,'left',p.sx-38],[ring,'top',p.sy-38]]){const px=`${value}px`;if(node.style[k]!==px)node.style[k]=px;}}
   const context=arcade.context?.(),c=['inspect','action'].includes(context)?arcade.anchor?.():null,at=c?camera.cellPoint(c.cell):null,off=Boolean(at&&!at.visible);$('locate-context').hidden=card.hidden||!off;card.classList.toggle('offscreen',off);card.inert=off;$('focus-cannon').hidden=!c;
   doc.documentElement.classList.toggle('cannon-context',Boolean(c&&!card.hidden&&!off));
-  const m=measure(),expanded=context==='action',lowerObstacles=[m.mini,quantityReservation==='rail'?quantityRail(m,visibleBounds()):m.cycles,m.buttons];
+  const m=measure(),expanded=context==='action',minimapArea=short?m.mini:{left:m.mini.left-44,right:m.mini.right+10,top:m.mini.top-44,bottom:m.mini.bottom+10,width:m.mini.width+54},lowerObstacles=[minimapArea,quantityReservation==='rail'?quantityRail(m,visibleBounds()):m.cycles,m.buttons];
   const obstacles=[...lowerObstacles];if(expanded&&cardBounds)obstacles.push(cardBounds);
   $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':$('focus-cannon').getAttribute('aria-label');
   if(card.hidden||off){positionQuantity();if(card.hidden)narrowPositionKey='';committedLayoutRevision=layoutRevision;return;}
@@ -216,6 +219,18 @@ export function createShell(doc,camera,arcade,onPick){
   positionQuantity();committedLayoutRevision=layoutRevision;
  }
  listen(doc,'b2z-overlay',()=>{hideHelp();clearHelp();layoutDirty=true;position();});
+ let trajectoryKey='';
+ function drawTrajectory(){
+  const ball=lastPoints.find(b=>b.id===selectedBall),layer=$('trajectory-guide');
+  if(!ball||!lastView){layer.hidden=true;return;}
+  const m=measure(),rects=[...m.guideObstacles,m.mini,m.buttons,m.sound,!card.hidden&&cardBounds,quantitySlot?.rect].filter(Boolean);
+  const guide=trajectoryGuide(camera,ball,lastView.balls.get(ball.id),rects);
+  layer.hidden=!guide;if(!guide)return;
+  const {start,end,wings}=guide,key=[start.x,start.y,end.x,end.y].join('/');
+  if(trajectoryKey===key)return;trajectoryKey=key;
+  for(const n of [$('trajectory-dots'),$('trajectory-fade')])for(const [k,v] of Object.entries({x1:start.x,y1:start.y,x2:end.x,y2:end.y}))n.setAttribute(k,v);
+  $('trajectory-tip').setAttribute('d',`M${wings[0].x} ${wings[0].y}L${end.x} ${end.y}L${wings[1].x} ${wings[1].y}`);
+ }
  const audioNodes=[doc.querySelector('.arena-chrome'),card,$('minimap'),$('cycles-display'),doc.querySelector('.camera-controls'),doc.querySelector('.audio-controls'),quantityWidget,$('motion-wait'),$('render-error'),$('locate-context')].filter(Boolean);
  let audioMask=null,audioMaskKey='';const dirtyAudio=()=>{audioMask=null;};const audioObserver=new ResizeObserver(dirtyAudio);for(const node of audioNodes)audioObserver.observe(node);
  const audioMutation=new MutationObserver(dirtyAudio);for(const node of audioNodes)audioMutation.observe(node,{attributes:true,attributeFilter:['hidden','style','class']});listen(doc,'b2z-audio-layout',dirtyAudio);listen(globalThis,'resize',dirtyAudio);listen(doc,'scroll',dirtyAudio,true);
@@ -232,10 +247,10 @@ export function createShell(doc,camera,arcade,onPick){
    if(pendingTap&&!pointers.size&&now>=pendingTap.due){const t=pendingTap;pendingTap=null;if(samePlacementContext(t.intent,{context:arcade.intentContext(),identity,sequence:gestureSequence})&&arcade.moveSelection())arcade.chooseCell(t.intent.cell);}
 
    if(followRebase&&motion.following){const p=points.find(b=>b.id===selectedBall);if(p)motion.follow(selectedBall,identity,p);followRebase=false;}
-   motion.update(now,{point:points.find(b=>b.id===motion.following?.id),time,identity});zoomButtons();
-   if(selectedBall!==null&&!motion.following)selectedBall=null;const announcement=selectedBall===null?'':`Following ball ${selectedBall}. Click elsewhere or press Escape to stop.`;if($('follow-announcement').textContent!==announcement)$('follow-announcement').textContent=announcement;
+   motion.update(now,{point:points.find(b=>b.id===motion.following?.id),time,identity});syncCompass();zoomButtons();
+   const announcement=selectedBall===null?'':`${motion.following?'Following':'Selected'} ball ${selectedBall}. Press Escape to clear.`;if($('follow-announcement').textContent!==announcement)$('follow-announcement').textContent=announcement;
   },
-  update(v,surface){zoomButtons();if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===selectedBall),arcade.moveSelection());}},
+  update(v,surface){zoomButtons();if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===selectedBall),arcade.moveSelection());drawTrajectory();}},
   dispose(){audioObserver.disconnect();audioMutation.disconnect();quantityObserver.disconnect();quantityPointers.clear();disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();contentObserver.disconnect();cancelAnimationFrame(layoutFrame);clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);doc.documentElement.classList.remove('cannon-context','quantity-constrained','quantity-rail');for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
  };
 }

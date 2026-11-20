@@ -1,5 +1,5 @@
 import {zoomGain,viewportGain,clamp} from './audio-policy.mjs';
-export const audioPose=c=>[c.x,c.y,c.scale,c.viewport.width,c.viewport.height].join('/');
+export const audioPose=c=>[c.x,c.y,c.scale,c.angle,c.viewport.width,c.viewport.height].join('/');
 export function audibleCue(cue,camera,membership,occluders){
  if(!membership||membership.pose!==audioPose(camera)||!Array.isArray(occluders))return null;
  const member=membership[cue.kind==='wall'?'balls':'cannons'].get(cue.entity);if(!member)return null;

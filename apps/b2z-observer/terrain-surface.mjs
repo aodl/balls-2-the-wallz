@@ -18,11 +18,11 @@ export function createTerrainSurface(){
   }}
   const owner=(x,y)=>{if(v.torus){x=wrap(x,v.width);y=wrap(y,v.height);}if(x<0||y<0||x>=v.width||y>=v.height)return -1;const row=layout.rows[y];let lo=0,hi=row.length-1;while(lo<hi){const m=(lo+hi)>>1;if(x<row[m].end)hi=m;else lo=m+1;}return row[lo].owner;};
   // Initial upload fills compact regions, not a per-cell ownership reconstruction.
-  if(initial){const words=new Uint32Array(rgba.buffer);for(const r of layout.rects){const c=colours.get(r.owner),packed=c[0]|c[1]<<8|c[2]<<16;for(let y=r.y;y<r.y+r.height;y++)words.fill(packed,y*v.width+r.x,y*v.width+r.x+r.width);}
+  if(initial){const words=new Uint32Array(rgba.buffer);for(const r of layout.rects){const c=colours.get(r.owner),packed=c[0]|c[1]<<8|c[2]<<16|(r.owner?16<<24:0);for(let y=r.y;y<r.y+r.height;y++)words.fill(packed,y*v.width+r.x,y*v.width+r.x+r.width);}
    const bit=(x,y,n)=>{if(v.torus){x=wrap(x,v.width);y=wrap(y,v.height);}if(x>=0&&y>=0&&x<v.width&&y<v.height)rgba[(y*v.width+x)*4+3]|=n;};
    for(const e of layout.edges)if(e.x1===e.x2)for(let y=e.y1;y<e.y2;y++){bit(e.x1,y,1);bit(e.x1-1,y,2);}else for(let x=e.x1;x<e.x2;x++){bit(x,e.y1,4);bit(x,e.y1-1,8);}
   }else for(const [y,spans]of dirty){spans.sort((a,b)=>a[0]-b[0]);const merged=[];for(const span of spans){const last=merged.at(-1);if(last&&span[0]<=last[1])last[1]=Math.max(last[1],span[1]);else merged.push([...span]);}
-   for(const [a,b]of merged)for(let x=a;x<b;x++){const id=owner(x,y),c=colours.get(id),n=(y*v.width+x)*4;rgba[n]=c[0];rgba[n+1]=c[1];rgba[n+2]=c[2];rgba[n+3]=(owner(x-1,y)!==id?1:0)|(owner(x+1,y)!==id?2:0)|(owner(x,y-1)!==id?4:0)|(owner(x,y+1)!==id?8:0);}
+   for(const [a,b]of merged)for(let x=a;x<b;x++){const id=owner(x,y),c=colours.get(id),n=(y*v.width+x)*4;rgba[n]=c[0];rgba[n+1]=c[1];rgba[n+2]=c[2];rgba[n+3]=(id?16:0)|(owner(x-1,y)!==id?1:0)|(owner(x+1,y)!==id?2:0)|(owner(x,y-1)!==id?4:0)|(owner(x,y+1)!==id?8:0);}
   }
   const dirtyRows=[...dirty.keys()].sort((a,b)=>a-b),ranges=[];
   // Three DataTexture partial updates are SINGLE ROWS. Wider bands are not rectangles.

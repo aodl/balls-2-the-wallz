@@ -359,3 +359,23 @@ input,select,textarea{border-radius:6px}
 }
 
 canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
+
+/* Keep the requested ball count within the existing payment title cell. */
+.payment-grid .payment-title{flex-wrap:wrap;align-content:center;column-gap:6px;row-gap:2px}
+.payment-grid #amount-detail{font-size:.75rem;line-height:1.1;white-space:nowrap}
+#payment-guidance{margin:6px 0 0;font-size:.75rem;line-height:1.3}
+.payment-grid .identity-summary{min-width:0}
+
+#minimap{clip-path:none}
+#board-compass{position:absolute;z-index:2;right:max(10px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));width:164px;height:94.69px;pointer-events:none}
+#board-compass button{position:absolute;width:44px;height:44px;pointer-events:auto;padding:0;background:none;border:0;box-shadow:none;color:var(--quiet);font-size:.75rem;font-weight:750}
+#board-compass button[aria-pressed=true]{color:var(--ink);text-shadow:0 0 6px #d4e4eaa0}
+#board-compass button[data-compass-slot="0"]{left:calc(50% - 22px);bottom:100%}
+#board-compass button[data-compass-slot="1"]{right:-10px;top:calc(50% - 22px)}
+#board-compass button[data-compass-slot="2"]{left:calc(50% - 22px);bottom:-10px}
+#board-compass button[data-compass-slot="3"]{right:100%;top:calc(50% - 22px)}
+.short-edit #board-compass{visibility:hidden}
+@media(max-width:700px){#board-compass{width:124px;height:71.59px}}
+@media(max-height:500px){#board-compass{width:112px;height:64.66px}}
+
+#trajectory-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
