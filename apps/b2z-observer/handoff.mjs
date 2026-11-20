@@ -14,5 +14,5 @@ export function receiptSummary(r){
   const restriction=!full&&r.stop_reason?' · '+r.stop_reason.replaceAll('_',' ').toLowerCase():'';
   return result+(Number(r.remainder)>0?' · unused payment retained':'')+restriction;
  }
- return r.reason==='ACCEPTED'?({cannon_spawned:'Cannon built',ball_spawned:'Ball launched',cannon_moved:'Cannon moved',deflector_built:'Deflector built',deflector_moved:'Deflector moved',deflector_reoriented:'Deflector reoriented'}[r.kind]??'Action applied'):`Action not applied · ${r.reason.replaceAll('_',' ').toLowerCase()} · payment retained`;
+ return r.reason==='ACCEPTED'?({cannon_spawned:'Cannon built',ball_spawned:'Ball launched',cannon_moved:'Cannon moved',deflector_built:'Diverter built',deflector_moved:'Diverter moved',deflector_reoriented:'Diverter reoriented'}[r.kind]??'Action applied'):`Action not applied · ${r.reason.replaceAll('_',' ').toLowerCase().replaceAll('deflector','diverter')} · payment retained`;
 }
