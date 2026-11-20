@@ -508,21 +508,20 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
     get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
     assert_eq!(arena_world(&pic, id).encode().unwrap(), initial);
     let mut history = vec![];
-    complete_one_trickle_tick(&pic, id);
-    playability_installed::record_bundled(&pic, id, &mut history, &out);
-    war_cry_installed::transition_with_recovery_module(
-        &pic,
-        id,
-        "context",
-        "B2Z_RULES13_PRIOR_WASM",
-    );
-    playability_installed::record_bundled(&pic, id, &mut history, &out);
 
     let mut inputs = BTreeMap::new();
     let mut expected = BTreeMap::new();
     let mut send = |text: &str, amount: u64, adapter: u8, reason: &str| {
         let position = transfer_text(&pic, ledger, payer, id, amount, text.as_bytes());
-        let (tag, directive, cry) = if adapter == 8 {
+        let (tag, directive, cry) = if adapter == 7 {
+            let p = predecessor_codec::parse_text(text.as_bytes()).ok();
+            (
+                b"BTZPAY04",
+                p.as_ref()
+                    .map_or([0; 8], |p| predecessor_codec::encode(p.command).unwrap()),
+                p.map(|p| p.cry).unwrap_or_default(),
+            )
+        } else if adapter == 8 {
             let p = codec::parse_text(text.as_bytes()).ok();
             (
                 codec::NORMALIZED_PAYMENT,
@@ -549,7 +548,19 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
         expected.insert(position, reason.to_owned());
         position
     };
-    let history_payment = send("DEFLECT 300300 N", 10000000, 8, "ACCEPTED");
+    let historic_deflector = send("DEFLECT 300300 NW", 10000000, 7, "ACCEPTED");
+    wait_admitted(&pic, id, historic_deflector);
+    complete_one_trickle_tick(&pic, id);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    war_cry_installed::transition_with_recovery_module(
+        &pic,
+        id,
+        "context",
+        "B2Z_RULES13_PRIOR_WASM",
+    );
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+
+    let history_payment = send("DROT 1 W|Old", 10000, 8, "MALFORMED_MEMO");
     wait_admitted(&pic, id, history_payment);
     complete_one_trickle_tick(&pic, id);
     playability_installed::record_bundled(&pic, id, &mut history, &out);
