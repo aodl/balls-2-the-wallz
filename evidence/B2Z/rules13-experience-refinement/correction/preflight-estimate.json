@@ -1,0 +1,18 @@
+{
+  "scope": "Read-only production preflight plus clearly labeled disposable estimate",
+  "production_observed_at": "2026-11-20T13:22:00Z (minute precision)",
+  "production_total_cycles": 1037489609369,
+  "production_reserved_cycles": 0,
+  "production_memory_bytes": 318648373,
+  "production_current_daily_idle": 9004841655,
+  "production_freezing_seconds": 2592000,
+  "disposable_prior_snapshot_bytes_approx": 154727875,
+  "disposable_upgrade_net_cycles": 184232971876,
+  "disposable_upgrade_memory_delta_bytes": 9664,
+  "projected_memory_bytes": 473385912,
+  "estimated_daily_idle_if_new_snapshot_retained": 12958082624,
+  "estimated_30_day_freezing_floor": 388742478713,
+  "planning_reserve_cycles_two_install_attempts_and_snapshot": 374451128482,
+  "estimated_headroom_after_floor_and_planning_reserve": 274296002174,
+  "notes": "Storage rate inferred from same production frontend\u2019s earlier legacy snapshot. Forecast is workload-specific and excludes query traffic. Refresh before any production write."
+}

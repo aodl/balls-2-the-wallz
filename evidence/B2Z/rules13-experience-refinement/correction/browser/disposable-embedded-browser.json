@@ -1,0 +1,86 @@
+[
+  {
+    "viewport": [
+      1440,
+      900
+    ],
+    "heading": 6827,
+    "memo": "FIRE 1 37.5 1",
+    "four_rotations": true,
+    "native_clipboard": true,
+    "visible_guide": true,
+    "pinch": null
+  },
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "heading": 6827,
+    "memo": "FIRE 1 37.5 1",
+    "four_rotations": true,
+    "native_clipboard": true,
+    "visible_guide": true,
+    "pinch": null
+  },
+  {
+    "viewport": [
+      320,
+      640
+    ],
+    "heading": 6827,
+    "memo": "FIRE 1 37.5 1",
+    "four_rotations": true,
+    "native_clipboard": true,
+    "visible_guide": true,
+    "pinch": {
+      "orientation": "East",
+      "before_scale": 64,
+      "after_scale": 42.48480058050398,
+      "touches": [
+        [
+          "gotpointercapture",
+          2,
+          "board",
+          true
+        ],
+        [
+          "pointerdown",
+          3,
+          "board",
+          true
+        ],
+        [
+          "gotpointercapture",
+          3,
+          "board",
+          true
+        ],
+        [
+          "pointerup",
+          2,
+          "board",
+          false
+        ],
+        [
+          "lostpointercapture",
+          2,
+          "board",
+          false
+        ],
+        [
+          "pointerup",
+          3,
+          "board",
+          false
+        ],
+        [
+          "lostpointercapture",
+          3,
+          "board",
+          false
+        ]
+      ]
+    }
+  }
+]
