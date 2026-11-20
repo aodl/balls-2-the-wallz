@@ -1,0 +1,23 @@
+{
+  "observed_at": "2026-11-20T14:17:47.319Z",
+  "module_sha256": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+  "identity": {
+    "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+    "rules_hash": "9879184552562df4a523bc22b3a34c04c6ddea1dbb17c6d9a039937188a3bb15",
+    "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "publication": "13223",
+  "manifest": "d543736d1f6b4fee111741eb6b86a3adae9631836b76562527f7f13fbea5dbf6",
+  "state": "ad23acdc9ecf49b95893f2a8cbf67fa60c0cdad537c0a0944783171e0b4f5cb2",
+  "source_cursor": "40180669",
+  "received_e8s": "100000000",
+  "cannons": 1,
+  "balls": 1,
+  "diverters": 0,
+  "receipts": 0,
+  "pace": "Trickle",
+  "running": true,
+  "segment_ticks": "1",
+  "pending_source_records": 0
+}
