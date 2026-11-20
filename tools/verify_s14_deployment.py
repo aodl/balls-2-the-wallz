@@ -338,9 +338,9 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
         assert report['million_sustained_analysis']['status']=='PASS',report['million_sustained_analysis']
 
 def verify_epoch_transition(page,context,out,record,report,save):
-    began=time.monotonic()
+    journey_started=time.monotonic()
     def progress(stage):
-        report.setdefault('epoch_stages',[]).append({'stage':stage,'elapsed_seconds':round(time.monotonic()-began,3)})
+        report.setdefault('epoch_stages',[]).append({'stage':stage,'elapsed_seconds':round(time.monotonic()-journey_started,3)})
         print('EPOCH_STAGE',json.dumps(report['epoch_stages'][-1]),flush=True);save()
     progress('bootstrap')
     wait_until(page,lambda:'16 × 8' in world_text(page),30000)
@@ -356,8 +356,22 @@ def verify_epoch_transition(page,context,out,record,report,save):
     # a local action; historical instructions remain separately in Activity.
     reconnect=context.new_page();reconnect.goto(page.url,timeout=30000)
     wait_until(reconnect,lambda:reconnect.evaluate('Boolean(globalThis.__dtrLive?.connected)') and '16 × 8' in world_text(reconnect),30000)
+    def reconnect_state(observer):
+        return observer.evaluate('''()=>{const live=__dtrLive,s=__b2zExperience.session;
+          return {head:live.heads.at(-1),root:s.root,version:s.sequence.last.publication.version,
+            busy:s.busy,hidden:document.hidden,resyncs:live.resyncs,phase:document.body.dataset.phase,
+            error:String(s.error??''),delivery_error:String(s.deliveryError??''),
+            verified_size:[s.referenceWorld.width,s.referenceWorld.height],
+            visible_size:[__b2zExperience.visible.width,__b2zExperience.visible.height]};}''')
     reconnect.evaluate('__b2zTools.delivery(true)')
-    old_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)')
+    requested_hold=reconnect_state(reconnect)
+    # The local delivery control blocks new work but lets an already verified
+    # observation finish. Fence that request before recording the held head.
+    wait_until(reconnect,lambda:not reconnect_state(reconnect)['busy'],10000)
+    held=reconnect_state(reconnect)
+    old_head=held['head']
+    report['retained_gap']={'hold_requested':requested_hold,'held':held}
+    assert held['version']==6 and held['verified_size']==[16,8],held
     page.bring_to_front();(out/'browser-transition-ready').write_text('verified old-world MOVE prepared\n');progress('old-packet-verified')
     wait_until(page,lambda:'Game paused' in page.locator('#arena-note').text_content(),30000)
     choose_action(page,'move',review=False);assert page.locator('[data-copy=text]').is_disabled();assert page.locator('[data-copy="text"]').is_disabled()
@@ -395,11 +409,27 @@ def verify_epoch_transition(page,context,out,record,report,save):
     record('new-epoch-continuous-verified-playback',report['epoch_playback']);progress('new-epoch-playback-measured')
     # Prove a real gap beyond the sixteen-publication window before reconnecting.
     wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=old_head+17,90000)
-    reconnect.bring_to_front();reconnect.evaluate('__b2zTools.delivery(false)')
-    wait_until(reconnect,lambda:reconnect.evaluate('globalThis.__dtrLive.resyncs')>=1 and '32 × 32' in world_text(reconnect),30000)
-    progress('retained-gap-recovered');new_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)');assert new_head>=old_head+4,(old_head,new_head)
-    assert reconnect.locator('body').get_attribute('data-phase')!='ERROR';reconnect.close();page.bring_to_front()
-    record('old-session-reconnects-across-epoch-after-retained-history-gap',{'old_head':old_head,'new_head':new_head})
+    primary_head=page.evaluate('globalThis.__dtrLive.heads.at(-1)')
+    reconnect.bring_to_front()
+    wait_until(reconnect,lambda:not reconnect_state(reconnect)['hidden'],5000)
+    before_release=reconnect_state(reconnect)
+    report['retained_gap'].update(primary_head=primary_head,before_release=before_release)
+    progress('retained-gap-proved')
+    assert not before_release['busy'] and before_release['root']==held['root'],before_release
+    reconnect.evaluate('__b2zTools.delivery(false)')
+    try:
+        wait_until(reconnect,lambda:reconnect.evaluate(
+            '([resyncs,head])=>__dtrLive.resyncs>resyncs && __dtrLive.heads.at(-1)>=head',
+            [held['resyncs'],primary_head]) and '32 × 32' in world_text(reconnect),30000)
+    finally:
+        # Capture the recovering page while Chromium is still alive, even on failure.
+        report['retained_gap']['recovered']=reconnect_state(reconnect)
+        save()
+    recovered=report['retained_gap']['recovered']
+    assert recovered['version']==7 and recovered['verified_size']==recovered['visible_size']==[32,32],recovered
+    assert recovered['head']>=primary_head and recovered['phase']!='ERROR',recovered
+    reconnect.close();page.bring_to_front();progress('retained-gap-recovered')
+    record('old-session-reconnects-across-epoch-after-retained-history-gap',{'old_head':old_head,'new_head':recovered['head']})
     page.reload();wait_until(page,lambda:page.evaluate('Boolean(__dtrLive?.connected)') and '32 × 32' in world_text(page),30000)
     assert page.locator('body').get_attribute('data-phase')!='ERROR'
     report['epoch_transition']={'old_cell':old_cell,'mapped_cell':mapped,'old_draft_stale':True,'reload_new_epoch':True,'qualification':'Genuine disposable IC; synthetic v3 player fixture. Real Ledger/Index paid cutover is verified separately.'}

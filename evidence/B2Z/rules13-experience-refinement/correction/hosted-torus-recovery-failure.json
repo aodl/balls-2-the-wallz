@@ -1,0 +1,55 @@
+{
+  "run": 44764887931,
+  "job": 136386732212,
+  "source": "55e33b97eaca384461344a38738892cead3d8b43",
+  "installed": [
+    {
+      "status": "FAIL",
+      "count": 1
+    },
+    {
+      "status": "PASS",
+      "count": 66
+    }
+  ],
+  "failure": {
+    "test": "torus_browser_authenticated_epoch_recovers_and_stales_old_move",
+    "error": "TimeoutError('condition not met within 30000ms: None')",
+    "stages": [
+      {
+        "stage": "bootstrap",
+        "elapsed_seconds": 0
+      },
+      {
+        "stage": "old-packet-verified",
+        "elapsed_seconds": 6.479
+      },
+      {
+        "stage": "source-fence-verified",
+        "elapsed_seconds": 8.149
+      },
+      {
+        "stage": "new-epoch-packet-verified",
+        "elapsed_seconds": 13.095
+      },
+      {
+        "stage": "new-epoch-playback-measured",
+        "elapsed_seconds": 20.251
+      }
+    ],
+    "primary_playback": {
+      "seconds": 19.699099999999998,
+      "verified_ticks_per_second": 0.9137473285581575,
+      "displayed_ticks_per_second": 0.8428475751430279,
+      "stalled_samples": 0,
+      "nominal_rate": 1,
+      "qualification": "One-ball authenticated v7 epoch on local IC wall time"
+    },
+    "last_first_observer_head": 36,
+    "second_observer_available_at_failure": false
+  },
+  "independent_speech_expiry": {
+    "first_age_ms": 61155,
+    "second_age_ms": 60054
+  }
+}
