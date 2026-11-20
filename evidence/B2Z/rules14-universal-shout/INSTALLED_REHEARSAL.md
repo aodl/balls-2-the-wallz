@@ -38,3 +38,14 @@ frontend and the same exact normal backend. [Integrated browser](integrated-brow
 This focused result is development evidence. Complete hosted qualification of the
 integrated source and the separately authorised production transition remain
 release gates.
+
+
+The first integrated hosted run identified three release-check discrepancies.
+The naming audit and application-export inventory now explicitly cover the new
+payment magic, capability and three transition methods. The parity job invokes
+the actual `native-conformance-v4` binary. The Ubuntu hosted normal executable
+differs from the developer artifact and embeds different Cargo source paths.
+The release pin is the independently rehashed hosted module
+`6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6`.
+The runtime and installed jobs must both reproduce the pin.
+[First integrated run](https://github.com/aodl/balls-2-the-wallz/actions/runs/44766848340)

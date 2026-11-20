@@ -2,8 +2,8 @@
   "source": "9777df173ba6b019bd84b92e72b92d6ae2ebe5e0",
   "source_dirty": false,
   "inventory_sha256": "aacc9537b635240cbd3127b9c6399b91d25b0d021cd9a3c72566b9ed425ef9ff",
-  "normal_wasm_sha256": "73787d23ee27888719cad7a390469e7cde95735d653601f76dd3e3006474f2c8",
-  "normal_wasm_scope": "Rules14 normal executable; candidate, independent of production Rules13.",
+  "normal_wasm_sha256": "6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6",
+  "normal_wasm_scope": "ubuntu-24.04 hosted raw normal wasm, locked Rust 1.94.1, independently verified archive from run 44766848340; developer build identities retained separately",
   "inputs": [
     {
       "path": "apps/b2z-observer/404.html",

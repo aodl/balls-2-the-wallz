@@ -81,8 +81,8 @@ jobs:
         run: python -B tools/verify_boundary_deflector_checkpoint.py --output .work/ci-boundary-numeric
       - name: Exact JS/native Shout directives, annotations and continuation
         run: |
-          cargo +1.94.1 build --manifest-path native/Cargo.toml -p native-conformance --release --offline --locked
-          B2Z_SHOUT_NATIVE="$PWD/native/target/release/native-conformance" node --test tests/js/shout-protocol.test.mjs
+          cargo +1.94.1 build --manifest-path native/Cargo.toml -p native-conformance-v4 --release --offline --locked
+          B2Z_SHOUT_NATIVE="$PWD/native/target/release/native-conformance-v4" node --test tests/js/shout-protocol.test.mjs
       - name: Upload native evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -358,6 +358,8 @@ jobs:
       - name: Assert exact DTR release provenance
         run: python -B tools/check_dtr_provenance.py --manifest canisters/runtime-lab/Cargo.toml --manifest tools/s09-integration/Cargo.toml --output .work/ci-dtr-integration.json
       - run: python -B tools/check.py integration --output .work/ci-integration
+      - name: Bind installed acceptance to the exact hosted normal backend
+        run: python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules14-universal-shout/artifacts --backend-only --wasm .work/ci-integration/s14-local/normal.wasm --output .work/ci-integration/shout-backend-pin
       - name: Upload local IC evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
