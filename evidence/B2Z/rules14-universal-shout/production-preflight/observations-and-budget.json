@@ -1,0 +1,230 @@
+{
+  "observed_initial_utc": "2026-11-20T21:13:19Z",
+  "observed_final_utc": "2026-11-20T21:17:11Z",
+  "frontend": {
+    "initial": {
+      "cycles": 846278885722,
+      "reserved": 0,
+      "reported_memory_bytes": 549271868,
+      "idle_per_day": 14896820130,
+      "freeze_seconds": 2592000,
+      "module": "05b9223a1004a1d85fe4d0f2e0e135c04bee0034746ce3d0eab2b9734d9b3c2c",
+      "memory_breakdown": {
+        "wasm_memory_size": 77660160,
+        "stable_memory_size": 75890688,
+        "wasm_binary_size": 77072295,
+        "snapshots_size": 318635259,
+        "wasm_chunk_store_size": 0
+      }
+    },
+    "latest": {
+      "cycles": 2315397670508,
+      "reserved": 0,
+      "reported_memory_bytes": 549271868,
+      "idle_per_day": 14896820130,
+      "freeze_seconds": 2592000,
+      "module": "05b9223a1004a1d85fe4d0f2e0e135c04bee0034746ce3d0eab2b9734d9b3c2c",
+      "memory_breakdown": {
+        "wasm_memory_size": 77660160,
+        "stable_memory_size": 75890688,
+        "wasm_binary_size": 77072295,
+        "snapshots_size": 318635259,
+        "wasm_chunk_store_size": 0
+      }
+    },
+    "increase_between_controller_reads": 1469118784786,
+    "observed_freezing_floor": 446904603900,
+    "latest_above_freezing_floor": 1868493066608,
+    "snapshots": [
+      {
+        "snapshot_id": "0000000000000000000000000240661b0101",
+        "content": "original mutable legacy frontend",
+        "inventory": [
+          {
+            "file": "metadata.json",
+            "bytes": 753,
+            "sha256": "542313bec982488c69ffc57f17b5a9bd68eafe2bc999e6fa4a58b7566aba5df1"
+          },
+          {
+            "file": "wasm_memory.bin",
+            "bytes": 87556096,
+            "sha256": "7fd685594751ec8fb1c9d1619ba22884a557734c15ea36c8477b356d158b059d"
+          },
+          {
+            "file": "wasm_module.bin",
+            "bytes": 465172,
+            "sha256": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62"
+          }
+        ],
+        "existing_download_matches": true
+      },
+      {
+        "snapshot_id": "0000000000000001000000000240661b0101",
+        "content": "earlier embedded frontend",
+        "inventory": [
+          {
+            "file": "metadata.json",
+            "bytes": 765,
+            "sha256": "bd60c2a1f150690d55e1ec3e95f609dfa57144ef942194bff008674557f6baef"
+          },
+          {
+            "file": "stable_memory.bin",
+            "bytes": 75890688,
+            "sha256": "eab3d10cd1477aac93307d870312993cdcdabf64621ccdf8635c4cdaa2696ef8"
+          },
+          {
+            "file": "wasm_memory.bin",
+            "bytes": 77660160,
+            "sha256": "4499c56d8f69654798de52de395b514b2eb1757d0fd9052e79785e2e29b50348"
+          },
+          {
+            "file": "wasm_module.bin",
+            "bytes": 77062823,
+            "sha256": "b8a2252c59db613379a6cdc09f88f00e4e68758ca612c9b67d8eea7b47b927f7"
+          }
+        ],
+        "existing_download_matches": true
+      }
+    ],
+    "currently_installed_snapshot_exists": false,
+    "chunk_store_empty": true,
+    "certified_assets": 84,
+    "gzip_variants": 6,
+    "alternate_routes": 28
+  },
+  "budget": {
+    "assumptions": {
+      "new_snapshot_bytes": 231000000,
+      "candidate_steady_growth_bytes": 131072,
+      "chunk_peak_bytes": 77594624,
+      "marginal_cycles_per_byte_day_measured": 25.54804086750547,
+      "marginal_cycles_per_byte_day_planned": 26,
+      "snapshot_debit": 5000000000,
+      "normal_install_budget": 190000000000,
+      "forward_reinstall_budget": 190000000000,
+      "outside_floor_and_staging_contingency": 20000000000,
+      "frontend_install_observed_european_net_cycles": 185047030380,
+      "frontend_install_observed_disposable_rules14_net_cycles": 184258074091,
+      "last_disposable_snapshot_load_window_net_cycles": 6591292161
+    },
+    "all_snapshots_retained_latest": {
+      "projected_floor": 627186840060,
+      "preinstall_headroom_after_snapshot_budget": 1683210830448,
+      "post_install_steady_headroom": 1493210830448,
+      "one_peak_chunk_floor": 60523806720,
+      "margin_after_recovery_and_contingency": 1222687023728,
+      "shortfall": 0
+    },
+    "earlier_balance_scenarios": {
+      "keep_both": {
+        "projected_floor": 627186840060,
+        "preinstall_headroom_after_snapshot_budget": 214092045662,
+        "post_install_steady_headroom": 24092045662,
+        "one_peak_chunk_floor": 60523806720,
+        "margin_after_recovery_and_contingency": -246431761058,
+        "shortfall": 246431761058
+      },
+      "retire_legacy": {
+        "projected_floor": 558530126220,
+        "preinstall_headroom_after_snapshot_budget": 282748759502,
+        "post_install_steady_headroom": 92748759502,
+        "one_peak_chunk_floor": 60523806720,
+        "margin_after_recovery_and_contingency": -177775047218,
+        "shortfall": 177775047218
+      },
+      "retire_earlier_embedded": {
+        "projected_floor": 447308051880,
+        "preinstall_headroom_after_snapshot_budget": 393970833842,
+        "post_install_steady_headroom": 203970833842,
+        "one_peak_chunk_floor": 60523806720,
+        "margin_after_recovery_and_contingency": -66552972878,
+        "shortfall": 66552972878
+      },
+      "retire_both": {
+        "projected_floor": 378651338040,
+        "preinstall_headroom_after_snapshot_budget": 462627547682,
+        "post_install_steady_headroom": 272627547682,
+        "one_peak_chunk_floor": 60523806720,
+        "margin_after_recovery_and_contingency": 2103740962,
+        "shortfall": 0
+      }
+    }
+  },
+  "backend": {
+    "observed": "2026-11-20T21:16:01.072Z",
+    "module": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+    "identity": {
+      "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+      "rules_hash": "9879184552562df4a523bc22b3a34c04c6ddea1dbb17c6d9a039937188a3bb15",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "publication": "13474",
+    "manifest": "3cd05f01ca7288acc64685036c5e921fab17cebceefa306ceb2f24168bb91d23",
+    "world": "c8e3063b17b0ca80459c967a8e7a169d94aef1c38350a863278524998909fe9d",
+    "certified_root": "77d36559ea5b2aa36d9ea73a32a0cd49f4497d6868fb4c7a2105ad81d9863d90",
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40180669"
+    },
+    "historic_rules13_adapter": 8,
+    "prior_transition_phase": "complete",
+    "received_e8s": "100000000",
+    "replay": {
+      "status": "PASS",
+      "exact": [
+        "state",
+        "events",
+        "scores"
+      ],
+      "rows": [
+        {
+          "segment": 13473,
+          "work_iterations": 9,
+          "input_count": 0,
+          "state_hash": "7638d51c3c7c18f6c248c0145cc5be0ad06e3b05f3dfec171de99736b45de057",
+          "manif": "9b12610cb13dd618bd335383181f88965c8cac5e95bb574a5cf389490a8d7fa7"
+        },
+        {
+          "segment": 13474,
+          "work_iterations": 9,
+          "input_count": 0,
+          "state_hash": "c8e3063b17b0ca80459c967a8e7a169d94aef1c38350a863278524998909fe9d",
+          "manif": "3cd05f01ca7288acc64685036c5e921fab17cebceefa306ceb2f24168bb91d23"
+        }
+      ]
+    },
+    "ledger_exclusive_height": 40591086,
+    "index_blocks_synced": 40591087,
+    "receiver_live_balance_e8s": 0,
+    "indexed_receiving_account_transaction_ids": [
+      "40180668",
+      "40180627"
+    ],
+    "request_timing": "Separate, read-only Ledger and Index samples; not a transition cutoff or proof of the next ready manifest.",
+    "funding_phase": {
+      "Idle": null
+    },
+    "funding_diagnostic": [
+      "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+    ],
+    "total_cycles": 2368320447047,
+    "liquid_cycles": 2311487677337,
+    "settings": {
+      "segment_ticks": "1",
+      "pacing_seconds": 1,
+      "work_budget": 512,
+      "pace": {
+        "admission_open": true,
+        "mode": "Trickle",
+        "nominal_milli": 10,
+        "performance_limited": false,
+        "supported_milli": 10
+      },
+      "running": true,
+      "world_transition": false
+    }
+  }
+}
