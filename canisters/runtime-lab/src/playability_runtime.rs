@@ -491,10 +491,63 @@ pub fn deflector_candidate<K: Kernel>(
     ))
 }
 
+struct Schema7Cutover {
+    version: u32,
+    migration: &'static str,
+    event: &'static str,
+    previous_adapter: u8,
+    next_adapter: u8,
+}
+
 pub fn context_candidate<K: Kernel>(
     h: &Coordinator<K>,
     t: &Transition,
     source: &SourceState,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    schema7_candidate(
+        h,
+        t,
+        source,
+        b2z_native::deflectors_v12::identity()?,
+        b2z_native::context_structures::identity()?,
+        Schema7Cutover {
+            version: 9,
+            migration: "B2Z_CONTEXT_STRUCTURES_RULES_13",
+            event: "context_rules_activated",
+            previous_adapter: b2z_protocol::deflector::MEMO_ADAPTER_VERSION,
+            next_adapter: b2z_protocol::context_structures::MEMO_ADAPTER_VERSION,
+        },
+    )
+}
+
+pub fn shout_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    schema7_candidate(
+        h,
+        t,
+        source,
+        b2z_native::context_structures::identity()?,
+        b2z_native::shout::identity()?,
+        Schema7Cutover {
+            version: 10,
+            migration: "B2Z_ACTION_SHOUT_RULES_14",
+            event: "shout_rules_activated",
+            previous_adapter: b2z_protocol::context_structures::MEMO_ADAPTER_VERSION,
+            next_adapter: b2z_protocol::shout::MEMO_ADAPTER_VERSION,
+        },
+    )
+}
+
+fn schema7_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+    predecessor: serde_json::Value,
+    mut successor: serde_json::Value,
+    policy: Schema7Cutover,
 ) -> Result<(Output, Vec<u8>, Identity)> {
     t.validate()?;
     h.validate()?;
@@ -507,25 +560,24 @@ pub fn context_candidate<K: Kernel>(
         .map(|s| &s.source_anchor)
         .or_else(|| h.record.journal.epoch.as_ref().map(|e| &e.source_anchor));
     if committed_anchor != Some(&h.record.inbox.source_anchor) {
-        return Err("Rules13 source anchor differs from authenticated predecessor".into());
+        return Err("schema7 source anchor differs from authenticated predecessor".into());
     }
-    if t.version != 9
+    if t.version != policy.version
         || t.phase != "ready"
         || source.pending.is_some()
         || source.in_flight
         || !source.binding_checked
         || source.last_error.is_some()
-        || source.memo_adapter_version != b2z_protocol::deflector::MEMO_ADAPTER_VERSION
+        || source.memo_adapter_version != policy.previous_adapter
     {
-        return Err("Rules13 source cutover not drained".into());
+        return Err("schema7 source cutover not drained".into());
     }
-    let expected = b2z_native::deflectors_v12::identity()?;
     let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
     if ["rules_hash", "config_hash", "schema_hash"]
         .iter()
-        .any(|k| actual[*k] != expected[*k])
+        .any(|k| actual[*k] != predecessor[*k])
     {
-        return Err("Rules13 requires exact Rules12 predecessor identity".into());
+        return Err("schema7 cutover requires its exact predecessor identity".into());
     }
     let state = unhex(&h.record.journal.head.state_hex)?;
     let old = World::decode(&state)?;
@@ -537,7 +589,8 @@ pub fn context_candidate<K: Kernel>(
             .is_none_or(|e| e.version != 3)
     {
         return Err(
-            "Rules13 requires a completed Rules12 interval, not a consecutive rules epoch".into(),
+            "schema7 cutover requires a committed predecessor interval or lifecycle checkpoint"
+                .into(),
         );
     }
     if old.version != 7
@@ -548,29 +601,28 @@ pub fn context_candidate<K: Kernel>(
         || !h.record.inbox.pending.is_empty()
         || h.record.inbox.cursor != h.record.inbox.retired_to
     {
-        return Err("Rules13 requires committed gameplay/source boundary".into());
+        return Err("schema7 cutover requires committed gameplay/source boundary".into());
     }
-    let mut id = b2z_native::context_structures::identity()?;
-    id["source_id"] = json!(h.record.journal.identity.source_id);
-    let identity: Identity = serde_json::from_value(id).map_err(|e| e.to_string())?;
+    successor["source_id"] = json!(h.record.journal.identity.source_id);
+    let identity: Identity = serde_json::from_value(successor).map_err(|e| e.to_string())?;
     if old.encode()? != state {
-        return Err("noncanonical Rules12 state at Rules13 boundary".into());
+        return Err("noncanonical state at schema7 cutover".into());
     }
     let metadata = json!({
-        "version":9,"migration":"B2Z_CONTEXT_STRUCTURES_RULES_13",
+        "version":policy.version,"migration":policy.migration,
         "old_identity":h.record.journal.identity,"new_identity":identity,
         "previous_state":hash(&state),"new_state":hash(&state),
         "logical_boundary":old.time,"source_cursor":Int(source.cursor.into()),
         "ledger_cutover":t.ledger_cutover,"account_history_complete_through":t.ledger_cutover,
         "index_synced":t.index_synced,"source_anchor":h.record.inbox.source_anchor,
         "memo_adapter_before":source.memo_adapter_version,
-        "memo_adapter_after":b2z_protocol::context_structures::MEMO_ADAPTER_VERSION
+        "memo_adapter_after":policy.next_adapter
     });
     Ok((
         Output {
             state,
             events: encode(
-                &json!({"version":7,"receipts":[],"events":[{"kind":"context_rules_activated","sequence":0,"time":old.time,"context":metadata}]}),
+                &json!({"version":7,"receipts":[],"events":[{"kind":policy.event,"sequence":0,"time":old.time,"context":metadata}]}),
             )?,
             scores: encode(&json!({"version":7,"area_time":[]}))?,
         },
@@ -1293,6 +1345,53 @@ mod tests {
                     restored.record.journal.head.state_hex,
                     combined.record.journal.head.state_hex
                 );
+                ordinary(&mut combined);
+                let mut adapter7 = annotation_source.clone();
+                adapter7.memo_adapter_version = b2z_protocol::deflector::MEMO_ADAPTER_VERSION;
+                let (out, metadata, identity) =
+                    context_candidate(&combined, &ready(9), &adapter7).unwrap();
+                apply_rules(&mut combined, &out, &metadata, identity);
+                let mut adapter8 = adapter7;
+                adapter8.memo_adapter_version =
+                    b2z_protocol::context_structures::MEMO_ADAPTER_VERSION;
+                assert!(shout_candidate(&combined, &ready(10), &adapter8).is_err());
+                ordinary(&mut combined);
+
+                let mut pending = adapter8.clone();
+                pending.pending = Some(self::pending(100));
+                assert!(shout_candidate(&combined, &ready(10), &pending).is_err());
+                let mut wrong_adapter = adapter8.clone();
+                wrong_adapter.memo_adapter_version = b2z_protocol::shout::MEMO_ADAPTER_VERSION;
+                assert!(shout_candidate(&combined, &ready(10), &wrong_adapter).is_err());
+                let before = combined.record.clone();
+                let (out, metadata, identity) =
+                    shout_candidate(&combined, &ready(10), &adapter8).unwrap();
+                let proof: serde_json::Value = decode(&metadata).unwrap();
+                assert_eq!(proof["memo_adapter_before"], 8);
+                assert_eq!(proof["memo_adapter_after"], 9);
+                assert_eq!(proof["previous_state"], proof["new_state"]);
+                assert_eq!(out.state, unhex(&before.journal.head.state_hex).unwrap());
+                apply_rules(&mut combined, &out, &metadata, identity);
+                assert_eq!(combined.record.inbox.cursor, before.inbox.cursor);
+                assert_eq!(combined.record.inbox.retired_to, before.inbox.retired_to);
+                assert_eq!(
+                    combined.record.inbox.source_anchor,
+                    before.inbox.source_anchor
+                );
+                assert_eq!(
+                    combined.record.journal.head.state_hex,
+                    before.journal.head.state_hex
+                );
+                let image = combined.snapshot().unwrap();
+                let mut restored = Coordinator::restore(
+                    &image,
+                    &hash(&image),
+                    ExplicitClock(observed + 1000000000),
+                )
+                .unwrap();
+                assert_eq!(restored.record, combined.record);
+                assert!(shout_candidate(&restored, &ready(10), &adapter8).is_err());
+                ordinary(&mut restored);
             }
             let clear_state = unhex(&entry.record.journal.head.state_hex).unwrap();
             let (clear_out, clear_metadata, clear_id) =

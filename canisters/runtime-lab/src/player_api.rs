@@ -316,9 +316,9 @@ fn cannon(w: &World, id: u32) -> Result<Option<CannonView>> {
 }
 pub fn game_info() -> Result<GameInfo> {
     let (r, p, w) = load()?;
-    let configuration = if p.identity.config_hash
-        == b2z_native::context_structures::configuration_hash()
-    {
+    let configuration = if p.identity.config_hash == b2z_native::shout::configuration_hash() {
+        b2z_native::shout::configuration()
+    } else if p.identity.config_hash == b2z_native::context_structures::configuration_hash() {
         b2z_native::context_structures::configuration()
     } else if p.identity.config_hash == hash(b2z_native::deflectors_v12::configuration()) {
         b2z_native::deflectors_v12::configuration()
@@ -669,8 +669,9 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
     if !super::PACE.with(|p| p.borrow().hint().admission_open) {
         return Err("ADMISSION_CLOSED".into());
     }
-    let context_rules =
-        p.identity.config_hash == b2z_native::context_structures::configuration_hash();
+    let context_rules = p.identity.config_hash
+        == b2z_native::context_structures::configuration_hash()
+        || p.identity.config_hash == b2z_native::shout::configuration_hash();
     let prices = quote_items_with_rules(
         &w,
         &funding_account,

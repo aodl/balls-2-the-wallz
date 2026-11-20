@@ -28,12 +28,12 @@ test('Shout fitter keeps graphemes and rejects prohibited suffix input',()=>{
  assert.throws(()=>parseShoutMemo(Uint8Array.of(255)));
 });
 
-import {B2zCursor} from '../../packages/kernels/b2z/kernel.mjs';
-import {encodeWorld,SHOUT_IDENTITY,CONTEXT_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
+import {B2zCursor,B2zKernel} from '../../packages/kernels/b2z/kernel.mjs';
+import {decodeWorld,encodeWorld,SHOUT_IDENTITY,CONTEXT_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {unpackDeflectorAudit} from '../../packages/kernels/b2z/deflector-events.mjs';
-import {ACCOUNT,contextualWorld,commercialCases} from '../scenarios/context-structures.mjs';
+import {ACCOUNT,contextualWorld,commercialCases,orderedWorld} from '../scenarios/context-structures.mjs';
 import {validateLaunchAnnotations} from '../../apps/b2z-observer/war-cry-events.mjs';
 
 test('only accepted actions get a Shout and annotation cannot change play or receipts',()=>{
@@ -78,5 +78,68 @@ test('only accepted actions get a Shout and annotation cannot change play or rec
   assert.equal(native.status,'complete');
   assert(native.restored>0);
   for(const name of ['state','scores','events'])assert.equal(native[name+'_hex'],hex(annotated.result[name]),name);
+ }
+});
+
+import {TimelineCoordinator} from '@dtr/timeline-runtime/runtime/coordinator';
+import {publication} from '@dtr/timeline-runtime/observation/publication';
+import {hex,unhex} from '@dtr/timeline-runtime/protocol/bytes';
+import {prepareCheckpoint} from '../../apps/b2z-observer/model.mjs';
+import {replayHistory} from '../../tools/lib/replay_s14_history.mjs';
+
+test('Rules14 schema7 epoch and paid Shout replay from the exact Rules13 predecessor',async()=>{
+ const initial=encodeWorld(orderedWorld()),source_id='ab'.repeat(32),anchor='00'.repeat(32);
+ const beforeIdentity={...CONTEXT_IDENTITY,source_id},afterIdentity={...SHOUT_IDENTITY,source_id};
+ let elapsed=0n;
+ const wrap=c=>({cursor:c,step(n){const r=c.step(n);if(r.complete&&c.needsElapsed())c.finalizeElapsed(elapsed);return r;},snapshot:()=>c.snapshot(),result:()=>c.result()});
+ const kernel={begin:(...args)=>wrap(B2zKernel.begin(...args)),restore:(...args)=>wrap(B2zKernel.restore(...args)),fork:c=>wrap(B2zKernel.fork(c.cursor))};
+ const host=TimelineCoordinator.create(initial,beforeIdentity,{logical_start:0n,source_from:0n,source_anchor:anchor},kernel);
+ const trace={status:'PASS',initial_world_hex:hex(initial),inputs:[],assigned:[],publications:[],artifact_events:[]};
+ const record=()=>{
+  const p=publication(host.publicationRecord()).data;
+  trace.publications.push(p);
+  trace.artifact_events.push({segment_id:p.head.segment_id,events_hex:host.committed().event_hex});
+  return p;
+ };
+ const segment=(end,to,rows)=>{
+  elapsed=end;
+  const cursor=host.committed().source_to_exclusive;
+  host.ingestOrdered(cursor,to,rows,anchor);
+  host.seal(end);
+  while(host.status().phase==='running')host.advance(23);
+  host.publish(host.status().ready_hash);
+  return record();
+ };
+ const prior=segment(1n,0n,[]);
+ const before=unhex(host.committed().state_hex),world=decodeWorld(before);
+ const context={version:10,migration:'B2Z_ACTION_SHOUT_RULES_14',old_identity:beforeIdentity,new_identity:afterIdentity,
+  previous_state:sha256(before),new_state:sha256(before),logical_boundary:world.time,source_cursor:0n,
+  ledger_cutover:0n,account_history_complete_through:0n,index_synced:0n,source_anchor:anchor,memo_adapter_before:8,memo_adapter_after:9};
+ const out={state:before,events:encodeCanonical({version:7,receipts:[],events:[{kind:'shout_rules_activated',sequence:0,time:world.time,context}]}),
+  scores:encodeCanonical({version:7,area_time:[]})};
+ const epoch=host.prepareTransition(afterIdentity,out,sha256(encodeCanonical(context)));
+ host.apply({kind:'transition',epoch,state_hex:hex(out.state),event_hex:hex(out.events),score_hex:hex(out.scores)});
+ const checkpoint=record();
+ await prepareCheckpoint(before,out,checkpoint,prior);
+ const parsed=parseShoutMemo(utf8.encode('DROT 1 E|Shield'));
+ const input={position:1n,payload_hex:hex(encodeShoutPayment(ACCOUNT,10000n,parsed.command,parsed.cry))};
+ trace.inputs.push(input);
+ trace.assigned.push(1n);
+ const after=segment(2n,2n,[input]);
+ const audit=unpackDeflectorAudit(decodeCanonical(unhex(host.committed().event_hex)),world.balls);
+ assert.equal(audit.events.find(e=>e.action_annotation)?.action_annotation.cry,'Shield');
+ assert.equal(after.identity.rules_hash,SHOUT_IDENTITY.rules_hash);
+ const replay=replayHistory(trace);
+ assert.equal(replay.application_checkpoints,1);
+ assert.deepEqual(replay.assigned,['1']);
+ for(const patch of [{memo_adapter_before:7},{memo_adapter_after:8},{source_anchor:'ff'.repeat(32)}]){
+  const contextCopy={...context,...patch},body=decodeCanonical(out.events);
+  body.events[0].context=contextCopy;
+  const forgedEvents=encodeCanonical(body);
+  const forged={...checkpoint,artifacts:checkpoint.artifacts.map(a=>a.kind==='events'?{...a,sha256:sha256(forgedEvents)}:a),
+   epoch:{...checkpoint.epoch,metadata_hash:sha256(encodeCanonical(contextCopy))}};
+  await assert.rejects(prepareCheckpoint(before,{...out,events:forgedEvents},forged,prior),/source boundary/);
+  const altered={...trace,publications:[prior,forged,after],artifact_events:trace.artifact_events.map((r,i)=>i===1?{...r,events_hex:hex(forgedEvents)}:r)};
+  assert.throws(()=>replayHistory(altered),/cutover context mismatch/);
  }
 });

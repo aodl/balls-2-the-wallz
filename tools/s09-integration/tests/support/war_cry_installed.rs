@@ -5,6 +5,14 @@ fn save(out: &Path, name: &str, value: &serde_json::Value) {
     std::fs::write(out.join(name), serde_json::to_vec_pretty(value).unwrap()).unwrap();
 }
 pub(super) fn transition(pic: &PocketIc, id: Principal, kind: &str) {
+    transition_with_recovery_module(pic, id, kind, "B2Z_S14_WASM");
+}
+pub(super) fn transition_with_recovery_module(
+    pic: &PocketIc,
+    id: Principal,
+    kind: &str,
+    normal_wasm: &str,
+) {
     playability_installed::prepare(pic, id, &format!("prepare_{kind}_transition"));
     let mut ready = false;
     for _ in 0..1800 {
@@ -22,7 +30,7 @@ pub(super) fn transition(pic: &PocketIc, id: Principal, kind: &str) {
         }
     }
     assert!(ready, "drained {kind} boundary");
-    if matches!(kind, "combined" | "deflector" | "context") {
+    if matches!(kind, "combined" | "deflector" | "context" | "shout") {
         let before = arena_world(pic, id).encode().unwrap();
         let finance = funding_tests::preserved_finance(pic, id);
         let publication = observe(pic, id).0.publication;
@@ -34,17 +42,18 @@ pub(super) fn transition(pic: &PocketIc, id: Principal, kind: &str) {
         );
         let phase: serde_json::Value = decode(&raw).unwrap();
         assert_eq!(phase["transition"]["phase"], "ready");
-        if matches!(kind, "deflector" | "context") {
+        if matches!(kind, "deflector" | "context" | "shout") {
             let expected_module = pic
                 .canister_status(id, Some(controller()))
                 .unwrap()
                 .module_hash;
             let downgrade = pic.upgrade_canister(
                 id,
-                bytes(if kind == "deflector" {
-                    "B2Z_RULES11_PRIOR_WASM"
-                } else {
-                    "B2Z_RULES12_PRIOR_WASM"
+                bytes(match kind {
+                    "deflector" => "B2Z_RULES11_PRIOR_WASM",
+                    "context" => "B2Z_RULES12_PRIOR_WASM",
+                    "shout" => "B2Z_RULES13_PRIOR_WASM",
+                    _ => unreachable!(),
                 }),
                 encode_args(()).unwrap(),
                 Some(controller()),
@@ -66,7 +75,7 @@ pub(super) fn transition(pic: &PocketIc, id: Principal, kind: &str) {
         }
         pic.upgrade_canister(
             id,
-            bytes("B2Z_S14_WASM"),
+            bytes(normal_wasm),
             encode_args(()).unwrap(),
             Some(controller()),
         )

@@ -480,3 +480,196 @@ fn matched_rules12_rules13_trickle_cost() {
         }),
     );
 }
+
+#[test]
+#[ignore = "requires the exact qualified Rules13 module via --rules13-prior-wasm"]
+fn shout_rules13_upgrade_official_payments_and_recovery() {
+    use b2z_protocol::shout;
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("shout");
+    std::fs::create_dir_all(&out).unwrap();
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let payer = Principal::self_authenticating([9; 32]);
+    let initial = test_world(payer).encode().unwrap();
+    let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers(
+        bytes("B2Z_S14_TEST_WASM"),
+        initial.clone(),
+        10000,
+        500,
+        &[],
+    );
+    let predecessor = bytes("B2Z_RULES13_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&predecessor),
+        "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd"
+    );
+    playability_installed::funding_paused(&pic, id, true);
+    upgrade(&pic, id, predecessor);
+    playability_installed::configuration(&pic, id, 512);
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    assert_eq!(arena_world(&pic, id).encode().unwrap(), initial);
+    let mut history = vec![];
+    complete_one_trickle_tick(&pic, id);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    war_cry_installed::transition_with_recovery_module(
+        &pic,
+        id,
+        "context",
+        "B2Z_RULES13_PRIOR_WASM",
+    );
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+
+    let mut inputs = BTreeMap::new();
+    let mut expected = BTreeMap::new();
+    let mut send = |text: &str, amount: u64, adapter: u8, reason: &str| {
+        let position = transfer_text(&pic, ledger, payer, id, amount, text.as_bytes());
+        let (tag, directive, cry) = if adapter == 8 {
+            let p = codec::parse_text(text.as_bytes()).ok();
+            (
+                codec::NORMALIZED_PAYMENT,
+                p.as_ref()
+                    .map_or([0; 8], |p| codec::encode(p.command).unwrap()),
+                p.map(|p| p.cry).unwrap_or_default(),
+            )
+        } else {
+            let p = shout::parse_text(text.as_bytes()).ok();
+            (
+                shout::NORMALIZED_PAYMENT,
+                p.as_ref()
+                    .map_or([0; 8], |p| codec::encode(p.command).unwrap()),
+                p.map(|p| p.cry).unwrap_or_default(),
+            )
+        };
+        let mut raw = tag.to_vec();
+        raw.extend(funding_account(payer).as_bytes());
+        raw.extend(amount.to_be_bytes());
+        raw.extend(directive);
+        raw.push(cry.len() as u8);
+        raw.extend(cry.as_bytes());
+        inputs.insert(position, hex(&raw));
+        expected.insert(position, reason.to_owned());
+        position
+    };
+    let history_payment = send("DEFLECT 300300 N", 10000000, 8, "ACCEPTED");
+    wait_admitted(&pic, id, history_payment);
+    complete_one_trickle_tick(&pic, id);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+
+    let prior = arena_world(&pic, id).encode().unwrap();
+    let prior_finance = funding_tests::preserved_finance(&pic, id);
+    let prior_pub = observe(&pic, id).0.publication;
+    let predecessor_cursor = status(&pic, id).source.admitted_to_exclusive;
+    let successor = bytes("B2Z_S14_WASM");
+    upgrade(&pic, id, successor.clone());
+    assert_eq!(observe(&pic, id).0.publication, prior_pub);
+    assert_eq!(arena_world(&pic, id).encode().unwrap(), prior);
+    assert_eq!(funding_tests::preserved_finance(&pic, id), prior_finance);
+    war_cry_installed::transition(&pic, id, "shout");
+    assert_eq!(arena_world(&pic, id).encode().unwrap(), prior);
+    assert_eq!(funding_tests::preserved_finance(&pic, id), prior_finance);
+    assert_eq!(
+        status(&pic, id).source.admitted_to_exclusive,
+        predecessor_cursor
+    );
+    assert_eq!(
+        observe(&pic, id).1.identity.config_hash,
+        b2z_native::shout::configuration_hash()
+    );
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    for (text, amount, reason) in [
+        ("DEFLECT 4007 N|Shield", 10000000, "ACCEPTED"),
+        ("DROT 2 N|Same", 10000, "SAME_ORIENTATION"),
+        ("DROT 2 E|Turn", 10000, "ACCEPTED"),
+        ("DMOVE 2 4006|Advance", 10000, "ACCEPTED"),
+        ("MOVE 1 4009|Forward", 10000, "ACCEPTED"),
+        ("NEW 0 1 5007|Ready", 400000000, "ACCEPTED"),
+    ] {
+        send(text, amount, 9, reason);
+    }
+    let last = send("FIRE 1 180 1|Contact", 100000000, 9, "ACCEPTED");
+    drop(send);
+    wait_admitted(&pic, id, last);
+    let admitted = observe(&pic, id).0.publication;
+    upgrade(&pic, id, successor.clone());
+    assert_eq!(observe(&pic, id).0.publication, admitted);
+    complete_one_trickle_tick(&pic, id);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+
+    let mut receipts = BTreeMap::new();
+    let mut announcements = vec![];
+    let mut events = vec![];
+    for p in &history {
+        let segment = p.head.segment_id.as_ref().unwrap().0.to_string();
+        let raw = std::fs::read(out.join(format!("publication-{segment}-artifact-1.bin"))).unwrap();
+        let audit: Value = decode(&raw).unwrap();
+        for event in audit["events"].as_array().unwrap() {
+            for key in ["launch_annotation", "action_annotation"] {
+                if let Some(cry) = event[key]["cry"].as_str() {
+                    announcements.push(cry.to_owned());
+                }
+            }
+        }
+        for receipt in audit["receipts"].as_array().unwrap() {
+            let position = receipt["position"]["$integer"]
+                .as_str()
+                .unwrap()
+                .parse::<u64>()
+                .unwrap();
+            assert!(receipts.insert(position, receipt.clone()).is_none());
+        }
+        events.push(json!({"segment_id":segment,"events_hex":hex(&raw)}));
+    }
+    assert_eq!(receipts.len(), expected.len());
+    for (position, reason) in &expected {
+        let receipt = &receipts[position];
+        assert_eq!(receipt["reason"], *reason);
+        if reason != "ACCEPTED" {
+            assert_eq!(receipt["amount_used"]["$integer"], "0");
+            assert_eq!(receipt["remainder"], receipt["amount"]);
+        }
+    }
+    announcements.sort();
+    assert_eq!(
+        announcements,
+        ["Advance", "Contact", "Forward", "Ready", "Shield", "Turn"]
+    );
+    save(
+        &out,
+        "trace.json",
+        &json!({
+            "status":"PASS","initial_world_hex":hex(&initial),"publications":history,
+            "inputs":inputs.iter().map(|(n,p)|json!({"position":n.to_string(),"payload_hex":p})).collect::<Vec<_>>(),
+            "assigned":receipts.keys().map(|k|k.to_string()).collect::<Vec<_>>(),"artifact_events":events
+        }),
+    );
+    let wall = pocket_ic::Time::from(std::time::SystemTime::now());
+    if wall.as_nanos_since_unix_epoch() > pic.get_time().as_nanos_since_unix_epoch() {
+        pic.set_time(wall);
+    }
+    let mut live =
+        PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
+    let gateway = live.make_live(None);
+    save(
+        &out,
+        "configuration.json",
+        &json!({
+            "network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),
+            "ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),
+            "root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":funding_account(payer).to_hex()
+        }),
+    );
+    let replay = std::process::Command::new("node")
+        .current_dir(repo)
+        .args([
+            "tools/capture_war_cry_installed.mjs",
+            out.join("configuration.json").to_str().unwrap(),
+            out.join("trace.json").to_str().unwrap(),
+            out.join("authenticated").to_str().unwrap(),
+        ])
+        .status()
+        .unwrap();
+    assert!(
+        replay.success(),
+        "official transaction history must authenticate and replay"
+    );
+    live.stop_live();
+}

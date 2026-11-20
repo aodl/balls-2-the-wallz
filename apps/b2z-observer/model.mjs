@@ -314,13 +314,15 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
   check(events.events.every((e,i)=>e.sequence===i&&cmp(e.time,initial.time)===0),'checkpoint event ordering');
   check(scores.version===final.version&&Array.isArray(scores.area_time)&&scores.area_time.length===0,'checkpoint scores');
   const context=events.events[0]?.context;
-  if(events.events[0]?.kind==='context_rules_activated'){
-    check(initial.version===7&&final.version===7&&((publication.version===7&&publication.epoch.version===1)||(publication.version===8&&publication.epoch.version===2))&&events.events.length===1,'Rules13 checkpoint format');
-    check(Object.keys(DEFLECTOR_IDENTITY).every(k=>prior.identity[k]===DEFLECTOR_IDENTITY[k])&&contextIdentity(publication.identity),'Rules13 exact identities');
-    check(context&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash,'Rules13 metadata commitment');
-    const expected={version:9,migration:'B2Z_CONTEXT_STRUCTURES_RULES_13',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:7,memo_adapter_after:8};
-    check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'Rules13 source boundary');
-    check(publication.head.state_hash===prior.head.state_hash&&sameCanonical(initial,final),'Rules13 unchanged world');
+  const kind=events.events[0]?.kind;
+  if(kind==='context_rules_activated'||kind==='shout_rules_activated'){
+    const shout=kind==='shout_rules_activated',predecessor=shout?CONTEXT_IDENTITY:DEFLECTOR_IDENTITY,successor=shout?SHOUT_IDENTITY:CONTEXT_IDENTITY;
+    check(initial.version===7&&final.version===7&&((publication.version===7&&publication.epoch.version===1)||(publication.version===8&&publication.epoch.version===2))&&events.events.length===1,'schema7 rules checkpoint format');
+    check(identityMatches(prior.identity,predecessor)&&identityMatches(publication.identity,successor),'schema7 checkpoint exact identities');
+    check(context&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash,'schema7 checkpoint metadata commitment');
+    const expected={version:shout?10:9,migration:shout?'B2Z_ACTION_SHOUT_RULES_14':'B2Z_CONTEXT_STRUCTURES_RULES_13',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:shout?8:7,memo_adapter_after:shout?9:8};
+    check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'schema7 checkpoint source boundary');
+    check(publication.head.state_hash===prior.head.state_hash&&sameCanonical(initial,final),'schema7 checkpoint unchanged world');
   }else if(final.version===7&&initial.version===6){
     check(publication.version===8&&publication.epoch.version===2&&events.events.length===1&&events.events[0].kind==='deflector_rules_activated','Deflector checkpoint format');
     check(playabilityIdentity(prior.identity,6)&&sameCanonical(Object.fromEntries(Object.keys(COMBINED_IDENTITY).map(k=>[k,prior.identity[k]])),COMBINED_IDENTITY)&&Object.keys(DEFLECTOR_IDENTITY).every(k=>publication.identity[k]===DEFLECTOR_IDENTITY[k]),'Deflector exact predecessor/successor');

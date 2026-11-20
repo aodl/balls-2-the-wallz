@@ -459,11 +459,7 @@ impl Cursor {
         let combined = crate::combined_v11::identity()?;
         let deflector = crate::deflectors_v12::identity()?;
         let structure_context = crate::context_structures::identity()?;
-        let mut shout = structure_context.clone();
-        shout["rules_hash"] = json!(hash(b"B2Z_ACTION_SHOUT_RULES_14"));
-        shout["config_hash"] = json!(hash(include_bytes!(
-            "../../../apps/b2z-observer/configuration-shout.bin"
-        )));
+        let shout = crate::shout::identity()?;
         let is_shout = context.get("config_hash") == shout.get("config_hash");
         let is_context =
             is_shout || context.get("config_hash") == structure_context.get("config_hash");

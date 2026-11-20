@@ -342,6 +342,8 @@ service : (blob, nat64, IndexConfig) -> {
   commit_million_transition : (text) -> (Result_2);
   // Derives the v6 metadata once. No caller-supplied world, time or identities.
   commit_playability_transition : (text) -> (Result_2);
+  // Derives the Rules14 metadata once. No caller-supplied world, time or identities.
+  commit_shout_transition : (text) -> (Result_2);
   // Derive the new world from the actual durable committed state, once. Expected
   // manifest protects against a stale operator view; there is no arbitrary replacement.
   commit_torus_transition : (text) -> (Result_2);
@@ -383,6 +385,7 @@ service : (blob, nat64, IndexConfig) -> {
   // Start the next-unused rules-v6 cutover from the actual paid v5 predecessor.
   // The existing fenced source worker obtains its own Ledger/Index watermarks.
   prepare_playability_transition : () -> (Result_2);
+  prepare_shout_transition : () -> (Result_2);
   // Begins only the reviewed v3→v4 cutover. Never accepts state, identities or a
   // caller-supplied Ledger height. The fenced worker obtains its own watermarks.
   prepare_torus_transition : () -> (Result_2);
@@ -394,6 +397,7 @@ service : (blob, nat64, IndexConfig) -> {
   set_funding_paused : (bool) -> (Result_4);
   // Hash this descriptor and compare with the certified publication's source_id.
   source_descriptor : () -> (Result_2) query;
+  shout_transition_status : () -> (Result_2) query;
   start_autonomous : (RunConfig) -> (Result_8);
   torus_transition_status : () -> (Result_2) query;
   war_cry_transition_status : () -> (Result_2) query;

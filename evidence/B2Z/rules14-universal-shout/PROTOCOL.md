@@ -10,7 +10,7 @@ The development observer gates the editor on exact configuration bytes and check
 
 ## Release status
 
-This branch is a development candidate. It lacks a qualified installed-canister epoch transition, disposable Ledger/Index and browser qualification. A paid rollout still needs the exact predecessor-bound drain/commit protocol, interruption and compatible recovery proof, authenticated independent replay and the complete hosted qualification. Production still requires a separate activation decision.
+This branch is a development candidate. The controller-only epoch code binds the exact Rules13 predecessor, signed source anchor, sealed manifest, and complete Ledger/Index drain. It keeps schema7 and commits adapter9 together with the new rules identity. The first saved version-10 preparation record extends the strict Root schema. Compatible same-module recovery is required from that point. Disposable installed qualification, two-observer acceptance and the complete hosted qualification remain release gates. Production still requires a separate activation decision.
 
 Local checks passed for JS and Rust parsing, Rust source classification, an exact JS/native state, event and score comparison, and rejection of forged action annotations. The installed epoch and official Ledger paths remain outside that evidence.
 
@@ -26,3 +26,5 @@ serializes and decodes the source state, revalidates it, and admits the original
 source position exactly once with the original UTF-8 text. This test exercises
 the Rust source state and normalized payload. Official Ledger/Index and epoch
 qualification are still required.
+
+The native coordinator exercises Rules12 → Rules13 → Rules14, including rejection at a consecutive unsealed rules epoch, rejection with pending work or the wrong source adapter, exact unchanged world and cursor, canonical restore, and another ordinary publication. JavaScript independently replays the Rules13 → Rules14 boundary and a paid reorientation in a controlled history, rejecting forged source-adapter and anchor preimages. The Rust host suite passed 55 tests including Candid equality. The focused JavaScript suite passed 13 tests. These results are synthetic/native evidence.
