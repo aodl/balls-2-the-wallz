@@ -5,3 +5,6 @@ export function worldToScreen(angle){const a=Number(angle)*Math.PI/180,x=(Math.c
 export function screenToWorld(angle){const a=Number(angle);if(String(angle).trim()===''||!Number.isFinite(a)||a<0||a>=360)throw Error('HEADING_BOUNDS');const r=a*Math.PI/180,sx=Math.sin(r),sy=-Math.cos(r);return norm(Math.atan2((-Math.SQRT2*sx+Math.sqrt(6)*sy)/2,(Math.SQRT2*sx+Math.sqrt(6)*sy)/2)*180/Math.PI);}
 export function encodedHeading(display){const world=screenToWorld(display),rounded=(Math.round(world*100)%36000)/100;return describeTextMemo('angle',String(rounded)).text.slice(6);}
 export const displayHeading=world=>String(Math.round(worldToScreen(world)*100)/100%360);
+export function storedHeadingForMemo(heading){
+  return String((Math.round(heading*36000/65536)%36000)/100);
+}

@@ -17,7 +17,7 @@ import {parseSendingAccount,paymentDestination,identityStore,accountColor} from 
 import {cannonReference} from './play-reference.mjs';
 import {quoteV6,prepareQuoteV6,legalMoveDestination,legalAdjacentSites} from './action-quote-v6.mjs';
 import {createHandoffs,instructionKey,receiptSummary} from './handoff.mjs';
-import {encodedHeading,displayHeading,worldToScreen} from './headings.mjs';
+import {encodedHeading,displayHeading,worldToScreen,storedHeadingForMemo} from './headings.mjs';
 import {experienceStatus} from './experience-status.mjs';
 export function formatIcp(e8s){if(typeof e8s!=='bigint'||e8s<0n)throw Error('exact nonnegative e8s required');const d=(e8s%100000000n).toString().padStart(8,'0').replace(/0+$/,'');return `${e8s/100000000n}${d?'.'+d:''} ICP`;}
 export const transferMemo=degrees=>describeTextMemo('angle',degrees);
@@ -258,7 +258,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   rememberDraft();const previousMode=mode;clearDraft();keepPrevious=false;mode=value;siteKey='';
   const saved=drafts.get(draftKey(value));
   if(saved){({cell,degrees,worldAngle}=saved);quantity=Number(saved.quantity);cry=saved.cry??'';cryProblem='';}
-  else{cry='';cryProblem='';cell=null;if(value!=='move'&&previousMode!==value){worldAngle=String(Math.round((value==='start'&&!mine().length?40960:selected()?.heading??40960)*360/65536*100)/100%360);degrees=displayHeading(worldAngle);}if(value==='start'){quantity=1;}}
+  else{cry='';cryProblem='';cell=null;if(value!=='move'&&previousMode!==value){worldAngle=storedHeadingForMemo(value==='start'&&!mine().length?40960:selected()?.heading??40960);degrees=displayHeading(worldAngle);}if(value==='start'){quantity=1;}}
 
   if(value==='move'&&(cell===null||!legalMoveDestination(world,declaration.account,id,cell,config)))cell=defaultMove;
   if(value==='start'&&mine().length&&(cell===null||!buildSites().includes(cell)))cell=defaultBuild();
@@ -277,7 +277,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   const saved=drafts.get(draftKey(value));
   quantity=saved?.quantity??1;cry=saved?.cry??'';cryProblem='';composing=false;
   cell=tile?tileSelection:value==='deflector_reorient'?d.cell:moving?(saved?.cell!==null&&moveLegality?.test(saved?.cell)?saved.cell:defaultMove):null;
-  worldAngle=saved?saved.worldAngle:d?deflectorDegrees(d.orientation):value==='deflect'?deflectorDegrees('NW'):String((c?.heading??40960)*360/65536);
+  worldAngle=saved?saved.worldAngle:d?deflectorDegrees(d.orientation):value==='deflect'?deflectorDegrees('NW'):storedHeadingForMemo(c?.heading??40960);
   degrees=saved?.degrees??displayHeading(worldAngle);
   show('action',title());
  }
