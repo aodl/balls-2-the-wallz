@@ -28,7 +28,7 @@ The exact embedded candidate authenticated the European Rules12 world with its f
 
 The 21:11 UTC read-only check certified the legacy frontend module and the production Rules12 backend at publication 12605. The signed operational reply reported running Trickle at 10 milliticks/s, one tick per publication, open admissions and zero pending source records. True branded arbitrary-path HTTP 404 was demonstrated with the disposable embedded module. [Production observation](production-final-observation.json) · [404 routing evidence](branding/NOT_FOUND_ROUTING.md) · [Module installation and recovery plan](embedded-frontend/RELEASE_PLAN.md)
 
-## Hosted qualification at publication of this evidence
+## Hosted qualification
 
 | Gate | Result |
 | --- | --- |
@@ -37,7 +37,9 @@ The 21:11 UTC read-only check certified the legacy frontend module and the produ
 | Packaged DTR and clean consumers | PASS |
 | Runtime-lab Wasm | PASS |
 | Browser HTTP and Web Crypto | PASS |
-| S14 and million-cell installed-IC qualification | In progress |
+| S14 and million-cell installed-IC qualification | Failed the original obsolete text-branding assertion |
 | Immutable frontend Wasm and content identity | PASS |
 
-The full hosted installed-IC matrix is separate from the completed local Rules13 Ledger, replay, recovery and browser rehearsal. Check the installed job's final conclusion and rehash its normal Wasm before promotion. The informational production-inventory job is outside the release gates. [Exact-source hosted run](https://github.com/aodl/balls-2-the-wallz/actions/runs/44614474451)
+The table records original run 44614474451. The S14 deployment journey now checks the accessible official SVG, its decoded and visible image, its exact asset bytes and MIME type, and the retained page title. The journey builds the complete asset profile for that path. It uses independently timed controller reads for producer throughput and keeps the existing rate bounds. The complete successor run tests commit `2e7f1b44995e14c5786c61abe5cb4c148e91c4e0`. Rules13 release status requires that run's installed-IC gate to pass. The informational production-inventory job is outside the release gates. [Original failed installed job](https://github.com/aodl/balls-2-the-wallz/actions/runs/44614474451/job/135879550848) · [Exact-source rerun](https://github.com/aodl/balls-2-the-wallz/actions/runs/44707489146)
+
+The immutable frontend migration is a separate production decision. The final read-only preflight confirmed cycle headroom, an available snapshot slot and an empty chunk store for the European frontend. The exact frozen Wasm is compatible with the live Rules12 backend. A production migration still requires owner approval and a successful frontend snapshot before installation. [Production preflight](embedded-frontend/PRODUCTION_PREFLIGHT.md)
