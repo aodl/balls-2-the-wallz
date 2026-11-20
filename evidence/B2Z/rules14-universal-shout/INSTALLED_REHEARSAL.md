@@ -28,6 +28,13 @@ query-only Chromium observers agreed on the signed head and all seven
 successful annotations. [Installed checks](installed-checks.json) ·
 [Authenticated replay](installed-replay.json) · [Two observers](installed-observers.json)
 
-The focused run is development evidence. The complete hosted qualification
-and a consolidated frontend with the latest Rules13 presentation remain
-separate release gates. No production activation was performed.
+The focused case also passed from clean integrated source
+`9777df173ba6b019bd84b92e72b92d6ae2ebe5e0` with the corrected Rules13 presentation.
+An ordinary observer selected a verified Diverter, opened Reorient and generated
+the adapter9 draft `DROT 2 N|Hold` at 0.0001 ICP. Paused admission kept Copy
+disabled. The locked-build and frozen provenance checks passed on the integrated
+frontend and the same exact normal backend. [Integrated browser](integrated-browser.json)
+
+This focused result is development evidence. Complete hosted qualification of the
+integrated source and the separately authorised production transition remain
+release gates.

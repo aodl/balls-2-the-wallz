@@ -1,0 +1,103 @@
+{
+  "status": "PASS",
+  "observers": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "rules": 14,
+      "source": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84",
+      "state": "087b6ebd758a1778c3c78f9f4df79b58db54308924ecd2ce43e868dd5844e882",
+      "publication": "4",
+      "annotations": [
+        {
+          "position": "4",
+          "text": "Shield",
+          "kind": "deflector"
+        },
+        {
+          "position": "6",
+          "text": "Turn",
+          "kind": "deflector"
+        },
+        {
+          "position": "7",
+          "text": "Advance",
+          "kind": "deflector"
+        },
+        {
+          "position": "8",
+          "text": "Forward",
+          "kind": "cannon"
+        },
+        {
+          "position": "9",
+          "text": "Ready",
+          "kind": "launch"
+        },
+        {
+          "position": "10",
+          "text": "Contact",
+          "kind": "launch"
+        },
+        {
+          "position": "11",
+          "text": "Hello",
+          "kind": "launch"
+        }
+      ],
+      "local_reorient_memo": "DROT 2 N|Hold",
+      "paused_copy_disabled": true
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "rules": 14,
+      "source": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84",
+      "state": "087b6ebd758a1778c3c78f9f4df79b58db54308924ecd2ce43e868dd5844e882",
+      "publication": "4",
+      "annotations": [
+        {
+          "position": "4",
+          "text": "Shield",
+          "kind": "deflector"
+        },
+        {
+          "position": "6",
+          "text": "Turn",
+          "kind": "deflector"
+        },
+        {
+          "position": "7",
+          "text": "Advance",
+          "kind": "deflector"
+        },
+        {
+          "position": "8",
+          "text": "Forward",
+          "kind": "cannon"
+        },
+        {
+          "position": "9",
+          "text": "Ready",
+          "kind": "launch"
+        },
+        {
+          "position": "10",
+          "text": "Contact",
+          "kind": "launch"
+        },
+        {
+          "position": "11",
+          "text": "Hello",
+          "kind": "launch"
+        }
+      ],
+      "local_reorient_memo": "DROT 2 N|Hold",
+      "paused_copy_disabled": true
+    }
+  ]
+}
