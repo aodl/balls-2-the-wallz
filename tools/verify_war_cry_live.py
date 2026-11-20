@@ -97,7 +97,28 @@ with sync_playwright()as pw:
    observed=next((x for x in probe['samples']if 55000<=x['age_ms']<60000 and 0<x['opacity']<1),None)
    if observed:report['fade']={**observed,'scope':'Passive native DOM/computed output captured concurrently with the other observer real-tab journey'}
   assert 'fade'in report
-  expired=probe['expired']['at']if probe['expired']else page.evaluate('Date.now()');assert expired-born>=60000;page.wait_for_timeout(1200);assert page.locator('.speech-bubble').count()==0;report['expiry']={'at':expired,'age_ms':expired-born,'repeat_render_does_not_restart':True};page.screenshot(path=str(out/'expired.png'));pages[0].bring_to_front();pages[0].wait_for_timeout(300);assert pages[0].locator('.speech-bubble').count()==0;report['first_hidden_age_expiry']='PASS first observer also expired without replay';report.update(status='PASS',errors=errors,forbidden=forbidden,browser=browser.version);assert not errors and not forbidden
+  expired=probe['expired']['at']if probe['expired']else page.evaluate('Date.now()')
+  assert expired-born>=60000
+  page.wait_for_timeout(1200)
+  assert page.locator('.speech-bubble').count()==0
+  report['expiry']={'at':expired,'age_ms':expired-born,'repeat_render_does_not_restart':True}
+  page.screenshot(path=str(out/'expired.png'))
+
+  # Certified playback clocks can present the same event in either order.
+  # Keep the first observer hidden until its own recorded lifetime has elapsed.
+  first_born=report['observers'][0]['born']
+  page.wait_for_function('deadline=>Date.now()>=deadline',arg=first_born+60000,timeout=65000,polling=100)
+  page=pages[0]
+  page.bring_to_front()
+  page.wait_for_function('()=>!document.hidden',polling=100)
+  page.locator('.speech-bubble').wait_for(state='detached',timeout=2500)
+  first_age=page.evaluate('Date.now()')-first_born
+  assert first_age>=60000
+  page.wait_for_timeout(1200)
+  assert page.locator('.speech-bubble').count()==0
+  report['first_hidden_age_expiry']={'status':'PASS','age_ms':first_age,'repeat_render_does_not_restart':True}
+  report.update(status='PASS',errors=errors,forbidden=forbidden,browser=browser.version)
+  assert not errors and not forbidden
  except Exception as e:
   report.update(status='FAIL',error=repr(e),errors=errors,forbidden=forbidden)
   try:report['diagnostic']=page.evaluate('JSON.stringify({error:String(globalThis.__b2zExperience?.session?.error),phase:document.body.dataset.phase,wall:Date.now(),now:performance.now(),certificateTimeNs:globalThis.__b2zExperience?.session?.certificateTimeNs,certificateAgeMs:globalThis.__b2zExperience?.session?.certificateAgeMs,certifiedAt:globalThis.__b2zExperience?.session?.certifiedAt,operationalAt:globalThis.__b2zExperience?.session?.operationalAt,deliveryDiagnostics:globalThis.__b2zExperience?.session?.deliveryDiagnostics,status:globalThis.__b2zExperience?.status,deliveryError:globalThis.__b2zExperience?.session?.deliveryError,startupHistory:globalThis.__b2zExperience?.session?.startupHistory,details:document.getElementById("render-error")?.textContent,bubbles:[...document.querySelectorAll(".speech-bubble")].map(n=>({text:n.textContent,hidden:n.hidden,born:n.dataset.born}))})');page.screenshot(path=str(out/'failure.png'))
