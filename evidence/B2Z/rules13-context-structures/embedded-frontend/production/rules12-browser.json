@@ -1,0 +1,110 @@
+{
+  "status": "PASS",
+  "production_origin": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io",
+  "viewports": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "rules": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "war_cry_fire": true,
+      "move_and_build_quotes": "PASS",
+      "deflector_directions": [
+        "NE",
+        "SE",
+        "SW",
+        "NW"
+      ],
+      "clipboard": "exact native Copy and external paste",
+      "update_keep": "PASS",
+      "narrow_quantity": null,
+      "page_errors": [],
+      "forbidden_posts": []
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "rules": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "war_cry_fire": true,
+      "move_and_build_quotes": "PASS",
+      "deflector_directions": [
+        "NE",
+        "SE",
+        "SW",
+        "NW"
+      ],
+      "clipboard": "exact native Copy and external paste",
+      "update_keep": "PASS",
+      "narrow_quantity": null,
+      "page_errors": [],
+      "forbidden_posts": []
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "rules": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "war_cry_fire": true,
+      "move_and_build_quotes": "PASS",
+      "deflector_directions": [
+        "NE",
+        "SE",
+        "SW",
+        "NW"
+      ],
+      "clipboard": "exact native Copy and external paste",
+      "update_keep": "PASS",
+      "narrow_quantity": {
+        "heading_degrees": 347.15,
+        "placement": "dock",
+        "buttons_accepted": true
+      },
+      "page_errors": [],
+      "forbidden_posts": []
+    }
+  ],
+  "reconnect": {
+    "blocked_reads": 7,
+    "duration_seconds": 5.588272543973289,
+    "copy_disabled": true,
+    "same_session_clock_queue": true,
+    "panel_before": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 328,
+      "top": 334,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    },
+    "panel_during": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 328,
+      "top": 334,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    },
+    "panel_after": {
+      "x": 661,
+      "y": 334,
+      "width": 360,
+      "height": 328,
+      "top": 334,
+      "right": 1021,
+      "bottom": 662,
+      "left": 661
+    }
+  },
+  "engine": "Chromium desktop with narrow viewport and touch emulation"
+}

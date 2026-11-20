@@ -1,0 +1,99 @@
+{
+  "canister": "s2jxj-liaaa-aaaas-amynq-cai",
+  "source_commit": "2e7f1b44995e14c5786c61abe5cb4c148e91c4e0",
+  "hosted_run": 44707489146,
+  "source_artifact": 14616145972,
+  "raw_wasm_bytes": 77062823,
+  "snapshot_id": "0000000000000000000000000240661b0101",
+  "snapshot_listed_after_upgrade": "0000000000000000000000000240661b0101: 83.94 MiB, taken at 2026-11-20 10:43:46 UTC",
+  "snapshot_download": {
+    "wasm_module.bin": {
+      "bytes": 465172,
+      "sha256": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62"
+    },
+    "wasm_memory.bin": {
+      "bytes": 87556096,
+      "sha256": "7fd685594751ec8fb1c9d1619ba22884a557734c15ea36c8477b356d158b059d"
+    },
+    "metadata.json": {
+      "bytes": 753,
+      "sha256": "542313bec982488c69ffc57f17b5a9bd68eafe2bc999e6fa4a58b7566aba5df1"
+    }
+  },
+  "snapshot_stop_and_restart_utc": [
+    "2026-11-20T10:43:44+00:00",
+    "2026-11-20T10:43:50+00:00"
+  ],
+  "upgrade_start_and_end_utc": [
+    "2026-11-20T10:45:18+00:00",
+    "2026-11-20T10:45:49+00:00"
+  ],
+  "status": {
+    "before": {
+      "cycles": 1225291869991,
+      "reserved_cycles": 0,
+      "memory_bytes": 88042128,
+      "idle_cycles_per_day": 3113303884,
+      "freezing_threshold_seconds": 2592000,
+      "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62"
+    },
+    "with_snapshot": {
+      "cycles": 1223184130735,
+      "reserved_cycles": 0,
+      "memory_bytes": 176063556,
+      "idle_cycles_per_day": 5362078923,
+      "freezing_threshold_seconds": 2592000,
+      "module_hash": "04e565b3425fe7510ee16b02adcfe3f01abc9a2725c82a21cb08969241debd62"
+    },
+    "immediately_after": {
+      "cycles": 1038458566494,
+      "reserved_cycles": 0,
+      "memory_bytes": 318648373,
+      "idle_cycles_per_day": 9004841655,
+      "freezing_threshold_seconds": 2592000,
+      "module_hash": "b8a2252c59db613379a6cdc09f88f00e4e68758ca612c9b67d8eea7b47b927f7"
+    },
+    "after_acceptance": {
+      "cycles": 1038412929660,
+      "reserved_cycles": 0,
+      "memory_bytes": 318648373,
+      "idle_cycles_per_day": 9004841655,
+      "freezing_threshold_seconds": 2592000,
+      "module_hash": "b8a2252c59db613379a6cdc09f88f00e4e68758ca612c9b67d8eea7b47b927f7"
+    }
+  },
+  "preflight_budget": {
+    "current_balance": 1225291869991,
+    "current_freezing_floor": 93399116520,
+    "planned_memory": 419430400,
+    "estimated_daily_idle": 14831698449.947435,
+    "projected_freezing_floor": 444950953498.42303,
+    "reference_upgrade_debit": 184312741561,
+    "headroom_after_two_upgrade_debits_and_projected_floor": 411715433370.57697
+  },
+  "snapshot_stage_net_cycles": 2107739256,
+  "upgrade_stage_net_cycles": 184725564241,
+  "estimated_post_upgrade_30d_freezing_floor_cycles": 270145249650,
+  "estimated_at_acceptance_cycles_above_freezing_floor": 768267680010,
+  "increase_idle_cycles_per_day": 5891537771,
+  "chunk_store_empty_before_and_after": true,
+  "legacy_asset_checks_before": {
+    "at": "2026-11-20T10:42:40.116Z",
+    "site": "s2jxj-liaaa-aaaas-amynq-cai",
+    "verified": 80,
+    "status": "PASS",
+    "signedList": true,
+    "bodyChecks": true,
+    "pinnedMainnetCertificateChecks": true
+  },
+  "legacy_asset_checks_after_restart": {
+    "at": "2026-11-20T10:44:47.895Z",
+    "site": "s2jxj-liaaa-aaaas-amynq-cai",
+    "verified": 80,
+    "status": "PASS",
+    "signedList": true,
+    "bodyChecks": true,
+    "pinnedMainnetCertificateChecks": true
+  },
+  "legacy_asset_inventory_sha256": "557569b78dbf49052d3990bd68253cbb68c23e034d47f49565a65080b3a8301d"
+}
