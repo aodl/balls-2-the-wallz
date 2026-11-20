@@ -41,3 +41,21 @@ The exact disposable immutable module served the branded 404 with JavaScript dis
 The 14:17 UTC certified production read advanced to publication 13223 on unchanged Rules13 with one cannon and one ball, 100,000,000 e8s received, the same source cursor and zero pending source records. The frontend controller status still reported the predecessor module, 318,648,373 bytes of memory, zero reserved cycles and 1,037,142,436,078 total cycles. [Timestamped backend observation](production-readonly-1417.json)
 
 The complete hosted browser job passed on the rerun. Its remaining release gate is the installed-IC job. The disposable embedded site separately pasted all three exact Copy outputs into a browser test wallet at desktop, 390px and 320px. Native paste used the real OS clipboard, with clipboard reading unavailable from the game origin as intended. From and To clicks preserved card and scroll position. The 14:29 UTC read also replayed six ordinary European Rules13 publications bit-for-bit since the prior read. [Native wallet results](browser/disposable-native-wallet.json) · [Production replay](production-observed-replay.json)
+
+## Installed-game gate and exact rerun
+
+Hosted run 44751985953 passed the other five substantive gates and independent
+immutable frontend identity. Its installed-IC job passed 66 of 67 cases. The
+remaining Rules11-to-Rules12 case passed Ledger processing, redirect
+presentation and authenticated independent replay. Its legacy War Cry test
+checked the first observer at about 58.2 seconds after that observer's bubble
+started. The observer checked earlier had started the same event 3.6 seconds
+earlier and had already expired after 60 seconds. The failure therefore
+establishes a harness clock mismatch and does not establish premature or late
+speech expiry in the first browser.
+
+The test-only correction waits until each observer's independently observed
+60-second lifetime has elapsed and asserts detachment and no replay after
+foreground return. The complete hosted rerun uses the same frozen Wasm and
+asset inventory. Production stays on the previous frontend until this exact
+rerun finishes successfully. [Failed installed case data](hosted-hidden-speech-failure.json) · [Current full hosted rerun](https://github.com/aodl/balls-2-the-wallz/actions/runs/44764887931)

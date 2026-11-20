@@ -1,0 +1,31 @@
+{
+  "workflow": 44751985953,
+  "source": "284fa25bf252dd5a66c9ff45c6a5578204cddbdf",
+  "installed_cases": 67,
+  "installed_pass": 66,
+  "failed": [
+    {
+      "test": "boundary_deflector_installed::boundary_deflector_rules11_upgrade_paid_redirect_and_replay",
+      "status": "FAIL",
+      "elapsed_seconds": 91.749
+    }
+  ],
+  "first_observer_born": 1795184902676,
+  "second_observer_born": 1795184899076,
+  "diagnostic_wall_ms": 1795184960885,
+  "first_observer_age_ms_at_failure_sample": 58209,
+  "first_born_after_second_by_ms": 3600,
+  "second_expiry": {
+    "at": 1795184959106,
+    "age_ms": 60030,
+    "repeat_render_does_not_restart": true
+  },
+  "second_fade": {
+    "age_ms": 55586,
+    "opacity": 0.882
+  },
+  "equal_authenticated_event_keys": true,
+  "page_errors": [],
+  "forbidden_posts": [],
+  "scope": "Recorded measurement from failed hosted installed case. The assertion preceded the first observer\u2019s actual expiry."
+}
