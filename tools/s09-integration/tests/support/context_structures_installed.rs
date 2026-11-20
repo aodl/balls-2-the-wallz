@@ -673,7 +673,7 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
         }),
     );
     let replay = std::process::Command::new("node")
-        .current_dir(repo)
+        .current_dir(&repo)
         .args([
             "tools/capture_war_cry_installed.mjs",
             out.join("configuration.json").to_str().unwrap(),
@@ -687,7 +687,7 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
         "official transaction history must authenticate and replay"
     );
     let browser = std::process::Command::new(std::env::var("S14_BROWSER_PYTHON").unwrap())
-        .current_dir(repo)
+        .current_dir(&repo)
         .args([
             "tools/verify_shout_browser.py",
             "--configuration",
