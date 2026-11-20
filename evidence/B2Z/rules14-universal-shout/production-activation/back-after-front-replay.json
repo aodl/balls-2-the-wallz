@@ -1,0 +1,38 @@
+{
+  "status": "PASS",
+  "exact": [
+    "state",
+    "events",
+    "scores"
+  ],
+  "rows": [
+    {
+      "segment": 13492,
+      "work_iterations": 10,
+      "input_count": 0,
+      "state_hash": "2ceea6e863ec3ffe22f419d9f6a27f5175022a8fa8376661973b57bdf0c60b2b",
+      "manif": "0127fde136d2759d97d8fd9f6c23ecf1e74ce41983fc7027d629a5fee893a1aa"
+    },
+    {
+      "segment": 13493,
+      "work_iterations": 9,
+      "input_count": 0,
+      "state_hash": "70cced4bf6741e97efd56ada48bc59a432d35220a98a8758414c1cdf40bd0480",
+      "manif": "fa122de83a8f2de9a67c45f4d2365eeccfd48feb621d0977c397f045d291501e"
+    },
+    {
+      "segment": 13494,
+      "work_iterations": 9,
+      "input_count": 0,
+      "state_hash": "bcddc7a062628c7c16846800a97511625cffe18bee2c9af27adcaa1a3ed5974a",
+      "manif": "a447dbda73998117a33e399e4e37ba5bab7d3381b4dc691f309e5821240b4ae5"
+    },
+    {
+      "segment": 13495,
+      "work_iterations": 9,
+      "input_count": 0,
+      "state_hash": "93fe99d4daaed77746f6d46dbb462ee29e48df4e030cac0cba8c93a550036e4c",
+      "manif": "eabcd8a386435f846a0763ddaf420b300b88fc91a713f559e27c9e3220574a68"
+    }
+  ]
+}

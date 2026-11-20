@@ -1,0 +1,10 @@
+{
+  "status": "PASS",
+  "metadata_sha256": "01e0c9d85109106ebbec545324bab99ae6f0815549790bc20fee1df2f7b6c1a5",
+  "official_ledger_balance_e8s": 0,
+  "index_account_equal": true,
+  "positions": [
+    "40180668",
+    "40180627"
+  ]
+}

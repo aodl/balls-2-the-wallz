@@ -1,0 +1,13 @@
+{
+  "balance": 2312852700315,
+  "reserved": 0,
+  "memory_bytes": 779895171,
+  "seconds": 2592000,
+  "actual_current_floor": 623663811000,
+  "steady_projected_floor": 623766047160,
+  "install_budget": 190000000000,
+  "compatible_reinstall_budget": 190000000000,
+  "chunk_reserve": 60523806720,
+  "contingency": 20000000000,
+  "remaining_after_budget": 1228562846435
+}

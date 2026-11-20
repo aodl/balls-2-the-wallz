@@ -1,0 +1,430 @@
+{
+  "frontend": {
+    "pre": {
+      "cycles": 2315112037302,
+      "memory_bytes": 549271868,
+      "reserved": 0,
+      "idle_per_day": 14896820130,
+      "freezing_threshold_seconds": 2592000,
+      "module": "05b9223a1004a1d85fe4d0f2e0e135c04bee0034746ce3d0eab2b9734d9b3c2c"
+    },
+    "snapshot_taken": {
+      "cycles": 2312852700315,
+      "memory_bytes": 779895171,
+      "reserved": 0,
+      "idle_per_day": 20788793700,
+      "freezing_threshold_seconds": 2592000,
+      "module": "05b9223a1004a1d85fe4d0f2e0e135c04bee0034746ce3d0eab2b9734d9b3c2c"
+    },
+    "installed": {
+      "cycles": 2127775951975,
+      "memory_bytes": 779972547,
+      "reserved": 0,
+      "idle_per_day": 20790770505,
+      "freezing_threshold_seconds": 2592000,
+      "module": "b2791b620394b77e2b84f9e9d32af1440b368d25d878c65b25d9b6d5d9feb112"
+    },
+    "final": {
+      "cycles": 2127627171441,
+      "memory_bytes": 779972547,
+      "reserved": 0,
+      "idle_per_day": 20790770505,
+      "freezing_threshold_seconds": 2592000,
+      "module": "b2791b620394b77e2b84f9e9d32af1440b368d25d878c65b25d9b6d5d9feb112"
+    },
+    "snapshot_window_net_debit": 2259336987,
+    "upgrade_window_net_debit": 185076748340,
+    "final_freezing_floor": 623723115150,
+    "final_above_floor": 1503904056291,
+    "remaining_after_one_reinstall_chunk_and_contingency": 1233380249571
+  },
+  "backend": {
+    "pre": {
+      "cycles": 2359652356765,
+      "memory_bytes": 40332864,
+      "reserved": 0,
+      "idle_per_day": 1894425657,
+      "freezing_threshold_seconds": 2592000,
+      "module": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd"
+    },
+    "final": {
+      "cycles": 2334780298458,
+      "memory_bytes": 40173573,
+      "reserved": 0,
+      "idle_per_day": 1890356084,
+      "freezing_threshold_seconds": 2592000,
+      "module": "6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6"
+    },
+    "controller_cycle_reads": {
+      "paused-controller": {
+        "total_cycles": 2357543247577,
+        "liquid_cycles": 2300710477867
+      },
+      "module13-controller": {
+        "total_cycles": 2336562005841,
+        "liquid_cycles": 2280152700261
+      },
+      "committed-controller": {
+        "total_cycles": 2335889408574,
+        "liquid_cycles": 2279480102994
+      },
+      "running-controller": {
+        "total_cycles": 2334780298458,
+        "liquid_cycles": 2278069615938
+      }
+    },
+    "module_upgrade_window_net_debit": 20981241736,
+    "runtime": {
+      "running": true,
+      "pace": {
+        "admission_open": true,
+        "mode": "Trickle",
+        "nominal_milli": 10,
+        "performance_limited": false,
+        "supported_milli": 10
+      },
+      "work_budget": 512,
+      "pacing_seconds": 1,
+      "segment_ticks": "1",
+      "generation": "12"
+    },
+    "funding_state": {
+      "phase": {
+        "Idle": null
+      },
+      "last_error": [
+        "icrc1_balance_of: CallRejected(CallRejected { raw_reject_code: 6, reject_message: \"Call deadline has expired.\" })"
+      ],
+      "total_converted_e8s": "99990000",
+      "total_cycles_reported": "1766023380000"
+    }
+  },
+  "certified": {
+    "back-certified-pre": {
+      "observed_utc": "2026-11-20T21:45:17.037Z",
+      "module": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+      "certificate_root": "514c3d1d6436d1f9bbe2b6d9e6285961cd355ffc68a4a25b3f24ec68c1ec9be5",
+      "head": "13491",
+      "manifest": "7aad462a1df9e383512b40e4cc5152ca08defcfd832e21bba8ed57e6ae862415",
+      "state": "a69500730356935c8e394e23e148423b4e6ce7d070f92d9c886f9ddc45d45dad",
+      "source_to_exclusive": "40180669",
+      "paid_total_e8s": "100000000",
+      "credit_entries": 1,
+      "cannons": 1,
+      "diverters": 0,
+      "balls": 1,
+      "identity": {
+        "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+        "rules_hash": "9879184552562df4a523bc22b3a34c04c6ddea1dbb17c6d9a039937188a3bb15",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "13485",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      }
+    },
+    "back-after-front": {
+      "observed_utc": "2026-11-20T21:50:59.758Z",
+      "module": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+      "certificate_root": "db252aee353687609d86667bc73f255061c1b5037248083c63bc86498ff7d243",
+      "head": "13495",
+      "manifest": "eabcd8a386435f846a0763ddaf420b300b88fc91a713f559e27c9e3220574a68",
+      "state": "93fe99d4daaed77746f6d46dbb462ee29e48df4e030cac0cba8c93a550036e4c",
+      "source_to_exclusive": "40180669",
+      "paid_total_e8s": "100000000",
+      "credit_entries": 1,
+      "cannons": 1,
+      "diverters": 0,
+      "balls": 1,
+      "identity": {
+        "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+        "rules_hash": "9879184552562df4a523bc22b3a34c04c6ddea1dbb17c6d9a039937188a3bb15",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "13489",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      }
+    },
+    "back-paused": {
+      "observed_utc": "2026-11-20T21:52:45.624Z",
+      "module": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+      "certificate_root": "b8a455d011fa331c591cbf5e5ef3e036f131c6f1b0c24ed6b63f20934d6cdd8d",
+      "head": "13496",
+      "manifest": "3e576e3463019a893b8739a3bb6daea5622fb717fad366c47121403c9fd2f2e9",
+      "state": "5c0681e8b05df0ec4fc71198b1fbdc30d62c3ebcec022b6cc3adf417ef8a1b92",
+      "source_to_exclusive": "40180669",
+      "paid_total_e8s": "100000000",
+      "credit_entries": 1,
+      "cannons": 1,
+      "diverters": 0,
+      "balls": 1,
+      "identity": {
+        "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+        "rules_hash": "9879184552562df4a523bc22b3a34c04c6ddea1dbb17c6d9a039937188a3bb15",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "13490",
+          "running": false
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      }
+    },
+    "back-module13": {
+      "observed_utc": "2026-11-20T21:53:54.627Z",
+      "module": "6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6",
+      "certificate_root": "b8a455d011fa331c591cbf5e5ef3e036f131c6f1b0c24ed6b63f20934d6cdd8d",
+      "head": "13496",
+      "manifest": "3e576e3463019a893b8739a3bb6daea5622fb717fad366c47121403c9fd2f2e9",
+      "state": "5c0681e8b05df0ec4fc71198b1fbdc30d62c3ebcec022b6cc3adf417ef8a1b92",
+      "source_to_exclusive": "40180669",
+      "paid_total_e8s": "100000000",
+      "credit_entries": 1,
+      "cannons": 1,
+      "diverters": 0,
+      "balls": 1,
+      "identity": {
+        "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+        "rules_hash": "9879184552562df4a523bc22b3a34c04c6ddea1dbb17c6d9a039937188a3bb15",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "13490",
+          "running": false
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      }
+    },
+    "sealed-ready": {
+      "observed_utc": "2026-11-20T21:55:19.340Z",
+      "module": "6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6",
+      "certificate_root": "b8a455d011fa331c591cbf5e5ef3e036f131c6f1b0c24ed6b63f20934d6cdd8d",
+      "head": "13496",
+      "manifest": "3e576e3463019a893b8739a3bb6daea5622fb717fad366c47121403c9fd2f2e9",
+      "state": "5c0681e8b05df0ec4fc71198b1fbdc30d62c3ebcec022b6cc3adf417ef8a1b92",
+      "source_to_exclusive": "40180669",
+      "paid_total_e8s": "100000000",
+      "credit_entries": 1,
+      "cannons": 1,
+      "diverters": 0,
+      "balls": 1,
+      "identity": {
+        "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+        "rules_hash": "9879184552562df4a523bc22b3a34c04c6ddea1dbb17c6d9a039937188a3bb15",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": true,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "13490",
+          "running": false
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      }
+    },
+    "committed14": {
+      "observed_utc": "2026-11-20T21:55:36.180Z",
+      "module": "6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6",
+      "certificate_root": "a527e1e1bcf12a495be1c36689104f386582aed7a82e992b2e53071b0f524d2d",
+      "head": "13497",
+      "manifest": "323f73fa5a06a700deacf4005aa60b00503da0d4857bcc86bce640577739bd89",
+      "state": "5c0681e8b05df0ec4fc71198b1fbdc30d62c3ebcec022b6cc3adf417ef8a1b92",
+      "source_to_exclusive": "40180669",
+      "paid_total_e8s": "100000000",
+      "credit_entries": 1,
+      "cannons": 1,
+      "diverters": 0,
+      "balls": 1,
+      "identity": {
+        "config_hash": "907d00e310f4f4128a53bc0adb964e4f05dbbb9a7c60d745703aeb3c9ec48eab",
+        "rules_hash": "6c3aaaddf76cd4b167143a78b7c9d78900b6398d651bf2dfe191881f999ac38c",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "13490",
+          "running": false
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      }
+    },
+    "running-verified": {
+      "observed_utc": "2026-11-20T21:59:07.681Z",
+      "module": "6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6",
+      "certificate_root": "b402ff950a16b1e5f77a08b94679ff5f7b7dc1a755fd54c94f8cd15e2554bcc5",
+      "head": "13499",
+      "manifest": "77a93836382b79b69f5f2c10f24d22073de3bd6d92dd44438a92ee7b597dd5d9",
+      "state": "459cbf0b3243070e5e54eb2f9b2f7a15de7244bbca19bfda1e62fde9ed0d0bc3",
+      "source_to_exclusive": "40180669",
+      "paid_total_e8s": "100000000",
+      "credit_entries": 1,
+      "cannons": 1,
+      "diverters": 0,
+      "balls": 1,
+      "identity": {
+        "config_hash": "907d00e310f4f4128a53bc0adb964e4f05dbbb9a7c60d745703aeb3c9ec48eab",
+        "rules_hash": "6c3aaaddf76cd4b167143a78b7c9d78900b6398d651bf2dfe191881f999ac38c",
+        "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+        "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+      },
+      "operational": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "13492",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40180669"
+        }
+      }
+    }
+  },
+  "timing_utc": {
+    "pre-time": "2026-11-20T21:45:14Z",
+    "front-stop-time": "2026-11-20T21:46:23Z",
+    "front-restart-time": "2026-11-20T21:46:29Z",
+    "front-install-start": "2026-11-20T21:48:28Z",
+    "front-install-end": "2026-11-20T21:48:54Z",
+    "pause-start": "2026-11-20T21:52:43Z",
+    "pause-end": "2026-11-20T21:52:44Z",
+    "back-install-start": "2026-11-20T21:53:46Z",
+    "back-install-end": "2026-11-20T21:53:53Z",
+    "prepare-start": "2026-11-20T21:54:56Z",
+    "prepare-end": "2026-11-20T21:54:57Z",
+    "commit-start": "2026-11-20T21:55:33Z",
+    "commit-end": "2026-11-20T21:55:34Z",
+    "resume-start": "2026-11-20T21:56:37Z",
+    "resume-end": "2026-11-20T21:56:38Z",
+    "final-resource-time": "2026-11-20T21:59:07Z"
+  }
+}

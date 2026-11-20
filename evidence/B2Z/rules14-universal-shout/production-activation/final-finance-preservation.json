@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "accounting_fields": [
+    "total_converted_e8s",
+    "total_cycles_reported",
+    "phase",
+    "paused",
+    "halted",
+    "last_success",
+    "last_refund"
+  ],
+  "run_fields": [
+    "segment_ticks",
+    "pacing_seconds",
+    "work_budget",
+    "publication_ticks"
+  ],
+  "source_fields": [
+    "network",
+    "index",
+    "ledger",
+    "event_horizon",
+    "receiving_subaccount",
+    "recipient_account",
+    "admitted_to_exclusive",
+    "binding_checked"
+  ],
+  "historical_payment_position": "40180627",
+  "historical_receipt_status": {
+    "UnknownOrNotRetained": null
+  },
+  "canonical_receipt_in_retained_window": false
+}

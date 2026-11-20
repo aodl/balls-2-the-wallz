@@ -1,0 +1,13 @@
+{
+  "status": "PASS",
+  "rules": 14,
+  "visibility": [
+    true,
+    false,
+    true,
+    false
+  ],
+  "session_preserved": true,
+  "write_requests": [],
+  "errors": []
+}

@@ -1,0 +1,21 @@
+{
+  "status": "PASS",
+  "rules": 14,
+  "viewport": [
+    1440,
+    900
+  ],
+  "selected_tile": 999001,
+  "cannon_memo": "NEW 225 1 999001",
+  "cannon_shout": "NEW 225 1 999001|Forge \ud83d\udd25",
+  "diverter_memos": [
+    "DEFLECT 999001 N",
+    "DEFLECT 999001 E",
+    "DEFLECT 999001 S",
+    "DEFLECT 999001 W"
+  ],
+  "diverter_has_shout": true,
+  "shout_memo": "DEFLECT 999001 W|Shield \ud83d\udee1\ufe0fS",
+  "write_requests": [],
+  "browser_errors": []
+}
