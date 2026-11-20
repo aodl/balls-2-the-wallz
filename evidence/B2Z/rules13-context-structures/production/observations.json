@@ -1,0 +1,400 @@
+{
+  "immediate": {
+    "at": "2026-11-20T12:03:13.031Z",
+    "module": "2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13",
+    "root": "61bccf0b7c37b79160ac668b7af5e4d127dfc5a1fe4852c13ab9df4c0ae4bd26",
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "13135",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "logical_end": "13135",
+    "segment_id": "13140",
+    "manifest_hash": "85432bc2f986eaa6e9dcb2c8442f01e4bd730df47343738b97b33ba1232afed3",
+    "state_hash": "4f36185a2990cd037ebad48a44c51ecff41f2457ada274cede36498c0f607198",
+    "source_to_exclusive": "40180669",
+    "identity": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "world": {
+      "version": 7,
+      "received_e8s": "100000000",
+      "counts": {
+        "balls": 1,
+        "cannons": 1,
+        "deflectors": 0,
+        "pending": 0
+      }
+    },
+    "resources": {
+      "instruction_yield": "600000000",
+      "liquid_cycles": "2_481_194_437_553",
+      "message_work_limit": "2048",
+      "metrics": {
+        "last_instructions": "239496515",
+        "last_persist_instructions": "47958580",
+        "last_publish_instructions": "24109861",
+        "last_seal_instructions": "50460644",
+        "last_step_instructions": "68703701",
+        "max_actions": 3,
+        "max_instructions": "266428271",
+        "messages": "1512",
+        "persist_instructions": "71958685279",
+        "publish_instructions": "36061568643",
+        "seal_instructions": "74049305573",
+        "step_instructions": "103150056984"
+      },
+      "phase_action_limit": 8,
+      "total_cycles": "2_538_009_553_073"
+    },
+    "pending_inputs": 0,
+    "journal_phase": [],
+    "funding_phase": {
+      "Idle": null
+    }
+  },
+  "installed": {
+    "at": "2026-11-20T12:04:29.485Z",
+    "module": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+    "root": "ae55a6fd999cab3791bf38b6aed70b649efa67f6ff8a70724408e767d6b20673",
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "13137",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "logical_end": "13137",
+    "segment_id": "13142",
+    "manifest_hash": "c29eef0e39efb22881970ba62509e65c85cd0ca6ada5a9df1baeb63cefd2ac53",
+    "state_hash": "837a999617319fa7d62b203c5ca545f0c9becd070f2af179c13ab968bb71c963",
+    "source_to_exclusive": "40180669",
+    "identity": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "world": {
+      "version": 7,
+      "received_e8s": "100000000",
+      "counts": {
+        "balls": 1,
+        "cannons": 1,
+        "deflectors": 0,
+        "pending": 0
+      }
+    },
+    "resources": {
+      "instruction_yield": "600000000",
+      "liquid_cycles": "2_459_983_610_590",
+      "message_work_limit": "2048",
+      "metrics": {
+        "last_instructions": "239610267",
+        "last_persist_instructions": "47894740",
+        "last_publish_instructions": "24096954",
+        "last_seal_instructions": "50859624",
+        "last_step_instructions": "68693638",
+        "max_actions": 3,
+        "max_instructions": "239610267",
+        "messages": "1",
+        "persist_instructions": "47894740",
+        "publish_instructions": "24096954",
+        "seal_instructions": "50859624",
+        "step_instructions": "68693638"
+      },
+      "phase_action_limit": 8,
+      "total_cycles": "2_516_665_691_830"
+    },
+    "pending_inputs": 0,
+    "journal_phase": [],
+    "funding_phase": {
+      "Idle": null
+    }
+  },
+  "ready": {
+    "at": "2026-11-20T12:06:27.126Z",
+    "module": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+    "root": "ae55a6fd999cab3791bf38b6aed70b649efa67f6ff8a70724408e767d6b20673",
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": true,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "13137",
+        "running": false
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "logical_end": "13137",
+    "segment_id": "13142",
+    "manifest_hash": "c29eef0e39efb22881970ba62509e65c85cd0ca6ada5a9df1baeb63cefd2ac53",
+    "state_hash": "837a999617319fa7d62b203c5ca545f0c9becd070f2af179c13ab968bb71c963",
+    "source_to_exclusive": "40180669",
+    "identity": {
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "rules_hash": "1b44508ad27a714b43888e3d0cf84beeb9a2450bb25112bfd3b650b865105c1c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "world": {
+      "version": 7,
+      "received_e8s": "100000000",
+      "counts": {
+        "balls": 1,
+        "cannons": 1,
+        "deflectors": 0,
+        "pending": 0
+      }
+    },
+    "resources": {
+      "instruction_yield": "600000000",
+      "liquid_cycles": "2_459_507_022_192",
+      "message_work_limit": "2048",
+      "metrics": {
+        "last_instructions": "239610267",
+        "last_persist_instructions": "47894740",
+        "last_publish_instructions": "24096954",
+        "last_seal_instructions": "50859624",
+        "last_step_instructions": "68693638",
+        "max_actions": 3,
+        "max_instructions": "239610267",
+        "messages": "1",
+        "persist_instructions": "47894740",
+        "publish_instructions": "24096954",
+        "seal_instructions": "50859624",
+        "step_instructions": "68693638"
+      },
+      "phase_action_limit": 8,
+      "total_cycles": "2_516_189_103_432"
+    },
+    "pending_inputs": 0,
+    "journal_phase": [],
+    "funding_phase": {
+      "Idle": null
+    }
+  },
+  "epoch": {
+    "at": "2026-11-20T12:07:22.805Z",
+    "module": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+    "root": "d7995cc640060e12f2547e075d0fecbfc8e3c07616e2a7349a1e04cfa10b58b1",
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "13137",
+        "running": false
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "logical_end": "13137",
+    "segment_id": "13143",
+    "manifest_hash": "ac536c3cf9854a55b2b985ff2eb9d56520766c95a3cc2b1932b5a9a716d9b0b8",
+    "state_hash": "837a999617319fa7d62b203c5ca545f0c9becd070f2af179c13ab968bb71c963",
+    "source_to_exclusive": "40180669",
+    "identity": {
+      "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+      "rules_hash": "9879184552562df4a523bc22b3a34c04c6ddea1dbb17c6d9a039937188a3bb15",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "world": {
+      "version": 7,
+      "received_e8s": "100000000",
+      "counts": {
+        "balls": 1,
+        "cannons": 1,
+        "deflectors": 0,
+        "pending": 0
+      }
+    },
+    "resources": {
+      "instruction_yield": "600000000",
+      "liquid_cycles": "2_459_147_189_050",
+      "message_work_limit": "2048",
+      "metrics": {
+        "last_instructions": "239610267",
+        "last_persist_instructions": "47894740",
+        "last_publish_instructions": "24096954",
+        "last_seal_instructions": "50859624",
+        "last_step_instructions": "68693638",
+        "max_actions": 3,
+        "max_instructions": "239610267",
+        "messages": "1",
+        "persist_instructions": "47894740",
+        "publish_instructions": "24096954",
+        "seal_instructions": "50859624",
+        "step_instructions": "68693638"
+      },
+      "phase_action_limit": 8,
+      "total_cycles": "2_515_829_270_290"
+    },
+    "pending_inputs": 0,
+    "journal_phase": [],
+    "funding_phase": {
+      "Idle": null
+    }
+  },
+  "running": {
+    "at": "2026-11-20T12:09:37.483Z",
+    "module": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
+    "root": "79124daa4d86eec060fe3770ee86cf03dbb4b77e0fc782cb70b9b9ba80900995",
+    "operational": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "13140",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40180669"
+      }
+    },
+    "logical_end": "13140",
+    "segment_id": "13146",
+    "manifest_hash": "6b80d187b495b22d80058bb512d0b9ea42b166e2e7d2fc24401fb1d5a62b8edb",
+    "state_hash": "ac6749391f885775f1b14f404f737241fda73ee55866a5ae873588d63b32905d",
+    "source_to_exclusive": "40180669",
+    "identity": {
+      "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+      "rules_hash": "9879184552562df4a523bc22b3a34c04c6ddea1dbb17c6d9a039937188a3bb15",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "world": {
+      "version": 7,
+      "received_e8s": "100000000",
+      "counts": {
+        "balls": 1,
+        "cannons": 1,
+        "deflectors": 0,
+        "pending": 0
+      }
+    },
+    "resources": {
+      "instruction_yield": "600000000",
+      "liquid_cycles": "2_457_990_724_078",
+      "message_work_limit": "2048",
+      "metrics": {
+        "last_instructions": "239498966",
+        "last_persist_instructions": "47879706",
+        "last_publish_instructions": "24064346",
+        "last_seal_instructions": "50392847",
+        "last_step_instructions": "68498626",
+        "max_actions": 3,
+        "max_instructions": "242577548",
+        "messages": "4",
+        "persist_instructions": "192501293",
+        "publish_instructions": "96886827",
+        "seal_instructions": "202120648",
+        "step_instructions": "276141863"
+      },
+      "phase_action_limit": 8,
+      "total_cycles": "2_514_672_805_318"
+    },
+    "pending_inputs": 0,
+    "journal_phase": [],
+    "funding_phase": {
+      "Idle": null
+    }
+  },
+  "frontend": {
+    "canister": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module": "b8a2252c59db613379a6cdc09f88f00e4e68758ca612c9b67d8eea7b47b927f7",
+    "status": "PASS",
+    "public_assets": 84
+  },
+  "timing": {
+    "install-start.txt": "Fri Nov 20 12:04:10 UTC 2026",
+    "install-finish.txt": "Fri Nov 20 12:04:17 UTC 2026",
+    "commit-start.txt": "Fri Nov 20 12:07:10 UTC 2026",
+    "commit-finish.txt": "Fri Nov 20 12:07:11 UTC 2026",
+    "resume-at.txt": "Fri Nov 20 12:07:37 UTC 2026"
+  },
+  "paused_browser": {
+    "fresh_paused": true,
+    "copy_disabled": true,
+    "forbidden_requests": 0
+  }
+}

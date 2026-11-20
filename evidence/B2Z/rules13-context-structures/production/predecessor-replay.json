@@ -1,0 +1,24 @@
+{
+  "status": "PASS",
+  "exact": [
+    "state",
+    "events",
+    "scores"
+  ],
+  "rows": [
+    {
+      "segment": 13141,
+      "work_iterations": 9,
+      "input_count": 0,
+      "state_hash": "171e71a05e4a178efc2b0181e7d23b4d27fec8810f55b4d33db804ce70c63ff6",
+      "manif": "c99d0189ad95ffa5c6978d16f4ce432c0d72994c8fafc86210a284bce720db4f"
+    },
+    {
+      "segment": 13142,
+      "work_iterations": 9,
+      "input_count": 0,
+      "state_hash": "837a999617319fa7d62b203c5ca545f0c9becd070f2af179c13ab968bb71c963",
+      "manif": "c29eef0e39efb22881970ba62509e65c85cd0ca6ada5a9df1baeb63cefd2ac53"
+    }
+  ]
+}

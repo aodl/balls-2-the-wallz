@@ -1,0 +1,52 @@
+{
+  "samples": [
+    {
+      "sample": "2026-11-20T12:09:34.553988+00:00",
+      "cycles": 2514672805318,
+      "liquid": 2457990724078,
+      "completed": 13140,
+      "callbacks": 13140,
+      "instruction_metrics": {
+        "last_instructions": "239498966",
+        "last_persist_instructions": "47879706",
+        "last_publish_instructions": "24064346",
+        "last_seal_instructions": "50392847",
+        "last_step_instructions": "68498626",
+        "max_actions": 3,
+        "max_instructions": "242577548",
+        "messages": "4",
+        "persist_instructions": "192501293",
+        "publish_instructions": "96886827",
+        "seal_instructions": "202120648",
+        "step_instructions": "276141863"
+      }
+    },
+    {
+      "sample": "2026-11-20T12:13:22.278617+00:00",
+      "cycles": 2513742025716,
+      "liquid": 2457059944476,
+      "completed": 13142,
+      "callbacks": 13142,
+      "instruction_metrics": {
+        "last_instructions": "238795738",
+        "last_persist_instructions": "48057367",
+        "last_publish_instructions": "23940637",
+        "last_seal_instructions": "50294888",
+        "last_step_instructions": "68043736",
+        "max_actions": 3,
+        "max_instructions": "242577548",
+        "messages": "6",
+        "persist_instructions": "288958454",
+        "publish_instructions": "144780089",
+        "seal_instructions": "302839993",
+        "step_instructions": "412000323"
+      }
+    }
+  ],
+  "elapsed_seconds": 227.724629,
+  "observed_net_debit": 930779602,
+  "observed_completed_ticks": 2,
+  "approx_cycles_per_day": 353142995406,
+  "approx_cycles_per_tick": 465389801,
+  "scope": "quiet mainnet; net balance interval includes service traffic; short extrapolation"
+}
