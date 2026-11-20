@@ -1,0 +1,142 @@
+{
+  "status": "PASS",
+  "browser_version": "153.0.8010.12",
+  "epoch_stages": [
+    {
+      "stage": "bootstrap",
+      "elapsed_seconds": 0
+    },
+    {
+      "stage": "old-packet-verified",
+      "elapsed_seconds": 22.25
+    },
+    {
+      "stage": "source-fence-verified",
+      "elapsed_seconds": 27.951
+    },
+    {
+      "stage": "new-epoch-packet-verified",
+      "elapsed_seconds": 46.224
+    },
+    {
+      "stage": "new-epoch-playback-measured",
+      "elapsed_seconds": 76.94
+    },
+    {
+      "stage": "retained-gap-proved",
+      "elapsed_seconds": 77.201
+    },
+    {
+      "stage": "retained-gap-recovered",
+      "elapsed_seconds": 82.287
+    }
+  ],
+  "retained_gap": {
+    "hold_requested": {
+      "head": 15,
+      "root": "fdc59cddb5115360383641d811690a1b67f69eae3c29b1ccb1b5c225bf9c660c",
+      "version": 6,
+      "busy": true,
+      "hidden": false,
+      "resyncs": 0,
+      "phase": "DEGRADED_BUFFER",
+      "error": "",
+      "delivery_error": "",
+      "verified_size": [
+        16,
+        8
+      ],
+      "visible_size": [
+        16,
+        8
+      ]
+    },
+    "held": {
+      "head": 17,
+      "root": "08ed0047f839c94d1bfbc6315961f83d3379b42d327a978fa803f38991136387",
+      "version": 6,
+      "busy": false,
+      "hidden": false,
+      "resyncs": 0,
+      "phase": "PLAYING",
+      "error": "",
+      "delivery_error": "",
+      "verified_size": [
+        16,
+        8
+      ],
+      "visible_size": [
+        16,
+        8
+      ]
+    },
+    "primary_head": 42,
+    "before_release": {
+      "head": 17,
+      "root": "08ed0047f839c94d1bfbc6315961f83d3379b42d327a978fa803f38991136387",
+      "version": 6,
+      "busy": false,
+      "hidden": false,
+      "resyncs": 0,
+      "phase": "STALLED",
+      "error": "",
+      "delivery_error": "",
+      "verified_size": [
+        16,
+        8
+      ],
+      "visible_size": [
+        16,
+        8
+      ]
+    },
+    "recovered": {
+      "head": 43,
+      "root": "f26a4fd6695d91b8db82384c7e6252515aeac154f591af7ddf1d17d8784a9534",
+      "version": 7,
+      "busy": true,
+      "hidden": false,
+      "resyncs": 1,
+      "phase": "BUFFERING",
+      "error": "",
+      "delivery_error": "",
+      "verified_size": [
+        32,
+        32
+      ],
+      "visible_size": [
+        32,
+        32
+      ]
+    }
+  },
+  "epoch_playback": {
+    "seconds": 19.665899999999993,
+    "verified_ticks_per_second": 0.9152899180815527,
+    "displayed_ticks_per_second": 0.8054317455036315,
+    "stalled_samples": 0,
+    "nominal_rate": 1,
+    "qualification": "One-ball authenticated v7 epoch on local IC wall time"
+  },
+  "checks": [
+    {
+      "name": "old-session-reconnects-across-epoch-after-retained-history-gap",
+      "status": "PASS",
+      "details": {
+        "old_head": 17,
+        "new_head": 43
+      }
+    },
+    {
+      "name": "authenticated-epoch-crossing-stales-old-MOVE-and-restores-new-world",
+      "status": "PASS",
+      "details": {
+        "old_cell": 0,
+        "mapped_cell": 392,
+        "old_draft_stale": true,
+        "reload_new_epoch": true,
+        "qualification": "Genuine disposable IC; synthetic v3 player fixture. Real Ledger/Index paid cutover is verified separately."
+      }
+    }
+  ]
+}
