@@ -1,9 +1,9 @@
 {
-  "source": "325d074f2a2a5d64e2bd43552c5231edf8cad108",
+  "source": "7f728f929ac03037337a7482de491c5fb0dbc1b8",
   "source_dirty": false,
   "normal_wasm_sha256": "d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd",
   "normal_wasm_scope": "Hosted Rules13 release artifact, retained without rebuilding or redeploying.",
-  "inventory_sha256": "8beb30216bc8f85f9d00ef68be0b042738f334dc8194a346a1dc054a23f730a9",
+  "inventory_sha256": "dd841fd12ac78df2108d10d77535d3395c385c695839b1e64f29b9ded87d7c2e",
   "inputs": [
     {
       "path": "apps/b2z-observer/404.html",
@@ -1315,7 +1315,7 @@
     },
     {
       "path": "apps/b2z-observer/style.css",
-      "sha256": "c31710f9723f30c4e8fa4a69064d14c11dc68dba7d57e5230b9e0770e83b32a9"
+      "sha256": "038a687c4cfe1f6c0a88b594d2eb7446b3c72d535de049fdb4b5d8742ada3abb"
     },
     {
       "path": "apps/b2z-observer/terrain-surface.mjs",
