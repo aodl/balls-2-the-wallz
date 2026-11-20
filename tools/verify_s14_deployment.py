@@ -608,8 +608,24 @@ def main():
             record('certified-idle-genesis-allows-transfer-preparation')
             assert not page.locator('dialog').count()
             assert page.title()=='B2Z · on ICP'
-            assert page.locator('.brand').inner_text().startswith('B2Z')
-            assert 'on ICP' in page.locator('body').inner_text()
+            brand=page.locator('.arena-header .brand').get_by_role('img',name='B2Z',exact=True)
+            wordmark='/balls-to-the-wallz-b2z-wordmark.svg'
+            assert brand.get_attribute('src')==wordmark
+            assert brand.is_visible()
+            assert brand.evaluate("""async img=>{
+                await img.decode();
+                const src=new URL(img.currentSrc);
+                const rect=img.getBoundingClientRect();
+                const style=getComputedStyle(img);
+                return src.origin===location.origin && src.pathname==='/balls-to-the-wallz-b2z-wordmark.svg'
+                    && img.naturalWidth===1711 && img.naturalHeight===622
+                    && rect.width>0 && rect.height>0 && rect.top>=0 && rect.left>=0
+                    && rect.right<=innerWidth && rect.bottom<=innerHeight && Number(style.opacity)>0;
+            }""")
+            brand_asset=context.request.get(url.rstrip('/')+wordmark)
+            assert brand_asset.status==200
+            assert brand_asset.headers['content-type'].split(';')[0]=='image/svg+xml'
+            assert hashlib.sha256(brand_asset.body()).hexdigest()=='0e5090613b73948228b406845244f7eb0d42df9a3ed0a2fc6fb2b5398066296b'
             record('B2Z-branding-with-preserved-wire-identity')
             open_settings(page)
             assert source_value(page,'recipient')==configuration['recipient']
