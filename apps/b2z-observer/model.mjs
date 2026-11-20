@@ -1,9 +1,8 @@
-import {SHOUT_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorOperation,applyDeflectorRemovals,matchesDeflectors}from'./model-deflector.mjs';
 import {launchAnnotationValidator}from'./war-cry-events.mjs';
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
