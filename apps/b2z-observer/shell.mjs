@@ -4,15 +4,17 @@ import{createMinimap}from'./minimap.mjs';
 import{CameraController,focusedOn,wheelZoom,previewComposition}from'./camera-controller.mjs';
 import{playerAnchor}from'./player-anchor.mjs';
 import{accountTerritoryFrame}from'./territory-entry.mjs';
-import{aimingArrow}from'./guide-clearance.mjs';
+import{aimingArrow,trajectoryGuide}from'./guide-clearance.mjs';
 import{quantityPlacement,quantityDockStrip}from'./quantity-placement.mjs';
 import{displayedBalls}from'./ball-presentation.mjs';
 export function createShell(doc,camera,arcade,onPick){
  const $=id=>doc.getElementById(id),canvas=$('board'),card=$('workspace'),handle=$('aim-handle'),ring=$('aim-ring'),cleanups=[];
- let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null;
+ let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null,narrowAimClearance=0,narrowAimTop=0,narrowAimBottom=Infinity,narrowQuarter=camera.quarter;
  let pendingTerritory=null,quantitySlot=null;const quantityPointers=new Map(),quantityWidget=$('launch-editors');let quantitySize={width:130,height:46},quantityDocked=false,quantityContext='',quantityReserved=false,quantityReservation='none',quantityClickCancelled=false;
+ let contractedCamera=null;
+ const cameraPose=()=>[camera.x,camera.y,camera.scale,camera.angle];
  const anchorCache=playerAnchor(),reducedMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
- function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale});},400);}
+ function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale,quarter:camera.quarter});},400);}
  function zoomButtons(){const a=motion.zoomAvailability();for(const [id,enabled] of [['zoom-in',a.in],['zoom-out',a.out],['fit',a.overview]]){const b=$(id);if(b.disabled===enabled)b.disabled=!enabled;}}
  const motion=new CameraController(camera,{reducedMotion,onChange:zoomButtons,onSettled:save});
  const listen=(node,event,fn,options)=>{if(!node)return;node.addEventListener(event,fn,options);cleanups.push(()=>node.removeEventListener(event,fn,options));};
@@ -22,6 +24,9 @@ export function createShell(doc,camera,arcade,onPick){
  for(const event of ['pointerup','pointercancel'])listen(doc,event,e=>{const press=quantityPointers.get(e.pointerId);if(press&&(event==='pointercancel'||press.viewport!==quantityViewport()))quantityClickCancelled=true;quantityPointers.delete(e.pointerId);},true);
  listen(quantityWidget,'keydown',e=>{if(!e.repeat&&['Enter',' '].includes(e.key))quantityClickCancelled=false;});
  for(const event of ['dblclick','click']){listen(quantityWidget,event,e=>{if(quantityClickCancelled){quantityClickCancelled=false;e.preventDefault();e.stopImmediatePropagation();}},true);listen(quantityWidget,event,e=>e.stopPropagation());}
+ const compass=[...doc.querySelectorAll('[data-board-quarter]')];
+ function syncCompass(){const target=motion.rotation?.target??camera.angle,quarter=(Math.round(-target/(Math.PI/2))+4)%4;for(const b of compass){const pressed=String(Number(b.dataset.boardQuarter)===quarter);if(b.getAttribute('aria-pressed')!==pressed)b.setAttribute('aria-pressed',pressed);const slot=String((Number(b.dataset.boardQuarter)-quarter+4)%4);if(b.dataset.compassSlot!==slot)b.dataset.compassSlot=slot;}}
+ for(const button of compass)listen(button,'click',()=>{cancelTap();motion.rotate(Number(button.dataset.boardQuarter));syncCompass();});
  const map=createMinimap($('minimap'),camera,save,{controller:motion,origin:()=>anchor});
  // Long-press discovers an icon without activating it; keyboard gets the same
  // explicit name/reason. This is local feedback, never a gesture/game command.
@@ -88,16 +93,16 @@ export function createShell(doc,camera,arcade,onPick){
  }
  function down(e){if(e.button!==0)return;arcade.cancelEntryNavigation?.();keyboardTarget=null;const p=point(e);nativePairWorld=lastTap&&Math.hypot(p.x-lastTap.p.x,p.y-lastTap.p.y)<=7?lastTap.world:null;pointers.set(e.pointerId,p);canvas.setPointerCapture(e.pointerId);motion.cancel();
   if(pointers.size===1){origin=last=p;moved=false;pinched=false;owner=e.currentTarget===handle||aimingVicinity(camera,arcade.aim(),p,e.pointerType,arcade.moveSelection(),guideRects(),preferSite)?'aim':'pan';canvas.dataset.cursor=owner==='aim'?'aim':'camera';aimOrigin=arcade.aim()?camera.cellPoint(arcade.aim().cannon.cell):null;
-   const hit=resolve(p);if(hit.kind!=='ball'||hit.id!==selectedBall)stopFollowing();
+   const hit=resolve(p);if(hit.kind!=='ball'||hit.id!==selectedBall)motion.stopFollow();
    if(owner==='aim'){cancelTap();if(e.currentTarget!==handle&&Math.hypot(p.x-aimOrigin.sx,p.y-aimOrigin.sy)>6)aimAt(p);}
   }
-  else{pendingAim=null;pinch=pair();owner='camera';pinched=true;moved=true;cancelTap();stopFollowing();motion.manual();}
+  else{pendingAim=null;pinch=pair();owner='camera';pinched=true;moved=true;cancelTap();motion.manual();}
   if(e.currentTarget!==handle)canvas.focus({preventScroll:true});e.preventDefault();
  }
  listen(canvas,'pointerdown',down);listen(handle,'pointerdown',down);
  listen(canvas,'pointermove',e=>{if(!pointers.has(e.pointerId))return;const p=point(e);pointers.set(e.pointerId,p);
   if(pointers.size>=2){const next=pair();if(pinch){camera.zoom(next.d/Math.max(1,pinch.d),pinch.x,pinch.y);camera.pan(next.x-pinch.x,next.y-pinch.y);}pinch=next;save();zoomButtons();return;}
-  if(!last||pinched)return;if(owner==='aim'){pendingAim=p;moved=true;}else{if(Math.hypot(p.x-origin.x,p.y-origin.y)>6){moved=true;cancelTap();stopFollowing();motion.manual();}if(moved){camera.pan(p.x-last.x,p.y-last.y);save();}}last=p;
+  if(!last||pinched)return;if(owner==='aim'){pendingAim=p;moved=true;}else{if(Math.hypot(p.x-origin.x,p.y-origin.y)>6){moved=true;cancelTap();motion.manual();}if(moved){camera.pan(p.x-last.x,p.y-last.y);save();}}last=p;
  });
  function resolve(p){
   if(aimingVicinity(camera,arcade.aim(),p,p.pointerType??'mouse',arcade.moveSelection(),guideRects(),preferSite))return {kind:'aim'};
@@ -140,13 +145,13 @@ export function createShell(doc,camera,arcade,onPick){
  listen(canvas,'pointerup',e=>{const isTap=pointers.has(e.pointerId)&&owner==='pan'&&!moved&&!pinched,p=point(e);if(pointers.has(e.pointerId))flushAim();pointers.delete(e.pointerId);if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);if(isTap){if(e.pointerType==='touch')completedTouch={at:performance.now(),x:e.clientX,y:e.clientY};tap(p,e.pointerType,e.timeStamp);}if(!pointers.size){origin=last=pinch=aimOrigin=null;owner=null;pinched=false;}});
  const cancel=e=>{if(!pointers.has(e.pointerId))return;pointers.delete(e.pointerId);pendingAim=null;owner=null;moved=true;pinched=true;pinch=null;cancelTap();};listen(canvas,'pointercancel',cancel);listen(canvas,'lostpointercapture',cancel);
  listen(canvas,'wheel',e=>{e.preventDefault();const p=point(e),{discrete,factor}=wheelZoom(e,camera.viewport.height);
-  if(discrete){arcade.cancelEntryNavigation?.();if(motion.zoom(factor,p.x,p.y,{keepFollow:false,duration:130}))stopFollowing();}
-  else{arcade.cancelEntryNavigation?.();motion.manual();stopFollowing();camera.zoom(factor,p.x,p.y);save();zoomButtons();}
+  if(discrete){arcade.cancelEntryNavigation?.();motion.zoom(factor,p.x,p.y,{keepFollow:false,duration:130});}
+  else{arcade.cancelEntryNavigation?.();motion.manual();camera.zoom(factor,p.x,p.y);save();zoomButtons();}
  },{passive:false});
  listen(handle,'keydown',e=>{const n={ArrowLeft:-1,ArrowRight:1,ArrowUp:-1,ArrowDown:1}[e.key];if(n){arcade.adjustAngle(n*(e.altKey?.01:e.shiftKey?5:1));e.preventDefault();e.stopPropagation();}});
  listen(canvas,'keydown',e=>{const d={ArrowLeft:[40,0],ArrowRight:[-40,0],ArrowUp:[0,40],ArrowDown:[0,-40]}[e.key];
   if(d&&e.altKey&&(arcade.moveSelection()||arcade.structureContexts?.())){
-   cancelTap();stopFollowing();const selection=arcade.moveSelection(),context=arcade.intentContext(),n=keyboardTarget?.context===context?keyboardTarget.cell:selection?.cell??arcade.anchor()?.cell??camera.cell(camera.viewport.width/2,camera.viewport.height/2)??0,step={ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key],x=(n%camera.width+step[0]+camera.width)%camera.width,y=(Math.floor(n/camera.width)+step[1]+camera.height)%camera.height;
+   cancelTap();stopFollowing();const selection=arcade.moveSelection(),context=arcade.intentContext(),n=keyboardTarget?.context===context?keyboardTarget.cell:selection?.cell??arcade.anchor()?.cell??camera.cell(camera.viewport.width/2,camera.viewport.height/2)??0,step=camera.tileStep(...{ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key]),x=(n%camera.width+step[0]+camera.width)%camera.width,y=(Math.floor(n/camera.width)+step[1]+camera.height)%camera.height;
    keyboardTarget={cell:y*camera.width+x,context};pointer=null;const p=camera.cellPoint(keyboardTarget.cell);if(!p.visible)motion.go(motion.target(c=>c.centre(x+.5,y+.5)),{owner:'keyboard'});e.preventDefault();
   }
   else if(d){arcade.cancelEntryNavigation?.();keyboardTarget=null;cancelTap();stopFollowing();motion.go(motion.target(c=>c.pan(...d)),{owner:'keyboard'});e.preventDefault();}
@@ -156,13 +161,14 @@ export function createShell(doc,camera,arcade,onPick){
   else if(['[',']'].includes(e.key)){arcade.adjustAngle((e.key==='['?-1:1)*(e.altKey?.01:e.shiftKey?5:1));e.preventDefault();}
  });
  function visibleBounds(){const v=globalThis.visualViewport,m=measure(),left=(v?.offsetLeft??0)+m.safe.left,top=(v?.offsetTop??0)+m.safe.top;return{left,top,width:Math.max(0,Math.min(camera.viewport.width,v?.width??Infinity)-m.safe.left-m.safe.right),height:Math.max(0,Math.min(camera.viewport.height,v?.height??Infinity)-m.safe.top-m.safe.bottom)};}
- function quantityRail(m,viewport){const left=Math.max(viewport.left+8,Math.min(m.buttons.left,viewport.left+viewport.width-quantitySize.width-8)),top=Math.min(m.buttons.top,viewport.top+viewport.height,...(left<m.mini.right&&left+quantitySize.width>m.mini.left?[m.mini.top]:[]))-quantitySize.height-8;return{left,top,right:left+quantitySize.width,bottom:top+quantitySize.height,...quantitySize};}
+ function quantityRail(m,viewport){const map=minimapArea(m.mini),left=Math.max(viewport.left+8,Math.min(m.buttons.left,viewport.left+viewport.width-quantitySize.width-8)),top=Math.min(m.buttons.top,viewport.top+viewport.height,...(left<map.right&&left+quantitySize.width>map.left?[map.top]:[]))-quantitySize.height-8;return{left,top,right:left+quantitySize.width,bottom:top+quantitySize.height,...quantitySize};}
  function guideRects(){const r=measure().guideObstacles;return quantitySlot&&!quantityWidget.hidden?[...r,quantitySlot.rect]:r;}
+ function minimapArea(rect){return wasShort?rect:{left:rect.left-44,right:rect.right+10,top:rect.top-44,bottom:rect.bottom+10,width:rect.width+54};}
  function positionQuantity(){
   const q=arcade.quantity?.(),editor=arcade.launchEditor?.(),qa=arcade.aim();$('quantity-controls').hidden=!q?.active;if(editor?.first||editor?.kind==='action'){quantityWidget.hidden=!editor.active;quantitySlot=null;quantityContext='';quantityWidget.dataset.first='true';const slot=$('action-inputs');if(quantityWidget.parentElement!==slot)slot.append(quantityWidget);return;}else{delete quantityWidget.dataset.first;if(quantityWidget.parentElement!==$('arena'))$('arena').append(quantityWidget);}quantityWidget.hidden=!editor?.active||!qa||!camera.cellPoint(qa.cannon.cell).visible;
   if(quantityWidget.hidden){quantitySlot=null;quantityContext='';return;}
   if(!qa){const m=measure(),v=visibleBounds(),rail=quantityRail(m,v);quantityWidget.style.left=Math.round(rail.left)+'px';quantityWidget.style.top=Math.round(rail.top)+'px';return;}
-  const origin=camera.cellPoint(qa.cannon.cell),a=qa.angle*Math.PI/180,end=camera.screen(origin.x+Math.cos(a),origin.y+Math.sin(a)),m=measure(),viewport=visibleBounds(),obstacles=[...m.guideObstacles,m.mini,...(quantityReservation==='rail'?[]:[m.cycles]),m.buttons,m.sound];if(!card.hidden&&!card.inert&&cardBounds)obstacles.push(cardBounds);
+  const origin=camera.cellPoint(qa.cannon.cell),a=qa.angle*Math.PI/180,end=camera.screen(origin.x+Math.cos(a),origin.y+Math.sin(a)),m=measure(),viewport=visibleBounds(),obstacles=[...m.guideObstacles,minimapArea(m.mini),...(quantityReservation==='rail'?[]:[m.cycles]),m.buttons,m.sound];if(!card.hidden&&!card.inert&&cardBounds)obstacles.push(cardBounds);
   const context=[qa.cannon.id,qa.cannon.cell,viewport.left,viewport.top,viewport.width,viewport.height,quantitySize.width,quantitySize.height].join('/');
   if(context!==quantityContext){quantityContext=context;quantityDocked=viewport.height<520||viewport.width<2*(Math.max(24,camera.scale*.62+2)+quantitySize.width+8);}
   const strip=quantityReservation==='strip'?quantityDockStrip({viewport,top:Math.max(m.headerBottom+10,viewport.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound]}):null;
@@ -177,23 +183,59 @@ export function createShell(doc,camera,arcade,onPick){
  function position(){
   if([...quantityPointers.values()].some(p=>p.viewport!==quantityViewport())){quantityClickCancelled=true;clearInput();quantitySlot=null;quantityContext='';}
   const reserve=Boolean(arcade.launchEditor?.().active&&arcade.aim()),reservation=reserve?(Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity)<280?'inline':Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity)<520?'strip':'rail'):'none';if(reservation!==quantityReservation){quantityReserved=reserve;quantityReservation=reservation;card.dataset.quantityReserved=reservation;doc.documentElement.classList.toggle('quantity-constrained',reservation==='inline');doc.documentElement.classList.toggle('quantity-rail',reservation==='rail');audioMask=null;layoutDirty=true;}
-  const editing=Boolean(doc.activeElement?.closest?.('#action-inputs')),height=Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity),short=(editing||arcade.context()==='action')&&height<520;doc.documentElement.classList.toggle('short-edit',short);if(short!==wasShort){wasShort=short;layoutDirty=true;}
-  const viewport=[camera.viewport.width,height].join('/');if(viewport!==lastViewport){lastViewport=viewport;layoutDirty=true;const c=arcade.anchor?.();if((editing||arcade.context()==='action')&&c&&!pointers.size){const p=camera.cellPoint(c.cell);if(short||!p.visible){motion.cancel();camera.pan(short?camera.viewport.width-42-p.sx:0,measure().top+(short?24:80)-p.sy);}}}
-  const aim=arcade.aim(),p=aim?camera.cellPoint(aim.cannon.cell):null;const aimLabel=aim?.kind==='deflect'?`Deflector direction ${aim.direction??aim.orientation}; use arrow keys to cycle four directions`:'Aim cannon',hideAim=short||!p?.visible;if(handle.getAttribute('aria-label')!==aimLabel)handle.setAttribute('aria-label',aimLabel);if(handle.hidden!==hideAim)handle.hidden=ring.hidden=hideAim;
+  const editing=Boolean(doc.activeElement?.closest?.('#action-inputs')),height=Math.min(camera.viewport.height,globalThis.visualViewport?.height??Infinity),short=(editing||arcade.context()==='action')&&height<520;
+  const changedShort=short!==wasShort,viewport=[camera.viewport.width,height].join('/');
+  if(contractedCamera&&(contractedCamera.context!==arcade.intentContext()||cameraPose().some((n,i)=>n!==contractedCamera.applied[i])))contractedCamera=null;
+  if(changedShort&&short&&lastViewport&&arcade.anchor?.()&&!pointers.size){
+   const pose=cameraPose();contractedCamera={context:arcade.intentContext(),pose,applied:pose};
+  }
+  doc.documentElement.classList.toggle('short-edit',short);if(changedShort){wasShort=short;layoutDirty=true;}
+  if(viewport!==lastViewport){
+   lastViewport=viewport;layoutDirty=true;
+   const c=arcade.anchor?.();
+   if(!short&&contractedCamera&&!pointers.size){
+    // Leaving the keyboard layout removes its temporary pan. The player may
+    // have changed the view while contracted, in which case it was released above.
+    const [x,y,scale]=contractedCamera.pose;
+    motion.cancel();camera.scale=scale;camera.centre(x,y);
+   }else if((editing||arcade.context()==='action')&&c&&!pointers.size){
+    const p=camera.cellPoint(c.cell);
+    if(short||!p.visible){motion.cancel();camera.pan(short?camera.viewport.width-42-p.sx:0,measure().top+(short?24:80)-p.sy);}
+   }
+  }
+  if(!short)contractedCamera=null;
+  else if(contractedCamera)contractedCamera.applied=cameraPose();
+  const aim=arcade.aim(),p=aim?camera.cellPoint(aim.cannon.cell):null;const aimLabel=aim?.kind==='deflect'?`Diverter direction ${aim.direction??aim.orientation}. Use arrow keys to cycle four directions.`:'Aim cannon',hideAim=short||!p?.visible;if(handle.getAttribute('aria-label')!==aimLabel)handle.setAttribute('aria-label',aimLabel);if(handle.hidden!==hideAim)handle.hidden=ring.hidden=hideAim;
   if(p?.visible){const a=aim.angle*Math.PI/180,end=camera.screen(p.x+Math.cos(a),p.y+Math.sin(a)),dx=end.x-p.sx,dy=end.y-p.sy,d=Math.hypot(dx,dy);for(const [node,k,value]of [[handle,'left',p.sx+dx/d*38-22],[handle,'top',p.sy+dy/d*38-22],[ring,'left',p.sx-38],[ring,'top',p.sy-38]]){const px=`${value}px`;if(node.style[k]!==px)node.style[k]=px;}}
   const context=arcade.context?.(),c=['inspect','action'].includes(context)?arcade.anchor?.():null,at=c?camera.cellPoint(c.cell):null,off=Boolean(at&&!at.visible);$('locate-context').hidden=card.hidden||!off;card.classList.toggle('offscreen',off);card.inert=off;$('focus-cannon').hidden=!c;
   doc.documentElement.classList.toggle('cannon-context',Boolean(c&&!card.hidden&&!off));
-  const m=measure(),expanded=context==='action',lowerObstacles=[m.mini,quantityReservation==='rail'?quantityRail(m,visibleBounds()):m.cycles,m.buttons];
+  const m=measure(),expanded=context==='action',lowerObstacles=[minimapArea(m.mini),quantityReservation==='rail'?quantityRail(m,visibleBounds()):m.cycles,m.buttons];
   const obstacles=[...lowerObstacles];if(expanded&&cardBounds)obstacles.push(cardBounds);
   $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':$('focus-cannon').getAttribute('aria-label');
   if(card.hidden||off){positionQuantity();if(card.hidden)narrowPositionKey='';committedLayoutRevision=layoutRevision;return;}
-  const bounds=visibleBounds(),W=bounds.width,H=bounds.height,top=quantityReservation==='inline'?bounds.top+8:Math.max(m.top,bounds.top+8),narrow=W<=700,cw=Math.min(360,W-16);
+  const bounds=visibleBounds(),W=bounds.width,H=bounds.height,narrow=W<=700,cw=Math.min(360,W-16);
+  if(!motion.rotation)narrowQuarter=camera.quarter;
+  let top=quantityReservation==='inline'?bounds.top+8:Math.max(m.top,bounds.top+8);
+  if(narrow&&narrowQuarter&&!short&&at&&arcade.structureContexts?.()){
+   // The hidden roster still contributes to the chrome's bounding box. The
+   // four-button toolbar fits beside audio, and the body starts below it.
+   top=Math.max(bounds.top+8,m.headerBottom+8,m.sound.bottom-m.headerHeight+8);
+  }
   let x=bounds.left+W-cw-8,y=top,bottom=bounds.top+H-(short?8:72);
   if(at){
    if(narrow){x=bounds.left+8;y=short?Math.max(top,Math.min(154,H-158)):Math.min(top+96,Math.max(top,H-360));
-    const key=[c.id,c.cell,bounds.left,bounds.top,W,H,short,quantityReserved,locateGeneration].join('/');
-    if(key!==narrowPositionKey){narrowPositionKey=key;narrowY=y;
+    // Keep the layout fixed during the quarter turn, then clear the new aim
+    // orbit using the card. The selected tile and camera centre stay put.
+    const key=[c.id,c.cell,bounds.left,bounds.top,W,H,short,locateGeneration,narrowQuarter].join('/');
+    if(key!==narrowPositionKey){narrowPositionKey=key;narrowY=y;narrowAimClearance=0;narrowAimTop=0;narrowAimBottom=Infinity;
+     if(!short&&narrowQuarter&&at.sx+64>x&&at.sx-64<x+cw){
+      const upper=at.sy-64,lower=at.sy+64;
+      const hudBottom=Math.min(bottom,...[minimapArea(m.mini),m.buttons].filter(r=>r.width&&x+cw>r.left&&x<r.right).map(r=>r.top-8));
+      if(upper-top>=hudBottom-lower&&upper-top>=m.headerHeight+96)narrowAimBottom=upper;
+      else if(hudBottom-lower>=m.headerHeight+96)narrowAimTop=lower;
+     }
      const above=camera.scale*.60+2,below=camera.scale*.17+2,half=camera.scale*.62+2;
+     if(!short&&at.sy>=top&&at.sy<y+m.headerHeight&&at.sx+half>x&&at.sx-half<x+cw)narrowAimClearance=at.sy+below+8;
      if(!short&&motion.animation?.owner!=='focus'&&at.sx+half>x&&at.sx-half<x+cw&&at.sy+below+4>y&&at.sy-above-4<y+m.headerHeight){const bottom=Math.min(H-72,...lowerObstacles.filter(r=>r.width).map(r=>r.top-8));narrowY=Math.max(top,Math.min(at.sy+below+8,bottom-m.headerHeight-96));}
     }y=narrowY;
    }
@@ -202,7 +244,17 @@ export function createShell(doc,camera,arcade,onPick){
   if(quantityReservation==='inline')y=top;
   else if(quantityReserved&&short){const strip=quantityDockStrip({viewport:bounds,top:Math.max(m.headerBottom+10,bounds.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound]});y=Math.max(strip?strip.bottom+8:top,Math.min(y,bottom-m.headerHeight-96));}
   for(const obstacle of(short?[]:lowerObstacles))if(obstacle.width&&x+cw>obstacle.left&&x<obstacle.right)bottom=Math.min(bottom,obstacle.top-8);
-  if(quantityReserved&&!short){const useful=Math.min(240,Math.max(0,m.desired-m.headerHeight));y=Math.max(top,Math.min(y,bottom-m.headerHeight-useful));}
+  if(narrow&&at&&!short){
+   // The collapsed toolbar and its expanded actions share an anchor. The
+   // quantity rail can shorten the scrollport without moving that anchor.
+   const panelBottom=Math.min(bounds.top+H-72,...[minimapArea(m.mini),m.buttons].filter(r=>r.width&&x+cw>r.left&&x<r.right).map(r=>r.top-8));
+   bottom=Math.min(bottom,narrowAimBottom);
+   const clear=Math.min(Math.max(narrowAimClearance,narrowAimTop),bottom-m.headerHeight-96);
+   y=Math.max(top,clear,Math.min(y,Math.min(panelBottom,narrowAimBottom)-m.headerHeight-240));
+  }else if(quantityReserved&&!short){
+   const useful=Math.min(240,Math.max(0,m.desired-m.headerHeight));
+   y=Math.max(top,Math.min(y,bottom-m.headerHeight-useful));
+  }
   // One natural scroll, with useful space even under a contracted keyboard.
   const minimum=quantityReserved?Math.min(96,Math.max(0,bottom-top-m.headerHeight)):96,room=Math.floor(Math.max(minimum,bottom-y-m.headerHeight)),bodyHeight=context==='inspect'?0:Math.min(room,Math.max(0,m.desired-m.headerHeight)),next=[Math.round(x),Math.round(y),Math.round(cw),Math.round(room),Math.ceil(bodyHeight)].join('/');
   if(next!==positionKey){audioMask=null;positionKey=next;card.style.left=`${Math.round(x)}px`;card.style.top=`${Math.round(y)}px`;card.style.width=`${cw}px`;card.style.maxHeight='none';card.style.setProperty('--body-space',`${Math.floor(room)}px`);card.style.setProperty('--body-height',`${Math.ceil(bodyHeight)}px`);}
@@ -211,11 +263,23 @@ export function createShell(doc,camera,arcade,onPick){
   if(compose!==compositionKey){compositionKey=compose;if(narrow&&c&&expanded&&!pointers.size&&!arcade.structureContexts?.()){
    const intended=motion.animation?.owner==='focus'?Object.assign(Object.create(Object.getPrototypeOf(camera)),camera,motion.animation.to):camera;
    const target=previewComposition(intended,c.cell,site,{left:8,right:W-8,top:m.headerBottom+8,bottom:y-6},{interactive:!short&&Boolean(aim)});
-   if(target){if(short){motion.cancel();Object.assign(camera,target);}else motion.go(target,{owner:'composition'});}
+   if(target){if(short){motion.cancel();Object.assign(camera,target);if(contractedCamera)contractedCamera.applied=cameraPose();}else motion.go(target,{owner:'composition'});}
   }}
   positionQuantity();committedLayoutRevision=layoutRevision;
  }
  listen(doc,'b2z-overlay',()=>{hideHelp();clearHelp();layoutDirty=true;position();});
+ let trajectoryKey='';
+ function drawTrajectory(){
+  const ball=lastPoints.find(b=>b.id===selectedBall),layer=$('trajectory-guide');
+  if(!ball||!lastView){layer.toggleAttribute('hidden',true);return;}
+  const m=measure(),rects=[...m.guideObstacles,minimapArea(m.mini),m.buttons,m.sound,!card.hidden&&cardBounds,quantitySlot?.rect].filter(Boolean);
+  const guide=trajectoryGuide(camera,ball,lastView.balls.get(ball.id),rects);
+  layer.toggleAttribute('hidden',!guide);if(!guide)return;
+  const {start,end,wings}=guide,key=[start.x,start.y,end.x,end.y].join('/');
+  if(trajectoryKey===key)return;trajectoryKey=key;
+  for(const n of [$('trajectory-dots'),$('trajectory-fade')])for(const [k,v] of Object.entries({x1:start.x,y1:start.y,x2:end.x,y2:end.y}))n.setAttribute(k,v);
+  $('trajectory-tip').setAttribute('d',`M${wings[0].x} ${wings[0].y}L${end.x} ${end.y}L${wings[1].x} ${wings[1].y}`);
+ }
  const audioNodes=[doc.querySelector('.arena-chrome'),card,$('minimap'),$('cycles-display'),doc.querySelector('.camera-controls'),doc.querySelector('.audio-controls'),quantityWidget,$('motion-wait'),$('render-error'),$('locate-context')].filter(Boolean);
  let audioMask=null,audioMaskKey='';const dirtyAudio=()=>{audioMask=null;};const audioObserver=new ResizeObserver(dirtyAudio);for(const node of audioNodes)audioObserver.observe(node);
  const audioMutation=new MutationObserver(dirtyAudio);for(const node of audioNodes)audioMutation.observe(node,{attributes:true,attributeFilter:['hidden','style','class']});listen(doc,'b2z-audio-layout',dirtyAudio);listen(globalThis,'resize',dirtyAudio);listen(doc,'scroll',dirtyAudio,true);
@@ -232,10 +296,10 @@ export function createShell(doc,camera,arcade,onPick){
    if(pendingTap&&!pointers.size&&now>=pendingTap.due){const t=pendingTap;pendingTap=null;if(samePlacementContext(t.intent,{context:arcade.intentContext(),identity,sequence:gestureSequence})&&arcade.moveSelection())arcade.chooseCell(t.intent.cell);}
 
    if(followRebase&&motion.following){const p=points.find(b=>b.id===selectedBall);if(p)motion.follow(selectedBall,identity,p);followRebase=false;}
-   motion.update(now,{point:points.find(b=>b.id===motion.following?.id),time,identity});zoomButtons();
-   if(selectedBall!==null&&!motion.following)selectedBall=null;const announcement=selectedBall===null?'':`Following ball ${selectedBall}. Click elsewhere or press Escape to stop.`;if($('follow-announcement').textContent!==announcement)$('follow-announcement').textContent=announcement;
+   motion.update(now,{point:points.find(b=>b.id===motion.following?.id),time,identity});syncCompass();zoomButtons();
+   const announcement=selectedBall===null?'':`${motion.following?'Following':'Selected'} ball ${selectedBall}. Press Escape to clear.`;if($('follow-announcement').textContent!==announcement)$('follow-announcement').textContent=announcement;
   },
-  update(v,surface){zoomButtons();if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===selectedBall),arcade.moveSelection());}},
+  update(v,surface){zoomButtons();if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===selectedBall),arcade.moveSelection());drawTrajectory();}},
   dispose(){audioObserver.disconnect();audioMutation.disconnect();quantityObserver.disconnect();quantityPointers.clear();disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();contentObserver.disconnect();cancelAnimationFrame(layoutFrame);clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);doc.documentElement.classList.remove('cannon-context','quantity-constrained','quantity-rail');for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
  };
 }

@@ -1,0 +1,35 @@
+[
+  {
+    "viewport": [
+      1440,
+      900
+    ],
+    "heading": 6827,
+    "memo": "FIRE 1 37.5 1",
+    "four_rotations": true,
+    "native_clipboard": true,
+    "visible_guide": true
+  },
+  {
+    "viewport": [
+      390,
+      844
+    ],
+    "heading": 6827,
+    "memo": "FIRE 1 37.5 1",
+    "four_rotations": true,
+    "native_clipboard": true,
+    "visible_guide": true
+  },
+  {
+    "viewport": [
+      320,
+      640
+    ],
+    "heading": 6827,
+    "memo": "FIRE 1 37.5 1",
+    "four_rotations": true,
+    "native_clipboard": true,
+    "visible_guide": true
+  }
+]

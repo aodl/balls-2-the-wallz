@@ -65,7 +65,7 @@ export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quanti
  }else if(kind==='new'){
   check(w.playability.players.some(p=>p.account===account)||w.playability.players.length<config.max_players,'ACCOUNTING_CAPACITY');
   check(mine.length<config.max_retained_per_player,'PLAYER_CANNON_CAPACITY');check(w.cannons.length<config.max_cannons,'CANNON_CAPACITY');if(successor)check(w.next_cannon_id<0xffffffff,'CANNON_ID_EXHAUSTED');check(free>0&&(!successor||w.next_ball_id<0xffffffff),'BALL_CAPACITY');
-  if(!mine.length){check(cell===null,'FIRST_PLACEMENT_AUTOMATIC');if(![7,9,10,11,12,13].includes(config.rules_version))check(1000000-w.ownership.counts.reduce((sum,r)=>sum+r.cells,0)>=9,'NO_ELIGIBLE_SPAWN');}
+  if(!mine.length){check(cell===null,'FIRST_PLACEMENT_AUTOMATIC');if(!(successor||[7,9,10,11,12].includes(config.rules_version)))check(1000000-w.ownership.counts.reduce((sum,r)=>sum+r.cells,0)>=9,'NO_ELIGIBLE_SPAWN');}
   else if(successor){
    check(cell!==null,'EXPLICIT_OWNED_SITE_REQUIRED');
    const why=contextSites(w).reason(account,cell);check(!why,why);

@@ -1,5 +1,8 @@
 import test from 'node:test';import assert from 'node:assert/strict';
 import {Camera,splitInterval,polygonArea} from '../../apps/b2z-observer/camera.mjs';
+import {CameraController} from '../../apps/b2z-observer/camera-controller.mjs';
+import {diamondMap} from '../../apps/b2z-observer/minimap-projection.mjs';
+import {trajectoryGuide} from '../../apps/b2z-observer/guide-clearance.mjs';
 const near=(a,b)=>assert.ok(Math.abs(a-b)<1e-8,`${a} != ${b}`);
 test('camera preserves world aspect and pointer anchor at bounded zoom',()=>{
  const c=new Camera();c.configure(32,32,1200,800);near(c.scale,.9*Math.min(1200/(64/Math.SQRT2),800/(64/Math.sqrt(6))));
@@ -28,4 +31,33 @@ test('million-cell desktop and mobile reach a useful absolute cell scale without
   c.pan(12,-7);const prior={x:c.x,y:c.y,scale:c.scale};c.configure(1000,1000,width,height,true);assert.deepEqual({x:c.x,y:c.y,scale:c.scale},prior);
   c.fit();near(c.scale,c.fitScale);
  }
+});
+test('each canonical direction becomes up and rotated projection still picks wrapped tiles',()=>{
+ for(const [width,height] of [[1440,900],[390,844],[320,640]]){
+  const c=new Camera();c.configure(1000,1000,width,height,true);c.frameCell(0);
+  for(const [quarter,[dx,dy]] of [[-1,-1],[1,-1],[1,1],[-1,1]].entries()){
+   c.angle=-quarter*Math.PI/2;
+   const p=c.screen(c.x+dx,c.y+dy),picking=c.screen(-.5,-.5);
+   near(p.x,width/2);assert.ok(p.y<height/2);assert.equal(c.cell(picking.x,picking.y),999999);
+   const map=diamondMap(1000,1000,124,72,{x:.5,y:.5},c.angle),q=map.project(.5+dx,.5+dy);
+   near(q.x,62);assert.ok(q.y<36);
+   const recovered=map.inverse(q.x,q.y);
+   near(recovered.x,(1000+.5+dx)%1000);near(recovered.y,(1000+.5+dy)%1000);
+  }
+ }
+});
+test('rotation keeps centre and zoom fixed, supports interruption and reduced motion',()=>{
+ const c=new Camera();c.configure(1000,1000,320,640,true);c.frameCell(0);
+ let now=0,reduced=false;
+ const controller=new CameraController(c,{now:()=>now,reducedMotion:()=>reduced});
+ const pose=[c.x,c.y,c.scale];controller.rotate(1);now=160;controller.update(now);near(c.angle,-Math.PI/4);
+ controller.rotate(3);now=480;controller.update(now);near(c.angle,-3*Math.PI/2);
+ reduced=true;controller.rotate(2);near(c.angle,-Math.PI);assert.deepEqual([c.x,c.y,c.scale],pose);
+});
+test('ball heading guide follows the rotated verified vector and clips before controls',()=>{
+ const c=new Camera();c.configure(1000,1000,320,640,true);c.frameCell(0);c.angle=-Math.PI;
+ const ball={x:.5,y:.5},velocity={vx:1024,vy:1024};
+ const guide=trajectoryGuide(c,ball,velocity,[{left:110,right:210,top:180,bottom:224,width:100,height:44}]);
+ near(guide.start.x,guide.end.x);assert.ok(guide.end.y<guide.start.y&&guide.end.y>224);
+ assert.equal(trajectoryGuide(c,ball,{vx:0,vy:0}),null);
 });

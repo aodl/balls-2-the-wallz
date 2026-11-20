@@ -37,7 +37,7 @@ jobs:
         run: python -B tools/check_dtr_provenance.py --locks-only --output .work/ci-dtr-source.json
       - run: python -B tools/check.py source --output .work/ci-source
       - name: Reproduce exact Rules13-compatible frontend freeze
-        run: python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules13-context-structures/artifacts --output .work/ci-frozen-panel
+        run: python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules13-experience-refinement/correction/artifacts --output .work/ci-frozen-panel
       - name: Upload source evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -112,7 +112,7 @@ jobs:
       - run: cargo +1.94.1 fetch --manifest-path canisters/frontend/Cargo.toml --locked
       - name: Build from the exact frozen observer inventory
         run: |
-          assets=evidence/B2Z/rules13-context-structures/artifacts
+          assets=evidence/B2Z/rules13-experience-refinement/correction/artifacts
           python -B tools/verify_approved_panel_freeze.py --artifacts "$assets" --output .work/ci-embedded-assets
           python -B tools/build_embedded_frontend.py --observer .work/ci-embedded-assets/reproduced --inventory "$assets/frontend-inventory.json" --output .work/ci-embedded
           python -B tools/verify_embedded_frontend_builds.py --observer .work/ci-embedded-assets/reproduced --inventory "$assets/frontend-inventory.json" --first-build .work/ci-embedded --output .work/ci-embedded-repro
@@ -265,7 +265,7 @@ jobs:
         run: python -B tools/verify_boundary_deflector_browser.py --output .work/ci-boundary-controls
       - name: Frozen official emblems, header and standalone not-found browser acceptance
         run: |
-          python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules13-context-structures/artifacts --output .work/ci-branding-freeze
+          python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules13-experience-refinement/correction/artifacts --output .work/ci-branding-freeze
           python -B tools/serve_observer.py --deployment-assets .work/ci-branding-freeze/reproduced --port 8199 > .work/ci-branding-server.log 2>&1 &
           observer_pid=$!
           trap 'kill "$observer_pid"' EXIT

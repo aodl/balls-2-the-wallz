@@ -24,8 +24,11 @@ def status(page,kind):
 
 def open_fire(page):
  page.wait_for_function('()=>Boolean(globalThis.fixture)');account=page.evaluate('fixture.world().cannons[0].account');page.locator('#join-action').click();page.locator('#sending-account').fill(account);page.locator('#identity-save').click();page.wait_for_function('()=>document.getElementById("workspace").hidden');settled(page);page.locator('#centre-cannon').click();settled(page)
- if page.locator('#own-cannons button').first.is_visible():page.locator('#own-cannons button').first.click();settled(page)
- if page.locator('#focus-cannon').is_enabled():page.locator('#focus-cannon').click();settled(page)
+ if page.locator('#own-cannons button').first.is_visible():page.locator('#own-cannons button').first.click()
+ # Focus can become disabled when the latest layout confirms that the
+ # cannon is already framed. Resolve this after the layout, not mid-frame.
+ settled_panel(page)
+ if page.locator('#focus-cannon').is_enabled():page.locator('#focus-cannon').click();settled_panel(page)
  page.locator('#fire-action').click();settled_panel(page);settled(page);page.evaluate('globalThis.quantityIdentity=document.getElementById("quantity-controls")')
 
 def verify_quantity_matrix(browser,url,out,report,save,width=None,height=None):
@@ -56,7 +59,19 @@ def verify_quantity_matrix(browser,url,out,report,save,width=None,height=None):
     assert all(max(abs(b[key]-panel[key])for key in ['x','y','width','height'])==0 for b in samples),(k,panel,samples)
     assert p.locator('[data-copy=text]').is_disabled()==(k!='healthy');assert p.evaluate('''()=>['full-recipient','transfer-amount','text-memo','paying-account'].map(id=>{const n=document.getElementById(id);return n.value??n.textContent})''')==fields;row['statuses'].append({'kind':k,'rects':samples})
    copies=p.evaluate('copyAudit.length');p.locator('[data-copy=text]').click();p.wait_for_function('(n)=>copyAudit.length>n',arg=copies);status(p,'protected');before_protected=p.locator('#quantity-count').text_content();p.locator('#quantity-plus').click();assert p.locator('#quantity-count').text_content()==str(int(before_protected)+1)and p.locator('[data-copy=text]').is_disabled();editor(p);p.locator('#keep-instructions').click();assert p.locator('#quantity-count').text_content()==before_protected;status(p,'healthy');row['protected_preview']='PASS local edit and Keep with copying disabled';
-   p.locator('#recipient-reveal').click();settled_panel(p);editor(p);p.locator('#recipient-reveal').click();settled_panel(p);editor(p)
+   assert p.locator('#recipient-reveal,#payer-reveal').count()==0
+   for selector in ['.payment-from .identity-summary','.payment-to .identity-summary']:
+    summary=p.locator(selector)
+    assert summary.evaluate("n=>!n.closest('button,a,summary,[role=button]')&&n.tabIndex===-1")
+    summary.scroll_into_view_if_needed()
+    settled_panel(p)
+    panel=p.locator('#workspace')
+    scroll=p.locator('.panel-scroll')
+    before_summary=panel.bounding_box()
+    before_scroll=scroll.evaluate('n=>n.scrollTop')
+    summary.click()
+    settled_panel(p);editor(p)
+    assert panel.bounding_box()==before_summary and scroll.evaluate('n=>n.scrollTop')==before_scroll,(selector,before_summary,panel.bounding_box())
    r=p.locator('#quantity-plus').bounding_box();p.mouse.move(r['x']+22,r['y']+22);p.mouse.down();locked=p.locator('#quantity-controls').bounding_box();p.evaluate('fixture.setHeading(347.15)');p.wait_for_timeout(80);assert p.locator('#quantity-controls').bounding_box()==locked;p.mouse.up();editor(p)
    p.evaluate("globalThis.quantityEvents=[];for(const type of ['pointerdown','pointerup','click'])document.addEventListener(type,e=>{if(e.target.closest?.('#quantity-controls'))quantityEvents.push({type,at:performance.now(),height:innerHeight,count:document.getElementById('quantity-count').textContent,layout:fixture.shell.layoutState()})},true);addEventListener('resize',()=>quantityEvents.push({type:'resize',at:performance.now(),height:innerHeight,count:document.getElementById('quantity-count').textContent,layout:fixture.shell.layoutState()}))");n=p.locator('#quantity-count').text_content();r=p.locator('#quantity-plus').bounding_box();p.mouse.move(r['x']+22,r['y']+22);p.mouse.down();resize(p,{'width':w,'height':h-40 if h>300 else h+20});p.wait_for_timeout(80);p.mouse.up();row['resize_events']=p.evaluate('quantityEvents');save();assert p.locator('#quantity-count').text_content()==n and p.evaluate('fixture.proposal().mode')=='ball';editor(p);resize(p,{'width':w,'height':h});settled_panel(p);editor(p)
    p.screenshot(path=str(out/f'{w}-{h}-{dpr}-347.png'));row['final']=editor(p);row['audio_occlusion']=p.evaluate('fixture.audioProbe()');qr=row['final']['rect'];assert sum(abs(m['left']-qr['left'])<1 and abs(m['top']-qr['top'])<1 and abs(m['right']-qr['right'])<1 and abs(m['bottom']-qr['bottom'])<1 for m in row['audio_occlusion']['masks'])==1;row['payment_scrollport']=p.locator('.panel-scroll').bounding_box();assert row['payment_scrollport']['height']>=min(96,h-68)
@@ -90,7 +105,38 @@ def verify_quantity_matrix(browser,url,out,report,save,width=None,height=None):
 def gesture_probes(p,c,row):
  # Real touch aim -> pinch preserves the target and cannot hit a relocated minus.
  p.evaluate("document.documentElement.style.fontSize='16px';for(const side of ['left','right','top','bottom'])document.documentElement.style.setProperty('--quantity-safe-'+side,'0px')");resize(p,{'width':321,'height':640});resize(p,{'width':320,'height':640});settled_panel(p)
- p.locator('#board').focus();q=p.locator('#quantity-controls').bounding_box();point=p.evaluate('fixture.camera.cellPoint(fixture.aim().cannon.cell)');x,y=point['sx']-26,point['sy']+4;dev=c.new_cdp_session(p);assert p.evaluate('([x,y])=>document.elementFromPoint(x,y)?.id==="board"',[x,y]);dev.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x,'y':y,'id':11}]});dev.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x+15,'y':y-14,'id':11}]});assert p.locator('#quantity-controls').bounding_box()==q;degrees=p.evaluate('fixture.proposal().degrees');camera=p.evaluate('fixture.summary().camera');assert p.evaluate('([x,y])=>document.elementFromPoint(x+90,y)?.id==="board"',[x,y]);dev.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':x+15,'y':y-14,'id':11},{'x':x+90,'y':y,'id':22}]});dev.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[{'x':x-5,'y':y-25,'id':11},{'x':x+115,'y':y+10,'id':22}]});assert p.locator('#quantity-controls').bounding_box()==q;dev.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]});assert p.evaluate('fixture.summary().camera')!=camera and p.evaluate('fixture.proposal().degrees')==degrees;editor(p);row['native_aim_pinch']='PASS fixed editor, second finger remains board-owned, scale changes without heading mutation'
+ p.evaluate('''()=>{window.aimPinchTrace=[];for(const type of ['pointerdown','pointermove','pointerup','pointercancel','gotpointercapture','lostpointercapture'])document.addEventListener(type,event=>{if(aimPinchTrace.length<64)aimPinchTrace.push({type,id:event.pointerId,x:event.clientX,y:event.clientY,target:event.target.id,captured:document.getElementById('board').hasPointerCapture(event.pointerId),angles:fixture.proposal().degrees,camera:fixture.summary().camera})},true)}''')
+ p.locator('#board').focus()
+ q=p.locator('#quantity-controls').bounding_box()
+ point=p.evaluate('fixture.camera.cellPoint(fixture.aim().cannon.cell)')
+ x,y=point['sx']-26,point['sy']+4
+ dev=c.new_cdp_session(p)
+ row['native_pinch_start']=p.evaluate('''([x,y])=>({
+   x,y,source:fixture.camera.cellPoint(fixture.aim().cannon.cell),
+   viewport:[innerWidth,innerHeight,visualViewport.width,visualViewport.height,visualViewport.scale],
+   hits:document.elementsFromPoint(x,y).map(e=>[e.id,e.tagName,e.className]),
+   layout:fixture.shell.layoutState(),events:aimPinchTrace})''',[x,y])
+ assert p.evaluate('([x,y])=>document.elementFromPoint(x,y)?.id==="board"',[x,y]),row['native_pinch_start']
+ def touch(kind,*fingers):
+  dev.send('Input.dispatchTouchEvent',{'type':kind,'touchPoints':[{'id':i,'x':x,'y':y} for i,x,y in fingers]})
+ touch('touchStart',(11,x,y))
+ touch('touchMove',(11,x+15,y-14))
+ assert p.locator('#quantity-controls').bounding_box()==q
+ degrees=p.evaluate('fixture.proposal().degrees')
+ camera=p.evaluate('fixture.summary().camera')
+ assert p.evaluate('([x,y])=>document.elementFromPoint(x+90,y)?.id==="board"',[x,y])
+ touch('touchStart',(11,x+15,y-14),(22,x+90,y))
+ touch('touchMove',(11,x-5,y-25),(22,x+115,y+10))
+ assert p.locator('#quantity-controls').bounding_box()==q
+ touch('touchEnd')
+ assert p.evaluate('fixture.summary().camera')!=camera and p.evaluate('fixture.proposal().degrees')==degrees
+ editor(p)
+ row['native_pinch_events']=p.evaluate('aimPinchTrace')
+ down=[e['id'] for e in row['native_pinch_events'] if e['type']=='pointerdown' and e['target']=='board']
+ assert len(set(down))==2,row['native_pinch_events']
+ assert p.evaluate("(ids)=>ids.every(id=>!document.getElementById('board').hasPointerCapture(id))",down)
+ row['native_aim_pinch']='PASS fixed editor, second finger remains board-owned, scale changes without heading mutation'
+
  n=p.locator('#quantity-count').text_content();r=p.locator('#quantity-plus').bounding_box();dev.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[{'x':r['x']+22,'y':r['y']+22,'id':33}]});dev.send('Input.dispatchTouchEvent',{'type':'touchCancel','touchPoints':[]});assert p.locator('#quantity-count').text_content()==n;editor(p)
  p.mouse.move(r['x']+22,r['y']+22);p.mouse.down();p.evaluate('document.dispatchEvent(new Event("freeze"))');p.wait_for_timeout(1200);p.mouse.up();assert p.locator('#quantity-count').text_content()==n;editor(p);row['cancelled_release']='PASS native touch cancellation and controlled freeze; no late release after1.2s'
 

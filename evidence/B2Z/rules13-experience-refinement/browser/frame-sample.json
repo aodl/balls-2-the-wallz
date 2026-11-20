@@ -1,0 +1,58 @@
+[
+  {
+    "kind": "baseline",
+    "viewport": [
+      1440,
+      900
+    ],
+    "samples": 60,
+    "p50Ms": 83.4,
+    "p95Ms": 133.3,
+    "rangeMs": [
+      66.6,
+      250
+    ]
+  },
+  {
+    "kind": "baseline",
+    "viewport": [
+      320,
+      640
+    ],
+    "samples": 60,
+    "p50Ms": 16.7,
+    "p95Ms": 33.3,
+    "rangeMs": [
+      16.6,
+      33.4
+    ]
+  },
+  {
+    "kind": "candidate",
+    "viewport": [
+      1440,
+      900
+    ],
+    "samples": 60,
+    "p50Ms": 50.0,
+    "p95Ms": 83.3,
+    "rangeMs": [
+      49.9,
+      100.0
+    ]
+  },
+  {
+    "kind": "candidate",
+    "viewport": [
+      320,
+      640
+    ],
+    "samples": 60,
+    "p50Ms": 16.7,
+    "p95Ms": 33.4,
+    "rangeMs": [
+      16.6,
+      66.6
+    ]
+  }
+]

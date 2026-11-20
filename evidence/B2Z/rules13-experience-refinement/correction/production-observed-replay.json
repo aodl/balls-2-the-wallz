@@ -1,0 +1,52 @@
+{
+  "status": "PASS",
+  "exact": [
+    "state",
+    "events",
+    "scores"
+  ],
+  "rows": [
+    {
+      "segment": 13224,
+      "work_iterations": 9,
+      "input_count": 0,
+      "state_hash": "83faf8bdf16fff21797363ddfcc2aaf4b7a60b33a0e53cf29ceb1fb22feffa70",
+      "manif": "a791f447aeb0a5e97c8eaa28c402e1cabb262bc8b3196614605445a662fea87d"
+    },
+    {
+      "segment": 13225,
+      "work_iterations": 9,
+      "input_count": 0,
+      "state_hash": "114383a7e695ed3c299dd9d7a46febadf5e340fa8779e6d17b3ffe7323029047",
+      "manif": "14a806e70d9b92b49e794affeedaa5ad844021e4b75a1543accaf04c319b7b36"
+    },
+    {
+      "segment": 13226,
+      "work_iterations": 9,
+      "input_count": 0,
+      "state_hash": "43827ea002e6efc40c852adada62c645e5e8959e76e5a43d9f00c51825a30bca",
+      "manif": "a119758b42a1f29fb5ee30e3e291a0b0112704a56e845b072232a33f06137dc0"
+    },
+    {
+      "segment": 13227,
+      "work_iterations": 9,
+      "input_count": 0,
+      "state_hash": "f457e09f5fb225dba4a9c13b093d1530495ad5e39924f0bfef2f3949361308f0",
+      "manif": "ddb0b7149ea8662fde6a2e3b27cc5cfb791317b33b03796838e46ba639f1f397"
+    },
+    {
+      "segment": 13228,
+      "work_iterations": 9,
+      "input_count": 0,
+      "state_hash": "16d207bb16656d1bc30c1bf137f01e2089507b5e82546163261c92c6aaa35f9d",
+      "manif": "cb398f99c36d19ef6e8e04bd982e47e25269a39931f8bfa2cf240b2d18e48ca2"
+    },
+    {
+      "segment": 13229,
+      "work_iterations": 9,
+      "input_count": 0,
+      "state_hash": "a5ec309c025543eacbf542d20f682eb4d872ddad3957b01f0e16c8cfd9908e2c",
+      "manif": "1562113a94cec9df156a48e341555615855a50cb59016ae2f9b3f82117803337"
+    }
+  ]
+}

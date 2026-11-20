@@ -15,7 +15,7 @@ s=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(H,directory=
 def save():(out/'results.json').write_text(json.dumps(report,indent=2)+'\n')
 def geometry(page):return page.evaluate('''()=>{const r=s=>document.querySelector(s).getBoundingClientRect().toJSON();return{title:r('.payment-title'),from:r('.payment-from'),to:r('.payment-to'),amount:r('.payment-price'),copies:[...document.querySelectorAll('[data-copy]')].map(n=>n.getBoundingClientRect().toJSON()),panel:r('#workspace'),scroll:r('.panel-scroll'),quantity:r('#quantity-controls'),group:r('#launch-editors'),cry:r('#war-cry-editor'),hidden:document.getElementById('launch-editors').hidden,fields:[...document.querySelectorAll('#prepared-card input,#prepared-card textarea')].length,buttons:document.querySelectorAll('#prepared-card [data-copy]').length}}''')
 def align(page):
- d=geometry(page);d['summaries']=page.locator('.payment-grid .identity-summary span').evaluate_all('(nodes)=>nodes.map(n=>({id:n.id,text:n.textContent,width:n.clientWidth,scroll:n.scrollWidth}))');assert all(x['scroll']<=x['width']for x in d['summaries']),d['summaries'];assert d['fields']==0 and d['buttons']==3;assert abs(d['title']['right']-d['from']['right'])<=1,d;centers=[x['x']+x['width']/2 for x in d['copies']];assert max(centers)-min(centers)<=1,d;assert all(x['width']>=44 and x['height']>=44 for x in d['copies']);assert d['from']['right']<=d['to']['left']+1;return d
+ d=geometry(page);d['summaries']=page.locator('.payment-grid .identity-summary span:not(.sr-only)').evaluate_all('(nodes)=>nodes.map(n=>({id:n.id,text:n.textContent,width:n.clientWidth,scroll:n.scrollWidth}))');assert all(x['scroll']<=x['width']for x in d['summaries']),d['summaries'];assert d['fields']==0 and d['buttons']==3;assert abs(d['title']['right']-d['from']['right'])<=1,d;centers=[x['x']+x['width']/2 for x in d['copies']];assert max(centers)-min(centers)<=1,d;assert all(x['width']>=44 and x['height']>=44 for x in d['copies']);assert d['from']['right']<=d['to']['left']+1;return d
 with sync_playwright()as pw:
  b=pw.chromium.launch(headless=True,chromium_sandbox=True)
  try:
@@ -26,7 +26,7 @@ with sync_playwright()as pw:
     dpr=3 if enabled and w==320 else 2 if enabled and w==390 else 1
     ctx=b.new_context(viewport={'width':w,'height':h},device_scale_factor=dpr,has_touch=w<700,permissions=['clipboard-read','clipboard-write'],record_video_dir=str(out/f'video-{w}-{enabled}'));page=ctx.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));ctx.add_init_script("globalThis.copied=[];const wr=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async s=>{await wr(s);copied.push(s)}");page.goto(url+'/?case=quantityLive'+('&combined=1'if a.combined else'&war-cry=1'if enabled else''));open_fire(page);row={'width':w,'height':h,'dpr':dpr,'capability':enabled,'rules_policy':'combined11'if a.combined else'warcry10'if enabled else'legacy6','actions':{}};report['views'].append(row);save()
     assert page.locator('#war-cry').is_visible()==enabled
-    for action,prompt in [('fire','Aim & Pay'),('move','Move & Pay'),('build','Build, Aim & Pay')]:
+    for action,prompt in [('fire','Pay to Fire'),('move','Pay to Move'),('build','Pay to Build & Fire')]:
      if action!='fire':
       page.locator('#'+action+'-action').click();settled_panel(page)
       if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click();settled_panel(page)
@@ -54,7 +54,7 @@ with sync_playwright()as pw:
       if action=='fire':assert page.locator('#quantity-controls').is_visible();assert page.locator('#war-cry').is_visible()==enabled
      for field,value in [('owner',page.locator('#full-recipient').text_content()),('amount',page.locator('#transfer-amount').text_content().replace(' ICP','')),('text',page.locator('#text-memo').text_content())]:
       page.locator('[data-copy='+field+']').click();page.wait_for_function('(v)=>copied.at(-1)===v',arg=value)
-     page.locator('#recipient-reveal').click();assert page.locator('#full-recipient').is_visible();assert page.locator('#full-recipient').text_content()=='s5ir5-gqaaa-aaaas-amyna-cai';page.locator('#recipient-reveal').click();settled_panel(page);page.screenshot(path=str(out/f'{w}-{enabled}-{action}.png'));save()
+     assert page.locator('#recipient-reveal').count()==0;assert page.locator('#payment-owner').evaluate('(n)=>n.tagName')=='SPAN';assert page.locator('#full-recipient').text_content()=='s5ir5-gqaaa-aaaas-amyna-cai';settled_panel(page);page.screenshot(path=str(out/f'{w}-{enabled}-{action}.png'));save()
     # Reopen Fire, exact camera pose; fixture geometry control is not production acceptance.
     page.locator('#fire-action').click();settled_panel(page);page.evaluate('fixture.shell.controller.cancel();Object.assign(fixture.camera,{x:3.6575453715563526,y:3.6575453715563526,scale:64});fixture.setHeading(347.15);fixture.draw()');page.wait_for_timeout(500)
     if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click();settled_panel(page)
@@ -90,11 +90,34 @@ with sync_playwright()as pw:
      if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click()
      assert page.locator('#text-memo').text_content().endswith('|進め');row['native_ime']='PASS composing copy fence and committed Unicode memo'
      gesture_probes(page,ctx,row)
+     # The same real touch route must work after an actual compass rotation.
+     page.locator('[data-board-quarter="1"]').click()
+     page.wait_for_function('()=>fixture.camera.quarter===1&&!fixture.shell.controller.active')
+     fingers=page.evaluate('''()=>{
+      const source=fixture.camera.cellPoint(fixture.aim().cannon.cell);
+      for(let y=95;y<innerHeight-90;y+=12){
+       const xs=[50,115,190,252].filter(x=>document.elementFromPoint(x,y)?.id==='board'&&Math.hypot(source.sx-x,source.sy-y)>84);
+       if(xs.length>=2)return {a:xs[0],b:xs.at(-1),y};
+      }
+      return null;
+     }''')
+     assert fingers
+     left,right,y=fingers['a'],fingers['b'],fingers['y']
+     before=page.evaluate('fixture.summary().camera')
+     proposal=page.evaluate('fixture.proposal()')
+     touch=lambda i,x:{'x':x,'y':y,'id':i}
+     dev.send('Input.dispatchTouchEvent',{'type':'touchStart','touchPoints':[touch(11,left),touch(22,right)]})
+     dev.send('Input.dispatchTouchEvent',{'type':'touchMove','touchPoints':[touch(11,left+20),touch(22,right-20)]})
+     dev.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
+     after=page.evaluate('fixture.summary().camera')
+     assert after[2]<before[2] and page.evaluate('fixture.proposal()')==proposal,(before,after,proposal,page.evaluate('fixture.proposal()'))
+     row['rotated_native_pinch']='PASS actual touch zoom with unchanged canonical draft and East at top'
+
     row['sweep']='PASS full forward/reverse, original pose, active group bounds';page.screenshot(path=str(out/f'{w}-{enabled}-347.png'));row['final']=geometry(page);row['errors']=errors;assert not errors;save()
     if enabled:
      # First Join is direction-anchored, never attached to a fabricated cannon.
      page.close();ctx.close();ctx=b.new_context(viewport={'width':w,'height':h},device_scale_factor=dpr,has_touch=w<700,permissions=['clipboard-read','clipboard-write'],record_video_dir=str(out/f'video-{w}-join'));page=ctx.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto(url+'/?case=quantityLive'+('&combined=1'if a.combined else'&war-cry=1'));page.wait_for_function('()=>Boolean(globalThis.fixture)');page.locator('#join-action').click();page.locator('#sending-account').fill('2vxsx-fae');page.locator('#identity-save').click();settled_panel(page)
-     assert page.locator('#action-prompt').text_content()=='Join & Pay';assert page.locator('#quantity-controls').is_hidden();assert page.locator('#war-cry').is_visible();assert page.locator('#launch-editors').evaluate('(n)=>n.parentElement.id')=='action-inputs';page.locator('#war-cry').fill('None');assert page.locator('#text-memo').text_content().endswith('|None');settled_panel(page);align(page)
+     assert page.locator('#action-prompt').text_content()=='Pay to Join';assert page.locator('#quantity-controls').is_hidden();assert page.locator('#war-cry').is_visible();assert page.locator('#launch-editors').evaluate('(n)=>n.parentElement.id')=='action-inputs';page.locator('#war-cry').fill('None');assert page.locator('#text-memo').text_content().endswith('|None');settled_panel(page);align(page)
      expected=page.locator('#text-memo').text_content();page.locator('#text-memo').select_text();page.keyboard.press('Control+C');wallet=ctx.new_page();wallet.goto(url+'/paste.html');wallet.locator('#paste').focus();wallet.keyboard.press('Control+V');assert wallet.locator('#paste').input_value()==expected;wallet.close();page.bring_to_front()
      page.evaluate('()=>{navigator.clipboard.writeText=async()=>{throw new DOMException("Denied","NotAllowedError")}}');page.locator('[data-copy=text]').click();assert page.locator('#manual-value').input_value()==expected;page.keyboard.press('Control+C');wallet=ctx.new_page();wallet.goto(url+'/paste.html');wallet.locator('#paste').focus();wallet.keyboard.press('Control+V');assert wallet.locator('#paste').input_value()==expected;wallet.close();page.bring_to_front();page.locator('#manual-handoff').click();settled_panel(page);row['join']='PASS actual direction-anchored editor, literal None, native and denied-API fallback memo copy';page.screenshot(path=str(out/f'{w}-join-cry.png'));save()
     page.close();ctx.close()

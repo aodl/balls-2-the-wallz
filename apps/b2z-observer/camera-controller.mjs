@@ -36,7 +36,7 @@ export function wheelZoom({deltaY,deltaMode=0,ctrlKey=false},height=800){
  return{factor:Math.exp(-Math.max(-500,Math.min(500,amount))*.002),discrete:deltaMode!==0||(!ctrlKey&&Number.isInteger(deltaY)&&n>=40&&(n%40===0||n%100===0))};
 }
 export class CameraController{
- constructor(camera,{now=()=>performance.now(),reducedMotion=()=>false,onSettled=()=>{},onChange=()=>{}}={}){this.camera=camera;this.now=now;this.reducedMotion=reducedMotion;this.onSettled=onSettled;this.onChange=onChange;this.animation=null;this.following=null;this.lastFrame=null;}
+ constructor(camera,{now=()=>performance.now(),reducedMotion=()=>false,onSettled=()=>{},onChange=()=>{}}={}){this.camera=camera;this.now=now;this.reducedMotion=reducedMotion;this.onSettled=onSettled;this.onChange=onChange;this.animation=null;this.rotation=null;this.following=null;this.lastFrame=null;}
  target(fn){const c=Object.assign(Object.create(Object.getPrototypeOf(this.camera)),this.camera);fn(c);return pose(c);}
  sample(now){
   const a=this.animation;if(!a)return false;const c=this.camera,p=Math.max(0,Math.min(1,(now-a.start)/a.duration)),e=p*p*(3-2*p);
@@ -73,10 +73,25 @@ export class CameraController{
  follow(id,identity,point){
   this.cancel({follow:true});this.following={id,identity,time:null};if(point)this.go({x:point.x,y:point.y,scale:this.camera.scale},{owner:'follow-entry',keepFollow:true,duration:this.reducedMotion()?0:260});
  }
+ rotate(quarter){
+  if(!Number.isInteger(quarter)||quarter<0||quarter>3)return false;
+  const now=this.now(),c=this.camera;this.sampleRotation(now);this.cancel();
+  const target=-quarter*Math.PI/2,turn=((target-c.angle+Math.PI)%(2*Math.PI)+2*Math.PI)%(2*Math.PI)-Math.PI;
+  if(Math.abs(turn)<1e-10||this.reducedMotion()){c.angle=target;this.rotation=null;this.onSettled(pose(c));this.onChange();}
+  else this.rotation={from:c.angle,turn,target,start:now};
+  return true;
+ }
+ sampleRotation(now){
+  if(!this.rotation)return false;
+  const r=this.rotation,t=Math.max(0,Math.min(1,(now-r.start)/320));
+  this.camera.angle=t===1?r.target:r.from+r.turn*t*t*(3-2*t);
+  if(t===1){this.rotation=null;this.onSettled(pose(this.camera));this.onChange();}
+  return true;
+ }
  update(now,{point,time,identity}={}){
   const elapsed=this.lastFrame===null?0:Math.min(.1,Math.max(0,(now-this.lastFrame)/1000));this.lastFrame=now;
   if(this.following&&identity!==undefined&&(this.following.identity!==identity||!point)){this.cancel({follow:true});return;}
-  if(this.sample(now))return;
+  const rotating=this.sampleRotation(now);if(this.sample(now)||rotating)return;
   const f=this.following,c=this.camera;if(!f||!point||time===f.time)return;if(f.time!==null&&time<f.time){this.stopFollow();return;}f.time=time;
   const p=c.point(point.x,point.y),sx=p.sx-c.viewport.width/2,sy=p.sy-c.viewport.height*.46,radius=32;
   if(Math.hypot(sx,sy)<=radius)return;
@@ -84,5 +99,5 @@ export class CameraController{
   c.centre(c.x+(q.x-c.x)*k,c.y+(q.y-c.y)*k);
  }
  zoomAvailability(){const c=this.camera,s=Math.max(c.fitScale,Math.min(c.maxScale,this.animation?.to.scale??c.scale)),e=Math.max(1e-10,c.maxScale*1e-9);return{in:s<c.maxScale-e,out:s>c.fitScale+e,overview:s>c.fitScale+e};}
- get active(){return Boolean(this.animation);}
+ get active(){return Boolean(this.animation||this.rotation);}
 }

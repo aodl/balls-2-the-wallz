@@ -21,7 +21,7 @@ def verify_returning_entry(browser,url,out):
    if cancel:page.locator('#close-panel').click()
    page.evaluate('fixture.status({worldReady:true,resolved:{kind:"waiting",label:"Waiting for next on-chain update",canPrepare:true}})')
   if sub or account=='2vxsx-fae':
-   page.wait_for_selector('#prepared-card',state='visible');assert page.locator('#action-prompt').text_content()=='Join & Pay';assert page.locator('#text-memo').text_content().startswith('NEW ');result='PASS exact absent account enters first Join'
+   page.wait_for_selector('#prepared-card',state='visible');assert page.locator('#action-prompt').text_content()=='Pay to Join';assert page.locator('#text-memo').text_content().startswith('NEW ');result='PASS exact absent account enters first Join'
   else:
    page.wait_for_function('()=>document.getElementById("workspace").hidden&&!fixture.shell.controller.active');assert page.evaluate('fixture.summary().selected')is None;assert not page.evaluate('fixture.entryState().pending');assert page.locator('#text-memo').text_content()=='';result='PASS no unsolicited NEW; once-only returning navigation'if not cancel else'PASS close cancels pending navigation'
   rows.append({'case':name,'status':result,'camera':page.evaluate('fixture.summary().camera'),'selected':page.evaluate('fixture.summary().selected')});page.screenshot(path=str(out/f'entry-{name}.png'));ctx.close()
