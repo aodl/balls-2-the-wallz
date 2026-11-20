@@ -1,0 +1,100 @@
+{
+  "status": "PASS",
+  "scope": "Same-principal disposable DFX 0.31.0 embedded frontend upgrade and snapshot recovery. Browser Rules13 source was read-only.",
+  "snapshot_id": "0000000000000000ffffffffff9000010101",
+  "predecessor": {
+    "module": "05b9223a1004a1d85fe4d0f2e0e135c04bee0034746ce3d0eab2b9734d9b3c2c",
+    "cycles": 2813595014541,
+    "idle_cycles_per_day": 3162496347,
+    "memory_bytes": 309465642
+  },
+  "candidate": {
+    "module": "b2791b620394b77e2b84f9e9d32af1440b368d25d878c65b25d9b6d5d9feb112",
+    "cycles": 2629336940450,
+    "idle_cycles_per_day": 3163287069,
+    "memory_bytes": 309543018
+  },
+  "net_cycle_debit": 184258074091,
+  "asset_checks": {
+    "predecessor": {
+      "module": "05b9223a1004a1d85fe4d0f2e0e135c04bee0034746ce3d0eab2b9734d9b3c2c",
+      "assets": 84,
+      "gzip": 6,
+      "routes": 28
+    },
+    "candidate": {
+      "module": "b2791b620394b77e2b84f9e9d32af1440b368d25d878c65b25d9b6d5d9feb112",
+      "assets": 85,
+      "gzip": 6,
+      "routes": 28
+    },
+    "recovered": {
+      "module": "05b9223a1004a1d85fe4d0f2e0e135c04bee0034746ce3d0eab2b9734d9b3c2c",
+      "assets": 84,
+      "gzip": 6,
+      "routes": 28
+    }
+  },
+  "browser_rules": 13,
+  "browser_profiles": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "heading": 6827,
+      "memo": "FIRE 1 37.5 1",
+      "four_rotations": true,
+      "native_clipboard": true,
+      "all_three_clipboard_fields": true,
+      "copy_modes": {
+        "text": "native",
+        "amount": "native",
+        "owner": "native"
+      },
+      "passive_principals": true,
+      "explicit_update_memo": "FIRE 1 37.5 2",
+      "visible_guide": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "heading": 6827,
+      "memo": "FIRE 1 37.5 1",
+      "four_rotations": true,
+      "native_clipboard": true,
+      "all_three_clipboard_fields": true,
+      "copy_modes": {
+        "text": "native",
+        "amount": "native",
+        "owner": "native"
+      },
+      "passive_principals": true,
+      "explicit_update_memo": "FIRE 1 37.5 2",
+      "visible_guide": true
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "heading": 6827,
+      "memo": "FIRE 1 37.5 1",
+      "four_rotations": true,
+      "native_clipboard": true,
+      "all_three_clipboard_fields": true,
+      "copy_modes": {
+        "text": "native",
+        "amount": "native",
+        "owner": "native"
+      },
+      "passive_principals": true,
+      "explicit_update_memo": "FIRE 1 37.5 2",
+      "visible_guide": true
+    }
+  ],
+  "native_flac_decode": 60,
+  "javascript_disabled_missing_path_status": 404
+}

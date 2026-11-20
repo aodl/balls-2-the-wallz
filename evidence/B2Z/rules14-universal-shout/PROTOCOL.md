@@ -10,7 +10,7 @@ The development observer gates the editor on exact configuration bytes and check
 
 ## Release status
 
-This branch is a development candidate. The controller-only epoch code binds the exact Rules13 predecessor, signed source anchor, sealed manifest, and complete Ledger/Index drain. It keeps schema7 and commits adapter9 together with the new rules identity. The first saved version-10 preparation record extends the strict Root schema. Compatible same-module recovery is required from that point. Disposable installed qualification, two-observer acceptance and the complete hosted qualification remain release gates. Production still requires a separate activation decision.
+This branch is a development candidate. The controller-only epoch code binds the exact Rules13 predecessor, signed source anchor, sealed manifest, and complete Ledger/Index drain. It keeps schema7 and commits adapter9 together with the new rules identity. The first saved version-10 preparation record extends the strict Root schema. Compatible same-module recovery is required from that point. The disposable installed, two-observer and hosted results are recorded in release readiness. Production requires a separate activation decision.
 
 Local checks passed for JS and Rust parsing, Rust source classification, an exact JS/native state, event and score comparison, and rejection of forged action annotations. The installed epoch and official Ledger paths remain outside that evidence.
 
@@ -31,5 +31,5 @@ The native coordinator exercises Rules12 → Rules13 → Rules14, including reje
 
 See the [focused installed rehearsal](INSTALLED_REHEARSAL.md) for the exact
 normal predecessor, official valueless Ledger/Index tests, same-module
-recovery, replay and two-browser result. Complete hosted qualification and
-consolidation with the release frontend are still pending.
+recovery, replay and two-browser result. See [release readiness](RELEASE_READINESS.md)
+for the complete hosted gates and the frozen artifacts.
