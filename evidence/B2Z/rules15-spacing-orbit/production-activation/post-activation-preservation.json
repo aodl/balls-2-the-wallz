@@ -1,0 +1,110 @@
+{
+  "status": "PASS",
+  "sample_utc": "2026-11-21T14:38:31Z",
+  "install_and_commit_world_bytes_equal": true,
+  "commit_state_bytes": 15375,
+  "commit_state_sha256": "8e8dfda03e6e390a293472196abc77d18670033d9ba2a0562afd42d88a420ceb",
+  "credits_preserved_at_commit": true,
+  "source_descriptor_equal_at_all_five_stages": true,
+  "paid_total_e8s": "100000000",
+  "official_receiving_balance_e8s": 0,
+  "official_index_account_history_equal_at_all_five_stages": true,
+  "official_index_account_positions": [
+    "40180668",
+    "40180627"
+  ],
+  "official_index_raw_account_reply_sha256": "74138027396f214d27fc28b4aa0b2327a083254b384e0ce041eb4fafa4acf13b",
+  "official_ledger_exclusive_length_at_sample": "40615878",
+  "official_index_synced_at_sample": "40615878",
+  "historical_receipt_lookups": [
+    {
+      "position": "40180627",
+      "retained_lookup": {
+        "UnknownOrNotRetained": null
+      },
+      "canonical_receipt_in_retained_window": false
+    },
+    {
+      "position": "40180668",
+      "retained_lookup": {
+        "UnknownOrNotRetained": null
+      },
+      "canonical_receipt_in_retained_window": false
+    }
+  ],
+  "retained_source_cursor": "40180669",
+  "pending_inputs": 0,
+  "pending_source_records": 0,
+  "journal_phase": [],
+  "funding_phase": "Idle",
+  "existing_funding_balance_lookup_diagnostic": "Call deadline has expired",
+  "funding_totals_e8s": "99990000",
+  "funding_total_cycles_reported": "1766023380000",
+  "run": {
+    "callback_count": "14089",
+    "completed_segments": "14089",
+    "current_segment_work": "0",
+    "generation": "14",
+    "idle": false,
+    "last_error": [],
+    "last_segment_work": "223",
+    "max_segment_work": "1027",
+    "pace": {
+      "admission_open": true,
+      "mode": "Trickle",
+      "nominal_milli": 10,
+      "performance_limited": false,
+      "supported_milli": 10
+    },
+    "pacing_seconds": 1,
+    "publication_ticks": "1",
+    "running": true,
+    "segment_ticks": "1",
+    "total_work": "3210618",
+    "work_budget": 512,
+    "world_transition": false
+  },
+  "certified_sample_utc": "2026-11-21T14:38:06.973Z",
+  "root": "0985f5dbed886fef8cf23b67cd519a447df431ca35d3865ffe52e1c5864cbc93",
+  "chain": [
+    {
+      "head": 14097,
+      "root": "0985f5dbed886fef8cf23b67cd519a447df431ca35d3865ffe52e1c5864cbc93",
+      "manifest": "2aeea0ab37c4a86206017ccd875cd4423a9e35130a61b1477af71c96c4879200",
+      "source_cursor": "40180669",
+      "state": "665e6e742afe7eb3e0ba2ea29e765612afd9637285b4116db5624b830f5aad6e",
+      "events": "86817381b161577af2466826596272ce0ca27704d26c572f9ee9f63f4ed510ca",
+      "scores": "5ee116b3a18d16ce1b8fc66f766a30ba672539f446d5a21d3adc6b6e313eb36a",
+      "receipts": [],
+      "received_e8s": "100000000"
+    },
+    {
+      "head": 14096,
+      "root": "00761acbb81bf1958f1199ecaa05fe3361e14f2298873e1567e90c641d9a51d9",
+      "manifest": "9872b797a8341d67517eb58fa9532c36ba98814d0e0a7b3ab54e6c03d8989836",
+      "source_cursor": "40180669",
+      "state": "49cffa21c2bfebe4e55727ecda7460a8747a54517a948807cc0a9558a1cb6ded",
+      "events": "742a3e994da77ce7da9055ba659ed621abe727b61c41d907c6d292c780bc7598",
+      "scores": "5ee116b3a18d16ce1b8fc66f766a30ba672539f446d5a21d3adc6b6e313eb36a",
+      "receipts": [],
+      "received_e8s": "100000000"
+    },
+    {
+      "head": 14095,
+      "root": "afb3d33a9e2ef54a4ee507fe66cd1261c1516f26a2e44633acf72f9e65f37f3c",
+      "manifest": "f679958bb4f4584f7d972567f1ba40a8333e0f11e4dfdb1f9945766857038eb5",
+      "source_cursor": "40180669",
+      "state": "afe12e33f05e759b9534d3e13037557fcb2f6494f57cff7afbd0218d67b6c23a",
+      "events": "f7caa9ca2964d6ba28cded46d84fc000976891a25f51d19f5c44327ad1e5ab69",
+      "scores": "046a01a35db5b56f1eb6c86eec30d0d598f038123e0e16403acc8b8b1835e85f",
+      "receipts": [],
+      "received_e8s": "100000000"
+    },
+    {
+      "head": 14094,
+      "root": "de819582b9e9e0432c92f3b8d698ed8edcd19c82c0a9bc0fa2a8da089219b15f",
+      "manifest": "a16d827e5aa09b26c8d8f8a9cd002744a557394d753efed3290514ff46f51935",
+      "prior": true
+    }
+  ]
+}

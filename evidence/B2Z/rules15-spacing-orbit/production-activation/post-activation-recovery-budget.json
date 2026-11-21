@@ -1,0 +1,55 @@
+{
+  "status": "PASS",
+  "frontend": {
+    "total_cycles": 1925958660049,
+    "reserved_cycles": 0,
+    "memory_bytes": 1010685514,
+    "reported_idle_cycles_per_day": 26685034815,
+    "freezing_threshold_seconds": 2592000,
+    "estimated_freezing_floor": 800551044450,
+    "reserves": {
+      "compatible_reinstall": 190000000000,
+      "temporary_chunk_storage": 64000000000,
+      "growth": 30000000000,
+      "contingency": 20000000000
+    },
+    "margin_after_reserves": 821407615599,
+    "chunk_store_empty": true,
+    "snapshots": [
+      {
+        "id": "0000000000000000000000000240661b0101",
+        "listing": "83.94 MiB, taken at 2026-11-20 10:43:46 UTC"
+      },
+      {
+        "id": "0000000000000001000000000240661b0101",
+        "listing": "219.93 MiB, taken at 2026-11-20 18:30:57 UTC"
+      },
+      {
+        "id": "0000000000000002000000000240661b0101",
+        "listing": "219.94 MiB, taken at 2026-11-20 21:46:26 UTC"
+      },
+      {
+        "id": "0000000000000003000000000240661b0101",
+        "listing": "220.01 MiB, taken at 2026-11-21 13:55:37 UTC"
+      }
+    ]
+  },
+  "backend": {
+    "before_install_total": 2065046965851,
+    "immediate_after_install_total": 1959882631194,
+    "net_drop_at_first_post_install_read": 105164334657,
+    "at_ready_total": 2043686020374,
+    "net_drop_before_install_through_paused_ready": 21360945477,
+    "after_resume_total": 2041910063336,
+    "after_resume_liquid": 1985133240296,
+    "memory_bytes": 40262405,
+    "freezing_threshold_seconds": 2592000,
+    "estimated_freezing_floor": 56778767040,
+    "conservative_trickle_floor": 1250000000000,
+    "reserves": {
+      "compatible_upgrade": 115000000000,
+      "drain_and_contingency": 70000000000
+    },
+    "margin_above_conservative_trickle_floor": 550133240296
+  }
+}

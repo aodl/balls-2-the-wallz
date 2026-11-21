@@ -1,0 +1,40 @@
+{
+  "status": "PASS",
+  "rules": 15,
+  "identity": {
+    "config_hash": "bd5c34521af5ff9bee15013549af3b265e5293589b0ef833278e580d5d760b4e",
+    "rules_hash": "2c6bee6d7156855ad7565ab62da5b681f2baf70601097580487ff4df4e855899",
+    "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "manifest": "a16d827e5aa09b26c8d8f8a9cd002744a557394d753efed3290514ff46f51935",
+  "operational": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "1",
+      "publication_ticks": "1",
+      "completed_segments": "14086",
+      "running": false
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40180669"
+    }
+  },
+  "local_edit_quantity": 2,
+  "copy_disabled": true,
+  "manual_hidden": true,
+  "write_requests": [],
+  "errors": []
+}

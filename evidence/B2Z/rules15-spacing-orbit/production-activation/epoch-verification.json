@@ -1,0 +1,37 @@
+{
+  "status": "PASS",
+  "epoch": "a16d827e5aa09b26c8d8f8a9cd002744a557394d753efed3290514ff46f51935",
+  "predecessor": "14093",
+  "successor": "14094",
+  "metadata_hash": "8281f403e1d280ac3d82b12b8fa022bab3790c8013da7f034d56925a028d7203",
+  "context": {
+    "version": 11,
+    "migration": "B2Z_STRUCTURE_SPACING_RULES_15",
+    "old_identity": {
+      "config_hash": "907d00e310f4f4128a53bc0adb964e4f05dbbb9a7c60d745703aeb3c9ec48eab",
+      "rules_hash": "6c3aaaddf76cd4b167143a78b7c9d78900b6398d651bf2dfe191881f999ac38c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "new_identity": {
+      "rules_hash": "2c6bee6d7156855ad7565ab62da5b681f2baf70601097580487ff4df4e855899",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "config_hash": "bd5c34521af5ff9bee15013549af3b265e5293589b0ef833278e580d5d760b4e",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "previous_state": "8e8dfda03e6e390a293472196abc77d18670033d9ba2a0562afd42d88a420ceb",
+    "new_state": "8e8dfda03e6e390a293472196abc77d18670033d9ba2a0562afd42d88a420ceb",
+    "logical_boundary": [
+      "14086",
+      "1"
+    ],
+    "source_cursor": "40180669",
+    "ledger_cutover": "40615784",
+    "account_history_complete_through": "40615784",
+    "index_synced": "40615784",
+    "source_anchor": "bfa329cf678c4265a56d670773c4173e3e0f662601f7251c5a5c18d51c279bae",
+    "memo_adapter_before": 9,
+    "memo_adapter_after": 9
+  },
+  "state_equivalence": "exact predecessor bytes"
+}

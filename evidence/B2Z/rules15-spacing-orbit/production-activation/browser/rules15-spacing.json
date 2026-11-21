@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "rules": 15,
+  "blocked_distance_3": 997,
+  "accepted_distance_4": 996,
+  "cannon_memo": "NEW 225 1 996",
+  "cannon_shout": "NEW 225 1 996|Forge \ud83d\udd25",
+  "diverter_memos": [
+    "DEFLECT 996 N",
+    "DEFLECT 996 E",
+    "DEFLECT 996 S",
+    "DEFLECT 996 W"
+  ],
+  "diverter_shout": "DEFLECT 996 W|Shield \ud83d\udee1\ufe0fShie",
+  "write_requests": [],
+  "errors": []
+}
