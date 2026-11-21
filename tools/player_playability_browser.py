@@ -95,11 +95,14 @@ def verify_player_controls(page,width,height):
  for displayed in ['0','45','90','180','270','359.99']:
   set_heading(page,displayed);expected=page.evaluate('(a)=>fixture.expectedHeading(a)',displayed);assert page.locator('#text-memo').inner_text()==f'FIRE 1 {expected} 1';assert page.evaluate('fixture.aim().heading===fixture.command().angle')
  print('heading and drag PASS',width,flush=True)
- # Quantity owns the reserved rail while Fire is open; optional telemetry
- # yields it. Exercise the same visible meter/financial-isolation assertions
- # in Move, then restore Fire and its exact local proposal.
- fire_memo=page.locator('#text-memo').text_content();assert page.locator('#quantity-controls').is_visible();assert page.locator('#cycles-display').evaluate('(n)=>getComputedStyle(n).visibility')=='hidden'
- page.locator('#move-action').click();settled_panel(page);expect(page.locator('#cycles-display')).to_be_visible()
+ # The persistent cycle indicator must coexist with Fire's aim and quantity
+ # controls. Verify native click targets before exercising telemetry in Move.
+ fire_memo=page.locator('#text-memo').text_content()
+ expect(page.locator('#quantity-controls')).to_be_visible()
+ cycles=page.locator('#cycles-display')
+ cycles.click(trial=True)
+ handle.click(trial=True)
+ page.locator('#move-action').click();settled_panel(page);expect(cycles).to_be_visible()
  # Real compact-meter DOM path must never expand with internal reset diagnostics.
  allowed=page.evaluate('fixture.canPay()')
  for cause in ['credit','reserve','module','source','hidden','error']:
