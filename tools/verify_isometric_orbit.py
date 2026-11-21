@@ -122,10 +122,16 @@ def test(browser, variant, width, height, reduced=False):
     page.wait_for_function("()=>Boolean(globalThis.fixture)")
     declare(page)
     page.wait_for_function("()=>document.querySelector('.brand img').naturalWidth===1711")
-    page.evaluate("""()=>{fixture.shell.controller.cancel();
+    pose = page.evaluate("""()=>{
+        // Own the scripted composition before setting its camera, even if
+        // the returning player's first navigation frame has not fired yet.
+        document.dispatchEvent(new CustomEvent('b2z-entry-cancel'));
+        fixture.shell.controller.cancel();
         fixture.camera.scale=innerWidth>700?68:40;
-        fixture.camera.centre(7.5,4.5);fixture.draw();}""")
-    pose = page.evaluate("fixture.summary().camera")
+        fixture.camera.centre(7.5,4.5);fixture.draw();
+        return fixture.summary().camera;
+    }""")
+    assert pose == [7.5, 4.5, 68 if width > 700 else 40], pose
     measures = []
     pinch = None
     for quarter, letter in enumerate("NESW"):
