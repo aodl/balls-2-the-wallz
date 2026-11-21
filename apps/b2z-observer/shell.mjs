@@ -187,7 +187,12 @@ export function createShell(doc,camera,arcade,onPick){
   const top=Math.min(m.buttons.top,viewport.top+viewport.height,...obstacles.map(r=>r.top))-quantitySize.height-4;
   return{left,top,right:left+quantitySize.width,bottom:top+quantitySize.height,...quantitySize};
  }
- function guideRects(){const m=measure(),r=[...m.guideObstacles,m.cycles];return quantitySlot&&!quantityWidget.hidden?[...r,quantitySlot.rect]:r;}
+ function guideRects(){
+  const m=measure(),r=[...m.guideObstacles,m.cycles];
+  if(arcade.movementPanel?.()&&!card.hidden&&cardBounds)r.push({...cardBounds,width:cardBounds.right-cardBounds.left,height:cardBounds.bottom-cardBounds.top});
+  if(quantitySlot&&!quantityWidget.hidden)r.push(quantitySlot.rect);
+  return r;
+ }
  function minimapArea(rect){
   if(wasShort)return {left:0,right:0,top:0,bottom:0,width:0};
   const bounds=[rect,...measure().compass],left=Math.min(...bounds.map(b=>b.left)),right=Math.max(...bounds.map(b=>b.right));

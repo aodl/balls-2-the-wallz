@@ -44,7 +44,8 @@ def prepare(src, dest):
     local.unlink()
     app = src / "apps/b2z-observer"
     (dest / "index.html").write_text((app / "index.html").read_text().replace('src="./app.mjs"', 'src="./fixture.mjs"'))
-    for name in ["style.css", "balls-to-the-wallz-b2z-wordmark.svg"]:
+    (dest / "cursors").mkdir()
+    for name in ["style.css", "balls-to-the-wallz-b2z-wordmark.svg", "cursors/reticle.svg"]:
         (dest / name).write_bytes((app / name).read_bytes())
 
 

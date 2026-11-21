@@ -52,6 +52,13 @@ def movement(browser, url, declare, screen, width, height, diverter):
     page.goto(url)
     page.wait_for_function("()=>Boolean(globalThis.fixture)")
     declare(page)
+    if width < 700:
+        for quarter in (1, 0):
+            button=page.locator(f"[data-board-quarter='{quarter}']")
+            bounds=button.bounding_box()
+            page.touchscreen.tap(bounds["x"]+22,bounds["y"]+22)
+            expect(button).to_be_disabled()
+            assert page.evaluate("fixture.shell.controller.rotation === null")
     source, first = (4007, 500500) if diverter else (4004, 500500)
     stem = f"{'diverter' if diverter else 'cannon'}-{width}"
     scene(page, source, 42, width/2, 124 if width<700 else 390)
@@ -137,7 +144,7 @@ def tile_cases(page, screen, variant, width):
         screen(page,f"{prefix}-invalid")
         return
     expect(label).to_have_attribute("aria-pressed","true")
-    expect(page.locator("#preparation-note")).to_contain_text("other structures")
+    expect(page.locator("#preparation-note")).to_have_text("Choose a tile at least four tiles from every other structure.")
     expect(page.locator('[data-copy="text"]')).to_be_disabled()
     page.wait_for_function("()=>fixture.inspect().tileHighlights.some(h=>h.kind==='invalid'&&h.cell===5003)")
     screen(page,f"{prefix}-invalid")
@@ -164,12 +171,12 @@ def compass_and_turret(page, screen):
     button = lambda q: page.locator(f"[data-board-quarter='{q}']")
     positions = """()=>[...document.querySelectorAll('#board-compass button')].map(n=>{
         const b=n.getBoundingClientRect(),f=getComputedStyle(n,'::before');
-        return {x:b.x+b.width/2,y:b.y+b.height/2,hit:b.width,face:parseFloat(f.width),
+        return {x:b.x+b.width/2,y:b.y+b.height/2,hit:b.width,face:parseFloat(f.width)+parseFloat(f.borderLeftWidth)+parseFloat(f.borderRightWidth),
                 fill:f.backgroundColor,disabled:n.disabled,pressed:n.getAttribute('aria-pressed')};
     })"""
     fills=["rgb(18, 21, 23)","rgb(240, 242, 242)","rgb(151, 157, 160)","rgb(240, 242, 242)"]
     controls=page.evaluate(positions)
-    assert [c["fill"] for c in controls]==fills and all(c["face"]==34 and c["hit"]==44 for c in controls)
+    assert [c["fill"] for c in controls]==fills and all(c["face"]==34 and c["hit"]==44 for c in controls), controls
     button(1).hover()
     assert button(1).evaluate("b=>getComputedStyle(b,'::before').outlineStyle")=="solid"
     page.locator("#board").focus()
@@ -180,12 +187,11 @@ def compass_and_turret(page, screen):
     page.evaluate("fixture.pauseFrames(true)")
     try:
         for start in range(4):
-            page.evaluate("q=>{fixture.camera.angle=-q*Math.PI/2;fixture.draw()}",start)
             for end in range(4):
+                page.evaluate("q=>{fixture.camera.angle=-q*Math.PI/2;fixture.draw()}",start)
                 if start == end:
                     assert button(end).is_disabled()
                     continue
-                page.evaluate("q=>{fixture.camera.angle=-q*Math.PI/2;fixture.draw()}",start)
                 first = page.evaluate(positions)
                 page.evaluate("q=>document.querySelector('[data-board-quarter=\"'+q+'\"]').click()",end)
                 ready=page.evaluate(positions)

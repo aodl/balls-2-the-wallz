@@ -33,6 +33,11 @@ test('distant movement guide remains by the visible wrapped destination',()=>{
  const arrow=movementArrow(camera,990,0);
  assert.ok(arrow&&arrow.world[1][0]>arrow.world[0][0]);
  assert.ok(Math.hypot(arrow.screen[0].x-arrow.screen[1].x,arrow.screen[0].y-arrow.screen[1].y)<160);
+ const [start,end]=arrow.screen,mid={x:(start.x+end.x)/2,y:(start.y+end.y)/2};
+ const card={left:mid.x-12,right:mid.x+12,top:mid.y-12,bottom:mid.y+12,width:24,height:24};
+ const clipped=movementArrow(camera,990,0,[card]);
+ assert.deepEqual(clipped.screen[1],end);
+ assert.ok(Math.hypot(clipped.screen[0].x-end.x,clipped.screen[0].y-end.y)<Math.hypot(start.x-end.x,start.y-end.y)/2);
 });
 
 test('turret wrap, interruption and direct aim are visual only',()=>{

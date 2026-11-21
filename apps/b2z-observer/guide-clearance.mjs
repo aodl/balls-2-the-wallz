@@ -21,7 +21,7 @@ export function aimingArrow(camera,aim,obstacles=[]){
  return {height:.028,world,screen:world.map(([x,y])=>camera.screen(x,y,.028))};
 }
 /** Relocation direction only; shortest toroidal displacement, bounded in pixels. */
-export function movementArrow(camera,source,destination){
+export function movementArrow(camera,source,destination,obstacles=[]){
  if(source===null||source===undefined||destination===null||destination===undefined||source===destination)return null;
  const delta=(a,b,size)=>camera.torus?((b-a+size/2)%size+size)%size-size/2:b-a;
  const p=camera.cellPoint(source),q=camera.cellPoint(destination);
@@ -32,9 +32,17 @@ export function movementArrow(camera,source,destination){
  if(span<=.34||!p.visible&&!q.visible)return null;
  // When the source has left the view, retain the incoming direction beside the destination.
  const nearSource=p.visible;
- const x=nearSource?p.x+ux*span:q.x-ux*.44,y=nearSource?p.y+uy*span:q.y-uy*.44;
- const from=nearSource?[p.x+ux*.34,p.y+uy*.34]:[q.x-ux*span,q.y-uy*span];
- const tip=Math.min(.24,span*.2),height=.38;
+ const height=.38;
+ let x=nearSource?p.x+ux*span:q.x-ux*.44,y=nearSource?p.y+uy*span:q.y-uy*.44;
+ let from=nearSource?[p.x+ux*.34,p.y+uy*.34]:[q.x-ux*span,q.y-uy*span];
+ const start=camera.screen(...from,height),end=camera.screen(x,y,height);
+ // Keep the useful end of the arrow visible when a compact move card
+ // takes part of its shaft. Its direction and canonical target stay fixed.
+ const fraction=nearSource?guideClearance(start,end,obstacles):guideClearance(end,start,obstacles);
+ if(Math.hypot(end.x-start.x,end.y-start.y)*fraction<8)return null;
+ if(nearSource){x=from[0]+(x-from[0])*fraction;y=from[1]+(y-from[1])*fraction;}
+ else from=[x+(from[0]-x)*fraction,y+(from[1]-y)*fraction];
+ const tip=Math.min(.24,Math.hypot(x-from[0],y-from[1])*.2);
  const world=[from,[x,y],[x+Math.cos(a+2.6)*tip,y+Math.sin(a+2.6)*tip],[x,y],[x+Math.cos(a-2.6)*tip,y+Math.sin(a-2.6)*tip]];
  return {height,world,screen:world.map(([x,y])=>camera.screen(x,y,height))};
 }
