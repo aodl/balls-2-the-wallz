@@ -18,7 +18,7 @@ Production remains Rules14. This document is a future operating sequence. Comple
 
 ## Read-only resource sample
 
-Controller reads on 2026-11-21 around 00:25 UTC returned frontend balance **2,125,573,788,559** cycles, reserved **0**, memory **779,972,547 bytes**, a 30-day threshold and reported idle debit **20,790,770,505 cycles/day**. The arithmetic freezing-floor estimate is **623,723,115,150 cycles**. These are controller observations of the deployed Rules14 modules. The backend reported roughly **2.236T liquid cycles** in a later read and an open Trickle admission gate, with one tick, one second pacing, work budget 512, and no pending source records at that sample. A separate funding-controller read still recorded an expired balance lookup deadline, which warrants a fresh assessment before future maintenance.
+Controller reads at 12:02 UTC on 2026-11-21 returned frontend balance **2,115,679,192,645** cycles, reserved **0**, memory **779,972,547 bytes**, a 30-day threshold and reported idle debit **20,790,770,505 cycles/day**. The arithmetic freezing-floor estimate is **623,723,115,150 cycles**. The exact Rules14 canisters and all three historical snapshot IDs remained in place. The backend reported **2,048,649,926,112 liquid cycles**, an open Trickle admission gate, no pending records, no transition, a source cursor of 40,180,669, one logical tick per segment, one-second pacing and work budget 512. Its funding controller still reported an expired balance lookup. The budget assumes no funding income. [Read-only resource observation](resource-observation.json)
 
 | Existing snapshot ID | Size | Contents previously verified |
 |---|---:|---|
@@ -31,13 +31,16 @@ The list was refreshed. Contents are from the prior archive records. A retained 
 | Provisional reserve | Cycles |
 |---|---:|
 | Existing freezing floor | 623.723B |
-| Additional 219.94 MiB snapshot using observed storage-rate ratio | 184.424B |
+| Added freezing floor for an estimated 219.94 MiB snapshot, rounded up | 185.000B |
+| Budgeted snapshot debit | 5.000B |
 | One coordinated upgrade and one compatible recovery at 190B each | 380.000B |
-| Peak chunk-store reserve | 60.524B |
+| Peak chunk-store reserve | 64.000B |
 | Frontend growth and measurement allowance | 30.000B |
 | Additional contingency | 20.000B |
-| **Remaining from sample** | **826.903B** |
+| **Remaining from sample** | **807.956B** |
 
 The extra 220 MiB corresponds to roughly 6.15B cycles/day in estimated retained storage cost. Refresh the actual headroom, chunk-store and subnet state before execution, then recalculate after the snapshot. ICP permits up to ten canister snapshots. This platform limit does not establish available subnet memory or affordability. [Internet Computer snapshot documentation](https://docs.internetcomputer.org/guides/canister-management/snapshots/)
+
+The backend budget reserves 30B for installation, 30B for one compatible recovery, 50B for drain and cutover, and 20B for contingency. This leaves **1,918.650B liquid**, or **668.650B** above the 1,250B conservative Trickle entry floor. The explicit 500B transition minimum and actual resource-protection state are separate gates.
 
 No snapshot retirement or funding is indicated by this indicative sample. If the budget no longer covers both installations and contingency, stop and obtain a separate decision.

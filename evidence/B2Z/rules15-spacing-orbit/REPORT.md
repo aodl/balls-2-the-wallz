@@ -16,20 +16,20 @@ The controller-only schema7 transition adds a version-11 preparation and epoch c
 
 | Item | Exact identity |
 |---|---|
-| Clean runtime and asset source | `3e6596cf85f7f5c2f44d3853327479139b0acca4` |
+| Clean runtime and asset source | `1784d0320659b5d65e2911c9031c01d012bab192` |
 | Rules15 | `2c6bee6d7156855ad7565ab62da5b681f2baf70601097580487ff4df4e855899` |
 | Configuration | `bd5c34521af5ff9bee15013549af3b265e5293589b0ef833278e580d5d760b4e` |
 | Schema7 | `b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2` |
 | Normal developer backend Wasm | `251d03b9d204792b2287538318d013a232590c9c1e883183c896e2e7383e6ea7` |
-| Bundled frontend JavaScript | `dae7c10d471338c076bf50c94ea6f856aad0bd875e7c23d4259fa82be78f82cf` |
-| Raw embedded frontend Wasm | `b4c779a813a92e89fc57cbf83050b81d8d8fc3be0255ea660504e88f52cd35ec` |
+| Bundled frontend JavaScript | `4a8de4f6313844a80bf770560291a2522a338779d1da3dec86786244cb52cef9` |
+| Raw embedded frontend Wasm | `9f60fc9d77afc7667c07bd27ce423221b290ef01a3be389f13fcc7a7b8e70d1c` |
 
-The frontend Wasm is 77,095,335 bytes and embeds 86 public files plus six gzip representations. The 89-file staging manifest also identifies three private build inputs. All 61 audio inventory entries, including the canonical manifest and 60 FLACs, are unchanged. See [Wasm metadata](artifacts/embedded-module.json), [embedded inventory](artifacts/embedded-inventory.json), and [frozen input provenance](artifacts/provenance.json). Local binaries are retained in `.work/candidate-embedded-a/frontend.wasm` and `.work/release-backend/normal.wasm`.
+The frontend Wasm is 77,096,231 bytes and embeds 86 public files plus six gzip representations. The 89-file staging manifest also identifies three private build inputs. All 61 audio inventory entries, including the canonical manifest and 60 FLACs, are unchanged. See [Wasm metadata](artifacts/embedded-module.json), [embedded inventory](artifacts/embedded-inventory.json), and [frozen input provenance](artifacts/provenance.json). Local binaries are retained in `.work/final-diagnostic/release-1784/embedded/frontend.wasm` and `.work/release-backend/normal.wasm`.
 
 ## Local verification
 
 - Source conformance, generated configuration, 59 native workspace tests, native and runtime-Wasm Clippy, and exact generated canister Candid passed.
-- The final JavaScript run passed all 2,042 tests with two test workers. An earlier concurrent run timed out on the existing two-second forecast budget. The same unchanged test passed in isolation and in the complete rerun.
+- The original spacing and orbit continuation passed all 2,042 JavaScript tests with two test workers. The browser corrections add three targeted composition regressions for the measured keyboard strip, visible Focus and narrow Build clearance. An earlier concurrent run timed out on the existing two-second forecast budget. The same unchanged test passed in isolation and in the complete rerun.
 - Chromium passed the 320px quantity/editor matrix at 640, 350, 300, 240 and 180px heights, including DPR 3 at 640px, the exact 347.15° pose, native aim-to-pinch, Update/Keep and copy readiness. The orbit fixture also passed the rotated Chromium aim-to-pinch check with the old heading preserved during the pinch.
 - The exact embedded frontend passed a disposable same-ID upgrade, every asset and gzip HTTP-v2 proof, HEAD, route and negative certificate checks. Chromium loaded it against the real Rules14 backend using read-only requests, decoded all 60 FLACs and displayed a genuine, keyboard-operable 404 with JavaScript disabled. Two clean embedded builds matched byte-for-byte. Separate single-byte changes in HTML, JavaScript, CSS, SVG and FLAC each changed the module hash. Restoring the staged bytes reproduced the original module.
 
@@ -45,7 +45,7 @@ The first persisted preparation was rejected by the old strict Rules14 decoder i
 
 ## Visual and production evidence
 
-[Matched Chromium screenshots, paid-panel test and geometry explanation](VISUAL_COMPARISON.md)
+[Matched Chromium screenshots, paid-panel test and geometry explanation](VISUAL_COMPARISON.md) · [Browser failure diagnosis and corrections](BROWSER_DIAGNOSTIC.md)
 
 [Read-only authenticated production identity](live-rules14.json)
 
@@ -53,6 +53,6 @@ The first persisted preparation was rejected by the old strict Rules14 decoder i
 
 ## Release decision
 
-The branch has no completed Rules15 hosted workflow. Repository instructions reserve the remote Git operation for the owner. The workflow retains the substantive gates and the embedded frontend gate. Its runtime and installed jobs must produce byte-identical hosted normal Wasm, and the installed case must pass on those bytes. The developer Wasm identity above is not a substitute for that hosted identity. Keep production on Rules14 until the exact-source gates pass and a separate rollout is authorised.
+The owner authorised publishing the Rules15 feature branch for hosted verification. All seven substantive jobs must pass on the same clean published source. The runtime and installed jobs must independently produce byte-identical normal Wasm and the installed case must pass on those bytes. The branch archives the installed Rules15 certificate, trace and replay proof alongside the exact module comparison. Production remains on Rules14 pending separate deployment authorisation.
 
 Physical-device input and audio testing and the documented P09 dense-scene limitation remain outside the scope of the software-rendered browser captures.

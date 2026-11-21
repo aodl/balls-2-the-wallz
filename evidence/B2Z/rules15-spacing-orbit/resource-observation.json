@@ -1,0 +1,43 @@
+{
+  "observed_utc": "2026-11-21T12:02:44Z",
+  "frontend": {
+    "module_sha256": "b2791b620394b77e2b84f9e9d32af1440b368d25d878c65b25d9b6d5d9feb112",
+    "total_cycles": 2115679192645,
+    "reserved_cycles": 0,
+    "memory_bytes": 779972547,
+    "idle_cycles_per_day": 20790770505,
+    "freezing_seconds": 2592000,
+    "estimated_freezing_floor": 623723115150,
+    "new_snapshot_mib_estimate": 219.94,
+    "new_snapshot_idle_cycles_per_day_estimate": 6147455613,
+    "front_reserve_cycles": {
+      "estimated_new_snapshot_freezing_floor_increment": 185000000000,
+      "snapshot_operation": 5000000000,
+      "upgrade": 190000000000,
+      "recovery_upgrade": 190000000000,
+      "peak_chunk_store": 64000000000,
+      "growth": 30000000000,
+      "contingency": 20000000000
+    },
+    "remaining_recovery_margin_cycles": 807956077495
+  },
+  "backend": {
+    "module_sha256": "6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6",
+    "total_cycles": 2105509353102,
+    "reserved_cycles": 0,
+    "memory_bytes": 40370181,
+    "idle_cycles_per_day": 1895379033,
+    "freezing_seconds": 2592000,
+    "estimated_freezing_floor": 56861370990,
+    "liquid_cycles": 2048649926112,
+    "backend_reserve_cycles": {
+      "upgrade": 30000000000,
+      "recovery_upgrade": 30000000000,
+      "transition_drain": 50000000000,
+      "contingency": 20000000000
+    },
+    "liquid_after_reserved_cycles": 1918649926112,
+    "margin_above_trickle_entry_floor_cycles": 668649926112,
+    "transition_liquid_minimum_cycles": 500000000000
+  }
+}

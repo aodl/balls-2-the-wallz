@@ -39,7 +39,8 @@
             68
           ]
         }
-      ]
+      ],
+      "rotated_pinch": null
     },
     {
       "size": [
@@ -80,7 +81,8 @@
             40
           ]
         }
-      ]
+      ],
+      "rotated_pinch": null
     },
     {
       "size": [
@@ -121,7 +123,12 @@
             40
           ]
         }
-      ]
+      ],
+      "rotated_pinch": {
+        "quarter": 1,
+        "native_touch": true,
+        "draft_heading": "126.4"
+      }
     }
   ],
   "before": [
@@ -164,7 +171,8 @@
             68
           ]
         }
-      ]
+      ],
+      "rotated_pinch": null
     }
   ]
 }

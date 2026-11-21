@@ -1,7 +1,7 @@
 {
   "clean_builds": [
     {
-      "bytes": 77095335,
+      "bytes": 77096231,
       "exports": [
         "memory",
         "get_candid_pointer",
@@ -49,14 +49,14 @@
           "id": 10
         },
         {
-          "bytes": 75906941,
+          "bytes": 75907837,
           "id": 11
         }
       ],
-      "sha256": "b4c779a813a92e89fc57cbf83050b81d8d8fc3be0255ea660504e88f52cd35ec"
+      "sha256": "9f60fc9d77afc7667c07bd27ce423221b290ef01a3be389f13fcc7a7b8e70d1c"
     },
     {
-      "bytes": 77095335,
+      "bytes": 77096231,
       "exports": [
         "memory",
         "get_candid_pointer",
@@ -104,51 +104,51 @@
           "id": 10
         },
         {
-          "bytes": 75906941,
+          "bytes": 75907837,
           "id": 11
         }
       ],
-      "sha256": "b4c779a813a92e89fc57cbf83050b81d8d8fc3be0255ea660504e88f52cd35ec"
+      "sha256": "9f60fc9d77afc7667c07bd27ce423221b290ef01a3be389f13fcc7a7b8e70d1c"
     }
   ],
   "mutations": [
     {
       "mutated_sha256": "76a54a5c73e390df1d995f7c65ec495631e8ff6925acac7616c7bb3d20524165",
-      "mutated_wasm_sha256": "2be1397a293b1bc5822bbd7658b318b8be6cf4f4c5115bc8575e9b0506fc39a0",
+      "mutated_wasm_sha256": "504ecec640917e4770bca24da9409e74074ca2f21a5bd8f71de3f1f5787356e3",
       "offset": 8462,
       "original_sha256": "c9d1d82835d9181a6a3371fa15779408d709df4cdf872679b687cf2c43fbf7e8",
       "path": "index.html"
     },
     {
-      "mutated_sha256": "5b0eeca30053656b82f10d6143e8f4bd11c44c0d1d1b6326929146980c412abf",
-      "mutated_wasm_sha256": "fcc1ba18ef499f91d11fa1a4591482bd6acbacf32b9334203646421cb57d1f72",
-      "offset": 570419,
-      "original_sha256": "dae7c10d471338c076bf50c94ea6f856aad0bd875e7c23d4259fa82be78f82cf",
+      "mutated_sha256": "708cea133762144ae678b04dcd30ce5567a86ae4270da1c97a08cb1a33c50f75",
+      "mutated_wasm_sha256": "9670507f148da47973e269a6f6f6b49f1c14da225aad2eb1820bb870708d73c0",
+      "offset": 570727,
+      "original_sha256": "4a8de4f6313844a80bf770560291a2522a338779d1da3dec86786244cb52cef9",
       "path": "app.mjs"
     },
     {
-      "mutated_sha256": "fb6f67d9eec0e0aaa9a2b68088f3c7675d30d3c6fbc8b9508427800fc8bca173",
-      "mutated_wasm_sha256": "acea09ebad0ac3093e2168edc553299a16ab9455ba070925b6c3039f2c451f46",
-      "offset": 19841,
-      "original_sha256": "693c9bfbc2d39e88624d7fc35b0b7b1fe9dffc65fe582f0693e7b653e5a37fec",
+      "mutated_sha256": "8f0a1fd469481f33ddba8c1f1265668e6cea91094ed145e8ad5fc6084eea87d8",
+      "mutated_wasm_sha256": "85150f306f2d3605243cee45a053e7f9a77f0d1cda4f8105236f8f0e93f9d9ed",
+      "offset": 19870,
+      "original_sha256": "8a8779d8c7cd6d75e7df2246af71a1b111a6bb92f80292af9a54473847bbba96",
       "path": "style.css"
     },
     {
       "mutated_sha256": "8da4fc86bcde66cde02cd5bedadd9a48cb7e25f1438486df8267466d1d5ba512",
-      "mutated_wasm_sha256": "f1e87e7ceecabc06d53449734ec8643f51e46f8990ca61b03a921ab2e809eb82",
+      "mutated_wasm_sha256": "ba0a833385f21919401e84d4a602c818b3813c3d4a578c86c89b8c39d7c9f10f",
       "offset": 5490,
       "original_sha256": "0e5090613b73948228b406845244f7eb0d42df9a3ed0a2fc6fb2b5398066296b",
       "path": "balls-to-the-wallz-b2z-wordmark.svg"
     },
     {
       "mutated_sha256": "e83d071bcc9ea3ae0189302853a3c6e333428b2e6a846c078385411d8ccd1004",
-      "mutated_wasm_sha256": "5a990e23132c89cd18318dfd60b860508afa6e41dfd36bd3adde0f126d00e2d9",
+      "mutated_wasm_sha256": "871eebdc45860104aa834ff767aef37c2f52df69c745cb626b8b662cd892aee7",
       "offset": 677334,
       "original_sha256": "978533bbde679a0d487e5d237eff2c43d2678a2471d4df6f7393b0e60c07b67f",
       "path": "audio/b2z-v1/music/000-978533bbde679a0d.flac"
     }
   ],
-  "restored_module_sha256": "b4c779a813a92e89fc57cbf83050b81d8d8fc3be0255ea660504e88f52cd35ec",
+  "restored_module_sha256": "9f60fc9d77afc7667c07bd27ce423221b290ef01a3be389f13fcc7a7b8e70d1c",
   "scope": "Each mutation is isolated to a disposable staged identity representation. Original release and source assets retain exact bytes.",
   "status": "PASS"
 }

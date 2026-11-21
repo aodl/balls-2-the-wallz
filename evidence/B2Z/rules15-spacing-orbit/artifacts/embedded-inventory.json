@@ -37,16 +37,16 @@
     "path": "/app.mjs",
     "variants": [
       {
-        "bytes": 1140838,
+        "bytes": 1141455,
         "embedded_path": "app.mjs",
         "encoding": "identity",
-        "sha256": "dae7c10d471338c076bf50c94ea6f856aad0bd875e7c23d4259fa82be78f82cf"
+        "sha256": "4a8de4f6313844a80bf770560291a2522a338779d1da3dec86786244cb52cef9"
       },
       {
-        "bytes": 326568,
+        "bytes": 326774,
         "embedded_path": "app.mjs.gz",
         "encoding": "gzip",
-        "sha256": "66428e9727a161b54479c78039761ce4e0cd485fc4a7ec89d0471893d15a269b"
+        "sha256": "05f9be01d7ae16d91cc71bfdcd282f26a5de8b84475f6b98064ebe6f2cad689e"
       }
     ]
   },
@@ -968,16 +968,16 @@
     "path": "/style.css",
     "variants": [
       {
-        "bytes": 39683,
+        "bytes": 39741,
         "embedded_path": "style.css",
         "encoding": "identity",
-        "sha256": "693c9bfbc2d39e88624d7fc35b0b7b1fe9dffc65fe582f0693e7b653e5a37fec"
+        "sha256": "8a8779d8c7cd6d75e7df2246af71a1b111a6bb92f80292af9a54473847bbba96"
       },
       {
-        "bytes": 9822,
+        "bytes": 9842,
         "embedded_path": "style.css.gz",
         "encoding": "gzip",
-        "sha256": "97b9aac07846c0ab884eafe128140169bc5d382b724d1f473f4ac55ad1937951"
+        "sha256": "764345f7ed6a87f02b63bbf0e1c2cf2270eb40b38f5cc5ff9dd040dad38edcfc"
       }
     ]
   }

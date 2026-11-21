@@ -1,134 +1,50 @@
 {
-  "after": [
-    {
-      "size": [
-        1440,
-        900
-      ],
-      "reduced_motion": false,
-      "camera": [
-        {
-          "quarter": 0,
-          "pose": [
-            7.5,
-            4.5,
-            68
-          ]
-        },
-        {
-          "quarter": 1,
-          "pose": [
-            7.5,
-            4.5,
-            68
-          ]
-        },
-        {
-          "quarter": 2,
-          "pose": [
-            7.5,
-            4.5,
-            68
-          ]
-        },
-        {
-          "quarter": 3,
-          "pose": [
-            7.5,
-            4.5,
-            68
-          ]
-        }
-      ],
-      "rotated_pinch": null
-    },
-    {
-      "size": [
-        390,
-        844
-      ],
-      "reduced_motion": true,
-      "camera": [
-        {
-          "quarter": 0,
-          "pose": [
-            7.5,
-            4.5,
-            40
-          ]
-        },
-        {
-          "quarter": 1,
-          "pose": [
-            7.5,
-            4.5,
-            40
-          ]
-        },
-        {
-          "quarter": 2,
-          "pose": [
-            7.5,
-            4.5,
-            40
-          ]
-        },
-        {
-          "quarter": 3,
-          "pose": [
-            7.5,
-            4.5,
-            40
-          ]
-        }
-      ],
-      "rotated_pinch": null
-    },
-    {
-      "size": [
-        320,
-        640
-      ],
-      "reduced_motion": false,
-      "camera": [
-        {
-          "quarter": 0,
-          "pose": [
-            7.5,
-            4.5,
-            40
-          ]
-        },
-        {
-          "quarter": 1,
-          "pose": [
-            7.5,
-            4.5,
-            40
-          ]
-        },
-        {
-          "quarter": 2,
-          "pose": [
-            7.5,
-            4.5,
-            40
-          ]
-        },
-        {
-          "quarter": 3,
-          "pose": [
-            7.5,
-            4.5,
-            40
-          ]
-        }
-      ],
-      "rotated_pinch": {
+  "status": "PASS",
+  "scope": "Native Chromium CDP touch at emulated 320\u00d7640 after contracted viewport restoration.",
+  "case": {
+    "size": [
+      320,
+      640
+    ],
+    "reduced_motion": false,
+    "camera": [
+      {
+        "quarter": 0,
+        "pose": [
+          7.5,
+          4.5,
+          40
+        ]
+      },
+      {
         "quarter": 1,
-        "native_touch": true,
-        "draft_heading": "126.4"
+        "pose": [
+          7.5,
+          4.5,
+          40
+        ]
+      },
+      {
+        "quarter": 2,
+        "pose": [
+          7.5,
+          4.5,
+          40
+        ]
+      },
+      {
+        "quarter": 3,
+        "pose": [
+          7.5,
+          4.5,
+          40
+        ]
       }
+    ],
+    "rotated_pinch": {
+      "quarter": 1,
+      "native_touch": true,
+      "draft_heading": "126.4"
     }
-  ]
+  }
 }

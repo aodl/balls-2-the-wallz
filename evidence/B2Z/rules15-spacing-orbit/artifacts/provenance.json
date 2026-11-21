@@ -1,7 +1,7 @@
 {
-  "source": "3e6596cf85f7f5c2f44d3853327479139b0acca4",
+  "source": "1784d0320659b5d65e2911c9031c01d012bab192",
   "source_dirty": false,
-  "inventory_sha256": "8ce823f8a6c99a2507239f1bd872d69e0f7140949836ec716e8404e602f55f5c",
+  "inventory_sha256": "7958bd8f106b56d1422763a8077127ec6ec0778a35f3dc09f6bd18b48876cd73",
   "normal_wasm_sha256": "251d03b9d204792b2287538318d013a232590c9c1e883183c896e2e7383e6ea7",
   "normal_wasm_scope": "Developer normal raw Wasm, Rust 1.94.1. Hosted Wasm and installed jobs must match each other byte-for-byte before a hosted hash can be approved.",
   "inputs": [
@@ -319,7 +319,7 @@
     },
     {
       "path": "apps/b2z-observer/camera-controller.mjs",
-      "sha256": "05a2f84a7009c639718b33be11dce3628781552a42e1a2a90e1aa521ac31928f"
+      "sha256": "d28552d7fa07aa5d4f99d42a165c1a03ec16a6120851dd76e4a1c12440cadda5"
     },
     {
       "path": "apps/b2z-observer/camera.mjs",
@@ -1311,7 +1311,7 @@
     },
     {
       "path": "apps/b2z-observer/shell.mjs",
-      "sha256": "3fe40df88edba4d25b91494fd1070d8b42a2351a185e34415e7e539b64a3a6e8"
+      "sha256": "36d13f0d9bee46dde2199ff285045204995b78bf16041a5009379bc786b29762"
     },
     {
       "path": "apps/b2z-observer/speech-bubbles.mjs",
@@ -1327,7 +1327,7 @@
     },
     {
       "path": "apps/b2z-observer/style.css",
-      "sha256": "693c9bfbc2d39e88624d7fc35b0b7b1fe9dffc65fe582f0693e7b653e5a37fec"
+      "sha256": "8a8779d8c7cd6d75e7df2246af71a1b111a6bb92f80292af9a54473847bbba96"
     },
     {
       "path": "apps/b2z-observer/terrain-surface.mjs",
