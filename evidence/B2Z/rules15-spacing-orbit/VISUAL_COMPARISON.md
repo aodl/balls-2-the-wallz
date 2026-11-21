@@ -24,3 +24,5 @@ The numerical test compares actual Three.js projection at 16 angles against the 
 The Shout placeholder keeps its accessible name and live byte feedback. The extra visible label and repeated payment disclaimer are gone. Help retains real ICP, fees, retained-payment, and no-reservation disclosures. The concrete destination risk notice remains in the payment panel. Diverter direction buttons use the shared graphite toolbar treatment with canonical direction names. The cycle button remains above the action panel after contraction and is reachable by hit testing.
 
 [Recorded camera poses and viewport cases](browser/orbit-results.json)
+
+[390×430 before the editor clearance fix](browser/before-390-editor-contraction.png) and [after](browser/after-390-editor-contraction.png) show the selected cannon moving clear of the dock while leaving the payment panel and cycle button available. [320px construction](browser/after-320-build-clearance.png) and its [430px contracted height](browser/after-320-build-contraction.png) show the provisional preview separated from the stationary toolbar. These are Chromium fixture captures.
