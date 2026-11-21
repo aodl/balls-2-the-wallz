@@ -23,9 +23,20 @@ export function aimingArrow(camera,aim,obstacles=[]){
 /** Relocation direction only; shortest toroidal displacement, bounded in pixels. */
 export function movementArrow(camera,source,destination){
  if(source===null||source===undefined||destination===null||destination===undefined||source===destination)return null;
- const delta=(a,b,size)=>((b-a+size/2)%size+size)%size-size/2,p=camera.cellPoint(source),dx=delta(source%camera.width,destination%camera.width,camera.width),dy=delta(Math.floor(source/camera.width),Math.floor(destination/camera.width),camera.height),end=camera.screen(p.x+dx,p.y+dy,.028),start=camera.screen(p.x,p.y,.028),pixels=Math.hypot(end.x-start.x,end.y-start.y),fraction=Math.min(1,160/Math.max(1,pixels)),a=Math.atan2(dy,dx),distance=Math.min(Math.hypot(dx,dy)-.44,Math.hypot(dx,dy)*fraction);
- if(!p.visible||distance<=.34)return null;
- const x=p.x+Math.cos(a)*distance,y=p.y+Math.sin(a)*distance,tip=Math.min(.24,distance*.2);return{height:.38,world:[[p.x+Math.cos(a)*.34,p.y+Math.sin(a)*.34],[x,y],[x+Math.cos(a+2.6)*tip,y+Math.sin(a+2.6)*tip],[x,y],[x+Math.cos(a-2.6)*tip,y+Math.sin(a-2.6)*tip]]};
+ const delta=(a,b,size)=>camera.torus?((b-a+size/2)%size+size)%size-size/2:b-a;
+ const p=camera.cellPoint(source),q=camera.cellPoint(destination);
+ const dx=delta(source%camera.width,destination%camera.width,camera.width);
+ const dy=delta(Math.floor(source/camera.width),Math.floor(destination/camera.width),camera.height);
+ const length=Math.hypot(dx,dy),a=Math.atan2(dy,dx),ux=dx/length,uy=dy/length;
+ const projected=camera.basis.project(ux,uy),span=Math.min(length-.44,160/(camera.scale*Math.hypot(projected.x,projected.y)));
+ if(span<=.34||!p.visible&&!q.visible)return null;
+ // When the source has left the view, retain the incoming direction beside the destination.
+ const nearSource=p.visible;
+ const x=nearSource?p.x+ux*span:q.x-ux*.44,y=nearSource?p.y+uy*span:q.y-uy*.44;
+ const from=nearSource?[p.x+ux*.34,p.y+uy*.34]:[q.x-ux*span,q.y-uy*span];
+ const tip=Math.min(.24,span*.2),height=.38;
+ const world=[from,[x,y],[x+Math.cos(a+2.6)*tip,y+Math.sin(a+2.6)*tip],[x,y],[x+Math.cos(a-2.6)*tip,y+Math.sin(a-2.6)*tip]];
+ return {height,world,screen:world.map(([x,y])=>camera.screen(x,y,height))};
 }
 
 /** Local heading only, starting at the selected ball's verified presentation. */

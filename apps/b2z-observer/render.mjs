@@ -1,3 +1,4 @@
+import {tileIndicator,turretPresentation} from './arena-indicators.mjs';
 import {orientSceneCamera} from './isometric-projection.mjs';
 import {backingQuality} from './render-quality.mjs';
 import {structureGeometry,structureMaterial} from './structure-geometry.mjs';
@@ -9,6 +10,8 @@ import {aimingArrow,movementArrow} from './guide-clearance.mjs';
 import * as T from 'three';
 import {Line2} from 'three/addons/lines/Line2.js';
 import {LineGeometry} from 'three/addons/lines/LineGeometry.js';
+import {LineSegments2} from 'three/addons/lines/LineSegments2.js';
+import {LineSegmentsGeometry} from 'three/addons/lines/LineSegmentsGeometry.js';
 import {LineMaterial} from 'three/addons/lines/LineMaterial.js';
 import {wrap} from './camera.mjs';
 import {heading} from '../../packages/kernels/b2z/math.mjs';
@@ -27,7 +30,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const eligibleInk=token('eligible','#bddde9');
  const hoverInk=token('hover','#fff4d9'),chosenInk=token('selected','#f5c77e'),invalidInk=token('invalid','#f3a8a1'),previewInk=token('preview','#ffdf9d'),guideInk=token('guide','#ffedc9'),guideUnderInk=token('guide-under','#101317');
  const material=structureMaterial(), cannonGeometry=structureGeometry(), deflectorGeometry=structureGeometry('deflector');
- const dummy=new T.Object3D(),color=new T.Color(),motion=displayedMotion();let lost=false,terrainKey='',lastView=null,lastDrawKey='',structureKey='',lastStats=null,previewKey='',sizeKey='';
+ const dummy=new T.Object3D(),color=new T.Color(),motion=displayedMotion(),facing=turretPresentation();let lost=false,terrainKey='',lastView=null,lastDrawKey='',structureKey='',lastStats=null,previewKey='',sizeKey='';
  renderer.debug.onShaderError=(gl,program,vertex,fragment)=>{lost=true;onError('The arena shader could not be compiled.');throw Error('Arena shader compilation failed: '+gl.getShaderInfoLog(vertex)+' '+gl.getShaderInfoLog(fragment)+' '+gl.getProgramInfoLog(program));};
  let audioMembership=null,audioGeneration=0;const groups=[];
  function batch(geometry,max=RENDER_LIMITS.pieces,mat=material){const m=new T.InstancedMesh(geometry,mat,max);m.count=0;m.frustumCulled=false;scene.add(m);groups.push(m);return m;}
@@ -75,10 +78,28 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  }
  const contourUnderlay=batch(new T.RingGeometry(.644,.707,4),8,new T.MeshBasicMaterial({color:guideUnderInk,side:T.DoubleSide,toneMapped:false}));
  const hoverRings=batch(new T.RingGeometry(.662,.688,4),4,new T.MeshBasicMaterial({color:0xffffff,side:T.DoubleSide,toneMapped:false}));
- const chosenRings=batch(new T.RingGeometry(.48,.57,4),3,new T.MeshBasicMaterial({color:chosenInk,side:T.DoubleSide,toneMapped:false}));
- const destinationRings=batch(new T.RingGeometry(.47*Math.SQRT2,.5*Math.SQRT2,4),6,new T.MeshBasicMaterial({color:0xffffff,side:T.DoubleSide,toneMapped:false}));
- const invalidRings=batch(new T.RingGeometry(.48,.54,4),2,new T.MeshBasicMaterial({color:invalidInk,side:T.DoubleSide,toneMapped:false}));
- const crosses=batch(new T.PlaneGeometry(.6,.08),2,new T.MeshBasicMaterial({color:invalidInk,side:T.DoubleSide}));
+ // The largest case is a selected Diverter, a selected destination and a hovered tile.
+ const indicatorGeometry=new LineSegmentsGeometry().setPositions(new Float32Array(18*6)).setColors(new Float32Array(18*6));
+ const tileLines=[new LineSegments2(indicatorGeometry,new LineMaterial({color:guideUnderInk,linewidth:5.5,depthTest:false,depthWrite:false,toneMapped:false})),new LineSegments2(indicatorGeometry,new LineMaterial({vertexColors:true,linewidth:2.8,depthTest:false,depthWrite:false,toneMapped:false}))];
+ tileLines.forEach((line,i)=>{line.frustumCulled=false;line.renderOrder=3+i;scene.add(line);});
+ let tileHighlights=[];const displayedTurrets=[];
+ function updateTileLines(camera,highlights){
+  tileHighlights=highlights;
+  const coords=indicatorGeometry.attributes.instanceStart.data,inks=indicatorGeometry.attributes.instanceColorStart.data;
+  let count=0;
+  for(const {kind,segments} of highlights){
+   color.set(kind==='invalid'?invalidInk:kind==='hover'?hoverInk:kind==='destination'?previewInk:0xffffff);
+   for(const segment of segments){
+    for(const [x,y] of segment){
+     coords.array.set([x,.016,y],3*count);
+     inks.array.set([color.r,color.g,color.b],3*count++);
+    }
+   }
+  }
+  indicatorGeometry.instanceCount=count/2;
+  for(const line of tileLines){line.visible=count>0;line.material.resolution.set(camera.viewport.width,camera.viewport.height);}
+  coords.needsUpdate=inks.needsUpdate=true;
+ }
  const highlights=batch(new T.PlaneGeometry(.97,.97),RENDER_LIMITS.effects,new T.ShaderMaterial({transparent:true,depthWrite:false,vertexShader:'attribute float effectAlpha;varying float fade;void main(){fade=effectAlpha;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying float fade;void main(){gl_FragColor=vec4(0.,0.,0.,.20*fade);}'}));highlights.geometry.setAttribute('effectAlpha',new T.InstancedBufferAttribute(new Float32Array(RENDER_LIMITS.effects),1));
  const preview=batch(new T.PlaneGeometry(.85,.85),8192,new T.MeshBasicMaterial({color:0xffffff,transparent:true,opacity:.14,depthWrite:false,side:T.DoubleSide}));
  const guideGeometry=new LineGeometry().setPositions([0,0,0,0,0,0]);
@@ -91,7 +112,8 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  canvas.addEventListener('webglcontextlost',lostHandler);canvas.addEventListener('webglcontextrestored',restoreHandler);
  function renderFrame(v,camera,{time=0,selected=null,selectedTile=null,selectedDeflector=null,selection=null,hover=null,aim=null,followed=null,points=null,guideObstacles=[],reducedMotion=false,audioEligible=false,wallMs=performance.now(),frameTime=null}={}){
   if(lost)return;lastHover=hover;lastFollowed=followed;
-  const drawKey=[themeRevision,audioEligible,camera.x,camera.y,camera.scale,camera.angle,camera.viewport.width,camera.viewport.height,time,v.territoryRevision,v.entityKey(),selected,selectedTile,selectedDeflector,selection?.deflector?.orientation,followed,hover?.kind,hover?.id,hover?.cell,selection?.key,selection?.cell,selection?.cells?.length,aim?.cannon.cell,aim?.angle,JSON.stringify(guideObstacles),reducedMotion,devicePixelRatio].join('/');
+  const facingRevision=facing.sample(v.cannons,aim,wallMs,reducedMotion);
+  const drawKey=[themeRevision,facingRevision,audioEligible,camera.x,camera.y,camera.scale,camera.angle,camera.viewport.width,camera.viewport.height,time,v.territoryRevision,v.entityKey(),selected,selectedTile,selectedDeflector,selection?.deflector?.orientation,followed,hover?.kind,hover?.id,hover?.cell,selection?.key,selection?.cell,selection?.cells?.length,aim?.cannon.cell,aim?.angle,JSON.stringify(guideObstacles),reducedMotion,devicePixelRatio].join('/');
   if(lastView===v&&lastDrawKey===drawKey&&!lastStats?.effects&&!lastStats?.tails)return lastStats;
   lastDrawKey=drawKey;quality.observe(frameTime);
   const {width,height}=camera.viewport,cannonLod=1;const dpr=Math.min(devicePixelRatio||1,RENDER_LIMITS.dpr,Math.sqrt(quality.pixels/(width*height))),size=[width,height,dpr].join('/');if(size!==sizeKey){sizeKey=size;renderer.setPixelRatio(dpr);renderer.setSize(width,height,false);}
@@ -108,20 +130,30 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   forceTerrainUpload=false;surfaceRevision=surfaceData.revision;
   if(updateTerrain){tiles.count=boundedTiles.count=0;if(v.torus){for(const copy of copies)instance(tiles,v.width/2+copy.x,v.height/2+copy.y,0,v.width,1,v.height);}else instance(boundedTiles,v.width/2,v.height/2,-.05,v.width,1,v.height);}
   const nextPreviewKey=[key,selection?.key,selection?.id,selection?.cell,selection?.cells?.join(',')].join('/'),updatePreview=nextPreviewKey!==previewKey;previewKey=nextPreviewKey;
-  const nextStructureKey=[key,aim?.kind,aim?.cannon.id,aim?.cannon.cell,aim?.heading,[...v.cannons.values()].map(c=>c.heading).join(','),[...v.deflectors?.values()??[]].map(d=>[d.id,d.generation,d.cell,d.owner,d.heading,d.orientation].join(':')).join(',')].join('/'),updateStructures=nextStructureKey!==structureKey;structureKey=nextStructureKey;
+  const nextStructureKey=[key,[...v.cannons.values()].map(c=>[c.id,c.heading,c.generation].join(':')).join(','),[...v.deflectors?.values()??[]].map(d=>[d.id,d.generation,d.cell,d.owner,d.heading,d.orientation].join(':')).join(',')].join('/'),updateStructures=nextStructureKey!==structureKey;structureKey=nextStructureKey;
   for(const g of groups)if(g!==tiles&&g!==boundedTiles&&(g!==preview||updatePreview)&&(!structureBatches.has(g)||updateStructures))g.count=0;
   points??=displayedBalls(v,time);
   const effects=motion.sample(points,{time,wallMs,width:v.width,height:v.height,torus:v.torus,reducedMotion,pixelsPerCell:camera.scale,basis:camera.basis,trajectories:v.balls,knots:v.motionKnots});
   if(updatePreview)previewData=previewCells(v,camera,selection);
+  let turretIndex=0,turretBytes=0;
   {
    const audioBalls=audioEligible?new Map():null,audioCannons=audioEligible?new Map():null;audioMembership=null;
    for(const c of v.cannons.values()){
     const position=camera.cellPoint(c.cell),x=position.x,y=position.y;if(!visible(camera,x,y))continue;
     const tint=updateStructures||c.id===selected||camera.scale<8?luminousAccent(v.color(c.id)):null,lod=cannonLod;
     instance(shadows,x+.06,y+.07,.006,lod,1,lod,null,[-Math.PI/2,0,0]);
-    const [dx,dy]=heading(aim?.cannon.id===c.id&&aim.cannon.cell===c.cell?aim.heading:Number.isInteger(c.heading)?c.heading:0),theta=Math.atan2(dy,dx);
+    const theta=facing.angle(c.id);
     if(audioEligible&&bases.count<RENDER_LIMITS.pieces&&audioBalls.size+audioCannons.size<4096)audioCannons.set(c.id,{x,y});
     if(updateStructures)cannon(parts,x,y,theta,lod,{accent:tint});
+    else{
+     const angle=displayedTurrets[turretIndex];
+     if(angle!==theta){
+      dummy.position.set(x,0,y);dummy.scale.setScalar(1);dummy.rotation.set(0,-theta,0);
+      dummy.updateMatrix();turrets.setMatrixAt(turretIndex,dummy.matrix);
+      turrets.instanceMatrix.addUpdateRange(turretIndex*16,16);turretBytes+=64;
+     }
+    }
+    displayedTurrets[turretIndex++]=theta;
     if(camera.scale<8)instance(distantMarkers,x,y,.02,8/camera.scale,1,8/camera.scale,tint,[-Math.PI/2,0,Math.PI/4]);
     if(c.id===selected){cannon(outlined,x,y,theta,lod,{},1.055);cannon(highlighted,x,y,theta,lod,{accent:tint});}
     if(c.id===selected||hover?.kind==='cannon'&&hover.id===c.id){instance(contourUnderlay,x,y,.019,lod,1,lod,null,[-Math.PI/2,0,Math.PI/4]);instance(hoverRings,x,y,.02,lod,1,lod,c.id===selected?tint:hoverInk,[-Math.PI/2,0,Math.PI/4]);}
@@ -146,27 +178,32 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   if(aim&&(aim.cannon.id===null||v.cannons.get(aim.cannon.id)?.cell!==aim.cannon.cell)){const p=camera.cellPoint(aim.cannon.cell),a=aim.angle*Math.PI/180;cannon(aim.kind==='deflect'?outlinedDeflector:outlined,p.x,p.y,a,cannonLod,{},1.07);cannon(aim.kind==='deflect'?provisionalDeflector:provisional,p.x,p.y,a,cannonLod);}
 
   const move=(selection?.id!==undefined||selection?.deflector)&&selection.cell!==null&&selection.legal?.(selection.cell)?selection:null,source=move&&(move.deflector??move.reference?.cannons.find(c=>c.id===move.id)??v.cannons.get(move.id));const arrow=aimingArrow(camera,aim,guideObstacles)??(source?movementArrow(camera,source.cell,move.cell):null);guide.visible=guideUnder.visible=Boolean(arrow);if(arrow)guideGeometry.setPositions(arrow.world.flatMap(([x,y])=>[x,arrow.height,y]));
-  const contour=(cell,mesh)=>{if(cell===null||cell===undefined)return;const p=camera.cellPoint(cell);if(mesh===destinationRings){instance(mesh,p.x,p.y,.044,1.025,1,1.025,guideUnderInk,[-Math.PI/2,0,Math.PI/4]);instance(mesh,p.x,p.y,.045,1,1,1,previewInk,[-Math.PI/2,0,Math.PI/4]);}else{instance(contourUnderlay,p.x,p.y,.044,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);instance(mesh,p.x,p.y,.045,1,1,1,mesh===hoverRings?hoverInk:null,[-Math.PI/2,0,Math.PI/4]);}};
-  if(selectedTile!==null&&!selection)contour(selectedTile,destinationRings);
+  const tileContours=[];
+  const contour=(cell,kind)=>{if(cell!=null){const next=tileIndicator(camera,cell,kind);if(next)tileContours.push(next);}};
+  if(selectedTile!==null&&!selection)contour(selectedTile,'selected');
   const activeDeflector=v.deflectors?.get(selectedDeflector);
-  if(activeDeflector)contour(activeDeflector.cell,destinationRings);
-  if(!selection&&hover?.kind==='tile'&&hover.cell!==selectedTile)contour(hover.cell,hoverRings);
-  if(!selection&&hover?.kind==='deflector'&&hover.id!==selectedDeflector)contour(hover.cell,hoverRings);
+  if(activeDeflector&&activeDeflector.cell!==selection?.cell)contour(activeDeflector.cell,'selected');
+  if(!selection&&['tile','camera','deflector'].includes(hover?.kind)&&hover.cell!==selectedTile&&hover.cell!==activeDeflector?.cell)contour(hover.cell,'hover');
   if(move?.deflector){
    const p=camera.cellPoint(move.cell),angle=orientationHeading(move.deflector.orientation)*Math.PI/32768;
    cannon(outlinedDeflector,p.x,p.y,angle,cannonLod,{},1.07);
    cannon(provisionalDeflector,p.x,p.y,angle,cannonLod);
   }
-  if(selection){const legal=n=>selection.legal?selection.legal(n):selection.cells.includes(n);contour(selection.cell,selection.cell!==null&&!legal(selection.cell)?invalidRings:destinationRings);
+  if(selection){const legal=n=>selection.legal?selection.legal(n):selection.cells.includes(n);contour(selection.cell,selection.cell!==null&&!legal(selection.cell)?'invalid':'destination');
    if(selection.cell!==null&&selection.id!==undefined&&legal(selection.cell)){const p=camera.cellPoint(selection.cell),c=selection.reference?.cannons.find(c=>c.id===selection.id)??v.cannons.get(selection.id),[dx,dy]=heading(c?.heading??0),a=Math.atan2(dy,dx);cannon(outlined,p.x,p.y,a,cannonLod,{},1.07);cannon(provisional,p.x,p.y,a,cannonLod);}
-   if(hover?.cell!==null&&hover?.cell!==undefined){contour(hover.cell,hover.kind==='place'?hoverRings:invalidRings);if(hover.kind==='place'&&hover.cell!==selection.cell){const p=camera.cellPoint(hover.cell);instance(hoverGhost,p.x,p.y,.09);}if(hover.kind==='invalid'){const p=camera.cellPoint(hover.cell);instance(crosses,p.x,p.y,.05,1,1,1,null,[-Math.PI/2,0,Math.PI/4]);instance(crosses,p.x,p.y,.05,1,1,1,null,[-Math.PI/2,0,-Math.PI/4]);}}
+   if(hover?.cell!=null&&hover.cell!==selection.cell&&['place','invalid'].includes(hover.kind)){
+    contour(hover.cell,hover.kind==='place'?'hover':'invalid');
+    if(hover.kind==='place'){const p=camera.cellPoint(hover.cell);instance(hoverGhost,p.x,p.y,.09);}
+   }
   }
 
+  updateTileLines(camera,tileContours);
+  if(turretBytes)turrets.instanceMatrix.needsUpdate=true;
   for(const mesh of groups){if(structureBatches.has(mesh)&&!updateStructures)continue;if((mesh===tiles||mesh===boundedTiles)&&!updateTerrain||mesh===preview&&!updatePreview)continue;if(mesh.count){mesh.instanceMatrix.addUpdateRange(0,mesh.count*16);mesh.instanceMatrix.needsUpdate=true;if(mesh.instanceColor){mesh.instanceColor.addUpdateRange(0,mesh.count*3);mesh.instanceColor.needsUpdate=true;}}}
   if(tails.count)tails.geometry.attributes.tailAlpha.needsUpdate=true;if(highlights.count)highlights.geometry.attributes.effectAlpha.needsUpdate=true;
   renderer.render(scene,ortho);if(audioMembership)audioMembership.generation=++audioGeneration;
-  lastStats={time,deflectors:deflectorBases.count,structure_triangles:(cannonGeometry.base.index.count+cannonGeometry.upper.index.count)/3*bases.count+(deflectorGeometry.base.index.count+deflectorGeometry.upper.index.count)/3*deflectorBases.count,pixel_budget:quality.pixels,buffer_width:canvas.width,buffer_height:canvas.height,structure_uploads:updateStructures,instance_upload_bytes:groups.reduce((n,g)=>n+(structureBatches.has(g)&&!updateStructures?0:g.count*(64+(g.instanceColor?12:0))),0),draw_calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,tiles:tiles.count,pieces:bases.count+balls.count,effects:effects.length,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,terrain_revision:surfaceData?.revision,terrain_bytes:surfaceData?.rgba.byteLength,terrain_dirty_rows:surfaceData?.dirtyRows.length,preview_cells:previewData.length,tails:tails.count,motion:motion.inspect()};return lastStats;
+  lastStats={time,deflectors:deflectorBases.count,structure_triangles:(cannonGeometry.base.index.count+cannonGeometry.upper.index.count)/3*bases.count+(deflectorGeometry.base.index.count+deflectorGeometry.upper.index.count)/3*deflectorBases.count,pixel_budget:quality.pixels,buffer_width:canvas.width,buffer_height:canvas.height,structure_uploads:updateStructures,instance_upload_bytes:groups.reduce((n,g)=>n+(structureBatches.has(g)&&!updateStructures?0:g.count*(64+(g.instanceColor?12:0))),turretBytes),draw_calls:renderer.info.render.calls,triangles:renderer.info.render.triangles,tiles:tiles.count,pieces:bases.count+balls.count,effects:effects.length,geometries:renderer.info.memory.geometries,textures:renderer.info.memory.textures,terrain_revision:surfaceData?.revision,terrain_bytes:surfaceData?.rgba.byteLength,terrain_dirty_rows:surfaceData?.dirtyRows.length,preview_cells:previewData.length,tails:tails.count,motion:motion.inspect()};return lastStats;
  }
  function draw(...args){audioMembership=null;try{return renderFrame(...args);}catch(error){audioMembership=null;throw error;}}
- return {audioMembership:()=>lost?null:audioMembership,draw,surface:()=>surfaceData,previews:()=>previewData,inspect(){let span=0;const a=preview.instanceMatrix.array;for(let i=0;i<preview.count;i++)span=Math.max(span,Math.hypot(a[i*16],a[i*16+1],a[i*16+2]),Math.hypot(a[i*16+4],a[i*16+5],a[i*16+6]));return{ghostKind:provisionalDeflector.base.count?'deflector':ghostBase.count?'cannon':null,deflectorGhostParts:Object.fromEntries(Object.entries(provisionalDeflector).map(([k,m])=>[k,[...m.instanceMatrix.array.slice(0,m.count*16)]])),ghostStyle:{wireframe:ghostMaterial.wireframe,opacity:ghostMaterial.opacity,depthTest:ghostMaterial.depthTest,depthWrite:ghostMaterial.depthWrite,body:ghostMaterial.color.getHexString(),barrel:ghostBarrelMaterial.color.getHexString()},guideDepth:{test:guide.material.depthTest,write:guide.material.depthWrite,height:guideGeometry.attributes.instanceStart.getY(0)},selectedContours:highlighted.base.count,selectedBodies:highlighted.base.count,cannonParts:Object.fromEntries(Object.entries(parts).map(([k,m])=>[k,[...m.instanceMatrix.array.slice(0,m.count*16)]])),ghostParts:Object.fromEntries(Object.entries(provisional).map(([k,m])=>[k,[...m.instanceMatrix.array.slice(0,m.count*16)]])),followed:lastFollowed, surfaceBound:texture?.image.data===surfaceData?.rgba,previewSpan:span,hover:lastHover,barrels:[...barrels.instanceMatrix.array.slice(0,barrels.count*16)],guideEnd:guide.visible?[guideGeometry.attributes.instanceEnd.getX(0),guideGeometry.attributes.instanceEnd.getZ(0)]:null,guide:guide.visible?[guideGeometry.attributes.instanceStart.getX(0),guideGeometry.attributes.instanceStart.getZ(0)]:null,ghost:ghostBase.count?[ghostBase.instanceMatrix.array[12],ghostBase.instanceMatrix.array[14]]:null};},reset(){audioMembership=null;motion.reset();lastDrawKey='';structureKey='';},dispose(){canvas.ownerDocument.removeEventListener('b2z-theme',themeHandler);canvas.removeEventListener('webglcontextlost',lostHandler);canvas.removeEventListener('webglcontextrestored',restoreHandler);const disposedGeometry=new Set(),disposedMaterials=new Set();for(const m of groups){if(!disposedGeometry.has(m.geometry)){m.geometry.dispose();disposedGeometry.add(m.geometry);}if(m.material!==material&&!disposedMaterials.has(m.material)){m.material.dispose();disposedMaterials.add(m.material);}m.dispose();}material.dispose();marker.geometry.dispose();marker.material.dispose();guide.geometry.dispose();guide.material.dispose();guideUnder.material.dispose();texture?.dispose();renderer.dispose();}};
+ return {audioMembership:()=>lost?null:audioMembership,draw,surface:()=>surfaceData,previews:()=>previewData,inspect(){let span=0;const a=preview.instanceMatrix.array;for(let i=0;i<preview.count;i++)span=Math.max(span,Math.hypot(a[i*16],a[i*16+1],a[i*16+2]),Math.hypot(a[i*16+4],a[i*16+5],a[i*16+6]));return{ghostKind:provisionalDeflector.base.count?'deflector':ghostBase.count?'cannon':null,deflectorGhostParts:Object.fromEntries(Object.entries(provisionalDeflector).map(([k,m])=>[k,[...m.instanceMatrix.array.slice(0,m.count*16)]])),ghostStyle:{wireframe:ghostMaterial.wireframe,opacity:ghostMaterial.opacity,depthTest:ghostMaterial.depthTest,depthWrite:ghostMaterial.depthWrite,body:ghostMaterial.color.getHexString(),barrel:ghostBarrelMaterial.color.getHexString()},guideDepth:{test:guide.material.depthTest,write:guide.material.depthWrite,height:guideGeometry.attributes.instanceStart.getY(0)},tileHighlights,selectedContours:highlighted.base.count,selectedBodies:highlighted.base.count,cannonParts:Object.fromEntries(Object.entries(parts).map(([k,m])=>[k,[...m.instanceMatrix.array.slice(0,m.count*16)]])),ghostParts:Object.fromEntries(Object.entries(provisional).map(([k,m])=>[k,[...m.instanceMatrix.array.slice(0,m.count*16)]])),followed:lastFollowed, surfaceBound:texture?.image.data===surfaceData?.rgba,previewSpan:span,hover:lastHover,barrels:[...barrels.instanceMatrix.array.slice(0,barrels.count*16)],guideEnd:guide.visible?[guideGeometry.attributes.instanceEnd.getX(0),guideGeometry.attributes.instanceEnd.getZ(0)]:null,guide:guide.visible?[guideGeometry.attributes.instanceStart.getX(0),guideGeometry.attributes.instanceStart.getZ(0)]:null,ghost:ghostBase.count?[ghostBase.instanceMatrix.array[12],ghostBase.instanceMatrix.array[14]]:null};},reset(){audioMembership=null;motion.reset();facing.reset();lastDrawKey='';structureKey='';},dispose(){canvas.ownerDocument.removeEventListener('b2z-theme',themeHandler);canvas.removeEventListener('webglcontextlost',lostHandler);canvas.removeEventListener('webglcontextrestored',restoreHandler);const disposedGeometry=new Set(),disposedMaterials=new Set();for(const m of groups){if(!disposedGeometry.has(m.geometry)){m.geometry.dispose();disposedGeometry.add(m.geometry);}if(m.material!==material&&!disposedMaterials.has(m.material)){m.material.dispose();disposedMaterials.add(m.material);}m.dispose();}material.dispose();marker.geometry.dispose();marker.material.dispose();indicatorGeometry.dispose();for(const line of tileLines)line.material.dispose();guide.geometry.dispose();guide.material.dispose();guideUnder.material.dispose();texture?.dispose();renderer.dispose();}};
 }

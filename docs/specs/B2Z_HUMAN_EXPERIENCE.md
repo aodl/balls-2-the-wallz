@@ -1306,3 +1306,32 @@ control rectangles. A keyboard-contracted editor strip reserves its measured
 space before the payment scrollport and cannon framing are calculated. The
 previous pose is restored on expansion when the player has left the temporary
 pose untouched.
+
+### Rules15 interaction polish
+
+UX-02/07/08 and UXR-01 distinguish an authoritative structure or owned tile
+from its provisional action destination. Selecting an empty owned tile
+opens Cannon Build by default under Rules15. An ineligible tile stays
+selected with a reason and Copy unavailable. Build Diverter remains a
+separate action on the same toolbar. Selecting a different empty owned tile
+during a build changes the canonical site and restores the draft for that site.
+
+UX-03 and UXR-03/21 anchor a Move panel to the chosen destination, including
+Diverter Move. The source ID and explicit Focus continue to refer to the
+authoritative structure. Moving the camera or hovering over a different tile
+does not change the proposal. When the chosen destination leaves the view,
+the same panel docks within reach, with a single scrollport. Re-entering the
+view restores its proximity to the destination without moving the camera.
+
+UX-11/12 preserve the world-space camera orbit. A direction's compass face
+keeps its world label and colour and travels with the interpolated angle.
+Its face may be smaller than its 44px hit target. Tile contours use the
+picked torus copy and a screen-space stroke with dark underlay. At low zoom,
+small centred markers identify cells whose projected polygons would be too
+small to read. Invalid destinations carry a crossed treatment.
+
+UX-10/12 ease the rotating upper into or out of a restored aiming context
+without moving the fixed base. The rendered intermediate angle never
+determines the draft heading, guide or quoted memo. Direct aim edits and
+reduced-motion mode respond immediately. `verify_isometric_orbit.py
+--interaction-polish` exercises these contracts with Chromium and Three.js.

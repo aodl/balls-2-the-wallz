@@ -372,18 +372,28 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
  width:var(--overview-width);height:var(--overview-height)
 }
 #minimap{clip-path:none}
-#board-compass{z-index:2;pointer-events:none}
-#board-compass button{
- position:absolute;width:44px;height:44px;padding:0;pointer-events:auto;
- border:1px solid #b4bcc0;border-radius:50%;box-shadow:0 2px 4px #0007;
- background:#f0f2f2;color:#171b1e;font-size:.8rem;font-weight:750
+#board-compass{
+ right:max(10px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));
+ width:calc(var(--overview-width) + 2 * var(--overview-offset));height:calc(var(--overview-height) + 2 * var(--overview-offset));
+ z-index:2;pointer-events:none
 }
-#board-compass button:not(:disabled):hover{background:#d8dddf}
-#board-compass button[aria-pressed=true]{background:#121517;color:#fff;opacity:1;cursor:default}
-#board-compass button[data-compass-slot="0"]{left:calc(50% - 22px);bottom:calc(100% + var(--overview-gap))}
-#board-compass button[data-compass-slot="1"]{left:calc(100% + var(--overview-gap));top:calc(50% - 22px)}
-#board-compass button[data-compass-slot="2"]{left:calc(50% - 22px);top:calc(100% + var(--overview-gap))}
-#board-compass button[data-compass-slot="3"]{right:calc(100% + var(--overview-gap));top:calc(50% - 22px)}
+#board-compass button{
+ --diameter:34px;--compass-fill:#f0f2f2;--compass-ink:#171b1e;
+ position:absolute;left:calc(50% - 22px);top:calc(50% - 22px);width:44px;height:44px;padding:0;
+ transform:translate(calc(var(--compass-x,0) * (50cqw - 22px)),calc(var(--compass-y,0) * (50cqh - 22px)));
+ isolation:isolate;pointer-events:auto;border:0;border-radius:50%;box-shadow:none;background:none;
+ color:var(--compass-ink);font-size:.8rem;font-weight:750
+}
+#board-compass{container-type:size}
+#board-compass button[data-board-quarter="0"]{--compass-fill:#121517;--compass-ink:#fff}
+#board-compass button[data-board-quarter="2"]{--compass-fill:#979da0;--compass-ink:#14191c}
+#board-compass button::before{
+ content:"";position:absolute;inset:calc((44px - var(--diameter))/2);border:1px solid #b4bcc0;
+ border-radius:50%;background:var(--compass-fill);box-shadow:0 2px 4px #0007;z-index:-1
+}
+#board-compass button:enabled:hover::before{outline:2px solid var(--accent);outline-offset:2px}
+#board-compass button:disabled{opacity:1;cursor:default}
+#board-compass button[aria-pressed=true]::before{border-color:#c5d8db;box-shadow:0 0 0 2px #1c292c,0 2px 4px #0007}
 .short-edit #board-compass{visibility:hidden}
 @media(max-width:700px){#arena{--overview-width:108px;--overview-height:62.35px}}
 @media(max-width:375px){#arena{--overview-width:92px;--overview-height:53.12px}#cycles-display{width:106px;padding-inline:6px;bottom:max(60px,calc(env(safe-area-inset-bottom) + 54px))}}
@@ -405,8 +415,11 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
   bottom:max(4px,env(safe-area-inset-bottom))
  }
 @media(forced-colors:active){
- #board-compass button{background:ButtonFace;color:ButtonText;border-color:ButtonText}
- #board-compass button[aria-pressed=true]{background:Highlight;color:HighlightText}
+ #board-compass button{color:ButtonText}
+ #board-compass button::before{background:ButtonFace;border-color:ButtonText}
+ #board-compass button[aria-pressed=true]{color:HighlightText}
+ #board-compass button[aria-pressed=true]::before{background:Highlight;border-color:Highlight}
+ #board-compass button:enabled:hover::before{outline-color:Highlight}
 }
 
 #trajectory-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}

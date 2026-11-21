@@ -44,7 +44,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  const title=()=>pickedDeflector()?`Diverter #${deflectorId}`:tileSelection!==null?'Owned tile':selected()?`Cannon #${id}`:'New cannon';
  const focusTarget=()=>pickedDeflector()??(tileSelection!==null?{cell:tileSelection}:selected());
  let overlayKey='';const drafts=new Map();const draftKey=value=>`${context}/${config?.rules_version}/${declaration?.account}/${id}/${deflectorId}/${tileSelection}/${value}`;
- const emit=()=>{const key=[view,mode,id,deflectorId,tileSelection,$('workspace').hidden,Boolean(warning),Boolean(manual)].join('/');if(key!==overlayKey){overlayKey=key;doc.dispatchEvent(new CustomEvent('b2z-overlay'));}};
+ const emit=()=>{const key=[view,mode,id,deflectorId,tileSelection,cell,$('workspace').hidden,Boolean(warning),Boolean(manual)].join('/');if(key!==overlayKey){overlayKey=key;doc.dispatchEvent(new CustomEvent('b2z-overlay'));}};
  function rememberDraft(){if(view==='action')drafts.set(draftKey(mode),{cell,degrees,worldAngle,quantity,cry});}
  function show(name,title){
   if(name!=='action')rememberDraft();if(!$('workspace').contains(doc.activeElement))opener=doc.activeElement;if(view!==name)doc.querySelector('.panel-scroll').scrollTop=0;view=name;$('workspace').hidden=false;
@@ -269,10 +269,10 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   if(value==='deflect'){worldAngle=snappedDeflectorDegrees(worldAngle??encodedHeading(degrees));degrees=displayHeading(worldAngle);if(cell===null||!deflectorSites(world,config,declaration.account).test(cell))cell=defaultDeflect;}
   show('action',id===null?'New cannon':`Cannon #${id}`);refresh();
  }
- function contextAction(value){
+ function contextAction(value,{selectedSite=false}={}){
   const d=pickedDeflector(),tile=tileOwn(),c=selected(),moving=['move','deflector_move'].includes(value);
   if(d&&(!deflectorOwn()||!['deflector_move','deflector_reorient'].includes(value)))return;
-  if(tile&&(!['start','deflect'].includes(value)||tileBuildIssue(value==='start'?'new':'deflect')))return;
+  if(tile&&(!['start','deflect'].includes(value)||!selectedSite&&tileBuildIssue(value==='start'?'new':'deflect')))return;
   if(!tile&&!d&&(!c||c.account!==declaration?.account||!['ball','move'].includes(value)))return;
   if(moving&&(moveDestination()===null||!moveReady)){refresh();return;}
   cancelEntryNavigation();intentVersion++;
@@ -388,9 +388,11 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    if(!structureContexts()||!world?.deflectors.some(d=>d.id===n))return false;
    intentVersion++;rememberDraft();id=tileSelection=null;deflectorId=n;cell=null;keepPrevious=false;mode='inspect';clearDraft();show('inspect',title());return true;
   },
-  selectTile(n){
+  selectTile(n,build='start'){
    if(!structureContexts()||!world||!contextSites(world,config).owns(declaration?.account,n)||contextSites(world,config).hasStructure(n))return false;
-   intentVersion++;rememberDraft();id=deflectorId=null;tileSelection=n;cell=null;keepPrevious=false;mode='inspect';clearDraft();show('inspect',title());return true;
+   intentVersion++;rememberDraft();id=deflectorId=null;tileSelection=n;cell=null;keepPrevious=false;mode='inspect';clearDraft();
+   if(spacingSupported(config))contextAction(build,{selectedSite:true});else show('inspect',title());
+   return true;
   },
   tileSelectable(n){return structureContexts()&&n!==null&&world&&contextSites(world,config).owns(declaration?.account,n)&&!contextSites(world,config).hasStructure(n);},
   selectedTile:()=>tileSelection,selectedDeflector:()=>deflectorId,
@@ -399,6 +401,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   quantity:()=>({count:quantity,maximum:MAX_QUANTITY,active:qtyActive()}),setQuantity(n){if(!Number.isSafeInteger(n)||n<1||n>MAX_QUANTITY)return false;if(n===quantity)return true;quantity=n;clearDraft();keepPrevious=false;refresh();return true;},
   enter,cancelEntryNavigation,entryState:()=>({generation:entryGeneration,pending:Boolean(entryPending),account:entryPending?.account??null}),
   hasCannon:n=>refs.some(c=>c.id===n),selectedCannon:()=>id,account:()=>declaration?.account??null,mode:()=>mode,canPay:()=>status.canPrepare,active:()=>view!==null,selected,angle:()=>degrees,context:()=>view,anchor:()=>view==='action'&&mode==='start'&&!mine().length?null:focusTarget(),
+  movementPanel:()=>view==='action'&&['move','deflector_move'].includes(mode)?{source:focusTarget()?.cell,destination:cell}:null,
   intentContext:()=>[context,world?.version,declaration?.account,id,deflectorId,tileSelection,focusTarget()?.cell,mode,intentVersion].join('/'),revision:()=>revision,
 
   aimAt(dx,dy){
@@ -445,6 +448,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   },
   chooseCell(n){
    const selection=api.moveSelection();
+   if(selection&&spacingSupported(config)&&tileOwn()&&['start','deflect'].includes(mode)&&api.tileSelectable(n))return n===tileSelection||api.selectTile(n,mode);
    if(selection&&n===null){cell=null;keepPrevious=false;clearDraft();refresh();return true;}
    if(!(selection?.legal?selection.legal(n):selection?.cells.includes(n))){
     const pending=structureContexts()&&['start','deflect'].includes(mode)?tileBuildIssue(mode==='start'?'new':'deflect',n):null;

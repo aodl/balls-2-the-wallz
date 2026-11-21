@@ -9,10 +9,12 @@ import subprocess
 from threading import Thread
 
 from playwright.sync_api import sync_playwright
+from interaction_polish_browser import compass_and_turret, movement, tile_cases
 
 ROOT = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument("--output", type=Path, required=True)
+p.add_argument("--interaction-polish", action="store_true")
 p.add_argument("--reference", type=Path, help="optional Rules14 checkout for matching before captures")
 args = p.parse_args()
 out = args.output.resolve()
@@ -222,6 +224,25 @@ try:
         report = {"after": [test(browser, "after", w, h, w == 390) for w, h in [(1440,900),(390,844),(320,640)]]}
         if args.reference:
             report["before"] = [test(browser, "before", 1440, 900)]
+        if args.interaction_polish:
+            candidate = url + "/after/?case=orbit&spacing"
+            interaction = {"movement": [movement(browser, candidate, declare, screen, w, h, d)
+                                        for w,h in [(1440,900),(390,844),(320,640)] for d in [False,True]]}
+            for variant, sizes in (("after", [(1440,900),(320,640)]),("before", [(1440,900),(320,640)] if args.reference else [])):
+                for w,h in sizes:
+                    ctx=browser.new_context(viewport={"width":w,"height":h},has_touch=w<700)
+                    page=ctx.new_page()
+                    errors=[]
+                    page.on("pageerror",lambda e: errors.append(str(e)))
+                    page.goto(f"{url}/{variant}/?case=orbit&spacing")
+                    page.wait_for_function("()=>Boolean(globalThis.fixture)")
+                    declare(page)
+                    tile_cases(page,screen,variant,w)
+                    if variant=="after" and w==1440:
+                        interaction["animation"]=compass_and_turret(page,screen)
+                    assert not errors,errors
+                    ctx.close()
+            report["interaction_polish"] = interaction
         browser.close()
     (out / "results.json").write_text(json.dumps(report, indent=2) + "\n")
 finally:
