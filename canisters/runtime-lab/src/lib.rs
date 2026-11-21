@@ -177,6 +177,8 @@ struct Root {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     shout_transition: Option<transition::Transition>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    spacing_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_barrier: Option<playability_runtime::Barrier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_error: Option<String>,
@@ -289,6 +291,7 @@ fn active_transition(r: &Root) -> AppResult<Option<&transition::Transition>> {
         r.deflector_transition.as_ref(),
         r.context_transition.as_ref(),
         r.shout_transition.as_ref(),
+        r.spacing_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -311,6 +314,7 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.deflector_transition.as_ref(),
         r.context_transition.as_ref(),
         r.shout_transition.as_ref(),
+        r.spacing_transition.as_ref(),
     ]
     .map(|t| t.is_some_and(|t| t.holding()));
     if flags.into_iter().filter(|v| *v).count() > 1 {
@@ -336,6 +340,8 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.context_transition.as_mut()
     } else if flags[9] {
         r.shout_transition.as_mut()
+    } else if flags[10] {
+        r.spacing_transition.as_mut()
     } else {
         None
     })
@@ -355,6 +361,7 @@ fn transition_evidence<'a>(
         r.deflector_transition.as_ref(),
         r.context_transition.as_ref(),
         r.shout_transition.as_ref(),
+        r.spacing_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -454,7 +461,20 @@ fn validate_retention(retention: &RetentionState, current: &Publication) -> AppR
     Ok(())
 }
 fn validate_shout_binding(r: &Root, publication: &Publication) -> AppResult<()> {
-    let enabled = publication.identity.config_hash == b2z_native::shout::configuration_hash();
+    let spacing_enabled =
+        publication.identity.config_hash == b2z_native::spacing::configuration_hash();
+    let spacing_committed = r
+        .spacing_transition
+        .as_ref()
+        .is_some_and(|t| t.phase == "complete");
+    if spacing_enabled != spacing_committed
+        || spacing_enabled
+            && publication.identity.rules_hash != b2z_native::spacing::identity()?["rules_hash"]
+    {
+        return Err("Rules15 epoch/config capability mismatch".into());
+    }
+    let shout_enabled = publication.identity.config_hash == b2z_native::shout::configuration_hash();
+    let enabled = shout_enabled || spacing_enabled;
     let adapter = r.source.memo_adapter_version == b2z_protocol::shout::MEMO_ADAPTER_VERSION;
     let committed = r
         .shout_transition
@@ -463,7 +483,9 @@ fn validate_shout_binding(r: &Root, publication: &Publication) -> AppResult<()> 
     if enabled != adapter || enabled != committed {
         return Err("Rules14 epoch/source/config capability mismatch".into());
     }
-    if enabled && publication.identity.rules_hash != b2z_native::shout::identity()?["rules_hash"] {
+    if shout_enabled
+        && publication.identity.rules_hash != b2z_native::shout::identity()?["rules_hash"]
+    {
         return Err("Rules14 rules/config capability mismatch".into());
     }
     Ok(())
@@ -538,6 +560,12 @@ fn root() -> AppResult<Root> {
             return Err("Rules14 transition version".into());
         }
     }
+    if let Some(t) = &r.spacing_transition {
+        t.validate()?;
+        if t.version != 11 {
+            return Err("Rules15 transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -591,6 +619,7 @@ fn root() -> AppResult<Root> {
         r.deflector_transition.as_ref(),
         r.context_transition.as_ref(),
         r.shout_transition.as_ref(),
+        r.spacing_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -878,6 +907,7 @@ fn persist_inner(
         deflector_transition: old.and_then(|r| r.deflector_transition.clone()),
         context_transition: old.and_then(|r| r.context_transition.clone()),
         shout_transition: old.and_then(|r| r.shout_transition.clone()),
+        spacing_transition: old.and_then(|r| r.spacing_transition.clone()),
         lifecycle_context: old.and_then(|r| r.lifecycle_context.clone()),
         lifecycle_barrier: old.and_then(|r| r.lifecycle_barrier.clone()),
         lifecycle_error: old.and_then(|r| r.lifecycle_error.clone()),
@@ -1021,6 +1051,12 @@ fn save_root_only(r: &Root) -> AppResult<()> {
         t.validate()?;
         if t.version != 10 {
             return Err("Rules14 transition version".into());
+        }
+    }
+    if let Some(t) = &r.spacing_transition {
+        t.validate()?;
+        if t.version != 11 {
+            return Err("Rules15 transition version".into());
         }
     }
     if let Some(c) = &r.lifecycle_context {
@@ -3569,38 +3605,78 @@ fn commit_context_transition(
 }
 #[ic_cdk::update]
 fn prepare_shout_transition() -> std::result::Result<Vec<u8>, String> {
+    prepare_schema7_action_transition(false)
+}
+#[ic_cdk::update]
+fn prepare_spacing_transition() -> std::result::Result<Vec<u8>, String> {
+    prepare_schema7_action_transition(true)
+}
+fn prepare_schema7_action_transition(spacing: bool) -> AppResult<Vec<u8>> {
     authorized()?;
     if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
         return Err("insufficient liquid cycles for safe transition".into());
     }
     refresh_pace();
     if !PACE.with(|p| p.borrow().hint().admission_open) {
-        return Err("resource protection forbids Rules14 cutover".into());
+        return Err((if spacing {
+            "resource protection forbids Rules15 cutover"
+        } else {
+            "resource protection forbids Rules14 cutover"
+        })
+        .into());
     }
     let mut r = root()?;
     let h = host(&r)?;
-    if let Some(t) = &r.shout_transition {
+    if let Some(t) = if spacing {
+        &r.spacing_transition
+    } else {
+        &r.shout_transition
+    } {
         return encode(t);
     }
     if r.run.running {
-        return Err("pause autonomous gameplay before Rules14 cutover".into());
+        return Err((if spacing {
+            "pause autonomous gameplay before Rules15 cutover"
+        } else {
+            "pause autonomous gameplay before Rules14 cutover"
+        })
+        .into());
     }
     if active_transition(&r)?.is_some() {
         return Err("finish existing world transition first".into());
     }
-    let expected = b2z_native::context_structures::identity()?;
+    let expected = if spacing {
+        b2z_native::shout::identity()?
+    } else {
+        b2z_native::context_structures::identity()?
+    };
     let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
     if ["rules_hash", "config_hash", "schema_hash"]
         .iter()
         .any(|k| actual[*k] != expected[*k])
     {
-        return Err("Rules14 requires exact Rules13 predecessor".into());
+        return Err((if spacing {
+            "Rules15 requires exact Rules14 predecessor"
+        } else {
+            "Rules14 requires exact Rules13 predecessor"
+        })
+        .into());
     }
     let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
     if w.version != 7
-        || r.source.memo_adapter_version != b2z_protocol::context_structures::MEMO_ADAPTER_VERSION
+        || r.source.memo_adapter_version
+            != if spacing {
+                b2z_protocol::shout::MEMO_ADAPTER_VERSION
+            } else {
+                b2z_protocol::context_structures::MEMO_ADAPTER_VERSION
+            }
     {
-        return Err("only exact Rules13 world can activate Rules14".into());
+        return Err((if spacing {
+            "only exact Rules14 world can activate Rules15"
+        } else {
+            "only exact Rules13 world can activate Rules14"
+        })
+        .into());
     }
     if h.record.journal.head.seal.is_none()
         && h.record.journal.stage.is_none()
@@ -3610,10 +3686,15 @@ fn prepare_shout_transition() -> std::result::Result<Vec<u8>, String> {
             .as_ref()
             .is_none_or(|e| e.version != 3)
     {
-        return Err("finish one Rules13 interval before Rules14 preparation".into());
+        return Err((if spacing {
+            "finish one Rules14 interval before Rules15 preparation"
+        } else {
+            "finish one Rules13 interval before Rules14 preparation"
+        })
+        .into());
     }
     if r.run.segment_ticks > 1 {
-        return Err("Rules14 successor requires an existing publication allowance of at most1 tick; no settings changed".into());
+        return Err((if spacing { "Rules15 successor requires an existing publication allowance of at most1 tick; no settings changed" } else { "Rules14 successor requires an existing publication allowance of at most1 tick; no settings changed" }).into());
     }
     if !r.source.binding_checked
         || r.source.in_flight
@@ -3627,7 +3708,11 @@ fn prepare_shout_transition() -> std::result::Result<Vec<u8>, String> {
             "finish existing source reconciliation and recover errors before cutover".into(),
         );
     }
-    r.shout_transition = Some(transition::Transition::shout());
+    if spacing {
+        r.spacing_transition = Some(transition::Transition::spacing());
+    } else {
+        r.shout_transition = Some(transition::Transition::shout());
+    }
     save_root_only(&r)?;
     ARENA_IDLE.with(|f| {
         f.set(
@@ -3637,7 +3722,11 @@ fn prepare_shout_transition() -> std::result::Result<Vec<u8>, String> {
     });
     install_run_timer(&r.run);
     request_reconciliation()?;
-    encode(&r.shout_transition)
+    encode(if spacing {
+        &r.spacing_transition
+    } else {
+        &r.shout_transition
+    })
 }
 #[ic_cdk::query]
 fn shout_transition_status() -> std::result::Result<Vec<u8>, String> {
@@ -3647,33 +3736,74 @@ fn shout_transition_status() -> std::result::Result<Vec<u8>, String> {
         &serde_json::json!({"transition":r.shout_transition,"lifecycle_error":r.lifecycle_error,"lifecycle_barrier":r.lifecycle_barrier}),
     )
 }
+#[ic_cdk::query]
+fn spacing_transition_status() -> std::result::Result<Vec<u8>, String> {
+    authorized()?;
+    let r = root()?;
+    encode(
+        &serde_json::json!({"transition": r.spacing_transition, "lifecycle_error": r.lifecycle_error, "lifecycle_barrier": r.lifecycle_barrier}),
+    )
+}
 /// Derives the Rules14 metadata once. No caller-supplied world, time or identities.
 #[ic_cdk::update]
 fn commit_shout_transition(
     expected_previous_manifest: String,
 ) -> std::result::Result<Vec<u8>, String> {
+    commit_schema7_action_transition(expected_previous_manifest, false)
+}
+#[ic_cdk::update]
+fn commit_spacing_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    commit_schema7_action_transition(expected_previous_manifest, true)
+}
+fn commit_schema7_action_transition(
+    expected_previous_manifest: String,
+    spacing: bool,
+) -> AppResult<Vec<u8>> {
     authorized()?;
     if unhex(&expected_previous_manifest)?.len() != 32 {
         return Err("expected manifest hash".into());
     }
     let mut r = root()?;
     let mut h = host(&r)?;
-    let t = r
-        .shout_transition
-        .as_ref()
-        .ok_or("prepare Rules14 cutover first")?;
+    let t = if spacing {
+        &r.spacing_transition
+    } else {
+        &r.shout_transition
+    }
+    .as_ref()
+    .ok_or(if spacing {
+        "prepare Rules15 cutover first"
+    } else {
+        "prepare Rules14 cutover first"
+    })?;
     if t.phase == "complete" {
         if t.previous_manifest.as_deref() != Some(&expected_previous_manifest) {
-            return Err("conflicting Rules14 transition retry".into());
+            return Err((if spacing {
+                "conflicting Rules15 transition retry"
+            } else {
+                "conflicting Rules14 transition retry"
+            })
+            .into());
         }
-        let expected = b2z_native::shout::identity()?;
+        let expected = if spacing {
+            b2z_native::spacing::identity()?
+        } else {
+            b2z_native::shout::identity()?
+        };
         let identity =
             serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
         if ["rules_hash", "config_hash", "schema_hash"]
             .iter()
             .any(|k| identity[*k] != expected[*k])
         {
-            return Err("completed Rules14 transition has been superseded".into());
+            return Err((if spacing {
+                "completed Rules15 transition has been superseded"
+            } else {
+                "completed Rules14 transition has been superseded"
+            })
+            .into());
         }
         return encode(t);
     }
@@ -3682,24 +3812,41 @@ fn commit_shout_transition(
         || r.lifecycle_barrier.is_some()
         || r.lifecycle_error.is_some()
     {
-        return Err(
-            "Rules14 activation requires paused error-free autonomous configuration".into(),
-        );
+        return Err((if spacing {
+            "Rules15 activation requires paused error-free autonomous configuration"
+        } else {
+            "Rules14 activation requires paused error-free autonomous configuration"
+        })
+        .into());
     }
     if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
         return Err("insufficient liquid cycles for safe transition".into());
     }
     refresh_pace();
     if !PACE.with(|p| p.borrow().hint().admission_open) {
-        return Err("resource protection forbids Rules14 activation".into());
+        return Err((if spacing {
+            "resource protection forbids Rules15 activation"
+        } else {
+            "resource protection forbids Rules14 activation"
+        })
+        .into());
     }
     if h.record.journal.head.manifest_hash != expected_previous_manifest {
         return Err("old committed manifest changed".into());
     }
     if r.run.segment_ticks > 1 {
-        return Err("Rules14 publication allowance exceeds candidate bound".into());
+        return Err((if spacing {
+            "Rules15 publication allowance exceeds candidate bound"
+        } else {
+            "Rules14 publication allowance exceeds candidate bound"
+        })
+        .into());
     }
-    let (output, metadata, identity) = playability_runtime::shout_candidate(&h, t, &r.source)?;
+    let (output, metadata, identity) = if spacing {
+        playability_runtime::spacing_candidate(&h, t, &r.source)?
+    } else {
+        playability_runtime::shout_candidate(&h, t, &r.source)?
+    };
     let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
     h.apply(Action::Transition {
         epoch: Box::new(epoch.clone()),
@@ -3707,13 +3854,21 @@ fn commit_shout_transition(
         event_hex: hex(&output.events),
         score_hex: hex(&output.scores),
     })?;
-    let t = r.shout_transition.as_mut().unwrap();
+    let t = if spacing {
+        &mut r.spacing_transition
+    } else {
+        &mut r.shout_transition
+    }
+    .as_mut()
+    .unwrap();
     t.phase = "complete".into();
     t.metadata_hex = Some(hex(&metadata));
     t.transition_hash = Some(epoch.transition_hash);
     t.previous_manifest = Some(expected_previous_manifest);
     // New adapter only after the drained authenticated boundary.
-    r.source.memo_adapter_version = b2z_protocol::shout::MEMO_ADAPTER_VERSION;
+    if !spacing {
+        r.source.memo_adapter_version = b2z_protocol::shout::MEMO_ADAPTER_VERSION;
+    }
     r.source.requested = true;
     // Preserve existing lifecycle evidence, deadlines and recovery state.
     let next = persist(&h, Some(&r), r.source.clone(), r.run.clone())?;
@@ -3721,7 +3876,11 @@ fn commit_shout_transition(
     install_run_timer(&next.run);
     playability_runtime::install(&next)?;
     request_reconciliation()?;
-    encode(&next.shout_transition)
+    encode(if spacing {
+        &next.spacing_transition
+    } else {
+        &next.shout_transition
+    })
 }
 /// Content-addressed application metadata. Hash against the independently
 /// authenticated epoch.metadata_hash; this convenience reply is not certified.
@@ -3742,6 +3901,7 @@ fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, Strin
         r.deflector_transition.as_ref(),
         r.context_transition.as_ref(),
         r.shout_transition.as_ref(),
+        r.spacing_transition.as_ref(),
     ]
     .into_iter()
     .flatten()

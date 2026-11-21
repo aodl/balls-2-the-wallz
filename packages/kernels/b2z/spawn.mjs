@@ -23,15 +23,15 @@ export function beginSpawn(seed) {
     current: null, patch: [], owners: [], ownerIndex: 0, queue: [], head: 0, seen: [],
     checked: 0, rejection_counts: {}, result: null};
 }
-export function beginEntrySpawn(w,seed){return{...beginSpawn(seed),version:7,entry:beginEntry(w,occupiedCells(w))};}
+export function beginEntrySpawn(w,seed,spacing=false){return{...beginSpawn(seed),version:7,entry:beginEntry(w,occupiedCells(w),spacing)};}
 function reject(job, reason) {
   job.rejection_counts[reason] = (job.rejection_counts[reason] ?? 0) + 1;
   job.phase = 'candidate'; job.current = null;
 }
 /** The board is immutable during this job. The host must not execute later inputs concurrently. */
-export function spawnStep(world, job) {
+export function spawnStep(world, job, spacing=false) {
   if (job.phase === 'done') return true;
-  if(job.entry){const done=entryStep(world,job.entry,cell=>seedPatch(cell,world.width,world.height,true));if(done){const best=job.entry.best;job.checked=job.entry.visited;job.result=best?{cell:best.cell,patch:seedPatch(best.cell,world.width,world.height,true),kind:5,other:-1,checked:job.checked}:null;job.phase='done';}return done;}
+  if(job.entry){const done=entryStep(world,job.entry,cell=>seedPatch(cell,world.width,world.height,true),spacing);if(done){const best=job.entry.best;job.checked=job.entry.visited;job.result=best?{cell:best.cell,patch:seedPatch(best.cell,world.width,world.height,true),kind:5,other:-1,checked:job.checked}:null;job.phase='done';}return done;}
   if (job.phase === 'enumerate') {
     const enumerateLimit=world.version>=5?1024:cellCount(world);
     if (job.scan < enumerateLimit) {

@@ -29,6 +29,8 @@ pub(crate) struct State {
     pub context_rules: bool,
     #[serde(default, skip_serializing_if = "is_false")]
     pub shout_rules: bool,
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub spacing_rules: bool,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pending_cry: Option<String>,
     pub plan: Option<Plan>,
@@ -44,7 +46,8 @@ fn is_false(v: &bool) -> bool {
 impl Cursor {
     pub(crate) fn validate_v6(&self) -> Result<()> {
         let s = self.v6.as_ref().ok_or("V6_CURSOR")?;
-        if s.shout_rules && !s.context_rules
+        if s.spacing_rules && !s.shout_rules
+            || s.shout_rules && !s.context_rules
             || s.context_rules && !s.deflector_rules
             || s.deflector_rules != (self.world.version == 7)
             || s.finalized && self.phase != "done"
@@ -111,6 +114,7 @@ impl Cursor {
                         amount,
                         &payment.memo,
                         &self.moved,
+                        self.v6.as_ref().unwrap().spacing_rules,
                     )?
                 } else {
                     purchases_v6::prepare_with_clearance(
@@ -204,7 +208,11 @@ impl Cursor {
                             )?);
                             if *first {
                                 self.spawn_job = Some(if self.v6.as_ref().unwrap().entry_rules {
-                                    SpawnJob::begin_entry(&self.world, seed)?
+                                    SpawnJob::begin_entry(
+                                        &self.world,
+                                        seed,
+                                        self.v6.as_ref().unwrap().spacing_rules,
+                                    )?
                                 } else {
                                     SpawnJob::begin(seed)
                                 });
@@ -248,7 +256,7 @@ impl Cursor {
                     .spawn_job
                     .as_mut()
                     .ok_or("SPAWN_JOB")?
-                    .step(&self.world)?
+                    .step_with_spacing(&self.world, self.v6.as_ref().unwrap().spacing_rules)?
                 {
                     let job = self.spawn_job.take().unwrap();
                     let state = self.v6.as_mut().unwrap();
@@ -327,6 +335,7 @@ impl Cursor {
             placement,
             self.v6.as_ref().unwrap().entry_rules,
             self.v6.as_ref().unwrap().context_rules,
+            self.v6.as_ref().unwrap().spacing_rules,
         )?;
         let batch = Batch::after_new(payment.account.clone(), amount, created.cannon.id, plan)?;
         self.world = created.world;

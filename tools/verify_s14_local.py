@@ -137,6 +137,12 @@ def main():
         if hashlib.sha256(rules13.read_bytes()).hexdigest()!='d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd':
             raise ValueError('Shout rehearsal requires the exact qualified Rules13 module')
         env['B2Z_RULES13_PRIOR_WASM']=str(rules13.resolve())
+        rules14=out/'rules14-predecessor.wasm'
+        rules14.write_bytes(gzip.decompress((ROOT/'vendor/b2z/rules14-6efe198e.wasm.gz').read_bytes()))
+        if hashlib.sha256(rules14.read_bytes()).hexdigest()!='6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6':
+            raise ValueError('Spacing rehearsal requires the exact qualified Rules14 module')
+        env['B2Z_RULES14_PRIOR_WASM']=str(rules14)
+
         env['B2Z_CMC_MOCK_WASM']=str(ROOT/'tools/cmc-funding-fixture/target/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm')
         if a.funding_prior_wasm:
             if hashlib.sha256(a.funding_prior_wasm.read_bytes()).hexdigest()!='53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec':raise ValueError('funding upgrade requires exact installed 53b219 module')

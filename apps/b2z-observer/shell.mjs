@@ -25,7 +25,7 @@ export function createShell(doc,camera,arcade,onPick){
  listen(quantityWidget,'keydown',e=>{if(!e.repeat&&['Enter',' '].includes(e.key))quantityClickCancelled=false;});
  for(const event of ['dblclick','click']){listen(quantityWidget,event,e=>{if(quantityClickCancelled){quantityClickCancelled=false;e.preventDefault();e.stopImmediatePropagation();}},true);listen(quantityWidget,event,e=>e.stopPropagation());}
  const compass=[...doc.querySelectorAll('[data-board-quarter]')];
- function syncCompass(){const target=motion.rotation?.target??camera.angle,quarter=(Math.round(-target/(Math.PI/2))+4)%4;for(const b of compass){const pressed=String(Number(b.dataset.boardQuarter)===quarter);if(b.getAttribute('aria-pressed')!==pressed)b.setAttribute('aria-pressed',pressed);const slot=String((Number(b.dataset.boardQuarter)-quarter+4)%4);if(b.dataset.compassSlot!==slot)b.dataset.compassSlot=slot;}}
+ function syncCompass(){const target=motion.rotation?.target??camera.angle,quarter=(Math.round(-target/(Math.PI/2))+4)%4;for(const b of compass){const pressed=String(Number(b.dataset.boardQuarter)===quarter);if(b.getAttribute('aria-pressed')!==pressed)b.setAttribute('aria-pressed',pressed);b.disabled=pressed==='true';const slot=String((Number(b.dataset.boardQuarter)-quarter+4)%4);if(b.dataset.compassSlot!==slot)b.dataset.compassSlot=slot;}}
  for(const button of compass)listen(button,'click',()=>{cancelTap();motion.rotate(Number(button.dataset.boardQuarter));syncCompass();});
  const map=createMinimap($('minimap'),camera,save,{controller:motion,origin:()=>anchor});
  // Long-press discovers an icon without activating it; keyboard gets the same
@@ -56,7 +56,7 @@ export function createShell(doc,camera,arcade,onPick){
  let pendingAim=null;
  function flushAim(){const point=pendingAim;pendingAim=null;if(point&&owner==='aim')aimAt(point);}
 
- function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const editor=quantityWidget.getBoundingClientRect();if(editor.width>0&&editor.height>0)quantitySize={width:editor.width,height:editor.height};const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');const safe=getComputedStyle(doc.documentElement);layout={safe:Object.fromEntries(['left','right','top','bottom'].map(k=>[k,parseFloat(safe.getPropertyValue('--quantity-safe-'+k))||0])),guideObstacles:[$('status-button'),$('identify-button'),doc.querySelector('.brand')].map(n=>n.getBoundingClientRect().toJSON()),top:Math.ceil(doc.querySelector('.arena-chrome').getBoundingClientRect().bottom)+10,headerBottom:Math.ceil(doc.querySelector('.arena-header').getBoundingClientRect().bottom),mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),sound:doc.querySelector('.audio-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
+ function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const editor=quantityWidget.getBoundingClientRect();if(editor.width>0&&editor.height>0)quantitySize={width:editor.width,height:editor.height};const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');const safe=getComputedStyle(doc.documentElement);layout={safe:Object.fromEntries(['left','right','top','bottom'].map(k=>[k,parseFloat(safe.getPropertyValue('--quantity-safe-'+k))||0])),guideObstacles:[$('status-button'),$('identify-button'),doc.querySelector('.brand')].map(n=>n.getBoundingClientRect().toJSON()),top:Math.ceil(doc.querySelector('.arena-chrome').getBoundingClientRect().bottom)+10,headerBottom:Math.ceil(doc.querySelector('.arena-header').getBoundingClientRect().bottom),mini:$('minimap').getBoundingClientRect(),compass:compass.map(b=>b.getBoundingClientRect()),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),sound:doc.querySelector('.audio-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
  let layoutFrame=null,layoutRevision=0,committedLayoutRevision=0;
  function invalidateLayout(){
   if(disposed)return;layoutDirty=true;layoutRevision++;
@@ -161,14 +161,18 @@ export function createShell(doc,camera,arcade,onPick){
   else if(['[',']'].includes(e.key)){arcade.adjustAngle((e.key==='['?-1:1)*(e.altKey?.01:e.shiftKey?5:1));e.preventDefault();}
  });
  function visibleBounds(){const v=globalThis.visualViewport,m=measure(),left=(v?.offsetLeft??0)+m.safe.left,top=(v?.offsetTop??0)+m.safe.top;return{left,top,width:Math.max(0,Math.min(camera.viewport.width,v?.width??Infinity)-m.safe.left-m.safe.right),height:Math.max(0,Math.min(camera.viewport.height,v?.height??Infinity)-m.safe.top-m.safe.bottom)};}
- function quantityRail(m,viewport){const map=minimapArea(m.mini),left=Math.max(viewport.left+8,Math.min(m.buttons.left,viewport.left+viewport.width-quantitySize.width-8)),top=Math.min(m.buttons.top,viewport.top+viewport.height,...(left<map.right&&left+quantitySize.width>map.left?[map.top]:[]))-quantitySize.height-8;return{left,top,right:left+quantitySize.width,bottom:top+quantitySize.height,...quantitySize};}
- function guideRects(){const r=measure().guideObstacles;return quantitySlot&&!quantityWidget.hidden?[...r,quantitySlot.rect]:r;}
- function minimapArea(rect){return wasShort?rect:{left:rect.left-44,right:rect.right+10,top:rect.top-44,bottom:rect.bottom+10,width:rect.width+54};}
+ function quantityRail(m,viewport){const map=minimapArea(m.mini),left=Math.max(viewport.left+8,Math.min(m.buttons.left,viewport.left+viewport.width-quantitySize.width-8)),top=Math.min(m.buttons.top,viewport.top+viewport.height,...[map,m.cycles].filter(r=>left<r.right&&left+quantitySize.width>r.left).map(r=>r.top))-quantitySize.height-8;return{left,top,right:left+quantitySize.width,bottom:top+quantitySize.height,...quantitySize};}
+ function guideRects(){const m=measure(),r=[...m.guideObstacles,m.cycles];return quantitySlot&&!quantityWidget.hidden?[...r,quantitySlot.rect]:r;}
+ function minimapArea(rect){
+  if(wasShort)return {left:0,right:0,top:0,bottom:0,width:0};
+  const bounds=[rect,...measure().compass],left=Math.min(...bounds.map(b=>b.left)),right=Math.max(...bounds.map(b=>b.right));
+  return{left,right,top:Math.min(...bounds.map(b=>b.top)),bottom:Math.max(...bounds.map(b=>b.bottom)),width:right-left};
+ }
  function positionQuantity(){
   const q=arcade.quantity?.(),editor=arcade.launchEditor?.(),qa=arcade.aim();$('quantity-controls').hidden=!q?.active;if(editor?.first||editor?.kind==='action'){quantityWidget.hidden=!editor.active;quantitySlot=null;quantityContext='';quantityWidget.dataset.first='true';const slot=$('action-inputs');if(quantityWidget.parentElement!==slot)slot.append(quantityWidget);return;}else{delete quantityWidget.dataset.first;if(quantityWidget.parentElement!==$('arena'))$('arena').append(quantityWidget);}quantityWidget.hidden=!editor?.active||!qa||!camera.cellPoint(qa.cannon.cell).visible;
   if(quantityWidget.hidden){quantitySlot=null;quantityContext='';return;}
   if(!qa){const m=measure(),v=visibleBounds(),rail=quantityRail(m,v);quantityWidget.style.left=Math.round(rail.left)+'px';quantityWidget.style.top=Math.round(rail.top)+'px';return;}
-  const origin=camera.cellPoint(qa.cannon.cell),a=qa.angle*Math.PI/180,end=camera.screen(origin.x+Math.cos(a),origin.y+Math.sin(a)),m=measure(),viewport=visibleBounds(),obstacles=[...m.guideObstacles,minimapArea(m.mini),...(quantityReservation==='rail'?[]:[m.cycles]),m.buttons,m.sound];if(!card.hidden&&!card.inert&&cardBounds)obstacles.push(cardBounds);
+  const origin=camera.cellPoint(qa.cannon.cell),a=qa.angle*Math.PI/180,end=camera.screen(origin.x+Math.cos(a),origin.y+Math.sin(a)),m=measure(),viewport=visibleBounds(),obstacles=[...m.guideObstacles,minimapArea(m.mini),m.cycles,m.buttons,m.sound];if(!card.hidden&&!card.inert&&cardBounds)obstacles.push(cardBounds);
   const context=[qa.cannon.id,qa.cannon.cell,viewport.left,viewport.top,viewport.width,viewport.height,quantitySize.width,quantitySize.height].join('/');
   if(context!==quantityContext){quantityContext=context;quantityDocked=viewport.height<520||viewport.width<2*(Math.max(24,camera.scale*.62+2)+quantitySize.width+8);}
   const strip=quantityReservation==='strip'?quantityDockStrip({viewport,top:Math.max(m.headerBottom+10,viewport.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound]}):null;
@@ -209,7 +213,7 @@ export function createShell(doc,camera,arcade,onPick){
   if(p?.visible){const a=aim.angle*Math.PI/180,end=camera.screen(p.x+Math.cos(a),p.y+Math.sin(a)),dx=end.x-p.sx,dy=end.y-p.sy,d=Math.hypot(dx,dy);for(const [node,k,value]of [[handle,'left',p.sx+dx/d*38-22],[handle,'top',p.sy+dy/d*38-22],[ring,'left',p.sx-38],[ring,'top',p.sy-38]]){const px=`${value}px`;if(node.style[k]!==px)node.style[k]=px;}}
   const context=arcade.context?.(),c=['inspect','action'].includes(context)?arcade.anchor?.():null,at=c?camera.cellPoint(c.cell):null,off=Boolean(at&&!at.visible);$('locate-context').hidden=card.hidden||!off;card.classList.toggle('offscreen',off);card.inert=off;$('focus-cannon').hidden=!c;
   doc.documentElement.classList.toggle('cannon-context',Boolean(c&&!card.hidden&&!off));
-  const m=measure(),expanded=context==='action',lowerObstacles=[minimapArea(m.mini),quantityReservation==='rail'?quantityRail(m,visibleBounds()):m.cycles,m.buttons];
+  const m=measure(),expanded=context==='action',lowerObstacles=[minimapArea(m.mini),m.cycles,...(quantityReservation==='rail'?[quantityRail(m,visibleBounds())]:[]),m.buttons];
   const obstacles=[...lowerObstacles];if(expanded&&cardBounds)obstacles.push(cardBounds);
   $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':$('focus-cannon').getAttribute('aria-label');
   if(card.hidden||off){positionQuantity();if(card.hidden)narrowPositionKey='';committedLayoutRevision=layoutRevision;return;}
@@ -272,7 +276,7 @@ export function createShell(doc,camera,arcade,onPick){
  function drawTrajectory(){
   const ball=lastPoints.find(b=>b.id===selectedBall),layer=$('trajectory-guide');
   if(!ball||!lastView){layer.toggleAttribute('hidden',true);return;}
-  const m=measure(),rects=[...m.guideObstacles,minimapArea(m.mini),m.buttons,m.sound,!card.hidden&&cardBounds,quantitySlot?.rect].filter(Boolean);
+  const m=measure(),rects=[...m.guideObstacles,minimapArea(m.mini),m.cycles,m.buttons,m.sound,!card.hidden&&cardBounds,quantitySlot?.rect].filter(Boolean);
   const guide=trajectoryGuide(camera,ball,lastView.balls.get(ball.id),rects);
   layer.toggleAttribute('hidden',!guide);if(!guide)return;
   const {start,end,wings}=guide,key=[start.x,start.y,end.x,end.y].join('/');
@@ -299,7 +303,7 @@ export function createShell(doc,camera,arcade,onPick){
    motion.update(now,{point:points.find(b=>b.id===motion.following?.id),time,identity});syncCompass();zoomButtons();
    const announcement=selectedBall===null?'':`${motion.following?'Following':'Selected'} ball ${selectedBall}. Press Escape to clear.`;if($('follow-announcement').textContent!==announcement)$('follow-announcement').textContent=announcement;
   },
-  update(v,surface){zoomButtons();if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===selectedBall),arcade.moveSelection());drawTrajectory();}},
+  update(v,surface){zoomButtons();if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===selectedBall),arcade.moveSelection(),arcade.selectedDeflector?.());drawTrajectory();}},
   dispose(){audioObserver.disconnect();audioMutation.disconnect();quantityObserver.disconnect();quantityPointers.clear();disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();contentObserver.disconnect();cancelAnimationFrame(layoutFrame);clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);doc.documentElement.classList.remove('cannon-context','quantity-constrained','quantity-rail');for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
  };
 }

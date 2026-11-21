@@ -13,7 +13,7 @@ ORDINARY_PAYMENT_WARNING='Fire balls to claim territory, and combine with obstac
 
 def payment_warning(page,expected):
  from playwright.sync_api import expect
- expect(page.locator('#payment-risk')).to_have_text(expected);assert page.locator('#payment-fee').count()==0;expect(page.locator('#payment-guidance')).to_contain_text('Rejected and unused amounts are retained without automatic refunds. Ledger fee is separate.');assert 'Ledger fee' in page.locator('#help-view').text_content()
+ expect(page.locator('#payment-risk')).to_have_text(expected);assert page.locator('#payment-fee').count()==0;assert page.locator('#payment-guidance').count()==0;assert 'without automatic refunds' in page.locator('#help-view').text_content();assert 'Ledger fee' in page.locator('#help-view').text_content()
  other=ORDINARY_PAYMENT_WARNING if expected==TILE_PAYMENT_WARNING else TILE_PAYMENT_WARNING
  assert other not in page.locator('#prepared-card').inner_text()
  assert page.locator('#payment-risk').evaluate('(n)=>Boolean(document.querySelector(".payment-grid").compareDocumentPosition(n)&Node.DOCUMENT_POSITION_FOLLOWING)')

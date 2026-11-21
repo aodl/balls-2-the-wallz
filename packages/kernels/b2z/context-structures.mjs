@@ -1,6 +1,6 @@
 import {CONTEXT_POLICY} from '../../protocol/context-structures.generated.mjs';
 import {decodeContextMemo} from '../../protocol/context-structures.mjs';
-import {hasFriendlyStructure,structureMap,structureSiteReason} from '../../protocol/structure-sites.mjs';
+import {hasFriendlyStructure,hasStructureClearance,structureMap,structureSiteReason} from '../../protocol/structure-sites.mjs';
 import {prepareDeflectorPurchase} from './deflectors-v12.mjs';
 import {playerForCannon} from './playability.mjs';
 import {occupiedCells,playerByAccount} from './purchases-v6.mjs';
@@ -14,19 +14,20 @@ export function friendlyStructureNearby(world,cell,owner,moving,structures=conte
   return hasFriendlyStructure(world.width,world.height,cell,owner,moving,structures);
 }
 
-export function contextSiteReason(world,owner,cell,{moving,deflector=false}={}) {
-  return structureSiteReason({width:world.width,height:world.height,owner,cell,moving,deflector,
+export function contextSiteReason(world,owner,cell,{moving,deflector=false,spacing=false}={}) {
+  return structureSiteReason({width:world.width,height:world.height,owner,cell,moving,deflector,spacing,
     occupied:occupiedCells(world),structures:contextStructures(world),
     ownerAt:c=>playerAt(world,c),active:c=>Boolean(territoryBalls(world,ownerAt(world,c)))});
 }
 
-export function prepareContextDeflector(world,account,amount,memo){
+export function prepareContextDeflector(world,account,amount,memo,spacing=false){
   if(![0xb7,0xb8,0xb9].includes(memo[0]))return null;
   let command;
   try{command=decodeContextMemo(memo);}catch{return reject('MALFORMED_MEMO');}
   if(command.kind==='deflect'){
-    const plan=prepareDeflectorPurchase(world,account,amount,memo);
+    const plan=prepareDeflectorPurchase(world,account,amount,memo,spacing);
     if(plan.kind==='rejected')return plan;
+    if(spacing)return hasStructureClearance(world.width,world.height,plan.cell,undefined,contextStructures(world))?plan:reject('STRUCTURE_TOO_CLOSE');
     return friendlyStructureNearby(world,plan.cell,plan.owner)?plan:reject('NO_FRIENDLY_STRUCTURE_NEARBY');
   }
   const structure=world.deflectors.find(d=>d.id===command.id);
@@ -43,6 +44,6 @@ export function prepareContextDeflector(world,account,amount,memo){
   const price=BigInt(CONTEXT_POLICY.deflector_move_e8s);
   if(amount<price)return reject('UNDERFUNDED');
   if(command.cell===structure.cell)return reject('SAME_LOCATION');
-  const reason=contextSiteReason(world,owner,command.cell,{moving:{kind:'deflector',id:command.id},deflector:true});
+  const reason=contextSiteReason(world,owner,command.cell,{moving:{kind:'deflector',id:command.id},deflector:true,spacing});
   return reason?reject(reason):{...command,price};
 }

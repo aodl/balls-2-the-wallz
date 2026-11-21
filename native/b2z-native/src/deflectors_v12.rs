@@ -170,6 +170,15 @@ pub fn prepare(
     amount: u64,
     memo: &[u8],
 ) -> Result<crate::purchases_v6::Plan> {
+    prepare_with_spacing(w, account, amount, memo, false)
+}
+pub(crate) fn prepare_with_spacing(
+    w: &World,
+    account: &str,
+    amount: u64,
+    memo: &[u8],
+    spacing: bool,
+) -> Result<crate::purchases_v6::Plan> {
     use crate::purchases_v6::Plan;
     let fail = |reason: &str| {
         Ok(Plan::Rejected {
@@ -212,7 +221,7 @@ pub fn prepare(
     if crate::purchases_v6::occupied_cells(w)?.contains(&cell) {
         return fail("SITE_OCCUPIED");
     }
-    if !separation(w, cell) {
+    if !spacing && !separation(w, cell) {
         return fail("DEFLECTOR_TOO_CLOSE");
     }
     if !crate::purchases_v6::enemy_clearance(w, owner, cell) {

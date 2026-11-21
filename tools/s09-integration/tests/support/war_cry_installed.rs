@@ -30,7 +30,10 @@ pub(super) fn transition_with_recovery_module(
         }
     }
     assert!(ready, "drained {kind} boundary");
-    if matches!(kind, "combined" | "deflector" | "context" | "shout") {
+    if matches!(
+        kind,
+        "combined" | "deflector" | "context" | "shout" | "spacing"
+    ) {
         let before = arena_world(pic, id).encode().unwrap();
         let finance = funding_tests::preserved_finance(pic, id);
         let publication = observe(pic, id).0.publication;
@@ -42,7 +45,7 @@ pub(super) fn transition_with_recovery_module(
         );
         let phase: serde_json::Value = decode(&raw).unwrap();
         assert_eq!(phase["transition"]["phase"], "ready");
-        if matches!(kind, "deflector" | "context" | "shout") {
+        if matches!(kind, "deflector" | "context" | "shout" | "spacing") {
             let expected_module = pic
                 .canister_status(id, Some(controller()))
                 .unwrap()
@@ -53,6 +56,7 @@ pub(super) fn transition_with_recovery_module(
                     "deflector" => "B2Z_RULES11_PRIOR_WASM",
                     "context" => "B2Z_RULES12_PRIOR_WASM",
                     "shout" => "B2Z_RULES13_PRIOR_WASM",
+                    "spacing" => "B2Z_RULES14_PRIOR_WASM",
                     _ => unreachable!(),
                 }),
                 encode_args(()).unwrap(),

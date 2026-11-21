@@ -64,10 +64,25 @@ pub struct Search {
     pub visited: usize,
     blocked: Vec<usize>,
 }
+pub(crate) fn has_clearance(world: &World, cell: usize) -> bool {
+    crate::purchases_v6::enemy_clearance(world, 0, cell)
+        && crate::context_structures::has_structure_clearance(world, cell, None)
+}
+
 impl Search {
-    pub fn begin(w: &World, blocked: Vec<usize>) -> Self {
+    pub fn begin(w: &World, blocked: Vec<usize>, spacing: bool) -> Self {
+        let neutral = w.width * w.height
+            - w.ownership_counts()
+                .iter()
+                .map(|(_, count)| count)
+                .sum::<usize>();
+        let minimum_neutral = (2 * crate::context_structures::MIN_STRUCTURE_DISTANCE - 1).pow(2);
         Self {
-            stack: vec![[0, w.width - 1, 0, w.height - 1]],
+            stack: if spacing && neutral < minimum_neutral {
+                vec![]
+            } else {
+                vec![[0, w.width - 1, 0, w.height - 1]]
+            },
             best: None,
             candidate: None,
             proposal: None,
@@ -101,7 +116,7 @@ impl Search {
             })
             .transpose()
     }
-    pub fn step(&mut self, w: &World) -> Result<bool> {
+    pub fn step(&mut self, w: &World, spacing: bool) -> Result<bool> {
         if let Some(candidate) = &self.candidate {
             if self.owner_index == self.owners.len() {
                 self.best = self.candidate.clone();
@@ -151,7 +166,9 @@ impl Search {
             let cell = minimum(w, &r);
             let patch = w.patch(cell).ok_or("ENTRY_PATCH")?;
             self.visited += 1;
-            if patch.iter().any(|c| self.blocked.binary_search(c).is_ok()) {
+            if patch.iter().any(|c| self.blocked.binary_search(c).is_ok())
+                || spacing && !has_clearance(w, cell)
+            {
                 return Ok(false);
             }
             let candidate = Choice {

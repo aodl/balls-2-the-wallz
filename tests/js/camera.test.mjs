@@ -61,3 +61,31 @@ test('ball heading guide follows the rotated verified vector and clips before co
  near(guide.start.x,guide.end.x);assert.ok(guide.end.y<guide.start.y&&guide.end.y>224);
  assert.equal(trajectoryGuide(c,ball,{vx:0,vy:0}),null);
 });
+
+test('Three.js orbit and flat picker share the same upright projection at every azimuth', async()=>{
+ const {OrthographicCamera,Vector3}=await import('three');
+ const {orientSceneCamera}=await import('../../apps/b2z-observer/isometric-projection.mjs');
+ const c=new Camera();c.configure(1000,1000,390,844,true);c.frameCell(0);
+ const {width,height}=c.viewport,W=width/(2*c.scale),H=height/(2*c.scale);
+ const ortho=new OrthographicCamera(-W,W,H,-H,1,10000);
+ const ground=()=>[[0,0],[1,0],[1,1],[0,1]].map(([x,y])=>c.screen(x,y));
+ const extent=(points,k)=>Math.max(...points.map(p=>p[k]))-Math.min(...points.map(p=>p[k]));
+ for(let i=0;i<16;i++){
+  c.angle=-i*Math.PI/8;orientSceneCamera(ortho,c);
+  near(ortho.position.y,2500);
+  near(Math.hypot(ortho.position.x-c.x,ortho.position.z-c.y),2500*Math.SQRT2);
+  for(const [x,y,h] of [[-.5,-.5,0],[1.5,-.5,0],[.5,.5,1],[-.5,1.5,2]]){
+   const flat=c.screen(x,y,h),actual=new Vector3(x,h,y).project(ortho);
+   near((1+actual.x)*width/2,flat.x);near((1-actual.y)*height/2,flat.y);
+   if(h===0){const picked=c.world(flat.x,flat.y);near(picked.x,x);near(picked.y,y);}
+  }
+  const floor=c.screen(.5,.5),roof=c.screen(.5,.5,1);
+  near(roof.x,floor.x);near(floor.y-roof.y,c.scale*Math.sqrt(2/3));
+  if(i%4===0){
+   near(extent(ground(),'x')/extent(ground(),'y'),Math.sqrt(3));
+   const map=diamondMap(1000,1000,124,72,null,c.angle);
+   const corners=[[0,0],[1000,0],[1000,1000],[0,1000]].map(([x,y])=>map.projectCut(x,y));
+   near(extent(corners,'x'),124);near(extent(corners,'y'),124/Math.sqrt(3));
+  }
+ }
+});

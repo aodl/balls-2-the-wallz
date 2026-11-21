@@ -1,5 +1,5 @@
 import {fitShout} from '../../packages/protocol/shout.mjs';
-import {contextSupported,shoutSupported} from './context-policy.mjs';
+import {contextSupported,shoutSupported,spacingSupported} from './context-policy.mjs';
 import {contextReason,contextSites,firstContextDestination} from './context-sites.mjs';
 import {SCREEN_ORIENTATIONS,screenDirection} from '../../packages/protocol/context-structures.mjs';
 import{deflectorSupported,snappedDeflectorDegrees,orientationFromDegrees,deflectorDegrees}from'./deflector-policy.mjs';
@@ -37,8 +37,8 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  let tileSelection=null,deflectorId=null;
  const structureContexts=()=>contextSupported(config);
  const pickedDeflector=()=>world?.deflectors?.find(d=>d.id===deflectorId);
- const tileOwn=()=>tileSelection!==null&&contextSites(world).owns(declaration?.account,tileSelection);
- const deflectorOwn=()=>{const d=pickedDeflector();return Boolean(d&&d.owner===contextSites(world).owner(declaration?.account));};
+ const tileOwn=()=>tileSelection!==null&&contextSites(world,config).owns(declaration?.account,tileSelection);
+ const deflectorOwn=()=>{const d=pickedDeflector();return Boolean(d&&d.owner===contextSites(world,config).owner(declaration?.account));};
  const orientationMode=()=>['deflect','deflector_reorient'].includes(mode);
  const qtyActive=()=>view==='action'&&world?.version>=6&&(mode==='ball'&&selected()?.account===declaration?.account||mode==='start'&&structureContexts()&&tileOwn());
  const title=()=>pickedDeflector()?`Diverter #${deflectorId}`:tileSelection!==null?'Owned tile':selected()?`Cannon #${id}`:'New cannon';
@@ -144,7 +144,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   const move=own||ownDeflector?moveDestination():null;
   $('move-action').hidden=!(own||ownDeflector);$('move-action').disabled=!(own||ownDeflector)||!moveReady||move===null;
   $('move-action').setAttribute('aria-describedby','inspect-note');
-  $('move-action').title=c?.dormant?'Revive the island before moving.':!moveReady?'Checking legal destinations':move===null?(successor?'No legal tile near another friendly structure.':'No legal move destination'):'Move';
+  $('move-action').title=c?.dormant?'Revive the island before moving.':!moveReady?'Checking legal destinations':move===null?(spacingSupported(config)?'No owned destination clears other structures and enemy territory.':successor?'No legal tile near another friendly structure.':'No legal move destination'):'Move';
   $('move-action').setAttribute('aria-description',$('move-action').title);
   $('reorient-action').hidden=!ownDeflector;$('move-action').setAttribute('aria-label',ownDeflector?'Move Diverter':'Move');
   $('focus-cannon').setAttribute('aria-label',successor?(d?'Focus Diverter':tile?'Focus tile':'Focus cannon'):'Focus cannon');
@@ -216,7 +216,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   const cannon=selected(),deflector=pickedDeflector(),c=deflector??cannon,successor=structureContexts();
   const key=[context,revision,declaration?.account,id,deflectorId].join('/');
   if(key===moveKey&&moveWorld===world&&moveConfig===config)return defaultMove;
-  const sites=successor&&world?contextSites(world):null,moving={kind:deflector?'deflector':'cannon',id:c?.id};
+  const sites=successor&&world?contextSites(world,config):null,moving={kind:deflector?'deflector':'cannon',id:c?.id};
   const facts=world?moveLegalityIdentity(world,config,declaration?.account,id,Boolean(c?.dormant)):null;
   const fingerprint=sites?[facts,deflectorId,sites.occupiedKey,sites.activeKey,world.deflectors.map(d=>[d.id,d.cell,d.owner].join(':')).join(',')].join('/'):facts;
   if(fingerprint!==null&&fingerprint===moveFingerprint){moveWorld=world;moveConfig=config;moveKey=key;return defaultMove;}
@@ -227,7 +227,9 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    const account=declaration.account,w=world,cfg=config;
    const legal=n=>deflector?!sites.reason(account,n,{moving,deflector:true}):legalMoveDestination(w,account,c.id,n,cfg);
    moveLegality={test:n=>Number.isSafeInteger(n)&&n>=0&&n<w.width*w.height&&legal(n)};
-   const job=moveSearch=firstContextDestination(sites.candidates(account,moving,c.cell),moveLegality.test);
+   const job=moveSearch=spacingSupported(cfg)
+    ?nearestDestination({width:w.width,height:w.height,source:c.cell,legal:moveLegality.test})
+    :firstContextDestination(sites.candidates(account,moving,c.cell),moveLegality.test);
    job.promise.then(cell=>{if(moveSearch!==job||moveFingerprint!==fingerprint)return;defaultMove=cell;moveReady=true;refresh();});
    return null;
   }
@@ -338,11 +340,17 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    const nextContext=`${s.network}:${s.owner}`;
    if(context!==nextContext){const firstContext=context===null;context=nextContext;if(!firstContext){cancelEntryNavigation();view=null;$('workspace').hidden=true;}store=identityStore(s.network,s.owner,storage);declaration=(firstContext&&declaration)||store.read();history=createHandoffs(storage,`B2Z-activity-v1:${context}`);packet=null;keepPrevious=false;warning='';id=null;tileSelection=deflectorId=null;mode='inspect';try{const raw=storage?.getItem(`B2Z-view-v1:${context}`);preferences=raw&&raw.length<4096?JSON.parse(raw):{};}catch{preferences={};}cameraState=declaration?.camera?.projection==='isometric-1'?declaration.camera:null;// Remembered navigation preference is not an explicit session selection.
  id=null;identityLabel();}
-   const contextChanged=world&&structureContexts()!==contextSupported(c);
-   world=w;config=c;source=s;
+   const spacingChanged=world&&spacingSupported(config)!==spacingSupported(c);
+   const contextChanged=world&&(structureContexts()!==contextSupported(c)||spacingChanged);
    if(contextChanged&&['action','inspect'].includes(view)){
     rememberDraft();view=null;mode='inspect';id=null;cell=tileSelection=deflectorId=null;$('workspace').hidden=true;keepPrevious=false;
    }
+   if(spacingChanged){
+    // A copied predecessor instruction remains in Account history. It cannot
+    // become a current packet just because the successor uses the same memo bytes.
+    packet=manual=null;keepPrevious=false;$('manual-copy').hidden=true;text('copy-feedback','');
+   }
+   world=w;config=c;source=s;
    if(deflectorId!==null&&!pickedDeflector()||tileSelection!==null&&!tileOwn()){
     view=null;mode='inspect';id=null;cell=tileSelection=deflectorId=null;$('workspace').hidden=true;
    }
@@ -381,10 +389,10 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    intentVersion++;rememberDraft();id=tileSelection=null;deflectorId=n;cell=null;keepPrevious=false;mode='inspect';clearDraft();show('inspect',title());return true;
   },
   selectTile(n){
-   if(!structureContexts()||!world||!contextSites(world).owns(declaration?.account,n)||contextSites(world).hasStructure(n))return false;
+   if(!structureContexts()||!world||!contextSites(world,config).owns(declaration?.account,n)||contextSites(world,config).hasStructure(n))return false;
    intentVersion++;rememberDraft();id=deflectorId=null;tileSelection=n;cell=null;keepPrevious=false;mode='inspect';clearDraft();show('inspect',title());return true;
   },
-  tileSelectable(n){return structureContexts()&&n!==null&&world&&contextSites(world).owns(declaration?.account,n)&&!contextSites(world).hasStructure(n);},
+  tileSelectable(n){return structureContexts()&&n!==null&&world&&contextSites(world,config).owns(declaration?.account,n)&&!contextSites(world,config).hasStructure(n);},
   selectedTile:()=>tileSelection,selectedDeflector:()=>deflectorId,
   cancel({entry=true}={}){if(entry)cancelEntryNavigation();intentVersion++;rememberDraft();if(['inspect','action'].includes(view))id=null;tileSelection=deflectorId=null;view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;manual=null;$('manual-copy').hidden=true;if(!packet){warning='';text('copy-feedback','');}emit();(opener?.isConnected&&opener!==doc.body&&opener.getClientRects().length?opener:$('board')).focus({preventScroll:true});},
   presentation(v){const c=selected(),displayed=v?.cannons.get(id),behind=Boolean(c&&(!displayed||displayed.cell!==c.cell));if(behind!==planningBehind){planningBehind=behind;refresh();}},

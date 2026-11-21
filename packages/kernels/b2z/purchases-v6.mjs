@@ -1,3 +1,4 @@
+import {entryHasClearance} from './entry-v7.mjs';
 import {contextSiteReason} from './context-structures.mjs';
 import {hasEnemyClearance} from '../../protocol/territory-clearance.mjs';
 import{deflectorAt}from'./deflectors-v12.mjs';
@@ -31,15 +32,15 @@ export function occupiedCells(w){
  return blocked;
 }
 /** Isolated proposal, before enclosing cursor receipt/tally commit. */
-export function placeNew(w,account,budget,p,r,entryRules=false,contextRules=false){
+export function placeNew(w,account,budget,p,r,entryRules=false,contextRules=false,spacing=false){
  if(p.kind!=='new')throw Error('NEW_CANNON_PLAN');
  const command=p.explicit?{kind:'new',angle:p.angle,quantity:p.quantity,cell:p.cell}:{kind:'angle',value:p.angle};
- const fresh=preparePurchase(w,account,budget,encodeV6Memo(command),[],contextRules);
+ const fresh=preparePurchase(w,account,budget,encodeV6Memo(command),[],contextRules,spacing);
  if(sha256(encodeCanonical(fresh))!==sha256(encodeCanonical(p)))throw Error('STALE_PURCHASE_PLAN');
  let patch;
  if(p.first){
   patch=seedPatch(r.cell,w.width,w.height,true);
-  if(r.kind!==(entryRules?5:2)||patch.join(',')!==r.patch.join(',')||!entryRules&&patch.some(c=>ownerAt(w,c)!==0))throw Error('FIRST_PLACEMENT_NEUTRAL_PATCH');
+  if(spacing&&!entryHasClearance(w,r.cell)||r.kind!==(entryRules?5:2)||patch.join(',')!==r.patch.join(',')||!entryRules&&patch.some(c=>ownerAt(w,c)!==0))throw Error('FIRST_PLACEMENT_NEUTRAL_PATCH');
  }else{
   if(r.kind!==4||r.patch.length!==1||r.patch[0]!==r.cell||p.cell!==null&&p.cell!==r.cell||!contextRules&&!adjacentSites(w,p.player).includes(r.cell))throw Error('ILLEGAL_ADJACENT_SITE');
   patch=[r.cell];
@@ -64,7 +65,7 @@ export function chooseAdjacent(w,id,seed,clearance=false){
  if(!/^[0-9a-f]{64}$/.test(seed))throw Error('spawn seed');const ranked=adjacentSites(w,id).filter(cell=>!clearance||enemyClearance(w,id,cell)).filter(cell=>sitePoolCount(w,id,cell)<V6_POLICY.max_purchase_balls_per_island).map(cell=>[sha256(encodeCanonical({domain:'B2Z-ADJACENT-SPAWN-06',seed,cell})),cell]);
  ranked.sort((a,b)=>a[0]===b[0]?a[1]-b[1]:a[0]<b[0]?-1:1);return ranked[0]?.[1]??null;
 }
-export function preparePurchase(w,account,budget,memo,moved=[],contextRules=false){
+export function preparePurchase(w,account,budget,memo,moved=[],contextRules=false,spacing=false){
  if(w.version<6)throw Error('EXPECTED_V6');amount(budget);let c;try{c=decodeV6Memo(memo);}catch{return reject('MALFORMED_MEMO');}
  const mine=w.cannons.filter(c=>c.account===account);let explicit=true;
  if(c.kind==='angle'){explicit=false;c=mine.length?{kind:'fire',cannon:mine[0].id,angle:c.value,quantity:MAX_QUANTITY}:{kind:'new',angle:c.value,quantity:MAX_QUANTITY,cell:null};}
@@ -79,7 +80,7 @@ export function preparePurchase(w,account,budget,memo,moved=[],contextRules=fals
   if(!mine.length){if(c.cell!==null)return reject('FIRST_PLACEMENT_AUTOMATIC');}
   else if(contextRules){
    if(c.cell===null)return reject('EXPLICIT_OWNED_SITE_REQUIRED');
-   const reason=contextSiteReason(w,id,c.cell);if(reason)return reject(reason);
+   const reason=contextSiteReason(w,id,c.cell,{spacing});if(reason)return reject(reason);
    if(territoryBalls(w,ownerAt(w,c.cell))>=V6_POLICY.max_purchase_balls_per_island)return reject('BALL_CAPACITY');
   }
   else{if(!mine.some(c=>territoryBallCount(w,c.id)>0))return reject('NO_ACTIVE_ANCHOR');const sites=adjacentSites(w,id);if(!sites.length)return reject('NO_ADJACENT_SITE');if(c.cell!==null&&!sites.includes(c.cell))return reject('ILLEGAL_ADJACENT_SITE');if(c.cell!==null?sitePoolCount(w,id,c.cell)>=V6_POLICY.max_purchase_balls_per_island:sites.every(cell=>sitePoolCount(w,id,cell)>=V6_POLICY.max_purchase_balls_per_island))return reject('BALL_CAPACITY');}
@@ -95,7 +96,7 @@ export function preparePurchase(w,account,budget,memo,moved=[],contextRules=fals
  if(budget<PRELAUNCH_CONFIG.move_e8s)return reject('UNDERFUNDED');if(moved.includes(c.cannon))return reject('MOVE_LIMIT');
  if(contextRules){
   if(c.cell===cannon.cell)return reject('SAME_LOCATION');
-  const reason=contextSiteReason(w,playerForCannon(w,c.cannon),c.cell,{moving:{kind:'cannon',id:c.cannon}});
+  const reason=contextSiteReason(w,playerForCannon(w,c.cannon),c.cell,{moving:{kind:'cannon',id:c.cannon},spacing});
   if(reason)return reject(reason);
  }
  if(playerAt(w,c.cell)!==playerForCannon(w,c.cannon))return reject('NOT_OWN_TERRITORY');if(w.cannons.some(x=>x.id!==c.cannon&&x.cell===c.cell))return reject('CANNON_OCCUPIED');

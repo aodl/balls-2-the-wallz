@@ -40,7 +40,7 @@ class ObserverServerTests(unittest.TestCase):
         self.assertEqual(self_tags,{'paying-account':'span','payment-owner':'span'})
         self.assertTrue(all('disabled' not in row for row in local.values()))
         # Approved panel: risk describes controls; network fee remains documented in Help.
-        self.assertEqual(set(controls[0]['aria-describedby'].split()),{'payment-risk','payment-guidance'})
+        self.assertEqual(set(controls[0]['aria-describedby'].split()),{'payment-risk'})
         self.assertIn("frame-ancestors 'none'",headers['Content-Security-Policy'])
         self.assertEqual(headers['X-Content-Type-Options'],'nosniff')
     def test_module_mime(self):

@@ -460,7 +460,9 @@ impl Cursor {
         let deflector = crate::deflectors_v12::identity()?;
         let structure_context = crate::context_structures::identity()?;
         let shout = crate::shout::identity()?;
-        let is_shout = context.get("config_hash") == shout.get("config_hash");
+        let spacing = crate::spacing::identity()?;
+        let is_spacing = context.get("config_hash") == spacing.get("config_hash");
+        let is_shout = is_spacing || context.get("config_hash") == shout.get("config_hash");
         let is_context =
             is_shout || context.get("config_hash") == structure_context.get("config_hash");
         let is_deflector = is_context || context.get("config_hash") == deflector.get("config_hash");
@@ -479,7 +481,9 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_shout {
+        let expected = if is_spacing {
+            spacing
+        } else if is_shout {
             shout
         } else if is_context {
             structure_context
@@ -587,6 +591,7 @@ impl Cursor {
                     deflector_rules: is_deflector,
                     context_rules: is_context,
                     shout_rules: is_shout,
+                    spacing_rules: is_spacing,
                     ..Default::default()
                 }
             }),

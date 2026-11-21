@@ -88,7 +88,7 @@ impl SpawnJob {
             result: None,
         }
     }
-    pub fn begin_entry(w: &World, seed: String) -> Result<Self> {
+    pub fn begin_entry(w: &World, seed: String, spacing: bool) -> Result<Self> {
         let mut job = Self::begin(seed);
         job.version = 7;
         job.entry = Some(crate::entry_v7::Search::begin(
@@ -96,6 +96,7 @@ impl SpawnJob {
             crate::purchases_v6::occupied_cells(w)?
                 .into_iter()
                 .collect(),
+            spacing,
         ));
         Ok(job)
     }
@@ -105,8 +106,12 @@ impl SpawnJob {
         self.current = None;
     }
     pub fn step(&mut self, w: &World) -> Result<bool> {
+        self.step_with_spacing(w, false)
+    }
+
+    pub(crate) fn step_with_spacing(&mut self, w: &World, spacing: bool) -> Result<bool> {
         if let Some(entry) = self.entry.as_mut() {
-            if entry.step(w)? {
+            if entry.step(w, spacing)? {
                 self.result = entry.placement(w)?;
                 self.checked = entry.visited;
                 self.phase = "done".into();

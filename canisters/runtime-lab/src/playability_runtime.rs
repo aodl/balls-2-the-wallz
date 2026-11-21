@@ -541,6 +541,28 @@ pub fn shout_candidate<K: Kernel>(
     )
 }
 
+pub fn spacing_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    let adapter = b2z_protocol::shout::MEMO_ADAPTER_VERSION;
+    schema7_candidate(
+        h,
+        t,
+        source,
+        b2z_native::shout::identity()?,
+        b2z_native::spacing::identity()?,
+        Schema7Cutover {
+            version: 11,
+            migration: "B2Z_STRUCTURE_SPACING_RULES_15",
+            event: "spacing_rules_activated",
+            previous_adapter: adapter,
+            next_adapter: adapter,
+        },
+    )
+}
+
 fn schema7_candidate<K: Kernel>(
     h: &Coordinator<K>,
     t: &Transition,

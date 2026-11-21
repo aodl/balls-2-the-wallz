@@ -31,7 +31,7 @@
 /* Player-centred revision: the one composer is a ground-anchored nonmodal card. */
 .panel{right:auto;bottom:auto;max-height:calc(100dvh - 150px);width:360px}.panel.offscreen{visibility:hidden;pointer-events:none}.panel-header{padding:6px 8px 6px 12px;gap:6px}.panel-header h1{margin-right:auto}.panel-body{padding:6px 12px 14px;scrollbar-gutter:auto}#minimap{position:absolute;right:max(10px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));width:140px;height:140px;border:2px solid #e5edf0aa;border-radius:6px;background:#24343c;touch-action:none;box-shadow:0 2px 8px #0007}#minimap:focus-visible{outline:3px solid var(--accent);outline-offset:3px}#aim-ring{position:absolute;width:96px;height:96px;border:1px dashed #ffe0a5b0;border-radius:50%;pointer-events:none}#aim-handle{position:absolute;width:44px;height:44px;padding:0;touch-action:none;color:#fff5d3;background:#22353cbb;border:2px solid #ffe0a5;border-radius:50%;font-size:22px;cursor:crosshair}#locate-context{position:absolute;top:126px;left:12px;background:#22353ce8}#cycles-display{position:absolute;left:16px;bottom:78px;display:flex;gap:10px;flex-direction:column;align-items:flex-start;padding:6px 9px;font-size:12px;background:#17272bcc;line-height:1.15}#cycles-display b{font-weight:500;font-variant-numeric:tabular-nums}#motion-wait{position:absolute;left:50%;top:45%;transform:translate(-50%,-50%);display:flex;flex-direction:column;align-items:center;gap:16px;color:#fff;text-shadow:0 0 8px #fff9,0 2px 6px #000;text-align:center;pointer-events:none;width:max-content;max-width:90vw}.spinner{display:block;width:52px;height:52px;border:3px solid #ffffff22;border-top-color:white;border-right-color:#ffffffaa;border-radius:50%;box-shadow:0 0 12px #ffffff55;animation:waiting-spin 1.2s linear infinite}@keyframes waiting-spin{to{transform:rotate(360deg)}}
 @media(max-width:700px){.panel{bottom:auto;right:auto;left:auto;top:auto;width:calc(100vw - 16px);max-height:calc(100dvh - 160px)}#minimap{width:96px;height:96px}#cycles-display{left:10px;bottom:68px;font-size:11px;gap:3px}#motion-wait{font-size:14px}}
-@media(max-height:500px){#minimap{width:72px;height:72px}.panel{bottom:auto}.player-controls{margin-top:4px}#cycles-display{display:none}}
+@media(max-height:500px){#minimap{width:72px;height:72px}.panel{bottom:auto}.player-controls{margin-top:4px}}
 @media(prefers-reduced-motion:reduce){.spinner{animation:none}}
 
 #focus-cannon{font-size:.8125rem;padding:5px 9px}#payment-risk{padding:7px 0;margin:4px 0}
@@ -60,18 +60,18 @@ input,select,textarea{border-radius:6px}
 
 .panel{bottom:auto}
 .panel-header{padding:4px 6px;gap:4px;min-height:52px;justify-content:space-between}
-.panel-header>button,#context-actions>button{width:44px;height:44px;min-width:44px;padding:10px;display:inline-flex;align-items:center;justify-content:center;border-radius:5px;background:transparent;border:1px solid transparent;flex-shrink:0}
-.panel-header>button:not(:disabled):hover,#context-actions>button:not(:disabled):hover{background:var(--graphite-raised);border-color:var(--line)}
-.panel-header button[aria-pressed=true]{
+.panel-header>button,#context-actions>button,#deflector-directions>button{width:44px;height:44px;min-width:44px;padding:10px;display:inline-flex;align-items:center;justify-content:center;border-radius:5px;background:transparent;border:1px solid transparent;flex-shrink:0}
+.panel-header>button:not(:disabled):hover,#context-actions>button:not(:disabled):hover,#deflector-directions>button:not(:disabled):hover{background:var(--graphite-raised);border-color:var(--line)}
+.panel-header button[aria-pressed=true],#deflector-directions button[aria-pressed=true]{
  position:relative;color:var(--accent);background:var(--graphite-raised);
  border-color:#6e8083;box-shadow:var(--graphite-depth)
 }
-.panel-header button[aria-pressed=true]::after{
+.panel-header button[aria-pressed=true]::after,#deflector-directions button[aria-pressed=true]::after{
  content:"";position:absolute;inset:auto 8px 2px;height:2px;
  background:var(--accent);box-shadow:0 0 4px var(--accent);pointer-events:none
 }
-.panel-header button[aria-pressed=true]:disabled{color:#a9b6ba}
-.panel-header button[aria-pressed=true]:disabled::after{background:currentColor;box-shadow:none}
+.panel-header button[aria-pressed=true]:disabled,#deflector-directions button[aria-pressed=true]:disabled{color:#a9b6ba}
+.panel-header button[aria-pressed=true]:disabled::after,#deflector-directions button[aria-pressed=true]:disabled::after{background:currentColor;box-shadow:none}
 .panel[data-surface=context] #panel-title{position:absolute;width:1px;height:1px;overflow:hidden;clip-path:inset(50%);white-space:nowrap}
 #context-actions{display:contents}
 .panel-body{padding:8px 12px 12px;scrollbar-gutter:auto}
@@ -172,7 +172,7 @@ input,select,textarea{border-radius:6px}
 .panel-header button:disabled{opacity:1;color:#aab6c1;background:transparent;border-color:transparent}
 /* Give the active payment/precision task priority over secondary chrome when
    the real visual viewport contracts for a keyboard. Restore it on blur. */
-.short-edit #minimap,.short-edit .camera-controls,.short-edit #cycles-display{visibility:hidden;pointer-events:none}
+.short-edit #minimap,.short-edit .camera-controls{visibility:hidden;pointer-events:none}
 #amount-detail{display:block;font-size:.75rem;line-height:1.2;color:var(--quiet)}
 
 .panel-content{display:flow-root}
@@ -231,7 +231,7 @@ input,select,textarea{border-radius:6px}
 #quantity-count{display:block;text-align:center;font-variant-numeric:tabular-nums;white-space:nowrap;font-size:.95rem}
 /* Quantity availability is a layout reservation, independent of heading/readiness. */
 :root{--quantity-safe-left:env(safe-area-inset-left,0px);--quantity-safe-right:env(safe-area-inset-right,0px);--quantity-safe-top:env(safe-area-inset-top,0px);--quantity-safe-bottom:env(safe-area-inset-bottom,0px)}
-.quantity-rail #cycles-display{visibility:hidden;pointer-events:none}
+
 #quantity-controls{width:130px;height:46px;gap:0}
 #quantity-controls[data-placement=dock]{box-shadow:inset 0 1px #d9eeeb46}
 /* Own the complete measured footprint, including transparent rounded corners. */
@@ -277,7 +277,7 @@ input,select,textarea{border-radius:6px}
 #launch-editors .quantity-stepper{position:relative;left:auto;top:auto;order:0;flex:none}
 #launch-editors[data-placement=dock]{min-height:46px}
 #war-cry-editor{display:flex;flex-direction:column;justify-content:center;margin:0;min-width:100px;width:146px;max-width:calc(var(--launch-editor-space,100vw) - 152px);font-size:.75rem;line-height:1.2;color:var(--quiet);background:var(--graphite-surface);border:1px solid var(--graphite-edge);box-shadow:var(--graphite-depth);border-radius:7px;padding:2px 6px}
-#war-cry{background:none;border:0;box-shadow:none;padding:0 3px;min-height:28px;font-size:.875rem;width:100%;color:var(--ink)}
+#war-cry{background:none;border:0;box-shadow:none;padding:0 3px;min-height:36px;font-size:.875rem;width:100%;color:var(--ink)}
 #war-cry-editor:focus-within{outline:2px solid var(--accent);outline-offset:2px}
 #launch-editors:has(#quantity-controls[hidden]) #war-cry-editor{max-width:calc(var(--launch-editor-space,100vw) - 16px)}
 #speech-layer{position:absolute;inset:0;pointer-events:none;z-index:5;overflow:hidden}
@@ -304,8 +304,8 @@ input,select,textarea{border-radius:6px}
 @media(max-width:360px){.payment-grid .payment-from{gap:1px;padding-right:0}}
 
 /* One measured arena editor: Deflector choices reuse its reserved dock/locks. */
-#deflector-directions{display:flex;gap:0;height:46px;border:1px solid var(--graphite-edge);border-radius:8px;background:var(--graphite-surface);box-shadow:var(--graphite-depth);touch-action:manipulation}
-#deflector-directions button{width:44px;min-width:44px;height:44px;padding:0;border:0;border-radius:4px;background:transparent;box-shadow:none;font-size:14px;font-weight:700}
+#deflector-directions{display:flex;gap:4px;padding:3px;background:var(--graphite-rail);border:1px solid var(--graphite-edge);border-radius:8px;box-shadow:var(--graphite-depth);touch-action:manipulation}
+#deflector-directions button{font-size:14px;font-weight:700}
 
 
 /* Secondary views share the recessed field, raised controls and semantic inks. */
@@ -326,11 +326,11 @@ input,select,textarea{border-radius:6px}
  border-radius:6px;box-shadow:var(--graphite-depth);padding:6px 10px;text-shadow:none
 }
 #render-error{background:#422a29;border:1px solid #c99591;box-shadow:var(--graphite-depth)}
-#quantity-controls button:not(:disabled):hover,#deflector-directions button:not(:disabled):hover{
+#quantity-controls button:not(:disabled):hover{
  background:var(--control);color:var(--accent)
 }
 #quantity-controls button:disabled,#deflector-directions button:disabled{color:#a9b6ba}
-#deflector-directions button[aria-pressed=true],.direction-pad [aria-pressed=true]{
+.direction-pad [aria-pressed=true]{
  color:var(--accent);background:var(--graphite-raised);box-shadow:inset 0 -2px var(--accent)
 }
 @media(prefers-reduced-transparency:reduce){
@@ -339,7 +339,7 @@ input,select,textarea{border-radius:6px}
  .panel,.panel[data-surface=context] .panel-body,.panel[data-surface=context] .panel-header{
   box-shadow:inset 0 0 0 1px var(--graphite-edge),inset 0 2px #a0b0af
  }
- .panel-header button[aria-pressed=true]::after{box-shadow:none}
+ .panel-header button[aria-pressed=true]::after,#deflector-directions button[aria-pressed=true]::after{box-shadow:none}
 }
 @media(forced-colors:active){
  button,input,select,textarea,.panel,.panel .panel-header,.panel .panel-body,.panel .panel-scroll,
@@ -349,7 +349,7 @@ input,select,textarea{border-radius:6px}
   background:Canvas;color:CanvasText;border-color:CanvasText;box-shadow:none
  }
  .panel[data-surface=context] .panel-body::after,
- .panel-header button[aria-pressed=true]::after{display:none}
+ .panel-header button[aria-pressed=true]::after,#deflector-directions button[aria-pressed=true]::after{display:none}
  .panel-header button[aria-pressed=true],#deflector-directions button[aria-pressed=true],
  .direction-pad [aria-pressed=true]{
   color:Highlight;box-shadow:none;outline:2px solid Highlight;outline-offset:-3px
@@ -362,19 +362,40 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
 /* Keep the requested ball count within the existing payment title cell. */
 .payment-grid .payment-title{flex-wrap:wrap;align-content:center;column-gap:6px;row-gap:2px}
 .payment-grid #amount-detail{font-size:.75rem;line-height:1.1;white-space:nowrap}
-#payment-guidance{margin:6px 0 0;font-size:.75rem;line-height:1.3}
 .payment-grid .identity-summary{min-width:0}
 
+/* The canvas and compass share one centre and one set of cardinal offsets. */
+#arena{--overview-width:164px;--overview-height:94.69px;--overview-gap:4px;--overview-offset:calc(44px + var(--overview-gap))}
+#minimap,#board-compass{
+ position:absolute;right:calc(max(10px,env(safe-area-inset-right)) + var(--overview-offset));
+ bottom:calc(max(10px,env(safe-area-inset-bottom)) + var(--overview-offset));
+ width:var(--overview-width);height:var(--overview-height)
+}
 #minimap{clip-path:none}
-#board-compass{position:absolute;z-index:2;right:max(10px,env(safe-area-inset-right));bottom:max(10px,env(safe-area-inset-bottom));width:164px;height:94.69px;pointer-events:none}
-#board-compass button{position:absolute;width:44px;height:44px;pointer-events:auto;padding:0;background:none;border:0;box-shadow:none;color:var(--quiet);font-size:.75rem;font-weight:750}
-#board-compass button[aria-pressed=true]{color:var(--ink);text-shadow:0 0 6px #d4e4eaa0}
-#board-compass button[data-compass-slot="0"]{left:calc(50% - 22px);bottom:100%}
-#board-compass button[data-compass-slot="1"]{right:-10px;top:calc(50% - 22px)}
-#board-compass button[data-compass-slot="2"]{left:calc(50% - 22px);bottom:-10px}
-#board-compass button[data-compass-slot="3"]{right:100%;top:calc(50% - 22px)}
+#board-compass{z-index:2;pointer-events:none}
+#board-compass button{
+ position:absolute;width:44px;height:44px;padding:0;pointer-events:auto;
+ border:1px solid #b4bcc0;border-radius:50%;box-shadow:0 2px 4px #0007;
+ background:#f0f2f2;color:#171b1e;font-size:.8rem;font-weight:750
+}
+#board-compass button:not(:disabled):hover{background:#d8dddf}
+#board-compass button[aria-pressed=true]{background:#121517;color:#fff;opacity:1;cursor:default}
+#board-compass button[data-compass-slot="0"]{left:calc(50% - 22px);bottom:calc(100% + var(--overview-gap))}
+#board-compass button[data-compass-slot="1"]{left:calc(100% + var(--overview-gap));top:calc(50% - 22px)}
+#board-compass button[data-compass-slot="2"]{left:calc(50% - 22px);top:calc(100% + var(--overview-gap))}
+#board-compass button[data-compass-slot="3"]{right:calc(100% + var(--overview-gap));top:calc(50% - 22px)}
 .short-edit #board-compass{visibility:hidden}
-@media(max-width:700px){#board-compass{width:124px;height:71.59px}}
-@media(max-height:500px){#board-compass{width:112px;height:64.66px}}
+@media(max-width:700px){#arena{--overview-width:108px;--overview-height:62.35px}}
+@media(max-width:375px){#arena{--overview-width:92px;--overview-height:53.12px}#cycles-display{width:106px;padding-inline:6px}}
+@media(max-height:500px){
+ #arena{--overview-width:80px;--overview-height:46.19px}
+ #cycles-display{bottom:max(10px,env(safe-area-inset-bottom));left:max(159px,env(safe-area-inset-left))}
+ .short-edit #cycles-display{left:max(10px,env(safe-area-inset-left))}
+ #cycle-values{gap:2px}
+}
+@media(forced-colors:active){
+ #board-compass button{background:ButtonFace;color:ButtonText;border-color:ButtonText}
+ #board-compass button[aria-pressed=true]{background:Highlight;color:HighlightText}
+}
 
 #trajectory-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}

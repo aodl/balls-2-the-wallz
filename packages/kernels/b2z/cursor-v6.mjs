@@ -10,7 +10,7 @@ import {validateWorld} from './world.mjs';
 import{prepareDeflectorPurchase}from'./deflectors-v12.mjs';
 const rejected=(c,p,reason)=>c.receipt(p,{reason,status:'rejected',amount_used:0n,remainder:p.amount});
 function place(c,p,plan,r){
- const made=placeNew(c.world,p.account,p.amount,plan,r,!!c.v6.entry_rules,!!c.v6.context_rules),batch=PurchaseBatch.afterNew(p.account,p.amount,made.cannon.id,plan);
+ const made=placeNew(c.world,p.account,p.amount,plan,r,!!c.v6.entry_rules,!!c.v6.context_rules,!!c.v6.spacing_rules),batch=PurchaseBatch.afterNew(p.account,p.amount,made.cannon.id,plan);
  c.world=made.world;c.emit(made.event);c.areaDirty=true;
  Object.assign(c.v6,{plan:null,payment:p,batch:{...batch}});c.phase='v6_purchase';
 }
@@ -19,7 +19,7 @@ export function workV6(c,readPayment){
    if(c.inputIndex===c.inputs.length){c.restartSearch();return true;}
    const p=readPayment(c.inputs[c.inputIndex].payload_hex);if(c.v6.war_cry_rules)c.v6.pending_cry=p.cry||null;
    if(c.world.received_e8s+p.amount>=1n<<128n)throw Error('treasury overflow');
-   const plan=c.v6.context_rules?(prepareContextDeflector(c.world,p.account,p.amount,p.memo)??preparePurchase(c.world,p.account,p.amount,p.memo,c.moved,true)):(c.v6.deflector_rules?prepareDeflectorPurchase(c.world,p.account,p.amount,p.memo):null)??(c.v6.clearance_rules?preparePurchaseClearance:preparePurchase)(c.world,p.account,p.amount,p.memo,c.moved);c.world.received_e8s+=p.amount;
+   const plan=c.v6.context_rules?(prepareContextDeflector(c.world,p.account,p.amount,p.memo,!!c.v6.spacing_rules)??preparePurchase(c.world,p.account,p.amount,p.memo,c.moved,true,!!c.v6.spacing_rules)):(c.v6.deflector_rules?prepareDeflectorPurchase(c.world,p.account,p.amount,p.memo):null)??(c.v6.clearance_rules?preparePurchaseClearance:preparePurchase)(c.world,p.account,p.amount,p.memo,c.moved);c.world.received_e8s+=p.amount;
    const payment={account:p.account,amount:p.amount};
    if(plan.kind==='rejected')rejected(c,payment,plan.reason);
    else if(plan.kind==='deflect'){
@@ -42,12 +42,12 @@ export function workV6(c,readPayment){
      if(c.spawnSearches>=8)rejected(c,payment,'SPAWN_SEARCH_CAPACITY');
      else{
        c.spawnSearches++;const seed=sha256(encodeCanonical({base:c.seedBase,position:BigInt(c.inputs[c.inputIndex].position),cannon:c.world.next_cannon_id}));
-       if(plan.first){c.spawnJob=c.v6.entry_rules?beginEntrySpawn(c.world,seed):beginSpawn(seed);c.spawnAngle=plan.angle;c.v6.payment=payment;c.v6.plan=plan;c.phase='v6_spawn';}
+       if(plan.first){c.spawnJob=c.v6.entry_rules?beginEntrySpawn(c.world,seed,!!c.v6.spacing_rules):beginSpawn(seed);c.spawnAngle=plan.angle;c.v6.payment=payment;c.v6.plan=plan;c.phase='v6_spawn';}
        else{const cell=plan.cell??chooseAdjacent(c.world,plan.player,seed,!!c.v6.clearance_rules);if(cell===null)rejected(c,payment,'NO_ADJACENT_SITE');else place(c,payment,plan,{cell,patch:[cell],kind:4,other:-1,checked:1});}
      }
    }else throw Error('PURCHASE_PLAN');
  }else if(c.phase==='v6_spawn'){
-   if(spawnStep(c.world,c.spawnJob)){
+   if(spawnStep(c.world,c.spawnJob,!!c.v6.spacing_rules)){
      const job=c.spawnJob,payment=c.v6.payment,plan=c.v6.plan;c.spawnJob=null;c.v6.payment=null;c.v6.plan=null;
      if(job.result)place(c,payment,plan,job.result);else{rejected(c,payment,'NO_ELIGIBLE_SPAWN');c.phase='commands';}
    }
@@ -81,7 +81,7 @@ export function finalizeCursorElapsed(c,observedNs){
 
 export function validateV6Cursor(c){
  const s=c.v6;
- if(!s||s.shout_rules&&!s.context_rules||s.context_rules&&!s.deflector_rules||Boolean(s.deflector_rules)!==(c.world.version===7)||s.finalized&&c.phase!=='done'||s.births.length>V6_POLICY.max_cannons||new Set(s.births.map(f=>f.cannon)).size!==s.births.length
+ if(!s||s.spacing_rules&&!s.shout_rules||s.shout_rules&&!s.context_rules||s.context_rules&&!s.deflector_rules||Boolean(s.deflector_rules)!==(c.world.version===7)||s.finalized&&c.phase!=='done'||s.births.length>V6_POLICY.max_cannons||new Set(s.births.map(f=>f.cannon)).size!==s.births.length
    ||(s.capture!==null)!==(c.phase==='v6_topology')||(s.batch!==null)!==(c.phase==='v6_purchase')
    ||(s.plan!==null)!==(c.phase==='v6_spawn')||(s.payment!==null)!==['v6_spawn','v6_purchase'].includes(c.phase)
    ||c.phase==='v6_spawn'&&!c.spawnJob||['spawn','topology'].includes(c.phase))throw Error('V6_CURSOR_PHASE');

@@ -13,7 +13,7 @@ import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {stageTorusMigration,stageMillionWorld} from '../../packages/kernels/b2z/migration.mjs';
 import {migratePlayability,dueFences} from '../../packages/kernels/b2z/playability.mjs';
 import {expireV6} from '../../packages/kernels/b2z/lifecycle-v6.mjs';
-import {decodeWorld,encodeWorld,MILLION_IDENTITY,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
+import {decodeWorld,encodeWorld,MILLION_IDENTITY,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 import {B2zKernel} from '../../packages/kernels/b2z/kernel.mjs';
 const equal=(a,b)=>hex(encodeCanonical(a))===hex(encodeCanonical(b));
 const check=(ok,message)=>{if(!ok)throw Error(message);};
@@ -34,13 +34,13 @@ export function replayHistory(trace,{diagnostic}={}){
   if(p.head.seal===null){
    check([7,8,9].includes(p.version)&&p.epoch,'unsupported replay checkpoint');
    const before=unhex(host.committed().state_hex),old=decodeWorld(before);let out,metadata;
-   const shout=p.identity.config_hash===SHOUT_IDENTITY.config_hash;
-   if([7,8].includes(p.version)&&old.version===7&&(shout||p.identity.config_hash===CONTEXT_IDENTITY.config_hash)){
+   const spacing=p.identity.config_hash===SPACING_IDENTITY.config_hash,shout=p.identity.config_hash===SHOUT_IDENTITY.config_hash;
+   if([7,8].includes(p.version)&&old.version===7&&(spacing||shout||p.identity.config_hash===CONTEXT_IDENTITY.config_hash)){
     const audit=decodeCanonical(eventBytes(p)),context=audit.events[0]?.context,prior=host.publicationRecord().journal;
-    const kind=shout?'shout_rules_activated':'context_rules_activated',previous=shout?CONTEXT_IDENTITY:DEFLECTOR_IDENTITY,next=shout?SHOUT_IDENTITY:CONTEXT_IDENTITY;
+    const kind=spacing?'spacing_rules_activated':shout?'shout_rules_activated':'context_rules_activated',previous=spacing?SHOUT_IDENTITY:shout?CONTEXT_IDENTITY:DEFLECTOR_IDENTITY,next=spacing?SPACING_IDENTITY:shout?SHOUT_IDENTITY:CONTEXT_IDENTITY;
     check(audit.version===7&&audit.events.length===1&&audit.events[0].kind===kind&&context,'schema7 rules activation context');
     check(Object.keys(previous).every(k=>prior.identity[k]===previous[k])&&Object.keys(next).every(k=>p.identity[k]===next[k])&&p.identity.source_id===prior.identity.source_id,'schema7 rules transition identity');
-    const expected={version:shout?10:9,migration:shout?'B2Z_ACTION_SHOUT_RULES_14':'B2Z_CONTEXT_STRUCTURES_RULES_13',old_identity:prior.identity,new_identity:p.identity,previous_state:sha256(before),new_state:sha256(before),logical_boundary:old.time,source_cursor:host.committed().source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:host.committed().seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:shout?8:7,memo_adapter_after:shout?9:8};
+    const expected={version:spacing?11:shout?10:9,migration:spacing?'B2Z_STRUCTURE_SPACING_RULES_15':shout?'B2Z_ACTION_SHOUT_RULES_14':'B2Z_CONTEXT_STRUCTURES_RULES_13',old_identity:prior.identity,new_identity:p.identity,previous_state:sha256(before),new_state:sha256(before),logical_boundary:old.time,source_cursor:host.committed().source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:host.committed().seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:spacing?9:shout?8:7,memo_adapter_after:spacing||shout?9:8};
     check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&equal(context,expected),'schema7 cutover context mismatch');
     metadata=encodeCanonical(expected);out=emptyOutput(before,7,[{kind,sequence:0,time:old.time,context:expected}]);
    }else if(p.version===7&&old.version!==6){
@@ -85,9 +85,9 @@ export function replayHistory(trace,{diagnostic}={}){
    host.apply({kind:'transition',epoch,state_hex:hex(out.state),event_hex:hex(out.events),score_hex:hex(out.scores)});checkpoints++;
   }else{
    const seal=p.head.seal,selected=inputs.filter(i=>i.position>=seal.source_from&&i.position<seal.source_to_exclusive);completionTime=null;
-   if([PLAYABILITY_IDENTITY.config_hash,ENTRY_IDENTITY.config_hash,CLEARANCE_IDENTITY.config_hash,WAR_CRY_IDENTITY.config_hash,COMBINED_IDENTITY.config_hash,DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash].includes(p.identity.config_hash)){
+   if([PLAYABILITY_IDENTITY.config_hash,ENTRY_IDENTITY.config_hash,CLEARANCE_IDENTITY.config_hash,WAR_CRY_IDENTITY.config_hash,COMBINED_IDENTITY.config_hash,DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash,SPACING_IDENTITY.config_hash].includes(p.identity.config_hash)){
     const event=decodeCanonical(eventBytes(p)),facts=event.events.filter(e=>e.kind==='lifecycle_time'),last=event.events.at(-1);
-    check(event.version===([DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash].includes(p.identity.config_hash)?7:6)&&facts.length===1&&last===facts[0]&&equal(last.time,[seal.logical_end,1n])&&typeof last.observed_ns==='bigint','invalid completion fact');completionTime=last.observed_ns;
+    check(event.version===([DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash,SPACING_IDENTITY.config_hash].includes(p.identity.config_hash)?7:6)&&facts.length===1&&last===facts[0]&&equal(last.time,[seal.logical_end,1n])&&typeof last.observed_ns==='bigint','invalid completion fact');completionTime=last.observed_ns;
    }
    assigned.push(...selected.map(i=>i.position.toString()));
    if(selected.length===0)host.ingestOrdered(seal.source_from,seal.source_to_exclusive,[],seal.source_anchor);

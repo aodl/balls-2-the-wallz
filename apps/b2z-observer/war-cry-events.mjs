@@ -1,9 +1,9 @@
 /** Strict supplemental event/receipt binding; no new trust source. */
 import {validateCry,memoByteLength}from'../../packages/protocol/war-cry.mjs';
-import {WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY}from'./torus-identity.generated.mjs';
+import {WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY}from'./torus-identity.generated.mjs';
 export function launchAnnotationValidator(receipts,identity){
  const matches=expected=>Object.keys(expected).every(k=>identity?.[k]===expected[k]);
- const seen=new Set(),shout=matches(SHOUT_IDENTITY),supported=shout||[WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY].some(matches);
+ const seen=new Set(),shout=matches(SHOUT_IDENTITY)||matches(SPACING_IDENTITY),supported=shout||[WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY].some(matches);
  let byPosition=null;
  return e=>{
   if(e.action_annotation!==undefined){

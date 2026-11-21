@@ -37,7 +37,7 @@ jobs:
         run: python -B tools/check_dtr_provenance.py --locks-only --output .work/ci-dtr-source.json
       - run: python -B tools/check.py source --output .work/ci-source
       - name: Reproduce exact Rules13-compatible frontend freeze
-        run: python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules14-universal-shout/artifacts --output .work/ci-frozen-panel
+        run: python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules15-spacing-orbit/artifacts --output .work/ci-frozen-panel
       - name: Upload source evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -116,7 +116,7 @@ jobs:
       - run: cargo +1.94.1 fetch --manifest-path canisters/frontend/Cargo.toml --locked
       - name: Build from the exact frozen observer inventory
         run: |
-          assets=evidence/B2Z/rules14-universal-shout/artifacts
+          assets=evidence/B2Z/rules15-spacing-orbit/artifacts
           python -B tools/verify_approved_panel_freeze.py --artifacts "$assets" --output .work/ci-embedded-assets
           python -B tools/build_embedded_frontend.py --observer .work/ci-embedded-assets/reproduced --inventory "$assets/frontend-inventory.json" --output .work/ci-embedded
           python -B tools/verify_embedded_frontend_builds.py --observer .work/ci-embedded-assets/reproduced --inventory "$assets/frontend-inventory.json" --first-build .work/ci-embedded --output .work/ci-embedded-repro
@@ -178,9 +178,9 @@ jobs:
       - name: Assert exact DTR release provenance
         run: python3 -B tools/check_dtr_provenance.py --manifest canisters/runtime-lab/Cargo.toml --output .work/ci-dtr-wasm.json
       - run: python3 -B tools/check.py wasm --output .work/ci-wasm
-      - name: Verify Rules14 backend inputs and exact hosted normal executable
+      - name: Verify Rules15 backend inputs and exact hosted normal executable
         run: |
-          python3 -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules14-universal-shout/artifacts --backend-only --wasm canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm --output .work/ci-frozen-wasm
+          python3 -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules15-spacing-orbit/artifacts --backend-only --wasm canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm --output .work/ci-frozen-wasm
           sha256sum canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm > .work/ci-frozen-wasm/hosted-normal-wasm.sha256
           gzip -dc vendor/b2z/rules12-2cb2fe02.wasm.gz | sha256sum | cut -d' ' -f1 | grep -Fx 2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13
           gzip -dc vendor/b2z/rules13-d17fb92e.wasm.gz | sha256sum | cut -d' ' -f1 | grep -Fx d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd
@@ -266,11 +266,13 @@ jobs:
           python -B tools/verify_audio_occlusion.py --fixture-dir .work/ci-audio/assets --policy-dir .work/ci-audio/policy-build --output .work/ci-audio-occlusion
           python -B tools/verify_audio_browser.py --controls-only --decode-delay-ms 500 --output .work/ci-audio-activation
           python -B tools/verify_audio_visibility.py --fixture-dir .work/ci-audio/assets --policy-dir .work/ci-audio/policy-build --output .work/ci-audio-visibility
+      - name: Upright isometric orbit, compass and compact controls
+        run: python -B tools/verify_isometric_orbit.py --output .work/ci-isometric-orbit
       - name: Four-direction controls, exact clipboard and frozen-copy fixture
         run: python -B tools/verify_boundary_deflector_browser.py --output .work/ci-boundary-controls
       - name: Frozen official emblems, header and standalone not-found browser acceptance
         run: |
-          python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules14-universal-shout/artifacts --output .work/ci-branding-freeze
+          python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules15-spacing-orbit/artifacts --output .work/ci-branding-freeze
           python -B tools/serve_observer.py --deployment-assets .work/ci-branding-freeze/reproduced --port 8199 > .work/ci-branding-server.log 2>&1 &
           observer_pid=$!
           trap 'kill "$observer_pid"' EXIT
@@ -282,6 +284,7 @@ jobs:
         with:
           name: browser-evidence
           path: |
+            .work/ci-isometric-orbit
             .work/ci-branding/**
             .work/ci-branding-server.log
             .work/ci-browser/environment.json
@@ -359,7 +362,7 @@ jobs:
         run: python -B tools/check_dtr_provenance.py --manifest canisters/runtime-lab/Cargo.toml --manifest tools/s09-integration/Cargo.toml --output .work/ci-dtr-integration.json
       - run: python -B tools/check.py integration --output .work/ci-integration
       - name: Bind installed acceptance to the exact hosted normal backend
-        run: python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules14-universal-shout/artifacts --backend-only --wasm .work/ci-integration/s14-local/normal.wasm --output .work/ci-integration/shout-backend-pin
+        run: python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules15-spacing-orbit/artifacts --backend-only --wasm .work/ci-integration/s14-local/normal.wasm --output .work/ci-integration/spacing-backend-pin
       - name: Upload local IC evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2

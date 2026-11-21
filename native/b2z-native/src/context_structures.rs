@@ -70,12 +70,46 @@ pub fn friendly_nearby(world: &World, owner: u32, cell: usize, moving: Option<St
     false
 }
 
+pub const MIN_STRUCTURE_DISTANCE: usize = 4;
+
+pub fn has_structure_clearance(world: &World, cell: usize, moving: Option<Structure>) -> bool {
+    let clear = |other: usize| {
+        let dx = (cell % world.width).abs_diff(other % world.width);
+        let dy = (cell / world.width).abs_diff(other / world.width);
+        dx.min(world.width - dx).max(dy.min(world.height - dy)) >= MIN_STRUCTURE_DISTANCE
+    };
+    world
+        .cannons
+        .iter()
+        .all(|c| moving == Some(Structure::Cannon(c.id)) || clear(c.cell))
+        && world
+            .deflectors
+            .iter()
+            .flatten()
+            .all(|d| moving == Some(Structure::Deflector(d.id)) || clear(d.cell))
+}
+
+fn separation_reason(
+    world: &World,
+    owner: u32,
+    cell: usize,
+    moving: Option<Structure>,
+    spacing: bool,
+) -> Option<&'static str> {
+    if spacing {
+        (!has_structure_clearance(world, cell, moving)).then_some("STRUCTURE_TOO_CLOSE")
+    } else {
+        (!friendly_nearby(world, owner, cell, moving)).then_some("NO_FRIENDLY_STRUCTURE_NEARBY")
+    }
+}
+
 pub fn site_reason(
     world: &World,
     owner: u32,
     cell: usize,
     moving: Option<Structure>,
     deflector: bool,
+    spacing: bool,
 ) -> Result<Option<&'static str>> {
     if world.player_at(cell) != Some(owner) {
         return Ok(Some("NOT_OWN_TERRITORY"));
@@ -86,7 +120,7 @@ pub fn site_reason(
     if purchases_v6::occupied_cells(world)?.contains(&cell) {
         return Ok(Some("SITE_OCCUPIED"));
     }
-    if deflector {
+    if deflector && !spacing {
         let x = (cell % world.width) as i64;
         let y = (cell / world.width) as i64;
         for dy in -1..=1 {
@@ -103,8 +137,8 @@ pub fn site_reason(
     if !purchases_v6::enemy_clearance(world, owner, cell) {
         return Ok(Some("ENEMY_TERRITORY_TOO_CLOSE"));
     }
-    if !friendly_nearby(world, owner, cell, moving) {
-        return Ok(Some("NO_FRIENDLY_STRUCTURE_NEARBY"));
+    if let Some(reason) = separation_reason(world, owner, cell, moving, spacing) {
+        return Ok(Some(reason));
     }
     Ok(None)
 }
@@ -115,6 +149,7 @@ pub fn prepare(
     amount: u64,
     memo: &[u8],
     moved: &[u32],
+    spacing: bool,
 ) -> Result<Plan> {
     let reject = |reason: &str| {
         Ok(Plan::Rejected {
@@ -127,16 +162,19 @@ pub fn prepare(
     };
     let id = match command {
         codec::Command::Existing(b2z_protocol::deflector::Command::Deflect { .. }) => {
-            let plan = crate::deflectors_v12::prepare(world, account, amount, memo)?;
+            let plan =
+                crate::deflectors_v12::prepare_with_spacing(world, account, amount, memo, spacing)?;
             if let Plan::Deflect { cell, owner, .. } = plan {
-                if !friendly_nearby(world, owner, cell, None) {
-                    return reject("NO_FRIENDLY_STRUCTURE_NEARBY");
+                if let Some(reason) = separation_reason(world, owner, cell, None, spacing) {
+                    return reject(reason);
                 }
             }
             return Ok(plan);
         }
         codec::Command::Existing(_) => {
-            return purchases_v6::prepare_with_context(world, account, amount, memo, moved, true);
+            return purchases_v6::prepare_with_context(
+                world, account, amount, memo, moved, true, spacing,
+            );
         }
         codec::Command::Move { id, .. } | codec::Command::Reorient { id, .. } => id,
     };
@@ -160,9 +198,14 @@ pub fn prepare(
             if cell == d.cell {
                 return reject("SAME_LOCATION");
             }
-            if let Some(reason) =
-                site_reason(world, d.owner, cell, Some(Structure::Deflector(id)), true)?
-            {
+            if let Some(reason) = site_reason(
+                world,
+                d.owner,
+                cell,
+                Some(Structure::Deflector(id)),
+                true,
+                spacing,
+            )? {
                 return reject(reason);
             }
             Ok(Plan::DeflectorMove {

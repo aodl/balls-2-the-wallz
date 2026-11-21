@@ -316,7 +316,9 @@ fn cannon(w: &World, id: u32) -> Result<Option<CannonView>> {
 }
 pub fn game_info() -> Result<GameInfo> {
     let (r, p, w) = load()?;
-    let configuration = if p.identity.config_hash == b2z_native::shout::configuration_hash() {
+    let configuration = if p.identity.config_hash == b2z_native::spacing::configuration_hash() {
+        b2z_native::spacing::configuration()
+    } else if p.identity.config_hash == b2z_native::shout::configuration_hash() {
         b2z_native::shout::configuration()
     } else if p.identity.config_hash == b2z_native::context_structures::configuration_hash() {
         b2z_native::context_structures::configuration()
@@ -518,7 +520,7 @@ fn quote_items_with_policy(
     action: &QuoteAction,
     entry_rules: bool,
 ) -> Result<Vec<u64>> {
-    quote_items_with_rules(w, funding_account, action, entry_rules, false, false)
+    quote_items_with_rules(w, funding_account, action, entry_rules, false, false, false)
 }
 fn quote_items_with_rules(
     w: &World,
@@ -527,6 +529,7 @@ fn quote_items_with_rules(
     entry_rules: bool,
     clearance_rules: bool,
     context_rules: bool,
+    spacing: bool,
 ) -> Result<Vec<u64>> {
     account(funding_account)?;
     if w.version < 6 {
@@ -534,7 +537,7 @@ fn quote_items_with_rules(
     }
     let memo = b2z_protocol::v6::encode(command(action)).map_err(|_| "COMMAND_BOUNDS")?;
     let plan = if context_rules {
-        b2z_native::context_structures::prepare(w, funding_account, u64::MAX, &memo, &[])?
+        b2z_native::context_structures::prepare(w, funding_account, u64::MAX, &memo, &[], spacing)?
     } else {
         purchases_v6::prepare_with_clearance(
             w,
@@ -669,8 +672,9 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
     if !super::PACE.with(|p| p.borrow().hint().admission_open) {
         return Err("ADMISSION_CLOSED".into());
     }
-    let context_rules = p.identity.config_hash
-        == b2z_native::context_structures::configuration_hash()
+    let spacing = p.identity.config_hash == b2z_native::spacing::configuration_hash();
+    let context_rules = spacing
+        || p.identity.config_hash == b2z_native::context_structures::configuration_hash()
         || p.identity.config_hash == b2z_native::shout::configuration_hash();
     let prices = quote_items_with_rules(
         &w,
@@ -686,6 +690,7 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
             || p.identity.config_hash == hash(b2z_native::combined_v11::configuration())
             || p.identity.config_hash == hash(b2z_native::deflectors_v12::configuration()),
         context_rules,
+        spacing,
     )?;
     let amount = prices
         .iter()
@@ -1085,11 +1090,11 @@ mod tests {
         let account = &w.cannons[0].account;
         let action = QuoteAction::Move { cannon: 1, cell: 3 };
         assert_eq!(
-            quote_items_with_rules(&w, account, &action, true, false, false).unwrap(),
+            quote_items_with_rules(&w, account, &action, true, false, false, false).unwrap(),
             vec![10000]
         );
         assert_eq!(
-            quote_items_with_rules(&w, account, &action, true, true, false).unwrap_err(),
+            quote_items_with_rules(&w, account, &action, true, true, false, false).unwrap_err(),
             "ENEMY_TERRITORY_TOO_CLOSE"
         );
         let action = QuoteAction::Fire {
@@ -1098,8 +1103,8 @@ mod tests {
             quantity: 1,
         };
         assert_eq!(
-            quote_items_with_rules(&w, account, &action, true, false, false).unwrap(),
-            quote_items_with_rules(&w, account, &action, true, true, false).unwrap()
+            quote_items_with_rules(&w, account, &action, true, false, false, false).unwrap(),
+            quote_items_with_rules(&w, account, &action, true, true, false, false).unwrap()
         );
     }
 }

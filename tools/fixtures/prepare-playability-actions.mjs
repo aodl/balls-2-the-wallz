@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import {B2zCursor} from '../../packages/kernels/b2z/kernel.mjs';
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {hex,unhex} from '@dtr/timeline-runtime/protocol/bytes';
-import {decodeWorld,encodeWorld,setOwner,validateWorld,WAR_CRY_CONFIG,COMBINED_CONFIG,DEFLECTOR_CONFIG,ENTRY_CONFIG} from '../../packages/kernels/b2z/world.mjs';
+import {decodeWorld,encodeWorld,setOwner,validateWorld,WAR_CRY_CONFIG,COMBINED_CONFIG,DEFLECTOR_CONFIG,ENTRY_CONFIG,SHOUT_CONFIG} from '../../packages/kernels/b2z/world.mjs';
 import {expireV6} from '../../packages/kernels/b2z/lifecycle-v6.mjs';
 import {dueFences} from '../../packages/kernels/b2z/playability.mjs';
 import {V6_POLICY} from '../../packages/kernels/b2z/playability.generated.mjs';
@@ -41,4 +41,10 @@ let capacity_events;
 if(process.argv[3]){const raw=fs.readFileSync(process.argv[3]);if(raw.length>1048576)throw Error('capacity state bound');const w=decodeWorld(raw);if(w.version!==6||w.balls.length!==64||w.cannons.length!==128)throw Error('declared capacity fixture');cases.capacity={initial:hex(raw),final:hex(raw)};const events=fs.readFileSync(process.argv[4]);if(events.length>1048576||decodeCanonical(events).version!==6)throw Error('capacity event bound');capacity_events=hex(events);}
 const boundary=JSON.parse(fs.readFileSync(new URL('../../tests/fixtures/boundary-deflector-v12.json',import.meta.url))).rows.find(r=>r.name==='corridor-with-recovery');
 cases.deflector={initial:boundary.initial_hex,final:boundary.outputs.state.hex,events:boundary.outputs.events.hex,seal:boundary.context_hex};
-fs.writeFileSync(process.argv[2],JSON.stringify({qualification:'Synthetic widget/presentation data; not IC authentication or installed upgrade evidence',config:hex(encodeCanonical({...V6_POLICY,...PRICING})),entry_config:hex(encodeCanonical(ENTRY_CONFIG)),war_cry_config:hex(encodeCanonical(WAR_CRY_CONFIG)),combined_config:hex(encodeCanonical(COMBINED_CONFIG)),deflector_config:hex(encodeCanonical(DEFLECTOR_CONFIG)),cases,sequences,capacity_events}));
+// Schema7 paid-rule UI fixture, used only in the standalone orbit browser.
+const context=JSON.parse(fs.readFileSync(new URL('../../tests/fixtures/context-structures-v13.json',import.meta.url))).rows[0];
+const orbit=decodeWorld(unhex(context.initial_hex));
+orbit.deflectors.push({id:1,cell:4007,owner:1,orientation:'NW'});orbit.next_deflector_id=2;
+const orbitHex=hex(encodeWorld(orbit));
+cases.orbit={initial:orbitHex,final:orbitHex};
+fs.writeFileSync(process.argv[2],JSON.stringify({shout_config:hex(encodeCanonical(SHOUT_CONFIG)),qualification:'Synthetic widget/presentation data; not IC authentication or installed upgrade evidence',config:hex(encodeCanonical({...V6_POLICY,...PRICING})),entry_config:hex(encodeCanonical(ENTRY_CONFIG)),war_cry_config:hex(encodeCanonical(WAR_CRY_CONFIG)),combined_config:hex(encodeCanonical(COMBINED_CONFIG)),deflector_config:hex(encodeCanonical(DEFLECTOR_CONFIG)),cases,sequences,capacity_events}));

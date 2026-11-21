@@ -1,3 +1,4 @@
+import {isometricBasis} from './isometric-projection.mjs';
 /** Local presentation in cell coordinates. No simulation or network authority. */
 export const wrap=(n,size)=>((n%size)+size)%size;
 // The viewport, inverse projected to the ground, clipped to a canonical world.
@@ -18,17 +19,15 @@ export function splitInterval(start,length,size){
 export class Camera {
   constructor(){this.width=0;this.height=0;this.x=0;this.y=0;this.scale=1;this.viewport={width:1,height:1};this.initialized=false;this.torus=false;this.angle=0;}
   get angle(){return this._angle;}
-  set angle(a){this._angle=a;this.cos=Math.cos(a);this.sin=Math.sin(a);}
+  set angle(a){this._angle=a;this.basis=isometricBasis(a);}
   get quarter(){return (Math.round(-this.angle/(Math.PI/2))+4)%4;}
-  rotateVector(x,y){return {x:x*this.cos-y*this.sin,y:x*this.sin+y*this.cos};}
-  unrotateVector(x,y){return {x:x*this.cos+y*this.sin,y:y*this.cos-x*this.sin};}
   configure(width,height,vw,vh,torus=false){
     if(![width,height,vw,vh].every(x=>Number.isFinite(x)&&x>0))throw new Error('camera dimensions');
     this.width=width;this.height=height;this.viewport={width:vw,height:vh};this.torus=torus;
     if(!this.initialized){this.fit();this.initialized=true;}else this.constrain();
   }
   get fitScale(){
-    const {width,height}=this.viewport,[A,B]=this.quarter%2?[height,width]:[width,height];
+    const {width:A,height:B}=this.viewport;
     if(!this.torus)return .9*Math.min(A/((this.width+this.height)/Math.SQRT2),B/((this.width+this.height)/Math.sqrt(6)));
     // Current toroidal versions are square. Periods (1,1), (1,-1), (1,0)
     // and (0,1) determine the tight rectangular-screen non-overlap bound.
@@ -44,12 +43,12 @@ export class Camera {
     this.x=this.torus?wrap(this.x,this.width):Math.max(0,Math.min(this.width,this.x));
     this.y=this.torus?wrap(this.y,this.height):Math.max(0,Math.min(this.height,this.y));
   }
-  world(sx,sy){const d=this.unrotateVector(sx-this.viewport.width/2,sy-this.viewport.height/2),a=d.x/this.scale*Math.SQRT2,b=d.y/this.scale*Math.sqrt(6);return {x:this.x+(a+b)/2,y:this.y+(b-a)/2};}
+  world(sx,sy){const d=this.basis.unproject((sx-this.viewport.width/2)/this.scale,(sy-this.viewport.height/2)/this.scale);return {x:this.x+d.x,y:this.y+d.y};}
   tileStep(dx,dy){
     for(let turn=0;turn<this.quarter;turn++)[dx,dy]=[-dy,dx];
     return [dx||0,dy||0];
   }
-  screen(x,y,height=0){const dx=x-this.x,dy=y-this.y;const d=this.rotateVector((dx-dy)/Math.SQRT2,(dx+dy)/Math.sqrt(6)-height*Math.sqrt(2/3));return {x:d.x*this.scale+this.viewport.width/2,y:d.y*this.scale+this.viewport.height/2};}
+  screen(x,y,height=0){const d=this.basis.project(x-this.x,y-this.y,height);return {x:d.x*this.scale+this.viewport.width/2,y:d.y*this.scale+this.viewport.height/2};}
   pan(dx,dy){const p=this.world(this.viewport.width/2-dx,this.viewport.height/2-dy);this.x=p.x;this.y=p.y;this.constrain();}
   centre(x,y){this.x=x;this.y=y;this.constrain();}
   zoom(factor,sx=this.viewport.width/2,sy=this.viewport.height/2){

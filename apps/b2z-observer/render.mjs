@@ -1,3 +1,4 @@
+import {orientSceneCamera} from './isometric-projection.mjs';
 import {backingQuality} from './render-quality.mjs';
 import {structureGeometry,structureMaterial} from './structure-geometry.mjs';
 import {luminousAccent} from './theme.mjs';
@@ -96,7 +97,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   const {width,height}=camera.viewport,cannonLod=1;const dpr=Math.min(devicePixelRatio||1,RENDER_LIMITS.dpr,Math.sqrt(quality.pixels/(width*height))),size=[width,height,dpr].join('/');if(size!==sizeKey){sizeKey=size;renderer.setPixelRatio(dpr);renderer.setSize(width,height,false);}
   guide.material.resolution.set(width,height);guideUnder.material.resolution.set(width,height);
   const halfW=width/camera.scale/2,halfH=height/camera.scale/2;
-  Object.assign(ortho,{left:-halfW,right:halfW,top:halfH,bottom:-halfH});ortho.position.set(camera.x+2500,2500,camera.y+2500);ortho.lookAt(camera.x,0,camera.y);ortho.rotateZ(camera.angle);ortho.updateProjectionMatrix();ortho.updateMatrixWorld();
+  Object.assign(ortho,{left:-halfW,right:halfW,top:halfH,bottom:-halfH});orientSceneCamera(ortho,camera);
   const copies=camera.copies(1),bounds=camera.bounds();
   // One exact texture covers every canonical cell; camera LOD never changes owners.
   const key=[camera.x,camera.y,camera.scale,camera.angle,width,height,v.torus,v.territoryRevision,v.entityKey()].join('/');

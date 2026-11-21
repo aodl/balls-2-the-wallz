@@ -706,3 +706,152 @@ fn shout_rules13_upgrade_official_payments_and_recovery() {
     assert!(browser.success(), "two independent Shout browser observers");
     live.stop_live();
 }
+
+#[test]
+fn spacing_rules14_upgrade_official_payments_and_authenticated_replay() {
+    use b2z_protocol::shout;
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("spacing");
+    std::fs::create_dir_all(&out).unwrap();
+    let payer = Principal::self_authenticating([9; 32]);
+    let initial = test_world(payer).encode().unwrap();
+    let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers(
+        bytes("B2Z_S14_TEST_WASM"),
+        initial.clone(),
+        10_000,
+        500,
+        &[],
+    );
+    let predecessor = bytes("B2Z_RULES14_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&predecessor),
+        "6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6"
+    );
+    playability_installed::funding_paused(&pic, id, true);
+    upgrade(&pic, id, bytes("B2Z_RULES13_PRIOR_WASM"));
+    playability_installed::configuration(&pic, id, 512);
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    complete_one_trickle_tick(&pic, id);
+    let mut history = vec![];
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    upgrade(&pic, id, predecessor);
+    war_cry_installed::transition_with_recovery_module(&pic, id, "shout", "B2Z_RULES14_PRIOR_WASM");
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+
+    let mut inputs = BTreeMap::new();
+    let mut expected = BTreeMap::new();
+    let mut send = |text: &str, amount: u64, reason: &str| {
+        let position = transfer_text(&pic, ledger, payer, id, amount, text.as_bytes());
+        let memo = shout::parse_text(text.as_bytes()).unwrap();
+        let mut raw = shout::NORMALIZED_PAYMENT.to_vec();
+        raw.extend(funding_account(payer).as_bytes());
+        raw.extend(amount.to_be_bytes());
+        raw.extend(codec::encode(memo.command).unwrap());
+        raw.push(memo.cry.len() as u8);
+        raw.extend(memo.cry.as_bytes());
+        inputs.insert(position, hex(&raw));
+        expected.insert(position, reason.to_owned());
+        position
+    };
+    let historic = send("DEFLECT 4007 N|Old", 10_000_000, "ACCEPTED");
+    wait_admitted(&pic, id, historic);
+    complete_one_trickle_tick(&pic, id);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+
+    let prior = arena_world(&pic, id).encode().unwrap();
+    let finance = funding_tests::preserved_finance(&pic, id);
+    let cursor = status(&pic, id).source.admitted_to_exclusive;
+    let publication = observe(&pic, id).0.publication;
+    upgrade(&pic, id, bytes("B2Z_S14_WASM"));
+    assert_eq!(observe(&pic, id).0.publication, publication);
+    war_cry_installed::transition(&pic, id, "spacing");
+    assert_eq!(arena_world(&pic, id).encode().unwrap(), prior);
+    assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, cursor);
+    assert_eq!(
+        observe(&pic, id).1.identity.config_hash,
+        b2z_native::spacing::configuration_hash()
+    );
+    assert_eq!(arena_world(&pic, id).deflectors.unwrap()[0].cell, 4007);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+
+    let mut last = historic;
+    for (memo, amount, reason) in [
+        ("MOVE 1 4005|Blocked", 10_000, "STRUCTURE_TOO_CLOSE"),
+        ("DMOVE 1 4006|Blocked", 10_000, "STRUCTURE_TOO_CLOSE"),
+        ("DMOVE 1 8008|Away", 10_000, "ACCEPTED"),
+        ("MOVE 1 4005|Alone", 10_000, "ACCEPTED"),
+        ("NEW 0 1 4008|Blocked", 400_000_000, "STRUCTURE_TOO_CLOSE"),
+        ("NEW 0 1 4009|Boundary", 400_000_000, "ACCEPTED"),
+        ("DEFLECT 8010 E|Blocked", 10_000_000, "STRUCTURE_TOO_CLOSE"),
+        ("DEFLECT 12014 E|Open", 10_000_000, "ACCEPTED"),
+    ] {
+        last = send(memo, amount, reason);
+    }
+    drop(send);
+    wait_admitted(&pic, id, last);
+    complete_one_trickle_tick(&pic, id);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+
+    let mut observed = BTreeMap::new();
+    let mut events = Vec::new();
+    for p in &history {
+        let segment = p.head.segment_id.as_ref().unwrap().0.to_string();
+        let raw = std::fs::read(out.join(format!("publication-{segment}-artifact-1.bin"))).unwrap();
+        let audit: Value = decode(&raw).unwrap();
+        for receipt in audit["receipts"].as_array().unwrap() {
+            let position: u64 = receipt["position"]["$integer"]
+                .as_str()
+                .unwrap()
+                .parse()
+                .unwrap();
+            assert!(observed.insert(position, receipt.clone()).is_none());
+            assert_eq!(receipt["reason"], expected[&position]);
+            if expected[&position] != "ACCEPTED" {
+                assert_eq!(receipt["remainder"], receipt["amount"]);
+                assert_eq!(receipt["amount_used"]["$integer"], "0");
+            }
+        }
+        events.push(json!({"segment_id":segment,"events_hex":hex(&raw)}));
+    }
+    assert_eq!(observed.len(), expected.len());
+    save(
+        &out,
+        "trace.json",
+        &json!({
+            "status":"PASS","initial_world_hex":hex(&initial),"publications":history,
+            "inputs":inputs.iter().map(|(n,p)|json!({"position":n.to_string(),"payload_hex":p})).collect::<Vec<_>>(),
+            "assigned":observed.keys().map(|n|n.to_string()).collect::<Vec<_>>(),"artifact_events":events
+        }),
+    );
+    let wall = pocket_ic::Time::from(std::time::SystemTime::now());
+    if wall.as_nanos_since_unix_epoch() > pic.get_time().as_nanos_since_unix_epoch() {
+        pic.set_time(wall);
+    }
+    let mut live =
+        PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
+    let gateway = live.make_live(None);
+    save(
+        &out,
+        "configuration.json",
+        &json!({
+            "network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),
+            "ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),
+            "root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":funding_account(payer).to_hex()
+        }),
+    );
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(repo)
+            .args([
+                "tools/capture_war_cry_installed.mjs",
+                out.join("configuration.json").to_str().unwrap(),
+                out.join("trace.json").to_str().unwrap(),
+                out.join("authenticated").to_str().unwrap(),
+            ])
+            .status()
+            .unwrap()
+            .success(),
+        "independent authenticated Rules15 replay"
+    );
+}

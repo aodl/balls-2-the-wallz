@@ -2,7 +2,7 @@ import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorOperation,app
 import {launchAnnotationValidator}from'./war-cry-events.mjs';
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -12,8 +12,8 @@ import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
 const identityMatches=(id,expected)=>Object.keys(expected).every(key=>id?.[key]===expected[key]);
-const playabilityIdentity=(id,version=6)=>(version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>identityMatches(id,expected));
-const contextIdentity=id=>identityMatches(id,CONTEXT_IDENTITY)||identityMatches(id,SHOUT_IDENTITY);
+const playabilityIdentity=(id,version=6)=>(version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>identityMatches(id,expected));
+const contextIdentity=id=>identityMatches(id,CONTEXT_IDENTITY)||identityMatches(id,SHOUT_IDENTITY)||identityMatches(id,SPACING_IDENTITY);
 function verifyShoutTarget(model,annotation){
   const a=annotation;
   const target=a.kind==='cannon'?model.cannons.get(a.id):model.deflectors.get(a.id);
@@ -314,12 +314,12 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
   check(scores.version===final.version&&Array.isArray(scores.area_time)&&scores.area_time.length===0,'checkpoint scores');
   const context=events.events[0]?.context;
   const kind=events.events[0]?.kind;
-  if(kind==='context_rules_activated'||kind==='shout_rules_activated'){
-    const shout=kind==='shout_rules_activated',predecessor=shout?CONTEXT_IDENTITY:DEFLECTOR_IDENTITY,successor=shout?SHOUT_IDENTITY:CONTEXT_IDENTITY;
+  if(kind==='context_rules_activated'||kind==='shout_rules_activated'||kind==='spacing_rules_activated'){
+    const spacing=kind==='spacing_rules_activated',shout=kind==='shout_rules_activated',predecessor=spacing?SHOUT_IDENTITY:shout?CONTEXT_IDENTITY:DEFLECTOR_IDENTITY,successor=spacing?SPACING_IDENTITY:shout?SHOUT_IDENTITY:CONTEXT_IDENTITY;
     check(initial.version===7&&final.version===7&&((publication.version===7&&publication.epoch.version===1)||(publication.version===8&&publication.epoch.version===2))&&events.events.length===1,'schema7 rules checkpoint format');
     check(identityMatches(prior.identity,predecessor)&&identityMatches(publication.identity,successor),'schema7 checkpoint exact identities');
     check(context&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash,'schema7 checkpoint metadata commitment');
-    const expected={version:shout?10:9,migration:shout?'B2Z_ACTION_SHOUT_RULES_14':'B2Z_CONTEXT_STRUCTURES_RULES_13',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:shout?8:7,memo_adapter_after:shout?9:8};
+    const expected={version:spacing?11:shout?10:9,migration:spacing?'B2Z_STRUCTURE_SPACING_RULES_15':shout?'B2Z_ACTION_SHOUT_RULES_14':'B2Z_CONTEXT_STRUCTURES_RULES_13',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:prior.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:spacing?9:shout?8:7,memo_adapter_after:spacing||shout?9:8};
     check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'schema7 checkpoint source boundary');
     check(publication.head.state_hash===prior.head.state_hash&&sameCanonical(initial,final),'schema7 checkpoint unchanged world');
   }else if(final.version===7&&initial.version===6){

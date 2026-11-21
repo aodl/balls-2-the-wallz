@@ -1,10 +1,14 @@
+import {spacingSupported} from './context-policy.mjs';
 import {structureMap,structureOccupancy,structureSiteReason,wrapSite} from '../../packages/protocol/structure-sites.mjs';
 import {islandAt} from './action-quote-v6.mjs';
 import {cellDistance} from '../../packages/protocol/territory-clearance.mjs';
 
 const worlds = new WeakMap();
-export function contextSites(world) {
-  if(worlds.has(world))return worlds.get(world);
+export function contextSites(world,config) {
+  const spacing=spacingSupported(config);
+  if(!worlds.has(world))worlds.set(world,new Map());
+  const versions=worlds.get(world);
+  if(versions.has(spacing))return versions.get(spacing);
   const territories=new Map(world.playability.territories.map(t=>[t.id,t.player]));
   const playerAt=cell=>territories.get(islandAt(world,cell))??0;
   const cannonOwners=new Map(world.playability.lifecycle.map(c=>[c.cannon,c.player]));
@@ -18,7 +22,7 @@ export function contextSites(world) {
     hasStructure:cell=>structures.has(cell),
     active,
     reason:(account,cell, options={})=>structureSiteReason({width:world.width,height:world.height,owner:accounts.get(account),cell,
-      ...options,occupied,structures,ownerAt:playerAt,active}),
+      ...options,spacing,occupied,structures,ownerAt:playerAt,active}),
     occupiedKey:[...occupied].sort((a,b)=>a-b).join(','),
     activeKey:[...activeIslands].sort((a,b)=>a-b).join(','),
     candidates(account,moving,source){
@@ -35,7 +39,7 @@ export function contextSites(world) {
       return [...found].sort((a,b)=>distance(a)-distance(b)||a-b);
     }
   };
-  worlds.set(world,state);
+  versions.set(spacing,state);
   return state;
 }
 
@@ -63,6 +67,7 @@ export function firstContextDestination(candidates,legal,schedule=fn=>setTimeout
 
 const REASONS={
   NO_FRIENDLY_STRUCTURE_NEARBY:'Choose a tile within three tiles of another friendly structure.',
+  STRUCTURE_TOO_CLOSE:'Choose a tile at least four tiles from every other structure.',
   ENEMY_TERRITORY_TOO_CLOSE:'Too close to enemy territory.',
   NOT_OWN_TERRITORY:'Choose a tile in your territory.',
   NO_ACTIVE_ISLAND:'The tile must belong to an active island.',

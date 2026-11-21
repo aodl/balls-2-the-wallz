@@ -43,7 +43,7 @@ with sync_playwright() as pw:
     page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));print('navigate',width,flush=True);page.goto(origin);print('loaded',flush=True);page.wait_for_function('()=>!!window.fixture');assert page.locator('#workspace').is_hidden();assert not page.locator('dialog').count()
     assert not page.locator('input[placeholder*="transaction"]').count();assert not page.get_by_text("I've sent this",exact=True).count()
     print('player controls',flush=True);verify_player_controls(page,width,height);print('player controls PASS',flush=True);print('identify',flush=True);identify(page);close(page);page.evaluate('fixture.render("additional","final")');select(page,2);page.locator('#fire-action').click();set_quantity(page,2);set_heading(page,'90')
-    expect(page.locator('#text-memo')).to_have_text('FIRE 2 315 2');expect(page.locator('#transfer-amount')).to_have_text('4.1 ICP');expect(page.locator('#full-recipient')).to_have_text('s5ir5-gqaaa-aaaas-amyna-cai');expect(page.locator('#payment-guidance')).to_contain_text('without automatic refunds')
+    expect(page.locator('#text-memo')).to_have_text('FIRE 2 315 2');expect(page.locator('#transfer-amount')).to_have_text('4.1 ICP');expect(page.locator('#full-recipient')).to_have_text('s5ir5-gqaaa-aaaas-amyna-cai');assert page.locator('#payment-guidance').count()==0;assert 'without automatic refunds' in page.locator('#help-view').text_content()
     print('wallet fields',flush=True)
     fields=['transfer-amount','payment-owner','text-memo','paying-account','payment-risk']
     wallet_fields_reachable(page,fields)

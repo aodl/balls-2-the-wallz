@@ -35,7 +35,7 @@ export function removeLostDeflectors(w){
  if(w.version!==7)return[];const gone=w.deflectors.filter(d=>playerAt(w,d.cell)!==d.owner);
  if(gone.length){const ids=new Set(gone.map(d=>d.id));w.deflectors=w.deflectors.filter(d=>!ids.has(d.id));}return gone;
 }
-export function prepareDeflectorPurchase(w,account,amount,memo){
+export function prepareDeflectorPurchase(w,account,amount,memo,spacing=false){
  const fail=reason=>({kind:'rejected',reason});if(w.version!==7)throw Error('unsupported deflector rules');
  if(typeof amount!=='bigint'||amount<0n||amount>18446744073709551615n)throw Error('PAYMENT_AMOUNT');
  let command;try{command=decodeDeflectorMemo(memo);}catch{return fail('MALFORMED_MEMO');}if(command.kind!=='deflect')return null;
@@ -53,7 +53,7 @@ export function prepareDeflectorPurchase(w,account,amount,memo){
   if(cmp(y,rat(cy*Q))===0)ys.push(cy-1);else if(cmp(y,rat((cy+1)*Q))===0)ys.push(cy+1);
   if(xs.some(x=>ys.some(y=>wrapCell(x,y,w.width,w.height)===command.cell)))return fail('SITE_OCCUPIED');
  }
- if(!deflectorSeparation(w,command.cell))return fail('DEFLECTOR_TOO_CLOSE');
+ if(!spacing&&!deflectorSeparation(w,command.cell))return fail('DEFLECTOR_TOO_CLOSE');
  if(!hasEnemyClearance(w.width,w.height,command.cell,player,c=>playerAt(w,c)))return fail('ENEMY_TERRITORY_TOO_CLOSE');
  return{kind:'deflect',owner:player,cell:command.cell,orientation:command.orientation,price:10000000n};
 }

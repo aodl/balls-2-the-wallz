@@ -149,7 +149,16 @@ pub fn place_new_with_policy(
     placement: &crate::spawn::Placement,
     entry_rules: bool,
 ) -> Result<Created> {
-    place_new_with_context(world, account, amount, plan, placement, entry_rules, false)
+    place_new_with_context(
+        world,
+        account,
+        amount,
+        plan,
+        placement,
+        entry_rules,
+        false,
+        false,
+    )
 }
 
 pub(crate) fn place_new_with_context(
@@ -160,6 +169,7 @@ pub(crate) fn place_new_with_context(
     placement: &crate::spawn::Placement,
     entry_rules: bool,
     context_rules: bool,
+    spacing: bool,
 ) -> Result<Created> {
     let Plan::New {
         angle,
@@ -183,11 +193,12 @@ pub(crate) fn place_new_with_context(
         Command::Legacy(Legacy::Angle(*angle))
     };
     let memo = b2z_protocol::v6::encode(command).map_err(|_| "NEW_CANNON_PLAN")?;
-    if prepare_with_context(world, account, amount, &memo, &[], context_rules)? != *plan {
+    if prepare_with_context(world, account, amount, &memo, &[], context_rules, spacing)? != *plan {
         return Err("STALE_PURCHASE_PLAN".into());
     }
     let patch = if *first {
-        if placement.kind != if entry_rules { 5 } else { 2 }
+        if spacing && !crate::entry_v7::has_clearance(world, placement.cell)
+            || placement.kind != if entry_rules { 5 } else { 2 }
             || world.patch(placement.cell).as_ref() != Some(&placement.patch)
             || !entry_rules && placement.patch.iter().any(|c| world.owner(*c) != Some(0))
         {
@@ -325,7 +336,7 @@ pub fn prepare(
     memo: &[u8],
     moved: &[u32],
 ) -> Result<Plan> {
-    prepare_with_context(world, account, amount, memo, moved, false)
+    prepare_with_context(world, account, amount, memo, moved, false, false)
 }
 
 pub(crate) fn prepare_with_context(
@@ -335,6 +346,7 @@ pub(crate) fn prepare_with_context(
     memo: &[u8],
     moved: &[u32],
     context_rules: bool,
+    spacing: bool,
 ) -> Result<Plan> {
     if world.version < 6 {
         return Err("EXPECTED_V6".into());
@@ -417,9 +429,9 @@ pub(crate) fn prepare_with_context(
                 };
                 let site = site as usize;
                 let owner = player.ok_or("UNKNOWN_PLAYER")?;
-                if let Some(reason) =
-                    crate::context_structures::site_reason(world, owner, site, None, false)?
-                {
+                if let Some(reason) = crate::context_structures::site_reason(
+                    world, owner, site, None, false, spacing,
+                )? {
                     return Ok(reject(reason));
                 }
                 if crate::territory_v6::balls(world, world.owner(site).unwrap_or(0))
@@ -516,6 +528,7 @@ pub(crate) fn prepare_with_context(
                     cell as usize,
                     Some(crate::context_structures::Structure::Cannon(cannon)),
                     false,
+                    spacing,
                 )? {
                     return Ok(reject(reason));
                 }
