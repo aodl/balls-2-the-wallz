@@ -19,12 +19,17 @@ export function focusedOn(camera,cell,options={}){
 /** One explicit action/target/viewport accommodation, using Camera's projection.
  * Includes the actual source and preview, never changes a draft or world. */
 export function previewComposition(camera,sourceCell,previewCell,rect,{interactive=true}={}){
- const c=Object.assign(Object.create(Object.getPrototypeOf(camera)),camera);
- const bounds=()=>{const a=c.cellPoint(sourceCell),b=c.cellPoint(previewCell??sourceCell),body=c.scale*.62+2,top=c.scale*.60+2,bottom=c.scale*.17+2,r=Math.max(60,c.scale*.62);
+ const c=Object.assign(Object.create(Object.getPrototypeOf(camera)),camera),pad=2;
+ const bounds=()=>{const a=c.cellPoint(sourceCell),b=c.cellPoint(previewCell??sourceCell),body=c.scale*.62+pad,top=c.scale*.60+pad,bottom=c.scale*.17+pad,r=Math.max(60,c.scale*.62);
   return{left:Math.min(a.sx-body,b.sx-(interactive?r:body)),right:Math.max(a.sx+body,b.sx+(interactive?r:body)),top:Math.min(a.sy-top,b.sy-(interactive?r:top)),bottom:Math.max(a.sy+bottom,b.sy+(interactive?r:bottom))};};
  let box=bounds(),w=rect.right-rect.left,h=rect.bottom-rect.top;
  if(w<=0||h<=0)return null;
- if(!interactive&&(box.right-box.left>w||box.bottom-box.top>h)){c.scale*=Math.min(w/(box.right-box.left),h/(box.bottom-box.top))*.98;c.constrain();box=bounds();}
+ if(!interactive&&(box.right-box.left>w||box.bottom-box.top>h)){
+  // The screen-space margins do not shrink with the world scale.
+  const fit=Math.min((w-2*pad)/(box.right-box.left-2*pad),(h-2*pad)/(box.bottom-box.top-2*pad));
+  if(fit<=0)return null;
+  c.scale*=fit*.98;c.constrain();box=bounds();
+ }
  if(box.right-box.left>w||box.bottom-box.top>h)return null;
  const dx=box.left<rect.left?rect.left-box.left:box.right>rect.right?rect.right-box.right:0,dy=box.top<rect.top?rect.top-box.top:box.bottom>rect.bottom?rect.bottom-box.bottom:0;
  if(!dx&&!dy&&c.scale===camera.scale)return null;

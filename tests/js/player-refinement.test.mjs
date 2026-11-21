@@ -26,4 +26,13 @@ import{previewComposition}from'../../apps/b2z-observer/camera-controller.mjs';
 function mobileComposition(height=640){const c=new Camera();c.configure(1000,1000,320,height,true);c.scale=64;c.centre(578.5,453.5);const p=c.cellPoint(453578);c.pan(160-p.sx,168-p.sy);return c;}
 test('final composition fits a neighbouring Build aimer once without changing canonical cells or zoom',()=>{const c=mobileComposition(),before={...c},rect={left:8,right:312,top:63,bottom:214},target=previewComposition(c,453578,454578,rect);assert.ok(target);assert.equal(c.y,before.y,'pure until CameraController applies the pose');assert.equal(target.scale,64);Object.assign(c,target);const p=c.cellPoint(454578);assert.ok(p.sy-60>=rect.top-1e-8&&p.sy+60<=rect.bottom+1e-8);assert.equal(previewComposition(c,453578,454578,rect),null,'no repeated recentering');assert.equal(focusedOn(c,453578,{top:124,safeTop:63}),true,'use the actual unobstructed header bound');});
 test('keyboard composition retains source and preview in a bounded free strip and clamps scale',()=>{const c=mobileComposition(300),rect={left:8,right:312,top:63,bottom:136},target=previewComposition(c,453578,454578,rect,{interactive:false});assert.ok(target);assert.ok(target.scale>=c.fitScale&&target.scale<=64);Object.assign(c,target);for(const cell of[453578,454578]){const p=c.cellPoint(cell);assert.ok(p.sy-c.scale*.60-2>=rect.top-1e-7);assert.ok(p.sy+c.scale*.17+2<=rect.bottom+1e-7);}});
+test('contracted composition fits the cannon between the editor strip and payment panel',()=>{
+ const camera=mobileComposition(430),cell=453578,rect={left:8,right:382,top:116,bottom:148};
+ const target=previewComposition(camera,cell,cell,rect,{interactive:false});
+ assert.ok(target&&target.scale<camera.scale);
+ Object.assign(camera,target);
+ const p=camera.cellPoint(cell);
+ assert.ok(p.sy-camera.scale*.60-2>=rect.top-1e-7);
+ assert.ok(p.sy+camera.scale*.17+2<=rect.bottom+1e-7);
+});
 test('preview accommodation is seam-safe and declines distant pairs that cannot fit',()=>{const c=mobileComposition();c.centre(.5,.5);const rect={left:8,right:312,top:63,bottom:214},before={x:c.x,y:c.y};const target=previewComposition(c,0,999,rect);assert.ok(target);assert.ok(Math.abs(((target.x-before.x+1500)%1000)-500)<10);assert.equal(previewComposition(c,0,500500,rect),null);});
