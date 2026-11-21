@@ -74,6 +74,44 @@ def declare(page):
     page.evaluate("fixture.cycles()")
 
 
+def rotated_pinch(page, context):
+    point = page.evaluate("""()=>{
+        fixture.shell.controller.cancel();
+        const c=fixture.camera,origin=c.cellPoint(fixture.aim().cannon.cell);
+        c.pan(174-origin.sx,124-origin.sy);fixture.draw();
+        const r=document.getElementById('aim-handle').getBoundingClientRect();
+        return [r.x+r.width/2,r.y+r.height/2];
+    }""")
+    x,y = point
+    assert page.evaluate("([x,y])=>document.elementFromPoint(x,y)?.id==='aim-handle'", point), point
+    cdp = context.new_cdp_session(page)
+    initial = page.evaluate("fixture.proposal().degrees")
+    def touches(kind, *points):
+        cdp.send("Input.dispatchTouchEvent", {"type": kind, "touchPoints": [
+            {"id":i,"x":px,"y":py} for i,px,py in points
+        ]})
+    touches("touchStart",(1,x,y))
+    touches("touchMove",(1,x-13,y+10))
+    page.wait_for_function("angle=>fixture.proposal().degrees!==angle", arg=initial)
+    x,y=x-13,y+10
+    state = page.evaluate("""([x,y])=>{
+        const candidates=[[x-84,y],[x+84,y],[x,y+84],[x,y-84]];
+        const second=candidates.find(([xx,yy])=>xx>24&&xx<296&&yy>24&&yy<616&&document.elementFromPoint(xx,yy)?.id==='board');
+        return {second,angle:fixture.proposal().degrees,scale:fixture.camera.scale};
+    }""",[x,y])
+    assert state.get("second"), state
+    xx,yy = state["second"]
+    dx,dy = (xx-x)/7,(yy-y)/7
+    touches("touchStart",(1,x,y),(2,xx,yy))
+    touches("touchMove",(1,x-dx,y-dy),(2,xx+dx,yy+dy))
+    touches("touchEnd")
+    page.wait_for_function("scale=>fixture.camera.scale>scale", arg=state["scale"])
+    assert page.evaluate("fixture.proposal().degrees") == state["angle"]
+    assert page.evaluate("fixture.camera.quarter") == 1
+    assert page.locator("#quantity-controls").is_visible()
+    return {"quarter":1,"native_touch":True,"draft_heading":state["angle"]}
+
+
 def test(browser, variant, width, height, reduced=False):
     ctx = browser.new_context(viewport={"width": width, "height": height}, has_touch=width <= 390,
                               reduced_motion="reduce" if reduced else "no-preference")
@@ -89,6 +127,7 @@ def test(browser, variant, width, height, reduced=False):
         fixture.camera.centre(7.5,4.5);fixture.draw();}""")
     pose = page.evaluate("fixture.summary().camera")
     measures = []
+    pinch = None
     for quarter, letter in enumerate("NESW"):
         button = page.locator(f"[data-board-quarter='{quarter}']")
         if quarter:
@@ -133,6 +172,7 @@ def test(browser, variant, width, height, reduced=False):
                 return node.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));}""")
             screen(page, "after-320-contracted")
             page.set_viewport_size({"width":320,"height":640})
+            pinch = rotated_pinch(page, ctx)
         page.locator("[data-board-quarter='0']").click()
         settle(page, 0)
         page.evaluate("fixture.shell.controller.cancel();fixture.camera.centre(7.5,4.5);fixture.draw()")
@@ -162,7 +202,7 @@ def test(browser, variant, width, height, reduced=False):
         screen(page, f"{variant}-{width}-guide")
     assert not errors, errors
     ctx.close()
-    return {"size": [width, height], "reduced_motion": reduced, "camera": measures}
+    return {"size": [width, height], "reduced_motion": reduced, "camera": measures, "rotated_pinch": pinch}
 
 
 try:
