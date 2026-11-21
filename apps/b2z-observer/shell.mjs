@@ -175,7 +175,7 @@ export function createShell(doc,camera,arcade,onPick){
   const origin=camera.cellPoint(qa.cannon.cell),a=qa.angle*Math.PI/180,end=camera.screen(origin.x+Math.cos(a),origin.y+Math.sin(a)),m=measure(),viewport=visibleBounds(),obstacles=[...m.guideObstacles,minimapArea(m.mini),m.cycles,m.buttons,m.sound];if(!card.hidden&&!card.inert&&cardBounds)obstacles.push(cardBounds);
   const context=[qa.cannon.id,qa.cannon.cell,viewport.left,viewport.top,viewport.width,viewport.height,quantitySize.width,quantitySize.height].join('/');
   if(context!==quantityContext){quantityContext=context;quantityDocked=viewport.height<520||viewport.width<2*(Math.max(24,camera.scale*.62+2)+quantitySize.width+8);}
-  const strip=quantityReservation==='strip'?quantityDockStrip({viewport,top:Math.max(m.headerBottom+10,viewport.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound]}):null;
+  const strip=quantityReservation==='strip'?quantityDockStrip({viewport,top:Math.max(m.headerBottom+10,viewport.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound,m.cycles]}):null;
   const rail=quantityReservation==='rail'?quantityRail(m,viewport):null;
   const dockLeft=rail?rail.left:strip?strip.left:quantityReservation==='inline'?Math.max(viewport.left+8,cardBounds.left+6):Math.max(viewport.left+8,Math.min(viewport.left+viewport.width-quantitySize.width-8,cardBounds.left+(cardBounds.right-cardBounds.left-quantitySize.width)/2)),dockTop=rail?rail.top:strip?strip.top:cardBounds.top+m.headerHeight-quantitySize.height-4,dock={left:dockLeft,top:dockTop,right:dockLeft+quantitySize.width,bottom:dockTop+quantitySize.height,...quantitySize};
   const next=quantityPlacement({origin:{x:origin.sx,y:origin.sy},direction:{x:end.x-origin.sx,y:end.y-origin.sy},...quantitySize,scale:camera.scale,viewport,top:quantityReservation==='inline'?viewport.top+8:Math.max(m.headerBottom+10,viewport.top+8),obstacles,arrow:aimingArrow(camera,qa,m.guideObstacles)?.screen??[],dock,preferDock:quantityDocked,previous:quantitySlot,locked:quantityPointers.size>0||pointers.size>0||quantityWidget.contains(doc.activeElement)});
@@ -225,7 +225,9 @@ export function createShell(doc,camera,arcade,onPick){
    // four-button toolbar fits beside audio, and the body starts below it.
    top=Math.max(bounds.top+8,m.headerBottom+8,m.sound.bottom-m.headerHeight+8);
   }
+  if(short&&!quantityReserved)top=Math.max(top,m.cycles.bottom+6);
   let x=bounds.left+W-cw-8,y=top,bottom=bounds.top+H-(short?8:72);
+  if(short&&m.cycles.top>bounds.top+H/2)bottom=Math.min(bottom,m.cycles.top-4);
   if(at){
    if(narrow){x=bounds.left+8;y=short?Math.max(top,Math.min(154,H-158)):Math.min(top+96,Math.max(top,H-360));
     // Keep the layout fixed during the quarter turn, then clear the new aim
@@ -246,7 +248,7 @@ export function createShell(doc,camera,arcade,onPick){
    else{const clearance=Math.ceil(camera.scale/Math.SQRT2+68),right=at.sx+clearance,left=at.sx-clearance-cw;const side=cardSide==='right'&&right+cw<=W-8?'right':cardSide==='left'&&left>=8?'left':right+cw<=W-8?'right':left>=8?'left':null;cardSide=side;x=side==='right'?right:side==='left'?left:Math.max(8,Math.min(W-cw-8,at.sx-cw/2));y=Math.max(top,Math.min(H-310,at.sy-26));}
   }
   if(quantityReservation==='inline')y=top;
-  else if(quantityReserved&&short){const strip=quantityDockStrip({viewport:bounds,top:Math.max(m.headerBottom+10,bounds.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound]});y=Math.max(strip?strip.bottom+8:top,Math.min(y,bottom-m.headerHeight-96));}
+  else if(quantityReserved&&short){const strip=quantityDockStrip({viewport:bounds,top:Math.max(m.headerBottom+10,bounds.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound,m.cycles]});y=Math.max(strip?strip.bottom+8:top,Math.min(y,bottom-m.headerHeight-96));}
   for(const obstacle of(short?[]:lowerObstacles))if(obstacle.width&&x+cw>obstacle.left&&x<obstacle.right)bottom=Math.min(bottom,obstacle.top-8);
   if(narrow&&at&&!short){
    // The collapsed toolbar and its expanded actions share an anchor. The

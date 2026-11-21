@@ -129,6 +129,8 @@ def test(browser, variant, width, height, reduced=False):
             page.set_viewport_size({"width":320,"height":350})
             cycles=page.locator("#cycles-display")
             assert cycles.is_visible() and cycles.bounding_box()["y"] >= 0
+            assert cycles.evaluate("""node=>{const r=node.getBoundingClientRect();
+                return node.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));}""")
             screen(page, "after-320-contracted")
             page.set_viewport_size({"width":320,"height":640})
         page.locator("[data-board-quarter='0']").click()

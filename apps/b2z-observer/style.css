@@ -390,9 +390,20 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
 @media(max-height:500px){
  #arena{--overview-width:80px;--overview-height:46.19px}
  #cycles-display{bottom:max(10px,env(safe-area-inset-bottom));left:max(159px,env(safe-area-inset-left))}
- .short-edit #cycles-display{left:max(10px,env(safe-area-inset-left))}
  #cycle-values{gap:2px}
 }
+ .short-edit #cycles-display{
+  left:calc(max(10px,env(safe-area-inset-left)) + 52px);
+  top:66px;bottom:auto
+ }
+ .short-edit.quantity-constrained #cycles-display{
+  left:calc(max(8px,env(safe-area-inset-left)) + 148px);
+  top:10px;width:96px
+ }
+ .short-edit.quantity-constrained:has(#war-cry-editor:not([hidden])) #cycles-display{
+  left:max(10px,env(safe-area-inset-left));top:auto;
+  bottom:max(4px,env(safe-area-inset-bottom))
+ }
 @media(forced-colors:active){
  #board-compass button{background:ButtonFace;color:ButtonText;border-color:ButtonText}
  #board-compass button[aria-pressed=true]{background:Highlight;color:HighlightText}
