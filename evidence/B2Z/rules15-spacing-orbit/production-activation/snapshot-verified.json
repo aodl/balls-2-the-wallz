@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "snapshot": "0000000000000003000000000240661b0101",
+  "files": {
+    "wasm_module.bin": {
+      "bytes": 77083943,
+      "sha256": "b2791b620394b77e2b84f9e9d32af1440b368d25d878c65b25d9b6d5d9feb112"
+    },
+    "stable_memory.bin": {
+      "bytes": 75890688,
+      "sha256": "eab3d10cd1477aac93307d870312993cdcdabf64621ccdf8635c4cdaa2696ef8"
+    },
+    "wasm_memory.bin": {
+      "bytes": 77725696,
+      "sha256": "3b2f1c2beb426b1e71dda6fbc42e66cb78c99871b9e07730d009f3f90002063f"
+    },
+    "metadata.json": {
+      "bytes": 766,
+      "sha256": "982efd9f72dd903bdef831f4da07d662e43778cd8a68e3a90f6958a23a10fde8"
+    }
+  },
+  "metadata": {
+    "canister_version": 140,
+    "taken_at_timestamp": 1795269337830037839,
+    "chunk_count": 0
+  }
+}

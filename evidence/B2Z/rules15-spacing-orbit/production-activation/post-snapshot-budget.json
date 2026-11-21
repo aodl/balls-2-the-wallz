@@ -1,0 +1,17 @@
+{
+  "balance": 2110732225011,
+  "reserved": 0,
+  "memory": 1010673034,
+  "idle_cycles_per_day": 26684715975,
+  "freezing_seconds": 2592000,
+  "estimated_floor": 800541479250,
+  "reserve": {
+    "upgrade": 190000000000,
+    "recovery": 190000000000,
+    "chunks": 64000000000,
+    "growth": 30000000000,
+    "contingency": 20000000000
+  },
+  "margin": 816190745761,
+  "snapshot_net_debit": 2246982531
+}

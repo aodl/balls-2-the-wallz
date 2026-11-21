@@ -1,0 +1,16 @@
+{
+  "post_install_balance": 1926702535259,
+  "post_install_reserved": 0,
+  "post_install_memory": 1010685514,
+  "freezing_seconds": 2592000,
+  "idle_per_day": 26685034815,
+  "estimated_floor": 800551044450,
+  "measured_install_window_net_debit": 184029689752,
+  "remaining_reserves": {
+    "recovery": 190000000000,
+    "chunks": 64000000000,
+    "growth": 30000000000,
+    "contingency": 20000000000
+  },
+  "margin_after_compatible_reinstall": 822151490809
+}

@@ -1,0 +1,72 @@
+[
+  {
+    "viewport": [
+      320,
+      640
+    ],
+    "heading": 6827,
+    "fire_shout": "FIRE 1 37.5 1|Fire \u26a1Fire \u26a1Fi",
+    "memo": "FIRE 1 37.5 1",
+    "four_rotations": true,
+    "native_clipboard": true,
+    "all_three_clipboard_fields": true,
+    "copy_modes": {
+      "text": "native",
+      "amount": "native",
+      "owner": "native"
+    },
+    "passive_principals": true,
+    "explicit_update_memo": "FIRE 1 37.5 2",
+    "visible_guide": true,
+    "pinch": {
+      "orientation": "East",
+      "explicit_locate": true,
+      "before_scale": 64,
+      "after_scale": 42.48480058050398,
+      "touches": [
+        [
+          "gotpointercapture",
+          2,
+          "board",
+          true
+        ],
+        [
+          "pointerdown",
+          3,
+          "board",
+          true
+        ],
+        [
+          "gotpointercapture",
+          3,
+          "board",
+          true
+        ],
+        [
+          "pointerup",
+          2,
+          "board",
+          false
+        ],
+        [
+          "lostpointercapture",
+          2,
+          "board",
+          false
+        ],
+        [
+          "pointerup",
+          3,
+          "board",
+          false
+        ],
+        [
+          "lostpointercapture",
+          3,
+          "board",
+          false
+        ]
+      ]
+    }
+  }
+]
