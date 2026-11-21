@@ -22,7 +22,7 @@ export function focusedOn(camera,cell,options={}){
 }
 /** One explicit action/target/viewport accommodation, using Camera's projection.
  * Includes the actual source and preview, never changes a draft or world. */
-export function previewComposition(camera,sourceCell,previewCell,rect,{interactive=true}={}){
+export function previewComposition(camera,sourceCell,previewCell,rect,{interactive=true,fitInteractive=false}={}){
  const c=Object.assign(Object.create(Object.getPrototypeOf(camera)),camera),pad=2;
  const bounds=()=>{const a=c.cellPoint(sourceCell),b=c.cellPoint(previewCell??sourceCell),body=c.scale*.62+pad,top=c.scale*.60+pad,bottom=c.scale*.17+pad,r=Math.max(60,c.scale*.62);
   return{left:Math.min(a.sx-body,b.sx-(interactive?r:body)),right:Math.max(a.sx+body,b.sx+(interactive?r:body)),top:Math.min(a.sy-top,b.sy-(interactive?r:top)),bottom:Math.max(a.sy+bottom,b.sy+(interactive?r:bottom))};};
@@ -33,6 +33,19 @@ export function previewComposition(camera,sourceCell,previewCell,rect,{interacti
   const fit=Math.min((w-2*pad)/(box.right-box.left-2*pad),(h-2*pad)/(box.bottom-box.top-2*pad));
   if(fit<=0)return null;
   c.scale*=fit*.98;c.constrain();box=bounds();
+ }
+ if(interactive&&fitInteractive&&(box.right-box.left>w||box.bottom-box.top>h)){
+  // The target's touch radius is fixed. Only its distance from the source
+  // and the projected structure size decrease with zoom.
+  let low=c.fitScale,high=c.scale;
+  c.scale=low;box=bounds();
+  if(box.right-box.left>w||box.bottom-box.top>h)return null;
+  for(let i=0;i<10;i++){
+   c.scale=(low+high)/2;box=bounds();
+   if(box.right-box.left<=w&&box.bottom-box.top<=h)low=c.scale;
+   else high=c.scale;
+  }
+  c.scale=low;box=bounds();
  }
  if(box.right-box.left>w||box.bottom-box.top>h)return null;
  const dx=box.left<rect.left?rect.left-box.left:box.right>rect.right?rect.right-box.right:0,dy=box.top<rect.top?rect.top-box.top:box.bottom>rect.bottom?rect.bottom-box.bottom:0;

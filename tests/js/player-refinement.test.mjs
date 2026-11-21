@@ -44,4 +44,13 @@ test('Focus and its settled predicate share the clear area above the narrow paym
  assert.ok(camera.cellPoint(cell).sy+42<panel.top);
  assert.equal(focusedOn(camera,cell,options),true);
 });
+test('a narrow Build fits the source and full touch radius without moving the toolbar',()=>{
+ const camera=mobileComposition(),source=453578,site=453579,rect={left:8,right:312,top:56,bottom:179};
+ const target=previewComposition(camera,source,site,rect,{fitInteractive:true});
+ assert.ok(target&&target.scale<camera.scale);
+ Object.assign(camera,target);
+ const p=camera.cellPoint(site),c=camera.cellPoint(source);
+ assert.ok(p.sy-60>=rect.top-1e-7&&p.sy+60<=rect.bottom+1e-7);
+ assert.ok(c.sy-camera.scale*.60-2>=rect.top-1e-7&&c.sy+camera.scale*.17+2<=rect.bottom+1e-7);
+});
 test('preview accommodation is seam-safe and declines distant pairs that cannot fit',()=>{const c=mobileComposition();c.centre(.5,.5);const rect={left:8,right:312,top:63,bottom:214},before={x:c.x,y:c.y};const target=previewComposition(c,0,999,rect);assert.ok(target);assert.ok(Math.abs(((target.x-before.x+1500)%1000)-500)<10);assert.equal(previewComposition(c,0,500500,rect),null);});

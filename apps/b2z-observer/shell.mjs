@@ -285,8 +285,9 @@ export function createShell(doc,camera,arcade,onPick){
   if(compose!==compositionKey){compositionKey=compose;if(narrow&&c&&expanded&&!pointers.size&&!arcade.structureContexts?.()){
    const intended=motion.animation?.owner==='focus'?Object.assign(Object.create(Object.getPrototypeOf(camera)),camera,motion.animation.to):camera;
    // The dock can sit where a keyboard-contracted shot used to frame the cannon.
-   const clearTop=Math.max(m.headerBottom+8,strip?strip.bottom+4:0);
-   const target=previewComposition(intended,c.cell,site,{left:8,right:W-8,top:clearTop,bottom:y-6},{interactive:!short&&Boolean(aim)});
+   const interactive=!short&&Boolean(aim),fitInteractive=interactive&&W<=375&&site!==c.cell;
+   const clearTop=Math.max(m.headerBottom+(fitInteractive?0:8),strip?strip.bottom+4:0);
+   const target=previewComposition(intended,c.cell,site,{left:8,right:W-8,top:clearTop,bottom:y-(fitInteractive?0:6)},{interactive,fitInteractive});
    if(target){if(short){motion.cancel();Object.assign(camera,target);if(contractedCamera)contractedCamera.applied=cameraPose();}else motion.go(target,{owner:'composition'});}
   }}
   positionQuantity();committedLayoutRevision=layoutRevision;
