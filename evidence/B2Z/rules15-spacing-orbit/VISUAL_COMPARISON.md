@@ -18,6 +18,7 @@ The numerical test compares actual Three.js projection at 16 angles against the 
 | Fire, Shout and payment information | [Desktop](browser/before-1440-fire.png) | [Desktop](browser/after-1440-fire.png) · [320px](browser/after-320-fire.png) |
 | Reorient controls and live cycle button | [Desktop](browser/before-1440-diverter.png) | [Desktop](browser/after-1440-diverter.png) · [320px](browser/after-320-diverter.png) |
 | Cycles while a keyboard-sized viewport is contracted | — | [320×350](browser/after-320-contracted.png) |
+| Owned tile and exact-site construction preview | [Before](browser/before-1440-construction.png) | [After](browser/after-1440-construction.png) |
 | South on mobile and the selected ball’s guide | — | [390px South](browser/after-390-S.png) · [Guide](browser/after-1440-guide.png) |
 
 The Shout placeholder keeps its accessible name and live byte feedback. The extra visible label and repeated payment disclaimer are gone. Help retains real ICP, fees, retained-payment, and no-reservation disclosures. The concrete destination risk notice remains in the payment panel. Diverter direction buttons use the shared graphite toolbar treatment with canonical direction names. The cycle button remains above the action panel after contraction and is reachable by hit testing.

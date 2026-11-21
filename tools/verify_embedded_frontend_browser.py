@@ -9,7 +9,7 @@ from playwright.sync_api import sync_playwright
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--url", required=True)
 parser.add_argument("--output", type=Path, required=True)
-parser.add_argument("--rules", type=int, choices=[12, 13], default=12)
+parser.add_argument("--rules", type=int, choices=[12, 13, 14, 15], default=12)
 args = parser.parse_args()
 assert urlsplit(args.url).hostname.endswith(".localhost")
 args.output.mkdir(parents=True, exist_ok=False)
