@@ -245,7 +245,9 @@ export function createShell(doc,camera,arcade,onPick){
    if(narrow){x=bounds.left+8;y=short?Math.max(top,Math.min(154,H-158)):Math.min(top+96,Math.max(top,H-360));
     // Keep the layout fixed during the quarter turn, then clear the new aim
     // orbit using the card. The selected tile and camera centre stay put.
-    const key=[c.id,c.cell,bounds.left,bounds.top,W,H,short,locateGeneration,narrowQuarter].join('/');
+    // Focus uses the current card as an obstacle. Keep its clearance stable
+    // across that explicit camera movement, just as during ordinary panning.
+    const key=[c.id,c.cell,bounds.left,bounds.top,W,H,short,narrowQuarter].join('/');
     if(key!==narrowPositionKey){narrowPositionKey=key;narrowY=y;narrowAimClearance=0;narrowAimTop=0;narrowAimBottom=Infinity;
      if(!short&&narrowQuarter&&at.sx+64>x&&at.sx-64<x+cw){
       const upper=at.sy-64,lower=at.sy+64;
