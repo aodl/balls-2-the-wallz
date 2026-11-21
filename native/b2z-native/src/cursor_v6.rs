@@ -327,15 +327,22 @@ impl Cursor {
         placement: &Placement,
     ) -> Result<()> {
         let amount = payment.amount.0.to_u64().ok_or("PAYMENT_AMOUNT")?;
+        let rules = self.v6.as_ref().unwrap();
+        let policy = if rules.spacing_rules {
+            purchases_v6::SitePolicy::Separation
+        } else if rules.context_rules {
+            purchases_v6::SitePolicy::Proximity
+        } else {
+            purchases_v6::SitePolicy::Legacy
+        };
         let created = purchases_v6::place_new_with_context(
             &self.world,
             &payment.account,
             amount,
             plan,
             placement,
-            self.v6.as_ref().unwrap().entry_rules,
-            self.v6.as_ref().unwrap().context_rules,
-            self.v6.as_ref().unwrap().spacing_rules,
+            rules.entry_rules,
+            policy,
         )?;
         let batch = Batch::after_new(payment.account.clone(), amount, created.cannon.id, plan)?;
         self.world = created.world;

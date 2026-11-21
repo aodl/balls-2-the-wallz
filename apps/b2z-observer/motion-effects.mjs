@@ -1,3 +1,5 @@
+import {isometricBasis} from './isometric-projection.mjs';
+const northUp=isometricBasis();
 /** UX-05/12. Only displayed world displacement can darken a tile or leave a tail. */
 export function displayedMotion({limit=128,tailLifetime=null,tileLifetime=2200,tileHold=450}={}){
  let prior=new Map(),effects=new Map(),trails=new Map(),lastTime=null;
@@ -5,7 +7,7 @@ export function displayedMotion({limit=128,tailLifetime=null,tileLifetime=2200,t
   reset(){prior.clear();effects.clear();trails.clear();lastTime=null;},
   inspect(){return{balls:prior.size,tiles:effects.size,pathPoints:[...trails.values()].reduce((n,t)=>n+t.path.length,0),pointLimit:64,totalPointLimit:8192,ballLimit:4096,tileLimit:limit};},
   tails(wallMs){for(const [id,t]of trails)if(t.until<=wallMs)trails.delete(id);return [...trails.values()].flatMap(t=>t.path.filter(p=>p.until>wallMs).map(p=>({...p,id:t.id,alpha:Math.min(1,(t.until-wallMs)/250)*Math.max(.12,1-(wallMs-p.created)/p.lifetime)})));},
-  sample(points,{time,wallMs,width,height,torus=false,reducedMotion=false,pixelsPerCell=48,trajectories=null,knots=null}={}){
+  sample(points,{time,wallMs,width,height,torus=false,reducedMotion=false,pixelsPerCell=48,basis=northUp,trajectories=null,knots=null}={}){
    if(lastTime===null||time<lastTime||time-lastTime>1){prior.clear();effects.clear();trails.clear();}
    const next=new Map();
    for(const p of points){const old=prior.get(p.id),line=trajectories?.get(p.id);next.set(p.id,{x:p.x,y:p.y,wallMs,vx:line?.vx,vy:line?.vy,x0:line?.x0,y0:line?.y0,den:line?.den});
@@ -18,7 +20,7 @@ export function displayedMotion({limit=128,tailLifetime=null,tileLifetime=2200,t
     let dx=endpoint.x-begin.x,dy=endpoint.y-begin.y;if(torus){dx-=Math.round(dx/width)*width;dy-=Math.round(dy/height)*height;}
     const distance=Math.hypot(dx,dy),sameLine=contacts.length===0&&line&&['vx','vy','x0','y0','den'].every(k=>old[k]===line[k]);if(distance>2&&!sameLine){effects.clear();trails.delete(p.id);continue;}if(distance<1e-8)continue;
     const t=trails.get(p.id)??{id:p.id,path:[]};
-    const speed=distance/Math.max(.001,((endpoint.wallMs??wallMs)-begin.wallMs)/1000),projection=Math.max(1,pixelsPerCell*Math.hypot((dx-dy)/Math.SQRT2,(dx+dy)/Math.sqrt(6))/distance),lifetime=tailLifetime??Math.min(30000,Math.max(350,26000/(speed*projection))),maxLength=Math.min(1.2,32/projection);
+    const screen=basis.project(dx,dy),speed=distance/Math.max(.001,((endpoint.wallMs??wallMs)-begin.wallMs)/1000),projection=Math.max(1,pixelsPerCell*Math.hypot(screen.x,screen.y)/distance),lifetime=tailLifetime??Math.min(30000,Math.max(350,26000/(speed*projection))),maxLength=Math.min(1.2,32/projection);
     const previous=t.path.at(-1),aligned=previous&&previous.dx*dx/distance+previous.dy*dy/distance>.995;
     // Merge tiny collinear samples; expiry is tied to actual movement, not frame count.
     if(aligned&&previous.until>wallMs&&previous.distance+distance<.03){previous.x=endpoint.x;previous.y=endpoint.y;previous.distance+=distance;}

@@ -111,7 +111,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   const nextStructureKey=[key,aim?.kind,aim?.cannon.id,aim?.cannon.cell,aim?.heading,[...v.cannons.values()].map(c=>c.heading).join(','),[...v.deflectors?.values()??[]].map(d=>[d.id,d.generation,d.cell,d.owner,d.heading,d.orientation].join(':')).join(',')].join('/'),updateStructures=nextStructureKey!==structureKey;structureKey=nextStructureKey;
   for(const g of groups)if(g!==tiles&&g!==boundedTiles&&(g!==preview||updatePreview)&&(!structureBatches.has(g)||updateStructures))g.count=0;
   points??=displayedBalls(v,time);
-  const effects=motion.sample(points,{time,wallMs,width:v.width,height:v.height,torus:v.torus,reducedMotion,pixelsPerCell:camera.scale,trajectories:v.balls,knots:v.motionKnots});
+  const effects=motion.sample(points,{time,wallMs,width:v.width,height:v.height,torus:v.torus,reducedMotion,pixelsPerCell:camera.scale,basis:camera.basis,trajectories:v.balls,knots:v.motionKnots});
   if(updatePreview)previewData=previewCells(v,camera,selection);
   {
    const audioBalls=audioEligible?new Map():null,audioCannons=audioEligible?new Map():null;audioMembership=null;

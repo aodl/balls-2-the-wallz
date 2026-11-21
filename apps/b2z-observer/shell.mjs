@@ -295,7 +295,7 @@ export function createShell(doc,camera,arcade,onPick){
   advance(v,time,now=performance.now(),identity=lastIdentity,points=displayedBalls(v,time)){
    flushAim();
    if(disposed||doc.hidden)return;lastView=v;lastTime=time;lastPoints=points;lastIdentity=identity;
-   if(pendingTerritory){const p=pendingTerritory;if(!p.current()||now>p.until)pendingTerritory=null;else if(camera.width===p.world.width&&camera.height===p.world.height){pendingTerritory=null;const m=measure(),bottom=Math.min(camera.viewport.height-24,...[m.mini,m.cycles,m.buttons].filter(r=>r.width).map(r=>r.top-12));motion.territory(accountTerritoryFrame(p.world,p.account),{left:24,right:camera.viewport.width-24,top:m.headerBottom+24,bottom:Math.max(m.headerBottom+100,bottom)});}}
+   if(pendingTerritory){const p=pendingTerritory;if(!p.current()||now>p.until)pendingTerritory=null;else if(camera.width===p.world.width&&camera.height===p.world.height){pendingTerritory=null;const m=measure(),bottom=Math.min(camera.viewport.height-24,...[m.mini,m.cycles,m.buttons].filter(r=>r.width).map(r=>r.top-12));motion.territory(accountTerritoryFrame(p.world,p.account,camera.basis),{left:24,right:camera.viewport.width-24,top:m.headerBottom+24,bottom:Math.max(m.headerBottom+100,bottom)});}}
    if(selectedBall!==null&&(arcade.selectedCannon()!==null||!v.balls.has(selectedBall)||motion.following&&motion.following.identity!==identity))stopFollowing();
    if(pendingTap&&!pointers.size&&now>=pendingTap.due){const t=pendingTap;pendingTap=null;if(samePlacementContext(t.intent,{context:arcade.intentContext(),identity,sequence:gestureSequence})&&arcade.moveSelection())arcade.chooseCell(t.intent.cell);}
 

@@ -156,9 +156,15 @@ pub fn place_new_with_policy(
         plan,
         placement,
         entry_rules,
-        false,
-        false,
+        SitePolicy::Legacy,
     )
+}
+
+#[derive(Clone, Copy, PartialEq, Eq)]
+pub(crate) enum SitePolicy {
+    Legacy,
+    Proximity,
+    Separation,
 }
 
 pub(crate) fn place_new_with_context(
@@ -168,9 +174,10 @@ pub(crate) fn place_new_with_context(
     plan: &Plan,
     placement: &crate::spawn::Placement,
     entry_rules: bool,
-    context_rules: bool,
-    spacing: bool,
+    policy: SitePolicy,
 ) -> Result<Created> {
+    let context_rules = policy != SitePolicy::Legacy;
+    let spacing = policy == SitePolicy::Separation;
     let Plan::New {
         angle,
         quantity,

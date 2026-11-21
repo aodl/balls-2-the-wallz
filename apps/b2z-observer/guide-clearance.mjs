@@ -15,7 +15,7 @@ export function guideClearance(origin,end,rectangles=[],padding=8){
 
 /** Shared visible guide geometry for rendering and gesture ownership. */
 export function aimingArrow(camera,aim,obstacles=[]){
- if(!aim)return null;const p=camera.cellPoint(aim.cannon.cell),a=Number(aim.angle)*Math.PI/180,dx=Math.cos(a),dy=Math.sin(a),full=Math.min(3.5,110/(camera.scale*Math.hypot((dx-dy)/Math.SQRT2,(dx+dy)/Math.sqrt(6)))),fraction=guideClearance(camera.screen(p.x,p.y,.028),camera.screen(p.x+dx*full,p.y+dy*full,.028),obstacles),length=full*fraction;
+ if(!aim)return null;const p=camera.cellPoint(aim.cannon.cell),a=Number(aim.angle)*Math.PI/180,dx=Math.cos(a),dy=Math.sin(a),direction=camera.basis.project(dx,dy),full=Math.min(3.5,110/(camera.scale*Math.hypot(direction.x,direction.y))),fraction=guideClearance(camera.screen(p.x,p.y,.028),camera.screen(p.x+dx*full,p.y+dy*full,.028),obstacles),length=full*fraction;
  if(length<=.42)return null;
  const x=p.x+dx*length,y=p.y+dy*length,tip=Math.min(.20,length*.2),world=[[p.x+dx*.42,p.y+dy*.42],[x,y],[x+Math.cos(a+2.6)*tip,y+Math.sin(a+2.6)*tip],[x,y],[x+Math.cos(a-2.6)*tip,y+Math.sin(a-2.6)*tip]];
  return {height:.028,world,screen:world.map(([x,y])=>camera.screen(x,y,.028))};
