@@ -4,7 +4,11 @@ const pose=c=>({x:c.x,y:c.y,scale:c.scale});
 /** UXR-03/21: one working composition for Focus and its disabled predicate. */
 export function focusComposition(camera,{top=74,safeTop=top,expanded=false,obstacles=[]}={}){
  const {width:w,height:h}=camera.viewport,narrow=w<=700;
- const sx=narrow?w/2:Math.max(90,(w-380)/2),sy=narrow?Math.min(top+44,h*.27):Math.max(top+80,h*.40);
+ const sx=narrow?w/2:Math.max(90,(w-380)/2);
+ let sy=narrow?Math.min(top+44,h*.27):Math.max(top+80,h*.40);
+ for(const r of obstacles){
+  if(r&&sx+42>r.left&&sx-42<r.right&&sy+42>r.top&&sy-42<r.bottom&&r.top-43>=safeTop+32)sy=r.top-43;
+ }
  // An ordinary cannon is about .8 projected cells across; favour a readable
  // 50–64px silhouette without globally changing model size or hitboxes.
  const scale=Math.min(camera.maxScale,Math.max(camera.fitScale,narrow?64:76,Math.min(88,Math.min(w,h)*.1)));

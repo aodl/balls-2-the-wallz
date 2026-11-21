@@ -172,6 +172,11 @@ def test(browser, variant, width, height, reduced=False):
                 return node.contains(document.elementFromPoint(r.x+r.width/2,r.y+r.height/2));}""")
             screen(page, "after-320-contracted")
             page.set_viewport_size({"width":320,"height":640})
+            # Playwright can return before the application restores the
+            # contracted camera and commits the normal editor reservation.
+            page.wait_for_function("""()=>fixture.camera.viewport.height===640
+                && !document.documentElement.classList.contains('short-edit')
+                && fixture.shell.layoutState().quantityReservation==='rail'""")
             pinch = rotated_pinch(page, ctx)
         page.locator("[data-board-quarter='0']").click()
         settle(page, 0)

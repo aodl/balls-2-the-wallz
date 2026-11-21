@@ -35,4 +35,13 @@ test('contracted composition fits the cannon between the editor strip and paymen
  assert.ok(p.sy-camera.scale*.60-2>=rect.top-1e-7);
  assert.ok(p.sy+camera.scale*.17+2<=rect.bottom+1e-7);
 });
+test('Focus and its settled predicate share the clear area above the narrow payment panel',()=>{
+ const camera=mobileComposition(),cell=453578;
+ const panel={left:8,right:312,top:179,bottom:473};
+ const options={top:124,safeTop:64,expanded:true,obstacles:[panel]};
+ const motion=new CameraController(camera,{reducedMotion:()=>true});
+ assert.equal(motion.focus(cell,options),true);
+ assert.ok(camera.cellPoint(cell).sy+42<panel.top);
+ assert.equal(focusedOn(camera,cell,options),true);
+});
 test('preview accommodation is seam-safe and declines distant pairs that cannot fit',()=>{const c=mobileComposition();c.centre(.5,.5);const rect={left:8,right:312,top:63,bottom:214},before={x:c.x,y:c.y};const target=previewComposition(c,0,999,rect);assert.ok(target);assert.ok(Math.abs(((target.x-before.x+1500)%1000)-500)<10);assert.equal(previewComposition(c,0,500500,rect),null);});

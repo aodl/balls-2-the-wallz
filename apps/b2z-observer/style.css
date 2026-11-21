@@ -386,7 +386,7 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
 #board-compass button[data-compass-slot="3"]{right:calc(100% + var(--overview-gap));top:calc(50% - 22px)}
 .short-edit #board-compass{visibility:hidden}
 @media(max-width:700px){#arena{--overview-width:108px;--overview-height:62.35px}}
-@media(max-width:375px){#arena{--overview-width:92px;--overview-height:53.12px}#cycles-display{width:106px;padding-inline:6px}}
+@media(max-width:375px){#arena{--overview-width:92px;--overview-height:53.12px}#cycles-display{width:106px;padding-inline:6px;bottom:max(60px,calc(env(safe-area-inset-bottom) + 54px))}}
 @media(max-height:500px){
  #arena{--overview-width:80px;--overview-height:46.19px}
  #cycles-display{bottom:max(10px,env(safe-area-inset-bottom));left:max(159px,env(safe-area-inset-left))}

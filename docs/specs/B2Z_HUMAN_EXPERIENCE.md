@@ -1293,3 +1293,16 @@ After a compass turn, the narrow Rules13 card clears the newly projected aiming
 area while the camera keeps its focal point. The player can begin an aim drag
 and add a second touch to pinch. The gesture keeps the last deliberate aim and
 does not change an already copied payment packet.
+
+## Rules15 orbit and persistent cycle telemetry
+
+Camera turns orbit around world up at the existing fixed incline. Rendering,
+ground projection, inverse picking and the overview use the same azimuth.
+Physical structures and canonical directions retain their world orientations.
+
+The cycle button stays available during actions and viewport contraction. On
+narrow screens the normal editor rail uses the actual overview and compass
+control rectangles. A keyboard-contracted editor strip reserves its measured
+space before the payment scrollport and cannon framing are calculated. The
+previous pose is restored on expansion when the player has left the temporary
+pose untouched.

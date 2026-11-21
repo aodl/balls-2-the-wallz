@@ -80,7 +80,7 @@ export function createShell(doc,camera,arcade,onPick){
  listen(doc,'b2z-entry-cancel',()=>{pendingTerritory=null;if(motion.animation?.owner==='entry')motion.cancel();});
  listen(doc,'b2z-return-territory',e=>{if(e.detail?.current?.()){stopFollowing();cancelTap();pendingTerritory={...e.detail,until:performance.now()+10000};}});
  listen($('minimap'),'pointerdown',()=>arcade.cancelEntryNavigation?.(),true);listen($('minimap'),'keydown',()=>arcade.cancelEntryNavigation?.(),true);
- function locate(){arcade.cancelEntryNavigation?.();locateGeneration++;const c=arcade.anchor?.()??onPick.selected();if(!c||pointers.size)return;stopFollowing();cancelTap();const m=measure();motion.focus(c.cell,{top:m.top,expanded:arcade.context()==='action'});}
+ function locate(){arcade.cancelEntryNavigation?.();locateGeneration++;const c=arcade.anchor?.()??onPick.selected();if(!c||pointers.size)return;stopFollowing();cancelTap();motion.focus(c.cell,focusOptions(measure()));}
  listen(doc,'b2z-locate',locate);listen(doc,'b2z-precision',()=>{});
  $('locate-context').onclick=$('focus-cannon').onclick=locate;
  $('status-button').onclick=()=>arcade.openStatus();$('help-button').onclick=()=>arcade.openHelp();$('centre-cannon').onclick=()=>arcade.openRoster();
@@ -164,12 +164,23 @@ export function createShell(doc,camera,arcade,onPick){
  function quantityStrip(m,viewport){
   return quantityReservation==='strip'?quantityDockStrip({viewport,top:Math.max(m.headerBottom+10,viewport.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound,m.cycles]}):null;
  }
- function quantityRail(m,viewport){const map=minimapArea(m.mini),left=Math.max(viewport.left+8,Math.min(m.buttons.left,viewport.left+viewport.width-quantitySize.width-8)),top=Math.min(m.buttons.top,viewport.top+viewport.height,...[map,m.cycles].filter(r=>left<r.right&&left+quantitySize.width>r.left).map(r=>r.top))-quantitySize.height-8;return{left,top,right:left+quantitySize.width,bottom:top+quantitySize.height,...quantitySize};}
+ function quantityRail(m,viewport){
+  const left=Math.max(viewport.left+8,Math.min(m.buttons.left,viewport.left+viewport.width-quantitySize.width-8));
+  // An empty corner of the compass cluster leaves space for the editor.
+  const obstacles=[m.mini,...m.compass,m.cycles].filter(r=>left<r.right&&left+quantitySize.width>r.left);
+  const top=Math.min(m.buttons.top,viewport.top+viewport.height,...obstacles.map(r=>r.top))-quantitySize.height-4;
+  return{left,top,right:left+quantitySize.width,bottom:top+quantitySize.height,...quantitySize};
+ }
  function guideRects(){const m=measure(),r=[...m.guideObstacles,m.cycles];return quantitySlot&&!quantityWidget.hidden?[...r,quantitySlot.rect]:r;}
  function minimapArea(rect){
   if(wasShort)return {left:0,right:0,top:0,bottom:0,width:0};
   const bounds=[rect,...measure().compass],left=Math.min(...bounds.map(b=>b.left)),right=Math.max(...bounds.map(b=>b.right));
   return{left,right,top:Math.min(...bounds.map(b=>b.top)),bottom:Math.max(...bounds.map(b=>b.bottom)),width:right-left};
+ }
+ function lowerChrome(m){return [minimapArea(m.mini),m.cycles,...(quantityReservation==='rail'?[quantityRail(m,visibleBounds())]:[]),m.buttons];}
+ function focusOptions(m,obstacles=lowerChrome(m)){
+  const expanded=arcade.context()==='action';
+  return {top:m.top,safeTop:m.headerBottom+8,expanded,obstacles:expanded&&cardBounds?[...obstacles,cardBounds]:obstacles};
  }
  function positionQuantity(){
   const q=arcade.quantity?.(),editor=arcade.launchEditor?.(),qa=arcade.aim();$('quantity-controls').hidden=!q?.active;if(editor?.first||editor?.kind==='action'){quantityWidget.hidden=!editor.active;quantitySlot=null;quantityContext='';quantityWidget.dataset.first='true';const slot=$('action-inputs');if(quantityWidget.parentElement!==slot)slot.append(quantityWidget);return;}else{delete quantityWidget.dataset.first;if(quantityWidget.parentElement!==$('arena'))$('arena').append(quantityWidget);}quantityWidget.hidden=!editor?.active||!qa||!camera.cellPoint(qa.cannon.cell).visible;
@@ -216,9 +227,8 @@ export function createShell(doc,camera,arcade,onPick){
   if(p?.visible){const a=aim.angle*Math.PI/180,end=camera.screen(p.x+Math.cos(a),p.y+Math.sin(a)),dx=end.x-p.sx,dy=end.y-p.sy,d=Math.hypot(dx,dy);for(const [node,k,value]of [[handle,'left',p.sx+dx/d*38-22],[handle,'top',p.sy+dy/d*38-22],[ring,'left',p.sx-38],[ring,'top',p.sy-38]]){const px=`${value}px`;if(node.style[k]!==px)node.style[k]=px;}}
   const context=arcade.context?.(),c=['inspect','action'].includes(context)?arcade.anchor?.():null,at=c?camera.cellPoint(c.cell):null,off=Boolean(at&&!at.visible);$('locate-context').hidden=card.hidden||!off;card.classList.toggle('offscreen',off);card.inert=off;$('focus-cannon').hidden=!c;
   doc.documentElement.classList.toggle('cannon-context',Boolean(c&&!card.hidden&&!off));
-  const m=measure(),expanded=context==='action',lowerObstacles=[minimapArea(m.mini),m.cycles,...(quantityReservation==='rail'?[quantityRail(m,visibleBounds())]:[]),m.buttons];
-  const obstacles=[...lowerObstacles];if(expanded&&cardBounds)obstacles.push(cardBounds);
-  $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,{top:m.top,safeTop:m.headerBottom+8,expanded,obstacles}));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':$('focus-cannon').getAttribute('aria-label');
+  const m=measure(),expanded=context==='action',lowerObstacles=lowerChrome(m);
+  $('focus-cannon').disabled=Boolean(c&&focusedOn(camera,c.cell,focusOptions(m,lowerObstacles)));$('focus-cannon').title=$('focus-cannon').disabled?'Already focused':$('focus-cannon').getAttribute('aria-label');
   if(card.hidden||off){positionQuantity();if(card.hidden)narrowPositionKey='';committedLayoutRevision=layoutRevision;return;}
   const bounds=visibleBounds(),W=bounds.width,H=bounds.height,narrow=W<=700,cw=Math.min(360,W-16);
   if(!motion.rotation)narrowQuarter=camera.quarter;
