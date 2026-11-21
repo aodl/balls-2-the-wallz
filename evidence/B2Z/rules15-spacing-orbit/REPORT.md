@@ -28,7 +28,7 @@ The frontend Wasm is 77,095,335 bytes and embeds 86 public files plus six gzip r
 
 ## Local verification
 
-- Source conformance, generated configuration, 59 native workspace tests, native Clippy and exact generated canister Candid passed.
+- Source conformance, generated configuration, 59 native workspace tests, native and runtime-Wasm Clippy, and exact generated canister Candid passed.
 - The final JavaScript run passed all 2,042 tests with two test workers. An earlier concurrent run timed out on the existing two-second forecast budget. The same unchanged test passed in isolation and in the complete rerun.
 - Chromium passed the 320px quantity/editor matrix at 640, 350, 300, 240 and 180px heights, including DPR 3 at 640px, the exact 347.15° pose, native aim-to-pinch, Update/Keep and copy readiness. The orbit fixture also passed the rotated Chromium aim-to-pinch check with the old heading preserved during the pinch.
 - The exact embedded frontend passed a disposable same-ID upgrade, every asset and gzip HTTP-v2 proof, HEAD, route and negative certificate checks. Chromium loaded it against the real Rules14 backend using read-only requests, decoded all 60 FLACs and displayed a genuine, keyboard-operable 404 with JavaScript disabled. Two clean embedded builds matched byte-for-byte. Separate single-byte changes in HTML, JavaScript, CSS, SVG and FLAC each changed the module hash. Restoring the staged bytes reproduced the original module.
