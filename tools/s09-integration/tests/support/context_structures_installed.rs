@@ -727,11 +727,21 @@ fn spacing_rules14_upgrade_official_payments_and_authenticated_replay() {
         "6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6"
     );
     playability_installed::funding_paused(&pic, id, true);
-    upgrade(&pic, id, bytes("B2Z_RULES13_PRIOR_WASM"));
+    upgrade(&pic, id, retained_wasm());
     playability_installed::configuration(&pic, id, 512);
     get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
     complete_one_trickle_tick(&pic, id);
     let mut history = vec![];
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    upgrade(&pic, id, bytes("B2Z_RULES13_PRIOR_WASM"));
+    war_cry_installed::transition_with_recovery_module(
+        &pic,
+        id,
+        "context",
+        "B2Z_RULES13_PRIOR_WASM",
+    );
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    complete_one_trickle_tick(&pic, id);
     playability_installed::record_bundled(&pic, id, &mut history, &out);
     upgrade(&pic, id, predecessor);
     war_cry_installed::transition_with_recovery_module(&pic, id, "shout", "B2Z_RULES14_PRIOR_WASM");

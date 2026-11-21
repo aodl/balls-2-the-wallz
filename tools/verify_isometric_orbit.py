@@ -46,6 +46,8 @@ def prepare(src, dest):
         (dest / name).write_bytes((app / name).read_bytes())
 
 
+brand = "balls-to-the-wallz-b2z-wordmark.svg"
+(out / brand).write_bytes((ROOT / "apps/b2z-observer" / brand).read_bytes())
 prepare(ROOT, out / "after")
 if args.reference:
     prepare(args.reference.resolve(), out / "before")
@@ -81,6 +83,7 @@ def test(browser, variant, width, height, reduced=False):
     page.goto(f"{url}/{variant}/?case=orbit&orbit")
     page.wait_for_function("()=>Boolean(globalThis.fixture)")
     declare(page)
+    page.wait_for_function("()=>document.querySelector('.brand img').naturalWidth===1711")
     page.evaluate("""()=>{fixture.shell.controller.cancel();
         fixture.camera.scale=innerWidth>700?68:40;
         fixture.camera.centre(7.5,4.5);fixture.draw();}""")
@@ -108,7 +111,8 @@ def test(browser, variant, width, height, reduced=False):
     settle(page, 0)
     page.evaluate("fixture.select(1)")
     page.wait_for_function("()=>!document.getElementById('war-cry-editor').hidden&&Boolean(fixture.aim())")
-    assert page.locator("#cycles-display").is_visible()
+    if variant == "after":
+        assert page.locator("#cycles-display").is_visible()
     assert page.locator("#action-prompt").text_content() == "Pay to Fire"
     if variant == "after":
         assert page.locator("#war-cry-editor").evaluate("el=>[...el.childNodes].filter(n=>n.nodeType===3).every(n=>!n.textContent.trim())")
@@ -122,8 +126,16 @@ def test(browser, variant, width, height, reduced=False):
     page.locator("#deflector-directions button").filter(has_text="E").click()
     page.get_by_placeholder("Shout (optional)").fill("Turn")
     assert page.locator("#text-memo").text_content() == "DROT 1 E|Turn"
-    assert page.locator("#cycles-display").is_visible()
+    if variant == "after":
+        assert page.locator("#cycles-display").is_visible()
     screen(page, f"{variant}-{width}-diverter")
+    if width > 700:
+        page.locator("#close-panel").click()
+        page.locator("#board").press("b")
+        page.wait_for_function("()=>!document.getElementById('trajectory-guide').hidden")
+        page.evaluate("fixture.shell.controller.cancel();fixture.camera.centre(7.5,4.5);fixture.draw()")
+        page.wait_for_function("()=>!document.getElementById('trajectory-guide').hidden")
+        screen(page, f"{variant}-{width}-guide")
     assert not errors, errors
     ctx.close()
     return {"size": [width, height], "reduced_motion": reduced, "camera": measures}
