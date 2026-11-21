@@ -1,0 +1,291 @@
+{
+  "status": "PASS",
+  "scope": "Pinned PocketIC, official disposable Ledger/Index, exact normal modules after synthetic genesis. No production transactions.",
+  "test": "context_structures_installed::spacing_rules14_upgrade_official_payments_and_authenticated_replay",
+  "tested_wasm": "251d03b9d204792b2287538318d013a232590c9c1e883183c896e2e7383e6ea7",
+  "predecessor_wasm": "6efe198e3874a603de02f9b3d344bf692c3f8777930b792febd911561d891da6",
+  "controller_assertions": [
+    "world bytes equal at install and commitment",
+    "finance and credits equal at install and commitment",
+    "admitted cursor equal at commitment",
+    "old strict decoder rejects persisted spacing preparation",
+    "same-module interrupted preparation recovers",
+    "grandfathered structure remains at cell 4007",
+    "first Join chooses cell 504509",
+    "one receipt per payment; unsuccessful payments retained without successful-action annotations"
+  ],
+  "cutover": {
+    "account_history_complete_through": "3",
+    "index_synced": "3",
+    "ledger_cutover": "3",
+    "logical_boundary": [
+      "3",
+      "1"
+    ],
+    "memo_adapter_after": 9,
+    "memo_adapter_before": 9,
+    "migration": "B2Z_STRUCTURE_SPACING_RULES_15",
+    "new_identity": {
+      "config_hash": "bd5c34521af5ff9bee15013549af3b265e5293589b0ef833278e580d5d760b4e",
+      "rules_hash": "2c6bee6d7156855ad7565ab62da5b681f2baf70601097580487ff4df4e855899",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+    },
+    "new_state": "7c45f521e1dff748facbe9098342192b83141f16884adc5f83a32b44a7f36b4d",
+    "old_identity": {
+      "config_hash": "907d00e310f4f4128a53bc0adb964e4f05dbbb9a7c60d745703aeb3c9ec48eab",
+      "rules_hash": "6c3aaaddf76cd4b167143a78b7c9d78900b6398d651bf2dfe191881f999ac38c",
+      "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+      "source_id": "d60c4450a7b548d5a9e0d92bf3e9d997d2ec70719a1183e83ecf9c4ffd6a1e84"
+    },
+    "previous_state": "7c45f521e1dff748facbe9098342192b83141f16884adc5f83a32b44a7f36b4d",
+    "source_anchor": "9c141f0da33259a155bf841bd054b6f80e2d16d341e82adc21a1f29944e8d464",
+    "source_cursor": "3",
+    "version": 11
+  },
+  "receipts": [
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": "10000000",
+      "amount_used": "10000000",
+      "kind": "deflector_built",
+      "position": "2",
+      "reason": "ACCEPTED",
+      "remainder": "0",
+      "status": "applied",
+      "structure": {
+        "cell": 4007,
+        "id": 1,
+        "orientation": "NW",
+        "owner": 1
+      }
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": "10000",
+      "amount_used": "0",
+      "position": "3",
+      "reason": "STRUCTURE_TOO_CLOSE",
+      "remainder": "10000",
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": "10000",
+      "amount_used": "0",
+      "position": "4",
+      "reason": "STRUCTURE_TOO_CLOSE",
+      "remainder": "10000",
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": "10000",
+      "amount_used": "10000",
+      "before": {
+        "cell": 4007,
+        "id": 1,
+        "orientation": "NW",
+        "owner": 1
+      },
+      "kind": "deflector_moved",
+      "position": "5",
+      "reason": "ACCEPTED",
+      "remainder": "0",
+      "status": "applied",
+      "structure": {
+        "cell": 8008,
+        "id": 1,
+        "orientation": "NW",
+        "owner": 1
+      }
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "after": 4005,
+      "amount": "10000",
+      "amount_used": "10000",
+      "before": 4004,
+      "cannon": 1,
+      "kind": "cannon_moved",
+      "position": "6",
+      "reason": "ACCEPTED",
+      "remainder": "0",
+      "status": "applied"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": "400000000",
+      "amount_used": "0",
+      "position": "7",
+      "reason": "STRUCTURE_TOO_CLOSE",
+      "remainder": "400000000",
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "actual_quantity": 1,
+      "amount": "400000000",
+      "amount_used": "400000000",
+      "cannon": 3,
+      "kind": "purchase_completed",
+      "new_cannon": true,
+      "per_item_prices": [
+        "400000000"
+      ],
+      "position": "8",
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": "0",
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": "10000000",
+      "amount_used": "0",
+      "position": "9",
+      "reason": "STRUCTURE_TOO_CLOSE",
+      "remainder": "10000000",
+      "status": "rejected"
+    },
+    {
+      "account": "c2e8698b3939b5b4e929df9b5ae5015bf597a5dceee7dd52b83a67a10d909055",
+      "amount": "10000000",
+      "amount_used": "10000000",
+      "kind": "deflector_built",
+      "position": "10",
+      "reason": "ACCEPTED",
+      "remainder": "0",
+      "status": "applied",
+      "structure": {
+        "cell": 12014,
+        "id": 2,
+        "orientation": "NE",
+        "owner": 1
+      }
+    },
+    {
+      "account": "7a7f628a652154e1e3488977d8da23eba2b25d5df00794f8b189f25e2cfc73ef",
+      "actual_quantity": 1,
+      "amount": "100000000",
+      "amount_used": "100000000",
+      "cannon": 4,
+      "kind": "purchase_completed",
+      "new_cannon": true,
+      "per_item_prices": [
+        "100000000"
+      ],
+      "position": "11",
+      "quantity_explicit": true,
+      "reason": "ACCEPTED",
+      "remainder": "0",
+      "requested_quantity": 1,
+      "status": "applied",
+      "stop_reason": "quantity_limit"
+    }
+  ],
+  "publications": [
+    {
+      "segment": "0",
+      "manifest_hash": "497156eb81f3237c3440bca50c6c44bb2cd93a2756842138064fb13efc40659d",
+      "state_hash": "da0c9f47975748b248568e0bb475779a0661f9c95203bfcea6f89cd7ac532c20",
+      "config_hash": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b",
+      "source_to_exclusive": "0",
+      "event_hash": "bf7007b072f969507cb1dd85d659deab34453667d2e8273465ce42e3e5f37865",
+      "score_hash": "abae9064b270b9ffc304e73feb6e9d18468e2004341117d89e013bc22de58229"
+    },
+    {
+      "segment": "1",
+      "manifest_hash": "fb67aa69b8a1f55fdd5a8dca390b0cc93a95dcd2332b1c8fb914bb1e019bd2f2",
+      "state_hash": "da0c9f47975748b248568e0bb475779a0661f9c95203bfcea6f89cd7ac532c20",
+      "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+      "source_to_exclusive": "0",
+      "event_hash": "5ae822737663328380bad76b4243b581ea54d0e87275d2aeb822da32fed60bbf",
+      "score_hash": "8867caec6992de1a40284cc87b2cc92bce4da97dfec88ac643b4fb72344a1e83"
+    },
+    {
+      "segment": "2",
+      "manifest_hash": "d419de7bca27fa9f17763cfc3f37b1d069b729efa43ebd9fe651e4cb3b298da4",
+      "state_hash": "6f575b6a9f7512915afe72109c36402aad5602ee20b2f8f2824a0fd6528ab7ab",
+      "config_hash": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0",
+      "source_to_exclusive": "0",
+      "event_hash": "54dcd447a79fd167e2354aa3bf0fe6de6420d1afabb6c127256447d6bf55c720",
+      "score_hash": "abae9064b270b9ffc304e73feb6e9d18468e2004341117d89e013bc22de58229"
+    },
+    {
+      "segment": "3",
+      "manifest_hash": "e0f32970e0d93104d2f1a935a8c072d85896117bb79351838550e7ca5725396c",
+      "state_hash": "6f575b6a9f7512915afe72109c36402aad5602ee20b2f8f2824a0fd6528ab7ab",
+      "config_hash": "907d00e310f4f4128a53bc0adb964e4f05dbbb9a7c60d745703aeb3c9ec48eab",
+      "source_to_exclusive": "0",
+      "event_hash": "e07a6f17149135465f9e6d2bde865bee8f889a5139e8149c386f7104a0351556",
+      "score_hash": "8867caec6992de1a40284cc87b2cc92bce4da97dfec88ac643b4fb72344a1e83"
+    },
+    {
+      "segment": "4",
+      "manifest_hash": "7d906cb57feb4caa38ff2e8754a078d12ba1c183e7bacd04ce3c1b3594ec1b2a",
+      "state_hash": "7c45f521e1dff748facbe9098342192b83141f16884adc5f83a32b44a7f36b4d",
+      "config_hash": "907d00e310f4f4128a53bc0adb964e4f05dbbb9a7c60d745703aeb3c9ec48eab",
+      "source_to_exclusive": "3",
+      "event_hash": "6f10bbb74811e79cd5df08ebeda5924c9e15d41a486eb6ed84a0f3908bcac7fd",
+      "score_hash": "abae9064b270b9ffc304e73feb6e9d18468e2004341117d89e013bc22de58229"
+    },
+    {
+      "segment": "5",
+      "manifest_hash": "bdedd35eb798ff8f0d688d8577ee44e3a5b2d68e3cc8b717d15ec071e802fcfd",
+      "state_hash": "7c45f521e1dff748facbe9098342192b83141f16884adc5f83a32b44a7f36b4d",
+      "config_hash": "bd5c34521af5ff9bee15013549af3b265e5293589b0ef833278e580d5d760b4e",
+      "source_to_exclusive": "3",
+      "event_hash": "5b066ae2ededbe90027c7ebfe840b5fcdf38f6d47ebe81bb29d2ee44b9883b92",
+      "score_hash": "8867caec6992de1a40284cc87b2cc92bce4da97dfec88ac643b4fb72344a1e83"
+    },
+    {
+      "segment": "6",
+      "manifest_hash": "4df908df477319a055a88ffc0df4a0de3b52cc5d01140f33ecbd8bd46ac8f576",
+      "state_hash": "fd9dcb73f6562815a31209e4ad8b0226371909ff70a0bbfae8b43e44e982d472",
+      "config_hash": "bd5c34521af5ff9bee15013549af3b265e5293589b0ef833278e580d5d760b4e",
+      "source_to_exclusive": "12",
+      "event_hash": "b0dd8528ce36c37fc15e4f2afe3dbbbe01183faf52e132ff4a7e60d0b5c68603",
+      "score_hash": "ade55dd934802e9cf4910f32a8d6d23245632bcd7008093977a7219904436f6a"
+    }
+  ],
+  "successful_shouts": [
+    "Alone",
+    "Away",
+    "Boundary",
+    "Hello",
+    "Old",
+    "Open"
+  ],
+  "independent_replay": {
+    "status": "PASS",
+    "segments": 7,
+    "gameplay_segments": 4,
+    "application_checkpoints": 3,
+    "assigned": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11"
+    ],
+    "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+    "work_budget": 23
+  },
+  "replay_negatives": [
+    "changed normalized cry",
+    "incomplete events",
+    "altered launch text",
+    "wrong source publication",
+    "wrong canister binding",
+    "damaged certificate"
+  ],
+  "local_wire_manifest_sha256": "80a6bd1edfcd4036550795bb1ed9cedb8fd150f04ab88396b48bd5995439d856"
+}

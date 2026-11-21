@@ -28,12 +28,20 @@ The frontend Wasm is 77,095,335 bytes and embeds 86 public files plus six gzip r
 
 ## Local verification
 
-- Source conformance, generated configuration, native Clippy and exact generated canister Candid passed.
+- Source conformance, generated configuration, 59 native workspace tests, native Clippy and exact generated canister Candid passed.
 - The full JavaScript run on the candidate passed 2,041 of 2,042 tests. A pre-existing forecast with a two-second budget timed out while other builds were running. It passed unchanged in isolation in 1.84 seconds. The previous full run passed 2,041 of 2,041 tests. This does not replace hosted timing evidence.
 - Chromium passed the 320px quantity/editor matrix at 640, 350, 300, 240 and 180px heights, including DPR 3 at 640px, the exact 347.15° pose, native aim-to-pinch, Update/Keep and copy readiness. The orbit fixture also passed the rotated Chromium aim-to-pinch check with the old heading preserved during the pinch.
 - The exact embedded frontend passed a disposable same-ID upgrade, every asset and gzip HTTP-v2 proof, HEAD, route and negative certificate checks. Chromium loaded it against the real Rules14 backend using read-only requests, decoded all 60 FLACs and displayed a genuine, keyboard-operable 404 with JavaScript disabled. Two clean embedded builds matched byte-for-byte. Separate single-byte changes in HTML, JavaScript, CSS, SVG and FLAC each changed the module hash. Restoring the staged bytes reproduced the original module.
 
 [Reproducibility and mutation proof](artifacts/embedded-reproducibility.json) · [HTTP-v2 results](artifacts/installed-frontend-http.json) · [Browser audio and Rules14 results](browser/embedded-rules14-and-audio.json) · [Rotated native touch results](browser/rotated-pinch-results.json)
+
+## Disposable backend rehearsal
+
+The exact registered developer normal Wasm passed an installed Rules14-to-Rules15 transition with the pinned official disposable Ledger and Index. The version-11 boundary left the canonical world at `7c45f521e1dff748facbe9098342192b83141f16884adc5f83a32b44a7f36b4d` on both sides. The source cursor, exclusive Ledger cutoff and Index completeness were all **3**, with Adapter9 on both sides. The rehearsal preserved credits, finance and the Rules14-built Diverter at cell 4007.
+
+The first persisted preparation was rejected by the old strict Rules14 decoder in a disposable downgrade attempt. Reinstalling the exact normal successor at the ready boundary successfully restored the same transition, world and financial evidence. The normal successor then committed and produced a new segment. Ten genuine disposable Ledger payments gave ten receipts with no duplicates. Four spacing failures retained their full paid amount and emitted no Shout. The accepted cases covered moving both structure types, building both, and automatic Join into a clear neutral neighbourhood. Independent JavaScript replay matched all seven authenticated publications, including exact state, events and score hashes.
+
+[Installed-case checks, cutover metadata, receipts and independent replay](installed-qualification.json)
 
 ## Visual and production evidence
 
