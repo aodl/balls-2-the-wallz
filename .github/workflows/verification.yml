@@ -391,6 +391,8 @@ jobs:
             .work/ci-integration/s14-local/*.json
             .work/ci-integration/s14-local/generated.did
             .work/ci-integration/s14-local/normal.wasm
+            .work/ci-integration/spacing-backend-pin/**
+            .work/ci-integration/s14-local/deployment/spacing/**
             .work/ci-integration/s14-local/deployment/context-structures/**
             .work/ci-integration/s14-local/deployment/shout/**
             .work/ci-integration/s14-local/deployment/boundary-deflector/**
