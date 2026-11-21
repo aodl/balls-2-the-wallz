@@ -119,6 +119,21 @@ def test(browser, variant, width, height, reduced=False):
         assert page.get_by_role("textbox", name="Shout (optional)").is_visible()
         assert page.locator("#payment-guidance").count() == 0
     screen(page, f"{variant}-{width}-fire")
+    if variant == "after":
+        memo = page.locator("#text-memo").text_content()
+        page.locator("[data-board-quarter='1']").click()
+        settle(page, 1)
+        assert page.locator("#text-memo").text_content() == memo
+        assert page.evaluate("fixture.summary().selected") == 1
+        if width == 320:
+            page.set_viewport_size({"width":320,"height":350})
+            cycles=page.locator("#cycles-display")
+            assert cycles.is_visible() and cycles.bounding_box()["y"] >= 0
+            screen(page, "after-320-contracted")
+            page.set_viewport_size({"width":320,"height":640})
+        page.locator("[data-board-quarter='0']").click()
+        settle(page, 0)
+        page.evaluate("fixture.shell.controller.cancel();fixture.camera.centre(7.5,4.5);fixture.draw()")
     page.locator("#close-panel").click()
     point = page.evaluate("fixture.camera.cellPoint(4007)")
     page.mouse.click(point["sx"], point["sy"])
