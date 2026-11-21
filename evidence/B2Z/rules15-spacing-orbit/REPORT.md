@@ -31,9 +31,9 @@ The frontend Wasm is 77,095,335 bytes and embeds 86 public files plus six gzip r
 - Source conformance, generated configuration, native Clippy and exact generated canister Candid passed.
 - The full JavaScript run on the candidate passed 2,041 of 2,042 tests. A pre-existing forecast with a two-second budget timed out while other builds were running. It passed unchanged in isolation in 1.84 seconds. The previous full run passed 2,041 of 2,041 tests. This does not replace hosted timing evidence.
 - Chromium passed the 320px quantity/editor matrix at 640, 350, 300, 240 and 180px heights, including DPR 3 at 640px, the exact 347.15° pose, native aim-to-pinch, Update/Keep and copy readiness. The orbit fixture also passed the rotated Chromium aim-to-pinch check with the old heading preserved during the pinch.
-- The exact embedded frontend passed a disposable same-ID upgrade, every asset and gzip HTTP-v2 proof, HEAD, route and negative certificate checks. Chromium loaded it against the real Rules14 backend using read-only requests, decoded all 60 FLACs and displayed a genuine, keyboard-operable 404 with JavaScript disabled. Two clean embedded builds matched byte-for-byte.
+- The exact embedded frontend passed a disposable same-ID upgrade, every asset and gzip HTTP-v2 proof, HEAD, route and negative certificate checks. Chromium loaded it against the real Rules14 backend using read-only requests, decoded all 60 FLACs and displayed a genuine, keyboard-operable 404 with JavaScript disabled. Two clean embedded builds matched byte-for-byte. Separate single-byte changes in HTML, JavaScript, CSS, SVG and FLAC each changed the module hash. Restoring the staged bytes reproduced the original module.
 
-[HTTP-v2 results](artifacts/installed-frontend-http.json) · [Browser audio and Rules14 results](browser/embedded-rules14-and-audio.json) · [Rotated native touch results](browser/rotated-pinch-results.json)
+[Reproducibility and mutation proof](artifacts/embedded-reproducibility.json) · [HTTP-v2 results](artifacts/installed-frontend-http.json) · [Browser audio and Rules14 results](browser/embedded-rules14-and-audio.json) · [Rotated native touch results](browser/rotated-pinch-results.json)
 
 ## Visual and production evidence
 

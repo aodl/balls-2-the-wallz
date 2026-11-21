@@ -1,0 +1,154 @@
+{
+  "clean_builds": [
+    {
+      "bytes": 77095335,
+      "exports": [
+        "memory",
+        "get_candid_pointer",
+        "canister_init",
+        "canister_post_upgrade",
+        "canister_query http_request",
+        "__data_end",
+        "__heap_base"
+      ],
+      "sections": [
+        {
+          "bytes": 367,
+          "id": 1
+        },
+        {
+          "bytes": 234,
+          "id": 2
+        },
+        {
+          "bytes": 3624,
+          "id": 3
+        },
+        {
+          "bytes": 7,
+          "id": 4
+        },
+        {
+          "bytes": 4,
+          "id": 5
+        },
+        {
+          "bytes": 25,
+          "id": 6
+        },
+        {
+          "bytes": 132,
+          "id": 7
+        },
+        {
+          "bytes": 1970,
+          "id": 9
+        },
+        {
+          "bytes": 1181993,
+          "id": 10
+        },
+        {
+          "bytes": 75906941,
+          "id": 11
+        }
+      ],
+      "sha256": "b4c779a813a92e89fc57cbf83050b81d8d8fc3be0255ea660504e88f52cd35ec"
+    },
+    {
+      "bytes": 77095335,
+      "exports": [
+        "memory",
+        "get_candid_pointer",
+        "canister_init",
+        "canister_post_upgrade",
+        "canister_query http_request",
+        "__data_end",
+        "__heap_base"
+      ],
+      "sections": [
+        {
+          "bytes": 367,
+          "id": 1
+        },
+        {
+          "bytes": 234,
+          "id": 2
+        },
+        {
+          "bytes": 3624,
+          "id": 3
+        },
+        {
+          "bytes": 7,
+          "id": 4
+        },
+        {
+          "bytes": 4,
+          "id": 5
+        },
+        {
+          "bytes": 25,
+          "id": 6
+        },
+        {
+          "bytes": 132,
+          "id": 7
+        },
+        {
+          "bytes": 1970,
+          "id": 9
+        },
+        {
+          "bytes": 1181993,
+          "id": 10
+        },
+        {
+          "bytes": 75906941,
+          "id": 11
+        }
+      ],
+      "sha256": "b4c779a813a92e89fc57cbf83050b81d8d8fc3be0255ea660504e88f52cd35ec"
+    }
+  ],
+  "mutations": [
+    {
+      "mutated_sha256": "76a54a5c73e390df1d995f7c65ec495631e8ff6925acac7616c7bb3d20524165",
+      "mutated_wasm_sha256": "2be1397a293b1bc5822bbd7658b318b8be6cf4f4c5115bc8575e9b0506fc39a0",
+      "offset": 8462,
+      "original_sha256": "c9d1d82835d9181a6a3371fa15779408d709df4cdf872679b687cf2c43fbf7e8",
+      "path": "index.html"
+    },
+    {
+      "mutated_sha256": "5b0eeca30053656b82f10d6143e8f4bd11c44c0d1d1b6326929146980c412abf",
+      "mutated_wasm_sha256": "fcc1ba18ef499f91d11fa1a4591482bd6acbacf32b9334203646421cb57d1f72",
+      "offset": 570419,
+      "original_sha256": "dae7c10d471338c076bf50c94ea6f856aad0bd875e7c23d4259fa82be78f82cf",
+      "path": "app.mjs"
+    },
+    {
+      "mutated_sha256": "fb6f67d9eec0e0aaa9a2b68088f3c7675d30d3c6fbc8b9508427800fc8bca173",
+      "mutated_wasm_sha256": "acea09ebad0ac3093e2168edc553299a16ab9455ba070925b6c3039f2c451f46",
+      "offset": 19841,
+      "original_sha256": "693c9bfbc2d39e88624d7fc35b0b7b1fe9dffc65fe582f0693e7b653e5a37fec",
+      "path": "style.css"
+    },
+    {
+      "mutated_sha256": "8da4fc86bcde66cde02cd5bedadd9a48cb7e25f1438486df8267466d1d5ba512",
+      "mutated_wasm_sha256": "f1e87e7ceecabc06d53449734ec8643f51e46f8990ca61b03a921ab2e809eb82",
+      "offset": 5490,
+      "original_sha256": "0e5090613b73948228b406845244f7eb0d42df9a3ed0a2fc6fb2b5398066296b",
+      "path": "balls-to-the-wallz-b2z-wordmark.svg"
+    },
+    {
+      "mutated_sha256": "e83d071bcc9ea3ae0189302853a3c6e333428b2e6a846c078385411d8ccd1004",
+      "mutated_wasm_sha256": "5a990e23132c89cd18318dfd60b860508afa6e41dfd36bd3adde0f126d00e2d9",
+      "offset": 677334,
+      "original_sha256": "978533bbde679a0d487e5d237eff2c43d2678a2471d4df6f7393b0e60c07b67f",
+      "path": "audio/b2z-v1/music/000-978533bbde679a0d.flac"
+    }
+  ],
+  "restored_module_sha256": "b4c779a813a92e89fc57cbf83050b81d8d8fc3be0255ea660504e88f52cd35ec",
+  "scope": "Each mutation is isolated to a disposable staged identity representation. Original release and source assets retain exact bytes.",
+  "status": "PASS"
+}
