@@ -6,6 +6,7 @@ import {decodeWorld,encodeWorld,setOwnerRange,SHOUT_CONFIG,SHOUT_IDENTITY,SPACIN
 import {preparePurchase} from '../../packages/kernels/b2z/purchases-v6.mjs';
 import {prepareContextDeflector} from '../../packages/kernels/b2z/context-structures.mjs';
 import {entryHasClearance} from '../../packages/kernels/b2z/entry-v7.mjs';
+import {beginEntrySpawn,spawnStep} from '../../packages/kernels/b2z/spawn.mjs';
 import {contextSites} from '../../apps/b2z-observer/context-sites.mjs';
 import {nearestDestination} from '../../apps/b2z-observer/destination-search.mjs';
 import {quoteV6,legalMoveDestination} from '../../apps/b2z-observer/action-quote-v6.mjs';
@@ -73,4 +74,15 @@ test('cooperative nearest search supports sparse destinations outside the previo
  while(steps.length)steps.shift()();
  assert.equal(await job.promise,6);
  assert.ok(job.stats.chunks>1);
+});
+
+test('automatic Join keeps exact maximin selection and rejects a fully owned map without a flat scan',()=>{
+ const w=fixture(),seed='0'.repeat(64),blocked=beginEntrySpawn(w,seed,true);
+ assert.equal(spawnStep(w,blocked,true),true);assert.equal(blocked.result,null);
+ for(let y=500;y<=508;y++)setOwnerRange(w,1000*y+504,1000*y+513,1,0);
+ const job=beginEntrySpawn(w,seed,true);
+ let steps=0;while(!spawnStep(w,job,true))assert.ok(++steps<256);
+ assert.equal(job.result.cell,504508);
+ assert.equal(job.result.kind,5);
+ assert.equal(job.result.patch.length,9);
 });

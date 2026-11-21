@@ -713,13 +713,20 @@ fn spacing_rules14_upgrade_official_payments_and_authenticated_replay() {
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("spacing");
     std::fs::create_dir_all(&out).unwrap();
     let payer = Principal::self_authenticating([9; 32]);
-    let initial = test_world(payer).encode().unwrap();
+    let joining = Principal::self_authenticating([10; 32]);
+    let mut world = test_world(payer);
+    for row in 500..=508 {
+        world
+            .set_owner_range(row * 1000 + 504, row * 1000 + 513, 1, 0)
+            .unwrap();
+    }
+    let initial = world.encode().unwrap();
     let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers(
         bytes("B2Z_S14_TEST_WASM"),
         initial.clone(),
         10_000,
         500,
-        &[],
+        &[joining],
     );
     let predecessor = bytes("B2Z_RULES14_PRIOR_WASM");
     assert_eq!(
@@ -749,11 +756,11 @@ fn spacing_rules14_upgrade_official_payments_and_authenticated_replay() {
 
     let mut inputs = BTreeMap::new();
     let mut expected = BTreeMap::new();
-    let mut send = |text: &str, amount: u64, reason: &str| {
-        let position = transfer_text(&pic, ledger, payer, id, amount, text.as_bytes());
+    let mut send = |sender: Principal, text: &str, amount: u64, reason: &str| {
+        let position = transfer_text(&pic, ledger, sender, id, amount, text.as_bytes());
         let memo = shout::parse_text(text.as_bytes()).unwrap();
         let mut raw = shout::NORMALIZED_PAYMENT.to_vec();
-        raw.extend(funding_account(payer).as_bytes());
+        raw.extend(funding_account(sender).as_bytes());
         raw.extend(amount.to_be_bytes());
         raw.extend(codec::encode(memo.command).unwrap());
         raw.push(memo.cry.len() as u8);
@@ -762,7 +769,7 @@ fn spacing_rules14_upgrade_official_payments_and_authenticated_replay() {
         expected.insert(position, reason.to_owned());
         position
     };
-    let historic = send("DEFLECT 4007 N|Old", 10_000_000, "ACCEPTED");
+    let historic = send(payer, "DEFLECT 4007 N|Old", 10_000_000, "ACCEPTED");
     wait_admitted(&pic, id, historic);
     complete_one_trickle_tick(&pic, id);
     playability_installed::record_bundled(&pic, id, &mut history, &out);
@@ -784,7 +791,6 @@ fn spacing_rules14_upgrade_official_payments_and_authenticated_replay() {
     assert_eq!(arena_world(&pic, id).deflectors.unwrap()[0].cell, 4007);
     playability_installed::record_bundled(&pic, id, &mut history, &out);
 
-    let mut last = historic;
     for (memo, amount, reason) in [
         ("MOVE 1 4005|Blocked", 10_000, "STRUCTURE_TOO_CLOSE"),
         ("DMOVE 1 4006|Blocked", 10_000, "STRUCTURE_TOO_CLOSE"),
@@ -795,19 +801,35 @@ fn spacing_rules14_upgrade_official_payments_and_authenticated_replay() {
         ("DEFLECT 8010 E|Blocked", 10_000_000, "STRUCTURE_TOO_CLOSE"),
         ("DEFLECT 12014 E|Open", 10_000_000, "ACCEPTED"),
     ] {
-        last = send(memo, amount, reason);
+        send(payer, memo, amount, reason);
     }
+    let last = send(joining, "NEW 0 1|Hello", 100_000_000, "ACCEPTED");
     drop(send);
     wait_admitted(&pic, id, last);
     complete_one_trickle_tick(&pic, id);
     playability_installed::record_bundled(&pic, id, &mut history, &out);
 
+    let joined = arena_world(&pic, id);
+    let join = joined
+        .cannons
+        .iter()
+        .find(|c| c.account == funding_account(joining).to_hex())
+        .unwrap();
+    assert_eq!(join.cell, 504509);
     let mut observed = BTreeMap::new();
     let mut events = Vec::new();
+    let mut shouts = Vec::new();
     for p in &history {
         let segment = p.head.segment_id.as_ref().unwrap().0.to_string();
         let raw = std::fs::read(out.join(format!("publication-{segment}-artifact-1.bin"))).unwrap();
         let audit: Value = decode(&raw).unwrap();
+        for event in audit["events"].as_array().unwrap() {
+            for key in ["launch_annotation", "action_annotation"] {
+                if let Some(shout) = event[key]["cry"].as_str() {
+                    shouts.push(shout.to_owned());
+                }
+            }
+        }
         for receipt in audit["receipts"].as_array().unwrap() {
             let position: u64 = receipt["position"]["$integer"]
                 .as_str()
@@ -824,6 +846,11 @@ fn spacing_rules14_upgrade_official_payments_and_authenticated_replay() {
         events.push(json!({"segment_id":segment,"events_hex":hex(&raw)}));
     }
     assert_eq!(observed.len(), expected.len());
+    shouts.sort();
+    assert_eq!(
+        shouts,
+        ["Alone", "Away", "Boundary", "Hello", "Old", "Open"]
+    );
     save(
         &out,
         "trace.json",

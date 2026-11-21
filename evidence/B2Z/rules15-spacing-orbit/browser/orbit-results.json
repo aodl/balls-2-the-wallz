@@ -1,0 +1,170 @@
+{
+  "after": [
+    {
+      "size": [
+        1440,
+        900
+      ],
+      "reduced_motion": false,
+      "camera": [
+        {
+          "quarter": 0,
+          "pose": [
+            7.5,
+            4.5,
+            68
+          ]
+        },
+        {
+          "quarter": 1,
+          "pose": [
+            7.5,
+            4.5,
+            68
+          ]
+        },
+        {
+          "quarter": 2,
+          "pose": [
+            7.5,
+            4.5,
+            68
+          ]
+        },
+        {
+          "quarter": 3,
+          "pose": [
+            7.5,
+            4.5,
+            68
+          ]
+        }
+      ]
+    },
+    {
+      "size": [
+        390,
+        844
+      ],
+      "reduced_motion": true,
+      "camera": [
+        {
+          "quarter": 0,
+          "pose": [
+            7.5,
+            4.5,
+            40
+          ]
+        },
+        {
+          "quarter": 1,
+          "pose": [
+            7.5,
+            4.5,
+            40
+          ]
+        },
+        {
+          "quarter": 2,
+          "pose": [
+            7.5,
+            4.5,
+            40
+          ]
+        },
+        {
+          "quarter": 3,
+          "pose": [
+            7.5,
+            4.5,
+            40
+          ]
+        }
+      ]
+    },
+    {
+      "size": [
+        320,
+        640
+      ],
+      "reduced_motion": false,
+      "camera": [
+        {
+          "quarter": 0,
+          "pose": [
+            7.5,
+            4.5,
+            40
+          ]
+        },
+        {
+          "quarter": 1,
+          "pose": [
+            7.5,
+            4.5,
+            40
+          ]
+        },
+        {
+          "quarter": 2,
+          "pose": [
+            7.5,
+            4.5,
+            40
+          ]
+        },
+        {
+          "quarter": 3,
+          "pose": [
+            7.5,
+            4.5,
+            40
+          ]
+        }
+      ]
+    }
+  ],
+  "before": [
+    {
+      "size": [
+        1440,
+        900
+      ],
+      "reduced_motion": false,
+      "camera": [
+        {
+          "quarter": 0,
+          "pose": [
+            7.5,
+            4.5,
+            68
+          ]
+        },
+        {
+          "quarter": 1,
+          "pose": [
+            7.5,
+            4.5,
+            68
+          ]
+        },
+        {
+          "quarter": 2,
+          "pose": [
+            7.5,
+            4.5,
+            68
+          ]
+        },
+        {
+          "quarter": 3,
+          "pose": [
+            7.5,
+            4.5,
+            68
+          ]
+        }
+      ]
+    }
+  ]
+}

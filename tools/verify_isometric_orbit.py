@@ -148,6 +148,13 @@ def test(browser, variant, width, height, reduced=False):
     screen(page, f"{variant}-{width}-diverter")
     if width > 700:
         page.locator("#close-panel").click()
+        tile = page.evaluate("fixture.camera.cellPoint(6005)")
+        page.mouse.click(tile["sx"], tile["sy"])
+        page.locator("#build-action").click()
+        page.wait_for_function("()=>fixture.aim()?.cannon.cell===6005")
+        assert page.locator("#text-memo").text_content().endswith(" 6005")
+        screen(page, f"{variant}-{width}-construction")
+        page.locator("#close-panel").click()
         page.locator("#board").press("b")
         page.wait_for_function("()=>!document.getElementById('trajectory-guide').hidden")
         page.evaluate("fixture.shell.controller.cancel();fixture.camera.centre(7.5,4.5);fixture.draw()")
