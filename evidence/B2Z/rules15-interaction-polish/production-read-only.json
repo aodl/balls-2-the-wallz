@@ -1,0 +1,42 @@
+{
+  "status": "PASS",
+  "sample_utc": "2026-11-21T20:43:18.671Z",
+  "backend_module_sha256": "8d7f1a670acb9f89646afbf715d05045079de0f6925367058476c88ac1da9d89",
+  "certified_identity": {
+    "config_hash": "bd5c34521af5ff9bee15013549af3b265e5293589b0ef833278e580d5d760b4e",
+    "rules_hash": "2c6bee6d7156855ad7565ab62da5b681f2baf70601097580487ff4df4e855899",
+    "schema_hash": "b1d72af43945fba68412e388626bd4f19050d5586c174e13d12d4b34ff048cc2",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "certified_head": "14316",
+  "manifest": "e7b4ba6f763ea45afe37604982e861d31743d09975d721239772ed64a2398e22",
+  "adapter": 9,
+  "source_cursor": "40180669",
+  "funded_game_total_e8s": "100000000",
+  "official_account_history_sha256": "74138027396f214d27fc28b4aa0b2327a083254b384e0ce041eb4fafa4acf13b",
+  "operational": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "1",
+      "publication_ticks": "1",
+      "completed_segments": "14308",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40180669"
+    }
+  },
+  "scope": "Read-only production checks; no production state mutations."
+}

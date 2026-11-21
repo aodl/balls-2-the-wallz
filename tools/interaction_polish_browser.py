@@ -196,11 +196,16 @@ def compass_and_turret(page, screen):
                 page.evaluate("q=>document.querySelector('[data-board-quarter=\"'+q+'\"]').click()",end)
                 ready=page.evaluate(positions)
                 assert all(abs(a["x"]-b["x"])+abs(a["y"]-b["y"])<.1 for a,b in zip(first,ready))
+                if start==0 and end==1:
+                    page.evaluate("fixture.draw(fixture.shell.controller.rotation.start+76)")
+                    screen(page,"compass-NE-early")
                 page.evaluate("fixture.draw(fixture.shell.controller.rotation.start+130)")
                 mid = page.evaluate(positions)
                 assert all(abs(a["x"]-b["x"])+abs(a["y"]-b["y"])>10 for a,b in zip(first,mid))
                 if start==0 and end==1:
                     screen(page,"compass-NE-intermediate")
+                    page.evaluate("fixture.draw(fixture.shell.controller.rotation.start+236)")
+                    screen(page,"compass-NE-late")
                 page.evaluate("fixture.draw(fixture.shell.controller.rotation.start+320)")
                 settled=page.evaluate(positions)
                 assert settled[end]["disabled"] and settled[end]["pressed"]=="true"

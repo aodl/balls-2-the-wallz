@@ -119,6 +119,8 @@ jobs:
           assets=evidence/B2Z/rules15-interaction-polish/artifacts
           python -B tools/verify_approved_panel_freeze.py --artifacts "$assets" --output .work/ci-embedded-assets
           python -B tools/build_embedded_frontend.py --observer .work/ci-embedded-assets/reproduced --inventory "$assets/frontend-inventory.json" --output .work/ci-embedded
+          cmp "$assets/embedded-inventory.json" .work/ci-embedded/embedded-inventory.json
+          python -c 'import json, sys; left, right = [json.load(open(p)) for p in sys.argv[1:]]; assert left["sha256"] == right["sha256"], (left["sha256"], right["sha256"])' "$assets/embedded-module.json" .work/ci-embedded/module.json
           python -B tools/verify_embedded_frontend_builds.py --observer .work/ci-embedded-assets/reproduced --inventory "$assets/frontend-inventory.json" --first-build .work/ci-embedded --output .work/ci-embedded-repro
       - name: Archive exact public frontend module and inventory
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02

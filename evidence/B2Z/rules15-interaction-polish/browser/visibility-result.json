@@ -1,0 +1,120 @@
+{
+  "status": "PASS",
+  "scope": "Read-only authenticated candidate on loopback HTTP; actual tab hiding required.\nActual document.hidden is required; controlled hidden-policy tests are separate.\nUse --cdp with a dedicated disposable Chromium to avoid Playwright focus emulation.\n",
+  "actual_hidden_seconds": 35.008444715989754,
+  "return_to_fresh_current_state_ms": 4881.593078956939,
+  "repeated_returns": [
+    {
+      "case": "short",
+      "elapsed_hidden_seconds": 3.01598930102773,
+      "return_to_visible_observation_ms": 1557.9277980141342,
+      "controlled_suspension": false,
+      "retained": {
+        "sameClock": true,
+        "sameQueue": true,
+        "sameSession": true,
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 14320.07066300001,
+          "available": 14321,
+          "buffer": 0.9293369999904826,
+          "rate": 1
+        },
+        "events": [
+          {
+            "name": "visibilitychange",
+            "time": 11306.099999904633,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 46646.5,
+            "hidden": false
+          },
+          {
+            "name": "visibilitychange",
+            "time": 51766.89999997616,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 54978.59999990463,
+            "hidden": false
+          }
+        ]
+      }
+    },
+    {
+      "case": "simulated-suspension",
+      "elapsed_hidden_seconds": 8.054032217012718,
+      "return_to_visible_observation_ms": 758.8325639953837,
+      "controlled_suspension": true,
+      "retained": {
+        "sameClock": true,
+        "sameQueue": true,
+        "sameSession": true,
+        "camera": [
+          0.5,
+          0.5,
+          48
+        ],
+        "state": {
+          "phase": "PLAYING",
+          "playhead": 14320.083328000012,
+          "available": 14321,
+          "buffer": 0.9166719999884663,
+          "rate": 1
+        },
+        "events": [
+          {
+            "name": "visibilitychange",
+            "time": 11306.099999904633,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 46646.5,
+            "hidden": false
+          },
+          {
+            "name": "visibilitychange",
+            "time": 51766.89999997616,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 54978.59999990463,
+            "hidden": false
+          },
+          {
+            "name": "visibilitychange",
+            "time": 56684.799999952316,
+            "hidden": true
+          },
+          {
+            "name": "freeze",
+            "time": 56767.89999997616,
+            "hidden": true
+          },
+          {
+            "name": "resume",
+            "time": 64783.09999990463,
+            "hidden": true
+          },
+          {
+            "name": "visibilitychange",
+            "time": 64882.5,
+            "hidden": false
+          }
+        ]
+      }
+    }
+  ],
+  "query_only": true,
+  "errors": []
+}
