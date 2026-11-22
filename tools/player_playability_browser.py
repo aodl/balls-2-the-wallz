@@ -133,7 +133,12 @@ def verify_player_controls(page,width,height):
 
  page.locator('#aim-handle').focus();page.keyboard.press('ArrowRight');assert page.evaluate('fixture.aim().heading===fixture.command().angle')
  assert page.locator('#angle-degrees,#move-cell,#new-cell').count()==0;close();select(1);page.locator('#move-action').click()
- source=page.evaluate('fixture.world().cannons[0].cell');default=chosen_cell(page);assert default and int(default)!=source;assert page.locator('#prepared-card').is_visible();choose_cell(page,str(source));assert chosen_cell(page)==default;choose_cell(page,None);choose_cell(page,str(source));assert page.locator('[data-copy=text]').is_disabled();expect(page.locator('#preparation-note')).to_contain_text('different tile');cell=page.evaluate('fixture.moveSites(1)[0]');choose_cell(page,str(cell));expect(page.locator('#text-memo')).to_have_text(f'MOVE 1 {cell}');assert page.locator('[data-copy="text"]').is_enabled();page.evaluate('fixture.draw()');assert page.evaluate('fixture.inspect().previewSpan')<=1.00001
+ source=page.evaluate('fixture.world().cannons[0].cell');default=chosen_cell(page);assert default and int(default)!=source;assert page.locator('#prepared-card').is_visible()
+ copy=page.locator('[data-copy=text]')
+ choose_cell(page,str(source));assert chosen_cell(page)==str(source)
+ expect(copy).to_be_disabled();expect(page.locator('#text-memo')).to_be_empty()
+ choose_cell(page,None);choose_cell(page,str(source));expect(copy).to_be_disabled();expect(page.locator('#preparation-note')).to_contain_text('different tile')
+ cell=page.evaluate('fixture.moveSites(1)[0]');choose_cell(page,str(cell));expect(page.locator('#text-memo')).to_have_text(f'MOVE 1 {cell}');expect(copy).to_be_enabled();page.evaluate('fixture.draw()');assert page.evaluate('fixture.inspect().previewSpan')<=1.00001
  close();page.evaluate('fixture.render("wrap","initial")');select(1);page.locator('#build-action').click();assert chosen_cell(page) and int(chosen_cell(page)) in page.evaluate('fixture.sites()');assert page.locator('#prepared-card').is_visible();assert not page.locator('[data-copy=text]').is_disabled()
  assert 997 in page.evaluate('fixture.sites()');choose_cell(page,'997');expect(page.locator('#text-memo')).to_contain_text(' 997');page.evaluate('fixture.draw()');p=page.evaluate('fixture.camera.cellPoint(997)');drawing=page.evaluate('fixture.inspect()');assert page.evaluate('fixture.aim().cannon.cell')==997
  assert drawing['ghost']and abs(drawing['ghost'][0]-p['x'])<.01 and abs(drawing['ghost'][1]-p['y'])<.01

@@ -178,8 +178,10 @@ Mouse pairs use a 400ms/7px arena-only double-click window. Cannon and ball
 selection/follow entry are immediate; only placement commitment defers for this
 window. At activation capture an immutable canonical cell, selected cannon and
 origin cell, mode/context generation, source/world identity, verified revision and
-gesture sequence. At commitment revalidate that original cell; never hit-test its
-old pixel. New ownership may invalidate it, never substitute another tile. Touch/keyboard activate immediately; no mandatory double-tap. A pair cancels
+gesture sequence. At commitment revalidate that original cell without sampling
+its old pixel. An explicitly selected invalid destination remains the proposed
+cell and disables wallet Copy. The saved instruction history retains prior
+copied packets. Touch and keyboard activate immediately. A double-click cancels
 pending placement and replaces follow with 1.65× zoom about the clicked world point.
 At maximum zoom it changes no camera state. Fields, wallet values, buttons and map
 never participate. Fire and a valid Build ghost own clicks/drags within their

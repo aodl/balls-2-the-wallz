@@ -92,8 +92,22 @@ with sync_playwright() as pw:
     row['max_panel_drift_px']=geometry['max_drift_px']
     print('stable status',w,flush=True);page.screenshot(path=str(out/f'{w}-stable-status.png'))
     wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-risk'])
-    # Keyboard board selection commits an immutable canonical cell.
-    page.locator('#board').focus();previous=page.evaluate('fixture.proposal().cell');page.keyboard.press('Alt+ArrowRight');page.keyboard.press('Enter');assert page.evaluate('fixture.proposal().cell')in [previous,previous+1]
+    # Test the actual keyboard destination, including fail-closed Copy if it
+    # is ineligible. Restore a legal draft before measuring the scrollport.
+    previous,neighbor,legal=page.evaluate('''()=>{
+     const previous=fixture.proposal().cell,w=fixture.world(),[dx,dy]=fixture.camera.tileStep(1,0);
+     const x=(previous%w.width+dx+w.width)%w.width,y=(Math.floor(previous/w.width)+dy+w.height)%w.height;
+     const target=y*w.width+x;return [previous,target,fixture.sites().includes(target)];
+    }''')
+    copy=page.locator('[data-copy=text]');memo=page.locator('#text-memo').inner_text()
+    page.locator('#board').focus();page.keyboard.press('Alt+ArrowRight');page.keyboard.press('Enter')
+    assert page.evaluate('fixture.proposal().cell')==neighbor
+    assert copy.is_enabled()==legal
+    if legal:assert page.locator('#text-memo').inner_text().endswith(' '+str(neighbor))
+    else:assert not page.locator('#text-memo').inner_text()
+    page.keyboard.press('Alt+ArrowLeft');page.keyboard.press('Enter')
+    assert page.evaluate('fixture.proposal().cell')==previous
+    assert copy.is_enabled() and page.locator('#text-memo').inner_text()==memo
     for height in [430,300]:
      page.set_viewport_size({'width':w,'height':height});page.wait_for_timeout(500);wallet_fields_reachable(page,['transfer-amount','payment-owner','text-memo','paying-account','payment-risk']);page.screenshot(path=str(out/f'{w}-contracted-{height}.png'))
     page.set_viewport_size({'width':w,'height':h});page.wait_for_timeout(500)
