@@ -1,9 +1,9 @@
 {
-  "bytes": 77159847,
+  "bytes": 77159975,
   "cargo_lock_sha256": "ed1cde67575433135bf1db6f2ba026d6222a5e3c4f334172e686302172c48e98",
-  "compressed_bytes": 75334292,
-  "compressed_sha256": "aaa672f25680e3f2ccd62c2b25718471efa609af111b3fe69d707a918598f179",
-  "embedded_inventory_sha256": "5e90848a4f18bec892753645724586e54f9f63fac0c110210b610f9aa56b2a6d",
+  "compressed_bytes": 75334478,
+  "compressed_sha256": "4e697cff7877d4c2df973931c29933a2725df7191a5ffb6d7f08135d34cb6445",
+  "embedded_inventory_sha256": "95955201a0168d3aeb9da641db8208bc44cce81ce6473c668e1e640afff27b78",
   "exports": [
     "memory",
     "get_candid_pointer",
@@ -13,7 +13,7 @@
     "__data_end",
     "__heap_base"
   ],
-  "identity_asset_bytes": 75491981,
+  "identity_asset_bytes": 75491929,
   "public_assets": 88,
   "release_install_bytes": "uncompressed frontend.wasm",
   "rustc": "rustc 1.94.1 (e408947bf 2026-03-25)",
@@ -55,10 +55,10 @@
       "id": 10
     },
     {
-      "bytes": 75971453,
+      "bytes": 75971581,
       "id": 11
     }
   ],
-  "sha256": "c15a28cabff7baedc7e765b9289348ecda47ef47439cc414a5c663f9d30def59",
-  "source_inventory_sha256": "3919921d3b7e2f3f432e868b50527fe60fd7f1185393c01365e11601c375f97e"
+  "sha256": "2f5444bdf85aa9df57ecae32cce998454a5b254693c919881b5ffafd4f05789d",
+  "source_inventory_sha256": "27f978f7022c18fddfb5139232a5c612c116fe865de924ce221325cce203b28d"
 }

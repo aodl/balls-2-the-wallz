@@ -1,7 +1,7 @@
 {
-  "source": "37d07cb20e60beba8104086aee55c711ef311fde",
+  "source": "9554dc34b9e9e60aee8bdea5adc7be14de86c170",
   "source_dirty": false,
-  "inventory_sha256": "3919921d3b7e2f3f432e868b50527fe60fd7f1185393c01365e11601c375f97e",
+  "inventory_sha256": "27f978f7022c18fddfb5139232a5c612c116fe865de924ce221325cce203b28d",
   "normal_wasm_sha256": "3769368a5b8ad439e42775c81615149f6feb304a9d7b9e8d345d3da2b1a42678",
   "normal_wasm_scope": "Local exact backend inputs at aceaf1392f1a7b7fbf66426654e3c0bc4f4a9a5d. Hosted normal and installed artifacts must reproduce each other.",
   "inputs": [
@@ -19,7 +19,7 @@
     },
     {
       "path": "apps/b2z-observer/arcade.mjs",
-      "sha256": "68c160d84ca072a310f2be2613df9d82fad0dba76474826a74f1b3c145883cbb"
+      "sha256": "db9450cef96dee7672849a77128d14803e444b65b624a193b872ad6601ecf975"
     },
     {
       "path": "apps/b2z-observer/arena-indicators.mjs",
@@ -1315,7 +1315,7 @@
     },
     {
       "path": "apps/b2z-observer/render.mjs",
-      "sha256": "926313a4857c7c0d149c9dd845d5d979ceebb54f0221032ccb12fadd085bb46e"
+      "sha256": "0de236848547a335a6d7e16c3576086f7803cdcee7ddba6a148f15d37dddbad2"
     },
     {
       "path": "apps/b2z-observer/replay-tools.mjs",
