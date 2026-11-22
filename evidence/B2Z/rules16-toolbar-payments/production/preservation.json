@@ -1,0 +1,23 @@
+{
+  "status": "PASS",
+  "frontend": {
+    "balance": 1346046553289,
+    "reserved": 0,
+    "freezing_floor": 202793837550,
+    "memory": 230772865
+  },
+  "after": {
+    "balance": 1161922660102,
+    "reserved": 0,
+    "freezing_floor": 202793003670,
+    "memory": 230771777
+  },
+  "sampled_upgrade_balance_delta": 184123893187,
+  "remaining_recovery_margin": 655129656432,
+  "backend": "a5889a92ce936b035d02632588b75ae7f66ddfda73398177dd79cba2b5b48dcd",
+  "source_cursor": "40640535",
+  "received_e8s": "104000000",
+  "replayed_publications": 1,
+  "before_head": "15015",
+  "after_head": "15016"
+}

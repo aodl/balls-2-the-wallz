@@ -1,0 +1,17 @@
+{
+  "status": "PASS",
+  "exact": [
+    "state",
+    "events",
+    "scores"
+  ],
+  "rows": [
+    {
+      "segment": 15016,
+      "work_iterations": 10,
+      "input_count": 0,
+      "state_hash": "897b89da411002479bda6b963f6d7eae8928ca8ad24f57fb54d1290fcb77a8e4",
+      "manif": "75bce99f3d1760884ac591413ae8c438f693e8f74eec135f3bf79ee16ac1eb1a"
+    }
+  ]
+}
