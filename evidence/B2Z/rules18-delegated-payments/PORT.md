@@ -128,3 +128,14 @@ authenticates the exact pre-eviction archive through the certified successor's
 hash chain, verifies every archived artifact and rejects altered archival
 bytes. The liquid balances and game on the European canisters were unchanged
 by any of these disposable tests.
+
+The complete local disposable test authenticated the full 17-publication
+chain, including its evicted predecessor, and replayed state, events and
+scores with the exact captured Ledger transfer facts. The hosted financial
+test also passed with the same normal Wasm as the standard hosted build
+(`43095677376fe4f3c66185b1cf185ef9e161b5c44320609b93e134a771f4bf59`).
+Its Ubuntu 24.04 Chromium launch failed before running browser assertions
+because Chromium could not start its sandbox. The separate browser job now
+uses the same sandbox-capable Ubuntu 22.04 hosted image as the standard
+browser gate. The financial build remains on Ubuntu 24.04 to preserve
+normal Wasm parity across the two workflows.
