@@ -16,8 +16,8 @@
   },
   {
     "path": "app.mjs",
-    "bytes": 1172695,
-    "sha256": "c18816e4994f289002c5a7f459e0ec09e501573ac5005fe16f690a26875a557b"
+    "bytes": 1172959,
+    "sha256": "4394ed4fe1bcf6a278b30b70e29d6871d981014b2fe1c669b59ebe58e30742d2"
   },
   {
     "path": "audio/b2z-v1/manifest.json",
@@ -342,7 +342,7 @@
   {
     "path": "build-manifest.json",
     "bytes": 25766,
-    "sha256": "221e1093bddf3cd40b368a1f426509a0d574c535a9055f96b746fc19ba1d5a74"
+    "sha256": "a52e52e27e312deeb0b82e4f36b55cfd1586146cbf380b4bf0653e72fce8693f"
   },
   {
     "path": "configuration-clearance.bin",
@@ -446,7 +446,7 @@
   },
   {
     "path": "style.css",
-    "bytes": 40873,
-    "sha256": "625672bedd6491549cda6b8d91f4504c8aeb7834f20cf36b13f222ea97f7bd21"
+    "bytes": 41036,
+    "sha256": "9f64602deb0cb5be813a9a878119d0387c807dae84a255767c6a246ae5ec4003"
   }
 ]

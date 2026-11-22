@@ -1,7 +1,7 @@
 {
-  "source": "201e171297db11108608d88c5c9efd6dd5157309",
+  "source": "cfcc22a881c54e7ffa7cd2a5430e05d6d363393b",
   "source_dirty": false,
-  "inventory_sha256": "c1e85ea66fe1a85be9a4ce6432537775f748a394b404ee93b2bf9eafc5e017cc",
+  "inventory_sha256": "3f66a88112d83206c9f9c058c28b0754c4631d71812ac83fef5c362e4a8f9ef9",
   "normal_wasm_sha256": "42b42125e120717bf5759a283e444dd789e8fb9cd2aa20e323ce251049d09f8c",
   "normal_wasm_scope": "Local exact runtime inputs. Hosted normal and installed artifacts must reproduce each other.",
   "inputs": [
@@ -19,7 +19,7 @@
     },
     {
       "path": "apps/b2z-observer/arcade.mjs",
-      "sha256": "75a580786f0f93351b5990759448c8052c95d925dea515eca3b848c9b6c8f6e0"
+      "sha256": "18d332b97d8c2deebacced420f5af5e4f9e0e2a160e33a4e133c3848becc577c"
     },
     {
       "path": "apps/b2z-observer/arena-indicators.mjs",
@@ -1335,7 +1335,7 @@
     },
     {
       "path": "apps/b2z-observer/shell.mjs",
-      "sha256": "dcc03f283e533793186547581c88bc276c165689aedb23b27a10e0b9e9c78506"
+      "sha256": "e840775bf278693df16bfac264aa44ded3aec5e6e0e2aaf2f309a22b8b1dc34b"
     },
     {
       "path": "apps/b2z-observer/speech-bubbles.mjs",
@@ -1351,7 +1351,7 @@
     },
     {
       "path": "apps/b2z-observer/style.css",
-      "sha256": "625672bedd6491549cda6b8d91f4504c8aeb7834f20cf36b13f222ea97f7bd21"
+      "sha256": "9f64602deb0cb5be813a9a878119d0387c807dae84a255767c6a246ae5ec4003"
     },
     {
       "path": "apps/b2z-observer/terrain-surface.mjs",
