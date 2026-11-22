@@ -274,12 +274,14 @@ def reservoir_quotes(browser):
 
             def pick(cell, left=None):
                 nonlocal last_board_point
-                for x,y in [(left or width/2,height/3),(48,height*.72),(width-48,height*.72),(width/2,154)]:
+                points=[(left or width/2,height/3),(48,height*.72),(width-48,height*.72),(width/2,154),
+                        (48,height*.42),(width-48,height*.42),(width/2,height*.75)]
+                for x,y in points:
                     scene(page,cell,42,x,y)
                     at=point(page,cell)
                     # The fixture centres successive world cells at the same screen
                     # point. Separate the clicks so they cannot trigger double-zoom.
-                    if dist(at,last_board_point)>14 and page.evaluate("([x,y])=>document.elementFromPoint(x,y)?.id==='board'",at):
+                    if (width<700 or dist(at,last_board_point)>14) and page.evaluate("([x,y])=>document.elementFromPoint(x,y)?.id==='board'",at):
                         break
                 else:
                     raise AssertionError(f'no unobstructed board pose for {cell}')
