@@ -19,3 +19,7 @@ uses it as the exact predecessor in disposable PocketIC.
 - `rules16-a5889a92.wasm.gz` contains the production Rules16 normal backend.
   Raw SHA-256 `a5889a92ce936b035d02632588b75ae7f66ddfda73398177dd79cba2b5b48dcd`.
   The Rules17 disposable cutover uses it as the immutable predecessor.
+
+`rules17-c066140f.wasm.gz` is the exact European Rules17 normal executable,
+retained for the disposable Rules18 state-preserving upgrade rehearsal. Its raw
+SHA-256 is `c066140f4ef3174b3f440694c19ec4116a03298fcc63b80636b0b5389bc210ca`.

@@ -18,6 +18,8 @@ use std::{
 #[rustfmt::skip]
 #[path = "../../../canisters/runtime-lab/src/source.rs"]
 mod source;
+#[path = "support/delegation_installed.rs"]
+mod delegation_installed;
 #[path = "support/agent_playtesting.rs"]
 mod agent_playtesting;
 #[path = "support/europe.rs"]

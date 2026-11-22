@@ -25,7 +25,7 @@ export function legalAdjacentSites(w,account,config=null){
  return[...candidates].filter(c=>!blocked.has(c)&&(islandAt(w,c)===0||playerAt(w,c)===player)&&(!clearanceActive(config)||hasEnemyClearance(w.width,w.height,c,player,n=>playerAt(w,n)))).sort((a,b)=>a-b);
 }
 export function legalMove(w,account,cannon,cell,config=null){
- if(![6,7,8,9].includes(w.version)||!integer(cell,999999))return false;const c=w.cannons.find(c=>c.id===cannon),life=w.playability.lifecycle.find(l=>l.cannon===cannon);
+ if(![6,7,8,9,10].includes(w.version)||!integer(cell,999999))return false;const c=w.cannons.find(c=>c.id===cannon),life=w.playability.lifecycle.find(l=>l.cannon===cannon);
  if(c?.account!==account||!life||life.deadline_ns!==undefined||playerAt(w,cell)!==life.player||w.cannons.some(c=>c.id!==cannon&&c.cell===cell)||(w.deflectors??[]).some(d=>d.cell===cell))return false;
  if(contextSupported(config)&&(c.cell===cell||contextSites(w,config).reason(account,cell,{moving:{kind:'cannon',id:cannon}})))return false;
  return (!clearanceActive(config)||hasEnemyClearance(w.width,w.height,cell,life.player,n=>playerAt(w,n)))&&(islandAt(w,c.cell)===islandAt(w,cell)||w.cannons.filter(other=>islandAt(w,other.cell)===islandAt(w,c.cell)).length>1);
@@ -34,7 +34,7 @@ export function sitePool(w,account,cell){const player=w.playability.players.find
 export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quantity=1,cell=null,priced_at_ns=w.playability?.elapsed_ns}){
  check(w.version>=6,'EXPECTED_V6');check(/^[0-9a-f]{64}$/.test(account),'ACCOUNT_BOUNDS');check(integer(quantity,64)&&quantity>=1,'QUANTITY_BOUNDS');
  const daily=economySupported(config);
- check(daily===(w.version===9),'ECONOMY_SCHEMA');
+ check(daily===(w.version>=9),'ECONOMY_SCHEMA');
  const rate=daily?economyAt(w.economy,priced_at_ns).current:null;
  const mine=w.cannons.filter(c=>c.account===account),free=daily?0xffffffff-w.next_ball_id:config.max_balls-w.balls.length;
  const count=()=>{const player=w.playability.players.find(p=>p.account===account)?.id;return w.balls.filter(b=>b.owner===player).length;};

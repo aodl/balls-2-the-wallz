@@ -26,6 +26,8 @@ pub(crate) struct PaymentSaved {
     pub amount: Int,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tariff: Option<crate::economy17::PaymentTariff>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub authorization_transfer: Option<Value>,
 }
 pub(crate) struct Payment {
     pub saved: PaymentSaved,
@@ -130,6 +132,7 @@ pub(crate) fn read_payment_with_annotations(s: &str, allow: bool) -> Result<Paym
             account: hex(&b[8..40]),
             amount: Int(BigInt::from(amount)),
             tariff: None,
+            authorization_transfer: None,
         },
         memo: b[48..56].to_vec(),
         cry,
@@ -201,13 +204,15 @@ fn semantic_deflector_payment(s: &str) -> Result<String> {
 }
 fn semantic_deflector_world(bytes: &[u8]) -> Result<Vec<u8>> {
     let mut w = World::decode(bytes)?;
-    if w.version == 9 {
+    if w.version >= 9 {
         // The schedule and receipt time are evidence. Neither supplies spawn entropy.
         let mut semantic = serde_json::to_value(&w).map_err(|e| e.to_string())?;
-        semantic
-            .as_object_mut()
-            .ok_or("semantic world")?
-            .remove("economy");
+        let fields = semantic.as_object_mut().ok_or("semantic world")?;
+        fields.remove("economy");
+        if w.version == 10 {
+            fields.remove("authorization");
+            fields.insert("version".into(), json!(9));
+        }
         return encode(&semantic);
     }
     if w.reservoirs.as_ref().is_some_and(|r| !r.is_empty())
@@ -433,7 +438,7 @@ fn match_strikes(w: &World, incoming: Vec<Strike>) -> Result<Vec<[u32; 2]>> {
             continue;
         }
         for b in edges.iter().skip(i + 1) {
-            if w.version == 9
+            if w.version >= 9
                 && (a.from.min(a.to), a.from.max(a.to)) != (b.from.min(b.to), b.from.max(b.to))
             {
                 break; // The sorted list cannot return to this physical edge.
@@ -482,7 +487,9 @@ impl Cursor {
         let spacing = crate::spacing::identity()?;
         let reservoir = crate::reservoirs::identity();
         let economy = crate::economy17::identity();
-        let is_economy = context.get("config_hash") == economy.get("config_hash");
+        let delegated = crate::delegation_v18::identity();
+        let is_delegated = context.get("config_hash") == delegated.get("config_hash");
+        let is_economy = is_delegated || context.get("config_hash") == economy.get("config_hash");
         let is_reservoir = is_economy || context.get("config_hash") == reservoir.get("config_hash");
         let is_spacing = is_reservoir || context.get("config_hash") == spacing.get("config_hash");
         let is_shout = is_spacing || context.get("config_hash") == shout.get("config_hash");
@@ -504,7 +511,9 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_economy {
+        let expected = if is_delegated {
+            delegated
+        } else if is_economy {
             economy
         } else if is_reservoir {
             reservoir
@@ -542,7 +551,9 @@ impl Cursor {
         }
         let world = World::decode(state)?;
         if world.version
-            != if is_economy {
+            != if is_delegated {
+                10
+            } else if is_economy {
                 9
             } else if is_reservoir {
                 8
@@ -578,9 +589,28 @@ impl Cursor {
             }
             prior = Some(p);
         }
+        let authorized_inputs;
+        let semantic_source = if is_delegated {
+            use crate::delegation_v18::{transfer, Decision};
+            let mut registry = world.authorization.clone().ok_or("AUTH_REGISTRY")?;
+            let mut allowed = Vec::new();
+            for input in &inputs {
+                let (payment, position) = transfer(input)?;
+                if registry.apply(&payment, position)? == Decision::Gameplay {
+                    allowed.push(Input {
+                        position: input.position.clone(),
+                        payload_hex: hex(&payment.pricing_envelope()?),
+                    });
+                }
+            }
+            authorized_inputs = allowed;
+            &authorized_inputs
+        } else {
+            &inputs
+        };
         let semantic_inputs = if is_war_cry {
             Some(
-                inputs
+                semantic_source
                     .iter()
                     .map(|i| {
                         Ok(Input {
@@ -722,6 +752,11 @@ impl Cursor {
         if let Some(tariff) = &p.tariff {
             receipt["ledger_recorded_ns"] = json!(tariff.ledger_recorded_ns);
             receipt["price_multiplier"] = json!(tariff.multiplier);
+        }
+        if let Some(transfer) = &p.authorization_transfer {
+            receipt["spender"] = transfer["spender"].clone();
+            receipt["ledger_recorded_ns"] = transfer["ledger_recorded_ns"].clone();
+            receipt["transfer"] = transfer.clone();
         }
         self.receipts.push(receipt);
         if outcome.get("reason").and_then(Value::as_str) == Some("ACCEPTED") {

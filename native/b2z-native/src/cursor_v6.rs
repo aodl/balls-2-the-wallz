@@ -58,7 +58,7 @@ impl Cursor {
     pub(crate) fn validate_v6(&self) -> Result<()> {
         let s = self.v6.as_ref().ok_or("V6_CURSOR")?;
         if s.reservoir_rules != (self.world.version >= 8)
-            || s.economy_predecessor.is_some() != (self.world.version == 9)
+            || s.economy_predecessor.is_some() != (self.world.version >= 9)
             || s.reservoir_rules && !s.spacing_rules
             || s.spacing_rules && !s.shout_rules
             || s.shout_rules && !s.context_rules
@@ -109,9 +109,48 @@ impl Cursor {
                 let context = self.v6.as_ref().unwrap().context_rules;
                 let reservoir = self.v6.as_ref().unwrap().reservoir_rules;
                 let mut recorded_ns = None;
+                let mut authorization_transfer = None;
+                let mut delegated_envelope = None;
+                if self.world.version == 10 {
+                    use crate::delegation_v18::{receipt_transfer, transfer, Decision};
+                    let (payment, position) = transfer(&self.inputs[self.input_index])?;
+                    let saved = PaymentSaved {
+                        account: dtr_wire::hex(&payment.from),
+                        amount: Int(payment.amount.into()),
+                        tariff: None,
+                        authorization_transfer: Some(receipt_transfer(&payment)),
+                    };
+                    let registry = self.world.authorization.as_mut().ok_or("AUTH_REGISTRY")?;
+                    let decision = registry.apply(&payment, position)?;
+                    if decision != Decision::Gameplay {
+                        let tally = &self.world.received_e8s.0 + &saved.amount.0;
+                        if tally >= BigInt::from(1) << 128usize {
+                            return Err("treasury overflow".into());
+                        }
+                        self.world.received_e8s.0 = tally;
+                        match decision {
+                            Decision::Granted => self.receipt(&saved, json!({
+                                "reason":"DELEGATION_GRANTED","status":"configured","kind":"game_access_granted",
+                                "amount_used":Int(0.into()),"remainder":saved.amount,
+                            }))?,
+                            Decision::Revoked => self.receipt(&saved, json!({
+                                "reason":"DELEGATION_REVOKED","status":"configured","kind":"game_access_revoked",
+                                "amount_used":Int(0.into()),"remainder":saved.amount,
+                            }))?,
+                            Decision::Rejected(reason) => self.v6_reject(&saved, reason)?,
+                            Decision::Gameplay => unreachable!(),
+                        }
+                        return Ok(true);
+                    }
+                    authorization_transfer = saved.authorization_transfer;
+                    delegated_envelope = Some(payment.pricing_envelope()?);
+                }
                 let mut payment = if reservoir {
-                    let mut bytes = dtr_wire::unhex(&self.inputs[self.input_index].payload_hex)?;
-                    if self.world.version == 9 {
+                    let mut bytes = match delegated_envelope {
+                        Some(bytes) => bytes,
+                        None => dtr_wire::unhex(&self.inputs[self.input_index].payload_hex)?,
+                    };
+                    if self.world.version >= 9 {
                         let (previous, time) = b2z_protocol::economy17::untimed(&bytes)
                             .map_err(|_| "adapter11 payment envelope")?;
                         bytes = previous;
@@ -137,6 +176,7 @@ impl Cursor {
                 if self.v6.as_ref().unwrap().war_cry_rules {
                     self.v6.as_mut().unwrap().pending_cry = payment.cry.clone();
                 }
+                payment.saved.authorization_transfer = authorization_transfer;
                 let amount = payment.saved.amount.0.to_u64().ok_or("PAYMENT_AMOUNT")?;
                 let tally = &self.world.received_e8s.0 + &payment.saved.amount.0;
                 if tally >= BigInt::from(1) << 128usize {

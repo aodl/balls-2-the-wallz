@@ -51,6 +51,7 @@ function frame(now){if(controlledHidden){prior=null;requestAnimationFrame(frame)
  if(clock){time=clock.sample(dt*(elastic?elastic.rate({now,nominal:rate,remaining:clock.available-clock.playhead,seconds:dt}):rate)*playbackScale).playhead;while(queue.length&&time>=queue[0].segment.end){view=queue.shift().player.advance(time);}if(queue.length)view=queue[0].player.advance(time);const statusAt=performance.now();arcade.status(statusOverride??healthy(clock.phase));statusTimes.push(performance.now()-statusAt);if(statusTimes.length>1200)statusTimes.shift();}draw(now);requestAnimationFrame(frame);}
 const params=new URLSearchParams(location.search);render(params.get('case')??'first',params.get('phase')??'initial');
 globalThis.fixture={
+  paymentTestArcade:arcade,
   inspectSite(cell){
     const quotes={};
     for(const kind of ['new','deflect','reservoir']){

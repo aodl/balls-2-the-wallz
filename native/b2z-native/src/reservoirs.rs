@@ -102,10 +102,10 @@ pub fn migrate(mut world: World) -> Result<World> {
 }
 
 pub fn prepare(world: &World, account: &str, amount: u64, cell: usize) -> Result<Plan> {
-    if !matches!(world.version, 8 | 9) {
+    if !matches!(world.version, 8..=10) {
         return Err("RESERVOIR_SCHEMA".into());
     }
-    let price = if world.version == 9 {
+    let price = if world.version >= 9 {
         b2z_protocol::economy17::RESERVOIR_PRICE_E8S
     } else {
         PRICE_E8S

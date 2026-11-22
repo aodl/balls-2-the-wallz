@@ -436,3 +436,10 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
 .trajectory-chip svg{flex:none;width:13px;height:13px}
 .trajectory-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 @media(forced-colors:active){.trajectory-chip{border-color:CanvasText}}
+
+.payment-setup .button-row{gap:6px}
+.payment-setup button,.direct-pay-controls button{font-size:.875rem}
+.payment-setup pre{white-space:pre-wrap;overflow-wrap:anywhere}
+.direct-pay-controls{margin-top:12px}
+.direct-pay-controls button{width:100%;color:var(--ink)}
+.direct-pay-controls small{display:block;margin-top:4px}

@@ -10,12 +10,12 @@ await mkdir(out,{recursive:true});await mkdir(out+'/wire',{recursive:true});cons
 globalThis.fetch=async(...args)=>{const r=await original(...args);if(String(args[0]).endsWith('/query')){const body=new Uint8Array(args[1].body),req=Cbor.decode(body),method=get(get(req,'content'),'method_name');const raw=new Uint8Array(await r.clone().arrayBuffer());total+=raw.length;assert.ok(packets.length<4096&&total<=128*1024*1024);assert.equal(r.status,200);const n=String(packets.length).padStart(4,'0')+'.cbor';await writeFile(out+'/wire/'+n,raw);packets.push({method,file:n,request_sha256:sha256(body),response_sha256:sha256(raw),bytes:raw.length,status:r.status});}return r;};
 try{
  const rootKey=Uint8Array.from(c.root_key_hex.match(/../g),h=>parseInt(h,16)),policy={network:c.network,canister_id:c.canister_id},verify=certificateVerifier({...policy,rootKey}),client=await liveClient({...policy,rootKey,host:c.host}),observation=await client.observation(),ticket=await verifyCertificatePublication(observation.publication,observation.certificate,{...policy,now_ns:BigInt(Date.now())*1000000n,max_age_ns:300000000000n,max_future_ns:30000000000n},verify);
- const tickets=[ticket],head=Number(ticket.publication.head.segment_id);assert.ok(Number.isSafeInteger(head)&&head>=0&&head<16,'complete retained declared test history required');for(let n=head-1;n>=0;n--)tickets.unshift(await verifyRetainedPredecessor(await client.publication(n),tickets[0]));
+ const tickets=[ticket],head=Number(ticket.publication.head.segment_id);assert.ok(Number.isSafeInteger(head)&&head>=0&&head<24,'complete retained declared test history required');for(let n=head-1;n>=0;n--)tickets.unshift(await verifyRetainedPredecessor(await client.publication(n),tickets[0]));
  const events=[];for(const t of tickets){for(let kind=0;kind<t.publication.artifacts.length;kind++){const descriptor=t.publication.artifacts[kind],assembler=new ArtifactAssembler(t,descriptor.kind),n=Number(t.publication.head.segment_id);for(let chunk=0;chunk<descriptor.chunks.length;chunk++)await assembler.accept(chunk,await client.chunk(n,t.root_hash,kind,chunk));const bytes=await assembler.finish();await writeFile(out+`/publication-${n}-${descriptor.kind}.bin`,bytes);if(n===0&&descriptor.kind==='state'){assert.equal(sha256(bytes),t.publication.head.state_hash);assert.equal(t.publication.head.seal.previous_state,sha256(Buffer.from(seed.initial_world_hex,'hex')),'declared initial world must be the authenticated first interval predecessor');}if(descriptor.kind==='events')events.push({segment_id:String(n),events_hex:Buffer.from(bytes).toString('hex')});}}
  const assigned=[];for(const t of tickets){const s=t.publication.head.seal;if(s)assigned.push(...seed.inputs.filter(i=>BigInt(i.position)>=s.source_from&&BigInt(i.position)<s.source_to_exclusive).map(i=>String(i.position)));}
  const trace={...seed,publications:tickets.map(t=>t.publication),artifact_events:events,assigned};const result=replayHistory(trace);assert.ok(seed.inputs.every(i=>assigned.includes(String(i.position))),'no paid input left pending at test completion');
- const {RESERVOIR_IDENTITY,ECONOMY_IDENTITY}=await import('../packages/kernels/b2z/world.mjs');
- const lastConfig=trace.publications.at(-1).identity.config_hash,economy=lastConfig===ECONOMY_IDENTITY.config_hash;
+ const {RESERVOIR_IDENTITY,ECONOMY_IDENTITY,DELEGATED_IDENTITY}=await import('../packages/kernels/b2z/world.mjs');
+ const lastConfig=trace.publications.at(-1).identity.config_hash,delegation=lastConfig===DELEGATED_IDENTITY.config_hash,economy=delegation||lastConfig===ECONOMY_IDENTITY.config_hash;
  if(economy||lastConfig===RESERVOIR_IDENTITY.config_hash){
   const {prepareCheckpoint,prepareDerivedSegment,CheckpointPlayer,SegmentPlayer}=await import('../apps/b2z-observer/model.mjs');
   const open=(publication,kind)=>readFile(out+'/publication-'+publication.head.segment_id+'-'+kind+'.bin');
@@ -33,6 +33,12 @@ try{
   const tampered=structuredClone(trace),timed=tampered.inputs.find(i=>i.payload_hex.startsWith('42545a5041593038'));
   assert.ok(timed);
   timed.payload_hex=timed.payload_hex.slice(0,-2)+(timed.payload_hex.endsWith('00')?'01':'00');
+  assert.throws(()=>replayHistory(tampered));
+ }
+ if(delegation){
+  const tampered=structuredClone(trace),delegated=tampered.inputs.find(i=>i.payload_hex.startsWith('42545a5041593039'));
+  assert.ok(delegated);
+  delegated.payload_hex=delegated.payload_hex.slice(0,-2)+(delegated.payload_hex.endsWith('00')?'01':'00');
   assert.throws(()=>replayHistory(tampered));
  }
  const wrongInput=structuredClone(trace),annotated=wrongInput.inputs.find(i=>['BTZPAY03','BTZPAY04','BTZPAY05','BTZPAY06'].some(m=>i.payload_hex.startsWith(Buffer.from(m).toString('hex')))&&i.payload_hex.length>114);assert.ok(annotated);annotated.payload_hex=annotated.payload_hex.slice(0,-2)+(annotated.payload_hex.endsWith('41')?'42':'41');assert.throws(()=>replayHistory(wrongInput));

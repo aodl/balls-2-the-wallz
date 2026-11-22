@@ -28,6 +28,7 @@ export function signedLedger({policy,identity,spender,checkIntent,fetch=globalTh
   }finally{clearTimeout(timer);controller.abort();if(active===controller)active=null;busy=false;}
  }
  return{
+  verifySigner(){return operation(actor=>actor.icrc1_fee());},
   read(funding){return operation(async actor=>{const account={owner:Principal.fromText(funding.owner),subaccount:[Uint8Array.from(funding.subaccount.match(/../g),h=>parseInt(h,16))]};const [fee,allowance]=await Promise.all([actor.icrc1_fee(),actor.icrc2_allowance({account,spender:{owner:Principal.fromText(spender),subaccount:[]}})]);return{fee,allowance:allowance.allowance,expires_at:allowance.expires_at[0]??null};});},
   send(intent){return operation(async actor=>{validateIntent(intent,{localLedger:localTest?policy.ledger:null});if(intent.backend!==policy.canister_id||intent.spender!==spender||intent.ledger!==policy.ledger||intent.network!==policy.network)throw Error('PAYMENT_INTENT_SCOPE');await checkIntent(intent);assertSpender(identity,spender,policy.ledger);return actor.icrc2_transfer_from(intentRequest(intent,{localLedger:localTest?policy.ledger:null}));});},
   cancel(){active?.abort();},get busy(){return busy;},

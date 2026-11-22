@@ -16,7 +16,7 @@ permissions:
 
 env:
   CARGO_TERM_COLOR: always
-  FROZEN_B2Z_ASSETS: evidence/B2Z/rules17-daily-economy/artifacts
+  FROZEN_B2Z_ASSETS: evidence/B2Z/rules18-delegated-payments/artifacts
 
 jobs:
   source:

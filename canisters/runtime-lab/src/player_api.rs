@@ -253,7 +253,7 @@ fn load() -> Result<(Root, Publication, World)> {
 }
 fn limits(w: &World) -> Limits {
     let six = w.version >= 6;
-    if w.version == 9 {
+    if w.version >= 9 {
         // Legacy numeric fields use zero to signal the absence of an inventory
         // quota. `maximum_quantity` still bounds one transaction.
         return Limits {
@@ -328,8 +328,10 @@ fn cannon(w: &World, id: u32) -> Result<Option<CannonView>> {
 pub fn game_info() -> Result<GameInfo> {
     let (r, p, w) = load()?;
     let configuration = if p.identity.config_hash
-        == b2z_native::economy17::identity()["config_hash"]
+        == b2z_native::delegation_v18::identity()["config_hash"]
     {
+        b2z_native::delegation_v18::configuration()
+    } else if p.identity.config_hash == b2z_native::economy17::identity()["config_hash"] {
         b2z_native::economy17::configuration()
     } else if p.identity.config_hash == b2z_native::reservoirs::identity()["config_hash"] {
         b2z_native::reservoirs::configuration()
@@ -695,7 +697,7 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
     let context_rules = spacing
         || p.identity.config_hash == b2z_native::context_structures::configuration_hash()
         || p.identity.config_hash == b2z_native::shout::configuration_hash();
-    let prices = if w.version == 9 {
+    let prices = if w.version >= 9 {
         b2z_native::economy17::quote_items(&w, &funding_account, &memo, ic_cdk::api::time())?
     } else {
         quote_items_with_rules(

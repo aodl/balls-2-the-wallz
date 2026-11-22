@@ -12,7 +12,7 @@ export function cannonReference(world,config,pricedAt=world.playability?.elapsed
     islandBalls.set(region,(islandBalls.get(region)??0)+1);
     playerBalls.set(b.owner,(playerBalls.get(b.owner)??0)+1);
   }
-  const rate=world.version===9?economyAt(world.economy,pricedAt).current:null;
+  const rate=world.version>=9?economyAt(world.economy,pricedAt).current:null;
   return world.cannons.map(c=>{
     const life=world.version>=6?lifecycle.get(c.id):null,region=world.version>=6?ownerAt(c.cell):c.id,player=life?.player??c.id;
     const playerAt=cell=>{const id=ownerAt(cell);return world.version>=6?(id===0?0:players.get(id)):id;};

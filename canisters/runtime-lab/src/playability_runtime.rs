@@ -612,6 +612,31 @@ pub fn economy_candidate<K: Kernel>(
     )
 }
 
+pub fn delegation_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    if source.receiving_subaccount != 0 {
+        return Err("Rules18 requires the certified default receiving account".into());
+    }
+    schema7_candidate(
+        h,
+        t,
+        source,
+        b2z_native::economy17::identity(),
+        b2z_native::delegation_v18::identity(),
+        Schema7Cutover {
+            bootstrap_ns: None,
+            version: 14,
+            migration: "B2Z_DELEGATED_PAYMENT_RULES_18",
+            event: "delegated_payments_activated",
+            previous_adapter: b2z_protocol::economy17::MEMO_ADAPTER_VERSION,
+            next_adapter: b2z_protocol::delegation::ADAPTER_VERSION,
+        },
+    )
+}
+
 fn schema7_candidate<K: Kernel>(
     h: &Coordinator<K>,
     t: &Transition,
@@ -664,7 +689,12 @@ fn schema7_candidate<K: Kernel>(
                 .into(),
         );
     }
-    if old.version != if policy.bootstrap_ns.is_some() { 8 } else { 7 }
+    if old.version
+        != match policy.version {
+            14 => 9,
+            13 => 8,
+            _ => 7,
+        }
         || !old.time.0.is_integer()
         || old.time.0.to_integer() != h.record.journal.head.logical_end.0
         || Int(source.cursor.into()) != h.record.inbox.cursor
@@ -681,6 +711,8 @@ fn schema7_candidate<K: Kernel>(
     }
     let next = if let Some(ns) = policy.bootstrap_ns {
         b2z_native::economy17::migrate(old.clone(), ns)?
+    } else if policy.version == 14 {
+        b2z_native::delegation_v18::migrate(old.clone(), source.recipient_hex.clone())?
     } else if policy.version == 12 {
         b2z_native::reservoirs::migrate(old.clone())?
     } else {
@@ -697,8 +729,11 @@ fn schema7_candidate<K: Kernel>(
         "memo_adapter_before":source.memo_adapter_version,
         "memo_adapter_after":policy.next_adapter
     });
-    if let Some(schedule) = &next.economy {
-        metadata["bootstrap"] = json!(schedule);
+    if policy.version == 13 {
+        metadata["bootstrap"] = json!(next.economy.as_ref().ok_or("missing economy bootstrap")?);
+    }
+    if policy.version == 14 {
+        metadata["recipient"] = json!(source.recipient_hex);
     }
     Ok((
         Output {
@@ -765,7 +800,7 @@ fn install_world(r: &Root, w: &World) -> Result<()> {
         .min()
         .map(number)
         .transpose()?;
-    let midnight = if w.version == 9 {
+    let midnight = if w.version >= 9 {
         let day = b2z_protocol::economy17::DAY_NS;
         (number(&state.elapsed_ns)? / day + 1).checked_mul(day)
     } else {
@@ -775,7 +810,7 @@ fn install_world(r: &Root, w: &World) -> Result<()> {
         let at =
             if deadline <= now && (r.lifecycle_error.is_some() || r.source.last_error.is_some()) {
                 now.saturating_add(60_000_000_000)
-            } else if deadline <= now && (r.lifecycle_barrier.is_some() || w.version == 9) {
+            } else if deadline <= now && (r.lifecycle_barrier.is_some() || w.version >= 9) {
                 now.saturating_add(1_000_000_000)
             } else {
                 deadline.max(now.saturating_add(1_000_000))
@@ -825,9 +860,9 @@ fn maintain() -> Result<()> {
     let now = ic_cdk::api::time();
     let state = w.playability.as_ref().ok_or("missing lifecycle state")?;
     let day = b2z_protocol::economy17::DAY_NS;
-    let pricing_due = w.version == 9 && number(&state.elapsed_ns)? / day < now / day;
+    let pricing_due = w.version >= 9 && number(&state.elapsed_ns)? / day < now / day;
     let mut due = state.due(now);
-    if w.version == 9 {
+    if w.version >= 9 {
         // Keep the authenticated checkpoint preimage under its existing byte
         // budget. Additional due fences remain eligible in the next checkpoint.
         let mut bytes = 0;

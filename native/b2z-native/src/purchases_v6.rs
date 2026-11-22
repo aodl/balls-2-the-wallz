@@ -721,7 +721,7 @@ impl Batch {
     }
     pub fn validate(&self, world: &World) -> Result<()> {
         if world.version < 6
-            || (world.version == 9) != self.economy_multiplier.is_some()
+            || (world.version >= 9) != self.economy_multiplier.is_some()
             || self.economy_multiplier == Some(0)
             || !(1..=b2z_protocol::v6::MAX_QUANTITY).contains(&self.requested)
             || self.prices.len() > usize::from(self.requested)

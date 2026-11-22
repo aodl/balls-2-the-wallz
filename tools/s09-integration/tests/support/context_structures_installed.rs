@@ -897,19 +897,19 @@ fn spacing_rules14_upgrade_official_payments_and_authenticated_replay() {
 #[test]
 #[ignore = "requires the exact qualified Rules15 normal predecessor archive"]
 fn reservoirs_rules15_upgrade_official_transfers_and_replay() {
-    reservoir_then_economy(false, false);
+    reservoir_then_economy(false, false, false);
 }
 
 #[test]
 #[ignore = "requires the exact deployed Rules16 normal predecessor"]
 fn economy_rules16_upgrade_official_timestamps_and_replay() {
-    reservoir_then_economy(true, false);
+    reservoir_then_economy(true, false, false);
 }
 
 #[test]
 #[ignore = "requires the exact deployed Rules16 normal predecessor"]
 fn economy_recovers_missing_index_times_from_official_ledger_and_archive() {
-    reservoir_then_economy(true, true);
+    reservoir_then_economy(true, true, false);
 }
 
 fn archived_payment_time(pic: &PocketIc, ledger: Principal, position: u64) -> u64 {
@@ -1070,11 +1070,21 @@ fn recover_missing_index_times(
     );
 }
 
-fn reservoir_then_economy(successor_economy: bool, recover_times: bool) {
+#[test]
+#[ignore = "focused disposable signed financial successor"]
+fn delegation_rules17_upgrade_signed_ledger_and_replay() {
+    reservoir_then_economy(true, false, true);
+}
+
+fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegation: bool) {
     use b2z_protocol::{economy17, reservoir, shout};
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("reservoir");
     std::fs::create_dir_all(&out).unwrap();
-    let payer = Principal::self_authenticating([9; 32]);
+    let mut signer = delegation.then(|| super::delegation_installed::Signer::start(&out));
+    let payer = signer
+        .as_ref()
+        .map(|signer| signer.owner)
+        .unwrap_or_else(|| Principal::self_authenticating([9; 32]));
     let mut fixture = test_world(payer);
     let wall_ns = std::time::UNIX_EPOCH.elapsed().unwrap().as_nanos() as u64;
     let midnight = (wall_ns / economy17::DAY_NS - 3) * economy17::DAY_NS;
@@ -1098,7 +1108,11 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool) {
         initial.clone(),
         10_000,
         seconds_ago,
-        &[],
+        if delegation {
+            std::slice::from_ref(&payer)
+        } else {
+            &[]
+        },
     );
     playability_installed::funding_paused(&pic, id, true);
     upgrade(&pic, id, retained_wasm());
@@ -1225,15 +1239,21 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool) {
     assert_eq!(arena_world(&pic, id).encode().unwrap(), current);
 
     let mut priced = BTreeMap::new();
+    let mut delegated_positions = BTreeMap::new();
+    let normal17 = if delegation {
+        "B2Z_RULES17_PRIOR_WASM"
+    } else {
+        "B2Z_S14_WASM"
+    };
     if successor_economy {
         let old = arena_world(&pic, id);
         let publication = observe(&pic, id).0.publication;
         let finance = funding_tests::preserved_finance(&pic, id);
         let cursor = status(&pic, id).source.admitted_to_exclusive;
-        upgrade(&pic, id, bytes("B2Z_S14_WASM"));
+        upgrade(&pic, id, bytes(normal17));
         assert_eq!(observe(&pic, id).0.publication, publication);
         assert_eq!(arena_world(&pic, id), old);
-        war_cry_installed::transition(&pic, id, "economy");
+        war_cry_installed::transition_with_recovery_module(&pic, id, "economy", normal17);
         let new = arena_world(&pic, id);
         assert_eq!(new.version, 9);
         let bootstrap = new
@@ -1437,14 +1457,66 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool) {
         assert!(diverters.iter().any(|d| d.cell == 12014));
         assert_eq!(result.economy.as_ref().unwrap().tariffs(effective).0, 1);
         let raw = result.encode().unwrap();
-        upgrade(&pic, id, bytes("B2Z_S14_WASM"));
+        upgrade(&pic, id, bytes(normal17));
         assert_eq!(arena_world(&pic, id).encode().unwrap(), raw);
         save(
             &out,
             "economy-cost.json",
             &json!({"head_before":head_before,"paid_cycles":(cycles_before-pic.cycle_balance(id)).to_string(),
-            "state_bytes":raw.len(),"predecessor":dtr_wire::hash(&bytes(normal16)),"successor":dtr_wire::hash(&bytes("B2Z_S14_WASM"))}),
+            "state_bytes":raw.len(),"predecessor":dtr_wire::hash(&bytes(normal16)),"successor":dtr_wire::hash(&bytes(normal17))}),
         );
+        if let Some(signer) = signer.as_mut() {
+            assert_eq!(
+                dtr_wire::hash(&bytes(normal17)),
+                "c066140f4ef3174b3f440694c19ec4116a03298fcc63b80636b0b5389bc210ca"
+            );
+            let p = observe(&pic, id).0.publication;
+            let f = funding_tests::preserved_finance(&pic, id);
+            let s = status(&pic, id).source.admitted_to_exclusive;
+            upgrade(&pic, id, bytes("B2Z_S14_WASM"));
+            assert_eq!(observe(&pic, id).0.publication, p);
+            assert_eq!(arena_world(&pic, id), result);
+            war_cry_installed::transition(&pic, id, "delegation");
+            assert_eq!(
+                arena_world(&pic, id),
+                b2z_native::delegation_v18::migrate(result.clone(), funding_account(id).to_hex())
+                    .unwrap()
+            );
+            assert_eq!(funding_tests::preserved_finance(&pic, id), f);
+            assert_eq!(status(&pic, id).source.admitted_to_exclusive, s);
+            playability_installed::record_bundled(&pic, id, &mut history, &out);
+            let owned_balls = result.balls.iter().filter(|b| b.owner == owner_id).count();
+            let signed = signer.pay(&pic, id, ledger, &result, owned_balls);
+            let last = *signed.keys().last().unwrap();
+            let rows = super::delegation_installed::official_inputs(&pic, id, &signed);
+            for (proof, (reason, amount_used, spender)) in rows {
+                let position = proof.position;
+                assert_eq!(proof.from, *funding_account(payer).as_bytes());
+                assert_eq!(proof.to, *funding_account(id).as_bytes());
+                assert_eq!(proof.fee, 10_000);
+                assert_eq!(
+                    proof.spender,
+                    spender.map(|p| *funding_account(p).as_bytes())
+                );
+                receipts.insert(position, reason);
+                input.insert(position, hex(&proof.encode().unwrap()));
+                delegated_positions.insert(position, (proof, amount_used));
+            }
+            wait_admitted(&pic, id, last);
+            // Upgrade before applying admitted source positions, then confirm
+            // that exactly one retained receipt is produced per position.
+            upgrade(&pic, id, bytes("B2Z_S14_WASM"));
+            complete_one_trickle_tick(&pic, id);
+            playability_installed::record_bundled(&pic, id, &mut history, &out);
+            let after = arena_world(&pic, id);
+            assert_eq!(
+                after.balls.iter().filter(|b| b.owner == owner_id).count(),
+                owned_balls + 2
+            );
+            assert_eq!(after.reservoirs, result.reservoirs);
+            assert!(after.authorization.as_ref().unwrap().grants.is_empty());
+            assert_eq!(status(&pic, id).source.admitted_to_exclusive, last + 1);
+        }
     }
 
     let mut observed = BTreeMap::new();
@@ -1461,6 +1533,24 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool) {
                 .unwrap();
             assert!(observed.insert(position, receipt.clone()).is_none());
             assert_eq!(receipt["reason"], receipts[&position]);
+            if let Some((proof, used)) = delegated_positions.get(&position) {
+                assert_eq!(receipt["account"], hex(&proof.from));
+                assert_eq!(
+                    receipt["transfer"]["memo"],
+                    proof
+                        .memo
+                        .as_ref()
+                        .map(|m| hex(m))
+                        .map(Value::String)
+                        .unwrap_or(Value::Null)
+                );
+                assert_eq!(receipt["transfer"]["raw_digest"], hex(&proof.raw_digest));
+                assert_eq!(
+                    receipt["transfer"]["ledger_recorded_ns"]["$integer"],
+                    proof.ledger_time_ns.to_string()
+                );
+                assert_eq!(receipt["amount_used"]["$integer"], used.to_string());
+            }
             if receipts[&position] != "ACCEPTED" {
                 assert_eq!(receipt["remainder"], receipt["amount"]);
                 assert_eq!(receipt["amount_used"]["$integer"], "0");
@@ -1472,7 +1562,10 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool) {
                 );
                 assert_eq!(receipt["price_multiplier"], *multiplier);
                 assert_eq!(receipt["amount_used"]["$integer"], used.to_string());
-            } else if receipts[&position] == "ACCEPTED" && position != historic {
+            } else if receipts[&position] == "ACCEPTED"
+                && position != historic
+                && !delegated_positions.contains_key(&position)
+            {
                 assert_eq!(receipt["amount_used"]["$integer"], "1000000");
             }
         }
@@ -1517,6 +1610,6 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool) {
             .status()
             .unwrap()
             .success(),
-        "independent authenticated Rules16 replay"
+        "independent authenticated successor replay"
     );
 }

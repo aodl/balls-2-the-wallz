@@ -8,7 +8,7 @@ const trajectory=b=>({id:b.id,owner:b.owner,x0:b.x0,y0:b.y0,vx:b.vx,vy:b.vy,...(
 const same=(a,b)=>a&&['id','owner','x0','y0','vx','vy','den'].every(k=>a[k]===b[k])&&(!a.deflector_rearm&&!b.deflector_rearm||a.deflector_rearm&&b.deflector_rearm&&a.deflector_rearm.every((n,i)=>n===b.deflector_rearm[i]));
 
 export function projectAnimationEvents(world,sourceEvents){
-  if(!world||![3,4,5,6,7,8,9].includes(world.version)||!Array.isArray(world.balls))throw new Error('B2Z animation initial state');
+  if(!world||![3,4,5,6,7,8,9,10].includes(world.version)||!Array.isArray(world.balls))throw new Error('B2Z animation initial state');
   const source=decodeCanonical(sourceEvents);
   if(source.version!==world.version||!Array.isArray(source.events)||source.events.length>131072||!Array.isArray(source.receipts))
     throw new Error('B2Z animation source version/bounds');

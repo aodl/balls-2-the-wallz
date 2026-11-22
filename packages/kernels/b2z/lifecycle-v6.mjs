@@ -17,7 +17,7 @@ export function expireV6(w,observed_ns,fences){
   seen.add(id);prior=key;const l=life(w,f.cannon);if(!l||f.generation<l.generation)continue;
   if(f.generation!==l.generation||f.deadline_ns!==l.deadline_ns)throw Error('EXPIRY_FENCE');if(deadline>observed_ns)throw Error('EXPIRY_NOT_DUE');due.push(f);
  }
- const priorNs=w.playability.elapsed_ns,pricingDue=w.version===9&&priorNs/DAY_NS<observed_ns/DAY_NS;
+ const priorNs=w.playability.elapsed_ns,pricingDue=w.version>=9&&priorNs/DAY_NS<observed_ns/DAY_NS;
  if(!due.length&&!pricingDue)return null;
  const context={domain:'B2Z-LIFECYCLE-CONTEXT-01',version:1,previous_state:sha256(encodeWorld(w)),observed_ns,fences:cloneCanonical(fences)},next=cloneCanonical(w);next.playability.elapsed_ns=observed_ns;
  const events=[{kind:'lifecycle_context',sequence:0,time:w.time,context}],expired=[];

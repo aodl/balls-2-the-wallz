@@ -1,4 +1,5 @@
 /** Rules18 candidate grant state. All ordering and expiry facts come from the Ledger. */
+import {encodeCanonical} from "@dtr/timeline-runtime/runtime/canonical";
 import {hex,unhex} from '@dtr/timeline-runtime/protocol/bytes';
 import {canonicalAccount} from '../../protocol/account.mjs';
 import {decodeAuthorization,encodeDelegatedPayment,icpAccount,DELEGATION_LIFETIME_NS} from '../../protocol/delegation.mjs';
@@ -61,4 +62,42 @@ export function authorizePayment(registry,payment,position) {
  registry.last_position=position;
  registry.ledger_time_ns=payment.ledger_time_ns;
  return decision;
+}
+
+export function receiptTransfer(payment) {
+ return {
+  spender:payment.spender,to:payment.to,fee:payment.fee,ledger_recorded_ns:payment.ledger_time_ns,
+  created_at_ns:payment.created_at_ns,legacy_memo:payment.legacy_memo,
+  memo:payment.memo===null?null:hex(payment.memo),raw_digest:payment.raw_digest,
+ };
+}
+
+/** Replay receipt authorization from the two independently authenticated
+ * world snapshots and the signed publication's exact audit artifact. */
+export function verifyAuthorizationReceipts(initial,final,receipts,seal) {
+ const registry=structuredClone(initial.authorization);
+ let received=initial.received_e8s;
+ if(receipts.length!==Number(seal.input_count))throw Error('AUTH_RECEIPT_COUNT');
+ for(const receipt of receipts){
+  const t=receipt.transfer,position=receipt.position;
+  if(!t||receipt.spender!==t.spender||receipt.ledger_recorded_ns!==t.ledger_recorded_ns||
+     position<seal.source_from||position>=seal.source_to_exclusive)throw Error('AUTH_RECEIPT_SCOPE');
+  const decision=authorizePayment(registry,{
+   from:receipt.account,amount:receipt.amount,position,spender:t.spender,to:t.to,fee:t.fee,
+   ledger_time_ns:t.ledger_recorded_ns,created_at_ns:t.created_at_ns,legacy_memo:t.legacy_memo,
+   memo:t.memo===null?null:unhex(t.memo),raw_digest:t.raw_digest,
+  },position);
+  received+=receipt.amount;
+  if(decision==='granted'||decision==='revoked'){
+   if(receipt.status!=='configured'||receipt.reason!==(decision==='granted'?'DELEGATION_GRANTED':'DELEGATION_REVOKED')||
+      receipt.amount_used!==0n||receipt.remainder!==receipt.amount)throw Error('AUTH_SETUP_RECEIPT');
+  }else if(decision!=='gameplay'){
+   if(receipt.status!=='rejected'||receipt.reason!==decision||receipt.amount_used!==0n||
+      receipt.remainder!==receipt.amount)throw Error('AUTH_REJECT_RECEIPT');
+  }else if(!['applied','partially_applied','rejected'].includes(receipt.status)||receipt.amount_used<0n||
+            receipt.amount_used+receipt.remainder!==receipt.amount){
+   throw Error('AUTH_GAME_RECEIPT');
+  }
+ }
+ if(final.received_e8s!==received||hex(encodeCanonical(registry))!==hex(encodeCanonical(final.authorization)))throw Error('AUTH_RECEIPT_CONTINUITY');
 }

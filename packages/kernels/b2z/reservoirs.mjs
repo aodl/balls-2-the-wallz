@@ -14,8 +14,8 @@ export function migrateReservoirs(previous) {
 }
 
 export function prepareReservoir(world, account, amount, cell) {
-  if (world.version !== 8 && world.version !== 9) throw Error('RESERVOIR_SCHEMA');
-  const price=world.version===9?ECONOMY_PRICE:RESERVOIR_PRICE_E8S;
+  if (world.version < 8) throw Error('RESERVOIR_SCHEMA');
+  const price=world.version>=9?ECONOMY_PRICE:RESERVOIR_PRICE_E8S;
   if (amount < price) return reject('UNDERFUNDED');
   const player = playerByAccount(world, account);
   const territory = ownerAt(world, cell);

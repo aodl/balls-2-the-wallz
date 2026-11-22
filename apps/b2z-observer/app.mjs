@@ -33,7 +33,20 @@ let audioCollector=null;
 canvas.addEventListener('webglcontextlost',()=>audio.fence());
 let arenaRenderer=null,renderError=null;
 try{arenaRenderer=createArenaRenderer(canvas,{onError(message){renderError=message;$('render-error').hidden=false;$('render-error').textContent=message;},onRestore(){renderError=null;$('render-error').hidden=true;}});}catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='This browser could not start the 3D arena. WebGL 2 is required.';}
-let cycleMonitor=null;
+let cycleMonitor=null,optionalPayments=null,paymentsLoad=null,paymentsSession=null;
+function updateOptionalPayments(s){
+ const eligible=s?.mode==='live'&&s.ready&&s.recording?.deployment&&s.config?.rules_version>=17?s:null;
+ if(paymentsSession!==eligible){
+  optionalPayments?.stop();optionalPayments=null;paymentsLoad=null;paymentsSession=eligible;
+ }
+ if(!eligible)return;
+ if(optionalPayments){optionalPayments.update();return;}
+ if(!paymentsLoad)paymentsLoad=import('./delegated-payments/ui.mjs').then(({mountPayments})=>{
+  if(session!==s||paymentsSession!==s)return;
+  optionalPayments=mountPayments(document,{enabled:true,session:()=>session,arcade,policy:()=>session?.recording?.deployment,
+   localTest:s.source.network==='pocketic-local',retainedReceipts:intent=>readRetainedPayment(s,intent)});
+ }).catch(()=>{/* Optional signing failure must not interrupt observation or manual Copy. */});
+}
 let bootError=null,catalog=null,session=null,paused=false,speed=1,lastFrame=null,lastHud=0;
 let cameraRestored=false,lastDetailsKey='';
 let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
@@ -145,6 +158,37 @@ async function liveArtifacts(s,ticket){
   }));
   s.artifactMs=performance.now()-started;const failed=results.find(r=>r.status==='rejected');if(failed)throw failed.reason;const artifacts=Object.fromEntries(results.map(r=>r.value));
   return artifacts;
+}
+// Explicit recovery reads a bounded, hash-linked receipt history from the already
+// verified live head. A missing retained publication never authorizes a retry.
+async function readRetainedPayment(s,intent){
+ const head=s.sequence.last;if(!head||!active(s)||s.error)throw Error('VERIFIED_PAYMENT_UNAVAILABLE');
+ let ticket=head;
+ const rows=[];
+ for(let examined=0;examined<16;examined++){
+  const {publication:{head:h,artifacts}}=ticket;
+  if(!active(s)||s.error||h.segment_id===null)break;
+  const segment=Number(h.segment_id),position=intent.index===null?null:BigInt(intent.index);
+  if(!Number.isSafeInteger(segment)||segment<0)break;
+  const seal=h.seal;
+  if(seal&&position!==null&&position>=seal.source_to_exclusive)break;
+  if(seal?.input_count&&position===null||seal&&position!==null&&position>=seal.source_from){
+   const kind=artifacts.findIndex(a=>a.kind==='events'),assembler=new ArtifactAssembler(ticket,'events');
+   for(let index=0;index<assembler.descriptor.chunks.length;index++){
+    if(!active(s)||s.error)throw Error('VERIFIED_PAYMENT_UNAVAILABLE');
+    await assembler.accept(index,await s.client.chunk(segment,ticket.root_hash,kind,index));
+   }
+   for(const row of decodeCanonical(await assembler.finish()).receipts){
+    if(row.transfer&&(position===null||row.position===position))rows.push(row);
+   }
+   if(position!==null)break;
+  }
+  if(segment===0)break;
+  ticket=await verifyRetainedPredecessor(await s.client.publication(segment-1),ticket);
+ }
+ if(!active(s)||s.error)throw Error('VERIFIED_PAYMENT_UNAVAILABLE');
+ for(const row of rows)s.receipts.set(String(row.position),row);
+ return rows;
 }
 function rememberHead(head){const heads=globalThis.__dtrLive.heads;heads.push(head);if(heads.length>4096)heads.splice(0,heads.length-4096);}
 function presentationPace(s){return nominalPace(s.operational??s.lastPaceStatus);}
@@ -424,6 +468,7 @@ function updateHud(){
  const data={trust:s?.mode==='live'?'IC certificates, catalog and artifact verification':s?.mode==='local'?'Pinned disposable IC certificate':'Offline content consistency only',backend:s?.recording.canister_id,source:s?.source,root:s?.root,head:s?.sequence.last?.publication.head,identity:s?.sequence.last?.publication.identity,producer:s?.operational,cycles:s?.publicCycles,operational_fresh:operationalFresh,operational_failures:s?.statusFailures??0,operational_failure_kind:s?.statusFailureKind,operational_age_ms:Number.isFinite(s?.lastOperationalAt??s?.operationalAt)?Math.max(0,now-(s.lastOperationalAt??s.operationalAt)):null,presentation:s?.clock.state(),delivery:s?.deliveryDiagnostics};
  const detailsKey=[s?.root,p,resolved.kind,resolved.canPrepare,operationalFresh,s?.publicCyclesAt,$('status-view').hidden,$('status-view').hidden?0:Math.floor(now/1000)].join('/');
  if(detailsKey!==lastDetailsKey){lastDetailsKey=detailsKey;const details=JSON.stringify(data,(_,v)=>typeof v==='bigint'?String(v):v,2);if($('status-details').textContent!==details)$('status-details').textContent=details;}
+ updateOptionalPayments(s);
  globalThis.__b2zExperience={composer:arcade.proposedAction(),status:resolved,clock:s?.clock,queue:s?.queue,session:s,visibleTime,visible,render:globalThis.__b2zRender};
 }
 function draw(frameTime=null){
@@ -490,7 +535,7 @@ const observations=observationLoop({work:pump,refresh:refreshOperational,onRetur
 document.addEventListener('visibilitychange',()=>{audio.lifecycle(document.hidden);observations.visibility();cycleMonitor?.visibility();});
 document.addEventListener('freeze',()=>{audio.lifecycle(true);observations.suspend();});
 document.addEventListener('resume',()=>{audio.lifecycle(false);lastFrame=null;observations.resume();});
-addEventListener('pagehide',event=>{audio.lifecycle(true);if(!event.persisted)audio.dispose();if(event.persisted)observations.suspend();if(!event.persisted){observations.stop();cycleMonitor?.stop();shell.dispose();arenaRenderer?.dispose();session?.abort.abort();}});
+addEventListener('pagehide',event=>{audio.lifecycle(true);if(!event.persisted)audio.dispose();if(event.persisted)observations.suspend();if(!event.persisted){optionalPayments?.stop();observations.stop();cycleMonitor?.stop();shell.dispose();arenaRenderer?.dispose();session?.abort.abort();}});
 addEventListener('pageshow',event=>{if(event.persisted){audio.lifecycle(false);lastFrame=null;observations.resume();}});
 new ResizeObserver(draw).observe(canvas);
 async function bootstrap(){

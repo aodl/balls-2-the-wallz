@@ -53,18 +53,28 @@ normalizer check. SDK signing, intent recovery and owner command tests
 use local fixtures. The 17 shared Rust protocol tests, 61 runtime host unit tests and normal
 Wasm target check also passed.
 
-## Activation gates still open
+## Integrated successor
 
-The paid runtime still needs to wire the registry into ordered execution,
-publish and verify delegated receipts, and add the controller-only source
-fence and epoch commitment. The source adapter has no active transition
-to select it. The recovered authentication, journal and Ledger modules are
-not mounted in the game. Official disposable Index and Ledger/archive tests
-must exercise the full successor, including allowance and revocation.
+The candidate now wires grants into ordered execution, includes the original
+transfer fields in the certified receipt and exposes a metadata-version-14
+prepare, drain, commit and same-module recovery path. The frontend exposes
+optional signing only for the verified receiving account and exact successor.
+The Rules17 predecessor remains usable for manual payments and can exercise a
+read-only signed Ledger query during Internet Identity acceptance.
 
-The new source still requires the state-preserving Rules17 cutover rehearsal,
-official disposable Ledger/Index financial tests, independent authenticated
-replay and exact-source hosted qualification. Real Internet Identity
-acceptance on the established European frontend origin requires an
-owner-controlled sign-in once the gated candidate is ready. No mainnet
-allowance or payment is needed to verify that sign-in ceremony.
+A read-only check at 21:33 UTC on 22 November confirmed the European frontend
+`33016b1d731717a80e0c67cc52df77a996b88f3264d9b9ae1c7a58fc812369b6`
+and Rules17 backend
+`c066140f4ef3174b3f440694c19ec4116a03298fcc63b80636b0b5389bc210ca`.
+The backend had two Cannons and two Balls in the authenticated Schema9 snapshot.
+Signed operational status showed one-tick Trickle with open admission,
+healthy source binding, zero pending records and cursor 40,647,923.
+The frontend held 792.028B cycles with a 202.914B freezing floor, leaving
+95.114B after the previous 494B combined proposed installation, compatible
+reinstall, staging and contingency allowance. Backend liquid headroom after
+its freezing floor was 2.313T. Refresh these observations before any release.
+
+Mandatory gates remain the actual integrated disposable signed Ledger journey,
+independent authenticated replay, hosted qualification on the frozen
+candidate and real Internet Identity acceptance on the established European
+origin. No mainnet deployment or financial operation was performed.

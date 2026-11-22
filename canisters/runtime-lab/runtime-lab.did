@@ -336,6 +336,7 @@ service : (blob, nat64, IndexConfig) -> {
   // Derives the Deflector rules-12 metadata once. No caller-supplied world, time or identities.
   commit_deflector_transition : (text) -> (Result_2);
   // Derives the rules-7 metadata once. No caller-supplied world, time or identities.
+  commit_delegation_transition : (text) -> (Result_2);
   commit_economy_transition : (text) -> (Result_2);
   commit_entry_transition : (text) -> (Result_2);
   // Commit the reviewed compact 1000×1000 state through DTR's generic next
@@ -357,6 +358,7 @@ service : (blob, nat64, IndexConfig) -> {
   controller_runtime : () -> (Result_5) query;
   controller_work : () -> (Result_6) query;
   deflector_transition_status : () -> (Result_2) query;
+  delegation_transition_status : () -> (Result_2) query;
   economy_transition_status : () -> (Result_2) query;
   entry_transition_status : () -> (Result_2) query;
   // Content-addressed application metadata. Hash against the independently
@@ -382,6 +384,7 @@ service : (blob, nat64, IndexConfig) -> {
   prepare_deflector_transition : () -> (Result_2);
   // Change only first-entry rules at the exact committed rules-v6 predecessor.
   // The existing fenced source worker obtains its own Ledger/Index watermarks.
+  prepare_delegation_transition : () -> (Result_2);
   prepare_economy_transition : () -> (Result_2);
   prepare_entry_transition : () -> (Result_2);
   // Begins only the reviewed v4→v5 cutover. The existing v3→v4 evidence is

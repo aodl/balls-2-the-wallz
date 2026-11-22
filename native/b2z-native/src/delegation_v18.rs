@@ -196,6 +196,54 @@ mod tests {
     }
 
     #[test]
+    fn delegated_execution_matches_independent_js() {
+        let (_, vector) = vector();
+        let execution = &vector["execution"];
+        let state = unhex(execution["state"].as_str().unwrap()).unwrap();
+        let mut seal = execution["seal"].clone();
+        for key in ["logical_start", "logical_end"] {
+            seal[key] = serde_json::json!(Int(execution["seal"][key]
+                .as_str()
+                .unwrap()
+                .parse::<u64>()
+                .unwrap()
+                .into()));
+        }
+        let inputs: Vec<_> = execution["inputs"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .map(|i| crate::Input {
+                position: Int(i["position"]
+                    .as_str()
+                    .unwrap()
+                    .parse::<u64>()
+                    .unwrap()
+                    .into()),
+                payload_hex: i["payload_hex"].as_str().unwrap().into(),
+            })
+            .collect();
+        let mut c = crate::Cursor::begin(&state, inputs, &seal).unwrap();
+        loop {
+            if c.step(17).unwrap().1 {
+                break;
+            }
+            let saved = c.snapshot().unwrap();
+            c = crate::Cursor::restore(&saved, &dtr_wire::hash(&saved)).unwrap();
+        }
+        c.finalize_elapsed(execution["observed_ns"].as_str().unwrap().parse().unwrap())
+            .unwrap();
+        let output = c.result().unwrap();
+        for (k, bytes) in [
+            ("state", output.state),
+            ("events", output.events),
+            ("scores", output.scores),
+        ] {
+            assert_eq!(dtr_wire::hash(&bytes), execution["output"][k], "{k}");
+        }
+    }
+
+    #[test]
     fn keyed_grants_survive_beyond_the_historical_limit() {
         let (mut p, vector) = vector();
         let mut registry = Registry::empty(hex(&p.to)).unwrap();
@@ -244,12 +292,16 @@ mod tests {
     }
 }
 
+pub fn configuration() -> &'static [u8] {
+    include_bytes!("../../../apps/b2z-observer/configuration-delegated.bin")
+}
+
 pub fn identity() -> serde_json::Value {
     use dtr_wire::hash;
     serde_json::json!({
         "rules_hash": hash(b"B2Z_DELEGATED_PAYMENT_RULES_18"),
         "schema_hash": hash(b"B2Z_STATE_10_ORDERED_AUTHORIZATION"),
-        "config_hash": hash(include_bytes!("../../../apps/b2z-observer/configuration-delegated.bin")),
+        "config_hash": hash(configuration()),
     })
 }
 
@@ -264,4 +316,23 @@ pub fn migrate(mut world: crate::world::World, recipient: String) -> Result<crat
     world.version = 10;
     world.validate()?;
     Ok(world)
+}
+
+pub(crate) fn transfer(input: &crate::Input) -> Result<(Payment, u64)> {
+    let payment = Payment::decode(&unhex(&input.payload_hex)?)?;
+    let position = uint(&input.position)?;
+    Ok((payment, position))
+}
+
+pub(crate) fn receipt_transfer(payment: &Payment) -> serde_json::Value {
+    serde_json::json!({
+        "spender": payment.spender.as_ref().map(|bytes| hex(bytes)),
+        "to": hex(&payment.to),
+        "fee": Int(payment.fee.into()),
+        "ledger_recorded_ns": Int(payment.ledger_time_ns.into()),
+        "created_at_ns": payment.created_at_ns.map(|time| Int(time.into())),
+        "legacy_memo": Int(payment.legacy_memo.into()),
+        "memo": payment.memo.as_ref().map(|bytes| hex(bytes)),
+        "raw_digest": hex(&payment.raw_digest),
+    })
 }

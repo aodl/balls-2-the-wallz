@@ -1,3 +1,6 @@
+import {decodeDelegatedPayment,pricingEnvelope} from '../../protocol/delegation.mjs';
+import {hex} from '@dtr/timeline-runtime/protocol/bytes';
+import {authorizePayment,receiptTransfer} from './delegation-v18.mjs';
 import {affordableBalls} from '../../protocol/economy17.mjs';
 import {economyAt,observeEconomy} from './economy17.mjs';
 import {playerBalls} from './purchases-v6.mjs';
@@ -42,13 +45,31 @@ function pricingPlan(c,p,reservoir){
 export function workV6(c,readPayment){
  if(c.phase==='commands'){
    if(c.inputIndex===c.inputs.length){c.restartSearch();return true;}
-   const p=readPayment(c.inputs[c.inputIndex].payload_hex);if(c.v6.war_cry_rules)c.v6.pending_cry=p.cry||null;
+   const input=c.inputs[c.inputIndex];
+   let transfer=null,payload=input.payload_hex;
+   if(c.world.version===10){
+     const admitted=decodeDelegatedPayment(payload);
+     transfer=receiptTransfer(admitted);
+     const decision=authorizePayment(c.world.authorization,admitted,input.position);
+     if(decision!=='gameplay'){
+       const {amount,from:account}=admitted,payment={account,amount,transfer};
+       if(c.world.received_e8s+amount>=1n<<128n)throw Error('treasury overflow');
+       c.world.received_e8s+=amount;
+       if(decision==='granted'||decision==='revoked'){
+         const [reason,kind]=decision==='granted'?['DELEGATION_GRANTED','game_access_granted']:['DELEGATION_REVOKED','game_access_revoked'];
+         c.receipt(payment,{reason,kind,status:'configured',amount_used:0n,remainder:amount});
+       }else rejected(c,payment,decision);
+       return true;
+     }
+     payload=hex(pricingEnvelope(admitted));
+   }
+   const p=readPayment(payload);if(c.v6.war_cry_rules)c.v6.pending_cry=p.cry||null;
    if(c.world.received_e8s+p.amount>=1n<<128n)throw Error('treasury overflow');
    const reservoir=c.v6.reservoir_rules?reservoirCell(p.memo):null;
-   const [economyPlan,tariff]=c.world.version===9?pricingPlan(c,p,reservoir):[];
+   const [economyPlan,tariff]=c.world.version>=9?pricingPlan(c,p,reservoir):[];
    const plan=economyPlan??(reservoir!==null?prepareReservoir(c.world,p.account,p.amount,reservoir):c.v6.context_rules?(prepareContextDeflector(c.world,p.account,p.amount,p.memo,!!c.v6.spacing_rules)??preparePurchase(c.world,p.account,p.amount,p.memo,c.moved,true,!!c.v6.spacing_rules)):(c.v6.deflector_rules?prepareDeflectorPurchase(c.world,p.account,p.amount,p.memo):null)??(c.v6.clearance_rules?preparePurchaseClearance:preparePurchase)(c.world,p.account,p.amount,p.memo,c.moved));
    c.world.received_e8s+=p.amount;
-   const payment={account:p.account,amount:p.amount,...(tariff?{tariff}:{})};
+   const payment={account:p.account,amount:p.amount,...(tariff?{tariff}:{}),...(transfer?{transfer}:{})};
    if(plan.kind==='rejected')rejected(c,payment,plan.reason);
    else if(plan.kind==='reservoir'){
      c.world.reservoirs=reservoirPut(c.world.reservoirs,plan.cell);
@@ -115,7 +136,7 @@ export function finalizeCursorElapsed(c,observedNs){
 
 export function validateV6Cursor(c){
  const s=c.v6;
- if(!s||Boolean(s.reservoir_rules)!==(c.world.version>=8)||Boolean(s.economy_predecessor)!==(c.world.version===9)||s.reservoir_rules&&!s.spacing_rules||s.spacing_rules&&!s.shout_rules||s.shout_rules&&!s.context_rules||s.context_rules&&!s.deflector_rules||Boolean(s.deflector_rules)!==(c.world.version>=7)||s.finalized&&c.phase!=='done'||c.world.version<9&&s.births.length>V6_POLICY.max_cannons||new Set(s.births.map(f=>f.cannon)).size!==s.births.length
+ if(!s||Boolean(s.reservoir_rules)!==(c.world.version>=8)||Boolean(s.economy_predecessor)!==(c.world.version>=9)||s.reservoir_rules&&!s.spacing_rules||s.spacing_rules&&!s.shout_rules||s.shout_rules&&!s.context_rules||s.context_rules&&!s.deflector_rules||Boolean(s.deflector_rules)!==(c.world.version>=7)||s.finalized&&c.phase!=='done'||c.world.version<9&&s.births.length>V6_POLICY.max_cannons||new Set(s.births.map(f=>f.cannon)).size!==s.births.length
    ||(s.capture!==null)!==(c.phase==='v6_topology')||(s.batch!==null)!==(c.phase==='v6_purchase')
    ||(s.plan!==null)!==(c.phase==='v6_spawn')||(s.payment!==null)!==['v6_spawn','v6_purchase'].includes(c.phase)
    ||c.phase==='v6_spawn'&&!c.spawnJob||['spawn','topology'].includes(c.phase))throw Error('V6_CURSOR_PHASE');

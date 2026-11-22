@@ -55,7 +55,7 @@ pub fn expire(world: &World, observed_ns: u64, fences: &[Fence]) -> Result<Optio
         due.push(f.clone());
     }
     let prior_ns = elapsed(&state.elapsed_ns)?;
-    let pricing_due = world.version == 9
+    let pricing_due = world.version >= 9
         && prior_ns / b2z_protocol::economy17::DAY_NS
             < observed_ns / b2z_protocol::economy17::DAY_NS;
     if due.is_empty() && !pricing_due {

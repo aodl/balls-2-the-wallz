@@ -137,7 +137,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   }
  }
  function renderEconomy(){
-  if(world?.version!==9||view!=='status')return;
+  if(!(world?.version>=9)||view!=='status')return;
   const now=pricedAt??world.playability.elapsed_ns;
   const daily=economyAt(world.economy,now);
   text('daily-current','Current multiplier ×'+daily.current);
@@ -431,8 +431,8 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
     view=null;mode='inspect';id=null;cell=tileSelection=deflectorId=null;$('workspace').hidden=true;
    }
    revision=root;try{destination=paymentDestination(s);}catch(error){destination=null;status={canPrepare:false,label:'Unable to verify destination'};}
-   pricedAt=w.version===9?w.playability.elapsed_ns:null;
-   pricingRate=w.version===9?economyAt(w.economy,pricedAt).current:null;
+   pricedAt=w.version>=9?w.playability.elapsed_ns:null;
+   pricingRate=w.version>=9?economyAt(w.economy,pricedAt).current:null;
    refs=cannonReference(w,c,pricedAt);
    $('daily-economy').hidden=!economySupported(c);
    if(id!==null&&!refs.some(c=>c.id===id)){id=null;mode='inspect';clearHandoff();if(view==='action'||view==='inspect'){show('roster','Choose a cannon');text('roster-note','The selected cannon is no longer present. Choose another.');}}
@@ -441,7 +441,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   status(input){
    if(typeof input.worldReady==='boolean')observationReady=input.worldReady;
    status=input.resolved??experienceStatus({...input,world});
-   if(world?.version===9){
+   if(world?.version>=9){
     const base=world.playability.elapsed_ns;
     const certificate=input.certifiedPricingTime;
     if(typeof certificate==='bigint'&&certificate>=base)pricedAt=certificate;
@@ -496,6 +496,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   presentation(v){const c=selected(),displayed=v?.cannons.get(id),behind=Boolean(c&&(!displayed||displayed.cell!==c.cell));if(behind!==planningBehind){planningBehind=behind;refresh();}},
   quantity:()=>({count:quantity,maximum:MAX_QUANTITY,active:qtyActive()}),setQuantity(n){if(!Number.isSafeInteger(n)||n<1||n>MAX_QUANTITY)return false;if(n===quantity)return true;quantity=n;clearDraft();refresh();return true;},
   enter,cancelEntryNavigation,entryState:()=>({generation:entryGeneration,pending:Boolean(entryPending),account:entryPending?.account??null}),
+  paymentInstructions:()=>mayHandoff()?{...quote}:null,
   hasBall:n=>ballIds.has(n),hasCannon:n=>refs.some(c=>c.id===n),selectedCannon:()=>id,account:()=>declaration?.account??null,mode:()=>mode,canPay:()=>status.canPrepare,active:()=>view!==null,selected,angle:()=>degrees,context:()=>view,anchor:()=>view==='action'&&mode==='start'&&!mine().length?null:focusTarget(),
   movementPanel:()=>view==='action'&&['move','deflector_move'].includes(mode)?{source:focusTarget()?.cell,destination:cell}:null,
   intentContext:()=>[context,world?.version,declaration?.account,id,deflectorId,tileSelection,focusTarget()?.cell,mode,intentVersion].join('/'),revision:()=>revision,

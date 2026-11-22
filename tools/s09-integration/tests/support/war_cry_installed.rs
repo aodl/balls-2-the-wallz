@@ -32,7 +32,14 @@ pub(super) fn transition_with_recovery_module(
     assert!(ready, "drained {kind} boundary");
     if matches!(
         kind,
-        "combined" | "deflector" | "context" | "shout" | "spacing" | "reservoir" | "economy"
+        "combined"
+            | "deflector"
+            | "context"
+            | "shout"
+            | "spacing"
+            | "reservoir"
+            | "economy"
+            | "delegation"
     ) {
         let before = arena_world(pic, id).encode().unwrap();
         let finance = funding_tests::preserved_finance(pic, id);
@@ -47,7 +54,7 @@ pub(super) fn transition_with_recovery_module(
         assert_eq!(phase["transition"]["phase"], "ready");
         if matches!(
             kind,
-            "deflector" | "context" | "shout" | "spacing" | "reservoir" | "economy"
+            "deflector" | "context" | "shout" | "spacing" | "reservoir" | "economy" | "delegation"
         ) {
             let expected_module = pic
                 .canister_status(id, Some(controller()))
@@ -62,6 +69,7 @@ pub(super) fn transition_with_recovery_module(
                     "spacing" => "B2Z_RULES14_PRIOR_WASM",
                     "reservoir" => "B2Z_RULES15_PRIOR_WASM",
                     "economy" => "B2Z_RULES16_PRIOR_WASM",
+                    "delegation" => "B2Z_RULES17_PRIOR_WASM",
                     _ => unreachable!(),
                 }),
                 encode_args(()).unwrap(),
