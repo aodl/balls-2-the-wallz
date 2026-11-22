@@ -4,6 +4,11 @@ The controller-only lease and loopback console are on the local branch
 `feature/b2z-temporary-dev-speed`. The production payment candidate does not
 include this branch.
 
+The installed check was repeated on the isolated branch after incorporating
+the exact Rules18 baseline `351d96d7059f7f84957af1470c86a7028c588392`. The
+disposable executable was
+`96c199d2832d78557dadd72551c35af36122f2913a66f21be57bf887b6a85626`.
+
 - Ten pace unit tests passed. Current adaptive tiers retain their existing
   hysteresis. The new tests cover one-second scheduling, expiration,
   immediate deactivation, backlog and the recovery floor.

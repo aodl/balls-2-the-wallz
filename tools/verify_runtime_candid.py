@@ -18,10 +18,11 @@ def extract(output: str) -> str:
 
 
 def reject_test_exports(candid: str) -> None:
-    prohibited = ("__canbench__", "__tracing__", "test_")
+    # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+    prohibited = ("__canbench__", "__tracing__", "test_", "dev_simulation_speed")
     found = [name for name in prohibited if name in candid]
     if found:
-        raise ValueError("normal Candid contains test/benchmark exports: " + ", ".join(found))
+        raise ValueError("normal Candid contains test, benchmark or development exports: " + ", ".join(found))
 
 
 def run(command: list[str], timeout: int = 600) -> subprocess.CompletedProcess[str]:

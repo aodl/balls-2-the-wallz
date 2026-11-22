@@ -56,6 +56,7 @@ the operator console.
   certified game inventory.
 - Before public launch, remove the whole feature. Remove the two Cargo
   features and their `cfg` branches, endpoint and timer logic, private state,
-  Candid overlay, loopback console, tests and this file. Restore standard
+  Candid overlay, loopback console, temporary audit allowances, tests and
+  this file. Restore standard
   release build flags after removal, and repeat the normal export and
   embedded frontend inventory checks.

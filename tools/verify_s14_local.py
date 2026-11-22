@@ -112,6 +112,8 @@ def main():
             run('build-'+name,cargo+['build','--manifest-path',manifest,'--release','--target','wasm32-unknown-unknown','--locked','--offline',*features])
             dest=out/(name+'.wasm');shutil.copyfile(target,dest);names=wasm_exports(dest)
             if name=='normal':
+                # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+                assert not any('dev_simulation_speed' in n for n in names)
                 assert all(not any(x in n for x in ['test_','__canbench','__tracing','ledger_hint','sync_ledger','canister_update apply']) for n in names)
                 assert 'canister_update poke' in names
             else:assert 'canister_update test_apply' in names
