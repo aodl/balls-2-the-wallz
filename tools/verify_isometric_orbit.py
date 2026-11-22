@@ -4,6 +4,7 @@ import argparse
 from functools import partial
 from http.server import SimpleHTTPRequestHandler, ThreadingHTTPServer
 import json
+from math import dist
 from pathlib import Path
 import subprocess
 from threading import Thread
@@ -248,7 +249,8 @@ def reservoir_quotes(browser):
                 assert page.evaluate("fixture.summary().account===fixture.world().cannons[0].account")
             t = 4005  # adjacent to the existing cannon
             scene(page, t, 66 if width >= 700 else 42, width / 2, height / 3)
-            page.mouse.click(*board_point(page, t))
+            last_board_point = board_point(page, t)
+            (page.touchscreen.tap if width < 700 else page.mouse.click)(*last_board_point)
             page.wait_for_function("n=>fixture.proposal().cell===n", arg=t)
             button = page.locator("#reservoir-action")
             assert button.is_visible() == enabled
@@ -271,14 +273,18 @@ def reservoir_quotes(browser):
                 expect(copy).to_be_enabled()
 
             def pick(cell, left=None):
+                nonlocal last_board_point
                 for x,y in [(left or width/2,height/3),(48,height*.72),(width-48,height*.72),(width/2,154)]:
                     scene(page,cell,42,x,y)
                     at=point(page,cell)
-                    if page.evaluate("([x,y])=>document.elementFromPoint(x,y)?.id==='board'",at):
+                    # The fixture centres successive world cells at the same screen
+                    # point. Separate the clicks so they cannot trigger double-zoom.
+                    if dist(at,last_board_point)>14 and page.evaluate("([x,y])=>document.elementFromPoint(x,y)?.id==='board'",at):
                         break
                 else:
                     raise AssertionError(f'no unobstructed board pose for {cell}')
-                page.mouse.click(*at)
+                (page.touchscreen.tap if width < 700 else page.mouse.click)(*at)
+                last_board_point = at
                 page.wait_for_function("n=>fixture.proposal().cell===n", arg=cell)
                 assert page.evaluate("fixture.proposal().mode")=='reservoir'
 
