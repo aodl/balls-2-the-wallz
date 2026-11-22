@@ -1,0 +1,81 @@
+name: Rules16 reservoir release qualification
+
+on:
+  push:
+    branches: [feature/b2z-rules16-reservoir-release]
+
+permissions:
+  contents: read
+
+jobs:
+  reservoir-cutover:
+    name: Exact normal Wasm, official Ledger/Index and authenticated cutover
+    runs-on: ubuntu-22.04
+    env:
+      RUSTUP_TOOLCHAIN: 1.94.1
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: rustup toolchain install 1.94.1 --profile minimal --target wasm32-unknown-unknown
+      - run: cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked
+      - run: cargo +1.94.1 fetch --manifest-path tools/s09-integration/Cargo.toml --locked
+      - run: cargo +1.94.1 fetch --manifest-path tools/s14-index-fixture/Cargo.toml --locked
+      - run: python -B tools/fetch_s09_artifacts.py --destination /home/runner/dtr-s09-artifacts --record .work/ci-reservoir-pins.json
+      - name: Freeze backend source and bind the normal artifact to the independent hosted build
+        run: |
+          set -euo pipefail
+          python -B tools/check_dtr_provenance.py --manifest canisters/runtime-lab/Cargo.toml --manifest tools/s09-integration/Cargo.toml --output .work/ci-reservoir-dtr.json
+          python -B tools/verify_approved_panel_freeze.py --artifacts evidence/B2Z/rules16-reservoirs/artifacts --backend-only --output .work/ci-reservoir-source
+          gzip -dc vendor/b2z/rules15-8d7f1a67.wasm.gz > .work/rules15-predecessor.wasm
+          python -B tools/verify_s14_local.py --output .work/ci-reservoir --rules15-prior-wasm .work/rules15-predecessor.wasm --test-filter context_structures_installed::reservoirs_rules15_upgrade_official_transfers_and_replay
+          printf '%s  %s\n' a5889a92ce936b035d02632588b75ae7f66ddfda73398177dd79cba2b5b48dcd .work/ci-reservoir/normal.wasm | sha256sum --check
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: rules16-installed-evidence
+          path: |
+            .work/ci-reservoir/results.json
+            .work/ci-reservoir/normal.wasm
+            .work/ci-reservoir/generated.did
+            .work/ci-reservoir/logs/**
+            .work/ci-reservoir/deployment/reservoir/authenticated/result.json
+            .work/ci-reservoir/deployment/reservoir/authenticated/authenticated-history.json
+            .work/ci-reservoir-pins.json
+            .work/ci-reservoir-source/result.json
+
+  reservoir-browser:
+    name: Authenticated-config gating, Reservoir rendering and exact browser Copy
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - run: npm ci --ignore-scripts
+      - run: python -m pip install --require-hashes -r tools/browser-requirements.txt
+      - run: python -m playwright install chromium
+      - run: node --test tests/js/reservoirs.test.mjs tests/js/reservoir-render.test.mjs
+      - run: python -B tools/verify_isometric_orbit.py --reservoir-only --output .work/ci-reservoir-controls
+      - run: python -B tools/verify_isometric_orbit.py --interaction-polish --floating-aim --output .work/ci-reservoir-compat
+      - run: python -B tools/verify_reservoir_browser.py --output .work/ci-reservoir-renderer
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: rules16-browser-evidence
+          path: |
+            .work/ci-reservoir-controls/results.json
+            .work/ci-reservoir-controls/*.png
+            .work/ci-reservoir-compat/results.json
+            .work/ci-reservoir-renderer/results.json
+            .work/ci-reservoir-renderer/*.jpg
