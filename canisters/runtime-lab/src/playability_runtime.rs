@@ -787,22 +787,24 @@ fn install_world(r: &Root, w: &World) -> Result<()> {
     Ok(())
 }
 pub fn install(r: &Root) -> Result<()> {
-    if r.playability_transition
-        .as_ref()
-        .is_none_or(|t| t.phase != "complete")
-    {
+    if !maintenance_active(r) {
         return Ok(());
     }
     let h = host(r)?;
     let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
     install_world(r, &w)
 }
+fn maintenance_active(r: &Root) -> bool {
+    r.playability_transition
+        .as_ref()
+        .is_some_and(|t| t.phase == "complete")
+        || r.economy_transition
+            .as_ref()
+            .is_some_and(|t| t.phase == "complete")
+}
 #[cfg(target_arch = "wasm32")]
 pub fn on_publication(r: &Root, h: &Coordinator<super::B2zHostKernel>) -> Result<()> {
-    if r.playability_transition
-        .as_ref()
-        .is_none_or(|t| t.phase != "complete")
-    {
+    if !maintenance_active(r) {
         return Ok(());
     }
     let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;

@@ -1190,13 +1190,22 @@ fn reservoir_then_economy(successor_economy: bool) {
             1,
             0,
         );
-        let pos = send(
+        send(
             "RESERVOIR 4008",
             economy17::RESERVOIR_PRICE_E8S,
             "ACCEPTED",
             1,
             economy17::RESERVOIR_PRICE_E8S,
         );
+        for (memo, price) in [
+            ("DMOVE 1 8008|Away", 10_000),
+            ("MOVE 1 4003|Across", 10_000),
+            ("NEW 0 2 10003|Build", 4_000_000 + fire_price(1, balls + 3)),
+            ("DEFLECT 12014 E|Divert", 400_000),
+        ] {
+            send(memo, price, "ACCEPTED", 1, price);
+        }
+        let pos = send("DROT 1 W|Turn", 10_000, "ACCEPTED", 1, 10_000);
         drop(send);
         // An idle daily checkpoint must be emitted before checking the settled
         // tick sequence. Pending Ledger work is processed hours after it landed.
@@ -1218,8 +1227,17 @@ fn reservoir_then_economy(successor_economy: bool) {
         assert!(b2z_native::reservoirs::has(&result, 4008));
         assert_eq!(
             result.balls.iter().filter(|b| b.owner == owner_id).count(),
-            balls + 2
+            balls + 4
         );
+        assert_eq!(
+            result.cannons.iter().find(|c| c.id == 1).unwrap().cell,
+            4003
+        );
+        assert!(result.cannons.iter().any(|c| c.cell == 10003));
+        let diverters = result.deflectors.as_ref().unwrap();
+        let moved = diverters.iter().find(|d| d.id == 1).unwrap();
+        assert_eq!((moved.cell, moved.orientation.as_str()), (8008, "SW"));
+        assert!(diverters.iter().any(|d| d.cell == 12014));
         assert_eq!(result.economy.as_ref().unwrap().tariffs(effective).0, 1);
         let raw = result.encode().unwrap();
         upgrade(&pic, id, bytes("B2Z_S14_WASM"));
