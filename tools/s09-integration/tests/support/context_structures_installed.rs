@@ -897,16 +897,180 @@ fn spacing_rules14_upgrade_official_payments_and_authenticated_replay() {
 #[test]
 #[ignore = "requires the exact qualified Rules15 normal predecessor archive"]
 fn reservoirs_rules15_upgrade_official_transfers_and_replay() {
-    reservoir_then_economy(false);
+    reservoir_then_economy(false, false);
 }
 
 #[test]
 #[ignore = "requires the exact deployed Rules16 normal predecessor"]
 fn economy_rules16_upgrade_official_timestamps_and_replay() {
-    reservoir_then_economy(true);
+    reservoir_then_economy(true, false);
 }
 
-fn reservoir_then_economy(successor_economy: bool) {
+#[test]
+#[ignore = "requires the exact deployed Rules16 normal predecessor"]
+fn economy_recovers_missing_index_times_from_official_ledger_and_archive() {
+    reservoir_then_economy(true, true);
+}
+
+fn archived_payment_time(pic: &PocketIc, ledger: Principal, position: u64) -> u64 {
+    let args = candid::encode_one(ic_ledger_types::GetBlocksArgs {
+        start: position,
+        length: 1,
+    })
+    .unwrap();
+    let response = pic
+        .query_call(ledger, Principal::anonymous(), "query_blocks", args.clone())
+        .unwrap();
+    let blocks: ic_ledger_types::QueryBlocksResponse = decode_one(&response).unwrap();
+    assert!(blocks.blocks.is_empty());
+    assert_eq!(blocks.archived_blocks.len(), 1);
+    let range = blocks.archived_blocks.into_iter().next().unwrap();
+    assert!(range.start <= position && position < range.start + range.length);
+    let callback: candid::Func = range.callback.into();
+    let response = pic
+        .query_call(
+            callback.principal,
+            Principal::anonymous(),
+            &callback.method,
+            args,
+        )
+        .unwrap();
+    let archive: ic_ledger_types::GetBlocksResult = decode_one(&response).unwrap();
+    let archive = archive.unwrap();
+    assert_eq!(archive.blocks.len(), 1);
+    archive.blocks[0].timestamp.timestamp_nanos
+}
+
+fn recover_missing_index_times(
+    pic: &PocketIc,
+    id: Principal,
+    ledger: Principal,
+    index: Principal,
+    official_index: Principal,
+    first: u64,
+    last: u64,
+    priced: &BTreeMap<u64, (u64, u32, u64)>,
+    out: &Path,
+) {
+    let query = candid::encode_one(source::HistoryArgs {
+        account_identifier: funding_account(id).to_hex(),
+        start: None,
+        max_results: 64,
+    })
+    .unwrap();
+    let official_rows = || {
+        let raw = pic
+            .query_call(
+                official_index,
+                Principal::anonymous(),
+                "get_account_identifier_transactions",
+                query.clone(),
+            )
+            .unwrap();
+        decode_one::<source::HistoryResult>(&raw).unwrap().unwrap()
+    };
+    for _ in 0..90 {
+        if official_rows()
+            .transactions
+            .first()
+            .is_some_and(|r| r.id == last)
+        {
+            break;
+        }
+        tick(pic);
+    }
+    let mut history = official_rows();
+    assert_eq!(history.transactions.first().unwrap().id, last);
+    let before = status(pic, id).source.admitted_to_exclusive;
+    assert!(before <= first);
+    assert_eq!(status(pic, id).source.pending_records, 0);
+    assert_eq!(archived_payment_time(pic, ledger, first), priced[&first].0);
+    let direct: ic_ledger_types::QueryBlocksResponse = decode_one(
+        &pic.query_call(
+            ledger,
+            Principal::anonymous(),
+            "query_blocks",
+            candid::encode_one(ic_ledger_types::GetBlocksArgs {
+                start: last,
+                length: 1,
+            })
+            .unwrap(),
+        )
+        .unwrap(),
+    )
+    .unwrap();
+    assert_eq!(direct.first_block_index, last);
+    assert!(direct.archived_blocks.is_empty());
+    assert_eq!(direct.blocks.len(), 1);
+    assert_eq!(direct.blocks[0].timestamp.timestamp_nanos, priced[&last].0);
+
+    for row in &mut history.transactions {
+        if row.id == first || row.id == last {
+            assert_eq!(
+                row.transaction.timestamp.as_ref().unwrap().timestamp_nanos,
+                priced[&row.id].0
+            );
+            row.transaction.timestamp = None;
+        }
+    }
+    let response = |h: source::History| candid::encode_one(source::HistoryResult::Ok(h)).unwrap();
+    let mut mismatch = history.clone();
+    let source::Operation::Transfer { amount, .. } =
+        &mut mismatch.transactions[0].transaction.operation
+    else {
+        panic!("expected the newest official Index record to be a transfer");
+    };
+    amount.e8s += 1;
+    // Only the disposable transport is replaced. The original ledger and its
+    // archive remain installed official canisters, and the target is normal Wasm.
+    pic.reinstall_canister(
+        index,
+        bytes("S14_SLOW_INDEX_WASM"),
+        encode_args((ledger, 0u32, response(mismatch))).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    pic.start_canister(index, Some(controller())).unwrap();
+    for _ in 0..130 {
+        tick(pic);
+        if status(pic, id)
+            .source
+            .last_error
+            .as_deref()
+            .is_some_and(|e| e.contains("Ledger timestamp block does not match Index transaction"))
+        {
+            break;
+        }
+    }
+    let rejected = status(pic, id).source;
+    assert_eq!(
+        rejected.last_error.as_deref(),
+        Some("Ledger timestamp block does not match Index transaction")
+    );
+    assert_eq!(rejected.admitted_to_exclusive, before);
+    assert_eq!(rejected.pending_records, 0);
+    pic.update_call(
+        index,
+        controller(),
+        "set_reply",
+        encode_args((0u32, response(history))).unwrap(),
+    )
+    .unwrap();
+    wait_admitted(pic, id, last);
+    assert_eq!(status(pic, id).source.admitted_to_exclusive, last + 1);
+    save(
+        out,
+        "timestamp-fallback.json",
+        &json!({
+            "status":"PASS", "archived_position":first, "direct_position":last,
+            "archived_timestamp_ns":priced[&first].0.to_string(), "direct_timestamp_ns":priced[&last].0.to_string(),
+            "rejected_cursor":before, "rejected_pending_records":0, "admitted_cursor":last + 1,
+            "source_error":rejected.last_error
+        }),
+    );
+}
+
+fn reservoir_then_economy(successor_economy: bool, recover_times: bool) {
     use b2z_protocol::{economy17, reservoir, shout};
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("reservoir");
     std::fs::create_dir_all(&out).unwrap();
@@ -1115,6 +1279,26 @@ fn reservoir_then_economy(successor_economy: bool) {
         );
         playability_installed::record_bundled(&pic, id, &mut history, &out);
 
+        let fallback = recover_times.then(|| {
+            let index = status(&pic, id).source.index;
+            pic.stop_canister(index, Some(controller())).unwrap();
+            // The disposable arena starts with a Trickle-sized balance, but
+            // the official Ledger reserves 10T to create its archive.
+            pic.add_cycles(ledger, 100_000_000_000_000);
+            let official_index = create_controlled(&pic);
+            pic.add_cycles(official_index, 100_000_000_000_000);
+            pic.install_canister(
+                official_index,
+                bytes("ICP_INDEX_WASM"),
+                candid::encode_one(Some(IndexArg::Init(IndexInit {
+                    ledger_id: ledger,
+                    retrieve_blocks_from_ledger_interval_seconds: Some(1),
+                })))
+                .unwrap(),
+                Some(controller()),
+            );
+            (index, official_index)
+        });
         let mut send = |text: &str, amount: u64, reason: &str, wanted: u32, used: u64| {
             let created_at = text
                 .ends_with("|After")
@@ -1167,7 +1351,7 @@ fn reservoir_then_economy(successor_economy: bool) {
             .filter(|b| b.owner == owner_id)
             .count();
         let fire_price = |rate, n| economy17::marginal(economy17::BALL_BASE_E8S, rate, n).unwrap();
-        send(
+        let first = send(
             "FIRE 1 225 1|Earlier",
             fire_price(2, balls),
             "ACCEPTED",
@@ -1210,6 +1394,19 @@ fn reservoir_then_economy(successor_economy: bool) {
         // An idle daily checkpoint must be emitted before checking the settled
         // tick sequence. Pending Ledger work is processed hours after it landed.
         jump(effective + 3 * economy17::GRACE_NS);
+        if let Some((index, official_index)) = fallback {
+            recover_missing_index_times(
+                &pic,
+                id,
+                ledger,
+                index,
+                official_index,
+                first,
+                pos,
+                &priced,
+                &out,
+            );
+        }
         wait_admitted(&pic, id, pos);
         let head_before = observe(&pic, id)
             .1
