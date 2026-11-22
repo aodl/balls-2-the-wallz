@@ -113,3 +113,18 @@ disposable source-drain test advanced its clock beyond the signing process's
 wall clock. The revised capture measures freshness against the independent
 disposable replica clock with the same age and future bounds, and verifies
 that a stale observation still fails.
+
+Two independently staged embedded builds reproduced the exact frontend.
+The disposable HTTP-v2 check authenticated 89 assets and 28 alternate
+GET/HEAD routes. A fresh Chromium run observed live Rules17 with that
+frontend, decoded all 60 FLAC files and confirmed the branded 404.
+[Embedded checks](embedded-local-checks.json)
+
+The next hosted attempts exposed the missing Adapter12 compatibility name
+in the branding audit and Rust formatting and declaration-order checks.
+Those checks remain intact. The longer financial capture also reached one
+publication older than the on-canister retention window. The replay now
+authenticates the exact pre-eviction archive through the certified successor's
+hash chain, verifies every archived artifact and rejects altered archival
+bytes. The liquid balances and game on the European canisters were unchanged
+by any of these disposable tests.

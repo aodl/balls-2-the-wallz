@@ -1617,6 +1617,7 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegati
         // independent consensus clock without weakening either bound.
         connection["verification_time_ns"] =
             json!(live.get_time().as_nanos_since_unix_epoch().to_string());
+        connection["replay_evicted_artifacts"] = json!(true);
     }
     save(&out, "configuration.json", &connection);
     let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");

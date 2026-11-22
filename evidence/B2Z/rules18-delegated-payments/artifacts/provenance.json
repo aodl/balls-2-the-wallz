@@ -2,7 +2,7 @@
   "source": "ed5a3b850c971bf1768c2d916e5212d1a38f5a54",
   "source_dirty": false,
   "inventory_sha256": "eb29f7b0d93dbd736f8ae7aa2753738b3d75c806cf2ab757b2d75a904e29f879",
-  "normal_wasm_sha256": "32f6a34c0daf727a413853bdf1b88037622e97b2449999ef13aaf4985bff1147",
+  "normal_wasm_sha256": "68f03f432c61f960cbca9f89b68073cf2abac6c102f2aca48414d6f3fde2d4df",
   "normal_wasm_scope": "Local exact backend inputs at aceaf1392f1a7b7fbf66426654e3c0bc4f4a9a5d. Hosted normal and installed artifacts must reproduce each other.",
   "inputs": [
     {
@@ -1531,7 +1531,7 @@
     },
     {
       "path": "crates/b2z-protocol/src/lib.rs",
-      "sha256": "77164cdb844ff4240b402141b57586a52fbf5c2ae20f64790358dfd5036d1002"
+      "sha256": "cb9ecb378db9a45c551f7e1d6fd8d81dbb82011d2a70c2d927fd1076055f89b4"
     },
     {
       "path": "crates/b2z-protocol/src/reservoir.rs",
@@ -2111,7 +2111,7 @@
     },
     {
       "path": "native/b2z-native/src/delegation_v18.rs",
-      "sha256": "8cadd220841739d405ef5afafcb87fcc0bb2b664c90e2a238942fcb20431195e"
+      "sha256": "949793b8aff4896592d50e88ad3341cc1493bb77202b53ac73bf07c0e9529cec"
     },
     {
       "path": "canisters/runtime-lab/src/delegation_wire.rs",
@@ -2293,7 +2293,7 @@
     },
     {
       "path": "crates/b2z-protocol/src/lib.rs",
-      "sha256": "77164cdb844ff4240b402141b57586a52fbf5c2ae20f64790358dfd5036d1002"
+      "sha256": "cb9ecb378db9a45c551f7e1d6fd8d81dbb82011d2a70c2d927fd1076055f89b4"
     },
     {
       "path": "crates/b2z-protocol/src/reservoir.rs",
@@ -2545,7 +2545,7 @@
     },
     {
       "path": "native/b2z-native/src/delegation_v18.rs",
-      "sha256": "8cadd220841739d405ef5afafcb87fcc0bb2b664c90e2a238942fcb20431195e"
+      "sha256": "949793b8aff4896592d50e88ad3341cc1493bb77202b53ac73bf07c0e9529cec"
     },
     {
       "path": "canisters/runtime-lab/src/delegation_wire.rs",

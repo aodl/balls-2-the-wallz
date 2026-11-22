@@ -144,6 +144,51 @@ impl Registry {
     }
 }
 
+pub fn configuration() -> &'static [u8] {
+    include_bytes!("../../../apps/b2z-observer/configuration-delegated.bin")
+}
+
+pub fn identity() -> serde_json::Value {
+    use dtr_wire::hash;
+    serde_json::json!({
+        "rules_hash": hash(b"B2Z_DELEGATED_PAYMENT_RULES_18"),
+        "schema_hash": hash(b"B2Z_STATE_10_ORDERED_AUTHORIZATION"),
+        "config_hash": hash(configuration()),
+    })
+}
+
+/// Exact canonical conversion. The front and the host remain fenced until the
+/// source transition, receipts and successor execution have been qualified.
+pub fn migrate(mut world: crate::world::World, recipient: String) -> Result<crate::world::World> {
+    world.validate()?;
+    if world.version != 9 {
+        return Err("EXPECTED_ECONOMY_PREDECESSOR".into());
+    }
+    world.authorization = Some(Registry::empty(recipient)?);
+    world.version = 10;
+    world.validate()?;
+    Ok(world)
+}
+
+pub(crate) fn transfer(input: &crate::Input) -> Result<(Payment, u64)> {
+    let payment = Payment::decode(&unhex(&input.payload_hex)?)?;
+    let position = uint(&input.position)?;
+    Ok((payment, position))
+}
+
+pub(crate) fn receipt_transfer(payment: &Payment) -> serde_json::Value {
+    serde_json::json!({
+        "spender": payment.spender.as_ref().map(|bytes| hex(bytes)),
+        "to": hex(&payment.to),
+        "fee": Int(payment.fee.into()),
+        "ledger_recorded_ns": Int(payment.ledger_time_ns.into()),
+        "created_at_ns": payment.created_at_ns.map(|time| Int(time.into())),
+        "legacy_memo": Int(payment.legacy_memo.into()),
+        "memo": payment.memo.as_ref().map(|bytes| hex(bytes)),
+        "raw_digest": hex(&payment.raw_digest),
+    })
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
@@ -290,49 +335,4 @@ mod tests {
             Decision::Rejected("UNAUTHORIZED_SPENDER")
         );
     }
-}
-
-pub fn configuration() -> &'static [u8] {
-    include_bytes!("../../../apps/b2z-observer/configuration-delegated.bin")
-}
-
-pub fn identity() -> serde_json::Value {
-    use dtr_wire::hash;
-    serde_json::json!({
-        "rules_hash": hash(b"B2Z_DELEGATED_PAYMENT_RULES_18"),
-        "schema_hash": hash(b"B2Z_STATE_10_ORDERED_AUTHORIZATION"),
-        "config_hash": hash(configuration()),
-    })
-}
-
-/// Exact canonical conversion. The front and the host remain fenced until the
-/// source transition, receipts and successor execution have been qualified.
-pub fn migrate(mut world: crate::world::World, recipient: String) -> Result<crate::world::World> {
-    world.validate()?;
-    if world.version != 9 {
-        return Err("EXPECTED_ECONOMY_PREDECESSOR".into());
-    }
-    world.authorization = Some(Registry::empty(recipient)?);
-    world.version = 10;
-    world.validate()?;
-    Ok(world)
-}
-
-pub(crate) fn transfer(input: &crate::Input) -> Result<(Payment, u64)> {
-    let payment = Payment::decode(&unhex(&input.payload_hex)?)?;
-    let position = uint(&input.position)?;
-    Ok((payment, position))
-}
-
-pub(crate) fn receipt_transfer(payment: &Payment) -> serde_json::Value {
-    serde_json::json!({
-        "spender": payment.spender.as_ref().map(|bytes| hex(bytes)),
-        "to": hex(&payment.to),
-        "fee": Int(payment.fee.into()),
-        "ledger_recorded_ns": Int(payment.ledger_time_ns.into()),
-        "created_at_ns": payment.created_at_ns.map(|time| Int(time.into())),
-        "legacy_memo": Int(payment.legacy_memo.into()),
-        "memo": payment.memo.as_ref().map(|bytes| hex(bytes)),
-        "raw_digest": hex(&payment.raw_digest),
-    })
 }
