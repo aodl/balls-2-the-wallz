@@ -147,8 +147,10 @@ def native_edge_pans(p,row):
   p.locator('#board').focus();origin=p.evaluate('fixture.camera.cellPoint(fixture.aim().cannon.cell)');dx,dy=target[0]-origin['sx'],target[1]-origin['sy'];start=None
   for x,y in [(1000,600),(400,600),(600,200),(100,200),(1200,200),(700,700),(200,500),(1000,300)]:
    if not(8<x+dx<1432 and 8<y+dy<892):continue
+   # The Fire cursor covers the board. Start the native pan beyond the
+   # 110px aiming guide and its hit tolerance.
+   if (x-origin["sx"])**2+(y-origin["sy"])**2<130**2:continue
    if not p.evaluate('([x,y])=>document.elementFromPoint(x,y)?.id==="board"',[x,y]):continue
-   p.mouse.move(x,y);p.wait_for_timeout(40)
-   if p.locator('#board').get_attribute('data-cursor')=='camera':start=(x,y);break
+   p.mouse.move(x,y);start=(x,y);break
   assert start,('No native pan start',target,origin)
   before=p.evaluate('fixture.proposal()');box=p.locator('#quantity-controls').bounding_box();p.mouse.down();p.mouse.move(start[0]+dx,start[1]+dy,steps=8);assert p.locator('#quantity-controls').bounding_box()==box;p.mouse.up();p.wait_for_timeout(100);d=editor(p);assert p.evaluate('fixture.proposal()')==before;at=p.evaluate('fixture.camera.cellPoint(fixture.aim().cannon.cell)');assert abs(at['sx']-target[0])<1 and abs(at['sy']-target[1])<1;row['edge_pans'].append({'target':target,'actual':at,'editor':d})
