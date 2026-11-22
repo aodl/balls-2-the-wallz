@@ -11,7 +11,7 @@ export function createShell(doc,camera,arcade,onPick){
  const $=id=>doc.getElementById(id),canvas=$('board'),card=$('workspace'),handle=$('aim-handle'),ring=$('aim-ring'),cleanups=[];
  let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null,narrowAimClearance=0,narrowAimTop=0,narrowAimBottom=Infinity,narrowQuarter=camera.quarter;
  let pendingTerritory=null,quantitySlot=null;const quantityPointers=new Map(),quantityWidget=$('launch-editors');let quantitySize={width:130,height:46},quantityDocked=false,quantityContext='',quantityReserved=false,quantityReservation='none',quantityClickCancelled=false;
- let contractedCamera=null;
+ let contractedCamera=null,shoutDock=null;
  const cameraPose=()=>[camera.x,camera.y,camera.scale,camera.angle];
  const anchorCache=playerAnchor(),reducedMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
  function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale,quarter:camera.quarter});},400);}
@@ -35,6 +35,7 @@ export function createShell(doc,camera,arcade,onPick){
    const direction=Number(button.dataset.boardQuarter),angle=camera.angle+direction*Math.PI/2;
    button.style.setProperty('--compass-x',Math.sin(angle).toFixed(6));
    button.style.setProperty('--compass-y',(-Math.cos(angle)).toFixed(6));
+   if(direction===0)button.style.setProperty('--north-angle',angle+'rad');
    const disabled=direction===quarter,pressed=String(!rotating&&disabled);
    if(button.disabled!==disabled)button.disabled=disabled;
    if(button.getAttribute('aria-pressed')!==pressed)button.setAttribute('aria-pressed',pressed);
@@ -68,9 +69,11 @@ export function createShell(doc,camera,arcade,onPick){
  const pair=()=>{const[a,b]=[...pointers.values()];return{x:(a.x+b.x)/2,y:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)};};
  function stopFollowing(){followRebase=false;selectedBall=null;motion.stopFollow();}
  function cancelTap(){gestureSequence++;pendingTap=lastTap=null;}
- function aimAt(p){if(!aimOrigin)return;const w=camera.world(p.x,p.y);arcade.aimAt(w.x-aimOrigin.x,w.y-aimOrigin.y);}
+ function fireContext(){return arcade.context()==='action'&&arcade.mode()==='ball'&&arcade.selectedCannon()!=null?arcade.intentContext():null;}
+ let fireGesture=null;
+ function aimAt(p,at=aimOrigin){if(!at)return;const w=camera.world(p.x,p.y),dx=w.x-at.x,dy=w.y-at.y;if(Math.hypot(dx,dy)>.08)arcade.aimAt(dx,dy);}
  let pendingAim=null;
- function flushAim(){const point=pendingAim;pendingAim=null;if(point&&owner==='aim')aimAt(point);}
+ function flushAim(){const point=pendingAim;pendingAim=null;if(point&&owner==='aim'&&(!fireGesture||fireGesture.context===fireContext()))aimAt(point);}
 
  function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const editor=quantityWidget.getBoundingClientRect();if(editor.width>0&&editor.height>0)quantitySize={width:editor.width,height:editor.height};const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');const safe=getComputedStyle(doc.documentElement);layout={safe:Object.fromEntries(['left','right','top','bottom'].map(k=>[k,parseFloat(safe.getPropertyValue('--quantity-safe-'+k))||0])),guideObstacles:[$('status-button'),$('identify-button'),doc.querySelector('.brand')].map(n=>n.getBoundingClientRect().toJSON()),top:Math.ceil(doc.querySelector('.arena-chrome').getBoundingClientRect().bottom)+10,headerBottom:Math.ceil(doc.querySelector('.arena-header').getBoundingClientRect().bottom),mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),sound:doc.querySelector('.audio-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
  let layoutFrame=null,layoutRevision=0,committedLayoutRevision=0;
@@ -108,17 +111,22 @@ export function createShell(doc,camera,arcade,onPick){
   return arcade.tileSelectable?.(cell)||[...(lastView?.deflectors?.values()??[]),...(lastView?.cannons?.values()??[])].some(d=>d.cell===cell);
  }
  function down(e){if(e.button!==0)return;arcade.cancelEntryNavigation?.();keyboardTarget=null;const p=point(e);nativePairWorld=lastTap&&Math.hypot(p.x-lastTap.p.x,p.y-lastTap.p.y)<=7?lastTap.world:null;pointers.set(e.pointerId,p);canvas.setPointerCapture(e.pointerId);motion.cancel();
-  if(pointers.size===1){origin=last=p;moved=false;pinched=false;owner=e.currentTarget===handle||aimingVicinity(camera,arcade.aim(),p,e.pointerType,arcade.moveSelection(),guideRects(),preferSite)?'aim':'pan';canvas.dataset.cursor=owner==='aim'?'aim':'camera';aimOrigin=arcade.aim()?camera.cellPoint(arcade.aim().cannon.cell):null;
+  if(pointers.size===1){origin=last=p;moved=false;pinched=false;fireGesture=null;const context=fireContext(),handlePress=e.currentTarget===handle;if(context)fireGesture={context,handlePress};owner=handlePress||aimingVicinity(camera,arcade.aim(),p,e.pointerType,arcade.moveSelection(),guideRects(),preferSite)?'aim':'pan';canvas.dataset.cursor=owner==='aim'?'aim':'camera';aimOrigin=arcade.aim()?camera.cellPoint(arcade.aim().cannon.cell):null;
    const hit=resolve(p);if(hit.kind!=='ball'||hit.id!==selectedBall)motion.stopFollow();
-   if(owner==='aim'){cancelTap();if(e.currentTarget!==handle&&Math.hypot(p.x-aimOrigin.sx,p.y-aimOrigin.sy)>6)aimAt(p);}
+   if(owner==='aim'){cancelTap();if(!fireGesture&&e.currentTarget!==handle&&Math.hypot(p.x-aimOrigin.sx,p.y-aimOrigin.sy)>6)aimAt(p);}
   }
   else{pendingAim=null;pinch=pair();owner='camera';pinched=true;moved=true;cancelTap();motion.manual();}
   if(e.currentTarget!==handle)canvas.focus({preventScroll:true});e.preventDefault();
  }
  listen(canvas,'pointerdown',down);listen(handle,'pointerdown',down);
+ listen(doc,'pointerdown',e=>{
+  if(e.pointerType==='touch'&&pointers.size&&e.target!==canvas&&!handle.contains(e.target)){
+   pendingAim=null;moved=pinched=true;cancelTap();
+  }
+ },true);
  listen(canvas,'pointermove',e=>{if(!pointers.has(e.pointerId))return;const p=point(e);pointers.set(e.pointerId,p);
   if(pointers.size>=2){const next=pair();if(pinch){camera.zoom(next.d/Math.max(1,pinch.d),pinch.x,pinch.y);camera.pan(next.x-pinch.x,next.y-pinch.y);}pinch=next;save();zoomButtons();return;}
-  if(!last||pinched)return;if(owner==='aim'){pendingAim=p;moved=true;}else{if(Math.hypot(p.x-origin.x,p.y-origin.y)>6){moved=true;cancelTap();motion.manual();}if(moved){camera.pan(p.x-last.x,p.y-last.y);save();}}last=p;
+  if(!last||pinched)return;if(owner==='aim'){if(!fireGesture||moved||Math.hypot(p.x-origin.x,p.y-origin.y)>6){pendingAim=p;moved=true;}}else{if(Math.hypot(p.x-origin.x,p.y-origin.y)>6){moved=true;cancelTap();motion.manual();}if(moved){camera.pan(p.x-last.x,p.y-last.y);save();}}last=p;
  });
  function resolve(p){
   if(aimingVicinity(camera,arcade.aim(),p,p.pointerType??'mouse',arcade.moveSelection(),guideRects(),preferSite))return {kind:'aim'};
@@ -137,10 +145,12 @@ export function createShell(doc,camera,arcade,onPick){
   if(hit.kind==='ball'){if(selectedBall===hit.id&&motion.following)return;stopFollowing();motion.cancel();arcade.selectBall();selectedBall=hit.id;const b=lastPoints.find(b=>b.id===hit.id);motion.follow(hit.id,lastIdentity,b);return;}
   stopFollowing();const w=camera.world(p.x,p.y),n=camera.cell(p.x,p.y);if(n!==null)onPick.cell(n,w,p);
  }
- function tap(p,type,eventTime=performance.now()){const now=eventTime,hit=resolve(p);
-  if(type==='touch'){lastTap=null;activate(hit,p);return;}
+ function tap(p,type,eventTime=performance.now(),commit=null){const now=eventTime;
+  if(type==='touch'){lastTap=null;if(commit)commit();else activate(resolve(p),p);return;}
   if(lastTap&&now-lastTap.at<=400&&Math.hypot(p.x-lastTap.p.x,p.y-lastTap.p.y)<=7){const target=lastTap.world;cancelTap();doubleHandled=true;if(motion.zoom(1.65,p.x,p.y,{keepFollow:false,world:target}))stopFollowing();return;}
   doubleHandled=false;lastTap={at:now,p,world:camera.world(p.x,p.y)};
+  if(commit){commit();return;}
+  const hit=resolve(p);
   if(hit.kind==='place'||hit.kind==='invalid')pendingTap={due:performance.now()+400,intent:placementIntent(hit,{context:arcade.intentContext(),identity:lastIdentity,sequence:gestureSequence,revision:arcade.revision()})};else activate(hit,p);
  }
  listen(canvas,'dblclick',e=>{e.preventDefault();e.stopPropagation();
@@ -150,15 +160,29 @@ export function createShell(doc,camera,arcade,onPick){
   const p=point(e),target=nativePairWorld??lastTap?.world??camera.world(p.x,p.y);cancelTap();if(motion.zoom(1.65,p.x,p.y,{keepFollow:false,world:target}))stopFollowing();
  });
  function updateHover(){
-  if(keyboardTarget&&keyboardTarget.context===arcade.intentContext()&&!pointers.size){const selection=arcade.moveSelection(),cell=keyboardTarget.cell;hover={kind:selection?(selection.legal?selection.legal(cell):selection.cells.includes(cell))?'place':'invalid':arcade.tileSelectable?.(cell)?'tile':'invalid',cell};return;}
+  if(fireContext()&&!pointers.size){hover=null;canvas.dataset.cursor=pointer&&doc.elementFromPoint?.(pointer.x,pointer.y)===canvas?'aim':'camera';return;}
+  if(keyboardTarget&&keyboardTarget.context===arcade.intentContext()&&!pointers.size){const selection=arcade.moveSelection(),cell=keyboardTarget.cell;hover=selection?(selection.legal?selection.legal(cell):selection.cells.includes(cell))?{kind:'place',cell}:null:arcade.tileSelectable?.(cell)?{kind:'tile',cell}:null;return;}
   if(disposed||doc.hidden||pointers.size||!pointer){hover=null;canvas.dataset.cursor=owner==='aim'?'aim':pointers.size&&moved?'grabbing':'camera';return;}
-  const node=doc.elementFromPoint?.(pointer.x,pointer.y);hover=node&&node!==canvas?null:resolve(pointer);canvas.dataset.cursor=hover?.kind??'camera';
+  const node=doc.elementFromPoint?.(pointer.x,pointer.y);hover=node&&node!==canvas?null:resolve(pointer);if(['camera','invalid'].includes(hover?.kind))hover=null;canvas.dataset.cursor=hover?.kind??'camera';
  }
  listen(canvas,'pointermove',e=>{if(e.pointerType!=='touch')pointer=point(e);});
  listen(canvas,'pointerleave',()=>{pointer=null;hover=null;canvas.dataset.cursor='camera';});
- function clearInput(){pendingAim=null;if(quantityPointers.size)quantityClickCancelled=true;quantityPointers.clear();hideHelp();clearHelp();pointer=null;hover=null;cancelTap();motion.cancel();for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();owner=null;origin=last=pinch=aimOrigin=null;moved=true;pinched=true;canvas.dataset.cursor='camera';}
+ function clearInput(){pendingAim=null;fireGesture=null;if(quantityPointers.size)quantityClickCancelled=true;quantityPointers.clear();hideHelp();clearHelp();pointer=null;hover=null;cancelTap();motion.cancel();for(const id of pointers.keys())if(canvas.hasPointerCapture(id))canvas.releasePointerCapture(id);pointers.clear();owner=null;origin=last=pinch=aimOrigin=null;moved=true;pinched=true;canvas.dataset.cursor='camera';}
  listen(doc,'visibilitychange',()=>{if(doc.hidden)clearInput();});listen(doc,'freeze',clearInput);listen(canvas,'webglcontextlost',()=>{clearInput();stopFollowing();});
- listen(canvas,'pointerup',e=>{const isTap=pointers.has(e.pointerId)&&owner==='pan'&&!moved&&!pinched,p=point(e);if(pointers.has(e.pointerId))flushAim();pointers.delete(e.pointerId);if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);if(isTap){if(e.pointerType==='touch')completedTouch={at:performance.now(),x:e.clientX,y:e.clientY};tap(p,e.pointerType,e.timeStamp);}if(!pointers.size){origin=last=pinch=aimOrigin=null;owner=null;pinched=false;}});
+ listen(canvas,'pointerup',e=>{
+  const p=point(e),tracked=pointers.has(e.pointerId),fire=fireGesture;
+  const still=tracked&&canvas.hasPointerCapture(e.pointerId)&&!moved&&!pinched&&Math.hypot(p.x-origin.x,p.y-origin.y)<=6;
+  const adopt=still&&fire&&fire.context===fireContext()&&!fire.handlePress&&doc.elementFromPoint(e.clientX,e.clientY)===canvas;
+  const isTap=still&&!fire&&owner==='pan'&&!fireContext();
+  if(tracked)flushAim();
+  pointers.delete(e.pointerId);
+  if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
+  if(adopt||isTap){
+   if(e.pointerType==='touch')completedTouch={at:performance.now(),x:e.clientX,y:e.clientY};
+   tap(p,e.pointerType,e.timeStamp,adopt?()=>{const cannon=arcade.aim()?.cannon;if(cannon)aimAt(p,camera.cellPoint(cannon.cell));}:null);
+  }
+  if(!pointers.size){origin=last=pinch=aimOrigin=null;owner=fireGesture=null;pinched=false;}
+ });
  const cancel=e=>{if(!pointers.has(e.pointerId))return;pointers.delete(e.pointerId);pendingAim=null;owner=null;moved=true;pinched=true;pinch=null;cancelTap();};listen(canvas,'pointercancel',cancel);listen(canvas,'lostpointercapture',cancel);
  listen(canvas,'wheel',e=>{e.preventDefault();const p=point(e),{discrete,factor}=wheelZoom(e,camera.viewport.height);
   if(discrete){arcade.cancelEntryNavigation?.();motion.zoom(factor,p.x,p.y,{keepFollow:false,duration:130});}
@@ -166,13 +190,13 @@ export function createShell(doc,camera,arcade,onPick){
  },{passive:false});
  listen(handle,'keydown',e=>{const n={ArrowLeft:-1,ArrowRight:1,ArrowUp:-1,ArrowDown:1}[e.key];if(n){arcade.adjustAngle(n*(e.altKey?.01:e.shiftKey?5:1));e.preventDefault();e.stopPropagation();}});
  listen(canvas,'keydown',e=>{const d={ArrowLeft:[40,0],ArrowRight:[-40,0],ArrowUp:[0,40],ArrowDown:[0,-40]}[e.key];
-  if(d&&e.altKey&&(arcade.moveSelection()||arcade.structureContexts?.())){
+  if(d&&e.altKey&&!fireContext()&&(arcade.moveSelection()||arcade.structureContexts?.())){
    cancelTap();stopFollowing();const selection=arcade.moveSelection(),context=arcade.intentContext(),n=keyboardTarget?.context===context?keyboardTarget.cell:selection?.cell??arcade.anchor()?.cell??camera.cell(camera.viewport.width/2,camera.viewport.height/2)??0,step=camera.tileStep(...{ArrowLeft:[-1,0],ArrowRight:[1,0],ArrowUp:[0,-1],ArrowDown:[0,1]}[e.key]),x=(n%camera.width+step[0]+camera.width)%camera.width,y=(Math.floor(n/camera.width)+step[1]+camera.height)%camera.height;
    keyboardTarget={cell:y*camera.width+x,context};pointer=null;const p=camera.cellPoint(keyboardTarget.cell);if(!p.visible)motion.go(motion.target(c=>c.centre(x+.5,y+.5)),{owner:'keyboard'});e.preventDefault();
   }
   else if(d){arcade.cancelEntryNavigation?.();keyboardTarget=null;cancelTap();stopFollowing();motion.go(motion.target(c=>c.pan(...d)),{owner:'keyboard'});e.preventDefault();}
   else if(['+','=','-','Home'].includes(e.key)){if(e.key!=='Home')arcade.cancelEntryNavigation?.();if(e.key==='Home')$('fit').click();else motion.zoom(e.key==='-'?1/1.25:1.25);e.preventDefault();}
-  else if(e.key==='Enter'){if(keyboardTarget?.context===arcade.intentContext()){if(arcade.moveSelection())arcade.chooseCell(keyboardTarget.cell);else arcade.selectTile?.(keyboardTarget.cell);}else activate(resolve({x:camera.viewport.width/2,y:camera.viewport.height/2}),{x:camera.viewport.width/2,y:camera.viewport.height/2});e.preventDefault();}
+  else if(e.key==='Enter'&&!fireContext()){if(keyboardTarget?.context===arcade.intentContext()){if(arcade.moveSelection())arcade.chooseCell(keyboardTarget.cell);else arcade.selectTile?.(keyboardTarget.cell);}else activate(resolve({x:camera.viewport.width/2,y:camera.viewport.height/2}),{x:camera.viewport.width/2,y:camera.viewport.height/2});e.preventDefault();}
   else if(e.key.toLowerCase()==='b'&&lastPoints.length){const ids=lastPoints.map(b=>b.id).sort((a,b)=>a-b),id=ids[(ids.indexOf(selectedBall)+1)%ids.length];activate({kind:'ball',id},{x:0,y:0});e.preventDefault();}
   else if(['[',']'].includes(e.key)){arcade.adjustAngle((e.key==='['?-1:1)*(e.altKey?.01:e.shiftKey?5:1));e.preventDefault();}
  });
@@ -211,9 +235,26 @@ export function createShell(doc,camera,arcade,onPick){
   return {top:m.top,safeTop:m.headerBottom+8,expanded,obstacles:expanded&&cardBounds?[...obstacles,cardBounds]:obstacles};
  }
  function positionQuantity(){
-  const q=arcade.quantity?.(),editor=arcade.launchEditor?.(),qa=arcade.aim();$('quantity-controls').hidden=!q?.active;if(editor?.first||editor?.kind==='action'){quantityWidget.hidden=!editor.active;quantitySlot=null;quantityContext='';quantityWidget.dataset.first='true';const slot=$('action-inputs');if(quantityWidget.parentElement!==slot)slot.append(quantityWidget);return;}else{delete quantityWidget.dataset.first;if(quantityWidget.parentElement!==$('arena'))$('arena').append(quantityWidget);}quantityWidget.hidden=!editor?.active||!qa||!camera.cellPoint(qa.cannon.cell).visible;
+  const q=arcade.quantity?.(),editor=arcade.launchEditor?.(),qa=arcade.aim(),standalone=editor?.cryActive&&!qa;
+  $('quantity-controls').hidden=!q?.active;
+  quantityWidget.hidden=!editor?.active||card.hidden||card.inert||!standalone&&(!qa||!camera.cellPoint(qa.cannon.cell).visible);
   if(quantityWidget.hidden){quantitySlot=null;quantityContext='';return;}
-  if(!qa){const m=measure(),v=visibleBounds(),rail=quantityRail(m,v);quantityWidget.style.left=Math.round(rail.left)+'px';quantityWidget.style.top=Math.round(rail.top)+'px';return;}
+  if(standalone){
+   const next=shoutDock??quantityDockStrip({viewport:visibleBounds(),top:measure().top,...quantitySize,obstacles:[cardBounds,...lowerChrome(measure()),measure().sound]});
+   if(next){
+    const context=arcade.intentContext(),v=visibleBounds(),m=measure();
+    const obstacles=[cardBounds,...m.guideObstacles,m.mini,m.cycles,m.buttons,m.sound,...(!wasShort?compassRects(m):[])].filter(Boolean);
+    const at=arcade.movementPanel()?.destination,point=at==null?null:camera.cellPoint(at);
+    if(point?.visible)obstacles.push({left:point.sx-28,right:point.sx+28,top:point.sy-32,bottom:point.sy+16});
+    const previous=quantityContext===context?quantitySlot:null;
+    const p=quantityPlacement({origin:{x:(cardBounds.left+cardBounds.right)/2,y:cardBounds.top},direction:{x:0,y:1},
+     width:next.width,height:next.height,scale:1,viewport:v,top:Math.max(m.headerBottom+4,v.top+8),obstacles,
+     dock:next,previous,locked:quantityWidget.contains(doc.activeElement)||quantityPointers.size>0});
+    quantityContext=context;quantitySlot=p;
+    if(p){quantityWidget.dataset.placement=p.mode;quantityWidget.style.left=Math.round(p.rect.left)+'px';quantityWidget.style.top=Math.round(p.rect.top)+'px';}
+   }
+   return;
+  }
   const origin=camera.cellPoint(qa.cannon.cell),a=qa.angle*Math.PI/180,end=camera.screen(origin.x+Math.cos(a),origin.y+Math.sin(a)),m=measure(),viewport=visibleBounds(),obstacles=[...m.guideObstacles,minimapArea(m.mini),m.cycles,m.buttons,m.sound];if(!card.hidden&&!card.inert&&cardBounds)obstacles.push(cardBounds);
   const context=[qa.cannon.id,qa.cannon.cell,viewport.left,viewport.top,viewport.width,viewport.height,quantitySize.width,quantitySize.height].join('/');
   if(context!==quantityContext){quantityContext=context;quantityDocked=viewport.height<520||viewport.width<2*(Math.max(24,camera.scale*.62+2)+quantitySize.width+8);}
@@ -226,7 +267,7 @@ export function createShell(doc,camera,arcade,onPick){
   quantitySlot=next;if(next.mode==='dock')quantityDocked=true;quantityWidget.dataset.placement=next.mode;$('quantity-controls').dataset.placement=next.mode;
   const left=`${Math.round(next.rect.left)}px`,top=`${Math.round(next.rect.top)}px`;if(quantityWidget.style.left!==left)quantityWidget.style.left=left;if(quantityWidget.style.top!==top)quantityWidget.style.top=top;
  }
- function positionMove(at,movement,bounds,width,m,top,short){
+ function positionMove(at,movement,bounds,width,m,top,short,dockTop){
   const left=bounds.left+8,right=bounds.left+bounds.width-8,maxBottom=bounds.top+bounds.height-8;
   const obstacles=[...m.guideObstacles,m.cycles,m.sound,...(!short?[m.buttons,minimapArea(m.mini)]:[])];
   const lane=(x,y)=>{
@@ -247,8 +288,8 @@ export function createShell(doc,camera,arcade,onPick){
    return{x,y:start,bottom,height};
   }
   const dockX=bounds.width<=700?left:right-width;
-  const dockHeight=Math.min(260,Math.max(minimum,(maxBottom-top)*.44));
-  const docked=panel(dockX,top,{before:top+dockHeight});
+  const dockHeight=Math.min(260,Math.max(minimum,(maxBottom-dockTop)*.44));
+  const docked=panel(dockX,top,{before:Math.max(top+minimum,dockTop+dockHeight)});
   if(!at||!at.visible||at.sy<bounds.top||at.sy>bounds.top+bounds.height||at.sx<bounds.left||at.sx>bounds.left+bounds.width)return docked;
   const p=at,margin=Math.max(27,camera.scale*.74)+8;
   const guide=movementArrow(camera,movement.source,movement.destination)?.screen??[];
@@ -311,9 +352,14 @@ export function createShell(doc,camera,arcade,onPick){
    top=Math.max(bounds.top+8,m.headerBottom+8,m.sound.bottom-m.headerHeight+8);
   }
   if(short&&!quantityReserved)top=Math.max(top,m.cycles.bottom+6);
+  const dockTop=top,floatingShout=arcade.launchEditor?.().cryActive&&!aim;
+  const siteBounds=movement&&at?.visible?{left:at.sx-32,right:at.sx+32,top:at.sy-36,bottom:at.sy+20}:null;
+  shoutDock=floatingShout?quantityDockStrip({viewport:bounds,top,width:$('war-cry-editor').offsetWidth||146,height:$('war-cry-editor').offsetHeight||46,
+   obstacles:[...m.guideObstacles,m.mini,m.cycles,m.buttons,m.sound,siteBounds,...(!short?compassRects(m):[])]}):null;
+  if(shoutDock)top=shoutDock.bottom+8;
   let x=bounds.left+W-cw-8,y=top,bottom=bounds.top+H-(short?8:72);
   if(short&&m.cycles.top>bounds.top+H/2)bottom=Math.min(bottom,m.cycles.top-4);
-  if(movement){({x,y,bottom}=positionMove(at,movement,bounds,cw,m,top,short));}
+  if(movement){({x,y,bottom}=positionMove(at,movement,bounds,cw,m,top,short,dockTop));}
   else if(at){
    if(narrow){x=bounds.left+8;y=short?Math.max(top,Math.min(154,H-158)):Math.min(top+96,Math.max(top,H-360));
     // Keep the layout fixed during the quarter turn, then clear the new aim

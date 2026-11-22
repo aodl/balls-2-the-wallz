@@ -220,7 +220,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   if(selectedTile!==null&&!selection)contour(selectedTile,'selected');
   const activeDeflector=v.deflectors?.get(selectedDeflector);
   if(activeDeflector&&activeDeflector.cell!==selection?.cell)contour(activeDeflector.cell,'selected');
-  if(!selection&&['tile','camera','deflector'].includes(hover?.kind)&&hover.cell!==selectedTile&&hover.cell!==activeDeflector?.cell)contour(hover.cell,'hover');
+  if(!selection&&['tile','deflector'].includes(hover?.kind)&&hover.cell!==selectedTile&&hover.cell!==activeDeflector?.cell)contour(hover.cell,'hover');
   if(move?.deflector){
    const p=camera.cellPoint(move.cell),angle=orientationHeading(move.deflector.orientation)*Math.PI/32768;
    cannon(outlinedDeflector,p.x,p.y,angle,cannonLod,{},1.07);
@@ -228,8 +228,8 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   }
   if(selection){const legal=n=>selection.legal?selection.legal(n):selection.cells.includes(n);contour(selection.cell,selection.cell!==null&&!legal(selection.cell)?'invalid':'destination');
    if(selection.cell!==null&&selection.id!==undefined&&legal(selection.cell)){const p=camera.cellPoint(selection.cell),c=selection.reference?.cannons.find(c=>c.id===selection.id)??v.cannons.get(selection.id),[dx,dy]=heading(c?.heading??0),a=Math.atan2(dy,dx);cannon(outlined,p.x,p.y,a,cannonLod,{},1.07);cannon(provisional,p.x,p.y,a,cannonLod);}
-   if(hover?.cell!=null&&hover.cell!==selection.cell&&['place','invalid'].includes(hover.kind)){
-    contour(hover.cell,hover.kind==='place'?'hover':'invalid');
+   if(hover?.cell!=null&&hover.cell!==selection.cell&&hover.kind==='place'){
+    contour(hover.cell,'hover');
     if(hover.kind==='place'){const p=camera.cellPoint(hover.cell);instance(hoverGhost,p.x,p.y,.09);}
    }
   }

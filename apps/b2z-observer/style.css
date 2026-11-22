@@ -287,7 +287,6 @@ input,select,textarea{border-radius:6px}
 @media(prefers-reduced-motion:reduce){.speech-bubble{opacity:1!important}}
 @media(forced-colors:active){.speech-bubble{background:Canvas;color:CanvasText;border-color:CanvasText}}
 
-#launch-editors[data-first=true]{position:static;grid-column:2;align-self:center;max-width:100%}#launch-editors[data-first=true] #war-cry-editor{max-width:100%}
 
 .quantity-constrained #war-cry-editor{width:100px;min-width:100px;max-width:100px}
 
@@ -386,6 +385,11 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
 }
 #board-compass{container-type:size}
 #board-compass button[data-board-quarter="0"]{--compass-fill:#121517;--compass-ink:#fff}
+#board-compass button[data-board-quarter="0"]::after{
+ content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+ background:linear-gradient(var(--compass-fill),var(--compass-fill)) center top/14px 9px no-repeat;
+ clip-path:polygon(50% 0,66% 20%,34% 20%);transform:rotate(var(--north-angle,0rad));
+}
 #board-compass button[data-board-quarter="2"]{--compass-fill:#979da0;--compass-ink:#14191c}
 #board-compass button::before{
  content:"";position:absolute;inset:calc((44px - var(--diameter))/2);border:1px solid #b4bcc0;
@@ -420,6 +424,8 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
  #board-compass button[aria-pressed=true]{color:HighlightText}
  #board-compass button[aria-pressed=true]::before{background:Highlight;border-color:Highlight}
  #board-compass button:enabled:hover::before{outline-color:Highlight}
+ #board-compass button[data-board-quarter="0"]::after{forced-color-adjust:none;background:ButtonFace}
+ #board-compass button[data-board-quarter="0"][aria-pressed=true]::after{background:Highlight}
 }
 
 #trajectory-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}

@@ -79,7 +79,7 @@ def denied_move_copy(page, context, memo):
         cdp.detach()
 
 
-def movement(browser, url, declare, screen, width, height, diverter):
+def movement(browser, url, declare, screen, width, height, diverter, floating=False):
     context = browser.new_context(viewport={"width":width,"height":height}, has_touch=width<700,
                                   permissions=["clipboard-read","clipboard-write"], reduced_motion="reduce")
     page = context.new_page()
@@ -116,6 +116,10 @@ def movement(browser, url, declare, screen, width, height, diverter):
     assert page.evaluate("fixture.summary().camera") == pose
     assert page.evaluate("fixture.inspect().ghostKind") == ("deflector" if diverter else "cannon")
     shout = page.get_by_placeholder("Shout (optional)")
+    if floating:
+        expect(shout).to_be_visible()
+        assert shout.evaluate("node=>node.closest('#launch-editors').parentElement.id==='arena'")
+        assert not shout.evaluate("node=>node.closest('#workspace')")
     shout.fill("far")
     payload = f"{'DMOVE' if diverter else 'MOVE'} 1 {first}|far"
     expect(page.locator("#text-memo")).to_have_text(payload)
@@ -144,6 +148,12 @@ def movement(browser, url, declare, screen, width, height, diverter):
     expect(page.locator("#workspace")).to_be_visible()
     expect(page.locator('[data-copy="text"]')).to_be_enabled()
     assert not page.locator("#workspace").evaluate("node=>node.inert")
+    if floating:
+        expect(shout).to_be_visible()
+        expect(shout).to_have_value("far")
+        assert shout.evaluate("""node=>{const r=node.getBoundingClientRect(),p=document.getElementById('workspace').getBoundingClientRect();
+            return r.top>=0&&r.bottom<=innerHeight&&(r.right<=p.left||r.left>=p.right||r.top>=p.bottom||r.bottom<=p.top)
+                &&document.elementFromPoint(r.left+r.width/2,r.top+r.height/2)===node;}""")
     fallback = denied_move_copy(page, context, updated) if width==1440 and not diverter else None
     screen(page, f"{stem}-offscreen-dock")
     scene(page, third, 22, width/2, 160 if width<700 else 390)
@@ -155,6 +165,10 @@ def movement(browser, url, declare, screen, width, height, diverter):
         expect(page.locator("#cycles-display")).to_be_visible()
         expect(page.locator('[data-copy="text"]')).to_be_enabled()
         assert not page.locator("#workspace").evaluate("node=>node.inert")
+        if floating:
+            expect(shout).to_be_visible()
+            expect(shout).to_have_value("far")
+            assert shout.evaluate("node=>node.getBoundingClientRect().bottom<=innerHeight")
         screen(page, f"{stem}-contracted-move")
     assert not errors, errors
     context.close()
