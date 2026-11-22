@@ -1,9 +1,9 @@
 {
-  "source": "71e6a87a21862fea7ac074d3c92dbc8a93782d48",
+  "source": "37d07cb20e60beba8104086aee55c711ef311fde",
   "source_dirty": false,
-  "inventory_sha256": "d8954388f3a639f60978b56df9d4c92f997a728b6f7e95e60779be85b686e267",
-  "normal_wasm_sha256": "264b87a42e993ddc338978faad7a9806525bb02967fe397168346e2c5e49cb7b",
-  "normal_wasm_scope": "Local exact backend inputs at 740da2af5479b29a51c7eae0d4255463561db58f. Hosted normal and installed artifacts must reproduce each other.",
+  "inventory_sha256": "3919921d3b7e2f3f432e868b50527fe60fd7f1185393c01365e11601c375f97e",
+  "normal_wasm_sha256": "3769368a5b8ad439e42775c81615149f6feb304a9d7b9e8d345d3da2b1a42678",
+  "normal_wasm_scope": "Local exact backend inputs at aceaf1392f1a7b7fbf66426654e3c0bc4f4a9a5d. Hosted normal and installed artifacts must reproduce each other.",
   "inputs": [
     {
       "path": "apps/b2z-observer/404.html",
@@ -1443,7 +1443,7 @@
     },
     {
       "path": "canisters/runtime-lab/src/lib.rs",
-      "sha256": "36c8d849725500203d971772463c6bf6948118672fac9b6cfe9c8209e91af705"
+      "sha256": "99349caec99ebd19862bfab426d6fa6a0dfaa60a8ac991dcce83108ff2720724"
     },
     {
       "path": "canisters/runtime-lab/src/operation_kernel.rs",
@@ -1455,19 +1455,19 @@
     },
     {
       "path": "canisters/runtime-lab/src/playability_runtime.rs",
-      "sha256": "a924b97148dc960e95e42e76d82b45b9e643ffb5162fe9121b17dc2813f5b30e"
+      "sha256": "7b7c495e3e8ecd9c60ca39c0bdcc49c377191c9bb3efaaf8eb44a47932b7cc9d"
     },
     {
       "path": "canisters/runtime-lab/src/player_api.rs",
-      "sha256": "4c7bba890fbf76b47d7646a1d47eafd094db3fcc9feeb6d82a11eca6bc1f0329"
+      "sha256": "525f07f669623565c6456e4bcb4b1e9b0ecc8e0c6b55fa7c3f3f03f23719f73c"
     },
     {
       "path": "canisters/runtime-lab/src/source.rs",
-      "sha256": "ac41fbc755b2ce93845e97d1a48713276e7b53124357964f35206e4a444c986a"
+      "sha256": "b5dbab8378f0d67d87dfa458e9535d10830b0ec2dd629e3936b6278ac91a1396"
     },
     {
       "path": "canisters/runtime-lab/src/transition.rs",
-      "sha256": "0ed28fed519521c6833e4e20c57e3fa6980fb59345d7e14376319a564a5acb20"
+      "sha256": "4508c863f410beb74029c9aeae69992e9a354d86fd1b768e2ba2e33e7f128e9f"
     },
     {
       "path": "config/economics/rules17.json",
@@ -1523,7 +1523,7 @@
     },
     {
       "path": "crates/b2z-protocol/src/economy17.rs",
-      "sha256": "51cf7f7e2233de5df567486e7f5a1da08bff07acfb749ac1b2910e727fc2d464"
+      "sha256": "38dd9a2f2b1fb5a7234db3bc018f7ce192a13ee6b8a0850078ccde7bf54fda8f"
     },
     {
       "path": "crates/b2z-protocol/src/economy17_generated.rs",
@@ -1603,15 +1603,15 @@
     },
     {
       "path": "native/b2z-native/src/context_structures.rs",
-      "sha256": "435478c62ddf4cf9066be6a2bfb6935451203f068eaaff0cb07921cad0289181"
+      "sha256": "386a5d159ee011b14f8501895f456ddc3ff688277748b0445ca0443600c27010"
     },
     {
       "path": "native/b2z-native/src/cursor.rs",
-      "sha256": "6486b17065fc046fa2edf8b3fa39a938f8959603314f8f73ade77b050066cc8e"
+      "sha256": "1f66e2222972b31f706608c626408c1f2ca09de40fec53f1c06eb77381c589ab"
     },
     {
       "path": "native/b2z-native/src/cursor_v6.rs",
-      "sha256": "9a1f9361e76bfc03f07aba7f8e4a8efbd465923dec8c371db00076571413a6f7"
+      "sha256": "f11d96a13da902bb707c1afb9b8a63e83f3b3071ade4fbc2c577866c45d98d72"
     },
     {
       "path": "native/b2z-native/src/deflector_boundary.rs",
@@ -1619,7 +1619,7 @@
     },
     {
       "path": "native/b2z-native/src/deflectors_v12.rs",
-      "sha256": "e6341cc14df5a9442f47ee7c91ca722905b0fc6f8cb2a9aa16e33914c14b3656"
+      "sha256": "f223741d4706c2209767acb58ee911e3c68d7d78ef23aaef6f96de4789212929"
     },
     {
       "path": "native/b2z-native/src/economics_generated.rs",
@@ -1627,7 +1627,7 @@
     },
     {
       "path": "native/b2z-native/src/economy17.rs",
-      "sha256": "19328aa452d8dd327616eff423c0449484befd17e2d07c42e36ff6426b585459"
+      "sha256": "5ba41f4f229d461d2f0412899aa820133c5e91334e8459e772e3bf0bbd25659f"
     },
     {
       "path": "native/b2z-native/src/entry_v7.rs",
@@ -1643,11 +1643,11 @@
     },
     {
       "path": "native/b2z-native/src/lib.rs",
-      "sha256": "420d7f5cd33a0d781f5abf123ca449816f20c0950b94f3169ff896069f1648a3"
+      "sha256": "a9b95a1871f490a073608d1b376d057f915f53713f07b73dab5c36bce966a6d6"
     },
     {
       "path": "native/b2z-native/src/lifecycle_v6.rs",
-      "sha256": "7180c56ed2ff3caf74180c1767c668e0ef97840d9e0f3e3a0384bb54c1b031bb"
+      "sha256": "a7da87914eb177c095fa33518a130fe5d7afd7429d7e153c18704ccdd256763b"
     },
     {
       "path": "native/b2z-native/src/migration.rs",
@@ -1655,7 +1655,7 @@
     },
     {
       "path": "native/b2z-native/src/playability.rs",
-      "sha256": "b6a8b590cbc49a1e85c2b20b87ba34f1919531b51fc35864997be3b81841f7a0"
+      "sha256": "39e2be481dabb6581abd160c55143e51a5fa8519f342b62bbce12fa49b0e1269"
     },
     {
       "path": "native/b2z-native/src/playability_generated.rs",
@@ -1667,11 +1667,11 @@
     },
     {
       "path": "native/b2z-native/src/purchases_v6.rs",
-      "sha256": "4da4b3ed768da29df554a558357c2b66d388702d7c16c06477ac47b2fd901ad2"
+      "sha256": "bb505295990b6c67ea8b159136296e7a46ce24ac2d32281094d6e3f2b6dbc959"
     },
     {
       "path": "native/b2z-native/src/reservoirs.rs",
-      "sha256": "b7cbcad82d135abbbf6cf75f3b084aab68991c64b6e256c9ddfdde76f6a040ea"
+      "sha256": "fb02bf95dba2751bedf30ef5a8357b64cb1e06adac022855d8b6b0c7b82a4f15"
     },
     {
       "path": "native/b2z-native/src/shout.rs",
@@ -1703,7 +1703,7 @@
     },
     {
       "path": "native/b2z-native/src/world.rs",
-      "sha256": "6821c1060ff9c2567ff7c314a1652645b155d74496f022ed8c385a0c5808a85b"
+      "sha256": "580fb99c3685f790b2abdf1a1a49523f77487f07325cc80e03cf5a6eacbe2931"
     },
     {
       "path": "native/b2z-native/tests/adjacent.rs",
@@ -1771,7 +1771,7 @@
     },
     {
       "path": "native/b2z-native/tests/torus.rs",
-      "sha256": "d5be814dd3a23205aec59bf5d00495531894732d853557d909ed51a01009bc29"
+      "sha256": "003a2715d8ccaab516e46edb50b9eb2d25d81d36b80731ec9f58a931b78abbb0"
     },
     {
       "path": "native/b2z-native/tests/war_cry.rs",
@@ -1851,7 +1851,7 @@
     },
     {
       "path": "packages/kernels/b2z/animation-projection.mjs",
-      "sha256": "42bec5f505992191ca8c6597fa10d338addd43a7f5bd53fe5dba15a591e7ecab"
+      "sha256": "7d2c0b5a8e22a194cfa52224768b1f4576cf04f4ceb229681a3e3c0accb1fda0"
     },
     {
       "path": "packages/kernels/b2z/animation.mjs",
@@ -2149,7 +2149,7 @@
     },
     {
       "path": "canisters/runtime-lab/src/lib.rs",
-      "sha256": "36c8d849725500203d971772463c6bf6948118672fac9b6cfe9c8209e91af705"
+      "sha256": "99349caec99ebd19862bfab426d6fa6a0dfaa60a8ac991dcce83108ff2720724"
     },
     {
       "path": "canisters/runtime-lab/src/operation_kernel.rs",
@@ -2161,19 +2161,19 @@
     },
     {
       "path": "canisters/runtime-lab/src/playability_runtime.rs",
-      "sha256": "a924b97148dc960e95e42e76d82b45b9e643ffb5162fe9121b17dc2813f5b30e"
+      "sha256": "7b7c495e3e8ecd9c60ca39c0bdcc49c377191c9bb3efaaf8eb44a47932b7cc9d"
     },
     {
       "path": "canisters/runtime-lab/src/player_api.rs",
-      "sha256": "4c7bba890fbf76b47d7646a1d47eafd094db3fcc9feeb6d82a11eca6bc1f0329"
+      "sha256": "525f07f669623565c6456e4bcb4b1e9b0ecc8e0c6b55fa7c3f3f03f23719f73c"
     },
     {
       "path": "canisters/runtime-lab/src/source.rs",
-      "sha256": "ac41fbc755b2ce93845e97d1a48713276e7b53124357964f35206e4a444c986a"
+      "sha256": "b5dbab8378f0d67d87dfa458e9535d10830b0ec2dd629e3936b6278ac91a1396"
     },
     {
       "path": "canisters/runtime-lab/src/transition.rs",
-      "sha256": "0ed28fed519521c6833e4e20c57e3fa6980fb59345d7e14376319a564a5acb20"
+      "sha256": "4508c863f410beb74029c9aeae69992e9a354d86fd1b768e2ba2e33e7f128e9f"
     },
     {
       "path": "config/economics/rules17.json",
@@ -2229,7 +2229,7 @@
     },
     {
       "path": "crates/b2z-protocol/src/economy17.rs",
-      "sha256": "51cf7f7e2233de5df567486e7f5a1da08bff07acfb749ac1b2910e727fc2d464"
+      "sha256": "38dd9a2f2b1fb5a7234db3bc018f7ce192a13ee6b8a0850078ccde7bf54fda8f"
     },
     {
       "path": "crates/b2z-protocol/src/economy17_generated.rs",
@@ -2305,15 +2305,15 @@
     },
     {
       "path": "native/b2z-native/src/context_structures.rs",
-      "sha256": "435478c62ddf4cf9066be6a2bfb6935451203f068eaaff0cb07921cad0289181"
+      "sha256": "386a5d159ee011b14f8501895f456ddc3ff688277748b0445ca0443600c27010"
     },
     {
       "path": "native/b2z-native/src/cursor.rs",
-      "sha256": "6486b17065fc046fa2edf8b3fa39a938f8959603314f8f73ade77b050066cc8e"
+      "sha256": "1f66e2222972b31f706608c626408c1f2ca09de40fec53f1c06eb77381c589ab"
     },
     {
       "path": "native/b2z-native/src/cursor_v6.rs",
-      "sha256": "9a1f9361e76bfc03f07aba7f8e4a8efbd465923dec8c371db00076571413a6f7"
+      "sha256": "f11d96a13da902bb707c1afb9b8a63e83f3b3071ade4fbc2c577866c45d98d72"
     },
     {
       "path": "native/b2z-native/src/deflector_boundary.rs",
@@ -2321,7 +2321,7 @@
     },
     {
       "path": "native/b2z-native/src/deflectors_v12.rs",
-      "sha256": "e6341cc14df5a9442f47ee7c91ca722905b0fc6f8cb2a9aa16e33914c14b3656"
+      "sha256": "f223741d4706c2209767acb58ee911e3c68d7d78ef23aaef6f96de4789212929"
     },
     {
       "path": "native/b2z-native/src/economics_generated.rs",
@@ -2329,7 +2329,7 @@
     },
     {
       "path": "native/b2z-native/src/economy17.rs",
-      "sha256": "19328aa452d8dd327616eff423c0449484befd17e2d07c42e36ff6426b585459"
+      "sha256": "5ba41f4f229d461d2f0412899aa820133c5e91334e8459e772e3bf0bbd25659f"
     },
     {
       "path": "native/b2z-native/src/entry_v7.rs",
@@ -2345,11 +2345,11 @@
     },
     {
       "path": "native/b2z-native/src/lib.rs",
-      "sha256": "420d7f5cd33a0d781f5abf123ca449816f20c0950b94f3169ff896069f1648a3"
+      "sha256": "a9b95a1871f490a073608d1b376d057f915f53713f07b73dab5c36bce966a6d6"
     },
     {
       "path": "native/b2z-native/src/lifecycle_v6.rs",
-      "sha256": "7180c56ed2ff3caf74180c1767c668e0ef97840d9e0f3e3a0384bb54c1b031bb"
+      "sha256": "a7da87914eb177c095fa33518a130fe5d7afd7429d7e153c18704ccdd256763b"
     },
     {
       "path": "native/b2z-native/src/migration.rs",
@@ -2357,7 +2357,7 @@
     },
     {
       "path": "native/b2z-native/src/playability.rs",
-      "sha256": "b6a8b590cbc49a1e85c2b20b87ba34f1919531b51fc35864997be3b81841f7a0"
+      "sha256": "39e2be481dabb6581abd160c55143e51a5fa8519f342b62bbce12fa49b0e1269"
     },
     {
       "path": "native/b2z-native/src/playability_generated.rs",
@@ -2369,11 +2369,11 @@
     },
     {
       "path": "native/b2z-native/src/purchases_v6.rs",
-      "sha256": "4da4b3ed768da29df554a558357c2b66d388702d7c16c06477ac47b2fd901ad2"
+      "sha256": "bb505295990b6c67ea8b159136296e7a46ce24ac2d32281094d6e3f2b6dbc959"
     },
     {
       "path": "native/b2z-native/src/reservoirs.rs",
-      "sha256": "b7cbcad82d135abbbf6cf75f3b084aab68991c64b6e256c9ddfdde76f6a040ea"
+      "sha256": "fb02bf95dba2751bedf30ef5a8357b64cb1e06adac022855d8b6b0c7b82a4f15"
     },
     {
       "path": "native/b2z-native/src/shout.rs",
@@ -2405,7 +2405,7 @@
     },
     {
       "path": "native/b2z-native/src/world.rs",
-      "sha256": "6821c1060ff9c2567ff7c314a1652645b155d74496f022ed8c385a0c5808a85b"
+      "sha256": "580fb99c3685f790b2abdf1a1a49523f77487f07325cc80e03cf5a6eacbe2931"
     },
     {
       "path": "native/b2z-native/tests/adjacent.rs",
@@ -2473,7 +2473,7 @@
     },
     {
       "path": "native/b2z-native/tests/torus.rs",
-      "sha256": "d5be814dd3a23205aec59bf5d00495531894732d853557d909ed51a01009bc29"
+      "sha256": "003a2715d8ccaab516e46edb50b9eb2d25d81d36b80731ec9f58a931b78abbb0"
     },
     {
       "path": "native/b2z-native/tests/war_cry.rs",
