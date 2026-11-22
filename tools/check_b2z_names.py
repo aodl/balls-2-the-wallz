@@ -10,7 +10,7 @@ import subprocess
 ROOT = Path(__file__).resolve().parents[1]
 OLD = re.compile(r'btz', re.IGNORECASE)
 # Committed wire/hash/snapshot identifiers. Do not replace these with branding.
-TOKENS = re.compile(r'BTZ_SMALL_BOARD_RULES_0[23]|BTZ_STATE_0[23]_TYPED_JSON|BTZ-SPAWN-(?:INPUT|RANK)-03|BTZ-ICP-INDEX(?:-ANCHOR)?-01|BTZPAY0[23456]|BTZCUT02|btz-animation-1|btz-war-cry-1|btz-boundary-deflector-1|btz-context-structures-1|btz-successful-action-shout-1|BTZ/1|btz-s(?:12|13)-[a-z0-9-]+|BTZ-player-colour-v1|BTZ-identify-v1')
+TOKENS = re.compile(r'BTZ_SMALL_BOARD_RULES_0[23]|BTZ_STATE_0[23]_TYPED_JSON|BTZ-SPAWN-(?:INPUT|RANK)-03|BTZ-ICP-INDEX(?:-ANCHOR)?-01|BTZPAY0[234567]|BTZCUT02|btz-animation-1|btz-war-cry-1|btz-boundary-deflector-1|btz-context-structures-1|btz-successful-action-shout-1|BTZ/1|btz-s(?:12|13)-[a-z0-9-]+|BTZ-player-colour-v1|BTZ-identify-v1')
 FIXTURE_READERS = {'tools/coordinator_vectors.mjs', 'tools/host_bridge.mjs', 'tools/verify_host_native.py', 'native/native-conformance/src/bin/host_v5.rs', 'tests/js/coordinator.test.mjs'}
 
 def main():

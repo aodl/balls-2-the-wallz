@@ -9,13 +9,14 @@ import subprocess
 from threading import Thread
 
 from playwright.sync_api import sync_playwright
-from interaction_polish_browser import compass_and_turret, movement, tile_cases
+from interaction_polish_browser import board_point, compass_and_turret, movement, scene, tile_cases
 from floating_aim_browser import fire_gestures, scout_hover
 
 ROOT = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument("--output", type=Path, required=True)
 p.add_argument("--interaction-polish", action="store_true")
+p.add_argument("--reservoir-only", action="store_true")
 p.add_argument("--floating-aim", action="store_true")
 p.add_argument("--reference", type=Path, help="optional Rules14 checkout for matching before captures")
 args = p.parse_args()
@@ -221,10 +222,58 @@ def test(browser, variant, width, height, reduced=False):
     return {"size": [width, height], "reduced_motion": reduced, "camera": measures, "rotated_pinch": pinch}
 
 
+def reservoir_quotes(browser):
+    rows = []
+    for width, height in [(1440, 900), (390, 844), (320, 640)]:
+        context = browser.new_context(viewport={"width": width, "height": height}, has_touch=width < 700,
+                                      permissions=["clipboard-read", "clipboard-write"], reduced_motion="reduce")
+        page = context.new_page()
+        errors = []
+        page.on("pageerror", lambda error: errors.append(str(error)))
+        for suffix, enabled in [("case=orbit&spacing", False), ("case=reservoir&reservoir", True)]:
+            page.goto(f"{url}/after/?{suffix}")
+            page.wait_for_function("()=>Boolean(globalThis.fixture)")
+            if page.locator("#join-action").is_visible():
+                declare(page)
+            else:
+                assert page.evaluate("fixture.summary().account===fixture.world().cannons[0].account")
+            t = 4005  # adjacent to the existing cannon
+            scene(page, t, 66 if width >= 700 else 42, width / 2, height / 3)
+            page.mouse.click(*board_point(page, t))
+            page.wait_for_function("n=>fixture.proposal().cell===n", arg=t)
+            button = page.locator("#reservoir-action")
+            assert button.is_visible() == enabled
+            if not enabled:
+                continue
+            button.click()
+            page.wait_for_function("()=>fixture.proposal().mode==='reservoir'")
+            assert page.locator("#text-memo").text_content() == "RESERVOIR 4005"
+            assert page.locator("#transfer-amount").text_content() == "0.01 ICP"
+            assert not page.get_by_placeholder("Shout (optional)").is_visible()
+            assert page.locator('[data-copy=text]').is_enabled()
+            page.locator('[data-copy=text]').click()
+            assert page.evaluate("navigator.clipboard.readText()") == "RESERVOIR 4005"
+            screen(page, f"reservoir-quote-{width}")
+            page.locator("#close-panel").click()
+            t = 4010  # three cells from enemy territory
+            scene(page, t, 48 if width >= 700 else 42, width / 2, height / 3)
+            page.mouse.click(*board_point(page, t))
+            page.locator("#reservoir-action").click()
+            assert page.locator('[data-copy=text]').is_disabled()
+            assert "enemy territory" in page.locator("#preparation-note").text_content().lower()
+            screen(page, f"reservoir-enemy-clearance-{width}")
+            assert page.evaluate("fixture.reservoirs()!==null"), "verified state must mount excavation layer"
+        assert not errors, errors
+        rows.append({"size": [width,height], "historical_capability_hidden": True, "fixed_amount": "0.01 ICP",
+                     "memo": "RESERVOIR 4005", "native_copy": True, "enemy_distance_3_rejected": True})
+        context.close()
+    return rows
+
+
 try:
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True, chromium_sandbox=True)
-        report = {"after": [test(browser, "after", w, h, w == 390) for w, h in [(1440,900),(390,844),(320,640)]]}
+        report = {"reservoir": reservoir_quotes(browser)} if args.reservoir_only else {"after": [test(browser, "after", w, h, w == 390) for w, h in [(1440,900),(390,844),(320,640)]]}
         if args.reference:
             report["before"] = [test(browser, "before", 1440, 900)]
         if args.interaction_polish:

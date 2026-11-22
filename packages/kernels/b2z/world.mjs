@@ -1,5 +1,5 @@
 import {RESERVOIR_ADAPTER,RESERVOIR_PRICE_E8S} from '../../protocol/reservoir.mjs';
-import {validateReservoirs} from './reservoirs.mjs';
+import {validateReservoirs} from '../../protocol/reservoir.mjs';
 import {STRUCTURE_MIN_DISTANCE} from '../../protocol/structure-sites.mjs';
 import {CONTEXT_POLICY} from '../../protocol/context-structures.generated.mjs';
 import {CLEARANCE_POLICY} from './clearance.generated.mjs';

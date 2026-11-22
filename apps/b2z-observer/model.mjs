@@ -1,5 +1,4 @@
-import {reservoirSites} from '../../packages/protocol/reservoir.mjs';
-import {validateReservoirs} from '../../packages/kernels/b2z/reservoirs.mjs';
+import {reservoirSites,validateReservoirs} from '../../packages/protocol/reservoir.mjs';
 import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorOperation,applyDeflectorRemovals,matchesDeflectors}from'./model-deflector.mjs';
 import {launchAnnotationValidator}from'./war-cry-events.mjs';
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';

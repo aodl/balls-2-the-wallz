@@ -83,3 +83,17 @@ export function* reservoirSites(occupancy) {
     for (let bit = 0; bit < 4; bit++) if (bits & (1 << bit)) yield at * 4 + bit;
   }
 }
+
+export function validateReservoirs(world) {
+  if (world.version !== 8) {
+    if (world.reservoirs !== undefined) throw Error('RESERVOIR_SCHEMA');
+    return;
+  }
+  const bits = world.reservoirs, count = world.width * world.height;
+  if (typeof bits !== 'string' || bits.length > Math.ceil(count / 4) || !/^[0-9a-f]*$/.test(bits) || bits.endsWith('0'))
+    throw Error('RESERVOIR_SCHEMA');
+  const used = count % 4;
+  if ((used && bits.length === Math.ceil(count / 4) && parseInt(bits.at(-1), 16) >= 1 << used) ||
+      world.cannons.some(s => reservoirHas(bits, s.cell)) || world.deflectors.some(s => reservoirHas(bits, s.cell)))
+    throw Error('RESERVOIR_OCCUPANCY');
+}
