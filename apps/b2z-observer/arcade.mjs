@@ -427,7 +427,11 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   setHeading(value){if(!Number.isFinite(value))return;if(orientationMode()){worldAngle=snappedDeflectorDegrees(encodedHeading(String((value%360+360)%360)));degrees=displayHeading(worldAngle);keepPrevious=false;clearDraft();refresh();return;}degrees=String((value%360+360)%360);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
   destinationState:()=>({ready:moveReady,cell:defaultMove,key:moveKey,stats:moveSearch?.stats,cacheBytes:moveLegality?.bytes,cacheInspections:moveLegality?.inspected()}),
   proposedAction:()=>Object.freeze({mode,cell,degrees,worldAngle,quantity,...(warCrySupported(config)?{cry}:{} )}),
-  launchEditor:()=>({active:view==='action'&&(shoutActive()||orientationMode()&&deflectorSupported(config)||['ball','start'].includes(mode)&&(mode==='ball'||warCrySupported(config))),kind:orientationMode()?'orientation':!['ball','start'].includes(mode)?'action':'launch',cryActive:view==='action'&&shoutActive(),first:mode==='start'&&!mine().length}),
+  launchEditor(){
+   const first=mode==='start'&&!mine().length,kind=orientationMode()?'orientation':!['ball','start'].includes(mode)?'action':'launch';
+   return {active:view==='action'&&(shoutActive()||orientationMode()&&deflectorSupported(config)||['ball','start'].includes(mode)&&(mode==='ball'||warCrySupported(config))),
+    kind,cryActive:view==='action'&&shoutActive(),first,inline:!spacingSupported(config)&&(first||kind==='action')};
+  },
   adjustAngle(delta){if(orientationMode()){worldAngle=snappedDeflectorDegrees(Number(worldAngle??encodedHeading(degrees))+Math.sign(delta)*90);degrees=displayHeading(worldAngle);keepPrevious=false;clearDraft();refresh();return;}degrees=((Number(degrees)+delta+360)%360).toFixed(2);worldAngle=null;keepPrevious=false;clearDraft();refresh();},
   aim(){
    if(view!=='action'||!['ball','start','deflect','deflector_reorient'].includes(mode)||mode==='start'&&!mine().length)return null;

@@ -237,6 +237,12 @@ export function createShell(doc,camera,arcade,onPick){
  function positionQuantity(){
   const q=arcade.quantity?.(),editor=arcade.launchEditor?.(),qa=arcade.aim(),standalone=editor?.cryActive&&!qa;
   $('quantity-controls').hidden=!q?.active;
+  const slot=editor?.inline?$('action-inputs'):$('arena');
+  if(quantityWidget.parentElement!==slot){slot.append(quantityWidget);invalidateLayout();}
+  if(editor?.inline){
+   quantityWidget.hidden=!editor.active;quantityWidget.dataset.first='true';quantitySlot=null;quantityContext='';return;
+  }
+  delete quantityWidget.dataset.first;
   quantityWidget.hidden=!editor?.active||card.hidden||card.inert||!standalone&&(!qa||!camera.cellPoint(qa.cannon.cell).visible);
   if(quantityWidget.hidden){quantitySlot=null;quantityContext='';return;}
   if(standalone){
@@ -352,7 +358,7 @@ export function createShell(doc,camera,arcade,onPick){
    top=Math.max(bounds.top+8,m.headerBottom+8,m.sound.bottom-m.headerHeight+8);
   }
   if(short&&!quantityReserved)top=Math.max(top,m.cycles.bottom+6);
-  const dockTop=top,floatingShout=arcade.launchEditor?.().cryActive&&!aim;
+  const editor=arcade.launchEditor?.(),dockTop=top,floatingShout=editor?.cryActive&&!editor.inline&&!aim;
   const siteBounds=movement&&at?.visible?{left:at.sx-32,right:at.sx+32,top:at.sy-36,bottom:at.sy+20}:null;
   shoutDock=floatingShout?quantityDockStrip({viewport:bounds,top,width:$('war-cry-editor').offsetWidth||146,height:$('war-cry-editor').offsetHeight||46,
    obstacles:[...m.guideObstacles,m.mini,m.cycles,m.buttons,m.sound,siteBounds,...(!short?compassRects(m):[])]}):null;
