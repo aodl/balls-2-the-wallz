@@ -1,0 +1,162 @@
+{
+  "module": "da3fccaaec5d2c1828a9ca53bdf979cd6d8a95be9398b8c4ad17ee8d53d49b55",
+  "disposable_http_v2": "PASS",
+  "asset_count": 89,
+  "native_flac_decodes": 60,
+  "http_status_for_missing_path": 404,
+  "browser_rules": 17,
+  "reproducibility": {
+    "clean_builds": [
+      {
+        "bytes": 77320103,
+        "exports": [
+          "memory",
+          "get_candid_pointer",
+          "canister_init",
+          "canister_post_upgrade",
+          "canister_query http_request",
+          "__data_end",
+          "__heap_base"
+        ],
+        "sections": [
+          {
+            "bytes": 367,
+            "id": 1
+          },
+          {
+            "bytes": 234,
+            "id": 2
+          },
+          {
+            "bytes": 3624,
+            "id": 3
+          },
+          {
+            "bytes": 7,
+            "id": 4
+          },
+          {
+            "bytes": 4,
+            "id": 5
+          },
+          {
+            "bytes": 25,
+            "id": 6
+          },
+          {
+            "bytes": 132,
+            "id": 7
+          },
+          {
+            "bytes": 1970,
+            "id": 9
+          },
+          {
+            "bytes": 1181993,
+            "id": 10
+          },
+          {
+            "bytes": 76131709,
+            "id": 11
+          }
+        ],
+        "sha256": "da3fccaaec5d2c1828a9ca53bdf979cd6d8a95be9398b8c4ad17ee8d53d49b55"
+      },
+      {
+        "bytes": 77320103,
+        "exports": [
+          "memory",
+          "get_candid_pointer",
+          "canister_init",
+          "canister_post_upgrade",
+          "canister_query http_request",
+          "__data_end",
+          "__heap_base"
+        ],
+        "sections": [
+          {
+            "bytes": 367,
+            "id": 1
+          },
+          {
+            "bytes": 234,
+            "id": 2
+          },
+          {
+            "bytes": 3624,
+            "id": 3
+          },
+          {
+            "bytes": 7,
+            "id": 4
+          },
+          {
+            "bytes": 4,
+            "id": 5
+          },
+          {
+            "bytes": 25,
+            "id": 6
+          },
+          {
+            "bytes": 132,
+            "id": 7
+          },
+          {
+            "bytes": 1970,
+            "id": 9
+          },
+          {
+            "bytes": 1181993,
+            "id": 10
+          },
+          {
+            "bytes": 76131709,
+            "id": 11
+          }
+        ],
+        "sha256": "da3fccaaec5d2c1828a9ca53bdf979cd6d8a95be9398b8c4ad17ee8d53d49b55"
+      }
+    ],
+    "mutations": [
+      {
+        "mutated_sha256": "485d2dad80f790adecf3f56c7b043853e665cb19da7d41b9d86956baa5973e9f",
+        "mutated_wasm_sha256": "5682ba323fb6c3fecd1f3218278d792bbad655418b764c24d2ef6574e44eed1d",
+        "offset": 8772,
+        "original_sha256": "5b0d56d4255ec6e3eb18ad23ae70b40ad636bcdca3e3abc55145aa9a7ef3a22b",
+        "path": "index.html"
+      },
+      {
+        "mutated_sha256": "4e4fbc5bee1bf5148bb2a96f55cd97f699765b2ed1516991551adf327494e9ec",
+        "mutated_wasm_sha256": "8761821d8a4b649d14cd196f55db6a5b47cb4d929e4799177322369b543c20e8",
+        "offset": 651728,
+        "original_sha256": "518e48a4c0b69cce3afb2b6d06370b945eb3c4f56b7ca37fced7f70a3ed4bcc3",
+        "path": "app.mjs"
+      },
+      {
+        "mutated_sha256": "c82c7d35f180c0b768098fdb9f4ad82b43f88b121f8388d20a077f3198770c61",
+        "mutated_wasm_sha256": "a618abf6a9579ad10aea123cf5882d9f237e8f865840ce95cf8c021fb5384f56",
+        "offset": 20810,
+        "original_sha256": "dd652821671d1eeb325162f6fc094a17b474532c5d61cd71950f2c1fcf813d1c",
+        "path": "style.css"
+      },
+      {
+        "mutated_sha256": "8da4fc86bcde66cde02cd5bedadd9a48cb7e25f1438486df8267466d1d5ba512",
+        "mutated_wasm_sha256": "551255284ad108c7bcffe30ea65865ca70b225b3055139731514b8ae7d39c3a4",
+        "offset": 5490,
+        "original_sha256": "0e5090613b73948228b406845244f7eb0d42df9a3ed0a2fc6fb2b5398066296b",
+        "path": "balls-to-the-wallz-b2z-wordmark.svg"
+      },
+      {
+        "mutated_sha256": "e83d071bcc9ea3ae0189302853a3c6e333428b2e6a846c078385411d8ccd1004",
+        "mutated_wasm_sha256": "406d71a905acfede3bb9991c6e1e7c402e054d213eb1d22375c2e0dfea7f6676",
+        "offset": 677334,
+        "original_sha256": "978533bbde679a0d487e5d237eff2c43d2678a2471d4df6f7393b0e60c07b67f",
+        "path": "audio/b2z-v1/music/000-978533bbde679a0d.flac"
+      }
+    ],
+    "restored_module_sha256": "da3fccaaec5d2c1828a9ca53bdf979cd6d8a95be9398b8c4ad17ee8d53d49b55",
+    "scope": "Each mutation is isolated to a disposable staged identity representation. Original release and source assets retain exact bytes.",
+    "status": "PASS"
+  }
+}

@@ -78,3 +78,64 @@ Mandatory gates remain the actual integrated disposable signed Ledger journey,
 independent authenticated replay, hosted qualification on the frozen
 candidate and real Internet Identity acceptance on the established European
 origin. No mainnet deployment or financial operation was performed.
+
+The 2,095 JavaScript tests and 61 runtime-host tests passed. The Chromium
+journey passed at 1440×900, 390×844 and 320×640 using the real frontend
+controls, native clipboard and native Web Locks. Its authentication and
+Ledger connection use controlled fixtures. [Browser results](browser.json)
+
+The first disposable run reached the Rules18 cutover but its signer stopped
+waiting before the longer predecessor rehearsal finished. The next run also
+reached cutover. Its Ledger rejected approval because the reused fixture
+disabled ICRC-2. The financial test now explicitly enables ICRC-2 at local
+Ledger initialization and checks advertised standards before the rehearsal.
+Both failed runs remain separate from qualification.
+
+The frozen build source is
+`ed5a3b850c971bf1768c2d916e5212d1a38f5a54`.
+The local embedded Wasm is
+`da3fccaaec5d2c1828a9ca53bdf979cd6d8a95be9398b8c4ad17ee8d53d49b55`
+with 89 public assets. The normal backend built locally is
+`32f6a34c0daf727a413853bdf1b88037622e97b2449999ef13aaf4985bff1147`.
+The published financial and standard gates still determine the hosted
+artifact identities and release status.
+
+With ICRC-2 enabled, the disposable Ledger accepted the actual signed owner
+grant, approval and two authorized SDK identities. The authorized payment
+used 360,000 e8s and produced one payer-attributed game receipt. The Ledger
+deduplicated the exact retry after injected response loss. A different
+spender and a post-revocation transfer both settled at the Ledger and were
+rejected by the game. A stale expected allowance was refused by the Ledger.
+A following manual payment succeeded. Independent replay matched all 17
+publications, including state, events and scores, using the captured Index
+transfer facts. The separate certificate capture initially failed because the
+disposable source-drain test advanced its clock beyond the signing process's
+wall clock. The revised capture measures freshness against the independent
+disposable replica clock with the same age and future bounds, and verifies
+that a stale observation still fails.
+
+Two independently staged embedded builds reproduced the exact frontend.
+The disposable HTTP-v2 check authenticated 89 assets and 28 alternate
+GET/HEAD routes. A fresh Chromium run observed live Rules17 with that
+frontend, decoded all 60 FLAC files and confirmed the branded 404.
+[Embedded checks](embedded-local-checks.json)
+
+The next hosted attempts exposed the missing Adapter12 compatibility name
+in the branding audit and Rust formatting and declaration-order checks.
+Those checks remain intact. The longer financial capture also reached one
+publication older than the on-canister retention window. The replay now
+authenticates the exact pre-eviction archive through the certified successor's
+hash chain, verifies every archived artifact and rejects altered archival
+bytes. The liquid balances and game on the European canisters were unchanged
+by any of these disposable tests.
+
+The complete local disposable test authenticated the full 17-publication
+chain, including its evicted predecessor, and replayed state, events and
+scores with the exact captured Ledger transfer facts. The hosted financial
+test also passed with the same normal Wasm as the standard hosted build
+(`43095677376fe4f3c66185b1cf185ef9e161b5c44320609b93e134a771f4bf59`).
+Its Ubuntu 24.04 Chromium launch failed before running browser assertions
+because Chromium could not start its sandbox. The separate browser job now
+uses the same sandbox-capable Ubuntu 22.04 hosted image as the standard
+browser gate. The financial build remains on Ubuntu 24.04 to preserve
+normal Wasm parity across the two workflows.

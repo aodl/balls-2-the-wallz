@@ -1,0 +1,2555 @@
+{
+  "source": "ed5a3b850c971bf1768c2d916e5212d1a38f5a54",
+  "source_dirty": false,
+  "inventory_sha256": "eb29f7b0d93dbd736f8ae7aa2753738b3d75c806cf2ab757b2d75a904e29f879",
+  "normal_wasm_sha256": "68f03f432c61f960cbca9f89b68073cf2abac6c102f2aca48414d6f3fde2d4df",
+  "normal_wasm_scope": "Local exact backend inputs at aceaf1392f1a7b7fbf66426654e3c0bc4f4a9a5d. Hosted normal and installed artifacts must reproduce each other.",
+  "inputs": [
+    {
+      "path": "apps/b2z-observer/404.html",
+      "sha256": "66d908c0d86ad70b61f5183b3688ccda9aabe4f049100198a7e7e21526776988"
+    },
+    {
+      "path": "apps/b2z-observer/action-quote-v6.mjs",
+      "sha256": "0c38855c4df55d5d29e3d0c0299a950224cbfe9f9a270d3949259ea302772aeb"
+    },
+    {
+      "path": "apps/b2z-observer/app.mjs",
+      "sha256": "55b625f999de13c1a03a80e7abafd49955e158b07a1d8072b5f4d8faed1a1c62"
+    },
+    {
+      "path": "apps/b2z-observer/arcade.mjs",
+      "sha256": "a2686e91aacaf744f32d30473d0a6206eb2f4e0af5c101c010dd2c38cc0781d3"
+    },
+    {
+      "path": "apps/b2z-observer/arena-indicators.mjs",
+      "sha256": "2502e74698e3a706edc2d36f672f85af34cff942bd8c62a15313c6a07a4738fa"
+    },
+    {
+      "path": "apps/b2z-observer/audio-contact.mjs",
+      "sha256": "a336582351a7370151c0cb22ad1fff09fd82001a896d400407dc09e9bb6b10e1"
+    },
+    {
+      "path": "apps/b2z-observer/audio-engine.mjs",
+      "sha256": "4d66802ba7b8729f19168eb008ef4076e4b47b6573c698c12db78e2d1da0128c"
+    },
+    {
+      "path": "apps/b2z-observer/audio-events.mjs",
+      "sha256": "fd3a6b2cf4061bc897b057c3c2458225ec20cfed554f25cc7447d3b0799ab07c"
+    },
+    {
+      "path": "apps/b2z-observer/audio-loader.mjs",
+      "sha256": "ba1859cae4422d25f33b32a8737d304ecce5ca18a61471d6e01afbd3d7e7419e"
+    },
+    {
+      "path": "apps/b2z-observer/audio-music.mjs",
+      "sha256": "e0df2ff3a0e6a9feff52b792fb2e8e39444fe97e718ed57caeede26dea99e879"
+    },
+    {
+      "path": "apps/b2z-observer/audio-ownership.mjs",
+      "sha256": "e0c4839cb8c9864557ed39383a25a934a365e78f6f586f8d4317e416815d2a00"
+    },
+    {
+      "path": "apps/b2z-observer/audio-policy.mjs",
+      "sha256": "9fc778a6430914bf9617d00f6a815eb378d64d7e850525503a91dbc852af9feb"
+    },
+    {
+      "path": "apps/b2z-observer/audio-ui.mjs",
+      "sha256": "2f1818378759defeac7c014ea441297632e73f12b694cd9823b85f3f9d780854"
+    },
+    {
+      "path": "apps/b2z-observer/audio-visibility.mjs",
+      "sha256": "9e41fff5e9bcf93698828a86781fa7c2638d20b26307bed55c582ef547cdb089"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/manifest.json",
+      "sha256": "76ed1de786dfa2be2aaf71838b73ce93b73f463df846281df8a0569f80edf20c"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/000-978533bbde679a0d.flac",
+      "sha256": "978533bbde679a0d487e5d237eff2c43d2678a2471d4df6f7393b0e60c07b67f"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/001-7ab28b46da414f75.flac",
+      "sha256": "7ab28b46da414f75d809207f1477c5d015586120ab63d54cfa672f5a790b6da5"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/002-ab9e812cea73ff2d.flac",
+      "sha256": "ab9e812cea73ff2d10db8b4a7fbf6cfa47ed1ca27c095916f14b55d64804ccb3"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/003-5a9a811a71e0dbf5.flac",
+      "sha256": "5a9a811a71e0dbf5a0c944c2d04c65328f588c7a3fffe33b2079c2196b2610d7"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/004-f3bfe0c913ec1cfd.flac",
+      "sha256": "f3bfe0c913ec1cfd849364079ad2bccfcce530b3402c646d55b06887699fbf60"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/005-4bf13903e457fd94.flac",
+      "sha256": "4bf13903e457fd940d1038f947f2a0e2d8407678dd53646e2b2a9fad9d25d2e8"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/006-13c63a85b790037a.flac",
+      "sha256": "13c63a85b790037ab0ec0b137d89feca7bbe84e2fb612b2fda816d37f6c20ac4"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/007-a3a654ad7e6ccf3b.flac",
+      "sha256": "a3a654ad7e6ccf3b401a4686717b4e2977284ded47fd013c1cae73bb4352e40c"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/008-6a0965d52f29842d.flac",
+      "sha256": "6a0965d52f29842dedcfcbadc6906de395af399999474a208de5af20450bb75b"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/009-752cf09ae99741b3.flac",
+      "sha256": "752cf09ae99741b3f798d52c56e61b0c4cb5b7fefbe3cc370688669f05074cce"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/010-6de1162e34b4268f.flac",
+      "sha256": "6de1162e34b4268f786b579df90abf279bc3575d20fc712f2ca1d8d13518b8c5"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/011-8a18bb8efc6b46e0.flac",
+      "sha256": "8a18bb8efc6b46e06e226c4ca8a7c4a70b8e699d4d9f61ccc956b1895ce89b13"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/012-01e06f63ca07d0ae.flac",
+      "sha256": "01e06f63ca07d0ae4bf88ed7b5689efb763e36c5584592bd9f913ab88b0f5fc9"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/013-f8a6c8b91760e70e.flac",
+      "sha256": "f8a6c8b91760e70e67e97e3493e836f23a190972a87e2248b37da9286b319cdf"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/014-837b53aa95a943b5.flac",
+      "sha256": "837b53aa95a943b5c83c9ab8e8a9c1cc4265360a6c5d6ff4db709866e00c1b2f"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/015-e35652430b453d65.flac",
+      "sha256": "e35652430b453d65f625e26a3752ddf134c82bd33029a10127fb8db8e106a7e6"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/016-2168c415461a767c.flac",
+      "sha256": "2168c415461a767c3a13d2361078439721a7156b2df2cf6e7db3cbc6cc3e1efc"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/017-7f4e43a4cf5d162b.flac",
+      "sha256": "7f4e43a4cf5d162b2171319aa2ed9697ece111690f1034eaa24a33811ea03c3d"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/018-cd646c231bb0e032.flac",
+      "sha256": "cd646c231bb0e03281768f42ca6ec8c5170f94b0d1641527d8ca9d2b45212429"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/019-d9dcce5e55fccf6e.flac",
+      "sha256": "d9dcce5e55fccf6e86e6f9971d0974cf711b78477187f8f5859ad4b30047f1ae"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/020-e854dac44dcbcd65.flac",
+      "sha256": "e854dac44dcbcd65ed354ed2209bff20e1f6226a9f2a84491cde280a91488342"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/021-0053cc0eb9d2a475.flac",
+      "sha256": "0053cc0eb9d2a4751ca5cf70b24f82e3d0e7a2e2dfd04abe1074412f714b2d52"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/022-9ebd709381955bf9.flac",
+      "sha256": "9ebd709381955bf9c739cd81de178f0cb1436317ed8e86f499b39942ba5d6e5d"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/023-59e1236bb33062e5.flac",
+      "sha256": "59e1236bb33062e557985564d7bf3c90a7e9ef0bc1f2359b870e1744f9c27bf8"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/024-041c140c3e948c0d.flac",
+      "sha256": "041c140c3e948c0dda47328f7af592935e82d45426bc7a26dd796ee90cc326ec"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/025-b3d815be06bfb494.flac",
+      "sha256": "b3d815be06bfb49484872e44e98a1d927a92dcc683aae1369e360e7ad5bfcfc1"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/026-cc3cdb40392b4641.flac",
+      "sha256": "cc3cdb40392b4641eca7f6fd4a55ca7b064f6f4070d7f3049737ffd7fccf8a45"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/027-64598ff9932ebab9.flac",
+      "sha256": "64598ff9932ebab9ec8b91d60910ddaade31c4724946fbf99beb41ba2e0fdce0"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/028-24c195f5b8f77c5b.flac",
+      "sha256": "24c195f5b8f77c5b56c96b5a5c9c8a080cfb2428bc758a3e723387f1e7c1f3a4"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/029-ac52e6b415d35c71.flac",
+      "sha256": "ac52e6b415d35c71e57d38d1a1a6e91b47da69b0e72bd33a49092d2e0e5d0311"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/030-601ae0b00a50cf31.flac",
+      "sha256": "601ae0b00a50cf31dd77a085ad8ec933772ed666908403ee064688eabfcd139a"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/031-91fc9d7d00634258.flac",
+      "sha256": "91fc9d7d006342587b09906bc0619c6819e3a3af2cda3d82bb9d3866a168b3f1"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/032-cd7886d01d110959.flac",
+      "sha256": "cd7886d01d110959288ee2946ee62a964e27f0d1757ec3d85968c4d0c1a0254d"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/033-57b4a3df81bf24e6.flac",
+      "sha256": "57b4a3df81bf24e6eb73b15c645701c4bedb4ca04125dc5b6b52e9ec757944f5"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/034-98a099fe7a6eb4a0.flac",
+      "sha256": "98a099fe7a6eb4a06c2180a947d63b7f86d0182171e7ac120539d5824e1d9116"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/035-9e6aaca300a74182.flac",
+      "sha256": "9e6aaca300a741828e64da529dfef1b2a0250f73d651af4a11a1acdbf9189441"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/036-6633c68f9f5a1ed6.flac",
+      "sha256": "6633c68f9f5a1ed60b473d3f53747f7fd22d51f01e5564e993fdba6f91819b54"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/037-e9e76ddc65f4dae0.flac",
+      "sha256": "e9e76ddc65f4dae0d0df119727697ac6953545e44897549fc7d2d9ebca770511"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/038-3a72de09ed721511.flac",
+      "sha256": "3a72de09ed72151192cf9d7702c4c33258cdf84d878616781aeaaad7c1db9e54"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/039-4d32d148feef91d2.flac",
+      "sha256": "4d32d148feef91d2e4374fc2680fb79de8bec2756f301611f51f75854a9a92d8"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/040-f61e4d02b52e2342.flac",
+      "sha256": "f61e4d02b52e23423b4d4259734f42c3492bff22c1f3006ed694a130f8e64834"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/041-9a8da6cd0a526b32.flac",
+      "sha256": "9a8da6cd0a526b325aebde37c23ddcad2be84dc5bdead209628aca921222f076"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/042-ac772140522270b4.flac",
+      "sha256": "ac772140522270b4a20ddccbf075cdec09fa190e6d4cfcdfee1d324d527481ad"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/043-2c460e278e88ab13.flac",
+      "sha256": "2c460e278e88ab138d3297292a04bd817862cdb93e38c5ad4231d6b4ea2f0c65"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/044-dde8cc578bcf7431.flac",
+      "sha256": "dde8cc578bcf7431ff0fc25804cfb693f760785c7659b5baa6744d831e6b6d03"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/045-210a3a96ec7e2678.flac",
+      "sha256": "210a3a96ec7e267832201e5bb315c0f2e170ed8629fdcc127445cad06c26c4cf"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/046-d727238bc1e57a9f.flac",
+      "sha256": "d727238bc1e57a9ffa5e2bcff49711e15b604f872a9a4bcd2e9678c9fb702e38"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/047-77fb039c12c797d6.flac",
+      "sha256": "77fb039c12c797d6c3697f528f4a9598f6e349680b2d5b258c815222a30e6929"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/048-53ac1f64316cb328.flac",
+      "sha256": "53ac1f64316cb3283855159eaf14c2dd8fb503fdc0d80d60f8dda855d0917901"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/049-4e9038e965eb50a8.flac",
+      "sha256": "4e9038e965eb50a896ef0b22bf631ab18d82b2b6708a0e427e647114fff0fa05"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/music/050-0bea9a768b71ccb2.flac",
+      "sha256": "0bea9a768b71ccb2a13f4b23b82383254d4ba9135818fe79f2b9fe54f6497a49"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/cannon-launch-full-726a4bc9aa376db1.flac",
+      "sha256": "726a4bc9aa376db17c3f1c60f27d0ec34c3d8fa18c1d108b8f20540530e2c046"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/cannon-launch-soft-00052a3c9bb1f50d.flac",
+      "sha256": "00052a3c9bb1f50dda6f2aca6aa620f04b6bfdcff3405ebab13039ae503bffac"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/friendly-contact-a-e561a8e1413e5b89.flac",
+      "sha256": "e561a8e1413e5b8904c236eb3ed33e440f97175903c6de8a57d7b6aa3b25602a"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/friendly-contact-b-c46c20436673ab27.flac",
+      "sha256": "c46c20436673ab275d316bceba07520eba533bf96d29dacf5f862fc65685d737"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/neutral-contact-3c37d8751e36c470.flac",
+      "sha256": "3c37d8751e36c470224d342df0f16ac5bbb969115d215f5eaeea0070e91574ee"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/territory-soft-swell-377399da11d31316.flac",
+      "sha256": "377399da11d313163a84e551b00fb739da60d0f8dcc5b50b175539d6785a0726"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/wall-ripple-a-3644a32147c83a21.flac",
+      "sha256": "3644a32147c83a2111f2eadea9f8003ae81a6ac009b82a9f32c7769698f2bfce"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/wall-ripple-b-b00a94f8e88ec309.flac",
+      "sha256": "b00a94f8e88ec3097ed25a0d290eb1e0bd4ed8c3a0955af3501843280583695e"
+    },
+    {
+      "path": "apps/b2z-observer/audio/b2z-v1/sfx/wall-ripple-c-12d52c1290972681.flac",
+      "sha256": "12d52c1290972681fd96cc8de535dc5d7ffc784655cb3a6b541623733cbe5936"
+    },
+    {
+      "path": "apps/b2z-observer/ball-presentation.mjs",
+      "sha256": "10f6ac39f64dba8769557061b7049e1e2807ca18b86a14e0e40fd1646d70b3ed"
+    },
+    {
+      "path": "apps/b2z-observer/balls-to-the-wallz-b2-icon-matched.svg",
+      "sha256": "42bd1317cbf53a0566b24e8ef477d0de759aeaae914b27fa3718e9829a87d872"
+    },
+    {
+      "path": "apps/b2z-observer/balls-to-the-wallz-b2z-wordmark.svg",
+      "sha256": "0e5090613b73948228b406845244f7eb0d42df9a3ed0a2fc6fb2b5398066296b"
+    },
+    {
+      "path": "apps/b2z-observer/bounded-observation.mjs",
+      "sha256": "971266822b595269c249bf3bbd67ddd748db810495094faed6158595143c0f92"
+    },
+    {
+      "path": "apps/b2z-observer/camera-controller.mjs",
+      "sha256": "d28552d7fa07aa5d4f99d42a165c1a03ec16a6120851dd76e4a1c12440cadda5"
+    },
+    {
+      "path": "apps/b2z-observer/camera.mjs",
+      "sha256": "d56bd228e37910bdc2f20da8fe4a2ab028f12208c63307e3a37178c98c39011f"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-clearance.bin",
+      "sha256": "0567d064106d26a14791f9d07bd64a2e4f87b26789dbef7167b2ee7e96114153"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-combined.bin",
+      "sha256": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-context.bin",
+      "sha256": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-deflector.bin",
+      "sha256": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-economy.bin",
+      "sha256": "0cff926a5d2ee0342547a045dbb85aa25f2d83991c54edab6b14f73ede21262f"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-entry.bin",
+      "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-legacy.bin",
+      "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-million.bin",
+      "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-playability.bin",
+      "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-reservoir.bin",
+      "sha256": "b91086bc731f98861c1abf020919838444984dea564cfb27da6dce02b1c8dea3"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-shout.bin",
+      "sha256": "907d00e310f4f4128a53bc0adb964e4f05dbbb9a7c60d745703aeb3c9ec48eab"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-spacing.bin",
+      "sha256": "bd5c34521af5ff9bee15013549af3b265e5293589b0ef833278e580d5d760b4e"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-torus.bin",
+      "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-war-cry.bin",
+      "sha256": "26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a"
+    },
+    {
+      "path": "apps/b2z-observer/configuration.bin",
+      "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42"
+    },
+    {
+      "path": "apps/b2z-observer/configuration.generated.mjs",
+      "sha256": "7e9660af66aa8f2ae01d31a4984b89405071823eb42d4e868248869eb1a6b03a"
+    },
+    {
+      "path": "apps/b2z-observer/context-capability.generated.mjs",
+      "sha256": "3115b12afb041c1d4d16166a520a8bf8278447b20336ba072ee86f3c25ac1214"
+    },
+    {
+      "path": "apps/b2z-observer/context-policy.mjs",
+      "sha256": "d4a634ffa37cc3b5f9f6bac84262526641ddcef2e9897e75604915a324950ac6"
+    },
+    {
+      "path": "apps/b2z-observer/context-sites.mjs",
+      "sha256": "00df3f21ab13fc0d5fd761be70d771fdac62e8fc6b2fc34d8e34eb64e10b44f7"
+    },
+    {
+      "path": "apps/b2z-observer/cursors/reticle.svg",
+      "sha256": "9c30f3fbd6be4a26691854d086584da0f4231b9a0a51e737d0a7c1f8edb8e892"
+    },
+    {
+      "path": "apps/b2z-observer/deflector-capability.generated.mjs",
+      "sha256": "d84db0a50c9faa3f3081bc5fb16b035ef65ef1671b34694c59efb1518dd69256"
+    },
+    {
+      "path": "apps/b2z-observer/deflector-policy.mjs",
+      "sha256": "8bac391c3b12f1a7038a02d943ff4bdfa4f4268e7af532ba4f4513e534074e0f"
+    },
+    {
+      "path": "apps/b2z-observer/deflector-sites.mjs",
+      "sha256": "d621daf85f60463d86db7c28166c9f5e1c5ce5e49ba8745fa455f7e02d277fdf"
+    },
+    {
+      "path": "apps/b2z-observer/deployment.mjs",
+      "sha256": "d169ea25dcbbe05cc22ab41b61dece3dc3e9f364782f67a32c916cca8dbba12a"
+    },
+    {
+      "path": "apps/b2z-observer/destination-search.mjs",
+      "sha256": "a41c3860831f055729af5e34cb64806545031f1bd49aae91a26d037745def33a"
+    },
+    {
+      "path": "apps/b2z-observer/elastic-playback.mjs",
+      "sha256": "4ddab080e901caac23090333872d5722cc3212f4dde06a5b63cb97a3df48131b"
+    },
+    {
+      "path": "apps/b2z-observer/experience-status.mjs",
+      "sha256": "b2e9309f92f7724c308646f4edc4e09b2c90f9de0d613519277d8b55a9c158d5"
+    },
+    {
+      "path": "apps/b2z-observer/favicon.ico",
+      "sha256": "e34ccbadc26ea0c6745d275041daea741ebc9fbba1899d59ae14e54fcffccceb"
+    },
+    {
+      "path": "apps/b2z-observer/guide-clearance.mjs",
+      "sha256": "403eb632cb09f07490ec5df67315e3dfa7087fbfccfe270e7270a9b623ac4d16"
+    },
+    {
+      "path": "apps/b2z-observer/handoff.mjs",
+      "sha256": "e14bf32d03726e279e0280c6096912f5befa0ffa331b01dd55bf15cc39aafbdd"
+    },
+    {
+      "path": "apps/b2z-observer/headings.mjs",
+      "sha256": "f5db7bcdd90a78c58b53ddfe1ffe6c1f61b506e46f937cb036bbd79b63989959"
+    },
+    {
+      "path": "apps/b2z-observer/icon.svg",
+      "sha256": "2741efd82b7b00d4b2f1482e04140d7245e6afb08f1cf9905a93bb045e706888"
+    },
+    {
+      "path": "apps/b2z-observer/identity.mjs",
+      "sha256": "02c1b3f5742188ea504f22494f1712025d3b68c3d935a30a32c812ab145a920c"
+    },
+    {
+      "path": "apps/b2z-observer/index.html",
+      "sha256": "32ac96af951f22ad9d4bbae883136c81427d8b76e7bc3745168c95afdd4794ae"
+    },
+    {
+      "path": "apps/b2z-observer/interaction.mjs",
+      "sha256": "9890e47e2e81dd23c24ccbfdc115b8bee4c75606feb8a58f44beea0218ae2bc8"
+    },
+    {
+      "path": "apps/b2z-observer/isometric-projection.mjs",
+      "sha256": "54f8ade87dcf0d60f782e88533abc129c3323c098de81337ce8866cd10d1c720"
+    },
+    {
+      "path": "apps/b2z-observer/live-delivery.mjs",
+      "sha256": "11cbb733cce6f051b728d2e064d90ffc7ed4acb4eff61e01546533e1bda5ea10"
+    },
+    {
+      "path": "apps/b2z-observer/mainnet.mjs",
+      "sha256": "3fd05d64ed7f9d0be4b35af25652ab0e32ef499729842cd561b00b61cb94e631"
+    },
+    {
+      "path": "apps/b2z-observer/minimap-projection.mjs",
+      "sha256": "3728595f043bf48ebd08793aa487617b530c323f508ce9d2f4c347c632f19c95"
+    },
+    {
+      "path": "apps/b2z-observer/minimap.mjs",
+      "sha256": "46567b3a695181ab091f933d796bf0135f69484949a4bab4616652b3f6a77f29"
+    },
+    {
+      "path": "apps/b2z-observer/model-deflector.mjs",
+      "sha256": "f9a322fd18336fe32e57063eacc3fae35ccfd7093823be5410a4f0a8bd348f2b"
+    },
+    {
+      "path": "apps/b2z-observer/model-v6.mjs",
+      "sha256": "6eb358aa336eead50baee535f98992101c65621da38a955f7be2b21fda6a9ecd"
+    },
+    {
+      "path": "apps/b2z-observer/model.mjs",
+      "sha256": "0a02332c1b0c16079dc81dddff67e4534677945d025a7256aa15ea6228104dd7"
+    },
+    {
+      "path": "apps/b2z-observer/motion-effects.mjs",
+      "sha256": "d699db1619c4c6667d5b300b02cd157a3e46d9c854a9e8031c134eb957483240"
+    },
+    {
+      "path": "apps/b2z-observer/not-found.css",
+      "sha256": "af3eb000ef7ab32449807d4cce89174a7039a891ddbac10ca3b16633f44b14f4"
+    },
+    {
+      "path": "apps/b2z-observer/observation-loop.mjs",
+      "sha256": "2ee32afa5e1fc34980423a15606516bceb96df73ec7a51a8a9355a9edd599489"
+    },
+    {
+      "path": "apps/b2z-observer/payment-presentation.mjs",
+      "sha256": "8cbb60f8f76af3909269a2f1c896105ec7e368df219a3177db1e2455e0a5f8cb"
+    },
+    {
+      "path": "apps/b2z-observer/play-reference.mjs",
+      "sha256": "74c720479ef689b61315ac4ebe5c8f8d606de077dde01eebbff89406aac42fc7"
+    },
+    {
+      "path": "apps/b2z-observer/player-anchor.mjs",
+      "sha256": "ea14e27079d85404cbc2e11bbec264ea3d828b551af5546408a5bcc031b82fb6"
+    },
+    {
+      "path": "apps/b2z-observer/public-cycles.mjs",
+      "sha256": "5039893e030cb45ff7a7b8328fcb4f4f69f5ca0d577f0bf309d30c0511e52014"
+    },
+    {
+      "path": "apps/b2z-observer/quantity-placement.mjs",
+      "sha256": "b921c3acdafa3c2d7e3e81eba05b09259e9bb51b9797ee152bb8170cdabf1887"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/000/catalog.bin",
+      "sha256": "e923bc8cf22cf6518879ee9bf4dd3207753d80001ec738c3373a9eb32e332ad6"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/000/render-0.bin",
+      "sha256": "d36dbc264226f1d3fa44f1399d599ce534420544fa0b474b630aec722f719d35"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/000/state-0.bin",
+      "sha256": "fd1df275ae4dfc732bb9bb8ec3bbacb1595781d3bea46b9a2b760d36aa8ef63b"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/001/catalog.bin",
+      "sha256": "670d178af6f43deef6db73b98847f205371c6ef5eb0885a898e136fe0e3a9688"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/001/events-0.bin",
+      "sha256": "9fc2c8da43d76abadf31ae54ea45f0e1c3a64cdffc63c00082d5d5a5218d49d1"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/001/render-0.bin",
+      "sha256": "d86909ed9d9466cf1807847b1954bf87073cdae04e97eac672f4bb992887fe63"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/001/scores-0.bin",
+      "sha256": "c62013aef6a70f2e9580bc79ad3a447bdb7796fa8a431e6162ad81a6eacf3932"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/001/state-0.bin",
+      "sha256": "257840f04862526dfff7fccd9f83111bf4d8a6cc3f7cdeaee7578ea8c5913845"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/002/catalog.bin",
+      "sha256": "0ec53a7a29d6268f54779ccdb489dd9f93f202856ef90b375d7a6fdfd2b4f9f6"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/002/events-0.bin",
+      "sha256": "39d2f9071f183364f09a6bc32d753c890b0e06d402af1fd8f688580954668267"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/002/render-0.bin",
+      "sha256": "0f2d6afe7df791fb78bdf7d117020f5618584a53a103bee1bef623bb97bd32c9"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/002/scores-0.bin",
+      "sha256": "f7dd5d8b6dd111049606cf7c7b87f75bf790ebbe77d34ff32ce4f6bcbdf522fe"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/002/state-0.bin",
+      "sha256": "7f05c526aa9a692da8806c58311fb506c2b704537584ae9765a6b68e55eaa900"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/003/catalog.bin",
+      "sha256": "e0edbd7e238181b8b0715666102de306b9e60d92cf907ee6511e6952ee334420"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/003/events-0.bin",
+      "sha256": "608c6fb9788b1218e71a82fcd49635c47d6428f36eb3769f8d976cae99d813db"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/003/render-0.bin",
+      "sha256": "bd45ea7d0dca8545282e8535f70cf2aa77442f103e7d3281d0daf12fe025eaed"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/003/scores-0.bin",
+      "sha256": "cfb1f8cab5f5141f8727a79f65271b95c464c61fdf65ec7fa4264386977f4d03"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/003/state-0.bin",
+      "sha256": "056fd9b9e667b1505b2de1b7580b23e81f4357b294d3c2445cdb7f8a95cfd799"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/004/catalog.bin",
+      "sha256": "0d0b80ed4e9eb0aab452695f56f2938c096a2699be04dee1fd0bd490e1828df1"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/004/events-0.bin",
+      "sha256": "783cd6b534b742c3d47f22fbf17cb6d5f9b168877d967f1e7626ae31e1a33b52"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/004/render-0.bin",
+      "sha256": "a37b99faadb05934482ca85313fbf20eca267af206fad7acbd7eca84863f47a1"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/004/scores-0.bin",
+      "sha256": "7420e2906d3f0bd2345930a6041b2b5ec916825e4132ff64db04c608682b6c22"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/004/state-0.bin",
+      "sha256": "3a67c4c58c3c5af004e14bd867ec80b55194424750d2958d8921451f04de730c"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/005/catalog.bin",
+      "sha256": "0a0e7d79cdfed9f8c68f659de46edfbf3ef419e1549038d102d894e0fa940e7e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/005/events-0.bin",
+      "sha256": "280a40cb2d90abb8d8377475c941b245be89e0e04980c39a43c2b994bc4d3a0c"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/005/render-0.bin",
+      "sha256": "5d7166ce56232377dcd5b66067398d4631a41767e7246f65f06cd4cf1cb0a299"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/005/scores-0.bin",
+      "sha256": "04e163fa9df1970149a0115659d8d0c04511312cea00881bf955c299184bd79d"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/005/state-0.bin",
+      "sha256": "834e2829e0e0b21fde8e5956ea416cc256ce3d5b9bfe3dfc8ba79e433862fd85"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/006/catalog.bin",
+      "sha256": "62e1768eeb1831f4153b3946bdf3daf04da64524a5bd355a884e47ec9858e293"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/006/events-0.bin",
+      "sha256": "1c71d8b5b8855f76fb1dbbafdfac629427e6573e86f6b8dd3b286de7eaba999a"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/006/render-0.bin",
+      "sha256": "82ba8c78e69355565983c1a80fafa27fa83a185d5f7c259d83198170ab85dabe"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/006/scores-0.bin",
+      "sha256": "f4466b52443b1bd2ea0fa3557a5d9c290ecbf9e4ce8b6359b3b02f4563461f83"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/006/state-0.bin",
+      "sha256": "55ff829394956d9654702ba6143dc558aad3849038d8102cc0b9dcb074fb054e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/007/catalog.bin",
+      "sha256": "cc3d5672f570afaed50e6f4c02774631cc86f3934de09ed2304c9a2b557efd70"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/007/events-0.bin",
+      "sha256": "24d257389397aa01919534913a8ee7bd93a79d72bc8fd60fd01a1db649d73617"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/007/render-0.bin",
+      "sha256": "1f37d1ef9f8735af2d4265044f540652b8617151e1f89aaa8dc30e130ed5fb05"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/007/scores-0.bin",
+      "sha256": "79fef2332270c61a5b25f7c07d046c6ac84b6260e9e88f9b01b3d2da2bc07557"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/007/state-0.bin",
+      "sha256": "1f22adc9eef3237184d16ca55a9ed1e2487d4a79fac5bfafa53baccd77209352"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/008/catalog.bin",
+      "sha256": "e5f5fe1208fe1c78310df0f18359a4f2bbfad13c787b8ef1d2af3e1606312ab9"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/008/events-0.bin",
+      "sha256": "65d139321f06ddf46d466c095044e8aa2442f43e50bce9e284f759469718161c"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/008/render-0.bin",
+      "sha256": "1dbc74e9b50a236f42865cd2c62f9cc3cfc78c269d52be304db742d85dcb2fa2"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/008/scores-0.bin",
+      "sha256": "2200cdb7bc97dc735d693fd8cc0167e43b63c975e52d332b325772633ce189f1"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/008/state-0.bin",
+      "sha256": "feac9558bdbbbec30855f9b26d9f86cd5910281e3899e1d54c6e0e42a2d0eb49"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/009/catalog.bin",
+      "sha256": "3346571edc94ee1e651309364b427b079a6fd3b00d40930b7591c6bda48d547d"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/009/events-0.bin",
+      "sha256": "f06ee858bdc45c03e42a38a920c41ffa9ae360be78b6ce96ddc5ac8ba7dc97b1"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/009/render-0.bin",
+      "sha256": "2cc57201da7dfd5f873c1e79b1fce0ab81bbd9e37d06abd103d2e061ad67e8f4"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/009/scores-0.bin",
+      "sha256": "48c82e1e4f94e9237615929d1b4cfdd45fa2c7d68b440339914f260993234b01"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/009/state-0.bin",
+      "sha256": "0eae45a2f82b20047af84acba68fe5bc660ea4858a76f4e01bb912aeea32b578"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/010/catalog.bin",
+      "sha256": "b1665a8166ad3646bbfa201e26edd45817da35f287cd446812abf0565622d24b"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/010/events-0.bin",
+      "sha256": "0459683e2c089d525e91d8f00ba4da04d11d03150fd51a922f418aa37700a70e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/010/render-0.bin",
+      "sha256": "bee4acb083b2e0e32225dbda72e56f58d7113016f66f83dc9d9a60c0440fa498"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/010/scores-0.bin",
+      "sha256": "dce188e5746d51c5c8b1e8745ace6c2d9784f00ba06708952f2c9eb5cb4f43bd"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/010/state-0.bin",
+      "sha256": "d6868c7f48f399784a45adfef5f71f2000d631090c9c3a1f5f23cfe8db6ea0d9"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/011/catalog.bin",
+      "sha256": "c21f25861fb99adc7116247f1cd6991a46057bbc6e65315bdff02585820d87e7"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/011/events-0.bin",
+      "sha256": "ce749f0afab0f91e073838897cb2333745c2ab77628864b94d4ecd3cf3cb3bb5"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/011/render-0.bin",
+      "sha256": "04350825ae64daeb46f67198f563928819414faf11203543f0dc8bc5491306ca"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/011/scores-0.bin",
+      "sha256": "b4cf8c3e3c37f121295b9c98239626863bf73eff1d0f8fb9822ddaa3647f4475"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/011/state-0.bin",
+      "sha256": "5bd0f2c8639b36654e3ee6cabfc4fede0fce90695cc8f6f1a767bd14a5348841"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/012/catalog.bin",
+      "sha256": "ca62af5fbb23584f4a77e1242b020d46afe4f5e59cc1fec945dd5a0b0323b41f"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/012/events-0.bin",
+      "sha256": "8052d60be14dfae03c2b28895ce6a37554a8122b5a31e340b8266f53d0ee2cef"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/012/render-0.bin",
+      "sha256": "7a1b073b710a66bc4bb9dd6c3dd739fc7f80e485cde865b1e1f2a39bbabf7907"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/012/scores-0.bin",
+      "sha256": "a79c14a9bf2fe0a59217e1e872b374c10e876d5774849da6ac770e034acaf541"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/admission/012/state-0.bin",
+      "sha256": "e2bcd8c07b43ecb5082b6fdff5584ba0e1a8ba80b4dcf4f73303e1132bc0f04d"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/000/catalog.bin",
+      "sha256": "19428131bd504703d162db6287caf66507bf38ca265e84d4d1cf07a0a6d27177"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/000/render-0.bin",
+      "sha256": "a676057babfb43b090bbb9157b58080f84395dd08a19712c7ade65002aa21ae1"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/000/state-0.bin",
+      "sha256": "f29b094b8908e278bc43ee6d4970220a7ff18db733ba4037d507f722296b742e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/001/catalog.bin",
+      "sha256": "1a388999378ea172636aff2e9061c347ba7a9b9ae30385a77d85b281269d977f"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/001/events-0.bin",
+      "sha256": "5bd472327e9da68a4aaae4743569794de437b45fbc24e7b7d1a01773d91f4bf2"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/001/events-1.bin",
+      "sha256": "289cff4e32db865dfcd9e3ca0da75b48a9f34d1bbd2b2190f98c3e2566d941cb"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/001/events-2.bin",
+      "sha256": "d410f93422590eb07c82bfccc70d2feeef0522839773bf2900ce75d73a96ef63"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/001/render-0.bin",
+      "sha256": "ec9d70f55039bc28b2e6c45bf52314c2d2f6800cd4bd5325639bdeca0b633a77"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/001/scores-0.bin",
+      "sha256": "1ab7562f688891649e972a0bedd58ed51b83d7b6d48c663868be619387a2c699"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/001/state-0.bin",
+      "sha256": "ae24e0be2b07bbfb125b2db67be072206c03dc3e3a347e254f0f2e4705b27205"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/002/catalog.bin",
+      "sha256": "e09dcc98ed212738b9ac74eaf5911d9145b5ad8d93c248cc279c74dee7ae2105"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/002/events-0.bin",
+      "sha256": "5c7b7a3c7b19dc393a09db4cb45900b36b0ab94b479a581b476b69d36eede950"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/002/events-1.bin",
+      "sha256": "61744a2fc408ae9c8ab9b449433e1ca19638cabe76e94e0a74277faab8cb30b0"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/002/events-2.bin",
+      "sha256": "13a7c4762a6dcc4f1adae3522a8c783fe4a45f6d17d40aee1a0d3d9b822dbd94"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/002/render-0.bin",
+      "sha256": "b6db08e24cd78059cfacf059b66bb5b35dac441d311bed33d997dce42e7e995e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/002/scores-0.bin",
+      "sha256": "957ef0683e58f3e23346a4c4ea7ae5bdea0cd9bc72bf82b599fc59ef8934f0b0"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/002/state-0.bin",
+      "sha256": "7b26e425633283e9b9b21fd080417e66a798b0d808269f39d4cf345c62facd3c"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/003/catalog.bin",
+      "sha256": "08403c0f8192f724ef874f92f7bfa3d3214cd366ab771da71c97446903657ea5"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/003/events-0.bin",
+      "sha256": "c32aac5de7340d038f14065afb5eae204ae1eb071668ca3b53c075bf078e4117"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/003/events-1.bin",
+      "sha256": "4968a4041a24240e8ce5cc7b5891a80968674284a6b770c5664c66a61eee5363"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/003/events-2.bin",
+      "sha256": "760ad9123c15bf8b95ddbcff1c4b071bee35e448e3fe16a684af49f7702fb0b3"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/003/render-0.bin",
+      "sha256": "e1a77fbf5cd5b64da946621a4b355ba13db29bfe76d4aea1af81bb7c40a0ee35"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/003/scores-0.bin",
+      "sha256": "6e407b9d600512015195873a568e4238356ad42d04e8b6af951abc79a3a37bbd"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/003/state-0.bin",
+      "sha256": "84e2a26451d4c092b22de984581920550494754e15fb59f83b790986458df16c"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/004/catalog.bin",
+      "sha256": "53df0fa302c6977e6401f5a43eb1c39bcf789e76467fc94fa786e29fbdffc5b7"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/004/events-0.bin",
+      "sha256": "3a7a5cca373b7843ee911e62ed20217ec16609a0c608d34fa55097ed57d2141b"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/004/events-1.bin",
+      "sha256": "bf9c2994c0fe5c6b8f6ed31f83105ea8a1f16af8671a5cbf0a7e7f78a70dcb3b"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/004/events-2.bin",
+      "sha256": "83ebeab9f98153d28d6a75830f7a86ccd5086eda8c4ca345b8094cead00a35da"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/004/render-0.bin",
+      "sha256": "3f0755f1eb79536928045c3fa241f5b2d8a5e27aba05eef36815dab292e6847d"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/004/scores-0.bin",
+      "sha256": "c9f27197c942f0547e00d29e305a09c862d49d6f5b3032e6436239368662340c"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/004/state-0.bin",
+      "sha256": "8db34f47f14a15f959bfe98bdaf0e09f5137304cba3a6c58496480d6e4a2b285"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/005/catalog.bin",
+      "sha256": "a845a0e5ec41be51ca8e36afd4f43f58148260b9c6ce0524f87d05744a4ac577"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/005/events-0.bin",
+      "sha256": "3dd8a154f2046e91fb8763cb3e26c48112066a8fd04fcc39c2969e0ceea179ac"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/005/events-1.bin",
+      "sha256": "35486f9abe2ebccaef7df9fad67111915cab0af36890b667c027b2c6c87e2cd7"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/005/events-2.bin",
+      "sha256": "054a4f7cac644677361ef55ac0fd484341663dd6d0926840b2e7776df7773048"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/005/render-0.bin",
+      "sha256": "b33b89277cce6758d3deb32ac4e58ace75dfe5c76b10ac8b2faf89b6c05f419e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/005/scores-0.bin",
+      "sha256": "10b57bbd2ee4832a6ced40dc7196ffd436424d6097fd282e104b120d2e28b56e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/005/state-0.bin",
+      "sha256": "9c59636aebb9e57fedad32b65a16f90c088f61a50750c54e3980117818d9af3e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/006/catalog.bin",
+      "sha256": "7ebf629d4f35a5f8f42571d8364b3bf6ac9149a9d8abf758eeb5350477429d3e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/006/events-0.bin",
+      "sha256": "1bd9f79e51d7f8a97142f0f74e7858b694385c876fa1124b8a28b98f63d68333"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/006/events-1.bin",
+      "sha256": "59b6d67f233cb3e0582c1cd818a0640117f1141e1e00beac6dc7d61ed5ac2c97"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/006/events-2.bin",
+      "sha256": "b64711d3663a3550acf30fbf24e1e16716a39fd1f3e9b16899e1329fc403b9ea"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/006/render-0.bin",
+      "sha256": "beadef81b8e4aaa174cb9aa5f7badb7d6e755324822eedd5483c3e8ae1ec74dd"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/006/scores-0.bin",
+      "sha256": "090d3360459f9a7a1bffd18c51e83dcb429e303dd6a2a4731f5365eac0baf793"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/006/state-0.bin",
+      "sha256": "4955d07e3e94d1db15d7ba6cdf0f6fb214708cdde449adb6c179a6a8a6c17b11"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/007/catalog.bin",
+      "sha256": "b3ca4d5bbf342175e739a70fc490e0f56f4a6c026af3aafea756b2eda91f7351"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/007/events-0.bin",
+      "sha256": "51993d040ad4551b53525cedf0d44aee406f5b6d917330480b3ac5a0d2fa4ae0"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/007/events-1.bin",
+      "sha256": "7004b89e6d6ef6de80be57f6d4dfbd92d1040f590959b8a81c058e81482cf9c4"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/007/events-2.bin",
+      "sha256": "8c8e732761f31252fe5385f1a0fe617b88b3981b1201ff564fd25246216f45c3"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/007/render-0.bin",
+      "sha256": "3152b1fe10560875d6672d042f78d5c796344486954c16d2b2995f3d60237f89"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/007/scores-0.bin",
+      "sha256": "9f077cbc16d2ed80e92bcbdac927ed5966da46f1069ffa111f533d555770726a"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/007/state-0.bin",
+      "sha256": "c1023e8eee4468d1dd261055b3fb75572aae4a0174aca8f3c15e98eb81591c17"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/008/catalog.bin",
+      "sha256": "38ef0d2f4018e478c76d1c862ef99a1a3284f2d5defcbbf3953a0d3718534574"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/008/events-0.bin",
+      "sha256": "e50f977747c966009c8dd06237b93bb94f15683e957a2b238646a8022c4e5564"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/008/events-1.bin",
+      "sha256": "0da4253d44d7405eb7e07c0226ae4e5cf0033e2ec809e971ad7dbc0cf8e9eac9"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/008/render-0.bin",
+      "sha256": "4e13c6242219dd0fa29e6dfd3a9c9d5265518f1cc63d1f8c069f7d2aae08fd6a"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/008/scores-0.bin",
+      "sha256": "2f4017104ea8c0a5facb1904538beea12a6adcccf380d8ab62a88ec144d501a6"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/008/state-0.bin",
+      "sha256": "dfdb3515d86376c0ea6690f72ef97c541e8e58198961bbb409b8434a9972ac33"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/009/catalog.bin",
+      "sha256": "555396a300f79e86c825f78432fedcec9a9a2600623b847a025745c3c2342ed0"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/009/events-0.bin",
+      "sha256": "390fa11217cf1a7252eb9e8f5b29557e11053395dd8a0b15eded3c0f9a8c85cf"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/009/events-1.bin",
+      "sha256": "ef86d4303c677c1e6e6639b137ca471daae523a20861773020d0efba47fcc296"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/009/events-2.bin",
+      "sha256": "d526414342a8539a166385d4c2ea6b68991bc7cad531c3548c3446916f586c82"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/009/render-0.bin",
+      "sha256": "0ca4cf158c9cb616163686a054a507252795324f57ab40e822145f01bb05b8c1"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/009/scores-0.bin",
+      "sha256": "25f6d79c7ff8a37fca954a98a7050d66867383e7d935f6aed502495a5be667a9"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/009/state-0.bin",
+      "sha256": "3e79f5c8bd19d3fd99b12bd7018676fe77df414a7a43f329e32f7fa8c2503ded"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/010/catalog.bin",
+      "sha256": "7589a67330ae988238be02facc8ea640f8dfde83a712f2a69ddad8edca1ce9fb"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/010/events-0.bin",
+      "sha256": "f3aa44fcade379be41d49b1385117cf962fbb45a95a9a2a22fbdf161ae088c6b"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/010/events-1.bin",
+      "sha256": "f04ff8536b22b6535dbe6051cf93188257af38c545ea893cd9cca90f41374720"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/010/events-2.bin",
+      "sha256": "e3779e54053d1197a6d3cb3b1c4405eb5c772fb2edea1a3d1589a5591c565293"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/010/render-0.bin",
+      "sha256": "70b98e4d3fda24899596fc573c1d782bb29695a43a232a76e539a11c46de044d"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/010/scores-0.bin",
+      "sha256": "625f5a831de32bbe9a4498c438d8b6deff128195f10869f18604b9d50f3d54a4"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/010/state-0.bin",
+      "sha256": "edb3b643fb32c46ee8b3649d0f39983b108789f03824369989ca461476294986"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/011/catalog.bin",
+      "sha256": "fdb800b4f4835933643757c9f05a77eb34e56ed3ae1ec873d85d6dadf7343f07"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/011/events-0.bin",
+      "sha256": "a7cd921299c7c68d68f687201c08daacde602a709b0485801612d39b45930c34"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/011/events-1.bin",
+      "sha256": "11dceecb141eeab120452c2b1ce4289520b468702dea3b952be36741d5552e62"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/011/render-0.bin",
+      "sha256": "c07da2271c1a622baf8f2c7801fd243904f1133308a3a377af8f6461ba1549f8"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/011/scores-0.bin",
+      "sha256": "f7bb7c494c091467cec0e51f44ada77a7415c1aafb5b7c6fb83be539095b1214"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/011/state-0.bin",
+      "sha256": "1528fae8e65f33b41f6732a90f1997ac7630d8ce7e18af08460e8d463d1d4e5c"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/012/catalog.bin",
+      "sha256": "8e29cdb90ecb5c7087c7d523c65e10ef9480280ff1936499cb7eaa321a8e649b"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/012/events-0.bin",
+      "sha256": "932c234247f1481a882f767ca8d5c77a21ed92e71ec54d2f1356469d73bfc96e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/012/events-1.bin",
+      "sha256": "e94fc6e6e1fe3d7677534c628520b3546122b2baf553afd06a133e83158e5519"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/012/render-0.bin",
+      "sha256": "60b7e136ae606389974559166a2cf99b5318d415b252c16d8de4c322cbbc6e92"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/012/scores-0.bin",
+      "sha256": "8cc57f68a77153f1eb368c92acf6ffcde4dc4099a9c13090662568ebd37c8b20"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/dense/012/state-0.bin",
+      "sha256": "a0e602e704a436c3d5f8e30f419d55a1b6d221c2b8d2bf1ed87a1bc1a3596c07"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/index.json",
+      "sha256": "f070856db21e869c5558e161fca2e8541e4f112f04be6371ce8f7b58323c6ea9"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/000/catalog.bin",
+      "sha256": "e880f4f6611d7466410a7e73e836ca1a4e4bd12f5c73c4b33a504459288b9a79"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/000/render-0.bin",
+      "sha256": "b814d6753a287f3a0831e788bbd967cf7107d52c858ffe4880a3087ab473fae1"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/000/state-0.bin",
+      "sha256": "a1c3142890d4e2f3cfd39a3e1235e47eca0484fc4d5c91fd7772f881354e65b5"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/001/catalog.bin",
+      "sha256": "21521605fa738511f46d90359a8514040ba3bee90cbea81250394bdf4a0badd0"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/001/events-0.bin",
+      "sha256": "d44221b38623e4027f7cf36c4b0dc34f4dba5765f37c9d64b92f4564dfaf3e45"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/001/render-0.bin",
+      "sha256": "9acd25c5b260e695de0a86d7b10b8ad01d891fc73a14f0c42a840b2e77fe8f8f"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/001/scores-0.bin",
+      "sha256": "a3c00418405676bcac870f24713a5bb4f206d95ae78277797ef550b4313ffb8e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/001/state-0.bin",
+      "sha256": "2e781af4115521186ad8747d786eb3cd98d0110ce19be5cff35b845f45e890e2"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/002/catalog.bin",
+      "sha256": "3387194e7246000ed240581cd025f44ff75f893984731acdea5db63e9c388a68"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/002/events-0.bin",
+      "sha256": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/002/render-0.bin",
+      "sha256": "98185528a926f59046c90ee70466ed03fdb635857d86a7633515630ee18045a0"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/002/scores-0.bin",
+      "sha256": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/002/state-0.bin",
+      "sha256": "24b1018e81763f6c5667a4bee66cc24ffa6909083bc6d32c6f955b4481bc77ea"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/003/catalog.bin",
+      "sha256": "e77095bc29fba0b0e62749f4a8ac8f03eba5bff0148189e52d4496d8000b2cd3"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/003/events-0.bin",
+      "sha256": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/003/render-0.bin",
+      "sha256": "86d9e6c9e3b852ee7db2c12df1b3d4eb99a5e6d354c66da8bb1523fed7e5d9ec"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/003/scores-0.bin",
+      "sha256": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/003/state-0.bin",
+      "sha256": "b4aa35c3c0c5fbdf2901bf3893296c97dc428e4364752dc22c8a3748b6de4a52"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/004/catalog.bin",
+      "sha256": "6d7b3e6107f0d2dadadcb1921bd0301a472ee76c6d8737f56beaa0890871535c"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/004/events-0.bin",
+      "sha256": "aa5394f199b42efe7cea5855f38b5321151c8781c0b720cc825fba13cf9180e1"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/004/render-0.bin",
+      "sha256": "93d6a00bd6e1d03b946bcd25e8a805030d5e6d4075e5cb08b9ddb0b1d0b14bba"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/004/scores-0.bin",
+      "sha256": "74055d7ac872de146587ff33c6c8444c01e1a5aa0e9a8d5e380344b03748071f"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/near-impact/004/state-0.bin",
+      "sha256": "e52caeb4d51da346b67a21219780ddb2c4553be11988af8ab9c8c088b5c907eb"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/000/catalog.bin",
+      "sha256": "d53dc1a44af1b3e8fbcb6f2d8d4f46c676ed49a62d241e911abb0beb2b6ad0dd"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/000/render-0.bin",
+      "sha256": "dade85b1e7ee9777c6aee424a12e174a4a80727219269be6abc65108b87e21d9"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/000/state-0.bin",
+      "sha256": "ddab8d03243400d5b50c82ee58ca3d0067e59d1eb007bc6ed63612af4485444b"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/001/catalog.bin",
+      "sha256": "2bd6b321b8b1c8e65b4c0e4a48d7102a75a2af5914ddf6d0201516f21c8d36fb"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/001/events-0.bin",
+      "sha256": "fac751dbf88f67d56b8136344c51d3b9df271858e0ff127b43a10e48c07c6fd5"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/001/render-0.bin",
+      "sha256": "43067f5987e1b0033b30a6e24b1b63c92aeb38152082c77ce6f3d4c956ab2216"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/001/scores-0.bin",
+      "sha256": "579122fb5fca405bd874ae7efe09b245eff2f3ba706e65cd74b5b2504ae244e5"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/001/state-0.bin",
+      "sha256": "b0fdb5ea0bc9b8e8c11eeff8576550ad8bde321b1e81f3c23accbd02835e2096"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/002/catalog.bin",
+      "sha256": "345aec011cdb837d2a385047a183a23c939a2ffc324aa4c32fc23202bf04010e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/002/events-0.bin",
+      "sha256": "3a9bbbfe86d1ce83e815bfd5698ab1df45bf2065b446e7111b0be7bf68a74b45"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/002/render-0.bin",
+      "sha256": "b0b3e1eb9684391cdafefbdba01dc7cd8003a576baac3a5aaacd5ba642191c4e"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/002/scores-0.bin",
+      "sha256": "43f00b8e5d2d35c5467bf6cab06e1080a1130bc8ce4297ce541a582d9f985315"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/002/state-0.bin",
+      "sha256": "7c24247672d18e6ffd66950cabb8261b8d2db38fa0d6fe874a5dbd011a534122"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/003/catalog.bin",
+      "sha256": "16e59d3efa7e63f0ad8788cf3725105fab78a167261c9834e891c11514a7c68d"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/003/events-0.bin",
+      "sha256": "c5fb48ef9762d6af684dcfff9aaf7a84658f67fce66139dd0174726b56927d20"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/003/render-0.bin",
+      "sha256": "08d7c87e5558a454afae51dfee0254c7642d6174a9a41be5f7a0648706e5fc94"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/003/scores-0.bin",
+      "sha256": "43f00b8e5d2d35c5467bf6cab06e1080a1130bc8ce4297ce541a582d9f985315"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/003/state-0.bin",
+      "sha256": "7abca4e5b3354e760fac70dbec7471bffc1545ad3a33ce768def511c101fe7a9"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/004/catalog.bin",
+      "sha256": "3e5804d728d828465e50b2d4cba5952ce132bb58e4260920caa95405f8b6a0da"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/004/events-0.bin",
+      "sha256": "982430b7d355fb9a809d50731416a3847ef3ecaed11df1deb05c36c913524626"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/004/render-0.bin",
+      "sha256": "6984d402259303e80cedc027cc9637583e995c0d3ab3a49323ded1b77bc4d5f7"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/004/scores-0.bin",
+      "sha256": "43f00b8e5d2d35c5467bf6cab06e1080a1130bc8ce4297ce541a582d9f985315"
+    },
+    {
+      "path": "apps/b2z-observer/recordings/severance/004/state-0.bin",
+      "sha256": "1bc60dd4c53d90a009805497de431729268efd1917ead1a9f5ef61444a73d78d"
+    },
+    {
+      "path": "apps/b2z-observer/render-quality.mjs",
+      "sha256": "d8f72c737c6534ee263d0e517ef9e0ea9c5c6d78364481aa5112ab12d6cb8ab0"
+    },
+    {
+      "path": "apps/b2z-observer/render.mjs",
+      "sha256": "9414fb855f61950985fe56073e47f5b6e29927dafb9f920ff6f1ce792f78ec79"
+    },
+    {
+      "path": "apps/b2z-observer/replay-tools.mjs",
+      "sha256": "c0ea10f9f239c27812aab959ab99b28dcdf83c63efd5be2f3c2c62ae9a887b4c"
+    },
+    {
+      "path": "apps/b2z-observer/reservoir-art.mjs",
+      "sha256": "348d180a2fa517e1cf11f06a8c92cfb008adf3a328fd0267bb98ec0147767cb1"
+    },
+    {
+      "path": "apps/b2z-observer/reservoir-materials.mjs",
+      "sha256": "59614dd1363038ed012740738b1252db7c5e100ca883dff843177829b778109b"
+    },
+    {
+      "path": "apps/b2z-observer/reservoir-occupancy.mjs",
+      "sha256": "b2f16da5279a12c0557699a7c991a141a02c4cd83cdb181b68065c73e24307d1"
+    },
+    {
+      "path": "apps/b2z-observer/reservoir-render.mjs",
+      "sha256": "1101835114e635aafca7eb26d21249730ca25ebbc2efceddfe85b91230678d70"
+    },
+    {
+      "path": "apps/b2z-observer/shell.mjs",
+      "sha256": "ab7085ebd31e6084af412b025999f2a4a7ff27a37ef3b0ec30fe4c7e3026ce65"
+    },
+    {
+      "path": "apps/b2z-observer/speech-bubbles.mjs",
+      "sha256": "04a51556f0aaaac9a631c4195e1419ec136363ca7f693a674664a2c5a0b7087f"
+    },
+    {
+      "path": "apps/b2z-observer/startup-playback.mjs",
+      "sha256": "77f345720a8ae8787945a0cdcf58b186b1ec36d089765591e7b902e082a42802"
+    },
+    {
+      "path": "apps/b2z-observer/structure-geometry.mjs",
+      "sha256": "a0403605a9946e2c5e6effd9ea09a3e438d7027acde58f9224a471b6e3087bb1"
+    },
+    {
+      "path": "apps/b2z-observer/style.css",
+      "sha256": "dd652821671d1eeb325162f6fc094a17b474532c5d61cd71950f2c1fcf813d1c"
+    },
+    {
+      "path": "apps/b2z-observer/terrain-surface.mjs",
+      "sha256": "c6d4d6e4830195e2ce45532c326bef093625922a93a5d82d813ad872becff9b6"
+    },
+    {
+      "path": "apps/b2z-observer/terrain.mjs",
+      "sha256": "8687bf629ea3b44dcbbaf04c8f9ba77103bd0434bd73a66117be19f36709f7b8"
+    },
+    {
+      "path": "apps/b2z-observer/territory-entry.mjs",
+      "sha256": "53a6a53f2d281e395224b89b9cda9aff8565f8ae5c4ac606bc42787f77afc438"
+    },
+    {
+      "path": "apps/b2z-observer/theme.mjs",
+      "sha256": "cd99fbfcf70c8297b19be0aa980191153146c9b8b772f8ebff275e37fbb8e797"
+    },
+    {
+      "path": "apps/b2z-observer/torus-identity.generated.mjs",
+      "sha256": "133bacf122f34239e99d23631560ab67649733f4966cd31cb64e6218be127e36"
+    },
+    {
+      "path": "apps/b2z-observer/transport.mjs",
+      "sha256": "d8bf1c93ecae75b209be594f97da4e47216814327ae64bbb5e0760e666776288"
+    },
+    {
+      "path": "apps/b2z-observer/war-cry-capability.generated.mjs",
+      "sha256": "37c47c88ee8fea368da42b68b22671de7ce6bd631eeabc6f481eb202948e852e"
+    },
+    {
+      "path": "apps/b2z-observer/war-cry-events.mjs",
+      "sha256": "c3e8122d2f795a409717abaea8b19d9d7e3b33b595a51a3750e32d0dc3fc3ef9"
+    },
+    {
+      "path": "apps/b2z-observer/war-cry-policy.mjs",
+      "sha256": "f1eb753016d61bd0080c689b155902ee45c7c9ea90002e9e6c988af2595a7de6"
+    },
+    {
+      "path": "apps/b2z-observer/warm-return.mjs",
+      "sha256": "e9d0e3b31962694b7d90898769f1fb195ae0499ac34148919fb2723a08c1ca85"
+    },
+    {
+      "path": "canisters/frontend/Cargo.lock",
+      "sha256": "ed1cde67575433135bf1db6f2ba026d6222a5e3c4f334172e686302172c48e98"
+    },
+    {
+      "path": "canisters/frontend/Cargo.toml",
+      "sha256": "c8b524ea4145533e4e42b8abb6d96694a745ab47a3df64e3b161e67cd72de539"
+    },
+    {
+      "path": "canisters/frontend/build.rs",
+      "sha256": "2056ca8394ffe7d9713a4f71f236625d00104701fa0385179f4e50b951c9c63e"
+    },
+    {
+      "path": "canisters/frontend/frontend.did",
+      "sha256": "9c5d4382d7dc279ab1fbd63de66311e3d9a38bc7e2562501861701b26f60c141"
+    },
+    {
+      "path": "canisters/frontend/src/lib.rs",
+      "sha256": "0001620613aa9f2b28c024e1cdbc75edd9537f0d1a3ab889db2bf6eb77051ff2"
+    },
+    {
+      "path": "canisters/runtime-lab/Cargo.lock",
+      "sha256": "326b3afbce80e8bdb8aa266a15a162ec0c31f11a5422a7e7afb52e50ced1fd1a"
+    },
+    {
+      "path": "canisters/runtime-lab/Cargo.toml",
+      "sha256": "83f587fb1854e8ab8ef08cb6a61213476afb5f79e84bdb42f78e34ff9427e6e0"
+    },
+    {
+      "path": "canisters/runtime-lab/README.md",
+      "sha256": "258a7541f6057b7f56ae4fa61315ec2ebf9e2d77af939388f6dee715a7f2be67"
+    },
+    {
+      "path": "canisters/runtime-lab/runtime-lab.did",
+      "sha256": "9daa56fc7d9b492f9e363e197f6fa271356df1ec54403de859dacbebc8ae9eb2"
+    },
+    {
+      "path": "canisters/runtime-lab/src/funding.rs",
+      "sha256": "b39d7f2a118c581bf09a4b2b6aea42ead7717d05ff6d81e28c5e244c5394589d"
+    },
+    {
+      "path": "canisters/runtime-lab/src/health.rs",
+      "sha256": "e47a822371845695e6a124240ad1ed28a17aaaf0e745b3c866030a02c58a7a29"
+    },
+    {
+      "path": "canisters/runtime-lab/src/lib.rs",
+      "sha256": "ff526684d088c313129a2e768284110f8fec066998eac925e67ed91b829b3b46"
+    },
+    {
+      "path": "canisters/runtime-lab/src/operation_kernel.rs",
+      "sha256": "724d7504a67d2231dd4ca543c08b50d6ccbda18d3beae49a0dd9d8912dfdc83d"
+    },
+    {
+      "path": "canisters/runtime-lab/src/pace.rs",
+      "sha256": "40409738252cc5f59b0342ab7b262eb8997fa8a083fac956a4d9ceb908b3c363"
+    },
+    {
+      "path": "canisters/runtime-lab/src/playability_runtime.rs",
+      "sha256": "cae803b9505dc8d0b7185582fa28cac7547fad1872cae7e9e464f8580bb89917"
+    },
+    {
+      "path": "canisters/runtime-lab/src/player_api.rs",
+      "sha256": "6760f7f15f1cdb9778aac4954f411193bbbc7310c2dcab38df56ec7b9a9efaba"
+    },
+    {
+      "path": "canisters/runtime-lab/src/source.rs",
+      "sha256": "9a21b24fdee8b9702b08bbf51627cc48cf47c430ee966a987e69d7ba2699c7f0"
+    },
+    {
+      "path": "canisters/runtime-lab/src/transition.rs",
+      "sha256": "37549fde454cb27a3d5e6a86c7ef1b76ea46da5b1353192c906d531bece6857b"
+    },
+    {
+      "path": "config/economics/rules17.json",
+      "sha256": "edd3138497704a19208e5bbcd8633edd1b7024549c3d134b8165d0473704faf8"
+    },
+    {
+      "path": "config/rules/v11-combined.json",
+      "sha256": "3f8d87054e333fefa3199286472fd80c45d524980bf5dd314720009e6d06c616"
+    },
+    {
+      "path": "config/rules/v12-boundary-deflector.json",
+      "sha256": "51719018fd3c6cec03516e1aff387d261709a4bca4238f89d0d181f5337f925d"
+    },
+    {
+      "path": "config/rules/v12-deflector-provisional.json",
+      "sha256": "660b4c55dd27b7773aed2d1c35412ff3d84b36060846359ab4e0915c321f1743"
+    },
+    {
+      "path": "config/rules/v13-context-structures.json",
+      "sha256": "c610cd20a17820367de4323c44e3ec64fe0cccf7fcb19b582cd50be0118f3870"
+    },
+    {
+      "path": "config/rules/v6.json",
+      "sha256": "00d35637bc27d5d91c275d5899ceb0325f530ed244afd4585d4c33ac9031972c"
+    },
+    {
+      "path": "config/rules/v7-entry.json",
+      "sha256": "3b81508a817e69aec753eb057ca4c834aa54bb8769e227a873dd2771d1d628aa"
+    },
+    {
+      "path": "config/rules/v9-clearance.json",
+      "sha256": "47b229f8e76371d2f4f4c0910e3e0845d62ed831f5d32ac3722b43df3cc04375"
+    },
+    {
+      "path": "crates/b2z-protocol/Cargo.toml",
+      "sha256": "f5b9743ef92fa54c98013d59e81108a30c3ba4828dc83bbcb4cd483fe0dfefd2"
+    },
+    {
+      "path": "crates/b2z-protocol/src/context_structures.rs",
+      "sha256": "eb688e2fd8a939651e4f0822c98297a36596be7420c8175bf05feb1e742c3718"
+    },
+    {
+      "path": "crates/b2z-protocol/src/context_structures_generated.rs",
+      "sha256": "e4efd83216a43fd1fbc0b7fd26969573393d7f15c1f2576b8d42c5871c2850ab"
+    },
+    {
+      "path": "crates/b2z-protocol/src/deflector.rs",
+      "sha256": "bf056283420be01caf79e09cd259a8e1dbfbe64328f7678ebe1a3f281650225d"
+    },
+    {
+      "path": "crates/b2z-protocol/src/deflector_orientation_generated.rs",
+      "sha256": "83eca60d5e355001ab950d48a7853d2760ddacb2babadb2e2fbe9d0593a365d5"
+    },
+    {
+      "path": "crates/b2z-protocol/src/economy17.rs",
+      "sha256": "38dd9a2f2b1fb5a7234db3bc018f7ce192a13ee6b8a0850078ccde7bf54fda8f"
+    },
+    {
+      "path": "crates/b2z-protocol/src/economy17_generated.rs",
+      "sha256": "c0397fde95030dfc231677ecf3e3886f55cc2125cbe2168fa84ed752b934b222"
+    },
+    {
+      "path": "crates/b2z-protocol/src/lib.rs",
+      "sha256": "cb9ecb378db9a45c551f7e1d6fd8d81dbb82011d2a70c2d927fd1076055f89b4"
+    },
+    {
+      "path": "crates/b2z-protocol/src/reservoir.rs",
+      "sha256": "e3d6b54244efcd3e02003f9d5171927ace8ac7bd611a8a859b7bd9d2ec60f707"
+    },
+    {
+      "path": "crates/b2z-protocol/src/shout.rs",
+      "sha256": "5838c21ed275c3486df091f43647423493a65a23dc6d8916b9149c50e4a0eb00"
+    },
+    {
+      "path": "crates/b2z-protocol/src/v6.rs",
+      "sha256": "c12905cf5027570c850d60fe620a8143cd46d8349c18fd07561f78191f1c0737"
+    },
+    {
+      "path": "crates/b2z-protocol/src/war_cry.rs",
+      "sha256": "8cee55ac0ca11dfd59f7078969c7f3b7ac75e72374a460fa3af7ec3e1d961c95"
+    },
+    {
+      "path": "docs/operations/B2Z_AGENT_API.md",
+      "sha256": "7649a4260c282aeb047513257a7c5649c4fc0732476f4dda7e7762e3cc652b33"
+    },
+    {
+      "path": "kernels/b2z-mechanics/Cargo.toml",
+      "sha256": "5091b3d91297440f3006780b638fa8db7bb9c3ad5f48c7e07eca3d580e519954"
+    },
+    {
+      "path": "kernels/b2z-mechanics/src/lib.rs",
+      "sha256": "dc3e9d989a7ee0155a7e1b34cb8113433fbc41adb79771943e355bfee91cca2f"
+    },
+    {
+      "path": "kernels/b2z-mechanics/src/spawn.rs",
+      "sha256": "fb0ad61abf2898d5160d1e07bc3c29c0afeb1b6fef187ffc678fedba74eb1e4b"
+    },
+    {
+      "path": "kernels/b2z-mechanics/src/strikes.rs",
+      "sha256": "fc94f04f2eac58bddd05f0081b4235aaef43f7709a33af8527b83ddd60c16598"
+    },
+    {
+      "path": "native/Cargo.lock",
+      "sha256": "5c443f93cfe35f44764789f703f3acc81e27323242f63f5aa28a2d6e9123f4b3"
+    },
+    {
+      "path": "native/b2z-native/Cargo.toml",
+      "sha256": "bb8353c857f06d70578aa08dcf0b5ccb40067a5c68399987d20d8246fb918724"
+    },
+    {
+      "path": "native/b2z-native/examples/boundary_deflector_checkpoint.rs",
+      "sha256": "caa182b248b709ec6434fa69247afa52d6bc8871e1ac16ff664cf29f15fe225b"
+    },
+    {
+      "path": "native/b2z-native/examples/boundary_deflector_scheduler_chain.rs",
+      "sha256": "87e736b14504ba3cdc2acf8481cb95169de4174b68bd1c65671410cedc1c245f"
+    },
+    {
+      "path": "native/b2z-native/examples/deflector_contact_checkpoint.rs",
+      "sha256": "915fab55917a851add09c9a2dbee82befc9a99e2873d255a55fdb08af677553d"
+    },
+    {
+      "path": "native/b2z-native/src/capture_v6.rs",
+      "sha256": "7fad653c031d4cf80e7be4b2a1a2d0777d4db071ea34e2a730f4e80694dcc096"
+    },
+    {
+      "path": "native/b2z-native/src/clearance_v9.rs",
+      "sha256": "61adf7cb762b888384167ac6bcc6cc9a24565ed6eb6d5d34e9aeb4e597e03125"
+    },
+    {
+      "path": "native/b2z-native/src/combined_v11.rs",
+      "sha256": "bb249264f236e72e9fd447b272ad67336978c6efc4de7e57e279355abc599d28"
+    },
+    {
+      "path": "native/b2z-native/src/context_structures.rs",
+      "sha256": "386a5d159ee011b14f8501895f456ddc3ff688277748b0445ca0443600c27010"
+    },
+    {
+      "path": "native/b2z-native/src/cursor.rs",
+      "sha256": "2f9ea7a4524f43bb68348f2db0ecf1ab1650af10a80f9ec7888729de24bf1e0f"
+    },
+    {
+      "path": "native/b2z-native/src/cursor_v6.rs",
+      "sha256": "e18c20c47f2eeb722c7661523dcc650d6fd9aa6b7081e0f933900463e1d4d286"
+    },
+    {
+      "path": "native/b2z-native/src/deflector_boundary.rs",
+      "sha256": "3c247ffeba616015a66d57317dac7ee6f0acb6b644fe03e391d287a4d5d3296c"
+    },
+    {
+      "path": "native/b2z-native/src/deflectors_v12.rs",
+      "sha256": "f223741d4706c2209767acb58ee911e3c68d7d78ef23aaef6f96de4789212929"
+    },
+    {
+      "path": "native/b2z-native/src/economics_generated.rs",
+      "sha256": "f941b0b4122e333a596a35d9f1f4b239cf76e645b21f263332d76cf0cc7a46d9"
+    },
+    {
+      "path": "native/b2z-native/src/economy17.rs",
+      "sha256": "5ba41f4f229d461d2f0412899aa820133c5e91334e8459e772e3bf0bbd25659f"
+    },
+    {
+      "path": "native/b2z-native/src/entry_v7.rs",
+      "sha256": "b9a082041fb43db5622fde0f4d48235410c7ea7e6e5a692f1c67a95026fc9acf"
+    },
+    {
+      "path": "native/b2z-native/src/geometry.rs",
+      "sha256": "8bcc57bf74d13c75f667e5dc1ac73206b5c498f3d03e6e56420828b4a1c2ee72"
+    },
+    {
+      "path": "native/b2z-native/src/host.rs",
+      "sha256": "3aa9d45c5aed6b8529466047cb0775313071b3c744b0ead0150c6ac63441a729"
+    },
+    {
+      "path": "native/b2z-native/src/lib.rs",
+      "sha256": "c6726d8ebf88db4ecca475248beb0db2f6e305d0820fbee4933c2da057c1f625"
+    },
+    {
+      "path": "native/b2z-native/src/lifecycle_v6.rs",
+      "sha256": "43eb5fae16345cf539d8e4792e6c8c19f0b2603d8ed70841103215d9d1ae5fae"
+    },
+    {
+      "path": "native/b2z-native/src/migration.rs",
+      "sha256": "0db5e931f24e8c6c8b13e7cad48bf5f4dadee3301b8ddea55da2a4a388f8c5ca"
+    },
+    {
+      "path": "native/b2z-native/src/playability.rs",
+      "sha256": "39e2be481dabb6581abd160c55143e51a5fa8519f342b62bbce12fa49b0e1269"
+    },
+    {
+      "path": "native/b2z-native/src/playability_generated.rs",
+      "sha256": "81ed09c5f5409b480bd0cec8d9dc034afa54e8cab86d9faaa1c417dfcf347c32"
+    },
+    {
+      "path": "native/b2z-native/src/pricing_v6.rs",
+      "sha256": "b460d0b773f141157ccff16a4bf45f6fdc5be7fadd0713ae9730e5d3efa591eb"
+    },
+    {
+      "path": "native/b2z-native/src/purchases_v6.rs",
+      "sha256": "2f1fc29e34ff92785e263cf384b6a0388e530677ca4e10bbf4a9de7861489e3f"
+    },
+    {
+      "path": "native/b2z-native/src/reservoirs.rs",
+      "sha256": "af96be2d04473c2d095ecdccdea27c41c0f4c8b7bf0fb8694e31c5a5aad86a21"
+    },
+    {
+      "path": "native/b2z-native/src/shout.rs",
+      "sha256": "7cd606004b23fa39acefe0a77984e7d479fa54678b570515d9b84559d9b8155d"
+    },
+    {
+      "path": "native/b2z-native/src/spacing.rs",
+      "sha256": "f272d77b441d2fcb1c04aab368f88e40294c45fcd9b7b00e98e0799806af8872"
+    },
+    {
+      "path": "native/b2z-native/src/spawn.rs",
+      "sha256": "3ed84b3136119f46aa7f9bf40ab91edd398704a1cb504d1af286b5e32b9778aa"
+    },
+    {
+      "path": "native/b2z-native/src/territory_topology_v6.rs",
+      "sha256": "6012348c1c429e11cc5176535a9199bb5efe77488ec3688bef7fb59c1898499d"
+    },
+    {
+      "path": "native/b2z-native/src/territory_v6.rs",
+      "sha256": "0d3fc0e746bd4e25319323f222577998a86611ef6de59be97dd8a20ab7a66cca"
+    },
+    {
+      "path": "native/b2z-native/src/topology.rs",
+      "sha256": "c89dd34cdb23a02d4bd714b99710b3d9a67ef48db2b1321ff96ba3eaa43b7401"
+    },
+    {
+      "path": "native/b2z-native/src/war_cry.rs",
+      "sha256": "f3e61a45ef7155d366b5740025fd290dafb7919d7de9588a1896e9594bb9c3e5"
+    },
+    {
+      "path": "native/b2z-native/src/world.rs",
+      "sha256": "6e0477fb927b3ec75020f6eafcb1e652408c3093b424c41ceec7c0fe5f476a95"
+    },
+    {
+      "path": "native/b2z-native/tests/adjacent.rs",
+      "sha256": "9e2cca1fda693a4b988507cead78818e1508593420dc61384bbf3a8862ef6418"
+    },
+    {
+      "path": "native/b2z-native/tests/boundary_deflector.rs",
+      "sha256": "109c44f2c67ac4711747f46f6037d5f11beff8ea54b23b7972a6ffe67e5eb364"
+    },
+    {
+      "path": "native/b2z-native/tests/boundary_deflector_topology.rs",
+      "sha256": "79f2c52b05f514fef6fe24c0bb6ac221dd6bf00ddf32f4a6890d758229c75954"
+    },
+    {
+      "path": "native/b2z-native/tests/capture.rs",
+      "sha256": "3f61dd628f9f942a31e7a2ccf955705ac92bff6056d619ba87f6fe3d17b33e2c"
+    },
+    {
+      "path": "native/b2z-native/tests/clearance_v9.rs",
+      "sha256": "b01030b117ebfd4c3f18d97e922233707e4d06428f6cabffbd9ef71456c02dc0"
+    },
+    {
+      "path": "native/b2z-native/tests/clearance_vectors.rs",
+      "sha256": "ec3d03dcb35a00d2d483c10410840c8a495fd57ba2ec2c9dd564ebc6bafed759"
+    },
+    {
+      "path": "native/b2z-native/tests/combined_v11.rs",
+      "sha256": "691bb32879b2cf1ada6a1396c6b4247e8a61802ef572b09a010122164a09e86b"
+    },
+    {
+      "path": "native/b2z-native/tests/context_structures.rs",
+      "sha256": "58cfc075fd597f4f1d596abddd5f8ed2c4c8f64328b8c8ae4aa2bfb1df3cbe43"
+    },
+    {
+      "path": "native/b2z-native/tests/entry.rs",
+      "sha256": "7ad99b7c0265987fcc8108921182b71984d685234a10db6a2e5f988f1f4da44f"
+    },
+    {
+      "path": "native/b2z-native/tests/islands.rs",
+      "sha256": "be99cea158869af619af40c9116a17d9f4cc4c5dfdaf0dc217e57db9681141f0"
+    },
+    {
+      "path": "native/b2z-native/tests/lifecycle.rs",
+      "sha256": "a4a1f2932a4bdd37a33691e783353c9d77bcccc9b4ff6fa01544b6e20104a8a6"
+    },
+    {
+      "path": "native/b2z-native/tests/playability.rs",
+      "sha256": "d84e75f5b911be54cffb339d3f698ff924369ef5469be02605ccdd3fa3c31d69"
+    },
+    {
+      "path": "native/b2z-native/tests/purchases.rs",
+      "sha256": "82930782f1b9f957c8fdf58fc8b5a1763970a23297bcc4c589f4debde4c5b191"
+    },
+    {
+      "path": "native/b2z-native/tests/replay.rs",
+      "sha256": "eb7d939784101a94e751c139fd5640583a0af2bb477ac2f89da7f7b677ff3580"
+    },
+    {
+      "path": "native/b2z-native/tests/rules.rs",
+      "sha256": "539293984a66417aa06d957038963d66186ffb514add49d9170a4818fabd5b68"
+    },
+    {
+      "path": "native/b2z-native/tests/session.rs",
+      "sha256": "b8874037dda117ed15802c809cecab005d9c830d703019959f8eec1acd4d39af"
+    },
+    {
+      "path": "native/b2z-native/tests/torus.rs",
+      "sha256": "18562aff0ee1008f569da991e745e76a95aabf92d6649e2076b79044d5e7a60e"
+    },
+    {
+      "path": "native/b2z-native/tests/war_cry.rs",
+      "sha256": "58eca2d3bf9544b05fb9cb17e70b1069b41a91539796ef1fb9d7621f7e2de25b"
+    },
+    {
+      "path": "package-lock.json",
+      "sha256": "72b53ca8477039f67f3e0885f15da37abd6aeb9189c70ff29b81c404864d5ba3"
+    },
+    {
+      "path": "package.json",
+      "sha256": "a8ab39e9105ab624db7c46874fcf12b2293dffaa811a8c7c1b87d4a1e8c8d286"
+    },
+    {
+      "path": "packages/agents/b2z/actions.mjs",
+      "sha256": "2971c389bf8e44d0040a592c1ed76ab43cb14a7970b26495c792fa2900b681cd"
+    },
+    {
+      "path": "packages/agents/b2z/analysis.mjs",
+      "sha256": "ee3878e22ada49fa3340e594d491bdc99420b750aed24ce6f5ffde519d42d2c3"
+    },
+    {
+      "path": "packages/agents/b2z/common.mjs",
+      "sha256": "9664facb59643f4546d49add6ad386287e643bc27e08bddacdf400f8f4e95a16"
+    },
+    {
+      "path": "packages/agents/b2z/executor.mjs",
+      "sha256": "7e28074b8738b6adb749954d27047b59560a9ee2b3a76359e91ad32b0ebaf802"
+    },
+    {
+      "path": "packages/agents/b2z/forecast-coverage.mjs",
+      "sha256": "d16a61f84ed2d06c66f2b8f651abe0ca96a2a33f9efce4a2eae3e99f84a179b0"
+    },
+    {
+      "path": "packages/agents/b2z/forecast-worker.mjs",
+      "sha256": "2cc6a8fbe2c1e021c6becc20e009bace2f4d3e8f8379782c38993bf4343e5c83"
+    },
+    {
+      "path": "packages/agents/b2z/forecast.mjs",
+      "sha256": "773a96678b073cfcc1a5a1a10346266e39695f31210b6434d5f9429cbc2d2c01"
+    },
+    {
+      "path": "packages/agents/b2z/interface.mjs",
+      "sha256": "f380baf58b036b87c387d2008236a1461b60d7e59c865ea4aa30cc36f454e262"
+    },
+    {
+      "path": "packages/agents/b2z/ledger-dfx.mjs",
+      "sha256": "260ca64729642a623a6915776de58f9fcf34d3b1022103cbc97cbcb37474b07a"
+    },
+    {
+      "path": "packages/agents/b2z/observer.mjs",
+      "sha256": "cf1d30cee661a3ef93fa8e16aee784d0b83c93cf89b40c42348bf58b3bd6ab55"
+    },
+    {
+      "path": "packages/agents/b2z/policies.mjs",
+      "sha256": "e532bd2f60fd56bffb3cf7c0e41f93e7a72ff26f099341fa6349f6d75111c457"
+    },
+    {
+      "path": "packages/kernels/b2z-v2/geometry.mjs",
+      "sha256": "defded7421ac34f32f461b061cfb4caa36fd7a4c61c10c321d47c025cc2c37dd"
+    },
+    {
+      "path": "packages/kernels/b2z-v2/kernel.mjs",
+      "sha256": "35e8713ebcf05ef740b4074f3ff970db5470e88660421f07f4e4a6aecf634ef4"
+    },
+    {
+      "path": "packages/kernels/b2z-v2/math.mjs",
+      "sha256": "57738c6354b375ea819d7b20daac5dad2193b7592791eb70fb83ea2a4652ce1f"
+    },
+    {
+      "path": "packages/kernels/b2z-v2/topology.mjs",
+      "sha256": "0cbe3e21b598707c59c15120268d05ac20c340b8b3e012b614ac01609efb0430"
+    },
+    {
+      "path": "packages/kernels/b2z-v2/world.mjs",
+      "sha256": "205f0f75e624f34eabec60c68e463cd6d9b9d97cd5af540efe9959834fa676d8"
+    },
+    {
+      "path": "packages/kernels/b2z/animation-projection.mjs",
+      "sha256": "0ff7dfacef26f6efa19d7ac8fd9ad8abf1fe9879628bd6c802791d489f2e24d7"
+    },
+    {
+      "path": "packages/kernels/b2z/animation.mjs",
+      "sha256": "5405394779f707f4b8d238827a95574ae338b5964e0d5e19043ade7d1da8aaa0"
+    },
+    {
+      "path": "packages/kernels/b2z/capture-v6.mjs",
+      "sha256": "89e7adf1a393e7ff5ec4a01715dfd39f98f8dff31a6b3982a66122f1047dd8db"
+    },
+    {
+      "path": "packages/kernels/b2z/clearance.generated.mjs",
+      "sha256": "0772b7b334361258222312282f916cc894658e16ae3e99837be4a2844e45fe05"
+    },
+    {
+      "path": "packages/kernels/b2z/combined.generated.mjs",
+      "sha256": "c1bfd630f11746bcf1ec568c69c08bd586e7977398fb9240e0e10b642b182f53"
+    },
+    {
+      "path": "packages/kernels/b2z/context-structures.mjs",
+      "sha256": "40f24ae8796e133f28ae100b56d878fc790bf140e21bf8fe2f608e8e1ac975f8"
+    },
+    {
+      "path": "packages/kernels/b2z/cursor-v6.mjs",
+      "sha256": "f106f3b33856c5bb2fada2befa4804b287c3701881cccb31cdfd3aebec4aa40c"
+    },
+    {
+      "path": "packages/kernels/b2z/deflector-boundary.mjs",
+      "sha256": "a678237dd67b45115219e35d69b2f536c2ef7bc9538fd2af6f28ce4ac7c7f919"
+    },
+    {
+      "path": "packages/kernels/b2z/deflector-events.mjs",
+      "sha256": "8c904fb6ebf731402fcc1aacd08bc6067702f42c415cb896397782ac5f7b0930"
+    },
+    {
+      "path": "packages/kernels/b2z/deflector.generated.mjs",
+      "sha256": "97a409569dbefb73b51615d9040fa37ece629bbe6068ddd2886d26fd4ee3d239"
+    },
+    {
+      "path": "packages/kernels/b2z/deflectors-v12.mjs",
+      "sha256": "56bf1c5b4d6e79d9b26fd222022ef503ac6e3982086575cec98cc282884cd114"
+    },
+    {
+      "path": "packages/kernels/b2z/economics.generated.mjs",
+      "sha256": "7f44a0d4628314c9c43f6a19f4fbaf03bd104f3d9ab0f899776618bc36fff804"
+    },
+    {
+      "path": "packages/kernels/b2z/economy17.mjs",
+      "sha256": "415bbbdc1012dd7b7467403ebccf27660463d72a35b4069140f5f67e0ee76329"
+    },
+    {
+      "path": "packages/kernels/b2z/entry-v7.mjs",
+      "sha256": "55f1ff1961079b1f36a72a42edb23d73f8a150531d89c858db50942fa26f608c"
+    },
+    {
+      "path": "packages/kernels/b2z/entry.generated.mjs",
+      "sha256": "a0f1ceda513143a8e10e058ae93878fdefb1c4602bd1be06ac3153e5f3a9db96"
+    },
+    {
+      "path": "packages/kernels/b2z/geometry.mjs",
+      "sha256": "c3e8dfe4ba4d4048bd039911f8eab71eaa30b4b9292dacbc9eefc7cecb3a9c78"
+    },
+    {
+      "path": "packages/kernels/b2z/kernel.mjs",
+      "sha256": "fd903faa6c149abf0a4e369dc8e06437fd154e57d821b79ddb78f74be25d63ec"
+    },
+    {
+      "path": "packages/kernels/b2z/lifecycle-v6.mjs",
+      "sha256": "7306448abef45e063f042c38c8c96ee69c7b1cff68cb9af94e6ade70eeed4786"
+    },
+    {
+      "path": "packages/kernels/b2z/math.mjs",
+      "sha256": "494678e83107b4e786cff1fbd9f50bfcedd3389e7a86fbaff5a2e2baeab077d0"
+    },
+    {
+      "path": "packages/kernels/b2z/migration.mjs",
+      "sha256": "cdc08df9a48c8020c662f14cba5d1d47e18e156f0e48bf73f778ce379b40ff92"
+    },
+    {
+      "path": "packages/kernels/b2z/playability.generated.mjs",
+      "sha256": "d53a0da258e489c8034bbb4454ed49969c24f993b9607409b5e498a2bafc8413"
+    },
+    {
+      "path": "packages/kernels/b2z/playability.mjs",
+      "sha256": "c28ef2a0e8837ae3d93580c240262424e16947a4d96c76de46c4c7b0a49ff6ee"
+    },
+    {
+      "path": "packages/kernels/b2z/pricing-v6.mjs",
+      "sha256": "07d469d8241c5d021b39c7d1a733c99eeb2ab1fe605a484c6881f4401d9ecb28"
+    },
+    {
+      "path": "packages/kernels/b2z/purchases-v6.mjs",
+      "sha256": "3556bdf32062f784e7b2ec6ac2351daa4259d5c15f24cf9b9549a810a626bec7"
+    },
+    {
+      "path": "packages/kernels/b2z/reservoirs.mjs",
+      "sha256": "a73d3592f3419ca97d6459a8c08ad4082b704b8c8c3e31876cfd93c21fdb8574"
+    },
+    {
+      "path": "packages/kernels/b2z/spawn.mjs",
+      "sha256": "b24946e2b928dc9ce335e17551a631dde5ba78681fa0eb1a1f18c757668cc7e5"
+    },
+    {
+      "path": "packages/kernels/b2z/territory-topology-v6.mjs",
+      "sha256": "3e76d958f241faae1b17418cbd98a7d70bfc69dc653e6e8725e3ea02e05bd8e9"
+    },
+    {
+      "path": "packages/kernels/b2z/territory-v6.mjs",
+      "sha256": "350febc6bb2d8f03cfa992d420615045f53099f7871c8efb3d88c410a28cf625"
+    },
+    {
+      "path": "packages/kernels/b2z/topology.mjs",
+      "sha256": "9abee25a7fcd9f491ae376556ae6f00b25588ac3dfd231dc45f0ea11829345e7"
+    },
+    {
+      "path": "packages/kernels/b2z/world.mjs",
+      "sha256": "bd1a1c98f5d616b3a3857768842cbbf123978de6c5776b670a8dbfb4854c2e3b"
+    },
+    {
+      "path": "packages/protocol/account.mjs",
+      "sha256": "1063996b023ba9a51848916feb5d68e643d479c1d56bf1967fe982a7e8cce626"
+    },
+    {
+      "path": "packages/protocol/context-structures.generated.mjs",
+      "sha256": "12f412e411ed31d3af4642a67a6a6aae68a4c507b2034d5b3b3ad9f13095168d"
+    },
+    {
+      "path": "packages/protocol/context-structures.mjs",
+      "sha256": "3cf475a3cd4799316beb86e97214f37232ff388d6b2aa33d6bce9aad229b48ba"
+    },
+    {
+      "path": "packages/protocol/deflector-orientation.generated.mjs",
+      "sha256": "19949fe90677c4c212cf90c435d135917d668f6f33e3f5cc2acafef70c5d65a4"
+    },
+    {
+      "path": "packages/protocol/deflector.mjs",
+      "sha256": "bd111ad5448a7d942546138959f86bb5faade89e49de8c91215fefae20fc6f84"
+    },
+    {
+      "path": "packages/protocol/economy17.generated.mjs",
+      "sha256": "5136ad16f09d758d099fcb96a6f0b3ddb35c765a1427093bb20b3f8876f18884"
+    },
+    {
+      "path": "packages/protocol/economy17.mjs",
+      "sha256": "19cb6a7929a0deeeb5fb64d80f14e9ba0c831006d7cd83bf8acea9fcdb4c863b"
+    },
+    {
+      "path": "packages/protocol/memo-v6.mjs",
+      "sha256": "3324b707ca833a3ff4d1a27a03a493330750d13fe05ad14aefb0d6be00011e16"
+    },
+    {
+      "path": "packages/protocol/memo.mjs",
+      "sha256": "15bee929a00560d8eff88c4eeca6dfe651b9c0d97064fe2ac58fc8a768a28a09"
+    },
+    {
+      "path": "packages/protocol/recorded-certificate.mjs",
+      "sha256": "b5ab96c502406fad12f49698ad02aa320891f4941834d03d24289f785ff47662"
+    },
+    {
+      "path": "packages/protocol/reservoir.mjs",
+      "sha256": "df89125652a3ac665529edb16a5db81e2c7e8a032fe6949a1c2d812d25a86c9a"
+    },
+    {
+      "path": "packages/protocol/shout.mjs",
+      "sha256": "010f0cb2d093ee773e2b4c86dd1dadb1a6db286b6c945380259d4ef8401914e0"
+    },
+    {
+      "path": "packages/protocol/structure-sites.mjs",
+      "sha256": "aa5ab120ba24628d806d30cea8ea3293bf22452a45b953e341e5907940a962f9"
+    },
+    {
+      "path": "packages/protocol/territory-clearance.mjs",
+      "sha256": "ce54b15a46d58692c227c6559b353fb954426f968a2b4d402678cc491af59f96"
+    },
+    {
+      "path": "packages/protocol/war-cry.mjs",
+      "sha256": "257fa41d54f155b877c893cb5996c77fb0466b7e51b28bec7c2265649768a111"
+    },
+    {
+      "path": "packages/source/payment.mjs",
+      "sha256": "f3da8cef78da245506f1f5fbb81a18162befabb2277ccce718f11453705d4b1a"
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "sha256": "b5c2cffe3b1d150c6f1dd459b35522e4617b5843ff5b5b7253c59f5bea622c83"
+    },
+    {
+      "path": "tools/audio_assets.mjs",
+      "sha256": "0bb1df499c184a9f9a617b085d8b07ac6bc434fd4ced0d4e811bc483833943e0"
+    },
+    {
+      "path": "tools/build_embedded_frontend.py",
+      "sha256": "cf3f488986089b6a84fcc9ef8ecd5230b479554c5954edb6e30f4c5bd424b2d2"
+    },
+    {
+      "path": "tools/build_observer_mainnet.mjs",
+      "sha256": "915e0e0ca6ff6c31a6252832e1dbc03fcab21a3f1763689ec1d5f40c9b610d38"
+    },
+    {
+      "path": "tools/build_observer_playability.mjs",
+      "sha256": "216f258e198f67789103d156e95634ba5f18f01bcc42a7f77a66f7fc5b26430a"
+    },
+    {
+      "path": "tools/generate_economics.mjs",
+      "sha256": "a10abf8b1d7fba5ac97c08e151f11e74be6a526787622c16e5f6d6c9e53431ca"
+    },
+    {
+      "path": "tools/verify_embedded_frontend_builds.py",
+      "sha256": "3ed8158100fb58b905337e821f516fbd143bf2a8d7b3f4793ea8e3f0b3c7496a"
+    },
+    {
+      "path": "apps/b2z-observer/delegated-payments/context.mjs",
+      "sha256": "43b396d7411daf62e5834f129e14a51871ecf5170eddd98334d197050bf6726e"
+    },
+    {
+      "path": "apps/b2z-observer/delegated-payments/intents.mjs",
+      "sha256": "1a44030b2a003d0dd33f284cb399815727a44d869ea937bca04b85fbbd86b2cd"
+    },
+    {
+      "path": "apps/b2z-observer/delegated-payments/funding.mjs",
+      "sha256": "3a5cf6c9137dc5100d29b0e3965c738f0dba886af7ea81e5ae7150e2fd4f048a"
+    },
+    {
+      "path": "apps/b2z-observer/delegated-payments/ledger.mjs",
+      "sha256": "91ff4d741009e3cbfd72e54e32480b5691b832bc451f273abd5854128972bb71"
+    },
+    {
+      "path": "apps/b2z-observer/delegated-payments/ui.mjs",
+      "sha256": "e5b3052d0742967bf2901d62bc733ea2088297800e6a0ab50a35092e9b18fa21"
+    },
+    {
+      "path": "apps/b2z-observer/delegated-payments/auth.mjs",
+      "sha256": "43dcd5b4f5a6eb55811c59364403c5d8c8256e1c4c6add9a82bcb9cfb1fbcbee"
+    },
+    {
+      "path": "apps/b2z-observer/delegated-payments/setup.mjs",
+      "sha256": "ccf0453cd8f4997ef10d00829a14f931ba036565abce08dd3be4856b12bcc3da"
+    },
+    {
+      "path": "apps/b2z-observer/delegated-payments/quote.mjs",
+      "sha256": "d128983282aa3967c6179e749e17a0d494ced267d9eb088db0537af7159e1fbc"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-delegated.bin",
+      "sha256": "6bcccdc6cb89cd32b680cead7c1ec7d7b6d7d294a36b44d7dd94be1a261b7934"
+    },
+    {
+      "path": "packages/protocol/delegation.mjs",
+      "sha256": "15a4ca6f9bbdb3ed26763b41bf5012e0b7d085f4b8f34497522e9f608ba8657d"
+    },
+    {
+      "path": "packages/kernels/b2z/delegation-v18.mjs",
+      "sha256": "986aa9d705aaf81420bc2c93f2582d2d1807a2f36c1607349291dc2e3f459738"
+    },
+    {
+      "path": "crates/b2z-protocol/src/delegation.rs",
+      "sha256": "22e9472d9649a994e0405708cdccf98869a9abc6882c0a4fbf49a91c850dc772"
+    },
+    {
+      "path": "native/b2z-native/src/delegation_v18.rs",
+      "sha256": "949793b8aff4896592d50e88ad3341cc1493bb77202b53ac73bf07c0e9529cec"
+    },
+    {
+      "path": "canisters/runtime-lab/src/delegation_wire.rs",
+      "sha256": "fcc23f64f6a184148f283882cbf6be44bda2527a108d6c8cc0a3d28828639cb0"
+    }
+  ],
+  "backend_inputs": [
+    {
+      "path": "apps/b2z-observer/configuration-clearance.bin",
+      "sha256": "0567d064106d26a14791f9d07bd64a2e4f87b26789dbef7167b2ee7e96114153"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-combined.bin",
+      "sha256": "b2fcfaabecc226e4b99e1660b2341690e4ffb0eace29e152e26bc37d71f9e5df"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-context.bin",
+      "sha256": "1e1f889bd11beb2c3f494bc53961fddbe09e069589b76287ce1a74b0de952ba0"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-deflector.bin",
+      "sha256": "251381a4eabb835e5adf526beb58eec647fafba8439435662e5f743c020b028b"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-economy.bin",
+      "sha256": "0cff926a5d2ee0342547a045dbb85aa25f2d83991c54edab6b14f73ede21262f"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-entry.bin",
+      "sha256": "8eca3f8f40c5b08df6e00a23cb900587eee7c28ff3ab3f6850c1bdb19fd5bd80"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-legacy.bin",
+      "sha256": "3d15acf9031e65816c33e3987fe5bb28fee8f9a5acf742d83a7d97db5e3cd622"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-million.bin",
+      "sha256": "cfd4fa714ee1c835b56e7f5939d9f1f56312bbbfc0c09775681e581dc3250c03"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-playability.bin",
+      "sha256": "e7a8db840b355bec688d553aef1a9891bc5c1a030bc24f89d8d546f1dd916e68"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-reservoir.bin",
+      "sha256": "b91086bc731f98861c1abf020919838444984dea564cfb27da6dce02b1c8dea3"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-shout.bin",
+      "sha256": "907d00e310f4f4128a53bc0adb964e4f05dbbb9a7c60d745703aeb3c9ec48eab"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-spacing.bin",
+      "sha256": "bd5c34521af5ff9bee15013549af3b265e5293589b0ef833278e580d5d760b4e"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-torus.bin",
+      "sha256": "6f06db2b7485f8c0bc116682e7a7f43317a3214f0d4d62bbc4d9b028ad11c9d4"
+    },
+    {
+      "path": "apps/b2z-observer/configuration-war-cry.bin",
+      "sha256": "26320f99c33d235931a807b010cb9c7c9550351cef60648993a396a9437e715a"
+    },
+    {
+      "path": "apps/b2z-observer/configuration.bin",
+      "sha256": "05f9b342c37d7dd5e53d6f12dce90d2ba53988ec3c1ccfeaedd8906f51042a42"
+    },
+    {
+      "path": "canisters/runtime-lab/Cargo.lock",
+      "sha256": "326b3afbce80e8bdb8aa266a15a162ec0c31f11a5422a7e7afb52e50ced1fd1a"
+    },
+    {
+      "path": "canisters/runtime-lab/Cargo.toml",
+      "sha256": "83f587fb1854e8ab8ef08cb6a61213476afb5f79e84bdb42f78e34ff9427e6e0"
+    },
+    {
+      "path": "canisters/runtime-lab/README.md",
+      "sha256": "258a7541f6057b7f56ae4fa61315ec2ebf9e2d77af939388f6dee715a7f2be67"
+    },
+    {
+      "path": "canisters/runtime-lab/runtime-lab.did",
+      "sha256": "9daa56fc7d9b492f9e363e197f6fa271356df1ec54403de859dacbebc8ae9eb2"
+    },
+    {
+      "path": "canisters/runtime-lab/src/funding.rs",
+      "sha256": "b39d7f2a118c581bf09a4b2b6aea42ead7717d05ff6d81e28c5e244c5394589d"
+    },
+    {
+      "path": "canisters/runtime-lab/src/health.rs",
+      "sha256": "e47a822371845695e6a124240ad1ed28a17aaaf0e745b3c866030a02c58a7a29"
+    },
+    {
+      "path": "canisters/runtime-lab/src/lib.rs",
+      "sha256": "ff526684d088c313129a2e768284110f8fec066998eac925e67ed91b829b3b46"
+    },
+    {
+      "path": "canisters/runtime-lab/src/operation_kernel.rs",
+      "sha256": "724d7504a67d2231dd4ca543c08b50d6ccbda18d3beae49a0dd9d8912dfdc83d"
+    },
+    {
+      "path": "canisters/runtime-lab/src/pace.rs",
+      "sha256": "40409738252cc5f59b0342ab7b262eb8997fa8a083fac956a4d9ceb908b3c363"
+    },
+    {
+      "path": "canisters/runtime-lab/src/playability_runtime.rs",
+      "sha256": "cae803b9505dc8d0b7185582fa28cac7547fad1872cae7e9e464f8580bb89917"
+    },
+    {
+      "path": "canisters/runtime-lab/src/player_api.rs",
+      "sha256": "6760f7f15f1cdb9778aac4954f411193bbbc7310c2dcab38df56ec7b9a9efaba"
+    },
+    {
+      "path": "canisters/runtime-lab/src/source.rs",
+      "sha256": "9a21b24fdee8b9702b08bbf51627cc48cf47c430ee966a987e69d7ba2699c7f0"
+    },
+    {
+      "path": "canisters/runtime-lab/src/transition.rs",
+      "sha256": "37549fde454cb27a3d5e6a86c7ef1b76ea46da5b1353192c906d531bece6857b"
+    },
+    {
+      "path": "config/economics/rules17.json",
+      "sha256": "edd3138497704a19208e5bbcd8633edd1b7024549c3d134b8165d0473704faf8"
+    },
+    {
+      "path": "config/rules/v11-combined.json",
+      "sha256": "3f8d87054e333fefa3199286472fd80c45d524980bf5dd314720009e6d06c616"
+    },
+    {
+      "path": "config/rules/v12-boundary-deflector.json",
+      "sha256": "51719018fd3c6cec03516e1aff387d261709a4bca4238f89d0d181f5337f925d"
+    },
+    {
+      "path": "config/rules/v12-deflector-provisional.json",
+      "sha256": "660b4c55dd27b7773aed2d1c35412ff3d84b36060846359ab4e0915c321f1743"
+    },
+    {
+      "path": "config/rules/v13-context-structures.json",
+      "sha256": "c610cd20a17820367de4323c44e3ec64fe0cccf7fcb19b582cd50be0118f3870"
+    },
+    {
+      "path": "config/rules/v6.json",
+      "sha256": "00d35637bc27d5d91c275d5899ceb0325f530ed244afd4585d4c33ac9031972c"
+    },
+    {
+      "path": "config/rules/v7-entry.json",
+      "sha256": "3b81508a817e69aec753eb057ca4c834aa54bb8769e227a873dd2771d1d628aa"
+    },
+    {
+      "path": "config/rules/v9-clearance.json",
+      "sha256": "47b229f8e76371d2f4f4c0910e3e0845d62ed831f5d32ac3722b43df3cc04375"
+    },
+    {
+      "path": "crates/b2z-protocol/Cargo.toml",
+      "sha256": "f5b9743ef92fa54c98013d59e81108a30c3ba4828dc83bbcb4cd483fe0dfefd2"
+    },
+    {
+      "path": "crates/b2z-protocol/src/context_structures.rs",
+      "sha256": "eb688e2fd8a939651e4f0822c98297a36596be7420c8175bf05feb1e742c3718"
+    },
+    {
+      "path": "crates/b2z-protocol/src/context_structures_generated.rs",
+      "sha256": "e4efd83216a43fd1fbc0b7fd26969573393d7f15c1f2576b8d42c5871c2850ab"
+    },
+    {
+      "path": "crates/b2z-protocol/src/deflector.rs",
+      "sha256": "bf056283420be01caf79e09cd259a8e1dbfbe64328f7678ebe1a3f281650225d"
+    },
+    {
+      "path": "crates/b2z-protocol/src/deflector_orientation_generated.rs",
+      "sha256": "83eca60d5e355001ab950d48a7853d2760ddacb2babadb2e2fbe9d0593a365d5"
+    },
+    {
+      "path": "crates/b2z-protocol/src/economy17.rs",
+      "sha256": "38dd9a2f2b1fb5a7234db3bc018f7ce192a13ee6b8a0850078ccde7bf54fda8f"
+    },
+    {
+      "path": "crates/b2z-protocol/src/economy17_generated.rs",
+      "sha256": "c0397fde95030dfc231677ecf3e3886f55cc2125cbe2168fa84ed752b934b222"
+    },
+    {
+      "path": "crates/b2z-protocol/src/lib.rs",
+      "sha256": "cb9ecb378db9a45c551f7e1d6fd8d81dbb82011d2a70c2d927fd1076055f89b4"
+    },
+    {
+      "path": "crates/b2z-protocol/src/reservoir.rs",
+      "sha256": "e3d6b54244efcd3e02003f9d5171927ace8ac7bd611a8a859b7bd9d2ec60f707"
+    },
+    {
+      "path": "crates/b2z-protocol/src/shout.rs",
+      "sha256": "5838c21ed275c3486df091f43647423493a65a23dc6d8916b9149c50e4a0eb00"
+    },
+    {
+      "path": "crates/b2z-protocol/src/v6.rs",
+      "sha256": "c12905cf5027570c850d60fe620a8143cd46d8349c18fd07561f78191f1c0737"
+    },
+    {
+      "path": "crates/b2z-protocol/src/war_cry.rs",
+      "sha256": "8cee55ac0ca11dfd59f7078969c7f3b7ac75e72374a460fa3af7ec3e1d961c95"
+    },
+    {
+      "path": "kernels/b2z-mechanics/Cargo.toml",
+      "sha256": "5091b3d91297440f3006780b638fa8db7bb9c3ad5f48c7e07eca3d580e519954"
+    },
+    {
+      "path": "kernels/b2z-mechanics/src/lib.rs",
+      "sha256": "dc3e9d989a7ee0155a7e1b34cb8113433fbc41adb79771943e355bfee91cca2f"
+    },
+    {
+      "path": "kernels/b2z-mechanics/src/spawn.rs",
+      "sha256": "fb0ad61abf2898d5160d1e07bc3c29c0afeb1b6fef187ffc678fedba74eb1e4b"
+    },
+    {
+      "path": "kernels/b2z-mechanics/src/strikes.rs",
+      "sha256": "fc94f04f2eac58bddd05f0081b4235aaef43f7709a33af8527b83ddd60c16598"
+    },
+    {
+      "path": "native/Cargo.lock",
+      "sha256": "5c443f93cfe35f44764789f703f3acc81e27323242f63f5aa28a2d6e9123f4b3"
+    },
+    {
+      "path": "native/b2z-native/Cargo.toml",
+      "sha256": "bb8353c857f06d70578aa08dcf0b5ccb40067a5c68399987d20d8246fb918724"
+    },
+    {
+      "path": "native/b2z-native/examples/boundary_deflector_checkpoint.rs",
+      "sha256": "caa182b248b709ec6434fa69247afa52d6bc8871e1ac16ff664cf29f15fe225b"
+    },
+    {
+      "path": "native/b2z-native/examples/boundary_deflector_scheduler_chain.rs",
+      "sha256": "87e736b14504ba3cdc2acf8481cb95169de4174b68bd1c65671410cedc1c245f"
+    },
+    {
+      "path": "native/b2z-native/examples/deflector_contact_checkpoint.rs",
+      "sha256": "915fab55917a851add09c9a2dbee82befc9a99e2873d255a55fdb08af677553d"
+    },
+    {
+      "path": "native/b2z-native/src/capture_v6.rs",
+      "sha256": "7fad653c031d4cf80e7be4b2a1a2d0777d4db071ea34e2a730f4e80694dcc096"
+    },
+    {
+      "path": "native/b2z-native/src/clearance_v9.rs",
+      "sha256": "61adf7cb762b888384167ac6bcc6cc9a24565ed6eb6d5d34e9aeb4e597e03125"
+    },
+    {
+      "path": "native/b2z-native/src/combined_v11.rs",
+      "sha256": "bb249264f236e72e9fd447b272ad67336978c6efc4de7e57e279355abc599d28"
+    },
+    {
+      "path": "native/b2z-native/src/context_structures.rs",
+      "sha256": "386a5d159ee011b14f8501895f456ddc3ff688277748b0445ca0443600c27010"
+    },
+    {
+      "path": "native/b2z-native/src/cursor.rs",
+      "sha256": "2f9ea7a4524f43bb68348f2db0ecf1ab1650af10a80f9ec7888729de24bf1e0f"
+    },
+    {
+      "path": "native/b2z-native/src/cursor_v6.rs",
+      "sha256": "e18c20c47f2eeb722c7661523dcc650d6fd9aa6b7081e0f933900463e1d4d286"
+    },
+    {
+      "path": "native/b2z-native/src/deflector_boundary.rs",
+      "sha256": "3c247ffeba616015a66d57317dac7ee6f0acb6b644fe03e391d287a4d5d3296c"
+    },
+    {
+      "path": "native/b2z-native/src/deflectors_v12.rs",
+      "sha256": "f223741d4706c2209767acb58ee911e3c68d7d78ef23aaef6f96de4789212929"
+    },
+    {
+      "path": "native/b2z-native/src/economics_generated.rs",
+      "sha256": "f941b0b4122e333a596a35d9f1f4b239cf76e645b21f263332d76cf0cc7a46d9"
+    },
+    {
+      "path": "native/b2z-native/src/economy17.rs",
+      "sha256": "5ba41f4f229d461d2f0412899aa820133c5e91334e8459e772e3bf0bbd25659f"
+    },
+    {
+      "path": "native/b2z-native/src/entry_v7.rs",
+      "sha256": "b9a082041fb43db5622fde0f4d48235410c7ea7e6e5a692f1c67a95026fc9acf"
+    },
+    {
+      "path": "native/b2z-native/src/geometry.rs",
+      "sha256": "8bcc57bf74d13c75f667e5dc1ac73206b5c498f3d03e6e56420828b4a1c2ee72"
+    },
+    {
+      "path": "native/b2z-native/src/host.rs",
+      "sha256": "3aa9d45c5aed6b8529466047cb0775313071b3c744b0ead0150c6ac63441a729"
+    },
+    {
+      "path": "native/b2z-native/src/lib.rs",
+      "sha256": "c6726d8ebf88db4ecca475248beb0db2f6e305d0820fbee4933c2da057c1f625"
+    },
+    {
+      "path": "native/b2z-native/src/lifecycle_v6.rs",
+      "sha256": "43eb5fae16345cf539d8e4792e6c8c19f0b2603d8ed70841103215d9d1ae5fae"
+    },
+    {
+      "path": "native/b2z-native/src/migration.rs",
+      "sha256": "0db5e931f24e8c6c8b13e7cad48bf5f4dadee3301b8ddea55da2a4a388f8c5ca"
+    },
+    {
+      "path": "native/b2z-native/src/playability.rs",
+      "sha256": "39e2be481dabb6581abd160c55143e51a5fa8519f342b62bbce12fa49b0e1269"
+    },
+    {
+      "path": "native/b2z-native/src/playability_generated.rs",
+      "sha256": "81ed09c5f5409b480bd0cec8d9dc034afa54e8cab86d9faaa1c417dfcf347c32"
+    },
+    {
+      "path": "native/b2z-native/src/pricing_v6.rs",
+      "sha256": "b460d0b773f141157ccff16a4bf45f6fdc5be7fadd0713ae9730e5d3efa591eb"
+    },
+    {
+      "path": "native/b2z-native/src/purchases_v6.rs",
+      "sha256": "2f1fc29e34ff92785e263cf384b6a0388e530677ca4e10bbf4a9de7861489e3f"
+    },
+    {
+      "path": "native/b2z-native/src/reservoirs.rs",
+      "sha256": "af96be2d04473c2d095ecdccdea27c41c0f4c8b7bf0fb8694e31c5a5aad86a21"
+    },
+    {
+      "path": "native/b2z-native/src/shout.rs",
+      "sha256": "7cd606004b23fa39acefe0a77984e7d479fa54678b570515d9b84559d9b8155d"
+    },
+    {
+      "path": "native/b2z-native/src/spacing.rs",
+      "sha256": "f272d77b441d2fcb1c04aab368f88e40294c45fcd9b7b00e98e0799806af8872"
+    },
+    {
+      "path": "native/b2z-native/src/spawn.rs",
+      "sha256": "3ed84b3136119f46aa7f9bf40ab91edd398704a1cb504d1af286b5e32b9778aa"
+    },
+    {
+      "path": "native/b2z-native/src/territory_topology_v6.rs",
+      "sha256": "6012348c1c429e11cc5176535a9199bb5efe77488ec3688bef7fb59c1898499d"
+    },
+    {
+      "path": "native/b2z-native/src/territory_v6.rs",
+      "sha256": "0d3fc0e746bd4e25319323f222577998a86611ef6de59be97dd8a20ab7a66cca"
+    },
+    {
+      "path": "native/b2z-native/src/topology.rs",
+      "sha256": "c89dd34cdb23a02d4bd714b99710b3d9a67ef48db2b1321ff96ba3eaa43b7401"
+    },
+    {
+      "path": "native/b2z-native/src/war_cry.rs",
+      "sha256": "f3e61a45ef7155d366b5740025fd290dafb7919d7de9588a1896e9594bb9c3e5"
+    },
+    {
+      "path": "native/b2z-native/src/world.rs",
+      "sha256": "6e0477fb927b3ec75020f6eafcb1e652408c3093b424c41ceec7c0fe5f476a95"
+    },
+    {
+      "path": "native/b2z-native/tests/adjacent.rs",
+      "sha256": "9e2cca1fda693a4b988507cead78818e1508593420dc61384bbf3a8862ef6418"
+    },
+    {
+      "path": "native/b2z-native/tests/boundary_deflector.rs",
+      "sha256": "109c44f2c67ac4711747f46f6037d5f11beff8ea54b23b7972a6ffe67e5eb364"
+    },
+    {
+      "path": "native/b2z-native/tests/boundary_deflector_topology.rs",
+      "sha256": "79f2c52b05f514fef6fe24c0bb6ac221dd6bf00ddf32f4a6890d758229c75954"
+    },
+    {
+      "path": "native/b2z-native/tests/capture.rs",
+      "sha256": "3f61dd628f9f942a31e7a2ccf955705ac92bff6056d619ba87f6fe3d17b33e2c"
+    },
+    {
+      "path": "native/b2z-native/tests/clearance_v9.rs",
+      "sha256": "b01030b117ebfd4c3f18d97e922233707e4d06428f6cabffbd9ef71456c02dc0"
+    },
+    {
+      "path": "native/b2z-native/tests/clearance_vectors.rs",
+      "sha256": "ec3d03dcb35a00d2d483c10410840c8a495fd57ba2ec2c9dd564ebc6bafed759"
+    },
+    {
+      "path": "native/b2z-native/tests/combined_v11.rs",
+      "sha256": "691bb32879b2cf1ada6a1396c6b4247e8a61802ef572b09a010122164a09e86b"
+    },
+    {
+      "path": "native/b2z-native/tests/context_structures.rs",
+      "sha256": "58cfc075fd597f4f1d596abddd5f8ed2c4c8f64328b8c8ae4aa2bfb1df3cbe43"
+    },
+    {
+      "path": "native/b2z-native/tests/entry.rs",
+      "sha256": "7ad99b7c0265987fcc8108921182b71984d685234a10db6a2e5f988f1f4da44f"
+    },
+    {
+      "path": "native/b2z-native/tests/islands.rs",
+      "sha256": "be99cea158869af619af40c9116a17d9f4cc4c5dfdaf0dc217e57db9681141f0"
+    },
+    {
+      "path": "native/b2z-native/tests/lifecycle.rs",
+      "sha256": "a4a1f2932a4bdd37a33691e783353c9d77bcccc9b4ff6fa01544b6e20104a8a6"
+    },
+    {
+      "path": "native/b2z-native/tests/playability.rs",
+      "sha256": "d84e75f5b911be54cffb339d3f698ff924369ef5469be02605ccdd3fa3c31d69"
+    },
+    {
+      "path": "native/b2z-native/tests/purchases.rs",
+      "sha256": "82930782f1b9f957c8fdf58fc8b5a1763970a23297bcc4c589f4debde4c5b191"
+    },
+    {
+      "path": "native/b2z-native/tests/replay.rs",
+      "sha256": "eb7d939784101a94e751c139fd5640583a0af2bb477ac2f89da7f7b677ff3580"
+    },
+    {
+      "path": "native/b2z-native/tests/rules.rs",
+      "sha256": "539293984a66417aa06d957038963d66186ffb514add49d9170a4818fabd5b68"
+    },
+    {
+      "path": "native/b2z-native/tests/session.rs",
+      "sha256": "b8874037dda117ed15802c809cecab005d9c830d703019959f8eec1acd4d39af"
+    },
+    {
+      "path": "native/b2z-native/tests/torus.rs",
+      "sha256": "18562aff0ee1008f569da991e745e76a95aabf92d6649e2076b79044d5e7a60e"
+    },
+    {
+      "path": "native/b2z-native/tests/war_cry.rs",
+      "sha256": "58eca2d3bf9544b05fb9cb17e70b1069b41a91539796ef1fb9d7621f7e2de25b"
+    },
+    {
+      "path": "rust-toolchain.toml",
+      "sha256": "b5c2cffe3b1d150c6f1dd459b35522e4617b5843ff5b5b7253c59f5bea622c83"
+    },
+    {
+      "path": "crates/b2z-protocol/src/delegation.rs",
+      "sha256": "22e9472d9649a994e0405708cdccf98869a9abc6882c0a4fbf49a91c850dc772"
+    },
+    {
+      "path": "native/b2z-native/src/delegation_v18.rs",
+      "sha256": "949793b8aff4896592d50e88ad3341cc1493bb77202b53ac73bf07c0e9529cec"
+    },
+    {
+      "path": "canisters/runtime-lab/src/delegation_wire.rs",
+      "sha256": "fcc23f64f6a184148f283882cbf6be44bda2527a108d6c8cc0a3d28828639cb0"
+    }
+  ]
+}

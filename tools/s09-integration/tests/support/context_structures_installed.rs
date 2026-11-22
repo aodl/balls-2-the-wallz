@@ -1103,7 +1103,7 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegati
         500
     };
     let initial = fixture.encode().unwrap();
-    let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers(
+    let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers_options(
         bytes("B2Z_S14_TEST_WASM"),
         initial.clone(),
         10_000,
@@ -1113,7 +1113,25 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegati
         } else {
             &[]
         },
+        delegation,
     );
+    if delegation {
+        #[derive(CandidType, Deserialize)]
+        struct Standard {
+            name: String,
+            url: String,
+        }
+        let raw = pic
+            .query_call(
+                ledger,
+                Principal::anonymous(),
+                "icrc1_supported_standards",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        let standards: Vec<Standard> = decode_one(&raw).unwrap();
+        assert!(standards.iter().any(|standard| standard.name == "ICRC-2"));
+    }
     playability_installed::funding_paused(&pic, id, true);
     upgrade(&pic, id, retained_wasm());
     playability_installed::configuration(&pic, id, 512);
@@ -1588,15 +1606,20 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegati
     let mut live =
         PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
     let gateway = live.make_live(None);
-    save(
-        &out,
-        "configuration.json",
-        &json!({
-            "network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),
-            "ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),
-            "root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":funding_account(payer).to_hex()
-        }),
-    );
+    let mut connection = json!({
+        "network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),
+        "ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),
+        "root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":funding_account(payer).to_hex()
+    });
+    if delegation {
+        // Source processing advances the disposable simulation clock past the
+        // SDK's real signing time. Pin the freshness check to the replica's
+        // independent consensus clock without weakening either bound.
+        connection["verification_time_ns"] =
+            json!(live.get_time().as_nanos_since_unix_epoch().to_string());
+        connection["replay_evicted_artifacts"] = json!(true);
+    }
+    save(&out, "configuration.json", &connection);
     let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     assert!(
         std::process::Command::new("node")
