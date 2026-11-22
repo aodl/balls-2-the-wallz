@@ -21,6 +21,12 @@ export function contextSites(world,config) {
     owner:account=>accounts.get(account),
     owns:(account,cell)=>accounts.has(account)&&accounts.get(account)===playerAt(cell),
     hasStructure:cell=>structures.has(cell)||reservoirHas(world.reservoirs,cell),
+    occupant(cell){
+      if(reservoirHas(world.reservoirs,cell))return 'Reservoir';
+      const structure=structures.get(cell);
+      if(structure)return structure.kind==='cannon'?'Cannon':'Diverter';
+      return occupied.has(cell)?'Live Ball':null;
+    },
     active,
     reason:(account,cell, options={})=>structureSiteReason({width:world.width,height:world.height,owner:accounts.get(account),cell,
       ...options,spacing,reservoirs:world.reservoirs,occupied,structures,ownerAt:playerAt,active}),
@@ -89,3 +95,8 @@ const REASONS={
   BALL_CAPACITY:'Ball capacity reached.'
 };
 export const contextReason=code=>REASONS[code];
+
+export function siteOccupant(sites,cell){
+  const kind=sites.occupant(cell);
+  return kind?kind+' occupies this tile.':null;
+}

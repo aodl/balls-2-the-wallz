@@ -1,3 +1,4 @@
+import{trajectoryColors}from'./ball-presentation.mjs';
 import {ReservoirOccupancy} from './reservoir-occupancy.mjs';
 import {tileIndicator,turretPresentation} from './arena-indicators.mjs';
 import {orientSceneCamera} from './isometric-projection.mjs';
@@ -94,7 +95,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const shadows=batch(new T.CircleGeometry(.31,16),RENDER_LIMITS.pieces,new T.ShaderMaterial({transparent:true,depthWrite:false,vertexShader:'varying vec2 shadowUv; void main(){shadowUv=uv;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying vec2 shadowUv; void main(){float a=.26*(1.-smoothstep(.08,.5,length(shadowUv-vec2(.5))));gl_FragColor=vec4(.015,.025,.03,a);}'}));
  const boundedDecorations=new Set([shadows,glow,distantMarkers]);
  const rings=batch(new T.RingGeometry(.37,.42,24),512,new T.MeshBasicMaterial({color:previewInk,side:T.DoubleSide}));
- const ballSelection=batch(new T.RingGeometry(.20,.25,24),4,new T.MeshBasicMaterial({color:chosenInk,side:T.DoubleSide,toneMapped:false}));
+ const ballSelection=batch(new T.RingGeometry(.20,.25,24),4,new T.MeshBasicMaterial({side:T.DoubleSide,toneMapped:false}));
  const parts={base:bases,turret:turrets};
  const provisional={base:ghostBase,turret:ghostTurret};
  let themeRevision=0,proposalAccent=luminousAccent(token('player-accent','#c3d1d5'));
@@ -164,10 +165,10 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const lostHandler=e=>{e.preventDefault();lost=true;motion.reset();onError('Graphics context lost. Waiting to restore the arena.');};
  const restoreHandler=()=>{quality.resetTime();structureKey='';lost=false;terrainKey='';lastDrawKey='';sizeKey='';forceTerrainUpload=true;texture?.clearUpdateRanges();if(texture)texture.needsUpdate=true;motion.reset();reservoirLayer?.restore();onRestore();};
  canvas.addEventListener('webglcontextlost',lostHandler);canvas.addEventListener('webglcontextrestored',restoreHandler);
- function renderFrame(v,camera,{time=0,selected=null,selectedTile=null,selectedDeflector=null,selection=null,hover=null,aim=null,followed=null,points=null,guideObstacles=[],reducedMotion=false,audioEligible=false,wallMs=performance.now(),frameTime=null}={}){
+ function renderFrame(v,camera,{time=0,selected=null,selectedTile=null,selectedDeflector=null,selection=null,hover=null,aim=null,followed=null,selectedBalls=null,points=null,guideObstacles=[],reducedMotion=false,audioEligible=false,wallMs=performance.now(),frameTime=null}={}){
   if(lost)return;lastHover=hover;lastFollowed=followed;
   const facingRevision=facing.sample(v.cannons,aim,wallMs,reducedMotion);
-  const drawKey=[themeRevision,facingRevision,audioEligible,camera.x,camera.y,camera.scale,camera.angle,camera.viewport.width,camera.viewport.height,time,v.territoryRevision,v.entityKey(),selected,selectedTile,selectedDeflector,selection?.deflector?.orientation,followed,hover?.kind,hover?.id,hover?.cell,selection?.key,selection?.cell,selection?.cells?.length,aim?.cannon.cell,aim?.angle,JSON.stringify(guideObstacles),reducedMotion,devicePixelRatio].join('/');
+  const drawKey=[themeRevision,facingRevision,audioEligible,camera.x,camera.y,camera.scale,camera.angle,camera.viewport.width,camera.viewport.height,time,v.territoryRevision,v.entityKey(),selected,selectedTile,selectedDeflector,selection?.deflector?.orientation,followed,selectedBalls&&JSON.stringify([...selectedBalls]),hover?.kind,hover?.id,hover?.cell,selection?.key,selection?.cell,selection?.cells?.length,aim?.cannon.cell,aim?.angle,JSON.stringify(guideObstacles),reducedMotion,devicePixelRatio].join('/');
   if(v.reservoirs)updateVerifiedReservoirs(v);
   else if(verifiedReservoirs){verifiedReservoirs=null;reservoirView=null;displayedReservoirCells.clear();updateReservoirLayer(null);}
   const reservoirRefresh=reservoirLayer?.prepare(camera,{wallMs,frameTime,reducedMotion,hidden:canvas.ownerDocument.hidden});
@@ -224,7 +225,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
     instance(shadows,p.x+.025,p.y+.03,.006,1,1,1,null,[-Math.PI/2,0,0]);
     if(updateStructures){instance(deflectorBases,p.x,p.y,0,1,1,1,tint);instance(deflectorUppers,p.x,p.y,0,1,1,1,tint,[0,-theta,0]);}
    }
-   for(const b of points){const p=camera.point(b.x,b.y),x=p.x,y=p.y;if(!visible(camera,x,y))continue;if(audioEligible&&balls.count<RENDER_LIMITS.pieces&&audioBalls.size+audioCannons.size<4096)audioBalls.set(b.id,{x,y});const lod=Math.max(1,10/camera.scale);instance(shadows,x+.04,y+.05,.008,lod*.6,1,lod*.6,null,[-Math.PI/2,0,0]);instance(glow,x,y,.14*lod,lod*.65,lod*.65,1,null,[-Math.atan(1/Math.SQRT2),Math.PI/4,0]);instance(balls,x,y,.14*lod,lod,lod,lod);if(b.id===followed||hover?.kind==='ball'&&hover.id===b.id)instance(ballSelection,x,y,.018,lod,1,lod,null,[-Math.PI/2,0,0]);}
+   for(const b of points){const p=camera.point(b.x,b.y),x=p.x,y=p.y;if(!visible(camera,x,y))continue;if(audioEligible&&balls.count<RENDER_LIMITS.pieces&&audioBalls.size+audioCannons.size<4096)audioBalls.set(b.id,{x,y});const lod=Math.max(1,10/camera.scale);instance(shadows,x+.04,y+.05,.008,lod*.6,1,lod*.6,null,[-Math.PI/2,0,0]);instance(glow,x,y,.14*lod,lod*.65,lod*.65,1,null,[-Math.atan(1/Math.SQRT2),Math.PI/4,0]);instance(balls,x,y,.14*lod,lod,lod,lod);const ink=trajectoryColors[selectedBalls?.get(b.id)];if(ink||b.id===followed||hover?.kind==='ball'&&hover.id===b.id)instance(ballSelection,x,y,.018,lod,1,lod,ink??chosenInk,[-Math.PI/2,0,0]);}
    for(const t of motion.tails(wallMs).slice(-RENDER_LIMITS.pieces)){tails.geometry.attributes.tailAlpha.setX(tails.count,t.alpha);const p=camera.point(t.x,t.y),length=t.distance,theta=Math.atan2(t.dy,t.dx);instance(tails,p.x-Math.cos(theta)*length/2,p.y-Math.sin(theta)*length/2,.14,1,length,1,null,[0,-theta,-Math.PI/2]);instance(tailInner,p.x-Math.cos(theta)*length/2,p.y-Math.sin(theta)*length/2,.14,.60,length,.60,null,[0,-theta,-Math.PI/2]);}
    for(const e of effects){highlights.geometry.attributes.effectAlpha.setX(highlights.count,e.alpha);const p=camera.cellPoint(e.cell),x=p.x,y=p.y;if(visible(camera,x,y))instance(highlights,x,y,.012,1,1,1,null,[-Math.PI/2,0,0]);}
    if(updatePreview)for(const cell of previewData){if(cell===selection?.cell)continue;const p=camera.cellPoint(cell),x=p.x,y=p.y;if(visible(camera,x,y)){const a=selection?.anchor,dx=a===undefined?0:Math.abs(cell%v.width-a%v.width),dy=a===undefined?0:Math.abs(Math.floor(cell/v.width)-Math.floor(a/v.width)),near=a!==undefined&&Math.min(dx,v.width-dx)+Math.min(dy,v.height-dy)===1;instance(preview,x,y,.02,1,1,1,near?previewInk:eligibleInk,[-Math.PI/2,0,0]);}}

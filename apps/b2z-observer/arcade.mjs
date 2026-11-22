@@ -2,7 +2,7 @@ import {economyAt} from '../../packages/kernels/b2z/economy17.mjs';
 import {DAY_NS} from '../../packages/protocol/economy17.generated.mjs';
 import {fitShout} from '../../packages/protocol/shout.mjs';
 import {contextSupported,shoutSupported,spacingSupported,reservoirSupported,economySupported} from './context-policy.mjs';
-import {contextReason,contextSites,firstContextDestination} from './context-sites.mjs';
+import {contextReason,contextSites,firstContextDestination,siteOccupant} from './context-sites.mjs';
 import {SCREEN_ORIENTATIONS,screenDirection} from '../../packages/protocol/context-structures.mjs';
 import{deflectorSupported,snappedDeflectorDegrees,orientationFromDegrees,deflectorDegrees}from'./deflector-policy.mjs';
 import{deflectorSites}from'./deflector-sites.mjs';
@@ -37,7 +37,8 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  let declaration=null,context=null,store=null,storage,history,world,config,source,destination,revision='',refs=[],id=null,mode='inspect',view=null,degrees='0',worldAngle='225',quantity=1,siteKey='',cell=null,quote=null,manual=null,busy=false,pending=null,status={canPrepare:false,label:'Verifying game'},receipts=[],preferences={},cameraState=null,opener=null,planningBehind=false,activityKey='',rosterKey='',announcedStatus=null;
  try{storage=globalThis.localStorage;}catch{}
  const selected=()=>refs.find(c=>c.id===id),mine=()=>refs.filter(c=>c.account===declaration?.account);
- let tileSelection=null,deflectorId=null;
+ let tileSelection=null,deflectorId=null,preferredBuild=null,ballIds=new Set();
+ const strictPlacement=()=>economySupported(config);
  const structureContexts=()=>contextSupported(config);
  const pickedDeflector=()=>world?.deflectors?.find(d=>d.id===deflectorId);
  const tileOwn=()=>tileSelection!==null&&contextSites(world,config).owns(declaration?.account,tileSelection);
@@ -94,11 +95,15 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
     annotation={cry,capability:shoutSupported(config)?'btz-successful-action-shout-1':'btz-war-cry-1',capability_config:config.rules_version};
    }
    return {...annotation,account:declaration.account,payer:declaration.display??declaration.principal??declaration.account,network:source.network,backend:source.owner,action:mode,cannon:mode==='start'?null:id,...(successor?{structure:deflectorId}:{}),angle:mode==='move'||mode==='reservoir'||movingDeflector?null:angle,cell,requested:q.requested??requested,maximum_fill:q.maximum_fill??1,amount:q.amount,memo:q.memo,hex:Array.from(q.memo_bytes,b=>b.toString(16).padStart(2,'0')).join(''),owner:destination.primary,subaccount:String(source.subaccount),recipient:destination.legacy,rules:config.rules_version??world.version,snapshot:revision};
-  }catch(error){const reasons={ENEMY_TERRITORY_TOO_CLOSE:'Too close to enemy territory.',DIFFERENT_TILE:'Choose a different tile.',BALL_CAPACITY:'Ball capacity reached.',ILLEGAL_MOVE:'Choose a legal highlighted destination.',DEFLECTOR_TOO_CLOSE:'Leave one clear tile between Diverters.',ILLEGAL_DEFLECTOR_SITE:'Choose a legal owned tile for the Diverter.',UNSUPPORTED_DEFLECTOR:'Diverters are unavailable under the active verified rules.',NOT_OWNER:'Choose one of your cannons.',NO_ADJACENT_SITE:'No adjacent site is currently available.',NO_ELIGIBLE_SPAWN:'No first site is currently available.',PLAYER_CANNON_CAPACITY:'Your cannon capacity is reached.',CANNON_CAPACITY:'Cannon capacity is reached.',QUANTITY_BOUNDS:'Choose between 1 and 64 balls.',CELL_BOUNDS:'Choose a destination cell.',ILLEGAL_ADJACENT_SITE:'That site is no longer eligible. Choose another.',ACCOUNTING_CAPACITY:'Player capacity reached.',HEADING_BOUNDS:'Heading must be between 0 and 359.99°.'};return {reason:(successor?contextReason(error.message):undefined)??reasons[error.message]??(mode==='move'?'Choose a legal destination.':'Enter a heading from 0 to 359.99° and a valid quantity.')};}
+  }catch(error){const reasons={ENEMY_TERRITORY_TOO_CLOSE:'Too close to enemy territory.',DIFFERENT_TILE:'Choose a different tile.',BALL_CAPACITY:'Ball capacity reached.',ILLEGAL_MOVE:'Choose a legal highlighted destination.',DEFLECTOR_TOO_CLOSE:'Leave one clear tile between Diverters.',ILLEGAL_DEFLECTOR_SITE:'Choose a legal owned tile for the Diverter.',UNSUPPORTED_DEFLECTOR:'Diverters are unavailable under the active verified rules.',NOT_OWNER:'Choose one of your cannons.',NO_ADJACENT_SITE:'No adjacent site is currently available.',NO_ELIGIBLE_SPAWN:'No first site is currently available.',PLAYER_CANNON_CAPACITY:'Your cannon capacity is reached.',CANNON_CAPACITY:'Cannon capacity is reached.',QUANTITY_BOUNDS:'Choose between 1 and 64 balls.',CELL_BOUNDS:'Choose a destination cell.',ILLEGAL_ADJACENT_SITE:'That site is no longer eligible. Choose another.',ACCOUNTING_CAPACITY:'Player capacity reached.',HEADING_BOUNDS:'Heading must be between 0 and 359.99°.'};return {reason:(successor?(error.message==='SITE_OCCUPIED'?occupancyIssue(cell):contextReason(error.message)):undefined)??reasons[error.message]??(mode==='move'?'Choose a legal destination.':'Enter a heading from 0 to 359.99° and a valid quantity.')};}
  }
  function renderPacket(q){
   text('transfer-amount',formatIcp(BigInt(q.amount)));text('payment-owner',shortRecipient(q.owner));text('full-recipient',q.owner);text('text-memo',q.memo);text('paying-account',shortRecipient(q.payer??q.account));text('full-payer',q.payer??q.account);
-  text('payment-risk',paymentWarning(q));$('payment-risk').title=clearanceActive(config)&&['move','start','deflect','deflector_move','reservoir'].includes(q.action)&&Number.isSafeInteger(q.cell)?'A new enemy claim within four cells can also invalidate the action.':'';const launches=q.action==='ball'||q.action==='start'&&mine().length>0;$('amount-detail').hidden=!launches;text('amount-detail',launches?`${q.requested} ${q.requested===1?'ball':'balls'}`:'');
+  text('payment-risk',paymentWarning(q));$('payment-risk').title=clearanceActive(config)&&['move','start','deflect','deflector_move','reservoir'].includes(q.action)&&Number.isSafeInteger(q.cell)?'A new enemy claim within four cells can also invalidate the action.':'';const balls=`${q.requested} ${q.requested===1?'ball':'balls'}`;
+  const detail=strictPlacement()&&q.action==='start'?'1 cannon + '+balls:
+    strictPlacement()&&q.action==='deflect'?'1 diverter':strictPlacement()&&q.action==='reservoir'?'1 reservoir':
+    q.action==='ball'||q.action==='start'&&mine().length>0?balls:'';
+  $('amount-detail').hidden=!detail;text('amount-detail',detail);
  }
  const copyControls=[...doc.querySelectorAll('[data-copy]')];
  function paymentReadiness(){
@@ -116,7 +121,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  function refreshAction(){
   if(view==='action'){
     text('panel-title',title());
-   text('action-prompt',mode==='reservoir'?'Pay to Build Reservoir':mode==='deflector_reorient'?'Pay to Reorient':mode==='deflect'?'Pay to Build & Divert':['move','deflector_move'].includes(mode)?'Pay to Move':mode==='start'?(mine().length?'Pay to Build & Fire':'Pay to Join'):'Pay to Fire');
+   text('action-prompt',mode==='reservoir'?(strictPlacement()?'Pay to Build':'Pay to Build Reservoir'):mode==='deflector_reorient'?'Pay to Reorient':mode==='deflect'?(strictPlacement()?'Pay to Build':'Pay to Build & Divert'):['move','deflector_move'].includes(mode)?'Pay to Move':mode==='start'?(strictPlacement()||mine().length?'Pay to Build & Fire':'Pay to Join'):'Pay to Fire');
    const next=candidate();
    if(instructionKey(next)!==instructionKey(quote))clearHandoff();
    quote=next;
@@ -190,6 +195,8 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   }
   const reservoirButton=$('reservoir-action');
   reservoirButton.hidden=!reservoir;
+  reservoirButton.disabled=Boolean(strictPlacement()&&reservoirIssue);
+  reservoirButton.title=strictPlacement()&&reservoirIssue?reservoirIssue:'Build Reservoir';
   reservoirButton.setAttribute('aria-description',reservoirIssue||'Build a reservoir on this tile');
   $('deflector-directions').hidden=!(view==='action'&&orientationMode()&&deflectorSupported(config));
   setDirections();
@@ -237,6 +244,13 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    button.setAttribute('aria-pressed',String(value===current));
   });
  }
+ const buildKind=value=>value==='start'?'new':value;
+ function occupancyIssue(target){return siteOccupant(contextSites(world,config),target)??contextReason('SITE_OCCUPIED');}
+ function constructionMode(target,preferred){
+  const options=['start','reservoir','deflect'];
+  if(options.includes(preferred)){options.splice(options.indexOf(preferred),1);options.unshift(preferred);}
+  return options.find(value=>(value!=='reservoir'||reservoirSupported(config))&&!tileBuildIssue(buildKind(value),target));
+ }
  let tileQuotesWorld,tileQuotesConfig,tileQuotesAccount;const tileQuotes=new Map();
  function tileBuildIssue(kind,target=tileSelection){
   if(!world||!config||!declaration)return 'Waiting for verified placement.';
@@ -247,7 +261,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   if(tileQuotes.has(key))return tileQuotes.get(key);
   let issue='';
   try{quoteV6(world,config,declaration.account,{kind,angle:'225',quantity:1,cell:target});}
-  catch(error){issue=contextReason(error.message)??'That tile is unavailable for construction.';}
+  catch(error){issue=(error.message==='SITE_OCCUPIED'?occupancyIssue(target):contextReason(error.message))??'That tile is unavailable for construction.';}
   if(tileQuotes.size===2048)tileQuotes.delete(tileQuotes.keys().next().value);
   tileQuotes.set(key,issue);return issue;
 
@@ -291,6 +305,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  function defaultBuild(){const c=selected(),sites=buildSites();if(!c)return sites[0]??null;const near=cell=>cellDistance(c.cell,cell,world.width,world.height)===1&&(c.cell%world.width===cell%world.width||Math.floor(c.cell/world.width)===Math.floor(cell/world.width));return [...sites].sort((a,b)=>Number(near(b))-Number(near(a))||cellDistance(c.cell,a,world.width,world.height)-cellDistance(c.cell,b,world.width,world.height)||a-b)[0]??null;}
  function action(value){
   if(structureContexts()&&(pickedDeflector()||tileOwn()||selected()?.account===declaration?.account&&['ball','move'].includes(value))){
+   if(strictPlacement()&&tileOwn()&&['start','deflect','reservoir'].includes(value)&&!tileBuildIssue(buildKind(value)))preferredBuild={account:declaration.account,value};
    return contextAction(value);
   }
   if(structureContexts()&&(value==='deflect'||value==='start'&&mine().length))return;
@@ -315,7 +330,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   const d=pickedDeflector(),tile=tileOwn(),c=selected(),moving=['move','deflector_move'].includes(value);
   if(d&&(!deflectorOwn()||!['deflector_move','deflector_reorient'].includes(value)))return;
   if(value==='reservoir'&&!reservoirSupported(config))return;
-  if(tile&&(!['start','deflect','reservoir'].includes(value)||value!=='reservoir'&&!selectedSite&&tileBuildIssue(value==='start'?'new':'deflect')))return;
+  if(tile&&(!['start','deflect','reservoir'].includes(value)||(!selectedSite&&(value!=='reservoir'||strictPlacement())&&tileBuildIssue(buildKind(value)))))return;
   if(!tile&&!d&&(!c||c.account!==declaration?.account||!['ball','move'].includes(value)))return;
   if(moving&&(moveDestination()===null||!moveReady)){refresh();return;}
   cancelEntryNavigation();intentVersion++;
@@ -410,6 +425,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
     // become a current packet just because the successor uses the same memo bytes.
     clearHandoff();
    }
+   if(world!==w)ballIds=new Set(w.balls.map(b=>b.id));
    world=w;config=c;source=s;
    if(deflectorId!==null&&!pickedDeflector()||tileSelection!==null&&!tileOwn()){
     view=null;mode='inspect';id=null;cell=tileSelection=deflectorId=null;$('workspace').hidden=true;
@@ -464,18 +480,23 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    intentVersion++;rememberDraft();id=tileSelection=null;deflectorId=n;cell=null;mode='inspect';clearDraft();show('inspect',title());return true;
   },
   selectTile(n,build='start'){
-   if(!structureContexts()||!world||!contextSites(world,config).owns(declaration?.account,n)||contextSites(world,config).hasStructure(n))return false;
+   if(!api.tileSelectable(n))return false;
+   if(strictPlacement())build=constructionMode(n,preferredBuild?.account===declaration?.account?preferredBuild.value:null);
    intentVersion++;rememberDraft();id=deflectorId=null;tileSelection=n;cell=null;mode='inspect';clearDraft();
    if(spacingSupported(config))contextAction(build,{selectedSite:true});else show('inspect',title());
    return true;
   },
-  tileSelectable(n){return structureContexts()&&n!==null&&world&&contextSites(world,config).owns(declaration?.account,n)&&!contextSites(world,config).hasStructure(n);},
+  tileSelectable(n){
+   if(!structureContexts()||!Number.isSafeInteger(n)||!world)return false;
+   const sites=contextSites(world,config);
+   return sites.owns(declaration?.account,n)&&!sites.hasStructure(n)&&(!strictPlacement()||Boolean(constructionMode(n)));
+  },
   selectedTile:()=>tileSelection,selectedDeflector:()=>deflectorId,
   cancel({entry=true}={}){if(entry)cancelEntryNavigation();intentVersion++;rememberDraft();if(['inspect','action'].includes(view))id=null;tileSelection=deflectorId=null;view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;clearHandoff();paymentReadiness();emit();(opener?.isConnected&&opener!==doc.body&&opener.getClientRects().length?opener:$('board')).focus({preventScroll:true});},
   presentation(v){const c=selected(),displayed=v?.cannons.get(id),behind=Boolean(c&&(!displayed||displayed.cell!==c.cell));if(behind!==planningBehind){planningBehind=behind;refresh();}},
   quantity:()=>({count:quantity,maximum:MAX_QUANTITY,active:qtyActive()}),setQuantity(n){if(!Number.isSafeInteger(n)||n<1||n>MAX_QUANTITY)return false;if(n===quantity)return true;quantity=n;clearDraft();refresh();return true;},
   enter,cancelEntryNavigation,entryState:()=>({generation:entryGeneration,pending:Boolean(entryPending),account:entryPending?.account??null}),
-  hasCannon:n=>refs.some(c=>c.id===n),selectedCannon:()=>id,account:()=>declaration?.account??null,mode:()=>mode,canPay:()=>status.canPrepare,active:()=>view!==null,selected,angle:()=>degrees,context:()=>view,anchor:()=>view==='action'&&mode==='start'&&!mine().length?null:focusTarget(),
+  hasBall:n=>ballIds.has(n),hasCannon:n=>refs.some(c=>c.id===n),selectedCannon:()=>id,account:()=>declaration?.account??null,mode:()=>mode,canPay:()=>status.canPrepare,active:()=>view!==null,selected,angle:()=>degrees,context:()=>view,anchor:()=>view==='action'&&mode==='start'&&!mine().length?null:focusTarget(),
   movementPanel:()=>view==='action'&&['move','deflector_move'].includes(mode)?{source:focusTarget()?.cell,destination:cell}:null,
   intentContext:()=>[context,world?.version,declaration?.account,id,deflectorId,tileSelection,focusTarget()?.cell,mode,intentVersion].join('/'),revision:()=>revision,
 
@@ -519,7 +540,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    const c=selected(),d=pickedDeflector(),dimension={width:world.width,height:world.height},legal=n=>moveLegality?.test(n)??false;
    if(structureContexts()&&['start','deflect','reservoir'].includes(mode)&&tileOwn()){
     const kind=mode==='start'?'new':mode;
-    return {...dimension,kind,key:revision+'/'+mode+'/tile',legal:n=>!tileBuildIssue(kind,n),cells:[],cell,anchor:tileSelection};
+    return {...dimension,kind,key:revision+'/'+mode+'/tile',legal:n=>!tileBuildIssue(kind,n),alternate:strictPlacement()?api.tileSelectable:null,cells:[],cell,anchor:tileSelection};
    }
    if(mode==='deflector_move'&&d)return {...dimension,kind:'deflector_move',key:revision+'/deflector/'+d.id,deflector:d,legal,cells:[],cell};
    if(mode==='deflect'&&deflectorSupported(config))return {...dimension,kind:'deflect',key:revision+'/deflect/'+siteKey,legal:n=>deflectLegality?.test(n)??false,cells:[],cell,anchor:c?.cell};
@@ -531,6 +552,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    if(!selection)return false;
    if(spacingSupported(config)&&tileOwn()&&['start','deflect','reservoir'].includes(mode)&&api.tileSelectable(n))return n===cell||api.selectTile(n,mode);
    const legal=n===null||(selection.legal?selection.legal(n):selection.cells.includes(n));
+   if(strictPlacement()&&(!legal||n===null))return false;
    cell=n;clearDraft();refresh();return legal;
   },
   selectBall(){cancelEntryNavigation();intentVersion++;rememberDraft();id=null;tileSelection=deflectorId=null;view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;clearHandoff();paymentReadiness();emit();},

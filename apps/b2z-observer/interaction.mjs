@@ -18,7 +18,11 @@ export function aimingVicinity(camera,aim,p,pointerType='mouse',selection=null,o
 }
 export function resolveInteraction(camera,cannons,p,selection=null,aim=null,balls=[],deflectors=null){
  const cell=camera.cell(p.x,p.y);
- if(selection)return{kind:cell!==null&&(selection.legal?selection.legal(cell):selection.cells.includes(cell))?'place':'invalid',cell};
+ if(selection){
+  if(cell!==null&&(selection.legal?selection.legal(cell):selection.cells.includes(cell)))return{kind:'place',cell};
+  if(cell!==null&&selection.alternate?.(cell))return{kind:'place',cell,alternate:true};
+  return{kind:'invalid',cell};
+ }
  let best=null;
  for(const c of cannons.values()){
   const at=camera.cellPoint(c.cell),lod=camera.scale<4?Math.min(8,4/camera.scale):1,[dx,dy]=heading(aim?.cannon.id===c.id&&aim.cannon.cell===c.cell?aim.heading:c.heading??0),top=camera.screen(at.x,at.y,.24*lod),end=camera.screen(at.x+dx/1024*.52*lod,at.y+dy/1024*.52*lod,.27*lod);

@@ -4,14 +4,15 @@ import{createMinimap}from'./minimap.mjs';
 import{CameraController,focusedOn,wheelZoom,previewComposition}from'./camera-controller.mjs';
 import{playerAnchor}from'./player-anchor.mjs';
 import{accountTerritoryFrame}from'./territory-entry.mjs';
-import{aimingArrow,movementArrow,trajectoryGuide}from'./guide-clearance.mjs';
+import{aimingArrow,movementArrow,trajectoryDirection,trajectoryGuide}from'./guide-clearance.mjs';
 import{quantityPlacement,quantityDockStrip}from'./quantity-placement.mjs';
-import{displayedBalls}from'./ball-presentation.mjs';
+import{displayedBall,displayedBalls,selectTrajectory,trajectoryChip,trajectoryColors}from'./ball-presentation.mjs';
 export function createShell(doc,camera,arcade,onPick){
  const $=id=>doc.getElementById(id),canvas=$('board'),card=$('workspace'),handle=$('aim-handle'),ring=$('aim-ring'),cleanups=[];
- let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,selectedBall=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null,narrowAimClearance=0,narrowAimTop=0,narrowAimBottom=Infinity,narrowQuarter=camera.quarter;
+ let hover=null,pointer=null,cardSide=null,saveTimer=null,disposed=false,lastView=null,lastSurface=null,lastPoints=[],lastTime=0,lastIdentity='',positionKey='',lastViewport='',layoutDirty=true,layout=null,cardBounds=null,wasShort=false,anchor=null,pendingTap=null,lastTap=null,followRebase=false,gestureSequence=0,doubleHandled=false,nativePairWorld=null,compositionKey='',locateGeneration=0,completedTouch=null,narrowPositionKey='',narrowY=null,narrowAimClearance=0,narrowAimTop=0,narrowAimBottom=Infinity,narrowQuarter=camera.quarter;
  let pendingTerritory=null,quantitySlot=null;const quantityPointers=new Map(),quantityWidget=$('launch-editors');let quantitySize={width:130,height:46},quantityDocked=false,quantityContext='',quantityReserved=false,quantityReservation='none',quantityClickCancelled=false;
  let contractedCamera=null,shoutDock=null;
+ const ballSlots=new Map();
  const cameraPose=()=>[camera.x,camera.y,camera.scale,camera.angle];
  const anchorCache=playerAnchor(),reducedMotion=()=>matchMedia('(prefers-reduced-motion: reduce)').matches;
  function save(){clearTimeout(saveTimer);saveTimer=setTimeout(()=>{if(!disposed)arcade.camera({projection:'isometric-1',x:camera.x,y:camera.y,scale:camera.scale,quarter:camera.quarter});},400);}
@@ -65,9 +66,11 @@ export function createShell(doc,camera,arcade,onPick){
  listen(header,'focusin',e=>{if(keyboardFocus&&e.target.matches('button:focus-visible'))showHelp(e.target);});
  listen(header,'focusout',hideHelp);
  const pointers=new Map();let origin=null,last=null,owner=null,moved=false,pinched=false,pinch=null,aimOrigin=null,keyboardTarget=null;
- const point=e=>{const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,pointerType:e.pointerType??'mouse'};};
+ const point=e=>{const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top,pointerType:e.pointerType??'mouse',additive:e.ctrlKey||e.metaKey};};
  const pair=()=>{const[a,b]=[...pointers.values()];return{x:(a.x+b.x)/2,y:(a.y+b.y)/2,d:Math.hypot(a.x-b.x,a.y-b.y)};};
- function stopFollowing(){followRebase=false;selectedBall=null;motion.stopFollow();}
+ function stopFollowing(){followRebase=false;motion.stopFollow();}
+ function clearBalls(){stopFollowing();ballSlots.clear();}
+ function lastSelectedBall(){return [...ballSlots.keys()].at(-1);}
  function cancelTap(){gestureSequence++;pendingTap=lastTap=null;}
  function fireContext(){return arcade.context()==='action'&&arcade.mode()==='ball'&&arcade.selectedCannon()!=null?arcade.intentContext():null;}
  let fireGesture=null;
@@ -105,14 +108,14 @@ export function createShell(doc,camera,arcade,onPick){
  $('status-button').onclick=()=>arcade.openStatus();$('help-button').onclick=()=>arcade.openHelp();$('centre-cannon').onclick=()=>arcade.openRoster();
  $('fit').onclick=()=>{arcade.cancelEntryNavigation?.();stopFollowing();cancelTap();if(lastView)anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{recenter:true,identity:lastIdentity});motion.overview(anchor??{x:camera.x,y:camera.y});zoomButtons();};
  $('zoom-in').onclick=()=>{arcade.cancelEntryNavigation?.();motion.zoom(1.4);zoomButtons();};$('zoom-out').onclick=()=>{arcade.cancelEntryNavigation?.();motion.zoom(1/1.4);zoomButtons();};
- listen(doc,'keydown',e=>{if(e.key==='Escape'){cancelTap();stopFollowing();arcade.cancel();e.preventDefault();}});
+ listen(doc,'keydown',e=>{if(e.key==='Escape'){cancelTap();clearBalls();arcade.cancel();e.preventDefault();}});
  function preferSite(cell){
   if(!arcade.structureContexts?.())return false;
   return arcade.tileSelectable?.(cell)||[...(lastView?.deflectors?.values()??[]),...(lastView?.cannons?.values()??[])].some(d=>d.cell===cell);
  }
  function down(e){if(e.button!==0)return;arcade.cancelEntryNavigation?.();keyboardTarget=null;const p=point(e);nativePairWorld=lastTap&&Math.hypot(p.x-lastTap.p.x,p.y-lastTap.p.y)<=7?lastTap.world:null;pointers.set(e.pointerId,p);canvas.setPointerCapture(e.pointerId);motion.cancel();
   if(pointers.size===1){origin=last=p;moved=false;pinched=false;fireGesture=null;const context=fireContext(),handlePress=e.currentTarget===handle;if(context)fireGesture={context,handlePress};owner=handlePress||aimingVicinity(camera,arcade.aim(),p,e.pointerType,arcade.moveSelection(),guideRects(),preferSite)?'aim':'pan';canvas.dataset.cursor=owner==='aim'?'aim':'camera';aimOrigin=arcade.aim()?camera.cellPoint(arcade.aim().cannon.cell):null;
-   const hit=resolve(p);if(hit.kind!=='ball'||hit.id!==selectedBall)motion.stopFollow();
+   const hit=resolve(p);if(hit.kind!=='ball'||hit.id!==motion.following?.id)stopFollowing();
    if(owner==='aim'){cancelTap();if(!fireGesture&&e.currentTarget!==handle&&Math.hypot(p.x-aimOrigin.sx,p.y-aimOrigin.sy)>6)aimAt(p);}
   }
   else{pendingAim=null;pinch=pair();owner='camera';pinched=true;moved=true;cancelTap();motion.manual();}
@@ -128,9 +131,13 @@ export function createShell(doc,camera,arcade,onPick){
   if(pointers.size>=2){const next=pair();if(pinch){camera.zoom(next.d/Math.max(1,pinch.d),pinch.x,pinch.y);camera.pan(next.x-pinch.x,next.y-pinch.y);}pinch=next;save();zoomButtons();return;}
   if(!last||pinched)return;if(owner==='aim'){if(!fireGesture||moved||Math.hypot(p.x-origin.x,p.y-origin.y)>6){pendingAim=p;moved=true;}}else{if(Math.hypot(p.x-origin.x,p.y-origin.y)>6){moved=true;cancelTap();motion.manual();}if(moved){camera.pan(p.x-last.x,p.y-last.y);save();}}last=p;
  });
+ function resolveBoard(p,selection){
+  return resolveInteraction(camera,onPick.cannons?.()??lastView?.cannons??new Map(),p,selection,arcade.aim(),lastPoints,arcade.structureContexts?.()?lastView?.deflectors:null);
+ }
  function resolve(p){
+  if(p.additive){const hit=resolveBoard(p,null);if(hit.kind==='ball')return hit;}
   if(aimingVicinity(camera,arcade.aim(),p,p.pointerType??'mouse',arcade.moveSelection(),guideRects(),preferSite))return {kind:'aim'};
-  const hit=resolveInteraction(camera,onPick.cannons?.()??lastView?.cannons??new Map(),p,arcade.moveSelection(),arcade.aim(),lastPoints,arcade.structureContexts?.()?lastView?.deflectors:null);
+  const hit=resolveBoard(p,arcade.moveSelection());
   if(hit.kind==='cannon'&&arcade.hasCannon&&!arcade.hasCannon(hit.id))return {kind:'camera',cell:hit.cell};
   if(hit.kind==='camera'&&arcade.tileSelectable?.(hit.cell))return {kind:'tile',cell:hit.cell};
   return hit;
@@ -142,8 +149,15 @@ export function createShell(doc,camera,arcade,onPick){
    const picked=hit.kind==='cannon'?arcade.selectCannon(hit.id):hit.kind==='deflector'?arcade.selectDeflector(hit.id):arcade.selectTile(hit.cell);
    if(picked)layoutDirty=true;return;
   }
-  if(hit.kind==='ball'){if(selectedBall===hit.id&&motion.following)return;stopFollowing();motion.cancel();arcade.selectBall();selectedBall=hit.id;const b=lastPoints.find(b=>b.id===hit.id);motion.follow(hit.id,lastIdentity,b);return;}
-  stopFollowing();const w=camera.world(p.x,p.y),n=camera.cell(p.x,p.y);if(n!==null)onPick.cell(n,w,p);
+  if(hit.kind==='ball'){
+   if(arcade.hasBall&&!arcade.hasBall(hit.id))return;
+   if(!p.additive&&ballSlots.size===1&&motion.following?.id===hit.id)return;
+   stopFollowing();motion.cancel();selectTrajectory(ballSlots,hit.id,p.additive);
+   if(!p.additive){arcade.selectBall();motion.follow(hit.id,lastIdentity,lastPoints.find(b=>b.id===hit.id));}
+   return;
+  }
+  if(hit.kind==='aim')return;
+  clearBalls();const w=camera.world(p.x,p.y),n=camera.cell(p.x,p.y);if(n!==null)onPick.cell(n,w,p);
  }
  function tap(p,type,eventTime=performance.now(),commit=null){const now=eventTime;
   if(type==='touch'){lastTap=null;if(commit)commit();else activate(resolve(p),p);return;}
@@ -163,7 +177,7 @@ export function createShell(doc,camera,arcade,onPick){
   if(fireContext()&&!pointers.size){hover=null;canvas.dataset.cursor=pointer&&doc.elementFromPoint?.(pointer.x,pointer.y)===canvas?'aim':'camera';return;}
   if(keyboardTarget&&keyboardTarget.context===arcade.intentContext()&&!pointers.size){const selection=arcade.moveSelection(),cell=keyboardTarget.cell;hover=selection?(selection.legal?selection.legal(cell):selection.cells.includes(cell))?{kind:'place',cell}:null:arcade.tileSelectable?.(cell)?{kind:'tile',cell}:null;return;}
   if(disposed||doc.hidden||pointers.size||!pointer){hover=null;canvas.dataset.cursor=owner==='aim'?'aim':pointers.size&&moved?'grabbing':'camera';return;}
-  const node=doc.elementFromPoint?.(pointer.x,pointer.y);hover=node&&node!==canvas?null:resolve(pointer);if(['camera','invalid'].includes(hover?.kind))hover=null;canvas.dataset.cursor=hover?.kind??'camera';
+  const node=doc.elementFromPoint?.(pointer.x,pointer.y);hover=node&&node!==canvas?null:resolve(pointer);if(['camera','invalid'].includes(hover?.kind)||hover?.alternate)hover=null;canvas.dataset.cursor=hover?.kind??'camera';
  }
  listen(canvas,'pointermove',e=>{if(e.pointerType!=='touch')pointer=point(e);});
  listen(canvas,'pointerleave',()=>{pointer=null;hover=null;canvas.dataset.cursor='camera';});
@@ -179,7 +193,11 @@ export function createShell(doc,camera,arcade,onPick){
   if(canvas.hasPointerCapture(e.pointerId))canvas.releasePointerCapture(e.pointerId);
   if(adopt||isTap){
    if(e.pointerType==='touch')completedTouch={at:performance.now(),x:e.clientX,y:e.clientY};
-   tap(p,e.pointerType,e.timeStamp,adopt?()=>{const cannon=arcade.aim()?.cannon;if(cannon)aimAt(p,camera.cellPoint(cannon.cell));}:null);
+   tap(p,e.pointerType,e.timeStamp,adopt?()=>{
+    const hit=resolveBoard(p,null);
+    if(hit.kind==='ball'){activate(hit,p);return;}
+    const cannon=arcade.aim()?.cannon;if(cannon)aimAt(p,camera.cellPoint(cannon.cell));
+   }:null);
   }
   if(!pointers.size){origin=last=pinch=aimOrigin=null;owner=fireGesture=null;pinched=false;}
  });
@@ -197,7 +215,7 @@ export function createShell(doc,camera,arcade,onPick){
   else if(d){arcade.cancelEntryNavigation?.();keyboardTarget=null;cancelTap();stopFollowing();motion.go(motion.target(c=>c.pan(...d)),{owner:'keyboard'});e.preventDefault();}
   else if(['+','=','-','Home'].includes(e.key)){if(e.key!=='Home')arcade.cancelEntryNavigation?.();if(e.key==='Home')$('fit').click();else motion.zoom(e.key==='-'?1/1.25:1.25);e.preventDefault();}
   else if(e.key==='Enter'&&!fireContext()){if(keyboardTarget?.context===arcade.intentContext()){if(arcade.moveSelection())arcade.chooseCell(keyboardTarget.cell);else arcade.selectTile?.(keyboardTarget.cell);}else activate(resolve({x:camera.viewport.width/2,y:camera.viewport.height/2}),{x:camera.viewport.width/2,y:camera.viewport.height/2});e.preventDefault();}
-  else if(e.key.toLowerCase()==='b'&&lastPoints.length){const ids=lastPoints.map(b=>b.id).sort((a,b)=>a-b),id=ids[(ids.indexOf(selectedBall)+1)%ids.length];activate({kind:'ball',id},{x:0,y:0});e.preventDefault();}
+  else if(e.key.toLowerCase()==='b'&&lastPoints.length){const ids=lastPoints.map(b=>b.id).sort((a,b)=>a-b),id=ids[(ids.indexOf(lastSelectedBall())+1)%ids.length];activate({kind:'ball',id},{x:0,y:0});e.preventDefault();}
   else if(['[',']'].includes(e.key)){arcade.adjustAngle((e.key==='['?-1:1)*(e.altKey?.01:e.shiftKey?5:1));e.preventDefault();}
  });
  function visibleBounds(){const v=globalThis.visualViewport,m=measure(),left=(v?.offsetLeft??0)+m.safe.left,top=(v?.offsetTop??0)+m.safe.top;return{left,top,width:Math.max(0,Math.min(camera.viewport.width,v?.width??Infinity)-m.safe.left-m.safe.right),height:Math.max(0,Math.min(camera.viewport.height,v?.height??Infinity)-m.safe.top-m.safe.bottom)};}
@@ -418,17 +436,54 @@ export function createShell(doc,camera,arcade,onPick){
   positionQuantity();committedLayoutRevision=layoutRevision;
  }
  listen(doc,'b2z-overlay',()=>{hideHelp();clearHelp();layoutDirty=true;position();});
- let trajectoryKey='';
+ const layer=$('trajectory-guide'),template=layer.querySelector('g');
+ const trajectories=trajectoryColors.map((color,slot)=>{
+  const group=slot?template.cloneNode(true):template;
+  if(slot)layer.append(group);
+  const gradient=group.querySelector('linearGradient'),line=group.querySelector('line'),tip=group.querySelector('path');
+  group.style.color=color;gradient.id='trajectory-fade-'+slot;line.setAttribute('stroke','url(#'+gradient.id+')');
+  const chip=doc.createElement('div'),label=doc.createElement('span');
+  const svg=doc.createElementNS('http://www.w3.org/2000/svg','svg'),arrow=doc.createElementNS(svg.namespaceURI,'path');
+  svg.setAttribute('viewBox','0 0 16 16');arrow.setAttribute('d','M1 8h13m-5-5 5 5-5 5');
+  arrow.setAttribute('fill','none');arrow.setAttribute('stroke','currentColor');arrow.setAttribute('stroke-width','1.8');
+  svg.append(arrow);chip.append(svg,label);chip.className='trajectory-chip';chip.hidden=true;chip.style.color=color;
+  $('trajectory-hud').append(chip);
+  return {group,gradient,line,tip,chip,label,svg,key:''};
+ });
+ let chipLayoutKey='',chipLayout=[];
  function drawTrajectory(){
-  const ball=lastPoints.find(b=>b.id===selectedBall),layer=$('trajectory-guide');
-  if(!ball||!lastView){layer.toggleAttribute('hidden',true);return;}
-  const m=measure(),rects=[...m.guideObstacles,minimapArea(m.mini),m.cycles,m.buttons,m.sound,!card.hidden&&cardBounds,quantitySlot?.rect].filter(Boolean);
-  const guide=trajectoryGuide(camera,ball,lastView.balls.get(ball.id),rects);
-  layer.toggleAttribute('hidden',!guide);if(!guide)return;
-  const {start,end,wings}=guide,key=[start.x,start.y,end.x,end.y].join('/');
-  if(trajectoryKey===key)return;trajectoryKey=key;
-  for(const n of [$('trajectory-dots'),$('trajectory-fade')])for(const [k,v] of Object.entries({x1:start.x,y1:start.y,x2:end.x,y2:end.y}))n.setAttribute(k,v);
-  $('trajectory-tip').setAttribute('d',`M${wings[0].x} ${wings[0].y}L${end.x} ${end.y}L${wings[1].x} ${wings[1].y}`);
+  layer.toggleAttribute('hidden',!ballSlots.size);
+  if(!ballSlots.size){for(const i of trajectories){i.group.toggleAttribute('hidden',true);i.chip.hidden=true;}return;}
+  const m=measure(),rects=[...m.guideObstacles,$('centre-cannon').getBoundingClientRect(),...compassRects(m),m.mini,m.cycles,m.buttons,m.sound,!card.hidden&&cardBounds,quantitySlot?.rect,!handle.hidden&&handle.getBoundingClientRect()].filter(r=>r&&r.right>r.left&&r.bottom>r.top);
+  const bounds=visibleBounds(),ids=[];
+  bounds.right=bounds.left+bounds.width;bounds.bottom=bounds.top+bounds.height;
+  const key=[bounds.left,bounds.top,bounds.right,bounds.bottom,...rects.flatMap(r=>[r.left,r.top,r.right,r.bottom])].join('/');
+  if(chipLayoutKey!==key){chipLayoutKey=key;chipLayout=[];}
+  let chipIndex=0;
+  for(const [id,slot] of ballSlots)ids[slot]=id;
+  for(const [slot,i] of trajectories.entries()){
+   const id=ids[slot],velocity=lastView?.balls.get(id),ball=displayedBall(lastView,velocity,lastTime);
+   const guide=trajectoryGuide(camera,ball,velocity,rects);
+   i.group.toggleAttribute('hidden',!guide);
+   if(guide){
+    i.chip.hidden=true;
+    const {start,end,wings}=guide,key=[id,start.x,start.y,end.x,end.y].join('/');
+    if(i.key===key)continue;i.key=key;i.group.dataset.ballId=String(id);
+    for(const n of [i.line,i.gradient])for(const [k,v] of Object.entries({x1:start.x,y1:start.y,x2:end.x,y2:end.y}))n.setAttribute(k,v);
+    i.tip.setAttribute('d',`M${wings[0].x} ${wings[0].y}L${end.x} ${end.y}L${wings[1].x} ${wings[1].y}`);
+    continue;
+   }
+   const direction=trajectoryDirection(camera,velocity);
+   if(!direction){i.chip.hidden=true;continue;}
+   if(chipIndex===chipLayout.length)chipLayout.push(trajectoryChip(bounds,[...rects,...chipLayout.filter(Boolean)]));
+   const position=chipLayout[chipIndex++];
+   i.chip.hidden=!position;
+   if(!position)continue;
+   const angle=Math.atan2(direction.dy,direction.dx),key=[id,angle,position.left,position.top].join('/');
+   if(i.key===key)continue;i.key=key;i.chip.dataset.ballId=String(id);
+   i.label.textContent='Ball '+id;i.chip.style.left=position.left+'px';i.chip.style.top=position.top+'px';
+   i.svg.style.transform='rotate('+angle+'rad)';
+  }
  }
  const audioNodes=[doc.querySelector('.arena-chrome'),card,$('minimap'),$('cycles-display'),doc.querySelector('.camera-controls'),doc.querySelector('.audio-controls'),quantityWidget,$('motion-wait'),$('render-error'),$('locate-context')].filter(Boolean);
  let audioMask=null,audioMaskKey='';const dirtyAudio=()=>{audioMask=null;};const audioObserver=new ResizeObserver(dirtyAudio);for(const node of audioNodes)audioObserver.observe(node);
@@ -437,19 +492,21 @@ export function createShell(doc,camera,arcade,onPick){
   audioOccluders(canvasRect=canvas.getBoundingClientRect()){const key=[canvasRect.left,canvasRect.top,canvasRect.width,canvasRect.height].join('/')+'/'+audioNodes.map(n=>n.hidden).join('/')+'/'+cardBounds?.bottom;if(key===audioMaskKey&&audioMask)return audioMask;audioMaskKey=key;audioMask=[];for(const node of audioNodes){if(node.hidden||node.closest('[hidden]')||getComputedStyle(node).visibility==='hidden')continue;let r=node.getBoundingClientRect();if(node===card&&cardBounds)r={...r.toJSON(),left:Math.min(r.left,cardBounds.left),right:Math.max(r.right,cardBounds.right),top:Math.min(r.top,cardBounds.top),bottom:Math.max(r.bottom,cardBounds.bottom)};if(r.width&&r.height)audioMask.push({left:r.left-canvasRect.left,right:r.right-canvasRect.left,top:r.top-canvasRect.top,bottom:r.bottom-canvasRect.top});}return audioMask;},
   speechObstacles(canvasRect){const rows=[...this.audioOccluders(canvasRect)],qa=arcade.aim(),arrow=qa&&aimingArrow(camera,qa,guideRects())?.screen;if(arrow)for(let i=1;i<arrow.length;i++){const a=arrow[i-1],b=arrow[i];rows.push({left:Math.min(a.x,b.x)-12,right:Math.max(a.x,b.x)+12,top:Math.min(a.y,b.y)-12,bottom:Math.max(a.y,b.y)+12});}return rows;},
   layoutState:()=>({quantity:quantitySlot&&{...quantitySlot},quantityDocked,quantityReserved,quantityReservation,quantitySize:{...quantitySize},quantityPointers:quantityPointers.size,quantityClickCancelled,dirty:layoutDirty,pendingFrame:layoutFrame!==null,revision:layoutRevision,committedRevision:committedLayoutRevision,desired:layout?.desired,positionKey,compositionKey,cardBounds:cardBounds&&{...cardBounds}}),
-  guideObstacles:guideRects,hover:()=>hover,followedBall:()=>selectedBall,controller:motion,mapAnchor:()=>anchor,rebaseFollow(){if(selectedBall!==null)followRebase=true;},invalidateFollow(){cancelTap();stopFollowing();anchorCache.reset();},overlays(){},
+  guideObstacles:guideRects,hover:()=>hover,followedBall:()=>motion.following?.id??null,selectedBalls:()=>ballSlots,controller:motion,mapAnchor:()=>anchor,rebaseFollow(){if(motion.following)followRebase=true;},invalidateFollow(){cancelTap();clearBalls();anchorCache.reset();},overlays(){},
   advance(v,time,now=performance.now(),identity=lastIdentity,points=displayedBalls(v,time)){
    flushAim();
    if(disposed||doc.hidden)return;lastView=v;lastTime=time;lastPoints=points;lastIdentity=identity;
    if(pendingTerritory){const p=pendingTerritory;if(!p.current()||now>p.until)pendingTerritory=null;else if(camera.width===p.world.width&&camera.height===p.world.height){pendingTerritory=null;const m=measure(),bottom=Math.min(camera.viewport.height-24,...[m.mini,m.cycles,m.buttons].filter(r=>r.width).map(r=>r.top-12));motion.territory(accountTerritoryFrame(p.world,p.account,camera.basis),{left:24,right:camera.viewport.width-24,top:m.headerBottom+24,bottom:Math.max(m.headerBottom+100,bottom)});}}
-   if(selectedBall!==null&&(arcade.selectedCannon()!==null||!v.balls.has(selectedBall)||motion.following&&motion.following.identity!==identity))stopFollowing();
+   for(const id of ballSlots.keys())if(arcade.hasBall?!arcade.hasBall(id):!v.balls.has(id))ballSlots.delete(id);
+   const following=motion.following;
+   if(following&&(arcade.selectedCannon()!==null||arcade.selectedDeflector?.()!=null||!ballSlots.has(following.id)||following.identity!==identity))stopFollowing();
    if(pendingTap&&!pointers.size&&now>=pendingTap.due){const t=pendingTap;pendingTap=null;if(samePlacementContext(t.intent,{context:arcade.intentContext(),identity,sequence:gestureSequence})&&arcade.moveSelection())arcade.chooseCell(t.intent.cell);}
 
-   if(followRebase&&motion.following){const p=points.find(b=>b.id===selectedBall);if(p)motion.follow(selectedBall,identity,p);followRebase=false;}
+   if(followRebase&&motion.following){const id=motion.following.id,p=points.find(b=>b.id===id);if(p)motion.follow(id,identity,p);followRebase=false;}
    motion.update(now,{point:points.find(b=>b.id===motion.following?.id),time,identity});syncCompass();zoomButtons();
-   const announcement=selectedBall===null?'':`${motion.following?'Following':'Selected'} ball ${selectedBall}. Press Escape to clear.`;if($('follow-announcement').textContent!==announcement)$('follow-announcement').textContent=announcement;
+   const announcement=ballSlots.size?`${motion.following?'Following':'Selected'} ball${ballSlots.size===1?'':'s'} ${[...ballSlots.keys()].join(', ')}. Press Escape to clear.`:'';if($('follow-announcement').textContent!==announcement)$('follow-announcement').textContent=announcement;
   },
-  update(v,surface){zoomButtons();if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===selectedBall),arcade.moveSelection(),arcade.selectedDeflector?.());drawTrajectory();}},
+  update(v,surface){zoomButtons();if(v)lastView=v;if(surface)lastSurface=surface;if(lastView){anchor=anchorCache.resolve(lastView,lastSurface,arcade.account(),arcade.selectedCannon(),{x:camera.x,y:camera.y},{identity:lastIdentity});updateHover();position();map.draw(lastView,lastSurface,arcade.selectedCannon(),arcade.account(),lastPoints.find(b=>b.id===(motion.following?.id??lastSelectedBall())),arcade.moveSelection(),arcade.selectedDeflector?.());drawTrajectory();}},
   dispose(){audioObserver.disconnect();audioMutation.disconnect();quantityObserver.disconnect();quantityPointers.clear();disposed=true;motion.cancel({follow:true});map.dispose();observer.disconnect();contentObserver.disconnect();cancelAnimationFrame(layoutFrame);clearTimeout(saveTimer);clearHelp();clearTimeout(helpHide);doc.documentElement.classList.remove('cannon-context','quantity-constrained','quantity-rail');for(const fn of cleanups)fn();pointers.clear();},open:()=>arcade.openAccount()
  };
 }

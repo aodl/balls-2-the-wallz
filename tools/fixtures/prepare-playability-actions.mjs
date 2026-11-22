@@ -73,4 +73,16 @@ economy.playability.elapsed_ns=midnight;
 const economyHex=hex(encodeWorld(economy));
 cases.economy={initial:economyHex,final:economyHex};
 cases.economy_unannounced={initial:unsignedEconomy,final:unsignedEconomy};
+const tactical=structuredClone(economy);
+setOwner(tactical,500500,0);
+function fixtureBall(cell,vx,vy){
+  return {id:tactical.next_ball_id++,owner:1,cell,x0:BigInt(cell%1000*1024+512),y0:BigInt(Math.floor(cell/1000)*1024+512),vx,vy,den:1n};
+}
+for(const cell of [2004,2009,7009])tactical.balls.push(fixtureBall(cell,720,720));
+const tacticalHex=hex(encodeWorld(tactical));
+const retired=structuredClone(tactical);
+retired.balls.pop();
+const changed=structuredClone(tactical);
+changed.reservoirs=reservoirPut(changed.reservoirs,4005);
+cases.tactical={initial:tacticalHex,retired:hex(encodeWorld(retired)),blocked:hex(encodeWorld(changed))};
 fs.writeFileSync(process.argv[2],JSON.stringify({economy_config:hex(encodeCanonical(ECONOMY_CONFIG)),reservoir_config:hex(encodeCanonical(RESERVOIR_CONFIG)),spacing_config:hex(encodeCanonical(SPACING_CONFIG)),shout_config:hex(encodeCanonical(SHOUT_CONFIG)),qualification:'Synthetic widget/presentation data; not IC authentication or installed upgrade evidence',config:hex(encodeCanonical({...V6_POLICY,...PRICING})),entry_config:hex(encodeCanonical(ENTRY_CONFIG)),war_cry_config:hex(encodeCanonical(WAR_CRY_CONFIG)),combined_config:hex(encodeCanonical(COMBINED_CONFIG)),deflector_config:hex(encodeCanonical(DEFLECTOR_CONFIG)),cases,sequences,capacity_events}));

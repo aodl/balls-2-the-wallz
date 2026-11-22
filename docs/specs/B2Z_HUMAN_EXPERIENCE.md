@@ -1343,3 +1343,27 @@ All five controls retain 44px targets. Build Cannon stays the initial default.
 When a player chooses Build Reservoir, further tile selection during that
 action keeps Reservoir mode. Reservoir eligibility uses the authenticated
 Rules16 configuration and can differ from Cannon or Diverter eligibility.
+
+## Rules17 tactical placement and Ball reference selection
+
+UX-02 and UXR-01 use the authenticated action quote predicates. Owned tile
+selection retains the player's explicit legal build choice. Without one,
+Cannon is preferred, then Reservoir, then Diverter. A tile with no legal
+construction action cannot open a construction plan. Hover during construction
+only highlights sites for the active action. An illegal Move input preserves
+the previous destination and packet. An authenticated change can invalidate
+that packet, which disables Copy and removes the provisional structure.
+
+UX-11 and UX-12 distinguish camera follow from a local selection of up to
+three Ball IDs. A single Ball click replaces the selection and starts follow.
+Ctrl or Meta toggles a Ball without camera travel. Adding a fourth replaces
+the set with that Ball. Structure selection, Move planning and camera
+navigation preserve the references. Escape and ordinary empty-terrain
+selection clear them. A Ball removed from the verified world loses its guide.
+Offscreen or obscured guides use matching pointer-transparent HUD chips
+derived from the same current projected heading.
+
+UX-08 keeps the amount, recipient and memo from one verified proposal.
+Cannon construction shows `Pay to Build & Fire` with the requested Cannon
+and Ball count. Diverter and Reservoir construction show `Pay to Build` and
+the item count. These labels have no role in memo encoding or pricing.

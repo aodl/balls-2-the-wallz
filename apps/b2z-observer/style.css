@@ -431,4 +431,8 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
  #board-compass button[data-board-quarter="0"][aria-pressed=true]::after{background:Highlight}
 }
 
-#trajectory-guide{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+#trajectory-guide,#trajectory-hud{position:absolute;inset:0;width:100%;height:100%;pointer-events:none}
+.trajectory-chip{position:absolute;display:flex;align-items:center;gap:6px;justify-content:center;width:100px;height:23px;border:1px solid var(--graphite-edge);border-radius:6px;background:var(--graphite-surface);font-size:.72rem;font-variant-numeric:tabular-nums}
+.trajectory-chip svg{flex:none;width:13px;height:13px}
+.trajectory-chip span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+@media(forced-colors:active){.trajectory-chip{border-color:CanvasText}}

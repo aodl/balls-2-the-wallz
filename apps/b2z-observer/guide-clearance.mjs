@@ -42,16 +42,21 @@ export function movementArrow(camera,source,destination){
  return {height,world,screen:world.map(([x,y])=>camera.screen(x,y,height))};
 }
 
+export function trajectoryDirection(camera,velocity){
+ if(!velocity)return null;
+ const {x,y}=camera.basis.project(velocity.vx,velocity.vy);
+ const length=Math.hypot(x,y);
+ return length?{dx:x/length,dy:y/length}:null;
+}
+
 /** Local heading only, starting at the selected ball's verified presentation. */
 export function trajectoryGuide(camera,ball,velocity,obstacles=[]){
- if(!ball||!velocity||(!velocity.vx&&!velocity.vy))return null;
+ const direction=trajectoryDirection(camera,velocity);
+ if(!ball||!direction)return null;
  const {width,height}=camera.viewport,p=camera.point(ball.x,ball.y,.14);
  const start={x:p.sx,y:p.sy},margin=12;
  if(!p.visible||start.x<margin||start.y<margin||start.x>width-margin||start.y>height-margin)return null;
- const next=camera.screen(p.x+velocity.vx/1024,p.y+velocity.vy/1024,.14);
- const speed=Math.hypot(next.x-start.x,next.y-start.y);
- if(!speed)return null;
- const dx=(next.x-start.x)/speed,dy=(next.y-start.y)/speed;
+ const {dx,dy}=direction;
  const edgeX=dx>0?(width-margin-start.x)/dx:dx<0?(margin-start.x)/dx:Infinity;
  const edgeY=dy>0?(height-margin-start.y)/dy:dy<0?(margin-start.y)/dy:Infinity;
  const reach=Math.min(edgeX,edgeY,Math.hypot(width,height)*.72);

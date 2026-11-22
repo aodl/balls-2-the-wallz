@@ -18,6 +18,7 @@ p = argparse.ArgumentParser(description=__doc__)
 p.add_argument("--output", type=Path, required=True)
 p.add_argument("--interaction-polish", action="store_true")
 p.add_argument("--economy-only", action="store_true")
+p.add_argument("--tactical-only", action="store_true")
 p.add_argument("--reservoir-only", action="store_true")
 p.add_argument("--floating-aim", action="store_true")
 p.add_argument("--reference", type=Path, help="optional Rules14 checkout for matching before captures")
@@ -393,7 +394,7 @@ def economy_quotes(browser):
         declare(page)
         scene(page,4005,46,width/2,height/3)
         page.mouse.click(*board_point(page,4005))
-        page.locator('#reservoir-action').click()
+        expect(page.locator('#reservoir-action')).to_have_attribute('aria-pressed','true')
         expect(page.locator('#transfer-amount')).to_have_text('0.1 ICP')
         expect(page.locator('#text-memo')).to_have_text('RESERVOIR 4005')
         page.locator('[data-copy=text]').click()
@@ -404,11 +405,157 @@ def economy_quotes(browser):
     return rows
 
 
+def tactical(browser):
+    rows = []
+    for width, height in [(1440,900), (390,844), (320,640)]:
+        ctx=browser.new_context(viewport={'width':width,'height':height},has_touch=width<700,
+                                permissions=['clipboard-read','clipboard-write'],reduced_motion='reduce')
+        page=ctx.new_page()
+        errors=[]
+        page.on('pageerror',lambda error:errors.append(str(error)))
+        page.goto(f"{url}/after/?case=tactical&economy")
+        page.wait_for_function("()=>Boolean(globalThis.fixture)")
+        declare(page)
+
+        def pick(cell, offset=0, touch=False):
+            for x,y in [(width/2+offset,height/3),(45,height*.66),(width-45,height*.62),
+                        (width/2,154),(45,height*.42),(width-47,height*.42)]:
+                scene(page,cell,50,x,y)
+                at=point(page,cell)
+                if page.evaluate("([x,y])=>document.elementFromPoint(x,y)?.id==='board'",at):
+                    (page.touchscreen.tap if touch else page.mouse.click)(*at)
+                    return at
+            raise AssertionError(f'no unobstructed cell {cell}')
+
+        def selection():
+            return page.evaluate("[...fixture.shell.selectedBalls().keys()]")
+
+        pick(4005,touch=width<700)
+        expect(page.locator('#reservoir-action')).to_have_attribute('aria-pressed','true')
+        expect(page.locator('#action-prompt')).to_have_text('Pay to Build')
+        expect(page.locator('#amount-detail')).to_have_text('1 reservoir')
+        expect(page.locator('#transfer-amount')).to_have_text('0.1 ICP')
+        expect(page.locator('#text-memo')).to_have_text('RESERVOIR 4005')
+        page.locator('[data-copy=text]').click()
+        assert page.evaluate('navigator.clipboard.readText()')=='RESERVOIR 4005'
+        screen(page,f'tactical-{width}-reservoir')
+        page.evaluate("fixture.publish('tactical','blocked')")
+        expect(page.locator('[data-copy=text]')).to_be_disabled()
+        expect(page.locator('#preparation-note')).to_have_text('Reservoir occupies this tile.')
+        assert page.evaluate("!fixture.inspectSite(4005).selectable")
+        page.evaluate("fixture.publish('tactical','initial')")
+        expect(page.locator('[data-copy=text]')).to_be_enabled()
+        for occupied in [2004,2009,7009,6005,4007]:
+            assert page.evaluate("n=>!fixture.inspectSite(n).selectable",occupied), occupied
+        assert page.evaluate("!fixture.inspectSite(500500).selectable")
+        legal_builds=page.evaluate("""()=>{
+          const result=[];
+          for(let y=0;y<17;y++)for(let x=0;x<8;x++){
+            const cell=y*1000+x,site=fixture.inspectSite(cell);
+            if(site.quotes.new.startsWith('NEW ')&&site.quotes.deflect.startsWith('DEFLECT '))result.push(cell);
+            if(result.length===2)return result;
+          }
+          return result;
+        }""")
+        assert len(legal_builds)==2,legal_builds
+        page.locator('#close-panel').click()
+        pick(legal_builds[0],35,touch=width<700)
+        expect(page.locator('#action-prompt')).to_have_text('Pay to Build & Fire')
+        expect(page.locator('#amount-detail')).to_have_text('1 cannon + 1 ball')
+        page.locator('#quantity-plus').click()
+        expect(page.locator('#amount-detail')).to_have_text('1 cannon + 2 balls')
+        page.locator('#reservoir-action').click()
+        expect(page.locator('#amount-detail')).to_have_text('1 reservoir')
+        pick(legal_builds[1],-35,touch=width<700)
+        expect(page.locator('#text-memo')).to_have_text(f'RESERVOIR {legal_builds[1]}')
+        page.locator('#deflect-action').click()
+        expect(page.locator('#action-prompt')).to_have_text('Pay to Build')
+        expect(page.locator('#amount-detail')).to_have_text('1 diverter')
+        assert page.locator('#text-memo').text_content().startswith('DEFLECT ')
+
+        # Plan legal moves. An illegal click must leave both the cell and current
+        # packet intact, at the same screen pose and on the canonical world seam.
+        page.locator('#close-panel').click()
+        page.locator('#centre-cannon').click()
+        if page.locator('#own-cannons button').is_visible():
+            page.locator('#own-cannons button').first.click()
+        page.locator('#move-action').click()
+        expect(page.locator('#action-prompt')).to_have_text('Pay to Move')
+        old=page.locator('#text-memo').text_content()
+        assert old.startswith('MOVE ')
+        pick(500500,19,touch=width<700)
+        page.wait_for_timeout(450)
+        expect(page.locator('#text-memo')).to_have_text(old)
+        page.locator('[data-copy=text]').click()
+        assert page.evaluate('navigator.clipboard.readText()')==old
+
+        if width==1440:
+            page.locator('#close-panel').click()
+            balls=page.evaluate("fixture.displayedBalls().map(b=>b.id)")
+            assert len(balls)==4
+            def click_ball(id, additive=False):
+                at=page.evaluate("""id=>{
+                  const c=fixture.camera,b=fixture.displayedBalls().find(x=>x.id===id);
+                  fixture.shell.controller.cancel();c.scale=75;c.centre(b.x,b.y);fixture.draw();
+                  const p=c.point(b.x,b.y,.14);
+                  return [p.sx,p.sy];
+                }""",id)
+                assert page.evaluate("([x,y])=>document.elementFromPoint(x,y)?.id==='board'",at)
+                page.wait_for_timeout(410)
+                if additive:
+                    page.keyboard.down('Control')
+                try:
+                    page.mouse.click(*at)
+                finally:
+                    if additive:
+                        page.keyboard.up('Control')
+            click_ball(balls[0])
+            assert selection()==balls[:1]
+            click_ball(balls[1],True)
+            click_ball(balls[2],True)
+            assert selection()==balls[:3]
+            page.evaluate('fixture.camera.scale=45;fixture.camera.centre(6,4);fixture.draw()')
+            assert page.locator('#trajectory-guide g:not([hidden]), .trajectory-chip:not([hidden])').count()==3
+            screen(page,'tactical-three-balls')
+            click_ball(balls[1],True)
+            assert selection()==[balls[0],balls[2]]
+            click_ball(balls[1],True)
+            click_ball(balls[3],True)
+            assert selection()==balls[3:]
+            page.evaluate("fixture.camera.centre(500,500);fixture.draw()")
+            chip=page.locator(f'.trajectory-chip[data-ball-id="{balls[3]}"]')
+            expect(chip).to_be_visible()
+            assert chip.evaluate("node=>getComputedStyle(node).pointerEvents")== 'none'
+            angle=chip.locator('svg').evaluate("node=>node.style.transform")
+            page.locator("[data-board-quarter='1']").click()
+            settle(page,1)
+            assert chip.locator('svg').evaluate("node=>node.style.transform") != angle
+            page.locator('#centre-cannon').click()
+            if page.locator('#own-cannons button').is_visible():
+                page.locator('#own-cannons button').first.click()
+            if page.locator('#locate-context').is_visible():
+                page.locator('#locate-context').click()
+            page.locator('#move-action').click()
+            page.evaluate('fixture.camera.centre(500,500);fixture.draw()')
+            assert selection()==balls[3:]
+            expect(chip).to_be_visible()
+            screen(page,'tactical-balls-and-move')
+            page.evaluate("fixture.publish('tactical','retired');fixture.draw()")
+            assert selection()==[]
+            expect(chip).to_be_hidden()
+        assert not errors,errors
+        rows.append({'width':width,'reservoir_default':True,'native_reservoir_memo':'RESERVOIR 4005',
+                     'invalid_move_preserved':old,'ball_comparison':width==1440})
+        ctx.close()
+    return rows
+
+
 try:
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True, chromium_sandbox=True)
-        report = {"reservoir": reservoir_quotes(browser)} if args.reservoir_only else {} if args.economy_only else {"after": [test(browser, "after", w, h, w == 390) for w, h in [(1440,900),(390,844),(320,640)]]}
+        report = {"reservoir": reservoir_quotes(browser)} if args.reservoir_only else {} if args.economy_only or args.tactical_only else {"after": [test(browser, "after", w, h, w == 390) for w, h in [(1440,900),(390,844),(320,640)]]}
         if args.economy_only: report={"economy":economy_quotes(browser)}
+        if args.tactical_only: report={"tactical":tactical(browser)}
         if args.reference:
             report["before"] = [test(browser, "before", 1440, 900)]
         if args.interaction_polish:
