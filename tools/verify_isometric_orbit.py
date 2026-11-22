@@ -178,6 +178,15 @@ def test(browser, variant, width, height, reduced=False):
         assert page.evaluate("fixture.summary().selected") == 1
         if width == 320:
             page.set_viewport_size({"width":320,"height":350})
+            # The resize response precedes the arena's measured RAF. Use the
+            # committed contracted layout for the hit test, as on expansion.
+            page.wait_for_function("""()=>{
+                const layout=fixture.shell.layoutState();
+                return fixture.camera.viewport.height===350
+                    && document.documentElement.classList.contains('short-edit')
+                    && !layout.dirty && !layout.pendingFrame
+                    && layout.revision===layout.committedRevision;
+            }""")
             cycles=page.locator("#cycles-display")
             assert cycles.is_visible() and cycles.bounding_box()["y"] >= 0
             assert cycles.evaluate("""node=>{const r=node.getBoundingClientRect();

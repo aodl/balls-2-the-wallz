@@ -1,0 +1,23 @@
+[
+  {
+    "width": 1440,
+    "site": 999999,
+    "memo": "RESERVOIR 999999",
+    "amount_e8s": 1000000,
+    "exact_copy": true
+  },
+  {
+    "width": 390,
+    "site": 999999,
+    "memo": "RESERVOIR 999999",
+    "amount_e8s": 1000000,
+    "exact_copy": true
+  },
+  {
+    "width": 320,
+    "site": 999999,
+    "memo": "RESERVOIR 999999",
+    "amount_e8s": 1000000,
+    "exact_copy": true
+  }
+]

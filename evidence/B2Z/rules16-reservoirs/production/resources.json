@@ -1,0 +1,22 @@
+{
+  "frontend": {
+    "balance": 1346566289124,
+    "reserved": 0,
+    "idle_per_day": 6759794585,
+    "threshold": 2592000,
+    "memory": 230772865
+  },
+  "backend": {
+    "balance": 1625741079014,
+    "reserved": 0,
+    "idle_per_day": 1891836695,
+    "threshold": 2592000,
+    "memory": 40231527
+  },
+  "frontend_recovery_margin": 839772451574,
+  "frontend_install_window_debit": 184121156445,
+  "backend_install_window_debit": 21085873197,
+  "before_epoch_backend_liquid": 1486070694738,
+  "frontend_snapshots": 0,
+  "backend_snapshots": 0
+}

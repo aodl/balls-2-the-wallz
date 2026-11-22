@@ -210,7 +210,7 @@ def tile_cases(page, screen, variant, width):
     expect(page.locator('[data-copy="text"]')).to_be_enabled()
     expect(page.locator("#text-memo")).to_contain_text(" 10003")
     assert page.evaluate("fixture.summary().camera")==pose
-    assert page.evaluate("fixture.inspect().ghostKind")=="cannon"
+    page.wait_for_function("()=>fixture.inspect().ghostKind==='cannon'")
     screen(page,f"{prefix}-auto-build")
     scene(page,legal,2,70,300)
     page.wait_for_function("()=>fixture.inspect().tileHighlights.some(h=>h.cell===10003&&h.kind==='destination'&&h.marker)")
