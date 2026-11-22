@@ -20,6 +20,9 @@ use std::{
 mod source;
 #[path = "support/delegation_installed.rs"]
 mod delegation_installed;
+// TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+#[path = "support/dev_speed_installed.rs"]
+mod dev_speed_installed;
 #[path = "support/agent_playtesting.rs"]
 mod agent_playtesting;
 #[path = "support/europe.rs"]

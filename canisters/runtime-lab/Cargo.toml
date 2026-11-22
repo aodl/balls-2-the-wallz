@@ -7,6 +7,8 @@ edition = "2021"
 publish = false
 [features]
 test-hooks = []
+developer-speed = []
+public-launch = []
 [lib]
 crate-type = ["cdylib", "rlib"]
 [dependencies]

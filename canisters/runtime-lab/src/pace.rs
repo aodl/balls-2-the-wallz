@@ -151,7 +151,19 @@ pub struct Hint {
     pub admission_open: bool,
 }
 
+// TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+#[cfg(feature = "developer-speed")]
+pub const DEV_DEFAULT_SECONDS: u16 = 120;
+#[cfg(feature = "developer-speed")]
+const DEV_MAX_SECONDS: u16 = 300;
+#[cfg(feature = "developer-speed")]
+pub const DEV_RECOVERY_RESERVE: u128 = TRICKLE_ENTER + 100_000_000_000;
+#[cfg(feature = "developer-speed")]
+const DEV_TICK_ALLOWANCE: u128 = 2_000_000_000;
+
 pub struct Clock {
+    #[cfg(feature = "developer-speed")]
+    pub dev_until_ns: Option<u64>,
     pub mode: Mode,
     pub due: u64,
     pub batch_started: u64,
@@ -166,6 +178,8 @@ impl Default for Clock {
     fn default() -> Self {
         Self {
             mode: Mode::ReserveProtection,
+            #[cfg(feature = "developer-speed")]
+            dev_until_ns: None,
             due: 0,
             batch_started: 0,
             performance_milli: 1000,
@@ -182,19 +196,90 @@ impl Clock {
         let mode = select(self.mode, liquid);
         if mode != self.mode {
             self.mode = mode;
+            #[cfg(feature = "developer-speed")]
+            if self.dev_until_ns.is_some() {
+                return;
+            }
             self.due = 0;
             self.overrun = 0;
             self.healthy = 0;
         }
     }
 
+    fn nominal_milli(&self) -> u32 {
+        #[cfg(feature = "developer-speed")]
+        if self.dev_until_ns.is_some() && self.mode != Mode::ReserveProtection {
+            return Mode::Normal.milli();
+        }
+        self.mode.milli()
+    }
     fn supported_milli(&self) -> u32 {
-        self.mode.milli().min(self.performance_milli)
+        self.nominal_milli().min(self.performance_milli)
+    }
+
+    // TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+    #[cfg(feature = "developer-speed")]
+    pub fn start_dev_speed(&mut self, now: u64, duration: u16, liquid: u128) -> Result<(), String> {
+        if !(1..=DEV_MAX_SECONDS).contains(&duration) {
+            return Err("Full Speed requires 1–300 seconds".into());
+        }
+        self.refresh_dev_speed(now, liquid, true);
+        if self.dev_until_ns.is_some() {
+            return Err("Deactivate the existing Full Speed window before starting another".into());
+        }
+        if !self.hint().admission_open
+            || self.performance_milli < Mode::Normal.milli()
+            || liquid < DEV_RECOVERY_RESERVE + DEV_TICK_ALLOWANCE * u128::from(duration)
+        {
+            return Err(
+                "Full Speed requires healthy execution and enough liquid recovery reserve".into(),
+            );
+        }
+        self.dev_until_ns = Some(
+            now.checked_add(u64::from(duration) * 1_000_000_000)
+                .ok_or("Full Speed deadline overflow")?,
+        );
+        self.due = self.last_published.saturating_add(self.period(1)).max(now);
+        self.rest_since_publication = now.saturating_sub(self.last_published);
+        self.overrun = 0;
+        self.healthy = 0;
+        Ok(())
+    }
+
+    #[cfg(feature = "developer-speed")]
+    pub fn dev_resources_safe(&self, liquid: u128) -> bool {
+        liquid >= DEV_RECOVERY_RESERVE + DEV_TICK_ALLOWANCE
+            && self.performance_milli == Mode::Normal.milli()
+    }
+
+    #[cfg(feature = "developer-speed")]
+    pub fn refresh_dev_speed(&mut self, now: u64, liquid: u128, running: bool) {
+        if self.dev_until_ns.is_some_and(|end| {
+            !running
+                || now >= end
+                || !self.dev_resources_safe(liquid)
+                || self.mode == Mode::ReserveProtection
+        }) {
+            self.end_dev_speed(now);
+        }
+    }
+
+    #[cfg(feature = "developer-speed")]
+    pub fn end_dev_speed(&mut self, now: u64) {
+        if self.dev_until_ns.take().is_some() {
+            self.due = self.last_published.saturating_add(self.period(1)).max(now);
+            self.overrun = 0;
+            self.healthy = 0;
+        }
     }
 
     /// Keep very slow publications at a bounded wall-clock cadence. This changes
     /// only segment boundaries; the kernel still advances every logical tick.
     pub fn publication_ticks(&self, configured: u64) -> u64 {
+        #[cfg(feature = "developer-speed")]
+        if self.dev_until_ns.is_some() {
+            return 1;
+        }
         if matches!(self.mode, Mode::Survival | Mode::Lifeline | Mode::Trickle) {
             configured.min(1)
         } else {
@@ -203,10 +288,18 @@ impl Clock {
     }
 
     pub fn hint(&self) -> Hint {
-        let nominal_milli = self.mode.milli();
+        let nominal_milli = self.nominal_milli();
         let supported_milli = self.supported_milli();
+        #[cfg(feature = "developer-speed")]
+        let full_speed = self.dev_until_ns.is_some() && self.mode != Mode::ReserveProtection;
+        #[cfg(not(feature = "developer-speed"))]
+        let full_speed = false;
         Hint {
-            mode: self.mode.name(),
+            mode: if full_speed {
+                "Full Speed (DEV ONLY)".into()
+            } else {
+                self.mode.name()
+            },
             nominal_milli,
             supported_milli,
             performance_limited: supported_milli < nominal_milli,
@@ -249,6 +342,17 @@ impl Clock {
         self.last_published = now;
         self.rest_since_publication = 0;
         let period = self.period(ticks);
+        #[cfg(feature = "developer-speed")]
+        if self.dev_until_ns.is_some() {
+            if compute > period || elapsed > 2 * period {
+                self.end_dev_speed(now);
+            } else {
+                // Never catch up multiple experimental ticks after a late callback.
+                self.due = now.saturating_add(period);
+            }
+            self.batch_started = 0;
+            return;
+        }
         if ordinary && elapsed > period {
             self.overrun = self.overrun.saturating_add(1);
             self.healthy = 0;
@@ -288,6 +392,65 @@ impl Clock {
 
 #[cfg(test)]
 mod tests {
+    // TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+    #[test]
+    #[cfg(feature = "developer-speed")]
+    fn temporary_full_speed_does_not_change_adaptive_tier_or_replay_missed_ticks() {
+        const SECOND: u64 = 1_000_000_000;
+        let mut clock = Clock::default();
+        let liquid = 2_500_000_000_000;
+        clock.refresh(liquid);
+        clock.last_published = 10 * SECOND;
+        clock
+            .start_dev_speed(20 * SECOND, DEV_DEFAULT_SECONDS, liquid)
+            .unwrap();
+        assert_eq!(clock.mode, Mode::Trickle);
+        assert_eq!(clock.publication_ticks(3), 1);
+        assert_eq!(clock.hint().supported_milli, 1_000);
+        assert!(clock.hint().admission_open);
+        assert!(clock.start_dev_speed(21 * SECOND, 120, liquid).is_err());
+        assert_eq!(clock.wait(20 * SECOND, 1), 0);
+        clock.batch_started = 20 * SECOND;
+        clock.published(20 * SECOND, 1, true);
+        assert_eq!(clock.wait(20 * SECOND + 1, 1), SECOND - 1);
+        clock.wait(23 * SECOND, 1);
+        clock.batch_started = 23 * SECOND;
+        // A delayed callback terminates the experiment instead of replaying time.
+        clock.published(23 * SECOND, 1, true);
+        assert_eq!(clock.dev_until_ns, None);
+        assert_eq!(clock.hint().supported_milli, 10);
+        assert_eq!(clock.wait(23 * SECOND, 1), 100 * SECOND);
+        clock.start_dev_speed(23 * SECOND, 120, liquid).unwrap();
+        clock.refresh_dev_speed(143 * SECOND - 1, liquid, true);
+        assert!(clock.dev_until_ns.is_some());
+        clock.refresh_dev_speed(143 * SECOND, liquid, true);
+        assert_eq!(clock.dev_until_ns, None);
+        assert_eq!(Clock::default().dev_until_ns, None);
+    }
+
+    #[test]
+    #[cfg(feature = "developer-speed")]
+    fn temporary_full_speed_is_fenced_by_resources_execution_and_manual_stop() {
+        let mut clock = Clock::default();
+        let floor = DEV_RECOVERY_RESERVE + DEV_TICK_ALLOWANCE;
+        clock.refresh(floor);
+        assert!(clock.start_dev_speed(0, 0, floor).is_err());
+        assert!(clock.start_dev_speed(0, 301, floor).is_err());
+        assert!(clock.start_dev_speed(0, 2, floor).is_err());
+        clock.performance_milli = 999;
+        assert!(clock.start_dev_speed(0, 1, floor).is_err());
+        clock.performance_milli = 1_000;
+        clock.start_dev_speed(0, 1, floor).unwrap();
+        clock.end_dev_speed(1);
+        assert_eq!(clock.dev_until_ns, None);
+        clock.start_dev_speed(1, 1, floor).unwrap();
+        clock.refresh_dev_speed(2, floor - 1, true);
+        assert_eq!(clock.dev_until_ns, None);
+        clock.refresh(TRICKLE_EXIT - 1);
+        assert!(!clock.hint().admission_open);
+        assert!(clock.start_dev_speed(3, 1, TRICKLE_EXIT - 1).is_err());
+    }
+
     use super::*;
 
     const BANDS: [(Mode, u128, u128, u32); 8] = [

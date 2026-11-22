@@ -1,7 +1,12 @@
 //! Authoritative B2Z host with one account-index adapter and certified observation.
 //! No wallet or payout implementation. B2Z-owned prelaunch operating funding is separate.
 #![forbid(unsafe_code)]
+// TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+#[cfg(all(feature = "developer-speed", feature = "public-launch"))]
+compile_error!("The public-launch build cannot include the temporary developer-speed override");
 mod delegation_wire;
+#[cfg(feature = "developer-speed")]
+mod dev_speed;
 mod funding;
 mod health;
 mod operation_kernel;
@@ -1262,6 +1267,8 @@ fn stop_run_after_error(generation: u64, error: String) -> AppResult<()> {
         r.run.running = false;
         r.run.last_error = Some(error);
         save_root_only(&r)?;
+        #[cfg(feature = "developer-speed")]
+        PACE.with(|p| p.borrow_mut().end_dev_speed(ic_cdk::api::time()));
     }
     Ok(())
 }
@@ -1299,8 +1306,11 @@ fn get_api_doc() -> String {
 fn refresh_pace() {
     HEALTH.with(|h| h.borrow_mut().start(ic_cdk::api::time()));
     PACE.with(|p| {
-        p.borrow_mut()
-            .refresh(ic_cdk::api::canister_liquid_cycle_balance())
+        let liquid = ic_cdk::api::canister_liquid_cycle_balance();
+        let mut clock = p.borrow_mut();
+        clock.refresh(liquid);
+        #[cfg(feature = "developer-speed")]
+        clock.refresh_dev_speed(ic_cdk::api::time(), liquid, true);
     });
 }
 fn transition_maintenance(r: &Root) -> bool {
@@ -1323,6 +1333,10 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
         return Ok(());
     }
     refresh_pace();
+    #[cfg(feature = "developer-speed")]
+    if !r.run.running || active_transition(&r)?.is_some() || r.lifecycle_barrier.is_some() {
+        PACE.with(|p| p.borrow_mut().end_dev_speed(ic_cdk::api::time()));
+    }
     let transition_work = transition_maintenance(&r);
     if !PACE.with(|p| p.borrow().hint().admission_open) && !transition_work {
         return Ok(());
@@ -2075,6 +2089,8 @@ fn pause_autonomous() -> std::result::Result<Status, String> {
         return Ok(status(&r));
     }
     r.run.running = false;
+    #[cfg(feature = "developer-speed")]
+    PACE.with(|p| p.borrow_mut().end_dev_speed(ic_cdk::api::time()));
     r.run.generation = r
         .run
         .generation
@@ -4194,6 +4210,22 @@ fn payment_receipt(
     player_api::payment_receipt(ledger_position, segment_id)
 }
 
+// TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+#[cfg(feature = "developer-speed")]
+#[ic_cdk::update]
+fn set_dev_simulation_speed(
+    full_speed: bool,
+    duration_seconds: Option<u16>,
+) -> AppResult<dev_speed::Status> {
+    dev_speed::set(full_speed, duration_seconds)
+}
+
+#[cfg(feature = "developer-speed")]
+#[ic_cdk::query]
+fn dev_simulation_speed() -> AppResult<dev_speed::Status> {
+    dev_speed::read()
+}
+
 ic_cdk::export_candid!();
 
 #[cfg(test)]
@@ -4576,7 +4608,7 @@ mod tests {
             "DTR_RUNTIME_CANDID_BEGIN\n{}\nDTR_RUNTIME_CANDID_END",
             super::__export_service()
         );
-        #[cfg(not(feature = "test-hooks"))]
+        #[cfg(not(any(feature = "test-hooks", feature = "developer-speed")))]
         candid_parser::utils::service_equal(
             candid_parser::utils::CandidSource::Text(&super::__export_service()),
             candid_parser::utils::CandidSource::Text(include_str!("../runtime-lab.did")),

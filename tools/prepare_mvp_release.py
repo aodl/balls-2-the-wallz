@@ -31,7 +31,7 @@ def main():
     run('node','tools/generate_economics.mjs','--check')
     run('node','tools/generate_playability.mjs','--check')
     out.mkdir(parents=True)
-    run('cargo','build','--manifest-path','canisters/runtime-lab/Cargo.toml','--release','--target','wasm32-unknown-unknown','--locked','--offline')
+    run('cargo','build','--manifest-path','canisters/runtime-lab/Cargo.toml','--release','--features','public-launch','--target','wasm32-unknown-unknown','--locked','--offline')
     module=ROOT/'canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm'
     exports=wasm_exports(module)
     methods={name.split(' ',1)[1] for name in exports if name.startswith(('canister_query ','canister_update '))}

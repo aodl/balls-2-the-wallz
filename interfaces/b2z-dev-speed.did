@@ -1,0 +1,17 @@
+// TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+type DevSpeedStatus = record {
+  mode : text;
+  adaptive_tier : text;
+  remaining_seconds : nat16;
+  default_seconds : nat16;
+  running : bool;
+  idle : bool;
+  admission_open : bool;
+  liquid_cycles : nat;
+  recovery_reserve : nat;
+};
+type DevSpeedResult = variant { Ok : DevSpeedStatus; Err : text };
+service : {
+  dev_simulation_speed : () -> (DevSpeedResult) query;
+  set_dev_simulation_speed : (bool, opt nat16) -> (DevSpeedResult);
+};
