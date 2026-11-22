@@ -110,7 +110,7 @@ def main():
         verb = "set_dev_simulation_speed" if request else "dev_simulation_speed"
         argument = "()"
         if request:
-            argument = (f"(true, opt {request['seconds']} : nat16)"
+            argument = (f"(true, opt ({request['seconds']} : nat16))"
                         if request["full_speed"] else "(false, null)")
         result = subprocess.run(
             ["dfx", "canister", "call", args.canister, verb, argument,

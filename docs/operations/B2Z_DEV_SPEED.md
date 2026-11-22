@@ -27,9 +27,10 @@ recovery and contingency, plus 2B per requested second. The latter is an
 operating allowance. The driver samples liquid balance before each callback
 and ends the override before another tick if recovery headroom is lost. It
 also ends on an unsafe execution rate, stopped run or active transition.
-The allocation mode and thresholds remain unchanged. The override is
-heap-only and automatically returns to Adaptive on upgrade or restart.
-Canonical state, instructions, Ledger cursor and replay inputs stay intact.
+The allocation mode and thresholds remain unchanged. The override is heap-only and returns to Adaptive on an upgrade-based
+restart. A suspended canister checks the original absolute deadline before
+processing more work. Canonical state, instructions, Ledger cursor and
+replay inputs stay intact.
 
 ## Disposable qualification
 
