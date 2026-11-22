@@ -1,7 +1,7 @@
 {
-  "source": "5d8b8d451125f871a31171fc9301458be4214b4a",
+  "source": "201e171297db11108608d88c5c9efd6dd5157309",
   "source_dirty": false,
-  "inventory_sha256": "271cd73a66b53345ef9d28e6832d1b6b7553d37747cbe0f33124acc9a2b12963",
+  "inventory_sha256": "c1e85ea66fe1a85be9a4ce6432537775f748a394b404ee93b2bf9eafc5e017cc",
   "normal_wasm_sha256": "42b42125e120717bf5759a283e444dd789e8fb9cd2aa20e323ce251049d09f8c",
   "normal_wasm_scope": "Local exact runtime inputs. Hosted normal and installed artifacts must reproduce each other.",
   "inputs": [
@@ -19,7 +19,7 @@
     },
     {
       "path": "apps/b2z-observer/arcade.mjs",
-      "sha256": "d044d8d751f7100ea80cfc4b320aab9bad4a8b9f2955f14d425593d18f0d1589"
+      "sha256": "75a580786f0f93351b5990759448c8052c95d925dea515eca3b848c9b6c8f6e0"
     },
     {
       "path": "apps/b2z-observer/arena-indicators.mjs",

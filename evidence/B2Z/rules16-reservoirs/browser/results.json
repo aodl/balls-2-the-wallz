@@ -9,6 +9,7 @@
       "fixed_amount": "0.01 ICP",
       "memo": "RESERVOIR 4005",
       "native_copy": true,
+      "keep_update": true,
       "enemy_distance_3_rejected": true
     },
     {
@@ -20,6 +21,7 @@
       "fixed_amount": "0.01 ICP",
       "memo": "RESERVOIR 4005",
       "native_copy": true,
+      "keep_update": true,
       "enemy_distance_3_rejected": true
     },
     {
@@ -31,6 +33,7 @@
       "fixed_amount": "0.01 ICP",
       "memo": "RESERVOIR 4005",
       "native_copy": true,
+      "keep_update": true,
       "enemy_distance_3_rejected": true
     }
   ]

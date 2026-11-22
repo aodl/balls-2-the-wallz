@@ -16,7 +16,7 @@ Chromium shows the [desktop quote](browser/reservoir-quote-1440.png),
 and [enemy clearance rejection](browser/reservoir-enemy-clearance-320.png).
 These are widget journeys with canonical synthetic state. The browser used the
 actual renderer, composer and native clipboard. Rules15 hides the Reservoir
-control. Rules16 copies the literal `RESERVOIR 4005` and quotes 0.01 ICP.
+control. Rules16 copies the literal `RESERVOIR 4005` and quotes 0.01 ICP. Keep restores the original tile and packet. Update creates a fresh packet for the explicitly selected site.
 [Browser results](browser/results.json).
 
 An installed disposable run used the normal candidate, the exact hosted
