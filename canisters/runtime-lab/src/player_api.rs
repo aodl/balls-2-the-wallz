@@ -316,7 +316,11 @@ fn cannon(w: &World, id: u32) -> Result<Option<CannonView>> {
 }
 pub fn game_info() -> Result<GameInfo> {
     let (r, p, w) = load()?;
-    let configuration = if p.identity.config_hash == b2z_native::spacing::configuration_hash() {
+    let configuration = if p.identity.config_hash
+        == b2z_native::reservoirs::identity()["config_hash"]
+    {
+        b2z_native::reservoirs::configuration()
+    } else if p.identity.config_hash == b2z_native::spacing::configuration_hash() {
         b2z_native::spacing::configuration()
     } else if p.identity.config_hash == b2z_native::shout::configuration_hash() {
         b2z_native::shout::configuration()
@@ -551,7 +555,8 @@ fn quote_items_with_rules(
     let free = v6::MAX_BALLS.saturating_sub(w.balls.len());
     match plan {
         purchases_v6::Plan::Rejected { reason } => Err(reason),
-        purchases_v6::Plan::Deflect { price, .. }
+        purchases_v6::Plan::Reservoir { price, .. }
+        | purchases_v6::Plan::Deflect { price, .. }
         | purchases_v6::Plan::DeflectorMove { price, .. }
         | purchases_v6::Plan::DeflectorReorient { price, .. } => Ok(vec![number(&price)?]),
         purchases_v6::Plan::Move { price, .. } => Ok(vec![number(&price)?]),
@@ -672,7 +677,8 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
     if !super::PACE.with(|p| p.borrow().hint().admission_open) {
         return Err("ADMISSION_CLOSED".into());
     }
-    let spacing = p.identity.config_hash == b2z_native::spacing::configuration_hash();
+    let spacing = p.identity.config_hash == b2z_native::spacing::configuration_hash()
+        || p.identity.config_hash == b2z_native::reservoirs::identity()["config_hash"];
     let context_rules = spacing
         || p.identity.config_hash == b2z_native::context_structures::configuration_hash()
         || p.identity.config_hash == b2z_native::shout::configuration_hash();

@@ -32,11 +32,11 @@ export function validateDeflectorState(w){
  for(const b of w.balls){validateDeflectorBall(b);if(deflectorAt(w,b.cell))throw Error('ball in blocked structure');}
 }
 export function removeLostDeflectors(w){
- if(w.version!==7)return[];const gone=w.deflectors.filter(d=>playerAt(w,d.cell)!==d.owner);
+ if(w.version<7)return[];const gone=w.deflectors.filter(d=>playerAt(w,d.cell)!==d.owner);
  if(gone.length){const ids=new Set(gone.map(d=>d.id));w.deflectors=w.deflectors.filter(d=>!ids.has(d.id));}return gone;
 }
 export function prepareDeflectorPurchase(w,account,amount,memo,spacing=false){
- const fail=reason=>({kind:'rejected',reason});if(w.version!==7)throw Error('unsupported deflector rules');
+ const fail=reason=>({kind:'rejected',reason});if(w.version<7)throw Error('unsupported deflector rules');
  if(typeof amount!=='bigint'||amount<0n||amount>18446744073709551615n)throw Error('PAYMENT_AMOUNT');
  let command;try{command=decodeDeflectorMemo(memo);}catch{return fail('MALFORMED_MEMO');}if(command.kind!=='deflect')return null;
  const player=w.playability.players.find(p=>p.account===account)?.id;

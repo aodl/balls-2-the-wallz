@@ -204,6 +204,7 @@ impl SourceState {
             b2z_protocol::deflector::MEMO_ADAPTER_VERSION,
             b2z_protocol::context_structures::MEMO_ADAPTER_VERSION,
             b2z_protocol::shout::MEMO_ADAPTER_VERSION,
+            b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -278,6 +279,7 @@ impl SourceState {
             b2z_protocol::deflector::MEMO_ADAPTER_VERSION,
             b2z_protocol::context_structures::MEMO_ADAPTER_VERSION,
             b2z_protocol::shout::MEMO_ADAPTER_VERSION,
+            b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -525,6 +527,21 @@ fn classify_with(
             }
             if &to != recipient || &from == recipient {
                 return Ok(None);
+            }
+            if adapter == b2z_protocol::reservoir::MEMO_ADAPTER_VERSION {
+                let parsed = if spender.is_none() {
+                    b2z_protocol::reservoir::decode_ledger(tx.memo, tx.icrc1_memo.as_deref()).ok()
+                } else {
+                    None
+                };
+                let (memo, cry) = parsed.unwrap_or_else(|| (INVALID_MEMO, String::new()));
+                let mut payload = b2z_protocol::reservoir::NORMALIZED_PAYMENT.to_vec();
+                payload.extend(from.as_bytes());
+                payload.extend(amount.e8s.to_be_bytes());
+                payload.extend(memo);
+                payload.push(cry.len() as u8);
+                payload.extend(cry.as_bytes());
+                return Ok(Some(hex(&payload)));
             }
             let shout = adapter == b2z_protocol::shout::MEMO_ADAPTER_VERSION;
             if shout || adapter == b2z_protocol::context_structures::MEMO_ADAPTER_VERSION {

@@ -1,3 +1,4 @@
+import {reservoirHas} from '../../packages/protocol/reservoir.mjs';
 import {spacingSupported} from './context-policy.mjs';
 import {structureMap,structureOccupancy,structureSiteReason,wrapSite} from '../../packages/protocol/structure-sites.mjs';
 import {islandAt} from './action-quote-v6.mjs';
@@ -19,10 +20,10 @@ export function contextSites(world,config) {
   const state={
     owner:account=>accounts.get(account),
     owns:(account,cell)=>accounts.has(account)&&accounts.get(account)===playerAt(cell),
-    hasStructure:cell=>structures.has(cell),
+    hasStructure:cell=>structures.has(cell)||reservoirHas(world.reservoirs,cell),
     active,
     reason:(account,cell, options={})=>structureSiteReason({width:world.width,height:world.height,owner:accounts.get(account),cell,
-      ...options,spacing,occupied,structures,ownerAt:playerAt,active}),
+      ...options,spacing,reservoirs:world.reservoirs,occupied,structures,ownerAt:playerAt,active}),
     occupiedKey:[...occupied].sort((a,b)=>a-b).join(','),
     activeKey:[...activeIslands].sort((a,b)=>a-b).join(','),
     candidates(account,moving,source){

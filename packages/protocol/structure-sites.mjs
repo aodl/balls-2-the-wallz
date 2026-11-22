@@ -1,4 +1,5 @@
 // Shared exact placement geometry. Callers supply verified canonical ownership.
+import {reservoirHas} from './reservoir.mjs';
 import {CONTEXT_POLICY} from './context-structures.generated.mjs';
 import {hasEnemyClearance} from './territory-clearance.mjs';
 
@@ -45,10 +46,10 @@ export function hasStructureClearance(width,height,cell,moving,structures) {
   }
   return true;
 }
-export function structureSiteReason({width,height,owner,cell,moving,deflector,spacing=false,occupied,structures,ownerAt,active}) {
+export function structureSiteReason({width,height,owner,cell,moving,deflector,reservoir=false,reservoirs,spacing=false,occupied,structures,ownerAt,active}) {
   if(!Number.isInteger(cell)||cell<0||cell>=width*height||owner===undefined||ownerAt(cell)!==owner)return 'NOT_OWN_TERRITORY';
   if(!active(cell))return 'NO_ACTIVE_ISLAND';
-  if(occupied.has(cell))return 'SITE_OCCUPIED';
+  if(occupied.has(cell)||reservoirHas(reservoirs,cell))return 'SITE_OCCUPIED';
   if(deflector&&!spacing){
     const x=cell%width,y=Math.floor(cell/width);
     for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){
@@ -57,6 +58,7 @@ export function structureSiteReason({width,height,owner,cell,moving,deflector,sp
     }
   }
   if(!hasEnemyClearance(width,height,cell,owner,ownerAt))return 'ENEMY_TERRITORY_TOO_CLOSE';
+  if(reservoir)return null;
   if(spacing)return hasStructureClearance(width,height,cell,moving,structures)?null:'STRUCTURE_TOO_CLOSE';
   return hasFriendlyStructure(width,height,cell,owner,moving,structures)?null:'NO_FRIENDLY_STRUCTURE_NEARBY';
 }

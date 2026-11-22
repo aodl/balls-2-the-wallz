@@ -198,7 +198,8 @@ fn semantic_deflector_payment(s: &str) -> Result<String> {
 }
 fn semantic_deflector_world(bytes: &[u8]) -> Result<Vec<u8>> {
     let mut w = World::decode(bytes)?;
-    if w.deflectors.as_ref().is_some_and(|d| !d.is_empty())
+    if w.reservoirs.as_ref().is_some_and(|r| !r.is_empty())
+        || w.deflectors.as_ref().is_some_and(|d| !d.is_empty())
         || w.balls.iter().any(|b| {
             b.den.as_ref().is_none_or(|d| d.0 != BigInt::from(1)) || b.deflector_rearm.is_some()
         })
@@ -208,6 +209,7 @@ fn semantic_deflector_world(bytes: &[u8]) -> Result<Vec<u8>> {
     w.version = 6;
     w.deflectors = None;
     w.next_deflector_id = None;
+    w.reservoirs = None;
     for b in &mut w.balls {
         b.den = None;
     }
@@ -258,7 +260,7 @@ pub(crate) fn launch(w: &mut World, c: &Cannon, angle: u16) -> Result<Ball> {
     let x = (c.cell % w.width) as i64 * Q + Q / 2;
     let y = (c.cell / w.width) as i64 * Q + Q / 2;
     let b = Ball {
-        den: (w.version == 7).then(|| Int(1.into())),
+        den: (w.version >= 7).then(|| Int(1.into())),
         deflector_rearm: None,
         id: w.next_ball_id,
         owner: if w.version >= 6 {
@@ -461,7 +463,9 @@ impl Cursor {
         let structure_context = crate::context_structures::identity()?;
         let shout = crate::shout::identity()?;
         let spacing = crate::spacing::identity()?;
-        let is_spacing = context.get("config_hash") == spacing.get("config_hash");
+        let reservoir = crate::reservoirs::identity();
+        let is_reservoir = context.get("config_hash") == reservoir.get("config_hash");
+        let is_spacing = is_reservoir || context.get("config_hash") == spacing.get("config_hash");
         let is_shout = is_spacing || context.get("config_hash") == shout.get("config_hash");
         let is_context =
             is_shout || context.get("config_hash") == structure_context.get("config_hash");
@@ -481,7 +485,9 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_spacing {
+        let expected = if is_reservoir {
+            reservoir
+        } else if is_spacing {
             spacing
         } else if is_shout {
             shout
@@ -515,7 +521,9 @@ impl Cursor {
         }
         let world = World::decode(state)?;
         if world.version
-            != if is_deflector {
+            != if is_reservoir {
+                8
+            } else if is_deflector {
                 7
             } else if is_war_cry || is_entry || is_clearance || is_playability {
                 6
@@ -554,7 +562,14 @@ impl Cursor {
                     .map(|i| {
                         Ok(Input {
                             position: i.position.clone(),
-                            payload_hex: if is_shout {
+                            payload_hex: if is_reservoir {
+                                let previous = b2z_protocol::reservoir::predecessor_envelope(
+                                    &unhex(&i.payload_hex)?,
+                                )
+                                .map_err(|_| "adapter10 payment envelope")?;
+                                hex(&b2z_protocol::shout::semantic_payment(&previous)
+                                    .map_err(|_| "adapter10 payment envelope")?)
+                            } else if is_shout {
                                 let normalized = unhex(&i.payload_hex)?;
                                 hex(&b2z_protocol::shout::semantic_payment(&normalized)
                                     .map_err(|_| "adapter9 payment envelope")?)
@@ -592,6 +607,7 @@ impl Cursor {
                     context_rules: is_context,
                     shout_rules: is_shout,
                     spacing_rules: is_spacing,
+                    reservoir_rules: is_reservoir,
                     ..Default::default()
                 }
             }),
@@ -974,7 +990,7 @@ impl Cursor {
         let sx = b.vx.signum() as i64;
         let sy = b.vy.signum() as i64;
         let xy = position(&b, &self.world.time)?;
-        let d = if self.world.version == 7 && !(i.crossing.x && i.crossing.y) {
+        let d = if self.world.version >= 7 && !(i.crossing.x && i.crossing.y) {
             i.targets
                 .iter()
                 .filter_map(|t| {
@@ -1159,7 +1175,7 @@ impl Cursor {
                 units: s.units.sub(&initial)?,
             });
         }
-        let wire_events = if self.world.version == 7 {
+        let wire_events = if self.world.version >= 7 {
             self.events
                 .iter()
                 .map(crate::deflectors_v12::pack_event)

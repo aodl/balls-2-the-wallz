@@ -166,7 +166,9 @@ impl Search {
             let cell = minimum(w, &r);
             let patch = w.patch(cell).ok_or("ENTRY_PATCH")?;
             self.visited += 1;
-            if patch.iter().any(|c| self.blocked.binary_search(c).is_ok())
+            if patch
+                .iter()
+                .any(|c| self.blocked.binary_search(c).is_ok() || crate::reservoirs::has(w, *c))
                 || spacing && !has_clearance(w, cell)
             {
                 return Ok(false);

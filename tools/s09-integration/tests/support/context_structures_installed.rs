@@ -892,3 +892,198 @@ fn spacing_rules14_upgrade_official_payments_and_authenticated_replay() {
         "independent authenticated Rules15 replay"
     );
 }
+
+// Opt-in until the exact predecessor is supplied to the hosted successor gate.
+#[test]
+#[ignore = "requires the exact qualified Rules15 normal predecessor archive"]
+fn reservoirs_rules15_upgrade_official_transfers_and_replay() {
+    use b2z_protocol::{reservoir, shout};
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("reservoir");
+    std::fs::create_dir_all(&out).unwrap();
+    let payer = Principal::self_authenticating([9; 32]);
+    let initial = test_world(payer).encode().unwrap();
+    let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers(
+        bytes("B2Z_S14_TEST_WASM"),
+        initial.clone(),
+        10_000,
+        500,
+        &[],
+    );
+    playability_installed::funding_paused(&pic, id, true);
+    upgrade(&pic, id, retained_wasm());
+    playability_installed::configuration(&pic, id, 512);
+    get_result::<Status>(&pic, id, "pause_autonomous", encode_args(()).unwrap());
+    complete_one_trickle_tick(&pic, id);
+    let mut history = vec![];
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    upgrade(&pic, id, bytes("B2Z_RULES13_PRIOR_WASM"));
+    war_cry_installed::transition_with_recovery_module(
+        &pic,
+        id,
+        "context",
+        "B2Z_RULES13_PRIOR_WASM",
+    );
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    complete_one_trickle_tick(&pic, id);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    upgrade(&pic, id, bytes("B2Z_RULES14_PRIOR_WASM"));
+    war_cry_installed::transition_with_recovery_module(&pic, id, "shout", "B2Z_RULES14_PRIOR_WASM");
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+
+    let mut input = BTreeMap::new();
+    let mut receipts = BTreeMap::new();
+    let mut send = |text: &str, amount: u64, reason: &str, adapter: u8| {
+        let position = transfer_text(&pic, ledger, payer, id, amount, text.as_bytes());
+        let (prefix, memo, cry) = if adapter == 9 {
+            let parsed = shout::parse_text(text.as_bytes()).unwrap();
+            (
+                shout::NORMALIZED_PAYMENT,
+                codec::encode(parsed.command).unwrap(),
+                parsed.cry,
+            )
+        } else {
+            let (memo, cry) = reservoir::decode_ledger(0, Some(text.as_bytes())).unwrap();
+            (reservoir::NORMALIZED_PAYMENT, memo, cry)
+        };
+        let mut raw = prefix.to_vec();
+        raw.extend(funding_account(payer).as_bytes());
+        raw.extend(amount.to_be_bytes());
+        raw.extend(memo);
+        raw.push(cry.len() as u8);
+        raw.extend(cry.as_bytes());
+        input.insert(position, hex(&raw));
+        receipts.insert(position, reason.to_owned());
+        position
+    };
+    let historic = send("DEFLECT 4007 N|Before", 10_000_000, "ACCEPTED", 9);
+    wait_admitted(&pic, id, historic);
+    complete_one_trickle_tick(&pic, id);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    let predecessor = bytes("B2Z_RULES15_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&predecessor),
+        "8d7f1a670acb9f89646afbf715d05045079de0f6925367058476c88ac1da9d89"
+    );
+    upgrade(&pic, id, predecessor);
+    war_cry_installed::transition_with_recovery_module(
+        &pic,
+        id,
+        "spacing",
+        "B2Z_RULES15_PRIOR_WASM",
+    );
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    complete_one_trickle_tick(&pic, id);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+
+    let old = arena_world(&pic, id);
+    let old_publication = observe(&pic, id).0.publication;
+    let finance = funding_tests::preserved_finance(&pic, id);
+    let cursor = status(&pic, id).source.admitted_to_exclusive;
+    upgrade(&pic, id, bytes("B2Z_S14_WASM"));
+    assert_eq!(observe(&pic, id).0.publication, old_publication);
+    war_cry_installed::transition(&pic, id, "reservoir");
+    assert_eq!(
+        arena_world(&pic, id).encode().unwrap(),
+        b2z_native::reservoirs::migrate(old)
+            .unwrap()
+            .encode()
+            .unwrap()
+    );
+    assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, cursor);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+
+    for (text, reason) in [
+        ("RESERVOIR 4005", "ACCEPTED"),
+        ("RESERVOIR 4006", "ACCEPTED"),
+        ("RESERVOIR 4006", "SITE_OCCUPIED"),
+        ("RESERVOIR 4007", "SITE_OCCUPIED"),
+        ("RESERVOIR 4010", "ENEMY_TERRITORY_TOO_CLOSE"),
+        ("RESERVOIR 4009", "ACCEPTED"),
+    ] {
+        send(text, reservoir::PRICE_E8S, reason, 10);
+    }
+    let last = send(
+        "RESERVOIR 10003",
+        reservoir::PRICE_E8S - 1,
+        "UNDERFUNDED",
+        10,
+    );
+    drop(send);
+    wait_admitted(&pic, id, last);
+    complete_one_trickle_tick(&pic, id);
+    playability_installed::record_bundled(&pic, id, &mut history, &out);
+    let w = arena_world(&pic, id);
+    let cells: Vec<_> = (0..w.cell_count())
+        .filter(|&cell| b2z_native::reservoirs::has(&w, cell))
+        .collect();
+    assert_eq!(cells, [4005, 4006, 4009]);
+    let current = arena_world(&pic, id).encode().unwrap();
+    upgrade(&pic, id, bytes("B2Z_S14_WASM"));
+    assert_eq!(arena_world(&pic, id).encode().unwrap(), current);
+
+    let mut observed = BTreeMap::new();
+    let mut events = Vec::new();
+    for p in &history {
+        let segment = p.head.segment_id.as_ref().unwrap().0.to_string();
+        let raw = std::fs::read(out.join(format!("publication-{segment}-artifact-1.bin"))).unwrap();
+        let audit: Value = decode(&raw).unwrap();
+        for receipt in audit["receipts"].as_array().unwrap() {
+            let position: u64 = receipt["position"]["$integer"]
+                .as_str()
+                .unwrap()
+                .parse()
+                .unwrap();
+            assert!(observed.insert(position, receipt.clone()).is_none());
+            assert_eq!(receipt["reason"], receipts[&position]);
+            if receipts[&position] != "ACCEPTED" {
+                assert_eq!(receipt["remainder"], receipt["amount"]);
+                assert_eq!(receipt["amount_used"]["$integer"], "0");
+            } else if position != historic {
+                assert_eq!(receipt["amount_used"]["$integer"], "1000000");
+            }
+        }
+        events.push(json!({"segment_id":segment,"events_hex":hex(&raw)}));
+    }
+    assert_eq!(observed.len(), receipts.len());
+    save(
+        &out,
+        "trace.json",
+        &json!({
+            "status":"PASS","initial_world_hex":hex(&initial),"publications":history,"artifact_events":events,
+            "inputs":input.iter().map(|(n,p)|json!({"position":n.to_string(),"payload_hex":p})).collect::<Vec<_>>(),
+            "assigned":observed.keys().map(|n|n.to_string()).collect::<Vec<_>>()
+        }),
+    );
+    let wall = pocket_ic::Time::from(std::time::SystemTime::now());
+    if wall.as_nanos_since_unix_epoch() > pic.get_time().as_nanos_since_unix_epoch() {
+        pic.set_time(wall);
+    }
+    let mut live =
+        PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
+    let gateway = live.make_live(None);
+    save(
+        &out,
+        "configuration.json",
+        &json!({
+            "network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),
+            "ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),
+            "root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":funding_account(payer).to_hex()
+        }),
+    );
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(repo)
+            .args([
+                "tools/capture_war_cry_installed.mjs",
+                out.join("configuration.json").to_str().unwrap(),
+                out.join("trace.json").to_str().unwrap(),
+                out.join("authenticated").to_str().unwrap(),
+            ])
+            .status()
+            .unwrap()
+            .success(),
+        "independent authenticated Rules16 replay"
+    );
+}

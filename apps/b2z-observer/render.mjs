@@ -1,3 +1,4 @@
+import {ReservoirOccupancy} from './reservoir-occupancy.mjs';
 import {tileIndicator,turretPresentation} from './arena-indicators.mjs';
 import {orientSceneCamera} from './isometric-projection.mjs';
 import {backingQuality} from './render-quality.mjs';
@@ -34,7 +35,29 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const material=structureMaterial(), cannonGeometry=structureGeometry(), deflectorGeometry=structureGeometry('deflector');
  const dummy=new T.Object3D(),color=new T.Color(),motion=displayedMotion(),facing=turretPresentation();let lost=false,terrainKey='',lastView=null,lastDrawKey='',structureKey='',lastStats=null,previewKey='',sizeKey='';
  renderer.debug.onShaderError=(gl,program,vertex,fragment)=>{lost=true;onError('The arena shader could not be compiled.');throw Error('Arena shader compilation failed: '+gl.getShaderInfoLog(vertex)+' '+gl.getShaderInfoLog(fragment)+' '+gl.getProgramInfoLog(program));};
- let audioMembership=null,audioGeneration=0,reservoirLayer=null;const groups=[];
+ let audioMembership=null,audioGeneration=0,reservoirLayer=null;
+ let reservoirView=null,reservoirRevision=-1,verifiedReservoirs=null,displayedReservoirCells=new Set();
+ function updateReservoirLayer(occupancy){
+  reservoirLayer?.dispose();
+  reservoirLayer=occupancy?createReservoirLayer(occupancy,scene,groundMaterial,renderer):null;
+  lastDrawKey='';
+ }
+ function updateVerifiedReservoirs(v){
+  if(reservoirView===v&&reservoirRevision===v.reservoirRevision)return;
+  reservoirView=v;reservoirRevision=v.reservoirRevision;
+  if(!verifiedReservoirs){
+   if(!v.reservoirs.size)return;
+   verifiedReservoirs=new ReservoirOccupancy(v.width,v.height,v.torus);
+   updateReservoirLayer(verifiedReservoirs);
+  }
+  const added=[],removed=[];
+  for(const cell of v.reservoirs)if(!displayedReservoirCells.has(cell))added.push(cell);
+  for(const cell of displayedReservoirCells)if(!v.reservoirs.has(cell))removed.push(cell);
+  verifiedReservoirs.setCells(removed,false);
+  verifiedReservoirs.setCells(added);
+  displayedReservoirCells=new Set(v.reservoirs);
+ }
+ const groups=[];
  function batch(geometry,max=RENDER_LIMITS.pieces,mat=material){const m=new T.InstancedMesh(geometry,mat,max);m.count=0;m.frustumCulled=false;scene.add(m);groups.push(m);return m;}
  const groundMaterial=new T.ShaderMaterial({toneMapped:false,uniforms:{ownership:{value:null},worldSize:{value:new T.Vector2(1,1)},reservoirMask:{value:null},reservoirBounds:{value:new T.Vector4()},reservoirAtlasWidth:{value:1},reservoirWrap:{value:0}},vertexShader:`varying vec2 ground;varying float topFace;void main(){vec4 p=instanceMatrix*vec4(position,1.);ground=p.xz;topFace=normal.y;gl_Position=projectionMatrix*modelViewMatrix*p;}`,fragmentShader:`
  uniform sampler2D ownership;uniform vec2 worldSize;varying vec2 ground;varying float topFace;
@@ -125,6 +148,8 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   if(lost)return;lastHover=hover;lastFollowed=followed;
   const facingRevision=facing.sample(v.cannons,aim,wallMs,reducedMotion);
   const drawKey=[themeRevision,facingRevision,audioEligible,camera.x,camera.y,camera.scale,camera.angle,camera.viewport.width,camera.viewport.height,time,v.territoryRevision,v.entityKey(),selected,selectedTile,selectedDeflector,selection?.deflector?.orientation,followed,hover?.kind,hover?.id,hover?.cell,selection?.key,selection?.cell,selection?.cells?.length,aim?.cannon.cell,aim?.angle,JSON.stringify(guideObstacles),reducedMotion,devicePixelRatio].join('/');
+  if(v.reservoirs)updateVerifiedReservoirs(v);
+  else if(verifiedReservoirs){verifiedReservoirs=null;reservoirView=null;displayedReservoirCells.clear();updateReservoirLayer(null);}
   const reservoirRefresh=reservoirLayer?.prepare(camera,{wallMs,frameTime,reducedMotion,hidden:canvas.ownerDocument.hidden});
   if(lastView===v&&lastDrawKey===drawKey&&!lastStats?.effects&&!lastStats?.tails&&!reservoirRefresh)return lastStats;
   lastDrawKey=drawKey;quality.observe(frameTime);
@@ -220,11 +245,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  function draw(...args){audioMembership=null;try{return renderFrame(...args);}catch(error){audioMembership=null;throw error;}}
  return {
   // Local presentation data only. Certified observations never supply this layer.
-  setReservoirs(occupancy){
-   reservoirLayer?.dispose();
-   reservoirLayer=occupancy?createReservoirLayer(occupancy,scene,groundMaterial,renderer):null;
-   lastDrawKey='';
-  },
+  setReservoirs:updateReservoirLayer,
   reservoirs:()=>reservoirLayer?.inspect()??null,
   audioMembership:()=>lost?null:audioMembership,draw,surface:()=>surfaceData,previews:()=>previewData,inspect(){let span=0;const a=preview.instanceMatrix.array;for(let i=0;i<preview.count;i++)span=Math.max(span,Math.hypot(a[i*16],a[i*16+1],a[i*16+2]),Math.hypot(a[i*16+4],a[i*16+5],a[i*16+6]));return{ghostKind:provisionalDeflector.base.count?'deflector':ghostBase.count?'cannon':null,deflectorGhostParts:Object.fromEntries(Object.entries(provisionalDeflector).map(([k,m])=>[k,[...m.instanceMatrix.array.slice(0,m.count*16)]])),ghostStyle:{wireframe:ghostMaterial.wireframe,opacity:ghostMaterial.opacity,depthTest:ghostMaterial.depthTest,depthWrite:ghostMaterial.depthWrite,body:ghostMaterial.color.getHexString(),barrel:ghostBarrelMaterial.color.getHexString()},guideDepth:{test:guide.material.depthTest,write:guide.material.depthWrite,height:guideGeometry.attributes.instanceStart.getY(0)},tileHighlights,selectedContours:highlighted.base.count,selectedBodies:highlighted.base.count,cannonParts:Object.fromEntries(Object.entries(parts).map(([k,m])=>[k,[...m.instanceMatrix.array.slice(0,m.count*16)]])),ghostParts:Object.fromEntries(Object.entries(provisional).map(([k,m])=>[k,[...m.instanceMatrix.array.slice(0,m.count*16)]])),followed:lastFollowed, surfaceBound:texture?.image.data===surfaceData?.rgba,previewSpan:span,hover:lastHover,barrels:[...barrels.instanceMatrix.array.slice(0,barrels.count*16)],guideEnd:guide.visible?[guideGeometry.attributes.instanceEnd.getX(0),guideGeometry.attributes.instanceEnd.getZ(0)]:null,guide:guide.visible?[guideGeometry.attributes.instanceStart.getX(0),guideGeometry.attributes.instanceStart.getZ(0)]:null,ghost:ghostBase.count?[ghostBase.instanceMatrix.array[12],ghostBase.instanceMatrix.array[14]]:null};},reset(){audioMembership=null;motion.reset();facing.reset();lastDrawKey='';structureKey='';},dispose(){reservoirLayer?.dispose();canvas.ownerDocument.removeEventListener('b2z-theme',themeHandler);canvas.removeEventListener('webglcontextlost',lostHandler);canvas.removeEventListener('webglcontextrestored',restoreHandler);const disposedGeometry=new Set(),disposedMaterials=new Set();for(const m of groups){if(!disposedGeometry.has(m.geometry)){m.geometry.dispose();disposedGeometry.add(m.geometry);}if(m.material!==material&&!disposedMaterials.has(m.material)){m.material.dispose();disposedMaterials.add(m.material);}m.dispose();}material.dispose();marker.geometry.dispose();marker.material.dispose();indicatorGeometry.dispose();for(const line of tileLines)line.material.dispose();guide.geometry.dispose();guide.material.dispose();guideUnder.material.dispose();texture?.dispose();renderer.dispose();}};
 }

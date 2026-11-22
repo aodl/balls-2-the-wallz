@@ -15,6 +15,10 @@ use std::collections::BTreeSet;
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
 #[serde(tag = "kind", rename_all = "snake_case", deny_unknown_fields)]
 pub enum Plan {
+    Reservoir {
+        cell: usize,
+        price: Int,
+    },
     Deflect {
         owner: u32,
         cell: usize,
@@ -225,7 +229,10 @@ pub(crate) fn place_new_with_context(
         vec![placement.cell]
     };
     let blocked = occupied_cells(world)?;
-    if patch.iter().any(|c| blocked.contains(c)) {
+    if patch
+        .iter()
+        .any(|&c| blocked.contains(&c) || crate::reservoirs::has(world, c))
+    {
         return Err("PLACEMENT_OCCUPIED".into());
     }
     let previous: Vec<_> = patch
@@ -358,7 +365,7 @@ pub(crate) fn prepare_with_context(
     if world.version < 6 {
         return Err("EXPECTED_V6".into());
     }
-    if world.version == 7 && memo.first() == Some(&0xb7) {
+    if world.version >= 7 && memo.first() == Some(&0xb7) {
         return crate::deflectors_v12::prepare(world, account, amount, memo);
     }
     let command = match b2z_protocol::v6::decode(memo) {

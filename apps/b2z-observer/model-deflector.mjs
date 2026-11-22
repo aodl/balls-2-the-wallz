@@ -24,14 +24,14 @@ export function validateDeflectorSnapshot(view,w){
 }
 export function applyDeflectorBuilt(view,e){
  if(e.kind!=='deflector_built')return false;
- check(view.version===7,'unsupported capability');structure(view,e.structure);
+ check(view.version>=7,'unsupported capability');structure(view,e.structure);
  check(e.reason==='ACCEPTED'&&e.status==='applied'&&e.structure.id===view.next_deflector_id&&!view.deflectors.has(e.structure.id)&&![...view.deflectors.values()].some(d=>d.cell===e.structure.cell),'construction binding');
  view.deflectors.set(e.structure.id,structuredClone(e.structure));view.next_deflector_id++;return true;
 }
 export function applyDeflectorOperation(view,event){
  const moving=event.kind==='deflector_moved';
  if(!moving&&event.kind!=='deflector_reoriented')return false;
- check(view.version===7&&view.contextStructures,'operation capability');
+ check(view.version>=7&&view.contextStructures,'operation capability');
  const before=event.before,after=event.structure;
  structure(view,before);structure(view,after);
  check(event.reason==='ACCEPTED'&&event.status==='applied'&&equal(view.deflectors.get(before.id),before)
@@ -45,7 +45,7 @@ export function applyDeflectorOperation(view,event){
  view.deflectors.set(after.id,structuredClone(after));return true;
 }
 export function applyDeflectorRemovals(view,e){
- if(view.version!==7)return;const gone=e.removed_deflectors??[];check(Array.isArray(gone)&&gone.length<=256,'removal bounds');const seen=new Set();
+ if(view.version<7)return;const gone=e.removed_deflectors??[];check(Array.isArray(gone)&&gone.length<=256,'removal bounds');const seen=new Set();
  for(const d of gone){check(!seen.has(d.id)&&equal(view.deflectors.get(d.id),d),'removal identity');seen.add(d.id);view.deflectors.delete(d.id);}
 }
 export function matchesDeflectors(view,w){check(view.next_deflector_id===w.next_deflector_id&&equal([...view.deflectors.values()].sort((a,b)=>a.cell-b.cell),w.deflectors),'final structures');}

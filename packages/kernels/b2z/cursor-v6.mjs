@@ -1,3 +1,5 @@
+import {prepareReservoir} from './reservoirs.mjs';
+import {reservoirCell,reservoirPut} from '../../protocol/reservoir.mjs';
 import {prepareContextDeflector} from './context-structures.mjs';
 /** Pure v6 command/capture continuations. No ambient clock, IC or Ledger calls. */
 import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
@@ -19,10 +21,14 @@ export function workV6(c,readPayment){
    if(c.inputIndex===c.inputs.length){c.restartSearch();return true;}
    const p=readPayment(c.inputs[c.inputIndex].payload_hex);if(c.v6.war_cry_rules)c.v6.pending_cry=p.cry||null;
    if(c.world.received_e8s+p.amount>=1n<<128n)throw Error('treasury overflow');
-   const plan=c.v6.context_rules?(prepareContextDeflector(c.world,p.account,p.amount,p.memo,!!c.v6.spacing_rules)??preparePurchase(c.world,p.account,p.amount,p.memo,c.moved,true,!!c.v6.spacing_rules)):(c.v6.deflector_rules?prepareDeflectorPurchase(c.world,p.account,p.amount,p.memo):null)??(c.v6.clearance_rules?preparePurchaseClearance:preparePurchase)(c.world,p.account,p.amount,p.memo,c.moved);c.world.received_e8s+=p.amount;
+   const reservoir=c.v6.reservoir_rules?reservoirCell(p.memo):null;
+   const plan=reservoir!==null?prepareReservoir(c.world,p.account,p.amount,reservoir):c.v6.context_rules?(prepareContextDeflector(c.world,p.account,p.amount,p.memo,!!c.v6.spacing_rules)??preparePurchase(c.world,p.account,p.amount,p.memo,c.moved,true,!!c.v6.spacing_rules)):(c.v6.deflector_rules?prepareDeflectorPurchase(c.world,p.account,p.amount,p.memo):null)??(c.v6.clearance_rules?preparePurchaseClearance:preparePurchase)(c.world,p.account,p.amount,p.memo,c.moved);c.world.received_e8s+=p.amount;
    const payment={account:p.account,amount:p.amount};
    if(plan.kind==='rejected')rejected(c,payment,plan.reason);
-   else if(plan.kind==='deflect'){
+   else if(plan.kind==='reservoir'){
+     c.world.reservoirs=reservoirPut(c.world.reservoirs,plan.cell);
+     c.receipt(payment,{reason:'ACCEPTED',kind:'reservoir_built',cell:plan.cell,status:'applied',amount_used:plan.price,remainder:p.amount-plan.price});
+   }else if(plan.kind==='deflect'){
      const structure={id:c.world.next_deflector_id++,cell:plan.cell,owner:plan.owner,orientation:plan.orientation};
      c.world.deflectors.push(structure);c.world.deflectors.sort((a,b)=>a.cell-b.cell);
      c.receipt(payment,{reason:'ACCEPTED',kind:'deflector_built',structure:{...structure},status:'applied',amount_used:plan.price,remainder:p.amount-plan.price});
@@ -81,7 +87,7 @@ export function finalizeCursorElapsed(c,observedNs){
 
 export function validateV6Cursor(c){
  const s=c.v6;
- if(!s||s.spacing_rules&&!s.shout_rules||s.shout_rules&&!s.context_rules||s.context_rules&&!s.deflector_rules||Boolean(s.deflector_rules)!==(c.world.version===7)||s.finalized&&c.phase!=='done'||s.births.length>V6_POLICY.max_cannons||new Set(s.births.map(f=>f.cannon)).size!==s.births.length
+ if(!s||Boolean(s.reservoir_rules)!==(c.world.version===8)||s.reservoir_rules&&!s.spacing_rules||s.spacing_rules&&!s.shout_rules||s.shout_rules&&!s.context_rules||s.context_rules&&!s.deflector_rules||Boolean(s.deflector_rules)!==(c.world.version>=7)||s.finalized&&c.phase!=='done'||s.births.length>V6_POLICY.max_cannons||new Set(s.births.map(f=>f.cannon)).size!==s.births.length
    ||(s.capture!==null)!==(c.phase==='v6_topology')||(s.batch!==null)!==(c.phase==='v6_purchase')
    ||(s.plan!==null)!==(c.phase==='v6_spawn')||(s.payment!==null)!==['v6_spawn','v6_purchase'].includes(c.phase)
    ||c.phase==='v6_spawn'&&!c.spawnJob||['spawn','topology'].includes(c.phase))throw Error('V6_CURSOR_PHASE');

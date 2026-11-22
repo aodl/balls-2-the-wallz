@@ -1,6 +1,7 @@
+import {readReservoirPayment,semanticReservoirPayment} from '../../protocol/reservoir.mjs';
 import {readContextPayment,semanticContextPayment} from '../../protocol/context-structures.mjs';
 import {readShoutPayment,semanticShoutPayment} from '../../protocol/shout.mjs';
-import {SHOUT_IDENTITY,SPACING_IDENTITY} from './world.mjs';
+import {SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY} from './world.mjs';
 import{packDeflectorEvent}from'./deflector-events.mjs';
 import{readDeflectorPayment,semanticDeflectorPayment}from'../../protocol/deflector.mjs';
 import{deflectorAt}from'./deflectors-v12.mjs';
@@ -24,6 +25,7 @@ export function encodePayment(account, amount, command) {
   return concat(ascii('BTZPAY02'), unhex(account, 32), be(amount, 8), encodeMemo(command));
 }
 function readPayment(payload,annotations=false,deflectors=false) {
+  if(deflectors===16)return readReservoirPayment(unhex(payload));
   if(deflectors===14)return readShoutPayment(unhex(payload));
   if(deflectors===13)return readContextPayment(unhex(payload));
   if(deflectors)return readDeflectorPayment(unhex(payload));
@@ -42,7 +44,7 @@ export function launch(world, cannon, angle) {
   const [vx, vy] = heading(angle,world.version>=5?32000:1024), x = (cannon.cell % world.width) * Q + Q / 2,
     y = Math.floor(cannon.cell / world.width) * Q + Q / 2;
   const b = {id: world.next_ball_id++, owner: world.version>=6?playerForCannon(world,cannon.id):cannon.id, cell: cannon.cell,
-    x0: BigInt(x) - BigInt(vx) * world.time[0], y0: BigInt(y) - BigInt(vy) * world.time[0], vx, vy,...(world.version===7?{den:1n}:{})};
+    x0: BigInt(x) - BigInt(vx) * world.time[0], y0: BigInt(y) - BigInt(vy) * world.time[0], vx, vy,...(world.version>=7?{den:1n}:{})};
   if(world.version>=4)cannon.heading=angle;
   world.balls.push(b); return b;
 }
@@ -86,7 +88,7 @@ export function classify(world, ball, crossing) {
     targets.push({axis, target, pass, capturable: target !== null && !cannon && !deflectorAt(world,target) && player!==undefined&&defender !== player, defender});
   }
   const attack = targets.filter(t => t.capturable).sort((a, b) => a.target - b.target)[0] ?? null;
-  return {...crossing,...(world.version===7&&(crossing.x!==crossing.y)?{deflector_target:targets.map(t=>deflectorAt(world,t.target)).find(Boolean)?.id??null}:{}), owner: ball.owner, cell: ball.cell, targets, attack};
+  return {...crossing,...(world.version>=7&&(crossing.x!==crossing.y)?{deflector_target:targets.map(t=>deflectorAt(world,t.target)).find(Boolean)?.id??null}:{}), owner: ball.owner, cell: ball.cell, targets, attack};
 }
 export function passage(world,b,i){
  const player=b.owner;
@@ -130,17 +132,17 @@ export function matchStrikes(world, incoming) {
 
 export class B2zCursor {
   constructor(state, inputs, seal, {cacheAreas = true, fastTopology = true} = {}) {
-    const identity=seal.config_hash===SPACING_IDENTITY.config_hash?SPACING_IDENTITY:seal.config_hash===SHOUT_IDENTITY.config_hash?SHOUT_IDENTITY:seal.config_hash===CONTEXT_IDENTITY.config_hash?CONTEXT_IDENTITY:seal.config_hash===DEFLECTOR_IDENTITY.config_hash?DEFLECTOR_IDENTITY:seal.config_hash===COMBINED_IDENTITY.config_hash?COMBINED_IDENTITY:seal.config_hash===WAR_CRY_IDENTITY.config_hash?WAR_CRY_IDENTITY:seal.config_hash===CLEARANCE_IDENTITY.config_hash?CLEARANCE_IDENTITY:seal.config_hash===ENTRY_IDENTITY.config_hash?ENTRY_IDENTITY:seal.config_hash===PLAYABILITY_IDENTITY.config_hash?PLAYABILITY_IDENTITY:seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
+    const identity=seal.config_hash===RESERVOIR_IDENTITY.config_hash?RESERVOIR_IDENTITY:seal.config_hash===SPACING_IDENTITY.config_hash?SPACING_IDENTITY:seal.config_hash===SHOUT_IDENTITY.config_hash?SHOUT_IDENTITY:seal.config_hash===CONTEXT_IDENTITY.config_hash?CONTEXT_IDENTITY:seal.config_hash===DEFLECTOR_IDENTITY.config_hash?DEFLECTOR_IDENTITY:seal.config_hash===COMBINED_IDENTITY.config_hash?COMBINED_IDENTITY:seal.config_hash===WAR_CRY_IDENTITY.config_hash?WAR_CRY_IDENTITY:seal.config_hash===CLEARANCE_IDENTITY.config_hash?CLEARANCE_IDENTITY:seal.config_hash===ENTRY_IDENTITY.config_hash?ENTRY_IDENTITY:seal.config_hash===PLAYABILITY_IDENTITY.config_hash?PLAYABILITY_IDENTITY:seal.config_hash===MILLION_IDENTITY.config_hash?MILLION_IDENTITY:seal.config_hash===TORUS_IDENTITY.config_hash?TORUS_IDENTITY:seal.config_hash===PRELAUNCH_IDENTITY.config_hash?PRELAUNCH_IDENTITY:B2Z_IDENTITY;
     for (const k of Object.keys(identity)) if (seal[k] !== identity[k]) throw new Error('B2Z rule/config/schema identity');
     if(identity!==B2Z_IDENTITY)this.joinE8s=PRELAUNCH_CONFIG.join_e8s;
-    const spacingRules=identity===SPACING_IDENTITY,shoutRules=spacingRules||identity===SHOUT_IDENTITY,contextRules=shoutRules||identity===CONTEXT_IDENTITY,deflectorRules=contextRules||identity===DEFLECTOR_IDENTITY;
-    this.world = decodeWorld(state);if(deflectorRules||identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY)this.v6={plan:null,payment:null,batch:null,capture:null,births:[],finalized:false,...([ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY].includes(identity)?{entry_rules:true}:{}),...([CLEARANCE_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY].includes(identity)?{clearance_rules:true}:{}),...([WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY].includes(identity)?{war_cry_rules:true,pending_cry:null}:{}),...(deflectorRules?{deflector_rules:true}:{}),...(contextRules?{context_rules:true}:{}),...(shoutRules?{shout_rules:true}:{}),...(spacingRules?{spacing_rules:true}:{})};if(this.world.version!==(deflectorRules?7:identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY?6:identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
+    const reservoirRules=identity===RESERVOIR_IDENTITY,spacingRules=reservoirRules||identity===SPACING_IDENTITY,shoutRules=spacingRules||identity===SHOUT_IDENTITY,contextRules=shoutRules||identity===CONTEXT_IDENTITY,deflectorRules=contextRules||identity===DEFLECTOR_IDENTITY;
+    this.world = decodeWorld(state);if(deflectorRules||identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY)this.v6={plan:null,payment:null,batch:null,capture:null,births:[],finalized:false,...([ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY].includes(identity)?{entry_rules:true}:{}),...([CLEARANCE_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY].includes(identity)?{clearance_rules:true}:{}),...([WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY].includes(identity)?{war_cry_rules:true,pending_cry:null}:{}),...(deflectorRules?{deflector_rules:true}:{}),...(contextRules?{context_rules:true}:{}),...(shoutRules?{shout_rules:true}:{}),...(spacingRules?{spacing_rules:true}:{}),...(reservoirRules?{reservoir_rules:true}:{})};if(this.world.version!==(reservoirRules?8:deflectorRules?7:identity===COMBINED_IDENTITY||identity===WAR_CRY_IDENTITY||identity===PLAYABILITY_IDENTITY||identity===ENTRY_IDENTITY||identity===CLEARANCE_IDENTITY?6:identity===MILLION_IDENTITY?5:identity===TORUS_IDENTITY?4:3))throw new Error('world/identity mismatch'); this.inputs = canonicalInputs(inputs); this.inputIndex = 0; this.moved = [];
     this.start = rat(uint(seal.logical_start)); this.end = rat(uint(seal.logical_end));
     if (cmp(this.world.time, this.start) !== 0 || cmp(this.end, this.start) <= 0
         || cmp(sub(this.end, this.start), rat(deflectorRules?DEFLECTOR_CONFIG.max_segment_ticks:LIMITS.max_segment_ticks)) > 0
         || cmp(this.end, rat(1000000000)) > 0 || inputs.length > 4096) throw new Error('B2Z segment context');
     this.seedBase = sha256(encodeCanonical({domain: 'BTZ-SPAWN-INPUT-03', state: sha256(deflectorRules?semanticDeflectorWorld(state):state),
-      inputs: sha256(encodeCanonical([WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY].includes(identity)?this.inputs.map(i=>({...i,payload_hex:hex((shoutRules?semanticShoutPayment:contextRules?semanticContextPayment:deflectorRules?semanticDeflectorPayment:semanticPayment)(unhex(i.payload_hex)))})):this.inputs)), logical_start: this.start}));
+      inputs: sha256(encodeCanonical([WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY].includes(identity)?this.inputs.map(i=>({...i,payload_hex:hex((reservoirRules?semanticReservoirPayment:shoutRules?semanticShoutPayment:contextRules?semanticContextPayment:deflectorRules?semanticDeflectorPayment:semanticPayment)(unhex(i.payload_hex)))})):this.inputs)), logical_start: this.start}));
     this.initialCredits = cloneCanonical(this.world.credits);
     this.phase = 'commands'; this.events = []; this.receipts = [];
     this.scan = 0; this.candidates = []; this.intents = []; this.nextTime = this.start;
@@ -178,7 +180,7 @@ export class B2zCursor {
     this.world.pending = valid;
   }
   work() {
-    if(this.world.version>=6&&workV6(this,payload=>readPayment(payload,!!this.v6.war_cry_rules,this.v6.shout_rules?14:this.v6.context_rules?13:!!this.v6.deflector_rules)))return;
+    if(this.world.version>=6&&workV6(this,payload=>readPayment(payload,!!this.v6.war_cry_rules,this.v6.reservoir_rules?16:this.v6.shout_rules?14:this.v6.context_rules?13:!!this.v6.deflector_rules)))return;
     if (this.phase === 'commands') {
       if (this.inputIndex < this.inputs.length) {
         const i = this.inputs[this.inputIndex], payment = readPayment(i.payload_hex);
@@ -257,7 +259,7 @@ export class B2zCursor {
       const sx=Math.sign(b.vx),sy=Math.sign(b.vy);
       const xy = position(b, this.world.time);
       let deflector_contact;
-      const target=this.world.version===7&&!(i.x&&i.y)?i.targets.find(t=>deflectorAt(this.world,t.target)?.id===i.deflector_target):null;
+      const target=this.world.version>=7&&!(i.x&&i.y)?i.targets.find(t=>deflectorAt(this.world,t.target)?.id===i.deflector_target):null;
       if(target){const d=deflectorAt(this.world,target.target),face=i.x?(b.vx>0?'W':'E'):(b.vy>0?'N':'S');
         const response=contactResponse(b,this.world.time,d.orientation,face,i.x?i.xwall:i.ywall);
         Object.assign(b,response.trajectory);
@@ -324,7 +326,7 @@ export class B2zCursor {
     if (this.phase !== 'done'||this.needsElapsed()) throw new Error('incomplete B2Z segment');
     const scores = this.world.credits.map(s => ({account: s.account,
       units: sub(s.units, this.initialCredits.find(p => p.account === s.account)?.units ?? rat(0))}));
-    return {state: encodeWorld(this.world), events: encodeCanonical({version: this.world.version, receipts: this.receipts, events: this.world.version===7?this.events.map(packDeflectorEvent):this.events}),
+    return {state: encodeWorld(this.world), events: encodeCanonical({version: this.world.version, receipts: this.receipts, events: this.world.version>=7?this.events.map(packDeflectorEvent):this.events}),
       scores: encodeCanonical({version: this.world.version, area_time: scores})};
   }
   snapshot() { return encodeCanonical({version: 3, cursor: {...this}}); }
@@ -352,6 +354,6 @@ export const B2zKernel = {begin: (s, i, c) => new B2zCursor(s, i, c), restore: B
   fork: cursor => Object.assign(Object.create(B2zCursor.prototype), structuredClone({...cursor}))};
 
 function semanticDeflectorWorld(bytes){
- const w=decodeWorld(bytes);if(w.deflectors.length||w.balls.some(b=>b.den!==1n||b.deflector_rearm!==undefined))return bytes;
- w.version=6;delete w.deflectors;delete w.next_deflector_id;for(const b of w.balls)delete b.den;return encodeWorld(w);
+ const w=decodeWorld(bytes);if(w.reservoirs?.length||w.deflectors.length||w.balls.some(b=>b.den!==1n||b.deflector_rearm!==undefined))return bytes;
+ w.version=6;delete w.deflectors;delete w.next_deflector_id;delete w.reservoirs;for(const b of w.balls)delete b.den;return encodeWorld(w);
 }

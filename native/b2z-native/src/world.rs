@@ -194,6 +194,8 @@ pub struct World {
         deserialize_with = "read_deflector_id"
     )]
     pub next_deflector_id: Option<u32>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub reservoirs: Option<String>,
 }
 pub fn account_ok(s: &str) -> bool {
     s.len() == 64
@@ -531,7 +533,7 @@ impl World {
     /// For resolved states only. Topology continuation snapshots may be transiently disconnected.
     pub fn validate(&self) -> Result<()> {
         let fail = |s: &str| -> Result<()> { Err(s.into()) };
-        if ![3, 4, 5, 6, 7].contains(&self.version)
+        if ![3, 4, 5, 6, 7, 8].contains(&self.version)
             || (self.version == 4 && (self.width != 32 || self.height != 32))
             || (self.version >= 5 && (self.width != 1000 || self.height != 1000))
             || !(1..=1000).contains(&self.width)
@@ -690,7 +692,7 @@ impl World {
                 return fail("ball bounds/identity");
             }
             last = b.id;
-            let limit = BigInt::from(if self.version == 7 {
+            let limit = BigInt::from(if self.version >= 7 {
                 6553600000000000000u64
             } else {
                 100000000000000u64
@@ -698,7 +700,7 @@ impl World {
             if b.x0.0.abs() > limit || b.y0.0.abs() > limit {
                 return fail("motion intercept");
             }
-            if self.version == 7 {
+            if self.version >= 7 {
                 crate::deflectors_v12::validate_ball(b)?;
             } else if b.den.is_some() || b.deflector_rearm.is_some() {
                 return fail("historical trajectory extension");
@@ -778,11 +780,12 @@ impl World {
         if let Some(state) = &self.playability {
             state.validate(self)?;
         }
-        if self.version == 7 {
+        if self.version >= 7 {
             crate::deflectors_v12::validate(self)?;
         } else if self.deflectors.is_some() || self.next_deflector_id.is_some() {
             return fail("historical structure extension");
         }
+        crate::reservoirs::validate(self)?;
         Ok(())
     }
     pub fn valid_strike(&self, p: &Strike) -> bool {

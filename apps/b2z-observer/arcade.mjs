@@ -1,5 +1,5 @@
 import {fitShout} from '../../packages/protocol/shout.mjs';
-import {contextSupported,shoutSupported,spacingSupported} from './context-policy.mjs';
+import {contextSupported,shoutSupported,spacingSupported,reservoirSupported} from './context-policy.mjs';
 import {contextReason,contextSites,firstContextDestination} from './context-sites.mjs';
 import {SCREEN_ORIENTATIONS,screenDirection} from '../../packages/protocol/context-structures.mjs';
 import{deflectorSupported,snappedDeflectorDegrees,orientationFromDegrees,deflectorDegrees}from'./deflector-policy.mjs';
@@ -23,7 +23,7 @@ import {experienceStatus} from './experience-status.mjs';
 export function formatIcp(e8s){if(typeof e8s!=='bigint'||e8s<0n)throw Error('exact nonnegative e8s required');const d=(e8s%100000000n).toString().padStart(8,'0').replace(/0+$/,'');return `${e8s/100000000n}${d?'.'+d:''} ICP`;}
 export const transferMemo=degrees=>describeTextMemo('angle',degrees);
 /** UX-08/10: describe the displayed packet, including a retained copied packet. */
-export function paymentWarning(q){return Number.isSafeInteger(q?.cell)&&q.cell>=0&&['move','start','deflect','deflector_move'].includes(q.action)?'If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.':'Fire balls to claim territory, and combine with obstacles to orchestrate defensive shields or offensive rallies!';}
+export function paymentWarning(q){return Number.isSafeInteger(q?.cell)&&q.cell>=0&&['move','start','deflect','deflector_move','reservoir'].includes(q.action)?'If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.':'Fire balls to claim territory, and combine with obstacles to orchestrate defensive shields or offensive rallies!';}
 export function createArcade(doc,{paymentCurrent=()=>true}={}){
  const $=id=>doc.getElementById(id),text=(id,value)=>{if($(id).textContent!==value)$(id).textContent=value;};
  let cry='',composing=false,cryProblem='',cryBudget=null;
@@ -64,33 +64,33 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   if(mine().length){const account=declaration.account,w=world;api.cancel({entry:false});const token=entryGeneration;doc.dispatchEvent(new CustomEvent('b2z-return-territory',{detail:{world:w,account,current:()=>entryGeneration===token&&declaration?.account===account}}));}
   else action('start');
  }
- const shoutActive=()=>mode!=='inspect'&&(shoutSupported(config)||warCrySupported(config)&&['ball','start'].includes(mode));
+ const shoutActive=()=>!['inspect','reservoir'].includes(mode)&&(shoutSupported(config)||warCrySupported(config)&&['ball','start'].includes(mode));
  function candidate(){
   if(!world||!config||!destination)return {reason:'Waiting for verified payment instructions.'};
   if(!declaration)return {reason:'Choose your sending account.'};
   if(mode==='inspect')return null;
   const c=selected(),successor=structureContexts(),rotating=mode==='deflector_reorient',movingDeflector=mode==='deflector_move';
   if((rotating||movingDeflector)&&!deflectorOwn())return {reason:'This Diverter is no longer available to your account.'};
-  if(!rotating&&!movingDeflector&&!(successor&&mode==='deflect'&&tileOwn())&&mode!=='start'&&c?.account!==declaration.account)return {reason:'This cannon is no longer available to your account.'};
+  if(!rotating&&!movingDeflector&&!(successor&&['deflect','reservoir'].includes(mode)&&tileOwn())&&mode!=='start'&&c?.account!==declaration.account)return {reason:'This cannon is no longer available to your account.'};
   try{
    if(mode==='move'&&cell===c?.cell)throw Error('DIFFERENT_TILE');
-   const m=mode==='move'||movingDeflector?null:transferMemo(worldAngle===null?encodedHeading(degrees):worldAngle);const angle=m?.text.slice(6)??null;
+   const m=mode==='move'||mode==='reservoir'||movingDeflector?null:transferMemo(worldAngle===null?encodedHeading(degrees):worldAngle);const angle=m?.text.slice(6)??null;
    if(mode==='start'&&mine().length&&cell===null)return {reason:successor?'Choose an owned tile.':buildSites().length?'Choose an empty neighbouring tile.':buildReason()};
    const requested=mode==='ball'||successor&&mode==='start'&&tileOwn()?quantity:1;
    let q;
-   if(world.version>=6)q=prepareQuoteV6(world,config,declaration.account,{kind:{start:'new',ball:'fire',move:'move',deflect:'deflect',deflector_move:mode,deflector_reorient:mode}[mode],cannon:id,deflector:deflectorId,angle,quantity:requested,cell});
+   if(world.version>=6)q=prepareQuoteV6(world,config,declaration.account,{kind:{start:'new',ball:'fire',move:'move',deflect:'deflect',deflector_move:mode,deflector_reorient:mode,reservoir:mode}[mode],cannon:id,deflector:deflectorId,angle,quantity:requested,cell});
    else{if(mode==='start'&&mine().length)throw Error('ACCOUNT_ALREADY_HAS_CANNON');if(mode==='move'&&!c.owns(cell))throw Error('ILLEGAL_MOVE');const memo=mode==='move'?describeTextMemo('move',String(cell)):m;q={amount:mode==='start'?config.join_e8s:mode==='move'?config.move_e8s:c.next_ball_e8s,memo:memo.text,memo_bytes:new TextEncoder().encode(memo.text)};if(q.amount===null)throw Error('BALL_CAPACITY');}
    let annotation={};if(shoutActive()){
     if(composing||cryProblem)return{reason:cryProblem||'Finish Shout composition before copying.'};
     const fitted=(shoutSupported(config)?fitShout:fitCry)(q.memo,cry);cryBudget=fitted.available;if(fitted.shortened){cry=fitted.cry;text('war-cry-note','Shortened to fit memo');}q={...q,memo:fitted.memo,memo_bytes:new TextEncoder().encode(fitted.memo)};
     annotation={cry,capability:shoutSupported(config)?'btz-successful-action-shout-1':'btz-war-cry-1',capability_config:config.rules_version};
    }
-   return {...annotation,account:declaration.account,payer:declaration.display??declaration.principal??declaration.account,network:source.network,backend:source.owner,action:mode,cannon:mode==='start'?null:id,...(successor?{structure:deflectorId}:{}),angle:mode==='move'||movingDeflector?null:angle,cell,requested:q.requested??requested,maximum_fill:q.maximum_fill??1,amount:q.amount,memo:q.memo,hex:Array.from(q.memo_bytes,b=>b.toString(16).padStart(2,'0')).join(''),owner:destination.primary,subaccount:String(source.subaccount),recipient:destination.legacy,rules:config.rules_version??world.version,snapshot:revision};
+   return {...annotation,account:declaration.account,payer:declaration.display??declaration.principal??declaration.account,network:source.network,backend:source.owner,action:mode,cannon:mode==='start'?null:id,...(successor?{structure:deflectorId}:{}),angle:mode==='move'||mode==='reservoir'||movingDeflector?null:angle,cell,requested:q.requested??requested,maximum_fill:q.maximum_fill??1,amount:q.amount,memo:q.memo,hex:Array.from(q.memo_bytes,b=>b.toString(16).padStart(2,'0')).join(''),owner:destination.primary,subaccount:String(source.subaccount),recipient:destination.legacy,rules:config.rules_version??world.version,snapshot:revision};
   }catch(error){const reasons={ENEMY_TERRITORY_TOO_CLOSE:'Too close to enemy territory.',DIFFERENT_TILE:'Choose a different tile.',BALL_CAPACITY:'Ball capacity reached.',ILLEGAL_MOVE:'Choose a legal highlighted destination.',DEFLECTOR_TOO_CLOSE:'Leave one clear tile between Diverters.',ILLEGAL_DEFLECTOR_SITE:'Choose a legal owned tile for the Diverter.',UNSUPPORTED_DEFLECTOR:'Diverters are unavailable under the active verified rules.',NOT_OWNER:'Choose one of your cannons.',NO_ADJACENT_SITE:'No adjacent site is currently available.',NO_ELIGIBLE_SPAWN:'No first site is currently available.',PLAYER_CANNON_CAPACITY:'Your cannon capacity is reached.',CANNON_CAPACITY:'Cannon capacity is reached.',QUANTITY_BOUNDS:'Choose between 1 and 64 balls.',CELL_BOUNDS:'Choose a destination cell.',ILLEGAL_ADJACENT_SITE:'That site is no longer eligible. Choose another.',ACCOUNTING_CAPACITY:'Player capacity reached.',HEADING_BOUNDS:'Heading must be between 0 and 359.99°.'};return {reason:(successor?contextReason(error.message):undefined)??reasons[error.message]??(mode==='move'?'Choose a legal destination.':'Enter a heading from 0 to 359.99° and a valid quantity.')};}
  }
  function renderPacket(q){
   text('transfer-amount',formatIcp(BigInt(q.amount)));text('payment-owner',shortRecipient(q.owner));text('full-recipient',q.owner);text('text-memo',q.memo);text('paying-account',shortRecipient(q.payer??q.account));text('full-payer',q.payer??q.account);
-  text('payment-risk',paymentWarning(q));$('payment-risk').title=clearanceActive(config)&&['move','start','deflect','deflector_move'].includes(q.action)&&Number.isSafeInteger(q.cell)?'A new enemy claim within four cells can also invalidate the action.':'';const launches=q.action==='ball'||q.action==='start'&&mine().length>0;$('amount-detail').hidden=!launches;text('amount-detail',launches?`${q.requested} ${q.requested===1?'ball':'balls'}`:'');
+  text('payment-risk',paymentWarning(q));$('payment-risk').title=clearanceActive(config)&&['move','start','deflect','deflector_move','reservoir'].includes(q.action)&&Number.isSafeInteger(q.cell)?'A new enemy claim within four cells can also invalidate the action.':'';const launches=q.action==='ball'||q.action==='start'&&mine().length>0;$('amount-detail').hidden=!launches;text('amount-detail',launches?`${q.requested} ${q.requested===1?'ball':'balls'}`:'');
  }
  const copyControls=[...doc.querySelectorAll('[data-copy]')];
  let quoteBlocked=false;
@@ -109,7 +109,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  function refreshAction(){
   if(view==='action'){
     text('panel-title',title());
-   text('action-prompt',mode==='deflector_reorient'?'Pay to Reorient':mode==='deflect'?'Pay to Build & Divert':['move','deflector_move'].includes(mode)?'Pay to Move':mode==='start'?(mine().length?'Pay to Build & Fire':'Pay to Join'):'Pay to Fire');
+   text('action-prompt',mode==='reservoir'?'Pay to Build Reservoir':mode==='deflector_reorient'?'Pay to Reorient':mode==='deflect'?'Pay to Build & Divert':['move','deflector_move'].includes(mode)?'Pay to Move':mode==='start'?(mine().length?'Pay to Build & Fire':'Pay to Join'):'Pay to Fire');
    quote=candidate();$('war-cry').disabled=cryBudget===0||!globalThis.Intl?.Segmenter;$('war-cry').title=$('war-cry').disabled?(cryBudget===0?'No space remains in this memo':'Shout requires grapheme support in this browser'):'Public on-chain text';if(!composing&&!cryProblem&&$('war-cry').value!==cry)$('war-cry').value=cry;if(manual&&instructionKey(manual.q)!==instructionKey(packet??quote)){manual=null;$('manual-copy').hidden=true;}const differs=Boolean(packet&&instructionKey(quote)!==instructionKey(packet)),changed=differs&&!keepPrevious;
    $('replace-choice').hidden=!changed;$('prepared-card').hidden=Boolean(changed||(!packet&&(!quote||quote.reason)));
    if(!$('prepared-card').hidden)renderPacket(packet??quote);
@@ -158,6 +158,8 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   for(const [name,value]of [['fire-action','ball'],['move-action',ownDeflector?'deflector_move':'move'],['build-action','start'],['deflect-action','deflect'],['reorient-action','deflector_reorient']]){
    const active=view==='action'&&mode===value;$(name).setAttribute('aria-pressed',String(active));$(name).setAttribute('aria-expanded',String(active));
   }
+  const reservoirButton=$('reservoir-action');
+  if(reservoirButton){reservoirButton.hidden=!(view==='action'&&tile&&reservoirSupported(config));reservoirButton.setAttribute('aria-pressed',String(mode==='reservoir'));}
   $('deflector-directions').hidden=!(view==='action'&&orientationMode()&&deflectorSupported(config));
   setDirections();
   const cryActive=view==='action'&&shoutActive();$('war-cry-editor').hidden=!cryActive;const cryInput=$('war-cry');if(!composing&&!cryProblem&&cryInput.value!==cry)cryInput.value=cry;
@@ -174,7 +176,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   if(!history)return;const key=JSON.stringify([declaration?.account,history.records(),history.cachedReceipts(),receipts],(_,v)=>typeof v==='bigint'?String(v):v);if(key===activityKey)return;activityKey=key;const saved=[];
   for(const r of history.records().filter(r=>r.account===declaration?.account)){
    const entry=doc.createElement('article'),label=doc.createElement('p'),b=doc.createElement('button');label.textContent=`${r.memo} · ${formatIcp(BigInt(r.amount))}${r.state==='unknown'?' · outcome unknown':''}`;entry.append(label);
-   if(r.backend===source.owner&&r.network===source.network&&r.owner&&r.recipient&&r.hex){b.textContent='View saved instructions';b.onclick=()=>{mode=r.action;id=r.cannon;deflectorId=r.structure??null;tileSelection=structureContexts()&&['start','deflect'].includes(r.action)?r.cell:null;cell=r.cell;worldAngle=r.angle??worldAngle;degrees=displayHeading(worldAngle);packet=r;keepPrevious=true;warning='Saved instructions may no longer apply. Review before using.';quantity=r.requested??1;cry=r.cry??'';cryProblem='';show('action','Saved instructions');refresh();};entry.append(b);}saved.push(entry);
+   if(r.backend===source.owner&&r.network===source.network&&r.owner&&r.recipient&&r.hex){b.textContent='View saved instructions';b.onclick=()=>{mode=r.action;id=r.cannon;deflectorId=r.structure??null;tileSelection=structureContexts()&&['start','deflect','reservoir'].includes(r.action)?r.cell:null;cell=r.cell;worldAngle=r.angle??worldAngle;degrees=displayHeading(worldAngle);packet=r;keepPrevious=true;warning='Saved instructions may no longer apply. Review before using.';quantity=r.requested??1;cry=r.cry??'';cryProblem='';show('action','Saved instructions');refresh();};entry.append(b);}saved.push(entry);
   }
   if(!saved.length){const p=doc.createElement('p');p.textContent='No saved instructions.';saved.push(p);}$('saved-list').replaceChildren(...saved);
   const outcomes=new Map(history.cachedReceipts().map(r=>[String(r.position),{...r,cached:true}]));for(const r of receipts)outcomes.set(String(r.position),r);
@@ -219,7 +221,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   const sites=successor&&world?contextSites(world,config):null,moving={kind:deflector?'deflector':'cannon',id:c?.id};
   const facts=world?moveLegalityIdentity(world,config,declaration?.account,id,Boolean(c?.dormant)):null;
   const fingerprint=sites?[facts,deflectorId,sites.occupiedKey,sites.activeKey,world.deflectors.map(d=>[d.id,d.cell,d.owner].join(':')).join(',')].join('/'):facts;
-  if(fingerprint!==null&&fingerprint===moveFingerprint){moveWorld=world;moveConfig=config;moveKey=key;return defaultMove;}
+  if(fingerprint!==null&&fingerprint===moveFingerprint&&moveWorld?.reservoirs===world?.reservoirs){moveWorld=world;moveConfig=config;moveKey=key;return defaultMove;}
   moveFingerprint=fingerprint;
   moveSearch?.cancel();moveSearch=null;moveLegality=null;moveWorld=world;moveConfig=config;moveKey=key;moveReady=false;defaultMove=null;
   if(!c||c.dormant||!declaration||!world){moveReady=true;return null;}
@@ -272,7 +274,8 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  function contextAction(value,{selectedSite=false}={}){
   const d=pickedDeflector(),tile=tileOwn(),c=selected(),moving=['move','deflector_move'].includes(value);
   if(d&&(!deflectorOwn()||!['deflector_move','deflector_reorient'].includes(value)))return;
-  if(tile&&(!['start','deflect'].includes(value)||!selectedSite&&tileBuildIssue(value==='start'?'new':'deflect')))return;
+  if(value==='reservoir'&&!reservoirSupported(config))return;
+  if(tile&&(!['start','deflect','reservoir'].includes(value)||value!=='reservoir'&&!selectedSite&&tileBuildIssue(value==='start'?'new':'deflect')))return;
   if(!tile&&!d&&(!c||c.account!==declaration?.account||!['ball','move'].includes(value)))return;
   if(moving&&(moveDestination()===null||!moveReady)){refresh();return;}
   cancelEntryNavigation();intentVersion++;
@@ -289,7 +292,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  $('change-account').onclick=$('payer-change').onclick=()=>{show('account','Sending account');$('identity-form').hidden=false;$('account-summary').hidden=true;$('sending-account').value=declaration?.display??declaration?.principal??declaration?.account??'';$('identity-subaccount').value='';$('sending-account').focus();};
  $('identity-forget').onclick=()=>{cancelEntryNavigation();store?.forget();declaration=null;id=null;tileSelection=deflectorId=null;packet=null;warning='';pending=null;mode='inspect';identityLabel();activity();refresh();};
  $('cycles-display').onclick=()=>api.openStatus();
- $('identify-button').onclick=()=>api.openAccount();$('join-action').onclick=enter;$('fire-action').onclick=()=>action('ball');$('move-action').onclick=()=>action(pickedDeflector()?'deflector_move':'move');$('reorient-action').onclick=()=>action('deflector_reorient');$('build-action').onclick=()=>action('start');$('deflect-action').onclick=()=>action('deflect');
+ $('identify-button').onclick=()=>api.openAccount();$('join-action').onclick=enter;$('fire-action').onclick=()=>action('ball');$('move-action').onclick=()=>action(pickedDeflector()?'deflector_move':'move');$('reorient-action').onclick=()=>action('deflector_reorient');$('build-action').onclick=()=>action('start');$('deflect-action').onclick=()=>action('deflect');if($('reservoir-action'))$('reservoir-action').onclick=()=>action('reservoir');
  for(const b of doc.querySelectorAll('[data-deflector-orientation]'))b.onclick=()=>api.setDeflectorOrientation(b.dataset.deflectorOrientation);
  for(const b of doc.querySelectorAll('[data-heading]'))b.onclick=()=>api.setHeading(Number(b.dataset.heading));
  $('join-direction').addEventListener('keydown',e=>{const n={ArrowLeft:-1,ArrowRight:1,ArrowUp:-1,ArrowDown:1}[e.key];if(n){api.adjustAngle(n*(e.altKey?.01:e.shiftKey?5:1));e.preventDefault();e.stopPropagation();}});
@@ -341,11 +344,12 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    if(context!==nextContext){const firstContext=context===null;context=nextContext;if(!firstContext){cancelEntryNavigation();view=null;$('workspace').hidden=true;}store=identityStore(s.network,s.owner,storage);declaration=(firstContext&&declaration)||store.read();history=createHandoffs(storage,`B2Z-activity-v1:${context}`);packet=null;keepPrevious=false;warning='';id=null;tileSelection=deflectorId=null;mode='inspect';try{const raw=storage?.getItem(`B2Z-view-v1:${context}`);preferences=raw&&raw.length<4096?JSON.parse(raw):{};}catch{preferences={};}cameraState=declaration?.camera?.projection==='isometric-1'?declaration.camera:null;// Remembered navigation preference is not an explicit session selection.
  id=null;identityLabel();}
    const spacingChanged=world&&spacingSupported(config)!==spacingSupported(c);
-   const contextChanged=world&&(structureContexts()!==contextSupported(c)||spacingChanged);
+   const reservoirChanged=world&&reservoirSupported(config)!==reservoirSupported(c);
+   const contextChanged=world&&(structureContexts()!==contextSupported(c)||spacingChanged||reservoirChanged);
    if(contextChanged&&['action','inspect'].includes(view)){
     rememberDraft();view=null;mode='inspect';id=null;cell=tileSelection=deflectorId=null;$('workspace').hidden=true;keepPrevious=false;
    }
-   if(spacingChanged){
+   if(spacingChanged||reservoirChanged){
     // A copied predecessor instruction remains in Account history. It cannot
     // become a current packet just because the successor uses the same memo bytes.
     packet=manual=null;keepPrevious=false;$('manual-copy').hidden=true;text('copy-feedback','');
@@ -438,8 +442,9 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   moveSelection(){
    if(view!=='action'||!world)return null;
    const c=selected(),d=pickedDeflector(),dimension={width:world.width,height:world.height},legal=n=>moveLegality?.test(n)??false;
-   if(structureContexts()&&['start','deflect'].includes(mode)&&tileOwn()){
-    return {...dimension,kind:mode==='start'?'new':'deflect',key:revision+'/'+mode+'/tile',legal:n=>!tileBuildIssue(mode==='start'?'new':'deflect',n),cells:[],cell,anchor:tileSelection};
+   if(structureContexts()&&['start','deflect','reservoir'].includes(mode)&&tileOwn()){
+    const kind=mode==='start'?'new':mode;
+    return {...dimension,kind,key:revision+'/'+mode+'/tile',legal:n=>!tileBuildIssue(kind,n),cells:[],cell,anchor:tileSelection};
    }
    if(mode==='deflector_move'&&d)return {...dimension,kind:'deflector_move',key:revision+'/deflector/'+d.id,deflector:d,legal,cells:[],cell};
    if(mode==='deflect'&&deflectorSupported(config))return {...dimension,kind:'deflect',key:revision+'/deflect/'+siteKey,legal:n=>deflectLegality?.test(n)??false,cells:[],cell,anchor:c?.cell};
@@ -448,10 +453,10 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   },
   chooseCell(n){
    const selection=api.moveSelection();
-   if(selection&&spacingSupported(config)&&tileOwn()&&['start','deflect'].includes(mode)&&api.tileSelectable(n))return n===tileSelection||api.selectTile(n,mode);
+   if(selection&&spacingSupported(config)&&tileOwn()&&['start','deflect','reservoir'].includes(mode)&&api.tileSelectable(n))return n===tileSelection||api.selectTile(n,mode);
    if(selection&&n===null){cell=null;keepPrevious=false;clearDraft();refresh();return true;}
    if(!(selection?.legal?selection.legal(n):selection?.cells.includes(n))){
-    const pending=structureContexts()&&['start','deflect'].includes(mode)?tileBuildIssue(mode==='start'?'new':'deflect',n):null;
+    const pending=structureContexts()&&['start','deflect','reservoir'].includes(mode)?tileBuildIssue(mode==='start'?'new':mode,n):null;
     text('preparation-note',pending??(mode==='start'?'Choose an empty eligible neighbouring tile.':n===selected()?.cell?'Choose a different tile.':'That move is unavailable: check ownership, occupancy or dormancy.'));return false;
    }
    keepPrevious=false;cell=n;clearDraft();refresh();return true;

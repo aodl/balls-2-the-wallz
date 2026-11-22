@@ -9,6 +9,7 @@ fn million_split_world() -> b2z_native::world::World {
     World {
         deflectors: None,
         next_deflector_id: None,
+        reservoirs: None,
         version: 4,
         width: 32,
         height: 32,

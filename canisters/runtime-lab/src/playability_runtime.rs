@@ -563,6 +563,27 @@ pub fn spacing_candidate<K: Kernel>(
     )
 }
 
+pub fn reservoir_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    schema7_candidate(
+        h,
+        t,
+        source,
+        b2z_native::spacing::identity()?,
+        b2z_native::reservoirs::identity(),
+        Schema7Cutover {
+            version: 12,
+            migration: "B2Z_RESERVOIR_RULES_16",
+            event: "reservoir_rules_activated",
+            previous_adapter: b2z_protocol::shout::MEMO_ADAPTER_VERSION,
+            next_adapter: b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
+        },
+    )
+}
+
 fn schema7_candidate<K: Kernel>(
     h: &Coordinator<K>,
     t: &Transition,
@@ -630,10 +651,16 @@ fn schema7_candidate<K: Kernel>(
     if old.encode()? != state {
         return Err("noncanonical state at schema7 cutover".into());
     }
+    let next = if policy.version == 12 {
+        b2z_native::reservoirs::migrate(old.clone())?
+    } else {
+        old.clone()
+    };
+    let state_after = next.encode()?;
     let metadata = json!({
         "version":policy.version,"migration":policy.migration,
         "old_identity":h.record.journal.identity,"new_identity":identity,
-        "previous_state":hash(&state),"new_state":hash(&state),
+        "previous_state":hash(&state),"new_state":hash(&state_after),
         "logical_boundary":old.time,"source_cursor":Int(source.cursor.into()),
         "ledger_cutover":t.ledger_cutover,"account_history_complete_through":t.ledger_cutover,
         "index_synced":t.index_synced,"source_anchor":h.record.inbox.source_anchor,
@@ -642,11 +669,11 @@ fn schema7_candidate<K: Kernel>(
     });
     Ok((
         Output {
-            state,
+            state: state_after,
             events: encode(
-                &json!({"version":7,"receipts":[],"events":[{"kind":policy.event,"sequence":0,"time":old.time,"context":metadata}]}),
+                &json!({"version":next.version,"receipts":[],"events":[{"kind":policy.event,"sequence":0,"time":old.time,"context":metadata}]}),
             )?,
-            scores: encode(&json!({"version":7,"area_time":[]}))?,
+            scores: encode(&json!({"version":next.version,"area_time":[]}))?,
         },
         encode(&metadata)?,
         identity,
@@ -1017,6 +1044,7 @@ mod tests {
         let world = World {
             deflectors: None,
             next_deflector_id: None,
+            reservoirs: None,
             version: 3,
             width: 16,
             height: 8,

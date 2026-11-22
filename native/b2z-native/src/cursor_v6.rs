@@ -31,6 +31,8 @@ pub(crate) struct State {
     pub shout_rules: bool,
     #[serde(default, skip_serializing_if = "is_false")]
     pub spacing_rules: bool,
+    #[serde(default, skip_serializing_if = "std::ops::Not::not")]
+    pub reservoir_rules: bool,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pending_cry: Option<String>,
     pub plan: Option<Plan>,
@@ -46,10 +48,12 @@ fn is_false(v: &bool) -> bool {
 impl Cursor {
     pub(crate) fn validate_v6(&self) -> Result<()> {
         let s = self.v6.as_ref().ok_or("V6_CURSOR")?;
-        if s.spacing_rules && !s.shout_rules
+        if s.reservoir_rules != (self.world.version == 8)
+            || s.reservoir_rules && !s.spacing_rules
+            || s.spacing_rules && !s.shout_rules
             || s.shout_rules && !s.context_rules
             || s.context_rules && !s.deflector_rules
-            || s.deflector_rules != (self.world.version == 7)
+            || s.deflector_rules != (self.world.version >= 7)
             || s.finalized && self.phase != "done"
             || s.births.len() > playability::MAX_CANNONS
             || s.births
@@ -85,7 +89,13 @@ impl Cursor {
                     return Ok(true);
                 }
                 let context = self.v6.as_ref().unwrap().context_rules;
-                let payment = if self.v6.as_ref().unwrap().shout_rules {
+                let reservoir = self.v6.as_ref().unwrap().reservoir_rules;
+                let payment = if reservoir {
+                    let bytes = dtr_wire::unhex(&self.inputs[self.input_index].payload_hex)?;
+                    let legacy = b2z_protocol::reservoir::predecessor_envelope(&bytes)
+                        .map_err(|_| "adapter10 payment envelope")?;
+                    crate::cursor::read_payment_shout(&dtr_wire::hex(&legacy))?
+                } else if self.v6.as_ref().unwrap().shout_rules {
                     crate::cursor::read_payment_shout(&self.inputs[self.input_index].payload_hex)?
                 } else if context {
                     crate::cursor::read_payment_context(&self.inputs[self.input_index].payload_hex)?
@@ -107,7 +117,14 @@ impl Cursor {
                 if tally >= BigInt::from(1) << 128usize {
                     return Err("treasury overflow".into());
                 }
-                let plan = if context {
+                let site = if reservoir {
+                    b2z_protocol::reservoir::cell(&payment.memo).map_err(|_| "RESERVOIR_MEMO")?
+                } else {
+                    None
+                };
+                let plan = if let Some(cell) = site {
+                    crate::reservoirs::prepare(&self.world, &payment.saved.account, amount, cell)?
+                } else if context {
                     crate::context_structures::prepare(
                         &self.world,
                         &payment.saved.account,
@@ -129,6 +146,10 @@ impl Cursor {
                 self.world.received_e8s.0 = tally;
                 match &plan {
                     Plan::Rejected { reason } => self.v6_reject(&payment.saved, reason)?,
+                    Plan::Reservoir { cell, price } => {
+                        crate::reservoirs::place(&mut self.world, *cell)?;
+                        self.receipt(&payment.saved,json!({"kind":"reservoir_built","cell":cell,"reason":"ACCEPTED","status":"applied","amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
+                    }
                     Plan::Deflect {
                         owner,
                         cell,

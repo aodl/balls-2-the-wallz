@@ -12,7 +12,7 @@ export class CaptureJob {
     if(w.version<6)throw Error('EXPECTED_V6');
     Object.assign(this,{phase:'cleanup',proposal:structuredClone(w),split:null,ball:null,target:null,
       attacker:0,root:0,affected:[],at:0,ranges:[],row:0,merge_ids:[],pairs:[],fences:[],
-      reactivated:[],operations:[],cancelled_strikes:[],metadata_delta:null,...(w.version===7?{removed_deflectors:[]}:{})});
+      reactivated:[],operations:[],cancelled_strikes:[],metadata_delta:null,...(w.version>=7?{removed_deflectors:[]}:{})});
   }
   toState(){return structuredClone({...this,split:this.split?.toState()??null});}
   static fromState(s){const j=Object.assign(Object.create(CaptureJob.prototype),structuredClone(s));if(j.split)j.split=SplitJob.fromState(j.split);return j;}
@@ -49,7 +49,7 @@ export class CaptureJob {
   step(original){
     const w=this.proposal;
     if(this.phase==='split'){
-      const j=this.split,done=j.step(w);this.operations.push(...j.takeOperations());if(w.version===7)this.removed_deflectors.push(...j.takeRemovedDeflectors());
+      const j=this.split,done=j.step(w);this.operations.push(...j.takeOperations());if(w.version>=7)this.removed_deflectors.push(...j.takeRemovedDeflectors());
       if(done){
         if(j.phase==='needs_pair'){const d=j.unanchored_balls[0];if(d===undefined)throw Error('MISSING_CAPTURE_PAIR');this.pair(original,[[this.ball,d]]);}
         else{this.fences.push(...j.fences);for(const p of j.parts)if(!p.cannons.length)this.ranges.push(...p.ranges);this.split=null;this.phase='merge_scan';}
@@ -74,7 +74,7 @@ export class CaptureJob {
       if(id!==undefined){mergeTerritories(w,[this.root,id]);this.operations.push({kind:'relabel',from:id,to:this.root});this.merge_ids=this.merge_ids.filter(n=>n!==id);}
       else{this.reactivated=reviveTerritory(w,this.root);this.phase='commit';}
     }else if(this.phase==='commit'){
-      if(w.version===7)this.removed_deflectors.push(...removeLostDeflectors(w));
+      if(w.version>=7)this.removed_deflectors.push(...removeLostDeflectors(w));
       w.pending=w.pending.filter(p=>{if(validStrike(w,p))return true;this.cancelled_strikes.push(p.id);return false;});validateWorld(w);
       this.metadata_delta=metadataDelta(original.playability,w.playability);
       for(const key of Object.keys(original))delete original[key];Object.assign(original,w);this.phase='done';

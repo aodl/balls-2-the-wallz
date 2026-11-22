@@ -1,8 +1,10 @@
+import {reservoirSites} from '../../packages/protocol/reservoir.mjs';
+import {validateReservoirs} from '../../packages/kernels/b2z/reservoirs.mjs';
 import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorOperation,applyDeflectorRemovals,matchesDeflectors}from'./model-deflector.mjs';
 import {launchAnnotationValidator}from'./war-cry-events.mjs';
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -12,8 +14,8 @@ import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
 const identityMatches=(id,expected)=>Object.keys(expected).every(key=>id?.[key]===expected[key]);
-const playabilityIdentity=(id,version=6)=>(version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>identityMatches(id,expected));
-const contextIdentity=id=>identityMatches(id,CONTEXT_IDENTITY)||identityMatches(id,SHOUT_IDENTITY)||identityMatches(id,SPACING_IDENTITY);
+const playabilityIdentity=(id,version=6)=>(version===8?[RESERVOIR_IDENTITY]:version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>identityMatches(id,expected));
+const contextIdentity=id=>identityMatches(id,CONTEXT_IDENTITY)||identityMatches(id,SHOUT_IDENTITY)||identityMatches(id,SPACING_IDENTITY)||identityMatches(id,RESERVOIR_IDENTITY);
 function verifyShoutTarget(model,annotation){
   const a=annotation;
   const target=a.kind==='cannon'?model.cannons.get(a.id):model.deflectors.get(a.id);
@@ -39,12 +41,13 @@ function track(b,maxVelocity=4096){
 }
 export function snapshot(bytes,identity){
   check(bytes instanceof Uint8Array&&bytes.length<=1048576,'snapshot bounds');
-  const w=decodeCanonical(bytes);check([3,4,5,6,7].includes(w.version),'snapshot version');
+  const w=decodeCanonical(bytes);check([3,4,5,6,7,8].includes(w.version),'snapshot version');
+  validateReservoirs(w);
   if(w.version<7)check(w.deflectors===undefined&&w.next_deflector_id===undefined,'historical structure extension');
   check(Number.isInteger(w.width)&&w.width>=1&&w.width<=1000&&Number.isInteger(w.height)&&w.height>=1&&w.height<=1000,'dimensions');
   if(w.version<5)check(Array.isArray(w.cells)&&w.cells.length===cellCount(w)&&w.ownership===undefined,'cells');
   else {const o=w.ownership;check(w.width===1000&&w.height===1000&&w.cells===undefined&&o?.format==='scaled32-v1'&&o.source_width===32&&o.source_height===32&&Array.isArray(o.base)&&o.base.length===1024&&Array.isArray(o.overrides)&&Array.isArray(o.counts),'v5 ownership');const counts=new Map();for(let sy=0;sy<32;sy++)for(let sx=0;sx<32;sx++){const owner=o.base[sy*32+sx];integer(owner,w.version>=6?4294967294:65535);const width=Math.ceil((sx+1)*1000/32)-Math.ceil(sx*1000/32),height=Math.ceil((sy+1)*1000/32)-Math.ceil(sy*1000/32);if(owner)counts.set(owner,(counts.get(owner)??0)+width*height);}let end=0;for(const r of o.overrides){integer(r.start,cellCount(w)-1);integer(r.end,cellCount(w));integer(r.owner,w.version>=6?4294967294:65535);check(r.start<r.end&&r.start>=end,'v5 ownership ranges');end=r.end;for(let cell=r.start;cell<r.end;){const x=cell%w.width,y=Math.floor(cell/w.width),sx=Math.floor(x*32/w.width),sy=Math.floor(y*32/w.height),next=Math.min(r.end,(y+1)*w.width,cell+Math.ceil((sx+1)*w.width/32)-x),length=next-cell,base=o.base[sy*32+sx];if(base)counts.set(base,counts.get(base)-length);cell=next;}if(r.owner)counts.set(r.owner,(counts.get(r.owner)??0)+r.end-r.start);}const expected=[...counts].filter(([,cells])=>cells).sort((a,b)=>a[0]-b[0]);check(o.counts.length===expected.length&&o.counts.every((c,i)=>Number.isSafeInteger(c.owner)&&c.owner===expected[i][0]&&Number.isSafeInteger(c.cells)&&c.cells===expected[i][1]),'v5 ownership counts');}
-  if(w.version>=6){timeNumber(w.time);validateV6Snapshot(w,ownerAt);if(w.version===7)validateDeflectorSnapshot({playability:w.playability,cannons:new Map(w.cannons.map(c=>[c.id,c])),owner:n=>ownerAt(w,n),playerForTerritory:id=>id===0?0:w.playability.territories.find(r=>r.id===id)?.player},w);if(identity)check(playabilityIdentity(identity,w.version),'playability rules/config/schema identity');return w;}
+  if(w.version>=6){timeNumber(w.time);validateV6Snapshot(w,ownerAt);if(w.version>=7)validateDeflectorSnapshot({playability:w.playability,cannons:new Map(w.cannons.map(c=>[c.id,c])),owner:n=>ownerAt(w,n),playerForTerritory:id=>id===0?0:w.playability.territories.find(r=>r.id===id)?.player},w);if(identity)check(playabilityIdentity(identity,w.version),'playability rules/config/schema identity');return w;}
   check(Array.isArray(w.cannons)&&w.cannons.length<=32&&Array.isArray(w.balls)&&w.balls.length<=64,'entity bounds');
   check(Array.isArray(w.pending)&&w.pending.length<=64,'pending bounds');timeNumber(w.time);
   const ids=new Set(),anchors=new Set();
@@ -65,9 +68,10 @@ export class B2zView {
     this.torus=w.version>=4;this.version=w.version;this.width=w.width;this.height=w.height;this.cells=w.version<5?[...w.cells]:null;
     this.ownership=w.version>=5?structuredClone(w.ownership):null;this.territoryRevision=0;
     this.cannons=new Map(w.cannons.map(c=>[c.id,{...c}]));
-    this.balls=new Map(w.balls.map(b=>[b.id,w.version>=6?trackV6(b,w.version===7):track(b,w.version===5?65536:4096)]));
+    this.balls=new Map(w.balls.map(b=>[b.id,w.version>=6?trackV6(b,w.version>=7):track(b,w.version===5?65536:4096)]));
     if(w.version>=6){this.playability=structuredClone(w.playability);this.logicalTime=timeNumber(w.time);}
-    if(w.version===7){this.motionKnots=new Map();this.deflectors=new Map(w.deflectors.map(d=>[d.id,structuredClone(d)]));this.next_deflector_id=w.next_deflector_id;validateDeflectorSnapshot(this,w);}
+    if(w.version>=7){this.motionKnots=new Map();this.deflectors=new Map(w.deflectors.map(d=>[d.id,structuredClone(d)]));this.next_deflector_id=w.next_deflector_id;validateDeflectorSnapshot(this,w);}
+    if(w.version===8){this.reservoirs=new Set(reservoirSites(w.reservoirs));this.reservoirRevision=0;}
     this.pending=new Map(w.pending.map(p=>[p.id,structuredClone(p)]));
     this.effects=[];this.lastEvent='Waiting for verified playback';
   }
@@ -107,12 +111,18 @@ export class B2zView {
   removeBalls(ids){for(const id of ids){this.balls.delete(id);this.motionKnots?.delete(id);for(const [key,p] of this.pending)if(p.ball===id)this.pending.delete(key);}}
   apply(e){
     const t=timeNumber(e.time);this.lastEvent=e.kind.replaceAll('_',' ');
+    if(e.kind==='reservoir_built'){
+      check(this.version===8,'reservoir event requires Rules16');
+      const cell=this.cell(e.cell);
+      check(!this.reservoirs.has(cell)&&this.owner(cell)!==0&&![...this.cannons.values(),...this.deflectors.values()].some(s=>s.cell===cell),'reservoir admission event');
+      this.reservoirs.add(cell);this.reservoirRevision++;return;
+    }
     if(applyDeflectorBuilt(this,e)||applyDeflectorOperation(this,e))return;
     if(this.version>=6){if(applyV6Event(this,e)){applyDeflectorRemovals(this,e);if(e.launch_annotation){const id=typeof e.cannon==='object'?e.cannon.id:e.cannon;check(this.cannons.get(id)?.account===e.launch_annotation.account,'launch annotation funding account');}this.effects=this.effects.filter(x=>t-x.t<2).slice(-64);return;}check(['trajectory','cannon_moved','strike_armed','strike_cancelled'].includes(e.kind),'unsupported v6 event');}
     if(e.kind==='trajectory'){
-      check(this.balls.has(e.ball.id),'unknown trajectory');const b=this.version>=6?trackV6(e.ball,this.version===7):track(e.ball,this.version===5?65536:4096);
+      check(this.balls.has(e.ball.id),'unknown trajectory');const b=this.version>=6?trackV6(e.ball,this.version>=7):track(e.ball,this.version===5?65536:4096);
       const previous=this.balls.get(b.id);check(previous.owner===b.owner,'trajectory owner');
-      if(this.version===7&&(previous.vx!==b.vx||previous.vy!==b.vy)){
+      if(this.version>=7&&(previous.vx!==b.vx||previous.vy!==b.vy)){
         const[n,d]=e.time,den=previous.den,divisor=d*den*1024n;
         const x=Number(previous.x0*d+BigInt(previous.vx)*n*den)/Number(divisor),y=Number(previous.y0*d+BigInt(previous.vy)*n*den)/Number(divisor);
         const points=this.motionKnots.get(b.id)??[];points.push({time:t,x,y});if(points.length>64)points.shift();this.motionKnots.set(b.id,points);
@@ -155,8 +165,13 @@ export class B2zView {
     const ownershipSame=()=>{const a=encodeCanonical(this.ownership),b=encodeCanonical(w.ownership);return a.length===b.length&&a.every((v,i)=>v===b[i]);};
     check(this.width===w.width&&this.height===w.height&&(this.version>=5?ownershipSame():same(this.cells,w.cells)),'final territory mismatch');
     check(this.cannons.size===w.cannons.length&&w.cannons.every(c=>this.cannons.get(c.id)?.cell===c.cell&&this.cannons.get(c.id)?.heading===c.heading),'final cannon mismatch');
-    check(this.balls.size===w.balls.length&&w.balls.every(b=>{const a=this.balls.get(b.id);return a&&['owner','x0','y0','vx','vy',...(w.version===7?['den']:[])].every(k=>a[k]===b[k])&&(w.version!==7||sameCanonical(a.deflector_rearm??null,b.deflector_rearm??null));}),'final trajectory mismatch');
-    if(this.version>=6){check(w.cannons.every(c=>this.cannons.get(c.id)?.account===c.account),'final funding account mismatch');matchesV6(this,w);if(w.version===7)matchesDeflectors(this,w);}
+    check(this.balls.size===w.balls.length&&w.balls.every(b=>{const a=this.balls.get(b.id);return a&&['owner','x0','y0','vx','vy',...(w.version>=7?['den']:[])].every(k=>a[k]===b[k])&&(w.version<7||sameCanonical(a.deflector_rearm??null,b.deflector_rearm??null));}),'final trajectory mismatch');
+    if(this.version>=6){check(w.cannons.every(c=>this.cannons.get(c.id)?.account===c.account),'final funding account mismatch');matchesV6(this,w);if(w.version>=7)matchesDeflectors(this,w);}
+    if(w.version===8){
+      let count=0;
+      for(const cell of reservoirSites(w.reservoirs)){check(this.reservoirs.has(cell),'final reservoir occupancy');count++;}
+      check(this.reservoirs.size===count,'final reservoir count');
+    }
     return true;
   }
   stats(){if(this.version>=6)return statsV6(this);const counts=this.version===5?new Map(this.ownership.counts.map(c=>[c.owner,c.cells])):null;return [...this.cannons.values()].map(c=>({id:c.id,area:counts?.get(c.id)??this.cells.filter(n=>n===c.id).length,
@@ -314,7 +329,13 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
   check(scores.version===final.version&&Array.isArray(scores.area_time)&&scores.area_time.length===0,'checkpoint scores');
   const context=events.events[0]?.context;
   const kind=events.events[0]?.kind;
-  if(kind==='context_rules_activated'||kind==='shout_rules_activated'||kind==='spacing_rules_activated'){
+  if(kind==='reservoir_rules_activated'){
+    check(initial.version===7&&final.version===8&&publication.version===8&&publication.epoch.version===2&&events.events.length===1,'reservoir checkpoint format');
+    check(identityMatches(prior.identity,SPACING_IDENTITY)&&identityMatches(publication.identity,RESERVOIR_IDENTITY),'reservoir exact identities');
+    const expected={version:12,migration:'B2Z_RESERVOIR_RULES_16',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:publication.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context?.ledger_cutover,account_history_complete_through:context?.ledger_cutover,index_synced:context?.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:9,memo_adapter_after:10};
+    check(context&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash&&typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'reservoir checkpoint source commitment');
+    check(sameCanonical(final,{...initial,version:8,reservoirs:''}),'reservoir checkpoint preserved world');
+  }else if(kind==='context_rules_activated'||kind==='shout_rules_activated'||kind==='spacing_rules_activated'){
     const spacing=kind==='spacing_rules_activated',shout=kind==='shout_rules_activated',predecessor=spacing?SHOUT_IDENTITY:shout?CONTEXT_IDENTITY:DEFLECTOR_IDENTITY,successor=spacing?SPACING_IDENTITY:shout?SHOUT_IDENTITY:CONTEXT_IDENTITY;
     check(initial.version===7&&final.version===7&&((publication.version===7&&publication.epoch.version===1)||(publication.version===8&&publication.epoch.version===2))&&events.events.length===1,'schema7 rules checkpoint format');
     check(identityMatches(prior.identity,predecessor)&&identityMatches(publication.identity,successor),'schema7 checkpoint exact identities');

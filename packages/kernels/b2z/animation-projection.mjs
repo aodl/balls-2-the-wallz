@@ -15,7 +15,7 @@ export function projectAnimationEvents(world,sourceEvents){
   const tracks=new Map(world.balls.map(b=>[b.id,trajectory(b)])),events=[];
   let prior=world.time,seq=-1,dropped=0;
   for(const raw of source.events){
-    const e=world.version===7?unpackDeflectorEvent(raw,tracks.get(Array.isArray(raw)?raw[3]:raw.ball)?.owner):raw;
+    const e=world.version>=7?unpackDeflectorEvent(raw,tracks.get(Array.isArray(raw)?raw[3]:raw.ball)?.owner):raw;
     if(!Number.isSafeInteger(e.sequence)||e.sequence!==seq+1||cmp(e.time,prior)<0)throw new Error('B2Z animation event order');
     prior=e.time;seq=e.sequence;
     if(e.kind==='motion'){

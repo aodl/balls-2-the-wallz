@@ -1,3 +1,5 @@
+import {RESERVOIR_ADAPTER,RESERVOIR_PRICE_E8S} from '../../protocol/reservoir.mjs';
+import {validateReservoirs} from './reservoirs.mjs';
 import {STRUCTURE_MIN_DISTANCE} from '../../protocol/structure-sites.mjs';
 import {CONTEXT_POLICY} from '../../protocol/context-structures.generated.mjs';
 import {CLEARANCE_POLICY} from './clearance.generated.mjs';
@@ -55,6 +57,11 @@ export const SHOUT_IDENTITY=Object.freeze({...CONTEXT_IDENTITY,rules_hash:sha256
 const {friendly_structure_max_chebyshev: _historicalRadius, ...spacingBase}=SHOUT_CONFIG;
 export const SPACING_CONFIG=Object.freeze({...spacingBase,rules_version:15,deflector_min_chebyshev:STRUCTURE_MIN_DISTANCE,structure_min_chebyshev:STRUCTURE_MIN_DISTANCE});
 export const SPACING_IDENTITY=Object.freeze({...SHOUT_IDENTITY,rules_hash:sha256(new TextEncoder().encode('B2Z_STRUCTURE_SPACING_RULES_15')),config_hash:sha256(encodeCanonical(SPACING_CONFIG))});
+export const RESERVOIR_CONFIG=Object.freeze({...SPACING_CONFIG,version:8,rules_version:16,
+  memo_adapter_version:RESERVOIR_ADAPTER,normalized_payment:'BTZPAY07',reservoir_price_e8s:RESERVOIR_PRICE_E8S,
+  reservoir_terrain:'inert-excavation-1'});
+export const RESERVOIR_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_RESERVOIR_RULES_16')),
+ schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_08_RESERVOIR_TERRAIN')),config_hash:sha256(encodeCanonical(RESERVOIR_CONFIG))});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{
@@ -134,7 +141,7 @@ export function connected(cells, width, height, owner, anchor, torus=false) {
 }
 /** Validate fully resolved states only; intermediate capture scratch may deliberately violate connectivity. */
 export function validateWorld(w) {
-  if (![3,4,5,6,7].includes(w.version)) throw new Error('B2Z state version');
+  if (![3,4,5,6,7,8].includes(w.version)) throw new Error('B2Z state version');
   if(w.version===4&&(w.width!==32||w.height!==32))throw new Error('torus dimensions');
   if(w.version>=5&&(w.width!==1000||w.height!==1000))throw new Error('million dimensions');
   if((w.version>=6)!==(w.playability!==undefined))throw new Error('B2Z lifecycle version');
@@ -173,10 +180,10 @@ export function validateWorld(w) {
     if (!b.vx && !b.vy) throw new Error('stationary ball');
     const player=b.owner;
     if (player===undefined || !players.has(b.owner) || playerAt(w,b.cell) !== player) throw new Error('ball outside owner territory');
-    const maxIntercept=w.version===7?6553600000000000000n:100000000000000n;
+    const maxIntercept=w.version>=7?6553600000000000000n:100000000000000n;
     for (const n of [b.x0, b.y0]) if (typeof n !== 'bigint' || n < -maxIntercept || n > maxIntercept) throw new Error('motion intercept');
     if(w.version<7&&(b.den!==undefined||b.deflector_rearm!==undefined))throw Error('historical trajectory extension');
-    if(w.version===7)validateDeflectorBall(b);
+    if(w.version>=7)validateDeflectorBall(b);
     const [x, y] = position(b, w.time), cx = b.cell % w.width, cy = Math.floor(b.cell / w.width);
     if (cmp(x, rat(cx * Q)) < 0 || cmp(x, rat((cx + 1) * Q)) > 0 || cmp(y, rat(cy * Q)) < 0 || cmp(y, rat((cy + 1) * Q)) > 0)
       throw new Error('ball cell/position mismatch');
@@ -206,7 +213,8 @@ export function validateWorld(w) {
   }
   if (w.credits.length > 1024) throw new Error('credit demonstration limit');
   if(w.version>=6)validatePlayability(w);
-  if(w.version===7)validateDeflectorState(w);else if(w.deflectors!==undefined||w.next_deflector_id!==undefined)throw Error('historical structure extension');
+  if(w.version>=7)validateDeflectorState(w);else if(w.deflectors!==undefined||w.next_deflector_id!==undefined)throw Error('historical structure extension');
+  validateReservoirs(w);
   return w;
 }
 export function encodeWorld(w) { validateWorld(w); return encodeCanonical(w); }

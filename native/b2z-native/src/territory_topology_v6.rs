@@ -318,7 +318,7 @@ impl SplitJob {
             }
             "reconcile" => {
                 if self.part == self.parts.len() {
-                    if w.version == 7 {
+                    if w.version >= 7 {
                         self.removed_deflectors
                             .extend(crate::deflectors_v12::remove_lost(w));
                     }

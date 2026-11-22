@@ -105,7 +105,7 @@ pub fn validate(w: &World) -> Result<()> {
     Ok(())
 }
 pub fn remove_lost(w: &mut World) -> Vec<Deflector> {
-    if w.version != 7 {
+    if w.version < 7 {
         return vec![];
     }
     let ds = w.deflectors.take().unwrap_or_default();

@@ -93,11 +93,17 @@ impl Transition {
             ..Self::new()
         }
     }
+    pub fn reservoir() -> Self {
+        Self {
+            version: 12,
+            ..Self::new()
+        }
+    }
     pub fn holding(&self) -> bool {
         self.phase != "complete"
     }
     pub fn validate(&self) -> Result<()> {
-        if !matches!(self.version, 1..=11)
+        if !matches!(self.version, 1..=12)
             || !["ledger", "index", "drain", "ready", "complete"].contains(&self.phase.as_str())
         {
             return Err("world transition phase".into());

@@ -1,4 +1,5 @@
-import {contextSupported} from './context-policy.mjs';
+import {reservoirDirective,encodeReservoirMemo} from '../../packages/protocol/reservoir.mjs';
+import {contextSupported,reservoirSupported} from './context-policy.mjs';
 import {contextSites} from './context-sites.mjs';
 import {encodeContextMemo,parseContextText,screenDirection} from '../../packages/protocol/context-structures.mjs';
 import{deflectorSites}from'./deflector-sites.mjs';
@@ -22,7 +23,7 @@ export function legalAdjacentSites(w,account,config=null){
  return[...candidates].filter(c=>!blocked.has(c)&&(islandAt(w,c)===0||playerAt(w,c)===player)&&(!clearanceActive(config)||hasEnemyClearance(w.width,w.height,c,player,n=>playerAt(w,n)))).sort((a,b)=>a-b);
 }
 export function legalMove(w,account,cannon,cell,config=null){
- if(![6,7].includes(w.version)||!integer(cell,999999))return false;const c=w.cannons.find(c=>c.id===cannon),life=w.playability.lifecycle.find(l=>l.cannon===cannon);
+ if(![6,7,8].includes(w.version)||!integer(cell,999999))return false;const c=w.cannons.find(c=>c.id===cannon),life=w.playability.lifecycle.find(l=>l.cannon===cannon);
  if(c?.account!==account||!life||life.deadline_ns!==undefined||playerAt(w,cell)!==life.player||w.cannons.some(c=>c.id!==cannon&&c.cell===cell)||(w.deflectors??[]).some(d=>d.cell===cell))return false;
  if(contextSupported(config)&&(c.cell===cell||contextSites(w,config).reason(account,cell,{moving:{kind:'cannon',id:cannon}})))return false;
  return (!clearanceActive(config)||hasEnemyClearance(w.width,w.height,cell,life.player,n=>playerAt(w,n)))&&(islandAt(w,c.cell)===islandAt(w,cell)||w.cannons.filter(other=>islandAt(w,other.cell)===islandAt(w,c.cell)).length>1);
@@ -32,6 +33,13 @@ export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quanti
  check(w.version>=6,'EXPECTED_V6');check(/^[0-9a-f]{64}$/.test(account),'ACCOUNT_BOUNDS');check(integer(quantity,64)&&quantity>=1,'QUANTITY_BOUNDS');
  const mine=w.cannons.filter(c=>c.account===account),free=config.max_balls-w.balls.length;let amount,fill,per_item=[],pool=0,text;
  const successor=contextSupported(config);
+ if(kind==='reservoir'){
+  check(w.version===8&&reservoirSupported(config),'UNSUPPORTED_RESERVOIR');
+  const issue=contextSites(w,config).reason(account,cell,{reservoir:true});
+  check(!issue,issue);
+  const amount=BigInt(config.reservoir_price_e8s), memo=reservoirDirective(cell);
+  return {amount,per_item:[amount],requested:1,maximum_fill:1,pool:0,cell,memo,memo_bytes:new TextEncoder().encode(memo),numeric_memo_bytes:encodeReservoirMemo(cell),non_reservation:true};
+ }
  if(successor&&['deflector_move','deflector_reorient'].includes(kind)){
   const d=w.deflectors.find(d=>d.id===deflector);
   check(d,'NO_DEFLECTOR');check(d.owner===contextSites(w,config).owner(account),'NOT_OWNER');
@@ -46,7 +54,7 @@ export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quanti
   }
   fill=1;per_item=[amount];
  }else if(kind==='deflect'){
-  check(w.version===7&&deflectorSupported(config),'UNSUPPORTED_DEFLECTOR');
+  check(w.version>=7&&deflectorSupported(config),'UNSUPPORTED_DEFLECTOR');
   if(successor){
    const owner=contextSites(w,config).owner(account),why=contextSites(w,config).reason(account,cell,{deflector:true});check(!why,why);
    check(w.deflectors.length<config.max_deflectors,'DEFLECTOR_CAPACITY');

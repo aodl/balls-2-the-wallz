@@ -139,7 +139,7 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
         .filter(|t| t.capturable)
         .min_by_key(|t| t.target)
         .cloned();
-    let deflector_target = if w.version == 7 && crossing.x != crossing.y {
+    let deflector_target = if w.version >= 7 && crossing.x != crossing.y {
         targets
             .iter()
             .filter_map(|t| {

@@ -66,7 +66,7 @@ impl Job {
             operations: vec![],
             cancelled_strikes: vec![],
             metadata_delta: None,
-            removed_deflectors: (w.version == 7).then(Vec::new),
+            removed_deflectors: (w.version >= 7).then(Vec::new),
         })
     }
     pub fn capture(w: &World, target: usize, ball: u32) -> Result<Self> {
@@ -173,7 +173,7 @@ impl Job {
                 // and phase identify the next mutation without a board scan.
                 let done = j.step(&mut self.proposal)?;
                 self.operations.extend(j.take_operations());
-                if self.proposal.version == 7 {
+                if self.proposal.version >= 7 {
                     self.removed_deflectors
                         .as_mut()
                         .ok_or("structure event")?
@@ -271,7 +271,7 @@ impl Job {
                 }
             }
             "commit" => {
-                if self.proposal.version == 7 {
+                if self.proposal.version >= 7 {
                     let gone = crate::deflectors_v12::remove_lost(&mut self.proposal);
                     self.removed_deflectors
                         .as_mut()
