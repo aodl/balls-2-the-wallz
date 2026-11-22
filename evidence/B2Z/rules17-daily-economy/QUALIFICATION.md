@@ -21,7 +21,10 @@ defines bootstrap, UTC boundaries, grace, Ledger time and capacity semantics.
 - Five focused JavaScript tests passed, including exact nanosecond grace
   edges and continued purchases and simulation with 1,028 participating
   accounts, 1,045 Cannons, 257 Diverters and 65 Balls in the starting fixture.
-  These are synthetic deterministic-kernel measurements.
+  Native conformance reproduced the first paid interval byte-for-byte.
+  It used 449 work units and produced 482,559 state bytes, 258,743 event
+  bytes and 161 score bytes from 481,398 input state bytes. These are
+  synthetic deterministic-kernel measurements.
 - Chromium fixture captures show the daily schedule at
   [1440px](browser/daily-pricing-1440.png), [390px](browser/daily-pricing-390.png)
   and [320px](browser/daily-pricing-320.png). Each case copied the exact
@@ -36,6 +39,11 @@ defines bootstrap, UTC boundaries, grace, Ledger time and capacity semantics.
   observer plays through all 14 captured records, including eight checkpoints.
   The browser harness also uses the named verification disclosure now that the
   same status panel contains a second disclosure for daily pricing.
+- The repaired disposable run passed all 15 authenticated publications and
+  17 receipts. The browser's placement UI invalidates the prior proposal on
+  an explicit invalid destination, including for historical epochs. Visible
+  authoritative entities can grow the instance buffers on demand. Cosmetic
+  shadows, glows and distant markers keep their previous draw budget.
 
 ## Rehearsal
 

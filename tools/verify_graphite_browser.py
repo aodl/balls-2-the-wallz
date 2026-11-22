@@ -35,6 +35,14 @@ try:
     for angle in ([0,45]if a.smoke else[0,22.5,45,90,135,180,225,270,315]):
      page.evaluate('(angle)=>graphite.scene({cannons:1,deflectors:1,scale:160,angle})',angle);page.screenshot(path=str(out/f'{width}-models-{angle}.png'))
     page.evaluate('graphite.scene({cannons:128,deflectors:256,scale:8})');report['rows'].append({'width':width,'height':height,'cannons':128,'deflectors':256,'scale':8,**page.evaluate('graphite.measure(4)'if a.smoke else'graphite.measure(60)')});page.screenshot(path=str(out/f'{width}-mixed.png'))
+    if width==1440:
+     count=4160
+     assert page.evaluate('(count)=>graphite.scene({cannons:count,scale:4,select:true}).pieces',count)==count
+     assert page.evaluate('graphite.heading(16384).pieces')==count
+     growth=page.evaluate('graphite.measure(4)')
+     assert growth['stats']['pieces']==count and not growth['stats']['structure_uploads']
+     report['rows'].append({'width':width,'height':height,'cannons':count,'scale':4,**growth})
+     page.screenshot(path=str(out/'dense-entity-growth.png'))
    c.close()
   assert not report['errors'],report['errors'];report['status']='PASS';b.close()
 except Exception as e:report.update(status='FAIL',error=str(e));raise

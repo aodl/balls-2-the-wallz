@@ -528,16 +528,10 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   },
   chooseCell(n){
    const selection=api.moveSelection();
-   if(selection&&spacingSupported(config)&&tileOwn()&&['start','deflect','reservoir'].includes(mode)&&api.tileSelectable(n))return n===cell||api.selectTile(n,mode);
-   if(selection&&n===null){cell=null;clearDraft();refresh();return true;}
-   if(selection&&reservoirSupported(config)&&!selection.legal?.(n)){
-    cell=n;clearDraft();refresh();return false;
-   }
-   if(!(selection?.legal?selection.legal(n):selection?.cells.includes(n))){
-    const pending=structureContexts()&&['start','deflect','reservoir'].includes(mode)?tileBuildIssue(mode==='start'?'new':mode,n):null;
-    text('preparation-note',pending??(mode==='start'?'Choose an empty eligible neighbouring tile.':n===selected()?.cell?'Choose a different tile.':'That move is unavailable: check ownership, occupancy or dormancy.'));return false;
-   }
-   cell=n;clearDraft();refresh();return true;
+   if(!selection)return false;
+   if(spacingSupported(config)&&tileOwn()&&['start','deflect','reservoir'].includes(mode)&&api.tileSelectable(n))return n===cell||api.selectTile(n,mode);
+   const legal=n===null||(selection.legal?selection.legal(n):selection.cells.includes(n));
+   cell=n;clearDraft();refresh();return legal;
   },
   selectBall(){cancelEntryNavigation();intentVersion++;rememberDraft();id=null;tileSelection=deflectorId=null;view=null;mode='inspect';cell=null;pending=null;$('workspace').hidden=true;clearHandoff();paymentReadiness();emit();},
   openAccount(){identityLabel();activity();updateRoster();show('account','Account');if(!declaration)$('sending-account').focus();},

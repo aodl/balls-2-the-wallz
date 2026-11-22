@@ -80,6 +80,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
 
  const deflectorBases=batch(deflectorGeometry.base),deflectorUppers=batch(deflectorGeometry.upper);
  const structureBatches=new Set([bases,turrets,deflectorBases,deflectorUppers]);
+ const expandableBatches=new Set([...structureBatches,balls]);
  const distantMarkers=batch(new T.RingGeometry(.15,.22,4),RENDER_LIMITS.pieces,new T.MeshBasicMaterial({side:T.DoubleSide,toneMapped:false}));
  const boundedTiles=batch(new T.BoxGeometry(1,.10,1),1,groundMaterial);
  const glow=batch(new T.PlaneGeometry(1,1),RENDER_LIMITS.pieces,new T.ShaderMaterial({transparent:true,depthWrite:false,toneMapped:false,vertexShader:'varying vec2 p;void main(){p=uv*2.-1.;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying vec2 p;void main(){float a=exp(-dot(p,p)*5.)*.30;gl_FragColor=vec4(1.,1.,1.,a);}'}));
@@ -91,6 +92,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
 
  const hoverGhost=batch(new T.CylinderGeometry(.29,.34,.13,8),1,new T.MeshBasicMaterial({color:hoverInk,transparent:true,opacity:.12,depthWrite:false}));
  const shadows=batch(new T.CircleGeometry(.31,16),RENDER_LIMITS.pieces,new T.ShaderMaterial({transparent:true,depthWrite:false,vertexShader:'varying vec2 shadowUv; void main(){shadowUv=uv;gl_Position=projectionMatrix*modelViewMatrix*instanceMatrix*vec4(position,1.);}',fragmentShader:'varying vec2 shadowUv; void main(){float a=.26*(1.-smoothstep(.08,.5,length(shadowUv-vec2(.5))));gl_FragColor=vec4(.015,.025,.03,a);}'}));
+ const boundedDecorations=new Set([shadows,glow,distantMarkers]);
  const rings=batch(new T.RingGeometry(.37,.42,24),512,new T.MeshBasicMaterial({color:previewInk,side:T.DoubleSide}));
  const ballSelection=batch(new T.RingGeometry(.20,.25,24),4,new T.MeshBasicMaterial({color:chosenInk,side:T.DoubleSide,toneMapped:false}));
  const parts={base:bases,turret:turrets};
@@ -139,7 +141,25 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  const guideGeometry=new LineGeometry().setPositions([0,0,0,0,0,0]);
  const marker=new T.Mesh(new T.RingGeometry(.36,.43,4),new T.MeshBasicMaterial({color:previewInk,side:T.DoubleSide,transparent:true,opacity:.75}));marker.rotation.set(-Math.PI/2,0,Math.PI/4);scene.add(marker);
  const guide=new Line2(guideGeometry,new LineMaterial({color:guideInk,linewidth:2,depthTest:true,depthWrite:false,toneMapped:false})),guideUnder=new Line2(guideGeometry,new LineMaterial({color:guideUnderInk,linewidth:4,depthTest:true,depthWrite:false,toneMapped:false}));guideUnder.renderOrder=1;guide.renderOrder=2;scene.add(guideUnder,guide);
- function instance(mesh,x,z,h,sx=1,sy=1,sz=1,tint=null,rotation=null){if(mesh.count>=mesh.instanceMatrix.count)throw Error('Arena instance capacity exceeded');dummy.position.set(x,h,z);dummy.scale.set(sx,sy,sz);dummy.rotation.set(rotation?.[0]??0,rotation?.[1]??0,rotation?.[2]??0);if(mesh===glow)dummy.quaternion.copy(ortho.quaternion);dummy.updateMatrix();mesh.setMatrixAt(mesh.count,dummy.matrix);if(tint)mesh.setColorAt(mesh.count,color.set(tint));mesh.count++;}
+ function growAttribute(previous){
+  const next=new T.InstancedBufferAttribute(new Float32Array(previous.array.length*2),previous.itemSize,previous.normalized).setUsage(previous.usage);
+  next.array.set(previous.array);
+  return next;
+ }
+ function instance(mesh,x,z,h,sx=1,sy=1,sz=1,tint=null,rotation=null){
+  if(mesh.count>=mesh.instanceMatrix.count){
+   if(boundedDecorations.has(mesh))return;
+   if(!expandableBatches.has(mesh))throw Error('Arena instance capacity exceeded');
+   const matrices=growAttribute(mesh.instanceMatrix),colors=mesh.instanceColor&&growAttribute(mesh.instanceColor);
+   mesh.dispose();
+   mesh.instanceMatrix=matrices;mesh.instanceColor=colors;
+  }
+  dummy.position.set(x,h,z);dummy.scale.set(sx,sy,sz);dummy.rotation.set(rotation?.[0]??0,rotation?.[1]??0,rotation?.[2]??0);
+  if(mesh===glow)dummy.quaternion.copy(ortho.quaternion);
+  dummy.updateMatrix();mesh.setMatrixAt(mesh.count,dummy.matrix);
+  if(tint)mesh.setColorAt(mesh.count,color.set(tint));
+  mesh.count++;
+ }
  function visible(camera,x,y,margin=2){const p=camera.screen(x,y);return p.x>=-margin*camera.scale&&p.y>=-margin*camera.scale&&p.x<=camera.viewport.width+margin*camera.scale&&p.y<=camera.viewport.height+margin*camera.scale;}
  const lostHandler=e=>{e.preventDefault();lost=true;motion.reset();onError('Graphics context lost. Waiting to restore the arena.');};
  const restoreHandler=()=>{quality.resetTime();structureKey='';lost=false;terrainKey='';lastDrawKey='';sizeKey='';forceTerrainUpload=true;texture?.clearUpdateRanges();if(texture)texture.needsUpdate=true;motion.reset();reservoirLayer?.restore();onRestore();};
