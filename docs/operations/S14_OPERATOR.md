@@ -1,6 +1,30 @@
 # Installed European game — frontend updates
 
-## Current European frontend: territory/control usability on Rules7
+## Current pre-launch recovery policy
+
+Create a production canister snapshot only when the owner explicitly requests
+one. During pre-launch, an ordinary frontend-only upgrade does not require a
+snapshot. This policy supersedes snapshot requirements in earlier release plans.
+Keep the immutable source and Wasm artifacts and any off-canister archives.
+
+Before an authorised frontend-only upgrade, rehash the exact candidate and the
+known-good predecessor Wasm, confirm that both work with the live backend
+epoch, and retain the bytes needed to reinstall the frontend software through
+the qualified same-ID chunked **upgrade** path. Budget for the candidate upgrade,
+one compatible recovery upgrade, temporary chunk storage and contingency using
+the current cycles and freezing requirement. Verify the installed hash and
+certified delivery after each installation. Keep the backend running.
+
+Backend and persistent-state changes still require a separately authorised,
+rehearsed migration and a compatible recovery procedure that preserves live
+state, paid history and source position. A stored Wasm restores executable code.
+Recovering lost heap or stable-memory data requires a verified state recovery
+mechanism. Preserve each epoch's decoder-compatibility boundary.
+
+See the [November 2026 snapshot retirement record](../../evidence/B2Z/rules15-interaction-polish/SNAPSHOT_RETIREMENT.md)
+for the first application of this policy.
+
+## Historical European frontend: territory/control usability on Rules7
 
 The later owner-approved assets-only frontend installation is complete. Exact
 75-file inventory `e9b5c4be…` and served JS `97d8ee0b…` are independently verified;
