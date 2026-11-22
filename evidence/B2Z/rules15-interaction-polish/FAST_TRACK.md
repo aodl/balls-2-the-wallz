@@ -48,3 +48,10 @@ denied the native Clipboard API and copied exact UTF-8 with Control+C.
 [320px Fire panel](browser/fast-track-320-fire.png) ·
 [Contracted Move panel](browser/fast-track-320-contracted-move.png) ·
 [Embedded module](artifacts/embedded-module.json)
+
+The [first corrected hosted run](https://github.com/aodl/balls-2-the-wallz/actions/runs/45009062810)
+passed the tactical and refinement steps. It exposed an older Move preview test
+that compared the cannon's in-progress Aim exit animation with the already
+authoritative ghost heading. The test now waits for renderer convergence and
+keeps its exact matrix comparison. The 320px case passed locally. This
+test-only correction leaves the frozen runtime and embedded Wasm unchanged.

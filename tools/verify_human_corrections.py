@@ -53,7 +53,15 @@ with sync_playwright() as pw:
     # Exact keyboard aiming and canonical memo remain bound.
     page.locator('#aim-handle').focus();angle=page.evaluate('fixture.proposal().degrees');page.keyboard.press('Alt+ArrowRight');assert abs(float(page.evaluate('fixture.proposal().degrees'))-float(angle)-.01)<.001;assert page.evaluate('fixture.aim().heading===fixture.command().angle')
    # Move shares all actual model matrices with the selected real cannon.
-   page.locator('#move-action').click();sites=page.evaluate('fixture.moveSites(1)');dest=sites[0];choose_cell(page,dest);settled_panel(page);page.evaluate('fixture.draw()');data=page.evaluate('fixture.inspect()');row['move']={'cell':dest,'render':data,'source':page.evaluate('fixture.world().cannons[0].cell')};page.screenshot(path=str(out/f'{w}-move.png'))
+   page.locator('#move-action').click();sites=page.evaluate('fixture.moveSites(1)');dest=sites[0];choose_cell(page,dest);settled_panel(page)
+   if not a.baseline:
+    # The ghost is already at the verified heading while the real turret
+    # returns from Aim. Wait for renderer convergence, not just panel layout.
+    page.wait_for_function("""()=>{
+     const {ghostParts,cannonParts}=fixture.inspect(),ghost=ghostParts.turret,real=cannonParts.turret;
+     return ghost.length===16&&[0,2,8,10].every(i=>Math.abs(ghost[i]-real[i])<1e-6);
+    }""",timeout=2000)
+   page.evaluate('fixture.draw()');data=page.evaluate('fixture.inspect()');row['move']={'cell':dest,'render':data,'source':page.evaluate('fixture.world().cannons[0].cell')};page.screenshot(path=str(out/f'{w}-move.png'))
    if not a.baseline:
     for part,m in data['ghostParts'].items():
      real=data['cannonParts'][part][:16];assert len(m)==16 and all(abs(m[i]-real[i])<1e-6 for i in list(range(12))+[13,15]),(part,m,real)
