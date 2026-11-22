@@ -17,7 +17,8 @@ def wait_file(page,path,timeout=30000):
  wait_until(page,path.is_file,timeout);return path.read_text().strip()
 def open_settings(page):
  if page.locator('#status-view').is_hidden():page.locator('#status-button').click()
- if not page.locator('#status-view details').evaluate('(n)=>n.open'):page.locator('#status-view summary').click()
+ verification=page.locator('#status-details').locator('..')
+ if not verification.evaluate('(n)=>n.open'):verification.get_by_text('Verification and operation',exact=True).click()
 def close_settings(page):
  if page.locator('#workspace').is_visible():page.locator('#close-panel').click()
 def main():

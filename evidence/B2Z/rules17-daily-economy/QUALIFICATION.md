@@ -15,9 +15,9 @@ defines bootstrap, UTC boundaries, grace, Ledger time and capacity semantics.
 
 ## Local evidence
 
-- Two independent embedded frontend builds reproduced the same 77,159,847
-  bytes and SHA-256 `884b6bd9d7b09cea6c8cc84c97070c76b152996ae71366e44415b02489aa71b3`.
-  The public inventory contains 88 files.
+- The embedded release inventory contains 88 public files, six gzip variants
+  and the complete unchanged set of 61 audio assets. The exact Wasm identity
+  is in [embedded-module.json](artifacts/embedded-module.json).
 - Five focused JavaScript tests passed, including exact nanosecond grace
   edges and continued purchases and simulation with 1,028 participating
   accounts, 1,045 Cannons, 257 Diverters and 65 Balls in the starting fixture.
@@ -30,6 +30,12 @@ defines bootstrap, UTC boundaries, grace, Ledger time and capacity semantics.
   the paid state. Its idle-cannon retirement check failed because the older
   timer guard only recognised the original playability activation. Rules17
   now also arms maintenance from its own completed activation record.
+- The next disposable run settled all seven paid action types and 17 exact-once
+  receipts, including the historical transfers. The retained artifact replay
+  exposed a Schema9 allowlist missing from the animation projector. The fixed
+  observer plays through all 14 captured records, including eight checkpoints.
+  The browser harness also uses the named verification disclosure now that the
+  same status panel contains a second disclosure for daily pricing.
 
 ## Rehearsal
 
