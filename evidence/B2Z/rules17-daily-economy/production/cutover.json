@@ -1,0 +1,44 @@
+{
+  "status": "PASS",
+  "previous": "746a551b5d05f1d03d04ac66949e3168f1702c83471c7fc4ade45c1555d7d6e0",
+  "current": "c6ec2c0c908bdd7b8ba57f7bac3c224ca4235db7c15c278499ca889aa89dd616",
+  "world_before": "ba546fdbf2245b34841698d1b911ba0fab8d846031ee89de2504d686cc9802eb",
+  "world_after": "ecd6da74d8c77629f29042b0329a61b781b9d43c5556c66e2d009b8d35edb982",
+  "context": {
+    "account_history_complete_through": "40646984",
+    "bootstrap": {
+      "activated_ns": "1795377833504458794",
+      "initial_multiplier": 1,
+      "population": 1,
+      "predecessor_state_hash": "ba546fdbf2245b34841698d1b911ba0fab8d846031ee89de2504d686cc9802eb",
+      "snapshots": []
+    },
+    "index_synced": "40646984",
+    "ledger_cutover": "40646984",
+    "logical_boundary": [
+      "15064",
+      "1"
+    ],
+    "memo_adapter_after": 11,
+    "memo_adapter_before": 10,
+    "migration": "B2Z_DAILY_ECONOMY_RULES_17",
+    "new_identity": {
+      "config_hash": "0cff926a5d2ee0342547a045dbb85aa25f2d83991c54edab6b14f73ede21262f",
+      "rules_hash": "ba259c26e31b8868a3bc28c7e76cbbb486f448c760a1f0d48c9a3ec75c1b5156",
+      "schema_hash": "56622629b4c0821c9f5384ecd8d3501fd7cac93bf274cafbf017b599e2503233",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "new_state": "ecd6da74d8c77629f29042b0329a61b781b9d43c5556c66e2d009b8d35edb982",
+    "old_identity": {
+      "config_hash": "b91086bc731f98861c1abf020919838444984dea564cfb27da6dce02b1c8dea3",
+      "rules_hash": "04cd79f9154e8b963daf3134441e4ba7e8f146da83595a1e4fd9cc795a4a9cea",
+      "schema_hash": "bad9c072b1a88c197075c092063806073f8c77de599ac5518d209d3d59475c24",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "previous_state": "ba546fdbf2245b34841698d1b911ba0fab8d846031ee89de2504d686cc9802eb",
+    "source_anchor": "61b9029151803476e873420436794dc80193d442428c9fcf3e2d70f1982694bc",
+    "source_cursor": "40640535",
+    "version": 13
+  },
+  "received_e8s": "104000000"
+}

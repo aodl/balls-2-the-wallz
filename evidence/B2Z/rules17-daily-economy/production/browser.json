@@ -1,0 +1,50 @@
+[
+  {
+    "width": 1440,
+    "fire_amount_e8s": 40000,
+    "fire_memo": "FIRE 1 37.5 1",
+    "daily_multiplier": 1,
+    "next_announced": false
+  },
+  {
+    "width": 1440,
+    "first_memo": "RESERVOIR 999999",
+    "second_memo": "RESERVOIR 999",
+    "amount_e8s": 10000000,
+    "exact_copy": true,
+    "history": true,
+    "move_memo": "MOVE 1 1"
+  },
+  {
+    "width": 390,
+    "fire_amount_e8s": 40000,
+    "fire_memo": "FIRE 1 37.5 1",
+    "daily_multiplier": 1,
+    "next_announced": false
+  },
+  {
+    "width": 390,
+    "first_memo": "RESERVOIR 999999",
+    "second_memo": "RESERVOIR 999",
+    "amount_e8s": 10000000,
+    "exact_copy": true,
+    "history": true,
+    "move_memo": "MOVE 1 1"
+  },
+  {
+    "width": 320,
+    "fire_amount_e8s": 40000,
+    "fire_memo": "FIRE 1 37.5 1",
+    "daily_multiplier": 1,
+    "next_announced": false
+  },
+  {
+    "width": 320,
+    "first_memo": "RESERVOIR 999999",
+    "second_memo": "RESERVOIR 999",
+    "amount_e8s": 10000000,
+    "exact_copy": true,
+    "history": true,
+    "move_memo": "MOVE 1 1"
+  }
+]
