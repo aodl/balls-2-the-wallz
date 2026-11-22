@@ -228,7 +228,7 @@ export function createShell(doc,camera,arcade,onPick){
  }
  function positionMove(at,movement,bounds,width,m,top,short){
   const left=bounds.left+8,right=bounds.left+bounds.width-8,maxBottom=bounds.top+bounds.height-8;
-  const obstacles=[...m.guideObstacles,m.cycles,m.sound,m.buttons,...(!short?[minimapArea(m.mini)]:[])];
+  const obstacles=[...m.guideObstacles,m.cycles,m.sound,...(!short?[m.buttons,minimapArea(m.mini)]:[])];
   const lane=(x,y)=>{
    let upper=top,lower=maxBottom;
    for(const r of obstacles){
