@@ -1,0 +1,37 @@
+{
+  "reservoir": [
+    {
+      "size": [
+        1440,
+        900
+      ],
+      "historical_capability_hidden": true,
+      "fixed_amount": "0.01 ICP",
+      "memo": "RESERVOIR 4005",
+      "native_copy": true,
+      "enemy_distance_3_rejected": true
+    },
+    {
+      "size": [
+        390,
+        844
+      ],
+      "historical_capability_hidden": true,
+      "fixed_amount": "0.01 ICP",
+      "memo": "RESERVOIR 4005",
+      "native_copy": true,
+      "enemy_distance_3_rejected": true
+    },
+    {
+      "size": [
+        320,
+        640
+      ],
+      "historical_capability_hidden": true,
+      "fixed_amount": "0.01 ICP",
+      "memo": "RESERVOIR 4005",
+      "native_copy": true,
+      "enemy_distance_3_rejected": true
+    }
+  ]
+}
