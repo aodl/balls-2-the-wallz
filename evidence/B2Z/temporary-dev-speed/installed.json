@@ -1,0 +1,16 @@
+{
+  "checkout_replay_segments": 5,
+  "controller_only": true,
+  "expiration": true,
+  "full_speed_commit_milliseconds": [
+    100,
+    1100,
+    2100
+  ],
+  "ledger_receipt_position": 1,
+  "manual_deactivation": true,
+  "reserve_protection": true,
+  "restart_restores_adaptive": true,
+  "scope": "isolated development build on disposable PocketIC",
+  "status": "PASS"
+}

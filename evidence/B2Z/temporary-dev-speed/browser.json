@@ -1,0 +1,19 @@
+{
+  "status": "PASS",
+  "viewport": [
+    390,
+    844
+  ],
+  "scope": "real Chromium and local bridge transport, controlled controller reply",
+  "cross_origin_and_bad_duration_rejected": true,
+  "exact_switch_operations": [
+    {
+      "full_speed": true,
+      "seconds": 120
+    },
+    {
+      "full_speed": false,
+      "seconds": 120
+    }
+  ]
+}
