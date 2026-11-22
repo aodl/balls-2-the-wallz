@@ -1,10 +1,10 @@
 //! Bounded public inspection/preparation. No updates, wallet or controller access.
 //! A typed reply is not certified: verify its reference and recompute it from the
 //! authenticated state artifact before relying on it for payment preparation.
-use super::{Publication, Root, number, root};
+use super::{number, root, Publication, Root};
 use b2z_native::{playability as v6, pricing_v6, purchases_v6, world::World};
 use candid::{CandidType, Nat, Principal};
-use dtr_wire::{Int, Rat, Result, decode, hash, unhex};
+use dtr_wire::{decode, hash, unhex, Int, Rat, Result};
 use serde::Deserialize;
 
 #[derive(Clone, CandidType, Deserialize)]
@@ -897,18 +897,16 @@ mod tests {
         let other = AccountIdentifier::new(&Principal::anonymous(), &DEFAULT_SUBACCOUNT).to_hex();
         assert_eq!(quote_items(&w, &other, &action).unwrap_err(), "NOT_OWNER");
         for q in [0, 65] {
-            assert!(
-                quote_items(
-                    &w,
-                    &c.account,
-                    &QuoteAction::Fire {
-                        cannon: c.id,
-                        angle: 0,
-                        quantity: q
-                    }
-                )
-                .is_err()
-            );
+            assert!(quote_items(
+                &w,
+                &c.account,
+                &QuoteAction::Fire {
+                    cannon: c.id,
+                    angle: 0,
+                    quantity: q
+                }
+            )
+            .is_err());
         }
         assert_eq!(cannon(&w, c.id).unwrap().unwrap().island_ball_ids.len(), 1);
     }
@@ -960,17 +958,15 @@ mod tests {
             .unwrap(),
             [10_000_000]
         );
-        assert!(
-            quote_items(
-                &w,
-                &c.account,
-                &QuoteAction::Move {
-                    cannon: c.id,
-                    cell: c.cell as u32
-                }
-            )
-            .is_err()
-        );
+        assert!(quote_items(
+            &w,
+            &c.account,
+            &QuoteAction::Move {
+                cannon: c.id,
+                cell: c.cell as u32
+            }
+        )
+        .is_err());
     }
     #[test]
     fn region_bounds_seams_and_canonical_accounts_are_explicit() {
@@ -1008,14 +1004,12 @@ mod tests {
                 );
             }
         }
-        assert!(
-            text_memo(&QuoteAction::Fire {
-                cannon: 1,
-                angle: 1,
-                quantity: 1
-            })
-            .is_none()
-        );
+        assert!(text_memo(&QuoteAction::Fire {
+            cannon: 1,
+            angle: 1,
+            quantity: 1
+        })
+        .is_none());
     }
     #[test]
     fn receipt_numbers_preserve_tagged_e8s_and_bounded_quantities() {
@@ -1075,18 +1069,16 @@ mod tests {
             .unwrap(),
             vec![100_000_000, 10_000_000]
         );
-        assert!(
-            quote_items(
-                &w,
-                &w.cannons[0].account,
-                &QuoteAction::Fire {
-                    cannon: w.cannons[0].id,
-                    angle: 0,
-                    quantity: 1
-                }
-            )
-            .is_ok()
-        );
+        assert!(quote_items(
+            &w,
+            &w.cannons[0].account,
+            &QuoteAction::Fire {
+                cannon: w.cannons[0].id,
+                angle: 0,
+                quantity: 1
+            }
+        )
+        .is_ok());
     }
     #[test]
     fn clearance_quote_policy_matches_active_rules_and_preserves_fire() {

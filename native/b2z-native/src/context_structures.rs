@@ -2,11 +2,11 @@
 use crate::{
     purchases_v6::{self, Plan},
     territory_v6,
-    world::{World, wrap_cell},
+    world::{wrap_cell, World},
 };
 use b2z_protocol::context_structures as codec;
-use dtr_wire::{Int, Result, hash};
-use serde_json::{Value, json};
+use dtr_wire::{hash, Int, Result};
+use serde_json::{json, Value};
 use std::{collections::BTreeMap, sync::OnceLock};
 
 pub fn configuration() -> &'static [u8] {
@@ -186,7 +186,13 @@ pub(crate) fn prepare_at(
         }
         codec::Command::Existing(_) => {
             return purchases_v6::prepare_with_context(
-                world, account, amount, memo, moved, true, spacing, multiplier,
+                world,
+                account,
+                purchases_v6::PurchaseTerms { amount, multiplier },
+                memo,
+                moved,
+                true,
+                spacing,
             );
         }
         codec::Command::Move { id, .. } | codec::Command::Reorient { id, .. } => id,

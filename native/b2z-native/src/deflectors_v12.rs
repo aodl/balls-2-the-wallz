@@ -1,9 +1,9 @@
 //! Provisional successor structure policy; no production transition authority.
-use crate::deflector_boundary::{Trajectory, face_velocity};
+use crate::deflector_boundary::{face_velocity, Trajectory};
 use crate::world::{Ball, Deflector, World};
-use dtr_wire::{Int, Rat, Result, hash};
+use dtr_wire::{hash, Int, Rat, Result};
 use num_bigint::BigInt;
-use serde_json::{Value, json};
+use serde_json::{json, Value};
 use std::collections::{BTreeMap, BTreeSet};
 pub fn identity() -> Result<Value> {
     let mut i = crate::combined_v11::identity()?;
@@ -206,7 +206,7 @@ pub(crate) fn prepare_with_spacing(
     let ds = w.deflectors.as_ref().ok_or("structure state")?;
     let retained = ds.iter().filter(|d| d.owner == owner).count();
     let price = if let Some(p) = multiplier {
-        use b2z_protocol::economy17::{DIVERTER_BASE_E8S, marginal};
+        use b2z_protocol::economy17::{marginal, DIVERTER_BASE_E8S};
         let Some(price) = marginal(DIVERTER_BASE_E8S, p, retained) else {
             return fail("PRICE_OVERFLOW");
         };

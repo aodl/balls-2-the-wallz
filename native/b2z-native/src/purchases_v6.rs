@@ -3,14 +3,14 @@
 use crate::{
     playability::*,
     pricing_v6,
-    world::{Ball, Cannon, Q, World, position},
+    world::{position, Ball, Cannon, World, Q},
 };
 use b2z_protocol::economy17 as tariff;
-use b2z_protocol::{Command as Legacy, v6::Command};
-use dtr_wire::{Int, Rat, Result, encode, hash};
+use b2z_protocol::{v6::Command, Command as Legacy};
+use dtr_wire::{encode, hash, Int, Rat, Result};
 use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
-use serde_json::{Value, json};
+use serde_json::{json, Value};
 use std::collections::BTreeSet;
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
@@ -157,13 +157,20 @@ pub fn place_new_with_policy(
     place_new_with_context(
         world,
         account,
-        amount,
+        PurchaseTerms {
+            amount,
+            multiplier: None,
+        },
         plan,
         placement,
         entry_rules,
         SitePolicy::Legacy,
-        None,
     )
+}
+
+pub(crate) struct PurchaseTerms {
+    pub amount: u64,
+    pub multiplier: Option<u32>,
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -176,12 +183,11 @@ pub(crate) enum SitePolicy {
 pub(crate) fn place_new_with_context(
     world: &World,
     account: &str,
-    amount: u64,
+    terms: PurchaseTerms,
     plan: &Plan,
     placement: &crate::spawn::Placement,
     entry_rules: bool,
     policy: SitePolicy,
-    multiplier: Option<u32>,
 ) -> Result<Created> {
     let context_rules = policy != SitePolicy::Legacy;
     let spacing = policy == SitePolicy::Separation;
@@ -207,17 +213,7 @@ pub(crate) fn place_new_with_context(
         Command::Legacy(Legacy::Angle(*angle))
     };
     let memo = b2z_protocol::v6::encode(command).map_err(|_| "NEW_CANNON_PLAN")?;
-    if prepare_with_context(
-        world,
-        account,
-        amount,
-        &memo,
-        &[],
-        context_rules,
-        spacing,
-        multiplier,
-    )? != *plan
-    {
+    if prepare_with_context(world, account, terms, &memo, &[], context_rules, spacing)? != *plan {
         return Err("STALE_PURCHASE_PLAN".into());
     }
     let patch = if *first {
@@ -365,19 +361,30 @@ pub fn prepare(
     memo: &[u8],
     moved: &[u32],
 ) -> Result<Plan> {
-    prepare_with_context(world, account, amount, memo, moved, false, false, None)
+    prepare_with_context(
+        world,
+        account,
+        PurchaseTerms {
+            amount,
+            multiplier: None,
+        },
+        memo,
+        moved,
+        false,
+        false,
+    )
 }
 
 pub(crate) fn prepare_with_context(
     world: &World,
     account: &str,
-    amount: u64,
+    terms: PurchaseTerms,
     memo: &[u8],
     moved: &[u32],
     context_rules: bool,
     spacing: bool,
-    multiplier: Option<u32>,
 ) -> Result<Plan> {
+    let PurchaseTerms { amount, multiplier } = terms;
     if world.version < 6 {
         return Err("EXPECTED_V6".into());
     }

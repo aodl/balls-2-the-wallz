@@ -3,9 +3,9 @@
 use super::{number, source::SourceState, transition::Transition};
 use b2z_native::{playability, world::World};
 use dtr_host::{Coordinator, Identity, Kernel, Output};
-use dtr_wire::{Int, Result, decode, encode, hash, unhex};
+use dtr_wire::{decode, encode, hash, unhex, Int, Result};
 use serde::{Deserialize, Serialize};
-use serde_json::{Value, json};
+use serde_json::{json, Value};
 
 /// Only the current context needs a root copy. Every retained lifecycle
 /// checkpoint also carries this exact preimage in its own event artifact.
@@ -714,8 +714,8 @@ fn schema7_candidate<K: Kernel>(
 }
 
 use super::{
-    Root, ensure_run_timer, host, install_run_timer, pace, persist, request_reconciliation, root,
-    save_root_only,
+    ensure_run_timer, host, install_run_timer, pace, persist, request_reconciliation, root,
+    save_root_only, Root,
 };
 use std::{cell::RefCell, time::Duration};
 thread_local! { static TIMER:RefCell<Option<(ic_cdk_timers::TimerId,u64)>>=const {RefCell::new(None)}; }
@@ -1568,11 +1568,9 @@ mod tests {
         let mut run = crate::RunState::default();
         crate::reconcile_completed_segments(&mut run, &publication).unwrap();
         assert_eq!(run.completed_segments, 4);
-        assert!(
-            b2z_native::lifecycle_v6::expire(&finished, now, &fences)
-                .unwrap()
-                .is_none()
-        );
+        assert!(b2z_native::lifecycle_v6::expire(&finished, now, &fences)
+            .unwrap()
+            .is_none());
         let trace = json!({"status":"PASS","evidence_class":"SYNTHETIC_NATIVE_HOST_CONTENT_NOT_IC_AUTHENTICATION","initial_world_hex":dtr_wire::hex(&world.encode().unwrap()),"inputs":[],"assigned":[],"publications":publications,"artifact_events":artifact_events,"epoch_metadata":epoch_metadata});
         let expected: serde_json::Value = serde_json::from_str(include_str!(
             "../../../tests/fixtures/playability-host-history.json"

@@ -1,11 +1,11 @@
 //! Explicit authenticated elapsed-time operations, never Ledger records or ticks.
 //! Committed v6 topology must already have removed unsupported non-anchor land.
 use crate::{
-    Output,
-    playability::{Fence, MAX_CANNONS, elapsed},
+    playability::{elapsed, Fence, MAX_CANNONS},
     world::World,
+    Output,
 };
-use dtr_wire::{Int, Result, encode, hash};
+use dtr_wire::{encode, hash, Int, Result};
 use serde_json::json;
 use std::collections::BTreeSet;
 

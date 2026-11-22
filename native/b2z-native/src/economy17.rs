@@ -2,9 +2,9 @@
 //! wall clock at execution of a payment.
 use crate::{playability::elapsed, world::World};
 use b2z_protocol::economy17::{DAY_NS, GRACE_NS};
-use dtr_wire::{Int, Result, hash};
+use dtr_wire::{hash, Int, Result};
 use serde::{Deserialize, Serialize};
-use serde_json::{Value, json};
+use serde_json::{json, Value};
 use std::collections::BTreeSet;
 
 pub fn configuration() -> &'static [u8] {
@@ -207,7 +207,7 @@ pub(crate) fn prepare(
     moved: &[u32],
     recorded_ns: u64,
 ) -> Result<(crate::purchases_v6::Plan, PaymentTariff)> {
-    use crate::purchases_v6::{Plan, player_balls};
+    use crate::purchases_v6::{player_balls, Plan};
     use b2z_protocol::economy17::affordable_balls;
     use num_traits::ToPrimitive;
 
@@ -273,8 +273,8 @@ pub(crate) fn prepare(
 /// Read-only quotation from the committed inventory and a verified clock
 /// reading. The Ledger's recorded time still governs actual acquisition.
 pub fn quote_items(w: &World, account: &str, memo: &[u8], observed_ns: u64) -> Result<Vec<u64>> {
-    use crate::purchases_v6::{Plan, player_balls};
-    use b2z_protocol::economy17::{BALL_BASE_E8S, marginal};
+    use crate::purchases_v6::{player_balls, Plan};
+    use b2z_protocol::economy17::{marginal, BALL_BASE_E8S};
     use num_traits::ToPrimitive;
     let rate = w
         .economy

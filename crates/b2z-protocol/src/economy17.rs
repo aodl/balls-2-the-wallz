@@ -1,6 +1,6 @@
 //! Rules17 Ledger envelope and exact purchase arithmetic.
 pub use crate::economy17_generated::*;
-use crate::{MemoError, reservoir};
+use crate::{reservoir, MemoError};
 
 pub const MEMO_ADAPTER_VERSION: u8 = 11;
 pub const NORMALIZED_PAYMENT: &[u8; 8] = b"BTZPAY08";

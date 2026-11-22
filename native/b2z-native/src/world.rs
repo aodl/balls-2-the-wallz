@@ -1,4 +1,4 @@
-use dtr_wire::{Int, Rat, Result, decode, encode};
+use dtr_wire::{decode, encode, Int, Rat, Result};
 use num_bigint::BigInt;
 use num_traits::Signed;
 use serde::{Deserialize, Serialize};

@@ -11,13 +11,13 @@ mod source;
 mod transition;
 use b2z_native::world::World;
 use candid::{CandidType, Principal};
-use dtr_host::observation::{CHUNK, MAX_ARTIFACT, Publication, publication};
+use dtr_host::observation::{publication, Publication, CHUNK, MAX_ARTIFACT};
 use dtr_host::{Action, Coordinator, Identity, MAX_IMAGE};
-use dtr_wire::{Int, Result as AppResult, decode, encode, hash, hex, unhex};
+use dtr_wire::{decode, encode, hash, hex, unhex, Int, Result as AppResult};
 use ic_cdk::call::Call;
 use ic_stable_structures::{
-    DefaultMemoryImpl, StableBTreeMap, StableCell,
     memory_manager::{MemoryId, MemoryManager, VirtualMemory},
+    DefaultMemoryImpl, StableBTreeMap, StableCell,
 };
 use operation_kernel::OperationKernel as B2zHostKernel;
 use serde::{Deserialize, Serialize};

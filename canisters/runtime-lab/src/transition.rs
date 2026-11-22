@@ -1,10 +1,10 @@
 //! B2Z-only cutover fences and reviewed placements. Not a state replacement API.
 use b2z_native::{
-    migration::{Boundary, stage_million_world, stage_world},
+    migration::{stage_million_world, stage_world, Boundary},
     world::World,
 };
 use dtr_host::{Coordinator, Identity, Output};
-use dtr_wire::{Int, Result, encode, hash, unhex};
+use dtr_wire::{encode, hash, unhex, Int, Result};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 /// World migration headroom is independent of ordinary gameplay pacing bands.

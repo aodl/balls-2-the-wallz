@@ -2,7 +2,7 @@
 //! contents and completeness. Rules17 can look up an identified incoming block for its timestamp.
 use candid::{CandidType, Deserialize, Nat, Principal};
 use dtr_host::Input;
-use dtr_wire::{Int, Result, hash, hex, unhex};
+use dtr_wire::{hash, hex, unhex, Int, Result};
 use ic_ledger_types::{AccountIdentifier, Subaccount};
 use serde::Serialize;
 
@@ -959,30 +959,24 @@ mod tests {
         );
         t.icrc1_memo = Some(b"BTZ\x12\0\0\0\x01".to_vec());
         t.memo = 0;
-        assert!(
-            classify(&t, &recipient)
-                .unwrap()
-                .unwrap()
-                .ends_with("42545a1200000001")
-        );
+        assert!(classify(&t, &recipient)
+            .unwrap()
+            .unwrap()
+            .ends_with("42545a1200000001"));
         t.memo = 1;
-        assert!(
-            classify(&t, &recipient)
-                .unwrap()
-                .unwrap()
-                .ends_with("42545a1200000001")
-        );
+        assert!(classify(&t, &recipient)
+            .unwrap()
+            .unwrap()
+            .ends_with("42545a1200000001"));
         t.memo = 0;
         t.icrc1_memo = None;
         if let Operation::Transfer { spender, .. } = &mut t.operation {
             *spender = Some(receiving_account(owner(), 2).to_string());
         }
-        assert!(
-            classify(&t, &recipient)
-                .unwrap()
-                .unwrap()
-                .ends_with("0000000000000000")
-        );
+        assert!(classify(&t, &recipient)
+            .unwrap()
+            .unwrap()
+            .ends_with("0000000000000000"));
         if let Operation::Transfer { from, .. } = &mut t.operation {
             *from = recipient.to_string();
         }
@@ -1013,11 +1007,9 @@ mod tests {
         assert_eq!(&old[..96], &new[..96]);
         let mut s = fresh();
         let bytes = serde_json::to_vec(&s).unwrap();
-        assert!(
-            !String::from_utf8(bytes.clone())
-                .unwrap()
-                .contains("memo_adapter_version")
-        );
+        assert!(!String::from_utf8(bytes.clone())
+            .unwrap()
+            .contains("memo_adapter_version"));
         s = serde_json::from_slice(&bytes).unwrap();
         assert_eq!(s.memo_adapter_version, 3);
         let mut row = tx(1);
@@ -1045,12 +1037,10 @@ mod tests {
         }
         t.memo = b2z_protocol::numeric(b2z_protocol::Command::Angle(0));
         t.icrc1_memo = Some(vec![]);
-        assert!(
-            classify_v6(&t, &recipient)
-                .unwrap()
-                .unwrap()
-                .ends_with("0000000000000000")
-        );
+        assert!(classify_v6(&t, &recipient)
+            .unwrap()
+            .unwrap()
+            .ends_with("0000000000000000"));
     }
     #[test]
     fn full_nat64_source_positions_and_subaccounts_survive_durable_codec() {
@@ -1263,10 +1253,10 @@ async fn ledger_block(ledger: Principal, position: u64, timeout: u32) -> Result<
     }
     let range = response.archived_blocks.remove(0);
     if range.start > position
-        || !range
+        || range
             .start
             .checked_add(range.length)
-            .is_some_and(|end| position < end)
+            .is_none_or(|end| position >= end)
     {
         return Err("Ledger timestamp archive position mismatch".into());
     }

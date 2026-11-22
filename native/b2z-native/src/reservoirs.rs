@@ -1,11 +1,11 @@
 //! Inert terrain, with storage and commands fenced by the Rules16 identity.
 use crate::{
-    purchases_v6::{Plan, enemy_clearance, occupied_cells, player_by_account},
+    purchases_v6::{enemy_clearance, occupied_cells, player_by_account, Plan},
     territory_v6,
     world::World,
 };
 use b2z_protocol::reservoir::PRICE_E8S;
-use dtr_wire::{Int, Result, hash};
+use dtr_wire::{hash, Int, Result};
 use serde_json::json;
 
 pub fn configuration() -> &'static [u8] {

@@ -1,17 +1,18 @@
 //! Versioned command/capture continuation. Historical cursors omit this state.
 //! Elapsed IC time is supplied explicitly by the host after logical completion.
 use crate::{
-    Cursor, capture_v6,
+    capture_v6,
     cursor::PaymentSaved,
     playability::{self, Fence},
     purchases_v6::{self, Batch, Plan},
     spawn::{Placement, SpawnJob},
+    Cursor,
 };
-use dtr_wire::{Int, Result, encode, hash};
+use dtr_wire::{encode, hash, Int, Result};
 use num_bigint::BigInt;
 use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
-use serde_json::{Value, json};
+use serde_json::{json, Value};
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -396,12 +397,14 @@ impl Cursor {
         let created = purchases_v6::place_new_with_context(
             &self.world,
             &payment.account,
-            amount,
+            purchases_v6::PurchaseTerms {
+                amount,
+                multiplier: payment.tariff.as_ref().map(|p| p.multiplier),
+            },
             plan,
             placement,
             rules.entry_rules,
             policy,
-            payment.tariff.as_ref().map(|p| p.multiplier),
         )?;
         let mut batch = Batch::after_new(payment.account.clone(), amount, created.cannon.id, plan)?;
         batch.economy_multiplier = payment.tariff.as_ref().map(|p| p.multiplier);

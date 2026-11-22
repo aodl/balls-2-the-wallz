@@ -1,16 +1,16 @@
 use crate::economics_generated::{
     BALL_BASE_E8S, JOIN_E8S, LEGACY_BALL_BASE_E8S, LEGACY_JOIN_E8S, LEGACY_MOVE_E8S, MOVE_E8S,
 };
-use crate::geometry::{Crossing, Intent, classify, next_crossing, reflect};
+use crate::geometry::{classify, next_crossing, reflect, Crossing, Intent};
 use crate::spawn::SpawnJob;
 use crate::topology::{self, TopologyJob};
-use crate::world::{Ball, Cannon, Credit, Q, Strike, World, position};
+use crate::world::{position, Ball, Cannon, Credit, Strike, World, Q};
 use b2z_protocol::Command;
-use dtr_wire::{Int, Rat, Result, decode, encode, hash, hex, unhex};
+use dtr_wire::{decode, encode, hash, hex, unhex, Int, Rat, Result};
 use num_bigint::BigInt;
 use num_traits::{One, ToPrimitive};
 use serde::{Deserialize, Serialize};
-use serde_json::{Value, json};
+use serde_json::{json, Value};
 use std::collections::BTreeSet;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -1043,7 +1043,11 @@ impl Cursor {
         };
         let deflector_contact = if let Some(d) = d {
             let face = if i.crossing.x {
-                if b.vx > 0 { "W" } else { "E" }
+                if b.vx > 0 {
+                    "W"
+                } else {
+                    "E"
+                }
             } else if b.vy > 0 {
                 "N"
             } else {

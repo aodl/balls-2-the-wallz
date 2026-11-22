@@ -1,7 +1,7 @@
 //! Versioned player/lifecycle state. All elapsed-time facts are explicit inputs;
 //! this module has no clock, IC calls, Ledger positions or ambient randomness.
 pub use crate::playability_generated::*;
-use crate::world::{World, account_ok};
+use crate::world::{account_ok, World};
 use dtr_wire::{Int, Result};
 use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
