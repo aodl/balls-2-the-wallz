@@ -116,6 +116,15 @@ fn deploy_ledger_fee(
     payers: &[Principal],
     fee: u64,
 ) -> Principal {
+    deploy_ledger_options(pic, ledger_wasm, payers, fee, false)
+}
+fn deploy_ledger_options(
+    pic: &PocketIc,
+    ledger_wasm: &[u8],
+    payers: &[Principal],
+    fee: u64,
+    icrc2: bool,
+) -> Principal {
     let ledger = create_controlled(pic);
     let minting = AccountIdentifier::new(
         &Principal::self_authenticating([88; 32]),
@@ -150,7 +159,7 @@ fn deploy_ledger_fee(
         transfer_fee: Some(Tokens::from_e8s(fee)),
         token_symbol: Some("TICP".into()),
         token_name: Some("PocketIC Test ICP".into()),
-        feature_flags: Some(FeatureFlags { icrc2: false }),
+        feature_flags: Some(FeatureFlags { icrc2 }),
     });
     pic.install_canister(
         ledger,
@@ -3272,6 +3281,16 @@ fn arena_setup_world_fee_clock_payers(
     seconds_ago: u64,
     extra_payers: &[Principal],
 ) -> (PocketIc, Principal, Principal, Principal) {
+    arena_setup_world_fee_clock_payers_options(wasm, initial, fee, seconds_ago, extra_payers, false)
+}
+fn arena_setup_world_fee_clock_payers_options(
+    wasm: Vec<u8>,
+    initial: Vec<u8>,
+    fee: u64,
+    seconds_ago: u64,
+    extra_payers: &[Principal],
+    icrc2: bool,
+) -> (PocketIc, Principal, Principal, Principal) {
     let builder = PocketIcBuilder::new()
         .with_nns_subnet()
         .with_application_subnet();
@@ -3297,7 +3316,7 @@ fn arena_setup_world_fee_clock_payers(
     let mut payers = vec![payer];
     payers.extend_from_slice(extra_payers);
     assert!(payers.len() <= 5); // Four ordinary agents plus the retained fixture payer.
-    let ledger = deploy_ledger_fee(&pic, &bytes("ICP_LEDGER_WASM"), &payers, fee);
+    let ledger = deploy_ledger_options(&pic, &bytes("ICP_LEDGER_WASM"), &payers, fee, icrc2);
     let index = create_controlled(&pic);
     let id = create_controlled(&pic);
     for c in [id, index] {

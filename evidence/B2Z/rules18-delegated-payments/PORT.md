@@ -78,3 +78,24 @@ Mandatory gates remain the actual integrated disposable signed Ledger journey,
 independent authenticated replay, hosted qualification on the frozen
 candidate and real Internet Identity acceptance on the established European
 origin. No mainnet deployment or financial operation was performed.
+
+The 2,095 JavaScript tests and 61 runtime-host tests passed. The Chromium
+journey passed at 1440×900, 390×844 and 320×640 using the real frontend
+controls, native clipboard and native Web Locks. Its authentication and
+Ledger connection use controlled fixtures. [Browser results](browser.json)
+
+The first disposable run reached the Rules18 cutover but its signer stopped
+waiting before the longer predecessor rehearsal finished. The next run also
+reached cutover. Its Ledger rejected approval because the reused fixture
+disabled ICRC-2. The financial test now explicitly enables ICRC-2 at local
+Ledger initialization and checks advertised standards before the rehearsal.
+Both failed runs remain separate from qualification.
+
+The frozen build source is
+`ed5a3b850c971bf1768c2d916e5212d1a38f5a54`.
+The local embedded Wasm is
+`da3fccaaec5d2c1828a9ca53bdf979cd6d8a95be9398b8c4ad17ee8d53d49b55`
+with 89 public assets. The normal backend built locally is
+`32f6a34c0daf727a413853bdf1b88037622e97b2449999ef13aaf4985bff1147`.
+The published financial and standard gates still determine the hosted
+artifact identities and release status.

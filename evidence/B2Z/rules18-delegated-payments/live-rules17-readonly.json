@@ -1,0 +1,88 @@
+{
+  "at": "2026-11-22T21:44:55.367Z",
+  "status": "PASS",
+  "scope": "Anonymous mainnet read-only queries and certified canister paths; no production mutation",
+  "modules": [
+    {
+      "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "module_hash": "c066140f4ef3174b3f440694c19ec4116a03298fcc63b80636b0b5389bc210ca",
+      "certificate_verified": true
+    },
+    {
+      "id": "s2jxj-liaaa-aaaas-amynq-cai",
+      "module_hash": "33016b1d731717a80e0c67cc52df77a996b88f3264d9b9ae1c7a58fc812369b6",
+      "certificate_verified": true
+    }
+  ],
+  "identity": {
+    "config_hash": "0cff926a5d2ee0342547a045dbb85aa25f2d83991c54edab6b14f73ede21262f",
+    "rules_hash": "ba259c26e31b8868a3bc28c7e76cbbb486f448c760a1f0d48c9a3ec75c1b5156",
+    "schema_hash": "56622629b4c0821c9f5384ecd8d3501fd7cac93bf274cafbf017b599e2503233",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "head": "15135",
+  "root": "3bbcfda4683f9a22e30f1596d73df5f58c7d7598ad8613d9c53b8c56d1b6f7ac",
+  "world": {
+    "version": 9,
+    "cannons": 2,
+    "balls": 2,
+    "reservoirs": 4,
+    "diverters": 1,
+    "received_e8s": "108100000",
+    "credit_accounts": 1,
+    "source_cursor": "40647923",
+    "state_hash": "a1f020e225d07e89252c4d3a2c141699552d8cadb0d2e9d2dfa456942bf85d0e"
+  },
+  "operational_signed_query": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "1",
+      "publication_ticks": "1",
+      "completed_segments": "15125",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40647923"
+    }
+  },
+  "operational_scope": "Signed operational query, not certified gameplay or payment authority",
+  "resources": {
+    "frontend": {
+      "access": "read-only controller status",
+      "balance_cycles": 792027559647,
+      "reserved_cycles": 0,
+      "freezing_seconds": 2592000,
+      "idle_cycles_per_day": 6763785803,
+      "memory_bytes": 230929089,
+      "freezing_cycles": 202913574090,
+      "liquid_cycles": 589113985557,
+      "snapshots": 0,
+      "chunk_count": 0,
+      "combined_install_recovery_and_staging_allowance": 494000000000,
+      "projected_remaining_cycles": 95113985557
+    },
+    "backend": {
+      "access": "read-only controller status",
+      "balance_cycles": 2377036462959,
+      "reserved_cycles": 0,
+      "freezing_seconds": 2592000,
+      "idle_cycles_per_day": 2133946384,
+      "memory_bytes": 49708171,
+      "freezing_cycles": 64018391520,
+      "liquid_cycles": 2313018071439,
+      "snapshots": 0
+    }
+  }
+}

@@ -1103,7 +1103,7 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegati
         500
     };
     let initial = fixture.encode().unwrap();
-    let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers(
+    let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers_options(
         bytes("B2Z_S14_TEST_WASM"),
         initial.clone(),
         10_000,
@@ -1113,7 +1113,25 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegati
         } else {
             &[]
         },
+        delegation,
     );
+    if delegation {
+        #[derive(CandidType, Deserialize)]
+        struct Standard {
+            name: String,
+            url: String,
+        }
+        let raw = pic
+            .query_call(
+                ledger,
+                Principal::anonymous(),
+                "icrc1_supported_standards",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        let standards: Vec<Standard> = decode_one(&raw).unwrap();
+        assert!(standards.iter().any(|standard| standard.name == "ICRC-2"));
+    }
     playability_installed::funding_paused(&pic, id, true);
     upgrade(&pic, id, retained_wasm());
     playability_installed::configuration(&pic, id, 512);
