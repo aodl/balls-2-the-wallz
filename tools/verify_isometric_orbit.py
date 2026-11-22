@@ -366,16 +366,17 @@ try:
         if args.reference:
             report["before"] = [test(browser, "before", 1440, 900)]
         if args.interaction_polish:
-            candidate = url + "/after/?case=orbit&spacing"
+            candidate = url + "/after/?case=reservoir&reservoir"
             interaction = {"movement": [movement(browser, candidate, declare, screen, w, h, d, floating=args.floating_aim)
                                         for w,h in [(1440,900),(390,844),(320,640)] for d in [False,True]]}
             for variant, sizes in (("after", [(1440,900),(320,640)]),("before", [(1440,900),(320,640)] if args.reference else [])):
                 for w,h in sizes:
-                    ctx=browser.new_context(viewport={"width":w,"height":h},has_touch=w<700)
+                    ctx=browser.new_context(viewport={"width":w,"height":h},has_touch=w<700,
+                                            permissions=["clipboard-read","clipboard-write"])
                     page=ctx.new_page()
                     errors=[]
                     page.on("pageerror",lambda e: errors.append(str(e)))
-                    page.goto(f"{url}/{variant}/?case=orbit&spacing")
+                    page.goto(candidate if variant=="after" else f"{url}/{variant}/?case=orbit&spacing")
                     page.wait_for_function("()=>Boolean(globalThis.fixture)")
                     declare(page)
                     tile_cases(page,screen,variant,w)

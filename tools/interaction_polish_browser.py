@@ -209,6 +209,13 @@ def movement(browser, url, declare, screen, width, height, diverter, floating=Fa
         page.set_viewport_size({'width':320,'height':640})
         page.wait_for_function('()=>fixture.camera.viewport.height===640')
     overlap=guide_overlap(page,screen,width,source,third,stem)
+    assert not page.evaluate("n=>fixture.choose(n)",source)
+    expect(page.locator('[data-copy=text]')).to_be_disabled()
+    expect(page.locator('#text-memo')).to_have_text('')
+    page.wait_for_function("()=>fixture.inspect().guideEnd===null")
+    assert page.evaluate("n=>fixture.choose(n)",third)
+    expect(page.locator('#text-memo')).to_have_text(updated)
+    expect(page.locator('[data-copy=text]')).to_be_enabled()
     assert not errors, errors
     context.close()
     return {"overlap":overlap,"kind":stem, "first":first, "keyboard_destination":third, "native_clipboard":"PASS", "consecutive_quotes":"PASS", "manual_fallback":fallback}
@@ -255,7 +262,10 @@ def tile_cases(page, screen, variant, width):
     before=page.locator('#text-memo').text_content()
     icon.click()
     expect(page.locator('#copy-feedback')).to_contain_text('Copied.')
-    assert before.startswith('NEW ')
+    assert before.startswith('NEW ') and page.evaluate('navigator.clipboard.readText()')==before
+    assert page.evaluate('fixture.choose(10004)')
+    expect(page.locator('#text-memo')).to_contain_text(' 10004')
+    assert page.evaluate('fixture.choose(10003)')
     scene(page,legal,2,70,300)
     page.wait_for_function("()=>fixture.inspect().tileHighlights.some(h=>h.cell===10003&&h.kind==='destination'&&h.marker)")
     screen(page,f"{prefix}-far-destination")
@@ -264,6 +274,10 @@ def tile_cases(page, screen, variant, width):
     expect(icon).to_be_enabled()
     icon.click()
     expect(page.locator('#copy-feedback')).to_contain_text('Copied.')
+    assert page.evaluate('navigator.clipboard.readText()') == 'DEFLECT 10003 N'
+    assert page.evaluate('fixture.choose(10004)')
+    expect(page.locator('#text-memo')).to_have_text('DEFLECT 10004 N')
+    assert page.locator('#replace-choice').count()==0
     page.locator("#close-panel").click()
 
 
