@@ -10,7 +10,7 @@ const exactKeys=(value,keys)=>value&&Object.keys(value).sort().join(',')===keys;
 export const participatingPlayers=world=>new Set(world.cannons.map(cannon=>cannon.account)).size;
 
 export function validateEconomy(world){
-  if(world.version!==9){
+  if(world.version!==9&&world.version!==10){
     if(world.economy!==undefined)throw Error('economy schema');
     return;
   }

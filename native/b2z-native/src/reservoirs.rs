@@ -63,7 +63,7 @@ pub fn place(world: &mut World, cell: usize) -> Result<()> {
 
 pub fn validate(world: &World) -> Result<()> {
     match (world.version, &world.reservoirs) {
-        (8 | 9, Some(bits)) => {
+        (8..=10, Some(bits)) => {
             let cells = world.cell_count();
             let max = cells.div_ceil(4);
             if bits.len() > max || bits.ends_with('0') || !bits.bytes().all(|b| nibble(b).is_some())
@@ -84,7 +84,7 @@ pub fn validate(world: &World) -> Result<()> {
                 return Err("RESERVOIR_OCCUPANCY".into());
             }
         }
-        (8 | 9, None) | (_, Some(_)) => return Err("RESERVOIR_SCHEMA".into()),
+        (8..=10, None) | (_, Some(_)) => return Err("RESERVOIR_SCHEMA".into()),
         _ => {}
     }
     Ok(())

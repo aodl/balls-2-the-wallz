@@ -52,3 +52,23 @@ test('keyed authorization admits thousands of distinct grants without the previo
  }
  assert.equal(Object.keys(validateAuthorization(registry).grants).length,2048);
 });
+
+test('candidate Schema10 changes only the version and adds an empty recipient-bound registry',async()=>{
+ const {sha256}=await import('@dtr/timeline-runtime/runtime/seal');
+ const {decodeWorld,encodeWorld,migrateDelegation,DELEGATED_IDENTITY}=await import('../../packages/kernels/b2z/world.mjs');
+ const {migrateReservoirs}=await import('../../packages/kernels/b2z/reservoirs.mjs');
+ const {migrateEconomy}=await import('../../packages/kernels/b2z/economy17.mjs');
+ const base=JSON.parse(readFileSync(new URL('../fixtures/context-structures-v13.json',import.meta.url))).rows[0];
+ const old=migrateReservoirs(decodeWorld(Buffer.from(base.initial_hex,'hex')));
+ const r17=migrateEconomy(old,BigInt(vector.migration.activated_ns),sha256(encodeWorld(old)));
+ const r18=migrateDelegation(r17,facts.to);
+ const {version,authorization,...retained}=r18;
+ assert.equal(version,10);
+ assert.equal(authorization.recipient,facts.to);
+ assert.deepEqual(authorization.grants,{});
+ assert.deepEqual({...retained,version:9},r17);
+ assert.equal(sha256(encodeWorld(r17)),vector.migration.before_sha256);
+ assert.equal(sha256(encodeWorld(r18)),vector.migration.after_sha256);
+ assert.deepEqual(DELEGATED_IDENTITY,vector.migration.identity);
+ assert.throws(()=>migrateDelegation(r18,facts.to),/EXPECTED_ECONOMY_PREDECESSOR/);
+});

@@ -1,6 +1,7 @@
 //! Authoritative B2Z host with one account-index adapter and certified observation.
 //! No wallet or payout implementation. B2Z-owned prelaunch operating funding is separate.
 #![forbid(unsafe_code)]
+mod delegation_wire;
 mod funding;
 mod health;
 mod operation_kernel;
@@ -8,8 +9,6 @@ mod pace;
 mod playability_runtime;
 mod player_api;
 mod source;
-#[cfg(test)]
-mod delegation_wire;
 mod transition;
 use b2z_native::world::World;
 use candid::{CandidType, Principal};
@@ -2349,9 +2348,14 @@ async fn reconcile() -> AppResult<()> {
         if trap_after_reply {
             ic_cdk::trap("S14 injected B2Z response-handler trap after index await");
         }
-        let result: source::HistoryResult = response
-            .candid()
-            .map_err(|e| format!("index response decode: {e}"))?;
+        let result: source::HistoryResult =
+            if r.source.memo_adapter_version == b2z_protocol::delegation::ADAPTER_VERSION {
+                delegation_wire::decode_checked(&response.into_bytes())?
+            } else {
+                response
+                    .candid()
+                    .map_err(|e| format!("index response decode: {e}"))?
+            };
         let page = result.map_err(|e| format!("index error: {}", e.message))?;
         #[cfg(target_arch = "wasm32")]
         let page = {

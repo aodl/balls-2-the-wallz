@@ -29,25 +29,38 @@ port has separate local tests. [Historical verification](https://github.com/aodl
   cost remains an installed-IC task.
 - The historical Candid type-table guard rejects a reply whose Transfer type
   omits the optional spender field. Current host unit tests also verify
-  that the candidate normalizer treats Approve as a non-payment and
-  rejects a transfer without a block timestamp. The live adapter remains
-  unchanged.
+  that the candidate adapter treats Approve as a non-payment and rejects
+  a transfer without a block timestamp. The candidate normalization path
+  shares the production Rules17 Ledger and archive timestamp recovery.
+  The live adapter remains unchanged.
 - The frontend quote bridge matches prices and exact memo bytes for all
   seven action types, including Shout where supported. This bridge
   reuses the Rules17 quote builder and accepts a verified pricing time.
 
-Local results include 28 JavaScript checks, two native authorization and
-envelope checks, four Index wire checks and a source normalizer check.
-SDK signing, intent recovery and owner command tests use local fixtures.
-The 17 shared Rust protocol tests also passed.
+The provisional Rules18 configuration is
+`6bcccdc6cb89cd32b680cead7c1ec7d7b6d7d294a36b44d7dd94be1a261b7934`.
+The rules hash is
+`3925d3aa0ef3fd031627290e6eeccd76f53b985625a25125b50ef34a4a2b4c22`
+and the Schema10 hash is
+`dfcb89f63c4d0d662b5ba6797ceb56902636e8c3c0d41efb1e902baa5b521e9b`.
+The independent JS and Rust migration fixtures agree on exact pre/post
+state hashes. They preserve the daily tariff schedule and all other
+predecessor fields and add an empty recipient-bound authorization registry.
+
+Local results include 29 JavaScript checks, three native authorization,
+conversion and envelope checks, four Index wire checks and a source
+normalizer check. SDK signing, intent recovery and owner command tests
+use local fixtures. The 17 shared Rust protocol tests, 61 runtime host unit tests and normal
+Wasm target check also passed.
 
 ## Activation gates still open
 
-The Rules18 configuration and schema, durable registry and receipt
-wiring, official Index and Ledger archive path, authenticated frontend
-capability and migration still need integration. The candidate Index decoder
-and normalizer are test-only. The recovered authentication, journal and
-Ledger modules are not mounted in the game.
+The paid runtime still needs to wire the registry into ordered execution,
+publish and verify delegated receipts, and add the controller-only source
+fence and epoch commitment. The source adapter has no active transition
+to select it. The recovered authentication, journal and Ledger modules are
+not mounted in the game. Official disposable Index and Ledger/archive tests
+must exercise the full successor, including allowance and revocation.
 
 The new source still requires the state-preserving Rules17 cutover rehearsal,
 official disposable Ledger/Index financial tests, independent authenticated

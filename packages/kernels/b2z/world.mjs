@@ -1,3 +1,5 @@
+import {DELEGATION_ADAPTER,DELEGATION_LIFETIME_NS} from '../../protocol/delegation.mjs';
+import {emptyAuthorization,validateAuthorization} from './delegation-v18.mjs';
 import {ECONOMY_ADAPTER,ECONOMY_PAYMENT} from '../../protocol/economy17.mjs';
 import {BALL_BASE_E8S,CANNON_BASE_E8S,DIVERTER_BASE_E8S,RESERVOIR_PRICE_E8S as ECONOMY_RESERVOIR_PRICE,FIXED_ACTION_E8S,DAY_NS,GRACE_NS} from '../../protocol/economy17.generated.mjs';
 import {validateEconomy} from './economy17.mjs';
@@ -83,6 +85,24 @@ export const ECONOMY_IDENTITY=Object.freeze({
   schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_09_DAILY_TARIFFS')),
   config_hash:sha256(encodeCanonical(ECONOMY_CONFIG)),
 });
+export const DELEGATED_CONFIG=Object.freeze({
+  ...ECONOMY_CONFIG,version:10,rules_version:18,memo_adapter_version:DELEGATION_ADAPTER,
+  normalized_payment:'BTZPAY09',delegation_capability:'ordered-owner-grant-2',delegation_lifetime_ns:DELEGATION_LIFETIME_NS,
+});
+export const DELEGATED_IDENTITY=Object.freeze({
+  rules_hash:sha256(new TextEncoder().encode('B2Z_DELEGATED_PAYMENT_RULES_18')),
+  schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_10_ORDERED_AUTHORIZATION')),
+  config_hash:sha256(encodeCanonical(DELEGATED_CONFIG)),
+});
+
+/** Exact predecessor migration. Only the authenticated transition may call this in production. */
+export function migrateDelegation(predecessor,recipient) {
+  if(predecessor.version!==9)throw Error('EXPECTED_ECONOMY_PREDECESSOR');
+  const next=cloneCanonical(validateWorld(predecessor));
+  next.version=10;
+  next.authorization=emptyAuthorization(recipient);
+  return validateWorld(next);
+}
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{
@@ -162,7 +182,7 @@ export function connected(cells, width, height, owner, anchor, torus=false) {
 }
 /** Validate fully resolved states only; intermediate capture scratch may deliberately violate connectivity. */
 export function validateWorld(w) {
-  if (![3,4,5,6,7,8,9].includes(w.version)) throw new Error('B2Z state version');
+  if (![3,4,5,6,7,8,9,10].includes(w.version)) throw new Error('B2Z state version');
   if(w.version===4&&(w.width!==32||w.height!==32))throw new Error('torus dimensions');
   if(w.version>=5&&(w.width!==1000||w.height!==1000))throw new Error('million dimensions');
   if((w.version>=6)!==(w.playability!==undefined))throw new Error('B2Z lifecycle version');
@@ -237,6 +257,8 @@ export function validateWorld(w) {
   if(w.version>=7)validateDeflectorState(w);else if(w.deflectors!==undefined||w.next_deflector_id!==undefined)throw Error('historical structure extension');
   validateReservoirs(w);
   validateEconomy(w);
+  if(w.version===10)validateAuthorization(w.authorization);
+  else if(w.authorization!==undefined)throw Error('authorization schema');
   return w;
 }
 export function encodeWorld(w) { validateWorld(w); return encodeCanonical(w); }

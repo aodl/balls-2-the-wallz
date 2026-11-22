@@ -1101,6 +1101,7 @@ mod tests {
             next_deflector_id: None,
             reservoirs: None,
             economy: None,
+            authorization: None,
             version: 3,
             width: 16,
             height: 8,

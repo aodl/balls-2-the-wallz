@@ -198,6 +198,8 @@ pub struct World {
     pub reservoirs: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub economy: Option<crate::economy17::Schedule>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub authorization: Option<crate::delegation_v18::Registry>,
 }
 pub fn account_ok(s: &str) -> bool {
     s.len() == 64
@@ -535,7 +537,7 @@ impl World {
     /// For resolved states only. Topology continuation snapshots may be transiently disconnected.
     pub fn validate(&self) -> Result<()> {
         let fail = |s: &str| -> Result<()> { Err(s.into()) };
-        if ![3, 4, 5, 6, 7, 8, 9].contains(&self.version)
+        if ![3, 4, 5, 6, 7, 8, 9, 10].contains(&self.version)
             || (self.version == 4 && (self.width != 32 || self.height != 32))
             || (self.version >= 5 && (self.width != 1000 || self.height != 1000))
             || !(1..=1000).contains(&self.width)
@@ -790,10 +792,15 @@ impl World {
         }
         crate::reservoirs::validate(self)?;
         match (self.version, &self.economy) {
-            (9, Some(schedule)) => schedule.validate(crate::playability::elapsed(
+            (9 | 10, Some(schedule)) => schedule.validate(crate::playability::elapsed(
                 &self.playability.as_ref().ok_or("EXPECTED_V6")?.elapsed_ns,
             )?)?,
-            (9, None) | (_, Some(_)) => return fail("economy schema"),
+            (9 | 10, None) | (_, Some(_)) => return fail("economy schema"),
+            _ => {}
+        }
+        match (self.version, &self.authorization) {
+            (10, Some(registry)) => registry.validate()?,
+            (10, None) | (_, Some(_)) => return fail("authorization schema"),
             _ => {}
         }
 

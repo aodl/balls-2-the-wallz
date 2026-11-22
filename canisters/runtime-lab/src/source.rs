@@ -206,6 +206,7 @@ impl SourceState {
             b2z_protocol::shout::MEMO_ADAPTER_VERSION,
             b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
             b2z_protocol::economy17::MEMO_ADAPTER_VERSION,
+            b2z_protocol::delegation::ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -282,6 +283,7 @@ impl SourceState {
             b2z_protocol::shout::MEMO_ADAPTER_VERSION,
             b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
             b2z_protocol::economy17::MEMO_ADAPTER_VERSION,
+            b2z_protocol::delegation::ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -334,6 +336,8 @@ impl SourceState {
                 id: tx.id,
                 payload: if self.memo_adapter_version == legacy_memo_adapter() {
                     classify(&tx.transaction, &recipient)?
+                } else if self.memo_adapter_version == b2z_protocol::delegation::ADAPTER_VERSION {
+                    classify_delegation(&tx, &recipient)?
                 } else {
                     classify_with(&tx.transaction, &recipient, self.memo_adapter_version)?
                 },
@@ -657,7 +661,6 @@ fn classify_with(
     }
 }
 /// Preserve the exact authenticated Index fields. Old classifiers stay unchanged.
-#[cfg(test)]
 fn classify_delegation(
     row: &TransactionWithId,
     recipient: &AccountIdentifier,
@@ -700,7 +703,7 @@ fn classify_delegation(
         return Ok(Some(hex(&p.encode()?)));
     }
     // Validate all known non-transfer account fields through the existing parser.
-    classify_v6(tx, recipient)
+    classify_with(tx, recipient, b2z_protocol::v6::MEMO_ADAPTER_VERSION)
 }
 
 fn normalized_memo(legacy: u64, blob: Option<&[u8]>) -> [u8; 8] {
@@ -1165,7 +1168,7 @@ mod tests {
     }
 }
 
-/// Repair only a missing timestamp of an incoming Rules17 Index row. The
+/// Repair only a missing timestamp of an incoming timestamped Index row. The
 /// configured Index remains responsible for finding and ordering the history.
 #[cfg(target_arch = "wasm32")]
 pub async fn recover_block_times(
@@ -1173,7 +1176,10 @@ pub async fn recover_block_times(
     history: &mut History,
     timeout_seconds: u32,
 ) -> Result<()> {
-    if state.memo_adapter_version != b2z_protocol::economy17::MEMO_ADAPTER_VERSION {
+    if !matches!(
+        state.memo_adapter_version,
+        b2z_protocol::economy17::MEMO_ADAPTER_VERSION | b2z_protocol::delegation::ADAPTER_VERSION
+    ) {
         return Ok(());
     }
     let recipient = account(&state.recipient_hex)?;

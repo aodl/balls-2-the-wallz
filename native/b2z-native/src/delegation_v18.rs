@@ -172,6 +172,30 @@ mod tests {
     }
 
     #[test]
+    fn migration_matches_the_independent_schema10_fixture() {
+        use crate::world::World;
+        use dtr_wire::hash;
+        let (p, vector) = vector();
+        let fixtures: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/context-structures-v13.json"
+        ))
+        .unwrap();
+        let base = unhex(fixtures["rows"][0]["initial_hex"].as_str().unwrap()).unwrap();
+        let old = crate::reservoirs::migrate(World::decode(&base).unwrap()).unwrap();
+        let expected = &vector["migration"];
+        let activated = expected["activated_ns"].as_str().unwrap().parse().unwrap();
+        let r17 = crate::economy17::migrate(old, activated).unwrap();
+        assert_eq!(hash(&r17.encode().unwrap()), expected["before_sha256"]);
+        let mut r18 = migrate(r17.clone(), hex(&p.to)).unwrap();
+        assert_eq!(hash(&r18.encode().unwrap()), expected["after_sha256"]);
+        assert_eq!(identity(), expected["identity"]);
+        assert!(migrate(r18.clone(), hex(&p.to)).is_err());
+        assert!(r18.authorization.take().unwrap().grants.is_empty());
+        r18.version = 9;
+        assert_eq!(r18, r17);
+    }
+
+    #[test]
     fn keyed_grants_survive_beyond_the_historical_limit() {
         let (mut p, vector) = vector();
         let mut registry = Registry::empty(hex(&p.to)).unwrap();
@@ -218,4 +242,26 @@ mod tests {
             Decision::Rejected("UNAUTHORIZED_SPENDER")
         );
     }
+}
+
+pub fn identity() -> serde_json::Value {
+    use dtr_wire::hash;
+    serde_json::json!({
+        "rules_hash": hash(b"B2Z_DELEGATED_PAYMENT_RULES_18"),
+        "schema_hash": hash(b"B2Z_STATE_10_ORDERED_AUTHORIZATION"),
+        "config_hash": hash(include_bytes!("../../../apps/b2z-observer/configuration-delegated.bin")),
+    })
+}
+
+/// Exact canonical conversion. The front and the host remain fenced until the
+/// source transition, receipts and successor execution have been qualified.
+pub fn migrate(mut world: crate::world::World, recipient: String) -> Result<crate::world::World> {
+    world.validate()?;
+    if world.version != 9 {
+        return Err("EXPECTED_ECONOMY_PREDECESSOR".into());
+    }
+    world.authorization = Some(Registry::empty(recipient)?);
+    world.version = 10;
+    world.validate()?;
+    Ok(world)
 }
