@@ -8,6 +8,7 @@ mod cursor;
 mod cursor_v6;
 pub mod deflector_boundary;
 pub mod deflectors_v12;
+pub mod delegation_v18;
 mod economics_generated;
 pub mod entry_v7;
 pub mod geometry;

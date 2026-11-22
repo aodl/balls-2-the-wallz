@@ -22,6 +22,7 @@ dtr-host = { git = "https://github.com/aodl/dtr.git", rev = "282d709143dacb4bca7
 dtr-wire = { git = "https://github.com/aodl/dtr.git", rev = "282d709143dacb4bca769a4d6e72b97fc93ef518" }
 b2z-native = { path = "../../native/b2z-native" }
 [dev-dependencies]
+binread = "=2.2.0"
 candid_parser = "=0.4.1"
 [profile.release]
 overflow-checks = true

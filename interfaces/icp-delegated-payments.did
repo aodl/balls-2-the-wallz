@@ -1,0 +1,14 @@
+// Minimal exercised subset of the official ICP Ledger ICRC interfaces.
+// Owner-side calls are explicit financial operations; never auto-executed.
+type Account = record { owner : principal; subaccount : opt blob };
+type ApproveArgs = record { from_subaccount : opt blob; spender : Account; amount : nat; expected_allowance : opt nat; expires_at : opt nat64; fee : opt nat; memo : opt blob; created_at_time : opt nat64 };
+type ApproveError = variant { BadFee : record {expected_fee:nat}; InsufficientFunds : record {balance:nat}; AllowanceChanged : record {current_allowance:nat}; Expired : record {ledger_time:nat64}; TooOld; CreatedInFuture : record {ledger_time:nat64}; Duplicate : record {duplicate_of:nat}; TemporarilyUnavailable; GenericError : record {error_code:nat;message:text} };
+type TransferError = variant { BadFee : record {expected_fee:nat}; BadBurn : record {min_burn_amount:nat}; InsufficientFunds : record {balance:nat}; TooOld; CreatedInFuture : record {ledger_time:nat64}; Duplicate : record {duplicate_of:nat}; TemporarilyUnavailable; GenericError : record {error_code:nat;message:text} };
+type PullError = variant { BadFee : record {expected_fee:nat}; BadBurn : record {min_burn_amount:nat}; InsufficientFunds : record {balance:nat}; InsufficientAllowance : record {allowance:nat}; TooOld; CreatedInFuture : record {ledger_time:nat64}; Duplicate : record {duplicate_of:nat}; TemporarilyUnavailable; GenericError : record {error_code:nat;message:text} };
+service : {
+ icrc1_fee : () -> (nat) query;
+ icrc2_allowance : (record {account:Account;spender:Account}) -> (record {allowance:nat;expires_at:opt nat64}) query;
+ icrc2_approve : (ApproveArgs) -> (variant {Ok:nat;Err:ApproveError});
+ icrc1_transfer : (record {from_subaccount:opt blob;to:Account;amount:nat;fee:opt nat;memo:opt blob;created_at_time:opt nat64}) -> (variant {Ok:nat;Err:TransferError});
+ icrc2_transfer_from : (record {spender_subaccount:opt blob;from:Account;to:Account;amount:nat;fee:opt nat;memo:opt blob;created_at_time:opt nat64}) -> (variant {Ok:nat;Err:PullError});
+}

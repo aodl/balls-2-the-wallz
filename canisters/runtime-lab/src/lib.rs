@@ -8,6 +8,8 @@ mod pace;
 mod playability_runtime;
 mod player_api;
 mod source;
+#[cfg(test)]
+mod delegation_wire;
 mod transition;
 use b2z_native::world::World;
 use candid::{CandidType, Principal};

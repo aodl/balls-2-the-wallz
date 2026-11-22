@@ -656,6 +656,53 @@ fn classify_with(
         }
     }
 }
+/// Preserve the exact authenticated Index fields. Old classifiers stay unchanged.
+#[cfg(test)]
+fn classify_delegation(
+    row: &TransactionWithId,
+    recipient: &AccountIdentifier,
+) -> Result<Option<String>> {
+    use b2z_protocol::delegation::Payment;
+    let tx = &row.transaction;
+    if let Operation::Transfer {
+        from,
+        to,
+        amount,
+        fee,
+        spender,
+    } = &tx.operation
+    {
+        let from = account(from)?;
+        let to = account(to)?;
+        let spender = spender.as_ref().map(|s| account(s)).transpose()?;
+        if &to != recipient || &from == recipient {
+            return Ok(None);
+        }
+        let timestamp = tx
+            .timestamp
+            .as_ref()
+            .ok_or("AUTH_INDEX_LEDGER_TIMESTAMP_REQUIRED")?
+            .timestamp_nanos;
+        let digest = unhex(&hash(&candid::encode_one(row).map_err(|e| e.to_string())?))?;
+        let p = Payment {
+            from: *from.as_bytes(),
+            spender: spender.map(|s| *s.as_bytes()),
+            to: *to.as_bytes(),
+            amount: amount.e8s,
+            fee: fee.e8s,
+            position: row.id,
+            ledger_time_ns: timestamp,
+            created_at_ns: tx.created_at_time.as_ref().map(|t| t.timestamp_nanos),
+            legacy_memo: tx.memo,
+            memo: tx.icrc1_memo.clone(),
+            raw_digest: digest.try_into().map_err(|_| "AUTH_DIGEST")?,
+        };
+        return Ok(Some(hex(&p.encode()?)));
+    }
+    // Validate all known non-transfer account fields through the existing parser.
+    classify_v6(tx, recipient)
+}
+
 fn normalized_memo(legacy: u64, blob: Option<&[u8]>) -> [u8; 8] {
     b2z_protocol::decode_ledger(legacy, blob)
         .map(b2z_protocol::encode)
@@ -1318,6 +1365,56 @@ fn corroborate_block(index: &Transaction, block: LedgerBlock) -> Result<Timestam
 #[cfg(test)]
 mod timestamp_tests {
     use super::*;
+    #[test]
+    fn candidate_admits_only_inbound_transfers_with_a_real_block_timestamp() {
+        use b2z_protocol::delegation::Payment;
+        let recipient = AccountIdentifier::new(&Principal::anonymous(), &Subaccount([0; 32]));
+        let payer = AccountIdentifier::new(&Principal::management_canister(), &Subaccount([0; 32]));
+        let spender = AccountIdentifier::new(&Principal::from_slice(&[7]), &Subaccount([0; 32]));
+        let mut row = TransactionWithId {
+            id: 14,
+            transaction: Transaction {
+                memo: 0,
+                icrc1_memo: Some(b"RESERVOIR 4".to_vec()),
+                operation: Operation::Transfer {
+                    from: payer.to_hex(),
+                    to: recipient.to_hex(),
+                    amount: Tokens { e8s: 10_000_000 },
+                    fee: Tokens { e8s: 10_000 },
+                    spender: Some(spender.to_hex()),
+                },
+                created_at_time: Some(Timestamp {
+                    timestamp_nanos: 10,
+                }),
+                timestamp: None,
+            },
+        };
+        assert!(classify_delegation(&row, &recipient).is_err());
+        row.transaction.timestamp = Some(Timestamp {
+            timestamp_nanos: 20,
+        });
+        let normalized = classify_delegation(&row, &recipient).unwrap().unwrap();
+        let payment = Payment::decode(&unhex(&normalized).unwrap()).unwrap();
+        assert_eq!(payment.position, 14);
+        assert_eq!(payment.spender, Some(*spender.as_bytes()));
+        assert_eq!(payment.created_at_ns, Some(10));
+        assert_eq!(payment.ledger_time_ns, 20);
+        assert_eq!(
+            b2z_protocol::economy17::untimed(&payment.pricing_envelope().unwrap())
+                .unwrap()
+                .1,
+            20
+        );
+        row.transaction.operation = Operation::Approve {
+            fee: Tokens { e8s: 10_000 },
+            from: payer.to_hex(),
+            allowance: Tokens { e8s: 10_000_000 },
+            expires_at: None,
+            spender: spender.to_hex(),
+            expected_allowance: None,
+        };
+        assert_eq!(classify_delegation(&row, &recipient).unwrap(), None);
+    }
     #[test]
     fn adapter11_uses_block_time_and_fails_closed_without_it() {
         let recipient = AccountIdentifier::new(&Principal::anonymous(), &Subaccount([0; 32]));
