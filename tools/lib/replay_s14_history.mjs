@@ -1,3 +1,5 @@
+import {untimedPayment} from '../../packages/protocol/economy17.mjs';
+import {migrateEconomy} from '../../packages/kernels/b2z/economy17.mjs';
 import {readReservoirPayment} from '../../packages/protocol/reservoir.mjs';
 import {migrateReservoirs} from '../../packages/kernels/b2z/reservoirs.mjs';
 import {readShoutPayment} from '../../packages/protocol/shout.mjs';
@@ -15,7 +17,7 @@ import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {stageTorusMigration,stageMillionWorld} from '../../packages/kernels/b2z/migration.mjs';
 import {migratePlayability,dueFences} from '../../packages/kernels/b2z/playability.mjs';
 import {expireV6} from '../../packages/kernels/b2z/lifecycle-v6.mjs';
-import {decodeWorld,encodeWorld,MILLION_IDENTITY,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
+import {decodeWorld,encodeWorld,MILLION_IDENTITY,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY,ECONOMY_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
 import {B2zKernel} from '../../packages/kernels/b2z/kernel.mjs';
 const equal=(a,b)=>hex(encodeCanonical(a))===hex(encodeCanonical(b));
 const check=(ok,message)=>{if(!ok)throw Error(message);};
@@ -23,7 +25,7 @@ const emptyOutput=(state,version,events=[])=>({state,events:encodeCanonical({ver
 export function replayHistory(trace,{diagnostic}={}){
  check(trace.status==='PASS'&&trace.publications?.length&&Array.isArray(trace.inputs)&&Array.isArray(trace.assigned),'complete captured history required');
  const inputs=trace.inputs.map(i=>({position:BigInt(i.position),payload_hex:i.payload_hex})),artifacts=new Map();
- check(inputs.every(i=>i.position>=0n&&i.position<=18446744073709551615n&&typeof i.payload_hex==='string'&&(/^[0-9a-f]{112}$/.test(i.payload_hex)||/^[0-9a-f]{114,176}$/.test(i.payload_hex)&&(()=>{try{const raw=unhex(i.payload_hex);if(i.payload_hex.startsWith("42545a5041593037"))readReservoirPayment(raw);else if(i.payload_hex.startsWith("42545a5041593036"))readShoutPayment(raw);else if(i.payload_hex.startsWith("42545a5041593035"))readContextPayment(raw);else if(i.payload_hex.startsWith("42545a5041593034"))readDeflectorPayment(raw);else readAnnotatedPayment(raw);return true;}catch{return false;}})()))&&new Set(inputs.map(i=>String(i.position))).size===inputs.length,'bounded unique normalized inputs required');
+ check(inputs.every(i=>i.position>=0n&&i.position<=18446744073709551615n&&typeof i.payload_hex==='string'&&(/^[0-9a-f]{112}$/.test(i.payload_hex)||/^[0-9a-f]{114,192}$/.test(i.payload_hex)&&(()=>{try{const raw=unhex(i.payload_hex);if(i.payload_hex.startsWith("42545a5041593038"))untimedPayment(raw);else if(i.payload_hex.startsWith("42545a5041593037"))readReservoirPayment(raw);else if(i.payload_hex.startsWith("42545a5041593036"))readShoutPayment(raw);else if(i.payload_hex.startsWith("42545a5041593035"))readContextPayment(raw);else if(i.payload_hex.startsWith("42545a5041593034"))readDeflectorPayment(raw);else readAnnotatedPayment(raw);return true;}catch{return false;}})()))&&new Set(inputs.map(i=>String(i.position))).size===inputs.length,'bounded unique normalized inputs required');
  for(const row of trace.artifact_events??[]){const id=BigInt(row.segment_id).toString();check(!artifacts.has(id),'duplicate event artifact');artifacts.set(id,row.events_hex);}
  const eventBytes=p=>{const bytes=unhex(artifacts.get(p.head.segment_id.toString())??'');check(bytes.length>0&&bytes.length<=1048576&&sha256(bytes)===p.artifacts.find(a=>a.kind==='events')?.sha256,'missing or invalid replay event artifact at '+p.head.segment_id);return bytes;};
  let completionTime=null;
@@ -37,7 +39,15 @@ export function replayHistory(trace,{diagnostic}={}){
    check([7,8,9].includes(p.version)&&p.epoch,'unsupported replay checkpoint');
    const before=unhex(host.committed().state_hex),old=decodeWorld(before);let out,metadata;
    const spacing=p.identity.config_hash===SPACING_IDENTITY.config_hash,shout=p.identity.config_hash===SHOUT_IDENTITY.config_hash;
-   if(p.version===8&&old.version===7&&p.identity.config_hash===RESERVOIR_IDENTITY.config_hash){
+   if(p.version===8&&old.version===8&&p.identity.config_hash===ECONOMY_IDENTITY.config_hash){
+    const audit=decodeCanonical(eventBytes(p)),context=audit.events[0]?.context,kind='economy_rules_activated',prior=host.publicationRecord().journal;
+    check(audit.version===9&&audit.events.length===1&&audit.events[0].kind===kind&&context?.bootstrap,'economy activation context');
+    check(Object.keys(RESERVOIR_IDENTITY).every(k=>prior.identity[k]===RESERVOIR_IDENTITY[k])&&Object.keys(ECONOMY_IDENTITY).every(k=>p.identity[k]===ECONOMY_IDENTITY[k])&&p.identity.source_id===prior.identity.source_id,'economy transition identity');
+    const migrated=migrateEconomy(old,context.bootstrap.activated_ns,sha256(before)),state=encodeWorld(migrated);
+    const expected={version:13,migration:'B2Z_DAILY_ECONOMY_RULES_17',old_identity:prior.identity,new_identity:p.identity,previous_state:sha256(before),new_state:sha256(state),logical_boundary:old.time,source_cursor:host.committed().source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:host.committed().seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:10,memo_adapter_after:11,bootstrap:migrated.economy};
+    check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&equal(context,expected),'economy cutover context mismatch');
+    metadata=encodeCanonical(expected);out=emptyOutput(state,9,[{kind,sequence:0,time:old.time,context:expected}]);
+   }else if(p.version===8&&old.version===7&&p.identity.config_hash===RESERVOIR_IDENTITY.config_hash){
     const audit=decodeCanonical(eventBytes(p)),context=audit.events[0]?.context,kind='reservoir_rules_activated',prior=host.publicationRecord().journal;
     check(audit.version===8&&audit.events.length===1&&audit.events[0].kind===kind&&context,'reservoir activation context');
     check(Object.keys(SPACING_IDENTITY).every(k=>prior.identity[k]===SPACING_IDENTITY[k])&&Object.keys(RESERVOIR_IDENTITY).every(k=>p.identity[k]===RESERVOIR_IDENTITY[k])&&p.identity.source_id===prior.identity.source_id,'reservoir transition identity');
@@ -85,7 +95,8 @@ export function replayHistory(trace,{diagnostic}={}){
    }else{
     const events=decodeCanonical(eventBytes(p)),context=events.events[0]?.context;
     check(old.version>=6&&events.events[0]?.kind==='lifecycle_context'&&context,'missing lifecycle checkpoint context');
-    check(equal(context.fences,dueFences(old,context.observed_ns)),'incomplete lifecycle due fences');
+    const due=dueFences(old,context.observed_ns);
+    check(old.version===9?Array.isArray(context.fences)&&context.fences.length<=due.length&&equal(context.fences,due.slice(0,context.fences.length)):equal(context.fences,due),'incomplete lifecycle due fences');
     const proposed=expireV6(old,context.observed_ns,context.fences);check(proposed&&equal(decodeCanonical(proposed.metadata),context),'lifecycle context mismatch');out=proposed.output;metadata=proposed.metadata;
     const cursor=host.committed().source_to_exclusive;check(p.epoch.source_cursor>=cursor,'checkpoint source rollback');
     if(p.epoch.source_cursor>cursor)host.ingestOrdered(cursor,p.epoch.source_cursor,[],p.epoch.source_anchor);
@@ -95,9 +106,9 @@ export function replayHistory(trace,{diagnostic}={}){
    host.apply({kind:'transition',epoch,state_hex:hex(out.state),event_hex:hex(out.events),score_hex:hex(out.scores)});checkpoints++;
   }else{
    const seal=p.head.seal,selected=inputs.filter(i=>i.position>=seal.source_from&&i.position<seal.source_to_exclusive);completionTime=null;
-   if([PLAYABILITY_IDENTITY.config_hash,ENTRY_IDENTITY.config_hash,CLEARANCE_IDENTITY.config_hash,WAR_CRY_IDENTITY.config_hash,COMBINED_IDENTITY.config_hash,DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash,SPACING_IDENTITY.config_hash,RESERVOIR_IDENTITY.config_hash].includes(p.identity.config_hash)){
+   if([PLAYABILITY_IDENTITY.config_hash,ENTRY_IDENTITY.config_hash,CLEARANCE_IDENTITY.config_hash,WAR_CRY_IDENTITY.config_hash,COMBINED_IDENTITY.config_hash,DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash,SPACING_IDENTITY.config_hash,RESERVOIR_IDENTITY.config_hash,ECONOMY_IDENTITY.config_hash].includes(p.identity.config_hash)){
     const event=decodeCanonical(eventBytes(p)),facts=event.events.filter(e=>e.kind==='lifecycle_time'),last=event.events.at(-1);
-    check(event.version===(p.identity.config_hash===RESERVOIR_IDENTITY.config_hash?8:[DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash,SPACING_IDENTITY.config_hash].includes(p.identity.config_hash)?7:6)&&facts.length===1&&last===facts[0]&&equal(last.time,[seal.logical_end,1n])&&typeof last.observed_ns==='bigint','invalid completion fact');completionTime=last.observed_ns;
+    check(event.version===(p.identity.config_hash===ECONOMY_IDENTITY.config_hash?9:p.identity.config_hash===RESERVOIR_IDENTITY.config_hash?8:[DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash,SPACING_IDENTITY.config_hash].includes(p.identity.config_hash)?7:6)&&facts.length===1&&last===facts[0]&&equal(last.time,[seal.logical_end,1n])&&typeof last.observed_ns==='bigint','invalid completion fact');completionTime=last.observed_ns;
    }
    assigned.push(...selected.map(i=>i.position.toString()));
    if(selected.length===0)host.ingestOrdered(seal.source_from,seal.source_to_exclusive,[],seal.source_anchor);

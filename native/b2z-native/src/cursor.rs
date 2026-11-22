@@ -1,16 +1,16 @@
 use crate::economics_generated::{
     BALL_BASE_E8S, JOIN_E8S, LEGACY_BALL_BASE_E8S, LEGACY_JOIN_E8S, LEGACY_MOVE_E8S, MOVE_E8S,
 };
-use crate::geometry::{classify, next_crossing, reflect, Crossing, Intent};
+use crate::geometry::{Crossing, Intent, classify, next_crossing, reflect};
 use crate::spawn::SpawnJob;
 use crate::topology::{self, TopologyJob};
-use crate::world::{position, Ball, Cannon, Credit, Strike, World, Q};
+use crate::world::{Ball, Cannon, Credit, Q, Strike, World, position};
 use b2z_protocol::Command;
-use dtr_wire::{decode, encode, hash, hex, unhex, Int, Rat, Result};
+use dtr_wire::{Int, Rat, Result, decode, encode, hash, hex, unhex};
 use num_bigint::BigInt;
 use num_traits::{One, ToPrimitive};
 use serde::{Deserialize, Serialize};
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 use std::collections::BTreeSet;
 
 #[derive(Clone, Debug, Serialize, Deserialize)]
@@ -24,6 +24,8 @@ pub struct Input {
 pub(crate) struct PaymentSaved {
     pub account: String,
     pub amount: Int,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tariff: Option<crate::economy17::PaymentTariff>,
 }
 pub(crate) struct Payment {
     pub saved: PaymentSaved,
@@ -127,6 +129,7 @@ pub(crate) fn read_payment_with_annotations(s: &str, allow: bool) -> Result<Paym
         saved: PaymentSaved {
             account: hex(&b[8..40]),
             amount: Int(BigInt::from(amount)),
+            tariff: None,
         },
         memo: b[48..56].to_vec(),
         cry,
@@ -198,6 +201,15 @@ fn semantic_deflector_payment(s: &str) -> Result<String> {
 }
 fn semantic_deflector_world(bytes: &[u8]) -> Result<Vec<u8>> {
     let mut w = World::decode(bytes)?;
+    if w.version == 9 {
+        // The schedule and receipt time are evidence. Neither supplies spawn entropy.
+        let mut semantic = serde_json::to_value(&w).map_err(|e| e.to_string())?;
+        semantic
+            .as_object_mut()
+            .ok_or("semantic world")?
+            .remove("economy");
+        return encode(&semantic);
+    }
     if w.reservoirs.as_ref().is_some_and(|r| !r.is_empty())
         || w.deflectors.as_ref().is_some_and(|d| !d.is_empty())
         || w.balls.iter().any(|b| {
@@ -421,6 +433,11 @@ fn match_strikes(w: &World, incoming: Vec<Strike>) -> Result<Vec<[u32; 2]>> {
             continue;
         }
         for b in edges.iter().skip(i + 1) {
+            if w.version == 9
+                && (a.from.min(a.to), a.from.max(a.to)) != (b.from.min(b.to), b.from.max(b.to))
+            {
+                break; // The sorted list cannot return to this physical edge.
+            }
             if used.contains(&b.ball) || a.ball == b.ball {
                 continue;
             }
@@ -464,7 +481,9 @@ impl Cursor {
         let shout = crate::shout::identity()?;
         let spacing = crate::spacing::identity()?;
         let reservoir = crate::reservoirs::identity();
-        let is_reservoir = context.get("config_hash") == reservoir.get("config_hash");
+        let economy = crate::economy17::identity();
+        let is_economy = context.get("config_hash") == economy.get("config_hash");
+        let is_reservoir = is_economy || context.get("config_hash") == reservoir.get("config_hash");
         let is_spacing = is_reservoir || context.get("config_hash") == spacing.get("config_hash");
         let is_shout = is_spacing || context.get("config_hash") == shout.get("config_hash");
         let is_context =
@@ -485,7 +504,9 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_reservoir {
+        let expected = if is_economy {
+            economy
+        } else if is_reservoir {
             reservoir
         } else if is_spacing {
             spacing
@@ -521,7 +542,9 @@ impl Cursor {
         }
         let world = World::decode(state)?;
         if world.version
-            != if is_reservoir {
+            != if is_economy {
+                9
+            } else if is_reservoir {
                 8
             } else if is_deflector {
                 7
@@ -563,10 +586,17 @@ impl Cursor {
                         Ok(Input {
                             position: i.position.clone(),
                             payload_hex: if is_reservoir {
-                                let previous = b2z_protocol::reservoir::predecessor_envelope(
-                                    &unhex(&i.payload_hex)?,
-                                )
-                                .map_err(|_| "adapter10 payment envelope")?;
+                                let payload = unhex(&i.payload_hex)?;
+                                let payload = if is_economy {
+                                    b2z_protocol::economy17::untimed(&payload)
+                                        .map_err(|_| "adapter11 payment envelope")?
+                                        .0
+                                } else {
+                                    payload
+                                };
+                                let previous =
+                                    b2z_protocol::reservoir::predecessor_envelope(&payload)
+                                        .map_err(|_| "adapter10 payment envelope")?;
                                 hex(&b2z_protocol::shout::semantic_payment(&previous)
                                     .map_err(|_| "adapter10 payment envelope")?)
                             } else if is_shout {
@@ -608,6 +638,10 @@ impl Cursor {
                     shout_rules: is_shout,
                     spacing_rules: is_spacing,
                     reservoir_rules: is_reservoir,
+                    economy_predecessor: is_economy.then(|| crate::cursor_v6::EconomyPredecessor {
+                        state_hash: hash(state),
+                        population: crate::economy17::population(&world),
+                    }),
                     ..Default::default()
                 }
             }),
@@ -681,10 +715,15 @@ impl Cursor {
             .position
             .clone();
         self.input_index += 1;
-        self.receipts.push(merge(
+        let mut receipt = merge(
             json!({"position":pos,"account":p.account,"amount":p.amount}),
             outcome.clone(),
-        ));
+        );
+        if let Some(tariff) = &p.tariff {
+            receipt["ledger_recorded_ns"] = json!(tariff.ledger_recorded_ns);
+            receipt["price_multiplier"] = json!(tariff.multiplier);
+        }
+        self.receipts.push(receipt);
         if outcome.get("reason").and_then(Value::as_str) == Some("ACCEPTED") {
             if let Some(cry) = self
                 .v6
@@ -1004,11 +1043,7 @@ impl Cursor {
         };
         let deflector_contact = if let Some(d) = d {
             let face = if i.crossing.x {
-                if b.vx > 0 {
-                    "W"
-                } else {
-                    "E"
-                }
+                if b.vx > 0 { "W" } else { "E" }
             } else if b.vy > 0 {
                 "N"
             } else {
@@ -1166,9 +1201,9 @@ impl Cursor {
         for s in &self.world.credits {
             let initial = self
                 .initial_credits
-                .iter()
-                .find(|c| c.account == s.account)
-                .map(|c| c.units.clone())
+                .binary_search_by(|c| c.account.cmp(&s.account))
+                .ok()
+                .map(|i| self.initial_credits[i].units.clone())
                 .unwrap_or_else(|| Rat::integer(0));
             scores.push(Credit {
                 account: s.account.clone(),
@@ -1230,24 +1265,27 @@ impl Cursor {
             || c.receipts.len() != c.input_index
             || c.world.cell_count() > 1_000_000
             || c.events.len() > 131072
-            || c.world.balls.len()
-                > if c.world.version >= 6 {
-                    crate::playability::MAX_BALLS
-                } else {
-                    64
-                }
-            || c.intents.len()
-                > if c.world.version >= 6 {
-                    crate::playability::MAX_BALLS
-                } else {
-                    64
-                }
-            || c.world.pending.len()
-                > if c.world.version >= 6 {
-                    crate::playability::MAX_BALLS
-                } else {
-                    64
-                }
+            || c.world.version < 9
+                && c.world.balls.len()
+                    > if c.world.version >= 6 {
+                        crate::playability::MAX_BALLS
+                    } else {
+                        64
+                    }
+            || c.world.version < 9
+                && c.intents.len()
+                    > if c.world.version >= 6 {
+                        crate::playability::MAX_BALLS
+                    } else {
+                        64
+                    }
+            || c.world.version < 9
+                && c.world.pending.len()
+                    > if c.world.version >= 6 {
+                        crate::playability::MAX_BALLS
+                    } else {
+                        64
+                    }
             || c.spawn_job.as_ref().is_some_and(|j| {
                 j.candidates.len() > if c.world.version >= 6 { 8192 } else { 5120 }
             })

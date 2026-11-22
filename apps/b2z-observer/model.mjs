@@ -1,9 +1,10 @@
+import {migrateEconomy,validateEconomy,participatingPlayers,observeEconomy} from '../../packages/kernels/b2z/economy17.mjs';
 import {reservoirSites,validateReservoirs} from '../../packages/protocol/reservoir.mjs';
 import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorOperation,applyDeflectorRemovals,matchesDeflectors}from'./model-deflector.mjs';
 import {launchAnnotationValidator}from'./war-cry-events.mjs';
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY,ECONOMY_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -13,8 +14,8 @@ import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
 const identityMatches=(id,expected)=>Object.keys(expected).every(key=>id?.[key]===expected[key]);
-const playabilityIdentity=(id,version=6)=>(version===8?[RESERVOIR_IDENTITY]:version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>identityMatches(id,expected));
-const contextIdentity=id=>identityMatches(id,CONTEXT_IDENTITY)||identityMatches(id,SHOUT_IDENTITY)||identityMatches(id,SPACING_IDENTITY)||identityMatches(id,RESERVOIR_IDENTITY);
+const playabilityIdentity=(id,version=6)=>(version===9?[ECONOMY_IDENTITY]:version===8?[RESERVOIR_IDENTITY]:version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>identityMatches(id,expected));
+const contextIdentity=id=>identityMatches(id,CONTEXT_IDENTITY)||identityMatches(id,SHOUT_IDENTITY)||identityMatches(id,SPACING_IDENTITY)||identityMatches(id,RESERVOIR_IDENTITY)||identityMatches(id,ECONOMY_IDENTITY);
 function verifyShoutTarget(model,annotation){
   const a=annotation;
   const target=a.kind==='cannon'?model.cannons.get(a.id):model.deflectors.get(a.id);
@@ -40,8 +41,9 @@ function track(b,maxVelocity=4096){
 }
 export function snapshot(bytes,identity){
   check(bytes instanceof Uint8Array&&bytes.length<=1048576,'snapshot bounds');
-  const w=decodeCanonical(bytes);check([3,4,5,6,7,8].includes(w.version),'snapshot version');
+  const w=decodeCanonical(bytes);check([3,4,5,6,7,8,9].includes(w.version),'snapshot version');
   validateReservoirs(w);
+  validateEconomy(w);
   if(w.version<7)check(w.deflectors===undefined&&w.next_deflector_id===undefined,'historical structure extension');
   check(Number.isInteger(w.width)&&w.width>=1&&w.width<=1000&&Number.isInteger(w.height)&&w.height>=1&&w.height<=1000,'dimensions');
   if(w.version<5)check(Array.isArray(w.cells)&&w.cells.length===cellCount(w)&&w.ownership===undefined,'cells');
@@ -70,7 +72,8 @@ export class B2zView {
     this.balls=new Map(w.balls.map(b=>[b.id,w.version>=6?trackV6(b,w.version>=7):track(b,w.version===5?65536:4096)]));
     if(w.version>=6){this.playability=structuredClone(w.playability);this.logicalTime=timeNumber(w.time);}
     if(w.version>=7){this.motionKnots=new Map();this.deflectors=new Map(w.deflectors.map(d=>[d.id,structuredClone(d)]));this.next_deflector_id=w.next_deflector_id;validateDeflectorSnapshot(this,w);}
-    if(w.version===8){this.reservoirs=new Set(reservoirSites(w.reservoirs));this.reservoirRevision=0;}
+    if(w.version>=8){this.reservoirs=new Set(reservoirSites(w.reservoirs));this.reservoirRevision=0;}
+    if(w.version===9){this.economy=structuredClone(w.economy);this.startingPopulation=participatingPlayers(w);}
     this.pending=new Map(w.pending.map(p=>[p.id,structuredClone(p)]));
     this.effects=[];this.lastEvent='Waiting for verified playback';
   }
@@ -110,8 +113,13 @@ export class B2zView {
   removeBalls(ids){for(const id of ids){this.balls.delete(id);this.motionKnots?.delete(id);for(const [key,p] of this.pending)if(p.ball===id)this.pending.delete(key);}}
   apply(e){
     const t=timeNumber(e.time);this.lastEvent=e.kind.replaceAll('_',' ');
+    if(e.kind==='economy_snapshot'){
+      check(this.version===9&&e.snapshot?.population===this.startingPopulation,'economy snapshot population');
+      this.economy.snapshots.push(structuredClone(e.snapshot));
+      return;
+    }
     if(e.kind==='reservoir_built'){
-      check(this.version===8,'reservoir event requires Rules16');
+      check(this.version>=8,'reservoir event requires Rules16 or later');
       const cell=this.cell(e.cell);
       check(!this.reservoirs.has(cell)&&this.owner(cell)!==0&&![...this.cannons.values(),...this.deflectors.values()].some(s=>s.cell===cell),'reservoir admission event');
       this.reservoirs.add(cell);this.reservoirRevision++;return;
@@ -166,11 +174,12 @@ export class B2zView {
     check(this.cannons.size===w.cannons.length&&w.cannons.every(c=>this.cannons.get(c.id)?.cell===c.cell&&this.cannons.get(c.id)?.heading===c.heading),'final cannon mismatch');
     check(this.balls.size===w.balls.length&&w.balls.every(b=>{const a=this.balls.get(b.id);return a&&['owner','x0','y0','vx','vy',...(w.version>=7?['den']:[])].every(k=>a[k]===b[k])&&(w.version<7||sameCanonical(a.deflector_rearm??null,b.deflector_rearm??null));}),'final trajectory mismatch');
     if(this.version>=6){check(w.cannons.every(c=>this.cannons.get(c.id)?.account===c.account),'final funding account mismatch');matchesV6(this,w);if(w.version>=7)matchesDeflectors(this,w);}
-    if(w.version===8){
+    if(w.version>=8){
       let count=0;
       for(const cell of reservoirSites(w.reservoirs)){check(this.reservoirs.has(cell),'final reservoir occupancy');count++;}
       check(this.reservoirs.size===count,'final reservoir count');
     }
+    if(w.version===9)check(sameCanonical(this.economy,w.economy),'final pricing schedule mismatch');
     return true;
   }
   stats(){if(this.version>=6)return statsV6(this);const counts=this.version===5?new Map(this.ownership.counts.map(c=>[c.owner,c.cells])):null;return [...this.cannons.values()].map(c=>({id:c.id,area:counts?.get(c.id)??this.cells.filter(n=>n===c.id).length,
@@ -328,7 +337,13 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
   check(scores.version===final.version&&Array.isArray(scores.area_time)&&scores.area_time.length===0,'checkpoint scores');
   const context=events.events[0]?.context;
   const kind=events.events[0]?.kind;
-  if(kind==='reservoir_rules_activated'){
+  if(kind==='economy_rules_activated'){
+    check(initial.version===8&&final.version===9&&publication.version===8&&publication.epoch.version===2&&events.events.length===1,'economy checkpoint format');
+    check(identityMatches(prior.identity,RESERVOIR_IDENTITY)&&identityMatches(publication.identity,ECONOMY_IDENTITY),'economy exact identities');
+    const expected={version:13,migration:'B2Z_DAILY_ECONOMY_RULES_17',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:publication.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context?.ledger_cutover,account_history_complete_through:context?.ledger_cutover,index_synced:context?.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:10,memo_adapter_after:11,bootstrap:final.economy};
+    check(context&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash&&typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'economy checkpoint source commitment');
+    check(sameCanonical(final,migrateEconomy(initial,final.economy.activated_ns,prior.head.state_hash)),'economy checkpoint preserved world');
+  }else if(kind==='reservoir_rules_activated'){
     check(initial.version===7&&final.version===8&&publication.version===8&&publication.epoch.version===2&&events.events.length===1,'reservoir checkpoint format');
     check(identityMatches(prior.identity,SPACING_IDENTITY)&&identityMatches(publication.identity,RESERVOIR_IDENTITY),'reservoir exact identities');
     const expected={version:12,migration:'B2Z_RESERVOIR_RULES_16',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:publication.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context?.ledger_cutover,account_history_complete_through:context?.ledger_cutover,index_synced:context?.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:9,memo_adapter_after:10};
@@ -373,9 +388,23 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
       check(events.events[0].kind==='lifecycle_context'&&context.domain==='B2Z-LIFECYCLE-CONTEXT-01'&&context.version===1,'lifecycle context');
       check(typeof context.observed_ns==='bigint'&&context.observed_ns>=initial.playability.elapsed_ns&&final.playability.elapsed_ns===context.observed_ns,'lifecycle observed time');
       const due=initial.playability.lifecycle.filter(l=>l.deadline_ns!==undefined&&l.deadline_ns<=context.observed_ns).map(l=>({cannon:l.cannon,generation:l.generation,deadline_ns:l.deadline_ns})).sort((a,b)=>a.deadline_ns<b.deadline_ns?-1:a.deadline_ns>b.deadline_ns?1:a.cannon-b.cannon||a.generation-b.generation);
-      check(due.length>0&&sameCanonical(due,context.fences),'lifecycle complete due fences');const gone=new Set(due.map(f=>f.cannon));
-      check(sameCanonical(initial.cannons.filter(c=>!gone.has(c.id)),final.cannons)&&sameCanonical(initial.playability.players,final.playability.players),'lifecycle retained players/entities');
-      check(events.events.length===due.length+1&&sameCanonical(events.events.slice(1).map(e=>e.cannon),due.map(f=>f.cannon)),'lifecycle expiry events');
+      if(initial.version===9){
+        check(Array.isArray(context.fences)&&context.fences.length<=due.length&&sameCanonical(due.slice(0,context.fences.length),context.fences),'economy checkpoint due fence prefix');
+        check(context.previous_state===prior.head.state_hash&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash,'economy checkpoint metadata commitment');
+        const expected=structuredClone(initial.economy);
+        const daily=observeEconomy(expected,initial.playability.elapsed_ns,context.observed_ns,participatingPlayers(initial),prior.head.state_hash);
+        const expired=events.events.filter(e=>e.kind==='cannon_expired'),snapshots=events.events.filter(e=>e.kind==='economy_snapshot');
+        const gone=new Set(context.fences.map(f=>f.cannon));
+        check(context.fences.length>0||daily,'economy checkpoint must observe time or retire a cannon');
+        check(sameCanonical(expected,final.economy)&&sameCanonical(snapshots.map(e=>e.snapshot),daily?[daily]:[]),'economy checkpoint pricing continuity');
+        check(events.events.length===expired.length+snapshots.length+1&&sameCanonical(expired.map(e=>e.cannon),[...gone]),'economy checkpoint expiry events');
+        check(sameCanonical(initial.cannons.filter(c=>!gone.has(c.id)),final.cannons)&&sameCanonical(initial.playability.players,final.playability.players)
+          &&sameCanonical(initial.balls,final.balls)&&sameCanonical(initial.credits,final.credits)&&initial.received_e8s===final.received_e8s,'economy checkpoint retained entities and finance');
+      }else{
+        check(due.length>0&&sameCanonical(due,context.fences),'lifecycle complete due fences');const gone=new Set(due.map(f=>f.cannon));
+        check(sameCanonical(initial.cannons.filter(c=>!gone.has(c.id)),final.cannons)&&sameCanonical(initial.playability.players,final.playability.players),'lifecycle retained players/entities');
+        check(events.events.length===due.length+1&&sameCanonical(events.events.slice(1).map(e=>e.cannon),due.map(f=>f.cannon)),'lifecycle expiry events');
+      }
     }
   }else check(events.events.length===0&&((initial.version===3&&final.version===4&&publication.version===7)||(initial.version===4&&final.version===5&&publication.version===8)),'legacy checkpoint identity');
   return {start:at,end:at,initial,final,checkpoint:true,events:events.events,receipts:[],bytes:artifacts.state.length+artifacts.events.length+artifacts.scores.length};

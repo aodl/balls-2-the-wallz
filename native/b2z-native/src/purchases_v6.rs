@@ -3,13 +3,14 @@
 use crate::{
     playability::*,
     pricing_v6,
-    world::{position, Ball, Cannon, World, Q},
+    world::{Ball, Cannon, Q, World, position},
 };
-use b2z_protocol::{v6::Command, Command as Legacy};
-use dtr_wire::{encode, hash, Int, Rat, Result};
+use b2z_protocol::economy17 as tariff;
+use b2z_protocol::{Command as Legacy, v6::Command};
+use dtr_wire::{Int, Rat, Result, encode, hash};
 use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 use std::collections::BTreeSet;
 
 #[derive(Clone, Debug, Serialize, Deserialize, PartialEq, Eq)]
@@ -161,6 +162,7 @@ pub fn place_new_with_policy(
         placement,
         entry_rules,
         SitePolicy::Legacy,
+        None,
     )
 }
 
@@ -179,6 +181,7 @@ pub(crate) fn place_new_with_context(
     placement: &crate::spawn::Placement,
     entry_rules: bool,
     policy: SitePolicy,
+    multiplier: Option<u32>,
 ) -> Result<Created> {
     let context_rules = policy != SitePolicy::Legacy;
     let spacing = policy == SitePolicy::Separation;
@@ -204,7 +207,17 @@ pub(crate) fn place_new_with_context(
         Command::Legacy(Legacy::Angle(*angle))
     };
     let memo = b2z_protocol::v6::encode(command).map_err(|_| "NEW_CANNON_PLAN")?;
-    if prepare_with_context(world, account, amount, &memo, &[], context_rules, spacing)? != *plan {
+    if prepare_with_context(
+        world,
+        account,
+        amount,
+        &memo,
+        &[],
+        context_rules,
+        spacing,
+        multiplier,
+    )? != *plan
+    {
         return Err("STALE_PURCHASE_PLAN".into());
     }
     let patch = if *first {
@@ -284,7 +297,9 @@ pub(crate) fn place_new_with_context(
         }
         crate::territory_v6::merge(&mut next, &labels)?
     };
-    if crate::territory_v6::balls(&next, territory) >= MAX_PURCHASE_BALLS_PER_ISLAND {
+    if next.version < 9
+        && crate::territory_v6::balls(&next, territory) >= MAX_PURCHASE_BALLS_PER_ISLAND
+    {
         return Err("BALL_CAPACITY".into());
     }
     for c in &patch {
@@ -350,7 +365,7 @@ pub fn prepare(
     memo: &[u8],
     moved: &[u32],
 ) -> Result<Plan> {
-    prepare_with_context(world, account, amount, memo, moved, false, false)
+    prepare_with_context(world, account, amount, memo, moved, false, false, None)
 }
 
 pub(crate) fn prepare_with_context(
@@ -361,9 +376,14 @@ pub(crate) fn prepare_with_context(
     moved: &[u32],
     context_rules: bool,
     spacing: bool,
+    multiplier: Option<u32>,
 ) -> Result<Plan> {
     if world.version < 6 {
         return Err("EXPECTED_V6".into());
+    }
+    let capped = world.version < 9;
+    if capped == multiplier.is_some() {
+        return Err("ECONOMY_PURCHASE_CONTEXT".into());
     }
     if world.version >= 7 && memo.first() == Some(&0xb7) {
         return crate::deflectors_v12::prepare(world, account, amount, memo);
@@ -407,29 +427,40 @@ pub(crate) fn prepare_with_context(
             quantity,
             cell,
         } => {
-            if mine.len() >= MAX_RETAINED_PER_PLAYER {
+            if capped && mine.len() >= MAX_RETAINED_PER_PLAYER {
                 return Ok(reject("PLAYER_CANNON_CAPACITY"));
             }
-            if world.cannons.len() >= MAX_CANNONS {
+            if capped && world.cannons.len() >= MAX_CANNONS {
                 return Ok(reject("CANNON_CAPACITY"));
             }
             if world.next_cannon_id == u32::MAX {
                 return Ok(reject("CANNON_ID_EXHAUSTED"));
             }
-            if world.balls.len() >= MAX_BALLS || world.next_ball_id == u32::MAX {
+            if capped && world.balls.len() >= MAX_BALLS || world.next_ball_id == u32::MAX {
                 return Ok(reject("BALL_CAPACITY"));
             }
             let player = player_by_account(world, account);
             let state = world.playability.as_ref().ok_or("EXPECTED_V6")?;
             if player.is_none()
-                && (state.players.len() >= MAX_PLAYERS
-                    || state.next_player_id == u32::MAX
-                    || (!world.credits.iter().any(|c| c.account == account)
-                        && world.credits.len() >= MAX_PLAYERS))
+                && (state.next_player_id == u32::MAX
+                    || capped
+                        && (state.players.len() >= MAX_PLAYERS
+                            || (!world.credits.iter().any(|c| c.account == account)
+                                && world.credits.len() >= MAX_PLAYERS)))
             {
                 return Ok(reject("ACCOUNTING_CAPACITY"));
             }
-            let price = pricing_v6::cannon_price(mine.len() as u32)?;
+            if !capped && mine.is_empty() && state.next_territory_id == u32::MAX {
+                return Ok(reject("TERRITORY_ID_EXHAUSTED"));
+            }
+            let price = if let Some(p) = multiplier {
+                let Some(price) = tariff::marginal(tariff::CANNON_BASE_E8S, p, mine.len()) else {
+                    return Ok(reject("PRICE_OVERFLOW"));
+                };
+                price
+            } else {
+                pricing_v6::cannon_price(mine.len() as u32)?
+            };
             if amount < price {
                 return Ok(reject("UNDERFUNDED"));
             }
@@ -448,8 +479,9 @@ pub(crate) fn prepare_with_context(
                 )? {
                     return Ok(reject(reason));
                 }
-                if crate::territory_v6::balls(world, world.owner(site).unwrap_or(0))
-                    >= MAX_PURCHASE_BALLS_PER_ISLAND
+                if capped
+                    && crate::territory_v6::balls(world, world.owner(site).unwrap_or(0))
+                        >= MAX_PURCHASE_BALLS_PER_ISLAND
                 {
                     return Ok(reject("BALL_CAPACITY"));
                 }
@@ -498,11 +530,20 @@ pub(crate) fn prepare_with_context(
                 return Ok(reject("NOT_OWNER"));
             }
             let pool = world.territory_ball_count(cannon);
-            if amount < pricing_v6::ball_price(pool as u32)? {
+            let price = if let Some(p) = multiplier {
+                let Some(price) =
+                    tariff::marginal(tariff::BALL_BASE_E8S, p, player_balls(world, account))
+                else {
+                    return Ok(reject("PRICE_OVERFLOW"));
+                };
+                price
+            } else {
+                pricing_v6::ball_price(pool as u32)?
+            };
+            if amount < price {
                 return Ok(reject("UNDERFUNDED"));
             }
-            if pool >= MAX_PURCHASE_BALLS_PER_ISLAND
-                || world.balls.len() >= MAX_BALLS
+            if capped && (pool >= MAX_PURCHASE_BALLS_PER_ISLAND || world.balls.len() >= MAX_BALLS)
                 || world.next_ball_id == u32::MAX
             {
                 return Ok(reject("BALL_CAPACITY"));
@@ -583,6 +624,16 @@ pub(crate) fn prepare_with_context(
     }
 }
 
+pub(crate) fn player_balls(world: &World, account: &str) -> usize {
+    player_by_account(world, account).map_or(0, |player| {
+        world
+            .balls
+            .iter()
+            .filter(|ball| ball.owner == player)
+            .count()
+    })
+}
+
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Batch {
@@ -597,6 +648,8 @@ pub struct Batch {
     pub used: Int,
     pub remainder: Int,
     pub stop_reason: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub economy_multiplier: Option<u32>,
 }
 pub struct Launch {
     pub ball: Ball,
@@ -627,6 +680,7 @@ impl Batch {
             used: Int(0.into()),
             remainder: Int(amount.into()),
             stop_reason: None,
+            economy_multiplier: None,
         })
     }
     pub fn after_new(account: String, amount: u64, cannon: u32, plan: &Plan) -> Result<Self> {
@@ -655,10 +709,13 @@ impl Batch {
             used: price.clone(),
             remainder: Int(num_bigint::BigInt::from(amount) - &price.0),
             stop_reason: (*quantity == 1).then(|| "quantity_limit".into()),
+            economy_multiplier: None,
         })
     }
     pub fn validate(&self, world: &World) -> Result<()> {
         if world.version < 6
+            || (world.version == 9) != self.economy_multiplier.is_some()
+            || self.economy_multiplier == Some(0)
             || !(1..=b2z_protocol::v6::MAX_QUANTITY).contains(&self.requested)
             || self.prices.len() > usize::from(self.requested)
             || !world
@@ -700,7 +757,9 @@ impl Batch {
             return Ok(None);
         }
         let pool = world.territory_ball_count(self.cannon);
-        if pool >= MAX_PURCHASE_BALLS_PER_ISLAND || world.balls.len() >= MAX_BALLS {
+        if self.economy_multiplier.is_none()
+            && (pool >= MAX_PURCHASE_BALLS_PER_ISLAND || world.balls.len() >= MAX_BALLS)
+        {
             self.stop_reason = Some("capacity".into());
             return Ok(None);
         }
@@ -708,7 +767,18 @@ impl Batch {
             self.stop_reason = Some("ball_id_exhausted".into());
             return Ok(None);
         }
-        let price = Int(pricing_v6::ball_price(pool as u32)?.into());
+        let price = if let Some(p) = self.economy_multiplier {
+            let Some(price) =
+                tariff::marginal(tariff::BALL_BASE_E8S, p, player_balls(world, &self.account))
+            else {
+                self.stop_reason = Some("insufficient_payment".into());
+                return Ok(None);
+            };
+            price
+        } else {
+            pricing_v6::ball_price(pool as u32)?
+        };
+        let price = Int(price.into());
         if price.0 > self.remainder.0 {
             self.stop_reason = Some("insufficient_payment".into());
             return Ok(None);

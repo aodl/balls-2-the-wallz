@@ -10,7 +10,7 @@ const same=(a,b)=>{const x=encodeCanonical(a),y=encodeCanonical(b);return x.leng
 export function trackV6(b,rational=false){integer(b.id,4294967294,1);integer(b.owner,4294967294,1);for(const k of ['vx','vy'])check(Number.isSafeInteger(b[k])&&Math.abs(b[k])<=65536,'velocity');const limit=rational?6553600000000000000n:100000000000000n;for(const k of ['x0','y0'])check(typeof b[k]==='bigint'&&b[k]>=-limit&&b[k]<=limit,'intercept');if(rational)validateRationalTrack(b);else check(b.den===undefined&&b.deflector_rearm===undefined,'historical trajectory');check(b.vx||b.vy,'zero velocity');return {id:b.id,owner:b.owner,x0:b.x0,y0:b.y0,vx:b.vx,vy:b.vy,...(rational?{den:b.den,...(b.deflector_rearm===undefined?{}:{deflector_rearm:structuredClone(b.deflector_rearm)})}:{})};}
 export function validateV6Snapshot(w,ownerAt){
  const s=w.playability;check(s&&w.width===1000&&w.height===1000,'snapshot');ns(s.elapsed_ns);
- const bounded=(v,n)=>check(Array.isArray(v)&&v.length<=n,'array bounds');
+ const bounded=(v,n)=>check(Array.isArray(v)&&(w.version>=9||v.length<=n),'array bounds');
  bounded(w.cannons,V6_POLICY.max_cannons);bounded(w.balls,V6_POLICY.max_balls);bounded(w.pending,V6_POLICY.max_balls);
  bounded(s.players,V6_POLICY.max_players);bounded(s.territories,V6_POLICY.max_cannons);bounded(s.lifecycle,V6_POLICY.max_cannons);
  const ordered=(rows,key)=>{let prior=0;for(const v of rows){integer(v[key],4294967294,1);check(v[key]>prior,'ordered identities');prior=v[key];}};
@@ -23,7 +23,7 @@ export function validateV6Snapshot(w,ownerAt){
  const pools=new Map();for(const b of w.balls){trackV6(b,w.version>=7);integer(b.cell,999999);const label=ownerAt(w,b.cell);check(players.has(b.owner)&&territories.get(label)===b.owner,'ball player');pools.set(label,(pools.get(label)??0)+1);const x=rat(b.x0*w.time[1]+BigInt(b.vx)*w.time[0]*(b.den??1n),w.time[1]*(b.den??1n)),y=rat(b.y0*w.time[1]+BigInt(b.vy)*w.time[0]*(b.den??1n),w.time[1]*(b.den??1n)),cx=b.cell%1000,cy=Math.floor(b.cell/1000);check(cmp(x,rat(cx*1024))>=0&&cmp(x,rat((cx+1)*1024))<=0&&cmp(y,rat(cy*1024))>=0&&cmp(y,rat((cy+1)*1024))<=0,'ball position');}
  for(let i=0;i<w.cannons.length;i++){
   const c=w.cannons[i],l=s.lifecycle[i],label=ownerAt(w,c.cell);integer(c.cell,999999);if(c.heading!==undefined)integer(c.heading,65535);integer(l.generation,4294967295,1);
-  check(!cells.has(c.cell)&&l.cannon===c.id&&territories.get(label)===l.player&&players.get(l.player)?.account===c.account,'cannon player');cells.add(c.cell);anchors.set(label,(anchors.get(label)??0)+1);retained.set(l.player,(retained.get(l.player)??0)+1);check(retained.get(l.player)<=V6_POLICY.max_retained_per_player,'retained limit');
+  check(!cells.has(c.cell)&&l.cannon===c.id&&territories.get(label)===l.player&&players.get(l.player)?.account===c.account,'cannon player');cells.add(c.cell);anchors.set(label,(anchors.get(label)??0)+1);retained.set(l.player,(retained.get(l.player)??0)+1);check(w.version>=9||retained.get(l.player)<=V6_POLICY.max_retained_per_player,'retained limit');
   if(pools.get(label)){check(l.deadline_ns===undefined&&l.dormant_since_ns===undefined,'active deadline');}
   else{ns(l.deadline_ns);ns(l.dormant_since_ns);check(l.dormant_since_ns<=s.elapsed_ns&&l.deadline_ns===l.dormant_since_ns+V6_POLICY.dormancy_grace_ns,'dormant deadline');}
  }
@@ -34,11 +34,11 @@ export function applyMetadata(view,d){
  check(d&&typeof d==='object','metadata delta');const s=view.playability;
  integer(d.next_player_id,4294967295);integer(d.next_territory_id,4294967295);check(d.next_player_id>=s.next_player_id&&d.next_territory_id>=s.next_territory_id,'counter rollback');
  for(const[field,key,max]of[['players','id',V6_POLICY.max_players],['territories','id',V6_POLICY.max_cannons],['lifecycle','cannon',V6_POLICY.max_cannons]]){
-  check(Array.isArray(d[field])&&d[field].length<=max,'delta bounds');const map=new Map(s[field].map(v=>[v[key],v]));let prior=0;
+  check(Array.isArray(d[field])&&(view.version>=9||d[field].length<=max),'delta bounds');const map=new Map(s[field].map(v=>[v[key],v]));let prior=0;
   for(const v of d[field]){integer(v[key],4294967294,1);check(v[key]>prior,'delta order');prior=v[key];const old=map.get(v[key]);if(field==='players'&&old)check(old.account===v.account,'changed player');if(field==='lifecycle'&&old)check(v.generation>=old.generation,'generation rollback');map.set(v[key],structuredClone(v));}
   s[field]=[...map.values()].sort((a,b)=>a[key]-b[key]);
  }
- for(const[field,rows,key]of[['retired_territories','territories','id'],['retired_cannons','lifecycle','cannon']]){check(Array.isArray(d[field])&&d[field].length<=V6_POLICY.max_cannons,'retirement bounds');const gone=new Set(d[field]);check(gone.size===d[field].length,'duplicate retirement');for(const id of gone)integer(id,4294967294,1);s[rows]=s[rows].filter(v=>!gone.has(v[key]));}
+ for(const[field,rows,key]of[['retired_territories','territories','id'],['retired_cannons','lifecycle','cannon']]){check(Array.isArray(d[field])&&(view.version>=9||d[field].length<=V6_POLICY.max_cannons),'retirement bounds');const gone=new Set(d[field]);check(gone.size===d[field].length,'duplicate retirement');for(const id of gone)integer(id,4294967294,1);s[rows]=s[rows].filter(v=>!gone.has(v[key]));}
  s.next_player_id=d.next_player_id;s.next_territory_id=d.next_territory_id;
  if(d.territories.length||d.retired_territories.length||d.players.length)view.territoryRevision++;
 }
@@ -65,18 +65,18 @@ export function applyV6Event(view,e){
  }else if(e.kind==='ball_spawned'){
   check(view.cannons.has(e.cannon),'launch cannon');applyMetadata(view,e.metadata_delta);const b=trackV6(e.ball,view.version>=7);check(b.owner===view.playerForCannon(e.cannon)&&!view.balls.has(b.id),'spawn player');view.balls.set(b.id,b);integer(e.heading,65535);view.cannons.get(e.cannon).heading=e.heading;
  }else if(['capture','capture_annihilation','annihilation_cleanup'].includes(e.kind)){
-  check(Array.isArray(e.pairs)&&e.pairs.length<=Math.floor(V6_POLICY.max_balls/2),'pairs');const used=new Set();
+  check(Array.isArray(e.pairs)&&(view.version>=9||e.pairs.length<=Math.floor(V6_POLICY.max_balls/2)),'pairs');const used=new Set();
   for(const pair of e.pairs){check(Array.isArray(pair.balls)&&pair.balls.length===2&&Array.isArray(pair.positions)&&pair.positions.length===2,'pair');const balls=pair.balls.map(id=>view.balls.get(id));check(balls.every(Boolean)&&balls[0].owner!==balls[1].owner,'pair participants');
    for(let i=0;i<2;i++){const b=balls[i];check(!used.has(b.id),'repeated participant');used.add(b.id);const p=pair.positions[i];check(Array.isArray(p)&&p.length===2,'pair position');for(let axis=0;axis<2;axis++){const k=axis?'y0':'x0',v=axis?'vy':'vx';check(cmp(p[axis],rat(b[k]*e.time[1]+BigInt(b[v])*e.time[0]*(b.den??1n),e.time[1]*(b.den??1n)))===0,'pair trajectory');}}
    const [[x,y],[x2,y2]]=pair.positions.map(p=>p.map(r=>((Number(r[0])/Number(r[1])/1024)%1000+1000)%1000));view.effects.push({kind:'mutual',x,y,x2,y2,t,owner:balls[0].owner});
   }
   view.removeBalls([...used]);ownership(view,e.ownership_ops);applyMetadata(view,e.metadata_delta);
-  check(Array.isArray(e.cancelled_strikes)&&e.cancelled_strikes.length<=V6_POLICY.max_balls,'cancelled strikes');for(const id of e.cancelled_strikes)view.pending.delete(id);if(e.strike!==undefined)view.pending.delete(e.strike);
+  check(Array.isArray(e.cancelled_strikes)&&(view.version>=9||e.cancelled_strikes.length<=V6_POLICY.max_balls),'cancelled strikes');for(const id of e.cancelled_strikes)view.pending.delete(id);if(e.strike!==undefined)view.pending.delete(e.strike);
   if(e.kind==='capture')view.effects.push({kind:'capture',cell:view.cell(e.target),t,owner:e.attacker});
  }else if(e.kind==='purchase_completed'){
   check(['applied','partially_applied','rejected'].includes(e.status),'purchase status');
  }else if(e.kind==='lifecycle_time'){
-  const s=view.playability;ns(e.previous_elapsed_ns);ns(e.observed_ns);check(s.elapsed_ns===e.previous_elapsed_ns&&e.observed_ns>=s.elapsed_ns,'completion time rollback');check(Array.isArray(e.stamped)&&e.stamped.length<=V6_POLICY.max_cannons,'time fences');
+  const s=view.playability;ns(e.previous_elapsed_ns);ns(e.observed_ns);check(s.elapsed_ns===e.previous_elapsed_ns&&e.observed_ns>=s.elapsed_ns,'completion time rollback');check(Array.isArray(e.stamped)&&(view.version>=9||e.stamped.length<=V6_POLICY.max_cannons),'time fences');
   for(const f of e.stamped){const l=s.lifecycle.find(l=>l.cannon===f.cannon);check(l&&l.generation===f.generation&&l.deadline_ns===f.deadline_ns&&l.dormant_since_ns===e.observed_ns,'completion fence');}s.elapsed_ns=e.observed_ns;
  }else return false;
  return true;

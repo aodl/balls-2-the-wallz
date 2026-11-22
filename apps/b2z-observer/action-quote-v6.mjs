@@ -1,5 +1,7 @@
+import {economyAt} from '../../packages/kernels/b2z/economy17.mjs';
+import {marginal,U64_MAX} from '../../packages/protocol/economy17.mjs';
 import {reservoirDirective,encodeReservoirMemo} from '../../packages/protocol/reservoir.mjs';
-import {contextSupported,reservoirSupported} from './context-policy.mjs';
+import {contextSupported,reservoirSupported,economySupported} from './context-policy.mjs';
 import {contextSites} from './context-sites.mjs';
 import {encodeContextMemo,parseContextText,screenDirection} from '../../packages/protocol/context-structures.mjs';
 import{deflectorSites}from'./deflector-sites.mjs';
@@ -9,7 +11,7 @@ import {hasEnemyClearance,clearanceActive} from '../../packages/protocol/territo
 /** Convenience estimates from a verified snapshot. Payments alone confer authority.
  * The authoritative interpreter rechecks the real sender and current state. */
 import {cannonReference} from './play-reference.mjs';
-import {ballPrice,cannonPrice,sequentialCost,newCannonCost} from '../../packages/kernels/b2z/pricing-v6.mjs';
+import {ballPrice,cannonPrice} from '../../packages/kernels/b2z/pricing-v6.mjs';
 import {encodeV6Memo,parseV6TextMemo} from '../../packages/protocol/memo-v6.mjs';
 const check=(ok,code)=>{if(!ok)throw Error(code);};
 const integer=(n,max)=>Number.isSafeInteger(n)&&n>=0&&n<=max;
@@ -23,18 +25,24 @@ export function legalAdjacentSites(w,account,config=null){
  return[...candidates].filter(c=>!blocked.has(c)&&(islandAt(w,c)===0||playerAt(w,c)===player)&&(!clearanceActive(config)||hasEnemyClearance(w.width,w.height,c,player,n=>playerAt(w,n)))).sort((a,b)=>a-b);
 }
 export function legalMove(w,account,cannon,cell,config=null){
- if(![6,7,8].includes(w.version)||!integer(cell,999999))return false;const c=w.cannons.find(c=>c.id===cannon),life=w.playability.lifecycle.find(l=>l.cannon===cannon);
+ if(![6,7,8,9].includes(w.version)||!integer(cell,999999))return false;const c=w.cannons.find(c=>c.id===cannon),life=w.playability.lifecycle.find(l=>l.cannon===cannon);
  if(c?.account!==account||!life||life.deadline_ns!==undefined||playerAt(w,cell)!==life.player||w.cannons.some(c=>c.id!==cannon&&c.cell===cell)||(w.deflectors??[]).some(d=>d.cell===cell))return false;
  if(contextSupported(config)&&(c.cell===cell||contextSites(w,config).reason(account,cell,{moving:{kind:'cannon',id:cannon}})))return false;
  return (!clearanceActive(config)||hasEnemyClearance(w.width,w.height,cell,life.player,n=>playerAt(w,n)))&&(islandAt(w,c.cell)===islandAt(w,cell)||w.cannons.filter(other=>islandAt(w,other.cell)===islandAt(w,c.cell)).length>1);
 }
 export function sitePool(w,account,cell){const player=w.playability.players.find(p=>p.account===account)?.id,labels=new Set([cell,...adjacent(cell)].filter(c=>playerAt(w,c)===player).map(c=>islandAt(w,c)));return w.balls.filter(b=>b.owner===player&&labels.has(islandAt(w,b.cell))).length;}
-export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quantity=1,cell=null}){
+export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quantity=1,cell=null,priced_at_ns=w.playability?.elapsed_ns}){
  check(w.version>=6,'EXPECTED_V6');check(/^[0-9a-f]{64}$/.test(account),'ACCOUNT_BOUNDS');check(integer(quantity,64)&&quantity>=1,'QUANTITY_BOUNDS');
- const mine=w.cannons.filter(c=>c.account===account),free=config.max_balls-w.balls.length;let amount,fill,per_item=[],pool=0,text;
+ const daily=economySupported(config);
+ check(daily===(w.version===9),'ECONOMY_SCHEMA');
+ const rate=daily?economyAt(w.economy,priced_at_ns).current:null;
+ const mine=w.cannons.filter(c=>c.account===account),free=daily?0xffffffff-w.next_ball_id:config.max_balls-w.balls.length;
+ const count=()=>{const player=w.playability.players.find(p=>p.account===account)?.id;return w.balls.filter(b=>b.owner===player).length;};
+ const scaled=(base,n)=>{const price=marginal(base,rate,n);check(price!==null,'PRICE_OVERFLOW');return price;};
+ let amount,fill,per_item=[],pool=0,text;
  const successor=contextSupported(config);
  if(kind==='reservoir'){
-  check(w.version===8&&reservoirSupported(config),'UNSUPPORTED_RESERVOIR');
+  check(w.version>=8&&reservoirSupported(config),'UNSUPPORTED_RESERVOIR');
   const issue=contextSites(w,config).reason(account,cell,{reservoir:true});
   check(!issue,issue);
   const amount=BigInt(config.reservoir_price_e8s), memo=reservoirDirective(cell);
@@ -55,15 +63,19 @@ export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quanti
   fill=1;per_item=[amount];
  }else if(kind==='deflect'){
   check(w.version>=7&&deflectorSupported(config),'UNSUPPORTED_DEFLECTOR');
+  let retained=0;
   if(successor){
    const owner=contextSites(w,config).owner(account),why=contextSites(w,config).reason(account,cell,{deflector:true});check(!why,why);
-   check(w.deflectors.length<config.max_deflectors,'DEFLECTOR_CAPACITY');
-   check(w.deflectors.filter(d=>d.owner===owner).length<config.max_deflectors_per_player,'PLAYER_DEFLECTOR_CAPACITY');
+   retained=w.deflectors.filter(d=>d.owner===owner).length;
+   check(daily||w.deflectors.length<config.max_deflectors,'DEFLECTOR_CAPACITY');
+   check(daily||retained<config.max_deflectors_per_player,'PLAYER_DEFLECTOR_CAPACITY');
    check(w.next_deflector_id<0xffffffff,'DEFLECTOR_ID_EXHAUSTED');
   }else check(deflectorSites(w,config,account).test(cell),'ILLEGAL_DEFLECTOR_SITE');
-  const orientation=orientationFromDegrees(angle);amount=BigInt(config.deflector_price_e8s);fill=1;per_item=[amount];text=`DEFLECT ${cell} ${successor?screenDirection(orientation):orientation}`;
+  const orientation=orientationFromDegrees(angle);amount=daily?scaled(config.deflector_price_e8s,retained):BigInt(config.deflector_price_e8s);fill=1;per_item=[amount];text=`DEFLECT ${cell} ${successor?screenDirection(orientation):orientation}`;
  }else if(kind==='fire'){
-  const c=cannonReference(w,config).find(c=>c.id===cannon);check(c&&c.account===account,'NOT_OWNER');pool=c.balls;fill=Math.min(quantity,free,Math.max(0,config.max_purchase_balls_per_island-pool));check(fill>0,'BALL_CAPACITY');amount=sequentialCost(pool,fill);per_item=Array.from({length:fill},(_,i)=>ballPrice(pool+i));text=`FIRE ${cannon} ${angle} ${quantity}`;
+  const c=cannonReference(w,config).find(c=>c.id===cannon);check(c&&c.account===account,'NOT_OWNER');pool=daily?count():c.balls;
+  fill=daily?Math.min(quantity,free):Math.min(quantity,free,Math.max(0,config.max_purchase_balls_per_island-pool));check(fill>0,'BALL_CAPACITY');
+  per_item=Array.from({length:fill},(_,i)=>daily?scaled(config.ball_base_e8s,pool+i):ballPrice(pool+i));amount=per_item.reduce((a,b)=>a+b,0n);text=`FIRE ${cannon} ${angle} ${quantity}`;
  }else if(kind==='move'){
   if(successor){
    const why=contextSites(w,config).reason(account,cell,{moving:{kind:'cannon',id:cannon}});check(!why,why);
@@ -71,8 +83,9 @@ export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quanti
   if(clearanceActive(config)&&legalMove(w,account,cannon,cell)&&!legalMove(w,account,cannon,cell,config))throw Error('ENEMY_TERRITORY_TOO_CLOSE');
   check(legalMove(w,account,cannon,cell,config),'ILLEGAL_MOVE');amount=config.move_e8s;fill=1;per_item=[amount];text=`MOVE ${cannon} ${cell}`;
  }else if(kind==='new'){
-  check(w.playability.players.some(p=>p.account===account)||w.playability.players.length<config.max_players,'ACCOUNTING_CAPACITY');
-  check(mine.length<config.max_retained_per_player,'PLAYER_CANNON_CAPACITY');check(w.cannons.length<config.max_cannons,'CANNON_CAPACITY');if(successor)check(w.next_cannon_id<0xffffffff,'CANNON_ID_EXHAUSTED');check(free>0&&(!successor||w.next_ball_id<0xffffffff),'BALL_CAPACITY');
+  check(w.playability.players.some(p=>p.account===account)||(daily?w.playability.next_player_id<0xffffffff:w.playability.players.length<config.max_players),'ACCOUNTING_CAPACITY');
+  if(daily&&!mine.length)check(w.playability.next_territory_id<0xffffffff,'TERRITORY_ID_EXHAUSTED');
+  check(daily||mine.length<config.max_retained_per_player,'PLAYER_CANNON_CAPACITY');check(daily||w.cannons.length<config.max_cannons,'CANNON_CAPACITY');if(successor)check(w.next_cannon_id<0xffffffff,'CANNON_ID_EXHAUSTED');check(free>0&&(!successor||w.next_ball_id<0xffffffff),'BALL_CAPACITY');
   if(!mine.length){check(cell===null,'FIRST_PLACEMENT_AUTOMATIC');if(!(successor||[7,9,10,11,12].includes(config.rules_version)))check(1000000-w.ownership.counts.reduce((sum,r)=>sum+r.cells,0)>=9,'NO_ELIGIBLE_SPAWN');}
   else if(successor){
    check(cell!==null,'EXPLICIT_OWNED_SITE_REQUIRED');
@@ -82,9 +95,14 @@ export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quanti
   else{if(clearanceActive(config)){const old=legalAdjacentSites(w,account).filter(c=>sitePool(w,account,c)<config.max_purchase_balls_per_island),safe=legalAdjacentSites(w,account,config);if(cell!==null&&old.includes(cell)&&!safe.includes(cell)||old.length&&!safe.length)throw Error('ENEMY_TERRITORY_TOO_CLOSE');}const sites=legalAdjacentSites(w,account,config).filter(c=>sitePool(w,account,c)<config.max_purchase_balls_per_island);check(sites.length>0,'NO_ADJACENT_SITE');if(cell!==null){check(sites.includes(cell),'ILLEGAL_ADJACENT_SITE');pool=sitePool(w,account,cell);}else{const counts=new Set(sites.map(c=>sitePool(w,account,c)));check(quantity===1||counts.size===1,'CHOOSE_SITE_FOR_EXACT_BATCH');pool=counts.size===1?[...counts][0]:null;}}
   // An automatic one-ball New has a site-independent cannon price. Its eventual
   // merged pool is deliberately unspecified when eligible sites differ.
-  fill=Math.min(quantity,free,Math.max(0,config.max_purchase_balls_per_island-(pool??0)));check(fill>0,'BALL_CAPACITY');amount=newCannonCost(mine.length,fill,pool??0);per_item=[cannonPrice(mine.length),...Array.from({length:fill-1},(_,i)=>ballPrice(pool+1+i))];text=`NEW ${angle} ${quantity}${cell===null?'':` ${cell}`}`;
+  if(daily)pool=count();
+  fill=daily?Math.min(quantity,free):Math.min(quantity,free,Math.max(0,config.max_purchase_balls_per_island-(pool??0)));
+  check(fill>0,'BALL_CAPACITY');
+  per_item=[daily?scaled(config.join_e8s,mine.length):cannonPrice(mine.length),
+    ...Array.from({length:fill-1},(_,i)=>daily?scaled(config.ball_base_e8s,pool+1+i):ballPrice(pool+1+i))];
+  amount=per_item.reduce((a,b)=>a+b,0n);text=`NEW ${angle} ${quantity}${cell===null?'':` ${cell}`}`;
  }else throw Error('UNKNOWN_ACTION');
- const memo=successor?encodeContextMemo(parseContextText(new TextEncoder().encode(text)).command):kind==='deflect'?encodeDeflectorMemo({kind:'deflect',cell,orientation:orientationFromDegrees(angle)}):encodeV6Memo(parseV6TextMemo(new TextEncoder().encode(text)));check(amount<=18446744073709551615n,'PRICE_OVERFLOW');
+ const memo=successor?encodeContextMemo(parseContextText(new TextEncoder().encode(text)).command):kind==='deflect'?encodeDeflectorMemo({kind:'deflect',cell,orientation:orientationFromDegrees(angle)}):encodeV6Memo(parseV6TextMemo(new TextEncoder().encode(text)));check(amount<=U64_MAX,'PRICE_OVERFLOW');
  return{amount,per_item,requested:['move','deflect','deflector_move','deflector_reorient'].includes(kind)?1:quantity,maximum_fill:fill,pool,cell,memo:text,memo_bytes:new TextEncoder().encode(text),numeric_memo_bytes:memo,non_reservation:true};
 }
 

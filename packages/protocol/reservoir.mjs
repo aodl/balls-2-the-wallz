@@ -85,7 +85,7 @@ export function* reservoirSites(occupancy) {
 }
 
 export function validateReservoirs(world) {
-  if (world.version !== 8) {
+  if (world.version < 8) {
     if (world.reservoirs !== undefined) throw Error('RESERVOIR_SCHEMA');
     return;
   }

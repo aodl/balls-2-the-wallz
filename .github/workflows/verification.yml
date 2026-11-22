@@ -16,7 +16,7 @@ permissions:
 
 env:
   CARGO_TERM_COLOR: always
-  FROZEN_B2Z_ASSETS: evidence/B2Z/rules16-reservoirs/artifacts
+  FROZEN_B2Z_ASSETS: evidence/B2Z/rules17-daily-economy/artifacts
 
 jobs:
   source:
@@ -192,7 +192,7 @@ jobs:
       - name: Archive normal module for same-source installed qualification
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
-          name: rules16-hosted-normal
+          name: rules17-hosted-normal
           path: canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm
           if-no-files-found: error
       - name: Upload Wasm evidence
@@ -282,6 +282,7 @@ jobs:
       - name: Reservoir construction, predecessor UI and selectable sites
         run: |
           python -B tools/verify_isometric_orbit.py --reservoir-only --output .work/ci-reservoir-controls
+          python -B tools/verify_isometric_orbit.py --economy-only --output .work/ci-economy-controls
           python -B tools/verify_reservoir_browser.py --output .work/ci-reservoir-renderer
       - name: Four-direction controls, exact clipboard and frozen-copy fixture
         run: python -B tools/verify_boundary_deflector_browser.py --output .work/ci-boundary-controls
@@ -312,6 +313,8 @@ jobs:
             .work/ci-wire-capture/**
             .work/ci-graphite-models/**
             .work/ci-reservoir-controls/**
+            .work/ci-economy-controls/*.png
+            .work/ci-economy-controls/results.json
             .work/ci-reservoir-renderer/results.json
             .work/ci-boundary-controls/**
             .work/ci-human-experience/**
@@ -382,17 +385,18 @@ jobs:
       - name: Download normal module from the same workflow source
         uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
-          name: rules16-hosted-normal
+          name: rules17-hosted-normal
           path: .work/ci-normal
       - name: Bind installed acceptance to the exact hosted normal backend
         run: |
           python -B tools/verify_approved_panel_freeze.py --artifacts "$FROZEN_B2Z_ASSETS" --backend-only --output .work/ci-integration/spacing-backend-pin
           cmp .work/ci-normal/dtr_runtime_lab.wasm .work/ci-integration/s14-local/normal.wasm
           sha256sum .work/ci-integration/s14-local/normal.wasm > .work/ci-integration/spacing-backend-pin/hosted-normal.sha256
-      - name: Official disposable Ledger and Index qualification for the Rules15 cutover
+      - name: Official disposable Ledger and Index qualification for the Rules16 cutover and daily pricing
         run: |
           gzip -dc vendor/b2z/rules15-8d7f1a67.wasm.gz > .work/ci-normal/rules15-qualified-predecessor.wasm
-          python -B tools/verify_s14_local.py --output .work/ci-reservoirs --rules15-prior-wasm .work/ci-normal/rules15-qualified-predecessor.wasm --test-filter context_structures_installed::reservoirs_rules15_upgrade_official_transfers_and_replay
+          gzip -dc vendor/b2z/rules16-a5889a92.wasm.gz > .work/ci-normal/rules16-qualified-predecessor.wasm
+          python -B tools/verify_s14_local.py --output .work/ci-reservoirs --rules15-prior-wasm .work/ci-normal/rules15-qualified-predecessor.wasm --rules16-prior-wasm .work/ci-normal/rules16-qualified-predecessor.wasm --test-filter context_structures_installed::economy_rules16_upgrade_official_timestamps_and_replay
           cmp .work/ci-normal/dtr_runtime_lab.wasm .work/ci-reservoirs/normal.wasm
       - name: Upload local IC evidence
         if: always()

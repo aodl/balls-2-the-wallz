@@ -1,11 +1,11 @@
 //! Inert terrain, with storage and commands fenced by the Rules16 identity.
 use crate::{
-    purchases_v6::{enemy_clearance, occupied_cells, player_by_account, Plan},
+    purchases_v6::{Plan, enemy_clearance, occupied_cells, player_by_account},
     territory_v6,
     world::World,
 };
 use b2z_protocol::reservoir::PRICE_E8S;
-use dtr_wire::{hash, Int, Result};
+use dtr_wire::{Int, Result, hash};
 use serde_json::json;
 
 pub fn configuration() -> &'static [u8] {
@@ -63,7 +63,7 @@ pub fn place(world: &mut World, cell: usize) -> Result<()> {
 
 pub fn validate(world: &World) -> Result<()> {
     match (world.version, &world.reservoirs) {
-        (8, Some(bits)) => {
+        (8 | 9, Some(bits)) => {
             let cells = world.cell_count();
             let max = cells.div_ceil(4);
             if bits.len() > max || bits.ends_with('0') || !bits.bytes().all(|b| nibble(b).is_some())
@@ -84,7 +84,7 @@ pub fn validate(world: &World) -> Result<()> {
                 return Err("RESERVOIR_OCCUPANCY".into());
             }
         }
-        (8, None) | (_, Some(_)) => return Err("RESERVOIR_SCHEMA".into()),
+        (8 | 9, None) | (_, Some(_)) => return Err("RESERVOIR_SCHEMA".into()),
         _ => {}
     }
     Ok(())
@@ -102,10 +102,15 @@ pub fn migrate(mut world: World) -> Result<World> {
 }
 
 pub fn prepare(world: &World, account: &str, amount: u64, cell: usize) -> Result<Plan> {
-    if world.version != 8 {
+    if !matches!(world.version, 8 | 9) {
         return Err("RESERVOIR_SCHEMA".into());
     }
-    if amount < PRICE_E8S {
+    let price = if world.version == 9 {
+        b2z_protocol::economy17::RESERVOIR_PRICE_E8S
+    } else {
+        PRICE_E8S
+    };
+    if amount < price {
         return Ok(Plan::Rejected {
             reason: "UNDERFUNDED".into(),
         });
@@ -121,7 +126,7 @@ pub fn prepare(world: &World, account: &str, amount: u64, cell: usize) -> Result
             } else {
                 return Ok(Plan::Reservoir {
                     cell,
-                    price: Int(PRICE_E8S.into()),
+                    price: Int(price.into()),
                 });
             }
         }

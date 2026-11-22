@@ -1,0 +1,9 @@
+{
+  "cannon_base_e8s": "1000000",
+  "diverter_base_e8s": "100000",
+  "ball_base_e8s": "10000",
+  "reservoir_price_e8s": "10000000",
+  "fixed_action_e8s": "10000",
+  "day_ns": "86400000000000",
+  "grace_ns": "3600000000000"
+}

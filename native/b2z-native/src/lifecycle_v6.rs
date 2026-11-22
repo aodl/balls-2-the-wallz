@@ -1,11 +1,11 @@
 //! Explicit authenticated elapsed-time operations, never Ledger records or ticks.
 //! Committed v6 topology must already have removed unsupported non-anchor land.
 use crate::{
-    playability::{elapsed, Fence, MAX_CANNONS},
-    world::World,
     Output,
+    playability::{Fence, MAX_CANNONS, elapsed},
+    world::World,
 };
-use dtr_wire::{encode, hash, Int, Result};
+use dtr_wire::{Int, Result, encode, hash};
 use serde_json::json;
 use std::collections::BTreeSet;
 
@@ -22,7 +22,7 @@ pub fn expire(world: &World, observed_ns: u64, fences: &[Fence]) -> Result<Optio
     if observed_ns < elapsed(&state.elapsed_ns)? {
         return Err("LIFECYCLE_TIME_ROLLBACK".into());
     }
-    if fences.len() > MAX_CANNONS {
+    if world.version < 9 && fences.len() > MAX_CANNONS {
         return Err("EXPIRY_CAPACITY".into());
     }
     let mut seen = BTreeSet::new();
@@ -54,14 +54,29 @@ pub fn expire(world: &World, observed_ns: u64, fences: &[Fence]) -> Result<Optio
         }
         due.push(f.clone());
     }
-    if due.is_empty() {
+    let prior_ns = elapsed(&state.elapsed_ns)?;
+    let pricing_due = world.version == 9
+        && prior_ns / b2z_protocol::economy17::DAY_NS
+            < observed_ns / b2z_protocol::economy17::DAY_NS;
+    if due.is_empty() && !pricing_due {
         return Ok(None);
     }
-    let metadata = json!({"domain":"B2Z-LIFECYCLE-CONTEXT-01","version":1,"previous_state":hash(&world.encode()?),"observed_ns":Int(observed_ns.into()),"fences":fences});
+    let predecessor = hash(&world.encode()?);
+    let metadata = json!({"domain":"B2Z-LIFECYCLE-CONTEXT-01","version":1,"previous_state":predecessor,"observed_ns":Int(observed_ns.into()),"fences":fences});
     let mut next = world.clone();
     next.playability.as_mut().unwrap().elapsed_ns = Int(observed_ns.into());
     let mut events =
         vec![json!({"kind":"lifecycle_context","sequence":0,"time":world.time,"context":metadata})];
+    if pricing_due {
+        if let Some(snapshot) = next.economy.as_mut().ok_or("ECONOMY_SCHEMA")?.observe(
+            prior_ns,
+            observed_ns,
+            crate::economy17::population(world),
+            predecessor,
+        )? {
+            events.push(json!({"kind":"economy_snapshot","sequence":events.len(),"time":world.time,"snapshot":snapshot}));
+        }
+    }
     let mut expired = vec![];
     for f in due {
         let c = next

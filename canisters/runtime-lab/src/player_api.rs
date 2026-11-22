@@ -1,10 +1,10 @@
 //! Bounded public inspection/preparation. No updates, wallet or controller access.
 //! A typed reply is not certified: verify its reference and recompute it from the
 //! authenticated state artifact before relying on it for payment preparation.
-use super::{number, root, Publication, Root};
+use super::{Publication, Root, number, root};
 use b2z_native::{playability as v6, pricing_v6, purchases_v6, world::World};
 use candid::{CandidType, Nat, Principal};
-use dtr_wire::{decode, hash, unhex, Int, Rat, Result};
+use dtr_wire::{Int, Rat, Result, decode, hash, unhex};
 use serde::Deserialize;
 
 #[derive(Clone, CandidType, Deserialize)]
@@ -253,6 +253,17 @@ fn load() -> Result<(Root, Publication, World)> {
 }
 fn limits(w: &World) -> Limits {
     let six = w.version >= 6;
+    if w.version == 9 {
+        // Legacy numeric fields use zero to signal the absence of an inventory
+        // quota. `maximum_quantity` still bounds one transaction.
+        return Limits {
+            total_cannons: 0,
+            total_balls: 0,
+            retained_cannons_per_account: 0,
+            purchase_balls_per_island: 0,
+            maximum_quantity: 64,
+        };
+    }
     Limits {
         total_cannons: if six { v6::MAX_CANNONS as u32 } else { 32 },
         total_balls: if six { v6::MAX_BALLS as u32 } else { 64 },
@@ -317,8 +328,10 @@ fn cannon(w: &World, id: u32) -> Result<Option<CannonView>> {
 pub fn game_info() -> Result<GameInfo> {
     let (r, p, w) = load()?;
     let configuration = if p.identity.config_hash
-        == b2z_native::reservoirs::identity()["config_hash"]
+        == b2z_native::economy17::identity()["config_hash"]
     {
+        b2z_native::economy17::configuration()
+    } else if p.identity.config_hash == b2z_native::reservoirs::identity()["config_hash"] {
         b2z_native::reservoirs::configuration()
     } else if p.identity.config_hash == b2z_native::spacing::configuration_hash() {
         b2z_native::spacing::configuration()
@@ -682,22 +695,26 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
     let context_rules = spacing
         || p.identity.config_hash == b2z_native::context_structures::configuration_hash()
         || p.identity.config_hash == b2z_native::shout::configuration_hash();
-    let prices = quote_items_with_rules(
-        &w,
-        &funding_account,
-        &action,
-        context_rules
-            || p.identity.config_hash == hash(b2z_native::entry_v7::configuration())
-            || p.identity.config_hash == hash(b2z_native::war_cry::configuration())
-            || p.identity.config_hash == hash(b2z_native::clearance_v9::configuration())
-            || p.identity.config_hash == hash(b2z_native::combined_v11::configuration())
-            || p.identity.config_hash == hash(b2z_native::deflectors_v12::configuration()),
-        p.identity.config_hash == hash(b2z_native::clearance_v9::configuration())
-            || p.identity.config_hash == hash(b2z_native::combined_v11::configuration())
-            || p.identity.config_hash == hash(b2z_native::deflectors_v12::configuration()),
-        context_rules,
-        spacing,
-    )?;
+    let prices = if w.version == 9 {
+        b2z_native::economy17::quote_items(&w, &funding_account, &memo, ic_cdk::api::time())?
+    } else {
+        quote_items_with_rules(
+            &w,
+            &funding_account,
+            &action,
+            context_rules
+                || p.identity.config_hash == hash(b2z_native::entry_v7::configuration())
+                || p.identity.config_hash == hash(b2z_native::war_cry::configuration())
+                || p.identity.config_hash == hash(b2z_native::clearance_v9::configuration())
+                || p.identity.config_hash == hash(b2z_native::combined_v11::configuration())
+                || p.identity.config_hash == hash(b2z_native::deflectors_v12::configuration()),
+            p.identity.config_hash == hash(b2z_native::clearance_v9::configuration())
+                || p.identity.config_hash == hash(b2z_native::combined_v11::configuration())
+                || p.identity.config_hash == hash(b2z_native::deflectors_v12::configuration()),
+            context_rules,
+            spacing,
+        )?
+    };
     let amount = prices
         .iter()
         .try_fold(0u64, |sum, n| sum.checked_add(*n).ok_or("PRICE_OVERFLOW"))?;
@@ -880,16 +897,18 @@ mod tests {
         let other = AccountIdentifier::new(&Principal::anonymous(), &DEFAULT_SUBACCOUNT).to_hex();
         assert_eq!(quote_items(&w, &other, &action).unwrap_err(), "NOT_OWNER");
         for q in [0, 65] {
-            assert!(quote_items(
-                &w,
-                &c.account,
-                &QuoteAction::Fire {
-                    cannon: c.id,
-                    angle: 0,
-                    quantity: q
-                }
-            )
-            .is_err());
+            assert!(
+                quote_items(
+                    &w,
+                    &c.account,
+                    &QuoteAction::Fire {
+                        cannon: c.id,
+                        angle: 0,
+                        quantity: q
+                    }
+                )
+                .is_err()
+            );
         }
         assert_eq!(cannon(&w, c.id).unwrap().unwrap().island_ball_ids.len(), 1);
     }
@@ -941,15 +960,17 @@ mod tests {
             .unwrap(),
             [10_000_000]
         );
-        assert!(quote_items(
-            &w,
-            &c.account,
-            &QuoteAction::Move {
-                cannon: c.id,
-                cell: c.cell as u32
-            }
-        )
-        .is_err());
+        assert!(
+            quote_items(
+                &w,
+                &c.account,
+                &QuoteAction::Move {
+                    cannon: c.id,
+                    cell: c.cell as u32
+                }
+            )
+            .is_err()
+        );
     }
     #[test]
     fn region_bounds_seams_and_canonical_accounts_are_explicit() {
@@ -987,12 +1008,14 @@ mod tests {
                 );
             }
         }
-        assert!(text_memo(&QuoteAction::Fire {
-            cannon: 1,
-            angle: 1,
-            quantity: 1
-        })
-        .is_none());
+        assert!(
+            text_memo(&QuoteAction::Fire {
+                cannon: 1,
+                angle: 1,
+                quantity: 1
+            })
+            .is_none()
+        );
     }
     #[test]
     fn receipt_numbers_preserve_tagged_e8s_and_bounded_quantities() {
@@ -1052,16 +1075,18 @@ mod tests {
             .unwrap(),
             vec![100_000_000, 10_000_000]
         );
-        assert!(quote_items(
-            &w,
-            &w.cannons[0].account,
-            &QuoteAction::Fire {
-                cannon: w.cannons[0].id,
-                angle: 0,
-                quantity: 1
-            }
-        )
-        .is_ok());
+        assert!(
+            quote_items(
+                &w,
+                &w.cannons[0].account,
+                &QuoteAction::Fire {
+                    cannon: w.cannons[0].id,
+                    angle: 0,
+                    quantity: 1
+                }
+            )
+            .is_ok()
+        );
     }
     #[test]
     fn clearance_quote_policy_matches_active_rules_and_preserves_fire() {

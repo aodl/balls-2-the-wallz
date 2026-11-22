@@ -2682,6 +2682,17 @@ fn transfer_text(
     amount: u64,
     memo: &[u8],
 ) -> u64 {
+    transfer_text_at(pic, ledger, payer, owner, amount, memo, None)
+}
+fn transfer_text_at(
+    pic: &PocketIc,
+    ledger: Principal,
+    payer: Principal,
+    owner: Principal,
+    amount: u64,
+    memo: &[u8],
+    created_at_time: Option<u64>,
+) -> u64 {
     let reply = pic
         .update_call(
             ledger,
@@ -2695,7 +2706,7 @@ fn transfer_text(
                 fee: Some(10_000u64.into()),
                 memo: Some(memo.to_vec()),
                 from_subaccount: None,
-                created_at_time: None,
+                created_at_time,
                 amount: amount.into(),
             })
             .unwrap(),

@@ -273,3 +273,6 @@ mod tests {
 }
 
 pub mod reservoir;
+
+pub mod economy17;
+mod economy17_generated;

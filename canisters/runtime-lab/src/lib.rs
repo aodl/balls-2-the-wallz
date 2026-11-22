@@ -11,13 +11,13 @@ mod source;
 mod transition;
 use b2z_native::world::World;
 use candid::{CandidType, Principal};
-use dtr_host::observation::{publication, Publication, CHUNK, MAX_ARTIFACT};
+use dtr_host::observation::{CHUNK, MAX_ARTIFACT, Publication, publication};
 use dtr_host::{Action, Coordinator, Identity, MAX_IMAGE};
-use dtr_wire::{decode, encode, hash, hex, unhex, Int, Result as AppResult};
+use dtr_wire::{Int, Result as AppResult, decode, encode, hash, hex, unhex};
 use ic_cdk::call::Call;
 use ic_stable_structures::{
-    memory_manager::{MemoryId, MemoryManager, VirtualMemory},
     DefaultMemoryImpl, StableBTreeMap, StableCell,
+    memory_manager::{MemoryId, MemoryManager, VirtualMemory},
 };
 use operation_kernel::OperationKernel as B2zHostKernel;
 use serde::{Deserialize, Serialize};
@@ -181,6 +181,8 @@ struct Root {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     reservoir_transition: Option<transition::Transition>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    economy_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_barrier: Option<playability_runtime::Barrier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_error: Option<String>,
@@ -295,6 +297,7 @@ fn active_transition(r: &Root) -> AppResult<Option<&transition::Transition>> {
         r.shout_transition.as_ref(),
         r.spacing_transition.as_ref(),
         r.reservoir_transition.as_ref(),
+        r.economy_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -319,6 +322,7 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.shout_transition.as_ref(),
         r.spacing_transition.as_ref(),
         r.reservoir_transition.as_ref(),
+        r.economy_transition.as_ref(),
     ]
     .map(|t| t.is_some_and(|t| t.holding()));
     if flags.into_iter().filter(|v| *v).count() > 1 {
@@ -348,6 +352,8 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.spacing_transition.as_mut()
     } else if flags[11] {
         r.reservoir_transition.as_mut()
+    } else if flags[12] {
+        r.economy_transition.as_mut()
     } else {
         None
     })
@@ -369,6 +375,7 @@ fn transition_evidence<'a>(
         r.shout_transition.as_ref(),
         r.spacing_transition.as_ref(),
         r.reservoir_transition.as_ref(),
+        r.economy_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -468,6 +475,22 @@ fn validate_retention(retention: &RetentionState, current: &Publication) -> AppR
     Ok(())
 }
 fn validate_shout_binding(r: &Root, publication: &Publication) -> AppResult<()> {
+    let economy = b2z_native::economy17::identity();
+    let economy_enabled = publication.identity.config_hash == economy["config_hash"];
+    let economy_committed = r
+        .economy_transition
+        .as_ref()
+        .is_some_and(|t| t.phase == "complete");
+    let economy_adapter =
+        r.source.memo_adapter_version == b2z_protocol::economy17::MEMO_ADAPTER_VERSION;
+    if economy_enabled != economy_committed
+        || economy_enabled != economy_adapter
+        || economy_enabled
+            && (publication.identity.rules_hash != economy["rules_hash"]
+                || publication.identity.schema_hash != economy["schema_hash"])
+    {
+        return Err("Rules17 epoch/source/config capability mismatch".into());
+    }
     let reservoir = b2z_native::reservoirs::identity();
     let reservoir_enabled = publication.identity.config_hash == reservoir["config_hash"];
     let reservoir_committed = r
@@ -476,7 +499,7 @@ fn validate_shout_binding(r: &Root, publication: &Publication) -> AppResult<()> 
         .is_some_and(|t| t.phase == "complete");
     let reservoir_adapter =
         r.source.memo_adapter_version == b2z_protocol::reservoir::MEMO_ADAPTER_VERSION;
-    if reservoir_enabled != reservoir_committed
+    if (reservoir_enabled || economy_enabled) != reservoir_committed
         || reservoir_enabled != reservoir_adapter
         || reservoir_enabled
             && (publication.identity.rules_hash != reservoir["rules_hash"]
@@ -490,15 +513,16 @@ fn validate_shout_binding(r: &Root, publication: &Publication) -> AppResult<()> 
         .spacing_transition
         .as_ref()
         .is_some_and(|t| t.phase == "complete");
-    if (spacing_enabled || reservoir_enabled) != spacing_committed
+    if (spacing_enabled || reservoir_enabled || economy_enabled) != spacing_committed
         || spacing_enabled
             && publication.identity.rules_hash != b2z_native::spacing::identity()?["rules_hash"]
     {
         return Err("Rules15 epoch/config capability mismatch".into());
     }
     let shout_enabled = publication.identity.config_hash == b2z_native::shout::configuration_hash();
-    let enabled = shout_enabled || spacing_enabled || reservoir_enabled;
-    let adapter = reservoir_adapter
+    let enabled = shout_enabled || spacing_enabled || reservoir_enabled || economy_enabled;
+    let adapter = economy_adapter
+        || reservoir_adapter
         || r.source.memo_adapter_version == b2z_protocol::shout::MEMO_ADAPTER_VERSION;
     let committed = r
         .shout_transition
@@ -596,6 +620,12 @@ fn root() -> AppResult<Root> {
             return Err("Rules16 transition version".into());
         }
     }
+    if let Some(t) = &r.economy_transition {
+        t.validate()?;
+        if t.version != 13 {
+            return Err("Rules17 transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -651,6 +681,7 @@ fn root() -> AppResult<Root> {
         r.shout_transition.as_ref(),
         r.spacing_transition.as_ref(),
         r.reservoir_transition.as_ref(),
+        r.economy_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -940,6 +971,7 @@ fn persist_inner(
         shout_transition: old.and_then(|r| r.shout_transition.clone()),
         spacing_transition: old.and_then(|r| r.spacing_transition.clone()),
         reservoir_transition: old.and_then(|r| r.reservoir_transition.clone()),
+        economy_transition: old.and_then(|r| r.economy_transition.clone()),
         lifecycle_context: old.and_then(|r| r.lifecycle_context.clone()),
         lifecycle_barrier: old.and_then(|r| r.lifecycle_barrier.clone()),
         lifecycle_error: old.and_then(|r| r.lifecycle_error.clone()),
@@ -1095,6 +1127,12 @@ fn save_root_only(r: &Root) -> AppResult<()> {
         t.validate()?;
         if t.version != 12 {
             return Err("Rules16 transition version".into());
+        }
+    }
+    if let Some(t) = &r.economy_transition {
+        t.validate()?;
+        if t.version != 13 {
+            return Err("Rules17 transition version".into());
         }
     }
     if let Some(c) = &r.lifecycle_context {
@@ -1266,10 +1304,22 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
         return Ok(());
     }
     let mut phases = [0u64; 3];
-    while actions < (pace::MAX_ACTIONS as u32)
-        && work < pace::MAX_WORK
-        && (actions == 0 || ic_cdk::api::performance_counter(0) < pace::INSTRUCTION_YIELD)
-    {
+    let daily = r.source.memo_adapter_version == b2z_protocol::economy17::MEMO_ADAPTER_VERSION;
+    loop {
+        let within_budget = actions < (pace::MAX_ACTIONS as u32)
+            && work < pace::MAX_WORK
+            && (actions == 0 || ic_cdk::api::performance_counter(0) < pace::INSTRUCTION_YIELD);
+        // For Rules17 finalization publishes in the same atomic IC message.
+        // A persisted Ready state would make its observed time ambiguous.
+        let publish_daily = daily
+            && h.record
+                .journal
+                .stage
+                .as_ref()
+                .is_some_and(|s| s.phase == "ready");
+        if !within_budget && !publish_daily {
+            break;
+        }
         let before = ic_cdk::api::performance_counter(0);
         let phase = h
             .record
@@ -2287,7 +2337,7 @@ async fn reconcile() -> AppResult<()> {
         let response = Call::bounded_wait(lease.index, "get_account_identifier_transactions")
             .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
             .with_arg(source::HistoryArgs {
-                account_identifier: r.source.recipient_hex,
+                account_identifier: r.source.recipient_hex.clone(),
                 start: lease.before,
                 max_results: source::PAGE,
             })
@@ -2301,6 +2351,12 @@ async fn reconcile() -> AppResult<()> {
             .candid()
             .map_err(|e| format!("index response decode: {e}"))?;
         let page = result.map_err(|e| format!("index error: {}", e.message))?;
+        #[cfg(target_arch = "wasm32")]
+        let page = {
+            let mut page = page;
+            source::recover_block_times(&r.source, &mut page, SCAN_CALL_TIMEOUT_SECONDS).await?;
+            page
+        };
         finish_page(&lease, Some(page))
     }
     .await;
@@ -3654,6 +3710,7 @@ enum StructureEpoch {
     Shout,
     Spacing,
     Reservoir,
+    Economy,
 }
 impl StructureEpoch {
     fn number(self) -> u32 {
@@ -3661,6 +3718,7 @@ impl StructureEpoch {
             Self::Shout => 14,
             Self::Spacing => 15,
             Self::Reservoir => 16,
+            Self::Economy => 17,
         }
     }
     fn record(self, r: &Root) -> &Option<transition::Transition> {
@@ -3668,6 +3726,7 @@ impl StructureEpoch {
             Self::Shout => &r.shout_transition,
             Self::Spacing => &r.spacing_transition,
             Self::Reservoir => &r.reservoir_transition,
+            Self::Economy => &r.economy_transition,
         }
     }
     fn record_mut(self, r: &mut Root) -> &mut Option<transition::Transition> {
@@ -3675,6 +3734,7 @@ impl StructureEpoch {
             Self::Shout => &mut r.shout_transition,
             Self::Spacing => &mut r.spacing_transition,
             Self::Reservoir => &mut r.reservoir_transition,
+            Self::Economy => &mut r.economy_transition,
         }
     }
     fn predecessor(self) -> AppResult<serde_json::Value> {
@@ -3682,6 +3742,7 @@ impl StructureEpoch {
             Self::Shout => b2z_native::context_structures::identity(),
             Self::Spacing => b2z_native::shout::identity(),
             Self::Reservoir => b2z_native::spacing::identity(),
+            Self::Economy => Ok(b2z_native::reservoirs::identity()),
         }
     }
     fn identity(self) -> AppResult<serde_json::Value> {
@@ -3689,24 +3750,44 @@ impl StructureEpoch {
             Self::Shout => b2z_native::shout::identity(),
             Self::Spacing => b2z_native::spacing::identity(),
             Self::Reservoir => Ok(b2z_native::reservoirs::identity()),
+            Self::Economy => Ok(b2z_native::economy17::identity()),
         }
     }
     fn previous_adapter(self) -> u8 {
         match self {
             Self::Shout => b2z_protocol::context_structures::MEMO_ADAPTER_VERSION,
             Self::Spacing | Self::Reservoir => b2z_protocol::shout::MEMO_ADAPTER_VERSION,
+            Self::Economy => b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
         }
     }
     fn next_adapter(self) -> u8 {
         match self {
             Self::Shout | Self::Spacing => b2z_protocol::shout::MEMO_ADAPTER_VERSION,
             Self::Reservoir => b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
+            Self::Economy => b2z_protocol::economy17::MEMO_ADAPTER_VERSION,
         }
     }
 }
 #[ic_cdk::update]
 fn prepare_reservoir_transition() -> std::result::Result<Vec<u8>, String> {
     prepare_structure_transition(StructureEpoch::Reservoir)
+}
+
+#[ic_cdk::update]
+fn prepare_economy_transition() -> std::result::Result<Vec<u8>, String> {
+    prepare_structure_transition(StructureEpoch::Economy)
+}
+
+#[ic_cdk::query]
+fn economy_transition_status() -> std::result::Result<Vec<u8>, String> {
+    structure_transition_status(StructureEpoch::Economy)
+}
+
+#[ic_cdk::update]
+fn commit_economy_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    commit_structure_transition(expected_previous_manifest, StructureEpoch::Economy)
 }
 
 fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
@@ -3741,7 +3822,13 @@ fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
         return Err(format!("Rules{rules} requires exact predecessor"));
     }
     let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
-    if w.version != 7 || r.source.memo_adapter_version != target.previous_adapter() {
+    let predecessor_schema = if matches!(target, StructureEpoch::Economy) {
+        8
+    } else {
+        7
+    };
+    if w.version != predecessor_schema || r.source.memo_adapter_version != target.previous_adapter()
+    {
         return Err(format!(
             "incorrect predecessor world or adapter for Rules{rules}"
         ));
@@ -3759,7 +3846,9 @@ fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
         ));
     }
     if r.run.segment_ticks > 1 {
-        return Err(format!("Rules{rules} successor requires an existing publication allowance of at most1 tick; no settings changed"));
+        return Err(format!(
+            "Rules{rules} successor requires an existing publication allowance of at most1 tick; no settings changed"
+        ));
     }
     if !r.source.binding_checked
         || r.source.in_flight
@@ -3777,6 +3866,7 @@ fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
         StructureEpoch::Shout => transition::Transition::shout(),
         StructureEpoch::Spacing => transition::Transition::spacing(),
         StructureEpoch::Reservoir => transition::Transition::reservoir(),
+        StructureEpoch::Economy => transition::Transition::economy(),
     });
     save_root_only(&r)?;
     ARENA_IDLE.with(|f| {
@@ -3888,6 +3978,9 @@ fn commit_structure_transition(
         StructureEpoch::Shout => playability_runtime::shout_candidate(&h, t, &r.source)?,
         StructureEpoch::Spacing => playability_runtime::spacing_candidate(&h, t, &r.source)?,
         StructureEpoch::Reservoir => playability_runtime::reservoir_candidate(&h, t, &r.source)?,
+        StructureEpoch::Economy => {
+            playability_runtime::economy_candidate(&h, t, &r.source, ic_cdk::api::time())?
+        }
     };
     let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
     h.apply(Action::Transition {
@@ -3931,6 +4024,7 @@ fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, Strin
         r.shout_transition.as_ref(),
         r.spacing_transition.as_ref(),
         r.reservoir_transition.as_ref(),
+        r.economy_transition.as_ref(),
     ]
     .into_iter()
     .flatten()

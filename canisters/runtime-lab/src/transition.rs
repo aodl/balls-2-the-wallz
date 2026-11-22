@@ -1,10 +1,10 @@
 //! B2Z-only cutover fences and reviewed placements. Not a state replacement API.
 use b2z_native::{
-    migration::{stage_million_world, stage_world, Boundary},
+    migration::{Boundary, stage_million_world, stage_world},
     world::World,
 };
 use dtr_host::{Coordinator, Identity, Output};
-use dtr_wire::{encode, hash, unhex, Int, Result};
+use dtr_wire::{Int, Result, encode, hash, unhex};
 use serde::{Deserialize, Serialize};
 use serde_json::json;
 /// World migration headroom is independent of ordinary gameplay pacing bands.
@@ -99,11 +99,17 @@ impl Transition {
             ..Self::new()
         }
     }
+    pub fn economy() -> Self {
+        Self {
+            version: 13,
+            ..Self::new()
+        }
+    }
     pub fn holding(&self) -> bool {
         self.phase != "complete"
     }
     pub fn validate(&self) -> Result<()> {
-        if !matches!(self.version, 1..=12)
+        if !matches!(self.version, 1..=13)
             || !["ledger", "index", "drain", "ready", "complete"].contains(&self.phase.as_str())
         {
             return Err("world transition phase".into());

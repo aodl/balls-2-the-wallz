@@ -1,4 +1,4 @@
-use dtr_wire::{decode, encode, Int, Rat, Result};
+use dtr_wire::{Int, Rat, Result, decode, encode};
 use num_bigint::BigInt;
 use num_traits::Signed;
 use serde::{Deserialize, Serialize};
@@ -196,6 +196,8 @@ pub struct World {
     pub next_deflector_id: Option<u32>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub reservoirs: Option<String>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub economy: Option<crate::economy17::Schedule>,
 }
 pub fn account_ok(s: &str) -> bool {
     s.len() == 64
@@ -533,7 +535,7 @@ impl World {
     /// For resolved states only. Topology continuation snapshots may be transiently disconnected.
     pub fn validate(&self) -> Result<()> {
         let fail = |s: &str| -> Result<()> { Err(s.into()) };
-        if ![3, 4, 5, 6, 7, 8].contains(&self.version)
+        if ![3, 4, 5, 6, 7, 8, 9].contains(&self.version)
             || (self.version == 4 && (self.width != 32 || self.height != 32))
             || (self.version >= 5 && (self.width != 1000 || self.height != 1000))
             || !(1..=1000).contains(&self.width)
@@ -608,18 +610,19 @@ impl World {
         if self.time < Rat::integer(0) || self.time > Rat::integer(1_000_000_000) {
             return fail("world time");
         }
-        if self.cannons.len()
-            > if self.version >= 6 {
-                crate::playability::MAX_CANNONS
-            } else {
-                32
-            }
-            || self.balls.len()
+        if self.version < 9
+            && (self.cannons.len()
                 > if self.version >= 6 {
-                    crate::playability::MAX_BALLS
+                    crate::playability::MAX_CANNONS
                 } else {
-                    64
+                    32
                 }
+                || self.balls.len()
+                    > if self.version >= 6 {
+                        crate::playability::MAX_BALLS
+                    } else {
+                        64
+                    })
         {
             return fail("entity capacity");
         }
@@ -766,7 +769,7 @@ impl World {
             return fail("treasury tally");
         }
         let mut previous = "";
-        if self.credits.len() > 1024 {
+        if self.version < 9 && self.credits.len() > 1024 {
             return fail("credit capacity");
         }
         for c in &self.credits {
@@ -786,6 +789,14 @@ impl World {
             return fail("historical structure extension");
         }
         crate::reservoirs::validate(self)?;
+        match (self.version, &self.economy) {
+            (9, Some(schedule)) => schedule.validate(crate::playability::elapsed(
+                &self.playability.as_ref().ok_or("EXPECTED_V6")?.elapsed_ns,
+            )?)?,
+            (9, None) | (_, Some(_)) => return fail("economy schema"),
+            _ => {}
+        }
+
         Ok(())
     }
     pub fn valid_strike(&self, p: &Strike) -> bool {
@@ -815,19 +826,20 @@ impl World {
             } else {
                 dt.mul_i(*area as i64)?
             };
-            if let Some(c) = credits.iter_mut().find(|c| c.account == account) {
-                c.units = c.units.add(&delta)?;
-            } else {
-                credits.push(Credit {
-                    account: account.to_owned(),
-                    units: delta,
-                });
+            match credits.binary_search_by(|c| c.account.as_str().cmp(account)) {
+                Ok(at) => credits[at].units = credits[at].units.add(&delta)?,
+                Err(at) => credits.insert(
+                    at,
+                    Credit {
+                        account: account.to_owned(),
+                        units: delta,
+                    },
+                ),
             }
         }
-        if credits.len() > 1024 {
+        if self.version < 9 && credits.len() > 1024 {
             return Err("credit capacity".into());
         }
-        credits.sort_by(|a, b| a.account.cmp(&b.account));
         self.credits = credits;
         Ok(())
     }

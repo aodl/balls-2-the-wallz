@@ -3,9 +3,9 @@
 use super::{number, source::SourceState, transition::Transition};
 use b2z_native::{playability, world::World};
 use dtr_host::{Coordinator, Identity, Kernel, Output};
-use dtr_wire::{decode, encode, hash, unhex, Int, Result};
+use dtr_wire::{Int, Result, decode, encode, hash, unhex};
 use serde::{Deserialize, Serialize};
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 
 /// Only the current context needs a root copy. Every retained lifecycle
 /// checkpoint also carries this exact preimage in its own event artifact.
@@ -492,6 +492,7 @@ pub fn deflector_candidate<K: Kernel>(
 }
 
 struct Schema7Cutover {
+    bootstrap_ns: Option<u64>,
     version: u32,
     migration: &'static str,
     event: &'static str,
@@ -511,6 +512,7 @@ pub fn context_candidate<K: Kernel>(
         b2z_native::deflectors_v12::identity()?,
         b2z_native::context_structures::identity()?,
         Schema7Cutover {
+            bootstrap_ns: None,
             version: 9,
             migration: "B2Z_CONTEXT_STRUCTURES_RULES_13",
             event: "context_rules_activated",
@@ -532,6 +534,7 @@ pub fn shout_candidate<K: Kernel>(
         b2z_native::context_structures::identity()?,
         b2z_native::shout::identity()?,
         Schema7Cutover {
+            bootstrap_ns: None,
             version: 10,
             migration: "B2Z_ACTION_SHOUT_RULES_14",
             event: "shout_rules_activated",
@@ -554,6 +557,7 @@ pub fn spacing_candidate<K: Kernel>(
         b2z_native::shout::identity()?,
         b2z_native::spacing::identity()?,
         Schema7Cutover {
+            bootstrap_ns: None,
             version: 11,
             migration: "B2Z_STRUCTURE_SPACING_RULES_15",
             event: "spacing_rules_activated",
@@ -575,11 +579,35 @@ pub fn reservoir_candidate<K: Kernel>(
         b2z_native::spacing::identity()?,
         b2z_native::reservoirs::identity(),
         Schema7Cutover {
+            bootstrap_ns: None,
             version: 12,
             migration: "B2Z_RESERVOIR_RULES_16",
             event: "reservoir_rules_activated",
             previous_adapter: b2z_protocol::shout::MEMO_ADAPTER_VERSION,
             next_adapter: b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
+        },
+    )
+}
+
+pub fn economy_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+    observed_ns: u64,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    schema7_candidate(
+        h,
+        t,
+        source,
+        b2z_native::reservoirs::identity(),
+        b2z_native::economy17::identity(),
+        Schema7Cutover {
+            bootstrap_ns: Some(observed_ns),
+            version: 13,
+            migration: "B2Z_DAILY_ECONOMY_RULES_17",
+            event: "economy_rules_activated",
+            previous_adapter: b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
+            next_adapter: b2z_protocol::economy17::MEMO_ADAPTER_VERSION,
         },
     )
 }
@@ -636,7 +664,7 @@ fn schema7_candidate<K: Kernel>(
                 .into(),
         );
     }
-    if old.version != 7
+    if old.version != if policy.bootstrap_ns.is_some() { 8 } else { 7 }
         || !old.time.0.is_integer()
         || old.time.0.to_integer() != h.record.journal.head.logical_end.0
         || Int(source.cursor.into()) != h.record.inbox.cursor
@@ -651,13 +679,15 @@ fn schema7_candidate<K: Kernel>(
     if old.encode()? != state {
         return Err("noncanonical state at schema7 cutover".into());
     }
-    let next = if policy.version == 12 {
+    let next = if let Some(ns) = policy.bootstrap_ns {
+        b2z_native::economy17::migrate(old.clone(), ns)?
+    } else if policy.version == 12 {
         b2z_native::reservoirs::migrate(old.clone())?
     } else {
         old.clone()
     };
     let state_after = next.encode()?;
-    let metadata = json!({
+    let mut metadata = json!({
         "version":policy.version,"migration":policy.migration,
         "old_identity":h.record.journal.identity,"new_identity":identity,
         "previous_state":hash(&state),"new_state":hash(&state_after),
@@ -667,6 +697,9 @@ fn schema7_candidate<K: Kernel>(
         "memo_adapter_before":source.memo_adapter_version,
         "memo_adapter_after":policy.next_adapter
     });
+    if let Some(schedule) = &next.economy {
+        metadata["bootstrap"] = json!(schedule);
+    }
     Ok((
         Output {
             state: state_after,
@@ -681,8 +714,8 @@ fn schema7_candidate<K: Kernel>(
 }
 
 use super::{
-    ensure_run_timer, host, install_run_timer, pace, persist, request_reconciliation, root,
-    save_root_only, Root,
+    Root, ensure_run_timer, host, install_run_timer, pace, persist, request_reconciliation, root,
+    save_root_only,
 };
 use std::{cell::RefCell, time::Duration};
 thread_local! { static TIMER:RefCell<Option<(ic_cdk_timers::TimerId,u64)>>=const {RefCell::new(None)}; }
@@ -724,20 +757,25 @@ fn install_world(r: &Root, w: &World) -> Result<()> {
         return Ok(());
     }
     let now = ic_cdk::api::time();
-    if let Some(next) = w
-        .playability
-        .as_ref()
-        .ok_or("missing lifecycle state")?
+    let state = w.playability.as_ref().ok_or("missing lifecycle state")?;
+    let expiry = state
         .lifecycle
         .iter()
         .filter_map(|l| l.deadline_ns.as_ref())
         .min()
-    {
-        let deadline = number(next)?;
+        .map(number)
+        .transpose()?;
+    let midnight = if w.version == 9 {
+        let day = b2z_protocol::economy17::DAY_NS;
+        (number(&state.elapsed_ns)? / day + 1).checked_mul(day)
+    } else {
+        None
+    };
+    if let Some(deadline) = expiry.into_iter().chain(midnight).min() {
         let at =
             if deadline <= now && (r.lifecycle_error.is_some() || r.source.last_error.is_some()) {
                 now.saturating_add(60_000_000_000)
-            } else if deadline <= now && r.lifecycle_barrier.is_some() {
+            } else if deadline <= now && (r.lifecycle_barrier.is_some() || w.version == 9) {
                 now.saturating_add(1_000_000_000)
             } else {
                 deadline.max(now.saturating_add(1_000_000))
@@ -783,12 +821,25 @@ fn maintain() -> Result<()> {
         return Ok(());
     }
     let now = ic_cdk::api::time();
-    let due = w
-        .playability
-        .as_ref()
-        .ok_or("missing lifecycle state")?
-        .due(now);
-    if due.is_empty() {
+    let state = w.playability.as_ref().ok_or("missing lifecycle state")?;
+    let day = b2z_protocol::economy17::DAY_NS;
+    let pricing_due = w.version == 9 && number(&state.elapsed_ns)? / day < now / day;
+    let mut due = state.due(now);
+    if w.version == 9 {
+        // Keep the authenticated checkpoint preimage under its existing byte
+        // budget. Additional due fences remain eligible in the next checkpoint.
+        let mut bytes = 0;
+        let mut batch = 0;
+        for fence in &due {
+            bytes += encode(fence)?.len() + 1;
+            if bytes > 15 * 1024 {
+                break;
+            }
+            batch += 1;
+        }
+        due.truncate(batch);
+    }
+    if due.is_empty() && !pricing_due {
         if r.lifecycle_barrier.take().is_some() {
             r.lifecycle_error = None;
             save_root_only(&r)?;
@@ -800,21 +851,23 @@ fn maintain() -> Result<()> {
     if ic_cdk::api::canister_liquid_cycle_balance() < pace::INDEX_FLOOR {
         return Err("lifecycle maintenance deferred below existing Index floor".into());
     }
-    if r.lifecycle_barrier.is_none() {
-        r.lifecycle_barrier = Some(Barrier::new(&r.source, now));
-        save_root_only(&r)?;
-        if r.lifecycle_barrier
-            .as_ref()
-            .unwrap()
-            .permits_scan(&r.source)?
-        {
-            request_reconciliation()?;
+    if !due.is_empty() {
+        if r.lifecycle_barrier.is_none() {
+            r.lifecycle_barrier = Some(Barrier::new(&r.source, now));
+            save_root_only(&r)?;
+            if r.lifecycle_barrier
+                .as_ref()
+                .unwrap()
+                .permits_scan(&r.source)?
+            {
+                request_reconciliation()?;
+            }
         }
-    }
-    let barrier = r.lifecycle_barrier.as_ref().unwrap();
-    if !barrier.ready(&r.source)? {
-        ensure_run_timer(&r.run);
-        return Ok(());
+        let barrier = r.lifecycle_barrier.as_ref().unwrap();
+        if !barrier.ready(&r.source)? {
+            ensure_run_timer(&r.run);
+            return Ok(());
+        }
     }
     if h.record.journal.stage.is_some() || !h.record.inbox.pending.is_empty() {
         if let Some(error) = &r.run.last_error {
@@ -1045,6 +1098,7 @@ mod tests {
             deflectors: None,
             next_deflector_id: None,
             reservoirs: None,
+            economy: None,
             version: 3,
             width: 16,
             height: 8,
@@ -1512,9 +1566,11 @@ mod tests {
         let mut run = crate::RunState::default();
         crate::reconcile_completed_segments(&mut run, &publication).unwrap();
         assert_eq!(run.completed_segments, 4);
-        assert!(b2z_native::lifecycle_v6::expire(&finished, now, &fences)
-            .unwrap()
-            .is_none());
+        assert!(
+            b2z_native::lifecycle_v6::expire(&finished, now, &fences)
+                .unwrap()
+                .is_none()
+        );
         let trace = json!({"status":"PASS","evidence_class":"SYNTHETIC_NATIVE_HOST_CONTENT_NOT_IC_AUTHENTICATION","initial_world_hex":dtr_wire::hex(&world.encode().unwrap()),"inputs":[],"assigned":[],"publications":publications,"artifact_events":artifact_events,"epoch_metadata":epoch_metadata});
         let expected: serde_json::Value = serde_json::from_str(include_str!(
             "../../../tests/fixtures/playability-host-history.json"

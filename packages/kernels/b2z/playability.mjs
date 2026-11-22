@@ -16,14 +16,14 @@ export function playerForCannon(w,id){return w.version>=6?life(w,id)?.player:w.c
 export function accountForPlayer(w,id){return w.version>=6?player(w,id)?.account:w.cannons.find(c=>c.id===id)?.account;}
 export function validatePlayability(w){
  const s=w.playability;if(!s||Object.keys(s).sort().join(',')!=='elapsed_ns,lifecycle,next_player_id,next_territory_id,players,territories')throw Error('PLAYER_IDENTITY');elapsed(s.elapsed_ns);
- if(!Array.isArray(s.players)||s.players.length>V6_POLICY.max_players||!ordered(s.players,'id')||!Array.isArray(s.lifecycle)||s.lifecycle.length!==w.cannons.length)throw Error('PLAYER_IDENTITY');
+ if(!Array.isArray(s.players)||w.version<9&&s.players.length>V6_POLICY.max_players||!ordered(s.players,'id')||!Array.isArray(s.lifecycle)||s.lifecycle.length!==w.cannons.length)throw Error('PLAYER_IDENTITY');
  integer(s.next_player_id,(s.players.at(-1)?.id??0)+1);const accounts=new Set(),retained=new Map(),anchors=new Map(),pools=new Map();
  for(const p of s.players){if(Object.keys(p).sort().join(',')!=='account,id'||!/^[0-9a-f]{64}$/.test(p.account))throw Error('PLAYER_IDENTITY');if(accounts.has(p.account))throw Error('PLAYER_ACCOUNT_CONFLICT');accounts.add(p.account);}
- if(!Array.isArray(s.territories)||s.territories.length>V6_POLICY.max_cannons||!ordered(s.territories,'id')||s.territories.some(r=>Object.keys(r).sort().join(',')!=='id,player'||!player(w,r.player)))throw Error('TERRITORY_IDENTITY');integer(s.next_territory_id,(s.territories.at(-1)?.id??0)+1);
+ if(!Array.isArray(s.territories)||w.version<9&&s.territories.length>V6_POLICY.max_cannons||!ordered(s.territories,'id')||s.territories.some(r=>Object.keys(r).sort().join(',')!=='id,player'||!player(w,r.player)))throw Error('TERRITORY_IDENTITY');integer(s.next_territory_id,(s.territories.at(-1)?.id??0)+1);
  for(const b of w.balls){const id=ownerAt(w,b.cell);pools.set(id,(pools.get(id)??0)+1);}
  for(let i=0;i<w.cannons.length;i++){
   const c=w.cannons[i],l=s.lifecycle[i],p=player(w,l.player),id=ownerAt(w,c.cell),keys=Object.keys(l).sort().join(',');if(!['cannon,generation,player','cannon,deadline_ns,dormant_since_ns,generation,player'].includes(keys))throw Error('CANNON_LIFECYCLE');integer(l.generation,1);
-  if(l.cannon!==c.id||!p||p.account!==c.account||playerAt(w,c.cell)!==l.player)throw Error('CANNON_PLAYER_BINDING');retained.set(l.player,(retained.get(l.player)??0)+1);if(retained.get(l.player)>V6_POLICY.max_retained_per_player)throw Error('PLAYER_CANNON_CAPACITY');anchors.set(id,(anchors.get(id)??0)+1);
+  if(l.cannon!==c.id||!p||p.account!==c.account||playerAt(w,c.cell)!==l.player)throw Error('CANNON_PLAYER_BINDING');retained.set(l.player,(retained.get(l.player)??0)+1);if(w.version<9&&retained.get(l.player)>V6_POLICY.max_retained_per_player)throw Error('PLAYER_CANNON_CAPACITY');anchors.set(id,(anchors.get(id)??0)+1);
   if(pools.get(id)){if(l.dormant_since_ns!==undefined||l.deadline_ns!==undefined)throw Error('CANNON_LIFECYCLE');}
   else if(l.dormant_since_ns===undefined||l.deadline_ns===undefined||elapsed(l.dormant_since_ns)>s.elapsed_ns||elapsed(l.deadline_ns)!==deadline(l.dormant_since_ns))throw Error('CANNON_LIFECYCLE');
  }
@@ -46,7 +46,7 @@ export function revive(w,cannon){
  if(l.deadline_ns===undefined)return false;if(l.generation===MAX_U32)throw Error('LIFECYCLE_GENERATION_EXHAUSTED');l.generation++;delete l.deadline_ns;delete l.dormant_since_ns;return true;
 }
 export function finalizeElapsed(w,observedNs,pending){
- const unique=new Set();if(pending.length>V6_POLICY.max_cannons||pending.some(f=>{const key=f.cannon+'/'+f.generation;if(unique.has(key))return true;unique.add(key);return false;}))throw Error('LIFECYCLE_FENCE_DUPLICATE');
+ const unique=new Set();if(w.version<9&&pending.length>V6_POLICY.max_cannons||pending.some(f=>{const key=f.cannon+'/'+f.generation;if(unique.has(key))return true;unique.add(key);return false;}))throw Error('LIFECYCLE_FENCE_DUPLICATE');
  if(elapsed(observedNs)<elapsed(w.playability.elapsed_ns))throw Error('LIFECYCLE_TIME_ROLLBACK');const d=deadline(observedNs),s=cloneCanonical(w.playability),stamped=[];
  for(const f of pending){const l=find(s.lifecycle,f.cannon,'cannon');if(l&&l.generation===f.generation&&l.deadline_ns===f.deadline_ns){l.dormant_since_ns=observedNs;l.deadline_ns=d;stamped.push({cannon:l.cannon,generation:l.generation,deadline_ns:d});}}
  s.elapsed_ns=observedNs;w.playability=s;return stamped;

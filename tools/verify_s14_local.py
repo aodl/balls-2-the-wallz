@@ -69,6 +69,7 @@ def main():
     p.add_argument('--entry-fixture-wasm',type=Path,help='Reviewed synthetic setup-only old-root fixture for historical entry rehearsal')
     p.add_argument('--rules13-prior-wasm',type=Path,help='Exact qualified normal Rules13 module for the focused Shout successor rehearsal')
     p.add_argument('--rules15-prior-wasm',type=Path,help='Exact qualified Rules15 normal Wasm for the Reservoir cutover rehearsal')
+    p.add_argument('--rules16-prior-wasm',type=Path,help='Exact deployed Rules16 normal Wasm for the daily economy cutover rehearsal')
     p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
     result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
@@ -149,6 +150,11 @@ def main():
             env['B2Z_RULES15_PRIOR_WASM']=str(a.rules15_prior_wasm.resolve())
 
 
+        if a.rules16_prior_wasm:
+            path=a.rules16_prior_wasm.resolve()
+            if hashlib.sha256(path.read_bytes()).hexdigest()!='a5889a92ce936b035d02632588b75ae7f66ddfda73398177dd79cba2b5b48dcd':
+                raise ValueError('Rules16 predecessor does not match the production identity')
+            env['B2Z_RULES16_PRIOR_WASM']=str(path)
         env['B2Z_CMC_MOCK_WASM']=str(ROOT/'tools/cmc-funding-fixture/target/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm')
         if a.funding_prior_wasm:
             if hashlib.sha256(a.funding_prior_wasm.read_bytes()).hexdigest()!='53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec':raise ValueError('funding upgrade requires exact installed 53b219 module')
@@ -225,7 +231,7 @@ def main():
                     stop_pocketic(*server[:3]);server=None
             (out/'logs'/(identifier+'.log')).write_text('\n'.join(combined))
         million_tests={'million_paid_v4_cutover_preserves_state_and_uses_second_epoch','million_max_population_production_probe','million_browser_normal_lifeline_and_cold_reconnect','million_browser_sustained_normal_and_cold_lifeline'}
-        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or bool(a.pacing_prior_wasm) or a.test_filter in million_tests or a.test_filter in {'context_structures_installed::reservoirs_rules15_upgrade_official_transfers_and_replay','entry_installed::european_rules7_upgrade_and_clearance','entry_installed::full_world_upgrade_and_first_entry','entry_installed::european_rules7_upgrade_and_combined_clearance','entry_installed::european_rules7_upgrade_before_browser_and_combined_clearance','war_cry_installed::combined_european_rules7_launch_upgrade','war_cry_installed::war_cry_european_rules7_upgrade'})
+        installed_suite('installed-index-integration',([a.test_filter] if a.test_filter else ['--skip','funding_tests::']),ignored=bool(a.prior_wasm) or bool(a.pacing_prior_wasm) or a.test_filter in million_tests or a.test_filter in {'context_structures_installed::economy_rules16_upgrade_official_timestamps_and_replay','context_structures_installed::reservoirs_rules15_upgrade_official_transfers_and_replay','entry_installed::european_rules7_upgrade_and_clearance','entry_installed::full_world_upgrade_and_first_entry','entry_installed::european_rules7_upgrade_and_combined_clearance','entry_installed::european_rules7_upgrade_before_browser_and_combined_clearance','war_cry_installed::combined_european_rules7_launch_upgrade','war_cry_installed::war_cry_european_rules7_upgrade'})
         if not a.test_filter:
             installed_suite('installed-million-integration',['million_'],ignored=True)
         if not a.test_filter:

@@ -418,7 +418,9 @@ function experienceAt(s,p,now){
 }
 function updateHud(){
  const s=session,p=phase(),now=performance.now(),{resolved,fresh,operationalFresh}=experienceAt(s,p,now);
- arcade.status({resolved,worldReady:Boolean(s?.ready&&!s.error&&fresh)});document.body.dataset.phase=p;$('retry').hidden=!Boolean(bootError||s?.error);$('retry').textContent='Retry verification';
+ const certifiedPricingTime=s?.mode==='live'&&s.root===s.freshnessRoot&&fresh&&/^\d{1,20}$/.test(s.certificateTimeNs??'')
+   ?BigInt(s.certificateTimeNs):null;
+ arcade.status({resolved,worldReady:Boolean(s?.ready&&!s.error&&fresh),certifiedPricingTime});document.body.dataset.phase=p;$('retry').hidden=!Boolean(bootError||s?.error);$('retry').textContent='Retry verification';
  const data={trust:s?.mode==='live'?'IC certificates, catalog and artifact verification':s?.mode==='local'?'Pinned disposable IC certificate':'Offline content consistency only',backend:s?.recording.canister_id,source:s?.source,root:s?.root,head:s?.sequence.last?.publication.head,identity:s?.sequence.last?.publication.identity,producer:s?.operational,cycles:s?.publicCycles,operational_fresh:operationalFresh,operational_failures:s?.statusFailures??0,operational_failure_kind:s?.statusFailureKind,operational_age_ms:Number.isFinite(s?.lastOperationalAt??s?.operationalAt)?Math.max(0,now-(s.lastOperationalAt??s.operationalAt)):null,presentation:s?.clock.state(),delivery:s?.deliveryDiagnostics};
  const detailsKey=[s?.root,p,resolved.kind,resolved.canPrepare,operationalFresh,s?.publicCyclesAt,$('status-view').hidden,$('status-view').hidden?0:Math.floor(now/1000)].join('/');
  if(detailsKey!==lastDetailsKey){lastDetailsKey=detailsKey;const details=JSON.stringify(data,(_,v)=>typeof v==='bigint'?String(v):v,2);if($('status-details').textContent!==details)$('status-details').textContent=details;}

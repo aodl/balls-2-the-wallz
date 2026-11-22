@@ -1,18 +1,24 @@
 //! Versioned command/capture continuation. Historical cursors omit this state.
 //! Elapsed IC time is supplied explicitly by the host after logical completion.
 use crate::{
-    capture_v6,
+    Cursor, capture_v6,
     cursor::PaymentSaved,
     playability::{self, Fence},
     purchases_v6::{self, Batch, Plan},
     spawn::{Placement, SpawnJob},
-    Cursor,
 };
-use dtr_wire::{encode, hash, Int, Result};
+use dtr_wire::{Int, Result, encode, hash};
 use num_bigint::BigInt;
 use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
-use serde_json::{json, Value};
+use serde_json::{Value, json};
+
+#[derive(Clone, Debug, Serialize, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub(crate) struct EconomyPredecessor {
+    pub state_hash: String,
+    pub population: u32,
+}
 
 #[derive(Clone, Debug, Default, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -34,6 +40,8 @@ pub(crate) struct State {
     #[serde(default, skip_serializing_if = "std::ops::Not::not")]
     pub reservoir_rules: bool,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub economy_predecessor: Option<EconomyPredecessor>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub pending_cry: Option<String>,
     pub plan: Option<Plan>,
     pub payment: Option<PaymentSaved>,
@@ -48,14 +56,15 @@ fn is_false(v: &bool) -> bool {
 impl Cursor {
     pub(crate) fn validate_v6(&self) -> Result<()> {
         let s = self.v6.as_ref().ok_or("V6_CURSOR")?;
-        if s.reservoir_rules != (self.world.version == 8)
+        if s.reservoir_rules != (self.world.version >= 8)
+            || s.economy_predecessor.is_some() != (self.world.version == 9)
             || s.reservoir_rules && !s.spacing_rules
             || s.spacing_rules && !s.shout_rules
             || s.shout_rules && !s.context_rules
             || s.context_rules && !s.deflector_rules
             || s.deflector_rules != (self.world.version >= 7)
             || s.finalized && self.phase != "done"
-            || s.births.len() > playability::MAX_CANNONS
+            || self.world.version < 9 && s.births.len() > playability::MAX_CANNONS
             || s.births
                 .iter()
                 .map(|f| f.cannon)
@@ -73,6 +82,14 @@ impl Cursor {
         }
         if let Some(batch) = &s.batch {
             batch.validate(&self.world)?;
+            if batch.economy_multiplier
+                != s.payment
+                    .as_ref()
+                    .and_then(|p| p.tariff.as_ref())
+                    .map(|p| p.multiplier)
+            {
+                return Err("ECONOMY_PURCHASE_CONTINUATION".into());
+            }
         }
         if let Some(plan) = &s.plan {
             if !matches!(plan, Plan::New { first: true, .. }) {
@@ -90,8 +107,15 @@ impl Cursor {
                 }
                 let context = self.v6.as_ref().unwrap().context_rules;
                 let reservoir = self.v6.as_ref().unwrap().reservoir_rules;
-                let payment = if reservoir {
-                    let bytes = dtr_wire::unhex(&self.inputs[self.input_index].payload_hex)?;
+                let mut recorded_ns = None;
+                let mut payment = if reservoir {
+                    let mut bytes = dtr_wire::unhex(&self.inputs[self.input_index].payload_hex)?;
+                    if self.world.version == 9 {
+                        let (previous, time) = b2z_protocol::economy17::untimed(&bytes)
+                            .map_err(|_| "adapter11 payment envelope")?;
+                        bytes = previous;
+                        recorded_ns = Some(time);
+                    }
                     let legacy = b2z_protocol::reservoir::predecessor_envelope(&bytes)
                         .map_err(|_| "adapter10 payment envelope")?;
                     crate::cursor::read_payment_shout(&dtr_wire::hex(&legacy))?
@@ -122,7 +146,18 @@ impl Cursor {
                 } else {
                     None
                 };
-                let plan = if let Some(cell) = site {
+                let plan = if let Some(time) = recorded_ns {
+                    let (plan, paid_at) = crate::economy17::prepare(
+                        &self.world,
+                        &payment.saved.account,
+                        amount,
+                        &payment.memo,
+                        &self.moved,
+                        time,
+                    )?;
+                    payment.saved.tariff = Some(paid_at);
+                    plan
+                } else if let Some(cell) = site {
                     crate::reservoirs::prepare(&self.world, &payment.saved.account, amount, cell)?
                 } else if context {
                     crate::context_structures::prepare(
@@ -208,8 +243,10 @@ impl Cursor {
                         self.receipt(&payment.saved,json!({"reason":"ACCEPTED","kind":"cannon_moved","status":"applied","cannon":cannon,"before":before,"after":cell,"amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
                     }
                     Plan::Fire { .. } => {
-                        self.v6.as_mut().unwrap().batch =
-                            Some(Batch::fire(payment.saved.account.clone(), amount, &plan)?);
+                        let mut batch = Batch::fire(payment.saved.account.clone(), amount, &plan)?;
+                        batch.economy_multiplier =
+                            payment.saved.tariff.as_ref().map(|p| p.multiplier);
+                        self.v6.as_mut().unwrap().batch = Some(batch);
                         self.v6.as_mut().unwrap().payment = Some(payment.saved);
                         self.phase = "v6_purchase".into();
                     }
@@ -364,8 +401,10 @@ impl Cursor {
             placement,
             rules.entry_rules,
             policy,
+            payment.tariff.as_ref().map(|p| p.multiplier),
         )?;
-        let batch = Batch::after_new(payment.account.clone(), amount, created.cannon.id, plan)?;
+        let mut batch = Batch::after_new(payment.account.clone(), amount, created.cannon.id, plan)?;
+        batch.economy_multiplier = payment.tariff.as_ref().map(|p| p.multiplier);
         self.world = created.world;
         self.emit(created.event)?;
         self.area_dirty = true;
@@ -410,6 +449,20 @@ impl Cursor {
         }
         let state = self.v6.as_ref().ok_or("V6_CURSOR")?;
         let previous = self.world.playability.as_ref().unwrap().elapsed_ns.clone();
+        let snapshot = if let Some(anchor) = &state.economy_predecessor {
+            self.world
+                .economy
+                .as_mut()
+                .ok_or("ECONOMY_SCHEMA")?
+                .observe(
+                    playability::elapsed(&previous)?,
+                    observed_ns,
+                    anchor.population,
+                    anchor.state_hash.clone(),
+                )?
+        } else {
+            None
+        };
         let stamped = playability::finalize_elapsed(&mut self.world, observed_ns, &state.births)?;
         let deadline = observed_ns
             .checked_add(playability::DORMANCY_GRACE_NS)
@@ -442,6 +495,9 @@ impl Cursor {
                     f["deadline_ns"] = json!(Int(deadline.into()));
                 }
             }
+        }
+        if let Some(snapshot) = snapshot {
+            self.emit(json!({"kind":"economy_snapshot","snapshot":snapshot}))?;
         }
         self.emit(json!({"kind":"lifecycle_time","previous_elapsed_ns":previous,"observed_ns":Int(observed_ns.into()),"stamped":stamped}))?;
         self.v6.as_mut().unwrap().finalized = true;

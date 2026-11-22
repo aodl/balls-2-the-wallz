@@ -1,5 +1,7 @@
+import {economyAt} from '../../packages/kernels/b2z/economy17.mjs';
+import {DAY_NS} from '../../packages/protocol/economy17.generated.mjs';
 import {fitShout} from '../../packages/protocol/shout.mjs';
-import {contextSupported,shoutSupported,spacingSupported,reservoirSupported} from './context-policy.mjs';
+import {contextSupported,shoutSupported,spacingSupported,reservoirSupported,economySupported} from './context-policy.mjs';
 import {contextReason,contextSites,firstContextDestination} from './context-sites.mjs';
 import {SCREEN_ORIENTATIONS,screenDirection} from '../../packages/protocol/context-structures.mjs';
 import{deflectorSupported,snappedDeflectorDegrees,orientationFromDegrees,deflectorDegrees}from'./deflector-policy.mjs';
@@ -27,6 +29,7 @@ export function paymentWarning(q){return Number.isSafeInteger(q?.cell)&&q.cell>=
 export function createArcade(doc,{paymentCurrent=()=>true}={}){
  const $=id=>doc.getElementById(id),text=(id,value)=>{if($(id).textContent!==value)$(id).textContent=value;};
  let cry='',composing=false,cryProblem='',cryBudget=null,copyVersion=0;
+ let pricedAt=null,pricingRate=null;
  let intentVersion=0,entryGeneration=0,entryPending=null,observationReady=null;
  let deflectWorld=null,deflectConfig=null,deflectKey=null,deflectSearch=null,deflectLegality=null,deflectReady=false,defaultDeflect=null;
  let moveWorld=null,moveConfig=null,moveFingerprint=null,moveKey=null,moveSearch=null,moveLegality=null,moveReady=false,defaultMove=null;
@@ -83,7 +86,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    if(mode==='start'&&mine().length&&cell===null)return {reason:successor?'Choose an owned tile.':buildSites().length?'Choose an empty neighbouring tile.':buildReason()};
    const requested=mode==='ball'||successor&&mode==='start'&&tileOwn()?quantity:1;
    let q;
-   if(world.version>=6)q=prepareQuoteV6(world,config,declaration.account,{kind:{start:'new',ball:'fire',move:'move',deflect:'deflect',deflector_move:mode,deflector_reorient:mode,reservoir:mode}[mode],cannon:id,deflector:deflectorId,angle,quantity:requested,cell});
+   if(world.version>=6)q=prepareQuoteV6(world,config,declaration.account,{kind:{start:'new',ball:'fire',move:'move',deflect:'deflect',deflector_move:mode,deflector_reorient:mode,reservoir:mode}[mode],cannon:id,deflector:deflectorId,angle,quantity:requested,cell,priced_at_ns:pricedAt??world.playability?.elapsed_ns});
    else{if(mode==='start'&&mine().length)throw Error('ACCOUNT_ALREADY_HAS_CANNON');if(mode==='move'&&!c.owns(cell))throw Error('ILLEGAL_MOVE');const memo=mode==='move'?describeTextMemo('move',String(cell)):m;q={amount:mode==='start'?config.join_e8s:mode==='move'?config.move_e8s:c.next_ball_e8s,memo:memo.text,memo_bytes:new TextEncoder().encode(memo.text)};if(q.amount===null)throw Error('BALL_CAPACITY');}
    let annotation={};if(shoutActive()){
     if(composing||cryProblem)return{reason:cryProblem||'Finish Shout composition before copying.'};
@@ -128,7 +131,23 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    text('placement-note',planningBehind?'Preview uses the latest verified position.':mode==='start'&&!mine().length?'Automatic first site.':'');
   }
  }
+ function renderEconomy(){
+  if(world?.version!==9||view!=='status')return;
+  const now=pricedAt??world.playability.elapsed_ns;
+  const daily=economyAt(world.economy,now);
+  text('daily-current','Current multiplier ×'+daily.current);
+  const bases=daily.next?[config.join_e8s,config.deflector_price_e8s,config.ball_base_e8s]
+    .map(n=>formatIcp(n*BigInt(daily.next.multiplier))):null;
+  text('daily-next',daily.next?'Next multiplier ×'+daily.next.multiplier+' · Cannon '+bases[0]+' · Diverter '+bases[1]+' · Ball '+bases[2]:'Next multiplier has not been published.');
+  const midnight=daily.next?.effective_ns??(now/DAY_NS+1n)*DAY_NS;
+  const seconds=Math.max(0,Math.ceil(Number(midnight/1000000n)/1000-Date.now()/1000));
+  const countdown=[Math.floor(seconds/3600),Math.floor(seconds/60)%60,seconds%60].map(n=>String(n).padStart(2,'0')).join(':');
+  text('daily-countdown',daily.next?'Next pricing transition in '+countdown+' · 00:00 UTC':'Next UTC midnight in '+countdown);
+  $('daily-grace').hidden=daily.previous===null;
+  if(daily.previous!==null)text('daily-grace',"Yesterday’s tariff remains eligible for payments recorded before 01:00 UTC.");
+ }
  function refresh(){
+  renderEconomy();
   paymentReadiness();
   const c=selected(),own=Boolean(c&&declaration&&c.account===declaration.account),successor=structureContexts();
   const tile=successor&&tileOwn(),reservoir=tile&&reservoirSupported(config),d=pickedDeflector(),ownDeflector=successor&&deflectorOwn();
@@ -381,11 +400,12 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  id=null;identityLabel();}
    const spacingChanged=world&&spacingSupported(config)!==spacingSupported(c);
    const reservoirChanged=world&&reservoirSupported(config)!==reservoirSupported(c);
-   const contextChanged=world&&(structureContexts()!==contextSupported(c)||spacingChanged||reservoirChanged);
+   const economyChanged=world&&economySupported(config)!==economySupported(c);
+   const contextChanged=world&&(structureContexts()!==contextSupported(c)||spacingChanged||reservoirChanged||economyChanged);
    if(contextChanged&&['action','inspect'].includes(view)){
     rememberDraft();view=null;mode='inspect';id=null;cell=tileSelection=deflectorId=null;$('workspace').hidden=true;
    }
-   if(spacingChanged||reservoirChanged){
+   if(spacingChanged||reservoirChanged||economyChanged){
     // A copied predecessor instruction remains in Account history. It cannot
     // become a current packet just because the successor uses the same memo bytes.
     clearHandoff();
@@ -395,13 +415,28 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
     view=null;mode='inspect';id=null;cell=tileSelection=deflectorId=null;$('workspace').hidden=true;
    }
    revision=root;try{destination=paymentDestination(s);}catch(error){destination=null;status={canPrepare:false,label:'Unable to verify destination'};}
-   refs=cannonReference(w,c);
+   pricedAt=w.version===9?w.playability.elapsed_ns:null;
+   pricingRate=w.version===9?economyAt(w.economy,pricedAt).current:null;
+   refs=cannonReference(w,c,pricedAt);
+   $('daily-economy').hidden=!economySupported(c);
    if(id!==null&&!refs.some(c=>c.id===id)){id=null;mode='inspect';clearHandoff();if(view==='action'||view==='inspect'){show('roster','Choose a cannon');text('roster-note','The selected cannon is no longer present. Choose another.');}}
    updateRoster();activity();refresh();resolveEntry();
   },
   status(input){
    if(typeof input.worldReady==='boolean')observationReady=input.worldReady;
    status=input.resolved??experienceStatus({...input,world});
+   if(world?.version===9){
+    const base=world.playability.elapsed_ns;
+    const certificate=input.certifiedPricingTime;
+    if(typeof certificate==='bigint'&&certificate>=base)pricedAt=certificate;
+    const daily=economyAt(world.economy,pricedAt??base);
+    if(pricingRate!==daily.current){
+     pricingRate=daily.current;
+     refs=cannonReference(world,config,pricedAt);
+     refresh();
+    }
+    if(view==='status')renderEconomy();
+   }
    if(!destination)status={...status,canPrepare:false};
    const waiting=status.kind==='connecting'&&!world;
    $('motion-wait').hidden=!waiting;

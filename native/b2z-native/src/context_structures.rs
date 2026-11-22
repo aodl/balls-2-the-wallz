@@ -2,11 +2,11 @@
 use crate::{
     purchases_v6::{self, Plan},
     territory_v6,
-    world::{wrap_cell, World},
+    world::{World, wrap_cell},
 };
 use b2z_protocol::context_structures as codec;
-use dtr_wire::{hash, Int, Result};
-use serde_json::{json, Value};
+use dtr_wire::{Int, Result, hash};
+use serde_json::{Value, json};
 use std::{collections::BTreeMap, sync::OnceLock};
 
 pub fn configuration() -> &'static [u8] {
@@ -151,6 +151,18 @@ pub fn prepare(
     moved: &[u32],
     spacing: bool,
 ) -> Result<Plan> {
+    prepare_at(world, account, amount, memo, moved, spacing, None)
+}
+
+pub(crate) fn prepare_at(
+    world: &World,
+    account: &str,
+    amount: u64,
+    memo: &[u8],
+    moved: &[u32],
+    spacing: bool,
+    multiplier: Option<u32>,
+) -> Result<Plan> {
     let reject = |reason: &str| {
         Ok(Plan::Rejected {
             reason: reason.into(),
@@ -162,8 +174,9 @@ pub fn prepare(
     };
     let id = match command {
         codec::Command::Existing(b2z_protocol::deflector::Command::Deflect { .. }) => {
-            let plan =
-                crate::deflectors_v12::prepare_with_spacing(world, account, amount, memo, spacing)?;
+            let plan = crate::deflectors_v12::prepare_with_spacing(
+                world, account, amount, memo, spacing, multiplier,
+            )?;
             if let Plan::Deflect { cell, owner, .. } = plan {
                 if let Some(reason) = separation_reason(world, owner, cell, None, spacing) {
                     return reject(reason);
@@ -173,7 +186,7 @@ pub fn prepare(
         }
         codec::Command::Existing(_) => {
             return purchases_v6::prepare_with_context(
-                world, account, amount, memo, moved, true, spacing,
+                world, account, amount, memo, moved, true, spacing, multiplier,
             );
         }
         codec::Command::Move { id, .. } | codec::Command::Reorient { id, .. } => id,

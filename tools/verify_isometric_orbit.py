@@ -17,6 +17,7 @@ ROOT = Path(__file__).resolve().parents[1]
 p = argparse.ArgumentParser(description=__doc__)
 p.add_argument("--output", type=Path, required=True)
 p.add_argument("--interaction-polish", action="store_true")
+p.add_argument("--economy-only", action="store_true")
 p.add_argument("--reservoir-only", action="store_true")
 p.add_argument("--floating-aim", action="store_true")
 p.add_argument("--reference", type=Path, help="optional Rules14 checkout for matching before captures")
@@ -367,10 +368,47 @@ def reservoir_quotes(browser):
     return rows
 
 
+def economy_quotes(browser):
+    rows=[]
+    for width,height in [(1440,900),(390,844),(320,640)]:
+        context=browser.new_context(viewport={"width":width,"height":height},
+            permissions=["clipboard-read","clipboard-write"],reduced_motion="reduce",has_touch=width<700)
+        page=context.new_page()
+        errors=[]
+        page.on("pageerror",lambda error:errors.append(str(error)))
+        page.clock.set_fixed_time(20_000*86400+3600)
+        for case in ['economy_unannounced','economy']:
+            page.goto(f"{url}/after/?case={case}&economy")
+            page.wait_for_function("()=>Boolean(globalThis.fixture)")
+            page.locator('#status-button').click()
+            page.locator('#daily-economy summary').click()
+            expect(page.locator('#daily-current')).to_have_text('Current multiplier ×2')
+            if case=='economy_unannounced':
+                expect(page.locator('#daily-next')).to_have_text('Next multiplier has not been published.')
+            else:
+                expect(page.locator('#daily-next')).to_have_text('Next multiplier ×2 · Cannon 0.02 ICP · Diverter 0.002 ICP · Ball 0.0002 ICP')
+                expect(page.locator('#daily-countdown')).to_have_text('Next pricing transition in 23:00:00 · 00:00 UTC')
+                screen(page,f"daily-pricing-{width}")
+            page.locator('#close-panel').click()
+        declare(page)
+        scene(page,4005,46,width/2,height/3)
+        page.mouse.click(*board_point(page,4005))
+        page.locator('#reservoir-action').click()
+        expect(page.locator('#transfer-amount')).to_have_text('0.1 ICP')
+        expect(page.locator('#text-memo')).to_have_text('RESERVOIR 4005')
+        page.locator('[data-copy=text]').click()
+        assert page.evaluate('navigator.clipboard.readText()')=='RESERVOIR 4005'
+        assert not errors,errors
+        rows.append({'width':width,'quote':'0.1 ICP','current_multiplier':2,'upcoming_multiplier':2,'clipboard':'RESERVOIR 4005'})
+        context.close()
+    return rows
+
+
 try:
     with sync_playwright() as pw:
         browser = pw.chromium.launch(headless=True, chromium_sandbox=True)
-        report = {"reservoir": reservoir_quotes(browser)} if args.reservoir_only else {"after": [test(browser, "after", w, h, w == 390) for w, h in [(1440,900),(390,844),(320,640)]]}
+        report = {"reservoir": reservoir_quotes(browser)} if args.reservoir_only else {} if args.economy_only else {"after": [test(browser, "after", w, h, w == 390) for w, h in [(1440,900),(390,844),(320,640)]]}
+        if args.economy_only: report={"economy":economy_quotes(browser)}
         if args.reference:
             report["before"] = [test(browser, "before", 1440, 900)]
         if args.interaction_polish:

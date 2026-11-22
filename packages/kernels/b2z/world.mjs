@@ -1,3 +1,6 @@
+import {ECONOMY_ADAPTER,ECONOMY_PAYMENT} from '../../protocol/economy17.mjs';
+import {BALL_BASE_E8S,CANNON_BASE_E8S,DIVERTER_BASE_E8S,RESERVOIR_PRICE_E8S as ECONOMY_RESERVOIR_PRICE,FIXED_ACTION_E8S,DAY_NS,GRACE_NS} from '../../protocol/economy17.generated.mjs';
+import {validateEconomy} from './economy17.mjs';
 import {RESERVOIR_ADAPTER,RESERVOIR_PRICE_E8S} from '../../protocol/reservoir.mjs';
 import {validateReservoirs} from '../../protocol/reservoir.mjs';
 import {STRUCTURE_MIN_DISTANCE} from '../../protocol/structure-sites.mjs';
@@ -62,6 +65,24 @@ export const RESERVOIR_CONFIG=Object.freeze({...SPACING_CONFIG,version:8,rules_v
   reservoir_terrain:'inert-excavation-1'});
 export const RESERVOIR_IDENTITY=Object.freeze({rules_hash:sha256(new TextEncoder().encode('B2Z_RESERVOIR_RULES_16')),
  schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_08_RESERVOIR_TERRAIN')),config_hash:sha256(encodeCanonical(RESERVOIR_CONFIG))});
+const {
+  max_balls:_oldBallLimit,max_cannons:_oldCannonLimit,max_players:_oldPlayerLimit,
+  max_purchase_balls_per_island:_oldIslandLimit,max_retained_per_player:_oldRetainedLimit,
+  max_deflectors:_oldDiverterLimit,max_deflectors_per_player:_oldPersonalDiverterLimit,
+  ...economyBase
+}=RESERVOIR_CONFIG;
+export const ECONOMY_CONFIG=Object.freeze({
+  ...economyBase,version:9,rules_version:17,memo_adapter_version:ECONOMY_ADAPTER,normalized_payment:ECONOMY_PAYMENT,
+  join_e8s:CANNON_BASE_E8S,ball_base_e8s:BALL_BASE_E8S,deflector_price_e8s:DIVERTER_BASE_E8S,
+  reservoir_price_e8s:ECONOMY_RESERVOIR_PRICE,move_e8s:FIXED_ACTION_E8S,
+  deflector_move_e8s:FIXED_ACTION_E8S.toString(),deflector_reorient_e8s:FIXED_ACTION_E8S.toString(),
+  ball_price:'player-inventory-plus-1-square',price_schedule:'utc-committed-population-1',price_day_ns:DAY_NS,price_grace_ns:GRACE_NS,
+});
+export const ECONOMY_IDENTITY=Object.freeze({
+  rules_hash:sha256(new TextEncoder().encode('B2Z_DAILY_ECONOMY_RULES_17')),
+  schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_09_DAILY_TARIFFS')),
+  config_hash:sha256(encodeCanonical(ECONOMY_CONFIG)),
+});
 export const wrapCell=(x,y,w,h)=>((y%h+h)%h)*w+(x%w+w)%w;
 export const cellCount=w=>w.width*w.height;
 const baseCell=(w,cell)=>{
@@ -141,7 +162,7 @@ export function connected(cells, width, height, owner, anchor, torus=false) {
 }
 /** Validate fully resolved states only; intermediate capture scratch may deliberately violate connectivity. */
 export function validateWorld(w) {
-  if (![3,4,5,6,7,8].includes(w.version)) throw new Error('B2Z state version');
+  if (![3,4,5,6,7,8,9].includes(w.version)) throw new Error('B2Z state version');
   if(w.version===4&&(w.width!==32||w.height!==32))throw new Error('torus dimensions');
   if(w.version>=5&&(w.width!==1000||w.height!==1000))throw new Error('million dimensions');
   if((w.version>=6)!==(w.playability!==undefined))throw new Error('B2Z lifecycle version');
@@ -159,7 +180,7 @@ export function validateWorld(w) {
   validRat(w.time);
   if (cmp(w.time, rat(0)) < 0 || cmp(w.time, rat(1000000000)) > 0) throw new Error('time bounds');
   const limits=w.version>=6?V6_POLICY:LIMITS;
-  if (w.cannons.length > limits.max_cannons || w.balls.length > limits.max_balls) throw new Error('entity capacity');
+  if (w.version<9 && (w.cannons.length > limits.max_cannons || w.balls.length > limits.max_balls)) throw new Error('entity capacity');
   const owners = new Set(), accounts = new Set(), anchors = new Set(); let last = 0;
   for (const c of w.cannons) {
     integer(c.id, last + 1, w.version>=6?4294967294:65535, 'cannon order'); last = c.id;
@@ -211,10 +232,11 @@ export function validateWorld(w) {
     previous = s.account; validRat(s.units);
     if (s.units[0] < 0n) throw new Error('negative score');
   }
-  if (w.credits.length > 1024) throw new Error('credit demonstration limit');
+  if (w.version<9 && w.credits.length > 1024) throw new Error('credit demonstration limit');
   if(w.version>=6)validatePlayability(w);
   if(w.version>=7)validateDeflectorState(w);else if(w.deflectors!==undefined||w.next_deflector_id!==undefined)throw Error('historical structure extension');
   validateReservoirs(w);
+  validateEconomy(w);
   return w;
 }
 export function encodeWorld(w) { validateWorld(w); return encodeCanonical(w); }

@@ -1,3 +1,14 @@
+# Rules17 daily economy — development
+
+Rules16 is active on the European backend. The Rules16 toolbar and payment
+frontend completed qualification and was installed before the Rules17 branch
+opened. Rules17 introduces Schema9, Adapter11, exact daily and personal pricing
+and removes the legacy inventory quotas. Production activation requires the
+independent installed Ledger/Index, replay, recovery and resource checks.
+See [Rules17 contract](docs/specs/B2Z_DAILY_ECONOMY_17.md).
+
+---
+
 # Rules13 context structures — development candidate
 
 This isolated continuation implements object-specific action toolbars, explicit

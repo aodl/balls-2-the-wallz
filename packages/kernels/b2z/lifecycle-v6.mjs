@@ -1,3 +1,5 @@
+import {DAY_NS} from '../../protocol/economy17.generated.mjs';
+import {observeEconomy,participatingPlayers} from './economy17.mjs';
 import{regroupMarkers}from'./territory-v6.mjs';
 /** Explicit elapsed-time facts. No ambient clock, Ledger input or empty tick. */
 import{encodeCanonical,cloneCanonical}from'@dtr/timeline-runtime/runtime/canonical';
@@ -7,7 +9,7 @@ import{elapsed,life,playerForCannon,V6_POLICY}from'./playability.mjs';
 export function expireV6(w,observed_ns,fences){
  validateWorld(w);if(w.version<6)throw Error('EXPECTED_V6');elapsed(observed_ns);
  if(observed_ns<w.playability.elapsed_ns)throw Error('LIFECYCLE_TIME_ROLLBACK');
- if(!Array.isArray(fences)||fences.length>V6_POLICY.max_cannons)throw Error('EXPIRY_CAPACITY');
+ if(!Array.isArray(fences)||w.version<9&&fences.length>V6_POLICY.max_cannons)throw Error('EXPIRY_CAPACITY');
  const seen=new Set(),due=[];let prior=null;
  for(const f of fences){
   const deadline=elapsed(f.deadline_ns),key=[deadline,BigInt(f.cannon),BigInt(f.generation)],id=`${f.cannon}/${f.generation}`;
@@ -15,9 +17,14 @@ export function expireV6(w,observed_ns,fences){
   seen.add(id);prior=key;const l=life(w,f.cannon);if(!l||f.generation<l.generation)continue;
   if(f.generation!==l.generation||f.deadline_ns!==l.deadline_ns)throw Error('EXPIRY_FENCE');if(deadline>observed_ns)throw Error('EXPIRY_NOT_DUE');due.push(f);
  }
- if(!due.length)return null;
+ const priorNs=w.playability.elapsed_ns,pricingDue=w.version===9&&priorNs/DAY_NS<observed_ns/DAY_NS;
+ if(!due.length&&!pricingDue)return null;
  const context={domain:'B2Z-LIFECYCLE-CONTEXT-01',version:1,previous_state:sha256(encodeWorld(w)),observed_ns,fences:cloneCanonical(fences)},next=cloneCanonical(w);next.playability.elapsed_ns=observed_ns;
  const events=[{kind:'lifecycle_context',sequence:0,time:w.time,context}],expired=[];
+ if(pricingDue){
+  const snapshot=observeEconomy(next.economy,priorNs,observed_ns,participatingPlayers(w),context.previous_state);
+  events.push({kind:'economy_snapshot',sequence:events.length,time:w.time,snapshot});
+ }
  for(const f of due){const c=next.cannons.find(c=>c.id===f.cannon),player=playerForCannon(next,c.id);if(next.balls.some(b=>b.owner===player&&ownerAt(next,b.cell)===ownerAt(next,c.cell)))throw Error('EXPIRY_REQUIRES_DORMANCY');
   const territory=ownerAt(next,c.cell),cell_retained=false;setOwner(next,c.cell,0);next.cannons=next.cannons.filter(c=>c.id!==f.cannon);next.playability.lifecycle=next.playability.lifecycle.filter(l=>l.cannon!==f.cannon);regroupMarkers(next,territory);
   events.push({kind:'cannon_expired',sequence:events.length,time:w.time,cannon:c.id,cell:c.cell,player,generation:f.generation,deadline_ns:f.deadline_ns,observed_ns,cell_retained});expired.push(c.id);

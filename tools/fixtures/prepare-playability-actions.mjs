@@ -1,9 +1,12 @@
+import {migrateEconomy,observeEconomy,participatingPlayers} from '../../packages/kernels/b2z/economy17.mjs';
+import {DAY_NS} from '../../packages/protocol/economy17.generated.mjs';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 /** Disposable UI data only. No IC calls or authenticated-fixture claim. */
 import fs from 'node:fs';
 import {B2zCursor} from '../../packages/kernels/b2z/kernel.mjs';
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {hex,unhex} from '@dtr/timeline-runtime/protocol/bytes';
-import {decodeWorld,encodeWorld,setOwner,validateWorld,WAR_CRY_CONFIG,COMBINED_CONFIG,DEFLECTOR_CONFIG,ENTRY_CONFIG,SHOUT_CONFIG,SPACING_CONFIG,RESERVOIR_CONFIG} from '../../packages/kernels/b2z/world.mjs';
+import {decodeWorld,encodeWorld,setOwner,validateWorld,WAR_CRY_CONFIG,COMBINED_CONFIG,DEFLECTOR_CONFIG,ENTRY_CONFIG,SHOUT_CONFIG,SPACING_CONFIG,RESERVOIR_CONFIG,ECONOMY_CONFIG} from '../../packages/kernels/b2z/world.mjs';
 import {migrateReservoirs} from '../../packages/kernels/b2z/reservoirs.mjs';
 import {reservoirPut} from '../../packages/protocol/reservoir.mjs';
 import {expireV6} from '../../packages/kernels/b2z/lifecycle-v6.mjs';
@@ -62,4 +65,12 @@ const reservoir=migrateReservoirs(orbit);
 for(const cell of [6005,6006,7005,7006])reservoir.reservoirs=reservoirPut(reservoir.reservoirs,cell);
 const reservoirHex=hex(encodeWorld(reservoir));
 cases.reservoir={initial:reservoirHex,final:reservoirHex};
-fs.writeFileSync(process.argv[2],JSON.stringify({reservoir_config:hex(encodeCanonical(RESERVOIR_CONFIG)),spacing_config:hex(encodeCanonical(SPACING_CONFIG)),shout_config:hex(encodeCanonical(SHOUT_CONFIG)),qualification:'Synthetic widget/presentation data; not IC authentication or installed upgrade evidence',config:hex(encodeCanonical({...V6_POLICY,...PRICING})),entry_config:hex(encodeCanonical(ENTRY_CONFIG)),war_cry_config:hex(encodeCanonical(WAR_CRY_CONFIG)),combined_config:hex(encodeCanonical(COMBINED_CONFIG)),deflector_config:hex(encodeCanonical(DEFLECTOR_CONFIG)),cases,sequences,capacity_events}));
+const midnight=20_000n*DAY_NS;
+const economy=migrateEconomy(reservoir,midnight-1n,sha256(encodeWorld(reservoir)));
+const unsignedEconomy=hex(encodeWorld(economy));
+observeEconomy(economy.economy,midnight-1n,midnight,participatingPlayers(economy),sha256(encodeWorld(economy)));
+economy.playability.elapsed_ns=midnight;
+const economyHex=hex(encodeWorld(economy));
+cases.economy={initial:economyHex,final:economyHex};
+cases.economy_unannounced={initial:unsignedEconomy,final:unsignedEconomy};
+fs.writeFileSync(process.argv[2],JSON.stringify({economy_config:hex(encodeCanonical(ECONOMY_CONFIG)),reservoir_config:hex(encodeCanonical(RESERVOIR_CONFIG)),spacing_config:hex(encodeCanonical(SPACING_CONFIG)),shout_config:hex(encodeCanonical(SHOUT_CONFIG)),qualification:'Synthetic widget/presentation data; not IC authentication or installed upgrade evidence',config:hex(encodeCanonical({...V6_POLICY,...PRICING})),entry_config:hex(encodeCanonical(ENTRY_CONFIG)),war_cry_config:hex(encodeCanonical(WAR_CRY_CONFIG)),combined_config:hex(encodeCanonical(COMBINED_CONFIG)),deflector_config:hex(encodeCanonical(DEFLECTOR_CONFIG)),cases,sequences,capacity_events}));

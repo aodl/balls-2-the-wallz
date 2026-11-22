@@ -20,12 +20,12 @@ export function contextSiteReason(world,owner,cell,{moving,deflector=false,spaci
     ownerAt:c=>playerAt(world,c),active:c=>Boolean(territoryBalls(world,ownerAt(world,c)))});
 }
 
-export function prepareContextDeflector(world,account,amount,memo,spacing=false){
+export function prepareContextDeflector(world,account,amount,memo,spacing=false,multiplier=null){
   if(![0xb7,0xb8,0xb9].includes(memo[0]))return null;
   let command;
   try{command=decodeContextMemo(memo);}catch{return reject('MALFORMED_MEMO');}
   if(command.kind==='deflect'){
-    const plan=prepareDeflectorPurchase(world,account,amount,memo,spacing);
+    const plan=prepareDeflectorPurchase(world,account,amount,memo,spacing,multiplier);
     if(plan.kind==='rejected')return plan;
     if(spacing)return hasStructureClearance(world.width,world.height,plan.cell,undefined,contextStructures(world))?plan:reject('STRUCTURE_TOO_CLOSE');
     return friendlyStructureNearby(world,plan.cell,plan.owner)?plan:reject('NO_FRIENDLY_STRUCTURE_NEARBY');

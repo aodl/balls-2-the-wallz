@@ -1,8 +1,8 @@
 //! ICP account-index adapter v3 (B2Z text/3, binary/numeric compatibility). Trusts the configured index for account history
-//! contents AND completeness. No global-ledger scanning or archive traversal.
+//! contents and completeness. Rules17 can look up an identified incoming block for its timestamp.
 use candid::{CandidType, Deserialize, Nat, Principal};
 use dtr_host::Input;
-use dtr_wire::{hash, hex, unhex, Int, Result};
+use dtr_wire::{Int, Result, hash, hex, unhex};
 use ic_ledger_types::{AccountIdentifier, Subaccount};
 use serde::Serialize;
 
@@ -205,6 +205,7 @@ impl SourceState {
             b2z_protocol::context_structures::MEMO_ADAPTER_VERSION,
             b2z_protocol::shout::MEMO_ADAPTER_VERSION,
             b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
+            b2z_protocol::economy17::MEMO_ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -280,6 +281,7 @@ impl SourceState {
             b2z_protocol::context_structures::MEMO_ADAPTER_VERSION,
             b2z_protocol::shout::MEMO_ADAPTER_VERSION,
             b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
+            b2z_protocol::economy17::MEMO_ADAPTER_VERSION,
         ]
         .contains(&self.memo_adapter_version)
         {
@@ -528,7 +530,8 @@ fn classify_with(
             if &to != recipient || &from == recipient {
                 return Ok(None);
             }
-            if adapter == b2z_protocol::reservoir::MEMO_ADAPTER_VERSION {
+            let timestamped = adapter == b2z_protocol::economy17::MEMO_ADAPTER_VERSION;
+            if timestamped || adapter == b2z_protocol::reservoir::MEMO_ADAPTER_VERSION {
                 let parsed = if spender.is_none() {
                     b2z_protocol::reservoir::decode_ledger(tx.memo, tx.icrc1_memo.as_deref()).ok()
                 } else {
@@ -541,6 +544,15 @@ fn classify_with(
                 payload.extend(memo);
                 payload.push(cry.len() as u8);
                 payload.extend(cry.as_bytes());
+                if timestamped {
+                    let ns = tx
+                        .timestamp
+                        .as_ref()
+                        .ok_or("missing Ledger block timestamp")?
+                        .timestamp_nanos;
+                    payload = b2z_protocol::economy17::timestamped(&payload, ns)
+                        .map_err(|_| "invalid Ledger block timestamp or payment envelope")?;
+                }
                 return Ok(Some(hex(&payload)));
             }
             let shout = adapter == b2z_protocol::shout::MEMO_ADAPTER_VERSION;
@@ -947,24 +959,30 @@ mod tests {
         );
         t.icrc1_memo = Some(b"BTZ\x12\0\0\0\x01".to_vec());
         t.memo = 0;
-        assert!(classify(&t, &recipient)
-            .unwrap()
-            .unwrap()
-            .ends_with("42545a1200000001"));
+        assert!(
+            classify(&t, &recipient)
+                .unwrap()
+                .unwrap()
+                .ends_with("42545a1200000001")
+        );
         t.memo = 1;
-        assert!(classify(&t, &recipient)
-            .unwrap()
-            .unwrap()
-            .ends_with("42545a1200000001"));
+        assert!(
+            classify(&t, &recipient)
+                .unwrap()
+                .unwrap()
+                .ends_with("42545a1200000001")
+        );
         t.memo = 0;
         t.icrc1_memo = None;
         if let Operation::Transfer { spender, .. } = &mut t.operation {
             *spender = Some(receiving_account(owner(), 2).to_string());
         }
-        assert!(classify(&t, &recipient)
-            .unwrap()
-            .unwrap()
-            .ends_with("0000000000000000"));
+        assert!(
+            classify(&t, &recipient)
+                .unwrap()
+                .unwrap()
+                .ends_with("0000000000000000")
+        );
         if let Operation::Transfer { from, .. } = &mut t.operation {
             *from = recipient.to_string();
         }
@@ -995,9 +1013,11 @@ mod tests {
         assert_eq!(&old[..96], &new[..96]);
         let mut s = fresh();
         let bytes = serde_json::to_vec(&s).unwrap();
-        assert!(!String::from_utf8(bytes.clone())
-            .unwrap()
-            .contains("memo_adapter_version"));
+        assert!(
+            !String::from_utf8(bytes.clone())
+                .unwrap()
+                .contains("memo_adapter_version")
+        );
         s = serde_json::from_slice(&bytes).unwrap();
         assert_eq!(s.memo_adapter_version, 3);
         let mut row = tx(1);
@@ -1025,10 +1045,12 @@ mod tests {
         }
         t.memo = b2z_protocol::numeric(b2z_protocol::Command::Angle(0));
         t.icrc1_memo = Some(vec![]);
-        assert!(classify_v6(&t, &recipient)
-            .unwrap()
-            .unwrap()
-            .ends_with("0000000000000000"));
+        assert!(
+            classify_v6(&t, &recipient)
+                .unwrap()
+                .unwrap()
+                .ends_with("0000000000000000")
+        );
     }
     #[test]
     fn full_nat64_source_positions_and_subaccounts_survive_durable_codec() {
@@ -1103,5 +1125,252 @@ mod tests {
         let duplicate = p(PokeTarget::subaccount(0), 1u64);
         assert!(matching_poke(&vec![duplicate.clone(); 256], 0));
         assert!(!matching_poke(&vec![duplicate; 257], 0));
+    }
+}
+
+/// Repair only a missing timestamp of an incoming Rules17 Index row. The
+/// configured Index remains responsible for finding and ordering the history.
+#[cfg(target_arch = "wasm32")]
+pub async fn recover_block_times(
+    state: &SourceState,
+    history: &mut History,
+    timeout_seconds: u32,
+) -> Result<()> {
+    if state.memo_adapter_version != b2z_protocol::economy17::MEMO_ADAPTER_VERSION {
+        return Ok(());
+    }
+    let recipient = account(&state.recipient_hex)?;
+    let ledger = Principal::from_text(&state.ledger).map_err(|e| e.to_string())?;
+    for row in history.transactions.iter_mut().take(PAGE as usize) {
+        if row.id >= state.cursor
+            && row
+                .transaction
+                .timestamp
+                .as_ref()
+                .is_none_or(|t| t.timestamp_nanos == 0)
+            && incoming(&row.transaction, &recipient)?
+        {
+            let block = ledger_block(ledger, row.id, timeout_seconds).await?;
+            row.transaction.timestamp = Some(corroborate_block(&row.transaction, block)?);
+        }
+    }
+    Ok(())
+}
+
+#[cfg(target_arch = "wasm32")]
+fn incoming(transaction: &Transaction, recipient: &AccountIdentifier) -> Result<bool> {
+    match &transaction.operation {
+        Operation::Transfer { from, to, .. } => {
+            Ok(&account(from)? != recipient && &account(to)? == recipient)
+        }
+        _ => Ok(false),
+    }
+}
+
+#[cfg(target_arch = "wasm32")]
+#[derive(CandidType, Deserialize)]
+struct BlockAt {
+    start: u64,
+    length: u64,
+}
+#[cfg(any(test, target_arch = "wasm32"))]
+#[derive(CandidType, Deserialize)]
+enum LedgerOperation {
+    Transfer {
+        from: Vec<u8>,
+        to: Vec<u8>,
+        amount: Tokens,
+        fee: Tokens,
+        spender: Option<Vec<u8>>,
+    },
+}
+#[cfg(any(test, target_arch = "wasm32"))]
+#[derive(CandidType, Deserialize)]
+struct LedgerTransaction {
+    memo: u64,
+    icrc1_memo: Option<Vec<u8>>,
+    operation: Option<LedgerOperation>,
+}
+#[cfg(any(test, target_arch = "wasm32"))]
+#[derive(CandidType, Deserialize)]
+struct LedgerBlock {
+    timestamp: Timestamp,
+    transaction: LedgerTransaction,
+}
+#[cfg(target_arch = "wasm32")]
+#[derive(CandidType, Deserialize)]
+struct BlockRange {
+    blocks: Vec<LedgerBlock>,
+}
+#[cfg(target_arch = "wasm32")]
+#[derive(CandidType, Deserialize)]
+enum ArchiveError {
+    BadFirstBlockIndex {
+        requested_index: u64,
+        first_valid_index: u64,
+    },
+    Other {
+        error_code: u64,
+        error_message: String,
+    },
+}
+#[cfg(target_arch = "wasm32")]
+type ArchiveResult = std::result::Result<BlockRange, ArchiveError>;
+#[cfg(target_arch = "wasm32")]
+candid::define_function!(ArchiveBlocks : (BlockAt) -> (ArchiveResult) query);
+#[cfg(target_arch = "wasm32")]
+#[derive(CandidType, Deserialize)]
+struct ArchivedRange {
+    start: u64,
+    length: u64,
+    callback: ArchiveBlocks,
+}
+#[cfg(target_arch = "wasm32")]
+#[cfg(any(test, target_arch = "wasm32"))]
+#[derive(CandidType, Deserialize)]
+struct LedgerBlocks {
+    chain_length: u64,
+    first_block_index: u64,
+    blocks: Vec<LedgerBlock>,
+    archived_blocks: Vec<ArchivedRange>,
+}
+
+#[cfg(target_arch = "wasm32")]
+async fn ledger_block(ledger: Principal, position: u64, timeout: u32) -> Result<LedgerBlock> {
+    use ic_cdk::call::Call;
+    let args = BlockAt {
+        start: position,
+        length: 1,
+    };
+    let mut response: LedgerBlocks = Call::bounded_wait(ledger, "query_blocks")
+        .change_timeout(timeout)
+        .with_arg(&args)
+        .await
+        .map_err(|e| format!("Ledger timestamp read: {e}"))?
+        .candid()
+        .map_err(|e| format!("Ledger timestamp decode: {e}"))?;
+    if response.chain_length <= position {
+        return Err("Ledger timestamp position unavailable".into());
+    }
+    if response.first_block_index == position
+        && response.blocks.len() == 1
+        && response.archived_blocks.is_empty()
+    {
+        return Ok(response.blocks.remove(0));
+    }
+    if !response.blocks.is_empty() || response.archived_blocks.len() != 1 {
+        return Err("Ledger timestamp block range mismatch".into());
+    }
+    let range = response.archived_blocks.remove(0);
+    if range.start > position
+        || !range
+            .start
+            .checked_add(range.length)
+            .is_some_and(|end| position < end)
+    {
+        return Err("Ledger timestamp archive position mismatch".into());
+    }
+    let callback = range.callback.0;
+    let archived: ArchiveResult = Call::bounded_wait(callback.principal, &callback.method)
+        .change_timeout(timeout)
+        .with_arg(&args)
+        .await
+        .map_err(|e| format!("Ledger archive timestamp read: {e}"))?
+        .candid()
+        .map_err(|e| format!("Ledger archive timestamp decode: {e}"))?;
+    let mut range = archived.map_err(|_| "Ledger archive timestamp unavailable")?;
+    if range.blocks.len() != 1 {
+        return Err("Ledger archive timestamp block count mismatch".into());
+    }
+    Ok(range.blocks.remove(0))
+}
+
+#[cfg(any(test, target_arch = "wasm32"))]
+fn corroborate_block(index: &Transaction, block: LedgerBlock) -> Result<Timestamp> {
+    let Operation::Transfer {
+        from,
+        to,
+        amount,
+        fee,
+        spender,
+    } = &index.operation
+    else {
+        return Err("Ledger timestamp Index operation mismatch".into());
+    };
+    let Some(LedgerOperation::Transfer {
+        from: block_from,
+        to: block_to,
+        amount: block_amount,
+        fee: block_fee,
+        spender: block_spender,
+    }) = block.transaction.operation
+    else {
+        return Err("Ledger timestamp block operation mismatch".into());
+    };
+    let index_spender = spender
+        .as_ref()
+        .map(|id| account(id).map(|id| id.as_bytes().to_vec()))
+        .transpose()?;
+    if block.timestamp.timestamp_nanos == 0
+        || block.transaction.memo != index.memo
+        || block.transaction.icrc1_memo != index.icrc1_memo
+        || block_from != account(from)?.as_bytes()
+        || block_to != account(to)?.as_bytes()
+        || block_amount.e8s != amount.e8s
+        || block_fee.e8s != fee.e8s
+        || block_spender != index_spender
+    {
+        return Err("Ledger timestamp block does not match Index transaction".into());
+    }
+    Ok(block.timestamp)
+}
+
+#[cfg(test)]
+mod timestamp_tests {
+    use super::*;
+    #[test]
+    fn adapter11_uses_block_time_and_fails_closed_without_it() {
+        let recipient = AccountIdentifier::new(&Principal::anonymous(), &Subaccount([0; 32]));
+        let sender =
+            AccountIdentifier::new(&Principal::management_canister(), &Subaccount([0; 32]));
+        let mut tx = Transaction {
+            memo: 0,
+            icrc1_memo: Some(b"RESERVOIR 7".to_vec()),
+            operation: Operation::Transfer {
+                from: sender.to_hex(),
+                to: recipient.to_hex(),
+                fee: Tokens { e8s: 10_000 },
+                amount: Tokens { e8s: 10_000_000 },
+                spender: None,
+            },
+            timestamp: None,
+            created_at_time: Some(Timestamp {
+                timestamp_nanos: 111,
+            }),
+        };
+        assert!(classify_with(&tx, &recipient, 11).is_err());
+        let block = |timestamp_nanos, amount| LedgerBlock {
+            timestamp: Timestamp { timestamp_nanos },
+            transaction: LedgerTransaction {
+                memo: 0,
+                icrc1_memo: Some(b"RESERVOIR 7".to_vec()),
+                operation: Some(LedgerOperation::Transfer {
+                    from: sender.as_bytes().to_vec(),
+                    to: recipient.as_bytes().to_vec(),
+                    fee: Tokens { e8s: 10_000 },
+                    amount: Tokens { e8s: amount },
+                    spender: None,
+                }),
+            },
+        };
+        assert!(corroborate_block(&tx, block(222, 11_000_000)).is_err());
+        assert!(corroborate_block(&tx, block(0, 10_000_000)).is_err());
+        tx.timestamp = Some(corroborate_block(&tx, block(222, 10_000_000)).unwrap());
+        let payload =
+            |version| unhex(&classify_with(&tx, &recipient, version).unwrap().unwrap()).unwrap();
+        assert_eq!(
+            b2z_protocol::economy17::untimed(&payload(11)).unwrap(),
+            (payload(10), 222)
+        );
     }
 }

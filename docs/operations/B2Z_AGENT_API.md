@@ -108,3 +108,11 @@ DEFLECT support must be established from the exact authenticated successor
 configuration, then composed using its canonical Ledger grammar and processing-
 time legality. A local flag or this document cannot enable it. No player query
 submits an action, signs a payment or grants an allowance.
+
+## Rules17 daily economy
+
+The certified configuration describes the fixed bases and the world carries the
+published UTC schedule. At Rules17, the legacy numerical inventory limits in
+`game_info` are zero and `maximum_quantity` still bounds one request. Prices
+are quoted against the authenticated inventory and effective tariff. The Ledger
+block time determines actual payment pricing, including grace.

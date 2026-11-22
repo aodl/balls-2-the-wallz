@@ -14,7 +14,9 @@ try{
  const events=[];for(const t of tickets){for(let kind=0;kind<t.publication.artifacts.length;kind++){const descriptor=t.publication.artifacts[kind],assembler=new ArtifactAssembler(t,descriptor.kind),n=Number(t.publication.head.segment_id);for(let chunk=0;chunk<descriptor.chunks.length;chunk++)await assembler.accept(chunk,await client.chunk(n,t.root_hash,kind,chunk));const bytes=await assembler.finish();await writeFile(out+`/publication-${n}-${descriptor.kind}.bin`,bytes);if(n===0&&descriptor.kind==='state'){assert.equal(sha256(bytes),t.publication.head.state_hash);assert.equal(t.publication.head.seal.previous_state,sha256(Buffer.from(seed.initial_world_hex,'hex')),'declared initial world must be the authenticated first interval predecessor');}if(descriptor.kind==='events')events.push({segment_id:String(n),events_hex:Buffer.from(bytes).toString('hex')});}}
  const assigned=[];for(const t of tickets){const s=t.publication.head.seal;if(s)assigned.push(...seed.inputs.filter(i=>BigInt(i.position)>=s.source_from&&BigInt(i.position)<s.source_to_exclusive).map(i=>String(i.position)));}
  const trace={...seed,publications:tickets.map(t=>t.publication),artifact_events:events,assigned};const result=replayHistory(trace);assert.ok(seed.inputs.every(i=>assigned.includes(String(i.position))),'no paid input left pending at test completion');
- if(trace.publications.at(-1).identity.config_hash===(await import('../packages/kernels/b2z/world.mjs')).RESERVOIR_IDENTITY.config_hash){
+ const {RESERVOIR_IDENTITY,ECONOMY_IDENTITY}=await import('../packages/kernels/b2z/world.mjs');
+ const lastConfig=trace.publications.at(-1).identity.config_hash,economy=lastConfig===ECONOMY_IDENTITY.config_hash;
+ if(economy||lastConfig===RESERVOIR_IDENTITY.config_hash){
   const {prepareCheckpoint,prepareDerivedSegment,CheckpointPlayer,SegmentPlayer}=await import('../apps/b2z-observer/model.mjs');
   const open=(publication,kind)=>readFile(out+'/publication-'+publication.head.segment_id+'-'+kind+'.bin');
   for(let index=1;index<trace.publications.length;index++){
@@ -27,9 +29,15 @@ try{
   result.observer='Authenticated artifact sequence plays through both schema versions';
  }
  // Negatives retain the real source/artifact commitments and must fail.
+ if(economy){
+  const tampered=structuredClone(trace),timed=tampered.inputs.find(i=>i.payload_hex.startsWith('42545a5041593038'));
+  assert.ok(timed);
+  timed.payload_hex=timed.payload_hex.slice(0,-2)+(timed.payload_hex.endsWith('00')?'01':'00');
+  assert.throws(()=>replayHistory(tampered));
+ }
  const wrongInput=structuredClone(trace),annotated=wrongInput.inputs.find(i=>['BTZPAY03','BTZPAY04','BTZPAY05','BTZPAY06'].some(m=>i.payload_hex.startsWith(Buffer.from(m).toString('hex')))&&i.payload_hex.length>114);assert.ok(annotated);annotated.payload_hex=annotated.payload_hex.slice(0,-2)+(annotated.payload_hex.endsWith('41')?'42':'41');assert.throws(()=>replayHistory(wrongInput));
  const incomplete=structuredClone(trace);incomplete.artifact_events.pop();assert.throws(()=>replayHistory(incomplete));
- const altered=structuredClone(trace),reservoir=trace.publications.at(-1).identity.config_hash===(await import('../packages/kernels/b2z/world.mjs')).RESERVOIR_IDENTITY.config_hash, target=e=>reservoir?e.kind==='reservoir_built':e.launch_annotation,row=altered.artifact_events.find(x=>decodeCanonical(Buffer.from(x.events_hex,'hex')).events.some(target));const decoded=decodeCanonical(Buffer.from(row.events_hex,'hex')),item=decoded.events.find(target);if(reservoir)item.cell=(item.cell+1)%1000000;else item.launch_annotation.cry='Forged';row.events_hex=Buffer.from(encodeCanonical(decoded)).toString('hex');assert.throws(()=>replayHistory(altered));
+ const altered=structuredClone(trace),reservoir=economy||lastConfig===RESERVOIR_IDENTITY.config_hash, target=e=>reservoir?e.kind==='reservoir_built':e.launch_annotation,row=altered.artifact_events.find(x=>decodeCanonical(Buffer.from(x.events_hex,'hex')).events.some(target));const decoded=decodeCanonical(Buffer.from(row.events_hex,'hex')),item=decoded.events.find(target);if(reservoir)item.cell=(item.cell+1)%1000000;else item.launch_annotation.cry='Forged';row.events_hex=Buffer.from(encodeCanonical(decoded)).toString('hex');assert.throws(()=>replayHistory(altered));
  const wrongSource=decodeCanonical(observation.publication);wrongSource.identity.source_id='ef'.repeat(32);await assert.rejects(()=>verifyCertificatePublication(encodeCanonical(wrongSource),observation.certificate,{...policy,now_ns:BigInt(Date.now())*1000000n,max_age_ns:300000000000n,max_future_ns:30000000000n},verify));
  await assert.rejects(()=>verifyCertificatePublication(observation.publication,observation.certificate,{...policy,canister_id:'aaaaa-aa',now_ns:BigInt(Date.now())*1000000n,max_age_ns:300000000000n,max_future_ns:30000000000n},verify));
  const damaged=Uint8Array.from(observation.certificate);damaged[damaged.length-1]^=1;await assert.rejects(()=>verifyCertificatePublication(observation.publication,damaged,{...policy,now_ns:BigInt(Date.now())*1000000n,max_age_ns:300000000000n,max_future_ns:30000000000n},verify));

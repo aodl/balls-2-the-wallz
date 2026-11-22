@@ -1,9 +1,9 @@
 //! Provisional successor structure policy; no production transition authority.
-use crate::deflector_boundary::{face_velocity, Trajectory};
+use crate::deflector_boundary::{Trajectory, face_velocity};
 use crate::world::{Ball, Deflector, World};
-use dtr_wire::{hash, Int, Rat, Result};
+use dtr_wire::{Int, Rat, Result, hash};
 use num_bigint::BigInt;
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 use std::collections::{BTreeMap, BTreeSet};
 pub fn identity() -> Result<Value> {
     let mut i = crate::combined_v11::identity()?;
@@ -68,7 +68,7 @@ pub fn separation(w: &World, cell: usize) -> bool {
 pub fn validate(w: &World) -> Result<()> {
     let ds = w.deflectors.as_ref().ok_or("structure state")?;
     let next = w.next_deflector_id.ok_or("structure counter")?;
-    if ds.len() > 256 || next == 0 {
+    if w.version < 9 && ds.len() > 256 || next == 0 {
         return Err("structure capacity".into());
     }
     let mut prior = None;
@@ -91,7 +91,7 @@ pub fn validate(w: &World) -> Result<()> {
         }
         let count = counts.entry(d.owner).or_insert(0);
         *count += 1;
-        if *count > 16 {
+        if w.version < 9 && *count > 16 {
             return Err("player structure capacity".into());
         }
         prior = Some(d.cell);
@@ -170,7 +170,7 @@ pub fn prepare(
     amount: u64,
     memo: &[u8],
 ) -> Result<crate::purchases_v6::Plan> {
-    prepare_with_spacing(w, account, amount, memo, false)
+    prepare_with_spacing(w, account, amount, memo, false, None)
 }
 pub(crate) fn prepare_with_spacing(
     w: &World,
@@ -178,6 +178,7 @@ pub(crate) fn prepare_with_spacing(
     amount: u64,
     memo: &[u8],
     spacing: bool,
+    multiplier: Option<u32>,
 ) -> Result<crate::purchases_v6::Plan> {
     use crate::purchases_v6::Plan;
     let fail = |reason: &str| {
@@ -202,14 +203,24 @@ pub(crate) fn prepare_with_spacing(
     if w.player_at(cell) != Some(owner) {
         return fail("NOT_OWN_TERRITORY");
     }
-    if amount < 10000000 {
+    let ds = w.deflectors.as_ref().ok_or("structure state")?;
+    let retained = ds.iter().filter(|d| d.owner == owner).count();
+    let price = if let Some(p) = multiplier {
+        use b2z_protocol::economy17::{DIVERTER_BASE_E8S, marginal};
+        let Some(price) = marginal(DIVERTER_BASE_E8S, p, retained) else {
+            return fail("PRICE_OVERFLOW");
+        };
+        price
+    } else {
+        10_000_000
+    };
+    if amount < price {
         return fail("UNDERFUNDED");
     }
-    let ds = w.deflectors.as_ref().ok_or("structure state")?;
-    if ds.len() >= 256 {
+    if w.version < 9 && ds.len() >= 256 {
         return fail("DEFLECTOR_CAPACITY");
     }
-    if ds.iter().filter(|d| d.owner == owner).count() >= 16 {
+    if w.version < 9 && retained >= 16 {
         return fail("PLAYER_DEFLECTOR_CAPACITY");
     }
     if w.next_deflector_id == Some(u32::MAX) {
@@ -231,7 +242,7 @@ pub(crate) fn prepare_with_spacing(
         owner,
         cell,
         orientation: b2z_protocol::deflector::ORIENTATIONS[orientation as usize].to_owned(),
-        price: Int(10000000.into()),
+        price: Int(price.into()),
     })
 }
 

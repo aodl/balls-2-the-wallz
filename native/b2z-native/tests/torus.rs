@@ -1,5 +1,5 @@
 //! New v4 vectors; immutable v3 history remains covered by replay.rs.
-use b2z_native::{million_identity, torus_identity, Cursor, Input};
+use b2z_native::{Cursor, Input, million_identity, torus_identity};
 use dtr_wire::{decode, hash, unhex};
 use serde_json::Value;
 fn million_split_world() -> b2z_native::world::World {
@@ -10,6 +10,7 @@ fn million_split_world() -> b2z_native::world::World {
         deflectors: None,
         next_deflector_id: None,
         reservoirs: None,
+        economy: None,
         version: 4,
         width: 32,
         height: 32,
@@ -108,7 +109,7 @@ fn toroidal_reference_is_byte_exact_and_recovers_every_bounded_phase() {
 #[test]
 fn staged_migration_matches_javascript_and_refuses_unfinished_work() {
     use b2z_native::{
-        migration::{stage_world, Boundary},
+        migration::{Boundary, stage_world},
         world::World,
     };
     let fixture: Value =
@@ -244,7 +245,7 @@ fn million_cell_boundary_capture_is_local_and_compact() {
 
 #[test]
 fn million_cell_one_tick_matches_javascript_and_recovers_every_slice() {
-    use b2z_native::{migration::stage_million_world, Cursor};
+    use b2z_native::{Cursor, migration::stage_million_world};
     use dtr_wire::{Int, Rat};
     let state = stage_million_world(&million_split_world())
         .unwrap()

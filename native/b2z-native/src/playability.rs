@@ -1,7 +1,7 @@
 //! Versioned player/lifecycle state. All elapsed-time facts are explicit inputs;
 //! this module has no clock, IC calls, Ledger positions or ambient randomness.
 pub use crate::playability_generated::*;
-use crate::world::{account_ok, World};
+use crate::world::{World, account_ok};
 use dtr_wire::{Int, Result};
 use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
@@ -107,7 +107,7 @@ impl State {
     }
     pub fn validate(&self, world: &World) -> Result<()> {
         let now = elapsed(&self.elapsed_ns)?;
-        if self.players.len() > MAX_PLAYERS
+        if world.version < 9 && self.players.len() > MAX_PLAYERS
             || self.players.windows(2).any(|p| p[0].id >= p[1].id)
             || self
                 .players
@@ -122,7 +122,7 @@ impl State {
         if self.players.iter().any(|p| !accounts.insert(&p.account)) {
             return Err("PLAYER_ACCOUNT_CONFLICT".into());
         }
-        if self.territories.len() > MAX_CANNONS
+        if world.version < 9 && self.territories.len() > MAX_CANNONS
             || self.territories.windows(2).any(|p| p[0].id >= p[1].id)
             || self
                 .territories
@@ -152,7 +152,7 @@ impl State {
             }
             let count = retained.entry(l.player).or_insert(0usize);
             *count += 1;
-            if *count > MAX_RETAINED_PER_PLAYER {
+            if world.version < 9 && *count > MAX_RETAINED_PER_PLAYER {
                 return Err("PLAYER_CANNON_CAPACITY".into());
             }
             *anchors.entry(region).or_insert(0usize) += 1;
@@ -287,7 +287,7 @@ pub fn finalize_elapsed(
     pending: &[Fence],
 ) -> Result<Vec<Fence>> {
     let mut unique = BTreeSet::new();
-    if pending.len() > MAX_CANNONS
+    if world.version < 9 && pending.len() > MAX_CANNONS
         || pending
             .iter()
             .any(|f| !unique.insert((f.cannon, f.generation)))

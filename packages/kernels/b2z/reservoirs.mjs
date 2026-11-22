@@ -1,3 +1,4 @@
+import {RESERVOIR_PRICE_E8S as ECONOMY_PRICE} from '../../protocol/economy17.generated.mjs';
 import {hasEnemyClearance} from '../../protocol/territory-clearance.mjs';
 import {reservoirHas, RESERVOIR_PRICE_E8S} from '../../protocol/reservoir.mjs';
 import {occupiedCells, playerByAccount} from './purchases-v6.mjs';
@@ -13,13 +14,14 @@ export function migrateReservoirs(previous) {
 }
 
 export function prepareReservoir(world, account, amount, cell) {
-  if (world.version !== 8) throw Error('RESERVOIR_SCHEMA');
-  if (amount < RESERVOIR_PRICE_E8S) return reject('UNDERFUNDED');
+  if (world.version !== 8 && world.version !== 9) throw Error('RESERVOIR_SCHEMA');
+  const price=world.version===9?ECONOMY_PRICE:RESERVOIR_PRICE_E8S;
+  if (amount < price) return reject('UNDERFUNDED');
   const player = playerByAccount(world, account);
   const territory = ownerAt(world, cell);
   if (player === undefined || territory === undefined || playerAt(world, cell) !== player) return reject('NOT_OWN_TERRITORY');
   if (!territoryBalls(world, territory)) return reject('NO_ACTIVE_ISLAND');
   if (reservoirHas(world.reservoirs, cell) || occupiedCells(world).has(cell)) return reject('SITE_OCCUPIED');
   if (!hasEnemyClearance(world.width, world.height, cell, player, c => playerAt(world, c))) return reject('ENEMY_TERRITORY_TOO_CLOSE');
-  return {kind: 'reservoir', cell, price: RESERVOIR_PRICE_E8S};
+  return {kind: 'reservoir', cell, price};
 }
