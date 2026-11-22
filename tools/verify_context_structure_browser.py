@@ -154,7 +154,6 @@ with (out/"server.log").open("w") as log:
                 capture("deflector-reorient-payment")
                 activate("#move-action")
                 page.wait_for_function("()=>__b2zExperience.composer.mode==='deflector_move'")
-                activate("#replace-instructions")
                 assert page.locator("#text-memo").text_content().startswith(f"DMOVE {config['structure']} ")
                 assert page.locator("#transfer-amount").text_content()=="0.0001 ICP"
                 capture("deflector-move-payment")

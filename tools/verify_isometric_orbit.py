@@ -8,8 +8,8 @@ from pathlib import Path
 import subprocess
 from threading import Thread
 
-from playwright.sync_api import sync_playwright
-from interaction_polish_browser import board_point, compass_and_turret, movement, scene, tile_cases
+from playwright.sync_api import sync_playwright, expect
+from interaction_polish_browser import point, board_point, compass_and_turret, movement, scene, tile_cases
 from floating_aim_browser import fire_gestures, scout_hover
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -254,37 +254,107 @@ def reservoir_quotes(browser):
             assert button.is_visible() == enabled
             if not enabled:
                 continue
+            header=page.locator('#workspace .panel-header')
+            assert header.get_by_role('button').count() == 5
+            assert button.evaluate("n=>n.closest('.panel-header')!==null&&n.getBoundingClientRect().width===44")
+            expect(page.locator('#build-action')).to_have_attribute('aria-pressed','true')
+            assert page.locator('#build-action').is_disabled()
             button.click()
-            page.wait_for_function("()=>fixture.proposal().mode==='reservoir'")
-            assert page.locator("#text-memo").text_content() == "RESERVOIR 4005"
-            assert page.locator("#transfer-amount").text_content() == "0.01 ICP"
+            expect(button).to_have_attribute('aria-pressed','true')
             assert not page.get_by_placeholder("Shout (optional)").is_visible()
-            assert page.locator('[data-copy=text]').is_enabled()
-            page.locator('[data-copy=text]').click()
-            assert page.evaluate("navigator.clipboard.readText()") == "RESERVOIR 4005"
+            copy=page.locator('[data-copy=text]')
+            memo=page.locator('#text-memo')
+
+            def check_packet(cell):
+                expect(memo).to_have_text(f'RESERVOIR {cell}')
+                expect(page.locator('#transfer-amount')).to_have_text('0.01 ICP')
+                expect(copy).to_be_enabled()
+
+            def pick(cell, left=None):
+                for x,y in [(left or width/2,height/3),(48,height*.72),(width-48,height*.72),(width/2,154)]:
+                    scene(page,cell,42,x,y)
+                    at=point(page,cell)
+                    if page.evaluate("([x,y])=>document.elementFromPoint(x,y)?.id==='board'",at):
+                        break
+                else:
+                    raise AssertionError(f'no unobstructed board pose for {cell}')
+                page.mouse.click(*at)
+                page.wait_for_function("n=>fixture.proposal().cell===n", arg=cell)
+                assert page.evaluate("fixture.proposal().mode")=='reservoir'
+
+            check_packet(4005)
+            pick(4006)
+            check_packet(4006)
+            pick(4005, width/2+28)
+            check_packet(4005)
+            for field,value in [('amount','0.01'),('owner','s5ir5-gqaaa-aaaas-amyna-cai'),('text','RESERVOIR 4005')]:
+                page.locator(f'[data-copy={field}]').click()
+                assert page.evaluate('navigator.clipboard.readText()')==value
             screen(page, f"reservoir-quote-{width}")
-            # Plan a different eligible site, then restore the complete
-            # previously copied packet with its original tile context.
-            assert page.evaluate("fixture.choose(4006)")
-            page.wait_for_function("()=>!document.getElementById('replace-choice').hidden")
-            page.locator("#keep-instructions").click()
-            assert page.locator("#text-memo").text_content() == "RESERVOIR 4005"
-            assert page.locator('[data-copy=text]').is_enabled()
-            assert page.evaluate("fixture.choose(4006)")
-            page.locator("#replace-instructions").click()
-            assert page.locator("#text-memo").text_content() == "RESERVOIR 4006"
-            page.locator("#close-panel").click()
-            t = 4010  # three cells from enemy territory
-            scene(page, t, 48 if width >= 700 else 42, width / 2, height / 3)
-            page.mouse.click(*board_point(page, t))
-            page.locator("#reservoir-action").click()
-            assert page.locator('[data-copy=text]').is_disabled()
-            assert "enemy territory" in page.locator("#preparation-note").text_content().lower()
+
+            pick(4006)
+            check_packet(4006)
+            assert page.locator('#replace-choice').count()==0
+            copy.click()
+            assert page.evaluate('navigator.clipboard.readText()')=='RESERVOIR 4006'
+            pick(4005,width/2+28)
+            check_packet(4005)
+            if width==1440:
+                # A pending request for the old cell may settle after selection
+                # changes. Its denial must not show a stale manual Copy field.
+                page.evaluate("""()=>{
+                    window.realReservoirWrite=navigator.clipboard.writeText.bind(navigator.clipboard);
+                    navigator.clipboard.writeText=()=>new Promise((_, reject)=>{
+                        window.denyReservoirWrite=()=>reject(new DOMException('Denied','NotAllowedError'));
+                    });
+                }""")
+                copy.click()
+                page.wait_for_function('()=>typeof window.denyReservoirWrite==="function"')
+                pick(4006)
+                expect(copy).to_be_disabled()
+                page.evaluate('denyReservoirWrite();navigator.clipboard.writeText=realReservoirWrite')
+                check_packet(4006)
+                expect(page.locator('#manual-copy')).to_be_hidden()
+                pick(4005,width/2+28)
+                check_packet(4005)
+                page.evaluate("""()=>fixture.status({resolved:{canPrepare:false,kind:'delivery',label:'Reconnecting'}})""")
+                pick(4006)
+                expect(memo).to_have_text('RESERVOIR 4006')
+                expect(copy).to_be_disabled()
+                page.evaluate("""()=>fixture.status({resolved:{canPrepare:true,kind:'playing',label:'Live'}})""")
+                check_packet(4006)
+                pick(4005,width/2+28)
+                check_packet(4005)
+
+            if width==320:
+                page.set_viewport_size({'width':320,'height':350})
+                page.wait_for_function("""()=>fixture.camera.viewport.height===350
+                    && document.documentElement.classList.contains('short-edit')
+                    && fixture.shell.layoutState().revision===fixture.shell.layoutState().committedRevision""")
+                assert all(r['width']>=44 and r['x']>=0 and r['x']+r['width']<=320
+                           for r in [b.bounding_box() for b in header.get_by_role('button').all()])
+                expect(page.locator('#cycles-display')).to_be_visible()
+                screen(page,'reservoir-quote-320-contracted')
+                page.set_viewport_size({'width':320,'height':640})
+                page.wait_for_function('()=>fixture.camera.viewport.height===640')
+
+            pick(4010)  # three cells from enemy territory
+            expect(copy).to_be_disabled()
+            expect(memo).to_have_text('')
+            assert 'enemy territory' in page.locator('#preparation-note').text_content().lower()
             screen(page, f"reservoir-enemy-clearance-{width}")
             assert page.evaluate("fixture.reservoirs()!==null"), "verified state must mount excavation layer"
+            page.locator('#identify-button').click()
+            records=page.locator('#saved-list article')
+            expect(records).to_have_count(2)
+            expect(records.nth(0)).to_contain_text('RESERVOIR 4006')
+            expect(records.nth(1)).to_contain_text('RESERVOIR 4005')
+            records.nth(1).get_by_text('View saved instructions').click()
+            expect(records.nth(1)).to_contain_text('Memo RESERVOIR 4005')
+            expect(copy).to_be_disabled()
         assert not errors, errors
         rows.append({"size": [width,height], "historical_capability_hidden": True, "fixed_amount": "0.01 ICP",
-                     "memo": "RESERVOIR 4005", "native_copy": True, "keep_update": True, "enemy_distance_3_rejected": True})
+                     "memo": "RESERVOIR 4005", "native_copy": True, "consecutive_quotes": True, "enemy_distance_3_rejected": True})
         context.close()
     return rows
 

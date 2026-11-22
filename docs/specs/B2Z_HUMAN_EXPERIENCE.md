@@ -347,9 +347,7 @@ destination (including valid cell zero), replace that generic warning with exact
 > If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.
 
 Never show both warnings. Unchosen destinations do not expose a copyable packet
-or this destination warning. Choose the warning from the displayed instruction
-packet, including a frozen packet after Keep previous; editing another action
-must not mix its risk text into the retained handoff. This is explanation of the
+or this destination warning. Choose the warning from the current verified instruction packet. This is explanation of the
 existing race/retention risk, not a change to on-chain eligibility or refunds.
 The warning stays in the same natural panel scroll, without another disclosure.
 The ordinary handoff has no legacy-address or hexadecimal-memo controls. Internal
@@ -360,17 +358,16 @@ No Prepare → Confirm → Report chain. Editing and wallet instructions share a
 Canonical quote helpers are the sole price/legality convenience implementation.
 Partial quantity is described as “Up to N”; no guaranteed fulfilment or refund.
 
-First successful copy freezes the complete binding. Later copies use that packet,
-including when live prices change. Editing requires an inline Update instructions /
-Keep previous decision before replacement values become copyable. A denied copy
-shows exact selectable text and claims no success. A native Copy event over the
-manual fallback or financial fields conservatively freezes the complete packet,
-without claiming the OS clipboard write succeeded. Keep the selected DOM intact
-until the browser default copy completes. Explicit manual handoff also freezes
-the same complete packet. This prevents paying an old amount with a new memo.
-Account/backend/target changes cannot silently retarget a copied packet. Closing
-or reloading retains bounded scoped history; old instructions are historical, not
-reservations or a recommendation to pay/resend. Missing targets retain warnings.
+Every handoff captures the current complete proposal. Explicit target, action,
+quantity, heading and annotation changes replace the displayed amount, recipient
+and memo together. Account history retains the previous complete instruction as a
+read-only record. Any payment already submitted to the Ledger is unaffected.
+
+A denied copy shows exact selectable text and claims no success. A pending
+clipboard result may save the old captured instruction only in history. It cannot
+show stale manual Copy or success feedback on a newer proposal. Native selection,
+manual fallback and button Copy all require current payment authority. An invalid
+proposal has no copyable values. Closing or reloading retains scoped history.
 
 Saved instructions and verified account outcomes are separate. Neither copying nor
 an old reported index proves payment. Migrate reported records to unknown local
@@ -990,11 +987,12 @@ and scheduled cooperatively. Its default is minimum wrapped Chebyshev distance,
 then minimum cell index. Additional Build prefers legal cardinal sites around the
 selected cannon, then nearest global eligible site and cell index. Opening selects
 an explicit site immediately when available; it never promises first Join placement.
-Existing user/copy intent is not silently replaced by a new publication. Invalid
-quotes disable copying through existing Update/Keep safeguards.
+Revalidate the selected destination against new publications. An invalid quote
+disables copying until a fresh valid proposal is available.
 
 UX-12 Move adds a static gold arrow with dark underlay, using shortest wrapped
-displacement and a bounded visible direction for distant targets. It is a relocation
+displacement and a bounded visible direction for distant targets. HTML panels may
+occlude the arrow naturally. Its scene geometry is independent of controls. It is a relocation
 proposal, not animation or a travel path. Build retains only its aiming guide.
 Invalid/closed Move removes the arrow and provisional cannon.
 
@@ -1058,8 +1056,8 @@ no aim, pan, target, follow or double-click zoom is triggered. Keyboard arrow
 editing works on the widget. When the source is offscreen, the existing Locate
 route remains explicit. No continuous camera accommodation is introduced.
 
-Quantity/heading changes update the same proposed memo/amount. Copied packets use
-the existing Update/Keep safeguard; Keep restores both old quantity and heading.
+Quantity and heading edits update the complete active proposal. Prior copied
+instructions remain in Account history.
 Changed payer/rules/world invalidates incompatible instructions; an old price
 cannot be copied merely to preserve geometry. Default legal Move/Build targets,
 active Rules7/Rules9 policy binding and exact risk warning remain unchanged. No
@@ -1219,8 +1217,7 @@ unhealthy processing, protection, pause and integrity failure block handoff.
 The three Copy controls and manual payment handoff carry the disabled state.
 From and To inspection, payer reassociation, local proposal editors, camera
 and Close remain usable with the retained world. API, native and manual Copy
-each recheck current authority at invocation. Copied packet Update/Keep rules
-and canonical bytes are unchanged.
+each recheck current authority at invocation and copy the current canonical bytes.
 
 Steady unchanged-head reads follow the observed producer cadence, between
 500 ms and 4 s. Trickle normally checks every 4 s and refreshes promptly on
@@ -1250,7 +1247,7 @@ ownership, occupancy, another friendly structure at distance 1–3, and enemy
 clearance. Selected but ineligible sites disclose the reason. Deflector
 directions use screen N/E/S/W while preserving physical diagonal headings.
 Local proposals and authenticated structures remain visually distinct.
-Existing readiness, exact clipboard and Update/Keep contracts still apply.
+Existing payment readiness and exact clipboard contracts still apply.
 
 ## Rules13 experience continuation
 
@@ -1335,3 +1332,12 @@ without moving the fixed base. The rendered intermediate angle never
 determines the draft heading, guide or quoted memo. Direct aim edits and
 reduced-motion mode respond immediately. `verify_isometric_orbit.py
 --interaction-polish` exercises these contracts with Chromium and Three.js.
+
+
+## Rules16 owned-tile actions
+
+The owned-tile toolbar adds Build Reservoir between Build Diverter and Close.
+All five controls retain 44px targets. Build Cannon stays the initial default.
+When a player chooses Build Reservoir, further tile selection during that
+action keeps Reservoir mode. Reservoir eligibility uses the authenticated
+Rules16 configuration and can differ from Cannon or Diverter eligibility.

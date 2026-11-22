@@ -44,6 +44,7 @@ def copies(page, memo):
 
 
 def denied_move_copy(page, context, memo):
+    page.evaluate("navigator.clipboard.writeText('untouched clipboard')")
     cdp = context.new_cdp_session(page)
     permission = {
         "permission":{"name":"clipboard-write"},
@@ -77,6 +78,48 @@ def denied_move_copy(page, context, memo):
         return {"permission":"denied", "native_result":"NotAllowedError", "manual_utf8":expected}
     finally:
         cdp.detach()
+
+
+def guide_overlap(page, screen, width, source, destination, stem):
+    # Match the Three.js buffer to the full board-space arrow at every
+    # orientation. Force a real overlapping pose by panning the terrain.
+    for quarter in (0,1,2,3):
+        button=page.locator(f"[data-board-quarter='{quarter}']")
+        if button.is_enabled():
+            button.click()
+        page.wait_for_function("q=>fixture.camera.quarter===q&&!fixture.shell.controller.rotation",arg=quarter)
+        scene(page,destination,22,width/2,340 if width<700 else 370)
+        assert not page.evaluate("n=>fixture.camera.cellPoint(n).visible",source)
+        page.wait_for_function("""()=>{
+            const arrow=fixture.moveGuide(),drawn=fixture.inspect();
+            return arrow&&drawn.guide&&drawn.guideEnd
+                && [drawn.guide,drawn.guideEnd].every((p,i)=>p.every((n,j)=>Math.abs(n-arrow.world[i][j])<.0002));
+        }""")
+    if width!=1440:
+        return False
+    for quarter in (0,1,2,3):
+        button=page.locator(f"[data-board-quarter='{quarter}']")
+        if button.is_enabled():
+            button.click()
+        page.wait_for_function("q=>fixture.camera.quarter===q&&!fixture.shell.controller.rotation",arg=quarter)
+        panel=page.locator('#workspace').bounding_box()
+        for px,py in [(panel['x']-65,panel['y']+90),(panel['x']+60,panel['y']+panel['height']+45)]:
+            scene(page,source,38,px,py)
+            overlaps=page.evaluate("""()=>{
+                const a=fixture.moveGuide(),drawn=fixture.inspect();
+                if(!a||!drawn.guide||!drawn.guideEnd)return false;
+                if(![drawn.guide,drawn.guideEnd].every((p,i)=>p.every((n,j)=>Math.abs(n-a.world[i][j])<.0002)))return false;
+                const [s,t]=a.screen,points=Array.from({length:15},(_,i)=>{
+                    const f=i/14;return document.elementFromPoint(s.x+(t.x-s.x)*f,s.y+(t.y-s.y)*f);
+                });
+                return points.some(n=>n?.closest('#workspace'))&&points.some(n=>n?.id==='board');
+            }""")
+            if overlaps:
+                screen(page,f"{stem}-arrow-behind-panel")
+                expect(page.locator('[data-copy=text]')).to_be_enabled()
+                expect(page.get_by_placeholder('Shout (optional)')).to_be_visible()
+                return True
+    raise AssertionError('movement fixture needs a genuine panel overlap')
 
 
 def movement(browser, url, declare, screen, width, height, diverter, floating=False):
@@ -130,19 +173,11 @@ def movement(browser, url, declare, screen, width, height, diverter, floating=Fa
     second = first+1
     target_panel(page, second)
     assert page.evaluate("fixture.summary().camera") == pose
-    chooser=page.locator("#replace-choice")
-    expect(chooser).to_be_visible()
-    page.locator("#keep-instructions").click()
-    expect(page.locator("#text-memo")).to_have_text(payload)
-    target_panel(page, first)
-    expect(page.locator('[data-copy="text"]')).to_be_enabled()
-    page.locator("#board").press("Alt+ArrowRight")
-    page.locator("#board").press("Enter")
-    third = second+1
-    target_panel(page, third)
-    page.locator("#replace-instructions").click()
-    updated = f"{'DMOVE' if diverter else 'MOVE'} 1 {third}|far"
+    assert page.locator('#replace-choice').count()==0
+    updated = f"{'DMOVE' if diverter else 'MOVE'} 1 {second}|far"
     expect(page.locator("#text-memo")).to_have_text(updated)
+    copies(page,updated)
+    third=second
     scene(page, 255250, 22)
     assert not page.evaluate("n=>fixture.camera.cellPoint(n).visible", third)
     expect(page.locator("#workspace")).to_be_visible()
@@ -170,9 +205,13 @@ def movement(browser, url, declare, screen, width, height, diverter, floating=Fa
             expect(shout).to_have_value("far")
             assert shout.evaluate("node=>node.getBoundingClientRect().bottom<=innerHeight")
         screen(page, f"{stem}-contracted-move")
+    if width==320:
+        page.set_viewport_size({'width':320,'height':640})
+        page.wait_for_function('()=>fixture.camera.viewport.height===640')
+    overlap=guide_overlap(page,screen,width,source,third,stem)
     assert not errors, errors
     context.close()
-    return {"kind":stem, "first":first, "keyboard_destination":third, "native_clipboard":"PASS", "copy_keep_update":"PASS", "manual_fallback":fallback}
+    return {"overlap":overlap,"kind":stem, "first":first, "keyboard_destination":third, "native_clipboard":"PASS", "consecutive_quotes":"PASS", "manual_fallback":fallback}
 
 
 def tile_cases(page, screen, variant, width):
@@ -212,11 +251,19 @@ def tile_cases(page, screen, variant, width):
     assert page.evaluate("fixture.summary().camera")==pose
     page.wait_for_function("()=>fixture.inspect().ghostKind==='cannon'")
     screen(page,f"{prefix}-auto-build")
+    icon=page.locator('[data-copy=text]')
+    before=page.locator('#text-memo').text_content()
+    icon.click()
+    expect(page.locator('#copy-feedback')).to_contain_text('Copied.')
+    assert before.startswith('NEW ')
     scene(page,legal,2,70,300)
     page.wait_for_function("()=>fixture.inspect().tileHighlights.some(h=>h.cell===10003&&h.kind==='destination'&&h.marker)")
     screen(page,f"{prefix}-far-destination")
     page.locator("#deflect-action").click()
     expect(page.locator("#text-memo")).to_contain_text("DEFLECT 10003")
+    expect(icon).to_be_enabled()
+    icon.click()
+    expect(page.locator('#copy-feedback')).to_contain_text('Copied.')
     page.locator("#close-panel").click()
 
 

@@ -54,8 +54,13 @@ try:
      page.locator(f'[data-copy="{key}"]').click();assert pasted(context,page)==value
     row['clipboard']={'recipient':recipient,'amount':amount,'memo':memo,'scope':'Native Copy and external read-only paste, no payment'}
     prior=page.locator('[data-deflector-orientation][aria-pressed="true"]').get_attribute('data-deflector-orientation');other='NW'if prior!='NW'else'NE'
-    page.locator(f'[data-deflector-orientation="{other}"]').click();expect(page.locator('#replace-choice')).to_be_visible();page.locator('#keep-instructions').click();expect(page.locator('#text-memo')).to_have_text(memo);expect(page.locator(f'[data-deflector-orientation="{prior}"]')).to_have_attribute('aria-pressed','true')
-    page.locator(f'[data-deflector-orientation="{other}"]').click();page.locator('#replace-instructions').click();expect(page.locator('#text-memo')).to_have_text(__import__('re').compile(r'DEFLECT \d+ '+other));row['update_keep']='PASS exact previous memo and visible orientation restored; deliberate Update accepts new orientation'
+    page.locator(f'[data-deflector-orientation="{other}"]').click()
+    assert page.locator('#replace-choice').count()==0
+    expect(page.locator('#text-memo')).to_have_text(__import__('re').compile(r'DEFLECT \d+ '+other))
+    expect(page.locator(f'[data-deflector-orientation="{other}"]')).to_have_attribute('aria-pressed','true')
+    page.locator('[data-copy=text]').click()
+    assert pasted(context,page)==page.locator('#text-memo').text_content()
+    row['orientation_change']='PASS immediate quote and exact native clipboard'
     # Full address remains native-selectable, never the abbreviated principal.
     assert page.locator('#recipient-reveal').count()==0;assert page.locator('#payment-owner').evaluate('(n)=>n.tagName')=='SPAN';assert page.locator('#full-recipient').text_content()==recipient
     if width<700:

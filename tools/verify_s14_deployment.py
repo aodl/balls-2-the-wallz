@@ -23,9 +23,7 @@ def identify_account(page,account=None):
     assert page.locator('#identity-form').is_hidden(),page.locator('#identity-note').inner_text()
     page.locator('#close-panel').click()
 def review_instructions(page):
-    if page.locator('#replace-instructions').is_visible():
-        assert page.locator('[data-copy=text]').is_disabled()
-        page.locator('#replace-instructions').click()
+    assert page.locator('#replace-choice').count()==0
 def select_cannon(page,cannon=None):
     selected=page.evaluate('__b2zTools.selection()')
     if selected is not None and page.locator('#workspace').is_visible() and (cannon is None or selected==cannon):
@@ -431,10 +429,9 @@ def verify_epoch_transition(page,context,out,record,report,save,errors):
     wait_until(page,lambda:'32 × 32' in world_text(page),60000)
     assert 'wraparound' in world_text(page)
     choose_action(page,'move',review=False)
-    wait_until(page,lambda:page.locator('#replace-choice').is_visible() and page.locator('#replace-choice').is_visible(),30000)
-    assert page.locator('[data-copy=text]').is_disabled();assert page.locator('[data-copy="text"]').is_disabled()
-    assert page.locator('#replace-choice').is_visible()
-    assert page.evaluate('Boolean(__b2zExperience.session.ready)') # saved packet remains in scoped local history
+    assert page.locator('#replace-choice').count()==0
+    assert page.locator('#text-memo').inner_text()!=f'MOVE {old_cell}'
+    assert page.evaluate('Boolean(__b2zExperience.session.ready)')
     mapped=(old_cell//16+12)*32+old_cell%16+8
     choose_cell(page,str(mapped));review_instructions(page);wait_until(page,lambda:not page.locator('[data-copy=text]').is_disabled(),30000);wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     progress('new-epoch-packet-verified');assert page.locator('#text-memo').inner_text()==f'MOVE {mapped}'

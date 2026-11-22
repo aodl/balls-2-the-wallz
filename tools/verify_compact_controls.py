@@ -55,12 +55,12 @@ with sync_playwright() as pw:
      r=page.locator(selector).bounding_box();page.touchscreen.tap(r['x']+r['width']/2,r['y']+r['height']/2)
     assert page.locator('#quantity-count').text_content()=='4';assert page.evaluate('fixture.summary().camera')==before['camera'];assert float(page.evaluate('fixture.proposal().degrees'))==float(before['angle']);assert page.locator('#text-memo').text_content()==touch_before['memo'];assert page.evaluate('fixture.aim().heading')==touch_before['heading'];row['touch_stepper']='PASS native emulated taps, no aim/pan/zoom'
    owner=page.locator('#full-recipient').text_content();assert '…' in page.locator('#payment-owner').text_content();page.locator('[data-copy=owner]').click();assert pasted(ctx,page)==owner;assert page.locator('#recipient-reveal').count()==0;assert page.locator('#payment-owner').evaluate('(n)=>n.tagName')=='SPAN';assert page.locator('#full-recipient').text_content()==owner
-   # A copied packet remains coherent through draft edits and Keep/Update.
-   memo=page.locator('#text-memo').text_content();page.locator('[data-copy=text]').click();assert pasted(ctx,page)==memo;page.locator('#quantity-plus').click();assert page.locator('#replace-choice').is_visible();page.locator('#keep-instructions').click();assert page.locator('#quantity-count').text_content()=='4' and page.locator('#text-memo').text_content()==memo;page.locator('#quantity-plus').click();page.locator('#replace-instructions').click();assert page.evaluate('fixture.command().quantity')==5
+   # A deliberate edit prepares the complete new quote immediately.
+   memo=page.locator('#text-memo').text_content();page.locator('[data-copy=text]').click();assert pasted(ctx,page)==memo;page.locator('#quantity-plus').click();assert page.locator('#replace-choice').count()==0;assert page.evaluate('fixture.command().quantity')==5
+   memo=page.locator('#text-memo').text_content();page.locator('[data-copy=text]').click();assert pasted(ctx,page)==memo
    amount=page.locator('#transfer-amount').text_content().replace(' ICP','');page.locator('[data-copy=amount]').click();assert pasted(ctx,page)==amount;row['exact_copy']={'recipient':owner,'amount':amount,'memo':memo,'status':'PASS actual native writes/copy/paste; read API remains forbidden'}
    for action,prompt in [('move','Pay to Move'),('build','Pay to Build & Fire')]:
     page.locator('#'+action+'-action').click()
-    if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click()
     settled_panel(page);assert page.locator('#action-prompt').text_content()==prompt;assert page.locator('#payment-risk').text_content()==TILE_PAYMENT_WARNING;assert page.evaluate('fixture.proposal().cell')is not None;assert page.locator('#quantity-controls').is_hidden();page.screenshot(path=str(out/f'{w}-{action}.png'))
    row['move_build']='PASS legal defaults, exact prompts and warning';row['errors']=errors;assert not errors;save();page.close();ctx.close()
   report['entry_matrix']=verify_returning_entry(browser,url,out)

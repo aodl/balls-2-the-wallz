@@ -198,11 +198,10 @@ def capture_player_review(page,width,height,out):
  set_heading(page,'45');set_quantity(page,2);page.wait_for_timeout(450)
  page.screenshot(path=str(out/f'{width}x{height}-populated.png'))
  for kind in ['amount','owner','text']:page.locator(f'[data-copy="{kind}"]').click();expect(page.locator('#copy-feedback')).to_contain_text('Copied')
- set_heading(page,'90');expect(page.locator('#replace-choice')).to_be_visible();page.wait_for_timeout(400);page.locator('#replace-instructions').click();page.locator('[data-copy="text"]').click();expect(page.locator('#text-memo')).to_have_text('FIRE 1 315 2')
+ set_heading(page,'90');assert page.locator('#replace-choice').count()==0;page.locator('[data-copy="text"]').click();expect(page.locator('#text-memo')).to_have_text('FIRE 1 315 2')
  page.locator('#payment-risk').scroll_into_view_if_needed();page.screenshot(path=str(out/f'{width}x{height}-wallet.png'));page.wait_for_timeout(350)
  before=page.evaluate('fixture.summary().time');page.locator('#close-panel').click();point=page.evaluate('fixture.point(1)');page.mouse.click(point['x'],point['y']);page.wait_for_timeout(500);assert page.evaluate('fixture.sameClock()')and page.evaluate('fixture.summary().time')>before
  page.locator('#move-action').click();choose_cell(page,'101');
- if page.locator('#replace-choice').is_visible():page.locator('#replace-instructions').click()
  expect(page.locator('#text-memo')).to_have_text('MOVE 1 101');target=page.evaluate('fixture.camera.cellPoint(101)');page.mouse.move(target['sx'],target['sy']);page.wait_for_timeout(350);page.mouse.click(target['sx'],target['sy']);page.wait_for_timeout(500);page.locator('#close-panel').click();page.evaluate('fixture.select(1)');page.locator('#build-action').click();site=page.evaluate('fixture.sites()[0]');choose_cell(page,str(site));assert page.evaluate('fixture.aim().cannon.cell')==site;page.wait_for_timeout(700);page.locator('#close-panel').click()
  mini=page.locator('#minimap').bounding_box();page.mouse.move(mini['x']+mini['width']*.5,mini['y']+mini['height']*.85);page.mouse.down();page.mouse.move(mini['x']+mini['width']*.5,mini['y']+mini['height']*.97,steps=8);page.mouse.up();page.wait_for_timeout(600);assert page.evaluate('fixture.sameClock()')
  # A declared fixture-scene switch supplies a canonical seam trajectory. Acceleration

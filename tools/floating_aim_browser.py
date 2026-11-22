@@ -60,8 +60,7 @@ def fire_gestures(page, context, screen, width):
         wait_new_heading(page,before)
         assert page.evaluate("fixture.summary().camera") == before_position
         assert page.evaluate("fixture.summary().selected") == 1
-        if page.locator("#replace-choice").is_visible():
-            page.locator("#replace-instructions").click()
+        assert page.locator("#replace-choice").count()==0
         memo = page.locator("#text-memo").text_content()
         assert memo.startswith("FIRE"), memo
         expect(page.locator('[data-copy=text]')).to_be_enabled()

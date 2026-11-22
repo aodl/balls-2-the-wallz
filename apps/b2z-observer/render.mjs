@@ -214,7 +214,7 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   if(marker.visible){const p=camera.cellPoint(markCell);marker.position.set(p.x,.03,p.y);}
   if(aim&&(aim.cannon.id===null||v.cannons.get(aim.cannon.id)?.cell!==aim.cannon.cell)){const p=camera.cellPoint(aim.cannon.cell),a=aim.angle*Math.PI/180;cannon(aim.kind==='deflect'?outlinedDeflector:outlined,p.x,p.y,a,cannonLod,{},1.07);cannon(aim.kind==='deflect'?provisionalDeflector:provisional,p.x,p.y,a,cannonLod);}
 
-  const move=(selection?.id!==undefined||selection?.deflector)&&selection.cell!==null&&selection.legal?.(selection.cell)?selection:null,source=move&&(move.deflector??move.reference?.cannons.find(c=>c.id===move.id)??v.cannons.get(move.id));const arrow=aimingArrow(camera,aim,guideObstacles)??(source?movementArrow(camera,source.cell,move.cell,guideObstacles):null);guide.visible=guideUnder.visible=Boolean(arrow);if(arrow)guideGeometry.setPositions(arrow.world.flatMap(([x,y])=>[x,arrow.height,y]));
+  const move=(selection?.id!==undefined||selection?.deflector)&&selection.cell!==null&&selection.legal?.(selection.cell)?selection:null,source=move&&(move.deflector??move.reference?.cannons.find(c=>c.id===move.id)??v.cannons.get(move.id));const arrow=aimingArrow(camera,aim,guideObstacles)??(source?movementArrow(camera,source.cell,move.cell):null);guide.visible=guideUnder.visible=Boolean(arrow);if(arrow)guideGeometry.setPositions(arrow.world.flatMap(([x,y])=>[x,arrow.height,y]));
   const tileContours=[];
   const contour=(cell,kind)=>{if(cell!=null){const next=tileIndicator(camera,cell,kind);if(next)tileContours.push(next);}};
   if(selectedTile!==null&&!selection)contour(selectedTile,'selected');

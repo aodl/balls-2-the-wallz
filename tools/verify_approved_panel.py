@@ -29,11 +29,10 @@ with sync_playwright()as pw:
     for action,prompt in [('fire','Pay to Fire'),('move','Pay to Move'),('build','Pay to Build & Fire')]:
      if action!='fire':
       page.locator('#'+action+'-action').click();settled_panel(page)
-      if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click();settled_panel(page)
      assert page.locator('#action-prompt').text_content()==prompt;row['actions'][action]=align(page)
      if action in ['move','build']:assert page.locator('#payment-risk').text_content()==TILE_PAYMENT_WARNING
      if action=='fire'and enabled:
-      page.locator('#war-cry').fill('CHARGE!');assert page.locator('#text-memo').text_content().endswith('|CHARGE!');page.locator('[data-copy=amount]').click();page.wait_for_function('()=>copied.length>0');old=page.locator('#text-memo').text_content();page.locator('#war-cry').fill('Again');assert page.locator('#replace-choice').is_visible();page.locator('#keep-instructions').click();assert page.locator('#war-cry').input_value()=='CHARGE!'and page.locator('#text-memo').text_content()==old;page.locator('#war-cry').fill('Again');page.locator('#replace-instructions').click();assert page.locator('#text-memo').text_content().endswith('|Again');row['copied_cry']='PASS Keep/Update complete memo and input'
+      page.locator('#war-cry').fill('CHARGE!');assert page.locator('#text-memo').text_content().endswith('|CHARGE!');page.locator('[data-copy=amount]').click();page.wait_for_function('()=>copied.length>0');old=page.locator('#text-memo').text_content();page.locator('#war-cry').fill('Again');assert page.locator('#replace-choice').count()==0;assert page.locator('#text-memo').text_content().endswith('|Again');assert page.locator('[data-copy=text]').is_enabled();row['copied_cry']='PASS edited Unicode memo replaces the active quote'
       # Focus/caret and local key ownership across ordinary status refresh.
       page.locator('#war-cry').focus();before=page.evaluate('fixture.summary().camera');page.keyboard.press('ArrowLeft');page.keyboard.press('b');assert page.evaluate('fixture.summary().camera')==before;assert page.locator('#war-cry').evaluate('(n)=>document.activeElement===n')
       page.locator('#war-cry').fill('a'*64);assert len(page.locator('#text-memo').text_content().encode())<=32;assert len(page.locator('#war-cry').input_value())<64
@@ -42,7 +41,6 @@ with sync_playwright()as pw:
       page.evaluate('()=>navigator.clipboard.writeText("é 🇬🇧")');page.locator('#war-cry').focus();page.keyboard.press('Control+A');page.keyboard.press('Control+V');assert page.locator('#war-cry').input_value()=='é 🇬🇧'
       page.evaluate('(text)=>navigator.clipboard.writeText(text)','\ufeffA');page.locator('#war-cry').focus();page.keyboard.press('Control+A');page.keyboard.press('Control+V');assert page.locator('#war-cry').input_value()=='\ufeffA';row['native_BOM']='PASS U+FEFF remains exact payload after native paste and canonical memo copy'
 
-     if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click();settled_panel(page)
      if action=='fire'and enabled:assert page.locator('#text-memo').text_content().endswith('|\ufeffA')
      settled_panel(page) # Deliberate cry edits may still be expanding the replacement notice.
      baseline=geometry(page)['panel'];row['actions'][action]['status_samples']=[]
@@ -57,7 +55,6 @@ with sync_playwright()as pw:
      assert page.locator('#recipient-reveal').count()==0;assert page.locator('#payment-owner').evaluate('(n)=>n.tagName')=='SPAN';assert page.locator('#full-recipient').text_content()=='s5ir5-gqaaa-aaaas-amyna-cai';settled_panel(page);page.screenshot(path=str(out/f'{w}-{enabled}-{action}.png'));save()
     # Reopen Fire, exact camera pose; fixture geometry control is not production acceptance.
     page.locator('#fire-action').click();settled_panel(page);page.evaluate('fixture.shell.controller.cancel();Object.assign(fixture.camera,{x:3.6575453715563526,y:3.6575453715563526,scale:64});fixture.setHeading(347.15);fixture.draw()');page.wait_for_timeout(500)
-    if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click();settled_panel(page)
     if enabled:page.locator('#war-cry').fill('Hello')
     for heading in [347.15,*range(0,360,15),*range(345,-1,-15),347.15]:
      page.evaluate('(h)=>fixture.setHeading(h)',heading);page.wait_for_timeout(20);g=geometry(page);assert not g['hidden'];r=g['group'];assert r['left']>=0 and r['right']<=w and r['top']>=0 and r['bottom']<=h;assert page.locator('#quantity-controls').is_visible();assert page.locator('#war-cry').is_visible()==enabled
@@ -87,7 +84,6 @@ with sync_playwright()as pw:
      # CDP drives the browser's native IME editing path, not dispatched DOM events.
      page.locator('#war-cry').focus();page.locator('#war-cry').fill('');dev=ctx.new_cdp_session(page)
      dev.send('Input.imeSetComposition',{'text':'進め','selectionStart':2,'selectionEnd':2});assert page.locator('[data-copy=text]').is_disabled();dev.send('Input.insertText',{'text':'進め'});page.keyboard.press('Enter');assert page.locator('#war-cry').input_value()=='進め'
-     if page.locator('#replace-instructions').is_visible():page.locator('#replace-instructions').click()
      assert page.locator('#text-memo').text_content().endswith('|進め');row['native_ime']='PASS composing copy fence and committed Unicode memo'
      gesture_probes(page,ctx,row)
      # The same real touch route must work after an actual compass rotation.

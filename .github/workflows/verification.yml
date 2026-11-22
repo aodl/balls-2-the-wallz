@@ -2,7 +2,7 @@ name: verification
 
 on:
   push:
-    branches-ignore: [feature/b2z-rules15-floating-aim]
+    branches-ignore: [feature/b2z-rules15-floating-aim, feature/b2z-rules16-toolbar-payments]
   pull_request:
 
 # Push and same-repository PR events share a group; keep only the newest run.
