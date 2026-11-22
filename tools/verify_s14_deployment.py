@@ -337,7 +337,74 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
         save_boundary_trace(page,out,'browser-boundary-events-after-reconnect.json')
         assert report['million_sustained_analysis']['status']=='PASS',report['million_sustained_analysis']
 
-def verify_epoch_transition(page,context,out,record,report,save):
+def copy_epoch_move(page, expected, report, save, errors):
+    button=page.locator('[data-copy="text"]')
+    byte_values=list(expected.encode('utf-8'))
+    button.scroll_into_view_if_needed()
+    settled_panel(page)
+    page.evaluate("""async()=>{
+     const button=document.querySelector('[data-copy="text"]'),feedback=document.getElementById('copy-feedback');
+     const events=[],attempts=[],controller=new AbortController();
+     const snapshot=()=>{
+      const {status,session}=__b2zExperience;
+      return {disabled:button.disabled,ready:document.getElementById('transfer-controls').dataset.paymentReady,
+       canPrepare:status.canPrepare,status:status.kind,pendingHead:String(session.pendingAuthorityHead??''),
+       operationalAge:performance.now()-session.operationalAt,certificateAge:performance.now()-session.certifiedAt,
+       memo:document.getElementById('text-memo').textContent,feedback:feedback.textContent,
+       manual:!document.getElementById('manual-copy').hidden,focused:document.hasFocus(),head:String(__dtrLive.heads.at(-1))};
+     };
+     for(const type of ['pointerdown','pointerup','click'])document.addEventListener(type,event=>{
+      const hit=document.elementFromPoint(event.clientX,event.clientY);
+      events.push({type,trusted:event.isTrusted,target:event.target.closest('[data-copy]')?.dataset.copy??event.target.id,
+       hit:hit?.closest('[data-copy]')?.dataset.copy??hit?.id,...snapshot()});
+     },{capture:true,signal:controller.signal});
+     const original=navigator.clipboard.writeText;
+     navigator.clipboard.writeText=async function(text){
+      const attempt={bytes:[...new TextEncoder().encode(text)],result:'pending',atStart:snapshot()};attempts.push(attempt);
+      try{await original.call(this,text);attempt.result='written';}
+      catch(error){attempt.result=error.name;attempt.message=error.message;throw error;}
+     };
+     const permission=(await navigator.permissions.query({name:'clipboard-write'})).state;
+     window.epochMoveCopy={before:{...snapshot(),permission},events,attempts,snapshot,stop(){controller.abort();navigator.clipboard.writeText=original;}};
+    }""")
+    fenced=[]
+    try:
+        deadline=time.monotonic()+15
+        # A locator's actionability wait can outlast an authorised window.
+        # Resolve live readiness and the pointer target in the same frame.
+        def remaining():return max(1,int(1000*(deadline-time.monotonic())))
+        while True:
+            pointer=page.wait_for_function("""memo=>{
+             const s=epochMoveCopy.snapshot();
+             if(s.disabled||!s.canPrepare||s.pendingHead||!s.focused||s.memo!==memo)return null;
+             const button=document.querySelector('[data-copy="text"]'),r=button.getBoundingClientRect();
+             const x=r.x+r.width/2,y=r.y+r.height/2;
+             return button.contains(document.elementFromPoint(x,y))?{x,y,first:epochMoveCopy.events.length}:null;
+            }""",arg=expected,timeout=remaining()).json_value()
+            page.mouse.click(pointer['x'],pointer['y'])
+            gesture=page.evaluate("""first=>({events:epochMoveCopy.events.slice(first),
+             attempted:epochMoveCopy.attempts.length,after:epochMoveCopy.snapshot()})""",pointer['first'])
+            assert gesture['events'] and all(e['target']=='text' and e['hit']=='text' for e in gesture['events']),gesture
+            if gesture['attempted']:break
+            assert any(not e['canPrepare'] or e['pendingHead'] for e in [*gesture['events'],gesture['after']]),gesture
+            fenced.append(gesture)
+            assert time.monotonic()<deadline,'No authenticated window to test native Move Copy'
+        wait_until(page,lambda:page.evaluate("epochMoveCopy.attempts.some(a=>a.result==='written')"),5000)
+        observed=page.evaluate('epochMoveCopy.attempts.map(({bytes,result})=>({bytes,result}))')
+        assert observed==[{'bytes':byte_values,'result':'written'}],observed
+        clicks=[e for e in gesture['events'] if e['type']=='click']
+        assert len(clicks)==1 and clicks[0]['target']=='text' and clicks[0]['hit']=='text' and clicks[0]['trusted'] and not clicks[0]['disabled'],clicks
+        wait_until(page,lambda:'Copied.' in page.locator('#copy-feedback').text_content(),5000)
+        assert page.locator('#manual-copy').is_hidden()
+    finally:
+        snapshot=page.evaluate("""()=>{const p=window.epochMoveCopy;
+         const value={before:p.before,events:p.events,attempts:p.attempts,after:p.snapshot()};p.stop();return value;
+        }""")
+        report.setdefault('epoch_move_copy',[]).append({**snapshot,'fenced_gestures':fenced,'page_errors':list(errors)})
+        save()
+
+
+def verify_epoch_transition(page,context,out,record,report,save,errors):
     began=time.monotonic()
     def progress(stage):
         report.setdefault('epoch_stages',[]).append({'stage':stage,'elapsed_seconds':round(time.monotonic()-began,3)})
@@ -350,8 +417,7 @@ def verify_epoch_transition(page,context,out,record,report,save):
     old_cell=different_owned_cell(page);choose_action(page,'move');choose_cell(page,str(old_cell));wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     assert page.locator('#text-memo').inner_text()==f'MOVE {old_cell}'
     assert source_value(page,'recipient')==report['receiving_account'];assert page.locator('#full-recipient').text_content()==source_value(page,'owner');assert not page.locator('#payment-address,#hex-memo').count()
-    page.locator('[data-copy="text"]').click()
-    wait_until(page,lambda:'Copied.' in page.locator('#copy-feedback').text_content(),5000)
+    copy_epoch_move(page,f'MOVE {old_cell}',report,save,errors)
     # Keep this packet active across the epoch. Escape now explicitly cancels
     # a local action; historical instructions remain separately in Activity.
     reconnect=context.new_page();reconnect.goto(page.url,timeout=30000)
@@ -373,11 +439,7 @@ def verify_epoch_transition(page,context,out,record,report,save):
     choose_cell(page,str(mapped));review_instructions(page);wait_until(page,lambda:not page.locator('[data-copy=text]').is_disabled(),30000);wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),15000)
     progress('new-epoch-packet-verified');assert page.locator('#text-memo').inner_text()==f'MOVE {mapped}'
     assert page.locator('#transfer-amount').inner_text()=='0.0001 ICP'
-    page.evaluate('''() => {const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async text=>{await write(text);globalThis.__copiedText=text;};}''')
-    page.locator('[data-copy="text"]').click();wait_until(page,lambda:page.evaluate('globalThis.__copiedText')==f'MOVE {mapped}')
-    # UX-07/08: modern handoff removes hex/legacy controls. Still verify the
-    # exact UTF-8 bytes supplied by the real text-copy path across the epoch.
-    assert page.evaluate('Array.from(new TextEncoder().encode(__copiedText))')==list(f'MOVE {mapped}'.encode())
+    copy_epoch_move(page,f'MOVE {mapped}',report,save,errors)
     assert page.locator('[data-copy="hex"],[data-copy="recipient"]').count()==0
     page.keyboard.press('Escape');page.screenshot(path=str(out/'transition-desktop.png'))
     for w,h in[(768,1024),(390,844)]:
@@ -600,7 +662,7 @@ def main():
                     from playability_browser import verify_playability_scene
                     verify_playability_scene(page,context,out,configuration,record,report,save,stop_wire_capture,wire_capture)
                 elif a.paid_v8_scene_only:verify_paid_v8_scene(page,out,record)
-                elif a.transition_only:verify_epoch_transition(page,context,out,record,report,save)
+                elif a.transition_only:verify_epoch_transition(page,context,out,record,report,save,errors)
                 elif a.million_scene_only or a.paid_v8_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained)
                 else:verify_torus_scene(page,context,out,record,report,save)
                 if wire_capture:stop_wire_capture()

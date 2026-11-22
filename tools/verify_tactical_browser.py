@@ -3,7 +3,7 @@
 Existing fixture bundle required. Not certificate, device, wallet or GPU-hardware evidence.
 """
 from human_input import set_heading,choose_cell,chosen_cell,heading_value
-from fluid_playability_browser import action_field
+from fluid_playability_browser import settled_panel
 import argparse,functools,http.server,json,threading,time
 from pathlib import Path
 from playwright.sync_api import sync_playwright
@@ -26,7 +26,39 @@ with sync_playwright() as pw:
     inspect=page.evaluate('fixture.inspect()');assert inspect['guide']and inspect['guideEnd']and inspect['barrels'];beforebarrel=inspect['barrels'];world=page.evaluate('JSON.stringify(fixture.world(),(_,v)=>typeof v==="bigint"?String(v):v)');set_heading(page,'90');page.wait_for_timeout(80);assert page.evaluate('fixture.inspect().barrels')!=beforebarrel;assert page.evaluate('JSON.stringify(fixture.world(),(_,v)=>typeof v==="bigint"?String(v):v)')==world
     handle=page.locator('#aim-handle').bounding_box();page.mouse.move(handle['x']+22,handle['y']+22);page.mouse.down();point=page.evaluate('fixture.point(1)');page.mouse.move(point['x']+60,point['y'],steps=8);page.mouse.up()
     assert 'FIRE 1 315' in page.locator('#text-memo').inner_text()
-    page.locator('#close-panel').click();page.evaluate('fixture.select(1)');page.locator('#move-action').click();chosen=page.locator('#text-memo').text_content();point=page.evaluate('fixture.camera.cellPoint(fixture.world().cannons[0].cell)');page.mouse.move(point['sx'],point['sy']);page.wait_for_timeout(120);assert page.locator('#text-memo').text_content()==chosen;assert page.evaluate('fixture.inspect().hover.kind') in ['place','invalid'];page.screenshot(path=str(out/f'{width}-move.png'))
+    page.locator('#close-panel').click();page.evaluate('fixture.select(1)');page.locator('#move-action').click()
+    settled_panel(page)
+    chosen=page.locator('#text-memo').text_content()
+    point=page.evaluate("""()=>{
+      const board=document.getElementById('board');
+      for(const v of [.72,.8,.27,.42,.52,.6])for(const u of [.25,.5,.75]){
+       const sx=Math.round(innerWidth*u),sy=Math.round(innerHeight*v);
+       if([[0,0],[-12,0],[12,0],[0,-12],[0,12]].every(([dx,dy])=>document.elementFromPoint(sx+dx,sy+dy)===board)){
+        const cell=fixture.camera.cell(sx,sy);
+        if(cell!==null)return {sx,sy,cell};
+       }
+      }
+      throw Error('No unobstructed board point in the settled Move view');
+    }""")
+    page.mouse.move(point['sx'],point['sy'])
+    page.wait_for_function("({cell})=>{const hit=fixture.inspect().hover;return hit?.cell===cell&&['place','invalid'].includes(hit.kind)}",arg=point,timeout=5000)
+    assert page.locator('#text-memo').text_content()==chosen
+    page.screenshot(path=str(out/f'{width}-move.png'))
+    blocked=page.locator('#action-prompt').evaluate("""n=>{
+     const r=n.getBoundingClientRect(),x=r.x+r.width/2,y=r.y+r.height/2;
+     if(!document.elementFromPoint(x,y)?.closest('#workspace'))throw Error('Payment prompt is not the top pointer target');
+     const hits=globalThis.movePanelPointerHits={panel:0,board:0};
+     document.getElementById('workspace').addEventListener('pointerdown',()=>hits.panel++,{once:true});
+     document.getElementById('board').addEventListener('pointerdown',()=>hits.board++,{once:true});
+     return {x,y};
+    }""")
+    page.mouse.move(blocked['x'],blocked['y'])
+    page.wait_for_function('()=>fixture.inspect().hover===null',timeout=5000)
+    page.mouse.click(blocked['x'],blocked['y'])
+    assert page.evaluate('movePanelPointerHits')=={'panel':1,'board':0}
+    assert page.locator('#text-memo').text_content()==chosen
+    page.mouse.move(point['sx'],point['sy'])
+    page.wait_for_function('n=>fixture.inspect().hover?.cell===n',arg=point['cell'],timeout=5000)
     cursor=page.locator('#board').evaluate('(n)=>getComputedStyle(n).cursor');assert 'reticle.svg' in cursor or cursor in ['not-allowed','crosshair'];page.mouse.click(point['sx'],point['sy']);page.wait_for_timeout(100)
     page.locator('#close-panel').click();page.evaluate('fixture.select(1)');page.locator('#build-action').click();sites=page.evaluate('fixture.sites()');assert sites;page.evaluate('(n)=>fixture.choose(n)',sites[0]);page.screenshot(path=str(out/f'{width}-build.png'));page.locator('#close-panel').click()
     await_motion='fixture.motion("idle",.1)';page.evaluate(await_motion);page.evaluate('fixture.markClock()');page.wait_for_timeout(200);page.locator('#identify-button').click();page.locator('#close-panel').click();assert page.evaluate('fixture.sameClock()');page.evaluate('fixture.playbackScale(300)');page.wait_for_timeout(1200);page.evaluate('fixture.appendMotion()');page.wait_for_timeout(350)

@@ -43,6 +43,42 @@ def copies(page, memo):
         assert page.evaluate("navigator.clipboard.readText()") == text
 
 
+def denied_move_copy(page, context, memo):
+    cdp = context.new_cdp_session(page)
+    permission = {
+        "permission":{"name":"clipboard-write"},
+        "origin":page.evaluate("location.origin"),
+        "browserContextId":cdp.send("Target.getTargetInfo")["targetInfo"]["browserContextId"],
+    }
+    try:
+        cdp.send("Browser.setPermission", {**permission, "setting":"denied"})
+        assert page.evaluate("navigator.permissions.query({name:'clipboard-write'}).then(p=>p.state)") == "denied"
+        expected = list(memo.encode("utf-8"))
+        assert page.evaluate("navigator.clipboard.readText()") != memo
+        page.evaluate("""()=>{
+            const write=navigator.clipboard.writeText.bind(navigator.clipboard);
+            window.deniedMoveWrites=[];
+            navigator.clipboard.writeText=async value=>{
+                try{return await write(value);}
+                catch(error){deniedMoveWrites.push({name:error.name,bytes:[...new TextEncoder().encode(value)]});throw error;}
+            };
+        }""")
+        copy = page.locator('[data-copy="text"]')
+        expect(copy).to_be_enabled()
+        copy.click()
+        manual = page.locator("#manual-value")
+        expect(manual).to_have_value(memo)
+        expect(page.locator("#copy-feedback")).to_contain_text("Clipboard unavailable.")
+        assert page.evaluate("deniedMoveWrites") == [{"name":"NotAllowedError","bytes":expected}]
+        manual.press("Control+C")
+        assert page.evaluate("navigator.clipboard.readText()").encode("utf-8") == bytes(expected)
+        page.locator("#manual-handoff").click()
+        expect(page.locator("#manual-copy")).to_be_hidden()
+        return {"permission":"denied", "native_result":"NotAllowedError", "manual_utf8":expected}
+    finally:
+        cdp.detach()
+
+
 def movement(browser, url, declare, screen, width, height, diverter):
     context = browser.new_context(viewport={"width":width,"height":height}, has_touch=width<700,
                                   permissions=["clipboard-read","clipboard-write"], reduced_motion="reduce")
@@ -101,12 +137,14 @@ def movement(browser, url, declare, screen, width, height, diverter):
     third = second+1
     target_panel(page, third)
     page.locator("#replace-instructions").click()
-    expect(page.locator("#text-memo")).to_have_text(f"{'DMOVE' if diverter else 'MOVE'} 1 {third}|far")
+    updated = f"{'DMOVE' if diverter else 'MOVE'} 1 {third}|far"
+    expect(page.locator("#text-memo")).to_have_text(updated)
     scene(page, 255250, 22)
     assert not page.evaluate("n=>fixture.camera.cellPoint(n).visible", third)
     expect(page.locator("#workspace")).to_be_visible()
     expect(page.locator('[data-copy="text"]')).to_be_enabled()
     assert not page.locator("#workspace").evaluate("node=>node.inert")
+    fallback = denied_move_copy(page, context, updated) if width==1440 and not diverter else None
     screen(page, f"{stem}-offscreen-dock")
     scene(page, third, 22, width/2, 160 if width<700 else 390)
     target_panel(page, third)
@@ -120,7 +158,7 @@ def movement(browser, url, declare, screen, width, height, diverter):
         screen(page, f"{stem}-contracted-move")
     assert not errors, errors
     context.close()
-    return {"kind":stem, "first":first, "keyboard_destination":third, "native_clipboard":"PASS", "copy_keep_update":"PASS"}
+    return {"kind":stem, "first":first, "keyboard_destination":third, "native_clipboard":"PASS", "copy_keep_update":"PASS", "manual_fallback":fallback}
 
 
 def tile_cases(page, screen, variant, width):
@@ -149,7 +187,9 @@ def tile_cases(page, screen, variant, width):
     page.wait_for_function("()=>fixture.inspect().tileHighlights.some(h=>h.kind==='invalid'&&h.cell===5003)")
     screen(page,f"{prefix}-invalid")
     page.locator("#close-panel").click()
-    scene(page,legal,48,width/2,140 if width<700 else 390)
+    # The fixture repositions the camera without a user pan. Use a distinct
+    # pixel so the invalid and legal clicks are not a native double-click.
+    scene(page,legal,48,width/2+24,140 if width<700 else 390)
     pose=page.evaluate("fixture.summary().camera")
     page.mouse.click(*board_point(page,legal))
     expect(label).to_have_attribute("aria-pressed","true")

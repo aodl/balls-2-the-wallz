@@ -72,7 +72,7 @@ export function createShell(doc,camera,arcade,onPick){
  let pendingAim=null;
  function flushAim(){const point=pendingAim;pendingAim=null;if(point&&owner==='aim')aimAt(point);}
 
- function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const editor=quantityWidget.getBoundingClientRect();if(editor.width>0&&editor.height>0)quantitySize={width:editor.width,height:editor.height};const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');const safe=getComputedStyle(doc.documentElement);layout={safe:Object.fromEntries(['left','right','top','bottom'].map(k=>[k,parseFloat(safe.getPropertyValue('--quantity-safe-'+k))||0])),guideObstacles:[$('status-button'),$('identify-button'),doc.querySelector('.brand')].map(n=>n.getBoundingClientRect().toJSON()),top:Math.ceil(doc.querySelector('.arena-chrome').getBoundingClientRect().bottom)+10,headerBottom:Math.ceil(doc.querySelector('.arena-header').getBoundingClientRect().bottom),mini:$('minimap').getBoundingClientRect(),compass:[$('board-compass').getBoundingClientRect()],cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),sound:doc.querySelector('.audio-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
+ function measure(){if(!layoutDirty&&layout)return layout;layoutDirty=false;const editor=quantityWidget.getBoundingClientRect();if(editor.width>0&&editor.height>0)quantitySize={width:editor.width,height:editor.height};const header=card.querySelector('.panel-header'),body=card.querySelector('.panel-content');const safe=getComputedStyle(doc.documentElement);layout={safe:Object.fromEntries(['left','right','top','bottom'].map(k=>[k,parseFloat(safe.getPropertyValue('--quantity-safe-'+k))||0])),guideObstacles:[$('status-button'),$('identify-button'),doc.querySelector('.brand')].map(n=>n.getBoundingClientRect().toJSON()),top:Math.ceil(doc.querySelector('.arena-chrome').getBoundingClientRect().bottom)+10,headerBottom:Math.ceil(doc.querySelector('.arena-header').getBoundingClientRect().bottom),mini:$('minimap').getBoundingClientRect(),cycles:$('cycles-display').getBoundingClientRect(),buttons:doc.querySelector('.camera-controls').getBoundingClientRect(),sound:doc.querySelector('.audio-controls').getBoundingClientRect(),headerHeight:header.offsetHeight,desired:header.offsetHeight+body.scrollHeight+20};return layout;}
  let layoutFrame=null,layoutRevision=0,committedLayoutRevision=0;
  function invalidateLayout(){
   if(disposed)return;layoutDirty=true;layoutRevision++;
@@ -180,10 +180,17 @@ export function createShell(doc,camera,arcade,onPick){
  function quantityStrip(m,viewport){
   return quantityReservation==='strip'?quantityDockStrip({viewport,top:Math.max(m.headerBottom+10,viewport.top+8),...quantitySize,obstacles:[...m.guideObstacles,m.sound,m.cycles]}):null;
  }
+ function compassRects(m){
+  if(m.compassAngle!==camera.angle){
+   m.compass=compass.map(button=>button.getBoundingClientRect());
+   m.compassAngle=camera.angle;
+  }
+  return m.compass;
+ }
  function quantityRail(m,viewport){
   const left=Math.max(viewport.left+8,Math.min(m.buttons.left,viewport.left+viewport.width-quantitySize.width-8));
   // An empty corner of the compass cluster leaves space for the editor.
-  const obstacles=[m.mini,...m.compass,m.cycles].filter(r=>left<r.right&&left+quantitySize.width>r.left);
+  const obstacles=[m.mini,...compassRects(m),m.cycles].filter(r=>left<r.right&&left+quantitySize.width>r.left);
   const top=Math.min(m.buttons.top,viewport.top+viewport.height,...obstacles.map(r=>r.top))-quantitySize.height-4;
   return{left,top,right:left+quantitySize.width,bottom:top+quantitySize.height,...quantitySize};
  }
@@ -195,7 +202,7 @@ export function createShell(doc,camera,arcade,onPick){
  }
  function minimapArea(rect){
   if(wasShort)return {left:0,right:0,top:0,bottom:0,width:0};
-  const bounds=[rect,...measure().compass],left=Math.min(...bounds.map(b=>b.left)),right=Math.max(...bounds.map(b=>b.right));
+  const bounds=[rect,...compassRects(measure())],left=Math.min(...bounds.map(b=>b.left)),right=Math.max(...bounds.map(b=>b.right));
   return{left,right,top:Math.min(...bounds.map(b=>b.top)),bottom:Math.max(...bounds.map(b=>b.bottom)),width:right-left};
  }
  function lowerChrome(m){return [minimapArea(m.mini),m.cycles,...(quantityReservation==='rail'?[quantityRail(m,visibleBounds())]:[]),m.buttons];}
