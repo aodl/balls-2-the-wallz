@@ -1606,15 +1606,19 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegati
     let mut live =
         PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
     let gateway = live.make_live(None);
-    save(
-        &out,
-        "configuration.json",
-        &json!({
-            "network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),
-            "ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),
-            "root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":funding_account(payer).to_hex()
-        }),
-    );
+    let mut connection = json!({
+        "network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),
+        "ledger":ledger.to_text(),"index":status(&pic,id).source.index.to_text(),
+        "root_key_hex":hex(&pic.root_key().unwrap()),"listening_account":funding_account(payer).to_hex()
+    });
+    if delegation {
+        // Source processing advances the disposable simulation clock past the
+        // SDK's real signing time. Pin the freshness check to the replica's
+        // independent consensus clock without weakening either bound.
+        connection["verification_time_ns"] =
+            json!(live.get_time().as_nanos_since_unix_epoch().to_string());
+    }
+    save(&out, "configuration.json", &connection);
     let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     assert!(
         std::process::Command::new("node")

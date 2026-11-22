@@ -99,3 +99,17 @@ with 89 public assets. The normal backend built locally is
 `32f6a34c0daf727a413853bdf1b88037622e97b2449999ef13aaf4985bff1147`.
 The published financial and standard gates still determine the hosted
 artifact identities and release status.
+
+With ICRC-2 enabled, the disposable Ledger accepted the actual signed owner
+grant, approval and two authorized SDK identities. The authorized payment
+used 360,000 e8s and produced one payer-attributed game receipt. The Ledger
+deduplicated the exact retry after injected response loss. A different
+spender and a post-revocation transfer both settled at the Ledger and were
+rejected by the game. A stale expected allowance was refused by the Ledger.
+A following manual payment succeeded. Independent replay matched all 17
+publications, including state, events and scores, using the captured Index
+transfer facts. The separate certificate capture initially failed because the
+disposable source-drain test advanced its clock beyond the signing process's
+wall clock. The revised capture measures freshness against the independent
+disposable replica clock with the same age and future bounds, and verifies
+that a stale observation still fails.
