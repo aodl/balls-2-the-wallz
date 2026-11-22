@@ -312,7 +312,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
 
 
  $('replace-instructions').onclick=()=>{packet=null;keepPrevious=false;warning='';manual=null;$('manual-copy').hidden=true;text('copy-feedback','');refresh();};
- $('keep-instructions').onclick=()=>{if(!packet)return;keepPrevious=true;mode=packet.action;id=packet.cannon;deflectorId=packet.structure??null;tileSelection=structureContexts()&&['start','deflect'].includes(packet.action)?packet.cell:null;cell=packet.cell;worldAngle=packet.angle??worldAngle;degrees=displayHeading(worldAngle);quantity=packet.requested;cry=packet.cry??'';cryProblem='';composing=false;refresh();};
+ $('keep-instructions').onclick=()=>{if(!packet)return;keepPrevious=true;mode=packet.action;id=packet.cannon;deflectorId=packet.structure??null;tileSelection=structureContexts()&&['start','deflect','reservoir'].includes(packet.action)?packet.cell:null;cell=packet.cell;worldAngle=packet.angle??worldAngle;degrees=displayHeading(worldAngle);quantity=packet.requested;cry=packet.cry??'';cryProblem='';composing=false;refresh();};
  function freeze(q,h){const saved=packet?.id&&instructionKey(packet)===instructionKey(q)?packet:h.freeze(q);if(q.backend===source?.owner&&q.account===declaration?.account){packet=saved;if(q.cannon!==null&&!refs.some(c=>c.id===q.cannon&&c.account===q.account))warning='The copied target is no longer present. Saved instructions remain in Account.';}activity();return saved;}
  function savedNote(h){return h.persisted()?'Instructions saved; no payment sent.':'Instructions kept for this visit only; device storage is unavailable. No payment sent.';}
  for(const b of copyControls)b.addEventListener('click',async()=>{

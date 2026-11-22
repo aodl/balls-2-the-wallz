@@ -254,6 +254,16 @@ def reservoir_quotes(browser):
             page.locator('[data-copy=text]').click()
             assert page.evaluate("navigator.clipboard.readText()") == "RESERVOIR 4005"
             screen(page, f"reservoir-quote-{width}")
+            # Plan a different eligible site, then restore the complete
+            # previously copied packet with its original tile context.
+            assert page.evaluate("fixture.choose(4006)")
+            page.wait_for_function("()=>!document.getElementById('replace-choice').hidden")
+            page.locator("#keep-instructions").click()
+            assert page.locator("#text-memo").text_content() == "RESERVOIR 4005"
+            assert page.locator('[data-copy=text]').is_enabled()
+            assert page.evaluate("fixture.choose(4006)")
+            page.locator("#replace-instructions").click()
+            assert page.locator("#text-memo").text_content() == "RESERVOIR 4006"
             page.locator("#close-panel").click()
             t = 4010  # three cells from enemy territory
             scene(page, t, 48 if width >= 700 else 42, width / 2, height / 3)
@@ -265,7 +275,7 @@ def reservoir_quotes(browser):
             assert page.evaluate("fixture.reservoirs()!==null"), "verified state must mount excavation layer"
         assert not errors, errors
         rows.append({"size": [width,height], "historical_capability_hidden": True, "fixed_amount": "0.01 ICP",
-                     "memo": "RESERVOIR 4005", "native_copy": True, "enemy_distance_3_rejected": True})
+                     "memo": "RESERVOIR 4005", "native_copy": True, "keep_update": True, "enemy_distance_3_rejected": True})
         context.close()
     return rows
 
