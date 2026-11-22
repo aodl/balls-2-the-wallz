@@ -186,7 +186,17 @@ def verify_saved_world_heading(page):
  if page.locator('#locate-context').is_visible():page.locator('#locate-context').click();page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
  page.locator('#fire-action').click();set_heading(page,'167.15');expect(page.locator('#text-memo')).to_have_text('FIRE 1 37.5 1');memo=page.locator('#text-memo').inner_text();hex_value=memo.encode().hex();page.locator('[data-copy="text"]').click();expect(page.locator('#copy-feedback')).to_contain_text('saved')
  page.reload();page.wait_for_function('()=>!!window.fixture');page.locator('#identify-button').click();page.get_by_text('View saved instructions',exact=True).click()
- expect(page.locator('#text-memo')).to_have_text(memo);assert page.evaluate('fixture.records()[0].hex')==hex_value;assert not page.locator('#hex-memo').count();assert heading_value(page)=='167.15';expect(page.locator('#preparation-note')).to_contain_text('may no longer apply');assert page.locator('[data-copy=text]').is_disabled()
+ expect(page.locator('#saved-list article')).to_contain_text('Memo '+memo)
+ assert page.evaluate('fixture.records().map(r=>[r.angle,r.hex])')==[['37.5',hex_value]]
+ expect(page.locator('#account-view')).to_contain_text('may no longer apply')
+ expect(page.locator('#text-memo')).to_have_text('')
+ expect(page.locator('[data-copy=text]')).to_be_disabled()
+ assert not page.locator('#hex-memo').count()
+ page.locator('#close-panel').click();page.evaluate('fixture.render("additional","initial");fixture.select(1)')
+ if page.locator('#locate-context').is_visible():page.locator('#locate-context').click();page.wait_for_function('()=>!fixture.shell.controller.active',timeout=8000)
+ page.locator('#fire-action').click();set_heading(page,'180')
+ expect(page.locator('#text-memo')).to_have_text('FIRE 1 45 1')
+ assert page.evaluate('fixture.records()[0].hex')==hex_value
 
 def capture_player_review(page,width,height,out):
  """Short real rendered journey; canonical synthetic intervals, never a transfer."""
