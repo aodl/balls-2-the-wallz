@@ -1,5 +1,9 @@
 # Rules15 interaction polish
 
+The qualification corrections and current frozen artifact are documented in
+[Fast-track correction](FAST_TRACK.md). The original candidate and this
+report’s original measurements remain available at the earlier source revision.
+
 The frontend candidate is implemented and visually reviewed locally on
 `feature/b2z-rules15-interaction-polish`. The production release still uses the
 existing Rules15 frontend and backend. Hosted qualification for this candidate

@@ -1,7 +1,7 @@
 {
-  "source": "b3e73a1af8530df97b51a12238dadaca20f70826",
+  "source": "b0dc485707937b71cfdd7ec042b4cd2922db73fa",
   "source_dirty": false,
-  "inventory_sha256": "59b399c90b9a7c306b8345356db60429ad28fbee2deec911469b2eda6589887b",
+  "inventory_sha256": "6c23c80df4961e5406bed93fc29237dccc1ca0d6a33bf5256ac9c81e615ee93f",
   "normal_wasm_sha256": "251d03b9d204792b2287538318d013a232590c9c1e883183c896e2e7383e6ea7",
   "normal_wasm_scope": "Developer normal raw Wasm, Rust 1.94.1. Hosted Wasm and installed jobs must match each other byte-for-byte before a hosted hash can be approved.",
   "inputs": [
@@ -1315,7 +1315,7 @@
     },
     {
       "path": "apps/b2z-observer/shell.mjs",
-      "sha256": "8cd9fb7645387c0f996bcd3da7c09b1f41b5205c4935174f461b15f7602aaa5f"
+      "sha256": "ab6fb310b0c33f4c64c8ea6793fd6dc4ff7bd41139382bb59aedcb7ee274475c"
     },
     {
       "path": "apps/b2z-observer/speech-bubbles.mjs",

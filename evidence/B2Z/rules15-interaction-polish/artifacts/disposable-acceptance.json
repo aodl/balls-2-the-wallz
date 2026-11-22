@@ -1,9 +1,8 @@
 {
   "status": "PASS",
-  "scope": "Disposable local same-ID upgrade with dfx 0.31.0. Mainnet Rules15 used only for read-only authenticated browser boot.",
+  "scope": "Same-ID disposable upgrade and IC-v2 verification. Mainnet Rules15 browser access was read-only.",
   "canister": "uxrrr-q7777-77774-qaaaq-cai",
-  "predecessor_sha256": "9f60fc9d77afc7667c07bd27ce423221b290ef01a3be389f13fcc7a7b8e70d1c",
-  "installed_sha256": "c9e14e05f0dc436f6d7543bc5bb6de16b660650ef9fec10ab1ef66b85ac27685",
+  "installed_sha256": "a7436dd9a8c7e7c761118a9776d27ecada3d3d5f55fb0090777f062037c31b4e",
   "rules": 15,
   "chromium": "153.0.8010.12",
   "flac_checksum_and_decode_count": 60,

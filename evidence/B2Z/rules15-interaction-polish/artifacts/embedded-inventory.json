@@ -37,16 +37,16 @@
     "path": "/app.mjs",
     "variants": [
       {
-        "bytes": 1146264,
+        "bytes": 1146326,
         "embedded_path": "app.mjs",
         "encoding": "identity",
-        "sha256": "eab21120e2aef5caf0f3ab31652bfee161a67817b9282e0520d40604f07a0cc4"
+        "sha256": "efa0fa4a9e0867541bb0ae38918666da3ddfc46758b70192434ed79939fc5707"
       },
       {
-        "bytes": 328837,
+        "bytes": 328872,
         "embedded_path": "app.mjs.gz",
         "encoding": "gzip",
-        "sha256": "c4f7b9aae016b7a2b796e753bcef06afcc01b764a01b6cca19d2f8e8c4523ddf"
+        "sha256": "e96364dab63b0d14254d3f6501f3259cc86b2813d67559c67fdb5351654bf119"
       }
     ]
   },
