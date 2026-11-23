@@ -170,6 +170,8 @@ pub struct Clock {
     pub dev_until_ns: Option<u64>,
     #[cfg(feature = "developer-speed")]
     pub dev_last_stop: Option<&'static str>,
+    #[cfg(feature = "developer-speed")]
+    dev_published: bool,
     pub mode: Mode,
     pub due: u64,
     pub batch_started: u64,
@@ -188,6 +190,8 @@ impl Default for Clock {
             dev_until_ns: None,
             #[cfg(feature = "developer-speed")]
             dev_last_stop: None,
+            #[cfg(feature = "developer-speed")]
+            dev_published: false,
             due: 0,
             batch_started: 0,
             performance_milli: 1000,
@@ -245,6 +249,7 @@ impl Clock {
                 .ok_or("Full Speed deadline overflow")?,
         );
         self.dev_last_stop = None;
+        self.dev_published = false;
         self.due = self.last_published.saturating_add(self.period(1)).max(now);
         self.rest_since_publication = now.saturating_sub(self.last_published);
         self.overrun = 0;
@@ -371,10 +376,14 @@ impl Clock {
             } else {
                 // Keep the one-second schedule phase through ordinary IC round
                 // jitter. Do not immediately replay a missed checkpoint.
-                self.due = self
-                    .due
-                    .saturating_add(period)
-                    .max(now.saturating_add(period / 2));
+                self.due = if self.dev_published {
+                    self.due
+                        .saturating_add(period)
+                        .max(now.saturating_add(period / 2))
+                } else {
+                    self.dev_published = true;
+                    now.saturating_add(period)
+                };
             }
             self.batch_started = 0;
             return;
@@ -463,7 +472,7 @@ mod tests {
         let liquid = 2_500_000_000_000;
         let mut clock = Clock::default();
         clock.refresh(liquid);
-        clock.start_dev_speed(2000 * MS, 120, liquid).unwrap();
+        clock.start_dev_speed(1900 * MS, 120, liquid).unwrap();
         clock.batch_started = 2000 * MS;
         clock.published(2000 * MS, 1, true);
         assert_eq!(clock.scheduled_wait(2000 * MS, 1), 1000 * MS);
