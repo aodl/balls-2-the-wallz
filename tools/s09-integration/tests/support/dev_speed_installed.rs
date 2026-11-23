@@ -56,11 +56,12 @@ pub(super) fn certify_frontend(release: &Path, out: &Path) {
         Some(controller()),
     );
     let gateway = pic.make_live(None);
+    let loopback = format!("http://127.0.0.1:{}", gateway.port().unwrap());
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
     let status = std::process::Command::new("node")
         .current_dir(root)
         .arg("tools/verify_embedded_frontend_http.mjs")
-        .arg(gateway.as_str())
+        .arg(loopback)
         .arg(frontend.to_text())
         .arg(release)
         .arg(out.join("developer-speed-certified-frontend.json"))
@@ -71,6 +72,15 @@ pub(super) fn certify_frontend(release: &Path, out: &Path) {
         status.success(),
         "exact developer frontend IC HTTP certification"
     );
+}
+
+#[test]
+#[ignore = "explicit embedded developer frontend certification"]
+fn dev_speed_certifies_embedded_frontend() {
+    let release = PathBuf::from(std::env::var_os("B2Z_DEV_SPEED_FRONTEND").unwrap());
+    let out = PathBuf::from(std::env::var_os("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    certify_frontend(&release, &out);
 }
 
 #[test]
