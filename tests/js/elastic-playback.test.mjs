@@ -15,6 +15,45 @@ test('UX-05 already consumed material is never rewound or looped',async()=>{cons
 test('UX-05 retained players execute canonical events in order after forward skips',async()=>{const s=session(await intervals());retainLatestVerifiedInterval(s,LIVE_BUFFER_LIMITS);const q=s.queue[0];for(let t=q.segment.start;t<q.segment.end;t+=.01)q.player.advance(t);q.player.advance(q.segment.end).matches(q.segment.final);assert.equal(q.player.index,q.segment.events.length);});
 test('UX-05 late/early timing adapts smoothly in .5–1.5 bounds, never beyond the pinned endpoint',()=>{const p=elasticPlayback();for(let i=0;i<3;i++)p.observe({key:String(i),end:i,at:i*100000,nominal:.01,ticks:1});assert.equal(p.state().samples,2);let rate;for(let i=0;i<10;i++)rate=p.rate({now:225000,nominal:.01,remaining:.6,seconds:1});assert.ok(Math.abs(rate-.008)<1e-12);for(let i=0;i<20;i++){const next=p.rate({now:350000,nominal:.01,remaining:.2,seconds:1});assert.ok(Math.abs(next-rate)<=.001200001);rate=next;}assert.equal(rate,.005);for(let i=0;i<20;i++)rate=p.rate({now:201000,nominal:.01,remaining:2,seconds:1});assert.equal(rate,.015);const c=new PlayoutClock({target:1,low:.01,min_rate:1,max_rate:1});c.append(0,1);for(let i=0;i<10000;i++)c.sample(rate);assert.equal(c.playhead,1);});
 test('UX-06 pace/context changes and insufficient or expired timing evidence use nominal rate',()=>{const p=elasticPlayback();for(let i=0;i<3;i++)p.observe({key:String(i),end:i,at:i*100000,nominal:.01,ticks:1,identity:'a'});assert.equal(p.rate({now:600001,nominal:.01,remaining:.01,seconds:1}),.01);assert.equal(p.rate({now:210000,nominal:.05,remaining:.01,seconds:1}),.05);p.observe({key:'new',end:4,at:220000,nominal:.01,ticks:1,identity:'b'});assert.equal(p.state().samples,0);assert.equal(p.rate({now:220001,nominal:0,remaining:1,seconds:1}),0);});
+test('UX-05 one-tick Normal playback retains motion through the measured Full Speed delivery gaps',()=>{
+  // Advancing arrivals from the production browser trace, including two
+  // recovered publications delivered together after a longer gap.
+  const arrivals = [
+    [483,1],[1667,1],[3000,1],[6033,2],[8383,2],[10750,2],[12183,1],[14350,2],
+    [15799,2],[16883,1],[18516,1],[19799,1],[21049,1],[22899,2],[24132,1],
+    [25432,1],[26832,1],[28616,2],[30032,1],[31049,1],[32532,1],[33865,1],
+    [34949,1],[36699,2],[37882,1],[39032,1],[39998,1],[42915,2],[44415,1],
+    [45948,2],[47248,1],[48465,1],[50298,1],[51781,1],[54598,2],
+  ];
+  function simulate(protect){
+    const clock=new PlayoutClock({target:12,low:1,min_rate:1,max_rate:1,max_frame_delta:1});
+    const policy=elasticPlayback();
+    clock.append(0,1);clock.started=true;clock.playhead=.245;
+    let position=0,current=.1,stalls=0,motionAtLastDelivery=0;
+    for(let frame=0;frame<70*60;frame++){
+      const now=frame*1000/60,seconds=1/60;
+      while(position<arrivals.length&&now>=arrivals[position][0]){
+        const end=clock.available+arrivals[position++][1];
+        clock.append(clock.available,end);
+        policy.observe({key:String(position),end,at:now,nominal:1,ticks:1,deliverySeconds:1});
+        motionAtLastDelivery=clock.playhead;
+      }
+      const remaining=clock.available-clock.playhead;
+      const guarded=protect?policy.fastSingleTickRate({now,remaining,seconds,current}):null;
+      const target=policy.rate({now,nominal:1,remaining,seconds,reserveTicks:11});
+      current=guarded??approachPresentationPace(current,target,1,seconds);
+      const result=clock.sample(seconds*current);
+      assert.ok(result.playhead<=clock.available);
+      if(result.phase==='STALLED'&&position<arrivals.length)stalls++;
+    }
+    return {stalls,clock,motionAtLastDelivery};
+  }
+  assert.ok(simulate(false).stalls>0);
+  const buffered=simulate(true);
+  assert.equal(buffered.stalls,0);
+  assert.ok(buffered.motionAtLastDelivery>=buffered.clock.available-6);
+  assert.equal(buffered.clock.phase,'STALLED','a genuine delivery outage still stops at verified coverage');
+});
 import{bridgeVerifiedPresentation,resumeVerifiedClock}from'../../apps/b2z-observer/warm-return.mjs';
 test('UX-04 explicit return starts a complete retained interval without waiting for nominal jitter target',async()=>{const s=session(await intervals(1));s.clock.target=18;assert.equal(s.clock.sample(.01).playhead,s.clock.playhead);const clock=s.clock,queue=s.queue;assert.equal(resumeVerifiedClock(s),true);assert.ok(s.clock.sample(.001).playhead>s.queue[0].segment.start);assert.equal(s.clock,clock);assert.equal(s.queue,queue);});
 test('UX-05 same-context authenticated resync fences a future interval without animating the missing span',async()=>{const s=session(await intervals(1));const q=s.queue,clock=s.clock;s.presentationFence=10;assert.equal(resumeVerifiedClock(s),true);const before=clock.playhead;assert.ok(clock.sample(.1).playhead>before);assert.throws(()=>bridgeVerifiedPresentation(s,9),/fence mismatch/);assert.equal(s.queue.length,1);bridgeVerifiedPresentation(s,10);assert.equal(s.clock,clock);assert.equal(s.queue,q);assert.equal(clock.available,10);assert.equal(clock.playhead,10);assert.equal(s.queue.length,0);assert.equal(s.bytes,0);clock.append(10,11);assert.ok(clock.sample(.01).playhead>10);assert.ok(clock.playhead<=11);});

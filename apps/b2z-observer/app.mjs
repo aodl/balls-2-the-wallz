@@ -196,8 +196,14 @@ function observePresentation(s,ticket,deliverySeconds=0){
  const h=ticket.publication.head,ticks=h.seal?Number(h.seal.logical_end-h.seal.logical_start):publicationTicks(s.operational??s.lastPaceStatus);
  s.elastic.observe({key:ticket.root_hash,end:timeNumber(s.referenceWorld.time),at:performance.now(),nominal:presentationPace(s),ticks,deliverySeconds,identity:JSON.stringify(ticket.publication.identity)});
 }
-function targetPresentationRate(s,now,seconds){
- const base=presentationPace(s);return s.idleDrain?base:s.elastic.rate({now,nominal:base,remaining:s.clock.available-s.clock.playhead,seconds,reserveTicks:Math.max(0,s.clock.target-publicationTicks(s.operational??s.lastPaceStatus))});
+function advancePresentationRate(s,now,seconds){
+ const base=presentationPace(s),ticks=publicationTicks(s.operational??s.lastPaceStatus),remaining=s.clock.available-s.clock.playhead;
+ if(!s.idleDrain&&base===1&&ticks===1){
+  const buffered=s.elastic.fastSingleTickRate({now,remaining,seconds,current:s.nominalRate});
+  if(buffered!==null)return buffered;
+ }
+ const target=s.idleDrain?base:s.elastic.rate({now,nominal:base,remaining,seconds,reserveTicks:Math.max(0,s.clock.target-ticks)});
+ return approachPresentationPace(s.nominalRate??target,target,base,seconds);
 }
 function resetLiveClock(s,time){
   audio.fence();
@@ -514,7 +520,7 @@ function frame(now){
     // Drain a verified terminal empty segment without waiting for nonexistent
     // future empty segments. Use the existing clock API, with no extrapolation.
     prepareIdlePlayout(s,idleState(s));
-    const base=s.mode==='live'?presentationPace(s):speed,target=s.mode==='live'?targetPresentationRate(s,now,dt):base;s.nominalRate=s.mode==='live'?approachPresentationPace(s.nominalRate??target,target,base,dt):approachPace(s.nominalRate??target,target,dt);
+    s.nominalRate=s.mode==='live'?advancePresentationRate(s,now,dt):approachPace(s.nominalRate??speed,speed,dt);
     if(s.mode==='live'){s.clock.min_rate=s.clock.max_rate=s.clock.rate=1;}
     const previous=s.clock.playhead;
     const current=s.clock.sample(dt*s.nominalRate/(s.mode==='live'?1:s.recording.tick_seconds));visibleTime=current.playhead;

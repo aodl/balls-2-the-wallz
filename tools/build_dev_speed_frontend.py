@@ -33,6 +33,11 @@ def main():
             shutil.rmtree(dependencies)
         subprocess.run(["git", "worktree", "remove", str(baseline)], cwd=ROOT, check=True)
     observer = verification / "reproduced"
+    refresh = output / "current-observer"
+    subprocess.run(["node", "tools/build_observer_playability.mjs", "--canister",
+                    "s5ir5-gqaaa-aaaas-amyna-cai", "--output", str(refresh)], cwd=ROOT, check=True)
+    player = observer / "app.mjs"
+    shutil.copyfile(refresh / "app.mjs", player)
     target = observer / "developer-speed.mjs"
     subprocess.run([str(ROOT / "node_modules/.bin/esbuild"), "apps/b2z-observer/developer-speed-entry.mjs",
                     "--bundle", "--platform=browser", "--format=esm", "--minify", "--outfile=" + str(target)],
@@ -42,7 +47,7 @@ def main():
     assert html.count(b"</body>") == 1
     index.write_bytes(html.replace(b"</body>", b'<script type="module" src="/developer-speed.mjs"></script></body>'))
     rows = json.loads((frozen / "frontend-inventory.json").read_text())
-    for file in (index, target):
+    for file in (index, player, target):
         rows = [row for row in rows if row["path"] != file.name]
         data = file.read_bytes()
         rows.append({"path": file.name, "bytes": len(data), "sha256": digest(data)})

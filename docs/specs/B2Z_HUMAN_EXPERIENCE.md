@@ -711,6 +711,14 @@ and does not itself prevent safe latest-head preparation. Actual network catch-u
 and no-coverage waiting remain different states. Diagnostics distinguish producer
 nominal/supported rate, effective presentation rate and retained-buffer bytes.
 
+For a one-tick Normal stream, verification and delivery can take longer than a
+single interval. Its presentation controller builds a short lead during the
+speed-up and tapers the rate while verified coverage is thin. It uses only
+distinct authenticated arrivals and the existing clock. An extended delivery
+failure still runs out of verified coverage and enters the waiting state.
+Payment readiness and the current authenticated head remain independent of the
+short display delay.
+
 Controlled canonical-player comparisons retain 80s of a .8-tick Trickle remainder,
 versus about 2s with the deployed policy, and a complete 1-tick recent interval after
 several hidden admissions. These are controlled clocks, not production/lifecycle
