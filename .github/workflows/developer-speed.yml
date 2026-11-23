@@ -52,6 +52,7 @@ jobs:
             .work/ci-dev-a/release/module.json
             .work/ci-dev-a/release/embedded-inventory.json
             .work/ci-dev-ui/result.json
+            .work/ci-dev-ui/ii-gateway.json
             .work/ci-dev-ui/*.png
             .work/ci-dev-public-guard.log
           if-no-files-found: error

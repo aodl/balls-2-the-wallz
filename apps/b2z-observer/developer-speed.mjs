@@ -4,6 +4,9 @@ import {AuthClient, MemoryCredentialStorage, MemoryStateStorage} from '@icp-sdk/
 import {DERIVATION_ORIGIN} from './delegated-payments/auth.mjs';
 
 const backend = 's5ir5-gqaaa-aaaas-amyna-cai';
+const agentOptions = {
+  host: 'https://icp-api.io', shouldFetchRootKey: false, shouldSyncTime: false, verifyQuerySignatures: true,
+};
 
 const speedInterface = ({IDL}) => {
   const status = IDL.Record({
@@ -21,6 +24,8 @@ function createConnection() {
   const auth = new AuthClient({
     derivationOrigin: DERIVATION_ORIGIN, namespace: 'b2z-dev-speed',
     credentialStorage: new MemoryCredentialStorage(), stateStorage: new MemoryStateStorage(),
+    // Internet Identity mints the app delegation before the backend actor exists.
+    agentOptions,
   });
   let actor, signer;
   async function service() {
@@ -30,8 +35,7 @@ function createConnection() {
     if (signer !== identity) {
       signer = identity;
       const agent = HttpAgent.createSync({
-        host: 'https://icp-api.io', identity, shouldFetchRootKey: false, shouldSyncTime: false,
-        verifyQuerySignatures: true, retryTimes: 0,
+        ...agentOptions, identity, retryTimes: 0,
         fetch: (url, init) => fetch(url, {...init, signal: AbortSignal.any([
           ...(init?.signal ? [init.signal] : []), AbortSignal.timeout(12_000),
         ])}),

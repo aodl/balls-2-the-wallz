@@ -11,6 +11,72 @@ from playwright.sync_api import expect, sync_playwright
 
 ROOT = Path(__file__).resolve().parents[1]
 CANONICAL = "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io"
+IC_GATEWAY = "https://icp-api.io"
+IDENTITY_CANISTER = "rdmx6-jaaaa-aaaaa-aaadq-cai"
+
+
+def verify_ii_gateway(browser, out):
+    """Run the real AuthClient through its popup and stop before any IC call leaves Chromium."""
+    script = out / "live-auth.mjs"
+    subprocess.run([str(ROOT / "node_modules/.bin/esbuild"), "apps/b2z-observer/developer-speed-entry.mjs",
+                    "--bundle", "--platform=browser", "--format=esm", "--outfile=" + str(script)], cwd=ROOT, check=True)
+    context = browser.new_context()
+    context.add_init_script("""{
+      window.blockedConnectOrigins = [];
+      document.addEventListener('securitypolicyviolation', e => {
+        if (e.effectiveDirective === 'connect-src') window.blockedConnectOrigins.push(new URL(e.blockedURI).origin);
+      });
+    }""")
+    popup = f"""<!doctype html><script>
+      window.addEventListener('message', event => {{
+        if (event.origin !== {json.dumps(CANONICAL)} || event.source !== window.opener) return;
+        const {{id, method, params}} = event.data;
+        let result;
+        if (method === 'icrc29_status') result = 'ready';
+        else if (method === 'ii_session_delegation' && params.icrc95DerivationOrigin === event.origin) {{
+          result = {{publicKey: params.sessionPublicKey, signerDelegation: [{{
+            delegation: {{pubkey: params.sessionPublicKey, expiration: String(BigInt(Date.now())*1000000n+60000000000n),
+                          targets: [{json.dumps(IDENTITY_CANISTER)}]}},
+            signature: 'AA==',
+          }}]}};
+        }} else return;
+        event.source.postMessage({{jsonrpc: '2.0', id, result}}, event.origin);
+      }});
+    </script>"""
+    attempts = []
+
+    def deliver(route):
+        address = urlsplit(route.request.url)
+        origin = f"{address.scheme}://{address.netloc}"
+        if origin == CANONICAL and address.path == "/":
+            csp = f"default-src 'none'; script-src 'self'; connect-src 'self' {IC_GATEWAY}"
+            route.fulfill(body='<section id="status-view"></section><script type="module" src="/live-auth.mjs"></script>',
+                          headers={"Content-Security-Policy": csp}, content_type="text/html")
+        elif origin == CANONICAL and address.path == "/live-auth.mjs":
+            route.fulfill(path=script, content_type="text/javascript")
+        elif origin == "https://id.ai" and address.path == "/authorize":
+            route.fulfill(body=popup, content_type="text/html")
+        else:
+            if route.request.method == "POST":
+                attempts.append({"origin": origin, "path": address.path})
+            route.abort()
+
+    context.route("**/*", deliver)
+    page = context.new_page()
+    page.goto(CANONICAL)
+    panel = page.locator("#dev-speed")
+    panel.locator("summary").click()
+    panel.get_by_role("button", name="Sign in as owner").click()
+    expect(panel.locator("[data-feedback]")).to_contain_text("Speed could not be verified", timeout=20000)
+    expect(panel.get_by_role("button", name="Full Speed", exact=True)).to_be_disabled()
+    result = {"attempts": attempts, "blocked_origins": page.evaluate("blockedConnectOrigins"),
+              "scope": "Real AuthClient and browser CSP, controlled signer popup and aborted IC request"}
+    (out / "ii-gateway.json").write_text(json.dumps(result, indent=2) + "\n")
+    assert attempts and all(row["origin"] == IC_GATEWAY and row["path"] in {
+        f"/api/v3/canister/{IDENTITY_CANISTER}/call", f"/api/v4/canister/{IDENTITY_CANISTER}/call",
+    } for row in attempts), result
+    assert not result["blocked_origins"], result
+    context.close()
 
 
 def main():
@@ -96,6 +162,7 @@ window.speedFixture = {{switches, deny:()=>allowed=false, protect:()=>canStart=f
             assert page.locator('#dev-speed').count() == 0
             rows.append({'viewport': [width, height], 'owner_toggle': True, 'auto_return': True, 'cross_origin_denied': True})
             context.close()
+        verify_ii_gateway(browser, out)
         browser.close()
     (out / 'result.json').write_text(json.dumps({'status': 'PASS', 'scope': 'Real B2Z interface with controlled authentication and transport', 'rows': rows}, indent=2) + '\n')
 
