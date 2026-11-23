@@ -507,7 +507,7 @@ function warmPresentation(s){
  audio.fence();
  const point=recentPresentationPoint(s.clock.state()),skip=s.presentationSkip;
  if(skip){if(visible)visible.effects=[];arenaRenderer?.reset();shell.rebaseFollow();const first=s.queue[0];if(first)applyEpochPresentation(s,first.segment.initial,null);}
- resumeVerifiedClock(s);s.nominalRate=targetPresentationRate(s,performance.now(),0);
+ resumeVerifiedClock(s);s.nominalRate=advancePresentationRate(s,performance.now(),0);
  if(skip||s.warmRecovery)presentVerified(s,point);
  s.presentationSkip=false;
 }
