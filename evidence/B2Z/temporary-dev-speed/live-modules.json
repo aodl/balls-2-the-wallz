@@ -1,0 +1,11 @@
+{
+  "at": "2026-11-23T09:01:16.869Z",
+  "frontend": {
+    "canister_id": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module_sha256": "27e22016c6db59c6539413363f3a4e088b281e49f3a4f1ec0a80574b1c499399"
+  },
+  "backend": {
+    "canister_id": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "module_sha256": "9fb444b041a7b699f0cf92159a2505d1bdf4cb3dc5e092fc4b85310b1deb0d42"
+  }
+}

@@ -1,0 +1,22 @@
+{
+  "attempts": [
+    {
+      "origin": "https://icp-api.io",
+      "path": "/api/v4/canister/rdmx6-jaaaa-aaaaa-aaadq-cai/call"
+    },
+    {
+      "origin": "https://icp-api.io",
+      "path": "/api/v4/canister/rdmx6-jaaaa-aaaaa-aaadq-cai/call"
+    },
+    {
+      "origin": "https://icp-api.io",
+      "path": "/api/v4/canister/rdmx6-jaaaa-aaaaa-aaadq-cai/call"
+    },
+    {
+      "origin": "https://icp-api.io",
+      "path": "/api/v4/canister/rdmx6-jaaaa-aaaaa-aaadq-cai/call"
+    }
+  ],
+  "blocked_origins": [],
+  "scope": "Real AuthClient and browser CSP, controlled signer popup and aborted IC request"
+}

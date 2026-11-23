@@ -1,0 +1,63 @@
+{
+  "frontend": {
+    "observation_utc": "2026-11-23T08:37:43.726259+00:00",
+    "module_sha256": "f7c9450f9fccf77cc7f2d4dd0c41066d9addf02af0bad3cedd6400e493faaad0",
+    "balance": 1912295452782,
+    "memory_bytes": 231883969,
+    "idle_cycles_per_day": 6788181116,
+    "freezing_seconds": 2592000,
+    "snapshots": 0,
+    "stored_chunks": 0,
+    "freezing_floor": 203645433480,
+    "liquid": 1708650019302,
+    "conservative_recovery_allowance": 494000000000,
+    "surplus_after_recovery_allowance": 1214650019302,
+    "installation_window_debit": 185493874172
+  },
+  "backend": {
+    "observation_utc": "2026-11-23T08:37:46.984296+00:00",
+    "module_sha256": "9fb444b041a7b699f0cf92159a2505d1bdf4cb3dc5e092fc4b85310b1deb0d42",
+    "balance": 2304741963655,
+    "memory_bytes": 49477665,
+    "idle_cycles_per_day": 2128057407,
+    "freezing_seconds": 2592000,
+    "snapshots": 0,
+    "stored_chunks": 0,
+    "installation_window_debit": 24271338233,
+    "runtime_observation_utc": "2026-11-23T08:40:50.929421+00:00",
+    "runtime_total": 2295867039940,
+    "runtime_liquid": 2232025317730,
+    "runtime_freezing_floor": 63841722210,
+    "recovery_reserve": 1350000000000,
+    "surplus_after_recovery_reserve": 882025317730,
+    "window_start_requirement": 1590000000000
+  },
+  "frontend_correction": {
+    "wasm_sha256": "27e22016c6db59c6539413363f3a4e088b281e49f3a4f1ec0a80574b1c499399",
+    "balance": 1726698886256,
+    "freezing_floor": 203645678730,
+    "memory_bytes": 231884289,
+    "liquid": 1523053207526,
+    "snapshots": 0,
+    "stored_chunks": 0,
+    "installation_window_debit": 185502542125,
+    "conservative_recovery_allowance": 494000000000,
+    "surplus_after_recovery_allowance": 1029053207526
+  },
+  "backend_during_frontend_correction": {
+    "signed_liquid": 2179264791643,
+    "surplus_after_recovery_reserve": 829264791643,
+    "dev_speed": {
+      "adaptive_tier": "Trickle",
+      "admission_open": true,
+      "can_start": true,
+      "default_seconds": 120,
+      "idle": false,
+      "liquid_cycles": "2_179_264_791_643",
+      "mode": "Adaptive",
+      "recovery_reserve": "1_350_000_000_000",
+      "remaining_seconds": 0,
+      "running": true
+    }
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "status": "PASS",
+  "manifest": "42e0d0581f416a2839d95a255275c9cea821f4b5f10f467588b3c7a01c0792f7",
+  "certified_data": "209f0a0cfaa9e2a6e370cd026ad8d9b06b4839b892014a608238150696a70e8b",
+  "state_hash": "098be5ff6e3dd29c5b1d6221979be0cf861f14f97e0608d569db908105a2dff2",
+  "source_cursor": "40647923",
+  "received_e8s": "108100000",
+  "receipts_compared": 8,
+  "schema_version": 10,
+  "pre": "2026-11-23T08:33:08.229Z",
+  "post": "2026-11-23T08:34:00.053Z",
+  "rules_identity": {
+    "config_hash": "6bcccdc6cb89cd32b680cead7c1ec7d7b6d7d294a36b44d7dd94be1a261b7934",
+    "rules_hash": "3925d3aa0ef3fd031627290e6eeccd76f53b985625a25125b50ef34a4a2b4c22",
+    "schema_hash": "dfcb89f63c4d0d662b5ba6797ceb56902636e8c3c0d41efb1e902baa5b521e9b",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  }
+}
