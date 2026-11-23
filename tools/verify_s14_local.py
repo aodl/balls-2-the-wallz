@@ -112,7 +112,8 @@ def main():
     try:
         run('prepare-operator-genesis',['node','tools/prepare_s14_init.mjs','--world-output',str(out/'genesis-world.bin'),'--output',str(out/'example-init.did')],60)
         manifest='canisters/runtime-lab/Cargo.toml';target=ROOT/'canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm'
-        for features,name in [([], 'normal'),(['--features','test-hooks'],'test-hooks')]:
+        # Qualify the same public release executable built by check.py wasm.
+        for features,name in [(['--features','public-launch'], 'normal'),(['--features','test-hooks'],'test-hooks')]:
             run('build-'+name,cargo+['build','--manifest-path',manifest,'--release','--target','wasm32-unknown-unknown','--locked','--offline',*features])
             dest=out/(name+'.wasm');shutil.copyfile(target,dest);names=wasm_exports(dest)
             if name=='normal':

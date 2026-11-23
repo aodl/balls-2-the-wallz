@@ -23,7 +23,9 @@ detached checkout of its qualified source `351d96d7059f7f84957af1470c86a7028c588
 The mainline workflow separately checks the live-qualified integration inputs,
 reproduces both historical and current public embedded frontend builds, and
 matches the current normal runtime Wasm to the executable used for installed-IC
-acceptance. The standard, financial and developer workflows all run on pushes
+acceptance. The Wasm gate, Candid verification and normal installed build all
+select the same `public-launch` Cargo feature. The developer and fault-test
+modules remain separate. The standard, financial and developer workflows all run on pushes
 to `master` and pull requests targeting it. The developer run rehearses both
 exact predecessor upgrades, official disposable Ledger inputs and independent
 replay. Its candidate builds must match the installed Wasm digests. The two

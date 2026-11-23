@@ -35,6 +35,7 @@ def main() -> int:
     args = parser.parse_args()
     generated = run([
         "cargo", "test", "--manifest-path", str(MANIFEST), "--locked", "--offline",
+        "--features", "public-launch",
         "tests::print_generated_candid", "--", "--exact", "--nocapture",
     ])
     if generated.returncode:
