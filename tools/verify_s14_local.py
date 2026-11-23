@@ -74,6 +74,7 @@ def main():
     # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
     p.add_argument('--dev-speed-wasm',type=Path,help='Explicit disposable developer-speed + test-hooks executable')
     p.add_argument('--dev-speed-release-wasm',type=Path,help='Exact no-test-hooks developer-speed release rehearsal')
+    p.add_argument('--dev-speed-prior-wasm',type=Path,help='Exact first Rules18 developer-speed production module')
     p.add_argument('--rules18-prior-wasm',type=Path,help='Exact production predecessor for developer-speed rehearsal')
     p.add_argument('--dev-speed-frontend',type=Path,help='Exact embedded developer frontend directory for IC HTTP certification')
     p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
@@ -177,7 +178,7 @@ def main():
                 raise ValueError('Expected a disposable developer-speed executable with cycle test hooks')
             env['B2Z_DEV_SPEED_WASM']=str(path)
         # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
-        if a.dev_speed_release_wasm or a.rules18_prior_wasm or a.dev_speed_frontend:
+        if a.dev_speed_release_wasm or a.rules18_prior_wasm or a.dev_speed_frontend or a.dev_speed_prior_wasm:
             if not (a.dev_speed_release_wasm and a.rules18_prior_wasm and a.rules17_prior_wasm and
                     a.test_filter=='context_structures_installed::delegation_rules17_upgrade_signed_ledger_and_replay'):
                 raise ValueError('developer release rehearsal requires both exact modules and the signed Rules18 test')
@@ -189,6 +190,11 @@ def main():
             if set(wasm_exports(candidate))!=expected:
                 raise ValueError('developer speed must be the only change to production Wasm exports')
             env.update(B2Z_DEV_SPEED_RELEASE_WASM=str(candidate),B2Z_RULES18_PRIOR_WASM=str(prior))
+            if a.dev_speed_prior_wasm:
+                deployed=a.dev_speed_prior_wasm.resolve()
+                if hashlib.sha256(deployed.read_bytes()).hexdigest()!='9fb444b041a7b699f0cf92159a2505d1bdf4cb3dc5e092fc4b85310b1deb0d42':
+                    raise ValueError('Developer predecessor does not match the production identity')
+                env['B2Z_DEV_SPEED_PRIOR_WASM']=str(deployed)
             if a.dev_speed_frontend:
                 env['B2Z_DEV_SPEED_FRONTEND']=str(a.dev_speed_frontend.resolve())
         env['B2Z_CMC_MOCK_WASM']=str(ROOT/'tools/cmc-funding-fixture/target/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm')

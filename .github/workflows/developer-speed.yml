@@ -78,6 +78,12 @@ jobs:
           path: .work/prior-rules18
       - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
         with:
+          github-token: ${{ github.token }}
+          run-id: '45133912176'
+          name: developer-speed-backend-and-replay
+          path: .work/prior-developer-speed
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
           name: developer-speed-frontend
           path: .work/qualified-dev-frontend
       - run: npm ci --ignore-scripts
@@ -123,6 +129,7 @@ jobs:
             --rules16-prior-wasm .work/rules16-a5889a92.wasm \
             --rules17-prior-wasm .work/rules17-c066140f.wasm \
             --rules18-prior-wasm .work/prior-rules18/dtr_runtime_lab.wasm \
+            --dev-speed-prior-wasm .work/prior-developer-speed/developer-speed-release.wasm \
             --dev-speed-release-wasm .work/developer-speed-release.wasm \
             --dev-speed-frontend "$(dirname "${frontend[0]}")" \
             --output .work/ci-dev-rules18

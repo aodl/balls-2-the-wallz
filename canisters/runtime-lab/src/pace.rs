@@ -159,11 +159,17 @@ const DEV_MAX_SECONDS: u16 = 300;
 #[cfg(feature = "developer-speed")]
 pub const DEV_RECOVERY_RESERVE: u128 = TRICKLE_ENTER + 100_000_000_000;
 #[cfg(feature = "developer-speed")]
-const DEV_TICK_ALLOWANCE: u128 = 2_000_000_000;
+const DEV_TICK_ALLOWANCE: u128 = 6_000_000_000;
+// Mainnet Rules18 seals took about 656M instructions in the measured world.
+// Permit the first bounded step beside such a seal without increasing its work.
+#[cfg(feature = "developer-speed")]
+pub const DEV_SEAL_STEP_LIMIT: u64 = 1_250_000_000;
 
 pub struct Clock {
     #[cfg(feature = "developer-speed")]
     pub dev_until_ns: Option<u64>,
+    #[cfg(feature = "developer-speed")]
+    pub dev_last_stop: Option<&'static str>,
     pub mode: Mode,
     pub due: u64,
     pub batch_started: u64,
@@ -180,6 +186,8 @@ impl Default for Clock {
             mode: Mode::ReserveProtection,
             #[cfg(feature = "developer-speed")]
             dev_until_ns: None,
+            #[cfg(feature = "developer-speed")]
+            dev_last_stop: None,
             due: 0,
             batch_started: 0,
             performance_milli: 1000,
@@ -236,6 +244,7 @@ impl Clock {
             now.checked_add(u64::from(duration) * 1_000_000_000)
                 .ok_or("Full Speed deadline overflow")?,
         );
+        self.dev_last_stop = None;
         self.due = self.last_published.saturating_add(self.period(1)).max(now);
         self.rest_since_publication = now.saturating_sub(self.last_published);
         self.overrun = 0;
@@ -258,19 +267,25 @@ impl Clock {
 
     #[cfg(feature = "developer-speed")]
     pub fn refresh_dev_speed(&mut self, now: u64, liquid: u128, running: bool) {
-        if self.dev_until_ns.is_some_and(|end| {
-            !running
-                || now >= end
-                || !self.dev_resources_safe(liquid)
-                || self.mode == Mode::ReserveProtection
-        }) {
-            self.end_dev_speed(now);
+        if let Some(end) = self.dev_until_ns {
+            if !running {
+                self.end_dev_speed(now, "simulation-stopped");
+            } else if now >= end {
+                self.end_dev_speed(now, "window-expired");
+            } else if self.mode == Mode::ReserveProtection
+                || liquid < DEV_RECOVERY_RESERVE + DEV_TICK_ALLOWANCE
+            {
+                self.end_dev_speed(now, "recovery-reserve");
+            } else if !self.dev_resources_safe(liquid) {
+                self.end_dev_speed(now, "performance-limit");
+            }
         }
     }
 
     #[cfg(feature = "developer-speed")]
-    pub fn end_dev_speed(&mut self, now: u64) {
+    pub fn end_dev_speed(&mut self, now: u64, reason: &'static str) {
         if self.dev_until_ns.take().is_some() {
+            self.dev_last_stop = Some(reason);
             self.due = self.last_published.saturating_add(self.period(1)).max(now);
             self.overrun = 0;
             self.healthy = 0;
@@ -349,11 +364,17 @@ impl Clock {
         let period = self.period(ticks);
         #[cfg(feature = "developer-speed")]
         if self.dev_until_ns.is_some() {
-            if compute > period || elapsed > 2 * period {
-                self.end_dev_speed(now);
+            if compute > period {
+                self.end_dev_speed(now, "checkpoint-compute");
+            } else if elapsed > 2 * period {
+                self.end_dev_speed(now, "checkpoint-delivery");
             } else {
-                // Never catch up multiple experimental ticks after a late callback.
-                self.due = now.saturating_add(period);
+                // Keep the one-second schedule phase through ordinary IC round
+                // jitter. Do not immediately replay a missed checkpoint.
+                self.due = self
+                    .due
+                    .saturating_add(period)
+                    .max(now.saturating_add(period / 2));
             }
             self.batch_started = 0;
             return;
@@ -423,6 +444,7 @@ mod tests {
         // A delayed callback terminates the experiment instead of replaying time.
         clock.published(23 * SECOND, 1, true);
         assert_eq!(clock.dev_until_ns, None);
+        assert_eq!(clock.dev_last_stop, Some("checkpoint-delivery"));
         assert_eq!(clock.hint().supported_milli, 10);
         assert_eq!(clock.wait(23 * SECOND, 1), 100 * SECOND);
         clock.start_dev_speed(23 * SECOND, 120, liquid).unwrap();
@@ -430,7 +452,31 @@ mod tests {
         assert!(clock.dev_until_ns.is_some());
         clock.refresh_dev_speed(143 * SECOND, liquid, true);
         assert_eq!(clock.dev_until_ns, None);
+        assert_eq!(clock.dev_last_stop, Some("window-expired"));
         assert_eq!(Clock::default().dev_until_ns, None);
+    }
+
+    #[test]
+    #[cfg(feature = "developer-speed")]
+    fn temporary_speed_keeps_phase_through_round_jitter_and_skips_missed_work() {
+        const MS: u64 = 1_000_000;
+        let liquid = 2_500_000_000_000;
+        let mut clock = Clock::default();
+        clock.refresh(liquid);
+        clock.start_dev_speed(2000 * MS, 120, liquid).unwrap();
+        clock.batch_started = 2000 * MS;
+        clock.published(2000 * MS, 1, true);
+        assert_eq!(clock.scheduled_wait(2000 * MS, 1), 1000 * MS);
+        clock.batch_started = 3900 * MS;
+        clock.published(3900 * MS, 1, true);
+        assert_eq!(clock.scheduled_wait(3900 * MS, 1), 500 * MS);
+        clock.batch_started = 4800 * MS;
+        clock.published(4800 * MS, 1, true);
+        assert_eq!(clock.scheduled_wait(4800 * MS, 1), 600 * MS);
+        clock.batch_started = 5400 * MS;
+        clock.published(6500 * MS, 1, true);
+        assert_eq!(clock.dev_until_ns, None);
+        assert_eq!(clock.dev_last_stop, Some("checkpoint-compute"));
     }
 
     #[test]
@@ -446,7 +492,7 @@ mod tests {
         assert!(clock.start_dev_speed(0, 1, floor).is_err());
         clock.performance_milli = 1_000;
         clock.start_dev_speed(0, 1, floor).unwrap();
-        clock.end_dev_speed(1);
+        clock.end_dev_speed(1, "manual");
         assert_eq!(clock.dev_until_ns, None);
         clock.start_dev_speed(1, 1, floor).unwrap();
         clock.refresh_dev_speed(2, floor - 1, true);

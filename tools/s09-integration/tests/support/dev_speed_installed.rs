@@ -7,6 +7,7 @@ pub(super) struct DevSpeed {
     pub(super) adaptive_tier: String,
     pub(super) remaining_seconds: u16,
     admission_open: bool,
+    last_stop: Option<String>,
 }
 
 pub(super) fn bind(pic: &PocketIc, id: Principal, operator: Option<Principal>) {
@@ -105,7 +106,7 @@ fn dev_speed_switches_authoritative_pace_and_preserves_replay() {
         &pic,
         id,
         "test_liquid_budget",
-        candid::encode_one(1_850_000_000_000u64).unwrap(),
+        candid::encode_one(2_350_000_000_000u64).unwrap(),
     );
     let genesis = observe(&pic, id).1;
     let mut replay = Coordinator::create(
@@ -260,7 +261,9 @@ fn dev_speed_switches_authoritative_pace_and_preserves_replay() {
         Int(1_000_000_000u64.into())
     );
     let current = observe(&pic, id).0.publication;
-    assert_eq!(set(false, None::<u16>).mode, "Adaptive");
+    let stopped = set(false, None::<u16>);
+    assert_eq!(stopped.mode, "Adaptive");
+    assert_eq!(stopped.last_stop.as_deref(), Some("manual"));
     assert_eq!(observe(&pic, id).0.publication, current);
     assert_eq!(
         status(&pic, id).run.pace.as_ref().unwrap().supported_milli,
@@ -278,7 +281,9 @@ fn dev_speed_switches_authoritative_pace_and_preserves_replay() {
         }
         capture(&payments);
     }
-    assert_eq!(read().mode, "Adaptive");
+    let expired = read();
+    assert_eq!(expired.mode, "Adaptive");
+    assert_eq!(expired.last_stop.as_deref(), Some("window-expired"));
     let prior = observe(&pic, id).0.publication;
     assert_eq!(set(true, None).remaining_seconds, 120);
     bind(&pic, id, None);
@@ -330,6 +335,7 @@ fn dev_speed_switches_authoritative_pace_and_preserves_replay() {
         ("Adaptive", "ReserveProtection")
     );
     assert!(!protected.admission_open);
+    assert_eq!(protected.last_stop.as_deref(), Some("recovery-reserve"));
     let protected_head = observe(&pic, id).0.publication;
     for _ in 0..3 {
         tick(&pic);

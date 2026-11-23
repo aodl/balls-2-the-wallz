@@ -22,7 +22,10 @@ pub fn bind(operator: Option<Principal>) -> AppResult<()> {
     }
     let r = root()?;
     if OPERATOR.with(|p| p.replace(operator)) != operator {
-        PACE.with(|p| p.borrow_mut().end_dev_speed(ic_cdk::api::time()));
+        PACE.with(|p| {
+            p.borrow_mut()
+                .end_dev_speed(ic_cdk::api::time(), "operator-rebound")
+        });
         install_run_timer(&r.run);
     }
     Ok(())
@@ -40,6 +43,7 @@ pub struct Status {
     pub admission_open: bool,
     pub liquid_cycles: u128,
     pub recovery_reserve: u128,
+    pub last_stop: Option<String>,
 }
 
 pub fn read() -> AppResult<Status> {
@@ -85,6 +89,7 @@ fn status(r: &Root) -> AppResult<Status> {
             admission_open: adaptive != pace::Mode::ReserveProtection,
             liquid_cycles: liquid,
             recovery_reserve: pace::DEV_RECOVERY_RESERVE,
+            last_stop: pace.dev_last_stop.map(str::to_owned),
         }
     }))
 }
@@ -113,7 +118,7 @@ pub fn set(full_speed: bool, duration_seconds: Option<u16>) -> AppResult<Status>
             )
         })?;
     } else {
-        PACE.with(|p| p.borrow_mut().end_dev_speed(now));
+        PACE.with(|p| p.borrow_mut().end_dev_speed(now, "manual"));
     }
     install_run_timer(&r.run);
     status(&r)

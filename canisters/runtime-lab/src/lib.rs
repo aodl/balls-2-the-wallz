@@ -1268,7 +1268,10 @@ fn stop_run_after_error(generation: u64, error: String) -> AppResult<()> {
         r.run.last_error = Some(error);
         save_root_only(&r)?;
         #[cfg(feature = "developer-speed")]
-        PACE.with(|p| p.borrow_mut().end_dev_speed(ic_cdk::api::time()));
+        PACE.with(|p| {
+            p.borrow_mut()
+                .end_dev_speed(ic_cdk::api::time(), "simulation-error")
+        });
     }
     Ok(())
 }
@@ -1335,7 +1338,10 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     refresh_pace();
     #[cfg(feature = "developer-speed")]
     if !r.run.running || active_transition(&r)?.is_some() || r.lifecycle_barrier.is_some() {
-        PACE.with(|p| p.borrow_mut().end_dev_speed(ic_cdk::api::time()));
+        PACE.with(|p| {
+            p.borrow_mut()
+                .end_dev_speed(ic_cdk::api::time(), "lifecycle-fence")
+        });
     }
     let transition_work = transition_maintenance(&r);
     if !PACE.with(|p| p.borrow().hint().admission_open) && !transition_work {
@@ -1363,10 +1369,24 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
         r.source.memo_adapter_version,
         b2z_protocol::economy17::MEMO_ADAPTER_VERSION | b2z_protocol::delegation::ADAPTER_VERSION
     );
+    // TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH.
+    // Rules18 normally yields after sealing a mainnet-sized world. During an
+    // active test, let a bounded seal take its first ordinary work slice in
+    // the same callback. Larger seals and remaining work still yield.
+    #[cfg(feature = "developer-speed")]
+    let coalesce = daily && PACE.with(|p| p.borrow().dev_until_ns.is_some());
     loop {
+        let within_instruction_yield =
+            actions == 0 || ic_cdk::api::performance_counter(0) < pace::INSTRUCTION_YIELD;
+        #[cfg(feature = "developer-speed")]
+        let within_instruction_yield = within_instruction_yield
+            || (coalesce
+                && actions == 1
+                && phases[0] != 0
+                && ic_cdk::api::performance_counter(0) < pace::DEV_SEAL_STEP_LIMIT);
         let within_budget = actions < (pace::MAX_ACTIONS as u32)
             && work < pace::MAX_WORK
-            && (actions == 0 || ic_cdk::api::performance_counter(0) < pace::INSTRUCTION_YIELD);
+            && within_instruction_yield;
         // For Rules17 finalization publishes in the same atomic IC message.
         // A persisted Ready state would make its observed time ambiguous.
         let publish_daily = daily
@@ -2090,7 +2110,10 @@ fn pause_autonomous() -> std::result::Result<Status, String> {
     }
     r.run.running = false;
     #[cfg(feature = "developer-speed")]
-    PACE.with(|p| p.borrow_mut().end_dev_speed(ic_cdk::api::time()));
+    PACE.with(|p| {
+        p.borrow_mut()
+            .end_dev_speed(ic_cdk::api::time(), "simulation-paused")
+    });
     r.run.generation = r
         .run
         .generation

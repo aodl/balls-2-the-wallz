@@ -23,21 +23,27 @@ Wasm, run the console from its dfx project:
 DFX_IDENTITY=codex_local python3.11 /path/to/b2z/tools/dev_speed_console.py --canister YOUR_DISPOSABLE_CANISTER
 ```
 
-Open `http://127.0.0.1:18769/` to use the loopback console. Full Speed uses the existing authoritative
-driver, one logical tick per interval, with a one-second floor between new
-publications. It keeps the existing work budget and source driver. It waits
+Open `http://127.0.0.1:18769/` to use the loopback console. Full Speed schedules
+one logical tick per second through the authoritative driver. It keeps the
+schedule phase through ordinary subnet round jitter and permits at most one
+checkpoint per callback. For bounded Rules17/18 seals, the first ordinary
+work slice can run in the same callback. Larger seals and unfinished segments
+yield through the existing continuation. The work budget, hard action caps and
+source driver stay in force. It waits
 for a committed checkpoint before enabling so it cannot resize a sealed
 segment. Idle arenas stay idle. The starting window is 120 seconds. A caller
 can choose 1–300 seconds, or return immediately to Adaptive.
 
 Each window requires 1.350T liquid cycles for restart, compatible software
-recovery and contingency, plus 2B per requested second. The latter is an
-operating allowance. The driver samples liquid balance before each callback
+recovery and contingency, plus 6B per requested second. The operating allowance
+includes margin above the measured mainnet cost of about 4.19B per checkpoint.
+The driver samples liquid balance before each callback
 and ends the override before another tick if recovery headroom is lost. It
 also ends on an unsafe execution rate, stopped run or active transition.
 The allocation mode and thresholds remain unchanged. The override is heap-only and returns to Adaptive on an upgrade-based
 restart. A suspended canister checks the original absolute deadline before
-processing more work. Canonical state, instructions, Ledger cursor and
+processing more work. The owner-only status records the latest stop reason.
+Canonical state, instructions, Ledger cursor and
 replay inputs stay intact.
 
 ## European rollout
@@ -48,7 +54,7 @@ reinstall, temporary chunks and contingency. Keep the established 494B
 combined allowance and the exact known-good Rules18 frontend. Retain the
 exact normal Rules18 backend as the tested recovery executable. Reserve
 backend cycles for the upgrade and compatible recovery, then verify at least
-1.590T liquid before starting a 120-second test.
+2.070T liquid before starting a 120-second test.
 
 Install the certified development frontend first. Check the pinned sign-in
 origin, manual Copy and the existing Rules18 app. Pause the backend, verify

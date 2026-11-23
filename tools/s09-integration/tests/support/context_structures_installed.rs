@@ -1104,6 +1104,16 @@ fn complete_developer_speed_ticks(
     let queued = pending();
     assert!(queued > 0);
 
+    let installed_developer =
+        std::env::var_os("B2Z_DEV_SPEED_PRIOR_WASM").map(|_| bytes("B2Z_DEV_SPEED_PRIOR_WASM"));
+    if let Some(module) = &installed_developer {
+        upgrade(pic, id, module.clone());
+        assert_eq!(observe(pic, id).0.publication, publication);
+        assert_eq!(arena_world(pic, id).encode().unwrap(), world);
+        assert_eq!(funding_tests::preserved_finance(pic, id), finance);
+        assert_eq!(status(pic, id).source.admitted_to_exclusive, cursor);
+        assert_eq!(pending(), queued);
+    }
     let candidate = bytes("B2Z_DEV_SPEED_RELEASE_WASM");
     upgrade(pic, id, candidate.clone());
     assert_eq!(observe(pic, id).0.publication, publication);
@@ -1148,6 +1158,19 @@ fn complete_developer_speed_ticks(
             .all(|w| (1_000..=1_100).contains(&(w[1] - w[0]))),
         "{milliseconds:?}"
     );
+    #[derive(CandidType, Deserialize)]
+    struct Metrics {
+        max_actions: u32,
+    }
+    #[derive(CandidType, Deserialize)]
+    struct Runtime {
+        metrics: Metrics,
+    }
+    let diagnostics = get_query::<Runtime>(pic, id, "controller_runtime", encode_args(()).unwrap());
+    assert!(
+        (3..=8).contains(&diagnostics.metrics.max_actions),
+        "a full-speed checkpoint must complete seal, step and publish in one bounded callback"
+    );
     let cycle_cost = cycles - pic.cycle_balance(id);
     assert_eq!(
         switch(pic, id, operator, false, None).unwrap().mode,
@@ -1176,6 +1199,13 @@ fn complete_developer_speed_ticks(
     let settled = observe(pic, id).0.publication;
     let settled_state = arena_world(pic, id).encode().unwrap();
     let settled_finance = funding_tests::preserved_finance(pic, id);
+    if let Some(module) = &installed_developer {
+        upgrade(pic, id, module.clone());
+        assert_eq!(observe(pic, id).0.publication, settled);
+        assert_eq!(arena_world(pic, id).encode().unwrap(), settled_state);
+        assert_eq!(funding_tests::preserved_finance(pic, id), settled_finance);
+        assert_eq!(status(pic, id).source.admitted_to_exclusive, cursor);
+    }
     upgrade(pic, id, predecessor.clone());
     assert_eq!(observe(pic, id).0.publication, settled);
     assert_eq!(arena_world(pic, id).encode().unwrap(), settled_state);
@@ -1186,6 +1216,8 @@ fn complete_developer_speed_ticks(
         "developer-speed-rules18.json",
         &json!({
             "status":"PASS", "normal_predecessor":dtr_wire::hash(&predecessor), "development_candidate":dtr_wire::hash(&candidate),
+            "installed_developer_recovery":installed_developer.as_ref().map(|wasm| dtr_wire::hash(wasm)),
+            "max_actions_per_callback":diagnostics.metrics.max_actions,
             "queued_rules18_inputs":queued, "ticks_ms":milliseconds, "cycles_for_three_samples":cycle_cost.to_string(),
             "adaptive_supported_milli":10, "default_expiry_seconds":120, "exact_normal_recovery":true,
         }),
