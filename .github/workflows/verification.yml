@@ -2,8 +2,7 @@ name: verification
 
 on:
   push:
-    # The temporary release has a dedicated gate against the exact production predecessor.
-    branches-ignore: [feature/b2z-rules15-floating-aim, feature/b2z-rules16-toolbar-payments, feature/b2z-temporary-dev-speed]
+    branches-ignore: [feature/b2z-rules15-floating-aim, feature/b2z-rules16-toolbar-payments]
   pull_request:
 
 # Push and same-repository PR events share a group; keep only the newest run.
@@ -28,6 +27,7 @@ jobs:
         with:
           # Qualify the published head itself on both event types.
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
@@ -40,7 +40,7 @@ jobs:
         run: python -B tools/check_dtr_provenance.py --locks-only --output .work/ci-dtr-source.json
       - run: python -B tools/check.py source --output .work/ci-source
       - name: Reproduce the successor frontend freeze
-        run: python -B tools/verify_approved_panel_freeze.py --artifacts "$FROZEN_B2Z_ASSETS" --output .work/ci-frozen-panel
+        run: python -B tools/verify_rules18_mainline.py --output .work/ci-frozen-panel
       - name: Upload source evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
@@ -107,6 +107,7 @@ jobs:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.11'
@@ -120,11 +121,11 @@ jobs:
       - name: Build from the exact frozen observer inventory
         run: |
           assets="$FROZEN_B2Z_ASSETS"
-          python -B tools/verify_approved_panel_freeze.py --artifacts "$assets" --output .work/ci-embedded-assets
-          python -B tools/build_embedded_frontend.py --observer .work/ci-embedded-assets/reproduced --inventory "$assets/frontend-inventory.json" --output .work/ci-embedded
+          python -B tools/verify_rules18_mainline.py --public-observer --output .work/ci-embedded-assets
+          python -B tools/build_embedded_frontend.py --observer .work/ci-embedded-assets/historical/reproduced --inventory "$assets/frontend-inventory.json" --output .work/ci-embedded
           cmp "$assets/embedded-inventory.json" .work/ci-embedded/embedded-inventory.json
           python -c 'import json, sys; left, right = [json.load(open(p)) for p in sys.argv[1:]]; assert left["sha256"] == right["sha256"], (left["sha256"], right["sha256"])' "$assets/embedded-module.json" .work/ci-embedded/module.json
-          python -B tools/verify_embedded_frontend_builds.py --observer .work/ci-embedded-assets/reproduced --inventory "$assets/frontend-inventory.json" --first-build .work/ci-embedded --output .work/ci-embedded-repro
+          python -B tools/verify_embedded_frontend_builds.py --observer .work/ci-embedded-assets/historical/reproduced --inventory "$assets/frontend-inventory.json" --first-build .work/ci-embedded --output .work/ci-embedded-repro
       - name: Archive exact public frontend module and inventory
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
@@ -134,6 +135,24 @@ jobs:
             .work/ci-embedded/module.json
             .work/ci-embedded/embedded-inventory.json
             .work/ci-embedded-repro/results.json
+          if-no-files-found: error
+          retention-days: 14
+
+      - name: Build and independently reproduce the current public-launch frontend
+        run: |
+          observer=.work/ci-embedded-assets/public-observer
+          inventory=.work/ci-embedded-assets/public-inventory.json
+          python -B tools/build_embedded_frontend.py --observer "$observer" --inventory "$inventory" --output .work/ci-mainline-public
+          python -B tools/verify_embedded_frontend_builds.py --observer "$observer" --inventory "$inventory" --first-build .work/ci-mainline-public --output .work/ci-mainline-public-repro
+      - name: Archive current public-launch identity and reproducibility evidence
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: mainline-public-frontend-wasm
+          path: |
+            .work/ci-mainline-public/frontend.wasm
+            .work/ci-mainline-public/module.json
+            .work/ci-mainline-public/embedded-inventory.json
+            .work/ci-mainline-public-repro/results.json
           if-no-files-found: error
           retention-days: 14
 
@@ -178,14 +197,15 @@ jobs:
         with:
           # Qualify the published head itself on both event types.
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
       - run: rustup toolchain install 1.94.1 --profile minimal --component rustfmt --component clippy --target wasm32-unknown-unknown
       - run: cargo +1.94.1 fetch --manifest-path canisters/runtime-lab/Cargo.toml --locked
       - name: Assert exact DTR release provenance
         run: python3 -B tools/check_dtr_provenance.py --manifest canisters/runtime-lab/Cargo.toml --output .work/ci-dtr-wasm.json
       - run: python3 -B tools/check.py wasm --output .work/ci-wasm
-      - name: Verify Rules16 backend inputs and archive the hosted normal executable
+      - name: Verify Rules18 freeze and approved integration inputs
         run: |
-          python3 -B tools/verify_approved_panel_freeze.py --artifacts "$FROZEN_B2Z_ASSETS" --backend-only --output .work/ci-frozen-wasm
+          python3 -B tools/verify_rules18_mainline.py --backend-only --output .work/ci-frozen-wasm
           sha256sum canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm > .work/ci-frozen-wasm/hosted-normal-wasm.sha256
           gzip -dc vendor/b2z/rules12-2cb2fe02.wasm.gz | sha256sum | cut -d' ' -f1 | grep -Fx 2cb2fe026941cbdd5373b490e1300f430db62b0b274e9f604ad3ad1a0f03ac13
           gzip -dc vendor/b2z/rules13-d17fb92e.wasm.gz | sha256sum | cut -d' ' -f1 | grep -Fx d17fb92e83a01a3f09a4e969ef4b9d3e045053fec818a53dfe91ba139cd1f4fd
@@ -220,6 +240,7 @@ jobs:
         with:
           # Qualify the published head itself on both event types.
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
@@ -289,8 +310,8 @@ jobs:
         run: python -B tools/verify_boundary_deflector_browser.py --output .work/ci-boundary-controls
       - name: Frozen official emblems, header and standalone not-found browser acceptance
         run: |
-          python -B tools/verify_approved_panel_freeze.py --artifacts "$FROZEN_B2Z_ASSETS" --output .work/ci-branding-freeze
-          python -B tools/serve_observer.py --deployment-assets .work/ci-branding-freeze/reproduced --port 8199 > .work/ci-branding-server.log 2>&1 &
+          python -B tools/verify_rules18_mainline.py --public-observer --output .work/ci-branding-freeze
+          python -B tools/serve_observer.py --deployment-assets .work/ci-branding-freeze/public-observer --port 8199 > .work/ci-branding-server.log 2>&1 &
           observer_pid=$!
           trap 'kill "$observer_pid"' EXIT
           curl --fail --silent --retry 10 --retry-connrefused http://127.0.0.1:8199/404.html > /dev/null
@@ -365,6 +386,7 @@ jobs:
         with:
           # Qualify the published head itself on both event types.
           ref: ${{ github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
@@ -390,7 +412,7 @@ jobs:
           path: .work/ci-normal
       - name: Bind installed acceptance to the exact hosted normal backend
         run: |
-          python -B tools/verify_approved_panel_freeze.py --artifacts "$FROZEN_B2Z_ASSETS" --backend-only --output .work/ci-integration/spacing-backend-pin
+          python -B tools/verify_rules18_mainline.py --backend-only --output .work/ci-integration/spacing-backend-pin
           cmp .work/ci-normal/dtr_runtime_lab.wasm .work/ci-integration/s14-local/normal.wasm
           sha256sum .work/ci-integration/s14-local/normal.wasm > .work/ci-integration/spacing-backend-pin/hosted-normal.sha256
       - name: Official disposable Ledger and Index qualification for the Rules16 cutover and daily pricing

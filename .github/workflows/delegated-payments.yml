@@ -1,11 +1,11 @@
 name: Rules18 delegated-payment qualification
 
-# Additional financial qualification, never a substitute for the six ordinary
-# substantive jobs. Only the isolated feature branch or explicit dispatch runs
-# this path; it cannot activate production payments or gate the frontend branch.
+# Additional financial qualification alongside the standard verification.
 on:
   push:
-    branches: [feature/b2z-rules18-delegated-payments]
+    branches: [master, feature/b2z-rules18-delegated-payments, feature/b2z-temporary-dev-speed]
+  pull_request:
+    branches: [master]
   workflow_dispatch:
     inputs:
       source_sha:
@@ -15,7 +15,7 @@ on:
 permissions:
   contents: read
 concurrency:
-  group: delegated-payments-${{ inputs.source_sha || github.sha }}
+  group: delegated-payments-${{ inputs.source_sha || github.event.pull_request.head.sha || github.sha }}
   cancel-in-progress: false
 jobs:
   disposable-financial-path:
@@ -27,13 +27,14 @@ jobs:
       CARGO_TERM_COLOR: always
       CARGO_INCREMENTAL: 0
       DFX_IDENTITY: codex_local
-      EXPECTED_SOURCE: ${{ inputs.source_sha || github.sha }}
+      EXPECTED_SOURCE: ${{ inputs.source_sha || github.event.pull_request.head.sha || github.sha }}
     steps:
       - name: Require an exact source identity
         run: python3 -c 'import os,re; assert re.fullmatch("[0-9a-f]{40}",os.environ["EXPECTED_SOURCE"])'
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
         with:
-          ref: ${{ inputs.source_sha || github.sha }}
+          ref: ${{ inputs.source_sha || github.event.pull_request.head.sha || github.sha }}
+          fetch-depth: 0
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065 # v5
         with:
           python-version: '3.11'
@@ -53,7 +54,11 @@ jobs:
       - run: python -B tools/fetch_s09_artifacts.py --destination /home/runner/dtr-s09-artifacts --record .work/ci-delegated-artifacts.json
       - name: Verify frozen backend and materialize exact disposable predecessors
         run: |
-          python -B tools/verify_approved_panel_freeze.py --backend-only --artifacts evidence/B2Z/rules18-delegated-payments/artifacts --output .work/ci-rules18-inputs
+          if git merge-base --is-ancestor c4bbc077a0be393d1c99f49f064e795dfaceafd3 HEAD 2>/dev/null; then
+            python -B tools/verify_rules18_mainline.py --backend-only --output .work/ci-rules18-inputs
+          else
+            python -B tools/verify_approved_panel_freeze.py --backend-only --artifacts evidence/B2Z/rules18-delegated-payments/artifacts --output .work/ci-rules18-inputs
+          fi
           for artifact in rules15-8d7f1a67 rules16-a5889a92 rules17-c066140f; do
             gzip -dc "vendor/b2z/$artifact.wasm.gz" > ".work/$artifact.wasm"
           done
@@ -90,11 +95,11 @@ jobs:
     runs-on: ubuntu-22.04
     timeout-minutes: 15
     env:
-      EXPECTED_SOURCE: ${{ inputs.source_sha || github.sha }}
+      EXPECTED_SOURCE: ${{ inputs.source_sha || github.event.pull_request.head.sha || github.sha }}
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
         with:
-          ref: ${{ inputs.source_sha || github.sha }}
+          ref: ${{ inputs.source_sha || github.event.pull_request.head.sha || github.sha }}
       - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
         with:
           python-version: '3.11'

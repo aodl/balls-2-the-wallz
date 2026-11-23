@@ -23,3 +23,14 @@ uses it as the exact predecessor in disposable PocketIC.
 `rules17-c066140f.wasm.gz` is the exact European Rules17 normal executable,
 retained for the disposable Rules18 state-preserving upgrade rehearsal. Its raw
 SHA-256 is `c066140f4ef3174b3f440694c19ec4116a03298fcc63b80636b0b5389bc210ca`.
+
+The temporary developer-speed installed rehearsal also uses two exact predecessors:
+
+| Archive | Decompressed Wasm SHA-256 | Hosted source |
+| --- | --- | --- |
+| `rules18-43095677.wasm.gz` | `43095677376fe4f3c66185b1cf185ef9e161b5c44320609b93e134a771f4bf59` | [Rules18 normal backend](https://github.com/aodl/balls-2-the-wallz/actions/runs/45077109997) |
+| `rules18-dev-9fb444b0.wasm.gz` | `9fb444b041a7b699f0cf92159a2505d1bdf4cb3dc5e092fc4b85310b1deb0d42` | [Initial speed-control backend](https://github.com/aodl/balls-2-the-wallz/actions/runs/45133912176) |
+
+The installed test runner verifies each raw hash. These archives keep the
+rehearsal repeatable after the hosted artifacts expire. The temporary developer
+predecessor is only used by the developer-speed qualification.
