@@ -1,0 +1,15 @@
+{
+  "adaptive_supported_milli": 10,
+  "cycles_for_three_samples": "1725094039",
+  "default_expiry_seconds": 120,
+  "development_candidate": "3dcbce3965edef61b6c996f90c5af66f14d0e3f50490484569eb550cbc93b273",
+  "exact_normal_recovery": true,
+  "normal_predecessor": "43095677376fe4f3c66185b1cf185ef9e161b5c44320609b93e134a771f4bf59",
+  "queued_rules18_inputs": 6,
+  "status": "PASS",
+  "ticks_ms": [
+    100,
+    1100,
+    2100
+  ]
+}

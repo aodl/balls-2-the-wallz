@@ -1,0 +1,33 @@
+{
+  "status": "PASS",
+  "scope": "Real B2Z interface with controlled authentication and transport",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "owner_toggle": true,
+      "auto_return": true,
+      "cross_origin_denied": true
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "owner_toggle": true,
+      "auto_return": true,
+      "cross_origin_denied": true
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "owner_toggle": true,
+      "auto_return": true,
+      "cross_origin_denied": true
+    }
+  ]
+}

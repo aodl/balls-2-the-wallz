@@ -1,0 +1,54 @@
+{
+  "status": "PASS",
+  "scope": "Actual disposable IC; pinned BLS/canister/freshness, signed query transport, authenticated predecessor/artifacts, independent replay; not production",
+  "head": 19,
+  "evicted_publications_verified": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "freshness_clock": "disposable PocketIC consensus clock",
+  "independent": {
+    "status": "PASS",
+    "segments": 20,
+    "gameplay_segments": 10,
+    "application_checkpoints": 10,
+    "assigned": [
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10",
+      "11",
+      "12",
+      "13",
+      "14",
+      "15",
+      "16",
+      "17",
+      "18",
+      "19",
+      "21",
+      "23",
+      "24",
+      "25",
+      "26"
+    ],
+    "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+    "work_budget": 23,
+    "observer": "Authenticated artifact sequence plays through both schema versions"
+  },
+  "negatives": [
+    "changed normalized cry",
+    "incomplete events",
+    "altered reservoir destination",
+    "wrong source publication",
+    "wrong canister binding",
+    "damaged certificate"
+  ]
+}

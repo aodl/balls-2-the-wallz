@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "wasm": "f7c9450f9fccf77cc7f2d4dd0c41066d9addf02af0bad3cedd6400e493faaad0",
+  "certified_assets": 90,
+  "gzip": 7,
+  "flac": 60,
+  "alternate_get_head": 28,
+  "true_404": true,
+  "tampering_rejected": true,
+  "timeouts": []
+}

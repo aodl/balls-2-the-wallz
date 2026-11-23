@@ -1,0 +1,26 @@
+{
+  "frontend": {
+    "id": "s2jxj-liaaa-aaaas-amynq-cai",
+    "balance": 604560171664,
+    "freezing_floor": 203131807500,
+    "liquid": 401428364164,
+    "snapshots": 0,
+    "memory_bytes": 231213825,
+    "required": 494000000000,
+    "shortfall": 92571635836,
+    "module_sha256": "da3fccaaec5d2c1828a9ca53bdf979cd6d8a95be9398b8c4ad17ee8d53d49b55"
+  },
+  "backend": {
+    "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "balance": 2408931304318,
+    "freezing_floor": 64171197660,
+    "liquid": 2344760106658,
+    "snapshots": 0,
+    "memory_bytes": 49907542,
+    "window_required": 1590000000000,
+    "module_sha256": "43095677376fe4f3c66185b1cf185ef9e161b5c44320609b93e134a771f4bf59"
+  },
+  "authenticated_at": "2026-11-23T07:48:15.237Z",
+  "resource_observation_utc": "2026-11-23T08:06:02.140041+00:00",
+  "status": "BLOCKED_FRONTEND_RECOVERY_MARGIN"
+}
