@@ -19,6 +19,32 @@ the exact amount, fee, memo, accounts and creation timestamp and requires a
 user click. The canister never submits a transfer. Signing out leaves both
 permissions in place.
 
+## Permanent European Internet Identity origin
+
+The frontend canister `s2jxj-liaaa-aaaas-amynq-cai` is the permanent identity
+anchor for this deployment. The only production authentication origin and
+the fixed `AuthClient` derivation origin are both
+`https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io`. The game recipient belongs to
+the separate backend canister `s5ir5-gqaaa-aaaas-amyna-cai`.
+
+The production sign-in entry must fail closed unless `location.origin`
+equals that exact HTTPS origin. Browser hostnames, URL parameters, user input
+and remote configuration may not set or override the derivation origin.
+Custom domains, raw URLs and alternate gateway names cannot serve as a
+fallback. Publishing any alternative-origin metadata requires a separate
+explicit owner decision. The same derived S is bound to the browser signer,
+gameplay grants, Ledger allowance, immutable intents and receipt checks.
+
+Each release must verify that the authenticated frontend module is installed
+on the designated frontend canister, its certified JavaScript keeps the
+fixed origin, and the origin regressions reject custom hosts, raw and alternate
+gateways, and the backend's origin. Any future frontend canister migration
+or gateway naming change requires an explicit identity-migration review and
+proof of principal continuity before changing the pin. This invariant assumes
+no future naming-system capability and adds no custom DNS dependency. Provider
+normalization does not change the application's pinned origin.
+[Internet Identity specification](https://docs.internetcomputer.org/references/internet-identity-spec/#alternative-frontend-origins)
+
 ## Ordered source and financial records
 
 Adapter12 (`BTZPAY09`) binds each incoming transfer to its official Index
