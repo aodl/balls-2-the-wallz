@@ -6,6 +6,7 @@ pub(super) struct DevSpeed {
     pub(super) mode: String,
     pub(super) adaptive_tier: String,
     pub(super) remaining_seconds: u16,
+    pub(super) liquid_cycles: candid::Nat,
     admission_open: bool,
     last_stop: Option<String>,
 }

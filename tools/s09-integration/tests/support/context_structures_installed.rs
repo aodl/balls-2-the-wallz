@@ -1122,6 +1122,18 @@ fn complete_developer_speed_ticks(
     assert_eq!(status(pic, id).source.admitted_to_exclusive, cursor);
     assert_eq!(pending(), queued);
 
+    // The long paid-transition rehearsal consumes part of the initial balance.
+    // Restore disposable headroom for a 120-second window below Lifeline entry.
+    let liquid = get_query::<DevSpeed>(pic, id, "dev_simulation_speed", encode_args(()).unwrap())
+        .liquid_cycles
+        .0
+        .to_string()
+        .parse::<u128>()
+        .unwrap();
+    let shortfall = 2_350_000_000_000u128.saturating_sub(liquid);
+    if shortfall != 0 {
+        pic.add_cycles(id, shortfall);
+    }
     let operator = Principal::self_authenticating([27; 32]);
     bind(pic, id, Some(operator));
     playability_installed::configuration(pic, id, 512);
