@@ -65,9 +65,27 @@ Only the temporary developer script changed across the 90 public assets.
 The independently built frontend matched the hosted artifact byte-for-byte.
 After the frontend-only installation, the live module, all certified assets,
 native Rules18 memo Copy, permanent origin and the real II popup were checked
-again. Rules18 remained in Adaptive Trickle during the correction. The
-owner-operated mainnet Full Speed window and automatic return await sign-in
-through the corrected developer panel.
+again. Rules18 remained in Adaptive Trickle during the correction.
+
+## Owner-operated mainnet test
+
+The owner signed in through the corrected developer panel and activated Full
+Speed. The backend advanced 19 authoritative ticks. The median observed
+checkpoint interval was 1.923s, and the last interval took 3.658s. It returned
+to Adaptive Trickle after 38.251s. The last signed active report still showed
+87 seconds remaining on the 120-second lease. Admission stayed open, and the
+settled endpoint had 2.069T liquid cycles against a 1.350T recovery floor.
+The observations are consistent with the existing execution/delivery timing
+guard. The running module does not report which of those two timing limits it
+hit. The live target cadence and full-duration acceptance are blocked.
+
+Independent replay authenticated the full predecessor chain and matched
+state, events and scores across all 22 consecutive checkpoints, including the
+19 Full Speed ticks and the first new Adaptive tick. Source cursor 40,647,923,
+the paid total, authorization and structures agreed across the run. The net
+cycle decrease between settled reads around the test was 79.684B. Short-lived
+message reservations were excluded from that estimate.
+[Owner window](live-owner-window.json) · [Continuous replay](live-owner-replay.json)
 
 ## Recovery
 
