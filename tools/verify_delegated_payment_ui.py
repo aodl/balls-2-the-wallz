@@ -76,6 +76,36 @@ with sync_playwright() as pw:
   # executable indefinitely. This does not claim real II or Ledger execution.
   context=browser.new_context(viewport={'width':320,'height':640});page=context.new_page();page.clock.install();setup(page);owner_panel(page);page.locator('#owner-revoke-allowance').click();expect(page.locator('#owner-instructions')).to_be_visible();before=page.locator('#owner-command-text').inner_text();page.clock.fast_forward(61001);expect(page.locator('#owner-instructions')).to_be_hidden();expect(page.locator('#owner-command-text')).to_be_empty();page.locator('#owner-revoke-allowance').click();expect(page.locator('#owner-instructions')).to_be_visible();after=page.locator('#owner-command-text').inner_text();assert int(re.search(r'created_at_time = opt \((\d+) : nat64\)',after).group(1))>int(re.search(r'created_at_time = opt \((\d+) : nat64\)',before).group(1));context.close();print('PASS controlled owner instruction expiry and fresh regeneration',flush=True)
   context=browser.new_context(viewport={'width':390,'height':844});page=context.new_page();setup(page);page.evaluate('paymentFixture.fee(23456)');page.locator('#direct-pay').click();expect(page.locator('#direct-pay-status')).to_contain_text('Transfer fee changed');assert page.evaluate('paymentFixture.stats().sends')==0;expect(page.locator('#direct-fee')).to_contain_text('0.00023456 ICP');page.locator('#direct-pay').click();expect(page.locator('#direct-pay-status')).to_have_text('Payment sent · awaiting game');assert page.evaluate('paymentFixture.stats().sends')==1;context.close()
+  # Serve the same fixture under intercepted HTTPS origins without relaxing browser origin checks.
+  canonical='https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io'
+  tested_origins=[canonical,'https://b2z.example','https://s2jxj-liaaa-aaaas-amynq-cai.raw.icp0.io',
+                  'https://s2jxj-liaaa-aaaas-amynq-cai.ic0.app','https://s5ir5-gqaaa-aaaas-amyna-cai.icp0.io']
+  for candidate in tested_origins:
+   context=browser.new_context()
+   def serve_origin_probe(route):
+    url=route.request.url
+    if not url.startswith(candidate+'/'):
+     route.abort();return
+    route.fulfill(response=context.request.get(origin+url.removeprefix(candidate)))
+   context.route('**/*',serve_origin_probe)
+   page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)))
+   page.goto(candidate+'/index.html?production-origin-probe&derivationOrigin=https%3A%2F%2Fb2z.example')
+   assert page.evaluate('location.origin')==candidate
+   page.wait_for_function('()=>!!window.paymentFixture')
+   page.locator('#identify-button').click()
+   sign_in=page.locator('#payment-sign-in')
+   if candidate==canonical:
+    page.locator('.payment-setup > summary').click()
+    expect(sign_in).to_be_enabled();sign_in.click()
+    assert page.evaluate('paymentFixture.stats().status.signedIn')
+   else:
+    expect(page.locator('.payment-setup')).to_be_hidden()
+    expect(sign_in).to_be_disabled();sign_in.dispatch_event('click')
+    assert not page.evaluate('paymentFixture.stats().status.signedIn')
+   expect(page.locator('#direct-pay')).to_be_hidden()
+   assert page.evaluate('paymentFixture.stats().sends')==0
+   context.close()
+  print('PASS permanent production sign-in origin and four rejected alternatives',flush=True)
   # Native cross-tab exclusion, without a simulated lock implementation.
   context=browser.new_context();one=context.new_page();two=context.new_page();one.goto(origin);two.goto(origin);one.wait_for_function('()=>!!window.paymentFixture');two.wait_for_function('()=>!!window.paymentFixture');one.evaluate('window.lockHeld=false;window.lockTask=navigator.locks.request("B2Z-ICRC2-payments-v1",async()=>{lockHeld=true;await new Promise(r=>window.releaseLock=r)});void 0');one.wait_for_function('()=>lockHeld');assert two.evaluate('navigator.locks.request("B2Z-ICRC2-payments-v1",{ifAvailable:true},lock=>lock===null)');one.evaluate('releaseLock()');context.close();print('PASS receipt, unknown recovery and native two-tab exclusion',flush=True);assert not errors,errors
  except Exception:
@@ -84,4 +114,4 @@ with sync_playwright() as pw:
   except Exception:pass
   raise
  finally:browser.close();server.shutdown()
-(out/'results.json').write_text(json.dumps({'status':'PASS','scope':__doc__,'rows':rows,'errors':errors},indent=2)+'\n')
+(out/'results.json').write_text(json.dumps({'status':'PASS','scope':__doc__,'rows':rows,'errors':errors,'production_origin':canonical,'rejected_origins':tested_origins[1:]},indent=2)+'\n')

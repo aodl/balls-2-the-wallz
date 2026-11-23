@@ -1,0 +1,27 @@
+{
+  "status": "PASS",
+  "scope": "read-only certified Rules17 compatibility and sign-in entry; actual ceremony is separate",
+  "rows": [
+    {
+      "width": 1440,
+      "rules": 17,
+      "internet_identity_entry": true,
+      "pay_hidden_while_signed_out": true,
+      "copied_memo": "FIRE 1 37.5 1"
+    },
+    {
+      "width": 390,
+      "rules": 17,
+      "internet_identity_entry": true,
+      "pay_hidden_while_signed_out": true,
+      "copied_memo": "FIRE 1 37.5 1"
+    },
+    {
+      "width": 320,
+      "rules": 17,
+      "internet_identity_entry": true,
+      "pay_hidden_while_signed_out": true,
+      "copied_memo": "FIRE 1 37.5 1"
+    }
+  ]
+}

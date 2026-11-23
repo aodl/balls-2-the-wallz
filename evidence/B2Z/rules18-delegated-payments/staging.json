@@ -1,0 +1,95 @@
+{
+  "authenticated_at": "2026-11-22T23:48:37.752Z",
+  "production": {
+    "frontend": "da3fccaaec5d2c1828a9ca53bdf979cd6d8a95be9398b8c4ad17ee8d53d49b55",
+    "backend": "c066140f4ef3174b3f440694c19ec4116a03298fcc63b80636b0b5389bc210ca",
+    "identity": {
+      "config_hash": "0cff926a5d2ee0342547a045dbb85aa25f2d83991c54edab6b14f73ede21262f",
+      "rules_hash": "ba259c26e31b8868a3bc28c7e76cbbb486f448c760a1f0d48c9a3ec75c1b5156",
+      "schema_hash": "56622629b4c0821c9f5384ecd8d3501fd7cac93bf274cafbf017b599e2503233",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "source_cursor": "40647923",
+    "paid_e8s": "108100000",
+    "paid_continuity": true,
+    "reservoirs": 4,
+    "cannons": 2,
+    "balls": 2,
+    "diverters": 1,
+    "available": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "1",
+      "publication_ticks": "1",
+      "completed_segments": "15199",
+      "running": true
+    },
+    "snapshots_before": 0
+  },
+  "frontend_certificate": {
+    "status": "PASS",
+    "assets": 89,
+    "gzip_variants": 6,
+    "flac": 60,
+    "routes": 28,
+    "genuine_404": true,
+    "tampering_rejected": true,
+    "timeouts": []
+  },
+  "live_replay": {
+    "status": "PASS",
+    "start": "15207",
+    "end": "15210",
+    "source_cursor": "40647923",
+    "rows": [
+      {
+        "id": "15208",
+        "state": "b8924a73f10d31f74aceca22e047b4b25d58382db3552ff5cde4a7d2f1de3382",
+        "events": "0e0034bf1c8944741959cabb75f36fcd763dcd731f5948a9b9b9ffa81e0c4639",
+        "scores": "0ac2f8c3e1552f21c91116c2a6125f4f7789fe71a4a5536283fb5e6da1392d96"
+      },
+      {
+        "id": "15209",
+        "state": "94b5fce85ea74e4c62a8776fed790365712e2d0976fc787410996e75f8f64a7b",
+        "events": "3c820b007529475589c00414a73180e5acda5adc17b85c4304ce15bcee69e5c9",
+        "scores": "363d7f147b4e0066ca18818c60ab93d1a072841f59616b6fccce1c4340bc5cd4"
+      },
+      {
+        "id": "15210",
+        "state": "4479143a1acce8a493498bf870ebf8db09d3c66bfa99edf4f0ede4e99b2b967a",
+        "events": "1d6b13bde5f4a6944ff28fe07eb2b04a9bd94ad09c894246e6a108245fe6ae89",
+        "scores": "09bba86a6ff8349e68cb23ba304443a0736dcacd5aa0750c42f22a5799c8f32f"
+      }
+    ]
+  },
+  "cycles": {
+    "before_frontend": {
+      "balance": 791414384290,
+      "liquid_above_freezing": 588500810200,
+      "freezing_cycles": 202913574090,
+      "memory_bytes": 230929089,
+      "snapshots": 0,
+      "estimated_remaining_after_install_recovery_and_contingency": 94500810200
+    },
+    "after_frontend": {
+      "balance": 606895795061,
+      "freezing_floor": 203131807500,
+      "liquid_above_freezing": 403763987561,
+      "memory_bytes": 231213825,
+      "install_window_debit": 184518589229,
+      "compatible_recovery_staging_and_contingency": 304000000000,
+      "remaining_after_recovery": 99763987561
+    },
+    "observed_backend_total": 2022905852559,
+    "observed_backend_liquid": 1958887461039
+  },
+  "internet_identity": "awaiting owner sign-in at European frontend"
+}

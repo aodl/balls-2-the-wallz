@@ -11,7 +11,9 @@ mutable canister state. Both production canisters use the zero-snapshot policy.
    recovery allowance on both canisters. Use the existing controller and the
    explicit upgrade mode with empty arguments.
 2. Validate certified delivery of the exact compatible frontend, including
-   both payment modes' readiness checks and manual instructions. The Rules17
+   both payment modes' readiness checks and manual instructions. Verify the
+   [permanent authentication origin](../../../docs/specs/B2Z_RULES18_DELEGATED_PAYMENTS.md#permanent-european-internet-identity-origin)
+   against the certified frontend canister and run the origin regressions. The Rules17
    predecessor permits Internet Identity verification and a signed read-only
    Ledger fee query. Complete the sign-in, sign-out and reauthentication
    checks on the established European origin before enabling Rules18. Keep

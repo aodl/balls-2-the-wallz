@@ -1,0 +1,127 @@
+{
+  "status": "PASS",
+  "qualified_source": "351d96d7059f7f84957af1470c86a7028c588392",
+  "rules_version": 18,
+  "schema_version": 10,
+  "memo_adapter": 12,
+  "memo_tag": "BTZPAY09",
+  "transition_metadata_version": 14,
+  "authenticated_at": "2026-11-23T07:20:31.835Z",
+  "identity": {
+    "config_hash": "6bcccdc6cb89cd32b680cead7c1ec7d7b6d7d294a36b44d7dd94be1a261b7934",
+    "rules_hash": "3925d3aa0ef3fd031627290e6eeccd76f53b985625a25125b50ef34a4a2b4c22",
+    "schema_hash": "dfcb89f63c4d0d662b5ba6797ceb56902636e8c3c0d41efb1e902baa5b521e9b",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "modules": [
+    {
+      "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "module_hash": "43095677376fe4f3c66185b1cf185ef9e161b5c44320609b93e134a771f4bf59",
+      "certificate_verified": true
+    },
+    {
+      "id": "s2jxj-liaaa-aaaas-amynq-cai",
+      "module_hash": "da3fccaaec5d2c1828a9ca53bdf979cd6d8a95be9398b8c4ad17ee8d53d49b55",
+      "certificate_verified": true
+    }
+  ],
+  "epoch_projection": {
+    "status": "PASS",
+    "previous_manifest": "35efeffa4dee7e11c0a11e33c872441054abe742da20af51a196b6691161fbc2",
+    "manifest": "3522a540c0f4237972c6568e1126d072f8c224deb516459fec62ee1d7144c567",
+    "previous_state": "2ae79fa043968e485be44af042d3fdcfac4a3ef0a19317dea69f6a418e8d41aa",
+    "state": "271549f18cac774765a4e0bc7223ef94b081c00fa7f14e3dbe916eb4ce407d3a",
+    "ledger_cutover": "40655726",
+    "source_cursor": "40647923",
+    "source_anchor": "25d7197d35ab46d868a0d4cd945959df7890d7763bfa7e5686c07e97d6cb6e52",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125",
+    "index_synced": "40655733",
+    "recipient": "c58487869d46ef0494c7d7c0312b2760abb7164eafd23f0009a42b9545f53bde",
+    "received_e8s": "108100000",
+    "exact_prior_projection": true
+  },
+  "reservoir_cells": [
+    998000,
+    998001,
+    999000,
+    999001
+  ],
+  "matched_receipt_queries": 8,
+  "live": {
+    "status": "PASS",
+    "stage": "resumed",
+    "manifest": "284cf4e72b5639c39e13cc23afb3afdbfa4bc97275a6e3c8e503855575f0b422",
+    "source_cursor": "40647923",
+    "paid_e8s": "108100000",
+    "liquid_cycles": 2464203703035,
+    "manifest_state": "063da0694daded882718261ba456f9ce5cac60b2d3f336861d72caaaf51349a5"
+  },
+  "operating_configuration": {
+    "callback_count": "15971",
+    "completed_segments": "15412",
+    "current_segment_work": "0",
+    "generation": "20",
+    "idle": false,
+    "last_error": [],
+    "last_segment_work": "333",
+    "max_segment_work": "1027",
+    "pace": {
+      "admission_open": true,
+      "mode": "Trickle",
+      "nominal_milli": 10,
+      "performance_limited": false,
+      "supported_milli": 10
+    },
+    "pacing_seconds": 1,
+    "publication_ticks": "1",
+    "running": true,
+    "segment_ticks": "1",
+    "total_work": "3544364",
+    "work_budget": 512,
+    "world_transition": false
+  },
+  "live_replay": {
+    "status": "PASS",
+    "start": "15424",
+    "end": "15426",
+    "source_cursor": "40647923",
+    "rows": [
+      {
+        "id": "15425",
+        "state": "2009eb73a39f124becdaafbd4d061f82a06c278ebd466c88fd0a806f84483c7c",
+        "events": "927862f8594ffd89fd8ae04a30a30bc702efa8f9a8e9b4b0141a26e599e6d2fe",
+        "scores": "92d36b01a3278ad4dd74b8386b6430c637ea7cefc30574d23965d5ab771d73e4"
+      },
+      {
+        "id": "15426",
+        "state": "063da0694daded882718261ba456f9ce5cac60b2d3f336861d72caaaf51349a5",
+        "events": "d04a90b451bb393f6936ea4d3d94d4d09e727ab9833d045399aadc4da37189be",
+        "scores": "06c34a25073bf70cb24940d2d8454cabef8e3c7680e55030fca2585cf2d3e77e"
+      }
+    ]
+  },
+  "cycles": {
+    "frontend": {
+      "balance": 604786495634,
+      "reserved": 0,
+      "memory_bytes": 231213825,
+      "freezing_floor": 203131807500,
+      "recovery_allowance": 304000000000,
+      "remaining_beyond_recovery": 97654688134
+    },
+    "backend": {
+      "balance": 2532919915768,
+      "reserved": 0,
+      "memory_bytes": 49907542,
+      "freezing_floor": 64171197660,
+      "final_signed_liquid": 2464203703035,
+      "remaining_above_1350b": 1114203703035,
+      "install_window_debit": 24030480026
+    }
+  },
+  "production_snapshots": {
+    "frontend": 0,
+    "backend": 0
+  },
+  "production_spending_tests": 0
+}

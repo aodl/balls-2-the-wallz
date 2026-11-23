@@ -1,0 +1,41 @@
+{
+  "status": "PASS",
+  "scope": "Actual optional composer/UI and Web Locks; simulated II/Ledger. No payment/certificate claim.",
+  "rows": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "status": "PASS",
+      "screenshot": "1440x900-pending.png",
+      "scope": "actual UI/composer, controlled auth/transport, native Web Locks, pending reload; no real sign-in/payment"
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "status": "PASS",
+      "screenshot": "390x844-pending.png",
+      "scope": "actual UI/composer, controlled auth/transport, native Web Locks, pending reload; no real sign-in/payment"
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "status": "PASS",
+      "screenshot": "320x640-pending.png",
+      "scope": "actual UI/composer, controlled auth/transport, native Web Locks, pending reload; no real sign-in/payment"
+    }
+  ],
+  "errors": [],
+  "production_origin": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io",
+  "rejected_origins": [
+    "https://b2z.example",
+    "https://s2jxj-liaaa-aaaas-amynq-cai.raw.icp0.io",
+    "https://s2jxj-liaaa-aaaas-amynq-cai.ic0.app",
+    "https://s5ir5-gqaaa-aaaas-amyna-cai.icp0.io"
+  ]
+}
