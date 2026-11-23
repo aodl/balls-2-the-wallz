@@ -1076,6 +1076,122 @@ fn delegation_rules17_upgrade_signed_ledger_and_replay() {
     reservoir_then_economy(true, false, true);
 }
 
+// TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+fn complete_developer_speed_ticks(
+    pic: &PocketIc,
+    id: Principal,
+    history: &mut Vec<Publication>,
+    out: &Path,
+) {
+    use super::dev_speed_installed::{DevSpeed, bind, switch};
+    let predecessor = bytes("B2Z_RULES18_PRIOR_WASM");
+    assert_eq!(
+        dtr_wire::hash(&predecessor),
+        "43095677376fe4f3c66185b1cf185ef9e161b5c44320609b93e134a771f4bf59"
+    );
+    upgrade(pic, id, predecessor.clone());
+    let publication = observe(pic, id).0.publication;
+    let world = arena_world(pic, id).encode().unwrap();
+    let finance = funding_tests::preserved_finance(pic, id);
+    let cursor = status(pic, id).source.admitted_to_exclusive;
+    #[derive(CandidType, Deserialize)]
+    struct Pending {
+        pending_inputs: u32,
+    }
+    let pending = || {
+        get_query::<Pending>(pic, id, "controller_work", encode_args(()).unwrap()).pending_inputs
+    };
+    let queued = pending();
+    assert!(queued > 0);
+
+    let candidate = bytes("B2Z_DEV_SPEED_RELEASE_WASM");
+    upgrade(pic, id, candidate.clone());
+    assert_eq!(observe(pic, id).0.publication, publication);
+    assert_eq!(arena_world(pic, id).encode().unwrap(), world);
+    assert_eq!(funding_tests::preserved_finance(pic, id), finance);
+    assert_eq!(status(pic, id).source.admitted_to_exclusive, cursor);
+    assert_eq!(pending(), queued);
+
+    let operator = Principal::self_authenticating([27; 32]);
+    bind(pic, id, Some(operator));
+    playability_installed::configuration(pic, id, 512);
+    let before = status(pic, id).run.completed_segments;
+    assert_eq!(pending(), queued);
+    assert_eq!(
+        switch(pic, id, operator, true, None)
+            .unwrap()
+            .remaining_seconds,
+        120
+    );
+    let start = pic.get_time().as_nanos_since_unix_epoch();
+    let cycles = pic.cycle_balance(id);
+    let mut milliseconds = Vec::new();
+    for _ in 0..60 {
+        pic.advance_time(Duration::from_millis(100));
+        for _ in 0..4 {
+            pic.tick();
+        }
+        let count = status(pic, id).run.completed_segments;
+        if count > before + milliseconds.len() as u64 {
+            assert_eq!(count, before + milliseconds.len() as u64 + 1);
+            milliseconds.push((pic.get_time().as_nanos_since_unix_epoch() - start) / 1_000_000);
+            playability_installed::record_bundled(pic, id, history, out);
+        }
+        if milliseconds.len() == 3 {
+            break;
+        }
+    }
+    assert_eq!(milliseconds.len(), 3);
+    assert!(
+        milliseconds
+            .windows(2)
+            .all(|w| (1_000..=1_100).contains(&(w[1] - w[0]))),
+        "{milliseconds:?}"
+    );
+    let cycle_cost = cycles - pic.cycle_balance(id);
+    assert_eq!(
+        switch(pic, id, operator, false, None).unwrap().mode,
+        "Adaptive"
+    );
+    let stopped = status(pic, id).run;
+    assert_eq!(stopped.pace.unwrap().supported_milli, 10);
+    assert_eq!(pending(), 0);
+    assert_eq!(
+        switch(pic, id, operator, true, None)
+            .unwrap()
+            .remaining_seconds,
+        120
+    );
+    pic.advance_time(Duration::from_secs(120));
+    for _ in 0..4 {
+        pic.tick();
+    }
+    let read = get_query::<DevSpeed>(pic, id, "dev_simulation_speed", encode_args(()).unwrap());
+    assert_eq!(read.mode, "Adaptive");
+    get_result::<Status>(pic, id, "pause_autonomous", encode_args(()).unwrap());
+    if status(pic, id).run.completed_segments > stopped.completed_segments {
+        playability_installed::record_bundled(pic, id, history, out);
+    }
+
+    let settled = observe(pic, id).0.publication;
+    let settled_state = arena_world(pic, id).encode().unwrap();
+    let settled_finance = funding_tests::preserved_finance(pic, id);
+    upgrade(pic, id, predecessor.clone());
+    assert_eq!(observe(pic, id).0.publication, settled);
+    assert_eq!(arena_world(pic, id).encode().unwrap(), settled_state);
+    assert_eq!(funding_tests::preserved_finance(pic, id), settled_finance);
+    assert_eq!(status(pic, id).source.admitted_to_exclusive, cursor);
+    save(
+        out,
+        "developer-speed-rules18.json",
+        &json!({
+            "status":"PASS", "normal_predecessor":dtr_wire::hash(&predecessor), "development_candidate":dtr_wire::hash(&candidate),
+            "queued_rules18_inputs":queued, "ticks_ms":milliseconds, "cycles_for_three_samples":cycle_cost.to_string(),
+            "adaptive_supported_milli":10, "default_expiry_seconds":120, "exact_normal_recovery":true,
+        }),
+    );
+}
+
 fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegation: bool) {
     use b2z_protocol::{economy17, reservoir, shout};
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("reservoir");
@@ -1523,9 +1639,14 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegati
             wait_admitted(&pic, id, last);
             // Upgrade before applying admitted source positions, then confirm
             // that exactly one retained receipt is produced per position.
-            upgrade(&pic, id, bytes("B2Z_S14_WASM"));
-            complete_one_trickle_tick(&pic, id);
-            playability_installed::record_bundled(&pic, id, &mut history, &out);
+            // TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+            if std::env::var_os("B2Z_DEV_SPEED_RELEASE_WASM").is_some() {
+                complete_developer_speed_ticks(&pic, id, &mut history, &out);
+            } else {
+                upgrade(&pic, id, bytes("B2Z_S14_WASM"));
+                complete_one_trickle_tick(&pic, id);
+                playability_installed::record_bundled(&pic, id, &mut history, &out);
+            }
             let after = arena_world(&pic, id);
             assert_eq!(
                 after.balls.iter().filter(|b| b.owner == owner_id).count(),
@@ -1635,4 +1756,8 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegati
             .success(),
         "independent authenticated successor replay"
     );
+    // TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+    if let Some(release) = std::env::var_os("B2Z_DEV_SPEED_FRONTEND") {
+        super::dev_speed_installed::certify_frontend(Path::new(&release), &out);
+    }
 }

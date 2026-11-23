@@ -45,6 +45,14 @@ def stage(args, out):
     actual = {p.relative_to(src).as_posix() for p in src.rglob("*") if p.is_file()}
     if actual != set(expected):
         raise ValueError("candidate inventory does not describe the complete website")
+    # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+    dev_asset = "developer-speed.mjs"
+    dev_script = b'<script type="module" src="/developer-speed.mjs"></script>'
+    index = (src / "index.html").read_bytes()
+    if (dev_asset in actual or dev_asset.encode() in index) and not getattr(args, "developer_speed", False):
+        raise ValueError("public launch frontend excludes the temporary speed control")
+    if getattr(args, "developer_speed", False) and (dev_asset not in actual or index.count(dev_script) != 1):
+        raise ValueError("developer speed frontend requires its explicit script and asset")
     public = out / "compile/public"
     public.mkdir(parents=True)
     for name in ("Cargo.toml", "Cargo.lock", "frontend.did", "build.rs"):
@@ -166,6 +174,8 @@ def main():
     parser.add_argument("--observer", type=Path, required=True)
     parser.add_argument("--inventory", type=Path, required=True)
     parser.add_argument("--output", type=Path, required=True)
+    # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+    parser.add_argument("--developer-speed", action="store_true")
     args = parser.parse_args()
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)

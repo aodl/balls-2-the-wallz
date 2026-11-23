@@ -4,7 +4,6 @@ import argparse
 import json
 from pathlib import Path
 import shutil
-from types import SimpleNamespace
 
 from build_embedded_frontend import build, digest, inspect_wasm, report, stage
 
@@ -15,12 +14,14 @@ def main():
     p.add_argument("--inventory", type=Path, required=True)
     p.add_argument("--output", type=Path, required=True)
     p.add_argument("--first-build", type=Path, required=True)
+    # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+    p.add_argument("--developer-speed", action="store_true")
     args = p.parse_args()
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
     first = args.first_build.resolve()
     clean = out/"second"
-    stage(SimpleNamespace(observer=args.observer, inventory=args.inventory), clean)
+    stage(args, clean)
     build(clean)
     left = inspect_wasm(first/"frontend.wasm")
     right = inspect_wasm(clean/"frontend.wasm")

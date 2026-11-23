@@ -1,6 +1,33 @@
 //! TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
 use super::*;
 
+thread_local! {
+    // A controller binds one Internet Identity principal independently of the game and Ledger.
+    static OPERATOR: Cell<Option<Principal>> = const { Cell::new(None) };
+}
+
+fn authorized_operator() -> AppResult<()> {
+    let caller = ic_cdk::api::msg_caller();
+    if ic_cdk::api::is_controller(&caller) || OPERATOR.with(|p| p.get() == Some(caller)) {
+        Ok(())
+    } else {
+        Err("developer speed operator only".into())
+    }
+}
+
+pub fn bind(operator: Option<Principal>) -> AppResult<()> {
+    authorized()?;
+    if operator.is_some_and(|p| p.as_slice().len() != 29 || p.as_slice().last() != Some(&2)) {
+        return Err("expected an Internet Identity user principal".into());
+    }
+    let r = root()?;
+    if OPERATOR.with(|p| p.replace(operator)) != operator {
+        PACE.with(|p| p.borrow_mut().end_dev_speed(ic_cdk::api::time()));
+        install_run_timer(&r.run);
+    }
+    Ok(())
+}
+
 #[derive(CandidType, Deserialize)]
 pub struct Status {
     pub mode: String,
@@ -8,6 +35,7 @@ pub struct Status {
     pub remaining_seconds: u16,
     pub default_seconds: u16,
     pub running: bool,
+    pub can_start: bool,
     pub idle: bool,
     pub admission_open: bool,
     pub liquid_cycles: u128,
@@ -15,7 +43,7 @@ pub struct Status {
 }
 
 pub fn read() -> AppResult<Status> {
-    authorized()?;
+    authorized_operator()?;
     let r = root()?;
     status(&r)
 }
@@ -49,6 +77,10 @@ fn status(r: &Root) -> AppResult<Status> {
             remaining_seconds: remaining,
             default_seconds: pace::DEV_DEFAULT_SECONDS,
             running,
+            can_start: running
+                && !transitioning
+                && remaining == 0
+                && pace.can_start_dev_speed(liquid, pace::DEV_DEFAULT_SECONDS),
             idle: ARENA_IDLE.with(Cell::get),
             admission_open: adaptive != pace::Mode::ReserveProtection,
             liquid_cycles: liquid,
@@ -58,7 +90,7 @@ fn status(r: &Root) -> AppResult<Status> {
 }
 
 pub fn set(full_speed: bool, duration_seconds: Option<u16>) -> AppResult<Status> {
-    authorized()?;
+    authorized_operator()?;
     let r = root()?;
     let now = ic_cdk::api::time();
     if full_speed {

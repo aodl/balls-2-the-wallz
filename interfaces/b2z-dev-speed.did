@@ -5,6 +5,7 @@ type DevSpeedStatus = record {
   remaining_seconds : nat16;
   default_seconds : nat16;
   running : bool;
+  can_start : bool;
   idle : bool;
   admission_open : bool;
   liquid_cycles : nat;
@@ -14,4 +15,5 @@ type DevSpeedResult = variant { Ok : DevSpeedStatus; Err : text };
 service : {
   dev_simulation_speed : () -> (DevSpeedResult) query;
   set_dev_simulation_speed : (bool, opt nat16) -> (DevSpeedResult);
+  bind_dev_speed_operator : (opt principal) -> (variant { Ok; Err : text });
 };

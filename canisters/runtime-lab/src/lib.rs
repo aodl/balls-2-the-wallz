@@ -4226,6 +4226,12 @@ fn dev_simulation_speed() -> AppResult<dev_speed::Status> {
     dev_speed::read()
 }
 
+#[cfg(feature = "developer-speed")]
+#[ic_cdk::update]
+fn bind_dev_speed_operator(operator: Option<Principal>) -> AppResult<()> {
+    dev_speed::bind(operator)
+}
+
 ic_cdk::export_candid!();
 
 #[cfg(test)]

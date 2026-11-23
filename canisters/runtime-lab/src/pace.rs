@@ -227,10 +227,7 @@ impl Clock {
         if self.dev_until_ns.is_some() {
             return Err("Deactivate the existing Full Speed window before starting another".into());
         }
-        if !self.hint().admission_open
-            || self.performance_milli < Mode::Normal.milli()
-            || liquid < DEV_RECOVERY_RESERVE + DEV_TICK_ALLOWANCE * u128::from(duration)
-        {
+        if !self.can_start_dev_speed(liquid, duration) {
             return Err(
                 "Full Speed requires healthy execution and enough liquid recovery reserve".into(),
             );
@@ -244,6 +241,13 @@ impl Clock {
         self.overrun = 0;
         self.healthy = 0;
         Ok(())
+    }
+
+    #[cfg(feature = "developer-speed")]
+    pub fn can_start_dev_speed(&self, liquid: u128, duration: u16) -> bool {
+        self.mode != Mode::ReserveProtection
+            && self.dev_resources_safe(liquid)
+            && liquid >= DEV_RECOVERY_RESERVE + DEV_TICK_ALLOWANCE * u128::from(duration)
     }
 
     #[cfg(feature = "developer-speed")]
@@ -296,7 +300,8 @@ impl Clock {
         let full_speed = false;
         Hint {
             mode: if full_speed {
-                "Full Speed (DEV ONLY)".into()
+                // The ordinary observer already knows this authoritative cadence tier.
+                Mode::Normal.name()
             } else {
                 self.mode.name()
             },

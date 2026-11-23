@@ -2,11 +2,75 @@
 use super::*;
 
 #[derive(CandidType, Deserialize, Debug)]
-struct DevSpeed {
-    mode: String,
-    adaptive_tier: String,
-    remaining_seconds: u16,
+pub(super) struct DevSpeed {
+    pub(super) mode: String,
+    pub(super) adaptive_tier: String,
+    pub(super) remaining_seconds: u16,
     admission_open: bool,
+}
+
+pub(super) fn bind(pic: &PocketIc, id: Principal, operator: Option<Principal>) {
+    get_result::<()>(
+        pic,
+        id,
+        "bind_dev_speed_operator",
+        candid::encode_one(operator).unwrap(),
+    );
+}
+
+pub(super) fn switch(
+    pic: &PocketIc,
+    id: Principal,
+    caller: Principal,
+    full: bool,
+    duration: Option<u16>,
+) -> Result<DevSpeed, String> {
+    let reply = pic
+        .update_call(
+            id,
+            caller,
+            "set_dev_simulation_speed",
+            encode_args((full, duration)).unwrap(),
+        )
+        .unwrap();
+    decode_one(&reply).unwrap()
+}
+
+pub(super) fn certify_frontend(release: &Path, out: &Path) {
+    let mut pic = PocketIcBuilder::new()
+        .with_nns_subnet()
+        .with_application_subnet()
+        .with_server_url(
+            std::env::var("POCKET_IC_SERVER_URL")
+                .unwrap()
+                .parse()
+                .unwrap(),
+        )
+        .build();
+    let frontend = create_controlled(&pic);
+    pic.add_cycles(frontend, 100_000_000_000_000);
+    pic.install_canister(
+        frontend,
+        std::fs::read(release.join("frontend.wasm")).unwrap(),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    );
+    let gateway = pic.make_live(None);
+    let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let status = std::process::Command::new("node")
+        .current_dir(root)
+        .arg("tools/verify_embedded_frontend_http.mjs")
+        .arg(gateway.as_str())
+        .arg(frontend.to_text())
+        .arg(release)
+        .arg(out.join("developer-speed-certified-frontend.json"))
+        .status()
+        .unwrap();
+    pic.stop_live();
+    assert!(
+        status.success(),
+        "exact developer frontend IC HTTP certification"
+    );
 }
 
 #[test]
@@ -56,27 +120,27 @@ fn dev_speed_switches_authoritative_pace_and_preserves_replay() {
     let settings =
         || get_query::<Operational>(&pic, id, "lab_status", encode_args(()).unwrap()).run;
     let read = || get_query::<DevSpeed>(&pic, id, "dev_simulation_speed", encode_args(()).unwrap());
-    let set = |full, duration| {
-        get_result::<DevSpeed>(
-            &pic,
-            id,
-            "set_dev_simulation_speed",
-            encode_args((full, duration)).unwrap(),
-        )
-    };
+    let operator = Principal::self_authenticating([27; 32]);
+    assert_ne!(operator, controller());
+    let set = |full, duration| switch(&pic, id, operator, full, duration).unwrap();
     let unauthorized = pic
         .update_call(
             id,
             payer,
-            "set_dev_simulation_speed",
-            encode_args((true, Some(120u16))).unwrap(),
+            "bind_dev_speed_operator",
+            candid::encode_one(Some(payer)).unwrap(),
         )
         .unwrap();
     assert_eq!(
-        decode_one::<Result<DevSpeed, String>>(&unauthorized)
+        decode_one::<Result<(), String>>(&unauthorized)
             .unwrap()
             .unwrap_err(),
         "controller only"
+    );
+    bind(&pic, id, Some(operator));
+    assert_eq!(
+        switch(&pic, id, payer, true, None).unwrap_err(),
+        "developer speed operator only"
     );
     let hidden = pic
         .query_call(id, payer, "dev_simulation_speed", encode_args(()).unwrap())
@@ -85,7 +149,7 @@ fn dev_speed_switches_authoritative_pace_and_preserves_replay() {
         decode_one::<Result<DevSpeed, String>>(&hidden)
             .unwrap()
             .unwrap_err(),
-        "controller only"
+        "developer speed operator only"
     );
     let adaptive = read();
     assert_eq!(
@@ -144,6 +208,11 @@ fn dev_speed_switches_authoritative_pace_and_preserves_replay() {
         ("Full Speed", 120)
     );
     assert!(started.admission_open);
+    let pacing = status(&pic, id).run.pace.unwrap();
+    assert_eq!(
+        (pacing.mode.as_str(), pacing.supported_milli),
+        ("Normal", 1000)
+    );
     assert_eq!(observe(&pic, id).0.publication, predecessor);
     let phase_start = pic.get_time();
     let mut ticks = vec![];
@@ -200,6 +269,16 @@ fn dev_speed_switches_authoritative_pace_and_preserves_replay() {
         capture(&payments);
     }
     assert_eq!(read().mode, "Adaptive");
+    let prior = observe(&pic, id).0.publication;
+    assert_eq!(set(true, None).remaining_seconds, 120);
+    bind(&pic, id, None);
+    assert_eq!(read().mode, "Adaptive");
+    assert_eq!(observe(&pic, id).0.publication, prior);
+    assert_eq!(
+        switch(&pic, id, operator, true, None).unwrap_err(),
+        "developer speed operator only"
+    );
+    bind(&pic, id, Some(operator));
 
     let saved = observe(&pic, id).0.publication;
     let finance = funding_tests::preserved_finance(&pic, id);
@@ -209,6 +288,11 @@ fn dev_speed_switches_authoritative_pace_and_preserves_replay() {
     pic.upgrade_canister(id, wasm, encode_args(()).unwrap(), Some(controller()))
         .unwrap();
     assert_eq!(read().mode, "Adaptive");
+    assert_eq!(
+        switch(&pic, id, operator, true, None).unwrap_err(),
+        "developer speed operator only"
+    );
+    bind(&pic, id, Some(operator));
     assert_eq!(observe(&pic, id).0.publication, saved);
     assert_eq!(funding_tests::preserved_finance(&pic, id), finance);
     assert_eq!(
@@ -249,7 +333,8 @@ fn dev_speed_switches_authoritative_pace_and_preserves_replay() {
         serde_json::to_vec_pretty(&serde_json::json!({
             "status":"PASS","scope":"isolated development build on disposable PocketIC",
             "full_speed_commit_milliseconds":ticks,"checkout_replay_segments":replayed,
-            "ledger_receipt_position":payment,"controller_only":true,"expiration":true,
+            "ledger_receipt_position":payment,"controller_only_binding":true,"operator_only_toggle":true,
+            "binding_revocation":true,"expiration":true,
             "manual_deactivation":true,"restart_restores_adaptive":true,"reserve_protection":true
         }))
         .unwrap(),

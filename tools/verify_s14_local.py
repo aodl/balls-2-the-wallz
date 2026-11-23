@@ -73,6 +73,9 @@ def main():
     p.add_argument('--rules17-prior-wasm',type=Path,help='Exact deployed Rules17 normal Wasm for the delegation cutover rehearsal')
     # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
     p.add_argument('--dev-speed-wasm',type=Path,help='Explicit disposable developer-speed + test-hooks executable')
+    p.add_argument('--dev-speed-release-wasm',type=Path,help='Exact no-test-hooks developer-speed release rehearsal')
+    p.add_argument('--rules18-prior-wasm',type=Path,help='Exact production predecessor for developer-speed rehearsal')
+    p.add_argument('--dev-speed-frontend',type=Path,help='Exact embedded developer frontend directory for IC HTTP certification')
     p.add_argument('--asset-canister',action='store_true',help='Rehearse dfx asset deployment on the owned PocketIC gateway')
     a=p.parse_args();out=a.output.resolve();out.mkdir(parents=True,exist_ok=True)
     result={'source_revision':__import__('subprocess').check_output(['git','rev-parse','HEAD'],cwd=ROOT,text=True).strip(),'checkpoint':'S14','overall':'NOT_RUN','checks':[],'artifacts':[],'dtr_development_revision':os.environ.get('S14_DTR_REVISION')}
@@ -113,7 +116,7 @@ def main():
             dest=out/(name+'.wasm');shutil.copyfile(target,dest);names=wasm_exports(dest)
             if name=='normal':
                 # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
-                assert not any('dev_simulation_speed' in n for n in names)
+                assert not any('dev_simulation_speed' in n or 'bind_dev_speed_operator' in n for n in names)
                 assert all(not any(x in n for x in ['test_','__canbench','__tracing','ledger_hint','sync_ledger','canister_update apply']) for n in names)
                 assert 'canister_update poke' in names
             else:assert 'canister_update test_apply' in names
@@ -173,6 +176,21 @@ def main():
             if not required <= set(wasm_exports(path)):
                 raise ValueError('Expected a disposable developer-speed executable with cycle test hooks')
             env['B2Z_DEV_SPEED_WASM']=str(path)
+        # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+        if a.dev_speed_release_wasm or a.rules18_prior_wasm or a.dev_speed_frontend:
+            if not (a.dev_speed_release_wasm and a.rules18_prior_wasm and a.rules17_prior_wasm and
+                    a.test_filter=='context_structures_installed::delegation_rules17_upgrade_signed_ledger_and_replay'):
+                raise ValueError('developer release rehearsal requires both exact modules and the signed Rules18 test')
+            prior=a.rules18_prior_wasm.resolve()
+            if hashlib.sha256(prior.read_bytes()).hexdigest()!='43095677376fe4f3c66185b1cf185ef9e161b5c44320609b93e134a771f4bf59':
+                raise ValueError('Rules18 predecessor does not match the production identity')
+            candidate=a.dev_speed_release_wasm.resolve()
+            expected=set(wasm_exports(prior))|{'canister_update set_dev_simulation_speed','canister_query dev_simulation_speed','canister_update bind_dev_speed_operator'}
+            if set(wasm_exports(candidate))!=expected:
+                raise ValueError('developer speed must be the only change to production Wasm exports')
+            env.update(B2Z_DEV_SPEED_RELEASE_WASM=str(candidate),B2Z_RULES18_PRIOR_WASM=str(prior))
+            if a.dev_speed_frontend:
+                env['B2Z_DEV_SPEED_FRONTEND']=str(a.dev_speed_frontend.resolve())
         env['B2Z_CMC_MOCK_WASM']=str(ROOT/'tools/cmc-funding-fixture/target/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm')
         if a.funding_prior_wasm:
             if hashlib.sha256(a.funding_prior_wasm.read_bytes()).hexdigest()!='53b219277b9e1333b29c6a67c94a2d634d04362fa72b9bf65f173a7040cc14ec':raise ValueError('funding upgrade requires exact installed 53b219 module')

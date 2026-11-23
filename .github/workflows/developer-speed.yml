@@ -1,0 +1,145 @@
+# TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
+name: Temporary developer speed qualification
+on:
+  push:
+    branches: [feature/b2z-temporary-dev-speed]
+permissions:
+  contents: read
+  actions: read
+concurrency:
+  group: developer-speed-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  frontend:
+    name: Reproducible frontend and owner browser control
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - run: npm ci --ignore-scripts
+      - run: python -m pip install --require-hashes -r tools/browser-requirements.txt
+      - run: python -m playwright install chromium
+      - run: rustup toolchain install 1.94.1 --profile minimal --target wasm32-unknown-unknown
+      - run: cargo +1.94.1 fetch --manifest-path canisters/frontend/Cargo.toml --locked
+      - run: python -B tools/check.py source --output .work/ci-dev-source
+      - name: Run desktop and mobile developer control tests
+        run: python -B tools/verify_dev_speed_browser.py --output .work/ci-dev-ui
+      - name: Build exact embedded frontend twice and verify public-launch exclusion
+        run: |
+          for build in a b; do
+            python -B tools/build_dev_speed_frontend.py --output ".work/ci-dev-$build"
+          done
+          cmp .work/ci-dev-{a,b}/release/frontend.wasm
+          cmp .work/ci-dev-{a,b}/release/embedded-inventory.json
+          if python -B tools/build_embedded_frontend.py --observer .work/ci-dev-a/verified-base/reproduced --inventory .work/ci-dev-a/inventory.json --output .work/ci-dev-public > .work/ci-dev-public-guard.log 2>&1; then
+            exit 1
+          fi
+          grep -F 'public launch frontend excludes the temporary speed control' .work/ci-dev-public-guard.log
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        with:
+          name: developer-speed-frontend
+          path: |
+            .work/ci-dev-a/release/frontend.wasm
+            .work/ci-dev-a/release/module.json
+            .work/ci-dev-a/release/embedded-inventory.json
+            .work/ci-dev-ui/result.json
+            .work/ci-dev-ui/*.png
+            .work/ci-dev-public-guard.log
+          if-no-files-found: error
+          retention-days: 14
+  installed:
+    name: Exact Rules18 upgrade, speed, payments and independent replay
+    runs-on: ubuntu-24.04
+    needs: frontend
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
+      - uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020
+        with:
+          node-version: '24'
+          cache: npm
+      - uses: actions/setup-python@a26af69be951a213d495a4c3e4e4022e16d87065
+        with:
+          python-version: '3.11'
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          github-token: ${{ github.token }}
+          run-id: '45077109997'
+          name: rules17-hosted-normal
+          path: .work/prior-rules18
+      - uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093
+        with:
+          name: developer-speed-frontend
+          path: .work/qualified-dev-frontend
+      - run: npm ci --ignore-scripts
+      - run: rustup toolchain install 1.94.1 --profile minimal --component rustfmt --target wasm32-unknown-unknown
+      - name: Fetch exact locked dependencies and install fixtures
+        run: |
+          for manifest in canisters/runtime-lab/Cargo.toml tools/s09-integration/Cargo.toml tools/s14-index-fixture/Cargo.toml tools/cmc-funding-fixture/Cargo.toml; do
+            cargo fetch --manifest-path "$manifest" --locked
+          done
+          python -B tools/fetch_s09_artifacts.py --destination /home/runner/dtr-s09-artifacts --record .work/ci-dev-fixtures.json
+          for artifact in rules15-8d7f1a67 rules16-a5889a92 rules17-c066140f; do
+            gzip -dc "vendor/b2z/$artifact.wasm.gz" > ".work/$artifact.wasm"
+          done
+      - name: Build and freeze the production candidate and separate fault-test module
+        run: |
+          export CARGO_TARGET_DIR="$PWD/.work/dev-target"
+          manifest=canisters/runtime-lab/Cargo.toml
+          output="$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm"
+          cargo fmt --manifest-path "$manifest" --all -- --check
+          cargo fmt --manifest-path tools/s09-integration/Cargo.toml --all -- --check
+          cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features developer-speed
+          cp "$output" .work/developer-speed-release.wasm
+          sha256sum .work/developer-speed-release.wasm > .work/developer-speed-release.sha256
+          cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features developer-speed,test-hooks
+          cp "$output" .work/developer-speed-test.wasm
+          cargo test --manifest-path "$manifest" --locked --offline --features developer-speed pace::tests
+          if cargo check --manifest-path "$manifest" --locked --offline --target wasm32-unknown-unknown --features developer-speed,public-launch > .work/dev-public-backend.log 2>&1; then
+            exit 1
+          fi
+          grep -F 'error: The public-launch build cannot include the temporary developer-speed override' .work/dev-public-backend.log
+      - name: Test authorization, expiry, restart, reserve and ordinary pacing
+        run: >-
+          python -B tools/verify_s14_local.py --dev-speed-wasm .work/developer-speed-test.wasm
+          --test-filter dev_speed_installed::dev_speed_switches_authoritative_pace_and_preserves_replay
+          --output .work/ci-dev-isolated
+      - name: Rehearse the exact installed Rules18 upgrade with queued signed Ledger payments
+        run: |
+          mapfile -t frontend < <(find .work/qualified-dev-frontend -type f -name frontend.wasm)
+          test "${#frontend[@]}" = 1
+          python -B tools/verify_s14_local.py \
+            --test-filter context_structures_installed::delegation_rules17_upgrade_signed_ledger_and_replay \
+            --rules15-prior-wasm .work/rules15-8d7f1a67.wasm \
+            --rules16-prior-wasm .work/rules16-a5889a92.wasm \
+            --rules17-prior-wasm .work/rules17-c066140f.wasm \
+            --rules18-prior-wasm .work/prior-rules18/dtr_runtime_lab.wasm \
+            --dev-speed-release-wasm .work/developer-speed-release.wasm \
+            --dev-speed-frontend "$(dirname "${frontend[0]}")" \
+            --output .work/ci-dev-rules18
+      - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
+        if: always()
+        with:
+          name: developer-speed-backend-and-replay
+          path: |
+            .work/developer-speed-release.wasm
+            .work/developer-speed-release.sha256
+            .work/dev-public-backend.log
+            .work/ci-dev-isolated/results.json
+            .work/ci-dev-isolated/deployment/dev-speed.json
+            .work/ci-dev-isolated/logs/**
+            .work/ci-dev-rules18/results.json
+            .work/ci-dev-rules18/deployment/reservoir/developer-speed-rules18.json
+            .work/ci-dev-rules18/deployment/reservoir/developer-speed-certified-frontend.json
+            .work/ci-dev-rules18/deployment/reservoir/authenticated/result.json
+            .work/ci-dev-rules18/logs/**
+          if-no-files-found: warn
+          retention-days: 14

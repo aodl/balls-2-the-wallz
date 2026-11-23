@@ -22,7 +22,7 @@ class TestGeneratedCandidExtraction(unittest.TestCase):
 
     # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
     def test_normal_interface_rejects_developer_speed(self):
-        for name in ('dev_simulation_speed', 'set_dev_simulation_speed'):
+        for name in ('dev_simulation_speed', 'set_dev_simulation_speed', 'bind_dev_speed_operator'):
             with self.assertRaises(ValueError):
                 reject_test_exports(f'service : {{ {name}: () -> (); }}')
 

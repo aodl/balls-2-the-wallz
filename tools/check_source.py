@@ -82,7 +82,7 @@ def main():
     runtime_exports=set(re.findall(export_pattern,runtime))
     # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
     development_exports=set(re.findall(r'#\[cfg\(feature = "developer-speed"\)\]\s*'+export_pattern,runtime))
-    if development_exports!={'dev_simulation_speed','set_dev_simulation_speed'}:raise ValueError('development exports must remain explicitly feature-gated')
+    if development_exports!={'dev_simulation_speed','set_dev_simulation_speed','bind_dev_speed_operator'}:raise ValueError('development exports must remain explicitly feature-gated')
     runtime_exports-=development_exports
     # Source includes feature-gated test-hooks methods. The compiled normal-
     # Wasm export check in verify_s14_local.py must still reject every test_ export.

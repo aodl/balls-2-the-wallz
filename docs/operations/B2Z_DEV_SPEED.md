@@ -1,10 +1,18 @@
 # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
 
-The separate loopback operator console shows the backend's **Adaptive** or
-**Full Speed** mode and remaining time. The toggle calls controller-only
-Candid methods through your existing dfx identity. It is independent of the
-game, wallet access and the Internet Identity spender. A funding account,
-signed game grant or Ledger allowance confers no controller access.
+The development frontend shows **DEV ONLY · Simulation speed** under
+**Game status**. Sign in as owner on
+`https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io`, then use **Full Speed** or
+**Return to Adaptive**. The panel shows the backend's mode and remaining time.
+The operator session uses the [permanent Internet Identity origin](../specs/B2Z_RULES18_DELEGATED_PAYMENTS.md#permanent-european-internet-identity-origin).
+
+An existing backend controller binds the owner's verified public Internet
+Identity principal through `bind_dev_speed_operator(opt principal)`. Bindings
+have no financial rights and do not change the controller set. An unbound
+principal cannot read or change the lease, even if it can pay in the game.
+Setting `null` revokes operator access and ends an active window. Rebinding to a
+different principal also ends the window. Upgrades clear both the binding and
+the lease. The existing loopback console remains available to controllers.
 
 The development Wasm can be built explicitly with `--features developer-speed`.
 For disposable qualification only, combine it with `test-hooks` to exercise a
@@ -15,7 +23,7 @@ Wasm, run the console from its dfx project:
 DFX_IDENTITY=codex_local python3.11 /path/to/b2z/tools/dev_speed_console.py --canister YOUR_DISPOSABLE_CANISTER
 ```
 
-Open `http://127.0.0.1:18769/`. Full Speed uses the existing authoritative
+Open `http://127.0.0.1:18769/` to use the loopback console. Full Speed uses the existing authoritative
 driver, one logical tick per interval, with a one-second floor between new
 publications. It keeps the existing work budget and source driver. It waits
 for a committed checkpoint before enabling so it cannot resize a sealed
@@ -31,6 +39,26 @@ The allocation mode and thresholds remain unchanged. The override is heap-only a
 restart. A suspended canister checks the original absolute deadline before
 processing more work. Canonical state, instructions, Ledger cursor and
 replay inputs stay intact.
+
+## European rollout
+
+Use only the published development workflow artifacts. The existing Rules18
+frontend needs enough liquid cycles for an embedded install, a full compatible
+reinstall, temporary chunks and contingency. Keep the established 494B
+combined allowance and the exact known-good Rules18 frontend. Retain the
+exact normal Rules18 backend as the tested recovery executable. Reserve
+backend cycles for the upgrade and compatible recovery, then verify at least
+1.590T liquid before starting a 120-second test.
+
+Install the certified development frontend first. Check the pinned sign-in
+origin, manual Copy and the existing Rules18 app. Pause the backend, verify
+the predecessor and install the development module in upgrade mode. Check the
+certified Rules18, Schema10 and Adapter12 state and resume existing Trickle.
+This is a same-epoch upgrade. Bind the owner's separately verified public
+principal with the existing controller. The owner activates through Game
+status. Record certified checkpoint progression, the automatic return to
+Adaptive, the unchanged source and financial state, and the cycle use. Use
+read-only production observations and measure the test window independently.
 
 ## Disposable qualification
 
@@ -52,11 +80,11 @@ the operator console.
 - The normal verification and release builds explicitly select
   `public-launch`. Cargo rejects any build that also selects
   `developer-speed`. Existing normal-Wasm Candid export checks independently
-  reject the two DEV ONLY methods. The console is served separately from the
-  certified game inventory.
+  reject all three DEV ONLY methods. The ordinary frontend build rejects the
+  temporary script unless the dedicated developer build is explicitly selected.
 - Before public launch, remove the whole feature. Remove the two Cargo
   features and their `cfg` branches, endpoint and timer logic, private state,
-  Candid overlay, loopback console, temporary audit allowances, tests and
-  this file. Restore standard
+  Candid overlay, UI, developer frontend build, dedicated CI, loopback console,
+  temporary audit allowances, tests and this file. Restore standard
   release build flags after removal, and repeat the normal export and
   embedded frontend inventory checks.
