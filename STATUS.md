@@ -1,3 +1,14 @@
+# Rules18 delegated payments — European production
+
+Rules18 is active on the existing European backend with Schema10, Adapter12 and
+one-tick Trickle. The embedded frontend uses the frontend canister ID as its
+permanent Internet Identity anchor. The owner confirmed real sign-in and a
+signed Ledger query on the exact origin before activation. See the
+[production record](evidence/B2Z/rules18-delegated-payments/PRODUCTION.md) and
+[permanent origin policy](docs/specs/B2Z_RULES18_DELEGATED_PAYMENTS.md#permanent-european-internet-identity-origin).
+
+---
+
 # Rules17 daily economy — development
 
 Rules16 is active on the European backend. The Rules16 toolbar and payment
