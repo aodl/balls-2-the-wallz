@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Verify the historical Rules18 freeze and the live-qualified integration inputs."""
+"""Verify the historical Rules18 freeze and the reviewed integration inputs."""
 import argparse
 from hashlib import sha256
 import json
@@ -13,9 +13,9 @@ from build_embedded_frontend import ROOT, report
 
 FROZEN_ASSETS = "evidence/B2Z/rules18-delegated-payments/artifacts"
 HISTORICAL_SOURCE = "351d96d7059f7f84957af1470c86a7028c588392"
-QUALIFIED = "c4bbc077a0be393d1c99f49f064e795dfaceafd3"
+REVIEWED_SOURCE = "53e737c382e0cc0299cf8c35dd5e2449cc78ce70"
 # Current public observer bundle, without the separate developer entry point.
-PUBLIC_APP = "df242ce3b19acddb24ab82df7beeb15a921bdd1c89ea0baa6d697ad1a6d2323b"
+PUBLIC_APP = "4eec4514ef88a46bc8d95f5bc95825ef4c8e0f46881ee3edd9ccb198ff64b8b5"
 
 
 def run(*command, cwd=ROOT):
@@ -56,13 +56,13 @@ def main():
     out.mkdir(parents=True, exist_ok=False)
     frozen = ROOT / FROZEN_ASSETS
     provenance = json.loads((frozen / "provenance.json").read_text())
-    # Match the production-qualified tree for every frozen input and all source
+    # Match the reviewed integration tree for every frozen input and all source
     # directories that can supply additional runtime assets to the builds.
     paths = sorted({row["path"] for row in provenance["backend_inputs" if args.backend_only else "inputs"]})
     paths += [FROZEN_ASSETS, "canisters/runtime-lab"]
     if not args.backend_only:
         paths += ["apps/b2z-observer", "canisters/frontend", "tools/build_dev_speed_frontend.py"]
-    run("git", "diff", "--exit-code", QUALIFIED, "--", *paths)
+    run("git", "diff", "--exit-code", REVIEWED_SOURCE, "--", *paths)
 
     with tempfile.TemporaryDirectory(dir=out.parent, prefix="rules18-freeze-") as directory:
         baseline = Path(directory) / "source"
@@ -84,7 +84,7 @@ def main():
         public_observer(out, json.loads((frozen / "frontend-inventory.json").read_text()))
     report(out / "result.json", {
         "status": "PASS", "historical_checkout": HISTORICAL_SOURCE,
-        "reviewed_integration_inputs": QUALIFIED, "backend_only": args.backend_only,
+        "reviewed_integration_inputs": REVIEWED_SOURCE, "backend_only": args.backend_only,
         "public_observer": args.public_observer,
     })
 

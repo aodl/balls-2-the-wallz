@@ -42,7 +42,7 @@ jobs:
           done
           cmp .work/ci-dev-{a,b}/release/frontend.wasm
           cmp .work/ci-dev-{a,b}/release/embedded-inventory.json
-          printf '%s  %s\n' c4ae03fce3372fc1dc695f0b96847995799d3e21128766ade889c3df474e624f .work/ci-dev-a/release/frontend.wasm | sha256sum --check
+          printf '%s  %s\n' 8954384cd1141601504e62ad44c902d04d3b638dbee721732b3ebdff05542b9f .work/ci-dev-a/release/frontend.wasm | sha256sum --check
           if python -B tools/build_embedded_frontend.py --observer .work/ci-dev-a/verified-base/reproduced --inventory .work/ci-dev-a/inventory.json --output .work/ci-dev-public > .work/ci-dev-public-guard.log 2>&1; then
             exit 1
           fi

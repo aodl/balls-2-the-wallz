@@ -9,9 +9,15 @@ fast-forwards. The final speed runtime qualified at
 `c4bbc077a0be393d1c99f49f064e795dfaceafd3`. The commits after that revision
 and before this CI integration contain only
 [evidence changes](https://github.com/aodl/balls-2-the-wallz/compare/c4bbc077a0be393d1c99f49f064e795dfaceafd3...f130868c518c2c0f5af512310976674e8e9f86ba).
-This integration changes workflows, verification tooling, predecessor fixtures
-and documentation. The browser and canister releases remain byte-identical
-to that qualified runtime source.
+The first integration changed only workflows, verification tooling, predecessor
+fixtures and documentation. Its full installed-IC run found seven browser
+failures, including three reports of `targetPresentationRate is not defined`.
+The smoothing release had replaced that helper, leaving its warm-return caller
+behind. Commit `53e737c382e0cc0299cf8c35dd5e2449cc78ce70` routes warm return
+through the shared rate controller. This is the integration's only runtime
+source change. The candidate therefore has a new frontend Wasm.
+The developer backend still reproduces the live-qualified Wasm.
+[Installed-IC failure evidence](https://github.com/aodl/balls-2-the-wallz/actions/runs/45239563719/job/137922316837)
 
 The standard workflow previously validated Rules18's historical frozen inputs
 against the newer developer-speed checkout. Source, Wasm, browser and embedded
@@ -20,7 +26,7 @@ frontend qualification failed at the historical freeze check.
 
 The historical verifier still checks the exact Rules18 freeze, now in a
 detached checkout of its qualified source `351d96d7059f7f84957af1470c86a7028c588392`.
-The mainline workflow separately checks the live-qualified integration inputs,
+The mainline workflow separately checks the reviewed integration inputs,
 reproduces both historical and current public embedded frontend builds, and
 matches the current normal runtime Wasm to the executable used for installed-IC
 acceptance. The Wasm gate, Candid verification and normal installed build all
@@ -28,7 +34,7 @@ select the same `public-launch` Cargo feature. The developer and fault-test
 modules remain separate. The standard, financial and developer workflows all run on pushes
 to `master` and pull requests targeting it. The developer run rehearses both
 exact predecessor upgrades, official disposable Ledger inputs and independent
-replay. Its candidate builds must match the installed Wasm digests. The two
+replay. Its candidate builds must match the pinned frontend candidate and live backend digests. The two
 original Rules18 workflows remain historical qualification evidence.
 [Standard Rules18](https://github.com/aodl/balls-2-the-wallz/actions/runs/45077109997) ·
 [Rules18 financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45077109925) ·
