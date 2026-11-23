@@ -1,0 +1,34 @@
+{
+  "scope": "Read-only production Chromium software-rendered browser with its actual verified playback clock",
+  "full_speed_window": {
+    "samples": 566,
+    "span_ms": 119678.5,
+    "stalled_samples": 0,
+    "new_stalls": 0,
+    "longest_stall_ms": 0.0,
+    "total_stall_ms": 0.0,
+    "catchup_samples": 130,
+    "frame_ms_median": 100.0,
+    "verify_artifact_ms_maximum": 2984.9,
+    "verified_ticks_advanced": 101,
+    "presentation_ticks_advanced": 96.968,
+    "minimum_verified_buffer_ticks": 0.261,
+    "median_presentation_ticks_per_second": 0.836
+  },
+  "after_first_5_seconds": {
+    "samples": 543,
+    "span_ms": 114645.5,
+    "stalled_samples": 0,
+    "new_stalls": 0,
+    "longest_stall_ms": 0.0,
+    "total_stall_ms": 0.0,
+    "catchup_samples": 126,
+    "frame_ms_median": 100,
+    "verify_artifact_ms_maximum": 2984.9,
+    "verified_ticks_advanced": 97,
+    "presentation_ticks_advanced": 95.228,
+    "minimum_verified_buffer_ticks": 1.344,
+    "median_presentation_ticks_per_second": 0.84
+  },
+  "held_to_authenticated_coverage": true
+}

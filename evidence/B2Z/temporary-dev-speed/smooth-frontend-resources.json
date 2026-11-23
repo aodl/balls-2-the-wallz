@@ -1,0 +1,11 @@
+{
+  "before_balance": 1726258743991,
+  "installed_balance": 1540764359654,
+  "freezing_floor": 203646316410,
+  "whole_installation_window_cycles": 185494384337,
+  "recovery_allowance": 494000000000,
+  "surplus_after_recovery_allowance": 843118043244,
+  "snapshots_frontend": 0,
+  "snapshots_backend": 0,
+  "backend_liquid_before_frontend_install": 7398284268873
+}

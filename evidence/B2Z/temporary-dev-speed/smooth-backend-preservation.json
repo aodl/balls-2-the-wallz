@@ -1,0 +1,20 @@
+{
+  "status": "PASS",
+  "before": "9fb444b041a7b699f0cf92159a2505d1bdf4cb3dc5e092fc4b85310b1deb0d42",
+  "after": "e23f01ebb66685a5e25bdcc31b0ed5341aa6afe4cd9ad1a8a11a3b502ea7e993",
+  "frontend": "27e22016c6db59c6539413363f3a4e088b281e49f3a4f1ec0a80574b1c499399",
+  "manifest": "60c7e9d1a5e847b423b22d1285ab1d96f44956f2290fcefd0f42e8cfec35ca45",
+  "state_hash": "01dd3f5bcf6af65beda4c4eefca45cec1b4ab07abc3905e0e07771773eea1e12",
+  "source_cursor": "40647923",
+  "rules": {
+    "config_hash": "6bcccdc6cb89cd32b680cead7c1ec7d7b6d7d294a36b44d7dd94be1a261b7934",
+    "rules_hash": "3925d3aa0ef3fd031627290e6eeccd76f53b985625a25125b50ef34a4a2b4c22",
+    "schema_hash": "dfcb89f63c4d0d662b5ba6797ceb56902636e8c3c0d41efb1e902baa5b521e9b",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "received_e8s": "108100000",
+  "receipts_compared": 8,
+  "pre_install_liquid": 8338513990654,
+  "post_install_liquid": 8318108802801,
+  "install_net_cycle_debit": 24271848583
+}

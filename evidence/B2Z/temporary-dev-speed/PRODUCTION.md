@@ -1,5 +1,8 @@
 # Temporary Full Speed on the European Rules18 game
 
+The subsequent cadence and buffered playback release is recorded in the
+[Full Speed smoothness report](SMOOTHNESS.md).
+
 The original development executables were installed on 23 November 2026 from
 [`04538efd1796d3d12784a29e4c09506decbeccca`](https://github.com/aodl/balls-2-the-wallz/commit/04538efd1796d3d12784a29e4c09506decbeccca).
 The frontend was then corrected from
@@ -12,7 +15,7 @@ The [qualification report](RULES18_RELEASE.md) covers the exact same-epoch
 upgrade, disposable official Ledger inputs, restart, manual deactivation,
 automatic expiry, reserve protection and the public-launch exclusion gate.
 
-| Live canister | Independently verified Wasm SHA-256 |
+| Canister at the end of this initial rollout | Independently verified Wasm SHA-256 |
 | --- | --- |
 | Frontend `s2jxj-liaaa-aaaas-amynq-cai` | `27e22016c6db59c6539413363f3a4e088b281e49f3a4f1ec0a80574b1c499399` |
 | Backend `s5ir5-gqaaa-aaaas-amyna-cai` | `9fb444b041a7b699f0cf92159a2505d1bdf4cb3dc5e092fc4b85310b1deb0d42` |

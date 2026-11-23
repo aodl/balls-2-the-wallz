@@ -1,0 +1,17 @@
+{
+  "adaptive_supported_milli": 10,
+  "cycles_for_three_samples": "1724575309",
+  "default_expiry_seconds": 120,
+  "development_candidate": "e23f01ebb66685a5e25bdcc31b0ed5341aa6afe4cd9ad1a8a11a3b502ea7e993",
+  "exact_normal_recovery": true,
+  "installed_developer_recovery": "9fb444b041a7b699f0cf92159a2505d1bdf4cb3dc5e092fc4b85310b1deb0d42",
+  "max_actions_per_callback": 4,
+  "normal_predecessor": "43095677376fe4f3c66185b1cf185ef9e161b5c44320609b93e134a771f4bf59",
+  "queued_rules18_inputs": 6,
+  "status": "PASS",
+  "ticks_ms": [
+    100,
+    1100,
+    2100
+  ]
+}
