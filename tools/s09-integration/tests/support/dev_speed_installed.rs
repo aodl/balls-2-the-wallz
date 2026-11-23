@@ -102,12 +102,15 @@ fn dev_speed_switches_authoritative_pace_and_preserves_replay() {
     let wasm = bytes("B2Z_DEV_SPEED_WASM");
     let (pic, id, ledger, payer) = arena_setup_world(wasm.clone(), initial.clone());
     playability_installed::funding_paused(&pic, id, true);
+    // First exit Lifeline, then add the developer window reserve without
+    // crossing the Lifeline entry threshold.
     get_result::<Status>(
         &pic,
         id,
         "test_liquid_budget",
-        candid::encode_one(2_350_000_000_000u64).unwrap(),
+        candid::encode_one(1_850_000_000_000u64).unwrap(),
     );
+    pic.add_cycles(id, 500_000_000_000u128);
     let genesis = observe(&pic, id).1;
     let mut replay = Coordinator::create(
         &initial,
