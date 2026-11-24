@@ -433,6 +433,9 @@ fn rules18_cost_matrix() {
     }
     let elapsed_ns = pic.get_time().as_nanos_since_unix_epoch() - started;
     let after = status(&pic, id);
+    let pace = after.run.pace.as_ref().unwrap();
+    assert_eq!(pace.mode, tier);
+    assert_eq!(pace.admission_open, !protected);
     let remaining = pic.cycle_balance(id);
     let management = pic.canister_status(id, Some(controller())).unwrap();
     let after_profile = profile(&pic, id, instrumented);
@@ -476,7 +479,7 @@ fn rules18_cost_matrix() {
         "reservoir_bitmap_bytes":genesis.reservoirs.as_ref().unwrap().len(),
         "cannons_before":genesis.cannons.len(),"balls_before":genesis.balls.len(),
         "players_before":genesis.playability.as_ref().unwrap().players.len(),
-        "balls_after":world.balls.len(),"tier":tier,"virtual_ns":elapsed_ns.to_string(),
+        "balls_after":world.balls.len(),"pace":pace,"virtual_ns":elapsed_ns.to_string(),
         "work_budget":after.run.work_budget.unwrap(),"checkpoints":checkpoints,
         "replayed_checkpoints":checkpoints,
         "callbacks":after.run.callback_count-before.run.callback_count,
