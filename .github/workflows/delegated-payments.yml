@@ -3,7 +3,7 @@ name: Rules18 delegated-payment qualification
 # Additional financial qualification alongside the standard verification.
 on:
   push:
-    branches: [master, feature/b2z-rules18-delegated-payments, feature/b2z-temporary-dev-speed]
+    branches: [master, feature/b2z-rules18-delegated-payments, feature/b2z-temporary-dev-speed, feature/b2z-rules19-compact-reservoirs]
   pull_request:
     branches: [master]
   workflow_dispatch:
@@ -63,6 +63,8 @@ jobs:
             gzip -dc "vendor/b2z/$artifact.wasm.gz" > ".work/$artifact.wasm"
           done
       - name: Exact-source signed financial qualification
+        env:
+          B2Z_QUALIFY_COMPACT_RESERVOIR: '1'
         run: >-
           python -B tools/verify_s14_local.py
           --test-filter context_structures_installed::delegation_rules17_upgrade_signed_ledger_and_replay

@@ -1,0 +1,2829 @@
+{
+  "baseline_source": "aeb9cd3fb04426b9851383dae490b6f873e43388",
+  "qualification": "disposable PocketIC",
+  "baseline": {
+    "two_ball": {
+      "case": "two_ball",
+      "module_sha256": "e23f01ebb66685a5e25bdcc31b0ed5341aa6afe4cd9ad1a8a11a3b502ea7e993",
+      "seed_world_sha256": "cdad97f8944c6f67b1c02f483f9a8ac01e9bc0012c4b2137d4b6193244be42cb",
+      "world_version": null,
+      "state_bytes": 274950,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 4,
+      "callbacks": 8,
+      "work_budget": 512,
+      "virtual_ns": "40000000480",
+      "net_cycles": "17129241637",
+      "index_calls": 0,
+      "balls_before": 2,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": null,
+      "admission": null,
+      "backend_memory_bytes": "55047563",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2270357389",
+      "replayed_checkpoints": 4
+    },
+    "moderate": {
+      "case": "moderate",
+      "module_sha256": "e23f01ebb66685a5e25bdcc31b0ed5341aa6afe4cd9ad1a8a11a3b502ea7e993",
+      "seed_world_sha256": "0139d2502ae837a91641da8d702096d2c640c6db3d721531b0700eba9d5ec822",
+      "world_version": null,
+      "state_bytes": 278660,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 4,
+      "callbacks": 8,
+      "work_budget": 512,
+      "virtual_ns": "40000000480",
+      "net_cycles": "17826533042",
+      "index_calls": 0,
+      "balls_before": 14,
+      "cannons_before": 6,
+      "players_before": 5,
+      "pace": null,
+      "admission": null,
+      "backend_memory_bytes": "54785419",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2263660123",
+      "replayed_checkpoints": 4
+    },
+    "large": {
+      "case": "large",
+      "module_sha256": "e23f01ebb66685a5e25bdcc31b0ed5341aa6afe4cd9ad1a8a11a3b502ea7e993",
+      "seed_world_sha256": "c3c7e8ef8af0cde486b9e6e38a9535af41771092b498e56a861e478e43e66ed6",
+      "world_version": null,
+      "state_bytes": 293550,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 4,
+      "callbacks": 8,
+      "work_budget": 512,
+      "virtual_ns": "40000000480",
+      "net_cycles": "21208570822",
+      "index_calls": 0,
+      "balls_before": 86,
+      "cannons_before": 16,
+      "players_before": 15,
+      "pace": null,
+      "admission": null,
+      "backend_memory_bytes": "55899531",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2292123502",
+      "replayed_checkpoints": 4
+    },
+    "payment": {
+      "case": "payment",
+      "module_sha256": "e23f01ebb66685a5e25bdcc31b0ed5341aa6afe4cd9ad1a8a11a3b502ea7e993",
+      "seed_world_sha256": "cdad97f8944c6f67b1c02f483f9a8ac01e9bc0012c4b2137d4b6193244be42cb",
+      "world_version": null,
+      "state_bytes": 274950,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 1,
+      "callbacks": 3,
+      "work_budget": 100000,
+      "virtual_ns": "60750000191",
+      "net_cycles": "7715733772",
+      "index_calls": 2,
+      "balls_before": 2,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": null,
+      "admission": {
+        "cursor": 2,
+        "cycles_through_admission": "1010472066",
+        "position": 1,
+        "profile": null
+      },
+      "backend_memory_bytes": "55768459",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2288774869",
+      "replayed_checkpoints": 1
+    },
+    "protected": {
+      "case": "protected",
+      "module_sha256": "e23f01ebb66685a5e25bdcc31b0ed5341aa6afe4cd9ad1a8a11a3b502ea7e993",
+      "seed_world_sha256": "cdad97f8944c6f67b1c02f483f9a8ac01e9bc0012c4b2137d4b6193244be42cb",
+      "world_version": null,
+      "state_bytes": 274950,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 0,
+      "callbacks": 0,
+      "work_budget": 512,
+      "virtual_ns": "900000000090",
+      "net_cycles": "2073592170",
+      "index_calls": 15,
+      "balls_before": 2,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": null,
+      "admission": null,
+      "backend_memory_bytes": null,
+      "reserved_cycles": null,
+      "management_idle_cycles_per_day": null,
+      "replayed_checkpoints": null
+    },
+    "idle": {
+      "case": "idle",
+      "module_sha256": "e23f01ebb66685a5e25bdcc31b0ed5341aa6afe4cd9ad1a8a11a3b502ea7e993",
+      "seed_world_sha256": "596e45b8bad6b2aca4d72daf2ab3e6a73b45eb740a1b76f2ace0fc1cb88db30f",
+      "world_version": null,
+      "state_bytes": 254492,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 0,
+      "callbacks": 0,
+      "work_budget": 512,
+      "virtual_ns": "900000000090",
+      "net_cycles": "1525487668",
+      "index_calls": 15,
+      "balls_before": 0,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": {
+        "admission_open": true,
+        "mode": "Survival",
+        "nominal_milli": 100,
+        "performance_limited": false,
+        "supported_milli": 100
+      },
+      "admission": null,
+      "backend_memory_bytes": "48952715",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2114645963",
+      "replayed_checkpoints": 0
+    }
+  },
+  "small_optimisation": {
+    "two_ball": {
+      "case": "two_ball",
+      "module_sha256": "9ddecf0960f5d117f31aeb5073a166c3a76b549de75c4caed2917a0177055d64",
+      "seed_world_sha256": "cdad97f8944c6f67b1c02f483f9a8ac01e9bc0012c4b2137d4b6193244be42cb",
+      "world_version": null,
+      "state_bytes": 274950,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 4,
+      "callbacks": 8,
+      "work_budget": 512,
+      "virtual_ns": "40000000480",
+      "net_cycles": "16323302578",
+      "index_calls": 0,
+      "balls_before": 2,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": null,
+      "admission": null,
+      "backend_memory_bytes": "55046491",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2270330001",
+      "replayed_checkpoints": 4
+    },
+    "moderate": {
+      "case": "moderate",
+      "module_sha256": "9ddecf0960f5d117f31aeb5073a166c3a76b549de75c4caed2917a0177055d64",
+      "seed_world_sha256": "0139d2502ae837a91641da8d702096d2c640c6db3d721531b0700eba9d5ec822",
+      "world_version": null,
+      "state_bytes": 278660,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 4,
+      "callbacks": 8,
+      "work_budget": 512,
+      "virtual_ns": "40000000480",
+      "net_cycles": "17001740212",
+      "index_calls": 0,
+      "balls_before": 14,
+      "cannons_before": 6,
+      "players_before": 5,
+      "pace": null,
+      "admission": null,
+      "backend_memory_bytes": "54784347",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2263632736",
+      "replayed_checkpoints": 4
+    },
+    "large": {
+      "case": "large",
+      "module_sha256": "9ddecf0960f5d117f31aeb5073a166c3a76b549de75c4caed2917a0177055d64",
+      "seed_world_sha256": "c3c7e8ef8af0cde486b9e6e38a9535af41771092b498e56a861e478e43e66ed6",
+      "world_version": null,
+      "state_bytes": 293550,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 4,
+      "callbacks": 8,
+      "work_budget": 512,
+      "virtual_ns": "40000000480",
+      "net_cycles": "20322524434",
+      "index_calls": 0,
+      "balls_before": 86,
+      "cannons_before": 16,
+      "players_before": 15,
+      "pace": null,
+      "admission": null,
+      "backend_memory_bytes": "56488283",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2307164962",
+      "replayed_checkpoints": 4
+    },
+    "payment": {
+      "case": "payment",
+      "module_sha256": "9ddecf0960f5d117f31aeb5073a166c3a76b549de75c4caed2917a0177055d64",
+      "seed_world_sha256": "cdad97f8944c6f67b1c02f483f9a8ac01e9bc0012c4b2137d4b6193244be42cb",
+      "world_version": null,
+      "state_bytes": 274950,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 1,
+      "callbacks": 3,
+      "work_budget": 100000,
+      "virtual_ns": "60750000191",
+      "net_cycles": "7253797718",
+      "index_calls": 2,
+      "balls_before": 2,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": null,
+      "admission": {
+        "cursor": 2,
+        "cycles_through_admission": "935316730",
+        "position": 1,
+        "profile": null
+      },
+      "backend_memory_bytes": "54522203",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2256935470",
+      "replayed_checkpoints": 1
+    },
+    "protected": {
+      "case": "protected",
+      "module_sha256": "9ddecf0960f5d117f31aeb5073a166c3a76b549de75c4caed2917a0177055d64",
+      "seed_world_sha256": "cdad97f8944c6f67b1c02f483f9a8ac01e9bc0012c4b2137d4b6193244be42cb",
+      "world_version": null,
+      "state_bytes": 274950,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 0,
+      "callbacks": 0,
+      "work_budget": 512,
+      "virtual_ns": "900000000090",
+      "net_cycles": "1734242345",
+      "index_calls": 15,
+      "balls_before": 2,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": null,
+      "admission": null,
+      "backend_memory_bytes": "49344859",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2124664474",
+      "replayed_checkpoints": 0
+    },
+    "idle": {
+      "case": "idle",
+      "module_sha256": "0a71c80ff63391fa434fea125d86aa006b5325f8ff3962533a3f3f3c496685c3",
+      "seed_world_sha256": "596e45b8bad6b2aca4d72daf2ab3e6a73b45eb740a1b76f2ace0fc1cb88db30f",
+      "world_version": null,
+      "state_bytes": 254492,
+      "reservoir_bitmap_bytes": 249751,
+      "reservoir_range_bytes": null,
+      "checkpoints": 0,
+      "callbacks": 0,
+      "work_budget": 512,
+      "virtual_ns": "900000000090",
+      "net_cycles": "1360324424",
+      "index_calls": 15,
+      "balls_before": 0,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": {
+        "admission_open": true,
+        "mode": "Survival",
+        "nominal_milli": 100,
+        "performance_limited": false,
+        "supported_milli": 100
+      },
+      "admission": null,
+      "backend_memory_bytes": "48951643",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2114618575",
+      "replayed_checkpoints": 0
+    }
+  },
+  "legacy_publication_probe": {
+    "case": "two_ball",
+    "module_sha256": "cb7ae59ce2c6a4b9b716e01c983d15d441bfc067b25920e53f9d15dc46ec082f",
+    "seed_world_sha256": "cdad97f8944c6f67b1c02f483f9a8ac01e9bc0012c4b2137d4b6193244be42cb",
+    "world_version": 10,
+    "state_bytes": 274950,
+    "reservoir_bitmap_bytes": 249751,
+    "reservoir_range_bytes": null,
+    "checkpoints": 4,
+    "callbacks": 8,
+    "work_budget": 512,
+    "virtual_ns": "40000000480",
+    "net_cycles": "11207270484",
+    "index_calls": 0,
+    "balls_before": 2,
+    "cannons_before": 2,
+    "players_before": 1,
+    "pace": {
+      "admission_open": true,
+      "mode": "Survival",
+      "nominal_milli": 100,
+      "performance_limited": false,
+      "supported_milli": 100
+    },
+    "admission": null,
+    "backend_memory_bytes": "50699107",
+    "reserved_cycles": "0",
+    "management_idle_cycles_per_day": "2159262857",
+    "replayed_checkpoints": 4,
+    "before_coordinator_image_bytes": 574058,
+    "after_coordinator_image_bytes": 572951,
+    "stable_pages": [
+      513,
+      513
+    ],
+    "counter_deltas": {
+      "blob.read": {
+        "bytes": 5937859,
+        "calls": 0,
+        "instructions": 0,
+        "units": 373
+      },
+      "blob.read_and_verify": {
+        "bytes": 0,
+        "calls": 12,
+        "instructions": 96316340,
+        "units": 0
+      },
+      "blob.read_hash": {
+        "bytes": 0,
+        "calls": 12,
+        "instructions": 87850306,
+        "units": 0
+      },
+      "blob.write": {
+        "bytes": 5935718,
+        "calls": 0,
+        "instructions": 0,
+        "units": 369
+      },
+      "coordinator.restore": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 2360489973,
+        "units": 0
+      },
+      "driver.timer": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 11039120866,
+        "units": 0
+      },
+      "idle.world_decode": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 614062422,
+        "units": 0
+      },
+      "kernel.begin": {
+        "bytes": 0,
+        "calls": 4,
+        "instructions": 316438817,
+        "units": 0
+      },
+      "kernel.cursor_restore": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 167134868,
+        "units": 0
+      },
+      "kernel.result": {
+        "bytes": 0,
+        "calls": 4,
+        "instructions": 137611565,
+        "units": 0
+      },
+      "kernel.step": {
+        "bytes": 0,
+        "calls": 4,
+        "instructions": 322424610,
+        "units": 0
+      },
+      "persist.blob_write": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 164561712,
+        "units": 0
+      },
+      "persist.certify": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 7879,
+        "units": 0
+      },
+      "persist.image_hash": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 372572410,
+        "units": 0
+      },
+      "persist.publication": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 1089614087,
+        "units": 0
+      },
+      "persist.retention_prepare": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 109784185,
+        "units": 0
+      },
+      "persist.retention_write": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 66984466,
+        "units": 0
+      },
+      "persist.root_encode": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 6648566,
+        "units": 0
+      },
+      "persist.root_write": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 1450674,
+        "units": 0
+      },
+      "persist.snapshot": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 118520999,
+        "units": 0
+      },
+      "persist.total": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 2576447699,
+        "units": 0
+      },
+      "retention.write": {
+        "bytes": 1165674,
+        "calls": 0,
+        "instructions": 0,
+        "units": 80
+      },
+      "root.decode": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 17630553,
+        "units": 0
+      },
+      "root.read": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 2488091,
+        "units": 0
+      },
+      "root.retention_validate": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 3993798,
+        "units": 0
+      },
+      "root.total": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 57158351,
+        "units": 0
+      },
+      "root.write": {
+        "bytes": 161314,
+        "calls": 0,
+        "instructions": 0,
+        "units": 8
+      },
+      "root_only.total": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "root_only.write": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "source.begin": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "source.finish_page": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "source.index_decode": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "source.index_request": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "source.request": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "treasury.save": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      }
+    },
+    "driver_deltas": {
+      "messages": 8,
+      "persist_instructions": 2576489309,
+      "publish_instructions": 1676333902,
+      "seal_instructions": 1927116497,
+      "step_instructions": 2080133031
+    },
+    "cutover": null
+  },
+  "baseline_detailed": {
+    "case": "two_ball",
+    "module_sha256": "ff9c79b80c119b22c02671b13e207bd01634104c0f4809670095926e01f7e42f",
+    "seed_world_sha256": "cdad97f8944c6f67b1c02f483f9a8ac01e9bc0012c4b2137d4b6193244be42cb",
+    "world_version": null,
+    "state_bytes": 274950,
+    "reservoir_bitmap_bytes": 249751,
+    "reservoir_range_bytes": null,
+    "checkpoints": 4,
+    "callbacks": 8,
+    "work_budget": 512,
+    "virtual_ns": "40000000480",
+    "net_cycles": "17147939328",
+    "index_calls": 0,
+    "balls_before": 2,
+    "cannons_before": 2,
+    "players_before": 1,
+    "pace": null,
+    "admission": null,
+    "backend_memory_bytes": null,
+    "reserved_cycles": null,
+    "management_idle_cycles_per_day": null,
+    "replayed_checkpoints": null,
+    "before_coordinator_image_bytes": null,
+    "after_coordinator_image_bytes": null,
+    "stable_pages": [
+      513,
+      513
+    ],
+    "counter_deltas": {
+      "blob.read": {
+        "bytes": 7935811,
+        "calls": 0,
+        "instructions": 0,
+        "units": 493
+      },
+      "blob.read_and_verify": {
+        "bytes": 0,
+        "calls": 20,
+        "instructions": 695620889,
+        "units": 0
+      },
+      "blob.read_hash": {
+        "bytes": 0,
+        "calls": 20,
+        "instructions": 615405561,
+        "units": 0
+      },
+      "blob.write": {
+        "bytes": 7933670,
+        "calls": 0,
+        "instructions": 0,
+        "units": 489
+      },
+      "coordinator.restore": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 3186822089,
+        "units": 0
+      },
+      "driver.timer": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 16970144881,
+        "units": 0
+      },
+      "idle.world_decode": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 616460855,
+        "units": 0
+      },
+      "kernel.begin": {
+        "bytes": 0,
+        "calls": 4,
+        "instructions": 548954940,
+        "units": 0
+      },
+      "kernel.cursor_restore": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 593311398,
+        "units": 0
+      },
+      "kernel.result": {
+        "bytes": 0,
+        "calls": 4,
+        "instructions": 82956234,
+        "units": 0
+      },
+      "kernel.step": {
+        "bytes": 0,
+        "calls": 4,
+        "instructions": 2115478900,
+        "units": 0
+      },
+      "persist.artifact_rehash": {
+        "bytes": 0,
+        "calls": 24,
+        "instructions": 175656438,
+        "units": 0
+      },
+      "persist.blob_write": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 346761301,
+        "units": 0
+      },
+      "persist.certify": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 8846,
+        "units": 0
+      },
+      "persist.image_hash": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 527471166,
+        "units": 0
+      },
+      "persist.publication": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 1091695088,
+        "units": 0
+      },
+      "persist.retention_prepare": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 108990404,
+        "units": 0
+      },
+      "persist.retention_write": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 66624262,
+        "units": 0
+      },
+      "persist.root_encode": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 6641937,
+        "units": 0
+      },
+      "persist.root_write": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 1450846,
+        "units": 0
+      },
+      "persist.snapshot": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 168754454,
+        "units": 0
+      },
+      "persist.total": {
+        "bytes": 0,
+        "calls": 8,
+        "instructions": 3140347802,
+        "units": 0
+      },
+      "retention.write": {
+        "bytes": 1165674,
+        "calls": 0,
+        "instructions": 0,
+        "units": 80
+      },
+      "root.decode": {
+        "bytes": 0,
+        "calls": 24,
+        "instructions": 49535268,
+        "units": 0
+      },
+      "root.read": {
+        "bytes": 0,
+        "calls": 24,
+        "instructions": 2742728,
+        "units": 0
+      },
+      "root.retention_validate": {
+        "bytes": 0,
+        "calls": 24,
+        "instructions": 11964888,
+        "units": 0
+      },
+      "root.total": {
+        "bytes": 0,
+        "calls": 24,
+        "instructions": 156560684,
+        "units": 0
+      },
+      "root.write": {
+        "bytes": 161318,
+        "calls": 0,
+        "instructions": 0,
+        "units": 8
+      },
+      "root_only.total": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "root_only.write": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "source.begin": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "source.finish_page": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "source.index_decode": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "source.index_request": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "source.request": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      },
+      "treasury.save": {
+        "bytes": 0,
+        "calls": 0,
+        "instructions": 0,
+        "units": 0
+      }
+    },
+    "driver_deltas": {
+      "messages": 8,
+      "persist_instructions": 3140460452,
+      "publish_instructions": 2129112640,
+      "seal_instructions": 2775196946,
+      "step_instructions": 4668359181
+    },
+    "cutover": null
+  },
+  "compact_instrumented": {
+    "two_ball": {
+      "case": "two_ball",
+      "module_sha256": "cec24e60c13fc648d94ab5ad7ee30be76b34b7b8a98d46932dfddc2666c83584",
+      "seed_world_sha256": "4e4befda1e7a02d8870b27ba1e2eddc123cf4a4cb6274c9bdca8510fbbb75a5d",
+      "world_version": 11,
+      "state_bytes": 25239,
+      "reservoir_bitmap_bytes": 0,
+      "reservoir_range_bytes": 33,
+      "checkpoints": 4,
+      "callbacks": 4,
+      "work_budget": 512,
+      "virtual_ns": "40000000480",
+      "net_cycles": "1548644792",
+      "index_calls": 0,
+      "balls_before": 2,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": {
+        "admission_open": true,
+        "mode": "Survival",
+        "nominal_milli": 100,
+        "performance_limited": false,
+        "supported_milli": 100
+      },
+      "admission": null,
+      "backend_memory_bytes": "49713471",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2134081788",
+      "replayed_checkpoints": 4,
+      "before_coordinator_image_bytes": 70189,
+      "after_coordinator_image_bytes": 70740,
+      "stable_pages": [
+        513,
+        513
+      ],
+      "counter_deltas": {
+        "blob.read": {
+          "bytes": 413812,
+          "calls": 0,
+          "instructions": 0,
+          "units": 36
+        },
+        "blob.read_and_verify": {
+          "bytes": 0,
+          "calls": 12,
+          "instructions": 11328975,
+          "units": 0
+        },
+        "blob.read_hash": {
+          "bytes": 0,
+          "calls": 12,
+          "instructions": 10378788,
+          "units": 0
+        },
+        "blob.write": {
+          "bytes": 413998,
+          "calls": 0,
+          "instructions": 0,
+          "units": 32
+        },
+        "coordinator.restore": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 134449876,
+          "units": 0
+        },
+        "driver.timer": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 1451723733,
+          "units": 0
+        },
+        "idle.world_decode": {
+          "bytes": 0,
+          "calls": 8,
+          "instructions": 128452317,
+          "units": 0
+        },
+        "kernel.begin": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 93144083,
+          "units": 0
+        },
+        "kernel.cursor_restore": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 83988228,
+          "units": 0
+        },
+        "kernel.result": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 33750245,
+          "units": 0
+        },
+        "kernel.step": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 330394553,
+          "units": 0
+        },
+        "persist.blob_write": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 13849115,
+          "units": 0
+        },
+        "persist.certify": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 4258,
+          "units": 0
+        },
+        "persist.image_hash": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 21870442,
+          "units": 0
+        },
+        "persist.publication": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 66867137,
+          "units": 0
+        },
+        "persist.retention_prepare": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 19022858,
+          "units": 0
+        },
+        "persist.retention_write": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 13268546,
+          "units": 0
+        },
+        "persist.root_encode": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 3134391,
+          "units": 0
+        },
+        "persist.root_write": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 704019,
+          "units": 0
+        },
+        "persist.snapshot": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 7457312,
+          "units": 0
+        },
+        "persist.total": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 283840281,
+          "units": 0
+        },
+        "retention.write": {
+          "bytes": 149216,
+          "calls": 0,
+          "instructions": 0,
+          "units": 20
+        },
+        "root.decode": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 10579201,
+          "units": 0
+        },
+        "root.read": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 542754,
+          "units": 0
+        },
+        "root.retention_validate": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 1892279,
+          "units": 0
+        },
+        "root.total": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 25214663,
+          "units": 0
+        },
+        "root.write": {
+          "bytes": 59530,
+          "calls": 0,
+          "instructions": 0,
+          "units": 4
+        },
+        "root_only.total": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "root_only.write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.begin": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.finish_page": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.index_decode": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.index_request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "treasury.save": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        }
+      },
+      "driver_deltas": {
+        "messages": 4,
+        "persist_instructions": 283861082,
+        "publish_instructions": 153981477,
+        "seal_instructions": 259833428,
+        "step_instructions": 521976841
+      },
+      "cutover": {
+        "cutover_cycles": "2539883302",
+        "new_publication_hash": "c196b3ccf0b3c8860af5c4f5a070b3bed4f39dfe6e1a8ad4694d7b3cb485857c",
+        "new_ranges": [
+          [
+            998000,
+            998002
+          ],
+          [
+            999000,
+            999002
+          ]
+        ],
+        "new_state_bytes": 25239,
+        "new_state_hash": "4e4befda1e7a02d8870b27ba1e2eddc123cf4a4cb6274c9bdca8510fbbb75a5d",
+        "old_publication_hash": "df8b5bc7b09b6acc9ffc5236c35585197e93904831697d939bbc37b359b0f9df",
+        "old_ranges": 249751,
+        "old_state_bytes": 274953,
+        "old_state_hash": "6dfdaf47acc245c54f7e2bc3ecb22c6ecf9c1c47137fbf806c4afd3bc64d7d54",
+        "source_cursor": {
+          "$integer": "0"
+        },
+        "upgrade_cycles": "24981878814"
+      }
+    },
+    "moderate": {
+      "case": "moderate",
+      "module_sha256": "cec24e60c13fc648d94ab5ad7ee30be76b34b7b8a98d46932dfddc2666c83584",
+      "seed_world_sha256": "7e30200966f34920691a22265ab0a1534b3f05132f4e2db0e950e31fd966a492",
+      "world_version": 11,
+      "state_bytes": 29525,
+      "reservoir_bitmap_bytes": 0,
+      "reservoir_range_bytes": 89,
+      "checkpoints": 4,
+      "callbacks": 4,
+      "work_budget": 512,
+      "virtual_ns": "40000000480",
+      "net_cycles": "2110185584",
+      "index_calls": 0,
+      "balls_before": 14,
+      "cannons_before": 6,
+      "players_before": 5,
+      "pace": {
+        "admission_open": true,
+        "mode": "Survival",
+        "nominal_milli": 100,
+        "performance_limited": false,
+        "supported_milli": 100
+      },
+      "admission": null,
+      "backend_memory_bytes": "49713471",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2134081788",
+      "replayed_checkpoints": 4,
+      "before_coordinator_image_bytes": 79801,
+      "after_coordinator_image_bytes": 80352,
+      "stable_pages": [
+        513,
+        513
+      ],
+      "counter_deltas": {
+        "blob.read": {
+          "bytes": 477118,
+          "calls": 0,
+          "instructions": 0,
+          "units": 36
+        },
+        "blob.read_and_verify": {
+          "bytes": 0,
+          "calls": 12,
+          "instructions": 13071299,
+          "units": 0
+        },
+        "blob.read_hash": {
+          "bytes": 0,
+          "calls": 12,
+          "instructions": 12016486,
+          "units": 0
+        },
+        "blob.write": {
+          "bytes": 475224,
+          "calls": 0,
+          "instructions": 0,
+          "units": 32
+        },
+        "coordinator.restore": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 153478114,
+          "units": 0
+        },
+        "driver.timer": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 2011505082,
+          "units": 0
+        },
+        "idle.world_decode": {
+          "bytes": 0,
+          "calls": 8,
+          "instructions": 156678376,
+          "units": 0
+        },
+        "kernel.begin": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 109984354,
+          "units": 0
+        },
+        "kernel.cursor_restore": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 102222636,
+          "units": 0
+        },
+        "kernel.result": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 44137059,
+          "units": 0
+        },
+        "kernel.step": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 699852098,
+          "units": 0
+        },
+        "persist.blob_write": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 16449610,
+          "units": 0
+        },
+        "persist.certify": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 4228,
+          "units": 0
+        },
+        "persist.image_hash": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 25140294,
+          "units": 0
+        },
+        "persist.publication": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 76647863,
+          "units": 0
+        },
+        "persist.retention_prepare": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 20802810,
+          "units": 0
+        },
+        "persist.retention_write": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 16054220,
+          "units": 0
+        },
+        "persist.root_encode": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 3115827,
+          "units": 0
+        },
+        "persist.root_write": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 704202,
+          "units": 0
+        },
+        "persist.snapshot": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 8596933,
+          "units": 0
+        },
+        "persist.total": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 333205940,
+          "units": 0
+        },
+        "retention.write": {
+          "bytes": 170318,
+          "calls": 0,
+          "instructions": 0,
+          "units": 20
+        },
+        "root.decode": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 10774037,
+          "units": 0
+        },
+        "root.read": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 1023166,
+          "units": 0
+        },
+        "root.retention_validate": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 1898926,
+          "units": 0
+        },
+        "root.total": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 26551734,
+          "units": 0
+        },
+        "root.write": {
+          "bytes": 59530,
+          "calls": 0,
+          "instructions": 0,
+          "units": 4
+        },
+        "root_only.total": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "root_only.write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.begin": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.finish_page": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.index_decode": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.index_request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "treasury.save": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        }
+      },
+      "driver_deltas": {
+        "messages": 4,
+        "persist_instructions": 333226742,
+        "publish_instructions": 176460888,
+        "seal_instructions": 309309297,
+        "step_instructions": 924159454
+      },
+      "cutover": {
+        "cutover_cycles": "2636936312",
+        "new_publication_hash": "9907171d56fe484f4c379d2c6786813c3a6da800574985a32cbc0090ea94e62c",
+        "new_ranges": [
+          [
+            76111,
+            76112
+          ],
+          [
+            76166,
+            76167
+          ],
+          [
+            76221,
+            76222
+          ],
+          [
+            76276,
+            76277
+          ],
+          [
+            998000,
+            998002
+          ],
+          [
+            999000,
+            999002
+          ]
+        ],
+        "new_state_bytes": 29525,
+        "new_state_hash": "7e30200966f34920691a22265ab0a1534b3f05132f4e2db0e950e31fd966a492",
+        "old_publication_hash": "12ba625cbad66252d2199083e1a6d19645beb23092826ca08d8aff6dea3737dd",
+        "old_ranges": 249751,
+        "old_state_bytes": 279183,
+        "old_state_hash": "7b24829552b9b2ef5d1d571629c04e3f0711f0117d2af60b113d80597b0c06a0",
+        "source_cursor": {
+          "$integer": "0"
+        },
+        "upgrade_cycles": "24999866836"
+      }
+    },
+    "large": {
+      "case": "large",
+      "module_sha256": "cec24e60c13fc648d94ab5ad7ee30be76b34b7b8a98d46932dfddc2666c83584",
+      "seed_world_sha256": "30b97540cd2391255836e44c91a43c78468a089725951039a9ec58aeb6f0d60f",
+      "world_version": 11,
+      "state_bytes": 45865,
+      "reservoir_bitmap_bytes": 0,
+      "reservoir_range_bytes": 239,
+      "checkpoints": 4,
+      "callbacks": 4,
+      "work_budget": 512,
+      "virtual_ns": "40000000480",
+      "net_cycles": "4904952637",
+      "index_calls": 0,
+      "balls_before": 86,
+      "cannons_before": 16,
+      "players_before": 15,
+      "pace": {
+        "admission_open": true,
+        "mode": "Survival",
+        "nominal_milli": 100,
+        "performance_limited": false,
+        "supported_milli": 100
+      },
+      "admission": null,
+      "backend_memory_bytes": "50106687",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2144127687",
+      "replayed_checkpoints": 4,
+      "before_coordinator_image_bytes": 115081,
+      "after_coordinator_image_bytes": 115632,
+      "stable_pages": [
+        513,
+        513
+      ],
+      "counter_deltas": {
+        "blob.read": {
+          "bytes": 723529,
+          "calls": 0,
+          "instructions": 0,
+          "units": 52
+        },
+        "blob.read_and_verify": {
+          "bytes": 0,
+          "calls": 12,
+          "instructions": 19735065,
+          "units": 0
+        },
+        "blob.read_hash": {
+          "bytes": 0,
+          "calls": 12,
+          "instructions": 18397717,
+          "units": 0
+        },
+        "blob.write": {
+          "bytes": 716435,
+          "calls": 0,
+          "instructions": 0,
+          "units": 48
+        },
+        "coordinator.restore": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 233567145,
+          "units": 0
+        },
+        "driver.timer": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 4808748149,
+          "units": 0
+        },
+        "idle.world_decode": {
+          "bytes": 0,
+          "calls": 8,
+          "instructions": 276491102,
+          "units": 0
+        },
+        "kernel.begin": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 181714582,
+          "units": 0
+        },
+        "kernel.cursor_restore": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 179276959,
+          "units": 0
+        },
+        "kernel.result": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 83549036,
+          "units": 0
+        },
+        "kernel.step": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 2647844389,
+          "units": 0
+        },
+        "persist.blob_write": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 16509928,
+          "units": 0
+        },
+        "persist.certify": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 4017,
+          "units": 0
+        },
+        "persist.image_hash": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 37872786,
+          "units": 0
+        },
+        "persist.publication": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 114272371,
+          "units": 0
+        },
+        "persist.retention_prepare": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 27611100,
+          "units": 0
+        },
+        "persist.retention_write": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 20238277,
+          "units": 0
+        },
+        "persist.root_encode": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 3143288,
+          "units": 0
+        },
+        "persist.root_write": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 704950,
+          "units": 0
+        },
+        "persist.snapshot": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 13031889,
+          "units": 0
+        },
+        "persist.total": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 516404263,
+          "units": 0
+        },
+        "retention.write": {
+          "bytes": 252729,
+          "calls": 0,
+          "instructions": 0,
+          "units": 24
+        },
+        "root.decode": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 10891953,
+          "units": 0
+        },
+        "root.read": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 1423788,
+          "units": 0
+        },
+        "root.retention_validate": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 1915583,
+          "units": 0
+        },
+        "root.total": {
+          "bytes": 0,
+          "calls": 4,
+          "instructions": 26525132,
+          "units": 0
+        },
+        "root.write": {
+          "bytes": 60108,
+          "calls": 0,
+          "instructions": 0,
+          "units": 4
+        },
+        "root_only.total": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "root_only.write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.begin": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.finish_page": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.index_decode": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.index_request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "source.request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "treasury.save": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        }
+      },
+      "driver_deltas": {
+        "messages": 4,
+        "persist_instructions": 516425066,
+        "publish_instructions": 369615156,
+        "seal_instructions": 507669167,
+        "step_instructions": 3001980973
+      },
+      "cutover": {
+        "cutover_cycles": "2939443975",
+        "new_publication_hash": "fa1d3115f82bccef23e1575ae42f23dab0c9c79a2f291335773d9ac925c07139",
+        "new_ranges": [
+          [
+            76111,
+            76112
+          ],
+          [
+            76166,
+            76167
+          ],
+          [
+            76221,
+            76222
+          ],
+          [
+            76276,
+            76277
+          ],
+          [
+            76331,
+            76332
+          ],
+          [
+            76386,
+            76387
+          ],
+          [
+            76441,
+            76442
+          ],
+          [
+            76496,
+            76497
+          ],
+          [
+            76551,
+            76552
+          ],
+          [
+            136056,
+            136057
+          ],
+          [
+            136111,
+            136112
+          ],
+          [
+            136166,
+            136167
+          ],
+          [
+            136221,
+            136222
+          ],
+          [
+            136276,
+            136277
+          ],
+          [
+            998000,
+            998002
+          ],
+          [
+            999000,
+            999002
+          ]
+        ],
+        "new_state_bytes": 45865,
+        "new_state_hash": "30b97540cd2391255836e44c91a43c78468a089725951039a9ec58aeb6f0d60f",
+        "old_publication_hash": "b1a0f3be8200aaccd076ecb21ed4fba9f5e2f1ab59aed4a19a2f627b03e18805",
+        "old_ranges": 249751,
+        "old_state_bytes": 295373,
+        "old_state_hash": "24795958e0332c5cf72d2343e174984b3f3eefc3baa1b31236424a83d206d03f",
+        "source_cursor": {
+          "$integer": "0"
+        },
+        "upgrade_cycles": "25073262579"
+      }
+    },
+    "payment": {
+      "case": "payment",
+      "module_sha256": "cec24e60c13fc648d94ab5ad7ee30be76b34b7b8a98d46932dfddc2666c83584",
+      "seed_world_sha256": "4e4befda1e7a02d8870b27ba1e2eddc123cf4a4cb6274c9bdca8510fbbb75a5d",
+      "world_version": 11,
+      "state_bytes": 25239,
+      "reservoir_bitmap_bytes": 0,
+      "reservoir_range_bytes": 33,
+      "checkpoints": 1,
+      "callbacks": 1,
+      "work_budget": 512,
+      "virtual_ns": "57250000176",
+      "net_cycles": "827942658",
+      "index_calls": 2,
+      "balls_before": 2,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": {
+        "admission_open": true,
+        "mode": "Survival",
+        "nominal_milli": 100,
+        "performance_limited": false,
+        "supported_milli": 100
+      },
+      "admission": {
+        "cursor": 2,
+        "cycles_through_admission": "142089239",
+        "position": 1,
+        "profile": {
+          "coordinator_image_bytes": 56762,
+          "counters": {
+            "blob.read": {
+              "bytes": 4235920,
+              "calls": 0,
+              "instructions": 0,
+              "units": 270
+            },
+            "blob.read_and_verify": {
+              "bytes": 0,
+              "calls": 6,
+              "instructions": 48387524,
+              "units": 0
+            },
+            "blob.read_hash": {
+              "bytes": 0,
+              "calls": 6,
+              "instructions": 43989663,
+              "units": 0
+            },
+            "blob.write": {
+              "bytes": 139750,
+              "calls": 0,
+              "instructions": 0,
+              "units": 12
+            },
+            "coordinator.restore": {
+              "bytes": 0,
+              "calls": 10,
+              "instructions": 1766325190,
+              "units": 0
+            },
+            "idle.world_decode": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 92237531,
+              "units": 0
+            },
+            "persist.blob_write": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 32888652,
+              "units": 0
+            },
+            "persist.certify": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 2091,
+              "units": 0
+            },
+            "persist.image_hash": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 8786728,
+              "units": 0
+            },
+            "persist.publication": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 36206994,
+              "units": 0
+            },
+            "persist.retention_prepare": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 27549707,
+              "units": 0
+            },
+            "persist.retention_write": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 13034989,
+              "units": 0
+            },
+            "persist.root_encode": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 1293441,
+              "units": 0
+            },
+            "persist.root_write": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 186910,
+              "units": 0
+            },
+            "persist.snapshot": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 2995181,
+              "units": 0
+            },
+            "persist.total": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 160253406,
+              "units": 0
+            },
+            "retention.write": {
+              "bytes": 291784,
+              "calls": 0,
+              "instructions": 0,
+              "units": 20
+            },
+            "root.decode": {
+              "bytes": 0,
+              "calls": 38,
+              "instructions": 70419494,
+              "units": 0
+            },
+            "root.read": {
+              "bytes": 0,
+              "calls": 38,
+              "instructions": 4429827,
+              "units": 0
+            },
+            "root.retention_validate": {
+              "bytes": 0,
+              "calls": 38,
+              "instructions": 16442605,
+              "units": 0
+            },
+            "root.total": {
+              "bytes": 0,
+              "calls": 38,
+              "instructions": 227273801,
+              "units": 0
+            },
+            "root.write": {
+              "bytes": 529208,
+              "calls": 0,
+              "instructions": 0,
+              "units": 31
+            },
+            "root_only.total": {
+              "bytes": 0,
+              "calls": 29,
+              "instructions": 134170749,
+              "units": 0
+            },
+            "root_only.write": {
+              "bytes": 0,
+              "calls": 29,
+              "instructions": 3170677,
+              "units": 0
+            },
+            "source.begin": {
+              "bytes": 0,
+              "calls": 6,
+              "instructions": 65223330,
+              "units": 0
+            },
+            "source.fallback": {
+              "bytes": 0,
+              "calls": 1,
+              "instructions": 8612894,
+              "units": 0
+            },
+            "source.finish_page": {
+              "bytes": 0,
+              "calls": 4,
+              "instructions": 116056198,
+              "units": 0
+            },
+            "source.index_decode": {
+              "bytes": 0,
+              "calls": 4,
+              "instructions": 5922306,
+              "units": 0
+            },
+            "source.index_request": {
+              "bytes": 0,
+              "calls": 0,
+              "instructions": 0,
+              "units": 4
+            },
+            "source.request": {
+              "bytes": 0,
+              "calls": 7,
+              "instructions": 73290477,
+              "units": 0
+            },
+            "treasury.save": {
+              "bytes": 0,
+              "calls": 2,
+              "instructions": 349991,
+              "units": 0
+            }
+          },
+          "stable_pages": 513
+        }
+      },
+      "backend_memory_bytes": "49713471",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2134081788",
+      "replayed_checkpoints": 1,
+      "before_coordinator_image_bytes": 56330,
+      "after_coordinator_image_bytes": 88146,
+      "stable_pages": [
+        513,
+        513
+      ],
+      "counter_deltas": {
+        "blob.read": {
+          "bytes": 196512,
+          "calls": 0,
+          "instructions": 0,
+          "units": 16
+        },
+        "blob.read_and_verify": {
+          "bytes": 0,
+          "calls": 3,
+          "instructions": 2280174,
+          "units": 0
+        },
+        "blob.read_hash": {
+          "bytes": 0,
+          "calls": 3,
+          "instructions": 2087208,
+          "units": 0
+        },
+        "blob.write": {
+          "bytes": 187013,
+          "calls": 0,
+          "instructions": 0,
+          "units": 14
+        },
+        "coordinator.restore": {
+          "bytes": 0,
+          "calls": 3,
+          "instructions": 85570973,
+          "units": 0
+        },
+        "driver.timer": {
+          "bytes": 0,
+          "calls": 1,
+          "instructions": 544124075,
+          "units": 0
+        },
+        "idle.world_decode": {
+          "bytes": 0,
+          "calls": 1,
+          "instructions": 16451374,
+          "units": 0
+        },
+        "kernel.begin": {
+          "bytes": 0,
+          "calls": 1,
+          "instructions": 75323191,
+          "units": 0
+        },
+        "kernel.cursor_restore": {
+          "bytes": 0,
+          "calls": 1,
+          "instructions": 20899942,
+          "units": 0
+        },
+        "kernel.result": {
+          "bytes": 0,
+          "calls": 1,
+          "instructions": 11564544,
+          "units": 0
+        },
+        "kernel.step": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 168052842,
+          "units": 0
+        },
+        "persist.blob_write": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 6436301,
+          "units": 0
+        },
+        "persist.certify": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 2270,
+          "units": 0
+        },
+        "persist.image_hash": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 11252842,
+          "units": 0
+        },
+        "persist.publication": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 38381693,
+          "units": 0
+        },
+        "persist.retention_prepare": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 3777208,
+          "units": 0
+        },
+        "persist.retention_write": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 3771278,
+          "units": 0
+        },
+        "persist.root_encode": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 1357906,
+          "units": 0
+        },
+        "persist.root_write": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 188751,
+          "units": 0
+        },
+        "persist.snapshot": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 3846564,
+          "units": 0
+        },
+        "persist.total": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 106813297,
+          "units": 0
+        },
+        "retention.write": {
+          "bytes": 29869,
+          "calls": 0,
+          "instructions": 0,
+          "units": 5
+        },
+        "root.decode": {
+          "bytes": 0,
+          "calls": 10,
+          "instructions": 16734406,
+          "units": 0
+        },
+        "root.read": {
+          "bytes": 0,
+          "calls": 10,
+          "instructions": 933985,
+          "units": 0
+        },
+        "root.retention_validate": {
+          "bytes": 0,
+          "calls": 10,
+          "instructions": 3631254,
+          "units": 0
+        },
+        "root.total": {
+          "bytes": 0,
+          "calls": 10,
+          "instructions": 47908291,
+          "units": 0
+        },
+        "root.write": {
+          "bytes": 153425,
+          "calls": 0,
+          "instructions": 0,
+          "units": 12
+        },
+        "root_only.total": {
+          "bytes": 0,
+          "calls": 10,
+          "instructions": 35880121,
+          "units": 0
+        },
+        "root_only.write": {
+          "bytes": 0,
+          "calls": 10,
+          "instructions": 1095871,
+          "units": 0
+        },
+        "source.begin": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 17081729,
+          "units": 0
+        },
+        "source.fallback": {
+          "bytes": 0,
+          "calls": 1,
+          "instructions": 8612894,
+          "units": 0
+        },
+        "source.finish_page": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 89265250,
+          "units": 0
+        },
+        "source.index_decode": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 3854688,
+          "units": 0
+        },
+        "source.index_request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 2
+        },
+        "source.request": {
+          "bytes": 0,
+          "calls": 2,
+          "instructions": 16089552,
+          "units": 0
+        },
+        "treasury.save": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        }
+      },
+      "driver_deltas": {
+        "messages": 1,
+        "persist_instructions": 78309795,
+        "publish_instructions": 46488121,
+        "seal_instructions": 116338583,
+        "step_instructions": 267532874
+      },
+      "cutover": {
+        "cutover_cycles": "2539883302",
+        "new_publication_hash": "c196b3ccf0b3c8860af5c4f5a070b3bed4f39dfe6e1a8ad4694d7b3cb485857c",
+        "new_ranges": [
+          [
+            998000,
+            998002
+          ],
+          [
+            999000,
+            999002
+          ]
+        ],
+        "new_state_bytes": 25239,
+        "new_state_hash": "4e4befda1e7a02d8870b27ba1e2eddc123cf4a4cb6274c9bdca8510fbbb75a5d",
+        "old_publication_hash": "df8b5bc7b09b6acc9ffc5236c35585197e93904831697d939bbc37b359b0f9df",
+        "old_ranges": 249751,
+        "old_state_bytes": 274953,
+        "old_state_hash": "6dfdaf47acc245c54f7e2bc3ecb22c6ecf9c1c47137fbf806c4afd3bc64d7d54",
+        "source_cursor": {
+          "$integer": "0"
+        },
+        "upgrade_cycles": "24981878814"
+      }
+    },
+    "protected": {
+      "case": "protected",
+      "module_sha256": "cec24e60c13fc648d94ab5ad7ee30be76b34b7b8a98d46932dfddc2666c83584",
+      "seed_world_sha256": "4e4befda1e7a02d8870b27ba1e2eddc123cf4a4cb6274c9bdca8510fbbb75a5d",
+      "world_version": 11,
+      "state_bytes": 25239,
+      "reservoir_bitmap_bytes": 0,
+      "reservoir_range_bytes": 33,
+      "checkpoints": 0,
+      "callbacks": 0,
+      "work_budget": 512,
+      "virtual_ns": "900000000090",
+      "net_cycles": "1596041177",
+      "index_calls": 15,
+      "balls_before": 2,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": {
+        "admission_open": false,
+        "mode": "ReserveProtection",
+        "nominal_milli": 0,
+        "performance_limited": false,
+        "supported_milli": 0
+      },
+      "admission": null,
+      "backend_memory_bytes": "49713471",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2134081788",
+      "replayed_checkpoints": 0,
+      "before_coordinator_image_bytes": 56330,
+      "after_coordinator_image_bytes": 56330,
+      "stable_pages": [
+        513,
+        513
+      ],
+      "counter_deltas": {
+        "blob.read": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "blob.read_and_verify": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "blob.read_hash": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "blob.write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "coordinator.restore": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "driver.timer": {
+          "bytes": 0,
+          "calls": 15,
+          "instructions": 76526282,
+          "units": 0
+        },
+        "idle.world_decode": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.blob_write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.certify": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.image_hash": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.publication": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.retention_prepare": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.retention_write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.root_encode": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.root_write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.snapshot": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.total": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "retention.write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "root.decode": {
+          "bytes": 0,
+          "calls": 63,
+          "instructions": 115091934,
+          "units": 0
+        },
+        "root.read": {
+          "bytes": 0,
+          "calls": 63,
+          "instructions": 8983741,
+          "units": 0
+        },
+        "root.retention_validate": {
+          "bytes": 0,
+          "calls": 63,
+          "instructions": 21444636,
+          "units": 0
+        },
+        "root.total": {
+          "bytes": 0,
+          "calls": 63,
+          "instructions": 309576975,
+          "units": 0
+        },
+        "root.write": {
+          "bytes": 917552,
+          "calls": 0,
+          "instructions": 0,
+          "units": 75
+        },
+        "root_only.total": {
+          "bytes": 0,
+          "calls": 75,
+          "instructions": 258556948,
+          "units": 0
+        },
+        "root_only.write": {
+          "bytes": 0,
+          "calls": 75,
+          "instructions": 8184602,
+          "units": 0
+        },
+        "source.begin": {
+          "bytes": 0,
+          "calls": 15,
+          "instructions": 129939615,
+          "units": 0
+        },
+        "source.fallback": {
+          "bytes": 0,
+          "calls": 15,
+          "instructions": 128889250,
+          "units": 0
+        },
+        "source.finish_page": {
+          "bytes": 0,
+          "calls": 15,
+          "instructions": 170828917,
+          "units": 0
+        },
+        "source.index_decode": {
+          "bytes": 0,
+          "calls": 15,
+          "instructions": 25344283,
+          "units": 0
+        },
+        "source.index_request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 15
+        },
+        "source.request": {
+          "bytes": 0,
+          "calls": 15,
+          "instructions": 128666915,
+          "units": 0
+        },
+        "treasury.balance_request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 3
+        },
+        "treasury.fee_request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 3
+        },
+        "treasury.health": {
+          "bytes": 0,
+          "calls": 3,
+          "instructions": 1070264,
+          "units": 0
+        },
+        "treasury.save": {
+          "bytes": 0,
+          "calls": 12,
+          "instructions": 2141336,
+          "units": 0
+        }
+      },
+      "driver_deltas": {
+        "messages": 0,
+        "persist_instructions": 0,
+        "publish_instructions": 0,
+        "seal_instructions": 0,
+        "step_instructions": 0
+      },
+      "cutover": {
+        "cutover_cycles": "2539883302",
+        "new_publication_hash": "c196b3ccf0b3c8860af5c4f5a070b3bed4f39dfe6e1a8ad4694d7b3cb485857c",
+        "new_ranges": [
+          [
+            998000,
+            998002
+          ],
+          [
+            999000,
+            999002
+          ]
+        ],
+        "new_state_bytes": 25239,
+        "new_state_hash": "4e4befda1e7a02d8870b27ba1e2eddc123cf4a4cb6274c9bdca8510fbbb75a5d",
+        "old_publication_hash": "df8b5bc7b09b6acc9ffc5236c35585197e93904831697d939bbc37b359b0f9df",
+        "old_ranges": 249751,
+        "old_state_bytes": 274953,
+        "old_state_hash": "6dfdaf47acc245c54f7e2bc3ecb22c6ecf9c1c47137fbf806c4afd3bc64d7d54",
+        "source_cursor": {
+          "$integer": "0"
+        },
+        "upgrade_cycles": "24981878814"
+      }
+    },
+    "idle": {
+      "case": "idle",
+      "module_sha256": "cec24e60c13fc648d94ab5ad7ee30be76b34b7b8a98d46932dfddc2666c83584",
+      "seed_world_sha256": "8776f5013314365203e2c820e8aa67effe006402b73f7b922577a9249085002b",
+      "world_version": 11,
+      "state_bytes": 4778,
+      "reservoir_bitmap_bytes": 0,
+      "reservoir_range_bytes": 33,
+      "checkpoints": 0,
+      "callbacks": 0,
+      "work_budget": 512,
+      "virtual_ns": "900000000090",
+      "net_cycles": "1238375958",
+      "index_calls": 15,
+      "balls_before": 0,
+      "cannons_before": 2,
+      "players_before": 1,
+      "pace": {
+        "admission_open": true,
+        "mode": "Survival",
+        "nominal_milli": 100,
+        "performance_limited": false,
+        "supported_milli": 100
+      },
+      "admission": null,
+      "backend_memory_bytes": "49189183",
+      "reserved_cycles": "0",
+      "management_idle_cycles_per_day": "2120687257",
+      "replayed_checkpoints": 0,
+      "before_coordinator_image_bytes": 15408,
+      "after_coordinator_image_bytes": 15408,
+      "stable_pages": [
+        513,
+        513
+      ],
+      "counter_deltas": {
+        "blob.read": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "blob.read_and_verify": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "blob.read_hash": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "blob.write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "coordinator.restore": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "idle.world_decode": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.blob_write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.certify": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.image_hash": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.publication": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.retention_prepare": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.retention_write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.root_encode": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.root_write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.snapshot": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "persist.total": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "retention.write": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 0
+        },
+        "root.decode": {
+          "bytes": 0,
+          "calls": 48,
+          "instructions": 81422704,
+          "units": 0
+        },
+        "root.read": {
+          "bytes": 0,
+          "calls": 48,
+          "instructions": 8383648,
+          "units": 0
+        },
+        "root.retention_validate": {
+          "bytes": 0,
+          "calls": 48,
+          "instructions": 16262898,
+          "units": 0
+        },
+        "root.total": {
+          "bytes": 0,
+          "calls": 48,
+          "instructions": 229651913,
+          "units": 0
+        },
+        "root.write": {
+          "bytes": 907277,
+          "calls": 0,
+          "instructions": 0,
+          "units": 75
+        },
+        "root_only.total": {
+          "bytes": 0,
+          "calls": 75,
+          "instructions": 259173094,
+          "units": 0
+        },
+        "root_only.write": {
+          "bytes": 0,
+          "calls": 75,
+          "instructions": 8174327,
+          "units": 0
+        },
+        "source.begin": {
+          "bytes": 0,
+          "calls": 15,
+          "instructions": 129188235,
+          "units": 0
+        },
+        "source.fallback": {
+          "bytes": 0,
+          "calls": 15,
+          "instructions": 128167092,
+          "units": 0
+        },
+        "source.finish_page": {
+          "bytes": 0,
+          "calls": 15,
+          "instructions": 170671635,
+          "units": 0
+        },
+        "source.index_decode": {
+          "bytes": 0,
+          "calls": 15,
+          "instructions": 22982652,
+          "units": 0
+        },
+        "source.index_request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 15
+        },
+        "source.request": {
+          "bytes": 0,
+          "calls": 15,
+          "instructions": 126584745,
+          "units": 0
+        },
+        "treasury.balance_request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 3
+        },
+        "treasury.fee_request": {
+          "bytes": 0,
+          "calls": 0,
+          "instructions": 0,
+          "units": 3
+        },
+        "treasury.health": {
+          "bytes": 0,
+          "calls": 3,
+          "instructions": 1230622,
+          "units": 0
+        },
+        "treasury.save": {
+          "bytes": 0,
+          "calls": 12,
+          "instructions": 1666681,
+          "units": 0
+        }
+      },
+      "driver_deltas": {
+        "messages": 0,
+        "persist_instructions": 0,
+        "publish_instructions": 0,
+        "seal_instructions": 0,
+        "step_instructions": 0
+      },
+      "cutover": {
+        "cutover_cycles": "2187589866",
+        "new_publication_hash": "28233fe761cbaa0aae8fc9c840c0509f56f514c5f4dec2914980ceaf4f7fad6d",
+        "new_ranges": [
+          [
+            998000,
+            998002
+          ],
+          [
+            999000,
+            999002
+          ]
+        ],
+        "new_state_bytes": 4778,
+        "new_state_hash": "8776f5013314365203e2c820e8aa67effe006402b73f7b922577a9249085002b",
+        "old_publication_hash": "0cb312087e64e1f12563ca80ca1a58f9423daa6431b3ef42c3885befd259d7f5",
+        "old_ranges": 249751,
+        "old_state_bytes": 254492,
+        "old_state_hash": "f250fc3d468d266153d45931b15efd5ef22b0e481da60e047fcbac7177dfb273",
+        "source_cursor": {
+          "$integer": "0"
+        },
+        "upgrade_cycles": "24888839034"
+      }
+    }
+  },
+  "signed_ledger_replay": {
+    "status": "PASS",
+    "head": 19,
+    "independent": {
+      "status": "PASS",
+      "segments": 20,
+      "gameplay_segments": 9,
+      "application_checkpoints": 11,
+      "assigned": [
+        "2",
+        "3",
+        "4",
+        "5",
+        "6",
+        "7",
+        "8",
+        "9",
+        "10",
+        "11",
+        "12",
+        "13",
+        "14",
+        "15",
+        "16",
+        "17",
+        "18",
+        "19",
+        "21",
+        "23",
+        "24",
+        "25",
+        "26",
+        "27",
+        "28"
+      ],
+      "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+      "work_budget": 23,
+      "observer": "Authenticated artifact sequence plays through both schema versions"
+    },
+    "evicted_publications_verified": [
+      0,
+      1,
+      2,
+      3
+    ],
+    "negatives": [
+      "changed normalized cry",
+      "incomplete events",
+      "altered reservoir destination",
+      "wrong source publication",
+      "wrong canister binding",
+      "damaged certificate"
+    ],
+    "wire_bytes": 283457
+  }
+}

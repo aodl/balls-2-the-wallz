@@ -2,7 +2,7 @@
 name: Temporary developer speed qualification
 on:
   push:
-    branches: [master, feature/b2z-temporary-dev-speed]
+    branches: [master, feature/b2z-temporary-dev-speed, feature/b2z-rules19-compact-reservoirs]
   pull_request:
     branches: [master]
 permissions:
@@ -42,7 +42,7 @@ jobs:
           done
           cmp .work/ci-dev-{a,b}/release/frontend.wasm
           cmp .work/ci-dev-{a,b}/release/embedded-inventory.json
-          printf '%s  %s\n' 8954384cd1141601504e62ad44c902d04d3b638dbee721732b3ebdff05542b9f .work/ci-dev-a/release/frontend.wasm | sha256sum --check
+          python -B tools/check_rules19_module.py developer_frontend .work/ci-dev-a/release/frontend.wasm
           if python -B tools/build_embedded_frontend.py --observer .work/ci-dev-a/verified-base/reproduced --inventory .work/ci-dev-a/inventory.json --output .work/ci-dev-public > .work/ci-dev-public-guard.log 2>&1; then
             exit 1
           fi
@@ -80,6 +80,8 @@ jobs:
           name: developer-speed-frontend
           path: .work/qualified-dev-frontend
       - run: npm ci --ignore-scripts
+      - run: python -m pip install --require-hashes -r tools/browser-requirements.txt
+      - run: python -m playwright install chromium
       - run: rustup toolchain install 1.94.1 --profile minimal --component rustfmt --target wasm32-unknown-unknown
       - name: Fetch exact locked dependencies and install fixtures
         run: |
@@ -102,7 +104,7 @@ jobs:
           cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features developer-speed
           cp "$output" .work/developer-speed-release.wasm
           sha256sum .work/developer-speed-release.wasm > .work/developer-speed-release.sha256
-          printf '%s  %s\n' e23f01ebb66685a5e25bdcc31b0ed5341aa6afe4cd9ad1a8a11a3b502ea7e993 .work/developer-speed-release.wasm | sha256sum --check
+          python -B tools/check_rules19_module.py developer_backend .work/developer-speed-release.wasm
           cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features developer-speed,test-hooks
           cp "$output" .work/developer-speed-test.wasm
           cargo test --manifest-path "$manifest" --locked --offline --features developer-speed pace::tests
@@ -129,6 +131,20 @@ jobs:
             --dev-speed-release-wasm .work/developer-speed-release.wasm \
             --dev-speed-frontend "$(dirname "${frontend[0]}")" \
             --output .work/ci-dev-rules18
+      - name: Exact high-cell cutover, independent replay and installed browser recovery
+        run: |
+          cargo build --manifest-path canisters/runtime-lab/Cargo.toml --release --target wasm32-unknown-unknown --locked --offline --features developer-speed,cost-profile
+          cp canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm .work/rules19-profile.wasm
+          gzip -dc tests/fixtures/rules19-paid-world-17529-state.bin.gz > .work/rules19-paid-world.bin
+          printf '%s  %s\n' 25c2bb87e0ebeabd2f93bd4295e3296fb2e7ffba26b6a2c5cd3dc420f1bf3f10 .work/rules19-paid-world.bin | sha256sum --check
+          python -B tools/profile_rules18_cost.py --world .work/rules19-paid-world.bin \
+            --profile-wasm .work/rules19-profile.wasm --compact-using .work/rules19-profile.wasm \
+            --measure-wasm .work/developer-speed-release.wasm --predecessor-wasm .work/rules18-43095677.wasm --case two_ball --case payment \
+            --output .work/ci-rules19-cost
+          python -B tools/profile_rules18_cost.py --world .work/rules19-paid-world.bin \
+            --profile-wasm .work/rules19-profile.wasm --compact-using .work/developer-speed-release.wasm \
+            --measure-wasm .work/developer-speed-release.wasm --case two_ball \
+            --browser-python "$(command -v python)" --output .work/ci-rules19-browser
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -140,6 +156,8 @@ jobs:
             .work/ci-dev-isolated/results.json
             .work/ci-dev-isolated/deployment/dev-speed.json
             .work/ci-dev-isolated/logs/**
+            .work/ci-rules19-cost/**
+            .work/ci-rules19-browser/**
             .work/ci-dev-rules18/results.json
             .work/ci-dev-rules18/deployment/reservoir/developer-speed-rules18.json
             .work/ci-dev-rules18/deployment/reservoir/developer-speed-certified-frontend.json
