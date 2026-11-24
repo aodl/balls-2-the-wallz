@@ -94,6 +94,8 @@ jobs:
           done
           gzip -dc vendor/b2z/rules18-43095677.wasm.gz > .work/rules18-43095677.wasm
           gzip -dc vendor/b2z/rules18-dev-9fb444b0.wasm.gz > .work/rules18-dev-9fb444b0.wasm
+      - name: Use portable backend source paths
+        run: echo "CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUSTFLAGS=--remap-path-prefix=$PWD=/src/b2z/backend --remap-path-prefix=${CARGO_HOME:-$HOME/.cargo}=/cargo" >> "$GITHUB_ENV"
       - name: Build and freeze the production candidate and separate fault-test module
         run: |
           export CARGO_TARGET_DIR="$PWD/.work/dev-target"

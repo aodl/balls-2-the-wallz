@@ -439,6 +439,35 @@ impl CompactBrowser {
     }
 }
 
+fn upgrade_during_recovery(
+    pic: &PocketIc,
+    id: Principal,
+    module: &[u8],
+) -> Result<(), pocket_ic::RejectResponse> {
+    let mut retries = 4;
+    loop {
+        let result = pic.upgrade_canister(
+            id,
+            module.to_vec(),
+            encode_args(()).unwrap(),
+            Some(controller()),
+        );
+        if retries == 0
+            || !result.as_ref().is_err_and(|error| {
+                error.error_code == pocket_ic::ErrorCode::CanisterInstallCodeRateLimited
+            })
+        {
+            return result;
+        }
+        // The disposable replica enforces the install limit. Let it recover
+        // before the next install while the authoritative game stays paused.
+        for _ in 0..20 {
+            tick(pic);
+        }
+        retries -= 1;
+    }
+}
+
 fn compact_cutover(
     pic: &PocketIc,
     id: Principal,
@@ -476,22 +505,62 @@ fn compact_cutover(
     let upgrade_cycles = before_upgrade - pic.cycle_balance(id);
     assert_eq!(observe(pic, id).0.publication, old_obs.publication);
     if let Some(prior) = &predecessor {
-        pic.upgrade_canister(
-            id,
-            prior.clone(),
-            encode_args(()).unwrap(),
-            Some(controller()),
-        )
-        .unwrap();
+        upgrade_during_recovery(pic, id, prior).unwrap();
         assert_eq!(observe(pic, id).0.publication, old_obs.publication);
-        pic.upgrade_canister(id, module, encode_args(()).unwrap(), Some(controller()))
-            .unwrap();
+        upgrade_during_recovery(pic, id, &module).unwrap();
         assert_eq!(observe(pic, id).0.publication, old_obs.publication);
     }
     playability_installed::configuration(pic, id, 512);
     pause(pic, id);
     for _ in 0..10 {
         advance(pic, 250);
+    }
+    if predecessor.is_some() {
+        let before = pic.cycle_balance(id);
+        get_result::<Status>(
+            pic,
+            id,
+            "test_liquid_budget",
+            candid::encode_one(900_000_000_000u64).unwrap(),
+        );
+        let result = pic
+            .update_call(
+                id,
+                controller(),
+                "prepare_compact_reservoir_transition",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        assert_eq!(
+            decode_one::<Result<Vec<u8>, String>>(&result)
+                .unwrap()
+                .unwrap_err(),
+            "resource protection forbids Rules19 cutover"
+        );
+        assert_eq!(observe(pic, id).0.publication, old_obs.publication);
+        pic.add_cycles(id, before - pic.cycle_balance(id));
+
+        let index = status(pic, id).source.index;
+        pic.stop_canister(index, Some(controller())).unwrap();
+        playability_installed::prepare(pic, id, "prepare_compact_reservoir_transition");
+        for _ in 0..5 {
+            tick(pic);
+        }
+        let result = pic
+            .update_call(
+                id,
+                controller(),
+                "commit_compact_reservoir_transition",
+                candid::encode_one(dtr_wire::hash(&old_obs.publication)).unwrap(),
+            )
+            .unwrap();
+        assert!(
+            decode_one::<Result<Vec<u8>, String>>(&result)
+                .unwrap()
+                .is_err()
+        );
+        assert_eq!(observe(pic, id).0.publication, old_obs.publication);
+        pic.start_canister(index, Some(controller())).unwrap();
     }
     let browser = std::env::var_os("B2Z_COST_BROWSER_PYTHON")
         .map(|python| CompactBrowser::start(pic, id, ledger, out, old_segment, python));
@@ -532,14 +601,7 @@ fn compact_cutover(
             .canister_status(id, Some(controller()))
             .unwrap()
             .module_hash;
-        let rejected = pic
-            .upgrade_canister(
-                id,
-                prior.clone(),
-                encode_args(()).unwrap(),
-                Some(controller()),
-            )
-            .unwrap_err();
+        let rejected = upgrade_during_recovery(pic, id, prior).unwrap_err();
         assert!(
             rejected
                 .reject_message

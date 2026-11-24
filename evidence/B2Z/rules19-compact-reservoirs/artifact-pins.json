@@ -5,8 +5,8 @@
     "configuration-compact-reservoir.bin": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39"
   },
   "wasm": {
-    "public_backend": "ae2c14d3979effc3dfded493e0291a3b34ca56f23c5892c3314635b2cb82fd6b",
-    "developer_backend": "7855f76067c5713ceaaa17176e74b9f67c6e313c48f5b27fce2f7839d928354a",
+    "public_backend": "bb38062d84ce82be314d2eaf81101c003a4e72f6538e91c655f4e4737110da83",
+    "developer_backend": "5129e615a797b5963e47b908d0b628abbf9cb74a5b179720863c18eb5ef18ef7",
     "public_frontend": "48de515cac98524e02a60f48112d8a65ca05bc2cb497528227f22b9e0df855e1",
     "developer_frontend": "fe63d3b0630929b41306310e9cb57621315058bcc482d46979f203c5146081e5"
   }
