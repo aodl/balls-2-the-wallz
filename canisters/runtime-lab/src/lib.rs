@@ -277,6 +277,7 @@ fn authorized() -> AppResult<()> {
     }
     Ok(())
 }
+#[cfg(test)]
 fn describe(bytes: &[u8]) -> AppResult<Blob> {
     if bytes.len() > MAX_ARTIFACT {
         return Err("laboratory artifact capacity".into());
@@ -750,28 +751,32 @@ fn root() -> AppResult<Root> {
 fn read_blob(slot: u64, b: &Blob) -> AppResult<Vec<u8>> {
     #[cfg(feature = "cost-profile")]
     let _span = cost_profile::span("blob.read_and_verify");
+    let out = read_blob_chunks(slot, b.length)?;
+    if measure_cost!("blob.read_hash", hash(&out)) != b.sha256 {
+        return Err("stable blob integrity".into());
+    }
+    Ok(out)
+}
+fn read_blob_chunks(slot: u64, length: usize) -> AppResult<Vec<u8>> {
     #[cfg(feature = "cost-profile")]
-    cost_profile::volume("blob.read", b.length.div_ceil(CHUNK), b.length);
-    if slot >= 4 || b.length > if slot == 0 { MAX_IMAGE } else { MAX_ARTIFACT } {
+    cost_profile::volume("blob.read", length.div_ceil(CHUNK), length);
+    if slot >= 4 || length > if slot == 0 { MAX_IMAGE } else { MAX_ARTIFACT } {
         return Err("blob bounds".into());
     }
-    let mut out = Vec::with_capacity(b.length);
+    let mut out = Vec::with_capacity(length);
     BLOBS.with(|m| -> AppResult<()> {
         let m = m.borrow();
-        for index in 0..b.length.div_ceil(CHUNK) {
+        for index in 0..length.div_ceil(CHUNK) {
             let bytes = m
                 .get(&blob_key(slot, index as u64)?)
                 .ok_or("missing stable chunk")?;
-            if bytes.len() != CHUNK.min(b.length - index * CHUNK) {
+            if bytes.len() != CHUNK.min(length - index * CHUNK) {
                 return Err("stable chunk length".into());
             }
             out.extend(bytes);
         }
         Ok(())
     })?;
-    if measure_cost!("blob.read_hash", hash(&out)) != b.sha256 {
-        return Err("stable blob integrity".into());
-    }
     Ok(out)
 }
 fn blob_key(slot: u64, chunk: u64) -> AppResult<u64> {
@@ -879,7 +884,9 @@ fn status(r: &Root) -> Status {
     }
 }
 fn host(r: &Root) -> AppResult<Coordinator<B2zHostKernel>> {
-    let image = read_blob(0, &r.image)?;
+    // Restore checks the complete image SHA-256 against the durable root
+    // before decoding it. The chunk reader still enforces exact byte lengths.
+    let image = read_blob_chunks(0, r.image.length)?;
     let host = measure_cost!("coordinator.restore", Coordinator::restore(
         &image, &r.image.sha256, B2zHostKernel::default(),
     ))?;
@@ -1064,7 +1071,11 @@ fn persist_inner(
         .map(|p| p.artifacts);
     let mut writes = vec![(0u64, image)];
     for (index, bytes) in view.artifacts.into_iter().enumerate() {
-        measure_cost!("persist.artifact_rehash", describe(&bytes))?;
+        // The publication builder already computes this exact artifact digest.
+        // Enforce the local capacity here before writing any stable chunks.
+        if bytes.len() > MAX_ARTIFACT {
+            return Err("laboratory artifact capacity".into());
+        }
         let changed = old_descriptors
             .as_ref()
             .is_none_or(|a| a[index].sha256 != view.data.artifacts[index].sha256);
@@ -1322,9 +1333,6 @@ fn stop_run_after_error(generation: u64, error: String) -> AppResult<()> {
     }
     Ok(())
 }
-fn autonomous_once(generation: u64) -> AppResult<()> {
-    autonomous_once_inner(generation, true)
-}
 fn sample_health() {
     let credits = funding::read()
         .ok()
@@ -1377,11 +1385,7 @@ fn driver_needs_work(h: &Coordinator<B2zHostKernel>, r: &Root) -> AppResult<bool
     }
     runtime_needs_simulation(h, active_transition(r)?)
 }
-fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
-    let r = root()?;
-    if (!r.run.running && !maintenance_requested(&r)) || r.run.generation != generation {
-        return Ok(());
-    }
+fn autonomous_once(r: Root) -> AppResult<Root> {
     refresh_pace();
     #[cfg(feature = "developer-speed")]
     if !r.run.running || active_transition(&r)?.is_some() || r.lifecycle_barrier.is_some() {
@@ -1392,14 +1396,14 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     }
     let transition_work = transition_maintenance(&r);
     if !PACE.with(|p| p.borrow().hint().admission_open) && !transition_work {
-        return Ok(());
+        return Ok(r);
     }
     let now = ic_cdk::api::time();
     let mut h = host(&r)?;
     if !driver_needs_work(&h, &r)? {
         ARENA_IDLE.with(|f| f.set(true));
         clear_run_timer();
-        return Ok(());
+        return Ok(r);
     }
     let mut run = r.run.clone();
     let publication_ticks = PACE.with(|p| p.borrow().publication_ticks(run.segment_ticks));
@@ -1409,7 +1413,7 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
         && h.record.journal.stage.is_none()
         && PACE.with(|p| p.borrow_mut().wait(now, publication_ticks)) > 0
     {
-        return Ok(());
+        return Ok(r);
     }
     let mut phases = [0u64; 3];
     let daily = matches!(
@@ -1511,7 +1515,7 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
         }
     }
     if actions == 0 {
-        return Ok(());
+        return Ok(r);
     }
     run.callback_count = run
         .callback_count
@@ -1519,7 +1523,7 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
         .ok_or("callback counter")?;
     run.last_error = None;
     let before_persist = ic_cdk::api::performance_counter(0);
-    persist_inner(&h, Some(&r), r.source.clone(), run, certify)?;
+    let next = persist(&h, Some(&r), r.source.clone(), run)?;
     let instructions = ic_cdk::api::performance_counter(0);
     let persist_instructions = instructions - before_persist;
     DRIVER.with(|d| {
@@ -1540,7 +1544,7 @@ fn autonomous_once_inner(generation: u64, certify: bool) -> AppResult<()> {
     if ARENA_IDLE.with(Cell::get) {
         clear_run_timer();
     }
-    Ok(())
+    Ok(next)
 }
 fn run_delay(run: &RunState, transition_work: bool) -> Duration {
     if transition_work {
@@ -1569,19 +1573,20 @@ fn arm_run_timer(generation: u64, delay: Duration) {
         }
         // A bounded continuation is armed before work; no parallel driver or missed-time replay.
         arm_run_timer(generation, Duration::from_millis(50));
-        if let Err(e) = autonomous_once(generation) {
-            let _ = stop_run_after_error(generation, e);
-            clear_run_timer();
-            return;
-        }
-        if let Ok(next) = root() {
-            clear_run_timer();
-            if (next.run.running || maintenance_requested(&next)) && !ARENA_IDLE.with(Cell::get) {
-                arm_run_timer(
-                    generation,
-                    run_delay(&next.run, transition_maintenance(&next)),
-                );
+        let next = match autonomous_once(r) {
+            Ok(next) => next,
+            Err(e) => {
+                let _ = stop_run_after_error(generation, e);
+                clear_run_timer();
+                return;
             }
+        };
+        clear_run_timer();
+        if (next.run.running || maintenance_requested(&next)) && !ARENA_IDLE.with(Cell::get) {
+            arm_run_timer(
+                generation,
+                run_delay(&next.run, transition_maintenance(&next)),
+            );
         }
     });
     RUN_TIMER.with(|t| *t.borrow_mut() = Some(timer));
@@ -2264,7 +2269,7 @@ struct Lease {
 fn matches_lease(source: &SourceState, lease: &Lease) -> bool {
     source.in_flight && source.nonce == lease.nonce && source.index == lease.index.to_text()
 }
-fn begin_reconciliation() -> AppResult<Option<Lease>> {
+fn begin_reconciliation() -> AppResult<Option<(Lease, Root)>> {
     refresh_pace();
     let mut r = root()?;
     if ic_cdk::api::canister_liquid_cycle_balance() < pace::INDEX_FLOOR {
@@ -2326,7 +2331,7 @@ fn begin_reconciliation() -> AppResult<Option<Lease>> {
             .or(lifecycle_cutover),
     };
     save_root_only(&r)?;
-    Ok(Some(lease))
+    Ok(Some((lease, r)))
 }
 fn reconciliation_failed(lease: &Lease, error: String) -> AppResult<()> {
     let mut r = root()?;
@@ -2442,11 +2447,10 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
     Ok(())
 }
 async fn reconcile() -> AppResult<()> {
-    let Some(lease) = measure_cost!("source.begin", begin_reconciliation())? else {
+    let Some((lease, mut r)) = measure_cost!("source.begin", begin_reconciliation())? else {
         return Ok(());
     };
     let operation = async {
-        let mut r = root()?;
         if !r.source.binding_checked {
             let response = Call::bounded_wait(lease.index, "ledger_id")
                 .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
@@ -2464,10 +2468,6 @@ async fn reconcile() -> AppResult<()> {
             }
             r.source.binding_checked = true;
             save_root_only(&r)?;
-        }
-        r = root()?;
-        if !matches_lease(&r.source, &lease) {
-            return Ok(());
         }
         if active_transition(&r)?.is_some_and(|t| t.phase == "ledger" || t.phase == "index") {
             return measure_cutover(&lease).await;

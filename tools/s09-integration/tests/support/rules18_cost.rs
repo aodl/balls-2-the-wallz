@@ -11,6 +11,21 @@ fn seed(case: &str) -> World {
     let mut world = World::decode(&bytes("B2Z_COST_WORLD")).unwrap();
     assert_eq!((world.version, world.width, world.height), (10, 1000, 1000));
     assert_eq!(world.balls.len(), 2);
+    if case == "compact_bitmap" {
+        // An explicitly different fixture keeps the same number of Reservoirs
+        // while removing the large neutral prefix from their canonical bitmap.
+        let count = world
+            .reservoirs
+            .as_ref()
+            .unwrap()
+            .bytes()
+            .map(|b| (char::from(b).to_digit(16).unwrap()).count_ones() as usize)
+            .sum::<usize>();
+        world.reservoirs.as_mut().unwrap().clear();
+        for cell in 0..count {
+            b2z_native::reservoirs::place(&mut world, cell).unwrap();
+        }
+    }
     if case == "idle" {
         let elapsed = world.playability.as_ref().unwrap().elapsed_ns.clone();
         let deadline = Int(&elapsed.0 + playability::DORMANCY_GRACE_NS);
@@ -40,9 +55,15 @@ fn seed(case: &str) -> World {
         "large" => (14, 6),
         _ => (0, 0),
     };
-    for i in 0..players {
-        let x = 45 + i % 5 * 55;
-        let y = 70 + i / 5 * 60;
+    let sites = (0..50)
+        .map(|slot| (45 + slot % 10 * 55, 70 + slot / 10 * 60))
+        .filter(|&(x, y)| {
+            (y..y + 7).all(|r| (x..x + 12).all(|c| world.owner(r * 1000 + c) == Some(0)))
+        })
+        .take(players)
+        .collect::<Vec<_>>();
+    assert_eq!(sites.len(), players);
+    for (i, (x, y)) in sites.into_iter().enumerate() {
         let s = world.playability.as_mut().unwrap();
         let player = s.next_player_id;
         let territory = s.next_territory_id;
@@ -187,6 +208,55 @@ fn capture(pic: &PocketIc, id: Principal, out: &Path, ordinal: u64) -> (Observat
     (obs, p)
 }
 
+fn replay(out: &Path, checkpoints: u64, inputs: &[b2z_native::Input]) {
+    for number in 1..=checkpoints {
+        let artifact = |n, kind| std::fs::read(out.join(format!("{n}-{kind}.bin"))).unwrap();
+        let publication: Publication = decode(&artifact(number, "publication")).unwrap();
+        let seal = publication.head.seal.as_ref().unwrap();
+        assert_eq!(seal.input_count as usize, inputs.len());
+        let records = inputs
+            .iter()
+            .map(|input| dtr_host::Input {
+                position: input.position.clone(),
+                payload_hex: input.payload_hex.clone(),
+            })
+            .collect::<Vec<_>>();
+        let source = |n: &Int| n.0.to_string().parse().unwrap();
+        assert_eq!(
+            dtr_host::input_root(
+                &records,
+                source(&seal.source_from),
+                source(&seal.source_to_exclusive)
+            )
+            .unwrap(),
+            seal.input_root
+        );
+        assert_eq!(&seal.logical_end.0 - &seal.logical_start.0, 1u32.into());
+        let mut cursor = b2z_native::Cursor::begin(
+            &artifact(number - 1, "state"),
+            inputs.to_vec(),
+            &serde_json::to_value(seal).unwrap(),
+        )
+        .unwrap();
+        while !cursor.step(101).unwrap().1 {}
+        let event_bytes = artifact(number, "events");
+        let audit: Value = decode(&event_bytes).unwrap();
+        let observed = audit["events"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find_map(|event| event["observed_ns"]["$integer"].as_str())
+            .unwrap()
+            .parse()
+            .unwrap();
+        cursor.finalize_elapsed(observed).unwrap();
+        let result = cursor.result().unwrap();
+        assert_eq!(result.events, event_bytes);
+        assert_eq!(result.scores, artifact(number, "scores"));
+        assert_eq!(result.state, artifact(number, "state"));
+    }
+}
+
 #[test]
 #[ignore = "explicit disposable Rules18 cost matrix; requires exact seed and profiling Wasm"]
 fn rules18_cost_matrix() {
@@ -204,8 +274,9 @@ fn rules18_cost_matrix() {
     let genesis = arena_world(&pic, id);
     assert_eq!(genesis.version, 10);
     let protected = case.starts_with("protected");
+    let protected_retained = case == "protected_retained";
     let background = protected || case == "idle";
-    let target_liquid = if protected {
+    let target_liquid = if protected && !protected_retained {
         900_000_000_000
     } else {
         7_000_000_000_000u64
@@ -245,13 +316,16 @@ fn rules18_cost_matrix() {
     } else {
         "Survival"
     };
-    assert_eq!(status(&pic, id).run.pace.unwrap().mode, tier);
+    assert_eq!(
+        status(&pic, id).run.pace.unwrap().mode,
+        if protected_retained { "Survival" } else { tier }
+    );
     // Drain init/start scans. Active fixtures get two completed publications
     // before measuring so slot allocation and genesis startup stay distinguishable.
-    let warm_target = 1 + if background || case == "payment" {
-        0
-    } else if case == "retained" {
+    let warm_target = 1 + if case == "retained" || protected_retained {
         17
+    } else if background || case == "payment" {
+        0
     } else {
         2
     };
@@ -267,6 +341,15 @@ fn rules18_cost_matrix() {
         }
     }
     assert_eq!(status(&pic, id).run.completed_segments, warm_target);
+    if protected_retained {
+        get_result::<Status>(
+            &pic,
+            id,
+            "test_liquid_budget",
+            candid::encode_one(900_000_000_000u64).unwrap(),
+        );
+        assert_eq!(status(&pic, id).run.pace.unwrap().mode, tier);
+    }
     capture(&pic, id, &out, 0);
     let before = status(&pic, id);
     let started = pic.get_time().as_nanos_since_unix_epoch();
@@ -274,8 +357,10 @@ fn rules18_cost_matrix() {
     let before_profile = profile(&pic, id, instrumented);
     let before_driver = runtime(&pic, id);
     let mut admission = None;
+    let mut payment_position = None;
     if case == "payment" {
         let position = transfer_text(&pic, ledger, payer, id, 100_000_000, b"NEW 0 1");
+        payment_position = Some(position);
         for _ in 0..90 {
             advance(&pic, 1_000);
             if status(&pic, id).source.admitted_to_exclusive > position {
@@ -340,6 +425,7 @@ fn rules18_cost_matrix() {
     let elapsed_ns = pic.get_time().as_nanos_since_unix_epoch() - started;
     let after = status(&pic, id);
     let remaining = pic.cycle_balance(id);
+    let management = pic.canister_status(id, Some(controller())).unwrap();
     let after_profile = profile(&pic, id, instrumented);
     let after_driver = runtime(&pic, id);
     assert_eq!(
@@ -351,7 +437,8 @@ fn rules18_cost_matrix() {
         "{:?}",
         after.source.last_error
     );
-    if case == "payment" {
+    let mut inputs = Vec::new();
+    if let Some(position) = payment_position {
         let events: Value =
             serde_json::from_slice(&std::fs::read(out.join("1-events.bin")).unwrap()).unwrap();
         assert!(
@@ -362,7 +449,17 @@ fn rules18_cost_matrix() {
                 .any(|receipt| receipt["reason"] == "ACCEPTED"),
             "{events}"
         );
+        let expected = BTreeMap::from([(position, ("ACCEPTED".into(), 0, None))]);
+        let rows = super::delegation_installed::official_inputs(&pic, id, &expected);
+        inputs = rows
+            .into_iter()
+            .map(|(payment, _)| b2z_native::Input {
+                position: Int(payment.position.into()),
+                payload_hex: hex(&payment.encode().unwrap()),
+            })
+            .collect();
     }
+    replay(&out, checkpoints, &inputs);
     let world = arena_world(&pic, id);
     let result = json!({
         "case":case,"module_sha256":module_hash,"instrumented":instrumented,
@@ -372,9 +469,13 @@ fn rules18_cost_matrix() {
         "players_before":genesis.playability.as_ref().unwrap().players.len(),
         "balls_after":world.balls.len(),"tier":tier,"virtual_ns":elapsed_ns.to_string(),
         "work_budget":before.run.work_budget.unwrap(),"checkpoints":checkpoints,
+        "replayed_checkpoints":checkpoints,
         "callbacks":after.run.callback_count-before.run.callback_count,
         "index_calls":after.source.index_calls-before.source.index_calls,
         "net_cycles":(balance-remaining).to_string(),
+        "backend_memory_bytes":management.memory_size.0.to_string(),
+        "reserved_cycles":management.reserved_cycles.0.to_string(),
+        "management_idle_cycles_per_day":management.idle_cycles_burned_per_day.0.to_string(),
         "before_profile":before_profile,"after_profile":after_profile,
         "before_driver":before_driver,"after_driver":after_driver,
         "admission":admission,"consecutive":consecutive,

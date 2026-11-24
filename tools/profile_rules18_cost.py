@@ -13,7 +13,8 @@ from verify_s09_local import ROOT, execute, sha256, start_pocketic, stop_pocketi
 
 CASES = (
     "protected", "protected_paused", "protected_no_index", "protected_no_treasury",
-    "idle", "two_ball", "moderate", "large", "payment", "retained",
+    "idle", "two_ball", "compact_bitmap", "moderate", "large", "payment", "retained",
+    "protected_retained",
 )
 ARTIFACTS = {
     "POCKET_IC_BIN": ("bin/pocket-ic", "b44e1eccd66e02328146b3e209e3403e3a3428a25d25555aca2f67500e5ae9db"),
