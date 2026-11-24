@@ -215,6 +215,8 @@ pub fn read() -> Result<State, String> {
     Ok(s)
 }
 fn save(s: &State) {
+    #[cfg(feature = "cost-profile")]
+    let _span = crate::cost_profile::span("treasury.save");
     validate(s).unwrap_or_else(|e| ic_cdk::trap(&e));
     let b = serde_json::to_vec(s).expect("funding serialization");
     assert!(b.len() <= 16384, "funding capacity");
@@ -267,7 +269,7 @@ fn install_timer() {
     ic_cdk_timers::set_timer(Duration::from_secs(INTERVAL), async {
         install_timer();
         // Reuse existing maintenance, even when idle or assistance slows source polling.
-        super::sample_health();
+        measure_cost!("treasury.health", super::sample_health());
         tick().await;
     });
 }
@@ -383,6 +385,8 @@ async fn work(n: u64) -> Result<(), String> {
     let (ledger, owner, _) = context()?;
     let mut s = current(n).ok_or("superseded funding worker")?;
     if matches!(s.phase, Phase::Idle) {
+        #[cfg(feature = "cost-profile")]
+        crate::cost_profile::volume("treasury.balance_request", 1, 0);
         let balance = query_nat(n, ledger, "icrc1_balance_of", owner).await?;
         s = current(n).ok_or("superseded funding worker")?;
         s.observed_balance = Some(Observation {
@@ -394,6 +398,8 @@ async fn work(n: u64) -> Result<(), String> {
             return Ok(());
         }
         refresh_lease(&mut s);
+        #[cfg(feature = "cost-profile")]
+        crate::cost_profile::volume("treasury.fee_request", 1, 0);
         let fee = query_nat(n, ledger, "icrc1_fee", owner).await?;
         s = current(n).ok_or("superseded funding worker")?;
         s.observed_fee = Some(Observation {

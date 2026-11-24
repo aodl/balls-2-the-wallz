@@ -27,6 +27,8 @@ mod delegation_installed;
 mod dev_speed_installed;
 #[path = "support/europe.rs"]
 mod europe;
+#[path = "support/rules18_cost.rs"]
+mod rules18_cost;
 #[path = "support/operation_cost.rs"]
 mod operation_cost;
 #[path = "support/playability_browser.rs"]
@@ -262,6 +264,8 @@ struct RunStatus {
     callback_count: u64,
     completed_segments: u64,
     current_segment_work: Option<u64>,
+    last_segment_work: Option<u64>,
+    work_budget: Option<u32>,
     publication_ticks: Option<u64>,
     last_error: Option<String>,
 }

@@ -4,6 +4,17 @@
 // TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
 #[cfg(all(feature = "developer-speed", feature = "public-launch"))]
 compile_error!("The public-launch build cannot include the temporary developer-speed override");
+#[cfg(all(feature = "cost-profile", feature = "public-launch"))]
+compile_error!("The public-launch build cannot include disposable cost profiling");
+#[cfg(feature = "cost-profile")]
+mod cost_profile;
+macro_rules! measure_cost {
+    ($name:literal, $body:expr) => {{
+        #[cfg(feature = "cost-profile")]
+        let _span = crate::cost_profile::span($name);
+        $body
+    }};
+}
 mod delegation_wire;
 #[cfg(feature = "developer-speed")]
 mod dev_speed;
@@ -571,11 +582,13 @@ fn validate_shout_binding(r: &Root, publication: &Publication) -> AppResult<()> 
     Ok(())
 }
 fn root() -> AppResult<Root> {
-    let bytes = ROOT.with(|c| c.borrow().get().clone());
+    #[cfg(feature = "cost-profile")]
+    let _span = cost_profile::span("root.total");
+    let bytes = measure_cost!("root.read", ROOT.with(|c| c.borrow().get().clone()));
     if bytes.is_empty() || bytes.len() > ROOT_LIMIT {
         return Err("missing/oversize root; no genesis fallback".into());
     }
-    let r: Root = decode(&bytes)?;
+    let r: Root = measure_cost!("root.decode", decode(&bytes))?;
     if let Some(t) = &r.world_transition {
         t.validate()?;
     }
@@ -731,10 +744,14 @@ fn root() -> AppResult<Root> {
     }
     validate_shout_binding(&r, &p)?;
     validate_run(&r.run)?;
-    validate_retention(&r.retention, &p)?;
+    measure_cost!("root.retention_validate", validate_retention(&r.retention, &p))?;
     Ok(r)
 }
 fn read_blob(slot: u64, b: &Blob) -> AppResult<Vec<u8>> {
+    #[cfg(feature = "cost-profile")]
+    let _span = cost_profile::span("blob.read_and_verify");
+    #[cfg(feature = "cost-profile")]
+    cost_profile::volume("blob.read", b.length.div_ceil(CHUNK), b.length);
     if slot >= 4 || b.length > if slot == 0 { MAX_IMAGE } else { MAX_ARTIFACT } {
         return Err("blob bounds".into());
     }
@@ -752,7 +769,7 @@ fn read_blob(slot: u64, b: &Blob) -> AppResult<Vec<u8>> {
         }
         Ok(())
     })?;
-    if hash(&out) != b.sha256 {
+    if measure_cost!("blob.read_hash", hash(&out)) != b.sha256 {
         return Err("stable blob integrity".into());
     }
     Ok(out)
@@ -862,11 +879,10 @@ fn status(r: &Root) -> Status {
     }
 }
 fn host(r: &Root) -> AppResult<Coordinator<B2zHostKernel>> {
-    let host = Coordinator::restore(
-        &read_blob(0, &r.image)?,
-        &r.image.sha256,
-        B2zHostKernel::default(),
-    )?;
+    let image = read_blob(0, &r.image)?;
+    let host = measure_cost!("coordinator.restore", Coordinator::restore(
+        &image, &r.image.sha256, B2zHostKernel::default(),
+    ))?;
     if number(&host.record.inbox.cursor)? != r.source.cursor {
         return Err("index source/coordinator divergence".into());
     }
@@ -878,7 +894,7 @@ fn needs_simulation(h: &Coordinator<B2zHostKernel>) -> AppResult<bool> {
     if h.record.journal.stage.is_some() || !h.record.inbox.pending.is_empty() {
         return Ok(true);
     }
-    let w = World::decode(&unhex(&h.record.journal.head.state_hex)?)?;
+    let w = measure_cost!("idle.world_decode", World::decode(&unhex(&h.record.journal.head.state_hex)?))?;
     Ok((w.version < 6 && !w.cannons.is_empty()) || !w.balls.is_empty() || !w.pending.is_empty())
 }
 
@@ -919,15 +935,19 @@ fn persist_inner(
     run: RunState,
     update_certified_data: bool,
 ) -> AppResult<Root> {
+    #[cfg(feature = "cost-profile")]
+    let _span = cost_profile::span("persist.total");
     let transition = old.map(active_transition).transpose()?.flatten();
     let idle = !runtime_needs_simulation(h, transition)?;
-    let image = h.snapshot()?;
-    let image_descriptor = describe_image(&image)?;
-    let view = publication(&h.record)?;
+    let image = measure_cost!("persist.snapshot", h.snapshot())?;
+    let image_descriptor = measure_cost!("persist.image_hash", describe_image(&image))?;
+    let view = measure_cost!("persist.publication", publication(&h.record))?;
     let publication_changed = old.is_some_and(|r| r.publication_hash != view.sha256);
     let mut retention = old.map(|root| root.retention.clone()).unwrap_or_default();
     let mut retained_writes = Vec::<(u64, Vec<u8>)>::new();
     let mut evicted = Vec::<RetainedMeta>::new();
+    #[cfg(feature = "cost-profile")]
+    let retention_prepare = cost_profile::span("persist.retention_prepare");
     if let Some(old) = old.filter(|old| old.publication_hash != view.sha256) {
         let old_bytes = unhex(&old.publication_hex)?;
         let old_publication: Publication = decode(&old_bytes)?;
@@ -989,6 +1009,8 @@ fn persist_inner(
             .iter()
             .any(|entry| entry.segment_id == key / RETAINED_STRIDE)
     });
+    #[cfg(feature = "cost-profile")]
+    drop(retention_prepare);
     let r = Root {
         version: 7,
         revision: h.record.revision,
@@ -1016,8 +1038,19 @@ fn persist_inner(
         lifecycle_barrier: old.and_then(|r| r.lifecycle_barrier.clone()),
         lifecycle_error: old.and_then(|r| r.lifecycle_error.clone()),
     };
+    #[cfg(feature = "cost-profile")]
+    let r = {
+        let mut r = r;
+        if old.is_none()
+            && r.source.network == "pocketic-local"
+            && r.source.memo_adapter_version == b2z_protocol::delegation::ADAPTER_VERSION
+        {
+            cost_profile::bind_seed(&mut r, h)?;
+        }
+        r
+    };
     validate_shout_binding(&r, &view.data)?;
-    let root_bytes = encode(&r)?;
+    let root_bytes = measure_cost!("persist.root_encode", encode(&r))?;
     if root_bytes.len() > ROOT_LIMIT {
         return Err("root capacity".into());
     }
@@ -1031,7 +1064,7 @@ fn persist_inner(
         .map(|p| p.artifacts);
     let mut writes = vec![(0u64, image)];
     for (index, bytes) in view.artifacts.into_iter().enumerate() {
-        describe(&bytes)?;
+        measure_cost!("persist.artifact_rehash", describe(&bytes))?;
         let changed = old_descriptors
             .as_ref()
             .is_none_or(|a| a[index].sha256 != view.data.artifacts[index].sha256);
@@ -1044,9 +1077,11 @@ fn persist_inner(
     // Any failure here must trap so the whole message, including certified_data, rolls back.
     #[cfg(feature = "test-hooks")]
     persistence_fault("before-write", publication_changed);
-    BLOBS.with(|m| {
+    measure_cost!("persist.blob_write", BLOBS.with(|m| {
         let mut m = m.borrow_mut();
         for (slot, bytes) in writes {
+            #[cfg(feature = "cost-profile")]
+            cost_profile::volume("blob.write", bytes.len().div_ceil(CHUNK), bytes.len());
             let previous_length = if slot == 0 {
                 old.map_or(0, |r| r.image.length)
             } else {
@@ -1069,12 +1104,16 @@ fn persist_inner(
                 persistence_fault("after-image", publication_changed);
             }
         }
-    });
+    }));
     #[cfg(feature = "test-hooks")]
     persistence_fault("after-current", publication_changed);
-    RETAINED.with(|map| {
+    #[cfg(feature = "cost-profile")]
+    cost_profile::volume("retention.write", retained_writes.len(), retained_writes.iter().map(|(_, b)| b.len()).sum());
+    measure_cost!("persist.retention_write", RETAINED.with(|map| {
         let mut map = map.borrow_mut();
         for entry in evicted {
+            #[cfg(feature = "cost-profile")]
+            cost_profile::volume("retention.evict", 1, entry.bytes);
             // The metadata describes every allocated key; unused capacity has no keys.
             for chunk in 0..entry.publication_length.div_ceil(CHUNK) {
                 map.remove(
@@ -1096,17 +1135,19 @@ fn persist_inner(
         for (key, bytes) in retained_writes {
             map.insert(key, bytes);
         }
-    });
+    }));
     #[cfg(feature = "test-hooks")]
     persistence_fault("after-retained", publication_changed);
-    ROOT.with(|c| {
+    #[cfg(feature = "cost-profile")]
+    cost_profile::volume("root.write", 1, root_bytes.len());
+    measure_cost!("persist.root_write", ROOT.with(|c| {
         c.borrow_mut().set(root_bytes);
-    });
+    }));
     #[cfg(feature = "test-hooks")]
     persistence_fault("after-root", publication_changed);
     ARENA_IDLE.with(|flag| flag.set(idle));
     if update_certified_data {
-        ic_cdk::api::certified_data_set(certified_root);
+        measure_cost!("persist.certify", ic_cdk::api::certified_data_set(certified_root));
         #[cfg(feature = "test-hooks")]
         persistence_fault("after-certification", publication_changed);
     }
@@ -1118,6 +1159,8 @@ fn persist_inner(
     Ok(r)
 }
 fn save_root_only(r: &Root) -> AppResult<()> {
+    #[cfg(feature = "cost-profile")]
+    let _span = cost_profile::span("root_only.total");
     r.source.validate()?;
     validate_run(&r.run)?;
     active_transition(r)?;
@@ -1212,7 +1255,9 @@ fn save_root_only(r: &Root) -> AppResult<()> {
         return Err("root capacity".into());
     }
     // A stable write failure must trap so callers never observe an acknowledged partial write.
-    ROOT.with(|cell| cell.borrow_mut().set(bytes));
+    #[cfg(feature = "cost-profile")]
+    cost_profile::volume("root.write", 1, bytes.len());
+    measure_cost!("root_only.write", ROOT.with(|cell| cell.borrow_mut().set(bytes)));
     Ok(())
 }
 fn install_source_timer() {
@@ -1224,6 +1269,8 @@ fn install_source_timer() {
         return;
     }
     let timer = ic_cdk_timers::set_timer(Duration::from_secs(seconds), async {
+        #[cfg(feature = "cost-profile")]
+        let _span = cost_profile::span("source.fallback");
         SOURCE_TIMER.with(|slot| slot.borrow_mut().take());
         install_source_timer(); // independent of any await or poke retry chain
         let _ = request_reconciliation();
@@ -1511,6 +1558,8 @@ fn run_delay(run: &RunState, transition_work: bool) -> Duration {
 }
 fn arm_run_timer(generation: u64, delay: Duration) {
     let timer = ic_cdk_timers::set_timer(delay, async move {
+        #[cfg(feature = "cost-profile")]
+        let _span = cost_profile::span("driver.timer");
         RUN_TIMER.with(|t| t.borrow_mut().take());
         let Ok(r) = root() else {
             return;
@@ -1638,6 +1687,20 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
         let w = World::decode(&initial_world)?;
         if !w.time.0.is_integer() || w.time.0.to_integer() != Int(logical_start.into()).0 {
             return Err("genesis logical time".into());
+        }
+        #[cfg(feature = "cost-profile")]
+        if w.version == 10 {
+            let (mut source, source_id) = SourceState::configured(config, ic_cdk::api::canister_self())?;
+            source.memo_adapter_version = b2z_protocol::delegation::ADAPTER_VERSION;
+            let h = cost_profile::seed(w, logical_start, &source, &source_id)?;
+            let r = persist(&h, None, source, RunState::default())?;
+            cache_poke_policy(&r.source);
+            refresh_pace();
+            install_source_timer();
+            request_reconciliation()?;
+            funding::initialize()?;
+            playability_runtime::install(&r)?;
+            return Ok(());
         }
         let mut identity = if w.version >= 6 {
             // Only the explicit disposable admission screen may initialise a
@@ -2169,6 +2232,8 @@ fn test_apply(
 }
 
 fn request_reconciliation() -> AppResult<()> {
+    #[cfg(feature = "cost-profile")]
+    let _span = cost_profile::span("source.request");
     let mut r = root()?;
     r.source.requested = true;
     let now = ic_cdk::api::time() / 1_000_000_000;
@@ -2283,6 +2348,8 @@ fn reconciliation_failed(lease: &Lease, error: String) -> AppResult<()> {
     Ok(())
 }
 fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
+    #[cfg(feature = "cost-profile")]
+    let _span = cost_profile::span("source.finish_page");
     let mut r = root()?;
     if !matches_lease(&r.source, lease) {
         return Ok(());
@@ -2375,7 +2442,7 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
     Ok(())
 }
 async fn reconcile() -> AppResult<()> {
-    let Some(lease) = begin_reconciliation()? else {
+    let Some(lease) = measure_cost!("source.begin", begin_reconciliation())? else {
         return Ok(());
     };
     let operation = async {
@@ -2417,6 +2484,8 @@ async fn reconcile() -> AppResult<()> {
         save_root_only(&r)?;
         #[cfg(feature = "test-hooks")]
         let trap_after_reply = TRAP_NEXT_INDEX_REPLY.with(|flag| flag.replace(false));
+        #[cfg(feature = "cost-profile")]
+        cost_profile::volume("source.index_request", 1, 0);
         let response = Call::bounded_wait(lease.index, "get_account_identifier_transactions")
             .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
             .with_arg(source::HistoryArgs {
@@ -2432,7 +2501,7 @@ async fn reconcile() -> AppResult<()> {
         }
         let result: source::HistoryResult =
             if r.source.memo_adapter_version == b2z_protocol::delegation::ADAPTER_VERSION {
-                delegation_wire::decode_checked(&response.into_bytes())?
+                measure_cost!("source.index_decode", delegation_wire::decode_checked(&response.into_bytes()))?
             } else {
                 response
                     .candid()

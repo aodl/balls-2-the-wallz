@@ -41,7 +41,7 @@ impl OperationKernel {
             return action(entry);
         }
         let digest = expected.map(str::to_owned).unwrap_or_else(|| hash(bytes));
-        let cursor = ExecutionSession::restore(bytes, &digest, CACHE_BYTES)?;
+        let cursor = measure_cost!("kernel.cursor_restore", ExecutionSession::restore(bytes, &digest, CACHE_BYTES))?;
         let mut entry = Entry {
             bytes: Vec::new(),
             digest,
@@ -61,7 +61,7 @@ impl OperationKernel {
 
 impl Kernel for OperationKernel {
     fn begin(&self, state: &[u8], inputs: &[Input], seal: &Seal) -> Result<Vec<u8>> {
-        B2zHostKernel.begin(state, inputs, seal)
+        measure_cost!("kernel.begin", B2zHostKernel.begin(state, inputs, seal))
     }
 
     fn validate_cursor(&self, bytes: &[u8], expected_hash: &str) -> Result<()> {
@@ -69,6 +69,8 @@ impl Kernel for OperationKernel {
     }
 
     fn step(&self, bytes: &[u8], budget: usize) -> Result<(Vec<u8>, Progress)> {
+        #[cfg(feature = "cost-profile")]
+        let _span = crate::cost_profile::span("kernel.step");
         self.access(bytes, None, |entry| {
             #[cfg(target_arch = "wasm32")]
             let (bytes, progress, next) =
@@ -95,7 +97,7 @@ impl Kernel for OperationKernel {
             if let Some(output) = &entry.output {
                 return Ok(output.clone());
             }
-            let output = entry.cursor.result()?;
+            let output = measure_cost!("kernel.result", entry.cursor.result())?;
             let output = Output {
                 state: output.state,
                 events: output.events,
