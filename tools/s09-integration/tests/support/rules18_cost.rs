@@ -22,7 +22,16 @@ fn seed(case: &str) -> World {
             .map(|b| (char::from(b).to_digit(16).unwrap()).count_ones() as usize)
             .sum::<usize>();
         world.reservoirs.as_mut().unwrap().clear();
-        for cell in 0..count {
+        let sites = (0..world.cell_count())
+            .filter(|&cell| {
+                world.owner(cell) == Some(0)
+                    && !world.cannons.iter().any(|c| c.cell == cell)
+                    && !world.deflectors.iter().flatten().any(|d| d.cell == cell)
+            })
+            .take(count)
+            .collect::<Vec<_>>();
+        assert_eq!(sites.len(), count);
+        for cell in sites {
             b2z_native::reservoirs::place(&mut world, cell).unwrap();
         }
     }

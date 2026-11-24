@@ -27,8 +27,6 @@ mod delegation_installed;
 mod dev_speed_installed;
 #[path = "support/europe.rs"]
 mod europe;
-#[path = "support/rules18_cost.rs"]
-mod rules18_cost;
 #[path = "support/operation_cost.rs"]
 mod operation_cost;
 #[path = "support/playability_browser.rs"]
@@ -37,6 +35,8 @@ mod playability_browser;
 mod playability_installed;
 #[path = "support/playability_profile.rs"]
 mod playability_profile;
+#[path = "support/rules18_cost.rs"]
+mod rules18_cost;
 use source::{IndexConfig, PokeMatch, PokeTarget, SourceStatus, StartingPolicy};
 #[derive(CandidType)]
 enum LedgerPayload {

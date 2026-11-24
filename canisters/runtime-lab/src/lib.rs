@@ -745,7 +745,10 @@ fn root() -> AppResult<Root> {
     }
     validate_shout_binding(&r, &p)?;
     validate_run(&r.run)?;
-    measure_cost!("root.retention_validate", validate_retention(&r.retention, &p))?;
+    measure_cost!(
+        "root.retention_validate",
+        validate_retention(&r.retention, &p)
+    )?;
     Ok(r)
 }
 fn read_blob(slot: u64, b: &Blob) -> AppResult<Vec<u8>> {
@@ -887,9 +890,10 @@ fn host(r: &Root) -> AppResult<Coordinator<B2zHostKernel>> {
     // Restore checks the complete image SHA-256 against the durable root
     // before decoding it. The chunk reader still enforces exact byte lengths.
     let image = read_blob_chunks(0, r.image.length)?;
-    let host = measure_cost!("coordinator.restore", Coordinator::restore(
-        &image, &r.image.sha256, B2zHostKernel::default(),
-    ))?;
+    let host = measure_cost!(
+        "coordinator.restore",
+        Coordinator::restore(&image, &r.image.sha256, B2zHostKernel::default(),)
+    )?;
     if number(&host.record.inbox.cursor)? != r.source.cursor {
         return Err("index source/coordinator divergence".into());
     }
@@ -901,7 +905,10 @@ fn needs_simulation(h: &Coordinator<B2zHostKernel>) -> AppResult<bool> {
     if h.record.journal.stage.is_some() || !h.record.inbox.pending.is_empty() {
         return Ok(true);
     }
-    let w = measure_cost!("idle.world_decode", World::decode(&unhex(&h.record.journal.head.state_hex)?))?;
+    let w = measure_cost!(
+        "idle.world_decode",
+        World::decode(&unhex(&h.record.journal.head.state_hex)?)
+    )?;
     Ok((w.version < 6 && !w.cannons.is_empty()) || !w.balls.is_empty() || !w.pending.is_empty())
 }
 
@@ -1088,77 +1095,94 @@ fn persist_inner(
     // Any failure here must trap so the whole message, including certified_data, rolls back.
     #[cfg(feature = "test-hooks")]
     persistence_fault("before-write", publication_changed);
-    measure_cost!("persist.blob_write", BLOBS.with(|m| {
-        let mut m = m.borrow_mut();
-        for (slot, bytes) in writes {
-            #[cfg(feature = "cost-profile")]
-            cost_profile::volume("blob.write", bytes.len().div_ceil(CHUNK), bytes.len());
-            let previous_length = if slot == 0 {
-                old.map_or(0, |r| r.image.length)
-            } else {
-                old_descriptors
-                    .as_ref()
-                    .map_or(0, |a| a[slot as usize - 1].length)
-            };
-            let count = bytes.len().div_ceil(CHUNK);
-            for (i, chunk) in bytes.chunks(CHUNK).enumerate() {
-                m.insert(
-                    blob_key(slot, i as u64).expect("validated blob size"),
-                    chunk.to_vec(),
-                );
+    measure_cost!(
+        "persist.blob_write",
+        BLOBS.with(|m| {
+            let mut m = m.borrow_mut();
+            for (slot, bytes) in writes {
+                #[cfg(feature = "cost-profile")]
+                cost_profile::volume("blob.write", bytes.len().div_ceil(CHUNK), bytes.len());
+                let previous_length = if slot == 0 {
+                    old.map_or(0, |r| r.image.length)
+                } else {
+                    old_descriptors
+                        .as_ref()
+                        .map_or(0, |a| a[slot as usize - 1].length)
+                };
+                let count = bytes.len().div_ceil(CHUNK);
+                for (i, chunk) in bytes.chunks(CHUNK).enumerate() {
+                    m.insert(
+                        blob_key(slot, i as u64).expect("validated blob size"),
+                        chunk.to_vec(),
+                    );
+                }
+                for i in count..previous_length.div_ceil(CHUNK) {
+                    m.remove(&blob_key(slot, i as u64).expect("validated previous blob size"));
+                }
+                #[cfg(feature = "test-hooks")]
+                if slot == 0 {
+                    persistence_fault("after-image", publication_changed);
+                }
             }
-            for i in count..previous_length.div_ceil(CHUNK) {
-                m.remove(&blob_key(slot, i as u64).expect("validated previous blob size"));
-            }
-            #[cfg(feature = "test-hooks")]
-            if slot == 0 {
-                persistence_fault("after-image", publication_changed);
-            }
-        }
-    }));
+        })
+    );
     #[cfg(feature = "test-hooks")]
     persistence_fault("after-current", publication_changed);
     #[cfg(feature = "cost-profile")]
-    cost_profile::volume("retention.write", retained_writes.len(), retained_writes.iter().map(|(_, b)| b.len()).sum());
-    measure_cost!("persist.retention_write", RETAINED.with(|map| {
-        let mut map = map.borrow_mut();
-        for entry in evicted {
-            #[cfg(feature = "cost-profile")]
-            cost_profile::volume("retention.evict", 1, entry.bytes);
-            // The metadata describes every allocated key; unused capacity has no keys.
-            for chunk in 0..entry.publication_length.div_ceil(CHUNK) {
-                map.remove(
-                    &retained_key(entry.segment_id, chunk as u64).expect("validated retained key"),
-                );
-            }
-            for (kind, length) in entry.artifact_lengths.iter().enumerate() {
-                for chunk in 0..length.div_ceil(CHUNK) {
+    cost_profile::volume(
+        "retention.write",
+        retained_writes.len(),
+        retained_writes.iter().map(|(_, b)| b.len()).sum(),
+    );
+    measure_cost!(
+        "persist.retention_write",
+        RETAINED.with(|map| {
+            let mut map = map.borrow_mut();
+            for entry in evicted {
+                #[cfg(feature = "cost-profile")]
+                cost_profile::volume("retention.evict", 1, entry.bytes);
+                // The metadata describes every allocated key; unused capacity has no keys.
+                for chunk in 0..entry.publication_length.div_ceil(CHUNK) {
                     map.remove(
-                        &retained_key(
-                            entry.segment_id,
-                            PUBLICATION_CHUNKS + kind as u64 * CHUNKS + chunk as u64,
-                        )
-                        .expect("validated retained key"),
+                        &retained_key(entry.segment_id, chunk as u64)
+                            .expect("validated retained key"),
                     );
                 }
+                for (kind, length) in entry.artifact_lengths.iter().enumerate() {
+                    for chunk in 0..length.div_ceil(CHUNK) {
+                        map.remove(
+                            &retained_key(
+                                entry.segment_id,
+                                PUBLICATION_CHUNKS + kind as u64 * CHUNKS + chunk as u64,
+                            )
+                            .expect("validated retained key"),
+                        );
+                    }
+                }
             }
-        }
-        for (key, bytes) in retained_writes {
-            map.insert(key, bytes);
-        }
-    }));
+            for (key, bytes) in retained_writes {
+                map.insert(key, bytes);
+            }
+        })
+    );
     #[cfg(feature = "test-hooks")]
     persistence_fault("after-retained", publication_changed);
     #[cfg(feature = "cost-profile")]
     cost_profile::volume("root.write", 1, root_bytes.len());
-    measure_cost!("persist.root_write", ROOT.with(|c| {
-        c.borrow_mut().set(root_bytes);
-    }));
+    measure_cost!(
+        "persist.root_write",
+        ROOT.with(|c| {
+            c.borrow_mut().set(root_bytes);
+        })
+    );
     #[cfg(feature = "test-hooks")]
     persistence_fault("after-root", publication_changed);
     ARENA_IDLE.with(|flag| flag.set(idle));
     if update_certified_data {
-        measure_cost!("persist.certify", ic_cdk::api::certified_data_set(certified_root));
+        measure_cost!(
+            "persist.certify",
+            ic_cdk::api::certified_data_set(certified_root)
+        );
         #[cfg(feature = "test-hooks")]
         persistence_fault("after-certification", publication_changed);
     }
@@ -1268,7 +1292,10 @@ fn save_root_only(r: &Root) -> AppResult<()> {
     // A stable write failure must trap so callers never observe an acknowledged partial write.
     #[cfg(feature = "cost-profile")]
     cost_profile::volume("root.write", 1, bytes.len());
-    measure_cost!("root_only.write", ROOT.with(|cell| cell.borrow_mut().set(bytes)));
+    measure_cost!(
+        "root_only.write",
+        ROOT.with(|cell| cell.borrow_mut().set(bytes))
+    );
     Ok(())
 }
 fn install_source_timer() {
@@ -1695,7 +1722,8 @@ fn init(initial_world: Vec<u8>, logical_start: u64, config: IndexConfig) {
         }
         #[cfg(feature = "cost-profile")]
         if w.version == 10 {
-            let (mut source, source_id) = SourceState::configured(config, ic_cdk::api::canister_self())?;
+            let (mut source, source_id) =
+                SourceState::configured(config, ic_cdk::api::canister_self())?;
             source.memo_adapter_version = b2z_protocol::delegation::ADAPTER_VERSION;
             let h = cost_profile::seed(w, logical_start, &source, &source_id)?;
             let r = persist(&h, None, source, RunState::default())?;
@@ -2501,7 +2529,10 @@ async fn reconcile() -> AppResult<()> {
         }
         let result: source::HistoryResult =
             if r.source.memo_adapter_version == b2z_protocol::delegation::ADAPTER_VERSION {
-                measure_cost!("source.index_decode", delegation_wire::decode_checked(&response.into_bytes()))?
+                measure_cost!(
+                    "source.index_decode",
+                    delegation_wire::decode_checked(&response.into_bytes())
+                )?
             } else {
                 response
                     .candid()

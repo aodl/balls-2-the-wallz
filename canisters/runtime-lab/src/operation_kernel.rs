@@ -41,7 +41,10 @@ impl OperationKernel {
             return action(entry);
         }
         let digest = expected.map(str::to_owned).unwrap_or_else(|| hash(bytes));
-        let cursor = measure_cost!("kernel.cursor_restore", ExecutionSession::restore(bytes, &digest, CACHE_BYTES))?;
+        let cursor = measure_cost!(
+            "kernel.cursor_restore",
+            ExecutionSession::restore(bytes, &digest, CACHE_BYTES)
+        )?;
         let mut entry = Entry {
             bytes: Vec::new(),
             digest,
