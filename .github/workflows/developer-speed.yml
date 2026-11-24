@@ -144,6 +144,10 @@ jobs:
             --measure-wasm .work/developer-speed-release.wasm --predecessor-wasm .work/rules18-43095677.wasm --case two_ball --case payment \
             --output .work/ci-rules19-cost
           python -B tools/profile_rules18_cost.py --world .work/rules19-paid-world.bin \
+            --profile-wasm .work/rules19-profile.wasm --compact-using .work/rules19-profile.wasm \
+            --measure-wasm .work/developer-speed-release.wasm --case moderate --case large \
+            --case idle --case protected --case retained --jobs 2 --output .work/ci-rules19-scale
+          python -B tools/profile_rules18_cost.py --world .work/rules19-paid-world.bin \
             --profile-wasm .work/rules19-profile.wasm --compact-using .work/developer-speed-release.wasm \
             --measure-wasm .work/developer-speed-release.wasm --case two_ball \
             --browser-python "$(command -v python)" --output .work/ci-rules19-browser
@@ -159,6 +163,7 @@ jobs:
             .work/ci-dev-isolated/deployment/dev-speed.json
             .work/ci-dev-isolated/logs/**
             .work/ci-rules19-cost/**
+            .work/ci-rules19-scale/**
             .work/ci-rules19-browser/**
             .work/ci-dev-rules18/results.json
             .work/ci-dev-rules18/deployment/reservoir/developer-speed-rules18.json

@@ -63,6 +63,7 @@ jobs:
             gzip -dc "vendor/b2z/$artifact.wasm.gz" > ".work/$artifact.wasm"
           done
       - name: Use portable backend source paths
+        if: github.event_name != 'workflow_dispatch' || hashFiles('tools/check_rules19_module.py') != ''
         run: echo "CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUSTFLAGS=--remap-path-prefix=$PWD=/src/b2z/backend --remap-path-prefix=${CARGO_HOME:-$HOME/.cargo}=/cargo" >> "$GITHUB_ENV"
       - name: Exact-source signed financial qualification
         env:
@@ -74,10 +75,11 @@ jobs:
           --rules16-prior-wasm .work/rules16-a5889a92.wasm
           --rules17-prior-wasm .work/rules17-c066140f.wasm
           --output .work/ci-delegated
+      - name: Verify the compact-schema financial gate module
+        if: github.event_name != 'workflow_dispatch' || hashFiles('tools/check_rules19_module.py') != ''
+        run: python -B tools/check_rules19_module.py public_backend .work/ci-delegated/normal.wasm
       - name: Archive the financial gate normal module identity
-        run: |
-          python -B tools/check_rules19_module.py public_backend .work/ci-delegated/normal.wasm
-          sha256sum .work/ci-delegated/normal.wasm > .work/ci-delegated/normal.sha256
+        run: sha256sum .work/ci-delegated/normal.wasm > .work/ci-delegated/normal.sha256
       - name: Preserve financial evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4.6.2
