@@ -59,6 +59,7 @@ def main():
     parser.add_argument("--measure-wasm", type=Path, help="upgrade fixture to an explicit release before measurement")
     parser.add_argument("--measure-instrumented", action="store_true", help="upgraded build exports profiling counters")
     parser.add_argument("--case", action="append", choices=CASES, dest="cases")
+    parser.add_argument("--compare-to", type=Path, help="require exact checkpoint artifacts against this measured matrix")
     parser.add_argument("--jobs", type=int, default=1)
     parser.add_argument("--artifacts", type=Path, default=Path.home() / "dtr-s09-artifacts")
     parser.add_argument("--output", type=Path, required=True)
@@ -94,11 +95,23 @@ def main():
     try:
         def run(case):
             location = output / case
-            return execute(
+            row = execute(
                 case, command, location, 600,
                 {**env, "POCKET_IC_SERVER_URL": server[-1], "B2Z_COST_CASE": case,
                  "S14_DEPLOYMENT_OUTPUT": str(location)},
             )
+            if args.compare_to and row["status"] == "PASS":
+                baseline = args.compare_to / case
+                actual = sorted(path.name for path in location.glob("*.bin"))
+                expected = sorted(path.name for path in baseline.glob("*.bin"))
+                mismatches = [
+                    name for name in actual
+                    if name not in expected or (location / name).read_bytes() != (baseline / name).read_bytes()
+                ]
+                row["artifact_files"] = len(actual)
+                if not actual or actual != expected or mismatches:
+                    row.update(status="FAIL", reason="checkpoint artifacts differ", mismatched_artifacts=mismatches)
+            return row
 
         with ThreadPoolExecutor(max_workers=args.jobs) as executor:
             for row in executor.map(run, dict.fromkeys(args.cases or CASES)):

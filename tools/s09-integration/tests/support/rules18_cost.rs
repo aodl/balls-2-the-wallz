@@ -169,9 +169,14 @@ fn capture(pic: &PocketIc, id: Principal, out: &Path, ordinal: u64) -> (Observat
         get_query(pic, id, "observation_bundle", encode_args(()).unwrap());
     let obs = bundle.observation;
     let p: Publication = decode(&obs.publication).unwrap();
+    let virtual_ns = pic.get_time().as_nanos_since_unix_epoch();
+    let wall = std::time::UNIX_EPOCH.elapsed().unwrap();
+    // Agent::verify compares with real wall time. Translate the disposable
+    // clock offset here and check the signed timestamp against consensus below.
+    let expiry = wall.saturating_sub(Duration::from_nanos(virtual_ns)) + Duration::from_secs(120);
     let agent = ic_agent::Agent::builder()
         .with_url("http://127.0.0.1:1")
-        .with_ingress_expiry(Duration::from_secs(24 * 60 * 60))
+        .with_ingress_expiry(expiry)
         .build()
         .unwrap();
     agent.set_root_key(pic.root_key().unwrap());
@@ -181,12 +186,7 @@ fn capture(pic: &PocketIc, id: Principal, out: &Path, ordinal: u64) -> (Observat
     let certified_time =
         leb128::read::unsigned(&mut ic_agent::lookup_value(&cert, [b"time".as_slice()]).unwrap())
             .unwrap();
-    assert!(
-        pic.get_time()
-            .as_nanos_since_unix_epoch()
-            .abs_diff(certified_time)
-            < 1_000_000_000
-    );
+    assert!(virtual_ns.abs_diff(certified_time) < 1_000_000_000);
     let certified = ic_agent::lookup_value(
         &cert,
         [
@@ -477,7 +477,7 @@ fn rules18_cost_matrix() {
         "cannons_before":genesis.cannons.len(),"balls_before":genesis.balls.len(),
         "players_before":genesis.playability.as_ref().unwrap().players.len(),
         "balls_after":world.balls.len(),"tier":tier,"virtual_ns":elapsed_ns.to_string(),
-        "work_budget":before.run.work_budget.unwrap(),"checkpoints":checkpoints,
+        "work_budget":after.run.work_budget.unwrap(),"checkpoints":checkpoints,
         "replayed_checkpoints":checkpoints,
         "callbacks":after.run.callback_count-before.run.callback_count,
         "index_calls":after.source.index_calls-before.source.index_calls,
