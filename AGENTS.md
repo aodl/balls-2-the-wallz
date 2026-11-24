@@ -24,7 +24,7 @@ Keep PASS, FAIL and BLOCKED distinct. Browser or tool absence must not hide nati
 
 Use `DFX_IDENTITY=codex_local` for local IC tests. Never inspect or export identity material, private keys, seed phrases or `.env` secrets. Keep identities, environment files, virtualenvs, dependency trees and build caches out of Git and checkpoint archives.
 
-Mainnet deployment requires explicit task authorization. Controller changes, wallet access, token transfers, remote pushes and package publication remain user-owned. Do not disable browser, OS or agent security policy. User-scoped reviewed development dependencies are permitted; system-wide changes require explicit approval.
+Mainnet deployment and remote Git writes require explicit task authorization. Controller changes, wallet access, token transfers and package publication remain user-owned. Do not disable browser, OS or agent security policy. User-scoped reviewed development dependencies are permitted; system-wide changes require explicit approval.
 
 Save coherent progress commits on the active branch. Preserve historical checkpoint reports and evidence. Do not create a release ZIP until the checkpoint is actually ready and explicitly requested.
 
@@ -32,7 +32,7 @@ Save coherent progress commits on the active branch. Preserve historical checkpo
 
 Use `docs/specs/B2Z_APPLICATION.md` as the normative application contract. One official ICP account index, one receiving numeric subaccount, one configured Event Horizon sender, exact payload-bearing target-filtered `poke`, and fixed 60-second fallback. Trust the configured official index for account-history contents/completeness. Never recreate global `query_blocks` scanning, archive traversal, dense gap padding, a zero-argument poke, parallel notification services or generic source frameworks.
 
-The observer has no login, wallet, signing, allowance, session or transaction-sending feature. Keep keys and payment execution in users' existing wallets. Preserve scores and disclose that automatic payouts remain unavailable. Mainnet/real-money actions and all remote Git operations remain user-owned. Never reinstall/reset an existing funded canister. Normal Wasm must exclude synthetic input/state mutation and manual game-step controls.
+The observer has no login, wallet, signing, allowance, session or transaction-sending feature. Keep keys and payment execution in users' existing wallets. Preserve scores and disclose that automatic payouts remain unavailable. Real-money actions remain user-owned. Never reinstall/reset an existing funded canister. Normal Wasm must exclude synthetic input/state mutation and manual game-step controls.
 
 DTR S14 changes are limited to sparse ordered admission and network-configured SDK certificate/observation handling. Before remote publication, use only the explicit `tools/s14_development.py` temporary override; never commit sibling-path dependencies, a Git URL rewrite or a revision falsely presented as remotely available. User publishes DTR first; immutable B2Z pins/locks and remote consumer validation follow in a separate authorized local continuation.
 

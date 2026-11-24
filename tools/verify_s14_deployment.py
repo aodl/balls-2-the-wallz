@@ -402,6 +402,86 @@ def copy_epoch_move(page, expected, report, save, errors):
         save()
 
 
+def epoch_reconnect_state(page):
+    return page.evaluate("""()=>{
+      const e=globalThis.__b2zExperience,s=e?.session,l=globalThis.__dtrLive,now=performance.now();
+      const dimensions=w=>w?{width:w.width,height:w.height}:null;
+      return JSON.parse(JSON.stringify({
+        wall_ms:Date.now(),hidden:document.hidden,focused:document.hasFocus(),
+        phase:document.body?.dataset.phase,status:e?.status?.kind,
+        delivery_paused:globalThis.epochTestDeliveryPaused??false,
+        connected:l?.connected??false,busy:Boolean(s?.busy||s?.statusBusy),
+        accepted:s?.deliveryDiagnostics?.acceptedHeads.at(-1)??null,
+        pending_authority_head:s?.pendingAuthorityHead??null,
+        certificates:l?.certificates??0,resyncs:l?.resyncs??0,
+        clock:s?.clock?.state(),playback:l?.playback,
+        warm_recovery:s?.warmRecovery??false,lifecycle_generation:s?.lifecycleGeneration??0,
+        next_poll_in_ms:s?.nextDue-now,certified_age_ms:now-s?.certifiedAt,
+        certificate_time_ns:s?.certificateTimeNs,
+        failure_kind:s?.failureKind,error:s?.error?.message,
+        delivery_error:s?.deliveryError,retry_failures:s?.retryFailures,
+        operational_failure_kind:s?.statusFailureKind,operational_failures:s?.statusFailures,
+        delivery_failures:s?.deliveryDiagnostics?.history.slice(-8),
+        reference_world:dimensions(s?.referenceWorld),
+        visible_world:e?.visible?{...dimensions(e.visible),torus:e.visible.torus}:null,
+        canvas:document.querySelector('#board')?.getAttribute('aria-label'),
+        observation_error:document.querySelector('#observation-error')?.textContent,
+        render_error:document.querySelector('#render-error')?.textContent
+      },(_,v)=>typeof v==='bigint'?String(v):v));
+    }""")
+
+
+def recover_evicted_epoch(page,reconnect,anchor,diagnostics,save):
+    old_head=int(anchor['accepted']['head'])
+    missing=old_head+1
+    # Both the certified head and the actual installed retention API must show
+    # that ordinary retained playback can no longer reach this observer.
+    wait_until(page,lambda:page.evaluate('__dtrLive.heads.at(-1)')>=old_head+17,90000)
+    live=epoch_reconnect_state(page)
+    diagnostics['foreground_head']=live['accepted']
+    retention=page.evaluate("""async missing=>{
+      let unavailable=null;
+      try{await __b2zExperience.session.client.publication(missing);}catch(error){unavailable=error.message;}
+      return {first_needed:missing,unavailable};
+    }""",missing)
+    diagnostics['retention']=retention;save()
+    assert retention['unavailable']=='publication unavailable: snapshot resync required',retention
+    assert live['accepted']['epoch'] and live['accepted']['version']==7,live
+
+    reconnect.bring_to_front()
+    before=epoch_reconnect_state(reconnect)
+    diagnostics['before_release']=before;save()
+    assert before['delivery_paused'] and not before['busy'],before
+    assert before['accepted']==anchor['accepted'] and before['resyncs']==anchor['resyncs'],before
+    reconnect.evaluate('()=>{__b2zTools.delivery(false);globalThis.epochTestDeliveryPaused=false;}')
+    samples=diagnostics['samples'];last_sample=0
+    dimensions={'width':32,'height':32}
+    def recovered():
+        nonlocal last_sample
+        now=time.monotonic()
+        if now-last_sample<0.25:return False
+        last_sample=now
+        state=epoch_reconnect_state(reconnect);samples.append(state)
+        head=state['accepted']
+        return state['phase']=='ERROR' or (
+            state['connected'] and not state['delivery_paused']
+            and state['certificates']>before['certificates'] and state['resyncs']>before['resyncs']
+            and head and int(head['head'])>=int(live['accepted']['head'])
+            and head['epoch']==live['accepted']['epoch'] and head['identity']==live['accepted']['identity']
+            and state['reference_world']==dimensions
+            and state['visible_world']=={**dimensions,'torus':True}
+            and '32 by 32 cells' in (state['canvas'] or '')
+        )
+    try:
+        wait_until(reconnect,recovered,30000)
+    finally:
+        diagnostics['after_release']=epoch_reconnect_state(reconnect);save()
+    after=diagnostics['after_release']
+    assert after['phase']!='ERROR' and not after.get('error'),after
+    assert not diagnostics['page_errors'],diagnostics['page_errors']
+    return {'old_head':old_head,'new_head':int(after['accepted']['head'])}
+
+
 def verify_epoch_transition(page,context,out,record,report,save,errors):
     began=time.monotonic()
     def progress(stage):
@@ -418,10 +498,26 @@ def verify_epoch_transition(page,context,out,record,report,save,errors):
     copy_epoch_move(page,f'MOVE {old_cell}',report,save,errors)
     # Keep this packet active across the epoch. Escape now explicitly cancels
     # a local action; historical instructions remain separately in Activity.
-    reconnect=context.new_page();reconnect.goto(page.url,timeout=30000)
-    wait_until(reconnect,lambda:reconnect.evaluate('Boolean(globalThis.__dtrLive?.connected)') and '16 × 8' in world_text(reconnect),30000)
-    reconnect.evaluate('__b2zTools.delivery(true)')
-    old_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)')
+    reconnect=context.new_page()
+    diagnostics=report['epoch_reconnect']={'page_errors':[],'main_page_errors':errors,'requests':[],'samples':[]}
+    def query_event(request,status=None,failure=None):
+        if len(diagnostics['requests'])>=512 or request.method!='POST' or not request.url.endswith(('/query','/read_state')):return
+        from serve_observer import query_method
+        method=query_method(request.post_data_buffer or b'') if request.url.endswith('/query') else 'read_state'
+        diagnostics['requests'].append({'epoch_ms':time.time()*1000,'method':method,'status':status,'failure':failure})
+    reconnect.on('pageerror',lambda error:diagnostics['page_errors'].append({'message':str(error),'stack':error.stack}))
+    reconnect.on('response',lambda response:query_event(response.request,status=response.status))
+    reconnect.on('requestfailed',lambda request:query_event(request,failure=request.failure))
+    reconnect.goto(page.url,timeout=30000)
+    wait_until(reconnect,lambda:reconnect.evaluate('Number.isSafeInteger(globalThis.__dtrLive?.heads.at(-1))') and '16 × 8' in world_text(reconnect),30000)
+    diagnostics['before_pause']=epoch_reconnect_state(reconnect)
+    reconnect.evaluate('()=>{__b2zTools.delivery(true);globalThis.epochTestDeliveryPaused=true;}')
+    # The delivery switch gates new work. An in-flight observation may still
+    # admit publications, so measure the actual frozen head after it settles.
+    wait_until(reconnect,lambda:not epoch_reconnect_state(reconnect)['busy'],30000)
+    anchor=diagnostics['paused_anchor']=epoch_reconnect_state(reconnect)
+    assert anchor['accepted']['version']==6 and anchor['visible_world']=={'width':16,'height':8,'torus':False},anchor
+    save()
     page.bring_to_front();(out/'browser-transition-ready').write_text('verified old-world MOVE prepared\n');progress('old-packet-verified')
     wait_until(page,lambda:'Game paused' in page.locator('#arena-note').text_content(),30000)
     choose_action(page,'move',review=False);assert page.locator('[data-copy=text]').is_disabled();assert page.locator('[data-copy="text"]').is_disabled()
@@ -445,20 +541,16 @@ def verify_epoch_transition(page,context,out,record,report,save,errors):
     wait_until(page,lambda:page.locator('body').get_attribute('data-phase')in['PLAYING','DEGRADED_BUFFER'],60000)
     # Reload after several new-epoch publications: fresh startup must not need a
     # retained old artifact or a remembered browser-only transition/orientation.
-    samples=[];began=time.monotonic()
-    while time.monotonic()-began<20:
+    samples=[];playback_began=time.monotonic()
+    while time.monotonic()-playback_began<20:
         samples.append(page.evaluate('({...__dtrLive.playback,resyncs:__dtrLive.resyncs})'));page.wait_for_timeout(500)
     dt=(samples[-1]['wall_ms']-samples[0]['wall_ms'])/1000
     report['epoch_playback']={'seconds':dt,'verified_ticks_per_second':(samples[-1]['admitted_ticks']-samples[0]['admitted_ticks'])/dt,'displayed_ticks_per_second':(samples[-1]['played_ticks']-samples[0]['played_ticks'])/dt,'stalled_samples':sum(x['phase']=='STALLED' for x in samples),'nominal_rate':samples[-1]['nominal_rate'],'qualification':'One-ball authenticated v7 epoch on local IC wall time'}
     (out/'epoch-telemetry.json').write_text(json.dumps(samples,indent=2));assert report['epoch_playback']['stalled_samples']==0,report['epoch_playback'];assert samples[-1]['backend_segments']>samples[0]['backend_segments']
     record('new-epoch-continuous-verified-playback',report['epoch_playback']);progress('new-epoch-playback-measured')
-    # Prove a real gap beyond the sixteen-publication window before reconnecting.
-    wait_until(page,lambda:page.evaluate('globalThis.__dtrLive.heads.at(-1)')>=old_head+17,90000)
-    reconnect.bring_to_front();reconnect.evaluate('__b2zTools.delivery(false)')
-    wait_until(reconnect,lambda:reconnect.evaluate('globalThis.__dtrLive.resyncs')>=1 and '32 × 32' in world_text(reconnect),30000)
-    progress('retained-gap-recovered');new_head=reconnect.evaluate('globalThis.__dtrLive.heads.at(-1)');assert new_head>=old_head+4,(old_head,new_head)
-    assert reconnect.locator('body').get_attribute('data-phase')!='ERROR';reconnect.close();page.bring_to_front()
-    record('old-session-reconnects-across-epoch-after-retained-history-gap',{'old_head':old_head,'new_head':new_head})
+    recovery=recover_evicted_epoch(page,reconnect,anchor,diagnostics,save)
+    progress('retained-gap-recovered');reconnect.close();page.bring_to_front()
+    record('old-session-reconnects-across-epoch-after-retained-history-gap',recovery)
     page.reload();wait_until(page,lambda:page.evaluate('Boolean(__dtrLive?.connected)') and '32 × 32' in world_text(page),30000)
     assert page.locator('body').get_attribute('data-phase')!='ERROR'
     report['epoch_transition']={'old_cell':old_cell,'mapped_cell':mapped,'old_draft_stale':True,'reload_new_epoch':True,'qualification':'Genuine disposable IC; synthetic v3 player fixture. Real Ledger/Index paid cutover is verified separately.'}
