@@ -62,7 +62,8 @@ jobs:
           retention-days: 14
   installed:
     name: Exact Rules18 upgrade, speed, payments and independent replay
-    runs-on: ubuntu-24.04
+    # Use the same Chromium user-namespace sandbox support as standard browser qualification.
+    runs-on: ubuntu-22.04
     needs: frontend
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262
@@ -165,6 +166,8 @@ jobs:
             .work/ci-rules19-cost/**
             .work/ci-rules19-scale/**
             .work/ci-rules19-browser/**
+            !.work/ci-rules19-browser/two_ball/browser/assets/**
+            !.work/ci-rules19-browser/two_ball/browser/mainnet-assets/**
             .work/ci-dev-rules18/results.json
             .work/ci-dev-rules18/deployment/reservoir/developer-speed-rules18.json
             .work/ci-dev-rules18/deployment/reservoir/developer-speed-certified-frontend.json
