@@ -182,9 +182,11 @@ pub fn volume(name: &'static str, units: usize, bytes: usize) {
 #[ic_cdk::query]
 fn test_cost_profile() -> std::result::Result<String, String> {
     super::authorized()?;
+    let root = super::root()?;
     serde_json::to_string(&serde_json::json!({
         "counters": COUNTERS.with_borrow(|c| serde_json::to_value(c).expect("bounded counters")),
         "stable_pages": ic_cdk::api::stable_size(),
+        "coordinator_image_bytes": root.image.length,
     }))
     .map_err(|error| error.to_string())
 }

@@ -58,6 +58,9 @@ def main():
     parser.add_argument("--profile-wasm", type=Path, required=True, help="cost-profile,developer-speed build")
     parser.add_argument("--measure-wasm", type=Path, help="upgrade fixture to an explicit release before measurement")
     parser.add_argument("--measure-instrumented", action="store_true", help="upgraded build exports profiling counters")
+    parser.add_argument("--compact-using", type=Path, help="Wasm that performs the real Rules19 cutover")
+    parser.add_argument("--predecessor-wasm", type=Path, help="legacy Wasm for pre-prepare rollback and post-commit denial")
+    parser.add_argument("--browser-python", type=Path, help="live Chromium qualification for the two-Ball cutover")
     parser.add_argument("--case", action="append", choices=CASES, dest="cases")
     parser.add_argument("--compare-to", type=Path, help="require exact checkpoint artifacts against this measured matrix")
     parser.add_argument("--jobs", type=int, default=1)
@@ -66,6 +69,8 @@ def main():
     args = parser.parse_args()
     if args.jobs < 1 or (args.measure_instrumented and not args.measure_wasm):
         parser.error("positive job count and explicit measured Wasm for instrumented upgrades required")
+    if args.browser_python and (not args.compact_using or args.compact_using != args.measure_wasm or args.cases != ["two_ball"]):
+        parser.error("the installed browser probe uses the same measured release for the two_ball cutover")
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
     env = {
@@ -73,8 +78,14 @@ def main():
         "B2Z_PROFILE_FIDUCIARY": "0", "B2Z_PROFILE_FIXED_TIME_NS": args.time_ns,
         "B2Z_COST_WORLD": str(args.world.resolve()), "B2Z_COST_PROFILE_WASM": str(args.profile_wasm.resolve()),
     }
-    for name in ("B2Z_PROFILE_INITIAL_CYCLES", "B2Z_COST_MEASURE_WASM", "B2Z_COST_PROFILE_ACTIVE"):
+    for name in ("B2Z_PROFILE_INITIAL_CYCLES", "B2Z_COST_MEASURE_WASM", "B2Z_COST_PROFILE_ACTIVE", "B2Z_COST_COMPACT_WASM", "B2Z_COST_BROWSER_PYTHON", "B2Z_COST_ROLLBACK_WASM"):
         os.environ.pop(name, None)
+    if args.compact_using:
+        env["B2Z_COST_COMPACT_WASM"] = str(args.compact_using.resolve())
+    if args.predecessor_wasm:
+        env["B2Z_COST_ROLLBACK_WASM"] = str(args.predecessor_wasm.resolve())
+    if args.browser_python:
+        env["B2Z_COST_BROWSER_PYTHON"] = os.path.abspath(args.browser_python)
     if args.measure_wasm:
         env["B2Z_COST_MEASURE_WASM"] = str(args.measure_wasm.resolve())
         if args.measure_instrumented:
@@ -83,7 +94,7 @@ def main():
         "source_revision": subprocess.check_output(["git", "rev-parse", "HEAD"], cwd=ROOT, text=True).strip(),
         "world_sha256": sha256(args.world),
         "seed_module_sha256": sha256(args.profile_wasm),
-        "measured_module_sha256": sha256(args.measure_wasm or args.profile_wasm),
+        "measured_module_sha256": sha256(args.measure_wasm or args.compact_using or args.profile_wasm),
         "virtual_time_ns": args.time_ns,
         "checks": [],
     }

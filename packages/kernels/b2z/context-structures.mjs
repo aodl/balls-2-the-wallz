@@ -1,3 +1,4 @@
+import {reservoirOccupancy} from '../../protocol/reservoir.mjs';
 import {CONTEXT_POLICY} from '../../protocol/context-structures.generated.mjs';
 import {decodeContextMemo} from '../../protocol/context-structures.mjs';
 import {hasFriendlyStructure,hasStructureClearance,structureMap,structureSiteReason} from '../../protocol/structure-sites.mjs';
@@ -16,7 +17,7 @@ export function friendlyStructureNearby(world,cell,owner,moving,structures=conte
 
 export function contextSiteReason(world,owner,cell,{moving,deflector=false,spacing=false}={}) {
   return structureSiteReason({width:world.width,height:world.height,owner,cell,moving,deflector,spacing,
-    reservoirs:world.reservoirs,occupied:occupiedCells(world),structures:contextStructures(world),
+    reservoirs:reservoirOccupancy(world),occupied:occupiedCells(world),structures:contextStructures(world),
     ownerAt:c=>playerAt(world,c),active:c=>Boolean(territoryBalls(world,ownerAt(world,c)))});
 }
 

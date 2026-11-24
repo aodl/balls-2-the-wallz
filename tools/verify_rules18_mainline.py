@@ -14,8 +14,8 @@ from build_embedded_frontend import ROOT, report
 FROZEN_ASSETS = "evidence/B2Z/rules18-delegated-payments/artifacts"
 HISTORICAL_SOURCE = "351d96d7059f7f84957af1470c86a7028c588392"
 REVIEWED_SOURCE = "53e737c382e0cc0299cf8c35dd5e2449cc78ce70"
-# Current public observer bundle, without the separate developer entry point.
-PUBLIC_APP = "4eec4514ef88a46bc8d95f5bc95825ef4c8e0f46881ee3edd9ccb198ff64b8b5"
+QUALIFIED_RULES18 = "aeb9cd3fb04426b9851383dae490b6f873e43388"
+CURRENT_RELEASE = ROOT / "evidence/B2Z/rules19-compact-reservoirs/artifact-pins.json"
 
 
 def run(*command, cwd=ROOT):
@@ -27,7 +27,9 @@ def public_observer(out, inventory):
     run("node", "tools/build_observer_playability.mjs", "--canister",
         "s5ir5-gqaaa-aaaas-amyna-cai", "--output", str(observer))
     expected = {row["path"]: row["sha256"] for row in inventory}
-    expected["app.mjs"] = PUBLIC_APP
+    overrides = json.loads(CURRENT_RELEASE.read_text())["public_asset_overrides"]
+    assert set(overrides) == {"app.mjs", "backend.did", "configuration-compact-reservoir.bin"}
+    expected.update(overrides)
     rows = [{"path": path.relative_to(observer).as_posix(),
              "sha256": sha256(path.read_bytes()).hexdigest(), "bytes": path.stat().st_size}
             for path in sorted(observer.rglob("*")) if path.is_file()]
@@ -62,7 +64,8 @@ def main():
     paths += [FROZEN_ASSETS, "canisters/runtime-lab"]
     if not args.backend_only:
         paths += ["apps/b2z-observer", "canisters/frontend", "tools/build_dev_speed_frontend.py"]
-    run("git", "diff", "--exit-code", REVIEWED_SOURCE, "--", *paths)
+    run("git", "diff", "--exit-code", REVIEWED_SOURCE, QUALIFIED_RULES18, "--", *paths)
+    run("git", "diff", "--exit-code", QUALIFIED_RULES18, "--", FROZEN_ASSETS)
 
     with tempfile.TemporaryDirectory(dir=out.parent, prefix="rules18-freeze-") as directory:
         baseline = Path(directory) / "source"
@@ -84,7 +87,7 @@ def main():
         public_observer(out, json.loads((frozen / "frontend-inventory.json").read_text()))
     report(out / "result.json", {
         "status": "PASS", "historical_checkout": HISTORICAL_SOURCE,
-        "reviewed_integration_inputs": REVIEWED_SOURCE, "backend_only": args.backend_only,
+        "reviewed_integration_inputs": REVIEWED_SOURCE, "qualified_rules18": QUALIFIED_RULES18, "backend_only": args.backend_only,
         "public_observer": args.public_observer,
     })
 

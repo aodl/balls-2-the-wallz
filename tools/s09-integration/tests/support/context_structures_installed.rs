@@ -1699,6 +1699,54 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegati
             assert_eq!(after.reservoirs, result.reservoirs);
             assert!(after.authorization.as_ref().unwrap().grants.is_empty());
             assert_eq!(status(&pic, id).source.admitted_to_exclusive, last + 1);
+            if std::env::var_os("B2Z_QUALIFY_COMPACT_RESERVOIR").is_some() {
+                let cannon = after
+                    .cannons
+                    .iter()
+                    .find(|c| c.account == funding_account(payer).to_hex())
+                    .unwrap()
+                    .id;
+                let memo = format!("FIRE {cannon} 0 1");
+                for crossing in [true, false] {
+                    let before = arena_world(&pic, id);
+                    assert_eq!(before.version, if crossing { 10 } else { 11 });
+                    let position =
+                        transfer_text(&pic, ledger, payer, id, 100_000_000, memo.as_bytes());
+                    wait_admitted(&pic, id, position);
+                    let expected = BTreeMap::from([(position, ("ACCEPTED".into(), 0, None))]);
+                    let (proof, _) =
+                        super::delegation_installed::official_inputs(&pic, id, &expected)
+                            .pop()
+                            .unwrap();
+                    let command = b2z_protocol::v6::parse_text(memo.as_bytes()).unwrap();
+                    let used: u64 = b2z_native::economy17::quote_items(
+                        &before,
+                        &funding_account(payer).to_hex(),
+                        &b2z_protocol::v6::encode(command).unwrap(),
+                        proof.ledger_time_ns,
+                    )
+                    .unwrap()
+                    .into_iter()
+                    .sum();
+                    input.insert(position, hex(&proof.encode().unwrap()));
+                    receipts.insert(position, "ACCEPTED".into());
+                    delegated_positions.insert(position, (proof, used));
+                    if crossing {
+                        #[derive(CandidType, Deserialize)]
+                        struct PendingWork {
+                            pending_inputs: u32,
+                        }
+                        let pending: PendingWork =
+                            get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+                        assert_eq!(pending.pending_inputs, 1);
+                        war_cry_installed::transition(&pic, id, "compact_reservoir");
+                    } else {
+                        complete_one_trickle_tick(&pic, id);
+                    }
+                    playability_installed::record_bundled(&pic, id, &mut history, &out);
+                    assert_eq!(status(&pic, id).source.admitted_to_exclusive, position + 1);
+                }
+            }
         }
     }
 

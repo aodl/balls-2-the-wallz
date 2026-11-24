@@ -1,4 +1,4 @@
-import {reservoirHas} from '../../protocol/reservoir.mjs';
+import {reservoirHas,reservoirOccupancy} from '../../protocol/reservoir.mjs';
 import {cellDistance,hasEnemyClearance} from '../../protocol/territory-clearance.mjs';
 import {STRUCTURE_MIN_DISTANCE} from '../../protocol/structure-sites.mjs';
 /** Exact maximin first entry. Bounded DFS geometry and existing resumable span flood. */
@@ -30,7 +30,7 @@ export function entryStep(w,s,patchFor,spacing=false){
  if(!s.stack.length)return true;
  const r=s.stack.pop(),upper=rectangleBound(w,r);if(s.best&&(upper<s.best.distance||upper===s.best.distance&&minimum(w,r)>=s.best.cell))return false;
  if(r[0]===r[1]&&r[2]===r[3]){
-  const cell=minimum(w,r),patch=patchFor(cell);s.visited++;if(patch.some(c=>s.blocked.includes(c)||reservoirHas(w.reservoirs,c))||spacing&&!entryHasClearance(w,cell))return false;
+  const cell=minimum(w,r),patch=patchFor(cell);s.visited++;if(patch.some(c=>s.blocked.includes(c)||reservoirHas(reservoirOccupancy(w),c))||spacing&&!entryHasClearance(w,cell))return false;
   const candidate={cell,distance:distanceSquared(w,cell)};s.owners=[...new Set(patch.map(c=>ownerAt(w,c)).filter(Boolean))].sort((a,b)=>a-b);
   if(!s.owners.length){s.best=candidate;return false;}
   s.candidate=candidate;s.proposal=structuredClone(w);for(const c of patch)setOwner(s.proposal,c,0);return false;

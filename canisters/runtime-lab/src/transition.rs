@@ -111,11 +111,17 @@ impl Transition {
             ..Self::new()
         }
     }
+    pub fn compact_reservoir() -> Self {
+        Self {
+            version: 15,
+            ..Self::new()
+        }
+    }
     pub fn holding(&self) -> bool {
         self.phase != "complete"
     }
     pub fn validate(&self) -> Result<()> {
-        if !matches!(self.version, 1..=14)
+        if !matches!(self.version, 1..=15)
             || !["ledger", "index", "drain", "ready", "complete"].contains(&self.phase.as_str())
         {
             return Err("world transition phase".into());

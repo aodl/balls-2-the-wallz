@@ -18,7 +18,7 @@ import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {stageTorusMigration,stageMillionWorld} from '../../packages/kernels/b2z/migration.mjs';
 import {migratePlayability,dueFences} from '../../packages/kernels/b2z/playability.mjs';
 import {expireV6} from '../../packages/kernels/b2z/lifecycle-v6.mjs';
-import {decodeWorld,encodeWorld,MILLION_IDENTITY,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY,ECONOMY_IDENTITY,DELEGATED_IDENTITY,migrateDelegation} from '../../packages/kernels/b2z/world.mjs';
+import {decodeWorld,encodeWorld,MILLION_IDENTITY,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY,ECONOMY_IDENTITY,DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY,migrateDelegation,migrateCompactReservoirs} from '../../packages/kernels/b2z/world.mjs';
 import {B2zKernel} from '../../packages/kernels/b2z/kernel.mjs';
 const equal=(a,b)=>hex(encodeCanonical(a))===hex(encodeCanonical(b));
 const check=(ok,message)=>{if(!ok)throw Error(message);};
@@ -40,7 +40,15 @@ export function replayHistory(trace,{diagnostic}={}){
    check([7,8,9].includes(p.version)&&p.epoch,'unsupported replay checkpoint');
    const before=unhex(host.committed().state_hex),old=decodeWorld(before);let out,metadata;
    const spacing=p.identity.config_hash===SPACING_IDENTITY.config_hash,shout=p.identity.config_hash===SHOUT_IDENTITY.config_hash;
-   if(p.version===8&&old.version===9&&p.identity.config_hash===DELEGATED_IDENTITY.config_hash){
+   if(p.version===8&&old.version===10&&p.identity.config_hash===COMPACT_RESERVOIR_IDENTITY.config_hash){
+    const audit=decodeCanonical(eventBytes(p)),context=audit.events[0]?.context,kind='reservoir_encoding_compacted',prior=host.publicationRecord().journal;
+    check(audit.version===11&&audit.events.length===1&&audit.events[0].kind===kind&&context,'compact Reservoir activation context');
+    check(Object.keys(DELEGATED_IDENTITY).every(k=>prior.identity[k]===DELEGATED_IDENTITY[k])&&Object.keys(COMPACT_RESERVOIR_IDENTITY).every(k=>p.identity[k]===COMPACT_RESERVOIR_IDENTITY[k])&&p.identity.source_id===prior.identity.source_id,'compact Reservoir transition identity');
+    const state=encodeWorld(migrateCompactReservoirs(old));
+    const expected={version:15,migration:'B2Z_COMPACT_RESERVOIR_RULES_19',old_identity:prior.identity,new_identity:p.identity,previous_state:sha256(before),new_state:sha256(state),logical_boundary:old.time,source_cursor:host.committed().source_to_exclusive,ledger_cutover:context.ledger_cutover,account_history_complete_through:context.ledger_cutover,index_synced:context.index_synced,source_anchor:host.committed().seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:12,memo_adapter_after:12};
+    check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&equal(context,expected),'compact Reservoir cutover context mismatch');
+    metadata=encodeCanonical(expected);out=emptyOutput(state,11,[{kind,sequence:0,time:old.time,context:expected}]);
+   }else if(p.version===8&&old.version===9&&p.identity.config_hash===DELEGATED_IDENTITY.config_hash){
     const audit=decodeCanonical(eventBytes(p)),context=audit.events[0]?.context,kind='delegated_payments_activated',prior=host.publicationRecord().journal;
     check(audit.version===10&&audit.events.length===1&&audit.events[0].kind===kind&&context,'delegation activation context');
     check(Object.keys(ECONOMY_IDENTITY).every(k=>prior.identity[k]===ECONOMY_IDENTITY[k])&&Object.keys(DELEGATED_IDENTITY).every(k=>p.identity[k]===DELEGATED_IDENTITY[k])&&p.identity.source_id===prior.identity.source_id,'delegation transition identity');
@@ -115,9 +123,9 @@ export function replayHistory(trace,{diagnostic}={}){
    host.apply({kind:'transition',epoch,state_hex:hex(out.state),event_hex:hex(out.events),score_hex:hex(out.scores)});checkpoints++;
   }else{
    const seal=p.head.seal,selected=inputs.filter(i=>i.position>=seal.source_from&&i.position<seal.source_to_exclusive);completionTime=null;
-   if([PLAYABILITY_IDENTITY.config_hash,ENTRY_IDENTITY.config_hash,CLEARANCE_IDENTITY.config_hash,WAR_CRY_IDENTITY.config_hash,COMBINED_IDENTITY.config_hash,DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash,SPACING_IDENTITY.config_hash,RESERVOIR_IDENTITY.config_hash,ECONOMY_IDENTITY.config_hash,DELEGATED_IDENTITY.config_hash].includes(p.identity.config_hash)){
+   if([PLAYABILITY_IDENTITY.config_hash,ENTRY_IDENTITY.config_hash,CLEARANCE_IDENTITY.config_hash,WAR_CRY_IDENTITY.config_hash,COMBINED_IDENTITY.config_hash,DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash,SPACING_IDENTITY.config_hash,RESERVOIR_IDENTITY.config_hash,ECONOMY_IDENTITY.config_hash,DELEGATED_IDENTITY.config_hash,COMPACT_RESERVOIR_IDENTITY.config_hash].includes(p.identity.config_hash)){
     const event=decodeCanonical(eventBytes(p)),facts=event.events.filter(e=>e.kind==='lifecycle_time'),last=event.events.at(-1);
-    check(event.version===(p.identity.config_hash===DELEGATED_IDENTITY.config_hash?10:p.identity.config_hash===ECONOMY_IDENTITY.config_hash?9:p.identity.config_hash===RESERVOIR_IDENTITY.config_hash?8:[DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash,SPACING_IDENTITY.config_hash].includes(p.identity.config_hash)?7:6)&&facts.length===1&&last===facts[0]&&equal(last.time,[seal.logical_end,1n])&&typeof last.observed_ns==='bigint','invalid completion fact');completionTime=last.observed_ns;
+    check(event.version===(p.identity.config_hash===COMPACT_RESERVOIR_IDENTITY.config_hash?11:p.identity.config_hash===DELEGATED_IDENTITY.config_hash?10:p.identity.config_hash===ECONOMY_IDENTITY.config_hash?9:p.identity.config_hash===RESERVOIR_IDENTITY.config_hash?8:[DEFLECTOR_IDENTITY.config_hash,CONTEXT_IDENTITY.config_hash,SHOUT_IDENTITY.config_hash,SPACING_IDENTITY.config_hash].includes(p.identity.config_hash)?7:6)&&facts.length===1&&last===facts[0]&&equal(last.time,[seal.logical_end,1n])&&typeof last.observed_ns==='bigint','invalid completion fact');completionTime=last.observed_ns;
    }
    assigned.push(...selected.map(i=>i.position.toString()));
    if(selected.length===0)host.ingestOrdered(seal.source_from,seal.source_to_exclusive,[],seal.source_anchor);

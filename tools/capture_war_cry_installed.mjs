@@ -56,8 +56,8 @@ try{
  }
  const assigned=[];for(const t of tickets){const s=t.publication.head.seal;if(s)assigned.push(...seed.inputs.filter(i=>BigInt(i.position)>=s.source_from&&BigInt(i.position)<s.source_to_exclusive).map(i=>String(i.position)));}
  const trace={...seed,publications:tickets.map(t=>t.publication),artifact_events:events,assigned};const result=replayHistory(trace);assert.ok(seed.inputs.every(i=>assigned.includes(String(i.position))),'no paid input left pending at test completion');
- const {RESERVOIR_IDENTITY,ECONOMY_IDENTITY,DELEGATED_IDENTITY}=await import('../packages/kernels/b2z/world.mjs');
- const lastConfig=trace.publications.at(-1).identity.config_hash,delegation=lastConfig===DELEGATED_IDENTITY.config_hash,economy=delegation||lastConfig===ECONOMY_IDENTITY.config_hash;
+ const {RESERVOIR_IDENTITY,ECONOMY_IDENTITY,DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY}=await import('../packages/kernels/b2z/world.mjs');
+ const lastConfig=trace.publications.at(-1).identity.config_hash,delegation=[DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY].some(identity=>lastConfig===identity.config_hash),economy=delegation||lastConfig===ECONOMY_IDENTITY.config_hash;
  if(economy||lastConfig===RESERVOIR_IDENTITY.config_hash){
   const {prepareCheckpoint,prepareDerivedSegment,CheckpointPlayer,SegmentPlayer}=await import('../apps/b2z-observer/model.mjs');
   const open=(publication,kind)=>readFile(out+'/publication-'+publication.head.segment_id+'-'+kind+'.bin');

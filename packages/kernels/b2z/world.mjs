@@ -4,7 +4,7 @@ import {ECONOMY_ADAPTER,ECONOMY_PAYMENT} from '../../protocol/economy17.mjs';
 import {BALL_BASE_E8S,CANNON_BASE_E8S,DIVERTER_BASE_E8S,RESERVOIR_PRICE_E8S as ECONOMY_RESERVOIR_PRICE,FIXED_ACTION_E8S,DAY_NS,GRACE_NS} from '../../protocol/economy17.generated.mjs';
 import {validateEconomy} from './economy17.mjs';
 import {RESERVOIR_ADAPTER,RESERVOIR_PRICE_E8S} from '../../protocol/reservoir.mjs';
-import {validateReservoirs} from '../../protocol/reservoir.mjs';
+import {validateReservoirs,migrateReservoirEncoding,MAX_COMPACT_RANGES} from '../../protocol/reservoir.mjs';
 import {STRUCTURE_MIN_DISTANCE} from '../../protocol/structure-sites.mjs';
 import {CONTEXT_POLICY} from '../../protocol/context-structures.generated.mjs';
 import {CLEARANCE_POLICY} from './clearance.generated.mjs';
@@ -95,6 +95,20 @@ export const DELEGATED_IDENTITY=Object.freeze({
   config_hash:sha256(encodeCanonical(DELEGATED_CONFIG)),
 });
 
+export const COMPACT_RESERVOIR_CONFIG=Object.freeze({
+  ...DELEGATED_CONFIG,version:11,rules_version:19,reservoir_encoding:'canonical-ranges-or-dense-1',
+  reservoir_max_compact_ranges:MAX_COMPACT_RANGES,
+});
+export const COMPACT_RESERVOIR_IDENTITY=Object.freeze({
+  rules_hash:sha256(new TextEncoder().encode('B2Z_COMPACT_RESERVOIR_RULES_19')),
+  schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_11_CANONICAL_RESERVOIR_RANGES')),
+  config_hash:sha256(encodeCanonical(COMPACT_RESERVOIR_CONFIG)),
+});
+export function migrateCompactReservoirs(predecessor) {
+  if(predecessor.version!==10)throw Error('RESERVOIR_COMPACT_PREDECESSOR');
+  return validateWorld(migrateReservoirEncoding(cloneCanonical(validateWorld(predecessor))));
+}
+
 /** Exact predecessor migration. Only the authenticated transition may call this in production. */
 export function migrateDelegation(predecessor,recipient) {
   if(predecessor.version!==9)throw Error('EXPECTED_ECONOMY_PREDECESSOR');
@@ -182,7 +196,7 @@ export function connected(cells, width, height, owner, anchor, torus=false) {
 }
 /** Validate fully resolved states only; intermediate capture scratch may deliberately violate connectivity. */
 export function validateWorld(w) {
-  if (![3,4,5,6,7,8,9,10].includes(w.version)) throw new Error('B2Z state version');
+  if (![3,4,5,6,7,8,9,10,11].includes(w.version)) throw new Error('B2Z state version');
   if(w.version===4&&(w.width!==32||w.height!==32))throw new Error('torus dimensions');
   if(w.version>=5&&(w.width!==1000||w.height!==1000))throw new Error('million dimensions');
   if((w.version>=6)!==(w.playability!==undefined))throw new Error('B2Z lifecycle version');
@@ -257,7 +271,7 @@ export function validateWorld(w) {
   if(w.version>=7)validateDeflectorState(w);else if(w.deflectors!==undefined||w.next_deflector_id!==undefined)throw Error('historical structure extension');
   validateReservoirs(w);
   validateEconomy(w);
-  if(w.version===10)validateAuthorization(w.authorization);
+  if(w.version>=10)validateAuthorization(w.authorization);
   else if(w.authorization!==undefined)throw Error('authorization schema');
   return w;
 }

@@ -557,8 +557,60 @@ def verify_epoch_transition(page,context,out,record,report,save,errors):
     record('authenticated-epoch-crossing-stales-old-MOVE-and-restores-new-world',report['epoch_transition'])
 
 
+def verify_compact_reservoir_transition(page, browser, url, out, record, errors):
+    expected = [998000, 998001, 999000, 999001]
+    widths = ((1440, 900), (390, 844), (320, 640))
+
+    def ready(target, version):
+        return target.evaluate("""version=>{
+          const e=globalThis.__b2zExperience,s=e?.session,v=e?.visible;
+          return s?.ready&&!s.error&&s.referenceWorld?.version===version&&v?.version===version&&v?.reservoirs?.size===4&&
+            [...v.reservoirs].sort((a,b)=>a-b).join(',')==='998000,998001,999000,999001';
+        }""", version)
+
+    def capture(target, stem, version):
+        assert ready(target, version)
+        rows=[]
+        for width,height in widths:
+            target.set_viewport_size({'width':width,'height':height})
+            target.evaluate("""()=>{const c=__b2zCamera;c.fit();c.zoom(6);c.centre(0.9,999.3);}""")
+            target.evaluate('()=>new Promise(done=>requestAnimationFrame(()=>requestAnimationFrame(done)))')
+            observed=target.evaluate("""()=>{const e=__b2zExperience,s=e.session,v=e.visible;
+              return {version:s.referenceWorld.version,epoch:s.sequence.last.publication.epoch.transition_hash,
+                viewport:[innerWidth,innerHeight],dimensions:[v.width,v.height],cells:[...v.reservoirs].sort((a,b)=>a-b),
+                phase:document.body.dataset.phase,head:String(s.sequence.last.publication.head.segment_id),
+                playback:globalThis.__dtrLive.playback,certificates:globalThis.__dtrLive.certificates};
+            }""")
+            assert observed['dimensions']==[1000,1000] and observed['cells']==expected, observed
+            target.screenshot(path=str(out/f'{stem}-{width}.png'))
+            rows.append(observed)
+        record(stem,rows)
+
+    wait_until(page,lambda:ready(page,10),30000)
+    capture(page,'verified-rules18',10)
+    with browser.new_context(viewport={'width':390,'height':844},has_touch=True) as reconnect_context:
+        returning=reconnect_context.new_page()
+        returning.on('pageerror',lambda e:errors.append(str(e)))
+        returning.goto(url,timeout=30000)
+        wait_until(returning,lambda:ready(returning,10),30000)
+        reconnect_context.set_offline(True)
+        (out/'compact-browser-ready').write_text('two tabs verified the Rules18 Reservoirs\n')
+        wait_until(page,lambda:ready(page,11) and page.evaluate('globalThis.__dtrLive.checkpoints>=1'),60000)
+        capture(page,'verified-rules19-transition',11)
+        (out/'compact-browser-transition-seen').write_text('ordered compact checkpoint verified\n')
+        wait_file(page,out/'compact-browser-gap',timeout=180000)
+        reconnect_context.set_offline(False)
+        returning.bring_to_front()
+        # An actual offline browser kept the previous anchor. The controller
+        # separately proves its required next publication has been evicted.
+        wait_until(returning,lambda:ready(returning,11) and returning.evaluate('globalThis.__dtrLive.resyncs>=1'),45000)
+        capture(returning,'verified-rules19-reconnect',11)
+        record('retained-gap-recovery',json.loads((out/'compact-browser-gap').read_text()))
+    assert not errors, errors
+
+
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--human-corrections-scene-only',action='store_true');p.add_argument('--entry-scene-only',action='store_true');p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--million-sustained',action='store_true');p.add_argument('--paid-v8-scene-only',action='store_true');p.add_argument('--playability-scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--compact-reservoir-scene-only',action='store_true');p.add_argument('--human-corrections-scene-only',action='store_true');p.add_argument('--entry-scene-only',action='store_true');p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--million-sustained',action='store_true');p.add_argument('--paid-v8-scene-only',action='store_true');p.add_argument('--playability-scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     if a.million_sustained and not a.million_scene_only:p.error('--million-sustained requires --million-scene-only')
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=int(os.environ['S14_QUAL_PROXY_PORT']) if os.environ.get('S14_QUAL_PROXY_PORT') else free_port()
     assert 1<=port<=65535
@@ -575,7 +627,7 @@ def main():
     try:
         assets=out/'assets';production=out/'mainnet-assets'
         scene_only=any((a.human_corrections_scene_only,a.scene_only,a.million_scene_only,
-                        a.transition_only,a.paid_v8_scene_only,a.playability_scene_only,a.entry_scene_only))
+                        a.transition_only,a.compact_reservoir_scene_only,a.paid_v8_scene_only,a.playability_scene_only,a.entry_scene_only))
         if os.environ.get('S14_QUAL_PREBUILT_ROOT'):
             prebuilt=Path(os.environ['S14_QUAL_PREBUILT_ROOT'])
             assert configuration==json.loads((prebuilt/'local-policy.json').read_text()),'prepared local root/canister/endpoint binding differs'
@@ -585,7 +637,7 @@ def main():
         else:
             # The full deployment journey needs the official branding assets.
             # Historical scene probes keep their existing build profiles.
-            full_assets=not scene_only or a.human_corrections_scene_only or a.playability_scene_only or a.entry_scene_only
+            full_assets=not scene_only or a.compact_reservoir_scene_only or a.human_corrections_scene_only or a.playability_scene_only or a.entry_scene_only
             builder='tools/build_observer_playability.mjs' if full_assets else 'tools/build_observer_mainnet.mjs'
             subprocess.run(['node',builder,'--local-test-config',str(local),'--output',str(assets)],cwd=ROOT,check=True,timeout=120)
             # A committed real deployment mapping must never be bypassed to build
@@ -676,7 +728,7 @@ def main():
             # Explicit diagnostic override isolates encoding cost without changing
             # any throughput/continuity assertion or the normal CI capture policy.
             video_disabled=os.environ.get('S14_BROWSER_NO_VIDEO')=='1'
-            capture_video=not (video_disabled or a.million_sustained or a.paid_v8_scene_only or a.playability_scene_only or a.entry_scene_only)
+            capture_video=not (video_disabled or a.compact_reservoir_scene_only or a.million_sustained or a.paid_v8_scene_only or a.playability_scene_only or a.entry_scene_only)
             if a.human_corrections_scene_only:capture_video=True
             if capture_video:context_options['record_video_dir']=str(out/'video')
             report['capture']={'video':capture_video,'diagnostic_no_video':video_disabled,'sandbox':True,'screenshots_and_raw_telemetry':True};save()
@@ -740,7 +792,7 @@ def main():
                 message=page.locator('#observation-error').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
             if scene_only:
-                if not (a.human_corrections_scene_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)):identify_account(page)
+                if not (a.compact_reservoir_scene_only or a.human_corrections_scene_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)):identify_account(page)
                 if a.human_corrections_scene_only:
                     from human_corrections_browser import verify_certified_lifecycle
                     verify_certified_lifecycle(page,context,out,configuration,record,report,save,stop_wire_capture)
@@ -751,6 +803,7 @@ def main():
                     from playability_browser import verify_playability_scene
                     verify_playability_scene(page,context,out,configuration,record,report,save,stop_wire_capture,wire_capture)
                 elif a.paid_v8_scene_only:verify_paid_v8_scene(page,out,record)
+                elif a.compact_reservoir_scene_only:verify_compact_reservoir_transition(page,browser,url,out,record,errors)
                 elif a.transition_only:verify_epoch_transition(page,context,out,record,report,save,errors)
                 elif a.million_scene_only or a.paid_v8_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained)
                 else:verify_torus_scene(page,context,out,record,report,save)

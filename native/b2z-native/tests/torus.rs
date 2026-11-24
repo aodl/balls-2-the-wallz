@@ -10,6 +10,7 @@ fn million_split_world() -> b2z_native::world::World {
         deflectors: None,
         next_deflector_id: None,
         reservoirs: None,
+        reservoir_ranges: None,
         economy: None,
         authorization: None,
         version: 4,

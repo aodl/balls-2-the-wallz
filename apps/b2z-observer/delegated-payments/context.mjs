@@ -1,6 +1,6 @@
 /** Re-derive every spending field from latest verified state, never from DOM. */
 import{Principal}from'@icp-sdk/core/principal';import{sha256 as sha256Bytes}from'@noble/hashes/sha2.js';import{encodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';
-import{DELEGATED_IDENTITY,ECONOMY_IDENTITY}from'../torus-identity.generated.mjs';import{icpAccount}from'../../../packages/protocol/delegation.mjs';import{quoteForMemo}from'./quote.mjs';
+import{DELEGATED_IDENTITY,ECONOMY_IDENTITY,COMPACT_RESERVOIR_IDENTITY}from'../torus-identity.generated.mjs';import{icpAccount}from'../../../packages/protocol/delegation.mjs';import{quoteForMemo}from'./quote.mjs';
 import{paymentDestination}from'../identity.mjs';import{explicitFunding}from'./funding.mjs';import{freshObservation}from'../warm-return.mjs';import{makeIntent}from'./intents.mjs';import{ICP_LEDGER}from'./ledger.mjs';
 const hex=b=>Array.from(b,v=>v.toString(16).padStart(2,'0')).join('');
 const sha256=b=>hex(sha256Bytes(b));
@@ -11,7 +11,7 @@ export function verifiedPaymentSource(session,{now=performance.now(),wallNow=Dat
  if(!session?.ready||session.error||session.root!==session.freshnessRoot||!freshObservation(session,now,wallNow))throw Error('VERIFIED_PAYMENT_UNAVAILABLE');
  const identity=session.sequence?.last?.publication?.identity;
  const matches=expected=>Object.keys(expected).every(k=>identity?.[k]===expected[k]);
- const active=matches(DELEGATED_IDENTITY);
+ const active=matches(DELEGATED_IDENTITY)||matches(COMPACT_RESERVOIR_IDENTITY);
  if(!active&&(!predecessor||!matches(ECONOMY_IDENTITY)))throw Error('GAME_DELEGATION_NOT_ACTIVE');
  if(sha256(encodeCanonical(session.config))!==identity.config_hash)throw Error('PAYMENT_CONFIGURATION_BINDING');
  const source=session.source;
@@ -32,7 +32,7 @@ export function verifiedGameAccess(session,funding,spender,{now=performance.now(
 export function verifiedPayment(session,funding,spender,packet,{canPrepare,...options}={}){
  if(!canPrepare)throw Error('VERIFIED_PAYMENT_UNAVAILABLE');
  const{from,account:a,grant:g,source,destination}=verifiedGameAccess(session,funding,spender,options);
- if(!packet||packet.reason||packet.account!==a||packet.backend!==source.owner||packet.network!==source.network||packet.owner!==source.owner||packet.recipient!==destination.legacy||packet.subaccount!=='0'||packet.rules!==18||packet.snapshot!==session.root)throw Error('PAYMENT_PACKET_SCOPE');
+ if(!packet||packet.reason||packet.account!==a||packet.backend!==source.owner||packet.network!==source.network||packet.owner!==source.owner||packet.recipient!==destination.legacy||packet.subaccount!=='0'||packet.rules!==session.config.rules_version||packet.snapshot!==session.root)throw Error('PAYMENT_PACKET_SCOPE');
  const quote=quoteForMemo(session.referenceWorld,session.config,a,packet.memo,BigInt(session.certificateTimeNs));
  if(quote.memo!==packet.memo||BigInt(packet.amount)!==quote.amount||hex(quote.memo_bytes)!==packet.hex)throw Error('PAYMENT_QUOTE_CHANGED');
  const key=sha256(encodeCanonical({network:source.network,ledger:source.ledger,backend:source.owner,from,spender,to:source.owner,amount:quote.amount,memo:hex(quote.memo_bytes)}));

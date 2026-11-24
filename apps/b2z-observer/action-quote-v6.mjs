@@ -25,7 +25,7 @@ export function legalAdjacentSites(w,account,config=null){
  return[...candidates].filter(c=>!blocked.has(c)&&(islandAt(w,c)===0||playerAt(w,c)===player)&&(!clearanceActive(config)||hasEnemyClearance(w.width,w.height,c,player,n=>playerAt(w,n)))).sort((a,b)=>a-b);
 }
 export function legalMove(w,account,cannon,cell,config=null){
- if(![6,7,8,9,10].includes(w.version)||!integer(cell,999999))return false;const c=w.cannons.find(c=>c.id===cannon),life=w.playability.lifecycle.find(l=>l.cannon===cannon);
+ if(![6,7,8,9,10,11].includes(w.version)||!integer(cell,999999))return false;const c=w.cannons.find(c=>c.id===cannon),life=w.playability.lifecycle.find(l=>l.cannon===cannon);
  if(c?.account!==account||!life||life.deadline_ns!==undefined||playerAt(w,cell)!==life.player||w.cannons.some(c=>c.id!==cannon&&c.cell===cell)||(w.deflectors??[]).some(d=>d.cell===cell))return false;
  if(contextSupported(config)&&(c.cell===cell||contextSites(w,config).reason(account,cell,{moving:{kind:'cannon',id:cannon}})))return false;
  return (!clearanceActive(config)||hasEnemyClearance(w.width,w.height,cell,life.player,n=>playerAt(w,n)))&&(islandAt(w,c.cell)===islandAt(w,cell)||w.cannons.filter(other=>islandAt(w,other.cell)===islandAt(w,c.cell)).length>1);

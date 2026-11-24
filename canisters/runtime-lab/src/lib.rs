@@ -202,6 +202,8 @@ struct Root {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     delegation_transition: Option<transition::Transition>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    compact_reservoir_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_barrier: Option<playability_runtime::Barrier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_error: Option<String>,
@@ -319,6 +321,7 @@ fn active_transition(r: &Root) -> AppResult<Option<&transition::Transition>> {
         r.reservoir_transition.as_ref(),
         r.economy_transition.as_ref(),
         r.delegation_transition.as_ref(),
+        r.compact_reservoir_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -345,6 +348,7 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.reservoir_transition.as_ref(),
         r.economy_transition.as_ref(),
         r.delegation_transition.as_ref(),
+        r.compact_reservoir_transition.as_ref(),
     ]
     .map(|t| t.is_some_and(|t| t.holding()));
     if flags.into_iter().filter(|v| *v).count() > 1 {
@@ -378,6 +382,8 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.economy_transition.as_mut()
     } else if flags[13] {
         r.delegation_transition.as_mut()
+    } else if flags[14] {
+        r.compact_reservoir_transition.as_mut()
     } else {
         None
     })
@@ -401,6 +407,7 @@ fn transition_evidence<'a>(
         r.reservoir_transition.as_ref(),
         r.economy_transition.as_ref(),
         r.delegation_transition.as_ref(),
+        r.compact_reservoir_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -500,7 +507,20 @@ fn validate_retention(retention: &RetentionState, current: &Publication) -> AppR
     Ok(())
 }
 fn validate_shout_binding(r: &Root, publication: &Publication) -> AppResult<()> {
-    let delegated = b2z_native::delegation_v18::identity();
+    let compact = b2z_native::reservoirs::compact_identity();
+    let compact_enabled = publication.identity.config_hash == compact["config_hash"];
+    if compact_enabled
+        != r.compact_reservoir_transition
+            .as_ref()
+            .is_some_and(|t| t.phase == "complete")
+    {
+        return Err("Rules19 epoch/config capability mismatch".into());
+    }
+    let delegated = if compact_enabled {
+        compact
+    } else {
+        b2z_native::delegation_v18::identity()
+    };
     let delegated_enabled = publication.identity.config_hash == delegated["config_hash"];
     let delegated_adapter =
         r.source.memo_adapter_version == b2z_protocol::delegation::ADAPTER_VERSION;
@@ -678,6 +698,12 @@ fn root() -> AppResult<Root> {
             return Err("Rules18 transition version".into());
         }
     }
+    if let Some(t) = &r.compact_reservoir_transition {
+        t.validate()?;
+        if t.version != 15 {
+            return Err("Rules19 transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -735,6 +761,7 @@ fn root() -> AppResult<Root> {
         r.reservoir_transition.as_ref(),
         r.economy_transition.as_ref(),
         r.delegation_transition.as_ref(),
+        r.compact_reservoir_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -1048,6 +1075,7 @@ fn persist_inner(
         reservoir_transition: old.and_then(|r| r.reservoir_transition.clone()),
         economy_transition: old.and_then(|r| r.economy_transition.clone()),
         delegation_transition: old.and_then(|r| r.delegation_transition.clone()),
+        compact_reservoir_transition: old.and_then(|r| r.compact_reservoir_transition.clone()),
         lifecycle_context: old.and_then(|r| r.lifecycle_context.clone()),
         lifecycle_barrier: old.and_then(|r| r.lifecycle_barrier.clone()),
         lifecycle_error: old.and_then(|r| r.lifecycle_error.clone()),
@@ -1257,6 +1285,12 @@ fn save_root_only(r: &Root) -> AppResult<()> {
         t.validate()?;
         if t.version != 14 {
             return Err("Rules18 transition version".into());
+        }
+    }
+    if let Some(t) = &r.compact_reservoir_transition {
+        t.validate()?;
+        if t.version != 15 {
+            return Err("Rules19 transition version".into());
         }
     }
     if let Some(c) = &r.lifecycle_context {
@@ -3900,6 +3934,7 @@ enum StructureEpoch {
     Reservoir,
     Economy,
     Delegation,
+    CompactReservoir,
 }
 impl StructureEpoch {
     fn number(self) -> u32 {
@@ -3909,6 +3944,7 @@ impl StructureEpoch {
             Self::Reservoir => 16,
             Self::Economy => 17,
             Self::Delegation => 18,
+            Self::CompactReservoir => 19,
         }
     }
     fn record(self, r: &Root) -> &Option<transition::Transition> {
@@ -3918,6 +3954,7 @@ impl StructureEpoch {
             Self::Reservoir => &r.reservoir_transition,
             Self::Economy => &r.economy_transition,
             Self::Delegation => &r.delegation_transition,
+            Self::CompactReservoir => &r.compact_reservoir_transition,
         }
     }
     fn record_mut(self, r: &mut Root) -> &mut Option<transition::Transition> {
@@ -3927,6 +3964,7 @@ impl StructureEpoch {
             Self::Reservoir => &mut r.reservoir_transition,
             Self::Economy => &mut r.economy_transition,
             Self::Delegation => &mut r.delegation_transition,
+            Self::CompactReservoir => &mut r.compact_reservoir_transition,
         }
     }
     fn predecessor(self) -> AppResult<serde_json::Value> {
@@ -3936,6 +3974,7 @@ impl StructureEpoch {
             Self::Reservoir => b2z_native::spacing::identity(),
             Self::Economy => Ok(b2z_native::reservoirs::identity()),
             Self::Delegation => Ok(b2z_native::economy17::identity()),
+            Self::CompactReservoir => Ok(b2z_native::delegation_v18::identity()),
         }
     }
     fn identity(self) -> AppResult<serde_json::Value> {
@@ -3945,6 +3984,7 @@ impl StructureEpoch {
             Self::Reservoir => Ok(b2z_native::reservoirs::identity()),
             Self::Economy => Ok(b2z_native::economy17::identity()),
             Self::Delegation => Ok(b2z_native::delegation_v18::identity()),
+            Self::CompactReservoir => Ok(b2z_native::reservoirs::compact_identity()),
         }
     }
     fn previous_adapter(self) -> u8 {
@@ -3953,6 +3993,7 @@ impl StructureEpoch {
             Self::Spacing | Self::Reservoir => b2z_protocol::shout::MEMO_ADAPTER_VERSION,
             Self::Economy => b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
             Self::Delegation => b2z_protocol::economy17::MEMO_ADAPTER_VERSION,
+            Self::CompactReservoir => b2z_protocol::delegation::ADAPTER_VERSION,
         }
     }
     fn next_adapter(self) -> u8 {
@@ -3961,6 +4002,7 @@ impl StructureEpoch {
             Self::Reservoir => b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
             Self::Economy => b2z_protocol::economy17::MEMO_ADAPTER_VERSION,
             Self::Delegation => b2z_protocol::delegation::ADAPTER_VERSION,
+            Self::CompactReservoir => b2z_protocol::delegation::ADAPTER_VERSION,
         }
     }
 }
@@ -4000,6 +4042,20 @@ fn commit_delegation_transition(
 ) -> std::result::Result<Vec<u8>, String> {
     commit_structure_transition(expected_previous_manifest, StructureEpoch::Delegation)
 }
+#[ic_cdk::update]
+fn prepare_compact_reservoir_transition() -> std::result::Result<Vec<u8>, String> {
+    prepare_structure_transition(StructureEpoch::CompactReservoir)
+}
+#[ic_cdk::query]
+fn compact_reservoir_transition_status() -> std::result::Result<Vec<u8>, String> {
+    structure_transition_status(StructureEpoch::CompactReservoir)
+}
+#[ic_cdk::update]
+fn commit_compact_reservoir_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    commit_structure_transition(expected_previous_manifest, StructureEpoch::CompactReservoir)
+}
 fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
     authorized()?;
     let rules = target.number();
@@ -4035,6 +4091,7 @@ fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
     let predecessor_schema = match target {
         StructureEpoch::Economy => 8,
         StructureEpoch::Delegation => 9,
+        StructureEpoch::CompactReservoir => 10,
         _ => 7,
     };
     if matches!(target, StructureEpoch::Delegation) && r.source.receiving_subaccount != 0 {
@@ -4081,6 +4138,7 @@ fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
         StructureEpoch::Reservoir => transition::Transition::reservoir(),
         StructureEpoch::Economy => transition::Transition::economy(),
         StructureEpoch::Delegation => transition::Transition::delegation(),
+        StructureEpoch::CompactReservoir => transition::Transition::compact_reservoir(),
     });
     save_root_only(&r)?;
     ARENA_IDLE.with(|f| {
@@ -4196,6 +4254,9 @@ fn commit_structure_transition(
             playability_runtime::economy_candidate(&h, t, &r.source, ic_cdk::api::time())?
         }
         StructureEpoch::Delegation => playability_runtime::delegation_candidate(&h, t, &r.source)?,
+        StructureEpoch::CompactReservoir => {
+            playability_runtime::compact_reservoir_candidate(&h, t, &r.source)?
+        }
     };
     let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
     h.apply(Action::Transition {
@@ -4241,6 +4302,7 @@ fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, Strin
         r.reservoir_transition.as_ref(),
         r.economy_transition.as_ref(),
         r.delegation_transition.as_ref(),
+        r.compact_reservoir_transition.as_ref(),
     ]
     .into_iter()
     .flatten()

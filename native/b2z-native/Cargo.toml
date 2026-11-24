@@ -5,6 +5,9 @@ edition.workspace = true
 rust-version.workspace = true
 publish = false
 
+[features]
+legacy-reservoir-publication-probe = []
+
 [dependencies]
 dtr-host.workspace = true
 dtr-wire.workspace = true

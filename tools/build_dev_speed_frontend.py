@@ -38,6 +38,9 @@ def main():
                     "s5ir5-gqaaa-aaaas-amyna-cai", "--output", str(refresh)], cwd=ROOT, check=True)
     player = observer / "app.mjs"
     shutil.copyfile(refresh / "app.mjs", player)
+    successor_assets = [observer / name for name in ("backend.did", "configuration-compact-reservoir.bin")]
+    for asset in successor_assets:
+        shutil.copyfile(refresh / asset.name, asset)
     target = observer / "developer-speed.mjs"
     subprocess.run([str(ROOT / "node_modules/.bin/esbuild"), "apps/b2z-observer/developer-speed-entry.mjs",
                     "--bundle", "--platform=browser", "--format=esm", "--minify", "--outfile=" + str(target)],
@@ -47,7 +50,7 @@ def main():
     assert html.count(b"</body>") == 1
     index.write_bytes(html.replace(b"</body>", b'<script type="module" src="/developer-speed.mjs"></script></body>'))
     rows = json.loads((frozen / "frontend-inventory.json").read_text())
-    for file in (index, player, target):
+    for file in (index, player, target, *successor_assets):
         rows = [row for row in rows if row["path"] != file.name]
         data = file.read_bytes()
         rows.append({"path": file.name, "bytes": len(data), "sha256": digest(data)})

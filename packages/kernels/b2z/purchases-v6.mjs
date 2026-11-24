@@ -1,6 +1,6 @@
 import {marginal} from '../../protocol/economy17.mjs';
 import {BALL_BASE_E8S,CANNON_BASE_E8S} from '../../protocol/economy17.generated.mjs';
-import {reservoirHas} from '../../protocol/reservoir.mjs';
+import {reservoirHas,reservoirOccupancy} from '../../protocol/reservoir.mjs';
 import {entryHasClearance} from './entry-v7.mjs';
 import {contextSiteReason} from './context-structures.mjs';
 import {hasEnemyClearance} from '../../protocol/territory-clearance.mjs';
@@ -52,7 +52,7 @@ export function placeNew(w,account,budget,p,r,entryRules=false,contextRules=fals
   if(r.kind!==4||r.patch.length!==1||r.patch[0]!==r.cell||p.cell!==null&&p.cell!==r.cell||!contextRules&&!adjacentSites(w,p.player).includes(r.cell))throw Error('ILLEGAL_ADJACENT_SITE');
   patch=[r.cell];
  }
- const blocked=occupiedCells(w);if(patch.some(c=>blocked.has(c)||reservoirHas(w.reservoirs,c)))throw Error('PLACEMENT_OCCUPIED');
+ const blocked=occupiedCells(w);if(patch.some(c=>blocked.has(c)||reservoirHas(reservoirOccupancy(w),c)))throw Error('PLACEMENT_OCCUPIED');
  const previous_owners=patch.map(c=>ownerAt(w,c)),next=cloneCanonical(w),state=next.playability;
  let player=p.player;
  if(player===null){player=state.next_player_id++;state.players.push({id:player,account});}

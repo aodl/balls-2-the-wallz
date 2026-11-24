@@ -111,7 +111,7 @@ impl Cursor {
                 let mut recorded_ns = None;
                 let mut authorization_transfer = None;
                 let mut delegated_envelope = None;
-                if self.world.version == 10 {
+                if self.world.version >= 10 {
                     use crate::delegation_v18::{receipt_transfer, transfer, Decision};
                     let (payment, position) = transfer(&self.inputs[self.input_index])?;
                     let saved = PaymentSaved {
@@ -301,6 +301,9 @@ impl Cursor {
                         if self.spawn_searches >= 8 {
                             self.v6_reject(&payment.saved, "SPAWN_SEARCH_CAPACITY")?;
                         } else {
+                            if self.seed_base.is_empty() {
+                                return Err("missing spawn entropy".into());
+                            }
                             self.spawn_searches += 1;
                             let seed = hash(&encode(
                                 &json!({"base":self.seed_base,"position":self.inputs[self.input_index].position,"cannon":self.world.next_cannon_id}),

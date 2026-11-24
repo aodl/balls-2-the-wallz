@@ -637,6 +637,28 @@ pub fn delegation_candidate<K: Kernel>(
     )
 }
 
+pub fn compact_reservoir_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    schema7_candidate(
+        h,
+        t,
+        source,
+        b2z_native::delegation_v18::identity(),
+        b2z_native::reservoirs::compact_identity(),
+        Schema7Cutover {
+            bootstrap_ns: None,
+            version: 15,
+            migration: "B2Z_COMPACT_RESERVOIR_RULES_19",
+            event: "reservoir_encoding_compacted",
+            previous_adapter: b2z_protocol::delegation::ADAPTER_VERSION,
+            next_adapter: b2z_protocol::delegation::ADAPTER_VERSION,
+        },
+    )
+}
+
 fn schema7_candidate<K: Kernel>(
     h: &Coordinator<K>,
     t: &Transition,
@@ -691,6 +713,7 @@ fn schema7_candidate<K: Kernel>(
     }
     if old.version
         != match policy.version {
+            15 => 10,
             14 => 9,
             13 => 8,
             _ => 7,
@@ -711,6 +734,8 @@ fn schema7_candidate<K: Kernel>(
     }
     let next = if let Some(ns) = policy.bootstrap_ns {
         b2z_native::economy17::migrate(old.clone(), ns)?
+    } else if policy.version == 15 {
+        b2z_native::reservoirs::migrate_compact(old.clone())?
     } else if policy.version == 14 {
         b2z_native::delegation_v18::migrate(old.clone(), source.recipient_hex.clone())?
     } else if policy.version == 12 {
@@ -1135,6 +1160,7 @@ mod tests {
             deflectors: None,
             next_deflector_id: None,
             reservoirs: None,
+            reservoir_ranges: None,
             economy: None,
             authorization: None,
             version: 3,

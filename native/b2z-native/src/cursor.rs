@@ -54,6 +54,10 @@ pub struct Cursor {
     pub start: Rat,
     pub end: Rat,
     pub seed_base: String,
+    // Disposable experiment: compact cursor, unchanged Schema10 publication.
+    #[cfg(feature = "legacy-reservoir-publication-probe")]
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    legacy_reservoir_publication: Option<bool>,
     pub initial_credits: Vec<Credit>,
     pub phase: String,
     pub events: Vec<Value>,
@@ -202,14 +206,19 @@ fn semantic_deflector_payment(s: &str) -> Result<String> {
     b[7] = b'2';
     Ok(hex(&b))
 }
-fn semantic_deflector_world(bytes: &[u8]) -> Result<Vec<u8>> {
-    let mut w = World::decode(bytes)?;
+fn semantic_deflector_world(mut w: World, bytes: &[u8]) -> Result<Vec<u8>> {
     if w.version >= 9 {
+        // Rules19 joins use the exact Rules18 spawn preimage. Compact state
+        // remains authoritative everywhere outside this entropy projection.
+        if w.version == 11 {
+            w.reservoirs = Some(crate::reservoirs::legacy_bitmap(&w));
+            w.reservoir_ranges = None;
+        }
         // The schedule and receipt time are evidence. Neither supplies spawn entropy.
         let mut semantic = serde_json::to_value(&w).map_err(|e| e.to_string())?;
         let fields = semantic.as_object_mut().ok_or("semantic world")?;
         fields.remove("economy");
-        if w.version == 10 {
+        if w.version >= 10 {
             fields.remove("authorization");
             fields.insert("version".into(), json!(9));
         }
@@ -488,7 +497,9 @@ impl Cursor {
         let reservoir = crate::reservoirs::identity();
         let economy = crate::economy17::identity();
         let delegated = crate::delegation_v18::identity();
-        let is_delegated = context.get("config_hash") == delegated.get("config_hash");
+        let compact = crate::reservoirs::compact_identity();
+        let is_compact = context.get("config_hash") == compact.get("config_hash");
+        let is_delegated = is_compact || context.get("config_hash") == delegated.get("config_hash");
         let is_economy = is_delegated || context.get("config_hash") == economy.get("config_hash");
         let is_reservoir = is_economy || context.get("config_hash") == reservoir.get("config_hash");
         let is_spacing = is_reservoir || context.get("config_hash") == spacing.get("config_hash");
@@ -511,7 +522,9 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_delegated {
+        let expected = if is_compact {
+            compact
+        } else if is_delegated {
             delegated
         } else if is_economy {
             economy
@@ -551,7 +564,9 @@ impl Cursor {
         }
         let world = World::decode(state)?;
         if world.version
-            != if is_delegated {
+            != if is_compact {
+                11
+            } else if is_delegated {
                 10
             } else if is_economy {
                 9
@@ -647,14 +662,50 @@ impl Cursor {
         } else {
             None
         };
-        let semantic_state = if is_deflector {
-            Some(semantic_deflector_world(state)?)
+        let seed_inputs = semantic_inputs.as_ref().unwrap_or(&inputs);
+        let compact_cursor = is_compact
+            || cfg!(feature = "legacy-reservoir-publication-probe") && world.version == 10;
+        let needs_seed = !compact_cursor
+            || seed_inputs.iter().any(|input| {
+                // Semantic adapter12 payloads have the legacy memo at bytes 48..56.
+                // Both explicit NEW and a legacy angle (which can be a first join)
+                // may use the segment's spawn preimage.
+                let command = unhex(&input.payload_hex)
+                    .ok()
+                    .and_then(|bytes| b2z_protocol::v6::decode(bytes.get(48..56)?).ok());
+                matches!(
+                    command,
+                    Some(
+                        b2z_protocol::v6::Command::New { .. }
+                            | b2z_protocol::v6::Command::Legacy(Command::Angle(_))
+                    )
+                )
+            });
+        let seed_base = if needs_seed {
+            let semantic_state = if is_deflector {
+                Some(semantic_deflector_world(
+                    if is_compact {
+                        world.clone()
+                    } else {
+                        World::decode(state)?
+                    },
+                    state,
+                )?)
+            } else {
+                None
+            };
+            hash(&encode(
+                &json!({"domain":"BTZ-SPAWN-INPUT-03","state":hash(semantic_state.as_deref().unwrap_or(state)),"inputs":hash(&encode(seed_inputs)?),"logical_start":start}),
+            )?)
         } else {
-            None
+            String::new()
         };
-        let seed_base = hash(&encode(
-            &json!({"domain":"BTZ-SPAWN-INPUT-03","state":hash(semantic_state.as_deref().unwrap_or(state)),"inputs":hash(&encode(semantic_inputs.as_ref().unwrap_or(&inputs))?),"logical_start":start}),
-        )?);
+        #[cfg(feature = "legacy-reservoir-publication-probe")]
+        let (world, legacy_reservoir_publication) = if world.version == 10 {
+            (crate::reservoirs::migrate_compact(world)?, Some(true))
+        } else {
+            (world, None)
+        };
         let initial_credits = world.credits.clone();
         let next_time = start.clone();
         Ok(Self {
@@ -683,6 +734,8 @@ impl Cursor {
             start,
             end,
             seed_base,
+            #[cfg(feature = "legacy-reservoir-publication-probe")]
+            legacy_reservoir_publication,
             initial_credits,
             phase: "commands".into(),
             events: vec![],
@@ -1257,12 +1310,25 @@ impl Cursor {
         } else {
             self.events.clone()
         };
+        #[cfg(feature = "legacy-reservoir-publication-probe")]
+        let legacy = if self.legacy_reservoir_publication == Some(true) {
+            let mut world = self.world.clone();
+            world.version = 10;
+            world.reservoirs = Some(crate::reservoirs::legacy_bitmap(&world));
+            world.reservoir_ranges = None;
+            Some(world)
+        } else {
+            None
+        };
+        let world = &self.world;
+        #[cfg(feature = "legacy-reservoir-publication-probe")]
+        let world = legacy.as_ref().unwrap_or(world);
         Ok(Output {
-            state: self.world.encode()?,
+            state: world.encode()?,
             events: encode(
-                &json!({"version":self.world.version,"receipts":self.receipts,"events":wire_events}),
+                &json!({"version":world.version,"receipts":self.receipts,"events":wire_events}),
             )?,
-            scores: encode(&json!({"version":self.world.version,"area_time":scores}))?,
+            scores: encode(&json!({"version":world.version,"area_time":scores}))?,
         })
     }
     pub fn snapshot(&self) -> Result<Vec<u8>> {

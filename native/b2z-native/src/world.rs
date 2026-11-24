@@ -10,6 +10,16 @@ fn read_heading<'de, D: serde::Deserializer<'de>>(
 ) -> std::result::Result<Option<u16>, D::Error> {
     u16::deserialize(d).map(Some)
 }
+fn read_reservoir_bitmap<'de, D: serde::Deserializer<'de>>(
+    d: D,
+) -> std::result::Result<Option<String>, D::Error> {
+    String::deserialize(d).map(Some)
+}
+fn read_reservoir_ranges<'de, D: serde::Deserializer<'de>>(
+    d: D,
+) -> std::result::Result<Option<Vec<[u32; 2]>>, D::Error> {
+    Vec::deserialize(d).map(Some)
+}
 fn read_playability<'de, D: serde::Deserializer<'de>>(
     d: D,
 ) -> std::result::Result<Option<crate::playability::State>, D::Error> {
@@ -194,8 +204,18 @@ pub struct World {
         deserialize_with = "read_deflector_id"
     )]
     pub next_deflector_id: Option<u32>,
-    #[serde(default, skip_serializing_if = "Option::is_none")]
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "read_reservoir_bitmap"
+    )]
     pub reservoirs: Option<String>,
+    #[serde(
+        default,
+        skip_serializing_if = "Option::is_none",
+        deserialize_with = "read_reservoir_ranges"
+    )]
+    pub reservoir_ranges: Option<Vec<[u32; 2]>>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub economy: Option<crate::economy17::Schedule>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
@@ -537,7 +557,7 @@ impl World {
     /// For resolved states only. Topology continuation snapshots may be transiently disconnected.
     pub fn validate(&self) -> Result<()> {
         let fail = |s: &str| -> Result<()> { Err(s.into()) };
-        if ![3, 4, 5, 6, 7, 8, 9, 10].contains(&self.version)
+        if ![3, 4, 5, 6, 7, 8, 9, 10, 11].contains(&self.version)
             || (self.version == 4 && (self.width != 32 || self.height != 32))
             || (self.version >= 5 && (self.width != 1000 || self.height != 1000))
             || !(1..=1000).contains(&self.width)
@@ -792,15 +812,15 @@ impl World {
         }
         crate::reservoirs::validate(self)?;
         match (self.version, &self.economy) {
-            (9 | 10, Some(schedule)) => schedule.validate(crate::playability::elapsed(
+            (9..=11, Some(schedule)) => schedule.validate(crate::playability::elapsed(
                 &self.playability.as_ref().ok_or("EXPECTED_V6")?.elapsed_ns,
             )?)?,
-            (9 | 10, None) | (_, Some(_)) => return fail("economy schema"),
+            (9..=11, None) | (_, Some(_)) => return fail("economy schema"),
             _ => {}
         }
         match (self.version, &self.authorization) {
-            (10, Some(registry)) => registry.validate()?,
-            (10, None) | (_, Some(_)) => return fail("authorization schema"),
+            (10..=11, Some(registry)) => registry.validate()?,
+            (10..=11, None) | (_, Some(_)) => return fail("authorization schema"),
             _ => {}
         }
 

@@ -275,7 +275,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   const sites=successor&&world?contextSites(world,config):null,moving={kind:deflector?'deflector':'cannon',id:c?.id};
   const facts=world?moveLegalityIdentity(world,config,declaration?.account,id,Boolean(c?.dormant)):null;
   const fingerprint=sites?[facts,deflectorId,sites.occupiedKey,sites.activeKey,world.deflectors.map(d=>[d.id,d.cell,d.owner].join(':')).join(',')].join('/'):facts;
-  if(fingerprint!==null&&fingerprint===moveFingerprint&&moveWorld?.reservoirs===world?.reservoirs){moveWorld=world;moveConfig=config;moveKey=key;return defaultMove;}
+  if(fingerprint!==null&&fingerprint===moveFingerprint&&moveWorld?.reservoirs===world?.reservoirs&&moveWorld?.reservoir_ranges===world?.reservoir_ranges){moveWorld=world;moveConfig=config;moveKey=key;return defaultMove;}
   moveFingerprint=fingerprint;
   moveSearch?.cancel();moveSearch=null;moveLegality=null;moveWorld=world;moveConfig=config;moveKey=key;moveReady=false;defaultMove=null;
   if(!c||c.dormant||!declaration||!world){moveReady=true;return null;}

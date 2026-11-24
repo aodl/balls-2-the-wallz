@@ -266,6 +266,313 @@ fn replay(out: &Path, checkpoints: u64, inputs: &[b2z_native::Input]) {
     }
 }
 
+fn commit_fixture_interval(pic: &PocketIc, id: Principal, logical_end: Int) {
+    #[derive(CandidType, Deserialize)]
+    struct Work {
+        ready_manifest: Option<String>,
+    }
+    let apply = |action: Action| {
+        let revision = status(pic, id).revision;
+        get_result::<Status>(
+            pic,
+            id,
+            "test_apply",
+            encode_args((revision, dtr_wire::encode(&action).unwrap())).unwrap(),
+        );
+    };
+    apply(Action::Seal { logical_end });
+    for _ in 0..32 {
+        let work: Work = get_query(pic, id, "controller_work", encode_args(()).unwrap());
+        if let Some(manifest_hash) = work.ready_manifest {
+            apply(Action::Publish { manifest_hash });
+            return;
+        }
+        apply(Action::Step { budget: 512 });
+    }
+    panic!("fixture predecessor did not finish");
+}
+
+struct CompactBrowser {
+    live: PocketIc,
+    child: OwnedBrowser,
+    out: PathBuf,
+    old_head: u64,
+}
+
+impl CompactBrowser {
+    fn start(
+        pic: &PocketIc,
+        id: Principal,
+        ledger: Principal,
+        out: &Path,
+        old_head: u64,
+        python: std::ffi::OsString,
+    ) -> Self {
+        let wall = pocket_ic::Time::from(std::time::SystemTime::now());
+        if wall > pic.get_time() {
+            pic.set_time(wall);
+        }
+        let out = out.join("browser");
+        std::fs::create_dir_all(&out).unwrap();
+        let config = json!({
+            "network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),
+            "index":status(pic,id).source.index.to_text(),"recipient":source::receiving_account(id,0).to_hex(),
+            "root_key_hex":hex(&pic.root_key().unwrap()),
+        });
+        std::fs::write(out.join("metadata.json"), b"{}").unwrap();
+        std::fs::write(out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+        let config_path = out.join("configuration.json");
+        std::fs::write(&config_path, serde_json::to_vec(&config).unwrap()).unwrap();
+        let mut live =
+            PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
+        let gateway = live.make_live(None);
+        let log = std::fs::File::create(out.join("browser.log")).unwrap();
+        let child = OwnedBrowser(
+            std::process::Command::new(python)
+                .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+                .args([
+                    "-B",
+                    "tools/verify_s14_deployment.py",
+                    "--compact-reservoir-scene-only",
+                    "--configuration",
+                ])
+                .arg(config_path)
+                .arg("--gateway")
+                .arg(gateway.as_str())
+                .arg("--output")
+                .arg(&out)
+                .stdout(log.try_clone().unwrap())
+                .stderr(log)
+                .spawn()
+                .unwrap(),
+        );
+        let mut browser = Self {
+            live,
+            child,
+            out,
+            old_head,
+        };
+        browser.wait_marker("compact-browser-ready", 100);
+        browser
+    }
+
+    fn wait_marker(&mut self, marker: &str, seconds: u64) {
+        let until = std::time::Instant::now() + Duration::from_secs(seconds);
+        loop {
+            assert!(
+                self.child.0.try_wait().unwrap().is_none(),
+                "browser exited early: {}",
+                self.out.display()
+            );
+            if self.out.join(marker).is_file() {
+                return;
+            }
+            assert!(
+                std::time::Instant::now() < until,
+                "browser did not reach {marker}: {}",
+                self.out.display()
+            );
+            std::thread::sleep(Duration::from_millis(100));
+        }
+    }
+
+    fn finish(mut self, pic: &PocketIc, id: Principal) {
+        self.wait_marker("compact-browser-transition-seen", 75);
+        let operator = Principal::self_authenticating([38; 32]);
+        super::dev_speed_installed::bind(pic, id, Some(operator));
+        playability_installed::configuration(pic, id, 512);
+        super::dev_speed_installed::switch(pic, id, operator, true, Some(75)).unwrap();
+        let needed = self.old_head + 1;
+        let until = std::time::Instant::now() + Duration::from_secs(70);
+        let head = loop {
+            let (_, p) = observe(pic, id);
+            let head: u64 = p.head.segment_id.unwrap().0.to_string().parse().unwrap();
+            if head >= self.old_head + 17 {
+                let raw = pic
+                    .query_call(
+                        id,
+                        controller(),
+                        "retained_publication",
+                        candid::encode_one(needed).unwrap(),
+                    )
+                    .unwrap();
+                let retained = decode_one::<Result<Vec<u8>, String>>(&raw).unwrap();
+                if retained.as_ref().err().map(String::as_str)
+                    == Some("publication unavailable: snapshot resync required")
+                {
+                    break head;
+                }
+            }
+            assert!(
+                std::time::Instant::now() < until,
+                "retention gap was not created"
+            );
+            std::thread::sleep(Duration::from_millis(250));
+        };
+        super::dev_speed_installed::switch(pic, id, operator, false, None).unwrap();
+        pause(pic, id);
+        std::fs::write(
+            self.out.join("compact-browser-gap"),
+            json!({"first_needed": needed, "latest": head, "evicted": true}).to_string(),
+        )
+        .unwrap();
+        let until = std::time::Instant::now() + Duration::from_secs(70);
+        loop {
+            if let Some(exit) = self.child.0.try_wait().unwrap() {
+                assert!(
+                    exit.success(),
+                    "browser qualification: {}",
+                    self.out.display()
+                );
+                break;
+            }
+            assert!(
+                std::time::Instant::now() < until,
+                "browser reconnect exceeded deadline"
+            );
+            std::thread::sleep(Duration::from_millis(100));
+        }
+        let report: Value =
+            serde_json::from_slice(&std::fs::read(self.out.join("results.json")).unwrap()).unwrap();
+        assert_eq!(report["status"], "PASS");
+        self.live.stop_live();
+    }
+}
+
+fn compact_cutover(
+    pic: &PocketIc,
+    id: Principal,
+    ledger: Principal,
+    env: &std::path::Path,
+    out: &Path,
+) -> Value {
+    let world = arena_world(pic, id);
+    commit_fixture_interval(pic, id, Int(world.time.0.to_integer() + 1));
+    let legacy = arena_world(pic, id);
+    let mut audit = out.to_path_buf();
+    audit.push("cutover");
+    std::fs::create_dir_all(&audit).unwrap();
+    let (old_obs, old_pub) = capture(pic, id, &audit, 0);
+    let old_segment: u64 = old_pub
+        .head
+        .segment_id
+        .as_ref()
+        .unwrap()
+        .0
+        .to_string()
+        .parse()
+        .unwrap();
+    let before_upgrade = pic.cycle_balance(id);
+    let module = std::fs::read(env).unwrap();
+    let predecessor =
+        std::env::var_os("B2Z_COST_ROLLBACK_WASM").map(|path| std::fs::read(path).unwrap());
+    pic.upgrade_canister(
+        id,
+        module.clone(),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    )
+    .unwrap();
+    let upgrade_cycles = before_upgrade - pic.cycle_balance(id);
+    assert_eq!(observe(pic, id).0.publication, old_obs.publication);
+    if let Some(prior) = &predecessor {
+        pic.upgrade_canister(
+            id,
+            prior.clone(),
+            encode_args(()).unwrap(),
+            Some(controller()),
+        )
+        .unwrap();
+        assert_eq!(observe(pic, id).0.publication, old_obs.publication);
+        pic.upgrade_canister(id, module, encode_args(()).unwrap(), Some(controller()))
+            .unwrap();
+        assert_eq!(observe(pic, id).0.publication, old_obs.publication);
+    }
+    playability_installed::configuration(pic, id, 512);
+    pause(pic, id);
+    for _ in 0..10 {
+        advance(pic, 250);
+    }
+    let browser = std::env::var_os("B2Z_COST_BROWSER_PYTHON")
+        .map(|python| CompactBrowser::start(pic, id, ledger, out, old_segment, python));
+    let before_cutover = pic.cycle_balance(id);
+    super::war_cry_installed::transition(pic, id, "compact_reservoir");
+    let cutover_cycles = before_cutover - pic.cycle_balance(id);
+    let (new_obs, new_pub) = capture(pic, id, &audit, 1);
+    let actual = arena_world(pic, id);
+    assert_eq!(
+        actual,
+        b2z_native::reservoirs::migrate_compact(legacy.clone()).unwrap()
+    );
+    let retained: Vec<u8> = get_query(
+        pic,
+        id,
+        "retained_publication",
+        candid::encode_one(old_segment).unwrap(),
+    );
+    assert_eq!(retained, old_obs.publication);
+    let retained_artifacts: Vec<Vec<u8>> = get_query(
+        pic,
+        id,
+        "artifact_bundle",
+        encode_args((old_segment, dtr_wire::hash(&old_obs.publication))).unwrap(),
+    );
+    for (artifact, name) in retained_artifacts.iter().zip(["state", "events", "scores"]) {
+        assert_eq!(
+            artifact,
+            &std::fs::read(audit.join(format!("0-{name}.bin"))).unwrap()
+        );
+    }
+    assert_eq!(
+        new_pub.head.source_to_exclusive,
+        old_pub.head.source_to_exclusive
+    );
+    if let Some(prior) = &predecessor {
+        let expected = pic
+            .canister_status(id, Some(controller()))
+            .unwrap()
+            .module_hash;
+        let rejected = pic
+            .upgrade_canister(
+                id,
+                prior.clone(),
+                encode_args(()).unwrap(),
+                Some(controller()),
+            )
+            .unwrap_err();
+        assert!(
+            rejected
+                .reject_message
+                .contains("compact_reservoir_transition"),
+            "{rejected:?}"
+        );
+        assert_eq!(
+            pic.canister_status(id, Some(controller()))
+                .unwrap()
+                .module_hash,
+            expected
+        );
+        assert_eq!(observe(pic, id).0.publication, new_obs.publication);
+    }
+    let report = json!({
+        "old_state_hash":old_pub.head.state_hash,"new_state_hash":new_pub.head.state_hash,
+        "old_publication_hash":dtr_wire::hash(&old_obs.publication),"new_publication_hash":dtr_wire::hash(&new_obs.publication),
+        "old_state_bytes":legacy.encode().unwrap().len(),"new_state_bytes":actual.encode().unwrap().len(),
+        "old_ranges":legacy.reservoirs.as_ref().unwrap().len(),"new_ranges":actual.reservoir_ranges,
+        "upgrade_cycles":upgrade_cycles.to_string(),"cutover_cycles":cutover_cycles.to_string(),
+        "source_cursor":old_pub.head.source_to_exclusive,"rollback_rehearsed":predecessor.is_some(),
+    });
+    std::fs::write(
+        audit.join("ranges.json"),
+        serde_json::to_vec_pretty(&report).unwrap(),
+    )
+    .unwrap();
+    if let Some(browser) = browser {
+        browser.finish(pic, id);
+    }
+    report
+}
+
 #[test]
 #[ignore = "explicit disposable Rules18 cost matrix; requires exact seed and profiling Wasm"]
 fn rules18_cost_matrix() {
@@ -277,11 +584,17 @@ fn rules18_cost_matrix() {
     let setup = bytes("B2Z_COST_PROFILE_WASM");
     let measured =
         std::env::var_os("B2Z_COST_MEASURE_WASM").map(|path| std::fs::read(path).unwrap());
+    let compact = std::env::var_os("B2Z_COST_COMPACT_WASM").map(PathBuf::from);
+    let configured = compact.as_ref().map(|path| std::fs::read(path).unwrap());
     let instrumented = measured.is_none() || std::env::var_os("B2Z_COST_PROFILE_ACTIVE").is_some();
-    let module_hash = dtr_wire::hash(measured.as_deref().unwrap_or(&setup));
+    let module_hash = dtr_wire::hash(
+        measured
+            .as_deref()
+            .or(configured.as_deref())
+            .unwrap_or(&setup),
+    );
     let (pic, id, ledger, payer) = arena_setup_world(setup, initial.encode().unwrap());
-    let genesis = arena_world(&pic, id);
-    assert_eq!(genesis.version, 10);
+    assert_eq!(arena_world(&pic, id).version, 10);
     let protected = case.starts_with("protected");
     let protected_retained = case == "protected_retained";
     let background = protected || case == "idle";
@@ -290,12 +603,26 @@ fn rules18_cost_matrix() {
     } else {
         7_000_000_000_000u64
     };
-    get_result::<Status>(
-        &pic,
-        id,
-        "test_liquid_budget",
-        candid::encode_one(target_liquid).unwrap(),
-    );
+    if compact.is_some() {
+        get_result::<Status>(
+            &pic,
+            id,
+            "test_liquid_budget",
+            candid::encode_one(7_000_000_000_000u64).unwrap(),
+        );
+    }
+    let cutover = compact
+        .as_deref()
+        .map(|path| compact_cutover(&pic, id, ledger, path, &out));
+    let genesis = arena_world(&pic, id);
+    if std::env::var_os("B2Z_COST_BROWSER_PYTHON").is_none() {
+        get_result::<Status>(
+            &pic,
+            id,
+            "test_liquid_budget",
+            candid::encode_one(target_liquid).unwrap(),
+        );
+    }
     if let Some(measured) = measured {
         pic.upgrade_canister(id, measured, encode_args(()).unwrap(), Some(controller()))
             .unwrap();
@@ -331,13 +658,14 @@ fn rules18_cost_matrix() {
     );
     // Drain init/start scans. Active fixtures get two completed publications
     // before measuring so slot allocation and genesis startup stay distinguishable.
-    let warm_target = 1 + if case == "retained" || protected_retained {
-        17
-    } else if background || case == "payment" {
-        0
-    } else {
-        2
-    };
+    let warm_target = status(&pic, id).run.completed_segments
+        + if case == "retained" || protected_retained {
+            17
+        } else if background || case == "payment" {
+            0
+        } else {
+            2
+        };
     for _ in 0..(80 + warm_target * 48) {
         advance(&pic, 250);
         let s = status(&pic, id);
@@ -472,11 +800,31 @@ fn rules18_cost_matrix() {
             .collect();
     }
     replay(&out, checkpoints, &inputs);
+    if compact.is_some() {
+        std::fs::write(
+            out.join("replay-inputs.bin"),
+            dtr_wire::encode(&inputs).unwrap(),
+        )
+        .unwrap();
+        let verify = Path::new(env!("CARGO_MANIFEST_DIR"))
+            .join("../../tools/verify_compact_cost_replay.mjs");
+        assert!(
+            std::process::Command::new("node")
+                .arg(verify)
+                .arg(&out)
+                .arg(checkpoints.to_string())
+                .status()
+                .unwrap()
+                .success()
+        );
+    }
     let world = arena_world(&pic, id);
     let result = json!({
         "case":case,"module_sha256":module_hash,"instrumented":instrumented,
         "seed_world_sha256":dtr_wire::hash(&genesis.encode().unwrap()),"state_bytes":genesis.encode().unwrap().len(),
-        "reservoir_bitmap_bytes":genesis.reservoirs.as_ref().unwrap().len(),
+        "reservoir_bitmap_bytes":genesis.reservoirs.as_ref().map_or(0, String::len),
+        "reservoir_range_bytes":genesis.reservoir_ranges.as_ref().map(|ranges| dtr_wire::encode(ranges).unwrap().len()),
+        "world_version":genesis.version,"cutover":cutover,
         "cannons_before":genesis.cannons.len(),"balls_before":genesis.balls.len(),
         "players_before":genesis.playability.as_ref().unwrap().players.len(),
         "balls_after":world.balls.len(),"pace":pace,"virtual_ns":elapsed_ns.to_string(),

@@ -1,6 +1,6 @@
 /** Optional signing controls gated by authenticated payment-source and epoch identities. */
 import{paymentSession,DERIVATION_ORIGIN}from'./auth.mjs';import{signedLedger}from'./ledger.mjs';import{paymentJournal}from'./intents.mjs';import{explicitFunding,verifiedPaymentSource,verifiedGameAccess,verifiedPayment,assertIntentAuthority,paymentIntent,verifyGameReceipt}from'./context.mjs';import{ownerSetup,ownerRevocation}from'./setup.mjs';
-import{parseSendingAccount}from'../identity.mjs';import{icpAccount}from'../../../packages/protocol/delegation.mjs';import{DELEGATED_IDENTITY}from'../torus-identity.generated.mjs';
+import{parseSendingAccount}from'../identity.mjs';import{icpAccount}from'../../../packages/protocol/delegation.mjs';import{DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY}from'../torus-identity.generated.mjs';
 const icp=n=>{n=BigInt(n);return`${n/100000000n}.${String(n%100000000n).padStart(8,'0')}`.replace(/\.?0+$/,'')+' ICP';};
 const amount=s=>{const m=/^(0|[1-9][0-9]{0,10})(?:\.([0-9]{1,8}))?$/.exec(s);if(!m)throw Error('Enter an exact ICP allowance');return BigInt(m[1])*100000000n+BigInt((m[2]??'').padEnd(8,'0'));};
 const publicError=e=>{const k=String(e?.message??e);if(/FUNDING_OWNER|INTENT_ACCOUNT/.test(k))return 'Enter the funding principal or ICRC account';if(/FUNDING_SUBACCOUNT/.test(k))return 'Check the 32-byte funding subaccount';if(/expired|InsufficientAllowance|allowance/i.test(k))return 'Refresh the spending allowance before paying';if(/Funds/.test(k))return 'Funding account has insufficient ICP';if(/fee/i.test(k))return 'Transfer fee changed. Review it before paying.';if(/STORAGE|storage/i.test(k))return 'Payment storage unavailable. Wallet instructions still work.';if(/SIGN|session/i.test(k))return 'Sign in again before paying';if(/BUSY|PENDING|previous payment/i.test(k))return 'Resolve the previous payment before another one';if(/VERIF|BINDING|SOURCE|CONFIGURATION|ACCESS|UNAUTHORIZED/i.test(k))return 'Payment permissions need verification';if(/changed instructions|QUOTE_CHANGED|INTENT_AUTHORITY_CHANGED|PACKET_SCOPE/i.test(k))return 'Review changed instructions before paying';return 'In-game payment unavailable. Wallet instructions still work.';};
@@ -24,7 +24,7 @@ export function mountPayments(doc,{enabled=false,session,arcade,policy,storage,l
   if(!localTest&&globalThis.location?.origin!==DERIVATION_ORIGIN)return false;
   try{verifiedPaymentSource(session(),{localTest,predecessor:true});return true;}catch{return false;}
  }
- function activated(){const s=session(),id=s?.sequence?.last?.publication?.identity;return canSignIn()&&id&&Object.keys(DELEGATED_IDENTITY).every(k=>id[k]===DELEGATED_IDENTITY[k]);}
+ function activated(){const s=session(),id=s?.sequence?.last?.publication?.identity;return canSignIn()&&id&&[DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY].some(expected=>Object.keys(expected).every(k=>id[k]===expected[k]));}
  function note(s){if($('payment-setup-note').textContent!==s)$('payment-setup-note').textContent=s;}
  function text(id,value){if($(id).textContent!==value)$(id).textContent=value;}
  function clearOwner(){ownerRevision++;ownerState=null;text('owner-command-text','');$('owner-instructions').hidden=true;$('owner-instructions').open=false;}

@@ -5,7 +5,7 @@ import {affordableBalls} from '../../protocol/economy17.mjs';
 import {economyAt,observeEconomy} from './economy17.mjs';
 import {playerBalls} from './purchases-v6.mjs';
 import {prepareReservoir} from './reservoirs.mjs';
-import {reservoirCell,reservoirPut} from '../../protocol/reservoir.mjs';
+import {reservoirCell,placeReservoir} from '../../protocol/reservoir.mjs';
 import {prepareContextDeflector} from './context-structures.mjs';
 /** Pure v6 command/capture continuations. No ambient clock, IC or Ledger calls. */
 import {encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
@@ -47,7 +47,7 @@ export function workV6(c,readPayment){
    if(c.inputIndex===c.inputs.length){c.restartSearch();return true;}
    const input=c.inputs[c.inputIndex];
    let transfer=null,payload=input.payload_hex;
-   if(c.world.version===10){
+   if(c.world.version>=10){
      const admitted=decodeDelegatedPayment(payload);
      transfer=receiptTransfer(admitted);
      const decision=authorizePayment(c.world.authorization,admitted,input.position);
@@ -72,7 +72,7 @@ export function workV6(c,readPayment){
    const payment={account:p.account,amount:p.amount,...(tariff?{tariff}:{}),...(transfer?{transfer}:{})};
    if(plan.kind==='rejected')rejected(c,payment,plan.reason);
    else if(plan.kind==='reservoir'){
-     c.world.reservoirs=reservoirPut(c.world.reservoirs,plan.cell);
+     placeReservoir(c.world,plan.cell);
      c.receipt(payment,{reason:'ACCEPTED',kind:'reservoir_built',cell:plan.cell,status:'applied',amount_used:plan.price,remainder:p.amount-plan.price});
    }else if(plan.kind==='deflect'){
      const structure={id:c.world.next_deflector_id++,cell:plan.cell,owner:plan.owner,orientation:plan.orientation};
@@ -93,6 +93,7 @@ export function workV6(c,readPayment){
    }else if(plan.kind==='new'){
      if(c.spawnSearches>=8)rejected(c,payment,'SPAWN_SEARCH_CAPACITY');
      else{
+       if(!c.seedBase)throw Error('missing spawn entropy');
        c.spawnSearches++;const seed=sha256(encodeCanonical({base:c.seedBase,position:BigInt(c.inputs[c.inputIndex].position),cannon:c.world.next_cannon_id}));
        if(plan.first){c.spawnJob=c.v6.entry_rules?beginEntrySpawn(c.world,seed,!!c.v6.spacing_rules):beginSpawn(seed);c.spawnAngle=plan.angle;c.v6.payment=payment;c.v6.plan=plan;c.phase='v6_spawn';}
        else{const cell=plan.cell??chooseAdjacent(c.world,plan.player,seed,!!c.v6.clearance_rules);if(cell===null)rejected(c,payment,'NO_ADJACENT_SITE');else place(c,payment,plan,{cell,patch:[cell],kind:4,other:-1,checked:1});}
