@@ -1,0 +1,259 @@
+{
+  "status": "PASS",
+  "balance_sampling_note": "Two consecutive signed samples confirmed the settled baseline. Runtime diagnoses during an interleaving Index reservation were excluded.",
+  "installed": {
+    "at": "2026-11-25T19:34:36.660Z",
+    "frontend": {
+      "canister_id": "s2jxj-liaaa-aaaas-amynq-cai",
+      "module_sha256": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff"
+    },
+    "backend": {
+      "canister_id": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90"
+    }
+  },
+  "preservation": {
+    "status": "PASS",
+    "publication_root": "e9481acff5e73dca7c05b1347128e6b17f85b3d85da5b5d6162d84803c4df85c",
+    "retained_publications": 16,
+    "first_publication": 17623,
+    "last_publication": 17638,
+    "unchanged_binary_files": 64,
+    "schema": 11,
+    "received_e8s": "108100000",
+    "authorized": true,
+    "reservoirs": [
+      998000,
+      998001,
+      999000,
+      999001
+    ],
+    "cursor": "40647923"
+  },
+  "browser_owner_entry": {
+    "status": "PASS",
+    "official_provider_origin": "https://id.ai",
+    "scope": "Real browser popup initiation. No account selected, credential or delegation requested from the owner.",
+    "frontend_origin": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io"
+  },
+  "anonymous_owner_read_denied": true,
+  "owner_binding_accepted": true,
+  "owner_sign_in_pending": true,
+  "frontend": {
+    "before_total": 1155460284595,
+    "after_upgrade_total": 969945411694,
+    "final_total": 969769783441,
+    "final_liquid_estimate": 766063966651,
+    "idle_cycles_per_day": 6790193893,
+    "upgrade_window_debit": 185514872901,
+    "freezing_days": 30
+  },
+  "backend": {
+    "before_upgrade": {
+      "total": 3446701724971,
+      "liquid": 3386632938451
+    },
+    "after_upgrade": {
+      "total": 3423140974862,
+      "liquid": 3365759522132
+    },
+    "upgrade_window_debit": 23560750109,
+    "acceptance_final": {
+      "at": "2026-11-25T20:09:19.634747+00:00",
+      "total": 3411268771894,
+      "liquid": 3353535712714,
+      "admission": true,
+      "running": true,
+      "mode": "Trickle",
+      "rate": 10,
+      "cursor": 40647923
+    }
+  },
+  "acceptance": {
+    "start": "2026-11-25T19:54:14.135658+00:00",
+    "end": "2026-11-25T20:09:19.634747+00:00",
+    "seconds": 905.499083818002,
+    "checkpoints": 9,
+    "callbacks": 9,
+    "index_polls": 15,
+    "checkpoint_intervals_seconds": [
+      100.060785856,
+      100.197127317,
+      100.049778452,
+      100.19127939,
+      100.029519895,
+      100.316781553,
+      100.031562133,
+      100.175709637,
+      100.196594208
+    ],
+    "pause_baseline_seconds": 71.99493590000202,
+    "pause_baseline_debit": 106419666,
+    "pause_baseline_index_polls": 1,
+    "resume_window_debit": 727256490,
+    "active_gross_cycles": 5461510462,
+    "isolated_checkpoint_cycles": [
+      416033834,
+      416524086,
+      414497671,
+      414414471,
+      419882653,
+      408156615,
+      411483469,
+      411434706,
+      405949757
+    ],
+    "isolated_checkpoint_median": 414414471,
+    "gross_daily_extrapolation": 521120907077,
+    "remaining_days_to_reserve_at_trial_gross_rate": 4.516294934154782,
+    "remaining_days_to_reserve_at_prior_projection": 4.32660691936658,
+    "remaining_days_to_full_speed_default_floor_at_prior_projection": 2.359579447162333
+  },
+  "first_acceptance": {
+    "replayed": 8,
+    "monitor_fault": "The monitor allowed only about four seconds for an in-flight Index reservation to settle. Gameplay paused as configured. Source and runtime checks remained healthy. The next acceptance ran in full."
+  },
+  "browser": {
+    "playback": {
+      "status": "PASS",
+      "start": {
+        "head": "17647",
+        "logical_end": "17632",
+        "supported_rate": 0.01,
+        "delivery_failures": 0,
+        "certificate_age_ms": 6282,
+        "rules": 19,
+        "ticks": 1,
+        "phase": "PLAYING",
+        "blocked": null
+      },
+      "successor": {
+        "head": "17648",
+        "logical_end": "17633",
+        "supported_rate": 0.01,
+        "delivery_failures": 0,
+        "certificate_age_ms": 4521,
+        "rules": 19,
+        "ticks": 1,
+        "phase": "PLAYING",
+        "blocked": null
+      }
+    },
+    "payment_readiness": {
+      "status": "PASS",
+      "scope": "read-only certified Rules19 compatibility and sign-in entry; actual ceremony is separate",
+      "rows": [
+        {
+          "width": 1440,
+          "rules": 19,
+          "provider": "id.ai",
+          "internet_identity_entry": true,
+          "pay_hidden_while_signed_out": true,
+          "copied_memo": "FIRE 1 37.5 1"
+        },
+        {
+          "width": 390,
+          "rules": 19,
+          "provider": null,
+          "internet_identity_entry": true,
+          "pay_hidden_while_signed_out": true,
+          "copied_memo": "FIRE 1 37.5 1"
+        },
+        {
+          "width": 320,
+          "rules": 19,
+          "provider": null,
+          "internet_identity_entry": true,
+          "pay_hidden_while_signed_out": true,
+          "copied_memo": "FIRE 1 37.5 1"
+        }
+      ]
+    }
+  },
+  "replay": {
+    "status": "PASS",
+    "replayed": 9,
+    "rows": [
+      {
+        "head": 17647,
+        "root": "2b3ac5014fdbbc080e0c7a09a3852e28b32630fb9f30dda6c9b2ef3b97a98379",
+        "manifest": "c12508b3d370cae2bf03e5499072c742705ae45f230bfd91d08fdcc4002cfd69",
+        "logical": "17632",
+        "ns": "1795636443501362551",
+        "interval": null
+      },
+      {
+        "head": 17648,
+        "root": "c6ab398fb403089e67950bfd82bff477c44d38e8ebe319abe848be744a67610c",
+        "manifest": "e271feae9818573d14ad1daef361ab421037c7b0dcc02cbc1927f9e266fa0627",
+        "logical": "17633",
+        "ns": "1795636543562148407",
+        "interval": "100060785856"
+      },
+      {
+        "head": 17649,
+        "root": "718f36ad049b1eb29522815d96b47f3fe0606cfad6dc3b5deb528e3ffd66ad6d",
+        "manifest": "22a6c0690a71d2d089c7dcf7d383ee9798847fea1a3f4f4adacb0ce371a28beb",
+        "logical": "17634",
+        "ns": "1795636643759275724",
+        "interval": "100197127317"
+      },
+      {
+        "head": 17650,
+        "root": "f448d98e1d40497f118385928773affe7cf67128f7cd4c5bacf4808e87bc9115",
+        "manifest": "e8f2d0adde04e4d2055e63e244a126ad08dd0c19670d88b6fbf4417d5df3f86b",
+        "logical": "17635",
+        "ns": "1795636743809054176",
+        "interval": "100049778452"
+      },
+      {
+        "head": 17651,
+        "root": "c79934bf61f146d77a2a342ff1ba0d5bad32372ecd0baab936bcd5879792d170",
+        "manifest": "282743b79a23e7f2a7b3676bd23e3b507beffe598ce37febd559ab23de36c5fd",
+        "logical": "17636",
+        "ns": "1795636844000333566",
+        "interval": "100191279390"
+      },
+      {
+        "head": 17652,
+        "root": "15c34a62ded0e6e8f76a2f0d30f4fd8a3a9f2101cce299c45cfff89f96625012",
+        "manifest": "bcfc08288f8b191aa7a7b988ec619c5e5687005b40d22bf8932898d60100413c",
+        "logical": "17637",
+        "ns": "1795636944029853461",
+        "interval": "100029519895"
+      },
+      {
+        "head": 17653,
+        "root": "50a823738c8b76708acbbc890d341d13e5a7bee392d275ba842dea78c1766de4",
+        "manifest": "db0143b5808ae57c3ec1eef736c5570b44bc121542b72442145197e4d2070c7a",
+        "logical": "17638",
+        "ns": "1795637044346635014",
+        "interval": "100316781553"
+      },
+      {
+        "head": 17654,
+        "root": "7f853d5cd0c9687beafaad3173f4f1ea78aa6458c7bb5e3556939b41450c909d",
+        "manifest": "399d3a38905c778de696ad13cddf41dec5a84ba5387d11819595a1546f0d63fd",
+        "logical": "17639",
+        "ns": "1795637144378197147",
+        "interval": "100031562133"
+      },
+      {
+        "head": 17655,
+        "root": "9634fd6c4bb0320d1e81f81e27f5b715254fbb52278b6d2c96eeddb1aaa5026d",
+        "manifest": "e73ec701ec96271d500d2812a3375030e932c6b52802593456170ea90662ba25",
+        "logical": "17640",
+        "ns": "1795637244553906784",
+        "interval": "100175709637"
+      },
+      {
+        "head": 17656,
+        "root": "9a5917232ab2e0d18b910ecd3e35a17b0d38a794b63ab1a5249a1eb0899eb97e",
+        "manifest": "385d8cff7db50249033ded82d740d97009a8d2a3ce1d1dbb50817fa9927022aa",
+        "logical": "17641",
+        "ns": "1795637344750500992",
+        "interval": "100196594208"
+      }
+    ]
+  }
+}
