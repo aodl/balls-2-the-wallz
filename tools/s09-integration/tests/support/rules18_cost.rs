@@ -353,6 +353,12 @@ impl CompactBrowser {
             old_head,
         };
         browser.wait_marker("compact-browser-ready", 100);
+        let held_head = std::fs::read_to_string(browser.out.join("compact-browser-ready"))
+            .unwrap()
+            .parse::<u64>()
+            .unwrap();
+        assert!(held_head >= old_head);
+        browser.old_head = held_head;
         browser
     }
 
@@ -477,11 +483,11 @@ fn compact_cutover(
 ) -> Value {
     let world = arena_world(pic, id);
     commit_fixture_interval(pic, id, Int(world.time.0.to_integer() + 1));
-    let legacy = arena_world(pic, id);
     let mut audit = out.to_path_buf();
     audit.push("cutover");
-    std::fs::create_dir_all(&audit).unwrap();
-    let (old_obs, old_pub) = capture(pic, id, &audit, 0);
+    let before_module = audit.join("before-module");
+    std::fs::create_dir_all(&before_module).unwrap();
+    let (old_obs, old_pub) = capture(pic, id, &before_module, 0);
     let old_segment: u64 = old_pub
         .head
         .segment_id
@@ -565,9 +571,16 @@ fn compact_cutover(
     let browser = std::env::var_os("B2Z_COST_BROWSER_PYTHON")
         .map(|python| CompactBrowser::start(pic, id, ledger, out, old_segment, python));
     let before_cutover = pic.cycle_balance(id);
-    super::war_cry_installed::transition(pic, id, "compact_reservoir");
+    // Live browser startup aligns the fixture with wall time. A UTC day
+    // rollover can publish additional Rules18 maintenance before the fence.
+    let mut ready = None;
+    super::war_cry_installed::transition_with_predecessor(pic, id, "compact_reservoir", || {
+        ready = Some(capture(pic, id, &audit, 0));
+    });
+    let (ready_obs, ready_pub) = ready.unwrap();
     let cutover_cycles = before_cutover - pic.cycle_balance(id);
     let (new_obs, new_pub) = capture(pic, id, &audit, 1);
+    let legacy = World::decode(&std::fs::read(audit.join("0-state.bin")).unwrap()).unwrap();
     let actual = arena_world(pic, id);
     assert_eq!(
         actual,
@@ -589,9 +602,28 @@ fn compact_cutover(
     for (artifact, name) in retained_artifacts.iter().zip(["state", "events", "scores"]) {
         assert_eq!(
             artifact,
+            &std::fs::read(before_module.join(format!("0-{name}.bin"))).unwrap()
+        );
+    }
+    let ready_segment = ready_pub.head.segment_id.as_ref().unwrap();
+    let ready_hash = dtr_wire::hash(&ready_obs.publication);
+    let retained_ready: Vec<Vec<u8>> = get_query(
+        pic,
+        id,
+        "artifact_bundle",
+        encode_args((
+            ready_segment.0.to_string().parse::<u64>().unwrap(),
+            &ready_hash,
+        ))
+        .unwrap(),
+    );
+    for (artifact, name) in retained_ready.iter().zip(["state", "events", "scores"]) {
+        assert_eq!(
+            artifact,
             &std::fs::read(audit.join(format!("0-{name}.bin"))).unwrap()
         );
     }
+    assert_eq!(new_pub.head.logical_end, ready_pub.head.logical_end);
     assert_eq!(
         new_pub.head.source_to_exclusive,
         old_pub.head.source_to_exclusive
@@ -617,8 +649,8 @@ fn compact_cutover(
         assert_eq!(observe(pic, id).0.publication, new_obs.publication);
     }
     let report = json!({
-        "old_state_hash":old_pub.head.state_hash,"new_state_hash":new_pub.head.state_hash,
-        "old_publication_hash":dtr_wire::hash(&old_obs.publication),"new_publication_hash":dtr_wire::hash(&new_obs.publication),
+        "old_state_hash":ready_pub.head.state_hash,"new_state_hash":new_pub.head.state_hash,
+        "old_publication_hash":ready_hash,"new_publication_hash":dtr_wire::hash(&new_obs.publication),
         "old_state_bytes":legacy.encode().unwrap().len(),"new_state_bytes":actual.encode().unwrap().len(),
         "old_ranges":legacy.reservoirs.as_ref().unwrap().len(),"new_ranges":actual.reservoir_ranges,
         "upgrade_cycles":upgrade_cycles.to_string(),"cutover_cycles":cutover_cycles.to_string(),

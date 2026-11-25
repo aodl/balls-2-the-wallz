@@ -13,6 +13,23 @@ pub(super) fn transition_with_recovery_module(
     kind: &str,
     normal_wasm: &str,
 ) {
+    transition_observed(pic, id, kind, normal_wasm, || {});
+}
+pub(super) fn transition_with_predecessor(
+    pic: &PocketIc,
+    id: Principal,
+    kind: &str,
+    capture: impl FnOnce(),
+) {
+    transition_observed(pic, id, kind, "B2Z_S14_WASM", capture);
+}
+fn transition_observed(
+    pic: &PocketIc,
+    id: Principal,
+    kind: &str,
+    normal_wasm: &str,
+    capture: impl FnOnce(),
+) {
     playability_installed::prepare(pic, id, &format!("prepare_{kind}_transition"));
     let mut ready = false;
     for _ in 0..1800 {
@@ -139,6 +156,8 @@ pub(super) fn transition_with_recovery_module(
             .is_err(),
         "stale/wrong manifest must fail"
     );
+    capture();
+    assert_eq!(observe(pic, id).1.head.manifest_hash, manifest);
     let _: Vec<u8> = get_result(
         pic,
         id,
