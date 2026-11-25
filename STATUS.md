@@ -1,4 +1,13 @@
-# Rules18 delegated payments — European production
+# Rules19 compact Reservoirs — European production
+
+Rules19 is installed on the existing European backend with Schema11 and
+Adapter12. The paid-state transition and independent production replay passed.
+The naturally selected Lifeline trial completed and gameplay was paused at
+08:00 UTC on 25 November 2026. See the [production record](evidence/B2Z/rules19-compact-reservoirs/PRODUCTION_TRIAL.md).
+
+---
+
+# Previous Rules18 delegated payments — European production
 
 Rules18 is active on the existing European backend with Schema10, Adapter12 and
 one-tick Trickle. The embedded frontend uses the frontend canister ID as its
