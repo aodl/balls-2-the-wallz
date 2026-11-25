@@ -61,6 +61,8 @@ def main():
     parser.add_argument("--compact-using", type=Path, help="Wasm that performs the real Rules19 cutover")
     parser.add_argument("--predecessor-wasm", type=Path, help="legacy Wasm for pre-prepare rollback and post-commit denial")
     parser.add_argument("--browser-python", type=Path, help="live Chromium qualification for the two-Ball cutover")
+    parser.add_argument("--prelaunch-test-wasm", type=Path, help="separate capped disposable resource fault probe")
+    parser.add_argument("--prelaunch-frontend", type=Path, help="run the capped Rules19 upgrade trial with this certified owner frontend")
     parser.add_argument("--case", action="append", choices=CASES, dest="cases")
     parser.add_argument("--compare-to", type=Path, help="require exact checkpoint artifacts against this measured matrix")
     parser.add_argument("--jobs", type=int, default=1)
@@ -69,7 +71,10 @@ def main():
     args = parser.parse_args()
     if args.jobs < 1 or (args.measure_instrumented and not args.measure_wasm):
         parser.error("positive job count and explicit measured Wasm for instrumented upgrades required")
-    if args.browser_python and (not args.compact_using or args.compact_using != args.measure_wasm or args.cases != ["two_ball"]):
+    prelaunch = args.prelaunch_frontend is not None or args.prelaunch_test_wasm is not None
+    if prelaunch and not (args.prelaunch_frontend and args.prelaunch_test_wasm and args.compact_using and args.measure_wasm and args.browser_python and args.cases == ["two_ball"]):
+        parser.error("pre-launch qualification requires exact predecessor, candidate, fault probe, frontend and two_ball browser case")
+    if args.browser_python and not prelaunch and (not args.compact_using or args.compact_using != args.measure_wasm or args.cases != ["two_ball"]):
         parser.error("the installed browser probe uses the same measured release for the two_ball cutover")
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=True)
@@ -84,7 +89,11 @@ def main():
         env["B2Z_COST_COMPACT_WASM"] = str(args.compact_using.resolve())
     if args.predecessor_wasm:
         env["B2Z_COST_ROLLBACK_WASM"] = str(args.predecessor_wasm.resolve())
-    if args.browser_python:
+    if prelaunch:
+        env["B2Z_PRELAUNCH_TEST_WASM"] = str(args.prelaunch_test_wasm.resolve())
+        env["B2Z_DEV_SPEED_FRONTEND"] = str(args.prelaunch_frontend.resolve())
+        env["B2Z_PRELAUNCH_BROWSER_PYTHON"] = os.path.abspath(args.browser_python)
+    elif args.browser_python:
         env["B2Z_COST_BROWSER_PYTHON"] = os.path.abspath(args.browser_python)
     if args.measure_wasm:
         env["B2Z_COST_MEASURE_WASM"] = str(args.measure_wasm.resolve())
@@ -99,7 +108,8 @@ def main():
         "checks": [],
     }
     command = [
-        harness(output, env), "--ignored", "--exact", "rules18_cost::rules18_cost_matrix",
+        harness(output, env), "--ignored", "--exact",
+        "rules18_cost::prelaunch_trickle_rules19" if prelaunch else "rules18_cost::rules18_cost_matrix",
         "--nocapture", "--test-threads=1",
     ]
     server = start_pocketic(env["POCKET_IC_BIN"], output, hard_ttl_seconds=1800, idle_ttl_seconds=120)
@@ -107,7 +117,7 @@ def main():
         def run(case):
             location = output / case
             row = execute(
-                case, command, location, 600,
+                case, command, location, 900 if prelaunch else 600,
                 {**env, "POCKET_IC_SERVER_URL": server[-1], "B2Z_COST_CASE": case,
                  "S14_DEPLOYMENT_OUTPUT": str(location)},
             )

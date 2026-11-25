@@ -10,10 +10,9 @@ import {decodeWorld, DELEGATED_IDENTITY, encodeWorld} from '../packages/kernels/
 import {legacyReservoirBitmap, reservoirOccupancy, reservoirSites} from '../packages/protocol/reservoir.mjs';
 import {prepareCheckpoint, prepareDerivedSegment} from '../apps/b2z-observer/model.mjs';
 
-const [directory, count] = process.argv.slice(2);
+const [directory, count, cutover = join(directory,'cutover')] = process.argv.slice(2);
 const read = (n, kind, base=directory) => readFileSync(join(base, `${n}-${kind}.bin`));
 const decode = (n, kind, base) => decodeCanonical(read(n,kind,base));
-const cutover = join(directory,'cutover');
 const prior = decode(0,'publication',cutover), successor = decode(1,'publication',cutover);
 const worlds = [read(0,'state',cutover), read(1,'state',cutover)];
 const sites = body => [...reservoirSites(reservoirOccupancy(decodeWorld(body)))];

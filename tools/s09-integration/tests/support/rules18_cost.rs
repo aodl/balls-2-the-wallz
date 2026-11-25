@@ -944,3 +944,297 @@ fn rules18_cost_matrix() {
         balance - remaining
     );
 }
+
+fn measure_ordinary(
+    pic: &PocketIc,
+    id: Principal,
+    out: &Path,
+    expected_period_ms: u64,
+) -> Vec<u128> {
+    std::fs::create_dir_all(out).unwrap();
+    capture(pic, id, out, 0);
+    let mut costs = Vec::new();
+    for ordinal in 1..=4 {
+        let before = status(pic, id);
+        let started = pic.get_time().as_nanos_since_unix_epoch();
+        if ordinal > 1 || expected_period_ms == 100_000 {
+            advance(pic, expected_period_ms - 5_000);
+            assert_eq!(
+                status(pic, id).run.completed_segments,
+                before.run.completed_segments
+            );
+        }
+        let mut observed = false;
+        for _ in 0..(expected_period_ms / 1000 + 8) {
+            let balance = pic.cycle_balance(id);
+            advance(pic, 1000);
+            let next = status(pic, id);
+            assert!(next.run.last_error.is_none());
+            if next.run.completed_segments == before.run.completed_segments {
+                continue;
+            }
+            assert_eq!(
+                next.run.completed_segments,
+                before.run.completed_segments + 1
+            );
+            assert_eq!(next.run.callback_count, before.run.callback_count + 1);
+            let elapsed = pic.get_time().as_nanos_since_unix_epoch() - started;
+            if ordinal > 1 {
+                assert!(elapsed >= expected_period_ms * 1_000_000);
+            }
+            costs.push(balance - pic.cycle_balance(id));
+            capture(pic, id, out, ordinal);
+            observed = true;
+            break;
+        }
+        assert!(observed, "ordinary checkpoint did not publish on schedule");
+    }
+    replay(out, 4, &[]);
+    costs
+}
+
+#[test]
+#[ignore = "explicit exact Rules19 to pre-launch capped Wasm rehearsal"]
+fn prelaunch_trickle_rules19() {
+    use super::dev_speed_installed as speed;
+
+    let out = PathBuf::from(std::env::var_os("S14_DEPLOYMENT_OUTPUT").unwrap());
+    let production = PathBuf::from(std::env::var_os("B2Z_COST_COMPACT_WASM").unwrap());
+    let prior = std::fs::read(&production).unwrap();
+    assert_eq!(
+        dtr_wire::hash(&prior),
+        "b258ec234b9abd7db9e7b170c14e432b4d1ef2d9b2545632bddb58668a6095de"
+    );
+    let candidate = bytes("B2Z_COST_MEASURE_WASM");
+    let (pic, id, ledger, payer) = arena_setup_world(
+        bytes("B2Z_COST_PROFILE_WASM"),
+        seed("two_ball").encode().unwrap(),
+    );
+    get_result::<Status>(
+        &pic,
+        id,
+        "test_liquid_budget",
+        candid::encode_one(3_750_000_000_000u64).unwrap(),
+    );
+    compact_cutover(&pic, id, ledger, &production, &out);
+    playability_installed::configuration(&pic, id, 512);
+
+    let prior_paid = arena_world(&pic, id).received_e8s;
+    let payment = transfer_text(&pic, ledger, payer, id, 1_000_000, b"RESERVOIR 998000");
+    for _ in 0..180 {
+        advance(&pic, 1000);
+        if status(&pic, id).source.admitted_to_exclusive > payment && transition_drained(&pic, id) {
+            break;
+        }
+    }
+    assert!(status(&pic, id).source.admitted_to_exclusive > payment);
+    assert_eq!(
+        arena_world(&pic, id).received_e8s.0,
+        &prior_paid.0 + 1_000_000u64
+    );
+    assert_eq!(arena_world(&pic, id).balls.len(), 2);
+    assert_eq!(status(&pic, id).run.pace.unwrap().mode, "Lifeline");
+    let baseline = measure_ordinary(&pic, id, &out.join("uncapped"), 20_000);
+    pause(&pic, id);
+
+    let head = observe(&pic, id).0.publication;
+    let financial = funding_tests::preserved_finance(&pic, id);
+    let history = retained_bytes(&pic, id);
+    let cursor = status(&pic, id).source.admitted_to_exclusive;
+    let before = pic.cycle_balance(id);
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    let upgrade_cycles = before - pic.cycle_balance(id);
+    assert_eq!(observe(&pic, id).0.publication, head);
+    assert_eq!(retained_bytes(&pic, id), history);
+    assert_eq!(funding_tests::preserved_finance(&pic, id), financial);
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, cursor);
+    assert!(!status(&pic, id).run.running);
+
+    let operator = Principal::self_authenticating([38; 32]);
+    let read =
+        || get_query::<speed::DevSpeed>(&pic, id, "dev_simulation_speed", encode_args(()).unwrap());
+    assert_eq!(read().adaptive_tier, "Lifeline");
+    let capped = status(&pic, id).run.pace.unwrap();
+    assert_eq!(
+        (capped.mode.as_str(), capped.supported_milli),
+        ("Trickle", 10)
+    );
+    assert!(capped.admission_open);
+    playability_installed::configuration(&pic, id, 512);
+    assert!(!read().can_start);
+    assert_eq!(read().effective_milli, Some(10));
+    assert!(speed::switch(&pic, id, controller(), true, None).is_err());
+    speed::bind(&pic, id, Some(operator));
+    assert!(speed::switch(&pic, id, payer, true, None).is_err());
+    let capped_cost = measure_ordinary(&pic, id, &out.join("capped"), 100_000);
+    std::fs::write(out.join("capped/replay-inputs.bin"), b"[]").unwrap();
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .arg("tools/verify_compact_cost_replay.mjs")
+            .arg(out.join("capped"))
+            .arg("4")
+            .arg(out.join("cutover"))
+            .status()
+            .unwrap()
+            .success()
+    );
+    // The minimum observed checkpoint debit excludes a coincident source poll.
+    let baseline_cost = *baseline.iter().min().unwrap();
+    let adjusted_cost = *capped_cost.iter().min().unwrap();
+    assert!(
+        adjusted_cost <= baseline_cost * 105 / 100,
+        "{baseline:?} versus {capped_cost:?}"
+    );
+
+    let count = status(&pic, id).run.completed_segments;
+    advance(&pic, 45_000);
+    pic.add_cycles(id, 2_000_000_000_000);
+    advance(&pic, 45_000);
+    assert_eq!(read().adaptive_tier, "Survival");
+    assert_eq!(status(&pic, id).run.completed_segments, count);
+    advance(&pic, 10_000);
+    assert_eq!(status(&pic, id).run.completed_segments, count + 1);
+
+    let armed = speed::switch(&pic, id, operator, true, None).unwrap();
+    assert_eq!(armed.remaining_seconds, 120);
+    assert_eq!(status(&pic, id).run.pace.unwrap().supported_milli, 1000);
+    let fast_start = status(&pic, id).run.completed_segments;
+    advance(&pic, 1100);
+    assert!(status(&pic, id).run.completed_segments > fast_start);
+    advance(&pic, 120_000);
+    assert_eq!(read().mode, "Adaptive");
+    assert_eq!(read().last_stop.as_deref(), Some("window-expired"));
+    assert_eq!(status(&pic, id).run.pace.unwrap().supported_milli, 10);
+    speed::switch(&pic, id, operator, true, None).unwrap();
+    advance(&pic, 1100);
+    let last_fast = status(&pic, id).run.completed_segments;
+    assert_eq!(
+        speed::switch(&pic, id, operator, false, None)
+            .unwrap()
+            .last_stop
+            .as_deref(),
+        Some("manual")
+    );
+    assert_eq!(status(&pic, id).run.pace.unwrap().supported_milli, 10);
+    advance(&pic, 90_000);
+    assert_eq!(status(&pic, id).run.completed_segments, last_fast);
+
+    speed::switch(&pic, id, operator, true, None).unwrap();
+    let head = observe(&pic, id).0.publication;
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    assert_eq!(observe(&pic, id).0.publication, head);
+    assert!(status(&pic, id).run.running);
+    assert_eq!(read().mode, "Adaptive");
+    assert!(speed::switch(&pic, id, operator, true, None).is_err());
+    speed::bind(&pic, id, Some(operator));
+    assert_eq!(
+        speed::switch(&pic, id, operator, false, None).unwrap().mode,
+        "Adaptive"
+    );
+    pause(&pic, id);
+    let head = observe(&pic, id).0.publication;
+    let before = pic.cycle_balance(id);
+    upgrade_during_recovery(&pic, id, &prior).unwrap();
+    let rollback_cycles = before - pic.cycle_balance(id);
+    assert_eq!(observe(&pic, id).0.publication, head);
+    assert!(!status(&pic, id).run.running);
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, cursor);
+
+    let probe = bytes("B2Z_PRELAUNCH_TEST_WASM");
+    upgrade_during_recovery(&pic, id, &probe).unwrap();
+    playability_installed::configuration(&pic, id, 512);
+    speed::bind(&pic, id, Some(operator));
+    speed::switch(&pic, id, operator, true, None).unwrap();
+    get_result::<Status>(
+        &pic,
+        id,
+        "test_liquid_budget",
+        candid::encode_one(999_000_000_000u64).unwrap(),
+    );
+    let protected = status(&pic, id).run.pace.unwrap();
+    assert_eq!(
+        (protected.mode.as_str(), protected.supported_milli),
+        ("ReserveProtection", 0)
+    );
+    assert!(!protected.admission_open);
+    assert_eq!(read().mode, "Adaptive");
+    let protected_head = observe(&pic, id).0.publication;
+    advance(&pic, 105_000);
+    assert_eq!(observe(&pic, id).0.publication, protected_head);
+    pic.add_cycles(id, 2_800_000_000_000);
+    advance(&pic, 60_000);
+    assert_eq!(status(&pic, id).run.pace.unwrap().supported_milli, 10);
+    pause(&pic, id);
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    verify_prelaunch_browser(&pic, id, ledger, &out);
+    let release = PathBuf::from(std::env::var_os("B2Z_DEV_SPEED_FRONTEND").unwrap());
+    speed::certify_frontend(&release, &out);
+    std::fs::write(out.join("prelaunch.json"), serde_json::to_vec_pretty(&json!({
+        "status":"PASS","exact_predecessor":dtr_wire::hash(&prior),"candidate":dtr_wire::hash(&candidate),
+        "baseline_cycles":baseline,"capped_cycles":capped_cost,"baseline_checkpoint":baseline_cost,
+        "capped_checkpoint":adjusted_cost,"upgrade_cycles":upgrade_cycles,"rollback_cycles":rollback_cycles,
+        "payment_position":payment,"paid_cursor":cursor,"unchanged_retained_publications":history.len(),
+        "independently_replayed":8,"same_id":id.to_text()
+    })).unwrap()).unwrap();
+}
+
+fn verify_prelaunch_browser(pic: &PocketIc, id: Principal, ledger: Principal, out: &Path) {
+    let wall = pocket_ic::Time::from(std::time::SystemTime::now());
+    if wall > pic.get_time() {
+        pic.set_time(wall);
+    }
+    playability_installed::configuration(pic, id, 512);
+    let out = out.join("browser");
+    std::fs::create_dir_all(&out).unwrap();
+    std::fs::write(out.join("metadata.json"), b"{}").unwrap();
+    std::fs::write(out.join("root-key.der"), pic.root_key().unwrap()).unwrap();
+    let policy = json!({
+        "network":"pocketic-local","canister_id":id.to_text(),"ledger":ledger.to_text(),
+        "index":status(pic,id).source.index.to_text(),"recipient":source::receiving_account(id,0).to_hex(),
+        "root_key_hex":hex(&pic.root_key().unwrap()),
+    });
+    let configuration = out.join("configuration.json");
+    std::fs::write(&configuration, serde_json::to_vec(&policy).unwrap()).unwrap();
+    let mut live =
+        PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
+    let gateway = live.make_live(None);
+    let log = std::fs::File::create(out.join("browser.log")).unwrap();
+    let mut browser = OwnedBrowser(
+        std::process::Command::new(std::env::var_os("B2Z_PRELAUNCH_BROWSER_PYTHON").unwrap())
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .args([
+                "-B",
+                "tools/verify_s14_deployment.py",
+                "--prelaunch-trickle-scene-only",
+                "--configuration",
+            ])
+            .arg(configuration)
+            .arg("--gateway")
+            .arg(gateway.as_str())
+            .arg("--output")
+            .arg(&out)
+            .stdout(log.try_clone().unwrap())
+            .stderr(log)
+            .spawn()
+            .unwrap(),
+    );
+    let deadline = std::time::Instant::now() + Duration::from_secs(185);
+    loop {
+        if let Some(status) = browser.0.try_wait().unwrap() {
+            assert!(
+                status.success(),
+                "capped Chromium evidence: {}",
+                out.display()
+            );
+            break;
+        }
+        assert!(
+            std::time::Instant::now() < deadline,
+            "capped Chromium deadline"
+        );
+        std::thread::sleep(Duration::from_millis(100));
+    }
+    live.stop_live();
+    pause(pic, id);
+}

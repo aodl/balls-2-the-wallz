@@ -3,7 +3,7 @@ name: Rules18 delegated-payment qualification
 # Additional financial qualification alongside the standard verification.
 on:
   push:
-    branches: [master, feature/b2z-rules18-delegated-payments, feature/b2z-temporary-dev-speed, feature/b2z-rules19-compact-reservoirs]
+    branches: [master, feature/b2z-rules18-delegated-payments, feature/b2z-temporary-dev-speed, feature/b2z-rules19-compact-reservoirs, feature/b2z-prelaunch-trickle]
   pull_request:
     branches: [master]
   workflow_dispatch:
@@ -76,8 +76,13 @@ jobs:
           --rules17-prior-wasm .work/rules17-c066140f.wasm
           --output .work/ci-delegated
       - name: Verify the compact-schema financial gate module
-        if: github.event_name != 'workflow_dispatch' || hashFiles('tools/check_rules19_module.py') != ''
-        run: python -B tools/check_rules19_module.py public_backend .work/ci-delegated/normal.wasm
+        if: hashFiles('tools/check_rules19_module.py') != ''
+        run: |
+          if test -f tools/check_prelaunch_wasm.py; then
+            python -B tools/check_prelaunch_wasm.py public-launch .work/ci-delegated/normal.wasm > .work/ci-delegated/public-interface.json
+          else
+            python -B tools/check_rules19_module.py public_backend .work/ci-delegated/normal.wasm
+          fi
       - name: Archive the financial gate normal module identity
         run: sha256sum .work/ci-delegated/normal.wasm > .work/ci-delegated/normal.sha256
       - name: Preserve financial evidence
@@ -91,6 +96,7 @@ jobs:
             .work/ci-delegated/generated.did
             .work/ci-delegated/normal.wasm
             .work/ci-delegated/normal.sha256
+            .work/ci-delegated/public-interface.json
             .work/ci-delegated/logs/**
             .work/ci-delegated/deployment/**
           if-no-files-found: warn

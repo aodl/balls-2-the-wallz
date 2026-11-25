@@ -2,7 +2,7 @@
 name: Temporary developer speed qualification
 on:
   push:
-    branches: [master, feature/b2z-temporary-dev-speed, feature/b2z-rules19-compact-reservoirs]
+    branches: [master, feature/b2z-temporary-dev-speed, feature/b2z-rules19-compact-reservoirs, feature/b2z-prelaunch-trickle]
   pull_request:
     branches: [master]
 permissions:
@@ -42,7 +42,6 @@ jobs:
           done
           cmp .work/ci-dev-{a,b}/release/frontend.wasm
           cmp .work/ci-dev-{a,b}/release/embedded-inventory.json
-          python -B tools/check_rules19_module.py developer_frontend .work/ci-dev-a/release/frontend.wasm
           if python -B tools/build_embedded_frontend.py --observer .work/ci-dev-a/verified-base/reproduced --inventory .work/ci-dev-a/inventory.json --output .work/ci-dev-public > .work/ci-dev-public-guard.log 2>&1; then
             exit 1
           fi
@@ -107,7 +106,7 @@ jobs:
           cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features developer-speed
           cp "$output" .work/developer-speed-release.wasm
           sha256sum .work/developer-speed-release.wasm > .work/developer-speed-release.sha256
-          python -B tools/check_rules19_module.py developer_backend .work/developer-speed-release.wasm
+          python -B tools/check_prelaunch_wasm.py developer-speed .work/developer-speed-release.wasm > .work/developer-speed-interface.json
           cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features developer-speed,test-hooks
           cp "$output" .work/developer-speed-test.wasm
           cargo test --manifest-path "$manifest" --locked --offline --features developer-speed pace::tests
@@ -152,6 +151,29 @@ jobs:
             --profile-wasm .work/rules19-profile.wasm --compact-using .work/developer-speed-release.wasm \
             --measure-wasm .work/developer-speed-release.wasm --case two_ball \
             --browser-python "$(command -v python)" --output .work/ci-rules19-browser
+      - name: Qualify the capped pre-launch artifacts against the exact installed Rules19
+        run: |
+          manifest=canisters/runtime-lab/Cargo.toml
+          wasm=canisters/runtime-lab/target/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm
+          cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle
+          cp "$wasm" .work/prelaunch-trickle.wasm
+          python -B tools/check_prelaunch_wasm.py prelaunch-trickle .work/prelaunch-trickle.wasm > .work/prelaunch-trickle-interface.json
+          cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle,test-hooks
+          cp "$wasm" .work/prelaunch-trickle-probe.wasm
+          cargo test --manifest-path "$manifest" --locked --offline --features prelaunch-trickle prelaunch_tests
+          if cargo check --manifest-path "$manifest" --locked --offline --target wasm32-unknown-unknown --features prelaunch-trickle,public-launch > .work/prelaunch-public-guard.log 2>&1; then
+            exit 1
+          fi
+          grep -F 'error: The public-launch build cannot include the temporary developer-speed override' .work/prelaunch-public-guard.log
+          gzip -dc vendor/b2z/rules19-b258ec23.wasm.gz > .work/rules19-production.wasm
+          python -B tools/check_rules19_module.py public_backend .work/rules19-production.wasm
+          mapfile -t frontend < <(find .work/qualified-dev-frontend -type f -name frontend.wasm)
+          test "${#frontend[@]}" = 1
+          python -B tools/profile_rules18_cost.py --world .work/rules19-paid-world.bin \
+            --profile-wasm .work/rules19-profile.wasm --compact-using .work/rules19-production.wasm \
+            --measure-wasm .work/prelaunch-trickle.wasm --prelaunch-test-wasm .work/prelaunch-trickle-probe.wasm \
+            --prelaunch-frontend "$(dirname "${frontend[0]}")" --case two_ball --browser-python "$(command -v python)" \
+            --output .work/ci-prelaunch-trickle
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -160,6 +182,13 @@ jobs:
             .work/developer-speed-release.wasm
             .work/developer-speed-release.sha256
             .work/dev-public-backend.log
+            .work/developer-speed-interface.json
+            .work/prelaunch-trickle.wasm
+            .work/prelaunch-trickle-interface.json
+            .work/prelaunch-public-guard.log
+            .work/ci-prelaunch-trickle/**
+            !.work/ci-prelaunch-trickle/two_ball/browser/assets/**
+            !.work/ci-prelaunch-trickle/two_ball/browser/mainnet-assets/**
             .work/ci-dev-isolated/results.json
             .work/ci-dev-isolated/deployment/dev-speed.json
             .work/ci-dev-isolated/logs/**

@@ -11,6 +11,7 @@ type DevSpeedStatus = record {
   liquid_cycles : nat;
   recovery_reserve : nat;
   last_stop : opt text;
+  effective_milli : opt nat32;
 };
 type DevSpeedResult = variant { Ok : DevSpeedStatus; Err : text };
 service : {

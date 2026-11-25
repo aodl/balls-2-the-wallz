@@ -94,7 +94,8 @@ const switches = [];
 const read = () => {{
   if (!allowed) throw Error('developer speed operator only');
   const remaining = Math.max(0, Math.ceil((until - Date.now()) / 1000));
-  return {{ mode: remaining ? 'Full Speed' : 'Adaptive', adaptive_tier:'Trickle',
+  return {{ mode: remaining ? 'Full Speed' : 'Adaptive', adaptive_tier:'Lifeline',
+           effective_milli:[remaining ? 1000 : 10], running:true,
            remaining_seconds:remaining, can_start:canStart, idle:false }};
 }};
 mountDevSpeed(document, {{connect:()=>({{
@@ -139,16 +140,16 @@ window.speedFixture = {{switches, deny:()=>allowed=false, protect:()=>canStart=f
             activate = panel.get_by_role('button', name='Full Speed', exact=True)
             expect(activate).to_be_disabled()
             panel.get_by_role('button', name='Sign in as owner').click()
-            expect(panel.locator('[data-mode]')).to_have_text('Adaptive · Trickle')
+            expect(panel.locator('[data-mode]')).to_have_text('0.01 ticks/s · Funding tier Lifeline')
             activate.click()
             expect(panel.locator('[data-mode]')).to_have_text('Full Speed · 120s remaining')
             page.screenshot(path=str(out / f'{width}-full-speed.png'))
             panel.get_by_role('button', name='Return to Adaptive').click()
-            expect(panel.locator('[data-mode]')).to_have_text('Adaptive · Trickle')
+            expect(panel.locator('[data-mode]')).to_have_text('0.01 ticks/s · Funding tier Lifeline')
             activate.click()
             expect(panel.locator('[data-mode]')).to_contain_text('Full Speed')
             page.clock.fast_forward(121_000)
-            expect(panel.locator('[data-mode]')).to_have_text('Adaptive · Trickle')
+            expect(panel.locator('[data-mode]')).to_have_text('0.01 ticks/s · Funding tier Lifeline')
             assert page.evaluate('speedFixture.switches') == [True, False, True]
             page.evaluate('speedFixture.protect()')
             page.clock.fast_forward(5_500)

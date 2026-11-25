@@ -612,8 +612,34 @@ def verify_compact_reservoir_transition(page, browser, url, out, record, errors)
     assert not errors, errors
 
 
+def verify_prelaunch_trickle(page, out, record):
+    ready = """()=>{ const s=globalThis.__b2zExperience?.session;
+      return s?.ready && !s.error && s.referenceWorld?.version===11 &&
+        s.operational?.run.running && s.operational.run.pace.supported_milli===10; }"""
+    page.wait_for_function(ready, timeout=45000)
+    held=page.evaluate('String(__b2zExperience.session.sequence.last.publication.head.segment_id)')
+    page.wait_for_function('head=>BigInt(__b2zExperience.session.sequence.last.publication.head.segment_id)>BigInt(head)', arg=held, timeout=120000)
+    account=page.evaluate('__b2zExperience.session.referenceWorld.cannons[0].account')
+    identify_account(page, account)
+    page.locator('#centre-cannon').click()
+    if page.locator('#own-cannons button').first.is_visible():
+        page.locator('#own-cannons button').first.click()
+    if page.locator('#locate-context').is_visible():
+        page.locator('#locate-context').click()
+    wait_until(page,lambda:page.locator('[data-copy="text"]').is_enabled(),20000)
+    assert page.evaluate('__b2zExperience.session.operational.run.pace.mode')=='Trickle'
+    assert page.locator('#direct-pay').is_hidden()
+    assert page.locator('#text-memo').text_content().startswith('FIRE ')
+    page.screenshot(path=str(out/'authenticated-trickle-payment.png'))
+    record('authenticated-compact-trickle-and-manual-payment-readiness', {
+        'initial_head': held,
+        'verified_successor': page.evaluate('String(__b2zExperience.session.sequence.last.publication.head.segment_id)'),
+        'supported_milli': 10,
+    })
+
+
 def main():
-    p=argparse.ArgumentParser();p.add_argument('--compact-reservoir-scene-only',action='store_true');p.add_argument('--human-corrections-scene-only',action='store_true');p.add_argument('--entry-scene-only',action='store_true');p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--million-sustained',action='store_true');p.add_argument('--paid-v8-scene-only',action='store_true');p.add_argument('--playability-scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
+    p=argparse.ArgumentParser();p.add_argument('--compact-reservoir-scene-only',action='store_true');p.add_argument('--prelaunch-trickle-scene-only',action='store_true');p.add_argument('--human-corrections-scene-only',action='store_true');p.add_argument('--entry-scene-only',action='store_true');p.add_argument('--scene-only',action='store_true');p.add_argument('--million-scene-only',action='store_true');p.add_argument('--million-sustained',action='store_true');p.add_argument('--paid-v8-scene-only',action='store_true');p.add_argument('--playability-scene-only',action='store_true');p.add_argument('--transition-only',action='store_true');p.add_argument('--configuration',type=Path,required=True);p.add_argument('--gateway',required=True);p.add_argument('--output',type=Path,required=True);a=p.parse_args()
     if a.million_sustained and not a.million_scene_only:p.error('--million-sustained requires --million-scene-only')
     out=a.output.resolve();out.mkdir(parents=True,exist_ok=True);configuration=json.loads(a.configuration.read_text());port=int(os.environ['S14_QUAL_PROXY_PORT']) if os.environ.get('S14_QUAL_PROXY_PORT') else free_port()
     assert 1<=port<=65535
@@ -630,7 +656,7 @@ def main():
     try:
         assets=out/'assets';production=out/'mainnet-assets'
         scene_only=any((a.human_corrections_scene_only,a.scene_only,a.million_scene_only,
-                        a.transition_only,a.compact_reservoir_scene_only,a.paid_v8_scene_only,a.playability_scene_only,a.entry_scene_only))
+                        a.transition_only,a.compact_reservoir_scene_only,a.prelaunch_trickle_scene_only,a.paid_v8_scene_only,a.playability_scene_only,a.entry_scene_only))
         if os.environ.get('S14_QUAL_PREBUILT_ROOT'):
             prebuilt=Path(os.environ['S14_QUAL_PREBUILT_ROOT'])
             assert configuration==json.loads((prebuilt/'local-policy.json').read_text()),'prepared local root/canister/endpoint binding differs'
@@ -640,7 +666,7 @@ def main():
         else:
             # The full deployment journey needs the official branding assets.
             # Historical scene probes keep their existing build profiles.
-            full_assets=not scene_only or a.compact_reservoir_scene_only or a.human_corrections_scene_only or a.playability_scene_only or a.entry_scene_only
+            full_assets=not scene_only or a.prelaunch_trickle_scene_only or a.compact_reservoir_scene_only or a.human_corrections_scene_only or a.playability_scene_only or a.entry_scene_only
             builder='tools/build_observer_playability.mjs' if full_assets else 'tools/build_observer_mainnet.mjs'
             subprocess.run(['node',builder,'--local-test-config',str(local),'--output',str(assets)],cwd=ROOT,check=True,timeout=120)
             # A committed real deployment mapping must never be bypassed to build
@@ -731,7 +757,7 @@ def main():
             # Explicit diagnostic override isolates encoding cost without changing
             # any throughput/continuity assertion or the normal CI capture policy.
             video_disabled=os.environ.get('S14_BROWSER_NO_VIDEO')=='1'
-            capture_video=not (video_disabled or a.compact_reservoir_scene_only or a.million_sustained or a.paid_v8_scene_only or a.playability_scene_only or a.entry_scene_only)
+            capture_video=not (video_disabled or a.compact_reservoir_scene_only or a.prelaunch_trickle_scene_only or a.million_sustained or a.paid_v8_scene_only or a.playability_scene_only or a.entry_scene_only)
             if a.human_corrections_scene_only:capture_video=True
             if capture_video:context_options['record_video_dir']=str(out/'video')
             report['capture']={'video':capture_video,'diagnostic_no_video':video_disabled,'sandbox':True,'screenshots_and_raw_telemetry':True};save()
@@ -795,7 +821,7 @@ def main():
                 message=page.locator('#observation-error').inner_text();page.screenshot(path=str(out/'startup-failure.png'))
                 raise RuntimeError('deployed observer startup: '+message)
             if scene_only:
-                if not (a.compact_reservoir_scene_only or a.human_corrections_scene_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)):identify_account(page)
+                if not (a.compact_reservoir_scene_only or a.prelaunch_trickle_scene_only or a.human_corrections_scene_only or a.paid_v8_scene_only or (a.playability_scene_only or a.entry_scene_only)):identify_account(page)
                 if a.human_corrections_scene_only:
                     from human_corrections_browser import verify_certified_lifecycle
                     verify_certified_lifecycle(page,context,out,configuration,record,report,save,stop_wire_capture)
@@ -806,6 +832,7 @@ def main():
                     from playability_browser import verify_playability_scene
                     verify_playability_scene(page,context,out,configuration,record,report,save,stop_wire_capture,wire_capture)
                 elif a.paid_v8_scene_only:verify_paid_v8_scene(page,out,record)
+                elif a.prelaunch_trickle_scene_only:verify_prelaunch_trickle(page,out,record)
                 elif a.compact_reservoir_scene_only:verify_compact_reservoir_transition(page,browser,url,out,record,errors)
                 elif a.transition_only:verify_epoch_transition(page,context,out,record,report,save,errors)
                 elif a.million_scene_only or a.paid_v8_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained)

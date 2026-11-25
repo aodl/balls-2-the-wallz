@@ -44,6 +44,8 @@ pub struct Status {
     pub liquid_cycles: u128,
     pub recovery_reserve: u128,
     pub last_stop: Option<String>,
+    #[cfg(feature = "prelaunch-trickle")]
+    pub effective_milli: Option<u32>,
 }
 
 pub fn read() -> AppResult<Status> {
@@ -84,18 +86,32 @@ fn status(r: &Root) -> AppResult<Status> {
             can_start: running
                 && !transitioning
                 && remaining == 0
+                && (!cfg!(feature = "prelaunch-trickle")
+                    || OPERATOR.with(|p| p.get() == Some(ic_cdk::api::msg_caller())))
                 && pace.can_start_dev_speed(liquid, pace::DEV_DEFAULT_SECONDS),
             idle: ARENA_IDLE.with(Cell::get),
             admission_open: adaptive != pace::Mode::ReserveProtection,
             liquid_cycles: liquid,
             recovery_reserve: pace::DEV_RECOVERY_RESERVE,
             last_stop: pace.dev_last_stop.map(str::to_owned),
+            #[cfg(feature = "prelaunch-trickle")]
+            effective_milli: Some(if remaining != 0 {
+                pace::Mode::Normal.milli()
+            } else {
+                pace::ordinary_mode(adaptive)
+                    .milli()
+                    .min(pace.performance_milli)
+            }),
         }
     }))
 }
 
 pub fn set(full_speed: bool, duration_seconds: Option<u16>) -> AppResult<Status> {
     authorized_operator()?;
+    #[cfg(feature = "prelaunch-trickle")]
+    if full_speed && !OPERATOR.with(|p| p.get() == Some(ic_cdk::api::msg_caller())) {
+        return Err("developer speed operator only".into());
+    }
     let r = root()?;
     let now = ic_cdk::api::time();
     if full_speed {

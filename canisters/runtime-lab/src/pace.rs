@@ -206,13 +206,17 @@ impl Default for Clock {
 impl Clock {
     pub fn refresh(&mut self, liquid: u128) {
         let mode = select(self.mode, liquid);
-        if mode != self.mode {
-            self.mode = mode;
+        let previous = std::mem::replace(&mut self.mode, mode);
+        if ordinary_mode(mode) != ordinary_mode(previous) {
             #[cfg(feature = "developer-speed")]
             if self.dev_until_ns.is_some() {
                 return;
             }
-            self.due = 0;
+            self.due = if cfg!(feature = "prelaunch-trickle") && self.last_published != 0 {
+                self.last_published.saturating_add(self.period(1))
+            } else {
+                0
+            };
             self.overrun = 0;
             self.healthy = 0;
         }
@@ -223,7 +227,7 @@ impl Clock {
         if self.dev_until_ns.is_some() && self.mode != Mode::ReserveProtection {
             return Mode::Normal.milli();
         }
-        self.mode.milli()
+        ordinary_mode(self.mode).milli()
     }
     fn supported_milli(&self) -> u32 {
         self.nominal_milli().min(self.performance_milli)
@@ -304,7 +308,10 @@ impl Clock {
         if self.dev_until_ns.is_some() {
             return 1;
         }
-        if matches!(self.mode, Mode::Survival | Mode::Lifeline | Mode::Trickle) {
+        if matches!(
+            ordinary_mode(self.mode),
+            Mode::Survival | Mode::Lifeline | Mode::Trickle
+        ) {
             configured.min(1)
         } else {
             configured
@@ -323,7 +330,7 @@ impl Clock {
                 // The ordinary observer already knows this authoritative cadence tier.
                 Mode::Normal.name()
             } else {
-                self.mode.name()
+                ordinary_mode(self.mode).name()
             },
             nominal_milli,
             supported_milli,
@@ -343,6 +350,9 @@ impl Clock {
 
     pub fn wait(&mut self, now: u64, ticks: u64) -> u64 {
         let period = self.period(ticks);
+        if cfg!(feature = "prelaunch-trickle") && self.due == 0 {
+            self.due = now.saturating_add(period);
+        }
         if self.due == 0 || now > self.due.saturating_add(period.saturating_mul(2)) {
             self.due = now;
         }
@@ -420,8 +430,80 @@ impl Clock {
         if self.due == 0 || now > self.due.saturating_add(period.saturating_mul(2)) {
             self.due = now;
         }
-        self.due = self.due.saturating_add(period);
+        self.due = if cfg!(feature = "prelaunch-trickle") {
+            now.saturating_add(period)
+        } else {
+            self.due.saturating_add(period)
+        };
         self.batch_started = 0;
+    }
+}
+
+pub(super) fn ordinary_mode(funded: Mode) -> Mode {
+    if cfg!(feature = "prelaunch-trickle") && funded != Mode::ReserveProtection {
+        Mode::Trickle
+    } else {
+        funded
+    }
+}
+
+#[cfg(all(test, feature = "prelaunch-trickle"))]
+mod prelaunch_tests {
+    use super::*;
+
+    const SECOND: u64 = 1_000_000_000;
+
+    #[test]
+    fn cap_preserves_funding_hysteresis_and_deadlines_without_catchup() {
+        let mut clock = Clock::default();
+        clock.refresh(LIFELINE_ENTER);
+        assert_eq!(clock.mode, Mode::Lifeline);
+        assert_eq!(clock.hint().mode, "Trickle");
+        assert_eq!(clock.hint().supported_milli, 10);
+        assert!(clock.hint().admission_open);
+        assert_eq!(clock.publication_ticks(8), 1);
+        assert_eq!(clock.wait(1000 * SECOND, 1), 100 * SECOND);
+        clock.refresh(SURVIVAL_ENTER);
+        assert_eq!(clock.mode, Mode::Survival);
+        assert_eq!(clock.wait(1010 * SECOND, 1), 90 * SECOND);
+        clock.batch_started = 1115 * SECOND;
+        clock.published(1115 * SECOND, 1, true);
+        assert_eq!(clock.wait(1115 * SECOND, 1), 100 * SECOND);
+        clock.refresh(TRICKLE_EXIT - 1);
+        assert!(!clock.hint().admission_open);
+        assert_eq!(clock.hint().supported_milli, 0);
+        clock.refresh(TRICKLE_ENTER - 1);
+        assert!(!clock.hint().admission_open);
+        clock.refresh(TRICKLE_ENTER);
+        assert_eq!(clock.wait(1120 * SECOND, 1), 95 * SECOND);
+        assert!(clock.hint().admission_open);
+    }
+
+    #[test]
+    fn override_ends_in_trickle_and_checks_reserve() {
+        let mut clock = Clock::default();
+        clock.refresh(LIFELINE_ENTER);
+        let now = 1000 * SECOND;
+        for reason in ["window-expired", "manual", "recovery-reserve"] {
+            clock
+                .start_dev_speed(now, DEV_DEFAULT_SECONDS, LIFELINE_ENTER)
+                .unwrap();
+            assert_eq!(clock.hint().supported_milli, 1000);
+            match reason {
+                "window-expired" => {
+                    clock.refresh_dev_speed(now + 120 * SECOND, LIFELINE_ENTER, true)
+                }
+                "manual" => clock.end_dev_speed(now, reason),
+                _ => clock.refresh_dev_speed(now, DEV_RECOVERY_RESERVE, true),
+            }
+            assert_eq!(clock.dev_last_stop, Some(reason));
+            assert_eq!(clock.hint().supported_milli, 10);
+            assert_eq!(clock.mode, Mode::Lifeline);
+        }
+        assert!(clock
+            .start_dev_speed(now, DEV_DEFAULT_SECONDS, DEV_RECOVERY_RESERVE)
+            .is_err());
+        assert!(Clock::default().dev_until_ns.is_none());
     }
 }
 

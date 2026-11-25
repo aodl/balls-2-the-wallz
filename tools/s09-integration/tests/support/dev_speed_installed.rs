@@ -6,9 +6,11 @@ pub(super) struct DevSpeed {
     pub(super) mode: String,
     pub(super) adaptive_tier: String,
     pub(super) remaining_seconds: u16,
+    pub(super) can_start: bool,
+    pub(super) effective_milli: Option<u32>,
     pub(super) liquid_cycles: candid::Nat,
     admission_open: bool,
-    last_stop: Option<String>,
+    pub(super) last_stop: Option<String>,
 }
 
 pub(super) fn bind(pic: &PocketIc, id: Principal, operator: Option<Principal>) {

@@ -12,6 +12,7 @@ const speedInterface = ({IDL}) => {
   const status = IDL.Record({
     mode: IDL.Text, adaptive_tier: IDL.Text, remaining_seconds: IDL.Nat16, default_seconds: IDL.Nat16,
     running: IDL.Bool, can_start: IDL.Bool, idle: IDL.Bool, admission_open: IDL.Bool, liquid_cycles: IDL.Nat, recovery_reserve: IDL.Nat,
+    effective_milli: IDL.Opt(IDL.Nat32),
   });
   const result = IDL.Variant({Ok: status, Err: IDL.Text});
   return IDL.Service({
@@ -82,8 +83,11 @@ export function mountDevSpeed(doc, {connect = createConnection, now = () => perf
   function render() {
     const active = status?.mode === 'Full Speed';
     const remaining = active ? Math.max(0, status.remaining_seconds - Math.floor((now() - sampledAt) / 1000)) : 0;
+    const effective = status?.effective_milli?.[0];
     mode.textContent = active ? (remaining ? `Full Speed · ${remaining}s remaining` : 'Checking speed…') :
-      status ? `Adaptive · ${status.adaptive_tier}` : signed ? 'Speed unavailable.' : 'Owner sign-in required.';
+      status ? (effective === undefined ? `Adaptive · ${status.adaptive_tier}` :
+        `${status.running ? `${effective / 1000} ticks/s` : 'Paused'} · Funding tier ${status.adaptive_tier}`) :
+        signed ? 'Speed unavailable.' : 'Owner sign-in required.';
     signIn.hidden = signed;
     signIn.disabled = busy;
     signOut.hidden = !signed;
