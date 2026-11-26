@@ -1,10 +1,25 @@
 //! Draft successor storage for ordered Ledger authorization. Rules18/19 retain
 //! their original map encoding and decoders. This module is not wired into a
 //! gameplay epoch until a paid-state-preserving Schema12 transition is proven.
-use crate::delegation_v18::{Grant, Registry};
-use dtr_wire::{Int, Result};
+use crate::delegation_v18::{Decision, Grant, Registry};
+use b2z_protocol::delegation::{
+    account_id, account_ok, decode_authorization, AuthorizationMemo, Payment, LIFETIME_NS,
+};
+use dtr_wire::{hex, unhex, Int, Result};
+use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
-use std::collections::BTreeMap;
+
+fn uint(value: &Int) -> Result<u64> {
+    value.0.to_u64().ok_or_else(|| "AUTH_INTEGER".into())
+}
+
+fn account(value: &str) -> Result<()> {
+    let bytes: [u8; 32] = unhex(value)?.try_into().map_err(|_| "AUTH_ACCOUNT")?;
+    if hex(&bytes) != value || !account_ok(&bytes) {
+        return Err("AUTH_ACCOUNT".into());
+    }
+    Ok(())
+}
 
 #[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
@@ -53,30 +68,105 @@ impl RegistryV3 {
         if self.version != 3 {
             return Err("AUTH_V3_VERSION".into());
         }
+        account(&self.recipient)?;
+        uint(&self.ledger_time_ns)?;
+        if let Some(last) = &self.last_position {
+            uint(last)?;
+        }
         let mut previous_account: Option<&str> = None;
-        let mut grants = BTreeMap::new();
         for row in &self.grants {
             if previous_account.is_some_and(|last| row.account.as_str() <= last) {
                 return Err("AUTH_V3_ORDER".into());
             }
+            account(&row.account)?;
             previous_account = Some(&row.account);
-            grants.insert(
-                row.account.clone(),
-                Grant {
-                    activation_position: row.activation_position.clone(),
-                    expires_at_ns: row.expires_at_ns.clone(),
-                    spender_principal: row.spender_principal.clone(),
-                },
-            );
+            let principal = unhex(&row.spender_principal)?;
+            if principal.len() != 29
+                || principal[28] != 2
+                || hex(&principal) != row.spender_principal
+                || uint(&row.expires_at_ns)? < LIFETIME_NS
+                || self
+                    .last_position
+                    .as_ref()
+                    .is_none_or(|p| row.activation_position > *p)
+            {
+                return Err("AUTH_GRANT".into());
+            }
+            uint(&row.activation_position)?;
         }
-        Registry {
-            version: 2,
-            recipient: self.recipient.clone(),
-            ledger_time_ns: self.ledger_time_ns.clone(),
-            last_position: self.last_position.clone(),
-            grants,
+        Ok(())
+    }
+
+    /// Apply an ordered Ledger fact directly to the canonical row set. A
+    /// temporary v2 map here would repeat work and reintroduce unsafe keys.
+    pub fn apply(&mut self, p: &Payment, input_position: u64) -> Result<Decision> {
+        p.encode()?;
+        let prior = self.last_position.as_ref().map(uint).transpose()?;
+        if p.position != input_position
+            || hex(&p.to) != self.recipient
+            || prior.is_some_and(|n| p.position <= n)
+            || p.ledger_time_ns < uint(&self.ledger_time_ns)?
+        {
+            return Err("AUTH_SOURCE_ORDER_OR_DESTINATION".into());
         }
-        .validate()
+        let payer = hex(&p.from);
+        let at = self.grants.binary_search_by(|row| row.account.cmp(&payer));
+        let setup = decode_authorization(p.memo.as_deref().unwrap_or(&[]));
+        let decision = match setup {
+            Err(_) => Decision::Rejected("INVALID_DELEGATION"),
+            Ok(Some(_)) if p.spender.is_some() => Decision::Rejected("DELEGATED_SETUP_FORBIDDEN"),
+            Ok(Some(_)) if p.amount != 0 => Decision::Rejected("DELEGATION_SETUP_AMOUNT"),
+            Ok(Some(AuthorizationMemo::Revoke)) => {
+                if let Ok(index) = at {
+                    self.grants.remove(index);
+                }
+                Decision::Revoked
+            }
+            Ok(Some(AuthorizationMemo::Grant(principal))) => {
+                let expiry = p
+                    .ledger_time_ns
+                    .checked_add(LIFETIME_NS)
+                    .ok_or("AUTH_TIME_OVERFLOW")?;
+                let row = GrantRow {
+                    account: payer,
+                    spender_principal: hex(&principal),
+                    activation_position: Int(p.position.into()),
+                    expires_at_ns: Int(expiry.into()),
+                };
+                match at {
+                    Ok(index) => self.grants[index] = row,
+                    Err(index) => self.grants.insert(index, row),
+                }
+                Decision::Granted
+            }
+            Ok(None) => {
+                if let Some(spender) = p.spender {
+                    let allowed = at
+                        .ok()
+                        .and_then(|index| self.grants.get(index))
+                        .is_some_and(|grant| {
+                            uint(&grant.activation_position)
+                                .is_ok_and(|activation| activation < p.position)
+                                && uint(&grant.expires_at_ns)
+                                    .is_ok_and(|expiry| p.ledger_time_ns < expiry)
+                                && unhex(&grant.spender_principal)
+                                    .ok()
+                                    .and_then(|bytes| account_id(&bytes, &[0; 32]).ok())
+                                    == Some(spender)
+                        });
+                    if allowed {
+                        Decision::Gameplay
+                    } else {
+                        Decision::Rejected("UNAUTHORIZED_SPENDER")
+                    }
+                } else {
+                    Decision::Gameplay
+                }
+            }
+        };
+        self.last_position = Some(Int(p.position.into()));
+        self.ledger_time_ns = Int(p.ledger_time_ns.into());
+        Ok(decision)
     }
 
     /// In-memory compatibility adapter only; its map must not be encoded as
@@ -173,5 +263,72 @@ mod tests {
         );
         duplicate.grants.push(duplicate.grants[0].clone());
         assert!(duplicate.validate().is_err());
+    }
+
+    #[test]
+    fn direct_grant_and_revoke_match_historical_decisions() {
+        let (mut payment, vector) = {
+            let value: serde_json::Value = serde_json::from_str(include_str!(
+                "../../../tests/fixtures/b2z-delegation-v18.json"
+            ))
+            .unwrap();
+            (
+                Payment::decode(&unhex(value["envelope"].as_str().unwrap()).unwrap()).unwrap(),
+                value,
+            )
+        };
+        let mut old = Registry::empty(hex(&payment.to)).unwrap();
+        let mut rows = RegistryV3::from_v2(&old).unwrap();
+        payment.position = 4;
+        payment.amount = 0;
+        payment.spender = None;
+        payment.memo = Some(unhex(vector["grant_memo"].as_str().unwrap()).unwrap());
+        assert_eq!(
+            old.apply(&payment, 4).unwrap(),
+            rows.apply(&payment, 4).unwrap()
+        );
+        assert_eq!(rows.to_v2().unwrap(), old);
+        assert_eq!(
+            hash(&encode(&rows).unwrap()),
+            "d50ecde672ae35c869752e3b8267e92e046735694fe60622df74b540869ffe6d"
+        );
+        payment.position = 5;
+        payment.memo = Some(vec![0xb2, 0xd1, 0x80]);
+        assert_eq!(
+            old.apply(&payment, 5).unwrap(),
+            rows.apply(&payment, 5).unwrap()
+        );
+        assert_eq!(rows.to_v2().unwrap(), old);
+        assert!(rows.grants.is_empty());
+    }
+
+    #[test]
+    fn direct_rows_accept_every_account_leading_hex_digit() {
+        let vector: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/b2z-delegation-v18.json"
+        ))
+        .unwrap();
+        let mut payment =
+            Payment::decode(&unhex(vector["envelope"].as_str().unwrap()).unwrap()).unwrap();
+        let mut accounts = std::collections::BTreeMap::new();
+        for value in 0..=u8::MAX {
+            let mut principal = [value; 29];
+            principal[28] = 2;
+            let payer = hex(&account_id(&principal, &[0; 32]).unwrap());
+            accounts.insert(payer.chars().next().unwrap(), payer);
+        }
+        assert_eq!(accounts.len(), 16);
+        for payer in accounts.values() {
+            let mut rows =
+                RegistryV3::from_v2(&Registry::empty(hex(&payment.to)).unwrap()).unwrap();
+            payment.from = unhex(payer).unwrap().try_into().unwrap();
+            payment.position = 4;
+            payment.amount = 0;
+            payment.spender = None;
+            payment.memo = Some(unhex(vector["grant_memo"].as_str().unwrap()).unwrap());
+            assert_eq!(rows.apply(&payment, 4).unwrap(), Decision::Granted);
+            let encoded = encode(&rows).unwrap();
+            assert_eq!(decode::<RegistryV3>(&encoded).unwrap(), rows);
+        }
     }
 }
