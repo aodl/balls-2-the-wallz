@@ -205,7 +205,7 @@ function advancePresentationRate(s,now,seconds){
  if(!s.idleDrain){
   // A performance-limited Normal producer still uses the same one-tick
   // verified coverage policy, even while its supported rate changes.
-  const buffered=s.elastic.fastSingleTickRate({now,remaining,seconds,current:s.nominalRate,supported:base,nominalMilli:status?.run?.pace?.nominal_milli??0,ticks});
+  const buffered=s.elastic.fastSingleTickRate({now,remaining,seconds,current:s.nominalRate,supported:base,nominalMilli:status?.run?.pace?.nominal_milli??0,ticks,catchingUp:s.catchingUp});
   if(buffered!==null)return buffered;
  }
  const target=s.idleDrain?base:s.elastic.rate({now,nominal:base,remaining,seconds,reserveTicks:Math.max(0,s.clock.target-ticks)});

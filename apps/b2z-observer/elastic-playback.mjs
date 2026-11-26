@@ -20,13 +20,15 @@ export function elasticPlayback(){
   const reserve=Math.max(Number.isFinite(reserveTicks)?Math.max(0,reserveTicks):0,rate*Math.max(jitter(),0,...deliveries));
   const desired=Math.max(.5,Math.min(1.5,Math.max(0,remaining-reserve)/horizon/rate));
   const step=.12*Math.max(0,Math.min(1,Number.isFinite(seconds)?seconds:0));factor+=Math.max(-step,Math.min(step,desired-factor));return rate*factor;
- },fastSingleTickRate({now,remaining,seconds,current,supported=1,nominalMilli=1000,ticks=1}){
+ },fastSingleTickRate({now,remaining,seconds,current,supported=1,nominalMilli=1000,ticks=1,catchingUp=false}){
   // A one-tick Normal stream can spend a whole interval fetching its next
   // verified artifact. Build a small lead while motion is still available.
   if(nominalMilli!==1000||ticks!==1||!(supported>0&&supported<=1))return null;
   const sampled=nominal===supported&&last!==null;
   const age=last===null?0:now-last.at;
-  if(remaining<=.005||age>=OBSERVATION_DEADLINE_MS)return null;
+  // The HTTP deadline bounds an individual request. Authenticated catch-up
+  // may still need more than one bounded query before admitting its next tick.
+  if(remaining<=.005||!catchingUp&&age>=OBSERVATION_DEADLINE_MS)return null;
   const horizon=sampled?Math.max(1.5,Math.min(2.5,1+Math.max(0,...deliveries))):2;
   const previous=Number.isFinite(current)?Math.max(.45*supported,Math.min(1.15*supported,current)):.5*supported;
   // Expired cadence evidence cannot justify spending the last verified

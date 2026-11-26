@@ -174,3 +174,26 @@ test('performance-limited Normal retains the one-tick guard through a support ch
  assert.equal(policy.fastSingleTickRate({now:8344,remaining:.149,seconds:.1,current:.086,supported:0,nominalMilli:1000,ticks:1}),null);
  assert.equal(policy.fastSingleTickRate({now:8344,remaining:.149,seconds:.1,current:.086,supported:.01,nominalMilli:10,ticks:1}),null);
 });
+
+test('an authenticated multi-query catch-up retains remaining Normal coverage across one request deadline',()=>{
+ const policy=elasticPlayback();
+ for(let i=0;i<3;i++)policy.observe({key:String(i),end:791+i,at:i*1000,nominal:1,ticks:1,deliverySeconds:.7346});
+ const clock=new PlayoutClock({target:17,low:1,min_rate:1,max_rate:1,max_frame_delta:1});
+ clock.append(0,793);clock.playhead=792.872697;clock.started=true;
+ let current=.076325;
+ const options={now:12010,remaining:.127303,seconds:1/60,current};
+ assert.equal(policy.fastSingleTickRate(options),null,'a lone expired request retains the existing outage behavior');
+ // The native trace delivered the retained catalogs and their artifacts after
+ // 10.53s in total. Each HTTP request still had its own unchanged deadline.
+ for(let frame=0;frame<66;frame++){
+  const remaining=clock.available-clock.playhead;
+  const cap=policy.fastSingleTickRate({...options,now:options.now+frame*1000/60,remaining,seconds:1/60,current,catchingUp:true});
+  current=cap??approachPresentationPace(current,1,1,1/60);
+  const result=clock.sample(current/60);
+  assert.ok(result.playhead<793,'catch-up must not consume the remainder at the ordinary rate');
+ }
+ assert.ok(clock.playhead>792.872697);
+ clock.append(793,796);
+ assert.ok(clock.sample(.1).playhead<=clock.available);
+ assert.equal(policy.fastSingleTickRate({...options,remaining:.004,catchingUp:true}),null,'genuine exhaustion still reaches the waiting state');
+});
