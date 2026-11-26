@@ -57,3 +57,24 @@ Allocate **60B backend cycles** and **450B frontend cycles** for installation an
 
 Leave the speed override inactive during this acceptance. A live Full Speed
 window requires separate authorization and a fresh resource check.
+
+## Read-only runway observation
+
+```sh
+node tools/observe_europe_prelaunch.mjs --output .work/europe-check.json
+node tools/observe_europe_prelaunch.mjs --baseline .work/europe-check.json --output .work/europe-later.json
+```
+
+Run the second command after a comparable operating window. The observer
+verifies both module identities and the publication certificate, checks the
+source descriptor and uses signed public status and health queries. The
+backend balance bracket subtracts only the estimated freezing requirement
+from the *observed gap* when testing for additional reservations. The
+reported liquid balance comes directly from the runtime health response.
+
+A fresh projection requires at least one hour of comparable settled samples.
+Positive balance movements, a changed module or runtime, and known credits
+can invalidate the comparison. The result estimates settled net decline.
+The Full Speed cycle floor is only one prerequisite. The separate frontend
+estimate subtracts the freezing requirement and the existing 450B
+installation/recovery allowance from the observed management balance.
