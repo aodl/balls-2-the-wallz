@@ -1,0 +1,87 @@
+{
+  "reconciled": {
+    "README.md": "Current product, verified replay, explicit Pay/manual wallet, exact qualification and export.",
+    "STATUS.md": "Dated certified and signed operational facts, installed identity, limits, runway and historical links.",
+    "AGENTS.md": "Current Rules19/Adapter12, exact recovery and qualification, security and evidence rules.",
+    "ROADMAP.md": "Open work with gates, owner dependencies and manufacturing integration points.",
+    "docs/specs/B2Z_APPLICATION.md": "Normative hierarchy for current world, finance, source and operating profile; preserved S14 compatibility text.",
+    "docs/specs/B2Z_HUMAN_EXPERIENCE.md": "Optional Pay, seven standard plus four specialised jobs, embedded frontend recovery.",
+    "docs/specs/B2Z_VISUAL_SYSTEM.md": "Graphite lineage and current human/payment contract.",
+    "docs/specs/B2Z_DAILY_ECONOMY_17.md": "Tariff behavior carried forward and legacy activation scope.",
+    "docs/specs/B2Z_RULES18_DELEGATED_PAYMENTS.md": "Active under Rules19 and distinction between user-click Ledger Pay and treasury.",
+    "docs/specs/B2Z_COMPACT_RESERVOIRS_19.md": "Committed compact epoch and compatible same-epoch recovery.",
+    "docs/operations/S14_OPERATOR.md": "Same-ID embedded frontend route and historical asset-canister link.",
+    "docs/operations/B2Z_PRELAUNCH_TRICKLE.md": "Installed profile and latest-release owner sign-in procedure.",
+    "docs/operations/PRELAUNCH_SELF_FUNDING.md": "Current treasury route and former-deployment scope.",
+    "docs/operations/PRODUCTION_RELEASES.md": "Durable artifacts, raw hashes and retrieval.",
+    "docs/operations/REPOSITORY_MAINTENANCE.md": "Retention, exception policy, verification and review export."
+  },
+  "unchanged_runtime_public_help": "get_api_doc contains legacy Rules7 wording; maintained current contracts are in docs/specs and changing installed Wasm is outside this maintenance.",
+  "outstanding": [
+    {
+      "id": "owner-sign-in",
+      "priority": 1,
+      "status": "deployed; owner acceptance pending",
+      "acceptance": "Owner ceremony using permanent derivation origin",
+      "boundary": "owner-mode playtesting only"
+    },
+    {
+      "id": "operating-reserves",
+      "priority": 1,
+      "status": "operating; workload-specific runway",
+      "acceptance": "Longer settled measurements and owner funding or operating decision when warranted",
+      "boundary": "ongoing prelaunch availability"
+    },
+    {
+      "id": "manufacturing",
+      "priority": 2,
+      "status": "incomplete",
+      "acceptance": "Cannon and Diverter presentation using existing geometry and certified outcomes; recover reference and laser wording",
+      "boundary": "next frontend product feature"
+    },
+    {
+      "id": "owner-playtesting",
+      "priority": 3,
+      "status": "bounded acceptance complete; broader owner feedback pending",
+      "acceptance": "Actual devices and separately authorized payment or Full Speed exercises",
+      "boundary": "prelaunch quality"
+    },
+    {
+      "id": "full-speed-throughput",
+      "priority": 4,
+      "status": "implemented; sustained 1 tick/s remains open",
+      "acceptance": "Separate scheduler target, authoritative, admission, presentation and render measurement",
+      "boundary": "temporary owner override"
+    },
+    {
+      "id": "physical-rendering-audio",
+      "priority": 4,
+      "status": "P09 FAIL; representative hardware coverage incomplete",
+      "acceptance": "Native GPU, phones, browser matrix, dense workload and listening/routing",
+      "boundary": "wider launch"
+    },
+    {
+      "id": "public-launch",
+      "priority": 5,
+      "status": "incomplete",
+      "acceptance": "Scope, public profile, operating costs, capacity, accessibility, support and financial acceptance",
+      "boundary": "wider launch"
+    },
+    {
+      "id": "funded-agents",
+      "priority": null,
+      "status": "deferred; historical campaign ended",
+      "acceptance": "Separate owner authorization for any new funded campaign",
+      "boundary": "independent future decision"
+    },
+    {
+      "id": "legacy-api-help",
+      "priority": null,
+      "status": "deferred documentation follow-up",
+      "acceptance": "Version the historical on-chain get_api_doc text in a separately qualified backend change",
+      "boundary": "no prelaunch scope impact"
+    }
+  ],
+  "source": "ROADMAP.md",
+  "manufacturing_scope": "Deferred implementation. No unpublished matching source or complete approved original laser wording/reference found in reviewed paths and version history."
+}

@@ -1,0 +1,65 @@
+{
+  "releases": [
+    {
+      "assets": [
+        {
+          "digest": "sha256:23c68b6bb4724a317962ad26c9e8c4c3df162823d73d8b438cbe7efc34715b64",
+          "id": 794640514,
+          "name": "europe-rules19-prelaunch-trickle.zip",
+          "size": 76854586
+        }
+      ],
+      "id": 459046203,
+      "published_at": "2026-11-26T06:41:42Z",
+      "tag_name": "production/europe-rules19-prelaunch-trickle",
+      "zip_download_verified": true
+    },
+    {
+      "assets": [
+        {
+          "digest": "sha256:3f8daa75b7ef7d46b3376ade1038e620e3ba62a1f08fb49a8206c94ce108a887",
+          "id": 794640626,
+          "name": "europe-rules19.zip",
+          "size": 76679378
+        },
+        {
+          "digest": "sha256:a6ada1a432fac81f36cbfc1a005f08f29758f60b384f39005f9d4ab82291cd03",
+          "id": 794679843,
+          "name": "rules19-recovery-interface.json",
+          "size": 3543,
+          "download_verified": true
+        }
+      ],
+      "id": 459046243,
+      "published_at": "2026-11-26T06:41:46Z",
+      "tag_name": "production/europe-rules19",
+      "zip_download_verified": true
+    }
+  ],
+  "original_actions_artifacts": {
+    "15033641591": {
+      "bytes": 8210172,
+      "sha256": "6137d734842f2f12986b1bf31162de44bdd8b98668cdb2e3802d4643b8e6e567",
+      "run": 45633690703,
+      "expires": "2026-12-09"
+    },
+    "15031828103": {
+      "bytes": 76499590,
+      "sha256": "0f902c9fcf2276b87d664f3b68e51c87636d69b79135025d45f32efdc50b3959",
+      "run": 45633690703,
+      "expires": "2026-12-09"
+    }
+  },
+  "operator_evidence": {
+    "archive": "prelaunch-trickle-operator-evidence.zip",
+    "sha256": "cfbdc84d49554a648d22c4b8a4f1d09ccbfd1d39fbf13589cc8b27f7749cb2ba",
+    "bytes": 1545466,
+    "files": 255,
+    "payload_manifest": "archive.json",
+    "storage": "operator home directory outside the Git checkout; mode 0600",
+    "retrieval_verified": true,
+    "originals_retained": true
+  },
+  "operator_archive_root": "b2z-release-evidence/repository-consolidation in operator home",
+  "historical_git_retention": "See archive-verification.json"
+}

@@ -1,0 +1,144 @@
+{
+  "scope": "metadata only, top-level master work directory; no blanket cleanup",
+  "largest_collections": [
+    {
+      "path": ".work/mainline-ci",
+      "allocated_bytes": 5467168768,
+      "classification": "mixed qualification outputs, failure evidence, exact predecessors and build caches"
+    },
+    {
+      "path": ".work/rules19",
+      "allocated_bytes": 1921429504,
+      "classification": "mixed build output, independent replay, profiles, exact hosted artifacts and browser evidence"
+    },
+    {
+      "path": ".work/target",
+      "allocated_bytes": 1877626880,
+      "classification": "regenerable Rust target used by local verification"
+    },
+    {
+      "path": ".work/dev-smooth",
+      "allocated_bytes": 1321816064,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/dev-speed-browser-backend",
+      "allocated_bytes": 935706624,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/prelaunch-trickle",
+      "allocated_bytes": 931074048,
+      "classification": "frozen production, recovery and earlier profile qualification"
+    },
+    {
+      "path": ".work/repository-consolidation",
+      "allocated_bytes": 741638144,
+      "classification": "this task\u2019s work, review ZIPs and raw qualification logs"
+    },
+    {
+      "path": ".work/mainline-reconnect",
+      "allocated_bytes": 651124736,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/rules19-rollout-20261125",
+      "allocated_bytes": 591400960,
+      "classification": "predecessor artifacts, exact hosted freezes and production rollout evidence"
+    },
+    {
+      "path": ".work/dev-ii-build-local",
+      "allocated_bytes": 306417664,
+      "classification": "embedded owner frontend freeze and provenance; verified duplicate Cargo target removed"
+    },
+    {
+      "path": ".work/dev-speed-ui-c",
+      "allocated_bytes": 306388992,
+      "classification": "frozen generated module and UI qualification; verified duplicate Cargo target removed"
+    },
+    {
+      "path": ".work/dev-speed-ui-d",
+      "allocated_bytes": 306352128,
+      "classification": "frozen generated module and UI qualification; verified duplicate Cargo target removed"
+    },
+    {
+      "path": ".work/prelaunch-activation",
+      "allocated_bytes": 109776896,
+      "classification": "unique acceptance, failed attempt, certified continuity and private financial reads"
+    },
+    {
+      "path": ".work/dev-ii-hosted-45141098285",
+      "allocated_bytes": 78647296,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/hosted-dev-frontend-45133912176",
+      "allocated_bytes": 78643200,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/dev-speed-ui-b",
+      "allocated_bytes": 75894784,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/rules18-cost",
+      "allocated_bytes": 58445824,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/dev-speed-priors",
+      "allocated_bytes": 23760896,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/dev-speed-rollout",
+      "allocated_bytes": 20054016,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/rules19-preflight-20261125",
+      "allocated_bytes": 12562432,
+      "classification": "predecessor qualification, source/cycle observations and replay"
+    },
+    {
+      "path": ".work/dev-ii-verified-backend-45141098285",
+      "allocated_bytes": 5337088,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/hosted-dev-backend-45133912176",
+      "allocated_bytes": 5337088,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/dev-ii-repro-fixed",
+      "allocated_bytes": 4956160,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/dev-ii-repro-old",
+      "allocated_bytes": 4956160,
+      "classification": "retained mixed or uncertain working material"
+    },
+    {
+      "path": ".work/dev-rules18-retained-browser",
+      "allocated_bytes": 4804608,
+      "classification": "retained mixed or uncertain working material"
+    }
+  ],
+  "classification_counts": {
+    "embedded owner frontend freeze and provenance; verified duplicate Cargo target removed": 1,
+    "frozen generated module and UI qualification; verified duplicate Cargo target removed": 2,
+    "frozen production, recovery and earlier profile qualification": 1,
+    "mixed build output, independent replay, profiles, exact hosted artifacts and browser evidence": 1,
+    "mixed qualification outputs, failure evidence, exact predecessors and build caches": 1,
+    "predecessor artifacts, exact hosted freezes and production rollout evidence": 1,
+    "predecessor qualification, source/cycle observations and replay": 1,
+    "prior settled telemetry and certified observations": 1,
+    "regenerable Rust target used by local verification": 1,
+    "retained mixed or uncertain working material": 32,
+    "this task\u2019s work, review ZIPs and raw qualification logs": 1,
+    "unique acceptance, failed attempt, certified continuity and private financial reads": 1
+  }
+}

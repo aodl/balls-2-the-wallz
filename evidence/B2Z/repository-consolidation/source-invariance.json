@@ -1,0 +1,338 @@
+{
+  "baseline": "315fe2ff1ff873c16e8f693025cc625b0ae59cab",
+  "qualified_candidate": "ecd3eb010af195ac2c59b34d8205ec81359c1632",
+  "identity_method": "Identical Git tree, blob, mode and size; direct SHA-256 for active evidence inputs",
+  "identical_scopes": {
+    "apps/": {
+      "files": 360,
+      "bytes": 75635204,
+      "tree_or_blob": "f85d7e22990af57995006d36d84f93a85bd41a54"
+    },
+    "benchmarks/": {
+      "files": 11,
+      "bytes": 104902,
+      "tree_or_blob": "4e61e90c657f1f8ef41b2949b0fa2c8f6c464510"
+    },
+    "canisters/": {
+      "files": 22,
+      "bytes": 535473,
+      "tree_or_blob": "4282326edf0230a9f516f794b46a18d3d3940f85"
+    },
+    "ci/": {
+      "files": 1,
+      "bytes": 288,
+      "tree_or_blob": "47e6d9102ecf09ca8f68ed7a11215b2f337ce011"
+    },
+    "crates/": {
+      "files": 13,
+      "bytes": 42748,
+      "tree_or_blob": "adf0959d7ee4be0f6760533bed3c58e69414bacb"
+    },
+    "interfaces/": {
+      "files": 8,
+      "bytes": 11750,
+      "tree_or_blob": "3f77c3475273499329fbf7307bdb90653965a17e"
+    },
+    "kernels/": {
+      "files": 4,
+      "bytes": 39225,
+      "tree_or_blob": "559a963285bd71eea545c069dc1b1854133bb8d6"
+    },
+    "native/": {
+      "files": 58,
+      "bytes": 430341,
+      "tree_or_blob": "5c3c2f65dc10f1afccce683c787f5363dc9535bf"
+    },
+    "packages/": {
+      "files": 64,
+      "bytes": 382275,
+      "tree_or_blob": "e21da5d470f55cc8bd5a60a50461f370bda44217"
+    },
+    "references/": {
+      "files": 32,
+      "bytes": 214574,
+      "tree_or_blob": "2eb18aee4f067afb3a1452f0205277bc5cd5d2ff"
+    },
+    "tests/": {
+      "files": 175,
+      "bytes": 16137758,
+      "tree_or_blob": "9536622b23b122597c1ab3dcb7236de23ca3472e"
+    },
+    "vendor/": {
+      "files": 25,
+      "bytes": 14327844,
+      "tree_or_blob": "da0f5b685d2a2596cd77a99f0e474e8524f95244"
+    },
+    "Cargo.lock": {
+      "files": 1,
+      "bytes": 3034,
+      "tree_or_blob": "a81f1d791204d04b35f1c922309e11f979d908f2"
+    },
+    "Cargo.toml": {
+      "files": 1,
+      "bytes": 569,
+      "tree_or_blob": "952d79a2c389f1f29fae69470106d0379e8685b2"
+    },
+    "package.json": {
+      "files": 1,
+      "bytes": 756,
+      "tree_or_blob": "3e208c972f27baa5cf3cdc05d0e5564c4bdb47e8"
+    },
+    "package-lock.json": {
+      "files": 1,
+      "bytes": 20953,
+      "tree_or_blob": "eaf1642bbe2d4c6a1a062b3ae412613bed3b58f9"
+    },
+    "dfx.json": {
+      "files": 1,
+      "bytes": 612,
+      "tree_or_blob": "7fc41134b713abde21781a20c956edf52109cd00"
+    },
+    "rust-toolchain.toml": {
+      "files": 1,
+      "bytes": 212,
+      "tree_or_blob": "6af31eef7f39a5fe3e63c7eaee4ddfe795df2dd8"
+    },
+    "canister_ids.json": {
+      "files": 1,
+      "bytes": 120,
+      "tree_or_blob": "bb99674646a9d6a5b5690c6daf5428e2212f2a13"
+    }
+  },
+  "active_evidence": {
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/build-manifest.json": {
+      "bytes": 22321,
+      "git_blob": "ee261af447366affa6f0366a844542fbb2659192",
+      "sha256": "209552afe8aa43b1294880a73374b784366d6e2ca829db64e324f01f26b07c9e"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/frontend-inventory.json": {
+      "bytes": 13128,
+      "git_blob": "27bafb886d36f6019f2bf9c1ef8b165dc0dfd69d",
+      "sha256": "63cffcc2793a1855269c8b5cbcb8d01507d9cac5f056b7b8989939e83c13d45f"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/provenance.json": {
+      "bytes": 77753,
+      "git_blob": "e77720ff55cc404a5095491478b0646ea5c391a6",
+      "sha256": "ff65eae4a1611fc056dc2d4e607b2118e2f5f116565b9f9e42e246d8ed41118b"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/superseded-0b8709b/build-manifest.json": {
+      "bytes": 22321,
+      "git_blob": "75e29b0af0fc4c6672dc2ab240b064596f7d9b7f",
+      "sha256": "1eadb64b5a1ae3fc416a3b718b252aff73f993f34c3557ee3df9b2ca2def56d6"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/superseded-0b8709b/frontend-inventory.json": {
+      "bytes": 13128,
+      "git_blob": "ba50c9956ec66b9b9d726934d838238cf4c1487f",
+      "sha256": "83e0b60c289eaf80cb3b5856d0b6e14fa6f96fd81a2e056b0618a02856dda735"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/superseded-0b8709b/provenance.json": {
+      "bytes": 77753,
+      "git_blob": "fdd17f63c6c2efb976701e01b126b2ecbfebef78",
+      "sha256": "3db656ef7c8616b3c6ecc5e6fb755be88a64401cf43a51b72d441fe6880b0808"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/superseded-dcc1e7a/build-manifest.json": {
+      "bytes": 22321,
+      "git_blob": "6ecbebe2b3a3262a6b5c7b8a732757e281868b0e",
+      "sha256": "a89eb86aa49db978df2eef581e685b5a9e4c911e0a0b3ee6736bde136c3b07c0"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/superseded-dcc1e7a/frontend-inventory.json": {
+      "bytes": 13128,
+      "git_blob": "c00011c185d0a9bab539121cd5f8e2b295446d9d",
+      "sha256": "c2cb60e831eec89acfd141e10b862d724622db77b185a5ec28506ac1dd38d17f"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/superseded-dcc1e7a/provenance.json": {
+      "bytes": 77753,
+      "git_blob": "2f84fc9293172ab01643a1bbf65cb0e7592bd59e",
+      "sha256": "8fc850c48fa2ea4f69e81201ba53625c10e69124825650941f4ddba4e7b01660"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/superseded-ecb0/build-manifest.json": {
+      "bytes": 22321,
+      "git_blob": "56828f66516fd76eceefd799b250314f16fbbf6e",
+      "sha256": "7ebd9e669cea4711989d4f73769241ca56e7a1e558a516f2609ca6afcf80f171"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/superseded-ecb0/frontend-inventory.json": {
+      "bytes": 13128,
+      "git_blob": "0be56b87990f31ea9dc57af1fc2448b6c8df0379",
+      "sha256": "b7d80bf2526c56f835de5338aa2acc34025a014d5392273b3b06fbadde308db8"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/superseded-fd69939/build-manifest.json": {
+      "bytes": 22321,
+      "git_blob": "f39fc8facfcbd2fdbf62bed9d1238474d7d450ab",
+      "sha256": "6551fc8a19bb957af0c5f438e7567ab370a5153745caa0946d48e112d0bbe3fc"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/superseded-fd69939/frontend-inventory.json": {
+      "bytes": 13128,
+      "git_blob": "1fc3ef1d58a7ca0e15d32d92e4582de0dfe69186",
+      "sha256": "94329dfe47c12adbd074a5af76009bc9edb0bce44322db2a0279da7fc2fb47fa"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/artifacts/superseded-fd69939/provenance.json": {
+      "bytes": 77753,
+      "git_blob": "ef8d71bebe37d7290b893702b150d6f6d1f5b2b3",
+      "sha256": "41a39da996f8871bf028f9681b2229a5ef5d15ff499d29afce1c908e6303b9b6"
+    },
+    "evidence/B2Z/approved-action-panel-war-cry/reference/APPROVED_ACTION_PANEL.png": {
+      "bytes": 1395845,
+      "git_blob": "62cafabe8955f9a0ed88bfb50c35e7d912b22b2f",
+      "sha256": "988235d66eaab055b11871fead7a28f2adad61754afe4401cd3eb26e9b953eb4"
+    },
+    "evidence/B2Z/closed-loop-counterplay-2026-11-04/heldout-results.json.gz": {
+      "bytes": 79724,
+      "git_blob": "3a8d3717714b462bf890622f6c601c5b6a415975",
+      "sha256": "6e85386f0ade25690d88fceaeba002d6986aa1e47bd2e68f4c5c4568f8e0b899"
+    },
+    "evidence/B2Z/graphite-deflectors/connectivity-ui-polish/artifacts/build-manifest.json": {
+      "bytes": 23412,
+      "git_blob": "e48227a40c872b3f311d27d10302480245059923",
+      "sha256": "5b1587b7454bd829df3d8ad62e4ac86e2631b4248d6f8675d9da091478e87ecc"
+    },
+    "evidence/B2Z/graphite-deflectors/connectivity-ui-polish/artifacts/frontend-inventory.json": {
+      "bytes": 13431,
+      "git_blob": "54a10107e41977a29fcfe483d040b0abc4f8b5d4",
+      "sha256": "557569b78dbf49052d3990bd68253cbb68c23e034d47f49565a65080b3a8301d"
+    },
+    "evidence/B2Z/graphite-deflectors/connectivity-ui-polish/artifacts/provenance.json": {
+      "bytes": 89113,
+      "git_blob": "48f9acef1e833654adf34c108eb42fa6a9da297b",
+      "sha256": "9e110b2472780eb78310c53fc3837cdc576d077cfb44a6fa8c55f2133bf627da"
+    },
+    "evidence/B2Z/graphite-deflectors/reference/01_APPROVED_VISUAL_LANGUAGE.png": {
+      "bytes": 1757975,
+      "git_blob": "4bf6148497f00534b7e22fd9e20cb01a376fcff6",
+      "sha256": "96c806085421fa91948dd484106e4d07aed9378746e256a9a4f6cd83fe132719"
+    },
+    "evidence/B2Z/graphite-deflectors/reference/02_APPROVED_CANNON.png": {
+      "bytes": 1612298,
+      "git_blob": "ba7a85cd6c150cf3bc5a29780ce2595b9dac29eb",
+      "sha256": "557f7c481383330240ffd1a385b3c2871b63113cf2b3288298875d624911790a"
+    },
+    "evidence/B2Z/graphite-deflectors/reference/03_APPROVED_DEFLECTOR.png": {
+      "bytes": 1631060,
+      "git_blob": "5cac72dde633652b8d678f0c5f6b7c5e18ec54ee",
+      "sha256": "bb37db7a88811fe998defbf986cd0ccb14a22c08a26c2e8050a9f410fdd0a4d4"
+    },
+    "evidence/B2Z/graphite-deflectors/reference/04_APPROVED_PANEL_STRUCTURE.png": {
+      "bytes": 1395845,
+      "git_blob": "62cafabe8955f9a0ed88bfb50c35e7d912b22b2f",
+      "sha256": "988235d66eaab055b11871fead7a28f2adad61754afe4401cd3eb26e9b953eb4"
+    },
+    "evidence/B2Z/graphite-deflectors/reference/05_CURRENT_UI_BASELINE.png": {
+      "bytes": 75003,
+      "git_blob": "88b1a0ed68b3d97e5aa64744dbac205cee995373",
+      "sha256": "7eec290481f2fb1de1ea1b673bc7ff918a5d2539f25808093fa5e48cc9df5aef"
+    },
+    "evidence/B2Z/graphite-deflectors/reference/06_CURRENT_CANNON_BASELINE.png": {
+      "bytes": 32490,
+      "git_blob": "217360c724f94bba93665dddd80d3f9f0cced726",
+      "sha256": "8ff80d808580ac5ec864da61f671ecfca26f1117d11bdb1777a570c76d374b70"
+    },
+    "evidence/B2Z/graphite-deflectors/reference/REFERENCE_GUIDE.md": {
+      "bytes": 5278,
+      "git_blob": "e7931f21d796c8ce12329174f3ae9d5c3e66fa34",
+      "sha256": "012d6def01104b08d8c314e8658dfc96d753cc0ad4056301889b2812b4d90118"
+    },
+    "evidence/B2Z/graphite-deflectors/reference/REFERENCE_MANIFEST.json": {
+      "bytes": 2751,
+      "git_blob": "7a572f467262adf5e4d7bcf53fac675048c32ba0",
+      "sha256": "43fd6b4478579acf13f8194ba90c41e59afeee2d446ab7d268d79662ff0aa752"
+    },
+    "evidence/B2Z/policy-v2-2026-11-02/snapshot.json": {
+      "bytes": 25704,
+      "git_blob": "f75c84c5c7a092a0401c017c5006670d5e613a40",
+      "sha256": "7424cf906ef9ee7667ca4461fff24adf9a07d2d8b6d474e33f0a860f8c4d896c"
+    },
+    "evidence/B2Z/rules16-reservoirs/artifacts/build-manifest.json": {
+      "bytes": 25766,
+      "git_blob": "90878cb09c2eca9d3d1e0402b2f2aec17d05e019",
+      "sha256": "a52e52e27e312deeb0b82e4f36b55cfd1586146cbf380b4bf0653e72fce8693f"
+    },
+    "evidence/B2Z/rules16-reservoirs/artifacts/embedded-inventory.json": {
+      "bytes": 28374,
+      "git_blob": "7e4816d0e80b9980c0f15e16317a82852b18ef86",
+      "sha256": "5236ceabcd0c29b6808639d1cdc8c5d7b6f81fe8ae95af52dbd4179b721763ae"
+    },
+    "evidence/B2Z/rules16-reservoirs/artifacts/embedded-module.json": {
+      "bytes": 1359,
+      "git_blob": "25fc8e048c8c7eb09e539995065d81103da50fe4",
+      "sha256": "9d4e749297d650bfa7f7b14a0e29f34c89957abfbe9f930563ad9ba275f5c28c"
+    },
+    "evidence/B2Z/rules16-reservoirs/artifacts/frontend-inventory.json": {
+      "bytes": 14764,
+      "git_blob": "25d89ecc55ffcea67186a41a6f0e1e3f29dc4c2f",
+      "sha256": "3f66a88112d83206c9f9c058c28b0754c4631d71812ac83fef5c362e4a8f9ef9"
+    },
+    "evidence/B2Z/rules16-reservoirs/artifacts/provenance.json": {
+      "bytes": 96447,
+      "git_blob": "fe597d3fc4c0728fe04d70e4a74e7de13eae0a80",
+      "sha256": "3ebd4ae090e93f8bb4ffa7334c4501177a852abec7dcfbeeabc9563b8abfef46"
+    },
+    "evidence/B2Z/rules16-toolbar-payments/artifacts/build-manifest.json": {
+      "bytes": 25766,
+      "git_blob": "854bf496cecf16e25295b078fb9e6c6f80a4c6e6",
+      "sha256": "fea1ed035ccbe7ccb0e9b263a0f49297d9c187c3395447e43af0f532c697a7dd"
+    },
+    "evidence/B2Z/rules16-toolbar-payments/artifacts/embedded-inventory.json": {
+      "bytes": 28374,
+      "git_blob": "d832496ea8aeb5b993ed90de89c3b5042580da1f",
+      "sha256": "10a24f48ef21604fe9e76dc9cb836b10e18999ce17a15be917e80d38067fdb37"
+    },
+    "evidence/B2Z/rules16-toolbar-payments/artifacts/embedded-module.json": {
+      "bytes": 1359,
+      "git_blob": "b52660ed280915244216f40daed191e52d940966",
+      "sha256": "50f1500d3b1751d1305bcb6e2b2f753686dc369383b482ead5b60416c1a2479a"
+    },
+    "evidence/B2Z/rules16-toolbar-payments/artifacts/frontend-inventory.json": {
+      "bytes": 14764,
+      "git_blob": "d81518f8ded39e115840a49f4db43f14b31df7a1",
+      "sha256": "358580494deb6346f670155f1e7f0eed7dd30fb83f2559343ca872589fc4a7ed"
+    },
+    "evidence/B2Z/rules16-toolbar-payments/artifacts/provenance.json": {
+      "bytes": 96447,
+      "git_blob": "235dffea2e415d2c75742a83fa5fd14fcb0a5467",
+      "sha256": "91c6108d066494dd05a508df5269ff5a76b4d02c68f714105505a3d39573db91"
+    },
+    "evidence/B2Z/rules18-delegated-payments/artifacts/build-manifest.json": {
+      "bytes": 29662,
+      "git_blob": "6b4a638f0491bc61a1b5d44efe980a05fe24b860",
+      "sha256": "4681c68ad93b301ee5101eebf11764a3948d1ee73c57b68447e9c893bfc08f72"
+    },
+    "evidence/B2Z/rules18-delegated-payments/artifacts/embedded-inventory.json": {
+      "bytes": 28948,
+      "git_blob": "b89c88f443d81d0678b6e99132a5c379b34765be",
+      "sha256": "bafb32164e8b8cd784e5a89a303a4a0a067097079b88a8dcf27676954abbc7b0"
+    },
+    "evidence/B2Z/rules18-delegated-payments/artifacts/embedded-module.json": {
+      "bytes": 1359,
+      "git_blob": "78cce7a727eba1537e0036262339879106299f45",
+      "sha256": "df4bc5cef490208ad3f56b7cf529269aca7915d568584136d8a578cb96502dd9"
+    },
+    "evidence/B2Z/rules18-delegated-payments/artifacts/frontend-inventory.json": {
+      "bytes": 15066,
+      "git_blob": "5c56b42b55e3ef853512f7a0d033f61d660dccfa",
+      "sha256": "eb29f7b0d93dbd736f8ae7aa2753738b3d75c806cf2ab757b2d75a904e29f879"
+    },
+    "evidence/B2Z/rules18-delegated-payments/artifacts/provenance.json": {
+      "bytes": 101120,
+      "git_blob": "1c9047b624ee9630e20c14191c1a25dbb41bfa6d",
+      "sha256": "4b5730659db65a1c56581087ace9acbf23bdc3827bc3a0f9d4fd60dfd060528c"
+    },
+    "evidence/B2Z/rules19-compact-reservoirs/artifact-pins.json": {
+      "bytes": 702,
+      "git_blob": "bc163eb34b3de823cb406fe6cf91c60b64963983",
+      "sha256": "34c7fbc5d791c1e88a6a58a4accb42cd12f0720960d9c5c992b61fd9536eb97f"
+    }
+  },
+  "dependency_audit": [
+    "Scanned JavaScript, Rust, Python, shell, manifests, CI, benchmarks, fixture and recording builders, and checked relative links in active docs/checkpoints.",
+    "Reviewed workflow and tool artifact-directory construction and protected whole input directories. Authenticated data .bin/.cbor and out-of-scope uncertain collections remain.",
+    "Archived existing historical media, served-asset copies and clearly scoped diagnostic outputs; full artifacts, active inputs and reports keep their original paths.",
+    "No existing tool implementation changed; new packaging and retention tools and workflow routing are the qualification input changes."
+  ],
+  "pins": {
+    "Rust": "1.94.1",
+    "DTR Rust": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+    "DTR JavaScript": "0.15.0",
+    "@icp-sdk/auth": "11.2.0",
+    "@icp-sdk/core": "6.1.0",
+    "three": "0.187.0"
+  }
+}

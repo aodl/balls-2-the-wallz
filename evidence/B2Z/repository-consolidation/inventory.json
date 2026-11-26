@@ -1,0 +1,3378 @@
+{
+  "before": {
+    "source_commit": "315fe2ff1ff873c16e8f693025cc625b0ae59cab",
+    "tree": "4acd2034a466b2a60be9490d56a481bf9decaed4",
+    "files": 9142,
+    "bytes": 943702136,
+    "top_level": {
+      "evidence": {
+        "files": 7944,
+        "bytes": 831899003
+      },
+      "apps": {
+        "files": 360,
+        "bytes": 75635204
+      },
+      "tests": {
+        "files": 175,
+        "bytes": 16137758
+      },
+      "vendor": {
+        "files": 25,
+        "bytes": 14327844
+      },
+      "tools": {
+        "files": 289,
+        "bytes": 2634584
+      },
+      "docs": {
+        "files": 66,
+        "bytes": 617099
+      },
+      "canisters": {
+        "files": 22,
+        "bytes": 535473
+      },
+      "native": {
+        "files": 58,
+        "bytes": 430341
+      },
+      "packages": {
+        "files": 64,
+        "bytes": 382275
+      },
+      "(root)": {
+        "files": 17,
+        "bytes": 328285
+      },
+      "checkpoints": {
+        "files": 30,
+        "bytes": 273280
+      },
+      "references": {
+        "files": 32,
+        "bytes": 214574
+      },
+      "benchmarks": {
+        "files": 11,
+        "bytes": 104902
+      },
+      ".github": {
+        "files": 7,
+        "bytes": 64255
+      },
+      "crates": {
+        "files": 13,
+        "bytes": 42748
+      },
+      "kernels": {
+        "files": 4,
+        "bytes": 39225
+      },
+      "config": {
+        "files": 15,
+        "bytes": 11890
+      },
+      "interfaces": {
+        "files": 8,
+        "bytes": 11750
+      },
+      "licenses": {
+        "files": 1,
+        "bytes": 11358
+      },
+      "ci": {
+        "files": 1,
+        "bytes": 288
+      }
+    },
+    "extensions": {
+      ".png": {
+        "files": 1750,
+        "bytes": 334090841
+      },
+      ".webm": {
+        "files": 330,
+        "bytes": 324666314
+      },
+      ".json": {
+        "files": 2735,
+        "bytes": 130655347
+      },
+      ".flac": {
+        "files": 60,
+        "bytes": 74078792
+      },
+      ".cbor": {
+        "files": 470,
+        "bytes": 18262478
+      },
+      ".gz": {
+        "files": 73,
+        "bytes": 16406663
+      },
+      ".bin": {
+        "files": 1637,
+        "bytes": 13752219
+      },
+      ".mjs": {
+        "files": 388,
+        "bytes": 6413591
+      },
+      ".log": {
+        "files": 690,
+        "bytes": 5204536
+      },
+      ".wav": {
+        "files": 4,
+        "bytes": 4608176
+      },
+      ".jpg": {
+        "files": 18,
+        "bytes": 3488690
+      },
+      ".md": {
+        "files": 362,
+        "bytes": 3146436
+      },
+      "(none)": {
+        "files": 54,
+        "bytes": 2307285
+      },
+      ".rs": {
+        "files": 107,
+        "bytes": 1862427
+      },
+      ".py": {
+        "files": 292,
+        "bytes": 1730047
+      },
+      ".jsonl": {
+        "files": 8,
+        "bytes": 955927
+      },
+      ".gzip": {
+        "files": 4,
+        "bytes": 459358
+      },
+      ".sha256sums": {
+        "files": 1,
+        "bytes": 444567
+      },
+      ".tsv": {
+        "files": 10,
+        "bytes": 265335
+      },
+      ".lock": {
+        "files": 8,
+        "bytes": 201945
+      },
+      ".tgz": {
+        "files": 5,
+        "bytes": 150831
+      },
+      ".sha256": {
+        "files": 7,
+        "bytes": 93839
+      },
+      ".txt": {
+        "files": 44,
+        "bytes": 91514
+      },
+      ".yml": {
+        "files": 12,
+        "bytes": 81484
+      },
+      ".html": {
+        "files": 16,
+        "bytes": 67830
+      },
+      ".ico": {
+        "files": 1,
+        "bytes": 66640
+      },
+      ".css": {
+        "files": 3,
+        "bytes": 44705
+      },
+      ".did": {
+        "files": 16,
+        "bytes": 37763
+      },
+      ".svg": {
+        "files": 4,
+        "bytes": 24383
+      },
+      ".csv": {
+        "files": 6,
+        "bytes": 22468
+      },
+      ".toml": {
+        "files": 14,
+        "bytes": 6568
+      },
+      ".tap": {
+        "files": 1,
+        "bytes": 6317
+      },
+      ".sh": {
+        "files": 4,
+        "bytes": 2447
+      },
+      ".js": {
+        "files": 1,
+        "bytes": 1724
+      },
+      ".patch": {
+        "files": 1,
+        "bytes": 1493
+      },
+      ".hex": {
+        "files": 1,
+        "bytes": 617
+      },
+      ".der": {
+        "files": 3,
+        "bytes": 399
+      },
+      ".in": {
+        "files": 2,
+        "bytes": 140
+      }
+    },
+    "evidence_extensions": {
+      ".png": {
+        "files": 1750,
+        "bytes": 334090841
+      },
+      ".webm": {
+        "files": 330,
+        "bytes": 324666314
+      },
+      ".json": {
+        "files": 2655,
+        "bytes": 115384912
+      },
+      ".cbor": {
+        "files": 470,
+        "bytes": 18262478
+      },
+      ".bin": {
+        "files": 1419,
+        "bytes": 12958861
+      },
+      ".log": {
+        "files": 683,
+        "bytes": 5155440
+      },
+      ".wav": {
+        "files": 4,
+        "bytes": 4608176
+      },
+      ".mjs": {
+        "files": 34,
+        "bytes": 4348481
+      },
+      ".jpg": {
+        "files": 18,
+        "bytes": 3488690
+      },
+      "(none)": {
+        "files": 51,
+        "bytes": 2306944
+      },
+      ".gz": {
+        "files": 58,
+        "bytes": 1990423
+      },
+      ".md": {
+        "files": 240,
+        "bytes": 1958309
+      },
+      ".jsonl": {
+        "files": 8,
+        "bytes": 955927
+      },
+      ".py": {
+        "files": 139,
+        "bytes": 627042
+      },
+      ".gzip": {
+        "files": 4,
+        "bytes": 459358
+      },
+      ".sha256sums": {
+        "files": 1,
+        "bytes": 444567
+      },
+      ".txt": {
+        "files": 41,
+        "bytes": 56029
+      },
+      ".html": {
+        "files": 12,
+        "bytes": 46542
+      },
+      ".rs": {
+        "files": 3,
+        "bytes": 32699
+      },
+      ".csv": {
+        "files": 5,
+        "bytes": 19177
+      },
+      ".yml": {
+        "files": 3,
+        "bytes": 11412
+      },
+      ".did": {
+        "files": 5,
+        "bytes": 10678
+      },
+      ".tap": {
+        "files": 1,
+        "bytes": 6317
+      },
+      ".sha256": {
+        "files": 4,
+        "bytes": 6270
+      },
+      ".patch": {
+        "files": 1,
+        "bytes": 1493
+      },
+      ".sh": {
+        "files": 2,
+        "bytes": 1224
+      },
+      ".der": {
+        "files": 3,
+        "bytes": 399
+      }
+    },
+    "evidence_collections": {
+      "evidence/B2Z/graphite-deflectors": {
+        "files": 1499,
+        "bytes": 173800529
+      },
+      "evidence/B2Z/approved-action-panel-war-cry": {
+        "files": 968,
+        "bytes": 139562873
+      },
+      "evidence/B2Z/combined-clearance-war-cry": {
+        "files": 2013,
+        "bytes": 126222616
+      },
+      "evidence/B2Z/human-playtest-corrections": {
+        "files": 381,
+        "bytes": 69163866
+      },
+      "evidence/B2Z/player-experience-refinement": {
+        "files": 197,
+        "bytes": 55296832
+      },
+      "evidence/B2Z/audio-onboarding-compact-controls": {
+        "files": 405,
+        "bytes": 53421275
+      },
+      "evidence/B2Z/fluid-player-experience": {
+        "files": 181,
+        "bytes": 27523836
+      },
+      "evidence/B2Z/player-centred-release": {
+        "files": 63,
+        "bytes": 26464770
+      },
+      "evidence/B2Z/tactical-polish": {
+        "files": 127,
+        "bytes": 22345055
+      },
+      "evidence/B2Z/minimal-isometric": {
+        "files": 115,
+        "bytes": 16545740
+      },
+      "evidence/B2Z/rules15-spacing-orbit": {
+        "files": 75,
+        "bytes": 13899019
+      },
+      "evidence/B2Z/rules15-interaction-polish": {
+        "files": 50,
+        "bytes": 12898399
+      },
+      "evidence/B2Z/rules13-experience-refinement": {
+        "files": 47,
+        "bytes": 8312201
+      },
+      "evidence/B2Z/rules13-context-structures": {
+        "files": 92,
+        "bytes": 7236551
+      },
+      "evidence/B2Z/adaptive-counterplay-2026-11-04": {
+        "files": 9,
+        "bytes": 4910868
+      },
+      "evidence/B2Z/rules16-toolbar-payments": {
+        "files": 21,
+        "bytes": 4239908
+      },
+      "evidence/B2Z/audio-corrective-qualification": {
+        "files": 56,
+        "bytes": 4101071
+      },
+      "evidence/B2Z/reservoir-visuals": {
+        "files": 12,
+        "bytes": 3894412
+      },
+      "evidence/S14/ux-pricing": {
+        "files": 8,
+        "bytes": 3775493
+      },
+      "evidence/B2Z/arena": {
+        "files": 31,
+        "bytes": 3451855
+      },
+      "evidence/B2Z/rules14-universal-shout": {
+        "files": 54,
+        "bytes": 3336607
+      },
+      "evidence/S13/extended": {
+        "files": 23,
+        "bytes": 3270086
+      },
+      "evidence/B2Z/audio-integration": {
+        "files": 25,
+        "bytes": 2961238
+      },
+      "evidence/B2Z/cycles": {
+        "files": 7,
+        "bytes": 2796009
+      },
+      "evidence/B2Z/rules17-daily-economy": {
+        "files": 19,
+        "bytes": 2681539
+      },
+      "evidence/B2Z/audio-mainnet-playtest": {
+        "files": 43,
+        "bytes": 2227504
+      },
+      "evidence/B2Z/player-centred-live": {
+        "files": 31,
+        "bytes": 2081108
+      },
+      "evidence/B2Z/rules18-delegated-payments": {
+        "files": 25,
+        "bytes": 1774820
+      },
+      "evidence/B2Z/million-cell-visuals": {
+        "files": 40,
+        "bytes": 1748791
+      },
+      "evidence/BTZ/release1-mainnet": {
+        "files": 15,
+        "bytes": 1472864
+      },
+      "evidence/B2Z/rules16-reservoirs": {
+        "files": 18,
+        "bytes": 1403856
+      },
+      "evidence/B2Z/europe-live": {
+        "files": 75,
+        "bytes": 1381626
+      },
+      "evidence/B2Z/mainnet-desktop.png": {
+        "files": 1,
+        "bytes": 1275922
+      },
+      "evidence/S15/aim-desktop.png": {
+        "files": 1,
+        "bytes": 1273658
+      },
+      "evidence/B2Z/million-cell-boundary-review": {
+        "files": 39,
+        "bytes": 1168725
+      },
+      "evidence/S15/move-desktop.png": {
+        "files": 1,
+        "bytes": 1083590
+      },
+      "evidence/B2Z/local-owned-move.png": {
+        "files": 1,
+        "bytes": 1076971
+      },
+      "evidence/B2Z/fiduciary-cycle-optimisation": {
+        "files": 125,
+        "bytes": 1061711
+      },
+      "evidence/B2Z/temporary-dev-speed": {
+        "files": 42,
+        "bytes": 985519
+      },
+      "evidence/BTZ/v6-release-candidate": {
+        "files": 17,
+        "bytes": 973317
+      },
+      "evidence/S15/aim-disconnected.png": {
+        "files": 1,
+        "bytes": 943913
+      },
+      "evidence/B2Z/forecast-prefix-2026-11-05": {
+        "files": 32,
+        "bytes": 800412
+      },
+      "evidence/B2Z/human-interface-final": {
+        "files": 20,
+        "bytes": 761860
+      },
+      "evidence/BTZ/v6-gate-qualified": {
+        "files": 11,
+        "bytes": 706247
+      },
+      "evidence/S12/closeout": {
+        "files": 29,
+        "bytes": 662594
+      },
+      "evidence/B2Z/million-cell-release": {
+        "files": 8,
+        "bytes": 595291
+      },
+      "evidence/B2Z/human-interface": {
+        "files": 24,
+        "bytes": 568889
+      },
+      "evidence/B2Z/overnight-campaign-closeout-2026-11-02": {
+        "files": 17,
+        "bytes": 548550
+      },
+      "evidence/B2Z/europe-release": {
+        "files": 22,
+        "bytes": 523182
+      },
+      "evidence/S15/aim-mobile.png": {
+        "files": 1,
+        "bytes": 506876
+      },
+      "evidence/B2Z/mainnet-mobile.png": {
+        "files": 1,
+        "bytes": 506177
+      },
+      "evidence/B2Z/post-self-play-review-2026-11-02": {
+        "files": 26,
+        "bytes": 471832
+      },
+      "evidence/B2Z/reactive-defence-closure-2026-11-02": {
+        "files": 13,
+        "bytes": 425516
+      },
+      "evidence/S07/browser": {
+        "files": 7,
+        "bytes": 412406
+      },
+      "evidence/B2Z/release-diagnostic-closure-2026-11-02": {
+        "files": 8,
+        "bytes": 401740
+      },
+      "evidence/B2Z/forecast-scheduling-2026-11-05": {
+        "files": 29,
+        "bytes": 394439
+      },
+      "evidence/B2Z/tactical-review-2026-11-02": {
+        "files": 10,
+        "bytes": 394189
+      },
+      "evidence/B2Z/bounded-attack-forecast-2026-11-04": {
+        "files": 13,
+        "bytes": 380818
+      },
+      "evidence/BTZ/v6-mainnet-release": {
+        "files": 14,
+        "bytes": 377710
+      },
+      "evidence/B2Z/expander-first-live-payment-2026-11-01": {
+        "files": 13,
+        "bytes": 327135
+      },
+      "evidence/B2Z/frontend-diagnostic-deployment-2026-11-02": {
+        "files": 10,
+        "bytes": 314739
+      },
+      "evidence/B2Z/closed-loop-counterplay-2026-11-04": {
+        "files": 12,
+        "bytes": 293980
+      },
+      "evidence/S08/browser": {
+        "files": 3,
+        "bytes": 287962
+      },
+      "evidence/B2Z/agent-foundations-2026-11-01": {
+        "files": 17,
+        "bytes": 251799
+      },
+      "evidence/S07/verification": {
+        "files": 32,
+        "bytes": 244174
+      },
+      "evidence/S06/verification": {
+        "files": 31,
+        "bytes": 236120
+      },
+      "evidence/S07/baseline": {
+        "files": 17,
+        "bytes": 229248
+      },
+      "evidence/S05/verification": {
+        "files": 32,
+        "bytes": 226284
+      },
+      "evidence/S06/baseline": {
+        "files": 16,
+        "bytes": 218789
+      },
+      "evidence/S05/development-2": {
+        "files": 16,
+        "bytes": 217638
+      },
+      "evidence/S05/development": {
+        "files": 14,
+        "bytes": 215877
+      },
+      "evidence/B2Z/scenario-coverage-2026-11-05": {
+        "files": 17,
+        "bytes": 215124
+      },
+      "evidence/S03/logs": {
+        "files": 7,
+        "bytes": 213308
+      },
+      "evidence/S15/motion-playback.png": {
+        "files": 1,
+        "bytes": 208222
+      },
+      "evidence/S04/verification": {
+        "files": 26,
+        "bytes": 198261
+      },
+      "evidence/S05/baseline": {
+        "files": 14,
+        "bytes": 192339
+      },
+      "evidence/B2Z/farthest-entry-2026-11-01": {
+        "files": 7,
+        "bytes": 191643
+      },
+      "evidence/B2Z/rules19-compact-reservoirs": {
+        "files": 6,
+        "bytes": 180910
+      },
+      "evidence/B2Z/policy-v2-2026-11-02": {
+        "files": 6,
+        "bytes": 177507
+      },
+      "evidence/S14/closeout-simulation-trace.json": {
+        "files": 1,
+        "bytes": 170445
+      },
+      "evidence/S14/index-trace.json": {
+        "files": 1,
+        "bytes": 170445
+      },
+      "evidence/S14/published-index-trace.json": {
+        "files": 1,
+        "bytes": 170445
+      },
+      "evidence/S03/verification": {
+        "files": 17,
+        "bytes": 155061
+      },
+      "evidence/S04/baseline": {
+        "files": 12,
+        "bytes": 152481
+      },
+      "evidence/B2Z/fresh-geometry-2026-11-04": {
+        "files": 10,
+        "bytes": 132969
+      },
+      "evidence/S02/logs": {
+        "files": 4,
+        "bytes": 125988
+      },
+      "evidence/S03/intermediate": {
+        "files": 10,
+        "bytes": 118947
+      },
+      "evidence/B2Z/entry-rules-7-mainnet-release": {
+        "files": 11,
+        "bytes": 117722
+      },
+      "evidence/B2Z/late-payoff-counterplay-2026-11-05": {
+        "files": 14,
+        "bytes": 117524
+      },
+      "evidence/B2Z/europe-final": {
+        "files": 13,
+        "bytes": 111953
+      },
+      "evidence/B2Z/observer-rollback": {
+        "files": 13,
+        "bytes": 97140
+      },
+      "evidence/S02/verification": {
+        "files": 14,
+        "bytes": 94416
+      },
+      "evidence/S13/verification": {
+        "files": 11,
+        "bytes": 93976
+      },
+      "evidence/S03/baseline": {
+        "files": 9,
+        "bytes": 91840
+      },
+      "evidence/B2Z/coverage-closeout-2026-11-06": {
+        "files": 18,
+        "bytes": 89421
+      },
+      "evidence/B2Z/graduated-pacing": {
+        "files": 3,
+        "bytes": 88317
+      },
+      "evidence/S13/smoke": {
+        "files": 5,
+        "bytes": 87746
+      },
+      "evidence/BTZ/restart-20261031": {
+        "files": 8,
+        "bytes": 87344
+      },
+      "evidence/B2Z/player-centred": {
+        "files": 16,
+        "bytes": 83428
+      },
+      "evidence/B2Z/transition-release": {
+        "files": 7,
+        "bytes": 74642
+      },
+      "evidence/B2Z/forecast-progress-2026-11-04": {
+        "files": 12,
+        "bytes": 73430
+      },
+      "evidence/B2Z/europe-continuation": {
+        "files": 9,
+        "bytes": 54107
+      },
+      "evidence/BTZ/v6-presentation": {
+        "files": 8,
+        "bytes": 53515
+      },
+      "evidence/S14/closeout.json": {
+        "files": 1,
+        "bytes": 49816
+      },
+      "evidence/S14/published-dependencies.json": {
+        "files": 1,
+        "bytes": 46014
+      },
+      "evidence/B2Z/overnight-pilot-local-foundations-2026-11-01": {
+        "files": 7,
+        "bytes": 42173
+      },
+      "evidence/B2Z/hourly-review-2026-11-02-0430": {
+        "files": 5,
+        "bytes": 40989
+      },
+      "evidence/B2Z/torus-activation": {
+        "files": 2,
+        "bytes": 40829
+      },
+      "evidence/BTZ/v6-island-rehearsal": {
+        "files": 2,
+        "bytes": 39806
+      },
+      "evidence/BTZ/v6-dtr-pin": {
+        "files": 8,
+        "bytes": 39472
+      },
+      "evidence/B2Z/hourly-review-2026-11-02-0200": {
+        "files": 4,
+        "bytes": 38928
+      },
+      "evidence/B2Z/million-operation-cache-prototype": {
+        "files": 9,
+        "bytes": 38544
+      },
+      "evidence/S14/closeout-deployment-trace.json": {
+        "files": 1,
+        "bytes": 36149
+      },
+      "evidence/S14/mvp-preparation.json": {
+        "files": 1,
+        "bytes": 35958
+      },
+      "evidence/B2Z/million-cell-cost": {
+        "files": 8,
+        "bytes": 35675
+      },
+      "evidence/S12/ledger-ingestion.json": {
+        "files": 1,
+        "bytes": 33565
+      },
+      "evidence/BTZ/v6-gate-closeout": {
+        "files": 6,
+        "bytes": 30904
+      },
+      "evidence/S04/portable-development.log": {
+        "files": 1,
+        "bytes": 29652
+      },
+      "evidence/S01/logs": {
+        "files": 3,
+        "bytes": 29009
+      },
+      "evidence/B2Z/treasury": {
+        "files": 5,
+        "bytes": 27612
+      },
+      "evidence/S01/verification": {
+        "files": 13,
+        "bytes": 27141
+      },
+      "evidence/BTZ/island-ball-pools": {
+        "files": 4,
+        "bytes": 25839
+      },
+      "evidence/S12/game-compute.json": {
+        "files": 1,
+        "bytes": 23649
+      },
+      "evidence/BTZ/v6-interpreter": {
+        "files": 6,
+        "bytes": 23430
+      },
+      "evidence/S12/autonomous-trace.json": {
+        "files": 1,
+        "bytes": 22710
+      },
+      "evidence/S14/verification.json": {
+        "files": 1,
+        "bytes": 22349
+      },
+      "evidence/B2Z/arena-verification-fix": {
+        "files": 8,
+        "bytes": 19499
+      },
+      "evidence/B2Z/hourly-review-2026-11-02-0650": {
+        "files": 5,
+        "bytes": 19145
+      },
+      "evidence/S15/release.json": {
+        "files": 1,
+        "bytes": 18134
+      },
+      "evidence/S12/cost-projections.json": {
+        "files": 1,
+        "bytes": 16255
+      },
+      "evidence/S07/scope-diff.json": {
+        "files": 1,
+        "bytes": 15913
+      },
+      "evidence/B2Z/release.json": {
+        "files": 1,
+        "bytes": 15687
+      },
+      "evidence/S03/local-workload.json": {
+        "files": 1,
+        "bytes": 15432
+      },
+      "evidence/S13/game-metrics.json": {
+        "files": 1,
+        "bytes": 14603
+      },
+      "evidence/B2Z/prelaunch-trickle": {
+        "files": 2,
+        "bytes": 13915
+      },
+      "evidence/B2Z/million-cell-development": {
+        "files": 1,
+        "bytes": 12301
+      },
+      "evidence/S12/benchmark-run.json": {
+        "files": 1,
+        "bytes": 11793
+      },
+      "evidence/S14/provenance.json": {
+        "files": 1,
+        "bytes": 11734
+      },
+      "evidence/B2Z/hourly-review-2026-11-02-0315": {
+        "files": 3,
+        "bytes": 11592
+      },
+      "evidence/S06/measurements": {
+        "files": 3,
+        "bytes": 10683
+      },
+      "evidence/S11/remote-integration-verification.json": {
+        "files": 1,
+        "bytes": 10520
+      },
+      "evidence/B2Z/hourly-review-2026-11-02-0540": {
+        "files": 3,
+        "bytes": 10086
+      },
+      "evidence/S13/provenance.json": {
+        "files": 1,
+        "bytes": 9814
+      },
+      "evidence/S04/storage-development.log": {
+        "files": 1,
+        "bytes": 8796
+      },
+      "evidence/S10/verification-summary.json": {
+        "files": 1,
+        "bytes": 8508
+      },
+      "evidence/S13/artifact-index.json": {
+        "files": 1,
+        "bytes": 8444
+      },
+      "evidence/S13/history-preservation.json": {
+        "files": 1,
+        "bytes": 7085
+      },
+      "evidence/BTZ/published-funding-stop": {
+        "files": 3,
+        "bytes": 6701
+      },
+      "evidence/S07/observer-tests.log": {
+        "files": 1,
+        "bytes": 6494
+      },
+      "evidence/BTZ/v6-action-ui.json": {
+        "files": 1,
+        "bytes": 6306
+      },
+      "evidence/BTZ/event-horizon-readonly": {
+        "files": 5,
+        "bytes": 6216
+      },
+      "evidence/B2Z/entry-release-funding-stop-2026-11-01": {
+        "files": 2,
+        "bytes": 5478
+      },
+      "evidence/S09/corrective-verification-summary.json": {
+        "files": 1,
+        "bytes": 4819
+      },
+      "evidence/BTZ/v6-player-api.json": {
+        "files": 1,
+        "bytes": 4605
+      },
+      "evidence/S11/verification-summary.json": {
+        "files": 1,
+        "bytes": 4556
+      },
+      "evidence/BTZ/prelaunch-ci-correction.md": {
+        "files": 1,
+        "bytes": 4506
+      },
+      "evidence/BTZ/v6-host-lifecycle.json": {
+        "files": 1,
+        "bytes": 4073
+      },
+      "evidence/BTZ/v6-checkpoint-replay.json": {
+        "files": 1,
+        "bytes": 3923
+      },
+      "evidence/S09/verification-summary.json": {
+        "files": 1,
+        "bytes": 3923
+      },
+      "evidence/S12/regression-summary.json": {
+        "files": 1,
+        "bytes": 3814
+      },
+      "evidence/S08/verification-summary.json": {
+        "files": 1,
+        "bytes": 3248
+      },
+      "evidence/S02/local-workload.json": {
+        "files": 1,
+        "bytes": 3094
+      },
+      "evidence/S13/verification-summary.json": {
+        "files": 1,
+        "bytes": 3000
+      },
+      "evidence/S14/generated.did": {
+        "files": 1,
+        "bytes": 2825
+      },
+      "evidence/BTZ/v6-wire-history.json": {
+        "files": 1,
+        "bytes": 2759
+      },
+      "evidence/BTZ/v6-host-time.json": {
+        "files": 1,
+        "bytes": 2611
+      },
+      "evidence/S10/runtime-lab.generated.did": {
+        "files": 1,
+        "bytes": 2473
+      },
+      "evidence/S11/runtime-lab.generated.did": {
+        "files": 1,
+        "bytes": 2473
+      },
+      "evidence/S05/demonstrations": {
+        "files": 4,
+        "bytes": 2260
+      },
+      "evidence/S08/environment.json": {
+        "files": 1,
+        "bytes": 2259
+      },
+      "evidence/S03/README.md": {
+        "files": 1,
+        "bytes": 1557
+      },
+      "evidence/S05/catalog_sizes.json": {
+        "files": 1,
+        "bytes": 1555
+      },
+      "evidence/S09/runtime-lab.generated.did": {
+        "files": 1,
+        "bytes": 1442
+      },
+      "evidence/predecessor/S02_CHECKPOINT.json": {
+        "files": 1,
+        "bytes": 1413
+      },
+      "evidence/S09/WASM_PROVENANCE_NOTE.md": {
+        "files": 1,
+        "bytes": 1352
+      },
+      "evidence/S13/metric-definitions.json": {
+        "files": 1,
+        "bytes": 1212
+      },
+      "evidence/S13/operating-envelope.json": {
+        "files": 1,
+        "bytes": 1190
+      },
+      "evidence/S02/README.md": {
+        "files": 1,
+        "bytes": 1127
+      },
+      "evidence/predecessor/S01_CHECKPOINT.json": {
+        "files": 1,
+        "bytes": 1096
+      },
+      "evidence/S13/recovery-costs.json": {
+        "files": 1,
+        "bytes": 1010
+      },
+      "evidence/predecessor/STATUS.md": {
+        "files": 1,
+        "bytes": 927
+      },
+      "evidence/predecessor/CHECKPOINT.json": {
+        "files": 1,
+        "bytes": 894
+      },
+      "evidence/S06/demo.json": {
+        "files": 1,
+        "bytes": 613
+      },
+      "evidence/S04/chunked-process-development.log": {
+        "files": 1,
+        "bytes": 530
+      },
+      "evidence/S07/predecessor.json": {
+        "files": 1,
+        "bytes": 369
+      },
+      "evidence/S13/postprocess-validation.json": {
+        "files": 1,
+        "bytes": 317
+      },
+      "evidence/S07/recordings.log": {
+        "files": 1,
+        "bytes": 69
+      },
+      "evidence/S06/npm-lock-offline.log": {
+        "files": 1,
+        "bytes": 65
+      },
+      "evidence/S07/npm-metadata.log": {
+        "files": 1,
+        "bytes": 65
+      }
+    },
+    "largest_files": [
+      {
+        "path": "evidence/B2Z/tactical-polish/1440-journey.webm",
+        "mode": "100644",
+        "oid": "056fe7ca6e0238f8b6f59fa76e57b0b0d8c1dbf8",
+        "size": 9110260
+      },
+      {
+        "path": "evidence/B2Z/fluid-player-experience/media/fluid-1440.webm",
+        "mode": "100644",
+        "oid": "15cd2b6e81a797742517307b0612b99d0fad501c",
+        "size": 8700472
+      },
+      {
+        "path": "evidence/B2Z/graphite-deflectors/results/refinement/video/page@327d160ae3705ad4b221d1e7681561a9.webm",
+        "mode": "100644",
+        "oid": "b30b19774453270ec267dcabfe758de5ae970063",
+        "size": 8281598
+      },
+      {
+        "path": "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/trace.json",
+        "mode": "100644",
+        "oid": "fee7d4125c821744953b786259d5c1e4544467ac",
+        "size": 8121572
+      },
+      {
+        "path": "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/trace.json",
+        "mode": "100644",
+        "oid": "d6b24e3fb06b0324f5b257598b5bbc1929701976",
+        "size": 8050008
+      },
+      {
+        "path": "evidence/B2Z/player-experience-refinement/media/refinement-1440.webm",
+        "mode": "100644",
+        "oid": "0d2474584bd26a41af9db32879be851f0b5302d1",
+        "size": 7782098
+      },
+      {
+        "path": "evidence/B2Z/player-centred-release/desktop.webm",
+        "mode": "100644",
+        "oid": "f1a1ac21130e869217808008f7d5d8a3f319dc4c",
+        "size": 7740040
+      },
+      {
+        "path": "evidence/B2Z/player-centred-release/ci-correction/desktop.webm",
+        "mode": "100644",
+        "oid": "8816b9050838bde93c2b3c24c423b95ef9639847",
+        "size": 7599925
+      },
+      {
+        "path": "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-normal/trace.json",
+        "mode": "100644",
+        "oid": "7af048a66af5b480b682a3d2dc9c2c7783a1aad6",
+        "size": 7505357
+      },
+      {
+        "path": "evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/results/live-controls-observed-ui/video-1440/page@622f3835624d99d7fab971d60764aa3b.webm",
+        "mode": "100644",
+        "oid": "888807326121bb93d06f06daacf337fcafe72a2e",
+        "size": 7473097
+      },
+      {
+        "path": "evidence/B2Z/graphite-deflectors/results/human-corrections-merged/video/page@e21ee822e2e62f4e4e1247fb552ccf96.webm",
+        "mode": "100644",
+        "oid": "3ce5fd2f4caba3a63f4d0a65fa207fecedd2cbc8",
+        "size": 5996129
+      },
+      {
+        "path": "evidence/B2Z/audio-onboarding-compact-controls/quantity-closeout/deployment/recordings/live-controls-permitted-video-1440-page@f1451a65f5a16a3915d0c57f08eca4b0.webm",
+        "mode": "100644",
+        "oid": "c87f0bb969c0d08c1ea05ec0d5b5b6b94765a185",
+        "size": 5890475
+      },
+      {
+        "path": "evidence/B2Z/human-playtest-corrections/media/fixed-H-and-recovery.webm",
+        "mode": "100644",
+        "oid": "2978cd5d75788bd04f06a181f416a0070f56ba2d",
+        "size": 5136759
+      },
+      {
+        "path": "evidence/B2Z/player-experience-refinement/visual-closeout/media/before-motion.webm",
+        "mode": "100644",
+        "oid": "62bd2496f8e4f3c815003a49a673b03df3f9a6ed",
+        "size": 5090032
+      },
+      {
+        "path": "evidence/B2Z/player-experience-refinement/media/slow-deployed.webm",
+        "mode": "100644",
+        "oid": "31747696daff945e4267ba368b2d82d376d45b34",
+        "size": 5063284
+      },
+      {
+        "path": "evidence/B2Z/player-experience-refinement/media/slow-refined.webm",
+        "mode": "100644",
+        "oid": "463df060c3967bcd6e2263b8a32d223daca5fb74",
+        "size": 5054489
+      },
+      {
+        "path": "evidence/B2Z/graphite-deflectors/results/hosted-final/installed/s14-local/deployment/human-corrections/results.json",
+        "mode": "100644",
+        "oid": "e145de0530306f07578c787d6f4c9109bc3f7618",
+        "size": 4900097
+      },
+      {
+        "path": "tests/fixtures/boundary-deflector-v12.json",
+        "mode": "100644",
+        "oid": "6a3af96fcc12c5fc2cba623b0db5828d7f216c49",
+        "size": 4762721
+      },
+      {
+        "path": "evidence/B2Z/player-experience-refinement/visual-closeout/media/after-motion.webm",
+        "mode": "100644",
+        "oid": "f2320ce159f8075ecb394e3789780ec25ab8eda6",
+        "size": 4364782
+      },
+      {
+        "path": "evidence/B2Z/human-playtest-corrections/media/motion-page@19af917a896e2d865cb590a99bc6493b.webm",
+        "mode": "100644",
+        "oid": "b26652d2b1cfc97f02d10aa9c8269d209908f9d2",
+        "size": 4036824
+      },
+      {
+        "path": "evidence/B2Z/graphite-deflectors/premium-ui/captures/baseline-cannon-desktop.webm",
+        "mode": "100644",
+        "oid": "dab9885913de478ea648138b4ec3cddb2613dd0d",
+        "size": 3972713
+      },
+      {
+        "path": "evidence/B2Z/rules13-experience-refinement/browser/compass-390.webm",
+        "mode": "100644",
+        "oid": "63e636054f196ae5b2b270ab5004d58c843a3df4",
+        "size": 3696268
+      },
+      {
+        "path": "evidence/B2Z/human-playtest-corrections/media/motion-page@450c543d2c34c62d9d58eadc92cbf2d4.webm",
+        "mode": "100644",
+        "oid": "eee89adbb697397c7e28939e140681d141d7c031",
+        "size": 3686784
+      },
+      {
+        "path": "evidence/B2Z/human-playtest-corrections/media/1440-native-input.webm",
+        "mode": "100644",
+        "oid": "78c1e6394456790f1bbf9bb58ab3305676a3c013",
+        "size": 3621258
+      },
+      {
+        "path": "evidence/B2Z/approved-action-panel-war-cry/deployment/captures/live-controls-ready-event/video-1440-0.webm",
+        "mode": "100644",
+        "oid": "b8a8efc9dbce977da46cb3a5f9c4d83afd5d1b7c",
+        "size": 3577252
+      }
+    ],
+    "duplicates": {
+      "identity": "Git blob object ID for identical bytes",
+      "groups": 332,
+      "extra_files": 1022,
+      "extra_bytes": 35206690,
+      "largest_groups": [
+        {
+          "oid": "62cafabe8955f9a0ed88bfb50c35e7d912b22b2f",
+          "blob_bytes": 1395845,
+          "paths": [
+            "evidence/B2Z/approved-action-panel-war-cry/reference/APPROVED_ACTION_PANEL.png",
+            "evidence/B2Z/graphite-deflectors/premium-ui/reference/02_APPROVED_PANEL_STRUCTURE.png",
+            "evidence/B2Z/graphite-deflectors/reference/04_APPROVED_PANEL_STRUCTURE.png"
+          ]
+        },
+        {
+          "oid": "4bf6148497f00534b7e22fd9e20cb01a376fcff6",
+          "blob_bytes": 1757975,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/premium-ui/reference/01_APPROVED_VISUAL_LANGUAGE.png",
+            "evidence/B2Z/graphite-deflectors/reference/01_APPROVED_VISUAL_LANGUAGE.png"
+          ]
+        },
+        {
+          "oid": "a839fc0344d8576ce49cf93eff64998a13423876",
+          "blob_bytes": 362901,
+          "paths": [
+            "evidence/B2Z/approved-action-panel-war-cry/captures/dcc1e7a-panel/1440-join-cry.png",
+            "evidence/B2Z/approved-action-panel-war-cry/captures/final-panel/1440-join-cry.png",
+            "evidence/B2Z/approved-action-panel-war-cry/captures/panel-1440-isolated/1440-join-cry.png",
+            "evidence/B2Z/approved-action-panel-war-cry/captures/panel/1440-join-cry.png",
+            "evidence/B2Z/approved-action-panel-war-cry/captures/pre-BOM-panel-fd69939/1440-join-cry.png"
+          ]
+        },
+        {
+          "oid": "ca8be12ee83b6bf989ffb89faf93d3769095a9b3",
+          "blob_bytes": 1152044,
+          "paths": [
+            "evidence/B2Z/audio-corrective-qualification/media/native-transition-48000.wav",
+            "evidence/B2Z/audio-integration/media/native-transition-48000.wav"
+          ]
+        },
+        {
+          "oid": "1419e1f643477beec62c787b7cdac41be2adc2f6",
+          "blob_bytes": 1152044,
+          "paths": [
+            "evidence/B2Z/audio-corrective-qualification/media/native-wrap-48000.wav",
+            "evidence/B2Z/audio-integration/media/native-wrap-48000.wav"
+          ]
+        },
+        {
+          "oid": "fffb8757e368095ef3588c733876031edb1ad122",
+          "blob_bytes": 360418,
+          "paths": [
+            "evidence/B2Z/human-playtest-corrections/production/media/live-1440x900-02-verified-world.png",
+            "evidence/B2Z/human-playtest-corrections/production/media/live-camera-timeout-attempt-1440x900-02-verified-world.png",
+            "evidence/B2Z/human-playtest-corrections/production/media/live-desktop-fire-first-1440x900-02-verified-world.png",
+            "evidence/B2Z/human-playtest-corrections/production/media/live-selection-assertion-attempt-1440x900-02-verified-world.png"
+          ]
+        },
+        {
+          "oid": "908cce90455eef6f76ad3d9e2a4ffd4e49f45a15",
+          "blob_bytes": 264603,
+          "paths": [
+            "evidence/B2Z/approved-action-panel-war-cry/captures/bom-native-panel/320-join-cry.png",
+            "evidence/B2Z/approved-action-panel-war-cry/captures/dcc1e7a-panel/320-join-cry.png",
+            "evidence/B2Z/approved-action-panel-war-cry/captures/final-panel/320-join-cry.png",
+            "evidence/B2Z/approved-action-panel-war-cry/captures/joint-mobile-final/320-join-cry.png",
+            "evidence/B2Z/approved-action-panel-war-cry/captures/pre-BOM-panel-fd69939/320-join-cry.png"
+          ]
+        },
+        {
+          "oid": "30cf4552eed980a127429e2a04c2ab18d7c09143",
+          "blob_bytes": 116879,
+          "paths": [
+            "evidence/B2Z/rules13-context-structures/branding/captures/not-found-320.png",
+            "evidence/B2Z/rules13-context-structures/embedded-frontend/captures/certified-404-320.png",
+            "evidence/B2Z/rules13-context-structures/embedded-frontend/production/branded-404-320.png",
+            "evidence/B2Z/rules13-experience-refinement/correction/browser/real-404-320.png",
+            "evidence/B2Z/rules14-universal-shout/production-activation/browser/real-404-320.png",
+            "evidence/B2Z/rules15-interaction-polish/browser/disposable-404.png",
+            "evidence/B2Z/rules15-spacing-orbit/browser/embedded-404-320.png",
+            "evidence/B2Z/rules15-spacing-orbit/production-activation/browser/rules15-certified-404-320.png"
+          ]
+        },
+        {
+          "oid": "65d3377b01bd364f0bcd984f7167f3f1d5327ec7",
+          "blob_bytes": 363626,
+          "paths": [
+            "evidence/B2Z/human-playtest-corrections/production/media/live-1440x900-03-selection.png",
+            "evidence/B2Z/human-playtest-corrections/production/media/live-camera-timeout-attempt-1440x900-03-selection.png",
+            "evidence/B2Z/human-playtest-corrections/production/media/live-desktop-fire-first-1440x900-03-selection.png"
+          ]
+        },
+        {
+          "oid": "e5949c1cf59ca5b7787b47e93e47e14f0f001761",
+          "blob_bytes": 227921,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/results/final-model-gallery/1440-models-0.png",
+            "evidence/B2Z/graphite-deflectors/results/final-models/1440-models-0.png",
+            "evidence/B2Z/graphite-deflectors/results/indexed-cache-smoke/1440-models-0.png",
+            "evidence/B2Z/graphite-deflectors/results/indexed-models/1440-models-0.png"
+          ]
+        },
+        {
+          "oid": "758c64d78cc276fc68c25dfd10ae576e69a0f713",
+          "blob_bytes": 226967,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/results/final-model-gallery/1440-models-45.png",
+            "evidence/B2Z/graphite-deflectors/results/final-models/1440-models-45.png",
+            "evidence/B2Z/graphite-deflectors/results/indexed-cache-smoke/1440-models-45.png",
+            "evidence/B2Z/graphite-deflectors/results/indexed-models/1440-models-45.png"
+          ]
+        },
+        {
+          "oid": "224d5b616bebc591c2cf2c75297d0882b6c7766c",
+          "blob_bytes": 575798,
+          "paths": [
+            "evidence/B2Z/rules13-experience-refinement/browser/contracted-gesture-blocker.png",
+            "evidence/B2Z/rules13-experience-refinement/correction/browser/320-retained-pinch-failure.png"
+          ]
+        },
+        {
+          "oid": "855b675582c12ffe900370b207a4ba8f20fa027e",
+          "blob_bytes": 286601,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/results/final-models/1440-mixed.png",
+            "evidence/B2Z/graphite-deflectors/results/indexed-cache-smoke/1440-mixed.png",
+            "evidence/B2Z/graphite-deflectors/results/indexed-models/1440-mixed.png"
+          ]
+        },
+        {
+          "oid": "69b4a0665840713089b230536923acf401b86bd5",
+          "blob_bytes": 562462,
+          "paths": [
+            "evidence/B2Z/player-centred-release/1440x900-wallet.png",
+            "evidence/B2Z/player-centred-release/ci-correction/1440x900-wallet.png"
+          ]
+        },
+        {
+          "oid": "e39ea7d6ce89e8c3fd2e53aa5750730e080be46d",
+          "blob_bytes": 561745,
+          "paths": [
+            "evidence/B2Z/player-centred-release/1440x900-populated.png",
+            "evidence/B2Z/player-centred-release/ci-correction/1440x900-populated.png"
+          ]
+        },
+        {
+          "oid": "86a1e68628b53e69e3fb0735e37040f0dbe03dd5",
+          "blob_bytes": 264904,
+          "paths": [
+            "evidence/B2Z/approved-action-panel-war-cry/hosted/43785291394/ci-approved-panel-war-cry-results.json",
+            "evidence/B2Z/approved-action-panel-war-cry/results/panel-six-dcc1e7a-superseded.json",
+            "evidence/B2Z/approved-action-panel-war-cry/results/panel-six-final.json"
+          ]
+        },
+        {
+          "oid": "01b1594afa2f556ef816699b3bb3fa04cd2490c2",
+          "blob_bytes": 237775,
+          "paths": [
+            "evidence/B2Z/approved-action-panel-war-cry/captures/dcc1e7a-panel/390-join-cry.png",
+            "evidence/B2Z/approved-action-panel-war-cry/captures/final-panel/390-join-cry.png",
+            "evidence/B2Z/approved-action-panel-war-cry/captures/pre-BOM-panel-fd69939/390-join-cry.png"
+          ]
+        },
+        {
+          "oid": "882d9bc5177cb4ba268a3b5297581f8ea9ff7aa1",
+          "blob_bytes": 469560,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/results/hosted-9e6df/ci-human-corrections/1440-move.png",
+            "evidence/B2Z/graphite-deflectors/results/human-corrections-merged/1440-move.png"
+          ]
+        },
+        {
+          "oid": "836e592d2323930b458d24f2cd4fd16a8e6b47a3",
+          "blob_bytes": 468575,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/boundary-deflector/captures/1440-NW.png",
+            "evidence/B2Z/graphite-deflectors/boundary-deflector/captures/hosted-f819257/1440-NW.png"
+          ]
+        },
+        {
+          "oid": "936327ca58c8a1cdad609a39bad4ad7f7fbf773e",
+          "blob_bytes": 468360,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/boundary-deflector/captures/1440-SW.png",
+            "evidence/B2Z/graphite-deflectors/boundary-deflector/captures/hosted-f819257/1440-SW.png"
+          ]
+        }
+      ]
+    }
+  },
+  "qualified_candidate": {
+    "source_commit": "ecd3eb010af195ac2c59b34d8205ec81359c1632",
+    "tree": "223198692a3af0841865237a221a0a9e8e052552",
+    "files": 7070,
+    "bytes": 255640486,
+    "top_level": {
+      "evidence": {
+        "files": 5864,
+        "bytes": 144011558
+      },
+      "apps": {
+        "files": 360,
+        "bytes": 75635204
+      },
+      "tests": {
+        "files": 175,
+        "bytes": 16137758
+      },
+      "vendor": {
+        "files": 25,
+        "bytes": 14327844
+      },
+      "tools": {
+        "files": 293,
+        "bytes": 2660684
+      },
+      "docs": {
+        "files": 68,
+        "bytes": 601828
+      },
+      "canisters": {
+        "files": 22,
+        "bytes": 535473
+      },
+      "native": {
+        "files": 58,
+        "bytes": 430341
+      },
+      "packages": {
+        "files": 64,
+        "bytes": 382275
+      },
+      "checkpoints": {
+        "files": 30,
+        "bytes": 273280
+      },
+      "references": {
+        "files": 32,
+        "bytes": 214574
+      },
+      "(root)": {
+        "files": 18,
+        "bytes": 142263
+      },
+      "benchmarks": {
+        "files": 11,
+        "bytes": 104902
+      },
+      ".github": {
+        "files": 7,
+        "bytes": 64437
+      },
+      "crates": {
+        "files": 13,
+        "bytes": 42748
+      },
+      "kernels": {
+        "files": 4,
+        "bytes": 39225
+      },
+      "config": {
+        "files": 16,
+        "bytes": 12696
+      },
+      "interfaces": {
+        "files": 8,
+        "bytes": 11750
+      },
+      "licenses": {
+        "files": 1,
+        "bytes": 11358
+      },
+      "ci": {
+        "files": 1,
+        "bytes": 288
+      }
+    },
+    "extensions": {
+      ".json": {
+        "files": 2713,
+        "bytes": 80768077
+      },
+      ".flac": {
+        "files": 60,
+        "bytes": 74078792
+      },
+      ".png": {
+        "files": 40,
+        "bytes": 27651911
+      },
+      ".cbor": {
+        "files": 470,
+        "bytes": 18262478
+      },
+      ".gz": {
+        "files": 73,
+        "bytes": 16406663
+      },
+      ".bin": {
+        "files": 1637,
+        "bytes": 13752219
+      },
+      ".mjs": {
+        "files": 388,
+        "bytes": 6413591
+      },
+      ".log": {
+        "files": 690,
+        "bytes": 5204536
+      },
+      ".md": {
+        "files": 367,
+        "bytes": 2956500
+      },
+      "(none)": {
+        "files": 54,
+        "bytes": 2307285
+      },
+      ".rs": {
+        "files": 107,
+        "bytes": 1862427
+      },
+      ".py": {
+        "files": 296,
+        "bytes": 1756147
+      },
+      ".jsonl": {
+        "files": 8,
+        "bytes": 955927
+      },
+      ".tsv": {
+        "files": 11,
+        "bytes": 862081
+      },
+      ".webm": {
+        "files": 2,
+        "bytes": 594638
+      },
+      ".gzip": {
+        "files": 4,
+        "bytes": 459358
+      },
+      ".sha256sums": {
+        "files": 1,
+        "bytes": 444567
+      },
+      ".lock": {
+        "files": 8,
+        "bytes": 201945
+      },
+      ".tgz": {
+        "files": 5,
+        "bytes": 150831
+      },
+      ".sha256": {
+        "files": 7,
+        "bytes": 93839
+      },
+      ".txt": {
+        "files": 44,
+        "bytes": 91514
+      },
+      ".yml": {
+        "files": 12,
+        "bytes": 81666
+      },
+      ".html": {
+        "files": 16,
+        "bytes": 67830
+      },
+      ".ico": {
+        "files": 1,
+        "bytes": 66640
+      },
+      ".css": {
+        "files": 3,
+        "bytes": 44705
+      },
+      ".did": {
+        "files": 16,
+        "bytes": 37763
+      },
+      ".svg": {
+        "files": 4,
+        "bytes": 24383
+      },
+      ".csv": {
+        "files": 6,
+        "bytes": 22468
+      },
+      ".toml": {
+        "files": 14,
+        "bytes": 6568
+      },
+      ".tap": {
+        "files": 1,
+        "bytes": 6317
+      },
+      ".sh": {
+        "files": 4,
+        "bytes": 2447
+      },
+      ".js": {
+        "files": 1,
+        "bytes": 1724
+      },
+      ".patch": {
+        "files": 1,
+        "bytes": 1493
+      },
+      ".hex": {
+        "files": 1,
+        "bytes": 617
+      },
+      ".der": {
+        "files": 3,
+        "bytes": 399
+      },
+      ".in": {
+        "files": 2,
+        "bytes": 140
+      }
+    },
+    "evidence_extensions": {
+      ".json": {
+        "files": 2632,
+        "bytes": 65496836
+      },
+      ".png": {
+        "files": 40,
+        "bytes": 27651911
+      },
+      ".cbor": {
+        "files": 470,
+        "bytes": 18262478
+      },
+      ".bin": {
+        "files": 1419,
+        "bytes": 12958861
+      },
+      ".log": {
+        "files": 683,
+        "bytes": 5155440
+      },
+      ".mjs": {
+        "files": 34,
+        "bytes": 4348481
+      },
+      "(none)": {
+        "files": 51,
+        "bytes": 2306944
+      },
+      ".gz": {
+        "files": 58,
+        "bytes": 1990423
+      },
+      ".md": {
+        "files": 242,
+        "bytes": 1969666
+      },
+      ".jsonl": {
+        "files": 8,
+        "bytes": 955927
+      },
+      ".py": {
+        "files": 139,
+        "bytes": 627042
+      },
+      ".tsv": {
+        "files": 1,
+        "bytes": 596746
+      },
+      ".webm": {
+        "files": 2,
+        "bytes": 594638
+      },
+      ".gzip": {
+        "files": 4,
+        "bytes": 459358
+      },
+      ".sha256sums": {
+        "files": 1,
+        "bytes": 444567
+      },
+      ".txt": {
+        "files": 41,
+        "bytes": 56029
+      },
+      ".html": {
+        "files": 12,
+        "bytes": 46542
+      },
+      ".rs": {
+        "files": 3,
+        "bytes": 32699
+      },
+      ".csv": {
+        "files": 5,
+        "bytes": 19177
+      },
+      ".yml": {
+        "files": 3,
+        "bytes": 11412
+      },
+      ".did": {
+        "files": 5,
+        "bytes": 10678
+      },
+      ".tap": {
+        "files": 1,
+        "bytes": 6317
+      },
+      ".sha256": {
+        "files": 4,
+        "bytes": 6270
+      },
+      ".patch": {
+        "files": 1,
+        "bytes": 1493
+      },
+      ".sh": {
+        "files": 2,
+        "bytes": 1224
+      },
+      ".der": {
+        "files": 3,
+        "bytes": 399
+      }
+    },
+    "evidence_collections": {
+      "evidence/B2Z/combined-clearance-war-cry": {
+        "files": 1854,
+        "bytes": 40597000
+      },
+      "evidence/B2Z/graphite-deflectors": {
+        "files": 943,
+        "bytes": 25717901
+      },
+      "evidence/B2Z/approved-action-panel-war-cry": {
+        "files": 537,
+        "bytes": 15702877
+      },
+      "evidence/B2Z/audio-onboarding-compact-controls": {
+        "files": 245,
+        "bytes": 7931369
+      },
+      "evidence/B2Z/adaptive-counterplay-2026-11-04": {
+        "files": 9,
+        "bytes": 4910868
+      },
+      "evidence/S14/ux-pricing": {
+        "files": 8,
+        "bytes": 3775493
+      },
+      "evidence/B2Z/human-playtest-corrections": {
+        "files": 160,
+        "bytes": 3484439
+      },
+      "evidence/S13/extended": {
+        "files": 23,
+        "bytes": 3270086
+      },
+      "evidence/B2Z/arena": {
+        "files": 30,
+        "bytes": 3140515
+      },
+      "evidence/B2Z/cycles": {
+        "files": 7,
+        "bytes": 2796009
+      },
+      "evidence/B2Z/fluid-player-experience": {
+        "files": 153,
+        "bytes": 1463434
+      },
+      "evidence/BTZ/release1-mainnet": {
+        "files": 10,
+        "bytes": 1348098
+      },
+      "evidence/B2Z/mainnet-desktop.png": {
+        "files": 1,
+        "bytes": 1275922
+      },
+      "evidence/S15/aim-desktop.png": {
+        "files": 1,
+        "bytes": 1273658
+      },
+      "evidence/S15/move-desktop.png": {
+        "files": 1,
+        "bytes": 1083590
+      },
+      "evidence/B2Z/local-owned-move.png": {
+        "files": 1,
+        "bytes": 1076971
+      },
+      "evidence/B2Z/fiduciary-cycle-optimisation": {
+        "files": 123,
+        "bytes": 1014749
+      },
+      "evidence/S15/aim-disconnected.png": {
+        "files": 1,
+        "bytes": 943913
+      },
+      "evidence/B2Z/player-experience-refinement": {
+        "files": 109,
+        "bytes": 935255
+      },
+      "evidence/B2Z/europe-live": {
+        "files": 66,
+        "bytes": 824145
+      },
+      "evidence/B2Z/forecast-prefix-2026-11-05": {
+        "files": 32,
+        "bytes": 800412
+      },
+      "evidence/BTZ/v6-release-candidate": {
+        "files": 15,
+        "bytes": 773405
+      },
+      "evidence/B2Z/minimal-isometric": {
+        "files": 88,
+        "bytes": 726038
+      },
+      "evidence/B2Z/audio-mainnet-playtest": {
+        "files": 34,
+        "bytes": 715685
+      },
+      "evidence/S12/closeout": {
+        "files": 29,
+        "bytes": 662594
+      },
+      "evidence/B2Z/audio-corrective-qualification": {
+        "files": 38,
+        "bytes": 648990
+      },
+      "evidence/B2Z/repository-consolidation": {
+        "files": 6,
+        "bytes": 620439
+      },
+      "evidence/B2Z/tactical-polish": {
+        "files": 93,
+        "bytes": 608600
+      },
+      "evidence/B2Z/million-cell-release": {
+        "files": 8,
+        "bytes": 595291
+      },
+      "evidence/B2Z/rules13-context-structures": {
+        "files": 53,
+        "bytes": 513599
+      },
+      "evidence/S15/aim-mobile.png": {
+        "files": 1,
+        "bytes": 506876
+      },
+      "evidence/B2Z/mainnet-mobile.png": {
+        "files": 1,
+        "bytes": 506177
+      },
+      "evidence/B2Z/rules13-experience-refinement": {
+        "files": 29,
+        "bytes": 504458
+      },
+      "evidence/B2Z/overnight-campaign-closeout-2026-11-02": {
+        "files": 15,
+        "bytes": 456505
+      },
+      "evidence/S07/browser": {
+        "files": 7,
+        "bytes": 412406
+      },
+      "evidence/B2Z/rules15-spacing-orbit": {
+        "files": 41,
+        "bytes": 402761
+      },
+      "evidence/B2Z/release-diagnostic-closure-2026-11-02": {
+        "files": 8,
+        "bytes": 401740
+      },
+      "evidence/B2Z/forecast-scheduling-2026-11-05": {
+        "files": 29,
+        "bytes": 394439
+      },
+      "evidence/B2Z/bounded-attack-forecast-2026-11-04": {
+        "files": 13,
+        "bytes": 380818
+      },
+      "evidence/B2Z/rules14-universal-shout": {
+        "files": 44,
+        "bytes": 342096
+      },
+      "evidence/B2Z/closed-loop-counterplay-2026-11-04": {
+        "files": 12,
+        "bytes": 293980
+      },
+      "evidence/S08/browser": {
+        "files": 3,
+        "bytes": 287962
+      },
+      "evidence/B2Z/player-centred-release": {
+        "files": 39,
+        "bytes": 285532
+      },
+      "evidence/B2Z/rules15-interaction-polish": {
+        "files": 19,
+        "bytes": 261015
+      },
+      "evidence/B2Z/player-centred-live": {
+        "files": 22,
+        "bytes": 247396
+      },
+      "evidence/S07/verification": {
+        "files": 32,
+        "bytes": 244174
+      },
+      "evidence/BTZ/v6-gate-qualified": {
+        "files": 6,
+        "bytes": 240172
+      },
+      "evidence/S06/verification": {
+        "files": 31,
+        "bytes": 236120
+      },
+      "evidence/S07/baseline": {
+        "files": 17,
+        "bytes": 229248
+      },
+      "evidence/S05/verification": {
+        "files": 32,
+        "bytes": 226284
+      },
+      "evidence/S06/baseline": {
+        "files": 16,
+        "bytes": 218789
+      },
+      "evidence/S05/development-2": {
+        "files": 16,
+        "bytes": 217638
+      },
+      "evidence/S05/development": {
+        "files": 14,
+        "bytes": 215877
+      },
+      "evidence/B2Z/rules18-delegated-payments": {
+        "files": 19,
+        "bytes": 215146
+      },
+      "evidence/B2Z/scenario-coverage-2026-11-05": {
+        "files": 17,
+        "bytes": 215124
+      },
+      "evidence/S03/logs": {
+        "files": 7,
+        "bytes": 213308
+      },
+      "evidence/S15/motion-playback.png": {
+        "files": 1,
+        "bytes": 208222
+      },
+      "evidence/B2Z/audio-integration": {
+        "files": 17,
+        "bytes": 204569
+      },
+      "evidence/S04/verification": {
+        "files": 26,
+        "bytes": 198261
+      },
+      "evidence/S05/baseline": {
+        "files": 14,
+        "bytes": 192339
+      },
+      "evidence/B2Z/million-cell-boundary-review": {
+        "files": 15,
+        "bytes": 191841
+      },
+      "evidence/B2Z/rules17-daily-economy": {
+        "files": 12,
+        "bytes": 190042
+      },
+      "evidence/B2Z/rules16-reservoirs": {
+        "files": 13,
+        "bytes": 184262
+      },
+      "evidence/B2Z/rules19-compact-reservoirs": {
+        "files": 6,
+        "bytes": 180910
+      },
+      "evidence/B2Z/policy-v2-2026-11-02": {
+        "files": 6,
+        "bytes": 177507
+      },
+      "evidence/B2Z/rules16-toolbar-payments": {
+        "files": 11,
+        "bytes": 172974
+      },
+      "evidence/S14/closeout-simulation-trace.json": {
+        "files": 1,
+        "bytes": 170445
+      },
+      "evidence/S14/index-trace.json": {
+        "files": 1,
+        "bytes": 170445
+      },
+      "evidence/S14/published-index-trace.json": {
+        "files": 1,
+        "bytes": 170445
+      },
+      "evidence/S03/verification": {
+        "files": 17,
+        "bytes": 155061
+      },
+      "evidence/B2Z/expander-first-live-payment-2026-11-01": {
+        "files": 10,
+        "bytes": 154672
+      },
+      "evidence/S04/baseline": {
+        "files": 12,
+        "bytes": 152481
+      },
+      "evidence/B2Z/post-self-play-review-2026-11-02": {
+        "files": 24,
+        "bytes": 144232
+      },
+      "evidence/BTZ/v6-mainnet-release": {
+        "files": 8,
+        "bytes": 135704
+      },
+      "evidence/B2Z/reactive-defence-closure-2026-11-02": {
+        "files": 11,
+        "bytes": 134473
+      },
+      "evidence/B2Z/fresh-geometry-2026-11-04": {
+        "files": 10,
+        "bytes": 132969
+      },
+      "evidence/S02/logs": {
+        "files": 4,
+        "bytes": 125988
+      },
+      "evidence/S03/intermediate": {
+        "files": 10,
+        "bytes": 118947
+      },
+      "evidence/B2Z/late-payoff-counterplay-2026-11-05": {
+        "files": 14,
+        "bytes": 117524
+      },
+      "evidence/B2Z/europe-final": {
+        "files": 13,
+        "bytes": 111953
+      },
+      "evidence/B2Z/observer-rollback": {
+        "files": 13,
+        "bytes": 97140
+      },
+      "evidence/S02/verification": {
+        "files": 14,
+        "bytes": 94416
+      },
+      "evidence/S13/verification": {
+        "files": 11,
+        "bytes": 93976
+      },
+      "evidence/S03/baseline": {
+        "files": 9,
+        "bytes": 91840
+      },
+      "evidence/B2Z/coverage-closeout-2026-11-06": {
+        "files": 18,
+        "bytes": 89421
+      },
+      "evidence/B2Z/graduated-pacing": {
+        "files": 3,
+        "bytes": 88317
+      },
+      "evidence/S13/smoke": {
+        "files": 5,
+        "bytes": 87746
+      },
+      "evidence/BTZ/restart-20261031": {
+        "files": 8,
+        "bytes": 87344
+      },
+      "evidence/B2Z/player-centred": {
+        "files": 16,
+        "bytes": 83428
+      },
+      "evidence/B2Z/temporary-dev-speed": {
+        "files": 38,
+        "bytes": 80041
+      },
+      "evidence/B2Z/transition-release": {
+        "files": 7,
+        "bytes": 74642
+      },
+      "evidence/B2Z/forecast-progress-2026-11-04": {
+        "files": 12,
+        "bytes": 73430
+      },
+      "evidence/B2Z/tactical-review-2026-11-02": {
+        "files": 8,
+        "bytes": 63196
+      },
+      "evidence/B2Z/human-interface": {
+        "files": 15,
+        "bytes": 59774
+      },
+      "evidence/B2Z/human-interface-final": {
+        "files": 9,
+        "bytes": 58194
+      },
+      "evidence/B2Z/agent-foundations-2026-11-01": {
+        "files": 12,
+        "bytes": 57871
+      },
+      "evidence/B2Z/europe-release": {
+        "files": 16,
+        "bytes": 56966
+      },
+      "evidence/B2Z/europe-continuation": {
+        "files": 9,
+        "bytes": 54107
+      },
+      "evidence/BTZ/v6-presentation": {
+        "files": 8,
+        "bytes": 53515
+      },
+      "evidence/S14/closeout.json": {
+        "files": 1,
+        "bytes": 49816
+      },
+      "evidence/S14/published-dependencies.json": {
+        "files": 1,
+        "bytes": 46014
+      },
+      "evidence/B2Z/million-cell-visuals": {
+        "files": 4,
+        "bytes": 44664
+      },
+      "evidence/B2Z/overnight-pilot-local-foundations-2026-11-01": {
+        "files": 7,
+        "bytes": 42173
+      },
+      "evidence/B2Z/hourly-review-2026-11-02-0430": {
+        "files": 5,
+        "bytes": 40989
+      },
+      "evidence/B2Z/torus-activation": {
+        "files": 2,
+        "bytes": 40829
+      },
+      "evidence/BTZ/v6-island-rehearsal": {
+        "files": 2,
+        "bytes": 39806
+      },
+      "evidence/BTZ/v6-dtr-pin": {
+        "files": 8,
+        "bytes": 39472
+      },
+      "evidence/B2Z/hourly-review-2026-11-02-0200": {
+        "files": 4,
+        "bytes": 38928
+      },
+      "evidence/B2Z/million-operation-cache-prototype": {
+        "files": 9,
+        "bytes": 38544
+      },
+      "evidence/S14/closeout-deployment-trace.json": {
+        "files": 1,
+        "bytes": 36149
+      },
+      "evidence/S14/mvp-preparation.json": {
+        "files": 1,
+        "bytes": 35958
+      },
+      "evidence/B2Z/million-cell-cost": {
+        "files": 8,
+        "bytes": 35675
+      },
+      "evidence/S12/ledger-ingestion.json": {
+        "files": 1,
+        "bytes": 33565
+      },
+      "evidence/BTZ/v6-gate-closeout": {
+        "files": 6,
+        "bytes": 30904
+      },
+      "evidence/S04/portable-development.log": {
+        "files": 1,
+        "bytes": 29652
+      },
+      "evidence/S01/logs": {
+        "files": 3,
+        "bytes": 29009
+      },
+      "evidence/B2Z/treasury": {
+        "files": 5,
+        "bytes": 27612
+      },
+      "evidence/S01/verification": {
+        "files": 13,
+        "bytes": 27141
+      },
+      "evidence/BTZ/island-ball-pools": {
+        "files": 4,
+        "bytes": 25839
+      },
+      "evidence/B2Z/farthest-entry-2026-11-01": {
+        "files": 4,
+        "bytes": 25182
+      },
+      "evidence/S12/game-compute.json": {
+        "files": 1,
+        "bytes": 23649
+      },
+      "evidence/BTZ/v6-interpreter": {
+        "files": 6,
+        "bytes": 23430
+      },
+      "evidence/S12/autonomous-trace.json": {
+        "files": 1,
+        "bytes": 22710
+      },
+      "evidence/B2Z/frontend-diagnostic-deployment-2026-11-02": {
+        "files": 8,
+        "bytes": 22466
+      },
+      "evidence/S14/verification.json": {
+        "files": 1,
+        "bytes": 22349
+      },
+      "evidence/B2Z/arena-verification-fix": {
+        "files": 8,
+        "bytes": 19499
+      },
+      "evidence/B2Z/hourly-review-2026-11-02-0650": {
+        "files": 5,
+        "bytes": 19145
+      },
+      "evidence/S15/release.json": {
+        "files": 1,
+        "bytes": 18134
+      },
+      "evidence/B2Z/reservoir-visuals": {
+        "files": 2,
+        "bytes": 16262
+      },
+      "evidence/S12/cost-projections.json": {
+        "files": 1,
+        "bytes": 16255
+      },
+      "evidence/S07/scope-diff.json": {
+        "files": 1,
+        "bytes": 15913
+      },
+      "evidence/B2Z/release.json": {
+        "files": 1,
+        "bytes": 15687
+      },
+      "evidence/S03/local-workload.json": {
+        "files": 1,
+        "bytes": 15432
+      },
+      "evidence/S13/game-metrics.json": {
+        "files": 1,
+        "bytes": 14603
+      },
+      "evidence/B2Z/entry-rules-7-mainnet-release": {
+        "files": 8,
+        "bytes": 14597
+      },
+      "evidence/B2Z/prelaunch-trickle": {
+        "files": 2,
+        "bytes": 13915
+      },
+      "evidence/B2Z/million-cell-development": {
+        "files": 1,
+        "bytes": 12301
+      },
+      "evidence/S12/benchmark-run.json": {
+        "files": 1,
+        "bytes": 11793
+      },
+      "evidence/S14/provenance.json": {
+        "files": 1,
+        "bytes": 11734
+      },
+      "evidence/B2Z/hourly-review-2026-11-02-0315": {
+        "files": 3,
+        "bytes": 11592
+      },
+      "evidence/S06/measurements": {
+        "files": 3,
+        "bytes": 10683
+      },
+      "evidence/S11/remote-integration-verification.json": {
+        "files": 1,
+        "bytes": 10520
+      },
+      "evidence/B2Z/hourly-review-2026-11-02-0540": {
+        "files": 3,
+        "bytes": 10086
+      },
+      "evidence/S13/provenance.json": {
+        "files": 1,
+        "bytes": 9814
+      },
+      "evidence/S04/storage-development.log": {
+        "files": 1,
+        "bytes": 8796
+      },
+      "evidence/S10/verification-summary.json": {
+        "files": 1,
+        "bytes": 8508
+      },
+      "evidence/S13/artifact-index.json": {
+        "files": 1,
+        "bytes": 8444
+      },
+      "evidence/S13/history-preservation.json": {
+        "files": 1,
+        "bytes": 7085
+      },
+      "evidence/BTZ/published-funding-stop": {
+        "files": 3,
+        "bytes": 6701
+      },
+      "evidence/S07/observer-tests.log": {
+        "files": 1,
+        "bytes": 6494
+      },
+      "evidence/BTZ/v6-action-ui.json": {
+        "files": 1,
+        "bytes": 6306
+      },
+      "evidence/BTZ/event-horizon-readonly": {
+        "files": 5,
+        "bytes": 6216
+      },
+      "evidence/B2Z/entry-release-funding-stop-2026-11-01": {
+        "files": 2,
+        "bytes": 5478
+      },
+      "evidence/S09/corrective-verification-summary.json": {
+        "files": 1,
+        "bytes": 4819
+      },
+      "evidence/BTZ/v6-player-api.json": {
+        "files": 1,
+        "bytes": 4605
+      },
+      "evidence/S11/verification-summary.json": {
+        "files": 1,
+        "bytes": 4556
+      },
+      "evidence/BTZ/prelaunch-ci-correction.md": {
+        "files": 1,
+        "bytes": 4506
+      },
+      "evidence/BTZ/v6-host-lifecycle.json": {
+        "files": 1,
+        "bytes": 4073
+      },
+      "evidence/BTZ/v6-checkpoint-replay.json": {
+        "files": 1,
+        "bytes": 3923
+      },
+      "evidence/S09/verification-summary.json": {
+        "files": 1,
+        "bytes": 3923
+      },
+      "evidence/S12/regression-summary.json": {
+        "files": 1,
+        "bytes": 3814
+      },
+      "evidence/S08/verification-summary.json": {
+        "files": 1,
+        "bytes": 3248
+      },
+      "evidence/S02/local-workload.json": {
+        "files": 1,
+        "bytes": 3094
+      },
+      "evidence/S13/verification-summary.json": {
+        "files": 1,
+        "bytes": 3000
+      },
+      "evidence/S14/generated.did": {
+        "files": 1,
+        "bytes": 2825
+      },
+      "evidence/BTZ/v6-wire-history.json": {
+        "files": 1,
+        "bytes": 2759
+      },
+      "evidence/BTZ/v6-host-time.json": {
+        "files": 1,
+        "bytes": 2611
+      },
+      "evidence/S10/runtime-lab.generated.did": {
+        "files": 1,
+        "bytes": 2473
+      },
+      "evidence/S11/runtime-lab.generated.did": {
+        "files": 1,
+        "bytes": 2473
+      },
+      "evidence/S05/demonstrations": {
+        "files": 4,
+        "bytes": 2260
+      },
+      "evidence/S08/environment.json": {
+        "files": 1,
+        "bytes": 2259
+      },
+      "evidence/S03/README.md": {
+        "files": 1,
+        "bytes": 1557
+      },
+      "evidence/S05/catalog_sizes.json": {
+        "files": 1,
+        "bytes": 1555
+      },
+      "evidence/S09/runtime-lab.generated.did": {
+        "files": 1,
+        "bytes": 1442
+      },
+      "evidence/predecessor/S02_CHECKPOINT.json": {
+        "files": 1,
+        "bytes": 1413
+      },
+      "evidence/S09/WASM_PROVENANCE_NOTE.md": {
+        "files": 1,
+        "bytes": 1352
+      },
+      "evidence/S13/metric-definitions.json": {
+        "files": 1,
+        "bytes": 1212
+      },
+      "evidence/S13/operating-envelope.json": {
+        "files": 1,
+        "bytes": 1190
+      },
+      "evidence/S02/README.md": {
+        "files": 1,
+        "bytes": 1127
+      },
+      "evidence/predecessor/S01_CHECKPOINT.json": {
+        "files": 1,
+        "bytes": 1096
+      },
+      "evidence/S13/recovery-costs.json": {
+        "files": 1,
+        "bytes": 1010
+      },
+      "evidence/predecessor/STATUS.md": {
+        "files": 1,
+        "bytes": 927
+      },
+      "evidence/predecessor/CHECKPOINT.json": {
+        "files": 1,
+        "bytes": 894
+      },
+      "evidence/S06/demo.json": {
+        "files": 1,
+        "bytes": 613
+      },
+      "evidence/S04/chunked-process-development.log": {
+        "files": 1,
+        "bytes": 530
+      },
+      "evidence/S07/predecessor.json": {
+        "files": 1,
+        "bytes": 369
+      },
+      "evidence/S13/postprocess-validation.json": {
+        "files": 1,
+        "bytes": 317
+      },
+      "evidence/S07/recordings.log": {
+        "files": 1,
+        "bytes": 69
+      },
+      "evidence/S06/npm-lock-offline.log": {
+        "files": 1,
+        "bytes": 65
+      },
+      "evidence/S07/npm-metadata.log": {
+        "files": 1,
+        "bytes": 65
+      }
+    },
+    "largest_files": [
+      {
+        "path": "tests/fixtures/boundary-deflector-v12.json",
+        "mode": "100644",
+        "oid": "6a3af96fcc12c5fc2cba623b0db5828d7f216c49",
+        "size": 4762721
+      },
+      {
+        "path": "tests/fixtures/combined-v11.json",
+        "mode": "100644",
+        "oid": "012676f440c8e616cc009279983e5cac7c1dbb88",
+        "size": 2502695
+      },
+      {
+        "path": "evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/results/final-sample/served-after/app.mjs",
+        "mode": "100644",
+        "oid": "c51aea94a9b265e3ce14b06bb99ca1caba9ca775",
+        "size": 2129784
+      },
+      {
+        "path": "evidence/B2Z/combined-clearance-war-cry/results/production-closeout/served-final/app.mjs",
+        "mode": "100644",
+        "oid": "ea4ea1b19b7e262827e354fe48e206ae7b57e48a",
+        "size": 2126341
+      },
+      {
+        "path": "evidence/B2Z/graphite-deflectors/premium-ui/reference/01_APPROVED_VISUAL_LANGUAGE.png",
+        "mode": "100644",
+        "oid": "4bf6148497f00534b7e22fd9e20cb01a376fcff6",
+        "size": 1757975
+      },
+      {
+        "path": "evidence/B2Z/graphite-deflectors/reference/01_APPROVED_VISUAL_LANGUAGE.png",
+        "mode": "100644",
+        "oid": "4bf6148497f00534b7e22fd9e20cb01a376fcff6",
+        "size": 1757975
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/038-3a72de09ed721511.flac",
+        "mode": "100644",
+        "oid": "b2647c0b6c7094e4f7fcc31cc3a0ed27d880c7df",
+        "size": 1664812
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/037-e9e76ddc65f4dae0.flac",
+        "mode": "100644",
+        "oid": "15de40c7dc46ce718493d340e354b04cc49ee816",
+        "size": 1636180
+      },
+      {
+        "path": "evidence/B2Z/graphite-deflectors/reference/03_APPROVED_DEFLECTOR.png",
+        "mode": "100644",
+        "oid": "5cac72dde633652b8d678f0c5f6b7c5e18ec54ee",
+        "size": 1631060
+      },
+      {
+        "path": "evidence/B2Z/graphite-deflectors/reference/02_APPROVED_CANNON.png",
+        "mode": "100644",
+        "oid": "ba7a85cd6c150cf3bc5a29780ce2595b9dac29eb",
+        "size": 1612298
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/013-f8a6c8b91760e70e.flac",
+        "mode": "100644",
+        "oid": "fe1999d1abf1b02863da6200b124e8dd65ee6c30",
+        "size": 1600065
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/039-4d32d148feef91d2.flac",
+        "mode": "100644",
+        "oid": "2bbaa6048db94097e87b12c00dbab053a49aa49c",
+        "size": 1598669
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/036-6633c68f9f5a1ed6.flac",
+        "mode": "100644",
+        "oid": "241eb847506dd76859541628bba0459494c33da3",
+        "size": 1592760
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/017-7f4e43a4cf5d162b.flac",
+        "mode": "100644",
+        "oid": "c87b6a67b3e55a50ef4316e3b42682b3fd2cefae",
+        "size": 1588032
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/045-210a3a96ec7e2678.flac",
+        "mode": "100644",
+        "oid": "53b7d63ad16cf20d5ac553c754697ba0fd59ee25",
+        "size": 1564721
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/046-d727238bc1e57a9f.flac",
+        "mode": "100644",
+        "oid": "3cb01c680116428673ea0950fca80152b827251a",
+        "size": 1561456
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/044-dde8cc578bcf7431.flac",
+        "mode": "100644",
+        "oid": "f52c62ef131ece6712fdd0818de8a356bbb03c26",
+        "size": 1546445
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/034-98a099fe7a6eb4a0.flac",
+        "mode": "100644",
+        "oid": "b49f5117ab980afd9369ff11f5d62cd473672f26",
+        "size": 1536526
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/033-57b4a3df81bf24e6.flac",
+        "mode": "100644",
+        "oid": "e0b1fac34f60a3c856fa1b763ed31af3f6a596eb",
+        "size": 1524419
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/011-8a18bb8efc6b46e0.flac",
+        "mode": "100644",
+        "oid": "03bd8ab1e5748a9cbec6fd2ab57bf32258486424",
+        "size": 1519930
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/012-01e06f63ca07d0ae.flac",
+        "mode": "100644",
+        "oid": "f2f6dc883443ce65c5a4eb7dbd8b2223dac73d8f",
+        "size": 1511800
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/035-9e6aaca300a74182.flac",
+        "mode": "100644",
+        "oid": "703a04df0b62b15e867d2f68c8e552c9ad96d34c",
+        "size": 1510429
+      },
+      {
+        "path": "evidence/B2Z/adaptive-counterplay-2026-11-04/late-results.json",
+        "mode": "100644",
+        "oid": "ea4f2534b9fdceab9f8e53944c67f36417be957e",
+        "size": 1507824
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/018-cd646c231bb0e032.flac",
+        "mode": "100644",
+        "oid": "0c2e327c9f4c19ee075fb87c965d45a8cb13435f",
+        "size": 1499842
+      },
+      {
+        "path": "apps/b2z-observer/audio/b2z-v1/music/016-2168c415461a767c.flac",
+        "mode": "100644",
+        "oid": "e2480ca31f25f89782c1e8e369acc958336aa28b",
+        "size": 1494257
+      }
+    ],
+    "duplicates": {
+      "identity": "Git blob object ID for identical bytes",
+      "groups": 199,
+      "extra_files": 825,
+      "extra_bytes": 5927015,
+      "largest_groups": [
+        {
+          "oid": "62cafabe8955f9a0ed88bfb50c35e7d912b22b2f",
+          "blob_bytes": 1395845,
+          "paths": [
+            "evidence/B2Z/approved-action-panel-war-cry/reference/APPROVED_ACTION_PANEL.png",
+            "evidence/B2Z/graphite-deflectors/premium-ui/reference/02_APPROVED_PANEL_STRUCTURE.png",
+            "evidence/B2Z/graphite-deflectors/reference/04_APPROVED_PANEL_STRUCTURE.png"
+          ]
+        },
+        {
+          "oid": "4bf6148497f00534b7e22fd9e20cb01a376fcff6",
+          "blob_bytes": 1757975,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/premium-ui/reference/01_APPROVED_VISUAL_LANGUAGE.png",
+            "evidence/B2Z/graphite-deflectors/reference/01_APPROVED_VISUAL_LANGUAGE.png"
+          ]
+        },
+        {
+          "oid": "86a1e68628b53e69e3fb0735e37040f0dbe03dd5",
+          "blob_bytes": 264904,
+          "paths": [
+            "evidence/B2Z/approved-action-panel-war-cry/hosted/43785291394/ci-approved-panel-war-cry-results.json",
+            "evidence/B2Z/approved-action-panel-war-cry/results/panel-six-dcc1e7a-superseded.json",
+            "evidence/B2Z/approved-action-panel-war-cry/results/panel-six-final.json"
+          ]
+        },
+        {
+          "oid": "2a52dfa696d45c6c0616abc2b03e33e56176ac0b",
+          "blob_bytes": 32250,
+          "paths": [
+            "apps/b2z-observer/audio/b2z-v1/manifest.json",
+            "evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/results/final-sample/served-after/audio/b2z-v1/manifest.json",
+            "evidence/B2Z/combined-clearance-war-cry/results/production-closeout/served-final/audio/b2z-v1/manifest.json"
+          ]
+        },
+        {
+          "oid": "1e93ebc62491bf50c1064b833bececb36474924d",
+          "blob_bytes": 13279,
+          "paths": [
+            "evidence/B2Z/combined-clearance-war-cry/artifacts/frontend-inventory.json",
+            "evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/results/candidate-inventory.json",
+            "evidence/B2Z/graphite-deflectors/results/production-final/candidate-inventory.json",
+            "evidence/B2Z/graphite-deflectors/results/production-readonly/candidate-inventory.json"
+          ]
+        },
+        {
+          "oid": "27bafb886d36f6019f2bf9c1ef8b165dc0dfd69d",
+          "blob_bytes": 13128,
+          "paths": [
+            "evidence/B2Z/approved-action-panel-war-cry/artifacts/frontend-inventory.json",
+            "evidence/B2Z/approved-action-panel-war-cry/deployment/results/candidate-inventory.json",
+            "evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/results/rollback-inventory.json",
+            "evidence/B2Z/combined-clearance-war-cry/results/production-closeout/candidate-inventory.json"
+          ]
+        },
+        {
+          "oid": "79c7939d000302f0a8a3b0d5ed14df03016dbf19",
+          "blob_bytes": 153,
+          "paths": [
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-0-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-10-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-100-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-101-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-102-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-103-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-104-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-105-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-106-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-107-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-108-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-109-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-11-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-110-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-111-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-12-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-13-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-14-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-15-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-16-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-17-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-18-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-19-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-2-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-20-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-21-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-22-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-23-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-24-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-25-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-26-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-27-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-28-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-29-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-3-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-30-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-31-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-32-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-33-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-34-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-35-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-36-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-37-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-38-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-39-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-4-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-40-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-41-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-42-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-43-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-44-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-45-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-46-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-47-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-48-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-49-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-5-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-50-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-51-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-52-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-53-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-54-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-55-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-56-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-57-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-58-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-59-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-6-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-60-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-61-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-62-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-63-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-64-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-65-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-66-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-67-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-68-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-69-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-7-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-70-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-71-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-72-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-73-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-74-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-75-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-76-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-77-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-78-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-79-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-8-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-80-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-81-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-82-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-83-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-84-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-85-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-86-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-87-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-88-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-89-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-9-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-90-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-91-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-92-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-93-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-94-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-95-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-96-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-97-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-98-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/hosted-clearance/publication-99-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-0-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-10-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-100-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-101-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-102-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-103-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-104-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-105-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-106-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-107-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-108-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-109-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-11-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-110-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-111-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-112-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-12-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-13-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-14-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-15-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-16-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-17-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-18-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-19-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-2-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-20-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-21-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-22-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-23-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-24-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-25-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-26-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-27-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-28-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-29-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-3-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-30-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-31-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-32-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-33-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-34-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-35-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-36-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-37-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-38-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-39-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-4-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-40-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-41-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-42-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-43-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-44-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-45-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-46-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-47-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-48-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-49-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-5-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-50-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-51-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-52-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-53-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-54-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-55-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-56-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-57-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-58-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-59-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-6-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-60-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-61-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-62-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-63-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-64-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-65-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-66-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-67-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-68-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-69-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-7-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-70-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-71-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-72-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-73-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-74-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-75-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-76-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-77-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-78-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-79-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-8-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-80-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-81-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-82-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-83-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-84-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-85-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-86-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-87-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-88-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-89-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-9-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-90-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-91-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-92-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-93-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-94-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-95-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-96-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-97-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-98-artifact-2.bin",
+            "evidence/B2Z/combined-clearance-war-cry/results/paused-ack-european/publication-99-artifact-2.bin"
+          ]
+        },
+        {
+          "oid": "8f23b0f56adc33d2c14f67410ca2695d18e10332",
+          "blob_bytes": 14231,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/european-rules12-release/backend-results/wire/after-install-12/11627-state.bin",
+            "evidence/B2Z/graphite-deflectors/european-rules12-release/backend-results/wire/pre-install-12/11627-state.bin",
+            "evidence/B2Z/graphite-deflectors/european-rules12-release/backend-results/wire/ready12-cert/11627-state.bin"
+          ]
+        },
+        {
+          "oid": "8526853863e5df19e88957282265bf2bbce20d32",
+          "blob_bytes": 13942,
+          "paths": [
+            "evidence/B2Z/combined-clearance-war-cry/results/frozen-mainnet/1440-fire-quote.json",
+            "evidence/B2Z/combined-clearance-war-cry/results/frozen-mainnet/320-fire-quote.json",
+            "evidence/B2Z/combined-clearance-war-cry/results/frozen-mainnet/390-fire-quote.json"
+          ]
+        },
+        {
+          "oid": "bcb4abe8095ec10f88b9b99776128074aee487b7",
+          "blob_bytes": 11924,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/european-rules12-release/backend-results/wire/after-install-12/11627-events.bin",
+            "evidence/B2Z/graphite-deflectors/european-rules12-release/backend-results/wire/pre-install-12/11627-events.bin",
+            "evidence/B2Z/graphite-deflectors/european-rules12-release/backend-results/wire/ready12-cert/11627-events.bin"
+          ]
+        },
+        {
+          "oid": "663b272face2fcf5c8c0d6ecc50685278bf01317",
+          "blob_bytes": 6132,
+          "paths": [
+            "evidence/B2Z/approved-action-panel-war-cry/deployment/instrumentation/live-common.py",
+            "evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/instrumentation/live-common.py",
+            "evidence/B2Z/graphite-deflectors/european-rules12-release/backend-results/method/live-common.py",
+            "evidence/B2Z/graphite-deflectors/responsiveness/method/live_common.py"
+          ]
+        },
+        {
+          "oid": "6f7415430f1a0fd5ba3051e528631b9ff8bfab5f",
+          "blob_bytes": 3680,
+          "paths": [
+            "evidence/B2Z/fluid-player-experience/hosted-depth-454ec03.json",
+            "evidence/B2Z/fluid-player-experience/hosted-depth-a0a59f9.json",
+            "evidence/B2Z/fluid-player-experience/qualification/guide-depth.json",
+            "evidence/B2Z/player-experience-refinement/guide-depth.json",
+            "evidence/B2Z/player-experience-refinement/visual-closeout/guide-depth.json"
+          ]
+        },
+        {
+          "oid": "51bbecbffaeeb5cfbfa97c33ba00e55e51fa17a7",
+          "blob_bytes": 14366,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/results/indexed-acceptance/live-panels-recovery/320-fire-quote.json",
+            "evidence/B2Z/graphite-deflectors/results/indexed-acceptance/live-panels-recovery/390-fire-quote.json"
+          ]
+        },
+        {
+          "oid": "cefd5d3d1e328c118f4a22cfcea4f9e9f2528948",
+          "blob_bytes": 14364,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/results/indexed-acceptance/live-panels-recovery/320-build-quote.json",
+            "evidence/B2Z/graphite-deflectors/results/indexed-acceptance/live-panels-recovery/390-build-quote.json"
+          ]
+        },
+        {
+          "oid": "8bc01288deec9a4eb9608f0f727cd9c898dfa557",
+          "blob_bytes": 14363,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/results/indexed-acceptance/live-panels-recovery/320-move-quote.json",
+            "evidence/B2Z/graphite-deflectors/results/indexed-acceptance/live-panels-recovery/390-move-quote.json"
+          ]
+        },
+        {
+          "oid": "9522c47f71b0c2f9d08255fc542fff364a219f17",
+          "blob_bytes": 14246,
+          "paths": [
+            "evidence/B2Z/rules13-context-structures/embedded-frontend/exact-candidate-legacy-recovery.json",
+            "evidence/B2Z/rules13-context-structures/embedded-frontend/legacy-recovery.json"
+          ]
+        },
+        {
+          "oid": "bac63047482bee60c928f3fdf09e1ca079d89935",
+          "blob_bytes": 14236,
+          "paths": [
+            "evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/results/final-sample/served-after/index.html",
+            "evidence/B2Z/combined-clearance-war-cry/results/production-closeout/served-final/index.html"
+          ]
+        },
+        {
+          "oid": "314826b74023658104e93399c7e99741aa3b6741",
+          "blob_bytes": 14232,
+          "paths": [
+            "evidence/B2Z/graphite-deflectors/european-rules12-release/backend-results/wire/epoch-11/11623-state.bin",
+            "evidence/B2Z/graphite-deflectors/european-rules12-release/backend-results/wire/ready11-cert/11622-state.bin"
+          ]
+        },
+        {
+          "oid": "faca4d91d498db48872eb536fd055415bac8e03a",
+          "blob_bytes": 1005,
+          "paths": [
+            "evidence/S01/verification/environment.json",
+            "evidence/S02/verification/environment.json",
+            "evidence/S03/baseline/environment.json",
+            "evidence/S03/intermediate/environment.json",
+            "evidence/S03/verification/environment.json",
+            "evidence/S04/baseline/environment.json",
+            "evidence/S04/verification/environment.json",
+            "evidence/S05/baseline/environment.json",
+            "evidence/S05/development-2/environment.json",
+            "evidence/S05/development/environment.json",
+            "evidence/S05/verification/environment.json",
+            "evidence/S06/baseline/environment.json",
+            "evidence/S06/verification/environment.json",
+            "evidence/S07/baseline/environment.json",
+            "evidence/S07/verification/environment.json"
+          ]
+        },
+        {
+          "oid": "eb2789fac8529e34e22c10027a0f1e0aa7e9f06c",
+          "blob_bytes": 14054,
+          "paths": [
+            "evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/results/live-panels-recovery/320-build-quote.json",
+            "evidence/B2Z/combined-clearance-war-cry/frontend80-deployment/results/live-panels-recovery/390-build-quote.json"
+          ]
+        }
+      ]
+    }
+  },
+  "reduction": {
+    "files": 2072,
+    "bytes": 688061650,
+    "percent": 72.911
+  },
+  "archive_categories": {
+    "historical capture": {
+      "files": 2060,
+      "bytes": 638607472
+    },
+    "historical diagnostic": {
+      "files": 26,
+      "bytes": 49900412
+    }
+  },
+  "complete_committed_tree_compressed_zip_bytes": {
+    "baseline": 750459616,
+    "candidate": 138579699
+  },
+  "comprehensive_checkpoint_tool": {
+    "archive": "checkpoint.zip",
+    "sha256": "27fe000a9becd8c95fa1c7149170ca2c7f3689e64956453516990e9c145f9ffe",
+    "payload_files": 7069,
+    "zip_entries": 7070,
+    "bytes": 138342839,
+    "manifest_verified": true,
+    "fresh_extraction_verified": true
+  },
+  "candidate_review_package": {
+    "source_commit": "ecd3eb010af195ac2c59b34d8205ec81359c1632",
+    "sha256": "9fedb00480a50fb44d278d898b20b03f9c65f8512e7716097c8aa107dd40018f",
+    "payload_files": 1395,
+    "omitted_files": 5675,
+    "uncompressed_bytes": 37488263,
+    "compressed_bytes": 12774547,
+    "manifest_verified": true,
+    "clean_extraction_smoke_tests": 32
+  },
+  "git_object_database": {
+    "before": {
+      "loose_objects": 5727,
+      "loose_mib": 263.55,
+      "packed_objects": 14012,
+      "packed_mib": 464.57,
+      "packs": 2
+    },
+    "candidate_git_count_objects_kib_for_size_fields": {
+      "count": 5970,
+      "size": 271088,
+      "in-pack": 14012,
+      "packs": 2,
+      "size-pack": 475719,
+      "prune-packable": 0,
+      "garbage": 0,
+      "size-garbage": 0
+    },
+    "active_tree_and_archives_report_separately": true
+  },
+  "ignored_local": {
+    "scope": "master worktree only. Other worktrees were audited for changes and retained.",
+    "work_before_allocated_mib": 15693,
+    "sample_allocated_bytes": [
+      {
+        "path": ".work",
+        "allocated_bytes": 16693633024
+      },
+      {
+        "path": "node_modules",
+        "allocated_bytes": 45268992
+      },
+      {
+        "path": ".dfx",
+        "allocated_bytes": 12288
+      },
+      {
+        "path": "native/target",
+        "allocated_bytes": 257916928
+      },
+      {
+        "path": "canisters/runtime-lab/target",
+        "allocated_bytes": 2726916096
+      },
+      {
+        "path": "tools/s09-integration/target",
+        "allocated_bytes": 1970380800
+      }
+    ],
+    "removed_regenerable_caches": [
+      {
+        "path": "tools/s09-integration/target/debug/incremental",
+        "allocated_bytes": 444252160,
+        "type": "Rust incremental cache"
+      },
+      {
+        "path": "native/target/debug/incremental",
+        "allocated_bytes": 105426944,
+        "type": "Rust incremental cache"
+      },
+      {
+        "path": "canisters/runtime-lab/target/wasm32-unknown-unknown/debug/incremental",
+        "allocated_bytes": 187703296,
+        "type": "Rust incremental cache"
+      },
+      {
+        "path": ".work/dev-speed-ui-c/release/target",
+        "allocated_bytes": 565780480,
+        "type": "Cargo target with identical preserved frontend.wasm and build manifests"
+      },
+      {
+        "path": ".work/dev-speed-ui-d/release/target",
+        "allocated_bytes": 565743616,
+        "type": "Cargo target with identical preserved frontend.wasm and build manifests"
+      },
+      {
+        "path": ".work/dev-ii-build-local/release/target",
+        "allocated_bytes": 565821440,
+        "type": "Cargo target with identical preserved frontend.wasm and build manifests"
+      },
+      {
+        "path": ".work/mainline-ci/public-wasm/target",
+        "allocated_bytes": 564502528,
+        "type": "Cargo target with identical preserved frontend.wasm and build manifests"
+      },
+      {
+        "path": "canisters/runtime-lab/target/debug/incremental",
+        "allocated_bytes": 197607424,
+        "type": "Rust incremental cache"
+      },
+      {
+        "path": ".work/target/wasm32-unknown-unknown/debug/incremental",
+        "allocated_bytes": 36376576,
+        "type": "Rust incremental cache"
+      }
+    ],
+    "classification_policy": "Pinned artifacts and production captures were preserved. All other raw and uncertain work directories remain.",
+    "worktrees_audited": 30,
+    "worktrees_with_changes": 7,
+    "heads_with_unpublished_commits": 13
+  },
+  "github_baseline": {
+    "default_branch": "master",
+    "associated_open_prs": 0,
+    "open_issues": 0,
+    "active_workflows": 0,
+    "existing_releases": [],
+    "active_branches": [
+      "master",
+      "feature/b2z-prelaunch-trickle",
+      "feature/b2z-rules18-delegated-payments",
+      "feature/b2z-rules19-compact-reservoirs",
+      "feature/b2z-temporary-dev-speed"
+    ],
+    "retained_release_qualification_artifacts": {
+      "45633690667": [
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T15:45:51Z",
+          "id": 15039585968,
+          "name": "local-ic-evidence",
+          "size_in_bytes": 811473754
+        },
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T14:41:34Z",
+          "id": 15033880841,
+          "name": "browser-evidence",
+          "size_in_bytes": 205078024
+        },
+        {
+          "expired": false,
+          "expires_at": "2027-02-23T14:24:23Z",
+          "id": 15032861026,
+          "name": "rules17-hosted-normal",
+          "size_in_bytes": 1242200
+        },
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T14:27:25Z",
+          "id": 15032801154,
+          "name": "wasm-evidence",
+          "size_in_bytes": 1255589
+        },
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T14:28:01Z",
+          "id": 15032746378,
+          "name": "mainline-public-frontend-wasm",
+          "size_in_bytes": 75427242
+        },
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T14:30:39Z",
+          "id": 15032173122,
+          "name": "native-evidence",
+          "size_in_bytes": 22022
+        },
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T14:27:25Z",
+          "id": 15032132713,
+          "name": "source-evidence",
+          "size_in_bytes": 57384
+        },
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T14:26:30Z",
+          "id": 15031678089,
+          "name": "embedded-frontend-wasm",
+          "size_in_bytes": 75425422
+        },
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T14:25:25Z",
+          "id": 15031268758,
+          "name": "package-consumer-evidence",
+          "size_in_bytes": 15378
+        }
+      ],
+      "45633690844": [
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T14:25:26Z",
+          "id": 15032790823,
+          "name": "delegated-payment-browser-evidence",
+          "size_in_bytes": 1738591
+        },
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T14:31:32Z",
+          "id": 15032771982,
+          "name": "delegated-payment-evidence",
+          "size_in_bytes": 1614740
+        }
+      ],
+      "45633690703": [
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T14:49:06Z",
+          "id": 15033641591,
+          "name": "developer-speed-backend-and-replay",
+          "size_in_bytes": 8210172
+        },
+        {
+          "expired": false,
+          "expires_at": "2026-12-09T14:29:04Z",
+          "id": 15031828103,
+          "name": "developer-speed-frontend",
+          "size_in_bytes": 76499590
+        }
+      ]
+    }
+  }
+}

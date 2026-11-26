@@ -1,6 +1,6 @@
 # B2Z current status
 
-Operational observation **2026-11-26 06:47 UTC**. The current published source is
+Operational observation **2026-11-26 07:56–07:57 UTC**. The current published source is
 [the maintained master branch](https://github.com/aodl/balls-2-the-wallz/commits/master/).
 The installed source is `741dbf898ade58ed2fa3a064d8bbe1acb577ed4a`.
 Rules19 / Schema11 / Adapter12 (`BTZPAY09`) runs in the capped
@@ -13,7 +13,7 @@ Rules19 / Schema11 / Adapter12 (`BTZPAY09`) runs in the capped
 
 ## Operating position
 
-- The authenticated head was segment **18,039**, logical time **18,023**.
+- The authenticated head was segment **18,080**, logical time **18,064**.
   It contained two Cannons under one distinct funding account, two Balls,
   one Diverter and four Reservoir tiles. The funding-account count is
   derived from active Cannons. It does not measure unique humans or
@@ -28,20 +28,20 @@ Rules19 / Schema11 / Adapter12 (`BTZPAY09`) runs in the capped
   The Index returned 11 account-history records and 100,000 e8s in treasury.
   The worker was enabled and idle at acceptance. Its fresh controller-only
   status was unavailable.
-- Repeated settled samples had backend total **3.177T** and liquid
-  **3.119T** cycles. Frontend management total was **0.9668T** and estimated
-  liquid **0.7631T**. Both reported a 30-day freezing threshold and zero
+- Repeated settled samples had backend total **3.151T** and liquid
+  **3.093T** cycles. Frontend management total was **0.9665T** and estimated
+  liquid **0.7628T**. Both reported a 30-day freezing threshold and zero
   separately reserved cycles in the management read. Estimated freezing
   reserve was approximately 0.058T backend and 0.204T frontend.
 - Backend liquid was above the 2.07T default Full Speed cycle floor.
   At the original measured and conservative workloads (0.521–0.544T/day),
-  about **3.9–4.1 days** remained to the 1T protection boundary and
-  **1.9–2.0 days** to the Full Speed cycle floor from the observation.
-  These estimates assume comparable work and no credits. The roughly
-  10½-hour net comparison was consistent with that range. Review the
+  about **3.85–4.02 days** remained to the 1T protection boundary and
+  **1.88–1.96 days** to the Full Speed cycle floor from the observation.
+  These estimates assume comparable work and no credits. The 11.8-hour comparison
+  since release acceptance yielded about 0.530T/day in net decline. Review the
   runway before owner playtesting or any separately approved operation.
 
-[Machine-readable production observation](evidence/B2Z/repository-consolidation/production-observation.json)
+[Latest production observation](evidence/B2Z/repository-consolidation/production-closeout.json) · [Initial observation](evidence/B2Z/repository-consolidation/production-observation.json)
 
 ## Qualification and acceptance
 

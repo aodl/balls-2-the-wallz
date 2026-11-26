@@ -1,0 +1,135 @@
+{
+  "observed_at": "2026-11-26T07:56:14.602Z",
+  "scope": "Read-only certified public and signed operational queries",
+  "backend": {
+    "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "module_certificate_verified": true,
+    "status": {
+      "running": null
+    },
+    "cycles": "3150882781780",
+    "settings": {
+      "freezing_threshold": "2592000"
+    },
+    "idle_cycles_burned_per_day": "1927783939",
+    "reserved_cycles": "0"
+  },
+  "frontend": {
+    "id": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module_sha256": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff",
+    "module_certificate_verified": true,
+    "status": {
+      "running": null
+    },
+    "cycles": "966513342382",
+    "settings": {
+      "freezing_threshold": "2592000"
+    },
+    "idle_cycles_burned_per_day": "6790193893",
+    "reserved_cycles": "0",
+    "estimated_freezing_cycles": 203705816790,
+    "estimated_liquid_cycles": 762807525592
+  },
+  "publication": {
+    "root": "a83d2c4de08cc7450a435d9ad476a8eca33e550b6ef32619214ae65a75724d85",
+    "head": "18080",
+    "logical_time": "18064",
+    "source_cursor": "40647923",
+    "identity": {
+      "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+      "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+      "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "state_sha256": "6316a0400ca88ce4ab2b042acf02c487624c941f3ed9f01e852cfed702a94cbd",
+    "accounts_with_cannons": 1,
+    "cannons": 2,
+    "balls": 2,
+    "diverters": 1,
+    "reservoirs": 4,
+    "source": {
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "subaccount": "0",
+      "network": "ic"
+    }
+  },
+  "signed_status": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "1",
+      "publication_ticks": "1",
+      "completed_segments": "18064",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40647923"
+    }
+  },
+  "settled_backend_samples": [
+    {
+      "time": "2026-11-26T07:56:14Z",
+      "total": 3150882781780,
+      "liquid": 3093049263610,
+      "segments": 18064,
+      "index_calls": 26413,
+      "index_in_flight_before_after": false
+    },
+    {
+      "time": "2026-11-26T07:56:42Z",
+      "total": 3150778898342,
+      "liquid": 3092945380172,
+      "segments": 18064,
+      "index_calls": 26414,
+      "index_in_flight_before_after": false
+    },
+    {
+      "time": "2026-11-26T07:57:08Z",
+      "total": 3150778474409,
+      "liquid": 3092944956239,
+      "segments": 18064,
+      "index_calls": 26414,
+      "index_in_flight_before_after": false
+    }
+  ],
+  "runway_estimate": {
+    "estimate_basis_daily_cycles": [
+      521000000000,
+      544000000000
+    ],
+    "long_comparison_net_cycles_per_day": 529948002136,
+    "elapsed_compared_hours": 11.797,
+    "protection_floor": 1000000000000,
+    "default_full_speed_cycle_floor": 2070000000000,
+    "days_to_protection": [
+      3.85,
+      4.02
+    ],
+    "days_to_full_speed_cycle_floor": [
+      1.88,
+      1.96
+    ],
+    "default_cycle_floor_met": true,
+    "estimate_scope": "Similar workload, no future credits, excludes possible transient reserves."
+  },
+  "limitations": {
+    "underlying_funding_tier": "unavailable through public status. Trickle is the effective mode.",
+    "private_worker_phase": "unavailable with the secure-controller requirement",
+    "owner_only_eligibility": "unavailable without real owner sign-in",
+    "full_speed_active": "inferred inactive from effective rate",
+    "owner_acceptance": "pending at last installed release acceptance"
+  }
+}

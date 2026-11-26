@@ -1,0 +1,37 @@
+{
+  "candidate_run": 45771430502,
+  "artifact": 15094163018,
+  "source": "ecd3eb010af195ac2c59b34d8205ec81359c1632",
+  "candidate_raw_sha256": "48de515cac98524e02a60f48112d8a65ca05bc2cb497528227f22b9e0df855e1",
+  "prior_public_raw_sha256": "48de515cac98524e02a60f48112d8a65ca05bc2cb497528227f22b9e0df855e1",
+  "asset_inventory_differences": [],
+  "build_provenance_fields_changed": [
+    "source_inventory_sha256"
+  ],
+  "public_backend": {
+    "candidate_raw_sha256": "deca9d18188b1747a1a0b79f1de3e87c0a7e0b34677ee97454db0f891be82caf",
+    "recovery_raw_sha256": "b258ec234b9abd7db9e7b170c14e432b4d1ef2d9b2545632bddb58668a6095de",
+    "artifact": 15093967824,
+    "prelaunch_source_public_raw_sha256": "deca9d18188b1747a1a0b79f1de3e87c0a7e0b34677ee97454db0f891be82caf",
+    "prelaunch_source_public_wasm_artifact": 15032801154,
+    "same_public_profile_bytes": true
+  },
+  "capped_profile": {
+    "backend": {
+      "candidate": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+      "installed": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+      "same_bytes": true,
+      "artifact": 15095177841,
+      "member": "prelaunch-trickle.wasm",
+      "run": 45771430381
+    },
+    "frontend": {
+      "candidate": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff",
+      "installed": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff",
+      "same_bytes": true,
+      "artifact": 15093369964,
+      "member": "ci-dev-a/release/frontend.wasm",
+      "run": 45771430381
+    }
+  }
+}
