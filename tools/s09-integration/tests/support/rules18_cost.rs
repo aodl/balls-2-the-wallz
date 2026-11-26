@@ -5,7 +5,7 @@ use b2z_native::{
     territory_v6::Territory,
     world::{self, Ball, Cannon, World},
 };
-use serde_json::{json, Value};
+use serde_json::{Value, json};
 
 fn seed(case: &str) -> World {
     let mut world = World::decode(&bytes("B2Z_COST_WORLD")).unwrap();
@@ -560,9 +560,11 @@ fn compact_cutover(
                 candid::encode_one(dtr_wire::hash(&old_obs.publication)).unwrap(),
             )
             .unwrap();
-        assert!(decode_one::<Result<Vec<u8>, String>>(&result)
-            .unwrap()
-            .is_err());
+        assert!(
+            decode_one::<Result<Vec<u8>, String>>(&result)
+                .unwrap()
+                .is_err()
+        );
         assert_eq!(observe(pic, id).0.publication, old_obs.publication);
         pic.start_canister(index, Some(controller())).unwrap();
     }
@@ -900,13 +902,15 @@ fn rules18_cost_matrix() {
         .unwrap();
         let verify = Path::new(env!("CARGO_MANIFEST_DIR"))
             .join("../../tools/verify_compact_cost_replay.mjs");
-        assert!(std::process::Command::new("node")
-            .arg(verify)
-            .arg(&out)
-            .arg(checkpoints.to_string())
-            .status()
-            .unwrap()
-            .success());
+        assert!(
+            std::process::Command::new("node")
+                .arg(verify)
+                .arg(&out)
+                .arg(checkpoints.to_string())
+                .status()
+                .unwrap()
+                .success()
+        );
     }
     let world = arena_world(&pic, id);
     let result = json!({
@@ -1064,15 +1068,17 @@ fn prelaunch_trickle_rules19() {
     assert!(speed::switch(&pic, id, payer, true, None).is_err());
     let capped_cost = measure_ordinary(&pic, id, &out.join("capped"), 100_000);
     std::fs::write(out.join("capped/replay-inputs.bin"), b"[]").unwrap();
-    assert!(std::process::Command::new("node")
-        .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
-        .arg("tools/verify_compact_cost_replay.mjs")
-        .arg(out.join("capped"))
-        .arg("4")
-        .arg(out.join("cutover"))
-        .status()
-        .unwrap()
-        .success());
+    assert!(
+        std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .arg("tools/verify_compact_cost_replay.mjs")
+            .arg(out.join("capped"))
+            .arg("4")
+            .arg(out.join("cutover"))
+            .status()
+            .unwrap()
+            .success()
+    );
     // The minimum observed checkpoint debit excludes a coincident source poll.
     let baseline_cost = *baseline.iter().min().unwrap();
     let adjusted_cost = *capped_cost.iter().min().unwrap();
