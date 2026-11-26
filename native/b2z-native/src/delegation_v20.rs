@@ -155,13 +155,22 @@ mod tests {
         r.version = 2;
         assert!(r.validate().is_err());
         let mut populated = Registry::empty(hex(&payment.to)).unwrap();
+        let second_account = payment.spender.unwrap();
         let mut grant = payment;
         grant.position = 4;
         grant.spender = None;
         grant.amount = 0;
         grant.memo = Some(unhex(vector["grant_memo"].as_str().unwrap()).unwrap());
         assert_eq!(populated.apply(&grant, 4).unwrap(), Decision::Granted);
+        grant.position = 5;
+        grant.from = second_account;
+        assert_eq!(populated.apply(&grant, 5).unwrap(), Decision::Granted);
         let mut duplicate = RegistryV3::from_v2(&populated).unwrap();
+        assert_eq!(duplicate.grants.len(), 2);
+        assert_eq!(
+            hash(&encode(&duplicate).unwrap()),
+            "21553782195144ba08f801724dd016868aa077bda59e2d7c6e8696108ac66c53"
+        );
         duplicate.grants.push(duplicate.grants[0].clone());
         assert!(duplicate.validate().is_err());
     }

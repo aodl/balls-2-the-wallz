@@ -3,7 +3,7 @@ import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {encodeCanonical,decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
-import {decodeDelegatedPayment,icpAccount} from '../../packages/protocol/delegation.mjs';
+import {decodeDelegatedPayment} from '../../packages/protocol/delegation.mjs';
 import {emptyAuthorization,authorizePayment} from '../../packages/kernels/b2z/delegation-v18.mjs';
 import {authorizationV3FromV2,authorizationV2FromV3,validateAuthorizationV3} from '../../packages/kernels/b2z/delegation-v20.mjs';
 
@@ -35,11 +35,13 @@ test('successor grants reject duplicates, unsorted rows and invalid version',()=
  const badVersion=structuredClone(successor);
  badVersion.version=2;
  assert.throws(()=>validateAuthorizationV3(badVersion),/AUTH_V3_VERSION/);
- const second=icpAccount('rrkah-fqaaa-aaaaa-aaaaq-cai');
+ const second=payment.spender;
  assert.notEqual(second,payment.from);
  authorizePayment(previous,{...grant,from:second,position:5n},5n);
  const two=authorizationV3FromV2(previous);
  assert.equal(two.grants.length,2);
+ assert.deepEqual(two.grants.map(row=>row.account),[second,payment.from]);
+ assert.equal(sha256(encodeCanonical(two)),'21553782195144ba08f801724dd016868aa077bda59e2d7c6e8696108ac66c53');
  two.grants.reverse();
  assert.throws(()=>validateAuthorizationV3(two),/AUTH_V3_ORDER/);
 });
