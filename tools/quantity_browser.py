@@ -42,7 +42,13 @@ def verify_quantity_matrix(browser,url,out,report,save,width=None,height=None):
   # still exposes the speaker so this test can verify the small-layout mask.
   if h<280:p.add_init_script("localStorage.setItem('b2z.audio.v2',JSON.stringify({version:2,enabled:false}))")
   if w==390 and dpr==1 and h==844:p.emulate_media(reduced_motion='reduce',forced_colors='active')
-  p.goto(url+'/?case=quantityLive');open_fire(p);
+  p.goto(url+'/?case=quantityLive');
+  # This visual fixture does not boot the production audio engine on its own.
+  # Start its real controller after the saved preference is available.
+  if h<280:
+   p.wait_for_function('()=>Boolean(globalThis.fixture)')
+   p.evaluate('()=>{fixture.audioProbeStart();return true}')
+  open_fire(p);
   if h<520:resize(p,{'width':w,'height':h});settled_panel(p)
   row={'viewport':[w,h],'dpr':dpr,'initial':editor(p),'headings':[]};report['matrix'].append(row);save()
   try:
