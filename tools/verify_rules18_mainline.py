@@ -41,10 +41,13 @@ def public_observer(out, inventory):
              "sha256": sha256(path.read_bytes()).hexdigest(), "bytes": path.stat().st_size}
             for path in sorted(observer.rglob("*")) if path.is_file()]
     actual = {row["path"]: row["sha256"] for row in rows}
-    if expected.keys() != actual.keys() or any(
-        actual[name] != digest for name, digest in expected.items() if name != "build-manifest.json"
-    ):
-        raise ValueError("Public observer differs from the approved inventory and app")
+    mismatched = sorted(name for name, digest in expected.items()
+                        if name != "build-manifest.json" and actual.get(name) != digest)
+    if expected.keys() != actual.keys() or mismatched:
+        raise ValueError("Public observer differs from the approved inventory and app: "
+                         f"missing={sorted(expected.keys() - actual.keys())}, "
+                         f"unexpected={sorted(actual.keys() - expected.keys())}, "
+                         f"mismatched={mismatched}")
     for name in ("index.html", "app.mjs"):
         body = (observer / name).read_bytes()
         for marker in (b"developer-speed.mjs", b"dev_simulation_speed", b"set_dev_simulation_speed",
