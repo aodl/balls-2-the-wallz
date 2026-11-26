@@ -2,6 +2,60 @@
 
 Observation and source review: 26 November 2026. This report covers repository development and read-only observation. The paid European canisters were not upgraded, paused, funded or reconfigured.
 
+## Current closeout — 26 November, 19:47 UTC
+
+The maintained master reached exact source
+[`dcd52e4`](https://github.com/aodl/balls-2-the-wallz/commit/dcd52e4c291c1c0b61f5384d1d128dbd5b1b4dfa).
+Its [standard run 45875201174](https://github.com/aodl/balls-2-the-wallz/actions/runs/45875201174),
+[financial run 45875201159](https://github.com/aodl/balls-2-the-wallz/actions/runs/45875201159)
+and [developer/prelaunch run 45875201152](https://github.com/aodl/balls-2-the-wallz/actions/runs/45875201152)
+passed all eleven substantive jobs, including browser and installed-IC qualification.
+The informational inventory guard is excluded. The complete local source gate
+also passed. [Git object comparison](tooling-input-invariance.json) establishes
+that application, native, canister, dependency, fixture and active-specification
+inputs are unchanged from the prior qualified master `b70f1f8`.
+
+Two additional browser fixture failures were retained as genuine historical
+FAIL results and corrected without weakening the product assertions. The
+[Deflector clipboard failure](CLIPBOARD_FIXTURE_FOLLOWUP.md) arose when a native
+paste ran before the browser clipboard write had completed; the fixture now
+waits for the exact clipboard bytes and still checks native paste and exact
+wallet fields. The original failed evidence is archived at
+`/home/codexdev/b2z-release-evidence/development-programme/prototype-boundary-clipboard-failure.zip`
+(SHA-256 `796fc54998287b56129dd0c1d8a0d3af2488c52fecac5f8251419d98e173c010`).
+The [audio-contact failure](AUDIO_CONTACT_CLOCK_FOLLOWUP.md) came from a
+controlled RAF timestamp a few microseconds before authenticated segment zero;
+the fixture now clamps only its test clock to the segment. Product playback is
+unchanged. Its original results are archived at
+`/home/codexdev/b2z-release-evidence/development-programme/prototype-audio-contact-clock-failure.zip`
+(SHA-256 `e5e6b05f3a55af5cb53caa86de269886c04772b5f461133fd048671896f1d690`).
+Focused passing and negative checks, followed by exact-source hosted browser
+passes, are recorded in those follow-ups.
+
+The new read-only [operator observation tool](../../../tools/observe_europe_prelaunch.mjs)
+and [runway calculator](../../../tools/prelaunch_runway.mjs) use settled
+health-sample nanosecond timestamps, count publication deltas and label net
+balance movement separately from gross expenditure. The
+[19:47:59 UTC observation](production-observation-2026-11-26-1947.json) found
+installed module hashes unchanged, authenticated head 18,505, running capped
+Trickle, open admission and no pending source records. Backend settled liquid
+was **2.825292T cycles**. During the preceding 3,612.097 seconds and 36
+publications, net liquid declined **22.841B cycles**, or **0.546351T/day** at
+that observed workload. Conditional estimates, assuming no intervening credits
+or workload change, were **3.34 days** to the 1T ReserveProtection boundary and
+**1.38 days** to the usual 2.07T Full Speed cycle floor. The latter is only
+one eligibility condition. These are dated estimates requiring owner attention,
+not a production intervention.
+
+The exact manufacturing frontend prerelease and compatible recovery bytes remain
+frozen as described below; no new frontend or backend was installed. The Rules20
+authorization-registry, symbolic-tariff and certified-burn branches remain
+separate prototypes. Construction-over-Balls, corner capture, tariff activation,
+paid-state migration and recovery are incomplete; they are not represented as
+qualified successor behavior. Latest owner sign-in and physical-device/P09
+acceptance remain pending. Historical sections below retain the status and
+limitations recorded at their respective review points.
+
 ## Latest closeout update — 26 November, 15:45 UTC
 
 The Rules19-compatible manufacturing and interaction frontend source
