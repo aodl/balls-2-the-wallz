@@ -7,10 +7,37 @@ import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {decodeDelegatedPayment,icpAccount} from '../../packages/protocol/delegation.mjs';
 import {emptyAuthorization,authorizePayment,receiptTransfer,verifyAuthorizationReceipts} from '../../packages/kernels/b2z/delegation-v18.mjs';
 import {authorizationV3FromV2,authorizationV2FromV3,authorizePaymentV3,validateAuthorizationV3} from '../../packages/kernels/b2z/delegation-v20.mjs';
-import {decodeWorld,encodeWorld,migrateCompactReservoirs,migrateAuthorizationRows} from '../../packages/kernels/b2z/world.mjs';
+import {decodeWorld,encodeWorld,migrateCompactReservoirs,migrateAuthorizationRows,RULES20_IDENTITY} from '../../packages/kernels/b2z/world.mjs';
+import {B2zCursor} from '../../packages/kernels/b2z/kernel.mjs';
 import {DAY_NS} from '../../packages/protocol/economy17.generated.mjs';
 
 const vector=JSON.parse(readFileSync(new URL('../fixtures/b2z-delegation-v18.json',import.meta.url)));
+
+test('successor identity accepts a migrated world without changing Rules19 bytes',()=>{
+ assert.deepEqual(RULES20_IDENTITY,{
+  rules_hash:'4e5ddc6f2108115e567894c5827047d76915d84c74d797f951a518390d62cc21',
+  schema_hash:'efedaa4a8350dcc126369de4c911c564abc0b61b79d64ddb7a18e43788958778',
+  config_hash:'cc9a7925c7818976750738aa614d2df6d2972aa5efe57080c4fa021832912f4c',
+ });
+ const previous=decodeWorld(Buffer.from(vector.execution.state,'hex'));
+ const world=migrateAuthorizationRows(migrateCompactReservoirs(previous));
+ const cursor=new B2zCursor(encodeWorld(world),[],{...RULES20_IDENTITY,logical_start:0n,logical_end:1n});
+ assert.equal(cursor.world.version,12);
+ assert.equal(Buffer.from(encodeWorld(previous)).toString('hex'),vector.execution.state);
+ let current=cursor;
+ for(let i=0;i<20_000;i++){
+  if(current.step(127).complete)break;
+  const saved=current.snapshot();current=B2zCursor.restore(saved,sha256(saved));
+ }
+ assert.equal(current.step(127).complete,true);
+ current.finalizeElapsed(BigInt(vector.execution.observed_ns));
+ const output=current.result();
+ assert.deepEqual(Object.fromEntries(['state','events','scores'].map(key=>[key,sha256(output[key])])),{
+  state:'38a1855c940655a2821c24941ea5f11340d90de3ee5096e8bc0fba7bf5ebb2db',
+  events:'87279010cd20574e0ef332d9d3ca6761258cc8b474916715b7e319d805399dd3',
+  scores:'56367ab13890ae5cf0d28e6a530860598de9c52a8305afb2de2fd4705367e467',
+ });
+});
 
 test('exact paid Rules19 world migrates to canonical grant rows without changing predecessor bytes',()=>{
  const original=gunzipSync(readFileSync(new URL('../fixtures/rules19-paid-world-17529-state.bin.gz',import.meta.url)));

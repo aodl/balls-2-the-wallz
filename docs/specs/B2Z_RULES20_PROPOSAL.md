@@ -5,8 +5,20 @@ authenticated epoch and an independently verified state-preserving transition.
 This branch defines and tests bounded pricing, grace-prefix selection,
 checkerboard contact and one-traversal construction exceptions. It includes
 a Schema11-to-12 **state-only** migration for authorization rows and the
-tariff formula boundary. It has no authenticated successor epoch or active
-successor configuration.
+tariff formula boundary. A versioned Rules20/Schema12 configuration and
+identity now select the migrated state in both independent cursors. They do
+not establish an authenticated host cutover or activate production rules.
+
+The exact draft identity is rules hash
+`4e5ddc6f2108115e567894c5827047d76915d84c74d797f951a518390d62cc21`,
+schema hash
+`efedaa4a8350dcc126369de4c911c564abc0b61b79d64ddb7a18e43788958778`,
+and configuration hash
+`cc9a7925c7818976750738aa614d2df6d2972aa5efe57080c4fa021832912f4c`.
+The payment adapter remains Adapter12/BTZPAY09. A no-input successor segment
+from a migrated paid fixture produced identical state, event and score
+SHA-256 identities in Rust and JavaScript, including cursor restoration.
+Paid successor admission and the authenticated epoch remain unqualified.
 
 ## Tariff inputs and amounts
 

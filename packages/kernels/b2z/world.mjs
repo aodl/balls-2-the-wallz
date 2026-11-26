@@ -106,6 +106,20 @@ export const COMPACT_RESERVOIR_IDENTITY=Object.freeze({
   schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_11_CANONICAL_RESERVOIR_RANGES')),
   config_hash:sha256(encodeCanonical(COMPACT_RESERVOIR_CONFIG)),
 });
+// Rules20 changes canonical state and contact/pricing semantics. The adapter
+// and memo grammar remain those of the installed Rules19 predecessor.
+export const RULES20_CONFIG=Object.freeze({
+  ...COMPACT_RESERVOIR_CONFIG,version:12,rules_version:20,
+  authorization_registry:'sorted-grant-rows-3',
+  construction_ball_passage:'individual-first-traversal-1',
+  corner_capture:'canonical-checkerboard-single-contact-1',
+  population_price:'linear-through-1000-exponential-above-1',
+});
+export const RULES20_IDENTITY=Object.freeze({
+  rules_hash:sha256(new TextEncoder().encode('B2Z_RULES_20')),
+  schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_12_AUTH_ROWS_PASSAGE_TARIFF')),
+  config_hash:sha256(encodeCanonical(RULES20_CONFIG)),
+});
 export function migrateCompactReservoirs(predecessor) {
   if(predecessor.version!==10)throw Error('RESERVOIR_COMPACT_PREDECESSOR');
   return validateWorld(migrateReservoirEncoding(cloneCanonical(validateWorld(predecessor))));

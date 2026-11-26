@@ -9,6 +9,18 @@ use dtr_wire::{hex, unhex, Int, Result};
 use num_traits::ToPrimitive;
 use serde::{Deserialize, Serialize};
 
+pub fn configuration() -> &'static [u8] {
+    include_bytes!("../../../apps/b2z-observer/configuration-rules20.bin")
+}
+
+pub fn identity() -> serde_json::Value {
+    serde_json::json!({
+        "rules_hash": dtr_wire::hash(b"B2Z_RULES_20"),
+        "schema_hash": dtr_wire::hash(b"B2Z_STATE_12_AUTH_ROWS_PASSAGE_TARIFF"),
+        "config_hash": dtr_wire::hash(configuration()),
+    })
+}
+
 fn uint(value: &Int) -> Result<u64> {
     value.0.to_u64().ok_or_else(|| "AUTH_INTEGER".into())
 }
@@ -263,6 +275,66 @@ mod tests {
     use crate::delegation_v18::Decision;
     use b2z_protocol::delegation::Payment;
     use dtr_wire::{decode, encode, hash, hex, unhex};
+
+    #[test]
+    fn successor_identity_matches_independent_configuration_and_accepts_a_migrated_cursor() {
+        let id = identity();
+        assert_eq!(
+            id["rules_hash"],
+            "4e5ddc6f2108115e567894c5827047d76915d84c74d797f951a518390d62cc21"
+        );
+        assert_eq!(
+            id["schema_hash"],
+            "efedaa4a8350dcc126369de4c911c564abc0b61b79d64ddb7a18e43788958778"
+        );
+        assert_eq!(
+            id["config_hash"],
+            "cc9a7925c7818976750738aa614d2df6d2972aa5efe57080c4fa021832912f4c"
+        );
+        let vector: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/b2z-delegation-v18.json"
+        ))
+        .unwrap();
+        let mut prior = crate::world::World::decode(
+            &unhex(vector["execution"]["state"].as_str().unwrap()).unwrap(),
+        )
+        .unwrap();
+        prior.reservoirs = Some(String::new());
+        let successor = migrate(crate::reservoirs::migrate_compact(prior).unwrap()).unwrap();
+        let mut context = id;
+        context["logical_start"] = serde_json::json!(Int(0.into()));
+        context["logical_end"] = serde_json::json!(Int(1.into()));
+        let mut cursor =
+            crate::cursor::Cursor::begin(&successor.encode().unwrap(), vec![], &context).unwrap();
+        assert_eq!(cursor.world.version, 12);
+        for _ in 0..20_000 {
+            if cursor.step(127).unwrap().1 {
+                break;
+            }
+            let saved = cursor.snapshot().unwrap();
+            cursor = crate::cursor::Cursor::restore(&saved, &hash(&saved)).unwrap();
+        }
+        assert!(cursor.step(127).unwrap().1);
+        let observed_ns: u64 = vector["execution"]["observed_ns"]
+            .as_str()
+            .unwrap()
+            .parse()
+            .unwrap();
+        cursor.finalize_elapsed(observed_ns).unwrap();
+        let output = cursor.result().unwrap();
+        assert_eq!(
+            hash(&output.state),
+            "38a1855c940655a2821c24941ea5f11340d90de3ee5096e8bc0fba7bf5ebb2db"
+        );
+        assert_eq!(
+            hash(&output.events),
+            "87279010cd20574e0ef332d9d3ca6761258cc8b474916715b7e319d805399dd3"
+        );
+        assert_eq!(
+            hash(&output.scores),
+            "56367ab13890ae5cf0d28e6a530860598de9c52a8305afb2de2fd4705367e467"
+        );
+    }
 
     #[test]
     fn paid_predecessor_state_migrates_without_mutating_historical_bytes() {

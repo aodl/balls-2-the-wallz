@@ -221,6 +221,10 @@ fn semantic_deflector_world(mut w: World, bytes: &[u8]) -> Result<Vec<u8>> {
         let mut semantic = serde_json::to_value(&w).map_err(|e| e.to_string())?;
         let fields = semantic.as_object_mut().ok_or("semantic world")?;
         fields.remove("economy");
+        if w.version >= 12 {
+            fields.remove("economy_formula_start_ns");
+            fields.remove("passage_exceptions");
+        }
         if w.version >= 10 {
             fields.remove("authorization");
             fields.insert("version".into(), json!(9));
@@ -501,7 +505,9 @@ impl Cursor {
         let economy = crate::economy17::identity();
         let delegated = crate::delegation_v18::identity();
         let compact = crate::reservoirs::compact_identity();
-        let is_compact = context.get("config_hash") == compact.get("config_hash");
+        let successor = crate::delegation_v20::identity();
+        let is_successor = context.get("config_hash") == successor.get("config_hash");
+        let is_compact = is_successor || context.get("config_hash") == compact.get("config_hash");
         let is_delegated = is_compact || context.get("config_hash") == delegated.get("config_hash");
         let is_economy = is_delegated || context.get("config_hash") == economy.get("config_hash");
         let is_reservoir = is_economy || context.get("config_hash") == reservoir.get("config_hash");
@@ -525,7 +531,9 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_compact {
+        let expected = if is_successor {
+            successor
+        } else if is_compact {
             compact
         } else if is_delegated {
             delegated
@@ -567,7 +575,9 @@ impl Cursor {
         }
         let world = World::decode(state)?;
         if world.version
-            != if is_compact {
+            != if is_successor {
+                12
+            } else if is_compact {
                 11
             } else if is_delegated {
                 10
