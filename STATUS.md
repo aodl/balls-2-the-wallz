@@ -1,7 +1,10 @@
 # B2Z current status
 
-Operational observation **2026-11-26 12:42:54 UTC**. The current published source is
-[the maintained master branch](https://github.com/aodl/balls-2-the-wallz/commits/master/).
+Operational observation **2026-11-26 15:45:39 UTC**. The current published
+repository head is the [maintained master branch](https://github.com/aodl/balls-2-the-wallz/commits/master/).
+The latest qualified substantive code source is
+[`a8ea27a61682114d35cdce5a8508ce9381bf01c0`](https://github.com/aodl/balls-2-the-wallz/commit/a8ea27a61682114d35cdce5a8508ce9381bf01c0);
+later status/evidence commits preserve its exact input objects.
 The installed source is `741dbf898ade58ed2fa3a064d8bbe1acb577ed4a`.
 Rules19 / Schema11 / Adapter12 (`BTZPAY09`) runs in the capped
 `prelaunch-trickle` profile. This is controlled European prelaunch.
@@ -13,7 +16,7 @@ Rules19 / Schema11 / Adapter12 (`BTZPAY09`) runs in the capped
 
 ## Operating position
 
-- The authenticated head was segment **18,250**, logical time **18,234**.
+- The authenticated head was segment **18,360**, logical time **18,344**.
   It contained two Cannons under one distinct funding account, two Balls,
   one Diverter and four Reservoir tiles. The funding-account count is
   derived from active Cannons. It does not measure unique humans or
@@ -27,19 +30,19 @@ Rules19 / Schema11 / Adapter12 (`BTZPAY09`) runs in the capped
   zero pending records and cursor **40,647,923**. Event Horizon was disabled
   in the installed configuration. The private treasury-worker state was not
   freshly established in this observation.
-- Settled management readings had backend total **3.044258T** and estimated
-  liquid **2.986425T** cycles. Frontend total was **0.965192T**. Estimated
+- Settled management readings had backend total **2.975029T** and estimated
+  liquid **2.917196T** cycles. Frontend total was **0.964347T**. Estimated
   freezing reserve was approximately 0.057834T backend and 0.203706T frontend.
 - Backend liquid was above the 2.07T default Full Speed cycle floor.
-  Across a 7,684-second settled bracket with 76 ordinary publications,
-  backend liquid declined 47.915B cycles, equivalent to **0.538765T/day**
+  Across a 10,965.596-second settled bracket with 110 ordinary publications,
+  backend liquid declined 69.229B cycles, equivalent to **0.545470T/day**
   of observed net balance movement. Under the same workload, with no
-  intervening credits, about **3.69 days** remained to the 1T protection
-  boundary and **1.70 days** to the Full Speed cycle floor. These dated
+  intervening credits, about **3.51 days** remained to the 1T protection
+  boundary and **1.55 days** to the Full Speed cycle floor. These dated
   projections are not gross charges or guarantees. Review the runway before
   owner playtesting or any separately approved operation.
 
-[Latest reviewed production observation](evidence/B2Z/development-programme/production-observation-2026-11-26.json) · [Previous observation](evidence/B2Z/repository-consolidation/production-closeout.json)
+[Latest reviewed production observation](evidence/B2Z/development-programme/production-observation-2026-11-26-1545.json) · [Previous observation](evidence/B2Z/development-programme/production-observation-2026-11-26-1449.json)
 
 The raw signed read-only observation and its settled cycle bracket are retained
 in the operator's development-programme archive. Its SHA-256 is recorded in
@@ -65,12 +68,26 @@ Ledger read are separate release evidence. [Owner acceptance procedure](docs/ope
 
 Complete owner acceptance and manage dated runway. Cannon/Diverter manufacturing,
 the interaction and audio addendum, and verified-coverage corrections are in
-the current frontend candidate, pending full exact-source hosted qualification. The short and full 900-second local
-installed reliability cases passed after focused corrections; their earlier
-failures remain preserved. A same-ID frontend upgrade/recovery rehearsal
-passed on the preceding exact test-only artifact; the current source requires
-retrieved-artifact identity and complete hosted qualification. Production
-installation has not occurred.
+the [qualified frontend candidate](evidence/B2Z/development-programme/frontend-candidate.json)
+from source `0855896`. All eleven substantive hosted jobs passed on that exact
+source ([standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070734),
+[financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070824),
+[developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070929)).
+The exact developer frontend Wasm and all six prerelease assets were retrieved
+and rehashed; a byte-identical module passed disposable same-ID frontend
+upgrade and recovery. [Frozen prerelease](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-prelaunch-frontend-manufacturing-2026-11-26).
+The short and full 900-second local installed reliability cases passed after
+focused corrections; their earlier failures remain preserved. A separate
+historical Shout browser fixture failure has a focused local correction on
+[PR #18](https://github.com/aodl/balls-2-the-wallz/pull/18), with all eleven
+substantive exact-source hosted jobs now passing on `a8ea27a`
+([standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848907969),
+[financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848908216),
+[developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848908166)).
+The later status/evidence changes have identical build, runtime, workflow,
+test, fixture and dependency Git objects to that qualified source;
+[input-invariance record](evidence/B2Z/development-programme/qualified-input-invariance.json).
+Production installation has not occurred.
 The Rules20 construction, corner and pricing successor remains incomplete and
 inactive. A disposable Ledger/Index test identified an existing Rules19
 authorization-registry encoding boundary for some valid accounts; a compatible

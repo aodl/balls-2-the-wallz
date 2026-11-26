@@ -1,0 +1,33 @@
+{
+  "backend_canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "candidate_frontend_wasm": {
+    "bytes": 77689127,
+    "sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5"
+  },
+  "compatible_installed_backend_wasm_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+  "developer_artifact_id": 15124016400,
+  "embedded_asset_inventory_sha256": "addbee9e943b06b26226f0894f74ba39be0dad680ae48770fc4ff2c7c363bc2e",
+  "exact_current_recovery_frontend_wasm_sha256": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff",
+  "frontend_candid_sha256": "9c5d4382d7dc279ab1fbd63de66311e3d9a38bc7e2562501861701b26f60c141",
+  "frontend_canister": "s2jxj-liaaa-aaaas-amynq-cai",
+  "hosted_runs": {
+    "developer_prelaunch": "https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070929",
+    "financial": "https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070824",
+    "standard": "https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070734"
+  },
+  "kind": "Rules19-compatible embedded prelaunch frontend review candidate; not installed",
+  "permanent_origin": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io",
+  "production_installation": "not authorized or performed",
+  "profile": "prelaunch-trickle developer frontend",
+  "qualification_status": "PASS: all eleven substantive hosted jobs on exact source; earlier PR16 Shout fixture failure remains historical.",
+  "release_asset_retrieval": "PASS: downloaded and byte-compared all six assets including SHA256SUMS",
+  "release_candidate": "https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-prelaunch-frontend-manufacturing-2026-11-26",
+  "same_id_rehearsal": {
+    "alternate_routes_each_phase": 28,
+    "candidate_install_cycles": "185524191169",
+    "certified_http_responses_each_phase": 91,
+    "recovery_install_cycles": "185492867154",
+    "status": "PASS on raw Wasm byte-identical to exact qualified source; no production install"
+  },
+  "source_commit": "0855896239ba222892a372e6eeba22530fa59afc"
+}

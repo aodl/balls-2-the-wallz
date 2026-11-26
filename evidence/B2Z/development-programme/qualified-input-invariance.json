@@ -1,0 +1,54 @@
+{
+  "changed_paths_since_qualification": [
+    "ROADMAP.md",
+    "STATUS.md",
+    "evidence/B2Z/development-programme/ADDENDUM.md",
+    "evidence/B2Z/development-programme/REPORT.md",
+    "evidence/B2Z/development-programme/frontend-candidate.json",
+    "evidence/B2Z/development-programme/production-observation-2026-11-26-1449.json",
+    "evidence/B2Z/development-programme/production-observation-2026-11-26-1545.json",
+    "evidence/B2Z/development-programme/reliability/REPORT.md",
+    "evidence/B2Z/development-programme/reliability/shout-browser-fixture.json",
+    "evidence/B2Z/development-programme/qualified-input-invariance.json"
+  ],
+  "evidence_commit_checked": "250f2a3b97a03a5ab6d95c97d782e9d50e4ee378",
+  "input_tree_identity": {
+    ".github": "42f92c61132edcca7d104178b08e83194d576991",
+    "AGENTS.md": "fb5cccf33b7f94cb0cb9331c98f3af7dbf192447",
+    "Cargo.lock": "a81f1d791204d04b35f1c922309e11f979d908f2",
+    "Cargo.toml": "952d79a2c389f1f29fae69470106d0379e8685b2",
+    "README.md": "2f977da49ebbb685c186af030aec54ca87662843",
+    "apps": "b8a1670df3313e74ae15671c7b2b72870c3c1001",
+    "benchmarks": "4e61e90c657f1f8ef41b2949b0fa2c8f6c464510",
+    "canister_ids.json": "bb99674646a9d6a5b5690c6daf5428e2212f2a13",
+    "canisters": "4282326edf0230a9f516f794b46a18d3d3940f85",
+    "config": "dcc4d5202ef8006f64e7c027d5f02eabe38317c9",
+    "crates": "adf0959d7ee4be0f6760533bed3c58e69414bacb",
+    "dfx.json": "7fc41134b713abde21781a20c956edf52109cd00",
+    "docs": "1d096cd4f477834c5a6bc2adee06b9855e4257a3",
+    "interfaces": "3f77c3475273499329fbf7307bdb90653965a17e",
+    "kernels": "559a963285bd71eea545c069dc1b1854133bb8d6",
+    "native": "5c3c2f65dc10f1afccce683c787f5363dc9535bf",
+    "package-lock.json": "eaf1642bbe2d4c6a1a062b3ae412613bed3b58f9",
+    "package.json": "3e208c972f27baa5cf3cdc05d0e5564c4bdb47e8",
+    "packages": "ea26fece9a91ab9891f7ace65f5d143e45dbcd6e",
+    "rust-toolchain.toml": "6af31eef7f39a5fe3e63c7eaee4ddfe795df2dd8",
+    "tests": "bcb3ff0a994a5f46d873d26b45f7e3fd3fd1a24a",
+    "tools": "e9ebfc934c7356ea026bf30f6b6c91efee2699a0",
+    "vendor": "da0f5b685d2a2596cd77a99f0e474e8524f95244"
+  },
+  "qualification_conclusions": {
+    "developer_prelaunch": "PASS: two substantive jobs",
+    "financial": "PASS: two substantive jobs",
+    "informational_production_inventory": "excluded from substantive count",
+    "standard": "PASS: seven substantive jobs"
+  },
+  "qualification_runs": {
+    "developer_prelaunch": 45848908166,
+    "financial": 45848908216,
+    "standard": 45848907969
+  },
+  "qualified_code_source": "a8ea27a61682114d35cdce5a8508ce9381bf01c0",
+  "result": "All listed build, runtime, verification, fixture, dependency, workflow and active specification inputs have identical Git object identities; only status and reviewed evidence changed.",
+  "schema_version": 1
+}

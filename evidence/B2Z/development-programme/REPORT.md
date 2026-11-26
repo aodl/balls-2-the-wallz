@@ -2,6 +2,50 @@
 
 Observation and source review: 26 November 2026. This report covers repository development and read-only observation. The paid European canisters were not upgraded, paused, funded or reconfigured.
 
+## Latest closeout update — 26 November, 15:45 UTC
+
+The Rules19-compatible manufacturing and interaction frontend source
+`0855896239ba222892a372e6eeba22530fa59afc` was integrated on master
+and passed all eleven substantive hosted
+jobs: [standard 45833070734](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070734),
+[financial 45833070824](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070824),
+and [developer/prelaunch 45833070929](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070929).
+The exact prelaunch frontend Wasm (SHA-256
+`1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5`)
+is a [published prerelease](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-prelaunch-frontend-manufacturing-2026-11-26).
+All six release assets were downloaded and byte-compared. Same-ID upgrade and
+exact installed-frontend recovery passed in disposable qualification. No
+production installation occurred.
+
+PR #16's later [standard run 45832046550](https://github.com/aodl/balls-2-the-wallz/actions/runs/45832046550)
+**failed** a distinct historical Rules13 Shout browser fixture after its
+authenticated publication and independent replay had passed. The obsolete
+fixture clicked `#reorient-action` after automatic owned-Diverter Reorient
+had already opened, so Playwright timed out on a hidden control. An unmodified
+local rerun passed once, showing timing sensitivity. [PR #18](https://github.com/aodl/balls-2-the-wallz/pull/18)
+now waits for the selected Diverter and automatic Reorient state without
+the redundant click; its focused installed browser case passed at 1440×900
+and 320×640 with exact memo and query-only checks. The original failure and
+corrected pass are retained in verified operator archives. PR #18's exact
+source `a8ea27a` then passed all eleven substantive hosted jobs:
+[standard 45848907969](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848907969),
+[financial 45848908216](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848908216),
+and [developer/prelaunch 45848908166](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848908166).
+The original PR #16 FAIL remains historical. Later status/evidence commits
+preserve all 23 recorded input Git objects from `a8ea27a`;
+[machine-readable invariance](qualified-input-invariance.json).
+
+The latest [15:45:39 UTC certified read-only observation](production-observation-2026-11-26-1545.json)
+found installed modules unchanged, head 18,360, running capped Trickle and
+zero pending source records. Backend settled liquid was 2.917196T cycles.
+The settled 10,965.596-second/110-publication bracket showed 0.545470T/day net
+balance movement, giving dated conditional estimates of 3.51 days to the
+1T protection boundary and 1.55 days to the usual 2.07T Full Speed cycle
+floor. This is neither proven gross expenditure nor a funding decision.
+
+The sections below preserve the evidence and pending states as recorded at
+their earlier review points.
+
 ## Qualified source and release boundary
 
 The reliability capture correction is integrated on `master` through [PR #9](https://github.com/aodl/balls-2-the-wallz/pull/9), with eleven substantive exact-source hosted passes: [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45790064177), [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45790064334) and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45790064164). The informational production-inventory guard is excluded from that count.
@@ -10,7 +54,7 @@ The combined Rules19-compatible frontend review source is `8a3100363f8c10adc2d34
 
 Against the programme's starting master `f60426d7b9c07b643db4241428b4707db7afdd7e`, Git tree objects for the authoritative Rust and independent JavaScript kernels, canister runtime source, vendored predecessors and DTR, approved audio, historical v3 golden and Rust locks are byte identical. The changed frontend and verification paths are listed by the ordinary Git diff. [Machine-readable source invariance](source-invariance.json)
 
-The exact developer/prelaunch embedded frontend Wasm retrieved from the prior test-only source `0290261` is **77,689,127 bytes**, SHA-256 **`1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5`**. Its embedded asset inventory SHA-256 is **`addbee9e943b06b26226f0894f74ba39be0dad680ae48770fc4ff2c7c363bc2e`**. The retrieved CI bytes and module report agree. A disposable same-ID frontend upgrade and exact-current-frontend recovery passed: 91 certified GET/HEAD responses and 28 alternate routes passed before, during and after; candidate installation used 185,524,191,169 cycles and recovery 185,492,867,154. The current `8a31003` artifact must be retrieved and compared before its exact freeze. See the [prior artifact manifest](frontend-candidate-0290261.json). Production deployment requires a separate exact-artifact decision.
+The exact developer/prelaunch embedded frontend Wasm was retrieved from current source `8a31003`'s [developer artifact 15122299954](https://github.com/aodl/balls-2-the-wallz/actions/runs/45832046592) and independently rehashed. It is **77,689,127 bytes**, SHA-256 **`1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5`**, byte-identical to the prior test-only candidate. Its embedded asset inventory SHA-256 is **`addbee9e943b06b26226f0894f74ba39be0dad680ae48770fc4ff2c7c363bc2e`**. The retrieved CI bytes and module report agree. A disposable same-ID frontend upgrade and exact-current-frontend recovery passed on those exact bytes: 91 certified GET/HEAD responses and 28 alternate routes passed before, during and after; candidate installation used 185,524,191,169 cycles and recovery 185,492,867,154. The current source's full hosted gate remains separate from this byte-equal rehearsal. See the [current artifact inventory](frontend-candidate.json) and [historical test-only manifest](frontend-candidate-0290261.json). Production deployment requires a separate exact-artifact decision.
 
 ## Reliability
 
@@ -26,7 +70,7 @@ Cannons and Diverters use their existing exact procedural geometry in bounded pr
 
 The same candidate adds displayed-owner territory clipping for selected-Ball arrows, owned-Diverter default Reorient with canonical clockwise alternative, deferred tile selection for double-click zoom, a prominent central spinner for genuine exhausted verified coverage, relative compass rotation that moves North to the clicked position, the compact Cycles line, 0.5× music and 3× sound effects through the existing gain buses, an operational-only sliding speaker button, and restrained satin highlights on terrain and structures. The Rules19 placement and pricing policies remain active against the installed backend. Four sandboxed Chromium viewports, focused interaction tests and the hosted browser job passed. [Interaction evidence](interaction/REPORT.md) · [Satin evidence](satin/REPORT.md)
 
-A genuine disposable Ledger/Index test produced a signed Cannon birth and a separate manual Diverter birth with authenticated publication and Rust replay. Independent JavaScript replay initially failed on a transient grant-map serialization edge. A narrow internal draft-clone correction replayed the frozen public bytes exactly in both implementations on an isolated local branch. The complete installed journey has not been rerun on that correction; a browser-to-Ledger end-to-end journey and physical devices remain open. Manual packets are not presented as Ledger-confirmed by their presence alone.
+A genuine disposable Ledger/Index test produced a signed Cannon birth and a separate manual Diverter birth with authenticated publication and Rust replay. Independent JavaScript replay initially failed on a transient grant-map serialization edge. A narrow internal draft-clone correction replayed the frozen public bytes exactly in both implementations. A complete fresh installed rerun first failed an overly strict pre-payment publication-identity assertion: source admission can emit a certified no-tick publication without applying either payment. The corrected test fences on the unchanged paid source cursor and absent structures, then captures the latest certified predecessor for replay. On isolated source `50355dac7bc8f5675709baf59f8cbe4d9e19c971`, the full 40.512-second disposable run **passed** signed Cannon position 4, manual Diverter position 9, authenticated births, exact native/independent JavaScript state, events and scores, and presentation arrival. This correction is not part of frontend source `8a31003` and has a separate [hosted qualification PR #18](https://github.com/aodl/balls-2-the-wallz/pull/18). The original failed runs remain retained. [Selected verified public capture](</home/codexdev/b2z-release-evidence/development-programme/installed-construction-50355-pass.zip>) (SHA-256 `c9b3f36218a2b0372d49edef89b3d45ec9da42ec560438389f57137bc16039bf`). A browser-to-Ledger end-to-end journey and physical devices remain open. Manual packets are not presented as Ledger-confirmed by their presence alone.
 
 The same test exposed a distinct current Rules19 durable authorization-map encoding boundary for some valid account identifiers. The backend stopped the affected disposable operation while retaining its last certified publication. The internal JavaScript clone correction does not fix that durable boundary. A versioned registry representation, old decoder, paid-state-safe transition and recovery qualification are required before a backend correction. The controlled reproduction remains outside the public source tree.
 
@@ -39,6 +83,8 @@ A separate disabled certified-burn prototype demonstrated bounded preliminary, e
 ## European operation
 
 The [reviewed 12:42:54 UTC read-only observation](production-observation-2026-11-26.json) retained the installed backend `b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90` and frontend `2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff`, authenticated head 18,250, running capped Trickle at 0.01 tick/s, open admission and zero pending source records. Backend settled liquid was 2.986425T cycles. Across a comparable 7,684-second bracket, net liquid declined 47.915B cycles, about 0.538765T/day at that workload. The dated projection was 3.69 days to the 1T ReserveProtection boundary and 1.70 days to the usual 2.07T Full Speed cycle floor. Credits and workload changes can alter that projection. Owner-specific Full Speed eligibility was not established. The latest real owner sign-in remains pending; no live Full Speed window was started.
+
+The later [14:14:24 UTC settled read-only observation](production-observation-2026-11-26-1414.json) retained those exact installed modules, head 18,305, logical time 18,289, the same observed population and entity counts, running 0.01-tick/s Trickle and zero pending source records. Backend liquid was **2.951839T cycles**. Over 5,489.418 seconds and 55 publications since the prior settled capture, liquid declined 34.586B cycles, approximately **0.544358T/day** of net movement using the exact interval. At that observed workload and absent unknown credits, the dated estimate was **3.59 days** to 1T ReserveProtection and **1.62 days** to the usual 2.07T Full Speed cycle floor. Frontend total was 0.964769T, leaving about 0.311063T beyond its estimated freezing reserve and the historical 450B installation/recovery allowance. No production intervention occurred.
 
 The new offline [operating-runway calculator](../../../tools/estimate_operating_runway.py) accepts two retained settled observations and uses their exact nanosecond interval and integer cycles. Its four focused tests passed. For the same raw observation pair, the more precise 7,684.978-second interval gives 0.538697T/day and 318,596/146,982 seconds to the two floors; the earlier report used 7,684 whole seconds. The tool never contacts production or authenticates its input files. Use the existing signed observation procedure first. [Operator command](../../../docs/operations/B2Z_PRELAUNCH_TRICKLE.md)
 

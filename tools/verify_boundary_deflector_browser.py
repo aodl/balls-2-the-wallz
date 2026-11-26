@@ -2,12 +2,14 @@
 """Actual shared composer/renderer native input on a synthetic Rules12 scene.
 Not IC authentication, a Ledger payment or physical-device evidence.
 """
-import argparse,functools,http.server,json,subprocess,threading,traceback
+import argparse,functools,http.server,json,os,subprocess,threading,traceback
 from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
 from fluid_playability_browser import settled_panel,settled
 from panel_geometry_browser import verify_status_geometry,apply_status
 p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--width',type=int);a=p.parse_args();out=a.output.absolute();out.mkdir(parents=True,exist_ok=False);root=Path(__file__).resolve().parents[1]
+clipboard_delay_ms=int(os.environ.get('B2Z_TEST_CLIPBOARD_DELAY_MS','0'))
+if not 0<=clipboard_delay_ms<=1000:raise ValueError('B2Z_TEST_CLIPBOARD_DELAY_MS must be 0..1000')
 subprocess.run(['node','tools/fixtures/prepare-playability-actions.mjs',str(out/'fixture.json')],check=True)
 subprocess.run(['node_modules/.bin/esbuild','tools/fixtures/playability-action-browser.mjs','--bundle','--platform=browser','--format=esm','--outfile='+str(out/'fixture.mjs')],check=True)
 (out/'wallet.html').write_text('<!doctype html><title>Read-only paste, no transaction</title><textarea id="paste"></textarea>')
@@ -18,14 +20,30 @@ class H(http.server.SimpleHTTPRequestHandler):
  def end_headers(self):self.send_header('Content-Security-Policy',"default-src 'none'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self'; base-uri 'none'; form-action 'none'");super().end_headers()
 s=http.server.ThreadingHTTPServer(('127.0.0.1',0),functools.partial(H,directory=str(out)));threading.Thread(target=s.serve_forever,daemon=True).start();report={'status':'RUNNING','scope':__doc__,'rows':[]}
 def save():(out/'results.json').write_text(json.dumps(report,indent=2)+'\n')
-def pasted(context,page):
- wallet=context.new_page();wallet.goto(f'http://127.0.0.1:{s.server_port}/wallet.html');wallet.locator('#paste').focus();wallet.keyboard.press('Control+V');wallet.wait_for_timeout(100);value=wallet.locator('#paste').input_value();wallet.close();page.bring_to_front();return value
+def pasted(context,page,expected):
+ wallet=context.new_page();wallet.goto(f'http://127.0.0.1:{s.server_port}/wallet.html');wallet.wait_for_function('(expected)=>navigator.clipboard.readText().then(value=>value===expected).catch(()=>false)',arg=expected,timeout=5000);wallet.locator('#paste').focus();wallet.keyboard.press('Control+V');expect(wallet.locator('#paste')).to_have_value(expected,timeout=5000);value=wallet.locator('#paste').input_value();wallet.close();page.bring_to_front();return value
+def copied_paste(context,page,expected):
+ # Click dispatch does not await the application's async native clipboard write.
+ # Wait for the exact OS clipboard value, then still prove external native Paste.
+ page.wait_for_function('(expected)=>navigator.clipboard.readText().then(value=>value===expected).catch(()=>false)',arg=expected,timeout=5000)
+ actual=pasted(context,page,expected)
+ assert actual==expected,(actual,expected)
 try:
  with sync_playwright()as pw:
   browser=pw.chromium.launch(headless=True,chromium_sandbox=True)
   try:
    for width,height in [(w,h)for w,h in [(1440,900),(390,844),(320,640)]if a.width is None or w==a.width]:
-    context=browser.new_context(viewport={'width':width,'height':height},has_touch=width<700,permissions=['clipboard-read','clipboard-write'],record_video_dir=str(out/f'video-{width}'));page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.goto(f'http://127.0.0.1:{s.server_port}/?case=deflector&deflector');page.wait_for_function('()=>!!window.fixture')
+    context=browser.new_context(viewport={'width':width,'height':height},has_touch=width<700,permissions=['clipboard-read','clipboard-write'],record_video_dir=str(out/f'video-{width}'))
+    if clipboard_delay_ms:
+     # Delayed native writes reproduce a real browser scheduling boundary without replacing Copy or Paste.
+     context.add_init_script(f'''(() => {{
+       const nativeWrite = navigator.clipboard.writeText.bind(navigator.clipboard);
+       navigator.clipboard.writeText = async value => {{
+         await new Promise(resolve => setTimeout(resolve, {clipboard_delay_ms}));
+         return nativeWrite(value);
+       }};
+     }})()''')
+    page=context.new_page();errors=[];page.on('pageerror',lambda e:errors.append(str(e)));page.goto(f'http://127.0.0.1:{s.server_port}/?case=deflector&deflector');page.wait_for_function('()=>!!window.fixture')
     page.locator('#identify-button').click();page.locator('#sending-account').fill('aaaaa-aa');page.locator('#identity-save').click();page.locator('#close-panel').click()
     # Controlled scene setup only, followed by real public UI input.
     page.evaluate('fixture.camera.scale=64;fixture.camera.frameCell(4004);fixture.draw()');point=page.evaluate('fixture.point(1)');page.mouse.click(point['x'],point['y']);page.locator('#focus-cannon').click();settled(page)
@@ -51,7 +69,7 @@ try:
     apply_status(page,{})
     recipient=page.locator('#full-recipient').text_content();amount=page.locator('#transfer-amount').text_content().replace(' ICP','');memo=page.locator('#text-memo').text_content()
     for key,value in [('owner',recipient),('amount',amount),('text',memo)]:
-     page.locator(f'[data-copy="{key}"]').click();assert pasted(context,page)==value
+     page.locator(f'[data-copy="{key}"]').click();copied_paste(context,page,value)
     row['clipboard']={'recipient':recipient,'amount':amount,'memo':memo,'scope':'Native Copy and external read-only paste, no payment'}
     prior=page.locator('[data-deflector-orientation][aria-pressed="true"]').get_attribute('data-deflector-orientation');other='NW'if prior!='NW'else'NE'
     page.locator(f'[data-deflector-orientation="{other}"]').click()
@@ -59,7 +77,7 @@ try:
     expect(page.locator('#text-memo')).to_have_text(__import__('re').compile(r'DEFLECT \d+ '+other))
     expect(page.locator(f'[data-deflector-orientation="{other}"]')).to_have_attribute('aria-pressed','true')
     page.locator('[data-copy=text]').click()
-    assert pasted(context,page)==page.locator('#text-memo').text_content()
+    copied_paste(context,page,page.locator('#text-memo').text_content())
     row['orientation_change']='PASS immediate quote and exact native clipboard'
     # Full address remains native-selectable, never the abbreviated principal.
     assert page.locator('#recipient-reveal').count()==0;assert page.locator('#payment-owner').evaluate('(n)=>n.tagName')=='SPAN';assert page.locator('#full-recipient').text_content()==recipient

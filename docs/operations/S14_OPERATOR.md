@@ -4,9 +4,11 @@ The European frontend is the embedded HTTP Wasm canister
 `s2jxj-liaaa-aaaas-amynq-cai`. The paid backend is
 `s5ir5-gqaaa-aaaas-amyna-cai`. Preserve the [permanent player and Internet
 Identity origin](https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io). Use [STATUS](../../STATUS.md)
-for observed live state, the [release inventory](PRODUCTION_RELEASES.md) for
-exact bytes and the [capped Trickle procedure](B2Z_PRELAUNCH_TRICKLE.md) for
-the current same-epoch backend and frontend operation.
+for observed live state and the [release inventory](PRODUCTION_RELEASES.md)
+for exact bytes. The [capped Trickle record](B2Z_PRELAUNCH_TRICKLE.md)
+documents the completed combined backend/frontend activation and current
+owner controls. Use the frontend maintenance route below for an authorized
+frontend-only review candidate.
 
 ## Frontend maintenance
 

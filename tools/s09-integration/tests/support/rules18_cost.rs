@@ -1238,3 +1238,155 @@ fn verify_prelaunch_browser(pic: &PocketIc, id: Principal, ledger: Principal, ou
     live.stop_live();
     pause(pic, id);
 }
+
+#[test]
+#[ignore = "explicit Rules19 construction payment-to-presentation rehearsal"]
+fn signed_rules19_construction_presentation() {
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let mut signer = super::delegation_installed::Signer::start(&out);
+    let mut fixture = seed("moderate");
+    let account = AccountIdentifier::new(&signer.owner, &DEFAULT_SUBACCOUNT).to_hex();
+    let cannon = &mut fixture.cannons[2];
+    let previous = std::mem::replace(&mut cannon.account, account.clone());
+    let owner = fixture
+        .playability
+        .as_mut()
+        .unwrap()
+        .players
+        .iter_mut()
+        .find(|player| player.account == previous)
+        .unwrap();
+    owner.account = account.clone();
+    let owner = owner.id;
+    let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers_options(
+        bytes("B2Z_COST_PROFILE_WASM"),
+        fixture.encode().unwrap(),
+        10_000,
+        120,
+        &[signer.owner],
+        true,
+    );
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    compact_cutover(&pic, id, ledger, &compact, &out);
+    upgrade_during_recovery(&pic, id, &bytes("B2Z_CONSTRUCTION_PRIOR_WASM")).unwrap();
+    pause(&pic, id);
+    let (_, before_publication) = capture(&pic, id, &out, 0);
+    let prior = arena_world(&pic, id);
+    let sites = (0..prior.cell_count())
+        .filter(|&cell| prior.player_at(cell) == Some(owner))
+        .filter(|&cell| {
+            b2z_native::context_structures::site_reason(&prior, owner, cell, None, false, true)
+                .unwrap()
+                .is_none()
+        })
+        .collect::<Vec<_>>();
+    let cannon = sites[0];
+    let diverter = *sites
+        .iter()
+        .find(|&&cell| {
+            let dx = (cell % prior.width).abs_diff(cannon % prior.width);
+            let dy = (cell / prior.width).abs_diff(cannon / prior.width);
+            dx.min(prior.width - dx).max(dy.min(prior.height - dy)) >= 4
+        })
+        .expect("two separated eligible construction sites");
+    let buy = format!("NEW 0 1 {cannon}");
+    let manual = format!("DEFLECT {diverter} N");
+    let expected = signer.pay_construction(&pic, id, ledger, &prior, [&buy, &manual]);
+    let mut records = super::delegation_installed::official_inputs(&pic, id, &expected);
+    records.sort_by_key(|(payment, _)| payment.position);
+    let inputs = records
+        .iter()
+        .map(|(payment, _)| {
+            assert_eq!(
+                payment.from,
+                *AccountIdentifier::from_hex(&account).unwrap().as_bytes()
+            );
+            assert_eq!(payment.fee, 10_000);
+            b2z_native::Input {
+                position: Int(payment.position.into()),
+                payload_hex: hex(&payment.encode().unwrap()),
+            }
+        })
+        .collect::<Vec<_>>();
+    let last = *expected.keys().last().unwrap();
+    for _ in 0..180 {
+        advance(&pic, 1000);
+        // Admission can produce a no-tick publication while these payments
+        // remain unapplied. The source cursor and structures, not publication
+        // byte identity, fence the actual paid construction outcome.
+        if status(&pic, id).source.admitted_to_exclusive > last {
+            break;
+        }
+    }
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, last + 1);
+    assert_eq!(
+        observe(&pic, id).1.head.source_to_exclusive,
+        before_publication.head.source_to_exclusive
+    );
+    let held = arena_world(&pic, id);
+    assert!(!held.cannons.iter().any(|c| c.cell == cannon));
+    assert!(!held.deflectors.iter().flatten().any(|d| d.cell == diverter));
+    // Replay begins at the latest certified pre-payment publication. Its
+    // predecessor may be a source-admission no-tick publication; starting
+    // from the earlier snapshot would skip that valid history link.
+    let (_, staged_publication) = capture(&pic, id, &out, 0);
+    assert_eq!(
+        staged_publication.head.source_to_exclusive,
+        before_publication.head.source_to_exclusive
+    );
+    let target = status(&pic, id).run.completed_segments + 1;
+    playability_installed::configuration(&pic, id, 512);
+    advance(&pic, 100_000);
+    for _ in 0..250 {
+        let state = status(&pic, id);
+        assert!(state.run.last_error.is_none(), "{:?}", state.run.last_error);
+        if state.run.completed_segments >= target {
+            break;
+        }
+        advance(&pic, 50);
+    }
+    pause(&pic, id);
+    assert_eq!(status(&pic, id).run.completed_segments, target);
+    let (_, publication) = capture(&pic, id, &out, 1);
+    replay(&out, 1, &inputs);
+    std::fs::write(
+        out.join("replay-inputs.bin"),
+        dtr_wire::encode(&inputs).unwrap(),
+    )
+    .unwrap();
+    std::fs::write(
+        out.join("placement.json"),
+        serde_json::to_vec(&json!({
+            "backend":id.to_text(),"ledger":ledger.to_text(),"account":account,
+            "cannon":cannon,"diverter":diverter,"manual_memo":manual,
+            "committed_segment":publication.head.segment_id,
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+    let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let independently_replayed = std::process::Command::new("node")
+        .current_dir(&repository)
+        .arg("tools/verify_compact_cost_replay.mjs")
+        .arg(&out)
+        .arg("1")
+        .output()
+        .unwrap();
+    assert!(
+        independently_replayed.status.success(),
+        "{}",
+        String::from_utf8_lossy(&independently_replayed.stderr)
+    );
+    let verified = std::process::Command::new("node")
+        .current_dir(repository)
+        .arg("tools/verify_installed_construction_presentation.mjs")
+        .arg(out)
+        .output()
+        .unwrap();
+    assert!(
+        verified.status.success(),
+        "{}",
+        String::from_utf8_lossy(&verified.stderr)
+    );
+}

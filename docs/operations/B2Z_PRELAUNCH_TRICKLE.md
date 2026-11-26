@@ -3,6 +3,15 @@
 The exact profile was installed and accepted on 25 November 2026.
 [Current observations](../../STATUS.md) · [Exact production and recovery bundles](PRODUCTION_RELEASES.md)
 
+The combined frontend/backend installation sequence below records that
+completed capped-Trickle activation. For a later **frontend-only** review
+candidate against the already installed Rules19 backend, use the
+[same-ID embedded frontend procedure](S14_OPERATOR.md#frontend-maintenance)
+and [release inventory](PRODUCTION_RELEASES.md). The frontend-only route
+does not repeat the backend upgrade, owner binding or gameplay activation
+steps below. Every mainnet installation still requires its own exact-artifact
+authorization and fresh read-only resource check.
+
 The `prelaunch-trickle` Cargo feature enables the temporary `developer-speed` profile and caps ordinary publication pacing at 10 milliticks per second. The release uses one logical tick per ordinary checkpoint. Funding still selects the existing adaptive tier and admission. ReserveProtection still closes admission and stops ordinary ticks at its existing threshold. The public-launch build excludes both the cap and the developer exports.
 
 The public observer reports the effective pace. The temporary developer frontend displays the effective scheduler rate alongside the funding tier in the signed-in owner panel. A change in the funding tier leaves the existing due time alone when the effective ordinary mode stays Trickle. Ordinary publication schedules the next tick from actual completion, avoiding shortened intervals after delays. A fresh scheduler waits one interval before its first ordinary tick. Ledger/Index deadlines, block times, tariff rollover, gameplay rules, input ordering and certification are independent of this profile.
@@ -26,7 +35,7 @@ temporary reservation before acting on a projection.
 
 Allocate **60B backend cycles** and **450B frontend cycles** for installation and a possible rollback. Disposable same-canister rehearsals used about 23.50B for the backend upgrade and 23.34B for its rollback, and 185.49B for the frontend upgrade and 180.16B for its rollback. Keep those budgets separate from operating cycles and freezing reserves. At the observed workload, seven days of continuous Trickle projects to about 3.81T cycles and 30 days to about 16.32T.
 
-## Same-canister installation after separate approval
+## Historical combined same-canister installation sequence
 
 1. Recheck both certified module hashes, actual pause, payment and Index state, currently available cycles, and the two raw installation and recovery pairs. Compare the paid Rules19 head, source cursor, state, event and score artifacts and retained history. Use the existing European IDs and the same controller procedures.
 2. Upgrade frontend `s2jxj-liaaa-aaaas-amynq-cai` with the exact certified developer frontend Wasm. Verify certified assets, CSP and the optional owner panel on `https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io`. Preserve the permanent derivation origin. The panel presents the temporary controls and its backend methods become available when the backend upgrade succeeds. The public predecessor continues to serve and verify the paid state during this step.

@@ -1,5 +1,29 @@
 # Million-cell observation and presentation reliability
 
+## Later qualification
+
+The original full 900-second sustained Normal case ultimately passed on
+product source `66420f5e1927578b8c42229bda0c906a1ead7ebe`, after two
+separately retained failed attempts and focused verified-coverage corrections.
+The untrimmed 900.48-second run admitted 0.99836 and displayed 0.99833
+authenticated ticks/s, with zero stalls, rebuffering or resynchronization;
+it completed cold Lifeline and exact independent replay of 1,049 consecutive
+authenticated publications. The earlier failures remain failures. See the
+[programme report](../REPORT.md) for the exact distinction.
+
+A separate historical Rules13 Shout browser fixture timed out in PR #16's
+[standard run](https://github.com/aodl/balls-2-the-wallz/actions/runs/45832046550)
+after its authenticated publication and independent replay had passed.
+The obsolete fixture clicked a Reorient action that was already active and
+hidden. PR #18 removes the redundant click and waits for the selected
+Diverter/default Reorient state. Its focused installed browser rerun passed;
+its exact `a8ea27a` source then passed the full [standard hosted run](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848907969),
+including installed-IC qualification. The original failure, passing
+local retry and corrected pass are recorded separately in the
+[machine-readable evidence](shout-browser-fixture.json).
+
+## Original investigation
+
 Both consolidation short-run failures were browser observation aborts during
 the disposable Normal-to-Economy Wasm upgrade. The corresponding upstream
 query was still pending after the browser's ten-second request deadline.
