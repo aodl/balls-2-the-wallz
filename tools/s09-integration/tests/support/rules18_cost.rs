@@ -1417,6 +1417,7 @@ fn rules19_digit_leading_grant_wire_boundary() {
     compact_cutover(&pic, id, ledger, &compact, &out);
     upgrade_during_recovery(&pic, id, &bytes("B2Z_CONSTRUCTION_PRIOR_WASM")).unwrap();
     let (prior, publication) = capture(&pic, id, &out, 0);
+    let prior_received = arena_world(&pic, id).received_e8s;
     let spender = Principal::self_authenticating([77; 32]);
     let grant = b2z_protocol::delegation::encode_authorization(
         &b2z_protocol::delegation::AuthorizationMemo::Grant(spender.as_slice().to_vec()),
@@ -1483,6 +1484,15 @@ fn rules19_digit_leading_grant_wire_boundary() {
     let after_upgrade_retry = status(&pic, id);
     let final_observation = observe(&pic, id).0;
     let final_world = arena_world(&pic, id);
+    #[derive(CandidType, Deserialize)]
+    struct PendingWork {
+        pending_inputs: u32,
+    }
+    let pending: PendingWork = get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+    assert_eq!(
+        final_world.received_e8s, prior_received,
+        "no later transfer may be falsely reported as applied while publication is blocked"
+    );
     std::fs::write(
         out.join("digit-leading-grant.json"),
         serde_json::to_vec_pretty(&json!({
@@ -1497,6 +1507,8 @@ fn rules19_digit_leading_grant_wire_boundary() {
             "upgrade_retry_error":after_upgrade_retry.run.last_error,
             "upgrade_retry_running":after_upgrade_retry.run.running,
             "publication_still_preserved":final_observation.publication==prior.publication,
+            "pending_controller_inputs":pending.pending_inputs,
+            "received_e8s_before_grant":prior_received,
             "received_e8s_after_retries":final_world.received_e8s,
         }))
         .unwrap(),

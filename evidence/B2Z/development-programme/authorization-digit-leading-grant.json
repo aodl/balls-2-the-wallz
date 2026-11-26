@@ -1,0 +1,29 @@
+{
+  "funding_account_key_begins_with_digit": true,
+  "grant_position": 2,
+  "later_payment_source_cursor": 4,
+  "later_valid_payment_position": 3,
+  "pending_controller_inputs": 2,
+  "publication_still_preserved": true,
+  "published_head": {
+    "$integer": "4"
+  },
+  "published_head_preserved": true,
+  "received_e8s_after_retries": {
+    "$integer": "108100000"
+  },
+  "received_e8s_before_grant": {
+    "$integer": "108100000"
+  },
+  "retry_error": "reserved/noncanonical key",
+  "retry_running": false,
+  "run_error": "reserved/noncanonical key",
+  "running": false,
+  "scope": "genuine disposable Rules19 Ledger/Index and installed backend",
+  "source_cursor": 3,
+  "status": "REPRODUCED",
+  "upgrade_error": "reserved/noncanonical key",
+  "upgrade_retry_error": "reserved/noncanonical key",
+  "upgrade_retry_running": false,
+  "upgrade_running": false
+}

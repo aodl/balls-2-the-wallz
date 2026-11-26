@@ -297,6 +297,46 @@ mod tests {
     }
 
     #[test]
+    fn schema12_world_encodes_digit_leading_grant_after_paid_state_migration() {
+        let vector: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/b2z-delegation-v18.json"
+        ))
+        .unwrap();
+        let old_bytes = unhex(vector["execution"]["state"].as_str().unwrap()).unwrap();
+        let mut old = crate::world::World::decode(&old_bytes).unwrap();
+        old.reservoirs = Some(String::new());
+        let mut world = migrate(crate::reservoirs::migrate_compact(old).unwrap()).unwrap();
+        let mut grant =
+            Payment::decode(&unhex(vector["envelope"].as_str().unwrap()).unwrap()).unwrap();
+        assert!(hex(&grant.from).starts_with('2'));
+        let registry = match world.authorization.as_mut().unwrap() {
+            AuthorizationState::Rows(rows) => rows,
+            AuthorizationState::Historical(_) => panic!("Schema12 requires grant rows"),
+        };
+        grant.to = unhex(&registry.recipient).unwrap().try_into().unwrap();
+        grant.position = registry
+            .last_position
+            .as_ref()
+            .map(|p| uint(p).unwrap() + 1)
+            .unwrap_or(0);
+        grant.ledger_time_ns = grant
+            .ledger_time_ns
+            .max(uint(&registry.ledger_time_ns).unwrap())
+            + 1;
+        grant.amount = 0;
+        grant.spender = None;
+        grant.memo = Some(unhex(vector["grant_memo"].as_str().unwrap()).unwrap());
+        assert_eq!(
+            registry.apply(&grant, grant.position).unwrap(),
+            Decision::Granted
+        );
+        let encoded = world.encode().unwrap();
+        let decoded = crate::world::World::decode(&encoded).unwrap();
+        assert_eq!(decoded, world);
+        assert_eq!(decoded.encode().unwrap(), encoded);
+    }
+
+    #[test]
     fn grant_rows_require_strict_canonical_order_without_duplicates() {
         let vector: serde_json::Value = serde_json::from_str(include_str!(
             "../../../tests/fixtures/b2z-delegation-v18.json"
