@@ -66,7 +66,7 @@ with (out/"server.log").open("w") as log:
                 def focus():
                     activate("#locate-context" if page.locator("#locate-context").is_visible() else "#focus-cannon")
                     settle()
-                def pick(cell):
+                def pick(cell,expected_title):
                     target=page.evaluate("(cell)=>__b2zCamera.cellPoint(cell)",cell)
                     if not target["visible"] or not page.evaluate("p=>document.elementFromPoint(p.sx,p.sy)?.id==='board'",target):
                         # A deliberate pointer drag brings the actual canonical tile to the visible arena.
@@ -91,6 +91,11 @@ with (out/"server.log").open("w") as log:
                         page.touchscreen.tap(target["sx"],target["sy"])
                     else:
                         page.mouse.click(target["sx"],target["sy"])
+                    # A single empty-tile click commits only after the shared
+                    # double-click arbitration window. Wait for its exact
+                    # panel state instead of racing that navigation fence.
+                    page.wait_for_function("title=>document.querySelector('#panel-title')?.textContent===title",
+                                           arg=expected_title,timeout=10000)
                     settle()
                     assert camera()==prior,"selection moved camera"
                 activate("#join-action")
@@ -112,7 +117,7 @@ with (out/"server.log").open("w") as log:
                 assert page.locator("#text-memo").text_content().startswith("FIRE 1 ")
                 capture("cannon-automatic-fire")
                 activate("#close-panel")
-                pick(config["build_tile"])
+                pick(config["build_tile"],"Owned tile")
                 toolbar(["focus-cannon","build-action","deflect-action","close-panel"])
                 assert not page.locator("#prepared-card").is_visible()
                 capture("owned-tile-toolbar")
@@ -129,11 +134,12 @@ with (out/"server.log").open("w") as log:
                 assert page.locator("#transfer-amount").text_content()=="0.1 ICP"
                 capture("deflector-construction-payment")
                 activate("#close-panel")
-                pick(config["new_deflector_cell"])
+                pick(config["new_deflector_cell"],f"Diverter #{config['structure']}")
                 toolbar(["focus-cannon","reorient-action","move-action","close-panel"])
                 assert page.locator("#panel-title").text_content()==f"Diverter #{config['structure']}"
-                activate("#reorient-action")
-                page.wait_for_function("()=>document.querySelector('#preparation-note').textContent.includes('different direction')")
+                assert page.evaluate("__b2zExperience.composer.mode")=="deflector_reorient"
+                assert page.locator("#deflector-directions").is_visible()
+                assert not page.locator("#text-memo").text_content().endswith(" NE")
                 direction.nth(0).click()
                 expected=f"DROT {config['structure']} N"
                 assert page.locator("#text-memo").text_content()==expected
