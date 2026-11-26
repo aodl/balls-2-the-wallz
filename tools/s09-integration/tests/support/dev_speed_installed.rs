@@ -59,6 +59,22 @@ pub(super) fn certify_frontend(release: &Path, out: &Path) {
         encode_args(()).unwrap(),
         Some(controller()),
     );
+    certify_frontend_http(
+        &mut pic,
+        frontend,
+        release,
+        out,
+        "developer-speed-certified-frontend.json",
+    );
+}
+
+fn certify_frontend_http(
+    pic: &mut PocketIc,
+    id: Principal,
+    release: &Path,
+    out: &Path,
+    name: &str,
+) {
     let gateway = pic.make_live(None);
     let loopback = format!("http://127.0.0.1:{}", gateway.port().unwrap());
     let root = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
@@ -66,16 +82,76 @@ pub(super) fn certify_frontend(release: &Path, out: &Path) {
         .current_dir(root)
         .arg("tools/verify_embedded_frontend_http.mjs")
         .arg(loopback)
-        .arg(frontend.to_text())
+        .arg(id.to_text())
         .arg(release)
-        .arg(out.join("developer-speed-certified-frontend.json"))
+        .arg(out.join(name))
         .status()
         .unwrap();
     pic.stop_live();
     assert!(
         status.success(),
-        "exact developer frontend IC HTTP certification"
+        "exact embedded frontend IC HTTP certification"
     );
+}
+
+#[test]
+#[ignore = "explicit same-ID frontend installation and exact recovery rehearsal"]
+fn dev_frontend_same_id_recovery() {
+    let candidate = PathBuf::from(std::env::var_os("B2Z_DEV_SPEED_FRONTEND").unwrap());
+    let recovery = PathBuf::from(std::env::var_os("B2Z_DEV_FRONTEND_RECOVERY").unwrap());
+    let out = PathBuf::from(std::env::var_os("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let mut pic = PocketIcBuilder::new()
+        .with_nns_subnet()
+        .with_application_subnet()
+        .with_server_url(
+            std::env::var("POCKET_IC_SERVER_URL")
+                .unwrap()
+                .parse()
+                .unwrap(),
+        )
+        .build();
+    let id = create_controlled(&pic);
+    let current = std::fs::read(recovery.join("frontend.wasm")).unwrap();
+    let next = std::fs::read(candidate.join("frontend.wasm")).unwrap();
+    let current_hash = dtr_wire::hash(&current);
+    let candidate_hash = dtr_wire::hash(&next);
+    assert_ne!(current_hash, candidate_hash);
+    pic.add_cycles(id, 100_000_000_000_000);
+    pic.install_canister(
+        id,
+        current.clone(),
+        encode_args(()).unwrap(),
+        Some(controller()),
+    );
+    let check_hash = |pic: &PocketIc, wanted: &str| {
+        let status = pic.canister_status(id, Some(controller())).unwrap();
+        assert_eq!(hex(&status.module_hash.unwrap()), wanted);
+    };
+    check_hash(&pic, &current_hash);
+    certify_frontend_http(&mut pic, id, &recovery, &out, "prior-certified.json");
+    let before = pic.cycle_balance(id);
+    pic.upgrade_canister(id, next, encode_args(()).unwrap(), Some(controller()))
+        .unwrap();
+    let after = pic.cycle_balance(id);
+    check_hash(&pic, &candidate_hash);
+    certify_frontend_http(&mut pic, id, &candidate, &out, "candidate-certified.json");
+    let before_recovery = pic.cycle_balance(id);
+    pic.upgrade_canister(id, current, encode_args(()).unwrap(), Some(controller()))
+        .unwrap();
+    let after_recovery = pic.cycle_balance(id);
+    check_hash(&pic, &current_hash);
+    certify_frontend_http(&mut pic, id, &recovery, &out, "recovery-certified.json");
+    let report = serde_json::json!({
+        "status":"PASS","scope":"disposable same-ID exact embedded frontend upgrade and recovery",
+        "canister_id":id.to_text(),"candidate_module":candidate_hash,"recovery_module":current_hash,
+        "install_cycles":(before-after).to_string(),"recovery_cycles":(before_recovery-after_recovery).to_string(),
+    });
+    std::fs::write(
+        out.join("same-id-frontend.json"),
+        serde_json::to_vec_pretty(&report).unwrap(),
+    )
+    .unwrap();
 }
 
 #[test]
