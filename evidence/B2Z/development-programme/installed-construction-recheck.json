@@ -1,0 +1,29 @@
+{
+  "case": "rules18_cost::signed_rules19_construction_presentation",
+  "scope": "disposable PocketIC with signed Ledger and official Index inputs",
+  "historical_failures": [
+    "Initial captured paid segment failed independent JavaScript replay at a transient authorization-map draft clone.",
+    "First complete recheck rejected a valid no-tick certified publication before paid admission."
+  ],
+  "passing_source": "50355dac7bc8f5675709baf59f8cbe4d9e19c971",
+  "status": "PASS",
+  "elapsed_seconds": 40.512,
+  "signed_cannon_source_position": 4,
+  "manual_diverter_source_position": 9,
+  "native_and_independent_js_public_bytes_equal": true,
+  "authenticated_displayed_birth_checked": true,
+  "world_sha256": "25c2bb87e0ebeabd2f93bd4295e3296fb2e7ffba26b6a2c5cd3dc420f1bf3f10",
+  "profile_wasm_sha256": "cec24e60c13fc648d94ab5ad7ee30be76b34b7b8a98d46932dfddc2666c83584",
+  "installed_predecessor_wasm_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+  "verified_public_archive": {
+    "path": "/home/codexdev/b2z-release-evidence/development-programme/installed-construction-50355-pass.zip",
+    "size_bytes": 23609,
+    "sha256": "c9b3f36218a2b0372d49edef89b3d45ec9da42ec560438389f57137bc16039bf",
+    "payload_members": 15,
+    "zip_integrity_and_member_hashes_verified": true
+  },
+  "remaining": [
+    "Exact follow-up source needs full hosted qualification.",
+    "Physical-device and browser-to-Ledger end-to-end acceptance remain open."
+  ]
+}
