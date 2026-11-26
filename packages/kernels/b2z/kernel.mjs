@@ -218,7 +218,7 @@ export class B2zCursor {
   }
   receipt(payment, outcome) {
     const i = this.inputs[this.inputIndex++];
-    this.receipts.push({position: uint(i.position), account: payment.account, amount: payment.amount, ...outcome,...(payment.tariff?{ledger_recorded_ns:payment.tariff.ledger_recorded_ns,price_multiplier:payment.tariff.multiplier}:{}),
+    this.receipts.push({position: uint(i.position), account: payment.account, amount: payment.amount, ...outcome,...(payment.tariff?{ledger_recorded_ns:payment.tariff.ledger_recorded_ns,price_multiplier:payment.tariff.multiplier}:{}),...(payment.tariff20?{ledger_recorded_ns:payment.tariff20.ledger_recorded_ns,price_tariff:payment.tariff20.rate}:{}),
       ...(payment.transfer?{spender:payment.transfer.spender,ledger_recorded_ns:payment.transfer.ledger_recorded_ns,transfer:payment.transfer}:{})});
     if (outcome.reason === 'ACCEPTED') {
       const cry=this.v6?.shout_rules&&this.v6.pending_cry;

@@ -27,6 +27,8 @@ pub(crate) struct PaymentSaved {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tariff: Option<crate::economy17::PaymentTariff>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tariff20: Option<crate::economy20::PaymentTariff20>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub authorization_transfer: Option<Value>,
 }
 pub(crate) struct Payment {
@@ -136,6 +138,7 @@ pub(crate) fn read_payment_with_annotations(s: &str, allow: bool) -> Result<Paym
             account: hex(&b[8..40]),
             amount: Int(BigInt::from(amount)),
             tariff: None,
+            tariff20: None,
             authorization_transfer: None,
         },
         memo: b[48..56].to_vec(),
@@ -805,6 +808,10 @@ impl Cursor {
         if let Some(tariff) = &p.tariff {
             receipt["ledger_recorded_ns"] = json!(tariff.ledger_recorded_ns);
             receipt["price_multiplier"] = json!(tariff.multiplier);
+        }
+        if let Some(tariff) = &p.tariff20 {
+            receipt["ledger_recorded_ns"] = json!(tariff.ledger_recorded_ns);
+            receipt["price_tariff"] = json!(tariff.rate);
         }
         if let Some(transfer) = &p.authorization_transfer {
             receipt["spender"] = transfer["spender"].clone();

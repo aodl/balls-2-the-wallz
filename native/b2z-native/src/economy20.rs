@@ -27,6 +27,46 @@ pub enum Tariff {
     Exponential(u32),
 }
 
+/// Durable successor receipt/cursor tariff. Historical numeric receipts keep
+/// their old shape; only Rules20 uses this tagged formula and population.
+#[derive(Clone, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(tag = "formula", rename_all = "snake_case", deny_unknown_fields)]
+pub enum TariffWire {
+    Linear { multiplier: u32 },
+    Exponential { population: u32 },
+}
+
+impl From<Tariff> for TariffWire {
+    fn from(value: Tariff) -> Self {
+        match value {
+            Tariff::Linear(multiplier) => Self::Linear { multiplier },
+            Tariff::Exponential(population) => Self::Exponential { population },
+        }
+    }
+}
+
+impl TariffWire {
+    pub fn rate(&self) -> Tariff {
+        match *self {
+            Self::Linear { multiplier } => Tariff::Linear(multiplier),
+            Self::Exponential { population } => Tariff::Exponential(population),
+        }
+    }
+    pub fn valid(&self) -> bool {
+        match *self {
+            Self::Linear { multiplier } => multiplier > 0 && multiplier <= 1_000_000,
+            Self::Exponential { population } => population <= 1_000_000,
+        }
+    }
+}
+
+#[derive(Clone, Debug, PartialEq, Eq, serde::Serialize, serde::Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct PaymentTariff20 {
+    pub ledger_recorded_ns: dtr_wire::Int,
+    pub rate: TariffWire,
+}
+
 impl Tariff {
     pub fn price(self, base: u64, held: u32) -> Option<u64> {
         match self {
@@ -36,6 +76,189 @@ impl Tariff {
             Self::Exponential(population) => marginal_price(base, population, held),
         }
     }
+}
+
+/// Select a tariff from the immutable Ledger block time. An unrepresentable
+/// current price cannot suppress a still-valid predecessor grace tariff.
+pub(crate) fn prepare(
+    world: &crate::world::World,
+    account: &str,
+    amount: u64,
+    memo: &[u8],
+    moved: &[u32],
+    recorded_ns: u64,
+) -> dtr_wire::Result<(crate::purchases_v6::Plan, PaymentTariff20)> {
+    use crate::purchases_v6::{player_balls, Plan};
+    use num_traits::ToPrimitive;
+    let start = crate::playability::elapsed(
+        world
+            .economy_formula_start_ns
+            .as_ref()
+            .ok_or("ECONOMY_FORMULA_START")?,
+    )?;
+    let (current, previous) = tariffs(
+        world.economy.as_ref().ok_or("ECONOMY_SCHEMA")?,
+        start,
+        recorded_ns,
+    );
+    let named = |rate: Tariff| PaymentTariff20 {
+        ledger_recorded_ns: dtr_wire::Int(recorded_ns.into()),
+        rate: rate.into(),
+    };
+    if let Some(cell) = b2z_protocol::reservoir::cell(memo).map_err(|_| "RESERVOIR_MEMO")? {
+        return Ok((
+            crate::reservoirs::prepare(world, account, amount, cell)?,
+            named(current),
+        ));
+    }
+    let plan = |rate| {
+        crate::context_structures::prepare_at_tariff(
+            world,
+            account,
+            amount,
+            memo,
+            moved,
+            true,
+            Some(rate),
+        )
+    };
+    let primary = plan(current)?;
+    let Some(older_rate) = previous else {
+        return Ok((primary, named(current)));
+    };
+    let older = plan(older_rate)?;
+    let count = |candidate: &Plan, rate: Tariff| -> u32 {
+        let slots = u32::MAX - world.next_ball_id;
+        match candidate {
+            Plan::Rejected { .. } => 0,
+            Plan::New {
+                price, quantity, ..
+            } => {
+                let Some(first) = price.0.to_u64() else {
+                    return 0;
+                };
+                let Some(mut remaining) = amount.checked_sub(first) else {
+                    return 0;
+                };
+                let held = player_balls(world, account) as u32 + 1;
+                let extras = u32::from(*quantity)
+                    .saturating_sub(1)
+                    .min(slots.saturating_sub(1));
+                let mut n = 1;
+                for offset in 0..extras {
+                    let Some(price) = held
+                        .checked_add(offset)
+                        .and_then(|h| rate.price(b2z_protocol::economy17::BALL_BASE_E8S, h))
+                    else {
+                        break;
+                    };
+                    let Some(rest) = remaining.checked_sub(price) else {
+                        break;
+                    };
+                    remaining = rest;
+                    n += 1;
+                }
+                n
+            }
+            Plan::Fire { quantity, .. } => {
+                let mut remaining = amount;
+                let held = player_balls(world, account) as u32;
+                let mut n = 0;
+                for offset in 0..u32::from(*quantity).min(slots) {
+                    let Some(price) = held
+                        .checked_add(offset)
+                        .and_then(|h| rate.price(b2z_protocol::economy17::BALL_BASE_E8S, h))
+                    else {
+                        break;
+                    };
+                    let Some(rest) = remaining.checked_sub(price) else {
+                        break;
+                    };
+                    remaining = rest;
+                    n += 1;
+                }
+                n
+            }
+            _ => 1,
+        }
+    };
+    if count(&older, older_rate) > count(&primary, current) {
+        Ok((older, named(older_rate)))
+    } else {
+        Ok((primary, named(current)))
+    }
+}
+
+/// Quote only Ledger-representable items at the authenticated current tariff.
+/// The quote does not promise future admission under a later daily schedule.
+pub fn quote_items(
+    world: &crate::world::World,
+    account: &str,
+    memo: &[u8],
+    observed_ns: u64,
+) -> dtr_wire::Result<Vec<u64>> {
+    use crate::purchases_v6::{player_balls, Plan};
+    use num_traits::ToPrimitive;
+    let start = crate::playability::elapsed(
+        world
+            .economy_formula_start_ns
+            .as_ref()
+            .ok_or("ECONOMY_FORMULA_START")?,
+    )?;
+    let rate = tariffs(
+        world.economy.as_ref().ok_or("ECONOMY_SCHEMA")?,
+        start,
+        observed_ns,
+    )
+    .0;
+    let plan = crate::context_structures::prepare_at_tariff(
+        world,
+        account,
+        u64::MAX,
+        memo,
+        &[],
+        true,
+        Some(rate),
+    )?;
+    let slots = u32::MAX - world.next_ball_id;
+    let mut prices = Vec::new();
+    let (mut held, mut remaining) = match plan {
+        Plan::Rejected { reason } => return Err(reason.into()),
+        Plan::Fire { quantity, .. } => (
+            player_balls(world, account) as u32,
+            u32::from(quantity).min(slots),
+        ),
+        Plan::New {
+            price, quantity, ..
+        } => {
+            prices.push(price.0.to_u64().ok_or("PRICE_UNREPRESENTABLE")?);
+            (
+                player_balls(world, account) as u32 + 1,
+                u32::from(quantity)
+                    .saturating_sub(1)
+                    .min(slots.saturating_sub(1)),
+            )
+        }
+        Plan::Move { price, .. }
+        | Plan::Reservoir { price, .. }
+        | Plan::Deflect { price, .. }
+        | Plan::DeflectorMove { price, .. }
+        | Plan::DeflectorReorient { price, .. } => {
+            return Ok(vec![price.0.to_u64().ok_or("PRICE_UNREPRESENTABLE")?]);
+        }
+    };
+    while remaining > 0 {
+        prices.push(
+            rate.price(b2z_protocol::economy17::BALL_BASE_E8S, held)
+                .ok_or("PRICE_UNREPRESENTABLE")?,
+        );
+        held = held.checked_add(1).ok_or("PRICE_UNREPRESENTABLE")?;
+        remaining -= 1;
+    }
+    prices.iter().try_fold(0u64, |sum, p| {
+        sum.checked_add(*p).ok_or("PRICE_UNREPRESENTABLE")
+    })?;
+    Ok(prices)
 }
 
 /// Interpret the authenticated daily population rows at their own effective
@@ -273,6 +496,126 @@ mod tests {
             .unwrap(),
             Plan::Deflect { price, .. } if price.0 == diverter_price.into()
         ));
+    }
+
+    #[test]
+    fn successor_payment_grace_keeps_an_affordable_linear_predecessor() {
+        use crate::purchases_v6::Plan;
+        use dtr_wire::unhex;
+        let vector: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/b2z-delegation-v18.json"
+        ))
+        .unwrap();
+        let mut prior = crate::world::World::decode(
+            &unhex(vector["execution"]["state"].as_str().unwrap()).unwrap(),
+        )
+        .unwrap();
+        prior.reservoirs = Some(String::new());
+        let mut world =
+            crate::delegation_v20::migrate(crate::reservoirs::migrate_compact(prior).unwrap())
+                .unwrap();
+        let account = world.cannons[0].account.clone();
+        let held = world
+            .cannons
+            .iter()
+            .filter(|c| c.account == account)
+            .count() as u32;
+        let day = b2z_protocol::economy17::DAY_NS;
+        let start = day * 2;
+        world.economy_formula_start_ns = Some(Int(start.into()));
+        let schedule = world.economy.as_mut().unwrap();
+        schedule.initial_multiplier = 1_000;
+        schedule.population = 1_000;
+        schedule.snapshots = vec![crate::economy17::Snapshot {
+            first_boundary_ns: Int(day.into()),
+            boundary_ns: Int(day.into()),
+            population: 1_035,
+            multiplier: 1_035,
+            previous_multiplier: 1_000,
+            announced_ns: Int(day.into()),
+            effective_ns: Int(start.into()),
+            grace_end_ns: Int((start + b2z_protocol::economy17::GRACE_NS).into()),
+            predecessor_commit_ns: Int(0.into()),
+            predecessor_state_hash: "0".repeat(64),
+        }];
+        let amount = Tariff::Linear(1_000)
+            .price(b2z_protocol::economy17::CANNON_BASE_E8S, held)
+            .unwrap();
+        let memo = b2z_protocol::v6::encode(b2z_protocol::v6::Command::New {
+            angle: 0,
+            quantity: 1,
+            cell: Some(500500),
+        })
+        .unwrap();
+        let (plan, named) = prepare(&world, &account, amount, &memo, &[], start).unwrap();
+        assert!(matches!(plan, Plan::New { .. }));
+        assert_eq!(named.rate, TariffWire::Linear { multiplier: 1_000 });
+        let wire = dtr_wire::encode(&serde_json::to_value(&named).unwrap()).unwrap();
+        let decoded: PaymentTariff20 =
+            serde_json::from_value(dtr_wire::decode(&wire).unwrap()).unwrap();
+        assert_eq!(decoded, named);
+        assert_eq!(
+            serde_json::to_value(&named).unwrap(),
+            serde_json::json!({"ledger_recorded_ns":Int(start.into()),"rate":{"formula":"linear","multiplier":1_000}})
+        );
+        let (later, tariff) = prepare(
+            &world,
+            &account,
+            amount,
+            &memo,
+            &[],
+            start + b2z_protocol::economy17::GRACE_NS,
+        )
+        .unwrap();
+        assert!(matches!(later, Plan::Rejected { .. }));
+        assert_eq!(tariff.rate, TariffWire::Exponential { population: 1_035 });
+    }
+
+    #[test]
+    fn successor_ball_batch_preserves_tagged_rate_and_stops_before_an_unaffordable_item() {
+        use crate::purchases_v6::{Batch, Plan};
+        use dtr_wire::unhex;
+        let vector: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/b2z-delegation-v18.json"
+        ))
+        .unwrap();
+        let mut prior = crate::world::World::decode(
+            &unhex(vector["execution"]["state"].as_str().unwrap()).unwrap(),
+        )
+        .unwrap();
+        prior.reservoirs = Some(String::new());
+        let mut world =
+            crate::delegation_v20::migrate(crate::reservoirs::migrate_compact(prior).unwrap())
+                .unwrap();
+        let cannon = world.cannons[0].clone();
+        let held = crate::purchases_v6::player_balls(&world, &cannon.account) as u32;
+        let first = Tariff::Exponential(1_001)
+            .price(b2z_protocol::economy17::BALL_BASE_E8S, held)
+            .unwrap();
+        let plan = Plan::Fire {
+            cannon: cannon.id,
+            angle: 0,
+            quantity: 2,
+            explicit: true,
+        };
+        let mut batch = Batch::fire(cannon.account.clone(), first, &plan).unwrap();
+        batch.economy_tariff20 = Some(TariffWire::Exponential { population: 1_001 });
+        batch.validate(&world).unwrap();
+        assert!(batch.step(&mut world).unwrap().is_some());
+        assert!(batch.step(&mut world).unwrap().is_none());
+        assert_eq!(batch.stop_reason.as_deref(), Some("insufficient_payment"));
+        assert_eq!(batch.prices, vec![Int(first.into())]);
+        let restored: Batch =
+            serde_json::from_value(serde_json::to_value(&batch).unwrap()).unwrap();
+        restored.validate(&world).unwrap();
+        assert_eq!(restored.prices, batch.prices);
+        let mut impossible = Batch::fire(cannon.account, first, &plan).unwrap();
+        impossible.economy_tariff20 = Some(TariffWire::Exponential { population: 1_035 });
+        assert!(impossible.step(&mut world).unwrap().is_none());
+        assert_eq!(
+            impossible.stop_reason.as_deref(),
+            Some("insufficient_payment")
+        );
     }
 
     #[test]

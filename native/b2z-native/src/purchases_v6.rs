@@ -680,6 +680,8 @@ pub struct Batch {
     pub stop_reason: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub economy_multiplier: Option<u32>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub economy_tariff20: Option<crate::economy20::TariffWire>,
 }
 pub struct Launch {
     pub ball: Ball,
@@ -711,6 +713,7 @@ impl Batch {
             remainder: Int(amount.into()),
             stop_reason: None,
             economy_multiplier: None,
+            economy_tariff20: None,
         })
     }
     pub fn after_new(account: String, amount: u64, cannon: u32, plan: &Plan) -> Result<Self> {
@@ -740,12 +743,15 @@ impl Batch {
             remainder: Int(num_bigint::BigInt::from(amount) - &price.0),
             stop_reason: (*quantity == 1).then(|| "quantity_limit".into()),
             economy_multiplier: None,
+            economy_tariff20: None,
         })
     }
     pub fn validate(&self, world: &World) -> Result<()> {
         if world.version < 6
-            || (world.version >= 9) != self.economy_multiplier.is_some()
+            || (world.version >= 9 && world.version < 12) != self.economy_multiplier.is_some()
+            || (world.version >= 12) != self.economy_tariff20.is_some()
             || self.economy_multiplier == Some(0)
+            || self.economy_tariff20.as_ref().is_some_and(|t| !t.valid())
             || !(1..=b2z_protocol::v6::MAX_QUANTITY).contains(&self.requested)
             || self.prices.len() > usize::from(self.requested)
             || !world
@@ -788,6 +794,7 @@ impl Batch {
         }
         let pool = world.territory_ball_count(self.cannon);
         if self.economy_multiplier.is_none()
+            && self.economy_tariff20.is_none()
             && (pool >= MAX_PURCHASE_BALLS_PER_ISLAND || world.balls.len() >= MAX_BALLS)
         {
             self.stop_reason = Some("capacity".into());
@@ -797,7 +804,16 @@ impl Batch {
             self.stop_reason = Some("ball_id_exhausted".into());
             return Ok(None);
         }
-        let price = if let Some(p) = self.economy_multiplier {
+        let price = if let Some(t) = &self.economy_tariff20 {
+            let Some(price) = t.rate().price(
+                tariff::BALL_BASE_E8S,
+                player_balls(world, &self.account) as u32,
+            ) else {
+                self.stop_reason = Some("insufficient_payment".into());
+                return Ok(None);
+            };
+            price
+        } else if let Some(p) = self.economy_multiplier {
             let Some(price) =
                 tariff::marginal(tariff::BALL_BASE_E8S, p, player_balls(world, &self.account))
             else {

@@ -699,7 +699,9 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
     let context_rules = spacing
         || p.identity.config_hash == b2z_native::context_structures::configuration_hash()
         || p.identity.config_hash == b2z_native::shout::configuration_hash();
-    let prices = if w.version >= 9 {
+    let prices = if w.version >= 12 {
+        b2z_native::economy20::quote_items(&w, &funding_account, &memo, ic_cdk::api::time())?
+    } else if w.version >= 9 {
         b2z_native::economy17::quote_items(&w, &funding_account, &memo, ic_cdk::api::time())?
     } else {
         quote_items_with_rules(

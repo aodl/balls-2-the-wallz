@@ -27,9 +27,13 @@ formula; successor snapshots at or after this boundary use the symbolic
 exponential formula. At a grace boundary, the active and previous snapshot
 each carry their own formula meaning. The value is computed from the
 predecessor committed clock during state-only migration, not from a browser
-clock. This field is now encoded identically by the Rust and JavaScript
-Schema12 migration prototypes; actual purchase/receipt/quote integration is
-still pending.
+clock. This field is encoded identically by the Rust and JavaScript Schema12
+migration prototypes. The successor payment continuation now carries a tagged
+`tariff20` record containing immutable Ledger block time and the selected
+linear multiplier or exponential population. Rules17–19 retain their original
+numeric tariff and receipt fields. The successor receipt adds `price_tariff`
+and the host quote path evaluates the current symbolic tariff. These source
+changes do not activate a successor epoch.
 
 For population at most 1,000 the multiplier is `max(1, population)`. Above
 1,000 it is `1000 × 2^(population-1000)`. Evaluate the applicable base amount
@@ -57,9 +61,13 @@ Ledger limits, up to one million world accounts, and maximum encoded counts.
 The successor Cannon and Diverter planning functions now accept either a
 historical linear tariff or a symbolic exponential tariff. They use exact
 bounded prices and fail closed when a first item exceeds the Ledger amount.
-The authenticated cursor still needs to pass the selected formula through
-batch continuation, receipts, public quotes and independent replay. Existing
-tariff bytes remain historical source inputs.
+The Rust and JavaScript planners now select the formula using Ledger block
+time, compare valid grace prefixes and carry the formula through Ball batch
+continuation. Focused tests cover a linear grace payment despite an
+unrepresentable current price, partial Ball purchase and durable tariff
+roundtrip. An authenticated Rules20 identity, full independent replay, real
+Ledger/Index admission and frontend quote capability remain release gates.
+Existing tariff bytes remain historical source inputs.
 
 The prepared-purchase vectors compare independent current and previous tariffs.
 They include a cheaper current tariff after a population decline, exact tie
