@@ -18,6 +18,8 @@ pub struct Crossing {
 pub struct Target {
     pub axis: String,
     pub target: Option<usize>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub from: Option<usize>,
     pub pass: bool,
     pub capturable: bool,
     pub defender: u32,
@@ -129,6 +131,7 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
         targets.push(Target {
             axis: axis.into(),
             target,
+            from: None,
             pass: target.is_some() && player == Some(defender) && !anchor,
             capturable: target.is_some() && player.is_some() && player != Some(defender) && !anchor,
             defender,
@@ -178,6 +181,10 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
             attack = Some(Target {
                 axis: if preferred == "x" { "y" } else { "x" }.into(),
                 target: Some(diagonal),
+                from: targets
+                    .iter()
+                    .find(|t| t.axis == preferred)
+                    .and_then(|t| t.target),
                 pass: false,
                 capturable: true,
                 defender,
@@ -369,6 +376,28 @@ mod tests {
             let solid = classify(&w, &b, crossing);
             assert!(solid.attack.is_none());
             assert_eq!(passage(&w, &b, &solid), (false, false, true));
+        }
+    }
+
+    #[test]
+    fn diagonal_enemy_strike_starts_in_the_passed_friendly_neighbor() {
+        for x in [500, 501] {
+            let mut w = fixture();
+            let (b, crossing, side_x, side_y, diagonal) = contact(&mut w, x, 500, 1, 1);
+            w.set_owner(diagonal, 2).unwrap();
+            let intent = classify(&w, &b, crossing);
+            let attack = intent.attack.as_ref().unwrap();
+            let expected = if x & 1 == 0 { side_x } else { side_y };
+            assert_eq!(attack.from, Some(expected));
+            assert!(w.neighbors(expected).contains(&diagonal));
+            assert_eq!(
+                passage(&w, &b, &intent),
+                if x & 1 == 0 {
+                    (true, false, false)
+                } else {
+                    (false, true, false)
+                }
+            );
         }
     }
 }

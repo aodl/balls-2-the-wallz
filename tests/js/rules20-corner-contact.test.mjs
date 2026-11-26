@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {decodeWorld,setOwner,wrapCell} from '../../packages/kernels/b2z/world.mjs';
+import {decodeWorld,setOwner,wrapCell,neighbors} from '../../packages/kernels/b2z/world.mjs';
 import {classify,passage} from '../../packages/kernels/b2z/kernel.mjs';
 
 const rows=JSON.parse(readFileSync(new URL('../fixtures/context-structures-v13.json',import.meta.url))).rows;
@@ -58,4 +58,19 @@ test('Rules20 chooses the only eligible side and wraps the canonical checkerboar
   assert.equal(one.attack.target,sideY);
   assert.deepEqual(passage(w,b,one),{passX:true,passY:false,vertexBlocked:false});
  }
+});
+test('a foreign diagonal strike originates in the passed friendly side cell',()=>{
+ const w=world(),{b,crossing,sideX,sideY,diagonal}=contact(w,500,500,1,1);
+ setOwner(w,diagonal,2);
+ const i=classify(w,b,crossing);
+ assert.equal(i.attack.target,diagonal);
+ assert.equal(i.attack.from,sideX);
+ assert.equal(i.attack.axis,'y');
+ assert.equal(neighbors(i.attack.from,w.width,w.height,true).includes(diagonal),true);
+ assert.deepEqual(passage(w,b,i),{passX:true,passY:false,vertexBlocked:false});
+ const odd=world(),other=contact(odd,501,500,1,1);
+ setOwner(odd,other.diagonal,2);
+ const j=classify(odd,other.b,other.crossing);
+ assert.equal(j.attack.from,other.sideY);
+ assert.equal(j.attack.axis,'x');
 });

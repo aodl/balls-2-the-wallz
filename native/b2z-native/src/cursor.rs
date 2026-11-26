@@ -420,7 +420,7 @@ fn incoming(w: &World, i: &Intent) -> Result<Option<Strike>> {
         .ok_or("incoming ball")?;
     Ok(Some(Strike {
         id: 0,
-        from: i.cell,
+        from: t.from.unwrap_or(i.cell),
         to: t.target.ok_or("incoming target")?,
         axis: t.axis.clone(),
         ball: b.id,
@@ -1227,7 +1227,7 @@ impl Cursor {
                 }
                 let p = Strike {
                     id: self.world.next_strike_id,
-                    from: old_cell,
+                    from: t.from.unwrap_or(old_cell),
                     to: target,
                     axis: t.axis.clone(),
                     ball: b.id,

@@ -115,7 +115,7 @@ export function classify(world, ball, crossing) {
     const diagonal=wrapCell(cx+Math.sign(ball.vx),cy+Math.sign(ball.vy),world.width,world.height);
     const defender=playerAt(world,diagonal);
     if(defender!==player&&!world.cannons.some(c=>c.cell===diagonal)&&!deflectorAt(world,diagonal))
-      attack={axis:preferred==='x'?'y':'x',target:diagonal,pass:false,capturable:true,defender};
+      attack={axis:preferred==='x'?'y':'x',target:diagonal,from:targets.find(t=>t.axis===preferred)?.target,pass:false,capturable:true,defender};
   }
   return {...crossing,...(world.version>=7&&(crossing.x!==crossing.y)?{deflector_target:targets.map(t=>deflectorAt(world,t.target)).find(Boolean)?.id??null}:{}), owner: ball.owner, cell: ball.cell, targets, attack};
 }
@@ -137,7 +137,7 @@ function incomingStrike(world, intent) {
   const t = intent.attack;
   if (!t || !t.defender || world.pending.some(p => p.ball === intent.ball)) return null;
   const ball = world.balls.find(b => b.id === intent.ball);
-  return {id: 0, from: intent.cell, to: t.target, axis: t.axis, ball: intent.ball,
+  return {id: 0, from: t.from??intent.cell, to: t.target, axis: t.axis, ball: intent.ball,
     owner: intent.owner, defender: t.defender, born: world.time,
     deadline: add(world.time, TEST_CONFIG.annihilation_time_window), position: position(ball, world.time)[t.axis === 'x' ? 1 : 0]};
 }
@@ -331,7 +331,7 @@ export class B2zCursor {
         && !this.world.pending.some(p => p.ball === b.id) ? t : null;
       if (attack && attack.defender) {
         if (this.world.next_strike_id >= 4294967295) throw new Error('strike ID exhausted');
-        const p = {id: this.world.next_strike_id++, from: oldCell, to: attack.target, axis: attack.axis,
+        const p = {id: this.world.next_strike_id++, from: attack.from??oldCell, to: attack.target, axis: attack.axis,
           ball: b.id, owner: b.owner, defender: attack.defender, born: this.world.time,
           deadline: add(this.world.time, TEST_CONFIG.annihilation_time_window), position: xy[attack.axis === 'x' ? 1 : 0]};
         this.world.pending.push(p); this.emit({kind: 'strike_armed', strike: cloneCanonical(p)});
