@@ -143,3 +143,25 @@ test('UX-05/06 observed arrival jitter protects a complete slow interval through
  for(let i=0;i<10;i++)p.observe({key:String(4+i),end:5+i,at:85656.5+i*20000,nominal:.05,ticks:1,deliverySeconds:.1});
  assert.equal(p.state().samples,8);assert.ok(p.state().arrival_jitter_seconds<1e-9);assert.equal(clock.available,2);
 });
+
+test('expired arrival estimates do not accelerate through the last verified Normal coverage',()=>{
+ const clock=new PlayoutClock({target:17,low:1,min_rate:1,max_rate:1,max_frame_delta:1});
+ clock.append(0,279);
+ clock.playhead=278.826;
+ clock.started=true;
+ const policy=elasticPlayback();
+ for(let i=0;i<3;i++)policy.observe({key:String(i),end:277+i,at:1000*i,nominal:1,ticks:1,deliverySeconds:.815});
+ // The original trace fell to .174 ticks just after its 4.63s confidence
+ // window, while the next authenticated head had not been admitted.
+ const before=clock.available;
+ let current=.18;
+ for(let n=0;n<90;n++){
+  const now=6730+n*1000/60,remaining=clock.available-clock.playhead;
+  const guarded=policy.fastSingleTickRate({now,remaining,seconds:1/60,current});
+  current=guarded??approachPresentationPace(current,1,1,1/60);
+  assert.ok(clock.sample(current/60).playhead<before,'coverage emptied before the delayed delivery');
+ }
+ assert.ok(clock.playhead>278.826);
+ clock.append(before,284);
+ assert.ok(clock.sample(.1).playhead<284);
+});

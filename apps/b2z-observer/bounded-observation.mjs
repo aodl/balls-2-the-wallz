@@ -3,7 +3,8 @@
 import {Actor,HttpAgent} from '@icp-sdk/core/agent';
 import {IDL} from '@icp-sdk/core/candid';
 import {certificateRoot} from '@dtr/timeline-runtime/client/ic-certificate';
-export function observationFetch(fetch=globalThis.fetch.bind(globalThis),signal,timeout=10000){
+export const OBSERVATION_DEADLINE_MS=10000;
+export function observationFetch(fetch=globalThis.fetch.bind(globalThis),signal,timeout=OBSERVATION_DEADLINE_MS){
  return (input,init={})=>{
   const scoped=AbortSignal.any([AbortSignal.timeout(timeout),...(signal?[signal]:[]),...(init.signal?[init.signal]:[])]);
   scoped.throwIfAborted();

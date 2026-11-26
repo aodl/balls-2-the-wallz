@@ -1,3 +1,4 @@
+import {OBSERVATION_DEADLINE_MS} from './bounded-observation.mjs';
 /** UX-05/06. Advisory arrival estimate only; the pinned clock owns coverage. */
 export function elasticPlayback(){
  let last=null,samples=[],deliveries=[],factor=1,nominal=null,identity=null,period=null;
@@ -23,11 +24,16 @@ export function elasticPlayback(){
   // A one-tick Normal stream can spend a whole interval fetching its next
   // verified artifact. Build a small lead while motion is still available.
   const sampled=nominal===1&&last!==null;
-  if(remaining<=.005||sampled&&now-last.at>1000*(confidence()??4))return null;
+  const age=sampled?now-last.at:0;
+  if(remaining<=.005||age>=OBSERVATION_DEADLINE_MS)return null;
   const horizon=sampled?Math.max(1.5,Math.min(2.5,1+Math.max(0,...deliveries))):2;
+  const previous=Number.isFinite(current)?Math.max(.45,Math.min(1.15,current)):.5;
+  // Expired cadence evidence cannot justify spending the last verified
+  // coverage faster. Keep the same drain cap until a new head arrives or the
+  // remaining motion naturally reaches the existing exhaustion threshold.
+  if(sampled&&age>1000*(confidence()??4))return Math.min(remaining/horizon,previous);
   const incoming=sampled&&period?Math.min(1,1/period):.55;
   const desired=Math.max(.48,Math.min(1.15,incoming+.16*(remaining-horizon-1)));
-  const previous=Number.isFinite(current)?Math.max(.45,Math.min(1.15,current)):.5;
   const slew=.25*Math.max(0,Math.min(1,seconds));
   return Math.min(remaining/horizon,previous+Math.max(-slew,Math.min(slew,desired-previous)));
  },state(){return{samples:samples.length,factor,expected_period_seconds:period,confidence_seconds:confidence(),arrival_jitter_seconds:jitter(),max_delivery_seconds:Math.max(0,...deliveries),last_distinct_at:last?.at??null};}};
