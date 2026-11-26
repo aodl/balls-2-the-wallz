@@ -1354,6 +1354,12 @@ fn install_source_timer() {
         let _span = cost_profile::span("source.fallback");
         SOURCE_TIMER.with(|slot| slot.borrow_mut().take());
         install_source_timer(); // independent of any await or poke retry chain
+        #[cfg(feature = "certified-operational-burn")]
+        {
+            // This fallback also fires during Trickle, pause and protection.
+            // Sample before the Index call reserves temporary cycles.
+            operational_burn::sample(None);
+        }
         let _ = request_reconciliation();
     });
     SOURCE_TIMER.with(|slot| *slot.borrow_mut() = Some(timer));

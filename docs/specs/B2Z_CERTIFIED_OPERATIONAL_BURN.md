@@ -1,11 +1,14 @@
 # Certified operational burn prototype
 
 The feature-gated host maintains a bounded estimate from settled total-cycle
-observations. The existing treasury callback and successful settlement of an
-Index reconciliation check whether a sample is due. No separate periodic
-driver runs. Source and treasury calls in flight, as well as uncertain treasury
-phases, defer a sample. The settlement test is about the balance measurement
-and does not change source admission.
+observations. The existing source fallback timer checks for a settled sample
+before starting its Index call; successful Index settlement and the treasury
+callback also check whether a sample is due. No separate periodic driver runs.
+Source and treasury calls in flight, as well as uncertain treasury phases,
+defer a sample. The settlement test is about the balance measurement and does
+not change source admission. The fallback check is intended to keep sampling
+through ordinary Trickle, pause and protection; installed timing and cost
+qualification remains outstanding.
 
 ## Measurement
 
