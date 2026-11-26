@@ -1,0 +1,9 @@
+# Deflector clipboard browser fixture follow-up
+
+Observation: standard run [45853820440](https://github.com/aodl/balls-2-the-wallz/actions/runs/45853820440) at source `f49c687` failed in `verify_boundary_deflector_browser.py` after changing the proposal orientation. The native external-wallet paste was asserted immediately after clicking Copy. The other six substantive standard jobs passed, including installed-IC. The failed browser evidence is retained in the operator archive `prototype-boundary-clipboard-failure.zip` (SHA-256 `796fc54998287b56129dd0c1d8a0d3af2488c52fecac5f8251419d98e173c010`). The original failure remains FAIL.
+
+The fixture and frontend copy handler were byte-identical to the already qualified `0855896` frontend source. The handler awaits `navigator.clipboard.writeText`; Playwright's click does not wait for that promise. The fixture now waits for the *exact expected clipboard value*, then checks a real paste into a separate wallet page. A missing or altered copy still fails. No application or financial code changed.
+
+Local focused result: all three viewports passed with the corrected fixture; a controlled 150 ms clipboard-write delay passed at desktop width. An uncorrected fixture with an injected 500 ms delay failed, demonstrating the timing exposure. The corrected fixture with the same 500 ms delay also failed because headless Chromium supplied an empty native paste despite `readText` reporting the expected value. Thus the 500 ms result does not establish full browser clipboard reliability. The hosted follow-up must decide whether the ordinary-speed fixture correction resolves the original CI failure; it must not be counted as a pass before that run completes.
+
+The controlled delay is opt-in through `B2Z_TEST_CLIPBOARD_DELAY_MS=0..1000`. It changes only the browser fixture and never the product's payment instructions. The normal fixture still verifies exact recipient, amount and memo bytes through external native paste.
