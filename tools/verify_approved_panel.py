@@ -87,8 +87,16 @@ with sync_playwright()as pw:
      assert page.locator('#text-memo').text_content().endswith('|進め');row['native_ime']='PASS composing copy fence and committed Unicode memo'
      gesture_probes(page,ctx,row)
      # The same real touch route must work after an actual compass rotation.
-     page.locator('[data-board-quarter="1"]').click()
-     page.wait_for_function('()=>fixture.camera.quarter===1&&!fixture.shell.controller.active')
+     # A compass click moves North to that button's prior screen position.
+     # A private quarter number has the opposite sign from this visual rule.
+     east=page.locator('[data-board-quarter="1"]')
+     target=east.bounding_box()
+     desired=(target['x']+target['width']/2,target['y']+target['height']/2)
+     east.click()
+     page.wait_for_function('()=>!fixture.shell.controller.rotation')
+     north=page.locator('[data-board-quarter="0"]').bounding_box()
+     actual=(north['x']+north['width']/2,north['y']+north['height']/2)
+     assert all(abs(a-b)<1 for a,b in zip(actual,desired)),(actual,desired)
      fingers=page.evaluate('''()=>{
       const source=fixture.camera.cellPoint(fixture.aim().cannon.cell);
       for(let y=95;y<innerHeight-90;y+=12){
@@ -107,7 +115,7 @@ with sync_playwright()as pw:
      dev.send('Input.dispatchTouchEvent',{'type':'touchEnd','touchPoints':[]})
      after=page.evaluate('fixture.summary().camera')
      assert after[2]<before[2] and page.evaluate('fixture.proposal()')==proposal,(before,after,proposal,page.evaluate('fixture.proposal()'))
-     row['rotated_native_pinch']='PASS actual touch zoom with unchanged canonical draft and East at top'
+     row['rotated_native_pinch']='PASS actual touch zoom with unchanged canonical draft and North at the clicked East position'
 
     row['sweep']='PASS full forward/reverse, original pose, active group bounds';page.screenshot(path=str(out/f'{w}-{enabled}-347.png'));row['final']=geometry(page);row['errors']=errors;assert not errors;save()
     if enabled:
