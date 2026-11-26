@@ -288,6 +288,8 @@ jobs:
         run: python -B tools/verify_visual_closeout.py --fixture-dir .work/ci-player-refinement --output .work/ci-visual-closeout --video
       - name: Human playtest direct interaction, stable status and toroidal seam acceptance
         run: python -B tools/verify_human_corrections.py --output .work/ci-human-corrections
+      - name: Manufacturing geometry, progress and native input smoke
+        run: python -B tools/verify_manufacturing_browser.py --output .work/ci-manufacturing
       - name: Readiness-only panel geometry across actions, viewport contraction and reduced motion
         run: python -B tools/verify_panel_geometry.py --fixture-dir .work/ci-human-corrections/fixture --output .work/ci-panel-geometry --video
       - name: Returning entry, exact compact copying and arena quantity
@@ -366,6 +368,8 @@ jobs:
             .work/ci-visual-closeout/**
             .work/ci-human-corrections/**
             .work/ci-panel-geometry/**
+            .work/ci-manufacturing/results.json
+            .work/ci-manufacturing/*.png
             .work/ci-audio/results.json
             .work/ci-audio/native-progress.json
             .work/ci-audio/peaks.json

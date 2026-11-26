@@ -86,8 +86,8 @@ def verify_refinement(page,width,height,out):
  page.keyboard.press('Escape');page.evaluate('fixture.camera.scale=48;fixture.draw();window.wheelTrace=[];document.addEventListener("wheel",e=>wheelTrace.push({dy:e.deltaY,mode:e.deltaMode,target:e.target.id,ctrl:e.ctrlKey,scale:fixture.camera.scale}),true)');page.mouse.move(width*.35,height*.3);page.mouse.wheel(0,-100*page.evaluate('devicePixelRatio'));page.mouse.wheel(0,-100*page.evaluate('devicePixelRatio'));page.wait_for_timeout(350);settled(page);(out/f'{width}-wheel.json').write_text(__import__('json').dumps(page.evaluate('({events:wheelTrace,camera:fixture.summary().camera,animation:fixture.shell.controller.animation,following:fixture.shell.controller.following})'),indent=2)+'\n');assert abs(page.evaluate('fixture.camera.scale')-48*math.exp(.4))<1e-6
  page.mouse.wheel(0,-100*page.evaluate('devicePixelRatio'));page.mouse.wheel(0,100*page.evaluate('devicePixelRatio'));page.wait_for_timeout(200);settled(page);assert abs(page.evaluate('fixture.camera.scale')-48*math.exp(.4))<1e-6
  assert page.evaluate('fixture.sameClock()');page.screenshot(path=str(out/f'{width}-navigation.png'))
- # Ordinary waiting is compact; actual catch-up remains truthful, never a
- # permanent spinner for routine slow production or optional telemetry.
+ # Exhausted verified motion requires the central waiting treatment while
+ # the active world cannot progress.
  page.evaluate('fixture.playbackScale(1000)');page.wait_for_function('()=>fixture.summary().queue===0',timeout=8000);page.wait_for_timeout(750);assert page.locator('#motion-wait').is_visible();expect(page.locator('#arena-note')).to_have_text('Waiting for next on-chain update')
  # Explicit panel-aware Focus and precision/caret survive a latest-state refresh.
  prepare('fire');page.evaluate('fixture.camera.pan(Math.min(190,innerWidth*.35),0);fixture.draw()');expect(page.locator('#focus-cannon')).to_be_enabled();page.locator('#focus-cannon').click();settled(page)
