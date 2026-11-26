@@ -33,3 +33,4 @@ pub use cursor::{identity, million_identity, torus_identity, Cursor, Input, Outp
 pub mod host;
 
 pub mod economy17;
+pub mod economy20;
