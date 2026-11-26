@@ -134,11 +134,56 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
             defender,
         });
     }
-    let attack = targets
-        .iter()
-        .filter(|t| t.capturable)
-        .min_by_key(|t| t.target)
-        .cloned();
+    // Rules20 resolves an exact vertex as a single face contact. The source
+    // tile, not the linear cell ID or camera, supplies the checkerboard bias.
+    let preferred = corner_preferred_axis(w, b, &crossing);
+    let side_attacks: Vec<_> = targets.iter().filter(|t| t.capturable).collect();
+    let mut attack = if w.version >= 12 && crossing.x && crossing.y && side_attacks.len() == 2 {
+        side_attacks
+            .iter()
+            .find(|t| t.axis == preferred)
+            .copied()
+            .cloned()
+    } else {
+        side_attacks
+            .iter()
+            .min_by_key(|t| t.target)
+            .copied()
+            .cloned()
+    };
+    // With two clear friendly side cells, the diagonal foreign cell is the
+    // next single-face contact at this exact time. The other face reflects;
+    // the Ball stays in the friendly side cell rather than entering foreign
+    // terrain. Genuine structure corners keep the historical solid response.
+    if w.version >= 12
+        && crossing.x
+        && crossing.y
+        && attack.is_none()
+        && targets.len() == 2
+        && targets.iter().all(|t| t.pass)
+    {
+        let sx = b.vx.signum() as i64;
+        let sy = b.vy.signum() as i64;
+        let diagonal = crate::world::wrap_cell(
+            (b.cell % w.width) as i64 + sx,
+            (b.cell / w.width) as i64 + sy,
+            w.width,
+            w.height,
+        );
+        let defender = w.player_at(diagonal).unwrap_or(0);
+        if defender != b.owner
+            && !w.cannons.iter().any(|c| c.cell == diagonal)
+            && crate::deflectors_v12::at(w, diagonal).is_none()
+        {
+            attack = Some(Target {
+                axis: if preferred == "x" { "y" } else { "x" }.into(),
+                target: Some(diagonal),
+                pass: false,
+                capturable: true,
+                defender,
+            });
+        }
+    }
     let deflector_target = if w.version >= 7 && crossing.x != crossing.y {
         targets
             .iter()
@@ -158,6 +203,18 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
         targets,
         attack,
         deflector_target,
+    }
+}
+fn corner_preferred_axis(w: &World, b: &Ball, crossing: &Crossing) -> &'static str {
+    if !(crossing.x && crossing.y) {
+        return "x";
+    }
+    let parity = ((b.cell % w.width) + (b.cell / w.width)) & 1;
+    let x_is_left = b.vx.signum() == b.vy.signum();
+    if (parity == 0) == x_is_left {
+        "x"
+    } else {
+        "y"
     }
 }
 /// Revalidate frozen crossing intent against current ownership and cannon cells.
@@ -196,6 +253,18 @@ pub fn passage(w: &World, b: &Ball, i: &Intent) -> (bool, bool, bool) {
             || w.cannons.iter().any(|c| c.cell == cell)
             || crate::deflectors_v12::at(w, cell).is_some()
         {
+            if w.version >= 12
+                && i.attack.as_ref().is_some_and(|a| a.target == Some(cell))
+                && !w.cannons.iter().any(|c| c.cell == cell)
+                && crate::deflectors_v12::at(w, cell).is_none()
+            {
+                let preferred = corner_preferred_axis(w, b, &i.crossing);
+                return if preferred == "x" {
+                    (true, false, false)
+                } else {
+                    (false, true, false)
+                };
+            }
             return (false, false, true);
         }
     }
@@ -214,5 +283,92 @@ pub fn reflect(b: &mut Ball, axis: &str, wall: i64) {
     } else {
         b.y0.0 = BigInt::from(2 * wall) * &d - &b.y0.0;
         b.vy = -b.vy;
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use super::*;
+    use dtr_wire::unhex;
+
+    fn fixture() -> World {
+        let rows: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/context-structures-v13.json"
+        ))
+        .unwrap();
+        let mut world =
+            World::decode(&unhex(rows["rows"][0]["initial_hex"].as_str().unwrap()).unwrap())
+                .unwrap();
+        world.version = 12; // Isolate the successor contact law from migration wiring.
+        world
+    }
+
+    fn contact(
+        world: &mut World,
+        x: usize,
+        y: usize,
+        sx: i32,
+        sy: i32,
+    ) -> (Ball, Crossing, usize, usize, usize) {
+        let source = y * world.width + x;
+        let side_x = y * world.width + (x as i32 + sx) as usize;
+        let side_y = (y as i32 + sy) as usize * world.width + x;
+        let diagonal = (y as i32 + sy) as usize * world.width + (x as i32 + sx) as usize;
+        let mut ball = world.balls[0].clone();
+        ball.cell = source;
+        ball.vx = sx * 32_000;
+        ball.vy = sy * 32_000;
+        let crossing = Crossing {
+            ball: ball.id,
+            time: Rat::new(0.into(), 1.into()).unwrap(),
+            x: true,
+            y: true,
+            xwall: 0,
+            ywall: 0,
+        };
+        (ball, crossing, side_x, side_y, diagonal)
+    }
+
+    #[test]
+    fn checkerboard_selects_one_side_for_all_diagonals_and_both_parities() {
+        for (sx, sy) in [(1, 1), (1, -1), (-1, 1), (-1, -1)] {
+            for x in [500, 501] {
+                let mut w = fixture();
+                let (b, crossing, side_x, side_y, _) = contact(&mut w, x, 500, sx, sy);
+                w.set_owner(side_x, 0).unwrap();
+                w.set_owner(side_y, 0).unwrap();
+                let intent = classify(&w, &b, crossing);
+                let x_is_left = sx == sy;
+                let expected_x = (((x + 500) & 1) == 0) == x_is_left;
+                assert_eq!(
+                    intent.attack.as_ref().unwrap().target,
+                    Some(if expected_x { side_x } else { side_y })
+                );
+                assert_eq!(passage(&w, &b, &intent), (false, false, false));
+            }
+        }
+    }
+
+    #[test]
+    fn friendly_sides_claim_the_diagonal_through_one_face_but_solid_corner_blocks() {
+        for x in [500, 501] {
+            let mut w = fixture();
+            let (b, crossing, _, _, diagonal) = contact(&mut w, x, 500, 1, 1);
+            w.set_owner(diagonal, 0).unwrap();
+            let intent = classify(&w, &b, crossing.clone());
+            assert_eq!(intent.attack.as_ref().unwrap().target, Some(diagonal));
+            assert_eq!(
+                passage(&w, &b, &intent),
+                if x & 1 == 0 {
+                    (true, false, false)
+                } else {
+                    (false, true, false)
+                }
+            );
+            w.cannons[0].cell = diagonal;
+            let solid = classify(&w, &b, crossing);
+            assert!(solid.attack.is_none());
+            assert_eq!(passage(&w, &b, &solid), (false, false, true));
+        }
     }
 }

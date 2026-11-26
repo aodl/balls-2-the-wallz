@@ -61,9 +61,25 @@ An epoch transition starts with no exceptions for historical structures.
 
 For a territory-only simultaneous-axis vertex, prefer the left orthogonal
 candidate from an even canonical source tile and the right from an odd tile.
-If the preferred side cannot be captured, the only eligible side takes
-precedence. With two friendly passage sides and a foreign diagonal target,
-use a single eligible diagonal contact. Mixed structure/territory contacts
-must continue to use the genuine obstruction law. The final decision table,
-contact resolution, versioned encodings and genuine payment acceptance
-remain pending independent executable proof.
+With canonical grid coordinates (positive y points south), the x-side is
+geometrically left when the x and y velocity signs agree; otherwise the
+y-side is left. Parity is `(source_x + source_y) mod 2`, so it alternates on
+both axes and across the even-width toroidal seams. No physical epsilon is
+added to the Ball.
+
+| Exact vertex ownership/contact | Chosen single contact and motion |
+| --- | --- |
+| Both orthogonal side cells capturable | Prefer the parity-selected left/right side. Both faces reflect under the existing single-face contact law; only the chosen side may capture. |
+| Exactly one orthogonal side capturable | Choose that side, regardless of parity. The other friendly face passes or the obstructed face reflects according to its actual law. |
+| Both side cells clear and friendly; diagonal cell capturable | Select the diagonal as one contact. Pass the parity-selected side and reflect the other face, leaving the Ball in the friendly side cell. |
+| Both side cells clear and friendly; diagonal cell friendly | Pass both faces. |
+| Both side cells clear and friendly; diagonal cell contains a structure | Preserve the solid blocked-vertex response; no diagonal capture. |
+| No capturable side and a genuine structure in a side cell | Preserve the structure obstruction/contact law. No parity bypass. |
+| No eligible contact | Preserve normal reflection or passage without inventing capture. |
+
+The Rust and independent JavaScript classifiers now exercise the four diagonal
+directions, both parities, mixed neutral/enemy sides, both toroidal seams and
+the historical Rules19 branch. This is **focused classifier evidence only**.
+The successor identity, complete equal-time replay, strike/capture output
+equality, contact with Diverters, payment acceptance, interrupted cursor and
+authenticated migration still require qualification before activation.

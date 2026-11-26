@@ -88,6 +88,14 @@ function mutation(world, payment, moved, config) {
     return {reason: 'BALL_CAPACITY'};
   return {reason: 'ACCEPTED', kind: 'ball_spawned', cannon: cannon.id, ball: cloneCanonical(launch(world, cannon, command.value)),...(world.version>=4?{heading:command.value}:{})};
 }
+function cornerPreferredAxis(world,ball,crossing){
+ if(!(crossing.x&&crossing.y))return 'x';
+ // Canonical source-tile checkerboard; grid y increases down, so x is to
+ // the geometric left of a diagonal motion exactly when vx and vy agree.
+ const parity=((ball.cell%world.width)+Math.floor(ball.cell/world.width))&1;
+ const xIsLeft=Math.sign(ball.vx)===Math.sign(ball.vy);
+ return (parity===0)===xIsLeft?'x':'y';
+}
 export function classify(world, ball, crossing) {
   const player=ball.owner;
   const cx = ball.cell % world.width, cy = Math.floor(ball.cell / world.width), targets = [];
@@ -98,7 +106,17 @@ export function classify(world, ball, crossing) {
     const defender=target===null?0:playerAt(world,target),pass=target!==null&&defender===player&&!cannon&&!deflectorAt(world,target);
     targets.push({axis, target, pass, capturable: target !== null && !cannon && !deflectorAt(world,target) && player!==undefined&&defender !== player, defender});
   }
-  const attack = targets.filter(t => t.capturable).sort((a, b) => a.target - b.target)[0] ?? null;
+  const sideAttacks=targets.filter(t=>t.capturable);
+  const preferred=cornerPreferredAxis(world,ball,crossing);
+  let attack=world.version>=12&&crossing.x&&crossing.y&&sideAttacks.length===2
+    ?sideAttacks.find(t=>t.axis===preferred)
+    :sideAttacks.sort((a,b)=>a.target-b.target)[0]??null;
+  if(world.version>=12&&crossing.x&&crossing.y&&!attack&&targets.length===2&&targets.every(t=>t.pass)){
+    const diagonal=wrapCell(cx+Math.sign(ball.vx),cy+Math.sign(ball.vy),world.width,world.height);
+    const defender=playerAt(world,diagonal);
+    if(defender!==player&&!world.cannons.some(c=>c.cell===diagonal)&&!deflectorAt(world,diagonal))
+      attack={axis:preferred==='x'?'y':'x',target:diagonal,pass:false,capturable:true,defender};
+  }
   return {...crossing,...(world.version>=7&&(crossing.x!==crossing.y)?{deflector_target:targets.map(t=>deflectorAt(world,t.target)).find(Boolean)?.id??null}:{}), owner: ball.owner, cell: ball.cell, targets, attack};
 }
 export function passage(world,b,i){
@@ -106,7 +124,11 @@ export function passage(world,b,i){
  let passX=false,passY=false;
  for(const t of i.targets){const pass=t.pass&&playerAt(world,t.target)===player&&!world.cannons.some(c=>c.cell===t.target)&&!deflectorAt(world,t.target);if(t.axis==='x')passX=pass;else passY=pass;}
  if(i.x&&i.y&&passX&&passY){const sx=Math.sign(b.vx),sy=Math.sign(b.vy),diagonal=world.version>=4?wrapCell(b.cell%world.width+sx,Math.floor(b.cell/world.width)+sy,world.width,world.height):b.cell+sx+sy*world.width;
-  if(playerAt(world,diagonal)!==player||world.cannons.some(c=>c.cell===diagonal)||deflectorAt(world,diagonal))return {passX:false,passY:false,vertexBlocked:true};
+  if(playerAt(world,diagonal)!==player||world.cannons.some(c=>c.cell===diagonal)||deflectorAt(world,diagonal)){
+    if(world.version>=12&&i.attack?.target===diagonal&&!world.cannons.some(c=>c.cell===diagonal)&&!deflectorAt(world,diagonal))
+      return cornerPreferredAxis(world,b,i)==='x'?{passX:true,passY:false,vertexBlocked:false}:{passX:false,passY:true,vertexBlocked:false};
+    return {passX:false,passY:false,vertexBlocked:true};
+  }
  }
  return {passX,passY,vertexBlocked:false};
 }
