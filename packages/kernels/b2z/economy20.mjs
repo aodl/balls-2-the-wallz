@@ -1,3 +1,6 @@
+import {marginal} from '../../protocol/economy17.mjs';
+import {BALL_BASE_E8S} from '../../protocol/economy17.generated.mjs';
+
 // The tariff supplies its authenticated population symbolically. Reject an
 // amount beyond the Ledger bound before evaluating its exponential factor.
 const MAX_LEDGER_AMOUNT=(1n<<64n)-1n;
@@ -11,4 +14,42 @@ export function marginalPrice(baseE8s,population,currentPersonalCount){
  const shift=BigInt(excess),next=BigInt(currentPersonalCount)+1n;
  const unshifted=baseE8s*BigInt(Math.min(1000,Math.max(1,population)))*next*next;
  return unshifted<=MAX_LEDGER_AMOUNT>>shift?unshifted<<shift:null;
+}
+
+function price(tariff,base,held){
+ switch(tariff.formula){
+  case 'linear':return marginal(base,tariff.multiplier,held);
+  case 'exponential':return marginalPrice(base,tariff.population,held);
+  default:throw Error('Unknown tariff formula');
+ }
+}
+
+function affordable(tariff,purchase,payment){
+ let remaining=payment,count=0;
+ if(purchase.structure){
+  const first=price(tariff,purchase.structure.base,purchase.structure.held);
+  if(first===null||first>remaining)return {tariff,count,spent:0n};
+  remaining-=first;
+  count=1;
+ }
+ for(let offset=0;offset<purchase.additionalBalls;offset++){
+  const held=purchase.ballsHeld+offset;
+  const next=isCount(held)?price(tariff,BALL_BASE_E8S,held):null;
+  if(next===null||next>remaining)break;
+  remaining-=next;
+  count++;
+ }
+ return {tariff,count,spent:payment-remaining};
+}
+
+// A current overflow ends only its own affordable prefix. An eligible
+// previous formula is priced independently and ties keep the current tariff.
+export function chooseTariff(current,previous,purchase,payment){
+ if(typeof payment!=='bigint'||payment<0n||payment>MAX_LEDGER_AMOUNT||
+    !isCount(purchase.ballsHeld)||!isCount(purchase.additionalBalls)||purchase.additionalBalls>0xffff)
+  throw Error('Invalid tariff purchase bounds');
+ const primary=affordable(current,purchase,payment);
+ if(!previous)return primary;
+ const grace=affordable(previous,purchase,payment);
+ return grace.count>primary.count?grace:primary;
 }

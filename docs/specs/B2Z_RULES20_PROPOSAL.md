@@ -2,7 +2,7 @@
 
 Rules19 remains the active ruleset. The proposed successor requires an
 authenticated epoch and an independently verified state-preserving transition.
-This branch defines and tests bounded scalar pricing. It has no active
+This branch defines and tests bounded pricing and grace-prefix selection. It has no active
 successor configuration or migration.
 
 ## Tariff inputs and amounts
@@ -42,6 +42,12 @@ Ledger limits, up to one million world accounts, and maximum encoded counts.
 A separate successor change must bind this arithmetic to scheduling,
 affordability, receipts, cursor serialization, API/configuration and replay.
 Existing tariff bytes remain historical source inputs.
+
+The prepared-purchase vectors compare independent current and previous tariffs.
+They include a cheaper current tariff after a population decline, exact tie
+priority, partial Ball fulfilment, and a representable linear tariff while the
+current exponential tariff overflows. The caller still has to supply the actual
+authenticated grace window, legal purchase and representational capacity.
 
 ## Authoritative gameplay acceptance boundary
 
