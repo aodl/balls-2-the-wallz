@@ -50,3 +50,20 @@ record, including recovery to the exact current host. A composed root
 without its exact record fails verification. The displayed optional rate
 uses only the witness-bound value. Production activation awaits exact
 installed certification, resource overhead and recovery evidence.
+
+## Disposable acceptance
+
+The witness and direct-root recovery rehearsal passed on
+`2161cb1121a1bc761c6b1bc35788dc01c765fd4d` against the exact installed
+Rules19 predecessor (`b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90`).
+The feature build was `15279914f2d86af527669e889da96a946e725a06e1f8b6f0b126d12a06f50e9e`.
+A pinned local root verified the canonical publication before the upgrade,
+during an unavailable startup, a 15-minute estimate, a 55-minute estimate,
+a simulated external credit, a same-ID restart, and recovery to the exact
+predecessor. The publication hash and canonical paid world were unchanged.
+Tampering with the record or using the wrong canister failed verification.
+
+The test operated on a paused disposable world and advanced its clock under
+control. It did not establish incremental operating cost, compatibility with
+other existing certified clients, or the full browser and source-settlement
+matrix. The feature remains off in release profiles.
