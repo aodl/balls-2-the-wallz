@@ -1,0 +1,140 @@
+{
+  "source": "2e10e1967f38e20a8cdb7f469fefaaf1aa5e794f",
+  "installed_case": "million_browser_normal_lifeline_and_cold_reconnect",
+  "status": "PASS",
+  "normal": {
+    "seconds": 89.8465,
+    "backend_ticks_per_second": 1.0128385635500547,
+    "admitted_ticks_per_second": 0.9905783753401635,
+    "displayed_ticks_per_second": 1.1040905490624837,
+    "stalled_samples": 0,
+    "resyncs": 0,
+    "nominal_rate": 1,
+    "performance_limited": false,
+    "queue_segments": {
+      "min": 1,
+      "max": 17
+    },
+    "buffer_ticks": {
+      "min": 0.7716530164962165,
+      "max": 16.444205
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 305.8999999985099,
+        "max": 7732.800000000745
+      },
+      "verify_ms": {
+        "median": 64.39999999850988,
+        "max": 215.5
+      },
+      "artifact_ms": {
+        "median": 278.30000000074506,
+        "max": 1531.7999999988824
+      },
+      "derive_ms": {
+        "median": 8.699999999254942,
+        "max": 32.40000000037253
+      },
+      "catchup_ms": {
+        "median": 818.8000000007451,
+        "max": 2912.5999999996275
+      }
+    },
+    "max_catchup_segments": 8,
+    "buffer_bytes": {
+      "min": 37637,
+      "max": 630526
+    },
+    "buffer_target_ticks": {
+      "min": 17,
+      "max": 17
+    },
+    "distinct_playheads": 151,
+    "certified_publications_per_second": 0.9905783753401635,
+    "authenticated_observation_queries_per_second": 0.8458871519758699,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 16.444205,
+    "buffer_end": 6.2455334836579794,
+    "admitted_ticks": 89,
+    "displayed_ticks": 99.19867151634244,
+    "phase_samples": {
+      "DEGRADED_BUFFER": 1,
+      "PLAYING": 150
+    }
+  },
+  "economy": {
+    "seconds": 39.69830000000002,
+    "backend_ticks_per_second": 0.5037999108274156,
+    "admitted_ticks_per_second": 0.4786099152860448,
+    "displayed_ticks_per_second": 0.407595159737316,
+    "stalled_samples": 0,
+    "resyncs": 0,
+    "nominal_rate": 0.5,
+    "performance_limited": false,
+    "queue_segments": {
+      "min": 1,
+      "max": 6
+    },
+    "buffer_ticks": {
+      "min": 0.9640010344000274,
+      "max": 5.243239903000017
+    },
+    "latency_ms": {
+      "fetch_ms": {
+        "median": 324.2000000011176,
+        "max": 7344.4000000003725
+      },
+      "verify_ms": {
+        "median": 62.40000000037253,
+        "max": 111.70000000111759
+      },
+      "artifact_ms": {
+        "median": 248.5,
+        "max": 614.6000000014901
+      },
+      "derive_ms": {
+        "median": 8.300000000745058,
+        "max": 22.299999998882413
+      },
+      "catchup_ms": {
+        "median": 1616.9000000003725,
+        "max": 1616.9000000003725
+      }
+    },
+    "max_catchup_segments": 5,
+    "buffer_bytes": {
+      "min": 37645,
+      "max": 225542
+    },
+    "buffer_target_ticks": {
+      "min": 9,
+      "max": 9
+    },
+    "distinct_playheads": 68,
+    "certified_publications_per_second": 0.4786099152860448,
+    "authenticated_observation_queries_per_second": 0.8312698528652357,
+    "timing_qualification": "Frame-sampled last-operation durations. Atomic fetch includes current artifacts; certificate time is not publication creation time. Backend progress uses controller counts; admitted/played counters exclude resync jumps.",
+    "buffer_start": 1.926818433799994,
+    "buffer_end": 4.745983504000037,
+    "admitted_ticks": 19,
+    "displayed_ticks": 16.1808349297999,
+    "phase_samples": {
+      "PLAYING": 68
+    }
+  },
+  "replay": {
+    "status": "PASS",
+    "segments": 138,
+    "gameplay_segments": 138,
+    "application_checkpoints": 0,
+    "assigned": [],
+    "comparison": "Exact canonical publication bytes and state/events/scores hashes; authentication is supplied by capture",
+    "work_budget": 23
+  },
+  "archive": {
+    "path": "/home/codexdev/b2z-release-evidence/development-programme/short-installed-coverage.zip",
+    "sha256": "e02ee5636ee718d717dd6a4aa98e7e419247ed58bfe5fc2997166b58db9f34e2",
+    "files": 217
+  }
+}
