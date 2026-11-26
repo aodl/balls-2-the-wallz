@@ -24,8 +24,9 @@ This branch is **not a release candidate**.
   regression also checks that the existing Ball receives the row while the
   Cannon's included newly launched Ball does not.
 - Focused Rust and JavaScript checkerboard contact tests cover four diagonal
-  directions, both parities, toroidal seams and the old Rules19 branch. These
-  are contact-classifier tests, not complete public-output equality.
+  directions, both parities, toroidal seams, mixed neutral/enemy/friendly side
+  cells and the old Rules19 branch. These are contact-classifier tests, not
+  complete public-output equality.
 - The symbolic price functions and grace-prefix selection agree on exact
   vectors. Schema12 state-only migration now records the effective boundary
   for the first successor formula. The daily selector retains an old linear
@@ -35,6 +36,10 @@ This branch is **not a release candidate**.
 The published precursor `35f32ee1` passed its exact standard hosted run
 `45896573914`. Draft PR #24 tracks this branch. Later branch changes require
 their own qualification; the passing precursor is not a successor release.
+After the direct Cannon birth and mixed-contact tests, the local native library
+gate passed 23/23 and the focused JavaScript passage and corner suites passed
+8/8 and 6/6 respectively. Those checks do not replace installed paid-input
+qualification.
 
 ## Release blockers
 

@@ -25,6 +25,19 @@ test('Rules20 vertex chooses one eligible side with canonical checkerboard bias'
   assert.deepEqual(passage(w,b,i),{passX:false,passY:false,vertexBlocked:false});
  }
 });
+test('mixed side ownership selects exactly one foreign contact in every diagonal direction',()=>{
+ for(const [sx,sy] of [[1,1],[1,-1],[-1,1],[-1,-1]])for(const x of [500,501]){
+  for(const [ownerX,ownerY] of [[0,0],[2,2],[0,2],[2,0],[1,0],[1,2],[0,1],[2,1]]){
+   const w=world(),{b,crossing,sideX,sideY,diagonal}=contact(w,x,500,sx,sy);
+   setOwner(w,sideX,ownerX);setOwner(w,sideY,ownerY);setOwner(w,diagonal,1);
+   const preferredX=((((x+500)&1)===0)===(sx===sy));
+   const expected=ownerX===1?sideY:ownerY===1?sideX:preferredX?sideX:sideY;
+   const intent=classify(w,b,crossing);
+   assert.equal(intent.attack?.target,expected,`${sx},${sy} ${x} ${ownerX}/${ownerY}`);
+   assert.equal(intent.targets.filter(t=>t.capturable).length,(ownerX!==1)+(ownerY!==1));
+  }
+ }
+});
 test('Rules20 foreign diagonal after friendly sides uses one face; a Cannon corner remains solid',()=>{
  for(const x of [500,501]){
   const w=world(),{b,crossing,diagonal}=contact(w,x,500,1,1);

@@ -366,6 +366,52 @@ mod tests {
     }
 
     #[test]
+    fn mixed_side_ownership_selects_one_foreign_contact_for_each_diagonal() {
+        for (sx, sy) in [(1, 1), (1, -1), (-1, 1), (-1, -1)] {
+            for x in [500, 501] {
+                for (owner_x, owner_y) in [
+                    (0, 0),
+                    (2, 2),
+                    (0, 2),
+                    (2, 0),
+                    (1, 0),
+                    (1, 2),
+                    (0, 1),
+                    (2, 1),
+                ] {
+                    let mut w = fixture();
+                    let (b, crossing, side_x, side_y, diagonal) = contact(&mut w, x, 500, sx, sy);
+                    w.set_owner(side_x, owner_x).unwrap();
+                    w.set_owner(side_y, owner_y).unwrap();
+                    w.set_owner(diagonal, 1).unwrap();
+                    let preferred_x = (((x + 500) & 1) == 0) == (sx == sy);
+                    let expected = if owner_x == 1 {
+                        side_y
+                    } else if owner_y == 1 || preferred_x {
+                        side_x
+                    } else {
+                        side_y
+                    };
+                    let intent = classify(&w, &b, crossing);
+                    assert_eq!(
+                        intent.attack.as_ref().and_then(|attack| attack.target),
+                        Some(expected),
+                        "direction {sx},{sy}, source {x}, owners {owner_x}/{owner_y}"
+                    );
+                    assert_eq!(
+                        intent
+                            .targets
+                            .iter()
+                            .filter(|target| target.capturable)
+                            .count(),
+                        usize::from(owner_x != 1) + usize::from(owner_y != 1)
+                    );
+                }
+            }
+        }
+    }
+
+    #[test]
     fn friendly_sides_claim_the_diagonal_through_one_face_but_solid_corner_blocks() {
         for x in [500, 501] {
             let mut w = fixture();

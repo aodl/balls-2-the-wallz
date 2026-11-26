@@ -59,6 +59,20 @@ test('only the existing Ball crosses the new structure; later arrivals and retur
  b.cell=500501;
  assert.equal(classify(w,b,nextCrossing(b,w.width,w.time,b.den)).targets[0].pass,false);
 });
+test('multiple existing overlapping Balls receive separate bounded passage rows',()=>{
+ const w=world(),first=w.balls[0];
+ first.cell=500500;first.x0=500n*1024n+512n;first.y0=500n*1024n+512n;
+ const second={...first,id:w.next_ball_id++};
+ w.balls.push(second);
+ const d=structure(w);
+ registerPassage(w,'deflector',d.id,d.cell);
+ assert.deepEqual(w.passage_exceptions.map(row=>row.ball),[first.id,second.id].sort((a,b)=>a-b));
+ assert.equal(exempts(w,first.id,'deflector',d.id,d.cell),true);
+ assert.equal(exempts(w,second.id,'deflector',d.id,d.cell),true);
+ first.cell=500499;retireAfterContact(w,first.id);
+ assert.deepEqual(w.passage_exceptions.map(row=>row.ball),[second.id]);
+ assert.equal(exempts(w,first.id,'deflector',d.id,d.cell),false);
+});
 test('an exact corner tangency does not grant passage through a side tile',()=>{
  const w=world(),d=structure(w),b=w.balls[0];
  b.vx=-22630;b.vy=22625;b.y0=501n*1024n;

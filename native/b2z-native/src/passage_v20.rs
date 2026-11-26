@@ -320,6 +320,51 @@ mod tests {
                 ..
             }
         ));
+        let plan = crate::purchases_v6::prepare_with_context(
+            &world,
+            &account,
+            terms(),
+            &cannon_memo,
+            &[],
+            true,
+            true,
+        )
+        .unwrap();
+        let placement = crate::spawn::Placement {
+            cell: 500500,
+            patch: vec![500500],
+            kind: 4,
+            other: 0,
+            checked: 0,
+        };
+        let made = crate::purchases_v6::place_new_with_context(
+            &world,
+            &account,
+            terms(),
+            &plan,
+            &placement,
+            true,
+            crate::purchases_v6::SitePolicy::Separation,
+        )
+        .unwrap();
+        assert!(exempts(
+            &made.world,
+            id,
+            Kind::Cannon,
+            made.cannon.id,
+            made.cannon.cell
+        ));
+        assert!(!exempts(
+            &made.world,
+            made.ball.id,
+            Kind::Cannon,
+            made.cannon.id,
+            made.cannon.cell
+        ));
+        assert_eq!(
+            World::decode(&made.world.encode().unwrap()).unwrap(),
+            made.world
+        );
         let structure = world.next_deflector_id.unwrap();
         *world.next_deflector_id.as_mut().unwrap() += 1;
         world.deflectors.as_mut().unwrap().push(Deflector {
