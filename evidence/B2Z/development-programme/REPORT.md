@@ -4,8 +4,9 @@ Observation and source review: 26 November 2026. This report covers repository d
 
 ## Latest closeout update — 26 November, 15:45 UTC
 
-Master is now `0855896239ba222892a372e6eeba22530fa59afc`. Its Rules19-compatible
-manufacturing and interaction frontend passed all eleven substantive hosted
+The Rules19-compatible manufacturing and interaction frontend source
+`0855896239ba222892a372e6eeba22530fa59afc` was integrated on master
+and passed all eleven substantive hosted
 jobs: [standard 45833070734](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070734),
 [financial 45833070824](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070824),
 and [developer/prelaunch 45833070929](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070929).
@@ -26,8 +27,13 @@ now waits for the selected Diverter and automatic Reorient state without
 the redundant click; its focused installed browser case passed at 1440×900
 and 320×640 with exact memo and query-only checks. The original failure and
 corrected pass are retained in verified operator archives. PR #18's exact
-hosted gate is pending and must not be replaced by the frontend candidate's
-earlier passing runs.
+source `a8ea27a` then passed all eleven substantive hosted jobs:
+[standard 45848907969](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848907969),
+[financial 45848908216](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848908216),
+and [developer/prelaunch 45848908166](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848908166).
+The original PR #16 FAIL remains historical. Later status/evidence commits
+preserve all 23 recorded input Git objects from `a8ea27a`;
+[machine-readable invariance](qualified-input-invariance.json).
 
 The latest [15:45:39 UTC certified read-only observation](production-observation-2026-11-26-1545.json)
 found installed modules unchanged, head 18,360, running capped Trickle and

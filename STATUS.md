@@ -1,8 +1,10 @@
 # B2Z current status
 
-Operational observation **2026-11-26 15:45:39 UTC**. The current published source is
-[`0855896239ba222892a372e6eeba22530fa59afc`](https://github.com/aodl/balls-2-the-wallz/commit/0855896239ba222892a372e6eeba22530fa59afc)
-on the maintained master branch.
+Operational observation **2026-11-26 15:45:39 UTC**. The current published
+repository head is the [maintained master branch](https://github.com/aodl/balls-2-the-wallz/commits/master/).
+The latest qualified substantive code source is
+[`a8ea27a61682114d35cdce5a8508ce9381bf01c0`](https://github.com/aodl/balls-2-the-wallz/commit/a8ea27a61682114d35cdce5a8508ce9381bf01c0);
+later status/evidence commits preserve its exact input objects.
 The installed source is `741dbf898ade58ed2fa3a064d8bbe1acb577ed4a`.
 Rules19 / Schema11 / Adapter12 (`BTZPAY09`) runs in the capped
 `prelaunch-trickle` profile. This is controlled European prelaunch.
@@ -77,8 +79,15 @@ upgrade and recovery. [Frozen prerelease](https://github.com/aodl/balls-2-the-wa
 The short and full 900-second local installed reliability cases passed after
 focused corrections; their earlier failures remain preserved. A separate
 historical Shout browser fixture failure has a focused local correction on
-[PR #18](https://github.com/aodl/balls-2-the-wallz/pull/18), with exact-source
-hosted qualification pending. Production installation has not occurred.
+[PR #18](https://github.com/aodl/balls-2-the-wallz/pull/18), with all eleven
+substantive exact-source hosted jobs now passing on `a8ea27a`
+([standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848907969),
+[financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848908216),
+[developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848908166)).
+The later status/evidence changes have identical build, runtime, workflow,
+test, fixture and dependency Git objects to that qualified source;
+[input-invariance record](evidence/B2Z/development-programme/qualified-input-invariance.json).
+Production installation has not occurred.
 The Rules20 construction, corner and pricing successor remains incomplete and
 inactive. A disposable Ledger/Index test identified an existing Rules19
 authorization-registry encoding boundary for some valid accounts; a compatible

@@ -37,6 +37,12 @@
     "tools": "e9ebfc934c7356ea026bf30f6b6c91efee2699a0",
     "vendor": "da0f5b685d2a2596cd77a99f0e474e8524f95244"
   },
+  "qualification_conclusions": {
+    "developer_prelaunch": "PASS: two substantive jobs",
+    "financial": "PASS: two substantive jobs",
+    "informational_production_inventory": "excluded from substantive count",
+    "standard": "PASS: seven substantive jobs"
+  },
   "qualification_runs": {
     "developer_prelaunch": 45848908166,
     "financial": 45848908216,

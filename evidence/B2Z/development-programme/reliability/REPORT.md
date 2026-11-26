@@ -17,7 +17,8 @@ after its authenticated publication and independent replay had passed.
 The obsolete fixture clicked a Reorient action that was already active and
 hidden. PR #18 removes the redundant click and waits for the selected
 Diverter/default Reorient state. Its focused installed browser rerun passed;
-the exact-source hosted gate remains pending. The original failure, passing
+its exact `a8ea27a` source then passed the full [standard hosted run](https://github.com/aodl/balls-2-the-wallz/actions/runs/45848907969),
+including installed-IC qualification. The original failure, passing
 local retry and corrected pass are recorded separately in the
 [machine-readable evidence](shout-browser-fixture.json).
 
