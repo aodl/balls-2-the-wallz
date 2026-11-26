@@ -1,0 +1,18 @@
+{
+  "baseline": "315fe2ff1ff873c16e8f693025cc625b0ae59cab",
+  "max_new_file_bytes": 1048576,
+  "max_evidence_bytes": 155000000,
+  "required": [
+    "apps/b2z-observer/audio/b2z-v1/manifest.json",
+    "evidence/B2Z/rules18-delegated-payments/artifacts/provenance.json",
+    "evidence/B2Z/graphite-deflectors/connectivity-ui-polish/artifacts/frontend-inventory.json",
+    "evidence/B2Z/policy-v2-2026-11-02/snapshot.json",
+    "evidence/B2Z/rules19-compact-reservoirs/artifact-pins.json",
+    "vendor/b2z/rules19-b258ec23.wasm.gz",
+    "evidence/B2Z/repository-consolidation/ARCHIVE.md",
+    "evidence/B2Z/repository-consolidation/archived-files.tsv",
+    "evidence/B2Z/repository-consolidation/archive-verification.json",
+    "evidence/B2Z/repository-consolidation/executables.json"
+  ],
+  "approved": {}
+}

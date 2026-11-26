@@ -1,4 +1,7 @@
-# European pre-launch Trickle and owner Full Speed
+# European prelaunch Trickle and owner Full Speed
+
+The exact profile was installed and accepted on 25 November 2026.
+[Current observations](../../STATUS.md) · [Exact production and recovery bundles](PRODUCTION_RELEASES.md)
 
 The `prelaunch-trickle` Cargo feature enables the temporary `developer-speed` profile and caps ordinary publication pacing at 10 milliticks per second. The release uses one logical tick per ordinary checkpoint. Funding still selects the existing adaptive tier and admission. ReserveProtection still closes admission and stops ordinary ticks at its existing threshold. The public-launch build excludes both the cap and the developer exports.
 
@@ -22,3 +25,17 @@ Allocate **60B backend cycles** and **450B frontend cycles** for installation an
 4. The controller calls `bind_dev_speed_operator` with the owner’s verified Internet Identity principal from the permanent frontend origin. Validate owner sign-in and the pending authorization while paused. A later upgrade or restart requires the same explicit rebind. The controller can cancel or revoke if needed.
 5. After activation approval, resume ordinary gameplay with one tick per publication, the existing one-second timer setting and work budget 512. Confirm effective 10 milliticks per second with a higher underlying funding tier, adaptive admission and verified presentation. Begin ordinary operation with the temporary override off. Over the first 15 minutes, check that certified heads advance by one logical tick at intervals of at least 100 seconds, the source stays healthy, and wallet preparation is available without submitting a payment. Compare settled balances and callback counts against the rehearsal. Temporary Index reservations can reduce individual balance readings.
 6. For recovery, pause and upgrade the same IDs with the exact recorded compatible frontend and backend predecessors. Verify the saved Schema11 head, retained receipts and source continuity before a further resume. Restore the public frontend when reverting to the normal public backend so the displayed controls correspond to its exports. Neither direction requires a reset, new epoch, snapshot or payment.
+
+
+## Owner sign-in acceptance
+
+1. Open the [permanent European origin](https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io).
+2. Open **Game status**, then **DEV ONLY · Simulation speed**.
+3. Select **Sign in as owner** and complete authentication in the official
+   provider window using the identity already bound by the controller.
+4. Confirm the owner status shows the current effective scheduler rate and
+   funding tier, and that the authorized controls appear. Record the time and
+   visible result without capturing credentials or exporting delegations.
+
+Leave the speed override inactive during this acceptance. A live Full Speed
+window requires separate authorization and a fresh resource check.

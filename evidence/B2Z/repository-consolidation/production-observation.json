@@ -1,0 +1,183 @@
+{
+  "observation_at": "2026-11-26T06:47:44.483Z",
+  "method": "Mainnet IC root and delegated certificates; authenticated public queries; read-only.",
+  "installed_source": "741dbf898ade58ed2fa3a064d8bbe1acb577ed4a",
+  "modules": [
+    {
+      "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "module_hash": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+      "certificate_verified": true
+    },
+    {
+      "id": "s2jxj-liaaa-aaaas-amynq-cai",
+      "module_hash": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff",
+      "certificate_verified": true
+    }
+  ],
+  "modules_observed_at": "2026-11-26T06:38:37.593Z",
+  "rules": 19,
+  "schema": 11,
+  "adapter": 12,
+  "payment_envelope": "BTZPAY09",
+  "build_profile": "prelaunch-trickle",
+  "publication": {
+    "segment_id": "18039",
+    "logical_end": "18023",
+    "manifest_hash": "a6686fa2f5e45c8d49532b8887ad61412e1c5519d1aca377f6a6067c0053f930",
+    "state_hash": "61fd18ee9e1a248e554937c7d010561a7116dd7b249495ade330ddbb55ee0376",
+    "source_to_exclusive": "40647923"
+  },
+  "identities": {
+    "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+    "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+    "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+    "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+  },
+  "population": {
+    "cannons": 2,
+    "balls": 2,
+    "active_cannon_funding_accounts": 1,
+    "diverters": 1,
+    "reservoirs": 4
+  },
+  "source": {
+    "network": "ic",
+    "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+    "subaccount": "0"
+  },
+  "operation": {
+    "public_signed": {
+      "run": {
+        "last_error": [],
+        "world_transition": false,
+        "idle": false,
+        "pace": {
+          "nominal_milli": 10,
+          "supported_milli": 10,
+          "mode": "Trickle",
+          "admission_open": true,
+          "performance_limited": false
+        },
+        "segment_ticks": "1",
+        "publication_ticks": "1",
+        "completed_segments": "18017",
+        "running": true
+      },
+      "source": {
+        "last_error": [],
+        "binding_checked": true,
+        "pending_records": 0,
+        "admitted_to_exclusive": "40647923"
+      }
+    },
+    "minimum_ordinary_checkpoint_interval_seconds": 100,
+    "effective_milliticks_per_second": 10,
+    "underlying_funding_tier": "UNAVAILABLE (controller/owner-only)",
+    "full_speed_active": "false inferred from effective rate; owner status unavailable",
+    "event_horizon": "disabled"
+  },
+  "cycles": {
+    "backend_management": {
+      "status": {
+        "running": null
+      },
+      "cycles": "3176359688423",
+      "settings": {
+        "freezing_threshold": "2592000"
+      },
+      "idle_cycles_burned_per_day": "1927783939",
+      "reserved_cycles": "0"
+    },
+    "frontend_management": {
+      "status": {
+        "running": null
+      },
+      "cycles": "966828881870",
+      "settings": {
+        "freezing_threshold": "2592000"
+      },
+      "idle_cycles_burned_per_day": "6790193893",
+      "reserved_cycles": "0"
+    },
+    "settled_backend_samples": [
+      {
+        "at": "2026-11-26T06:44:19Z",
+        "cycle_query_timestamp_ns": "1795675459097221868",
+        "segments": 18021,
+        "index_calls": 26341,
+        "index_in_flight_before_after": false,
+        "total": 3177688449080,
+        "liquid": 3119854930910
+      },
+      {
+        "at": "2026-11-26T06:44:52Z",
+        "cycle_query_timestamp_ns": "1795675492146906208",
+        "segments": 18021,
+        "index_calls": 26342,
+        "index_in_flight_before_after": false,
+        "total": 3177538392087,
+        "liquid": 3119704873917
+      },
+      {
+        "at": "2026-11-26T06:45:25Z",
+        "cycle_query_timestamp_ns": "1795675524983126866",
+        "segments": 18022,
+        "index_calls": 26343,
+        "index_in_flight_before_after": false,
+        "total": 3177003757362,
+        "liquid": 3119170239192
+      },
+      {
+        "at": "2026-11-26T06:45:58Z",
+        "cycle_query_timestamp_ns": "1795675557980238569",
+        "segments": 18022,
+        "index_calls": 26343,
+        "index_in_flight_before_after": false,
+        "total": 3177003333429,
+        "liquid": 3119169815259
+      },
+      {
+        "at": "2026-11-26T06:46:31Z",
+        "cycle_query_timestamp_ns": "1795675590990415114",
+        "segments": 18022,
+        "index_calls": 26344,
+        "index_in_flight_before_after": false,
+        "total": 3176898432193,
+        "liquid": 3119064914023
+      }
+    ],
+    "estimated_frontend_freezing_cycles": 203705816790,
+    "estimated_frontend_liquid_cycles": 763123065080
+  },
+  "treasury": {
+    "official_index_balance_e8s": 100000,
+    "account_history_count": 11,
+    "latest_index_position": 40647922,
+    "controller_only_phase": "BLOCKED",
+    "last_accepted_phase": "enabled and idle"
+  },
+  "runway_estimate": {
+    "basis_daily_cycles": [
+      521000000000,
+      544000000000
+    ],
+    "longer_comparison_net_cycles_per_day": 529650485200,
+    "longer_comparison_scope": "Acceptance end to last settled sample. Operational balance delta, with workload inferred from authenticated entities, checkpoint and Index counts.",
+    "protection_liquid_floor": 1000000000000,
+    "default_full_speed_liquid_floor": 2070000000000,
+    "days_to_protection": [
+      3.9,
+      4.07
+    ],
+    "days_to_default_full_speed_cycle_floor": [
+      1.93,
+      2.01
+    ],
+    "cycle_floor_met_at_observation": true,
+    "all_full_speed_conditions": "BLOCKED (anonymous owner endpoint denied; secure owner read needed)"
+  },
+  "owner_acceptance": "Pending in the exact installed release acceptance",
+  "access_blocker": "dfx refused the available controller identity because it is stored insecurely; the authenticated anonymous treasury/owner methods denied access. No security override used.",
+  "mutations": []
+}

@@ -1,18 +1,48 @@
-> Human screen structure, account/copy flow, statuses and playback lifecycle are
-> governed by [B2Z_HUMAN_EXPERIENCE](B2Z_HUMAN_EXPERIENCE.md). Earlier rail/dialog,
-> live-pause and transaction-reporting UI descriptions are superseded. Ledger,
-> source, payment and game authority requirements here remain normative.
+# B2Z application contract
 
-# B2Z application contract — prefix-free text input extension
+The European application runs Rules19 on Schema11 with Adapter12
+(`BTZPAY09`). The paid world is a 1,000 × 1,000 torus. The Rust canister is
+the authority for ordered inputs, simulation and certified publications.
+The browser authenticates and independently replays them. Use
+[STATUS](../../STATUS.md) for live identities and dated observations.
 
-Version scope: the contract below records the original S14 application and its
-historical interpretations. The last verified production release is release 1,
-world v5 with paid-v8 publications. The separate next-version candidate is
-[B2Z v6 playability](B2Z_PLAYABILITY_V6.md); it requires its own authenticated
-activation and has not been deployed. It does not reinterpret old payments,
-receipts, physics or publications. Consult executed release evidence for live
-module identities rather than treating the historical v3 descriptions as the
-current mainnet world.
+## Contract precedence
+
+- [Rules19 compact Reservoir state](B2Z_COMPACT_RESERVOIRS_19.md) defines
+  current state encoding, replay projection and the paid epoch boundary.
+- [Rules18 optional delegated payments](B2Z_RULES18_DELEGATED_PAYMENTS.md)
+  governs funding-account authorization, `BTZPAY09`, optional user-click Pay,
+  and the permanent Internet Identity origin. Its Rules17-only and
+  Rules18-only activation language applies to those historical boundaries.
+- [Rules17 daily economy](B2Z_DAILY_ECONOMY_17.md) still governs UTC tariffs
+  selected by Ledger block time and financial interpretation, subject to
+  Rules18 authorization. Manual wallet preparation remains supported.
+- [Human experience](B2Z_HUMAN_EXPERIENCE.md) and
+  [visual system](B2Z_VISUAL_SYSTEM.md) govern current presentation,
+  input and verified lifecycle. The browser's optional signer is confined
+  to explicit funding-owner instructions and each user-approved Ledger Pay.
+- [Capped Trickle](../operations/B2Z_PRELAUNCH_TRICKLE.md) governs the current
+  prelaunch build profile. The [operator procedure](../operations/S14_OPERATOR.md)
+  governs the installed embedded frontend, exact release and recovery.
+  [Treasury policy](../operations/PRELAUNCH_SELF_FUNDING.md) applies to the
+  separate configured backend conversion route.
+
+The source remains one configured official account Index and one numeric
+receiving subaccount. Source history contents and completeness are trusted
+to that Index. Authenticate the descriptor against the publication. Retain
+sparse Ledger order, fenced recovery, target-filtered `poke` and the 60-second
+fallback. No global scan or alternate notification path is used. Orders,
+money, gameplay outcomes and receipts remain independent of rendering and
+capped scheduling. Browser copies alone show prepared instructions.
+Payments and excess are retained. Automatic refunds and payouts are unavailable.
+
+## Historical S14 contract and compatibility record
+
+The sections below document the original S14 and later candidate boundaries.
+They preserve the interpretation of their historical inputs and publications.
+Specific claims about absent login, rejected delegated transfers, join
+prices, root schemas, versions, candidate status and asset hosting refer
+to those historical versions. Follow the contracts above for current behavior.
 
 Earlier source/laboratory specifications and S09–S13 measurements describe historical implementations. B2Z v3 mechanics, exact arithmetic, internal command encoding, state/events/scores/seal encodings, publication v6 and animation v1 remain historical contracts. The original prelaunch profile is 1 ICP to join. Adapter v3 extends only the accepted command syntax and application naming. [Text command contract](B2Z_TEXT_MEMOS.md) defines adapter v3 and historical replay.
 

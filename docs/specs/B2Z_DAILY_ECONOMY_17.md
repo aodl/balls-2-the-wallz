@@ -1,5 +1,9 @@
 # B2Z Rules17 daily economy
 
+Rules19 retains this tariff and UTC Ledger block-time selection. The [Rules18
+authorization contract](B2Z_RULES18_DELEGATED_PAYMENTS.md) governs optional
+delegated payments. Rules17 activation and encoded inputs retain historical scope.
+
 Rules17 activates from the exact Rules16 predecessor at the authenticated
 exclusive Ledger cutoff. Schema9 adds the daily tariff schedule. Adapter11
 wraps the unchanged Rules16 normalized transfer and command with a

@@ -3,7 +3,7 @@ name: Rules18 delegated-payment qualification
 # Additional financial qualification alongside the standard verification.
 on:
   push:
-    branches: [master, feature/b2z-rules18-delegated-payments, feature/b2z-temporary-dev-speed, feature/b2z-rules19-compact-reservoirs, feature/b2z-prelaunch-trickle]
+    branches: [master]
   pull_request:
     branches: [master]
   workflow_dispatch:

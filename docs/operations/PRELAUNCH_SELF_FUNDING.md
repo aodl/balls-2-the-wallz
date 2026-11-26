@@ -18,7 +18,8 @@ to initiate a manual conversion. The existing five-minute autonomous policy,
 duplicate-safe recovery, floors, dust threshold and funding-pause independence
 remain. No new funding allocation policy is introduced.
 
-See [current operator instructions](S14_OPERATOR.md) for executed deployment status.
+See [STATUS](../../STATUS.md) for dated treasury and operating observations
+and the [current operator instructions](S14_OPERATOR.md) for operational authority.
 The historical conversion and route below belong to the former backend and must
 never be copied into this release's plans or payment instructions.
 
@@ -26,7 +27,7 @@ never be copied into this release's plans or payment instructions.
 
 # Historical treasury activation and preparation — former deployment
 
-# Current prelaunch treasury — active on the existing backend
+## Original activation on the former backend
 
 **2026-10-23:** the user explicitly authorized the reviewed automatic CMC route,
 first eligible conversion and subsequent qualifying sweeps. Approved release
@@ -53,7 +54,7 @@ The original local-preparation record follows as historical context.
 
 ---
 
-# Prelaunch self-funding — local preparation only
+## Original local preparation before that activation
 
 **Not deployed. No mainnet operation or real ICP transfer occurs in this task.**
 The observer and current live game are unchanged. A future approved activation

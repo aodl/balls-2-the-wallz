@@ -38,6 +38,12 @@ jobs:
       - run: npm ci --ignore-scripts
       - name: Assert exact DTR release provenance
         run: python -B tools/check_dtr_provenance.py --locks-only --output .work/ci-dtr-source.json
+      - name: Check evidence retention and verify the review export
+        run: |
+          mkdir -p .work/ci-source
+          python -B tools/check_repository_hygiene.py
+          python -B tools/package_review.py .work/b2z-review.zip > .work/ci-source/review-package.json
+          jq -e '.compressed_bytes <= 50000000 and .manifest_verified' .work/ci-source/review-package.json
       - run: python -B tools/check.py source --output .work/ci-source
       - name: Reproduce the successor frontend freeze
         run: python -B tools/verify_rules18_mainline.py --output .work/ci-frozen-panel
@@ -48,6 +54,7 @@ jobs:
           name: source-evidence
           path: |
             .work/ci-source/environment.json
+            .work/ci-source/review-package.json
             .work/ci-source/verification.json
             .work/ci-source/logs/**
             .work/ci-frozen-panel/result.json

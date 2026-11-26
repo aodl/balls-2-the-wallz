@@ -1,119 +1,88 @@
-# Working rules — current Linux validation
+# B2Z development and verification
 
-Use `STATUS.md` for current status and the relevant specification for the code being changed. `checkpoints/S07_REPORT.md` is immutable historical evidence: its unavailable-Rust and browser-policy statements describe the previous environment, not this Linux host.
+Use [STATUS](STATUS.md) for dated production observations and
+[the application contract](docs/specs/B2Z_APPLICATION.md) for the specification
+hierarchy. Old status, checkpoints, workflows and procedures describe their
+recorded versions. Historical failures and qualifications retain their scope.
 
-## Product boundaries
+## Current product
 
-Preserve B2Z v3 state, scoring, original audit events and seal bytes. The separately identified v4 torus requires the reviewed authenticated epoch activation; see `docs/specs/B2Z_TORUS_V4.md`. Never replace the paid world with a fresh constructor. Historical publications remain v6; only an explicit committed transition introduces v7; compact presentation remains `btz-animation-1`. Required conformance is public-output equality and each implementation's recovery, not identical private JS/Rust cursor bytes. Keep Life as the second-kernel boundary test and never rewrite historical goldens merely to match a port.
+- Preserve the paid European game. The maintained authority is
+  `canisters/runtime-lab` and the browser is an independent verifier and
+  presenter with optional user-click payments. Rules19 compacts the Reservoir
+  encoding in Schema11. Adapter12 (`BTZPAY09`), Rules17 daily tariffs chosen by
+  Ledger block time, and Rules18 authorization and receipt semantics continue.
+- Use the official ICP Index, one numeric receiving subaccount, the configured
+  target-filtered payload-bearing Event Horizon `poke`, and fixed 60-second
+  fallback. Preserve sparse ordered admission, stable recovery and the
+  Ledger/Index separation. Keep the trust boundary explicit.
+- Rules18 optional Pay uses Internet Identity, a Ledger ICRC-2 allowance and
+  a separate funding-account grant. Every transfer requires an explicit
+  player click and signature. Preserve exact wallet fallback bytes, payer
+  attribution, the certified intent/receipt boundary and retained-payment
+  disclosure. Automatic refunds and payouts are unavailable. Treasury is a
+  separate configured backend policy.
+- Preserve the permanent derivation and player origin
+  `https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io`. Under capped prelaunch
+  Trickle, ordinary pacing is 0.01 ticks/s and one tick per checkpoint. Keep
+  reserve safeguards and the temporary controller-bound owner Full Speed
+  authorization. Public-launch builds exclude temporary developer exports
+  and controls. Test hooks and manual stepping are confined to disposable
+  qualification.
+- Keep historical public bytes, goldens, replay, seals, epoch boundaries and
+  migration fixtures intact. Conformance means public-output equality and
+  successful recovery for each implementation. Keep Life as the generic
+  second-kernel boundary test. No history rewriting or paid-world reset,
+  reinstall, interpreter substitution or economic changes for cleanup.
 
-The observer never submits commands or makes gameplay decisions. Offline recording pins prove content consistency, not IC authenticity. The explicit S09 local mode verifies a pinned disposable-PocketIC root, canister identity, certificate freshness/delegation, the flat publication catalog and artifacts; it must never fall back to offline trust after an authentication error. HTTP browser mode must use the actual server, CSP and browser-native Web Crypto; fixture mode remains separately qualified.
+## Verify exact inputs
 
-Keep one current IC host: `canisters/runtime-lab`. Its ledger-fed mode is confined to disposable `pocketic-local` configuration and valueless records. Do not revive frozen laboratories as product paths or add another coordinator, persistence framework or host. A successful Wasm build is not Candid, certificate, upgrade, ledger or production-readiness evidence; only the named S09 integration test supplies the local evidence it executes.
+Use Rust 1.94.1, Node ≥22.16 and Python ≥3.11, committed Cargo/npm locks,
+immutable DTR pins, and normal dependency resolution. Use `--locked` and
+avoid temporary dependency overrides for current builds. Preserve
+`vendor/dtr/`, approved runtime audio and required historical Wasms.
 
-## Local setup and checks
+Run relevant local gates, fix in-scope failures and rerun. Use `DFX_IDENTITY=codex_local`
+for local IC tests and checksum-pinned disposable PocketIC fixtures. The
+browser HTTP gate uses the actual server, CSP, browser-native Web Crypto,
+and genuine sandboxing. Label controlled lifecycle, browser visibility,
+emulation and physical-device evidence separately. A Wasm build supplies
+compilation evidence. Candid, exports, certificates, migrations, payment
+acceptance and replay each require their own executed gates.
 
-The project pins Rust 1.94.1 in `rust-toolchain.toml`; do not change the user's global default. Use Node >=22.16 and Python >=3.11. The repeatable user-scoped setup and locked dependency fetch are documented in `docs/operations/LINUX_SETUP.md`.
+Review [human experience](docs/specs/B2Z_HUMAN_EXPERIENCE.md),
+[visual system](docs/specs/B2Z_VISUAL_SYSTEM.md) and
+[audio](docs/specs/B2Z_AUDIO.md) before frontend changes. Name affected UX
+contracts, exercise populated actual-speed desktop and mobile journeys,
+and retain evidence for the changed behavior. Preserve canonical placement,
+verified financial head versus presentation time, exact wallet bytes and
+mobile quantity, controls and scroll reservations.
 
-Run relevant local tests, fix in-scope failures, and rerun them without asking at each step. Write raw results under `.work/` and only reviewed summaries under `evidence/`. Normal verification must use committed lockfiles and `--locked`; lock generation is a deliberate one-time dependency-resolution action.
+For release qualification use the exact source and applicable hosted
+[standard](.github/workflows/verification.yml),
+[financial](.github/workflows/delegated-payments.yml) and
+[developer/prelaunch](.github/workflows/developer-speed.yml) gates. Track
+PASS, FAIL, BLOCKED and NOT RUN independently. Tie reused evidence to exact
+input identities.
 
-Run the bounded local authoritative slice with Python 3.11 using `tools/verify_s14_local.py`. It downloads only checksum-pinned test artifacts outside the checkout, creates disposable PocketIC instances, and never uses a dfx identity or public network.
+## Operations and retention
 
-Keep PASS, FAIL and BLOCKED distinct. Browser or tool absence must not hide native results. Do not claim PocketIC, Candid, certificate, ledger, upgrade, cost or deployment evidence from compilation alone.
-
-## Security and repository hygiene
-
-Use `DFX_IDENTITY=codex_local` for local IC tests. Never inspect or export identity material, private keys, seed phrases or `.env` secrets. Keep identities, environment files, virtualenvs, dependency trees and build caches out of Git and checkpoint archives.
-
-Mainnet deployment and remote Git writes require explicit task authorization. Controller changes, wallet access, token transfers and package publication remain user-owned. Do not disable browser, OS or agent security policy. User-scoped reviewed development dependencies are permitted; system-wide changes require explicit approval.
-
-Save coherent progress commits on the active branch. Preserve historical checkpoint reports and evidence. Do not create a release ZIP until the checkpoint is actually ready and explicitly requested.
-
-## S14 active application (supersedes historical scanner/laboratory descriptions)
-
-Use `docs/specs/B2Z_APPLICATION.md` as the normative application contract. One official ICP account index, one receiving numeric subaccount, one configured Event Horizon sender, exact payload-bearing target-filtered `poke`, and fixed 60-second fallback. Trust the configured official index for account-history contents/completeness. Never recreate global `query_blocks` scanning, archive traversal, dense gap padding, a zero-argument poke, parallel notification services or generic source frameworks.
-
-The observer has no login, wallet, signing, allowance, session or transaction-sending feature. Keep keys and payment execution in users' existing wallets. Preserve scores and disclose that automatic payouts remain unavailable. Real-money actions remain user-owned. Never reinstall/reset an existing funded canister. Normal Wasm must exclude synthetic input/state mutation and manual game-step controls.
-
-DTR S14 changes are limited to sparse ordered admission and network-configured SDK certificate/observation handling. Before remote publication, use only the explicit `tools/s14_development.py` temporary override; never commit sibling-path dependencies, a Git URL rewrite or a revision falsely presented as remotely available. User publishes DTR first; immutable B2Z pins/locks and remote consumer validation follow in a separate authorized local continuation.
-
-Current transition candidate pins published DTR `c12af747190f7e24d5e68cdf57dbb1494095a46b`, client 0.13.0, for one generic authenticated epoch checkpoint. Original S14 `1f47c1a0a104875bd13475d561b8d5aa10770d99` / client 0.12.0 remains historical dependency evidence. Use actual pinned locks and normal package install; no development override is required. `tools/verify_dtr_consumers.py` uses ordinary Cargo resolution and local immutable archiving rather than remote Git checkout commands.
-
-Controlled MVP deployment uses the existing `dfx.json`, `tools/prepare_mvp_release.py` and definitive `docs/operations/S14_OPERATOR.md`. Freeze/install the normal artifact explicitly; do not substitute a later test build. Keep actual prices unless the user approves precise changes. Event Horizon may be explicitly disabled for first play; independent fallback still works. Source configuration is immutable in this version. Mainnet IDs/funding/transfers remain user-owned; never reinstall to change configuration. Do not reopen scanner/polling benchmarks or create another deployment framework.
-
-Prelaunch UX/pricing work uses `config/economics/prelaunch.json` and `tools/generate_economics.mjs`; never hand-edit generated prices or historical goldens. Keep original S14 configuration identifiable. A normal upgrade preserves its journal profile and cannot be assumed to reprice it. Stage exact source/artifacts for user approval; no reset/reinstall without separate explicit approval and a fresh payment/history check. The observer derives actionable prices/destination from certified configuration/source, emits prefix-free text with the shared adapter v3 memo codec, and disables payment preparation before verification or during unhealthy operation.
-
-## Human interface contract
-
-Use [B2Z human experience](docs/specs/B2Z_HUMAN_EXPERIENCE.md) for all controls,
-flows, status labels, payment handoff, rendering and playback lifecycle changes.
-Name affected UX contracts, update intentional requirements and run their regressions.
-The [operator procedure](docs/operations/S14_OPERATOR.md) now defaults to frontend
-updates of the installed paid European game; fresh installation is historical.
-Intentional visual/lifecycle changes also require populated before/after evidence;
-keep controlled hidden scheduling separate from actual browser suspension/visibility.
-
-Fluid camera, ball following, shifted map cuts, the icon toolbar and guide/effect
-layering changes require the UX-04/05/12 controlled-frame and populated-browser
-regressions. Preserve exact wallet bytes; UI no-op Move rejection must not change
-the authoritative Ledger interpreter or historic instruction data.
-
-Elastic playback changes must preserve UX-04/05/06: retain verified intervals,
-never consume coverage on an unchanged hidden head, count only distinct advancing
-heads for cadence, and keep latest-head financial authority separate from delayed
-presentation. Run actual pinned-clock/player regressions and label controlled
-lifecycle evidence separately from genuine browser visibility.
-
-Player refinement must preserve immutable canonical placement intent (UXR-01),
-panel-aware useful Focus, accumulated discrete zoom, fixed toolbar rectangles and
-one usable payment scrollport. Use the normative UXR matrix,
-`player-refinement.test.mjs` and populated `verify_refinement_browser.py` journeys;
-review actual-speed trails/wakes, not feature existence. Keep ghost/destination
-identity separate from the selected real cannon and preserve all financial bytes.
-
-Final visual closeout additionally uses `verify_visual_closeout.py`: preserve
-mobile source/preview clearance, filled provisional ghosts, modality-aware hints,
-stationary toolbar slots and exact financial content. Compare populated matched
-poses and actual-speed movement; software rendering is not hardware qualification.
-
-
-Audio/onboarding/compact-control work uses `docs/specs/B2Z_AUDIO.md` and the current
-UX continuation: native output/real-tab recovery is separate from synthetic
-lifecycle tests. Keep one model-backed arena quantity editor and exact full-value
-wallet copying; returning-account Join never conflates explicit additional Build.
-
-Quantity availability uses the retained cell-zero320×640/347.15° regression in
-`tools/verify_quantity_browser.py` and `tests/js/quantity-dock.test.mjs`. Opposite-
-arrow placement is preferred; one usable editor for visible Fire/Revive is
-mandatory. Preserve measured dock reservations, pointer/focus locks, viewport-
-change release fences, actual editor audio masks and zero status-only panel drift.
-
-Approved panel/War Cry work uses `docs/specs/B2Z_WAR_CRY.md` and the exact retained
-reference. Run shared-grid/copy/editor regressions and real valueless Ledger/Index
-annotation/replay/browser checks; mocks do not prove launch association. Preserve
-legacy adapters, gameplay-semantic seed projection, exact capability gating and
-paid-state cutover fences. No production activation follows from qualification.
-
-Combined clearance/War Cry development uses
-[Rules11](docs/specs/B2Z_COMBINED_CLEARANCE_WAR_CRY_11.md). Preserve standalone
-Rules7/9/10 identities and fixtures, direct state-preserving Rules7 cutover, exact
-source adapter6 semantics and both policy gates. Production remains Rules7 until
-a separately authorised backend operation. New compatibility assets are distinct
-from the approved79-file frontend freeze; never mix their staging directories.
-
-Isolated graphite/Deflector work follows [the visual system](docs/specs/B2Z_VISUAL_SYSTEM.md)
-and [numeric/capability checkpoint](docs/specs/B2Z_DEFLECTORS.md). Preserve approved
-panel axes, full financial values and measured editor reservations. Test all model
-headings/world footprints and actual shader/renderer costs; never infer game-state
-support from a synthetic render fixture. Contact-oracle parity is not installed
-purchase, scheduler, replay or migration qualification. Keep Deflector commands
-unavailable until an exact supporting authenticated policy is implemented.
-
-## Boundary Deflector development continuation
-
-For new Deflector changes use `docs/specs/B2Z_DEFLECTORS.md` and the boundary
-numerical proof. The former midpoint prototype is historical negative evidence.
-Retain schema6 and historical rule encodings; schema7/adapter7 are distinct.
-Do not overwrite qualified graphite or Rules11 freezes. Fixture/native controls,
-actual valueless Ledger/Index payments, independent authenticated replay and two
-ordinary observers are separate evidence requirements. No production activation
-is implicit. New exact-source qualification must cover changed runtime bytes.
+- Read-only production inspection uses approved tools. An installation,
+  operating-setting change, Full Speed experiment, controller operation,
+  snapshot or financial action requires separate explicit owner authority.
+  Preserve paid state, source position and receipts through verified same-ID
+  upgrades. Use exact current and compatible recovery artifacts and the
+  [current operator procedure](docs/operations/S14_OPERATOR.md).
+- Never inspect or export private keys, identity material, seed phrases,
+  wallet secrets or environment secrets. Never run `dfx identity export`,
+  use sudo, weaken browser or OS security policy, or access directories
+  outside the authorized workspace/user scope. Keep dependencies and
+  private working material out of Git.
+- Save coherent commits and preserve published history. Remote operations
+  require task authorization. Stage reviewable summaries in `evidence/` and
+  raw outputs in `.work/`. Classify unique release, recovery and failure
+  evidence before cleanup. Keep reviewed archive inventories and verify
+  retrieval. Follow the [maintenance policy](docs/operations/REPOSITORY_MAINTENANCE.md).
+- Use `tools/package_review.py` for committed-source handovers. Use a
+  complete checkout for builds and exact qualification. The historical
+  checkpoint packager retains its separate comprehensive purpose.

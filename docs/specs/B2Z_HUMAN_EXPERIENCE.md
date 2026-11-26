@@ -1,5 +1,10 @@
 # B2Z human experience
 
+Production uses Rules19, Schema11 and Adapter12. The [optional Rules18 Pay and
+Internet Identity contract](B2Z_RULES18_DELEGATED_PAYMENTS.md) extends the exact
+manual wallet handoff below. Historical Rules7/9/11 qualification, capability
+examples and candidate labels apply to their recorded releases. [Live status](../../STATUS.md)
+
 The approved shared read-only panel/War Cry continuation supersedes older payment
 row layouts and the routine visible fee row. See [the current contract](B2Z_WAR_CRY.md)
 and its exact approved reference. Title/amount share row1; From left/To right share
@@ -868,7 +873,7 @@ for fast iteration or uncontaminated performance measurement. A focused pass is
 not repository-wide source qualification or a substitute for visual review.
 
 Source release qualification requires a reviewed clean source revision, an auditable
-complete frontend manifest and all six substantive exact-source gates in
+complete frontend manifest and all seven substantive exact-source standard gates in
 [the verification workflow](../../.github/workflows/verification.yml):
 
 1. Source conformance.
@@ -877,6 +882,11 @@ complete frontend manifest and all six substantive exact-source gates in
 4. Runtime-lab Wasm.
 5. Browser HTTP and Web Crypto.
 6. S14 and million-cell installed-IC qualification.
+7. Immutable frontend Wasm and content identity.
+
+The [financial workflow](../../.github/workflows/delegated-payments.yml) adds two
+substantive jobs. The [prelaunch workflow](../../.github/workflows/developer-speed.yml)
+adds two for the temporary developer and capped Trickle build profiles.
 
 A failed, skipped, cancelled or incomplete substantive gate blocks production
 approval. “BLOCKED production inventory (not a pass)” is informational and supplies
@@ -896,9 +906,9 @@ Software frame measurements are evidence, not a smoothness pass.
 
 Production approval is a separate explicit authority after source qualification
 and visual review. Follow the installed paid-game [operator procedure](../operations/S14_OPERATOR.md).
-Retain prior immutable assets/manifest for rollback. Verify every served file,
-backend binding, CSP/security headers and paid-backend preservation after any
-approved asset-only publication. Never replay historical fresh-install commands.
+Retain the exact compatible recovery Wasm and asset inventory. Verify the installed
+module, served assets, backend binding, CSP/security headers and paid-state
+preservation for every authorized same-ID embedded frontend upgrade.
 A source commit or controller access alone grants no production operation authority.
 
 ## Review checklist
@@ -960,7 +970,7 @@ hint modality, exact payment/warning reachability and toolbar rectangles.
 fluid-depth and actual-speed motion checks protect the physical presentation.
 Matched populated captures and recordings are required; emulated viewport/DPR and
 SwiftShader evidence do not establish physical-device, hardware or genuine hidden-tab
-coverage. All six substantive exact-source release gates remain required.
+coverage. All applicable substantive exact-source release gates remain required.
 
 ## Optional sound (UX-04/05/06/12)
 

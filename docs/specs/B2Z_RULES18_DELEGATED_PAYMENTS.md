@@ -1,5 +1,10 @@
 # Rules18 optional delegated payments
 
+This payment contract remains active under [Rules19 and Schema11](B2Z_COMPACT_RESERVOIRS_19.md)
+with Adapter12 and the same permanent European origin. The activation section
+records the historical Rules17-to-Rules18 boundary. Verify current deployment
+and recovery through [STATUS](../../STATUS.md) and the [operator procedure](../operations/S14_OPERATOR.md).
+
 Rules18 extends the Rules17 economy with opt-in ICRC-2 authorization for the
 default certified B2Z receiving account. Manual payments work independently
 with the same prices, gameplay and Ledger block-time tariff selection.
@@ -16,8 +21,8 @@ amount and expiry. A separate direct, zero-value transfer from A to G grants or
 revokes gameplay access with the existing domain-separated memo. Ledger
 approval alone does not enter the game. Each optional Pay operation freezes
 the exact amount, fee, memo, accounts and creation timestamp and requires a
-user click. The canister never submits a transfer. Signing out leaves both
-permissions in place.
+user click. The backend does not submit the player’s Pay transfer. Its configured treasury
+route is governed separately. Signing out leaves both permissions in place.
 
 ## Permanent European Internet Identity origin
 
@@ -85,6 +90,6 @@ or recreated world is needed for this transition.
 The compatible frontend can verify Internet Identity on its established
 European origin while Rules17 is active. It can perform a signed read-only
 Ledger fee query in that state. Optional Pay and owner setup require the
-exact Rules18 certified configuration. Real sign-in and session lifecycle
-acceptance are external release checks; disposable keys exercise signing and
-Ledger processing separately.
+exact supported Rules18 or Rules19 certified configuration. Earlier European
+Rules18 evidence includes real sign-in and a signed read-only Ledger query.
+The current owner ceremony is tracked separately in [STATUS](../../STATUS.md).

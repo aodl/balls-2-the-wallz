@@ -16,8 +16,13 @@ Schema11 ordinary checkpoints validate and commit ranges directly. Authorized ex
 
 Historical publications and their manifests retain their exact bytes. The first Rules19 publication is a zero-time authenticated schema transition with the new rules, schema and configuration identities. Future publications use Schema11 state, event and score version tags. A future tariff snapshot references the actual committed predecessor hash in its epoch. Semantic comparison across encodings maps that authenticated reference and the version tags while requiring the effective tariff and all gameplay and receipt facts to agree.
 
-## Transition and recovery
+## Historical transition and current recovery
 
-The controller pauses gameplay, prepares `compact_reservoir`, lets the existing Ledger/Index fence and ordered-input drain finish, and commits using the exact predecessor manifest. An open admission tier and the existing transition headroom are required. The transition carries the same source identity, cursor and anchor and retains the exact previous publication and artifacts under the existing history policy. An old module can be reinstalled before durable preparation while the state is Schema10. Preparation introduces a durable record that the old module must reject. After preparation, recovery uses a module that understands that record and both schemas. A frontend that verifies both schemas is required before activation.
+For the original activation, the controller pauses gameplay, prepares `compact_reservoir`, lets the existing Ledger/Index fence and ordered-input drain finish, and commits using the exact predecessor manifest. An open admission tier and the existing transition headroom are required. The transition carries the same source identity, cursor and anchor and retains the exact previous publication and artifacts under the existing history policy. An old module can be reinstalled before durable preparation while the state is Schema10. Preparation introduces a durable record that the old module must reject. After preparation, recovery uses a module that understands that record and both schemas. A frontend that verifies both schemas is required before activation.
 
 [Application contract](B2Z_APPLICATION.md) · [Operator procedure](../operations/S14_OPERATOR.md)
+
+The European compact epoch is already active. The installed capped profile
+and its compatible public Rules19 recovery pair use the same Schema11 and
+Adapter12. Use the [current artifact inventory](../operations/PRODUCTION_RELEASES.md)
+and [same-canister procedure](../operations/B2Z_PRELAUNCH_TRICKLE.md).

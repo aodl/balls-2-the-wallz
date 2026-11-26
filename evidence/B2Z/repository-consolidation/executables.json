@@ -1,0 +1,138 @@
+{
+  "actions_artifacts": {
+    "15033641591": {
+      "bytes": 8210172,
+      "sha256": "6137d734842f2f12986b1bf31162de44bdd8b98668cdb2e3802d4643b8e6e567",
+      "run": 45633690703,
+      "expires": "2026-12-09"
+    },
+    "15031828103": {
+      "bytes": 76499590,
+      "sha256": "0f902c9fcf2276b87d664f3b68e51c87636d69b79135025d45f32efdc50b3959",
+      "run": 45633690703,
+      "expires": "2026-12-09"
+    }
+  },
+  "releases": {
+    "production/europe-rules19-prelaunch-trickle": {
+      "tag": "production/europe-rules19-prelaunch-trickle",
+      "source_commit": "741dbf898ade58ed2fa3a064d8bbe1acb577ed4a",
+      "profile": "prelaunch-trickle / developer frontend",
+      "qualification_runs": [
+        45633690667,
+        45633690844,
+        45633690703
+      ],
+      "compatibility": "Installed Schema11 and Adapter12 pair. Frontend includes temporary owner UI. Backend excludes test hooks.",
+      "files": {
+        "PRODUCTION.md": {
+          "sha256": "cb4749c333308cc6022d9463a96d99bdbcaefdbbb3aa6ca3b52e63b234acadf6",
+          "bytes": 5585
+        },
+        "RECOVERY.md": {
+          "sha256": "d243805cd63457b37c1cfd6288e12e929f56502a9b02f35dc0a8f6fc4f357fe1",
+          "bytes": 5631
+        },
+        "backend-candid-reference.did": {
+          "sha256": "5df05657f861b399bb7a3b3278f94a6bb3ae67b3b6cb46aa7d1b1bd1f37477d8",
+          "bytes": 14484
+        },
+        "frontend-embedded-inventory.json": {
+          "sha256": "0237cb20e5f232a403f1b7946cd25fd4cde616791f63b556b6b55c9cf8ebad2e",
+          "bytes": 29733
+        },
+        "frontend-module.json": {
+          "sha256": "66b2a408efb102b76c7025f5f5ada09edebc48a86fdcf4b077c15963625949ea",
+          "bytes": 1359
+        },
+        "prelaunch-trickle-interface.json": {
+          "sha256": "c0ac7b9698ae08e61b8cce1d95971ec2154f868eb665ab1c4ece482b889eb4d0",
+          "bytes": 3685
+        },
+        "prelaunch-trickle.wasm": {
+          "sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+          "bytes": 4398738
+        },
+        "trickle-frontend.wasm": {
+          "sha256": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff",
+          "bytes": 77674663
+        },
+        "trickle-qualification.json": {
+          "sha256": "edc9e5c89153befc8b308ad5c696f6e9562356dafb20143ad3792bdeacb465b3",
+          "bytes": 885
+        }
+      },
+      "dependency_identity": {
+        "rust": "1.94.1",
+        "dtr_rust": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+        "dtr_js": "0.15.0",
+        "icp_sdk_auth": "11.2.0",
+        "icp_sdk_core": "6.1.0",
+        "three": "0.187.0"
+      },
+      "provenance": "Actions artifacts 15033641591 and 15031828103",
+      "retrieval": "gh release download production/europe-rules19-prelaunch-trickle -R aodl/balls-2-the-wallz; verify SHA256SUMS after extraction",
+      "archive": "europe-rules19-prelaunch-trickle.zip",
+      "bytes": 76854586,
+      "sha256": "23c68b6bb4724a317962ad26c9e8c4c3df162823d73d8b438cbe7efc34715b64"
+    },
+    "production/europe-rules19": {
+      "tag": "production/europe-rules19",
+      "source_commit": "3f93d8b4c57f3c0ba752f3a8f6975e76069b9dc7",
+      "profile": "public Rules19 / embedded public frontend",
+      "qualification_runs": [
+        45512136989,
+        45512136835,
+        45512136843
+      ],
+      "compatibility": "Same-epoch Schema11 / Adapter12 recovery for capped Trickle. Public pair excludes developer controls. Do not use a Rules18 backend after the compact epoch.",
+      "files": {
+        "PRODUCTION_TRIAL.md": {
+          "sha256": "052d2f4123c793351f4f545c816d89647200f4ae88ba1c839fad505df5832f60",
+          "bytes": 5820
+        },
+        "RECOVERY.md": {
+          "sha256": "d243805cd63457b37c1cfd6288e12e929f56502a9b02f35dc0a8f6fc4f357fe1",
+          "bytes": 5631
+        },
+        "artifact-pins.json": {
+          "sha256": "34c7fbc5d791c1e88a6a58a4accb42cd12f0720960d9c5c992b61fd9536eb97f",
+          "bytes": 702
+        },
+        "backend-candid-reference.did": {
+          "sha256": "5df05657f861b399bb7a3b3278f94a6bb3ae67b3b6cb46aa7d1b1bd1f37477d8",
+          "bytes": 14484
+        },
+        "frontend-embedded-inventory.json": {
+          "sha256": "1075bfc9775bf041e49ce059b62d28c07f4a09318ff9a92bdde71c1e63278a70",
+          "bytes": 29253
+        },
+        "frontend-module.json": {
+          "sha256": "5dd7462496ab536ed25ce27bd4a65e7efdfd93a9930698eb5ac07fa7f06d7e67",
+          "bytes": 1359
+        },
+        "rules19-backend.wasm": {
+          "sha256": "b258ec234b9abd7db9e7b170c14e432b4d1ef2d9b2545632bddb58668a6095de",
+          "bytes": 4366235
+        },
+        "rules19-frontend.wasm": {
+          "sha256": "48de515cac98524e02a60f48112d8a65ca05bc2cb497528227f22b9e0df855e1",
+          "bytes": 77332135
+        }
+      },
+      "dependency_identity": {
+        "rust": "1.94.1",
+        "dtr_rust": "282d709143dacb4bca769a4d6e72b97fc93ef518",
+        "dtr_js": "0.15.0",
+        "icp_sdk_auth": "11.2.0",
+        "icp_sdk_core": "6.1.0",
+        "three": "0.187.0"
+      },
+      "provenance": "Standard run 45512136989, artifacts 14977135663 and 14975797298; backend also matched the vendored gzip raw executable",
+      "retrieval": "gh release download production/europe-rules19 -R aodl/balls-2-the-wallz; verify SHA256SUMS after extraction",
+      "archive": "europe-rules19.zip",
+      "bytes": 76679378,
+      "sha256": "3f8daa75b7ef7d46b3376ade1038e620e3ba62a1f08fb49a8206c94ce108a887"
+    }
+  }
+}

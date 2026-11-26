@@ -1,0 +1,18 @@
+{
+  "archive": "pre-consolidation-git-tree",
+  "remote": "https://github.com/aodl/balls-2-the-wallz",
+  "git_anchor": {
+    "sha": "315fe2ff1ff873c16e8f693025cc625b0ae59cab",
+    "tree": "4acd2034a466b2a60be9490d56a481bf9decaed4"
+  },
+  "manifest": "archived-files.tsv",
+  "manifest_sha256": "62fff88b3af417d9a8543f21a80023a7eb3fdc970489c6336fbb722efe295079",
+  "files": 2086,
+  "bytes": 688507884,
+  "verified": "Every blob retrieved by immutable commit and path through Git and SHA-256 compared to the original checkout. Three remote GitHub blob retrievals independently matched the same manifest. Remote commit tree matches local archive tree.",
+  "remote_samples": [
+    "evidence/B2Z/agent-foundations-2026-11-01/after-desktop.png",
+    "evidence/B2Z/tactical-polish/1440-journey.webm",
+    "evidence/BTZ/v6-release-candidate/after-mobile.png"
+  ]
+}

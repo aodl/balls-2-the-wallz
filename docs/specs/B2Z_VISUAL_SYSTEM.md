@@ -1,9 +1,11 @@
-# Graphite visual system — isolated candidate
+# Graphite visual system
 
-This candidate follows the six original owner references retained under
+The graphite system follows six original owner references under
 [evidence](../../evidence/B2Z/graphite-deflectors/reference/REFERENCE_GUIDE.md).
-It is not deployed. The aligned read-only payment grid remains the information
-contract; the concept footer and extra header icon are not product controls.
+The references describe the graphite design lineage. The current product uses
+the [human experience contract](B2Z_HUMAN_EXPERIENCE.md), including aligned
+wallet handoff and the optional Rules18 Pay controls. Later mesh and lifecycle
+refinements are in the maintained observer source.
 
 `theme.mjs` owns presentation contrast adjustment. Canonical account/territory
 palette assignment is unchanged. Real structures resolve their canonical owner;

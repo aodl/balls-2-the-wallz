@@ -2,7 +2,7 @@
 name: Temporary developer speed qualification
 on:
   push:
-    branches: [master, feature/b2z-temporary-dev-speed, feature/b2z-rules19-compact-reservoirs, feature/b2z-prelaunch-trickle]
+    branches: [master]
   pull_request:
     branches: [master]
 permissions:
