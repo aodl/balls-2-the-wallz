@@ -1390,3 +1390,73 @@ fn signed_rules19_construction_presentation() {
         String::from_utf8_lossy(&verified.stderr)
     );
 }
+
+#[test]
+#[ignore = "isolated reproduction of the current authorization wire boundary"]
+fn rules19_digit_leading_grant_wire_boundary() {
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let payer = (0..=u8::MAX)
+        .map(|value| Principal::self_authenticating([value; 32]))
+        .find(|p| {
+            AccountIdentifier::new(p, &DEFAULT_SUBACCOUNT)
+                .to_hex()
+                .as_bytes()[0]
+                .is_ascii_digit()
+        })
+        .unwrap();
+    let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers_options(
+        bytes("B2Z_COST_PROFILE_WASM"),
+        seed("two_ball").encode().unwrap(),
+        10_000,
+        0,
+        &[payer],
+        true,
+    );
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    compact_cutover(&pic, id, ledger, &compact, &out);
+    upgrade_during_recovery(&pic, id, &bytes("B2Z_CONSTRUCTION_PRIOR_WASM")).unwrap();
+    let (prior, publication) = capture(&pic, id, &out, 0);
+    let spender = Principal::self_authenticating([77; 32]);
+    let grant = b2z_protocol::delegation::encode_authorization(
+        &b2z_protocol::delegation::AuthorizationMemo::Grant(spender.as_slice().to_vec()),
+    )
+    .unwrap();
+    let position = transfer_text(&pic, ledger, payer, id, 0, &grant);
+    for _ in 0..180 {
+        advance(&pic, 1000);
+        if status(&pic, id).source.admitted_to_exclusive > position && transition_drained(&pic, id)
+        {
+            break;
+        }
+    }
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, position + 1);
+    playability_installed::configuration(&pic, id, 512);
+    advance(&pic, 100_000);
+    for _ in 0..250 {
+        if status(&pic, id).run.last_error.is_some() {
+            break;
+        }
+        advance(&pic, 50);
+    }
+    let state = status(&pic, id);
+    let error = state
+        .run
+        .last_error
+        .as_deref()
+        .expect("dependent wire fault should be explicit");
+    assert!(error.contains("reserved/noncanonical key"), "{error}");
+    assert!(!state.run.running);
+    assert_eq!(observe(&pic, id).0.publication, prior.publication);
+    std::fs::write(
+        out.join("digit-leading-grant.json"),
+        serde_json::to_vec_pretty(&json!({
+            "status":"REPRODUCED","scope":"genuine disposable Rules19 Ledger/Index and installed backend",
+            "funding_account_key_begins_with_digit":true,"grant_position":position,
+            "source_cursor":state.source.admitted_to_exclusive,"published_head":publication.head.segment_id,
+            "published_head_preserved":true,"run_error":error,"running":state.run.running,
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+}
