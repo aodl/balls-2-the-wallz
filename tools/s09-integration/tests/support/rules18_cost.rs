@@ -1270,7 +1270,8 @@ fn signed_rules19_construction_presentation() {
     let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
     compact_cutover(&pic, id, ledger, &compact, &out);
     upgrade_during_recovery(&pic, id, &bytes("B2Z_CONSTRUCTION_PRIOR_WASM")).unwrap();
-    let (before, _) = capture(&pic, id, &out, 0);
+    pause(&pic, id);
+    let (_, before_publication) = capture(&pic, id, &out, 0);
     let prior = arena_world(&pic, id);
     let sites = (0..prior.cell_count())
         .filter(|&cell| prior.player_at(cell) == Some(owner))
@@ -1311,12 +1312,29 @@ fn signed_rules19_construction_presentation() {
     let last = *expected.keys().last().unwrap();
     for _ in 0..180 {
         advance(&pic, 1000);
-        if status(&pic, id).source.admitted_to_exclusive > last && transition_drained(&pic, id) {
+        // Admission can produce a no-tick publication while these payments
+        // remain unapplied. The source cursor and structures, not publication
+        // byte identity, fence the actual paid construction outcome.
+        if status(&pic, id).source.admitted_to_exclusive > last {
             break;
         }
     }
     assert_eq!(status(&pic, id).source.admitted_to_exclusive, last + 1);
-    assert_eq!(observe(&pic, id).0.publication, before.publication);
+    assert_eq!(
+        observe(&pic, id).1.head.source_to_exclusive,
+        before_publication.head.source_to_exclusive
+    );
+    let held = arena_world(&pic, id);
+    assert!(!held.cannons.iter().any(|c| c.cell == cannon));
+    assert!(!held.deflectors.iter().flatten().any(|d| d.cell == diverter));
+    // Replay begins at the latest certified pre-payment publication. Its
+    // predecessor may be a source-admission no-tick publication; starting
+    // from the earlier snapshot would skip that valid history link.
+    let (_, staged_publication) = capture(&pic, id, &out, 0);
+    assert_eq!(
+        staged_publication.head.source_to_exclusive,
+        before_publication.head.source_to_exclusive
+    );
     let target = status(&pic, id).run.completed_segments + 1;
     playability_installed::configuration(&pic, id, 512);
     advance(&pic, 100_000);
