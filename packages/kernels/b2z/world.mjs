@@ -116,6 +116,11 @@ export function migrateAuthorizationRows(predecessor) {
   if(predecessor.version!==11)throw Error('AUTH_V3_PREDECESSOR');
   const next=cloneCanonical(validateWorld(predecessor));
   next.authorization=authorizationV3FromV2(next.authorization);
+  // Existing announced prices stay linear. The first successor observation
+  // occurs at the next midnight and takes effect at the midnight after it.
+  const start=(next.playability.elapsed_ns/DAY_NS+2n)*DAY_NS;
+  if(start>18446744073709551615n)throw Error('SUCCESSOR_TARIFF_BOUNDARY_OVERFLOW');
+  next.economy_formula_start_ns=start;
   next.version=12;
   return validateWorld(next);
 }
@@ -282,6 +287,11 @@ export function validateWorld(w) {
   if(w.version>=7)validateDeflectorState(w);else if(w.deflectors!==undefined||w.next_deflector_id!==undefined)throw Error('historical structure extension');
   validateReservoirs(w);
   validateEconomy(w);
+  if(w.version===12){
+    if(typeof w.economy_formula_start_ns!=='bigint'||w.economy_formula_start_ns<0n||
+       w.economy_formula_start_ns>18446744073709551615n||w.economy_formula_start_ns%DAY_NS!==0n)
+      throw Error('successor tariff formula boundary');
+  }else if(w.economy_formula_start_ns!==undefined)throw Error('successor tariff formula boundary');
   if(w.version>=10&&w.version<=11)validateAuthorization(w.authorization);
   else if(w.version===12)validateAuthorizationV3(w.authorization);
   else if(w.authorization!==undefined)throw Error('authorization schema');

@@ -2,8 +2,11 @@
 
 Rules19 remains the active ruleset. The proposed successor requires an
 authenticated epoch and an independently verified state-preserving transition.
-This branch defines and tests bounded pricing and grace-prefix selection. It has no active
-successor configuration or migration.
+This branch defines and tests bounded pricing, grace-prefix selection,
+checkerboard contact and one-traversal construction exceptions. It includes
+a Schema11-to-12 **state-only** migration for authorization rows and the
+tariff formula boundary. It has no authenticated successor epoch or active
+successor configuration.
 
 ## Tariff inputs and amounts
 
@@ -15,6 +18,18 @@ previous tariff during the existing one-hour grace window retains its own
 formula identity, including a linear Rules17–19 tariff at activation. Compare
 affordable prefixes even when the newer price is unrepresentable. Existing
 tie-breaking and fixed-price actions retain their prior meaning.
+
+The Schema12 draft stores `economy_formula_start_ns` as an exact UTC midnight
+boundary, in addition to the existing authenticated daily population
+schedule. It is the effective boundary of the first tariff observed after
+the successor epoch. Earlier tariff snapshots keep the historical linear
+formula; successor snapshots at or after this boundary use the symbolic
+exponential formula. At a grace boundary, the active and previous snapshot
+each carry their own formula meaning. The value is computed from the
+predecessor committed clock during state-only migration, not from a browser
+clock. This field is now encoded identically by the Rust and JavaScript
+Schema12 migration prototypes; actual purchase/receipt/quote integration is
+still pending.
 
 For population at most 1,000 the multiplier is `max(1, population)`. Above
 1,000 it is `1000 × 2^(population-1000)`. Evaluate the applicable base amount

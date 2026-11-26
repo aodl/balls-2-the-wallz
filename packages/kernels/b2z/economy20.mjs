@@ -16,6 +16,22 @@ export function marginalPrice(baseE8s,population,currentPersonalCount){
  return unshifted<=MAX_LEDGER_AMOUNT>>shift?unshifted<<shift:null;
 }
 
+/** Each authenticated daily population row retains its own formula epoch.
+ * The previous Rules19 tariff stays linear during the first successor grace. */
+export function tariffs20(schedule,formulaStartNs,blockNs){
+ let lo=0,hi=schedule.snapshots.length;
+ while(lo<hi){const mid=lo+Math.floor((hi-lo)/2);if(schedule.snapshots[mid].effective_ns<=blockNs)lo=mid+1;else hi=mid;}
+ if(lo===0)return {current:{formula:'linear',multiplier:schedule.initial_multiplier},previous:null};
+ const active=schedule.snapshots[lo-1];
+ const named=(population,effective)=>effective>=formulaStartNs?
+  {formula:'exponential',population}:{formula:'linear',multiplier:population};
+ const current=named(active.multiplier,active.effective_ns);
+ const priorEffective=lo>1?schedule.snapshots[lo-2].effective_ns:0n;
+ const prior=named(active.previous_multiplier,priorEffective);
+ return {current,previous:blockNs<active.grace_end_ns&&
+   (current.formula!==prior.formula||current.population!==prior.population||current.multiplier!==prior.multiplier)?prior:null};
+}
+
 function price(tariff,base,held){
  switch(tariff.formula){
   case 'linear':return marginal(base,tariff.multiplier,held);

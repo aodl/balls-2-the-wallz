@@ -235,6 +235,23 @@ pub fn migrate(mut predecessor: crate::world::World) -> Result<crate::world::Wor
         _ => return Err("AUTH_V3_PREDECESSOR".into()),
     };
     predecessor.authorization = Some(AuthorizationState::Rows(RegistryV3::from_v2(&historical)?));
+    // The first tariff observed after activation is announced at the next
+    // midnight and effective the following midnight. Existing announced
+    // tariffs keep their historical linear meaning through that boundary.
+    let day = b2z_protocol::economy17::DAY_NS;
+    let elapsed = crate::playability::elapsed(
+        &predecessor
+            .playability
+            .as_ref()
+            .ok_or("EXPECTED_V6")?
+            .elapsed_ns,
+    )?;
+    let formula_start = elapsed
+        .checked_div(day)
+        .and_then(|days| days.checked_add(2))
+        .and_then(|days| days.checked_mul(day))
+        .ok_or("SUCCESSOR_TARIFF_BOUNDARY_OVERFLOW")?;
+    predecessor.economy_formula_start_ns = Some(Int(formula_start.into()));
     predecessor.version = 12;
     predecessor.validate()?;
     Ok(predecessor)
@@ -261,7 +278,18 @@ mod tests {
         let compact = crate::reservoirs::migrate_compact(reservoir_predecessor).unwrap();
         let successor = migrate(compact.clone()).unwrap();
         assert_eq!(successor.version, 12);
+        let day = b2z_protocol::economy17::DAY_NS;
+        let previous_ns =
+            crate::playability::elapsed(&compact.playability.as_ref().unwrap().elapsed_ns).unwrap();
+        assert_eq!(
+            successor.economy_formula_start_ns,
+            Some(Int(((previous_ns / day + 2) * day).into()))
+        );
         assert_eq!(previous.encode().unwrap(), original);
+        assert_eq!(
+            hash(&successor.encode().unwrap()),
+            "397f1ea8f24d4fc646d2baeb1e6971bab834c12ab4d2ab2510bc3b975988887d"
+        );
         assert_eq!(
             crate::world::World::decode(&successor.encode().unwrap()).unwrap(),
             successor

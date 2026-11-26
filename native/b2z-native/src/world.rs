@@ -219,6 +219,8 @@ pub struct World {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub economy: Option<crate::economy17::Schedule>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub economy_formula_start_ns: Option<Int>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub authorization: Option<crate::delegation_v20::AuthorizationState>,
     #[serde(default, skip_serializing_if = "Vec::is_empty")]
     pub passage_exceptions: Vec<crate::passage_v20::Exception>,
@@ -818,6 +820,12 @@ impl World {
                 &self.playability.as_ref().ok_or("EXPECTED_V6")?.elapsed_ns,
             )?)?,
             (9..=12, None) | (_, Some(_)) => return fail("economy schema"),
+            _ => {}
+        }
+        match (self.version, &self.economy_formula_start_ns) {
+            (12, Some(start))
+                if crate::playability::elapsed(start)? % b2z_protocol::economy17::DAY_NS == 0 => {}
+            (12, _) | (_, Some(_)) => return fail("successor tariff formula boundary"),
             _ => {}
         }
         match (self.version, &self.authorization) {

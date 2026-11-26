@@ -8,6 +8,7 @@ import {decodeDelegatedPayment,icpAccount} from '../../packages/protocol/delegat
 import {emptyAuthorization,authorizePayment,receiptTransfer,verifyAuthorizationReceipts} from '../../packages/kernels/b2z/delegation-v18.mjs';
 import {authorizationV3FromV2,authorizationV2FromV3,authorizePaymentV3,validateAuthorizationV3} from '../../packages/kernels/b2z/delegation-v20.mjs';
 import {decodeWorld,encodeWorld,migrateCompactReservoirs,migrateAuthorizationRows} from '../../packages/kernels/b2z/world.mjs';
+import {DAY_NS} from '../../packages/protocol/economy17.generated.mjs';
 
 const vector=JSON.parse(readFileSync(new URL('../fixtures/b2z-delegation-v18.json',import.meta.url)));
 
@@ -19,6 +20,8 @@ test('exact paid Rules19 world migrates to canonical grant rows without changing
  assert.equal(predecessor.version,11);
  const successor=migrateAuthorizationRows(predecessor);
  assert.equal(successor.version,12);
+ assert.equal(predecessor.economy_formula_start_ns,undefined);
+ assert.equal(successor.economy_formula_start_ns,(predecessor.playability.elapsed_ns/DAY_NS+2n)*DAY_NS);
  assert.equal(successor.authorization.version,3);
  assert.deepEqual(authorizationV2FromV3(successor.authorization),predecessor.authorization);
  assert.deepEqual(decodeWorld(encodeWorld(successor)),successor);

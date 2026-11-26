@@ -38,6 +38,44 @@ impl Tariff {
     }
 }
 
+/// Interpret the authenticated daily population rows at their own effective
+/// boundaries. A predecessor announced before the successor cutover remains
+/// linear throughout its grace window, even after the first new tariff starts.
+pub fn tariffs(
+    schedule: &crate::economy17::Schedule,
+    formula_start_ns: u64,
+    block_ns: u64,
+) -> (Tariff, Option<Tariff>) {
+    let at = schedule
+        .snapshots
+        .partition_point(|row| row.effective_ns.0 <= block_ns.into());
+    if at == 0 {
+        return (Tariff::Linear(schedule.initial_multiplier), None);
+    }
+    let active = &schedule.snapshots[at - 1];
+    let formula = |effective: &dtr_wire::Int, population| {
+        if effective.0 >= formula_start_ns.into() {
+            Tariff::Exponential(population)
+        } else {
+            Tariff::Linear(population)
+        }
+    };
+    let current = formula(&active.effective_ns, active.multiplier);
+    let previous = if at > 1 {
+        formula(
+            &schedule.snapshots[at - 2].effective_ns,
+            active.previous_multiplier,
+        )
+    } else {
+        Tariff::Linear(active.previous_multiplier)
+    };
+    let in_grace = active.grace_end_ns.0 > block_ns.into();
+    (
+        current,
+        (in_grace && previous != current).then_some(previous),
+    )
+}
+
 /// A prefix of an executable plan. The caller supplies the inventory after a
 /// Cannon's included Ball and applies the existing legality and capacity caps.
 #[derive(Clone, Copy)]
@@ -96,6 +134,61 @@ pub fn choose_tariff(
 #[cfg(test)]
 mod tests {
     use super::*;
+
+    use dtr_wire::Int;
+
+    #[test]
+    fn daily_formula_boundary_preserves_a_linear_grace_tariff() {
+        let day = b2z_protocol::economy17::DAY_NS;
+        let grace = b2z_protocol::economy17::GRACE_NS;
+        let stamp = |n: u64| Int(n.into());
+        let mut schedule = crate::economy17::Schedule {
+            activated_ns: stamp(0),
+            population: 1_000,
+            initial_multiplier: 1_000,
+            predecessor_state_hash: "0".repeat(64),
+            snapshots: vec![],
+        };
+        for (boundary, population, previous) in [(day, 1_001, 1_000), (2 * day, 1_002, 1_001)] {
+            schedule.snapshots.push(crate::economy17::Snapshot {
+                first_boundary_ns: stamp(boundary),
+                boundary_ns: stamp(boundary),
+                population,
+                multiplier: population,
+                previous_multiplier: previous,
+                announced_ns: stamp(boundary),
+                effective_ns: stamp(boundary + day),
+                grace_end_ns: stamp(boundary + day + grace),
+                predecessor_commit_ns: stamp(boundary - day),
+                predecessor_state_hash: "0".repeat(64),
+            });
+        }
+        schedule.validate(2 * day).unwrap();
+        assert_eq!(
+            tariffs(&schedule, 2 * day, 2 * day - 1),
+            (Tariff::Linear(1_000), None)
+        );
+        assert_eq!(
+            tariffs(&schedule, 2 * day, 2 * day),
+            (Tariff::Exponential(1_001), Some(Tariff::Linear(1_000)))
+        );
+        assert_eq!(
+            tariffs(&schedule, 2 * day, 2 * day + grace),
+            (Tariff::Exponential(1_001), None)
+        );
+        assert_eq!(
+            tariffs(&schedule, 2 * day, 3 * day),
+            (Tariff::Exponential(1_002), Some(Tariff::Exponential(1_001)))
+        );
+        let mut same_population = schedule.clone();
+        same_population.snapshots[0].population = 1_000;
+        same_population.snapshots[0].multiplier = 1_000;
+        same_population.snapshots[1].previous_multiplier = 1_000;
+        assert_eq!(
+            tariffs(&same_population, 2 * day, 2 * day),
+            (Tariff::Exponential(1_000), Some(Tariff::Linear(1_000)))
+        );
+    }
 
     #[test]
     fn exact_shared_marginal_price_vectors() {
