@@ -51,6 +51,10 @@ let bootError=null,catalog=null,session=null,paused=false,speed=1,lastFrame=null
 let cameraRestored=false,lastDetailsKey='';
 let deliveryPaused=false,visible=null,visibleTime=0,focusOnNextDraw=false;
 const arcade=createArcade(document,{paymentCurrent:()=>experienceAt(session,phase(),performance.now()).resolved.canPrepare}),camera=new Camera();
+const manufacturingStatus=document.createElement('span');
+manufacturingStatus.className='sr-only';
+manufacturingStatus.setAttribute('role','status');
+canvas.after(manufacturingStatus);
 const shell=createShell(document,camera,arcade,{selected:()=>arcade.selected()??visible?.cannons.get(arcade.selectedCannon()),first:()=>visible?.cannons.values().next().value,cell:(n,p,screen)=>{
  if(arcade.moveSelection())return arcade.chooseCell(n);
  return false;
@@ -483,8 +487,12 @@ function draw(frameTime=null){
  const v=visible;camera.configure(v.width,v.height,rect.width,rect.height,Boolean(v.torus));
  if(!cameraRestored){const p=arcade.camera();if(p?.projection==='isometric-1'&&[p.x,p.y,p.scale].every(Number.isFinite)&&p.scale>0){camera.x=p.x;camera.y=p.y;camera.scale=p.scale;if(Number.isInteger(p.quarter)&&p.quarter>=0&&p.quarter<4)camera.angle=-p.quarter*Math.PI/2;camera.constrain();focusOnNextDraw=false;}cameraRestored=true;}
  if(focusOnNextDraw){const c=v.cannons.get(arcade.selectedCannon())??v.cannons.values().next().value;if(c)camera.frameCell(c.cell);focusOnNextDraw=false;}
- arcade.presentation(v);const points=ballPoints.get(v,visibleTime);shell.advance(v,visibleTime,performance.now(),JSON.stringify(session?.sequence.last?.publication.identity??{}),points);
- try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,frameTime,points,audioEligible:audio.effectsReady()&&zoomGain(camera.scale)>0,followed:shell.followedBall(),selectedBalls:shell.selectedBalls(),hover:shell.hover(),selection:arcade.moveSelection(),selected:arcade.selectedCannon(),selectedTile:arcade.selectedTile(),selectedDeflector:arcade.selectedDeflector(),guideObstacles:shell.guideObstacles(),aim:arcade.aim(),reducedMotion:reducedMotion.matches});if(session&&!renderError){session.lastRenderedAt=performance.now();session.lastRenderedPlayhead=visibleTime;if(session.returnStartedAt!==undefined&&session.firstWarmRenderAt===null)session.firstWarmRenderAt=session.lastRenderedAt;}}
+ arcade.presentation(v);
+ const manufacturing=session?.ready&&!session.error?arcade.manufacturing(v):[];
+ const message=manufacturing.map(site=>(site.kind==='cannon'?'Cannon. ':'Diverter. ')+site.label).join('. ');
+ if(manufacturingStatus.textContent!==message)manufacturingStatus.textContent=message;
+ const points=ballPoints.get(v,visibleTime);shell.advance(v,visibleTime,performance.now(),JSON.stringify(session?.sequence.last?.publication.identity??{}),points);
+ try{globalThis.__b2zRender=arenaRenderer.draw(v,camera,{time:visibleTime,frameTime,points,manufacturing,audioEligible:audio.effectsReady()&&zoomGain(camera.scale)>0,followed:shell.followedBall(),selectedBalls:shell.selectedBalls(),hover:shell.hover(),selection:arcade.moveSelection(),selected:arcade.selectedCannon(),selectedTile:arcade.selectedTile(),selectedDeflector:arcade.selectedDeflector(),guideObstacles:shell.guideObstacles(),aim:arcade.aim(),reducedMotion:reducedMotion.matches});if(session&&!renderError){session.lastRenderedAt=performance.now();session.lastRenderedPlayhead=visibleTime;if(session.returnStartedAt!==undefined&&session.firstWarmRenderAt===null)session.firstWarmRenderAt=session.lastRenderedAt;}}
  catch(error){renderError=String(error);$('render-error').hidden=false;$('render-error').textContent='The arena could not be rendered. '+String(error?.message??error);}
  const drawnPose=audioPose(camera);shell.update(v,arenaRenderer.surface());
  const label=`B2Z isometric arena: ${v.width} by ${v.height} cells, ${v.cannons.size} cannons, ${v.balls.size} balls.`;

@@ -1,0 +1,62 @@
+{
+  "retrieval_path": "/home/codexdev/b2z-release-evidence/development-programme/manufacturing-browser-fixture.zip",
+  "sha256": "4a356ed54b32bfa612884c76cc6a071399c8419012ec349749dce747c9a92f61",
+  "files": {
+    "1440x900-cannon-baseline.png": {
+      "bytes": 521428,
+      "sha256": "4528e68f37f3cbd0a37ce5ac717c684f7e16c7f557d3ad767575153215b72750"
+    },
+    "1440x900-cannon-later.png": {
+      "bytes": 525382,
+      "sha256": "7fc7948cca0d8b38c08428907cc6d3800340509bc18ffac778765e699c69a1ce"
+    },
+    "1440x900-cannon-manufacturing.png": {
+      "bytes": 525551,
+      "sha256": "4a556afdb4c43875a923bdf2a7558ded99359c7399a17745f5018041b7d3356a"
+    },
+    "320x640-cannon-baseline.png": {
+      "bytes": 71396,
+      "sha256": "761eb5a264292e3e4039a2b0187e6161402efd9c5b83ff1f9c734e491e703bad"
+    },
+    "320x640-cannon-later.png": {
+      "bytes": 74400,
+      "sha256": "7858d65df53a30841c438904e041889e09d43ab3ebbe4d34514edc22777454c9"
+    },
+    "320x640-cannon-manufacturing.png": {
+      "bytes": 74400,
+      "sha256": "7858d65df53a30841c438904e041889e09d43ab3ebbe4d34514edc22777454c9"
+    },
+    "390x475-deflector-baseline.png": {
+      "bytes": 69507,
+      "sha256": "9c8bb104a92356023f7958bf0431e7302f289fdf43a7eb88efd7d877b053bd04"
+    },
+    "390x475-deflector-later.png": {
+      "bytes": 71571,
+      "sha256": "fa510399edf09382ca19120c6077c68fd11cdd357819a0864af5a5e1dbd796b3"
+    },
+    "390x475-deflector-manufacturing.png": {
+      "bytes": 71156,
+      "sha256": "1f6ad01d5cfb6856d5dfdf78e19b0a2cbd711c6773256e1c8b6c395ec87a9a15"
+    },
+    "390x844-deflector-baseline.png": {
+      "bytes": 93375,
+      "sha256": "1b4935d0213f5803487a020783ed88891af7d24dd60710fc812bd68ac65ac75f"
+    },
+    "390x844-deflector-later.png": {
+      "bytes": 94786,
+      "sha256": "014da8ccaa08ae8f48483db440370ad2fcb8a2aa8f25c337ef0a2bfffa2122fe"
+    },
+    "390x844-deflector-manufacturing.png": {
+      "bytes": 95279,
+      "sha256": "f1be2693d4c37d9487d06677e7a64cadae36558dd12d2016fb0529af64968eff"
+    },
+    "results.json": {
+      "bytes": 10935,
+      "sha256": "d33771a2fbf455da0e1418148495502e7b9ce837b55b1c30174b5dc8acf2bca1"
+    },
+    "video/page@b18df1d2cdb650320eb234d8e2efc791.webm": {
+      "bytes": 400923,
+      "sha256": "fa96b3e130837fbbd7e68920422d1b151c62850eef165d03e5e5cf7a3075915e"
+    }
+  }
+}

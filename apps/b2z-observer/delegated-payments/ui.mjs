@@ -1,3 +1,4 @@
+import {signedConstruction} from '../manufacturing.mjs';
 /** Optional signing controls gated by authenticated payment-source and epoch identities. */
 import{paymentSession,DERIVATION_ORIGIN}from'./auth.mjs';import{signedLedger}from'./ledger.mjs';import{paymentJournal}from'./intents.mjs';import{explicitFunding,verifiedPaymentSource,verifiedGameAccess,verifiedPayment,assertIntentAuthority,paymentIntent,verifyGameReceipt}from'./context.mjs';import{ownerSetup,ownerRevocation}from'./setup.mjs';
 import{parseSendingAccount}from'../identity.mjs';import{icpAccount}from'../../../packages/protocol/delegation.mjs';import{DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY}from'../torus-identity.generated.mjs';
@@ -85,6 +86,18 @@ export function mountPayments(doc,{enabled=false,session,arcade,policy,storage,l
   section.hidden=!active&&!canSignIn()&&!signed;
   text('allowance-status',permission?`${permissionMayHaveChanged||performance.now()-permissionAt>60000?'Last checked allowance':'Spending allowance'}: ${icp(permission.allowance)} · ${permission.expires_at===null?'finite expiry required':'expires '+new Date(Number(permission.expires_at/1000000n)).toLocaleString()}`:'Allowance not checked');
   let access=null,v=null;try{access=verifiedGameAccess(session(),funding,spender,{localTest});}catch{}try{v=verified();}catch{}text('game-access-status',access?'Game access verified':signed&&funding?'Game access needs verification':'');pay.hidden=!active||!signed||!funding||arcade.context()!=='action';text('direct-pay',v?`Pay ${icp(v.amount)}`:'Pay');$('direct-pay').disabled=!storageUsable||!locks?.request||!v||!usable(v)||busy||reading||rows.some(r=>pending(r.state));$('direct-pay').setAttribute('aria-busy',String(busy));text('direct-fee',permission?`Transfer fee ${icp(permission.fee)} extra`:'Refresh permissions to query the fee');text('direct-pay-status',!storageUsable?'Payment storage unavailable. Wallet instructions still work.':!locks?.request?'Browser payment locking unavailable. Wallet instructions still work.':message);
+  const currentSession=session();
+  if(arcade.constructionPayments){
+   const plans=[];
+   if(currentSession?.config?.rules_version===19)for(const item of rows){
+    const candidate=item.index===null?null:currentSession.receipts?.get(item.index);
+    let receipt=null;
+    if(candidate)try{verifyGameReceipt(currentSession,item,candidate);receipt=candidate;}catch{/* A saved intent alone cannot bind a birth. */}
+    const plan=signedConstruction(item,arcade.account(),receipt);
+    if(plan)plans.push(plan);
+   }
+   arcade.constructionPayments(plans.reverse());
+  }
   const key=JSON.stringify(rows);history.hidden=!rows.length;$('recover-payment').hidden=!retainedReceipts||!rows.some(r=>pending(r.state));$('recover-payment').disabled=reconciling||busy;if(key!==lastJournal){lastJournal=key;const nodes=rows.slice().reverse().map(r=>{const n=doc.createElement('p');n.textContent=`${icp(r.amount)} · ${r.state==='Game outcome verified'?'Saved: '+gameResultText(r.game_result.status):r.state==='Ledger confirmed'?'Payment sent · awaiting game':r.state==='Outcome unknown'||r.state==='Submitting'?'Payment status unknown':r.state==='Ledger rejected'?'Payment rejected · '+publicError(r.error):r.state}`;return n;});$('signed-payment-history').replaceChildren(...nodes);}
  }
  on($('payment-sign-in'),'click',async()=>{if(!canSignIn()||busy||reading)return;
@@ -99,5 +112,5 @@ export function mountPayments(doc,{enabled=false,session,arcade,policy,storage,l
  on($('allowance-refresh'),'click',()=>void refresh());
  on($('owner-setup'),'click',()=>void prepareOwner('setup'));on($('owner-revoke-allowance'),'click',()=>void prepareOwner('allowance'));on($('owner-revoke-game'),'click',()=>void prepareOwner('game'));
  on($('recover-payment'),'click',()=>void reconcile(true));on($('direct-pay'),'click',()=>void submit());on(doc,'b2z-overlay',schedule);on(doc,'input',e=>{if(['angle-degrees','ball-quantity','move-cell','new-cell'].includes(e.target.id))schedule();});
- render();return{update(){if(stopped)return;validateOwner();const next=session()?.root??'';if(next!==root){root=next;void reconcile();}const now=performance.now();if(now-lastUpdate>=1000){lastUpdate=now;schedule();}},stop(){if(stopped)return;clearOwner();stopped=true;generation++;client?.cancel();auth.stop();for(const remove of listeners)remove();section.remove();pay.remove();history.remove();}};
+ render();return{update(){if(stopped)return;validateOwner();const next=session()?.root??'';if(next!==root){root=next;void reconcile();}const now=performance.now();if(now-lastUpdate>=1000){lastUpdate=now;schedule();}},stop(){if(stopped)return;arcade.constructionPayments?.([]);clearOwner();stopped=true;generation++;client?.cancel();auth.stop();for(const remove of listeners)remove();section.remove();pay.remove();history.remove();}};
 }

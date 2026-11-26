@@ -8,6 +8,7 @@ import subprocess
 import sys
 
 from build_embedded_frontend import ROOT, digest, report
+from verify_rules18_mainline import REVIEW_ASSETS
 
 PRODUCTION_SOURCE = "351d96d7059f7f84957af1470c86a7028c588392"
 FROZEN_ASSETS = "evidence/B2Z/rules18-delegated-payments/artifacts"
@@ -36,8 +37,16 @@ def main():
     refresh = output / "current-observer"
     subprocess.run(["node", "tools/build_observer_playability.mjs", "--canister",
                     "s5ir5-gqaaa-aaaas-amyna-cai", "--output", str(refresh)], cwd=ROOT, check=True)
-    player = observer / "app.mjs"
-    shutil.copyfile(refresh / "app.mjs", player)
+    updated = []
+    review = json.loads(REVIEW_ASSETS.read_text())
+    if not review or not set(review) <= {"app.mjs", "index.html", "style.css"} or "app.mjs" not in review:
+        raise ValueError("Unexpected prelaunch review asset override")
+    for name, checksum in review.items():
+        source = refresh / name
+        if digest(source.read_bytes()) != checksum:
+            raise ValueError(f"Prelaunch review asset changed: {name}")
+        shutil.copyfile(source, observer / name)
+        updated.append(observer / name)
     successor_assets = [observer / name for name in ("backend.did", "configuration-compact-reservoir.bin")]
     for asset in successor_assets:
         shutil.copyfile(refresh / asset.name, asset)
@@ -50,7 +59,7 @@ def main():
     assert html.count(b"</body>") == 1
     index.write_bytes(html.replace(b"</body>", b'<script type="module" src="/developer-speed.mjs"></script></body>'))
     rows = json.loads((frozen / "frontend-inventory.json").read_text())
-    for file in (index, player, target, *successor_assets):
+    for file in set([index, target, *updated, *successor_assets]):
         rows = [row for row in rows if row["path"] != file.name]
         data = file.read_bytes()
         rows.append({"path": file.name, "bytes": len(data), "sha256": digest(data)})

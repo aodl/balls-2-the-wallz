@@ -1,3 +1,4 @@
+import {constructionPresentation} from './manufacturing.mjs';
 import {economyAt} from '../../packages/kernels/b2z/economy17.mjs';
 import {DAY_NS} from '../../packages/protocol/economy17.generated.mjs';
 import {fitShout} from '../../packages/protocol/shout.mjs';
@@ -27,6 +28,7 @@ export const transferMemo=degrees=>describeTextMemo('angle',degrees);
 /** UX-08/10: describe the current proposal. */
 export function paymentWarning(q){return Number.isSafeInteger(q?.cell)&&q.cell>=0&&['move','start','deflect','deflector_move','reservoir'].includes(q.action)?'If another player claims your chosen tile before your action is processed, the action fails and your ICP remains spent.':'Fire balls to claim territory, and combine with obstacles to orchestrate defensive shields or offensive rallies!';}
 export function createArcade(doc,{paymentCurrent=()=>true}={}){
+ const construction=constructionPresentation();
  const $=id=>doc.getElementById(id),text=(id,value)=>{if($(id).textContent!==value)$(id).textContent=value;};
  let cry='',composing=false,cryProblem='',cryBudget=null,copyVersion=0;
  let pricedAt=null,pricingRate=null;
@@ -223,6 +225,11 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
     }
     entry.append(details);
    }
+   if(config?.rules_version===19&&construction.hasPlan(r)){
+    const dismiss=doc.createElement('button');dismiss.type='button';dismiss.textContent='Hide construction preview';
+    dismiss.onclick=()=>{construction.dismiss('manual/'+r.id);dismiss.remove();};
+    entry.append(dismiss);
+   }
    saved.push(entry);
   }
   if(!saved.length){const p=doc.createElement('p');p.textContent='No saved instructions.';saved.push(p);}$('saved-list').replaceChildren(...saved);
@@ -368,6 +375,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
 
  function saveInstructions(q,h){
   if(instructionKey(h.records()[0])!==instructionKey(q))h.freeze(q);
+  if(h===history)construction.manual(h.records());
   activity();
  }
  function savedNote(h){return h.persisted()?'Instructions saved; no payment sent.':'Instructions kept for this visit only; device storage is unavailable. No payment sent.';}
@@ -409,9 +417,11 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  $('manual-handoff').onclick=()=>{if(!manual||instructionKey(manual.q)!==instructionKey(quote)||!mayHandoff())return;const h=manual.h;saveInstructions(manual.q,h);clearHandoff();text('copy-feedback',savedNote(h));refresh();};
  $('close-panel').onclick=()=>api.cancel();
  const api={
+  constructionPayments:sites=>construction.signed(sites),
+  manufacturing:view=>config?.rules_version===19?construction.sites(view,declaration?.account,source.owner):[],
   render(w,c,s,root=''){
    const nextContext=`${s.network}:${s.owner}`;
-   if(context!==nextContext){const firstContext=context===null;context=nextContext;if(!firstContext){cancelEntryNavigation();view=null;$('workspace').hidden=true;}store=identityStore(s.network,s.owner,storage);declaration=(firstContext&&declaration)||store.read();history=createHandoffs(storage,`B2Z-activity-v1:${context}`);clearHandoff();id=null;tileSelection=deflectorId=null;mode='inspect';try{const raw=storage?.getItem(`B2Z-view-v1:${context}`);preferences=raw&&raw.length<4096?JSON.parse(raw):{};}catch{preferences={};}cameraState=declaration?.camera?.projection==='isometric-1'?declaration.camera:null;// Remembered navigation preference is not an explicit session selection.
+   if(context!==nextContext){const firstContext=context===null;context=nextContext;if(!firstContext){cancelEntryNavigation();view=null;$('workspace').hidden=true;}store=identityStore(s.network,s.owner,storage);declaration=(firstContext&&declaration)||store.read();history=createHandoffs(storage,`B2Z-activity-v1:${context}`);construction.manual(history.records());construction.signed([]);clearHandoff();id=null;tileSelection=deflectorId=null;mode='inspect';try{const raw=storage?.getItem(`B2Z-view-v1:${context}`);preferences=raw&&raw.length<4096?JSON.parse(raw):{};}catch{preferences={};}cameraState=declaration?.camera?.projection==='isometric-1'?declaration.camera:null;// Remembered navigation preference is not an explicit session selection.
  id=null;identityLabel();}
    const spacingChanged=world&&spacingSupported(config)!==spacingSupported(c);
    const reservoirChanged=world&&reservoirSupported(config)!==reservoirSupported(c);

@@ -1385,3 +1385,9 @@ UX-08 keeps the amount, recipient and memo from one verified proposal.
 Cannon construction shows `Pay to Build & Fire` with the requested Cannon
 and Ball count. Diverter and Reservoir construction show `Pay to Build` and
 the item count. These labels have no role in memo encoding or pricing.
+
+## Cannon and Diverter construction feedback
+
+The [manufacturing contract](B2Z_MANUFACTURING.md) governs presentation during
+an explicit construction handoff and between a verified receipt and displayed
+birth. Continue to use the existing placement, payment, and recovery contracts.
