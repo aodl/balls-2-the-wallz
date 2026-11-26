@@ -8,7 +8,7 @@ PANEL_SNAPSHOT = r'''(tag)=>{
  const summary=f.summary();
  return {tag,at:performance.now(),action:f.proposal(),selected:summary.selected,prepared:!document.getElementById('prepared-card').hidden,disabled:[...c.querySelectorAll('[data-copy]')].map(button=>button.disabled),
   local:['payer-change','close-panel'].map(id=>document.getElementById(id).disabled),
-  central:!document.getElementById('motion-wait').hidden,
+  central:!document.getElementById('motion-wait').hidden,waiting:text('waiting-label'),
   values:Object.fromEntries(['transfer-amount','payment-owner','text-memo','paying-account','payment-risk'].map(id=>[id,text(id)])),
   workspace:rect(c),header:rect(c.querySelector('.panel-header')),body:rect(body),content:{height:content.getBoundingClientRect().height,scrollHeight:content.scrollHeight},scroll:{height:scroll.clientHeight,scrollHeight:scroll.scrollHeight,top:scroll.scrollTop},
   target:c.style.getPropertyValue('--body-height'),space:c.style.getPropertyValue('--body-space'),cache:f.shell.layoutState?.()??null,
@@ -39,12 +39,15 @@ def verify_status_geometry(page,output=None,prefix='panel'):
  base=page.evaluate('capturePanelGeometry("baseline")');assert base['prepared']and base['disabled']==[False]*3,base
  assert base['cache']is None or not base['cache']['dirty']and not base['cache']['pendingFrame'],base
  rows=[]
+ previous_central=False
  for label,override in STATUS_CASES:
   samples=sample_transition(page,label,override);settled_panel(page);samples.append(page.evaluate('label=>capturePanelGeometry(label+"-settled")',label))
   expected_disabled=bool(override.get('deliverySustained') or override.get('fresh') is False or override.get('operationalFresh') is False)
   for sample in samples:
    if not sample['tag'].endswith('-before'):assert sample['disabled']==[expected_disabled]*3,(label,sample)
-   assert sample['local']==[False]*2 and not sample['central'],(label,sample)
+   expected_central=previous_central if sample['tag'].endswith('-before') else label=='long-waiting-label'
+   assert sample['local']==[False]*2 and sample['central']==expected_central,(label,sample)
+   if expected_central:assert sample['waiting']=='Catching up with on-chain activity...',sample
    assert sample['prepared']and sample['values']==base['values'],(label,base,sample)
    assert sample['action']==base['action']and sample['selected']==base['selected'],(label,base,sample)
    assert sample['camera']==base['camera']and not sample['cameraActive'],(label,base,sample)
@@ -53,6 +56,7 @@ def verify_status_geometry(page,output=None,prefix='panel'):
    assert 'Connection delayed' not in sample['bodyText'],(label,sample)
    for part in ['workspace','header','body']:
     assert all(abs(sample[part][k]-base[part][k])<=1 for k in ['x','y','width','height']),(label,part,base,sample)
+  previous_central=label=='long-waiting-label'
   rows.append({'case':label,'disabled':expected_disabled,'samples':samples})
   if output:(output/(prefix+'-status-geometry.json')).write_text(json.dumps({'baseline':base,'transitions':rows},indent=2)+'\n')
  return {'baseline':base,'transitions':rows,'max_drift_px':max(abs(sample['workspace'][k]-base['workspace'][k])for row in rows for sample in row['samples']for k in ['x','y','width','height'])}
