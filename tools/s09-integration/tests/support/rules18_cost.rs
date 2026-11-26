@@ -1347,8 +1347,21 @@ fn signed_rules19_construction_presentation() {
         .unwrap(),
     )
     .unwrap();
+    let repository = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let independently_replayed = std::process::Command::new("node")
+        .current_dir(&repository)
+        .arg("tools/verify_compact_cost_replay.mjs")
+        .arg(&out)
+        .arg("1")
+        .output()
+        .unwrap();
+    assert!(
+        independently_replayed.status.success(),
+        "{}",
+        String::from_utf8_lossy(&independently_replayed.stderr)
+    );
     let verified = std::process::Command::new("node")
-        .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+        .current_dir(repository)
         .arg("tools/verify_installed_construction_presentation.mjs")
         .arg(out)
         .output()
