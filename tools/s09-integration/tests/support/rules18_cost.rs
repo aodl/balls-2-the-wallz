@@ -1448,6 +1448,41 @@ fn rules19_digit_leading_grant_wire_boundary() {
     assert!(error.contains("reserved/noncanonical key"), "{error}");
     assert!(!state.run.running);
     assert_eq!(observe(&pic, id).0.publication, prior.publication);
+
+    // The failed publication is not a Ledger rollback. Probe the independent
+    // source cursor, a normal retry, and stable-module recovery separately.
+    let other = Principal::self_authenticating([9; 32]);
+    let later_position = transfer_text(&pic, ledger, other, id, 100_000_000, b"NEW 0 1");
+    for _ in 0..180 {
+        advance(&pic, 1000);
+        if status(&pic, id).source.admitted_to_exclusive > later_position {
+            break;
+        }
+    }
+    let after_later_payment = status(&pic, id);
+    playability_installed::configuration(&pic, id, 512);
+    advance(&pic, 100_000);
+    for _ in 0..250 {
+        if status(&pic, id).run.last_error.is_some() {
+            break;
+        }
+        advance(&pic, 50);
+    }
+    let after_retry = status(&pic, id);
+    assert_eq!(observe(&pic, id).0.publication, prior.publication);
+    upgrade_during_recovery(&pic, id, &bytes("B2Z_CONSTRUCTION_PRIOR_WASM")).unwrap();
+    let after_upgrade = status(&pic, id);
+    playability_installed::configuration(&pic, id, 512);
+    advance(&pic, 100_000);
+    for _ in 0..250 {
+        if status(&pic, id).run.last_error.is_some() {
+            break;
+        }
+        advance(&pic, 50);
+    }
+    let after_upgrade_retry = status(&pic, id);
+    let final_observation = observe(&pic, id).0;
+    let final_world = arena_world(&pic, id);
     std::fs::write(
         out.join("digit-leading-grant.json"),
         serde_json::to_vec_pretty(&json!({
@@ -1455,6 +1490,14 @@ fn rules19_digit_leading_grant_wire_boundary() {
             "funding_account_key_begins_with_digit":true,"grant_position":position,
             "source_cursor":state.source.admitted_to_exclusive,"published_head":publication.head.segment_id,
             "published_head_preserved":true,"run_error":error,"running":state.run.running,
+            "later_valid_payment_position":later_position,
+            "later_payment_source_cursor":after_later_payment.source.admitted_to_exclusive,
+            "retry_error":after_retry.run.last_error,"retry_running":after_retry.run.running,
+            "upgrade_error":after_upgrade.run.last_error,"upgrade_running":after_upgrade.run.running,
+            "upgrade_retry_error":after_upgrade_retry.run.last_error,
+            "upgrade_retry_running":after_upgrade_retry.run.running,
+            "publication_still_preserved":final_observation.publication==prior.publication,
+            "received_e8s_after_retries":final_world.received_e8s,
         }))
         .unwrap(),
     )
