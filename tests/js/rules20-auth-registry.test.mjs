@@ -1,13 +1,30 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {gunzipSync} from 'node:zlib';
 import {encodeCanonical,decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {decodeDelegatedPayment,icpAccount} from '../../packages/protocol/delegation.mjs';
 import {emptyAuthorization,authorizePayment} from '../../packages/kernels/b2z/delegation-v18.mjs';
 import {authorizationV3FromV2,authorizationV2FromV3,authorizePaymentV3,validateAuthorizationV3} from '../../packages/kernels/b2z/delegation-v20.mjs';
+import {decodeWorld,encodeWorld,migrateCompactReservoirs,migrateAuthorizationRows} from '../../packages/kernels/b2z/world.mjs';
 
 const vector=JSON.parse(readFileSync(new URL('../fixtures/b2z-delegation-v18.json',import.meta.url)));
+
+test('exact paid Rules19 world migrates to canonical grant rows without changing predecessor bytes',()=>{
+ const original=gunzipSync(readFileSync(new URL('../fixtures/rules19-paid-world-17529-state.bin.gz',import.meta.url)));
+ const paid=decodeWorld(original);
+ assert.equal(paid.version,10);
+ const predecessor=migrateCompactReservoirs(paid);
+ assert.equal(predecessor.version,11);
+ const successor=migrateAuthorizationRows(predecessor);
+ assert.equal(successor.version,12);
+ assert.equal(successor.authorization.version,3);
+ assert.deepEqual(authorizationV2FromV3(successor.authorization),predecessor.authorization);
+ assert.deepEqual(decodeWorld(encodeWorld(successor)),successor);
+ assert.deepEqual(Buffer.from(encodeWorld(paid)),original);
+ assert.throws(()=>migrateAuthorizationRows(successor),/AUTH_V3_PREDECESSOR/);
+});
 
 test('successor rows canonically store a valid digit-leading account while preserving the historical in-memory grant',()=>{
  const payment=decodeDelegatedPayment(vector.envelope);

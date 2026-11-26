@@ -210,7 +210,7 @@ fn semantic_deflector_world(mut w: World, bytes: &[u8]) -> Result<Vec<u8>> {
     if w.version >= 9 {
         // Rules19 joins use the exact Rules18 spawn preimage. Compact state
         // remains authoritative everywhere outside this entropy projection.
-        if w.version == 11 {
+        if w.version >= 11 {
             w.reservoirs = Some(crate::reservoirs::legacy_bitmap(&w));
             w.reservoir_ranges = None;
         }

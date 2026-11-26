@@ -164,7 +164,9 @@ pub fn migrate(mut world: crate::world::World, recipient: String) -> Result<crat
     if world.version != 9 {
         return Err("EXPECTED_ECONOMY_PREDECESSOR".into());
     }
-    world.authorization = Some(Registry::empty(recipient)?);
+    world.authorization = Some(crate::delegation_v20::AuthorizationState::Historical(
+        Registry::empty(recipient)?,
+    ));
     world.version = 10;
     world.validate()?;
     Ok(world)
@@ -235,7 +237,9 @@ mod tests {
         assert_eq!(hash(&r18.encode().unwrap()), expected["after_sha256"]);
         assert_eq!(identity(), expected["identity"]);
         assert!(migrate(r18.clone(), hex(&p.to)).is_err());
-        assert!(r18.authorization.take().unwrap().grants.is_empty());
+        assert!(
+            matches!(r18.authorization.take().unwrap(), crate::delegation_v20::AuthorizationState::Historical(registry) if registry.grants.is_empty())
+        );
         r18.version = 9;
         assert_eq!(r18, r17);
     }

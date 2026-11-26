@@ -1,6 +1,7 @@
 import {decodeV6Memo} from '../../protocol/memo-v6.mjs';
 import {decodeDelegatedPayment,pricingEnvelope} from '../../protocol/delegation.mjs';
 import {authorizePayment} from './delegation-v18.mjs';
+import {authorizePaymentV3} from './delegation-v20.mjs';
 import {untimedPayment} from '../../protocol/economy17.mjs';
 import {participatingPlayers} from './economy17.mjs';
 import {ECONOMY_IDENTITY,DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY} from './world.mjs';
@@ -158,7 +159,7 @@ export class B2zCursor {
       const registry=structuredClone(this.world.authorization);
       semanticSource=this.inputs.flatMap(input=>{
         const payment=decodeDelegatedPayment(input.payload_hex);
-        return authorizePayment(registry,payment,input.position)==='gameplay'
+        return (this.world.version>=12?authorizePaymentV3:authorizePayment)(registry,payment,input.position)==='gameplay'
           ?[{...input,payload_hex:hex(pricingEnvelope(payment))}]:[];
       });
     }

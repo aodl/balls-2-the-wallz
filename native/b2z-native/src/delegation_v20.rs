@@ -40,6 +40,31 @@ pub struct RegistryV3 {
     pub grants: Vec<GrantRow>,
 }
 
+/// The field name remains stable in canonical world state. Untagged decoding
+/// preserves historical map bytes; only Schema12 may store ordered rows.
+#[derive(Clone, Debug, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(untagged)]
+pub enum AuthorizationState {
+    Historical(Registry),
+    Rows(RegistryV3),
+}
+
+impl AuthorizationState {
+    pub fn validate(&self) -> Result<()> {
+        match self {
+            Self::Historical(value) => value.validate(),
+            Self::Rows(value) => value.validate(),
+        }
+    }
+
+    pub fn apply(&mut self, payment: &Payment, position: u64) -> Result<Decision> {
+        match self {
+            Self::Historical(value) => value.apply(payment, position),
+            Self::Rows(value) => value.apply(payment, position),
+        }
+    }
+}
+
 impl RegistryV3 {
     pub fn from_v2(previous: &Registry) -> Result<Self> {
         previous.validate()?;
@@ -198,12 +223,51 @@ impl RegistryV3 {
     }
 }
 
+/// Exact state-only successor transition. The authenticated host must still
+/// establish its source cutoff and commit boundary before publishing this state.
+pub fn migrate(mut predecessor: crate::world::World) -> Result<crate::world::World> {
+    predecessor.validate()?;
+    if predecessor.version != 11 {
+        return Err("AUTH_V3_PREDECESSOR".into());
+    }
+    let historical = match predecessor.authorization.take() {
+        Some(AuthorizationState::Historical(value)) => value,
+        _ => return Err("AUTH_V3_PREDECESSOR".into()),
+    };
+    predecessor.authorization = Some(AuthorizationState::Rows(RegistryV3::from_v2(&historical)?));
+    predecessor.version = 12;
+    predecessor.validate()?;
+    Ok(predecessor)
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
     use crate::delegation_v18::Decision;
     use b2z_protocol::delegation::Payment;
     use dtr_wire::{decode, encode, hash, hex, unhex};
+
+    #[test]
+    fn paid_predecessor_state_migrates_without_mutating_historical_bytes() {
+        let vector: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/b2z-delegation-v18.json"
+        ))
+        .unwrap();
+        let original = unhex(vector["execution"]["state"].as_str().unwrap()).unwrap();
+        let previous = crate::world::World::decode(&original).unwrap();
+        assert_eq!(previous.version, 10);
+        let mut reservoir_predecessor = previous.clone();
+        reservoir_predecessor.reservoirs = Some(String::new());
+        let compact = crate::reservoirs::migrate_compact(reservoir_predecessor).unwrap();
+        let successor = migrate(compact.clone()).unwrap();
+        assert_eq!(successor.version, 12);
+        assert_eq!(previous.encode().unwrap(), original);
+        assert_eq!(
+            crate::world::World::decode(&successor.encode().unwrap()).unwrap(),
+            successor
+        );
+        assert!(migrate(successor).is_err());
+    }
 
     #[test]
     fn digit_leading_valid_account_survives_versioned_canonical_storage() {

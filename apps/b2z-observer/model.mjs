@@ -1,4 +1,5 @@
 import {emptyAuthorization,verifyAuthorizationReceipts,validateAuthorization} from '../../packages/kernels/b2z/delegation-v18.mjs';
+import {authorizePaymentV3,validateAuthorizationV3} from '../../packages/kernels/b2z/delegation-v20.mjs';
 import {migrateEconomy,validateEconomy,participatingPlayers,observeEconomy} from '../../packages/kernels/b2z/economy17.mjs';
 import {reservoirSites,reservoirOccupancy,validateReservoirs,migrateReservoirEncoding} from '../../packages/protocol/reservoir.mjs';
 import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorOperation,applyDeflectorRemovals,matchesDeflectors}from'./model-deflector.mjs';
@@ -42,10 +43,11 @@ function track(b,maxVelocity=4096){
 }
 export function snapshot(bytes,identity){
   check(bytes instanceof Uint8Array&&bytes.length<=1048576,'snapshot bounds');
-  const w=decodeCanonical(bytes);check([3,4,5,6,7,8,9,10,11].includes(w.version),'snapshot version');
+  const w=decodeCanonical(bytes);check([3,4,5,6,7,8,9,10,11,12].includes(w.version),'snapshot version');
   validateReservoirs(w);
   validateEconomy(w);
-  if(w.version>=10)validateAuthorization(w.authorization);
+  if(w.version>=10&&w.version<=11)validateAuthorization(w.authorization);
+  else if(w.version===12)validateAuthorizationV3(w.authorization);
   else check(w.authorization===undefined,'authorization schema');
   if(w.version<7)check(w.deflectors===undefined&&w.next_deflector_id===undefined,'historical structure extension');
   check(Number.isInteger(w.width)&&w.width>=1&&w.width<=1000&&Number.isInteger(w.height)&&w.height>=1&&w.height<=1000,'dimensions');
@@ -204,7 +206,7 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
   if(initial.version>=6||final.version>=6)check(initial.version>=6&&final.version===initial.version&&playabilityIdentity(publication.identity,initial.version),'playability rules/config/schema identity');
-  if(initial.version>=10)verifyAuthorizationReceipts(initial,final,p.receipts,s);
+  if(initial.version>=10)verifyAuthorizationReceipts(initial,final,p.receipts,s,initial.version>=12?authorizePaymentV3:undefined);
   const validateAnnotation=launchAnnotationValidator(p.receipts,publication.identity);
   const contextStructures=contextIdentity(publication.identity),model=new B2zView(initial,contextStructures);let prior=initial.time,seq=-1;
   for(const e of p.events){
@@ -234,7 +236,7 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
   if(initial.version>=6||final.version>=6)check(initial.version>=6&&final.version===initial.version&&playabilityIdentity(publication.identity,initial.version),'playability rules/config/schema identity');
-  if(initial.version>=10)verifyAuthorizationReceipts(initial,final,p.receipts,s);
+  if(initial.version>=10)verifyAuthorizationReceipts(initial,final,p.receipts,s,initial.version>=12?authorizePaymentV3:undefined);
   const validateAnnotation=launchAnnotationValidator(p.receipts,publication.identity);
   const contextStructures=contextIdentity(publication.identity),model=new B2zView(initial,contextStructures);let prior=initial.time,seq=-1;
   for(const e of p.events){

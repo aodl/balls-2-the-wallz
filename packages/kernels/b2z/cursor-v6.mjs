@@ -1,6 +1,7 @@
 import {decodeDelegatedPayment,pricingEnvelope} from '../../protocol/delegation.mjs';
 import {hex} from '@dtr/timeline-runtime/protocol/bytes';
 import {authorizePayment,receiptTransfer} from './delegation-v18.mjs';
+import {authorizePaymentV3} from './delegation-v20.mjs';
 import {affordableBalls} from '../../protocol/economy17.mjs';
 import {economyAt,observeEconomy} from './economy17.mjs';
 import {playerBalls} from './purchases-v6.mjs';
@@ -50,7 +51,7 @@ export function workV6(c,readPayment){
    if(c.world.version>=10){
      const admitted=decodeDelegatedPayment(payload);
      transfer=receiptTransfer(admitted);
-     const decision=authorizePayment(c.world.authorization,admitted,input.position);
+     const decision=(c.world.version>=12?authorizePaymentV3:authorizePayment)(c.world.authorization,admitted,input.position);
      if(decision!=='gameplay'){
        const {amount,from:account}=admitted,payment={account,amount,transfer};
        if(c.world.received_e8s+amount>=1n<<128n)throw Error('treasury overflow');
