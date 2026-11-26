@@ -73,9 +73,18 @@ vColor.rgb=mix(vColor.rgb,instanceColor.rgb,accentChannel);
   shader.fragmentShader=shader.fragmentShader.replace('#include <opaque_fragment>',`
     // The neutral body's illumination is independent of the owner colour.
     vec3 strip=mix(vColor.rgb,vec3(1.),.16);
-    outgoingLight=mix(outgoingLight*(1.+graphiteLift),strip,vAccentChannel);
+    vec3 metal=outgoingLight*(1.+graphiteLift);
+    #if NUM_DIR_LIGHTS > 0
+      // Orthographic view direction is common to all instances. Brighter
+      // authored trim has a stronger satin highlight than graphite armour.
+      float rim=max(0.,dot(normal,normalize(directionalLights[0].direction+vec3(0.,0.,1.))));
+      float satin=rim*rim;satin*=satin;satin*=satin;
+      float trim=smoothstep(.12,.42,max(vColor.r,max(vColor.g,vColor.b)));
+      metal+=vec3(.92,.96,1.)*satin*mix(.055,.165,trim);
+    #endif
+    outgoingLight=mix(metal,strip,vAccentChannel);
     #include <opaque_fragment>`);
  };
- m.customProgramCacheKey=()=> 'b2z-graphite-mask-2';
+ m.customProgramCacheKey=()=> 'b2z-graphite-satin-1';
  return m;
 }

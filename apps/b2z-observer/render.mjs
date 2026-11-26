@@ -62,8 +62,8 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  }
  const groups=[];
  function batch(geometry,max=RENDER_LIMITS.pieces,mat=material){const m=new T.InstancedMesh(geometry,mat,max);m.count=0;m.frustumCulled=false;scene.add(m);groups.push(m);return m;}
- const groundMaterial=new T.ShaderMaterial({toneMapped:false,uniforms:{ownership:{value:null},worldSize:{value:new T.Vector2(1,1)},reservoirMask:{value:null},reservoirBounds:{value:new T.Vector4()},reservoirAtlasWidth:{value:1},reservoirWrap:{value:0}},vertexShader:`varying vec2 ground;varying float topFace;void main(){vec4 p=instanceMatrix*vec4(position,1.);ground=p.xz;topFace=normal.y;gl_Position=projectionMatrix*modelViewMatrix*p;}`,fragmentShader:`
- uniform sampler2D ownership;uniform vec2 worldSize;varying vec2 ground;varying float topFace;
+ const groundMaterial=new T.ShaderMaterial({toneMapped:false,uniforms:{ownership:{value:null},satinDirection:{value:new T.Vector2()},worldSize:{value:new T.Vector2(1,1)},reservoirMask:{value:null},reservoirBounds:{value:new T.Vector4()},reservoirAtlasWidth:{value:1},reservoirWrap:{value:0}},vertexShader:`varying vec2 ground;varying float topFace;void main(){vec4 p=instanceMatrix*vec4(position,1.);ground=p.xz;topFace=normal.y;gl_Position=projectionMatrix*modelViewMatrix*p;}`,fragmentShader:`
+ uniform sampler2D ownership;uniform vec2 worldSize,satinDirection;varying vec2 ground;varying float topFace;
  #ifdef USE_RESERVOIRS
  ${reservoirMaskShader}
  uniform vec4 reservoirBounds;
@@ -77,7 +77,10 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
  float grid=1.-smoothstep(0.,1.,min(min(f.x,1.-f.x)/aa.x,min(f.y,1.-f.y)/aa.y));float fade=smoothstep(1.5,6.,1./max(aa.x,aa.y));
  vec4 edge=vec4(mod(bits,2.),mod(floor(bits/2.),2.),mod(floor(bits/4.),2.),mod(floor(bits/8.),2.));
  float boundary=max(max(edge.x*(1.-smoothstep(0.,1.2,f.x/aa.x)),edge.y*(1.-smoothstep(0.,1.2,(1.-f.x)/aa.x))),max(edge.z*(1.-smoothstep(0.,1.2,f.y/aa.y)),edge.w*(1.-smoothstep(0.,1.2,(1.-f.y)/aa.y))));
- vec3 face=t.rgb*.91;float relief=smoothstep(10.,28.,1./max(aa.x,aa.y))*.018;float lip=(1.-smoothstep(0.,.06,min(1.-f.x,1.-f.y)))-(1.-smoothstep(0.,.06,min(f.x,f.y)));vec3 ink=face*(1.+lip*relief);float owned=step(16.,bits);vec3 lit=mix(face*1.13,clamp(t.rgb*1.60,0.,1.),owned);ink=mix(ink,lit,grid*fade*mix(.56,.78,smoothstep(24.,64.,1./max(aa.x,aa.y))));ink=mix(ink,mix(face,vec3(.94),.52),boundary*.72);if(topFace<.5)ink*=.65;gl_FragColor=vec4(ink,1.);}`});
+ vec3 face=t.rgb*.91;float relief=smoothstep(10.,28.,1./max(aa.x,aa.y))*.018;float lip=(1.-smoothstep(0.,.06,min(1.-f.x,1.-f.y)))-(1.-smoothstep(0.,.06,min(f.x,f.y)));vec3 ink=face*(1.+lip*relief);
+ float satin=clamp(.66+dot(f-.5,satinDirection),0.,1.);
+ ink+=vec3(.88,.94,1.)*(satin*satin*relief*1.45*(1.-grid)*(1.-boundary));
+ float owned=step(16.,bits);vec3 lit=mix(face*1.13,clamp(t.rgb*1.60,0.,1.),owned);ink=mix(ink,lit,grid*fade*mix(.56,.78,smoothstep(24.,64.,1./max(aa.x,aa.y))));ink=mix(ink,mix(face,vec3(.94),.52),boundary*.72);if(topFace<.5)ink*=.65;gl_FragColor=vec4(ink,1.);}`});
  const tiles=batch(new T.PlaneGeometry(1,1).rotateX(-Math.PI/2),25,groundMaterial),bases=batch(cannonGeometry.base),turrets=batch(cannonGeometry.upper),balls=batch(new T.SphereGeometry(.10,12,8),RENDER_LIMITS.pieces,new T.MeshBasicMaterial({color:0xffffff,toneMapped:false}));
  const barrels=turrets; // The complete rotating upper includes the physical barrel.
 
@@ -185,6 +188,9 @@ export function createArenaRenderer(canvas,{onError=()=>{},onRestore=()=>{}}={})
   guide.material.resolution.set(width,height);guideUnder.material.resolution.set(width,height);
   const halfW=width/camera.scale/2,halfH=height/camera.scale/2;
   Object.assign(ortho,{left:-halfW,right:halfW,top:halfH,bottom:-halfH});orientSceneCamera(ortho,camera);
+  // One stable direction per camera. Every tile keeps the same finish and
+  // the existing relief LOD suppresses its highlights at overview zoom.
+  groundMaterial.uniforms.satinDirection.value.set(camera.basis.depthX,camera.basis.depthY);
   const copies=camera.copies(1),bounds=camera.bounds();
   // One exact texture covers every canonical cell; camera LOD never changes owners.
   const key=[camera.x,camera.y,camera.scale,camera.angle,width,height,v.torus,v.territoryRevision,v.entityKey()].join('/');

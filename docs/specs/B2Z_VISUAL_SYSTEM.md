@@ -62,3 +62,13 @@ mounting deck. Existing owner light slits are shorter and the masked muzzle
 ring remains independent of the neutral trim and selection lift. The revised
 cannon uses 284 triangles and 397 indexed vertices in the same two batches.
 The Deflector geometry is unchanged.
+
+## Prelaunch satin finish
+
+Terrain keeps its existing geometry, ownership palette, seams and grid. A
+shared, view-relative satin accent uses the tile relief level of detail so
+that the overview stays quiet. The reserved Reservoir water and its atlas
+retain their established rendering. Cannons and Diverters retain their exact
+procedural meshes and accent masks. A single analytic highlight is stronger
+on metal trim than graphite armour. The finish uses no new texture, per-object
+light, reflection pass or terrain draw call.

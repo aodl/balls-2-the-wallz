@@ -1,0 +1,96 @@
+{
+  "scope": "Matched camera and fixture, separate shared-host software-rendering samples",
+  "status": "PASS",
+  "archive": "/home/codexdev/b2z-release-evidence/development-programme/satin-matched-scenes.zip",
+  "sha256": "5adf073736c7ab9073c587189aa4cc0c75a8e874b7e05a630feb94d1c9a89e8b",
+  "cases": [
+    {
+      "viewport": [
+        1440,
+        900
+      ],
+      "draw_calls_before": [
+        11,
+        23
+      ],
+      "draw_calls_satin": [
+        11,
+        23
+      ],
+      "software_frame_p95_ms_before": [
+        200,
+        133.30000000000018
+      ],
+      "software_frame_p95_ms_satin": [
+        216.60000000000036,
+        150.10000000000036
+      ]
+    },
+    {
+      "viewport": [
+        390,
+        844
+      ],
+      "draw_calls_before": [
+        8,
+        20
+      ],
+      "draw_calls_satin": [
+        8,
+        20
+      ],
+      "software_frame_p95_ms_before": [
+        33.40000000000009,
+        33.40000000000009
+      ],
+      "software_frame_p95_ms_satin": [
+        33.40000000000009,
+        33.40000000000009
+      ]
+    },
+    {
+      "viewport": [
+        320,
+        640
+      ],
+      "draw_calls_before": [
+        6,
+        18
+      ],
+      "draw_calls_satin": [
+        6,
+        18
+      ],
+      "software_frame_p95_ms_before": [
+        33.40000000000009,
+        16.800000000000182
+      ],
+      "software_frame_p95_ms_satin": [
+        16.700000000000273,
+        16.800000000000182
+      ]
+    },
+    {
+      "viewport": [
+        390,
+        475
+      ],
+      "draw_calls_before": [
+        8,
+        20
+      ],
+      "draw_calls_satin": [
+        8,
+        20
+      ],
+      "software_frame_p95_ms_before": [
+        16.799999999999955,
+        33.30000000000018
+      ],
+      "software_frame_p95_ms_satin": [
+        33.30000000000018,
+        33.29999999999973
+      ]
+    }
+  ]
+}
