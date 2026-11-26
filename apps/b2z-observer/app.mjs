@@ -201,9 +201,11 @@ function observePresentation(s,ticket,deliverySeconds=0){
  s.elastic.observe({key:ticket.root_hash,end:timeNumber(s.referenceWorld.time),at:performance.now(),nominal:presentationPace(s),ticks,deliverySeconds,identity:JSON.stringify(ticket.publication.identity)});
 }
 function advancePresentationRate(s,now,seconds){
- const base=presentationPace(s),ticks=publicationTicks(s.operational??s.lastPaceStatus),remaining=s.clock.available-s.clock.playhead;
- if(!s.idleDrain&&base===1&&ticks===1){
-  const buffered=s.elastic.fastSingleTickRate({now,remaining,seconds,current:s.nominalRate});
+ const status=s.operational??s.lastPaceStatus,base=presentationPace(s),ticks=publicationTicks(status),remaining=s.clock.available-s.clock.playhead;
+ if(!s.idleDrain){
+  // A performance-limited Normal producer still uses the same one-tick
+  // verified coverage policy, even while its supported rate changes.
+  const buffered=s.elastic.fastSingleTickRate({now,remaining,seconds,current:s.nominalRate,supported:base,nominalMilli:status?.run?.pace?.nominal_milli??0,ticks});
   if(buffered!==null)return buffered;
  }
  const target=s.idleDrain?base:s.elastic.rate({now,nominal:base,remaining,seconds,reserveTicks:Math.max(0,s.clock.target-ticks)});

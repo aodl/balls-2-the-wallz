@@ -20,20 +20,21 @@ export function elasticPlayback(){
   const reserve=Math.max(Number.isFinite(reserveTicks)?Math.max(0,reserveTicks):0,rate*Math.max(jitter(),0,...deliveries));
   const desired=Math.max(.5,Math.min(1.5,Math.max(0,remaining-reserve)/horizon/rate));
   const step=.12*Math.max(0,Math.min(1,Number.isFinite(seconds)?seconds:0));factor+=Math.max(-step,Math.min(step,desired-factor));return rate*factor;
- },fastSingleTickRate({now,remaining,seconds,current}){
+ },fastSingleTickRate({now,remaining,seconds,current,supported=1,nominalMilli=1000,ticks=1}){
   // A one-tick Normal stream can spend a whole interval fetching its next
   // verified artifact. Build a small lead while motion is still available.
-  const sampled=nominal===1&&last!==null;
-  const age=sampled?now-last.at:0;
+  if(nominalMilli!==1000||ticks!==1||!(supported>0&&supported<=1))return null;
+  const sampled=nominal===supported&&last!==null;
+  const age=last===null?0:now-last.at;
   if(remaining<=.005||age>=OBSERVATION_DEADLINE_MS)return null;
   const horizon=sampled?Math.max(1.5,Math.min(2.5,1+Math.max(0,...deliveries))):2;
-  const previous=Number.isFinite(current)?Math.max(.45,Math.min(1.15,current)):.5;
+  const previous=Number.isFinite(current)?Math.max(.45*supported,Math.min(1.15*supported,current)):.5*supported;
   // Expired cadence evidence cannot justify spending the last verified
   // coverage faster. Keep the same drain cap until a new head arrives or the
   // remaining motion naturally reaches the existing exhaustion threshold.
-  if(sampled&&age>1000*(confidence()??4))return Math.min(remaining/horizon,previous);
-  const incoming=sampled&&period?Math.min(1,1/period):.55;
-  const desired=Math.max(.48,Math.min(1.15,incoming+.16*(remaining-horizon-1)));
+  if(!sampled||age>1000*(confidence()??4))return Math.min(remaining/horizon,previous);
+  const incoming=period?Math.min(supported,1/period):.55*supported;
+  const desired=Math.max(.48*supported,Math.min(1.15*supported,incoming+.16*(remaining-horizon-1)));
   const slew=.25*Math.max(0,Math.min(1,seconds));
   return Math.min(remaining/horizon,previous+Math.max(-slew,Math.min(slew,desired-previous)));
  },state(){return{samples:samples.length,factor,expected_period_seconds:period,confidence_seconds:confidence(),arrival_jitter_seconds:jitter(),max_delivery_seconds:Math.max(0,...deliveries),last_distinct_at:last?.at??null};}};

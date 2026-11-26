@@ -165,3 +165,12 @@ test('expired arrival estimates do not accelerate through the last verified Norm
  clock.append(before,284);
  assert.ok(clock.sample(.1).playhead<284);
 });
+
+test('performance-limited Normal retains the one-tick guard through a support change',()=>{
+ const policy=elasticPlayback();
+ for(let i=0;i<3;i++)policy.observe({key:String(i),end:281+i,at:i*1000,nominal:1,ticks:1,deliverySeconds:.8236});
+ const guard=policy.fastSingleTickRate({now:8344,remaining:.149,seconds:.1,current:.086,supported:.641,nominalMilli:1000,ticks:1});
+ assert.ok(guard>0&&guard<.1);
+ assert.equal(policy.fastSingleTickRate({now:8344,remaining:.149,seconds:.1,current:.086,supported:0,nominalMilli:1000,ticks:1}),null);
+ assert.equal(policy.fastSingleTickRate({now:8344,remaining:.149,seconds:.1,current:.086,supported:.01,nominalMilli:10,ticks:1}),null);
+});
