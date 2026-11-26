@@ -1,7 +1,7 @@
 # Rules19-compatible frontend interaction candidate
 
-The selected-Ball guide clips against the verified displayed payer territory,
-using each Ball's canonical owner. Conservative corner and stroke clipping
+The selected-Ball guide clips against the verified displayed territory of
+each Ball's canonical owner. Conservative corner and stroke clipping
 keeps the guide inside the first contiguous eligible region. The minimap
 moves North to the clicked position using the shared camera controller.
 
