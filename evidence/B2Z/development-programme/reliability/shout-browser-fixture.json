@@ -1,0 +1,28 @@
+{
+  "case": "context_structures_installed::shout_rules13_upgrade_official_payments_and_recovery",
+  "original_hosted_failure": {
+    "source_commit": "8a3100363f8c10adc2d343ae0a0096b5612ba4b2",
+    "standard_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/45832046550",
+    "result": "FAIL",
+    "location": "Playwright timed out clicking hidden #reorient-action after selected owned Diverter had already entered automatic Reorient",
+    "preserved_archive": "/home/codexdev/b2z-release-evidence/development-programme/pr16-shout-browser-failure.zip",
+    "preserved_archive_sha256": "c191f7824c0737292cdd0874bfced91114457f90e02465b84fd94aac8300f921",
+    "authenticated_annotation_and_independent_replay": "PASS before browser selector timeout"
+  },
+  "unmodified_local_retry": {
+    "result": "PASS once",
+    "elapsed_seconds": 93.073,
+    "interpretation": "The hosted failure was timing sensitive; the local retry is not a deterministic failing-before demonstration."
+  },
+  "focused_correction": {
+    "source_commit": "a8ea27a61682114d35cdce5a8508ce9381bf01c0",
+    "method": "Wait for exact selected Diverter and default Reorient composer; retain exact memo, native viewport, authenticated replay and query-only checks.",
+    "local_installed_result": "PASS",
+    "elapsed_seconds": 86.517,
+    "viewports": ["1440x900", "320x640"],
+    "preserved_archive": "/home/codexdev/b2z-release-evidence/development-programme/pr18-shout-browser-corrected-pass.zip",
+    "preserved_archive_sha256": "53ff66e167f4dadf668d7031ea4749b330f9619ca570e573c9cedc06ae95bf4e"
+  },
+  "exact_source_hosted_qualification": "PENDING",
+  "production_mutation": false
+}

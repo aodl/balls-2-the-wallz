@@ -1,0 +1,71 @@
+{
+  "backend": {
+    "canister_id": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "estimated_freezing_cycles": "57833518170",
+    "management_total_cycles": "2996400718028",
+    "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "settled_liquid_cycles": "2938567199858"
+  },
+  "exact_elapsed_offline_comparison": {
+    "elapsed_ns": "7617973798298",
+    "first_liquid_cycles": "2986425135592",
+    "full_speed_cycle_floor_cycles": "2070000000000",
+    "full_speed_cycle_margin_cycles": "868567199858",
+    "full_speed_cycle_seconds_at_observed_rate": "138257",
+    "known_limitations": [
+      "This offline calculator does not authenticate its input files; use approved signed observations.",
+      "Unobserved treasury credits or external top-ups can hide gross expenditure.",
+      "A temporary inter-canister reservation must be excluded by using settled samples.",
+      "A workload-specific trend is not a guaranteed future rate."
+    ],
+    "last_liquid_cycles": "2938567199858",
+    "measurement_kind": "settled net balance movement, not gross execution cost",
+    "net_T_cycles_per_day": "0.542785",
+    "net_cycles_per_day_floor": "542785490853",
+    "net_decline_cycles": "47857935734",
+    "publication_delta": 76,
+    "rate_status": "observed",
+    "reserve_protection_floor_cycles": "1000000000000",
+    "reserve_protection_margin_cycles": "1938567199858",
+    "reserve_protection_seconds_at_observed_rate": "308579"
+  },
+  "frontend": {
+    "canister_id": "s2jxj-liaaa-aaaas-amynq-cai",
+    "estimated_freezing_cycles": "203705816790",
+    "management_total_cycles": "964604623184",
+    "margin_after_historical_450b_install_recovery_allowance_cycles": "310898806394",
+    "module_sha256": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff"
+  },
+  "limitations": [
+    "Net balance movement is not proven gross execution expenditure.",
+    "Projected runway assumes comparable workload and no unobserved credits.",
+    "Private funding tier, owner-specific Full Speed eligibility and treasury worker state were not read."
+  ],
+  "observation_utc": "2026-11-26T14:49:52.838Z",
+  "operation": {
+    "idle": false,
+    "pace": {
+      "admission_open": true,
+      "mode": "Trickle",
+      "nominal_milli": 10,
+      "performance_limited": false,
+      "supported_milli": 10
+    },
+    "running": true,
+    "source_errors": [],
+    "source_pending_records": 0
+  },
+  "publication": {
+    "accounts_with_cannons": 1,
+    "balls": 2,
+    "cannons": 2,
+    "diverters": 1,
+    "head": "18326",
+    "logical_time": "18310",
+    "reservoirs": 4,
+    "source_cursor": "40647923"
+  },
+  "raw_operator_observation_sha256": "78543a9ae36c19241158dcda19dfe5429645f19c0e8106ef649e97c421ad3b15",
+  "scope": "Read-only certified public and signed operational observation; no production mutation",
+  "settled": true
+}

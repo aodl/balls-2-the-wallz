@@ -2,6 +2,44 @@
 
 Observation and source review: 26 November 2026. This report covers repository development and read-only observation. The paid European canisters were not upgraded, paused, funded or reconfigured.
 
+## Latest closeout update — 26 November, 15:45 UTC
+
+Master is now `0855896239ba222892a372e6eeba22530fa59afc`. Its Rules19-compatible
+manufacturing and interaction frontend passed all eleven substantive hosted
+jobs: [standard 45833070734](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070734),
+[financial 45833070824](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070824),
+and [developer/prelaunch 45833070929](https://github.com/aodl/balls-2-the-wallz/actions/runs/45833070929).
+The exact prelaunch frontend Wasm (SHA-256
+`1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5`)
+is a [published prerelease](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-prelaunch-frontend-manufacturing-2026-11-26).
+All six release assets were downloaded and byte-compared. Same-ID upgrade and
+exact installed-frontend recovery passed in disposable qualification. No
+production installation occurred.
+
+PR #16's later [standard run 45832046550](https://github.com/aodl/balls-2-the-wallz/actions/runs/45832046550)
+**failed** a distinct historical Rules13 Shout browser fixture after its
+authenticated publication and independent replay had passed. The obsolete
+fixture clicked `#reorient-action` after automatic owned-Diverter Reorient
+had already opened, so Playwright timed out on a hidden control. An unmodified
+local rerun passed once, showing timing sensitivity. [PR #18](https://github.com/aodl/balls-2-the-wallz/pull/18)
+now waits for the selected Diverter and automatic Reorient state without
+the redundant click; its focused installed browser case passed at 1440×900
+and 320×640 with exact memo and query-only checks. The original failure and
+corrected pass are retained in verified operator archives. PR #18's exact
+hosted gate is pending and must not be replaced by the frontend candidate's
+earlier passing runs.
+
+The latest [15:45:39 UTC certified read-only observation](production-observation-2026-11-26-1545.json)
+found installed modules unchanged, head 18,360, running capped Trickle and
+zero pending source records. Backend settled liquid was 2.917196T cycles.
+The settled 10,965.596-second/110-publication bracket showed 0.545470T/day net
+balance movement, giving dated conditional estimates of 3.51 days to the
+1T protection boundary and 1.55 days to the usual 2.07T Full Speed cycle
+floor. This is neither proven gross expenditure nor a funding decision.
+
+The sections below preserve the evidence and pending states as recorded at
+their earlier review points.
+
 ## Qualified source and release boundary
 
 The reliability capture correction is integrated on `master` through [PR #9](https://github.com/aodl/balls-2-the-wallz/pull/9), with eleven substantive exact-source hosted passes: [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45790064177), [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45790064334) and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45790064164). The informational production-inventory guard is excluded from that count.
