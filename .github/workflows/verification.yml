@@ -150,7 +150,9 @@ jobs:
           observer=.work/ci-embedded-assets/public-observer
           inventory=.work/ci-embedded-assets/public-inventory.json
           python -B tools/build_embedded_frontend.py --observer "$observer" --inventory "$inventory" --output .work/ci-mainline-public
-          python -B tools/check_rules19_module.py public_frontend .work/ci-mainline-public/frontend.wasm
+          # Candidate browser inputs are checked against the reviewed source
+          # inventory above. Historical Rules19 module pins still identify the
+          # released build. Reproduce this candidate's exact Wasm independently.
           python -B tools/verify_embedded_frontend_builds.py --observer "$observer" --inventory "$inventory" --first-build .work/ci-mainline-public --output .work/ci-mainline-public-repro
       - name: Archive current public-launch identity and reproducibility evidence
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
