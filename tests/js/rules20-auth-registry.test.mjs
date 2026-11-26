@@ -40,6 +40,20 @@ test('successor rows canonically store a valid digit-leading account while prese
  assert.deepEqual(authorizationV2FromV3(successor),previous);
 });
 
+test('Schema12 world itself encodes a live digit-leading grant',()=>{
+ const paid=decodeWorld(gunzipSync(readFileSync(new URL('../fixtures/rules19-paid-world-17529-state.bin.gz',import.meta.url))));
+ const world=migrateAuthorizationRows(migrateCompactReservoirs(paid));
+ const payment=decodeDelegatedPayment(vector.envelope),registry=world.authorization;
+ const grant={...payment,to:registry.recipient,position:(registry.last_position??0n)+1n,
+  ledger_time_ns:(payment.ledger_time_ns>registry.ledger_time_ns?payment.ledger_time_ns:registry.ledger_time_ns)+1n,
+  amount:0n,spender:null,memo:Uint8Array.from(Buffer.from(vector.grant_memo,'hex'))};
+ assert.equal(grant.from[0],'2');
+ assert.equal(authorizePaymentV3(registry,grant,grant.position),'granted');
+ const bytes=encodeWorld(world);
+ assert.deepEqual(decodeWorld(bytes),world);
+ assert.equal(decodeWorld(bytes).authorization.grants[0].account,grant.from);
+});
+
 test('successor grants reject duplicates, unsorted rows and invalid version',()=>{
  const payment=decodeDelegatedPayment(vector.envelope);
  const previous=emptyAuthorization(payment.to);
