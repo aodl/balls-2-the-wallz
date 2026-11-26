@@ -1,0 +1,57 @@
+{
+  "backend": {
+    "canister_id": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "estimated_freezing_cycles": "57833518170",
+    "management_total_cycles": "3044258229829",
+    "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "settled_liquid_cycles": "2986425135592"
+  },
+  "frontend": {
+    "canister_id": "s2jxj-liaaa-aaaas-amynq-cai",
+    "estimated_freezing_cycles": "203705816790",
+    "management_total_cycles": "965191848849",
+    "margin_after_historical_450b_install_recovery_allowance_cycles": "311486032059",
+    "module_sha256": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff"
+  },
+  "limitations": [
+    "Net balance movement is not proven gross execution expenditure.",
+    "Projected runway assumes comparable workload and no unobserved credits.",
+    "Private funding tier, owner-specific Full Speed eligibility and treasury worker state were not read."
+  ],
+  "observation_utc": "2026-11-26T12:42:54.589Z",
+  "operation": {
+    "idle": false,
+    "pace": {
+      "admission_open": true,
+      "mode": "Trickle",
+      "nominal_milli": 10,
+      "performance_limited": false,
+      "supported_milli": 10
+    },
+    "running": true,
+    "source_errors": [],
+    "source_pending_records": 0
+  },
+  "publication": {
+    "head": "18250",
+    "logical_time": "18234",
+    "source_cursor": "40647923"
+  },
+  "raw_operator_observation_sha256": "c4b3ba7e634e5728dff1d2a5b6188a3ae36f8452456caf42fd961f7cb40534ac",
+  "runway": {
+    "backend_freezing_estimate_cycles": "57833518170",
+    "backend_liquid_cycles": "2986425135592",
+    "elapsed_seconds": 7684,
+    "frontend_freezing_estimate_cycles": "203705816790",
+    "frontend_install_recovery_headroom_cycles": "311486032059",
+    "full_speed_cycle_floor_met": true,
+    "liquid_decline_cycles": "47915206051",
+    "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+    "net_cycles_per_day": "538765461062",
+    "publication_delta": "76",
+    "seconds_to_full_speed_floor": "146964",
+    "seconds_to_reserve_protection": "318556"
+  },
+  "scope": "Read-only certified public and signed operational observation; no production mutation",
+  "settled": true
+}

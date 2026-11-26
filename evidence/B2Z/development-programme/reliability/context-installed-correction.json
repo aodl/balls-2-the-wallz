@@ -1,0 +1,30 @@
+{
+  "case": "context_structures_installed::context_structures_rules12_upgrade_official_payments_and_authenticated_replay",
+  "corrected_archive_sha256": "e1265b5fa033c56d7b8fce441ef842a0142613de98b921579250406018e3dafd",
+  "corrected_focused_local_verdict": "PASS",
+  "corrected_source": "8a3100363f8c10adc2d343ae0a0096b5612ba4b2",
+  "coverage": {
+    "authenticated_publications_independently_replayed": 3,
+    "browser_mutations": 0,
+    "exact_copied_memo": "DROT 2 N",
+    "viewports": [
+      [
+        1440,
+        900
+      ],
+      [
+        390,
+        844
+      ],
+      [
+        320,
+        640
+      ]
+    ]
+  },
+  "full_hosted_current_source": "PENDING",
+  "original_archive_sha256": "e3c11a51ec8bbeb04e097d80e531c47e4a71b1ac151f612712876c8b50e504de",
+  "original_hosted_run": "https://github.com/aodl/balls-2-the-wallz/actions/runs/45817559637",
+  "original_source": "0290261eb82d03b16b5760b1005a6e7500a22a99",
+  "original_verdict": "FAIL: historical browser fixture asserted owned-tile panel before shared double-click arbitration completed"
+}

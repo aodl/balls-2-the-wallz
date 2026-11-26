@@ -1,0 +1,37 @@
+{
+  "backend_canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+  "candidate_asset_inventory": {
+    "bytes": 29733,
+    "sha256": "addbee9e943b06b26226f0894f74ba39be0dad680ae48770fc4ff2c7c363bc2e"
+  },
+  "candidate_frontend_wasm": {
+    "bytes": 77689127,
+    "sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5"
+  },
+  "candidate_same_id_rehearsal": {
+    "alternate_routes_each_phase": 28,
+    "candidate_install_cycles": "185524191169",
+    "certified_http_responses_each_phase": 91,
+    "recovery_install_cycles": "185492867154",
+    "status": "PASS"
+  },
+  "current_compatible_recovery_frontend_wasm": {
+    "bytes": 77674663,
+    "sha256": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff"
+  },
+  "current_review_source": "8a3100363f8c10adc2d343ae0a0096b5612ba4b2",
+  "frontend_candid_sha256": "9c5d4382d7dc279ab1fbd63de66311e3d9a38bc7e2562501861701b26f60c141",
+  "frontend_canister": "s2jxj-liaaa-aaaas-amynq-cai",
+  "hosted_runs": {
+    "developer_prelaunch": "https://github.com/aodl/balls-2-the-wallz/actions/runs/45817559795",
+    "financial": "https://github.com/aodl/balls-2-the-wallz/actions/runs/45817559859",
+    "standard": "https://github.com/aodl/balls-2-the-wallz/actions/runs/45817559637"
+  },
+  "installed_backend_wasm_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+  "kind": "Superseded test-only frontend artifact retained for exact same-ID rehearsal; not an install decision",
+  "permanent_origin": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io",
+  "production_status": "not installed; exact current release retained under production/europe-rules19-prelaunch-trickle",
+  "profile": "prelaunch-trickle developer frontend",
+  "qualification_status": "This exact predecessor artifact passed financial, developer/prelaunch and same-ID recovery, but its standard installed-IC job failed a historical Rules13 browser fixture. Corrected source 8a31003 passed the exact focused installed case; full current-source CI and artifact retrieval remain pending.",
+  "source_commit": "0290261eb82d03b16b5760b1005a6e7500a22a99"
+}

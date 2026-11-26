@@ -15,6 +15,15 @@ Use the exact developer frontend and `prelaunch-trickle` Wasm from the exact can
 
 Nominal Trickle burn projects to approximately **0.544T cycles/day** at the two-Ball mainnet workload, using 864 checkpoints at 0.412B cycles plus the observed 0.188T/day background projection. The existing Full Speed reserve check requires at least **2.07T liquid** to arm a default 120-second window, subject to the other safeguards. Recheck liquid cycles and all active reserves before every authorized operation. [Production trial](../../evidence/B2Z/rules19-compact-reservoirs/PRODUCTION_TRIAL.md)
 
+For two retained **settled, authenticated** read-only observations, run
+`python3.11 -B tools/estimate_operating_runway.py FIRST.json LAST.json` from
+the checkout. The offline calculator uses exact balances and actual elapsed
+time to report a workload-specific **net** cycles/day rate and dated time to
+the reserve and default Full Speed cycle floors. It does not authenticate the
+input files, query production or infer gross expenditure across unknown credits.
+Keep the original signed observations and inspect any intervening top-up or
+temporary reservation before acting on a projection.
+
 Allocate **60B backend cycles** and **450B frontend cycles** for installation and a possible rollback. Disposable same-canister rehearsals used about 23.50B for the backend upgrade and 23.34B for its rollback, and 185.49B for the frontend upgrade and 180.16B for its rollback. Keep those budgets separate from operating cycles and freezing reserves. At the observed workload, seven days of continuous Trickle projects to about 3.81T cycles and 30 days to about 16.32T.
 
 ## Same-canister installation after separate approval

@@ -1,0 +1,54 @@
+{
+  "baseline_commit": "f60426d7b9c07b643db4241428b4707db7afdd7e",
+  "checks": [
+    {
+      "byte_invariant": true,
+      "git_object_id": "5c3c2f65dc10f1afccce683c787f5363dc9535bf",
+      "path": "native"
+    },
+    {
+      "byte_invariant": true,
+      "git_object_id": "b91095524ffcd3dd9f55349edee21977acffdb37",
+      "path": "packages/kernels/b2z"
+    },
+    {
+      "byte_invariant": true,
+      "git_object_id": "9634617abdd1cd37114c7da73ec0566a25372cc7",
+      "path": "canisters/runtime-lab/src"
+    },
+    {
+      "byte_invariant": true,
+      "git_object_id": "d4697e65e99ea38a76605739c677a044e521e3d7",
+      "path": "vendor/b2z"
+    },
+    {
+      "byte_invariant": true,
+      "git_object_id": "d1bc23b2b350002586c404aaa85f55acae586cac",
+      "path": "vendor/dtr"
+    },
+    {
+      "byte_invariant": true,
+      "git_object_id": "e4959df28e02466cbd909d341605f902296a0c01",
+      "path": "apps/b2z-observer/audio"
+    },
+    {
+      "byte_invariant": true,
+      "git_object_id": "e7accb4e3ac58227923fcea9cfda7087e3c474c7",
+      "path": "tests/fixtures/b2z-v3-golden.json"
+    },
+    {
+      "byte_invariant": true,
+      "git_object_id": "a81f1d791204d04b35f1c922309e11f979d908f2",
+      "path": "Cargo.lock"
+    },
+    {
+      "byte_invariant": true,
+      "git_object_id": "4c76e49471871a0bb9d44e9e9a1fb47efa3938ba",
+      "path": "canisters/runtime-lab/Cargo.lock"
+    }
+  ],
+  "frontend_candidate_commit": "8a3100363f8c10adc2d343ae0a0096b5612ba4b2",
+  "frontend_changed": true,
+  "no_backend_rules_or_runtime_dependency_change_in_listed_paths": true,
+  "scope": "Tracked tree object equality; only these listed authoritative and approved-asset paths are asserted"
+}

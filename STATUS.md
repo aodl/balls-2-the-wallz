@@ -1,6 +1,6 @@
 # B2Z current status
 
-Operational observation **2026-11-26 08:49–08:50 UTC**. The current published source is
+Operational observation **2026-11-26 12:42:54 UTC**. The current published source is
 [the maintained master branch](https://github.com/aodl/balls-2-the-wallz/commits/master/).
 The installed source is `741dbf898ade58ed2fa3a064d8bbe1acb577ed4a`.
 Rules19 / Schema11 / Adapter12 (`BTZPAY09`) runs in the capped
@@ -13,7 +13,7 @@ Rules19 / Schema11 / Adapter12 (`BTZPAY09`) runs in the capped
 
 ## Operating position
 
-- The authenticated head was segment **18,112**, logical time **18,096**.
+- The authenticated head was segment **18,250**, logical time **18,234**.
   It contained two Cannons under one distinct funding account, two Balls,
   one Diverter and four Reservoir tiles. The funding-account count is
   derived from active Cannons. It does not measure unique humans or
@@ -24,24 +24,26 @@ Rules19 / Schema11 / Adapter12 (`BTZPAY09`) runs in the capped
   operating mode. The underlying private funding tier and owner-only
   eligibility gates could not be freshly read.
 - Signed source health showed the official Index bound, no error,
-  zero pending records, cursor 40,647,923 and Event Horizon disabled.
-  The Index returned 11 account-history records and 100,000 e8s in treasury.
-  The worker was enabled and idle at acceptance. Its fresh controller-only
-  status was unavailable.
-- Repeated settled samples had backend total **3.131T** and liquid
-  **3.073T** cycles. Frontend management total was **0.9663T** and estimated
-  liquid **0.7626T**. Both reported a 30-day freezing threshold and zero
-  separately reserved cycles in the management read. Estimated freezing
-  reserve was approximately 0.058T backend and 0.204T frontend.
+  zero pending records and cursor **40,647,923**. Event Horizon was disabled
+  in the installed configuration. The private treasury-worker state was not
+  freshly established in this observation.
+- Settled management readings had backend total **3.044258T** and estimated
+  liquid **2.986425T** cycles. Frontend total was **0.965192T**. Estimated
+  freezing reserve was approximately 0.057834T backend and 0.203706T frontend.
 - Backend liquid was above the 2.07T default Full Speed cycle floor.
-  At the original measured and conservative workloads (0.521–0.544T/day),
-  about **3.81–3.98 days** remained to the 1T protection boundary and
-  **1.84–1.93 days** to the Full Speed cycle floor from the observation.
-  These estimates assume comparable work and no credits. The 12.7-hour comparison
-  since release acceptance yielded about 0.531T/day in net decline. Review the
-  runway before owner playtesting or any separately approved operation.
+  Across a 7,684-second settled bracket with 76 ordinary publications,
+  backend liquid declined 47.915B cycles, equivalent to **0.538765T/day**
+  of observed net balance movement. Under the same workload, with no
+  intervening credits, about **3.69 days** remained to the 1T protection
+  boundary and **1.70 days** to the Full Speed cycle floor. These dated
+  projections are not gross charges or guarantees. Review the runway before
+  owner playtesting or any separately approved operation.
 
-[Latest production observation](evidence/B2Z/repository-consolidation/production-closeout.json) · [Initial observation](evidence/B2Z/repository-consolidation/production-observation.json)
+[Latest reviewed production observation](evidence/B2Z/development-programme/production-observation-2026-11-26.json) · [Previous observation](evidence/B2Z/repository-consolidation/production-closeout.json)
+
+The raw signed read-only observation and its settled cycle bracket are retained
+in the operator's development-programme archive. Its SHA-256 is recorded in
+the reviewed observation linked above; the raw capture stays outside Git.
 
 ## Qualification and acceptance
 
@@ -61,9 +63,20 @@ Ledger read are separate release evidence. [Owner acceptance procedure](docs/ope
 
 ## Continuation
 
-Complete owner acceptance and manage dated runway. The next product feature
-is Cannon/Diverter manufacturing presentation. Sustained Full Speed throughput,
-physical devices, dense-scene P09 qualification and wider-launch readiness
-remain open. Automatic player payouts and refunds are unavailable.
+Complete owner acceptance and manage dated runway. Cannon/Diverter manufacturing,
+the interaction and audio addendum, and verified-coverage corrections are in
+the current frontend candidate, pending full exact-source hosted qualification. The short and full 900-second local
+installed reliability cases passed after focused corrections; their earlier
+failures remain preserved. A same-ID frontend upgrade/recovery rehearsal
+passed on the preceding exact test-only artifact; the current source requires
+retrieved-artifact identity and complete hosted qualification. Production
+installation has not occurred.
+The Rules20 construction, corner and pricing successor remains incomplete and
+inactive. A disposable Ledger/Index test identified an existing Rules19
+authorization-registry encoding boundary for some valid accounts; a compatible
+versioned backend repair is outstanding. Sustained Full Speed throughput,
+physical devices, dense-scene P09
+qualification and wider-launch readiness remain open. Automatic player payouts
+and refunds are unavailable.
 
 [Outstanding-work register](ROADMAP.md) · [Repository consolidation](evidence/B2Z/repository-consolidation/REPORT.md) · [Historical status](https://github.com/aodl/balls-2-the-wallz/blob/315fe2ff1ff873c16e8f693025cc625b0ae59cab/STATUS.md)

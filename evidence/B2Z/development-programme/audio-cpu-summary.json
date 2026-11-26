@@ -1,0 +1,73 @@
+{
+  "command": "node tools/measure_audio.mjs .work/development-programme/audio-current-029.json",
+  "host_cpu": "Intel(R) Xeon(R) Platinum 8272CL CPU @ 2.60GHz",
+  "node": "v24.15.0",
+  "raw_sha256": "d2321ef02555fef42f89729e7f2eded8e15f9e1469edef011b40a576d0deb68e",
+  "rows": [
+    {
+      "endpoint_equality": true,
+      "events": 6,
+      "paired_increment_p95_ms": 0.033101,
+      "paired_increment_p99_ms": 1.153834,
+      "samples": 1000,
+      "scene": "admission"
+    },
+    {
+      "endpoint_equality": true,
+      "events": 4,
+      "paired_increment_p95_ms": 0.0155,
+      "paired_increment_p99_ms": 0.36361,
+      "samples": 1000,
+      "scene": "near-impact"
+    },
+    {
+      "endpoint_equality": true,
+      "events": 2,
+      "paired_increment_p95_ms": 0.0012,
+      "paired_increment_p99_ms": 0.0032,
+      "samples": 1000,
+      "scene": "duel"
+    },
+    {
+      "endpoint_equality": true,
+      "events": 3,
+      "paired_increment_p95_ms": 0.011101,
+      "paired_increment_p99_ms": 0.060101,
+      "samples": 1000,
+      "scene": "severance"
+    },
+    {
+      "endpoint_equality": true,
+      "events": 3,
+      "paired_increment_p95_ms": 0.009199,
+      "paired_increment_p99_ms": 0.0472,
+      "samples": 1000,
+      "scene": "corner"
+    },
+    {
+      "endpoint_equality": true,
+      "events": 1,
+      "paired_increment_p95_ms": 0.003299,
+      "paired_increment_p99_ms": 0.0092,
+      "samples": 1000,
+      "scene": "wall-bounce"
+    },
+    {
+      "endpoint_equality": true,
+      "events": 20,
+      "paired_increment_p95_ms": 0.078402,
+      "paired_increment_p99_ms": 0.240107,
+      "samples": 1000,
+      "scene": "dense"
+    }
+  ],
+  "scope": "Node CPU actual SegmentPlayer interleaved audio-on/off, 1000 pairs per fixture; not browser or physical-device P09 qualification",
+  "source_commit": "0290261eb82d03b16b5760b1005a6e7500a22a99",
+  "thresholds_ms": {
+    "paired_increment_p95": 0.5,
+    "paired_increment_p99": 2
+  },
+  "verdict": "PASS only for this Node CPU slice; historical integrated P09 and hardware remain FAIL/NOT_VERIFIED",
+  "worst_observed_p95_ms": 0.078402,
+  "worst_observed_p99_ms": 1.153834
+}
