@@ -8,10 +8,13 @@ qualification and P09 failures remain in `evidence/B2Z/audio-integration/` and
 
 ## One control and activation
 
-The persistent 44px speaker is the sole public control. Enabled intent is the
-fresh/default state. The crossed speaker means deliberately muted; a pending dot
-and accessible explanation distinguish browser permission/recovery from mute.
-No popover, lane toggle, slider, adaptive switch, retry or cache-clear UI exists.
+The 44px speaker is the sole public audio control. An enabled preference
+waits offscreen for native playback. The control slides in from the left after
+a music source starts with valid coverage or an eligible effect starts, and
+slides out after sustained loss of both lanes. Reduced motion moves directly
+to the endpoint. The control stays visible with a crossed icon when the
+player explicitly mutes, including on reload. Trusted ordinary pointer and
+keyboard gestures can activate audio while the speaker is offscreen.
 
 | State / input | Result |
 | --- | --- |
@@ -38,10 +41,10 @@ is idempotent and touches no account, camera, payment or trust storage.
 
 ## Mix, source fidelity and assets
 
-Fixed product levels are music=1, effects=1, master=.8. These are engineered mix
+Fixed product levels are music=.5, effects=3, master=.8. These are engineered mix
 coefficients, not three gains all set to one. No pace/zoom-dependent music level,
 tempo, pitch, ducking, filtering or alteration of approved musical transitions.
-Mute/recovery retains short de-click fades. Effect peak reservations sum to <=.20
+Mute/recovery retains short de-click fades. Effect peak reservations before the effects bus sum to <=.20
 before master (including sqrt(2) stereo-panner bound); wall/cannon per-voice caps
 are .065/.09. Spatial gain can rise after zoom-in, up to its immutable reservation.
 

@@ -78,7 +78,7 @@ corresponding regressions. A screenshot is not behaviour evidence.
 
 The screen contains the arena, B2Z / quiet “on ICP”, one status button, account chip,
 contextual Join or My cannons, a small camera group (Widest arena view, Zoom out/in),
-a persistent bottom-right world map, and compact Cycles / Est. burn readouts.
+a persistent bottom-right world map and a one-line Cycles control.
 Help is an entry in the secondary Account panel menu; it requires no declaration. No unavailable network selector, permanent action rail,
 onboarding modal, live pause/restart/download controls or payment-report workflow.
 
@@ -180,14 +180,14 @@ x+y+height is nearer this fixed camera. Occluded balls cannot steal cannon hits;
 practical core/halo targets remain bounded. Overlays exclude arena interaction.
 
 Mouse pairs use a 400ms/7px arena-only double-click window. Cannon and ball
-selection/follow entry are immediate; only placement commitment defers for this
+selection/follow entry are immediate; tile actions and placement commitment defer for this
 window. At activation capture an immutable canonical cell, selected cannon and
 origin cell, mode/context generation, source/world identity, verified revision and
 gesture sequence. At commitment revalidate that original cell without sampling
 its old pixel. An explicitly selected invalid destination remains the proposed
 cell and disables wallet Copy. The saved instruction history retains prior
 copied packets. Touch and keyboard activate immediately. A double-click cancels
-pending placement and replaces follow with 1.65× zoom about the clicked world point.
+pending tile actions or placement and replaces follow with 1.65× zoom about the clicked world point.
 At maximum zoom it changes no camera state. Fields, wallet values, buttons and map
 never participate. Fire and a valid Build ghost own clicks/drags within their
 bounded screen-space aiming vicinity; outside that vicinity empty terrain pans
@@ -310,12 +310,12 @@ and exact clipboard/amount/memo assertions; a fixed sleep or a relaxed boundary
 is not a replacement. Test expansion separately at controlled intermediate times,
 including a paused transition, so a settled-state check cannot silently run early.
 
-Routine exhausted coverage with active balls shows a prominent 52px luminous
-spinner and **Waiting for next on-chain update**. Initial acquisition and genuine
-certified backlog reconstruction show **Catching up with on-chain activity ...**.
-Initial feedback is immediate; brief waiting transitions debounce 350ms. Useful
-verified playback removes it promptly. The ring is static under reduced motion,
-nonblocking and has no opaque backdrop, progress percentage or countdown.
+Initial acquisition, warm return, certified backlog recovery and exhausted
+verified coverage with active Balls use the same central 52px spinner and
+**Catching up with on-chain activity...**. This includes Trickle. Verified
+playback with usable coverage remains uninterrupted by background fetches.
+The ring is static under reduced motion, nonblocking, and has no opaque
+backdrop, percentage or countdown.
 Protection, operator pause, idle and integrity failures use their own status.
 
 Before accepting a frontend change, reviewers must check:
@@ -763,21 +763,12 @@ read-only before release. Preserve unrelated settings; setting changes require
 separate explicit approval. See
 [status policy](../../config/europe-public-status.json) and [operator procedure](../operations/S14_OPERATOR.md).
 
-Cycles displays the management response's `cycles` balance, not invented SDK liquid.
-Reserved cycles are a separate balance; they are not subtracted twice. Est. burn
-is an approximate observed net decline over at least 120 seconds, at most a
-10-minute / 12-sample window. The idle memory/compute baseline is labelled separately
-in details, never substituted for total gameplay expenditure. No runway guarantee.
-Unseen credits/refunds/attached-call reservations can affect net decline; public
-sampling cannot reconstruct gross execution cost or every hidden discontinuity.
-
-A balance increase, changed reserved balance, backend/module change, version
-regression, invalid/old timing or >150-second gap resets/rejects the window. The IC
-version counter advances on normal successful executions as well as upgrades;
-monotonic increments with the same module are not mislabelled as a code deployment.
-This distinction is necessary to collect a useful active-game estimate. Module
-changes/regressions are fenced; unknown same-module operations remain a limitation
-of public sampling. Balances/deltas remain BigInt until bounded formatting.
+Cycles displays the management response's total `cycles` balance. The
+optional parenthetical daily estimate is reserved for a verified backend
+measurement. The live Rules19 backend lacks this capability and shows its
+balance alone. The browser retains only its latest management balance
+observation and fences pending requests on hidden return. The separate
+reserved and idle cycles figures keep their original meaning.
 
 One independent optional worker queries at 60 seconds, bounded exponential failure
 backoff to 300 seconds, generation fencing, visibility reset and teardown.
@@ -1221,9 +1212,9 @@ solid surfaces with shallower shadows.
 
 The HUD distinguishes delayed verified playback, sustained delivery failure,
 a stale accepted witness, unavailable operational confirmation, and a hard
-verification failure. Routine Trickle waits and background delivery retries do
-not obscure the last verified arena. Initial acquisition can use the centre
-spinner. An integrity error keeps its explicit Retry verification action.
+verification failure. The centre indicator preserves the last verified arena
+and controls during catch-up. An integrity error keeps its explicit Retry
+verification action.
 
 Only a verified witness for the complete accepted reference world can refresh
 its 30-second authority. An older witness for that same root never replaces a
@@ -1257,8 +1248,11 @@ Only the exact authenticated Rules13 configuration enables these context menus.
 An owned cannon opens Fire/Aim (or Revive) with Focus and Close still available.
 Selection leaves the camera where it is. An owned empty tile opens Focus,
 Build Cannon, Build Deflector and Close, and preserves the selected canonical
-cell when opening a construction editor. An owned Deflector opens Focus,
-Reorient, Move and Close. Enemy inspection offers no owned commands.
+cell when opening a construction editor. An owned Diverter opens Reorient by default, with Focus, Move and Close
+available. The current direction is disabled. The initial valid proposal is
+one canonical clockwise turn, independent of the camera. An authenticated
+heading change that makes a proposal a no-op clears it and requires a new
+choice. Enemy inspection offers no owned commands.
 Rules12 retains the existing construction route from the cannon toolbar.
 
 An open destination picker takes precedence over passive tile selection.
@@ -1271,15 +1265,20 @@ Existing payment readiness and exact clipboard contracts still apply.
 
 ## Rules13 experience continuation
 
-The minimap compass sets which canonical direction points up. Rotation changes
-the projection, screen picking and minimap together over 320 ms. Reduced motion
+Click the compass position where North should move. The action is relative to
+the current orientation and a rapid subsequent click composes with the
+intended cardinal endpoint. Rotation changes the projection, screen picking
+and minimap together over 320 ms. Reduced motion
 applies the endpoint immediately. Rotation keeps the focal point, zoom,
 selection, payment draft and exact copied packet. Canonical direction labels
 and memo bytes retain their North-up meaning in every view.
 
-Selecting a ball shows one pointer-transparent dashed guide based on its
-currently presented verified position and velocity. It ends at a viewport or
-HUD boundary. The guide describes the uninterrupted heading and includes no
+A selected Ball can display a pointer-transparent dashed guide along its
+verified displayed heading. Each selected Ball uses its canonical owner and
+the territory in that same displayed world. The guide, including its stroke
+and wings, stops inside the first neutral or foreign boundary, including
+conservative corner crossings and toroidal seams. No guide extends from a
+foreign starting tile. HUD and viewport clipping still apply. The guide describes the uninterrupted heading and includes no
 predicted collision. Panning disengages follow while leaving the selected
 heading available. Escape clears the selection and guide.
 

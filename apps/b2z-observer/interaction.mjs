@@ -50,3 +50,7 @@ export function placementIntent(hit,{context,identity,sequence,revision}){
 export function samePlacementContext(intent,{context,identity,sequence}){
  return intent.context===context&&intent.identity===identity&&intent.sequence===sequence;
 }
+
+export function arenaClickPair(first,point,at){
+ return Boolean(first&&at>=first.at&&at-first.at<=400&&Math.hypot(point.x-first.p.x,point.y-first.p.y)<=7);
+}

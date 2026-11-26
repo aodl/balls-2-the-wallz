@@ -1,0 +1,48 @@
+{
+  "status": "PASS",
+  "scope": null,
+  "rows": [
+    {
+      "status": "PASS",
+      "viewport": [
+        1440,
+        900
+      ],
+      "scope": "populated interaction fixture"
+    },
+    {
+      "status": "PASS",
+      "viewport": [
+        390,
+        844
+      ],
+      "scope": "populated interaction fixture"
+    },
+    {
+      "status": "PASS",
+      "viewport": [
+        320,
+        640
+      ],
+      "scope": "populated interaction fixture"
+    },
+    {
+      "status": "PASS",
+      "viewport": [
+        390,
+        475
+      ],
+      "scope": "populated interaction fixture"
+    },
+    {
+      "status": "PASS",
+      "scope": "native Chromium AudioContext gain graph and controlled interruption",
+      "gains": {
+        "master": 0.800000011920929,
+        "music": 0.5,
+        "effects": 3
+      }
+    }
+  ],
+  "errors": []
+}

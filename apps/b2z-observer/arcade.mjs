@@ -5,6 +5,7 @@ import {fitShout} from '../../packages/protocol/shout.mjs';
 import {contextSupported,shoutSupported,spacingSupported,reservoirSupported,economySupported} from './context-policy.mjs';
 import {contextReason,contextSites,firstContextDestination,siteOccupant} from './context-sites.mjs';
 import {SCREEN_ORIENTATIONS,screenDirection} from '../../packages/protocol/context-structures.mjs';
+import {clockwiseReorientation} from './headings.mjs';
 import{deflectorSupported,snappedDeflectorDegrees,orientationFromDegrees,deflectorDegrees}from'./deflector-policy.mjs';
 import{deflectorSites}from'./deflector-sites.mjs';
 import {paneAccent} from './theme.mjs';
@@ -46,6 +47,9 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  const tileOwn=()=>tileSelection!==null&&contextSites(world,config).owns(declaration?.account,tileSelection);
  const deflectorOwn=()=>{const d=pickedDeflector();return Boolean(d&&d.owner===contextSites(world,config).owner(declaration?.account));};
  const orientationMode=()=>['deflect','deflector_reorient'].includes(mode);
+ const currentDirection=()=>mode==='deflector_reorient'?pickedDeflector()?.orientation:null;
+ const validDirection=value=>value!==currentDirection();
+ const proposedDirection=()=>worldAngle===null&&mode==='deflector_reorient'?null:orientationFromDegrees(worldAngle??encodedHeading(degrees));
  const qtyActive=()=>view==='action'&&world?.version>=6&&(mode==='ball'&&selected()?.account===declaration?.account||mode==='start'&&structureContexts()&&tileOwn());
  const title=()=>pickedDeflector()?`Diverter #${deflectorId}`:tileSelection!==null?'Owned tile':selected()?`Cannon #${id}`:'New cannon';
  const focusTarget=()=>pickedDeflector()??(tileSelection!==null?{cell:tileSelection}:selected());
@@ -82,6 +86,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   if(mode==='inspect')return null;
   const c=selected(),successor=structureContexts(),rotating=mode==='deflector_reorient',movingDeflector=mode==='deflector_move';
   if((rotating||movingDeflector)&&!deflectorOwn())return {reason:'This Diverter is no longer available to your account.'};
+  if(rotating&&(!proposedDirection()||!validDirection(proposedDirection())))return {reason:'Choose a different direction.'};
   if(!rotating&&!movingDeflector&&!(successor&&['deflect','reservoir'].includes(mode)&&tileOwn())&&mode!=='start'&&c?.account!==declaration.account)return {reason:'This cannon is no longer available to your account.'};
   try{
    if(mode==='move'&&cell===c?.cell)throw Error('DIFFERENT_TILE');
@@ -241,13 +246,14 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   const buttons=[...doc.querySelectorAll('[data-deflector-orientation]')],successor=structureContexts();
   const orders=successor?Object.entries(SCREEN_ORIENTATIONS):[['NE','NE'],['SE','SE'],['SW','SW'],['NW','NW']];
   const names={N:'Canonical North',E:'Canonical East',S:'Canonical South',W:'Canonical West',NE:'Northeast',SE:'Southeast',SW:'Southwest',NW:'Northwest'};
-  const current=orientationMode()?orientationFromDegrees(worldAngle??encodedHeading(degrees)):null;
+  const current=orientationMode()?proposedDirection():null;
   buttons.forEach((button,i)=>{
    const [label,value]=orders[i];
    if(button.dataset.deflectorOrientation!==value||button.textContent!==label){
     button.dataset.deflectorOrientation=value;button.textContent=label;
     button.setAttribute('aria-label',`${names[label]} (${label})`);button.title=names[label];
    }
+   button.disabled=!validDirection(value);
    button.setAttribute('aria-pressed',String(value===current));
   });
  }
@@ -341,13 +347,15 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   if(!tile&&!d&&(!c||c.account!==declaration?.account||!['ball','move'].includes(value)))return;
   if(moving&&(moveDestination()===null||!moveReady)){refresh();return;}
   cancelEntryNavigation();intentVersion++;
-  if(view==='action'&&mode===value&&value!=='ball'){show('inspect',title());return;}
+  if(view==='action'&&mode===value&&value!=='ball'){if(value!=='deflector_reorient')show('inspect',title());return;}
   rememberDraft();clearDraft();mode=value;siteKey='';
   const saved=drafts.get(draftKey(value));
   quantity=saved?.quantity??1;cry=saved?.cry??'';cryProblem='';composing=false;
   cell=tile?tileSelection:value==='deflector_reorient'?d.cell:moving?(saved?.cell!==null&&moveLegality?.test(saved?.cell)?saved.cell:defaultMove):null;
-  worldAngle=saved?saved.worldAngle:d?deflectorDegrees(d.orientation):value==='deflect'?deflectorDegrees('NW'):storedHeadingForMemo(c?.heading??40960);
-  degrees=saved?.degrees??displayHeading(worldAngle);
+  const defaultDirection=d&&value==='deflector_reorient'?clockwiseReorientation(d.orientation):d?.orientation;
+  const useSaved=saved&&(value!=='deflector_reorient'||saved.worldAngle!==null&&validDirection(orientationFromDegrees(saved.worldAngle)));
+  worldAngle=useSaved?saved.worldAngle:d?deflectorDegrees(defaultDirection):value==='deflect'?deflectorDegrees('NW'):storedHeadingForMemo(c?.heading??40960);
+  degrees=useSaved?saved.degrees:displayHeading(worldAngle);
   show('action',title());
  }
  $('identity-form').addEventListener('submit',event=>{event.preventDefault();try{const returning=Boolean(entryPending),next=parseSendingAccount($('sending-account').value,$('identity-subaccount').value);if(next.account!==declaration?.account){cancelEntryNavigation();intentVersion++;clearHandoff();id=null;tileSelection=deflectorId=null;mode='inspect';}if(next.account!==declaration?.account){cry='';cryProblem='';composing=false;}declaration=next;persist();if(!$('remember-account').checked)store?.forget();identityLabel();updateRoster();activity();text('identity-note','');if(returning){entryPending={generation:entryGeneration,account:next.account};show('account','Checking territory');resolveEntry();}else if(pending){const p=pending;pending=null;action(p);}else{show('account','Account');refresh();}}catch(error){text('identity-note',error.message);}});
@@ -437,6 +445,9 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    }
    if(world!==w)ballIds=new Set(w.balls.map(b=>b.id));
    world=w;config=c;source=s;
+   if(mode==='deflector_reorient'&&worldAngle!==null&&proposedDirection()===currentDirection()){
+    intentVersion++;worldAngle=null;clearDraft();
+   }
    if(deflectorId!==null&&!pickedDeflector()||tileSelection!==null&&!tileOwn()){
     view=null;mode='inspect';id=null;cell=tileSelection=deflectorId=null;$('workspace').hidden=true;
    }
@@ -464,9 +475,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
     if(view==='status')renderEconomy();
    }
    if(!destination)status={...status,canPrepare:false};
-   const waiting=status.kind==='connecting'&&!world;
-   $('motion-wait').hidden=!waiting;
-   if(waiting){$('motion-wait').dataset.kind='connecting';text('waiting-label',status.label);}
+   $('motion-wait').hidden=!status.centralWaiting;
    text('arena-note',status.label);
    const indicator=$('status-button');
    if(indicator.dataset.kind!==status.kind)indicator.dataset.kind=status.kind;
@@ -487,7 +496,10 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   },
   selectDeflector(n){
    if(!structureContexts()||!world?.deflectors.some(d=>d.id===n))return false;
-   intentVersion++;rememberDraft();id=tileSelection=null;deflectorId=n;cell=null;mode='inspect';clearDraft();show('inspect',title());return true;
+   if(n===deflectorId&&view==='action'&&mode==='deflector_reorient')return true;
+   intentVersion++;rememberDraft();id=tileSelection=null;deflectorId=n;cell=null;mode='inspect';clearDraft();
+   if(deflectorOwn())contextAction('deflector_reorient');else show('inspect',title());
+   return true;
   },
   selectTile(n,build='start'){
    if(!api.tileSelectable(n))return false;
@@ -514,7 +526,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
   aimAt(dx,dy){
    if(orientationMode()){
     const angle=snappedDeflectorDegrees(Math.atan2(dy,dx)*180/Math.PI);
-    if(angle===worldAngle)return;
+    if(angle===worldAngle||!validDirection(orientationFromDegrees(angle)))return;
     worldAngle=angle;degrees=displayHeading(angle);
     for(const button of doc.querySelectorAll('[data-deflector-orientation]'))button.setAttribute('aria-pressed',String(button.dataset.deflectorOrientation===orientationFromDegrees(angle)));
    }else{
@@ -526,8 +538,8 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    if(view==='action'&&mode==='start'&&!mine().length)for(const button of doc.querySelectorAll('[data-heading]'))button.setAttribute('aria-pressed',String(Number(degrees)===Number(button.dataset.heading)));
    clearDraft();refreshAction();emit();
   },
-  setDeflectorOrientation(value){if(!orientationMode()||!deflectorSupported(config)||!['NE','SE','SW','NW'].includes(value))return false;worldAngle=deflectorDegrees(value);degrees=displayHeading(worldAngle);clearDraft();refresh();return true;},
-  setHeading(value){if(!Number.isFinite(value))return;if(orientationMode()){worldAngle=snappedDeflectorDegrees(encodedHeading(String((value%360+360)%360)));degrees=displayHeading(worldAngle);clearDraft();refresh();return;}degrees=String((value%360+360)%360);worldAngle=null;clearDraft();refresh();},
+  setDeflectorOrientation(value){if(!orientationMode()||!deflectorSupported(config)||!['NE','SE','SW','NW'].includes(value)||!validDirection(value))return false;worldAngle=deflectorDegrees(value);degrees=displayHeading(worldAngle);clearDraft();refresh();return true;},
+  setHeading(value){if(!Number.isFinite(value))return;if(orientationMode()){api.setDeflectorOrientation(orientationFromDegrees(snappedDeflectorDegrees(encodedHeading(String((value%360+360)%360)))));return;}degrees=String((value%360+360)%360);worldAngle=null;clearDraft();refresh();},
   destinationState:()=>({ready:moveReady,cell:defaultMove,key:moveKey,stats:moveSearch?.stats,cacheBytes:moveLegality?.bytes,cacheInspections:moveLegality?.inspected()}),
   proposedAction:()=>Object.freeze({mode,cell,degrees,worldAngle,quantity,...(warCrySupported(config)?{cry}:{} )}),
   launchEditor(){
@@ -535,8 +547,12 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
    return {active:view==='action'&&(shoutActive()||orientationMode()&&deflectorSupported(config)||['ball','start'].includes(mode)&&(mode==='ball'||warCrySupported(config))),
     kind,cryActive:view==='action'&&shoutActive(),first,inline:!spacingSupported(config)&&(first||kind==='action')};
   },
-  adjustAngle(delta){if(orientationMode()){worldAngle=snappedDeflectorDegrees(Number(worldAngle??encodedHeading(degrees))+Math.sign(delta)*90);degrees=displayHeading(worldAngle);clearDraft();refresh();return;}degrees=((Number(degrees)+delta+360)%360).toFixed(2);worldAngle=null;clearDraft();refresh();},
+  adjustAngle(delta){if(orientationMode()){
+   const turn=Math.sign(delta)*90,from=Number(worldAngle??encodedHeading(degrees)),next=orientationFromDegrees(snappedDeflectorDegrees(from+turn));
+   api.setDeflectorOrientation(validDirection(next)?next:orientationFromDegrees(snappedDeflectorDegrees(from+turn*2)));return;
+  }degrees=((Number(degrees)+delta+360)%360).toFixed(2);worldAngle=null;clearDraft();refresh();},
   aim(){
+   if(mode==='deflector_reorient'&&proposedDirection()===null)return null;
    if(view!=='action'||!['ball','start','deflect','deflector_reorient'].includes(mode)||mode==='start'&&!mine().length)return null;
    const target=cell!==null&&['start','deflect','deflector_reorient'].includes(mode)?{id:null,cell}:selected();
    if(!target||mode==='start'&&mine().length&&(structureContexts()?tileBuildIssue('new',cell):!buildSites().includes(cell)))return null;

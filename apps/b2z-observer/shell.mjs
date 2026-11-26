@@ -1,5 +1,5 @@
 /** One local gesture/camera owner. Never touches observation, quotes or clocks. */
-import{resolveInteraction,placementIntent,samePlacementContext,aimingVicinity}from'./interaction.mjs';
+import{resolveInteraction,placementIntent,samePlacementContext,aimingVicinity,arenaClickPair}from'./interaction.mjs';
 import{createMinimap}from'./minimap.mjs';
 import{CameraController,focusedOn,wheelZoom,previewComposition}from'./camera-controller.mjs';
 import{playerAnchor}from'./player-anchor.mjs';
@@ -37,14 +37,14 @@ export function createShell(doc,camera,arcade,onPick){
    button.style.setProperty('--compass-x',Math.sin(angle).toFixed(6));
    button.style.setProperty('--compass-y',(-Math.cos(angle)).toFixed(6));
    if(direction===0)button.style.setProperty('--north-angle',angle+'rad');
-   const disabled=direction===quarter,pressed=String(!rotating&&disabled);
+   const disabled=direction===0,pressed=String(!rotating&&disabled);
    if(button.disabled!==disabled)button.disabled=disabled;
    if(button.getAttribute('aria-pressed')!==pressed)button.setAttribute('aria-pressed',pressed);
    if(!rotating)button.dataset.compassSlot=String((direction-quarter+4)%4);
   }
  }
  syncCompass();
- for(const button of compass)listen(button,'click',()=>{cancelTap();motion.rotate(Number(button.dataset.boardQuarter));syncCompass();});
+ for(const button of compass)listen(button,'click',()=>{cancelTap();motion.rotateNorthTo(Number(button.dataset.boardQuarter));syncCompass();});
  const map=createMinimap($('minimap'),camera,save,{controller:motion,origin:()=>anchor});
  // Long-press discovers an icon without activating it; keyboard gets the same
  // explicit name/reason. This is local feedback, never a gesture/game command.
@@ -161,11 +161,13 @@ export function createShell(doc,camera,arcade,onPick){
  }
  function tap(p,type,eventTime=performance.now(),commit=null){const now=eventTime;
   if(type==='touch'){lastTap=null;if(commit)commit();else activate(resolve(p),p);return;}
-  if(lastTap&&now-lastTap.at<=400&&Math.hypot(p.x-lastTap.p.x,p.y-lastTap.p.y)<=7){const target=lastTap.world;cancelTap();doubleHandled=true;if(motion.zoom(1.65,p.x,p.y,{keepFollow:false,world:target}))stopFollowing();return;}
+  if(arenaClickPair(lastTap,p,now)){const target=lastTap.world;cancelTap();doubleHandled=true;if(motion.zoom(1.65,p.x,p.y,{keepFollow:false,world:target}))stopFollowing();return;}
   doubleHandled=false;lastTap={at:now,p,world:camera.world(p.x,p.y)};
   if(commit){commit();return;}
   const hit=resolve(p);
-  if(hit.kind==='place'||hit.kind==='invalid')pendingTap={due:performance.now()+400,intent:placementIntent(hit,{context:arcade.intentContext(),identity:lastIdentity,sequence:gestureSequence,revision:arcade.revision()})};else activate(hit,p);
+  // A mouse pair owns navigation. Keep tile/action and destination mutation
+  // pending until the pair window closes so the first press cannot flash a panel.
+  if(['place','invalid','tile'].includes(hit.kind))pendingTap={due:performance.now()+400,intent:placementIntent(hit,{context:arcade.intentContext(),identity:lastIdentity,sequence:gestureSequence,revision:arcade.revision()})};else activate(hit,p);
  }
  listen(canvas,'dblclick',e=>{e.preventDefault();e.stopPropagation();
   // Native click count remains decisive when a busy renderer delays event
@@ -463,14 +465,14 @@ export function createShell(doc,camera,arcade,onPick){
   for(const [id,slot] of ballSlots)ids[slot]=id;
   for(const [slot,i] of trajectories.entries()){
    const id=ids[slot],velocity=lastView?.balls.get(id),ball=displayedBall(lastView,velocity,lastTime);
-   const guide=trajectoryGuide(camera,ball,velocity,rects);
+   const guide=trajectoryGuide(camera,ball,velocity,rects,lastView);
    i.group.toggleAttribute('hidden',!guide);
    if(guide){
     i.chip.hidden=true;
-    const {start,end,wings}=guide,key=[id,start.x,start.y,end.x,end.y].join('/');
+    const {start,end,wings}=guide,key=[id,start.x,start.y,end.x,end.y,Boolean(wings)].join('/');
     if(i.key===key)continue;i.key=key;i.group.dataset.ballId=String(id);
     for(const n of [i.line,i.gradient])for(const [k,v] of Object.entries({x1:start.x,y1:start.y,x2:end.x,y2:end.y}))n.setAttribute(k,v);
-    i.tip.setAttribute('d',`M${wings[0].x} ${wings[0].y}L${end.x} ${end.y}L${wings[1].x} ${wings[1].y}`);
+    i.tip.setAttribute('d',wings?`M${wings[0].x} ${wings[0].y}L${end.x} ${end.y}L${wings[1].x} ${wings[1].y}`:'');
     continue;
    }
    const direction=trajectoryDirection(camera,velocity);
@@ -500,7 +502,10 @@ export function createShell(doc,camera,arcade,onPick){
    for(const id of ballSlots.keys())if(arcade.hasBall?!arcade.hasBall(id):!v.balls.has(id))ballSlots.delete(id);
    const following=motion.following;
    if(following&&(arcade.selectedCannon()!==null||arcade.selectedDeflector?.()!=null||!ballSlots.has(following.id)||following.identity!==identity))stopFollowing();
-   if(pendingTap&&!pointers.size&&now>=pendingTap.due){const t=pendingTap;pendingTap=null;if(samePlacementContext(t.intent,{context:arcade.intentContext(),identity,sequence:gestureSequence})&&arcade.moveSelection())arcade.chooseCell(t.intent.cell);}
+   if(pendingTap&&!pointers.size&&now>=pendingTap.due){const t=pendingTap;pendingTap=null;if(samePlacementContext(t.intent,{context:arcade.intentContext(),identity,sequence:gestureSequence})){
+    if(t.intent.kind==='tile'&&arcade.tileSelectable(t.intent.cell))activate(t.intent);
+    else if(t.intent.kind!=='tile'&&arcade.moveSelection())arcade.chooseCell(t.intent.cell);
+   }}
 
    if(followRebase&&motion.following){const id=motion.following.id,p=points.find(b=>b.id===id);if(p)motion.follow(id,identity,p);followRebase=false;}
    motion.update(now,{point:points.find(b=>b.id===motion.following?.id),time,identity});syncCompass();zoomButtons();

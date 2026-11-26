@@ -59,7 +59,7 @@ def verify_certified_lifecycle(page,context,out,configuration,record,report,save
  def initial_fault(route):
   if holding[0]:held.append(route)
   else:route.fulfill(status=503,body='Unavailable')
- cold.route('**/api/v*/canister/*/query',initial_fault);cold.goto(page.url,wait_until='domcontentloaded');expect(cold.locator('#waiting-label')).to_have_text('Catching up with on-chain activity ...');expect(cold.locator('#motion-wait')).to_be_visible();cold.screenshot(path=str(out/'initial-catch-up-spinner.png'));cold.wait_for_timeout(1000);holding[0]=False
+ cold.route('**/api/v*/canister/*/query',initial_fault);cold.goto(page.url,wait_until='domcontentloaded');expect(cold.locator('#waiting-label')).to_have_text('Catching up with on-chain activity...');expect(cold.locator('#motion-wait')).to_be_visible();cold.screenshot(path=str(out/'initial-catch-up-spinner.png'));cold.wait_for_timeout(1000);holding[0]=False
  for route in held:route.fulfill(status=503,body='Unavailable')
  cold.wait_for_timeout(5200);cold.screenshot(path=str(out/'initial-outage.png'));cold.unroute('**/api/v*/canister/*/query');cold.wait_for_function('()=>__b2zExperience?.session?.ready',timeout=45000);report['cold_outage_recovery']=state(cold);cold.close()
  # Slow operational confirmation cannot hold authenticated rendering hostage.

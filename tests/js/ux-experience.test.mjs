@@ -88,3 +88,14 @@ test('unchanged Trickle head is observed at bounded cadence without delaying fas
 test('observation transport retires an ignored abort and fences its late response',async()=>{
  const {observationFetch}=await import('../../apps/b2z-observer/bounded-observation.mjs');const abort=new AbortController();let release;const request=observationFetch(()=>new Promise(r=>release=r),abort.signal,1000)('/query');await Promise.resolve();abort.abort(new DOMException('Page frozen','AbortError'));await assert.rejects(request,{name:'AbortError'});release(new Response('late'));await new Promise(r=>setImmediate(r));
 });
+
+test('central waiting reflects actual verified coverage including Trickle and warm return',()=>{
+ const game={world:{balls:[{}],cannons:[{}]},phase:'STALLED',advancing:false};
+ assert.equal(status({...game,verified:false}).centralWaiting,true);
+ assert.equal(status(game).centralWaiting,true);
+ assert.equal(status({...game,catchingUp:true}).centralWaiting,true);
+ assert.equal(status({...game,deliverySustained:true}).centralWaiting,true);
+ for(const patch of [{advancing:true,phase:'PLAYING'},{world:{balls:[]}},{phase:'ERROR',failureKind:'verification'},
+  {phase:'PAUSED'},{pace:{admission_open:false,mode:'ReserveProtection'}},{operational:{run:{running:false}}}])
+  assert.equal(status({...game,...patch}).centralWaiting,false,JSON.stringify(patch));
+});

@@ -1,6 +1,7 @@
 """Click-to-aim, eligibility and compass checks for the populated Schema7 fixture."""
 
 from playwright.sync_api import expect
+from interaction_polish_browser import rotate_to
 from interaction_polish_browser import scene, board_point
 
 
@@ -33,9 +34,7 @@ def fire_gestures(page, context, screen, width):
     expect(page.locator("#action-prompt")).to_have_text("Pay to Fire")
     rounds = []
     for quarter in range(4):
-        if quarter:
-            page.locator(f"[data-board-quarter='{quarter}']").click()
-        page.wait_for_function("q=>fixture.camera.quarter===q&&!fixture.shell.controller.rotation", arg=quarter)
+        rotate_to(page,quarter)
         if not page.evaluate("fixture.camera.cellPoint(4004).visible"):
             scene(page, 4004, 42, x0, 205 if width < 700 else 360)
         compass = page.evaluate("""() => {

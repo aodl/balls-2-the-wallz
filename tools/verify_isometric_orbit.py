@@ -10,7 +10,7 @@ import subprocess
 from threading import Thread
 
 from playwright.sync_api import sync_playwright, expect
-from interaction_polish_browser import point, board_point, compass_and_turret, movement, scene, tile_cases
+from interaction_polish_browser import point, board_point, compass_and_turret, movement, rotate_to, scene, tile_cases
 from floating_aim_browser import fire_gestures, scout_hover
 
 ROOT = Path(__file__).resolve().parents[1]
@@ -144,10 +144,8 @@ def test(browser, variant, width, height, reduced=False):
     measures = []
     pinch = None
     for quarter, letter in enumerate("NESW"):
-        button = page.locator(f"[data-board-quarter='{quarter}']")
-        if quarter:
-            button.click()
-        settle(page, quarter)
+        rotate_to(page,quarter,legacy=variant=="before")
+        button=page.locator("[data-board-quarter='0']")
         after = page.evaluate("fixture.summary().camera")
         assert after == pose, (pose, after)
         if variant == "after":
@@ -161,8 +159,7 @@ def test(browser, variant, width, height, reduced=False):
             assert abs(positions[1][2]-positions[3][2])<1
         screen(page, f"{variant}-{width}-{letter}")
         measures.append({"quarter": quarter, "pose": after})
-    page.locator("[data-board-quarter='0']").click()
-    settle(page, 0)
+    rotate_to(page,0,legacy=variant=="before")
     page.evaluate("fixture.select(1)")
     page.wait_for_function("()=>!document.getElementById('war-cry-editor').hidden&&Boolean(fixture.aim())")
     if variant == "after":
@@ -175,8 +172,7 @@ def test(browser, variant, width, height, reduced=False):
     screen(page, f"{variant}-{width}-fire")
     if variant == "after":
         memo = page.locator("#text-memo").text_content()
-        page.locator("[data-board-quarter='1']").click()
-        settle(page, 1)
+        rotate_to(page,1)
         assert page.locator("#text-memo").text_content() == memo
         assert page.evaluate("fixture.summary().selected") == 1
         if width == 320:
@@ -202,8 +198,7 @@ def test(browser, variant, width, height, reduced=False):
                 && !document.documentElement.classList.contains('short-edit')
                 && fixture.shell.layoutState().quantityReservation==='rail'""")
             pinch = rotated_pinch(page, ctx)
-        page.locator("[data-board-quarter='0']").click()
-        settle(page, 0)
+        rotate_to(page,0)
         page.evaluate("fixture.shell.controller.cancel();fixture.camera.centre(7.5,4.5);fixture.draw()")
     page.locator("#close-panel").click()
     point = page.evaluate("fixture.camera.cellPoint(4007)")
@@ -527,8 +522,7 @@ def tactical(browser):
             expect(chip).to_be_visible()
             assert chip.evaluate("node=>getComputedStyle(node).pointerEvents")== 'none'
             angle=chip.locator('svg').evaluate("node=>node.style.transform")
-            page.locator("[data-board-quarter='1']").click()
-            settle(page,1)
+            rotate_to(page,1)
             assert chip.locator('svg').evaluate("node=>node.style.transform") != angle
             page.locator('#centre-cannon').click()
             if page.locator('#own-cannons button').is_visible():

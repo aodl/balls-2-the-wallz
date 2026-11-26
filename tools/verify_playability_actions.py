@@ -6,15 +6,17 @@ from fluid_playability_browser import action_field,wallet_fields_reachable,verif
 import argparse,functools,http.server,json,subprocess,threading,time,traceback
 from pathlib import Path
 from playwright.sync_api import sync_playwright,expect
+from prelaunch_interactions_browser import verify_prelaunch_interactions
 from player_playability_browser import verify_player_controls,verify_saved_world_heading,capture_player_review
-p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--no-video',action='store_true',help='Run all assertions without optional recording/encoding load');p.add_argument('--visual-review',action='store_true',help='Short populated visual journeys, screenshots and recordings');a=p.parse_args();
+p=argparse.ArgumentParser(description=__doc__);p.add_argument('--output',type=Path,required=True);p.add_argument('--no-video',action='store_true',help='Run all assertions without optional recording/encoding load');p.add_argument('--visual-review',action='store_true',help='Short populated visual journeys, screenshots and recordings');p.add_argument('--prelaunch-interactions',action='store_true',help='Run focused current presentation and native input checks');a=p.parse_args();
 if a.visual_review and a.no_video:p.error('visual review requires recordings; use --no-video only for development checks')
 root=Path(__file__).resolve().parents[1];out=a.output.absolute();out.mkdir(parents=True,exist_ok=False)
 subprocess.run(['node','tools/fixtures/prepare-playability-actions.mjs',str(out/'fixture.json')],cwd=root,check=True)
 subprocess.run(['node_modules/.bin/esbuild','tools/fixtures/playability-action-browser.mjs','--bundle','--platform=browser','--format=esm','--outfile='+str(out/'fixture.mjs')],cwd=root,check=True)
 (out/'index.html').write_text((root/'apps/b2z-observer/index.html').read_text().replace('src="./app.mjs"','src="./fixture.mjs"'))
 (out/'cursors').mkdir();(out/'cursors/reticle.svg').write_bytes((root/'apps/b2z-observer/cursors/reticle.svg').read_bytes())
-for n in ['style.css','icon.svg']:(out/n).write_bytes((root/'apps/b2z-observer'/n).read_bytes())
+for n in ['style.css','icon.svg','balls-to-the-wallz-b2z-wordmark.svg']:(out/n).write_bytes((root/'apps/b2z-observer'/n).read_bytes())
+if a.prelaunch_interactions:(out/'audio').symlink_to(root/'apps/b2z-observer/audio',target_is_directory=True)
 class Handler(http.server.SimpleHTTPRequestHandler):
  def log_message(self,*args):pass
  def end_headers(self):
@@ -33,7 +35,9 @@ def select(page,n):
 with sync_playwright() as pw:
  browser=pw.chromium.launch(executable_path=pw.chromium.executable_path,headless=True,chromium_sandbox=True)
  try:
-  if a.visual_review:
+  if a.prelaunch_interactions:
+   rows.extend(verify_prelaunch_interactions(browser,origin,out,errors))
+  elif a.visual_review:
    for width,height in [(1440,900),(390,844),(320,640)]:
     context=browser.new_context(viewport={'width':width,'height':height},has_touch=width<=700,permissions=['clipboard-write'],record_video_dir=str(out/'video'),record_video_size={'width':width,'height':height});page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto(origin);page.wait_for_function('()=>!!window.fixture');row=capture_player_review(page,width,height,out);row['recording']=str(Path(page.video.path()).relative_to(out));context.close();rows.append(row);print('VISUAL PASS',width,height,flush=True)
   else:
@@ -88,9 +92,9 @@ with sync_playwright() as pw:
    context=browser.new_context(viewport={'width':390,'height':844},**({}if a.no_video else dict(record_video_dir=str(out/'video'),record_video_size={'width':390,'height':844})));page=context.new_page();page.on('pageerror',lambda e:errors.append(str(e)));page.goto(origin);page.wait_for_function('()=>!!window.fixture');page.evaluate('fixture.motion("wrap",.01)');page.evaluate('fixture.camera.frameCell(999999);fixture.playbackScale(20);fixture.markClock()')
    page.wait_for_function('()=>fixture.summary().queue===0',timeout=20000)
    # UXR-07/08 separates the 700ms stopped-tail decay from the 2.2s
-   # hold/fade tile wake; UXR-24 keeps routine waiting in compact status.
+   # hold/fade tile wake; exhausted Trickle playback uses central feedback.
    page.wait_for_timeout(900);assert page.evaluate('fixture.summary().stats.tails')==0
-   page.wait_for_function('()=>document.getElementById("arena-note").textContent==="Waiting for next on-chain update"',timeout=2000);assert page.locator('#motion-wait').is_hidden()
+   page.wait_for_function('()=>document.getElementById("arena-note").textContent==="Waiting for next on-chain update"',timeout=2000);assert page.locator('#motion-wait').is_visible()
    page.wait_for_function('()=>fixture.summary().stats.effects===0',timeout=1500);assert page.evaluate('fixture.summary().stats.effects')==0
    start=page.evaluate('fixture.summary().time');page.evaluate('fixture.appendMotion()');page.wait_for_function('(t)=>fixture.summary().time>t',arg=start);assert page.evaluate('fixture.sameClock()');page.wait_for_function('()=>fixture.summary().queue===0',timeout=20000)
    page.evaluate('fixture.appendMotion()');page.wait_for_function('(t)=>fixture.summary().time>t+1',arg=start);assert page.evaluate('fixture.sameClock()');page.wait_for_function('()=>fixture.summary().queue===0',timeout=20000);page.screenshot(path=str(out/'slow-wait-resume-wrap.png'));rows.append({'status':'PASS','coverage':['Trickle one complete interval starts','waiting has no movement effect','two later canonical publications resume same clock','toroidal rendered travel'],'timing':'20x accelerated disposable wall time at actual 0.01 policy; not production cadence','recording':str(Path(page.video.path()).relative_to(out))if page.video else None});context.close()

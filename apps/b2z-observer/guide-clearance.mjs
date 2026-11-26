@@ -49,8 +49,41 @@ export function trajectoryDirection(camera,velocity){
  return length?{dx:x/length,dy:y/length}:null;
 }
 
+// Traverse only the continuous friendly run in displayed territory. Expanding
+// each adjacent foreign tile by the stroke radius also closes diagonal corners
+// and prevents a round cap or wing from extending past an eligible edge.
+export function friendlyGuideReach(view,owner,x,y,dx,dy,limit,pad=0){
+ if(!owner||!limit||pad>=.5)return 0;
+ const {width,height,torus}=view;
+ const friendly=(i,j)=>{
+  if(torus){i=(i%width+width)%width;j=(j%height+height)%height;}
+  if(i<0||i>=width||j<0||j>=height)return false;
+  return view.playerForTerritory(view.owner(j*width+i))===owner;
+ };
+ let i=Math.floor(x),j=Math.floor(y);
+ if(!friendly(i,j))return 0;
+ const sx=Math.sign(dx),sy=Math.sign(dy),stepX=sx?1/Math.abs(dx):Infinity,stepY=sy?1/Math.abs(dy):Infinity;
+ let nextX=sx?((sx>0?i+1:i)-x)/dx:Infinity;
+ let nextY=sy?((sy>0?j+1:j)-y)/dy:Infinity;
+ let end=Math.min(limit,width,height);
+ for(let visited=0;visited<=width+height;visited++){
+  for(let b=j-1;b<=j+1;b++)for(let a=i-1;a<=i+1;a++){
+   const l=a-pad,r=a+1+pad,t=b-pad,d=b+1+pad;
+   if(!sx&&(x<l||x>r)||!sy&&(y<t||y>d))continue;
+   const entry=Math.max(0,sx?((sx>0?l:r)-x)/dx:-Infinity,sy?((sy>0?t:d)-y)/dy:-Infinity);
+   const exit=Math.min(end,sx?((sx>0?r:l)-x)/dx:Infinity,sy?((sy>0?d:t)-y)/dy:Infinity);
+   if(entry<=exit&&!friendly(a,b))end=entry;
+  }
+  const next=Math.min(nextX,nextY);
+  if(next>=end)break;
+  if(next===nextX){nextX+=stepX;i+=sx;}
+  if(next===nextY){nextY+=stepY;j+=sy;}
+ }
+ return end;
+}
+
 /** Local heading only, starting at the selected ball's verified presentation. */
-export function trajectoryGuide(camera,ball,velocity,obstacles=[]){
+export function trajectoryGuide(camera,ball,velocity,obstacles,view){
  const direction=trajectoryDirection(camera,velocity);
  if(!ball||!direction)return null;
  const {width,height}=camera.viewport,p=camera.point(ball.x,ball.y,.14);
@@ -60,8 +93,21 @@ export function trajectoryGuide(camera,ball,velocity,obstacles=[]){
  const edgeX=dx>0?(width-margin-start.x)/dx:dx<0?(margin-start.x)/dx:Infinity;
  const edgeY=dy>0?(height-margin-start.y)/dy:dy<0?(margin-start.y)/dy:Infinity;
  const reach=Math.min(edgeX,edgeY,Math.hypot(width,height)*.72);
- const length=reach*guideClearance(start,{x:start.x+dx*reach,y:start.y+dy*reach},obstacles);
+ const maxPixels=reach*guideClearance(start,{x:start.x+dx*reach,y:start.y+dy*reach},obstacles);
+ const speed=Math.hypot(velocity.vx,velocity.vy),vx=velocity.vx/speed,vy=velocity.vy/speed;
+ const projected=camera.basis.project(vx,vy),pixelsPerCell=Math.hypot(projected.x,projected.y)*camera.scale;
+ // 0.75 CSS px stroke radius plus rasterization margin, converted through
+ // the greatest stretch of the inclined inverse projection.
+ const pad=1.25*Math.sqrt(3)/camera.scale;
+ const allowed=friendlyGuideReach(view,velocity.owner,ball.x,ball.y,vx,vy,maxPixels/pixelsPerCell,pad);
+ const length=allowed*pixelsPerCell-.25;
  if(length<22)return null;
  const x=start.x+dx*length,y=start.y+dy*length;
- return{start,end:{x,y},wings:[{x:x-9*dx+4*dy,y:y-9*dy-4*dx},{x:x-9*dx-4*dy,y:y-9*dy+4*dx}]};
+ const wings=[{x:x-9*dx+4*dy,y:y-9*dy-4*dx},{x:x-9*dx-4*dy,y:y-9*dy+4*dx}];
+ const endX=ball.x+length/pixelsPerCell*vx,endY=ball.y+length/pixelsPerCell*vy;
+ const room=wings.every(wing=>{
+  const v=camera.basis.unproject((wing.x-x)/camera.scale,(wing.y-y)/camera.scale),span=Math.hypot(v.x,v.y);
+  return friendlyGuideReach(view,velocity.owner,endX,endY,v.x/span,v.y/span,span,pad)>=span;
+ });
+ return {start,end:{x,y},wings:room?wings:null};
 }

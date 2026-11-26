@@ -23,49 +23,54 @@ export function formatCycles(n){
  const digits=n.toString();if(digits.length>18)return `${digits[0]}.${digits.slice(1,3)}e${digits.length-1}`;
  const unit=n>=1000000000000n?[1000000000000n,'T']:n>=1000000000n?[1000000000n,'B']:[1000000n,'M'];return `${n/unit[0]}.${(n%unit[0]*100n/unit[0]).toString().padStart(2,'0')}${unit[1]}`;
 }
-export function cycleSamples({minimumMs=120000,maximumGapMs=150000,windowMs=600000}={}){
- let samples=[],last=null,reason='Waiting for enough samples';
- const reset=why=>{samples=[];last=null;reason=why;};
- return {reset,accept(s,at){
-  if(!Number.isFinite(at)||typeof s.cycles!=='bigint'||s.cycles<0n||typeof s.reserved_cycles!=='bigint'||s.reserved_cycles<0n){reset('Invalid status');return;}
-  if(last&&at<=last.at)return;
-  const identity=s.backend+'/'+JSON.stringify(s.module_hash,(_,v)=>typeof v==='bigint'?String(v):v),row={at,version:s.version,cycles:s.cycles,reserved:s.reserved_cycles,identity,idle:s.idle_cycles_burned_per_day};
-  if(last&&(identity!==last.identity||row.version<last.version||at-last.at>maximumGapMs||row.reserved!==last.reserved||row.cycles>last.cycles))reset('Balance, reserve, module, source, version or sampling gap changed');
-  samples.push(row);last=row;while(samples.length>1&&at-samples[0].at>windowMs)samples.shift();while(samples.length>12)samples.shift();
- },view(at){if(!last)return{balance:null,rate:null,label:reason==='Waiting for enough samples'?'Collecting':'Unavailable',reason};if(at-last.at>maximumGapMs)return{balance:last.cycles,rate:null,label:'Stale',reason:'Last sample is too old',idle:last.idle,reserved:last.reserved,ageMs:at-last.at};const first=samples[0],elapsed=last.at-first.at,decline=first.cycles-last.cycles,ready=elapsed>=minimumMs&&decline>=0n;
-  return{balance:last.cycles,rate:ready?decline*3600000n/BigInt(Math.round(elapsed)):null,label:ready?'Available':'Collecting',windowMs:elapsed,ageMs:at-last.at,idle:last.idle,reserved:last.reserved,reason:ready?'Observed net decline; hidden credits/refunds cannot be reconstructed':reason};
- }};
-}
 export function cycleReadout(value){
- const label=['Collecting','Unavailable','Stale','Available'].includes(value.label)?value.label:'Unavailable';
- if(value.balance==null||label==='Unavailable')return{balance:'Unavailable',burn:'Unavailable',detail:'Cycle data temporarily unavailable'};
- return{balance:formatCycles(value.balance)+(label==='Stale'?' · stale':''),burn:label==='Available'&&typeof value.rate==='bigint'&&value.rate>=0n?'~'+formatCycles(value.rate)+'/h':label,
- detail:label==='Available'?`Observed net balance decline over ${Math.round(value.windowMs/1000)} seconds; not gross gameplay cost or a runway guarantee.`:label==='Stale'?'Cycle data temporarily unavailable':'Collecting cycle samples'};
+ const balance=typeof value.balance==='bigint'?formatCycles(value.balance):null;
+ const burn=value.verifiedBurn;
+ const rate=typeof burn?.cyclesPerDay==='bigint'&&burn.cyclesPerDay>=0n?'(~'+formatCycles(burn.cyclesPerDay).replace(/\.00(?=[TBM]$)/,'')+'/day)':'';
+ let detail='Cycle data temporarily unavailable';
+ if(balance!==null){
+  detail='Management total cycles. Certified daily burn is unavailable on this backend.';
+  if(rate)detail='Management total cycles. '+burn.detail;
+  if(value.label==='Stale')detail='Last known management total cycles. '+detail;
+ }
+ return {balance:balance??'Unavailable',burn:rate,detail};
 }
-export function renderCycleReadout(doc,value){const v=cycleReadout(value),unavailable=value.balance==null||value.label==='Unavailable'||value.label==='Stale';doc.getElementById('cycle-unavailable').hidden=!unavailable;doc.getElementById('cycle-values').hidden=unavailable;for(const[id,key]of[['cycles-balance','balance'],['cycles-burn','burn'],['cycle-detail','detail']])doc.getElementById(id).textContent=v[key];}
+export function renderCycleReadout(doc,value){
+ const v=cycleReadout(value),unavailable=v.balance==='Unavailable';
+ doc.getElementById('cycle-unavailable').hidden=!unavailable;
+ doc.getElementById('cycle-values').hidden=unavailable;
+ doc.getElementById('cycles-burn').hidden=!v.burn;
+ for(const [id,key] of [['cycles-balance','balance'],['cycles-burn','burn'],['cycle-detail','detail']]){
+  const node=doc.getElementById(id);
+  if(node.textContent!==v[key])node.textContent=v[key];
+ }
+}
 export function publicCycleMonitor({read,onState,now=()=>performance.now(),hidden=()=>document.hidden,schedule=setTimeout,cancel=clearTimeout,interval=60000,timeout=12000}={}){
- const meter=cycleSamples();let timer=null,inflight=null,stopped=false,generation=0,failures=0,timerGeneration=0;
- const publish=(label,reason)=>{if(!stopped)onState({...meter.view(now()),rate:null,label,reason});};
+ let observation=null,timer=null,inflight=null,stopped=false,generation=0,failures=0,timerGeneration=0;
+ const publish=(label,reason)=>{if(!stopped)onState({...observation,balance:observation?.balance??null,
+  ageMs:observation?now()-observation.at:null,label,reason});};
  function disarm(){timerGeneration++;cancel(timer);timer=null;}
  function arm(delay=interval){disarm();if(!stopped&&!hidden()){const fence=timerGeneration;timer=schedule(()=>{if(fence!==timerGeneration||stopped||hidden())return;timer=null;void tick();},delay);}}
  async function tick(){
   if(stopped||hidden()||inflight)return;
   const operation={generation,controller:new AbortController(),expired:false,deadline:null};inflight=operation;
-  if(meter.view(now()).balance===null)publish('Collecting','Reading optional public status');
+  if(!observation)publish('Unavailable','Reading optional public status');
   let expire;
   const cancelled=new Promise((_,reject)=>{expire=()=>reject(new DOMException('Telemetry unavailable','AbortError'));operation.controller.signal.addEventListener('abort',expire,{once:true});});
-  operation.deadline=schedule(()=>{if(stopped||inflight!==operation)return;operation.expired=true;failures++;if(generation===operation.generation)publish('Unavailable','Cycle data temporarily unavailable');operation.controller.abort();},timeout);
-  try{const s=await Promise.race([Promise.resolve().then(()=>read({signal:operation.controller.signal})),cancelled]);if(!stopped&&generation===operation.generation&&!operation.expired&&!operation.controller.signal.aborted){meter.accept(s,now());failures=0;onState(meter.view(now()));}}
-  catch{if(!stopped&&generation===operation.generation&&!operation.expired){failures++;publish('Unavailable','Optional public status request failed');}}
+  operation.deadline=schedule(()=>{if(stopped||inflight!==operation)return;operation.expired=true;failures++;if(generation===operation.generation)publish(observation?'Stale':'Unavailable','Cycle data temporarily unavailable');operation.controller.abort();},timeout);
+  try{const s=await Promise.race([Promise.resolve().then(()=>read({signal:operation.controller.signal})),cancelled]);if(!stopped&&generation===operation.generation&&!operation.expired&&!operation.controller.signal.aborted){if(typeof s.cycles!=='bigint'||s.cycles<0n||typeof s.reserved_cycles!=='bigint'||s.reserved_cycles<0n)throw Error('Invalid public status');
+   observation={at:now(),balance:s.cycles,reserved:s.reserved_cycles,idle:s.idle_cycles_burned_per_day};
+   failures=0;publish('Available','Signed management balance observation');}}
+  catch{if(!stopped&&generation===operation.generation&&!operation.expired){failures++;publish(observation?'Stale':'Unavailable','Optional public status request failed');}}
   finally{
    operation.controller.signal.removeEventListener('abort',expire);cancel(operation.deadline);if(inflight===operation)inflight=null;
-   if(!stopped&&!hidden()){if(generation!==operation.generation){publish('Collecting','Collecting after visibility change');arm(0);}else arm(Math.min(300000,interval*2**Math.min(failures,3)));}
+   if(!stopped&&!hidden()){if(generation!==operation.generation){publish('Stale','Awaiting current public status');arm(0);}else arm(Math.min(300000,interval*2**Math.min(failures,3)));}
   }
  }
- arm(0);return{visibility(){if(stopped)return;generation++;disarm();meter.reset('Visibility changed; previous window discarded');
+ arm(0);return{visibility(){if(stopped)return;generation++;disarm();
   if(inflight)inflight.controller.abort();
   if(hidden())publish('Stale','Telemetry suspended while hidden');
   else if(inflight)publish('Unavailable','Cycle data temporarily unavailable');
-  else{publish('Collecting','Collecting after visibility change');arm(0);}
+  else{publish('Stale','Awaiting current public status');arm(0);}
  },stop(){if(stopped)return;stopped=true;generation++;disarm();if(inflight){cancel(inflight.deadline);inflight.controller.abort();}},get busy(){return Boolean(inflight);}};
 }

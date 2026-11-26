@@ -1,3 +1,4 @@
+import {SCREEN_ORIENTATIONS,screenDirection} from '../../packages/protocol/context-structures.mjs';
 /** Presentation only: screen clockwise-from-up <-> unchanged canonical world angle. */
 import {describeTextMemo} from '../../packages/protocol/memo.mjs';
 const norm=n=>(n%360+360)%360;
@@ -11,4 +12,9 @@ export function storedHeadingForMemo(heading){
   const centidegrees=Math.floor((heading*36000+32768)/65536)%36000;
   const whole=Math.floor(centidegrees/100),fraction=centidegrees%100;
   return fraction===0?String(whole):`${whole}.${fraction%10===0?fraction/10:String(fraction).padStart(2,'0')}`;
+}
+
+export function clockwiseReorientation(orientation){
+ const directions=['N','E','S','W'];
+ return SCREEN_ORIENTATIONS[directions[(directions.indexOf(screenDirection(orientation))+1)%directions.length]];
 }

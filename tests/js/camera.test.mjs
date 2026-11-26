@@ -56,8 +56,9 @@ test('rotation keeps centre and zoom fixed, supports interruption and reduced mo
 });
 test('ball heading guide follows the rotated verified vector and clips before controls',()=>{
  const c=new Camera();c.configure(1000,1000,320,640,true);c.frameCell(0);c.angle=-Math.PI;
- const ball={x:.5,y:.5},velocity={vx:1024,vy:1024};
- const guide=trajectoryGuide(c,ball,velocity,[{left:110,right:210,top:180,bottom:224,width:100,height:44}]);
+ const ball={x:.5,y:.5},velocity={vx:1024,vy:1024,owner:1};
+ const view={width:1000,height:1000,torus:true,owner:()=>1,playerForTerritory:id=>id};
+ const guide=trajectoryGuide(c,ball,velocity,[{left:110,right:210,top:180,bottom:224,width:100,height:44}],view);
  near(guide.start.x,guide.end.x);assert.ok(guide.end.y<guide.start.y&&guide.end.y>224);
  assert.equal(trajectoryGuide(c,ball,{vx:0,vy:0}),null);
 });
@@ -87,5 +88,17 @@ test('Three.js orbit and flat picker share the same upright projection at every 
    const corners=[[0,0],[1000,0],[1000,1000],[0,1000]].map(([x,y])=>map.projectCut(x,y));
    near(extent(corners,'x'),124);near(extent(corners,'y'),124/Math.sqrt(3));
   }
+ }
+});
+
+test('compass moves North to the clicked position from every settled pose',()=>{
+ const c=new Camera();c.configure(1000,1000,390,844,true);c.frameCell(999999);
+ const motion=new CameraController(c,{reducedMotion:()=>true});
+ for(let origin=0;origin<4;origin++)for(let direction=0;direction<4;direction++){
+  c.angle=-origin*Math.PI/2;
+  const at=c.angle+direction*Math.PI/2,pose=[c.x,c.y,c.scale];
+  assert.equal(motion.rotateNorthTo(direction),direction!==0);
+  near(Math.sin(c.angle),Math.sin(at));near(Math.cos(c.angle),Math.cos(at));
+  assert.deepEqual([c.x,c.y,c.scale],pose);
  }
 });

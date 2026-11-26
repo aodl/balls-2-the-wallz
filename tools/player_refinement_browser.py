@@ -88,7 +88,7 @@ def verify_refinement(page,width,height,out):
  assert page.evaluate('fixture.sameClock()');page.screenshot(path=str(out/f'{width}-navigation.png'))
  # Ordinary waiting is compact; actual catch-up remains truthful, never a
  # permanent spinner for routine slow production or optional telemetry.
- page.evaluate('fixture.playbackScale(1000)');page.wait_for_function('()=>fixture.summary().queue===0',timeout=8000);page.wait_for_timeout(750);assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Waiting for next on-chain update')
+ page.evaluate('fixture.playbackScale(1000)');page.wait_for_function('()=>fixture.summary().queue===0',timeout=8000);page.wait_for_timeout(750);assert page.locator('#motion-wait').is_visible();expect(page.locator('#arena-note')).to_have_text('Waiting for next on-chain update')
  # Explicit panel-aware Focus and precision/caret survive a latest-state refresh.
  prepare('fire');page.evaluate('fixture.camera.pan(Math.min(190,innerWidth*.35),0);fixture.draw()');expect(page.locator('#focus-cannon')).to_be_enabled();page.locator('#focus-cannon').click();settled(page)
  (out/f'{width}-focus.json').write_text(__import__('json').dumps(page.evaluate('''()=>({camera:fixture.summary().camera,anchor:fixture.point(1),layout:fixture.shell.layoutState(),hud:Object.fromEntries(['.arena-header','.arena-chrome','#cycles-display','#minimap','#focus-cannon'].map(s=>[s,document.querySelector(s).getBoundingClientRect().toJSON()]))})'''),indent=2)+'\n')

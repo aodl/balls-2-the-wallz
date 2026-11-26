@@ -106,7 +106,7 @@ def verify_player_controls(page,width,height):
  # Real compact-meter DOM path must never expand with internal reset diagnostics.
  allowed=page.evaluate('fixture.canPay()')
  for cause in ['credit','reserve','module','source','hidden','error']:
-  expected=page.evaluate('(kind)=>fixture.cycles(kind)',cause);assert page.locator('#cycles-burn').inner_text()==expected
+  expected=page.evaluate('(kind)=>fixture.cycles(kind)',cause);assert page.locator('#cycles-burn').text_content()==expected
   assert len(page.locator('#cycles-balance').inner_text())<=28;assert page.evaluate('fixture.canPay()')==allowed
   meter=page.locator('#cycles-display').bounding_box();mini=page.locator('#minimap').bounding_box();card=page.locator('#workspace').bounding_box()
   overlap=lambda a,b:a['x']<b['x']+b['width'] and a['x']+a['width']>b['x'] and a['y']<b['y']+b['height'] and a['y']+a['height']>b['y']
@@ -164,10 +164,9 @@ def verify_player_controls(page,width,height):
  # The centre state comes from the resolver, and never masks pause/error/idle.
  page.evaluate('fixture.render("idle","initial")')
  base='({phase:"STALLED",live:true,verified:true,fresh:true,healthy:true,operationalFresh:true,advancing:false,operational:{run:{running:true,last_error:[],pace:{mode:"Trickle",supported_milli:10,admission_open:true}},source:{binding_checked:true,last_error:[]}}})'
- # Checked game coverage uses the HUD. The central spinner is for first acquisition.
- # Keep distinct catch-up / protection / error checks with the same resolver.
- page.evaluate('fixture.status('+base+')');page.wait_for_timeout(550);page.evaluate('fixture.status('+base+')');assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Waiting for next on-chain update')
- page.evaluate('fixture.status({...'+base+',catchingUp:true})');page.wait_for_timeout(550);page.evaluate('fixture.status({...'+base+',catchingUp:true})');assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Playback delayed')
+ # The shared centre indicator covers exhaustion and catch-up, with separate protection and error states.
+ page.evaluate('fixture.status('+base+')');page.wait_for_timeout(550);page.evaluate('fixture.status('+base+')');assert page.locator('#motion-wait').is_visible();expect(page.locator('#arena-note')).to_have_text('Waiting for next on-chain update')
+ page.evaluate('fixture.status({...'+base+',catchingUp:true})');page.wait_for_timeout(550);page.evaluate('fixture.status({...'+base+',catchingUp:true})');assert page.locator('#motion-wait').is_visible();expect(page.locator('#arena-note')).to_have_text('Playback delayed')
  page.evaluate('fixture.status({...'+base+',operational:{run:{running:true,pace:{mode:"ReserveProtection",supported_milli:0,admission_open:false}},source:{binding_checked:true,last_error:[]}}})');assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Game paused · low energy');assert not page.evaluate('fixture.canPay()')
  page.evaluate('fixture.status({...'+base+',phase:"ERROR",failureKind:"verification"})');assert page.locator('#motion-wait').is_hidden();expect(page.locator('#arena-note')).to_have_text('Unable to verify game data.')
  page.reload();page.wait_for_function('()=>!!window.fixture')

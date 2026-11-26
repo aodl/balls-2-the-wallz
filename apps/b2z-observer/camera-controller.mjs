@@ -95,6 +95,14 @@ export class CameraController{
  follow(id,identity,point){
   this.cancel({follow:true});this.following={id,identity,time:null};if(point)this.go({x:point.x,y:point.y,scale:this.camera.scale},{owner:'follow-entry',keepFollow:true,duration:this.reducedMotion()?0:260});
  }
+ rotateNorthTo(direction){
+  if(!Number.isInteger(direction)||direction<1||direction>3)return false;
+  // Compose repeated input against the intended cardinal pose while the
+  // display catches up. A button names North's new screen position.
+  const angle=this.rotation?.target??this.camera.angle;
+  const quarter=Math.round(-angle/(Math.PI/2));
+  return this.rotate((quarter-direction+8)%4);
+ }
  rotate(quarter){
   if(!Number.isInteger(quarter)||quarter<0||quarter>3)return false;
   const now=this.now(),c=this.camera;this.sampleRotation(now);this.cancel();

@@ -80,14 +80,20 @@ def denied_move_copy(page, context, memo):
         cdp.detach()
 
 
+def rotate_to(page, quarter, legacy=False):
+    current = page.evaluate("fixture.camera.quarter")
+    direction = quarter if legacy else (current-quarter)%4
+    button = page.locator(f"[data-board-quarter='{direction}']")
+    if button.is_enabled():
+        button.click()
+    page.wait_for_function("q=>fixture.camera.quarter===q&&!fixture.shell.controller.rotation", arg=quarter)
+
+
 def guide_overlap(page, screen, width, source, destination, stem):
     # Match the Three.js buffer to the full board-space arrow at every
     # orientation. Force a real overlapping pose by panning the terrain.
     for quarter in (0,1,2,3):
-        button=page.locator(f"[data-board-quarter='{quarter}']")
-        if button.is_enabled():
-            button.click()
-        page.wait_for_function("q=>fixture.camera.quarter===q&&!fixture.shell.controller.rotation",arg=quarter)
+        rotate_to(page,quarter)
         scene(page,destination,22,width/2,340 if width<700 else 370)
         assert not page.evaluate("n=>fixture.camera.cellPoint(n).visible",source)
         page.wait_for_function("""()=>{
@@ -98,10 +104,7 @@ def guide_overlap(page, screen, width, source, destination, stem):
     if width!=1440:
         return False
     for quarter in (0,1,2,3):
-        button=page.locator(f"[data-board-quarter='{quarter}']")
-        if button.is_enabled():
-            button.click()
-        page.wait_for_function("q=>fixture.camera.quarter===q&&!fixture.shell.controller.rotation",arg=quarter)
+        rotate_to(page,quarter)
         panel=page.locator('#workspace').bounding_box()
         for px,py in [(panel['x']-65,panel['y']+90),(panel['x']+60,panel['y']+panel['height']+45)]:
             scene(page,source,38,px,py)
@@ -133,10 +136,11 @@ def movement(browser, url, declare, screen, width, height, diverter, floating=Fa
     declare(page)
     if width < 700:
         for quarter in (1, 0):
-            button=page.locator(f"[data-board-quarter='{quarter}']")
+            direction=(page.evaluate("fixture.camera.quarter")-quarter)%4
+            button=page.locator(f"[data-board-quarter='{direction}']")
             bounds=button.bounding_box()
             page.touchscreen.tap(bounds["x"]+22,bounds["y"]+22)
-            expect(button).to_be_disabled()
+            assert page.evaluate("fixture.camera.quarter")==quarter
             assert page.evaluate("fixture.shell.controller.rotation === null")
     source, first = (4007, 500500) if diverter else (4004, 500500)
     stem = f"{'diverter' if diverter else 'cannon'}-{width}"
@@ -289,7 +293,7 @@ def compass_and_turret(page, screen):
         return {x:b.x+b.width/2,y:b.y+b.height/2,hit:b.width,face:parseFloat(f.width)+parseFloat(f.borderLeftWidth)+parseFloat(f.borderRightWidth),
                 fill:f.backgroundColor,disabled:n.disabled,pressed:n.getAttribute('aria-pressed')};
     })"""
-    fills=["rgb(18, 21, 23)","rgb(240, 242, 242)","rgb(151, 157, 160)","rgb(240, 242, 242)"]
+    fills=["rgb(18, 21, 23)","rgb(240, 242, 242)","rgb(240, 242, 242)","rgb(240, 242, 242)"]
     controls=page.evaluate(positions)
     assert [c["fill"] for c in controls]==fills and all(c["face"]==34 and c["hit"]==44 for c in controls), controls
     button(1).hover()
@@ -302,28 +306,30 @@ def compass_and_turret(page, screen):
     page.evaluate("fixture.pauseFrames(true)")
     try:
         for start in range(4):
-            for end in range(4):
+            for direction in range(4):
                 page.evaluate("q=>{fixture.camera.angle=-q*Math.PI/2;fixture.draw()}",start)
-                if start == end:
-                    assert button(end).is_disabled()
+                if direction == 0:
+                    assert button(0).is_disabled()
                     continue
+                end=(start-direction)%4
                 first = page.evaluate(positions)
-                page.evaluate("q=>document.querySelector('[data-board-quarter=\"'+q+'\"]').click()",end)
+                page.evaluate("q=>document.querySelector('[data-board-quarter=\"'+q+'\"]').click()",direction)
                 ready=page.evaluate(positions)
                 assert all(abs(a["x"]-b["x"])+abs(a["y"]-b["y"])<.1 for a,b in zip(first,ready))
-                if start==0 and end==1:
+                if start==0 and direction==1:
                     page.evaluate("fixture.draw(fixture.shell.controller.rotation.start+76)")
                     screen(page,"compass-NE-early")
                 page.evaluate("fixture.draw(fixture.shell.controller.rotation.start+130)")
                 mid = page.evaluate(positions)
                 assert all(abs(a["x"]-b["x"])+abs(a["y"]-b["y"])>10 for a,b in zip(first,mid))
-                if start==0 and end==1:
+                if start==0 and direction==1:
                     screen(page,"compass-NE-intermediate")
                     page.evaluate("fixture.draw(fixture.shell.controller.rotation.start+236)")
                     screen(page,"compass-NE-late")
                 page.evaluate("fixture.draw(fixture.shell.controller.rotation.start+320)")
                 settled=page.evaluate(positions)
-                assert settled[end]["disabled"] and settled[end]["pressed"]=="true"
+                assert settled[0]["disabled"] and settled[0]["pressed"]=="true"
+                assert abs(settled[0]["x"]-first[direction]["x"])+abs(settled[0]["y"]-first[direction]["y"])<1
                 assert [c["fill"] for c in settled]==fills
                 timings.append([start,end])
             page.evaluate("q=>{fixture.camera.angle=-q*Math.PI/2;fixture.draw()}",start)
@@ -342,7 +348,7 @@ def compass_and_turret(page, screen):
             fixture.draw(base+460);m.now=()=>performance.now();
             return {jump,quarter:fixture.camera.quarter};
         }""")
-        assert retarget=={"jump":0,"quarter":3},retarget
+        assert retarget=={"jump":0,"quarter":0},retarget
         page.evaluate("fixture.camera.angle=0;fixture.draw()")
         # Snapshot instanced angles from the actual renderer and keep the draft fixed.
         page.evaluate("""()=>{fixture.select(1);fixture.setHeading(270);fixture.draw();
