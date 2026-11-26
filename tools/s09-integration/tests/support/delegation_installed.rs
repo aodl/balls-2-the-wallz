@@ -73,24 +73,62 @@ impl Signer {
         prior: &World,
         balls: usize,
     ) -> Expected {
+        let now = Self::align_clock(pic);
+        let multiplier = prior.economy.as_ref().unwrap().tariffs(now).0;
+        let price = |n| economy17::marginal(economy17::BALL_BASE_E8S, multiplier, n).unwrap();
+        self.pay_selected(
+            pic,
+            id,
+            ledger,
+            ["FIRE 1 255 1", "FIRE 1 90 1"],
+            [price(balls), price(balls + 1)],
+        )
+    }
+
+    fn align_clock(pic: &PocketIc) -> u64 {
         let now = pocket_ic::Time::from(std::time::SystemTime::now());
         assert!(now.as_nanos_since_unix_epoch() > pic.get_time().as_nanos_since_unix_epoch());
         pic.set_time(now);
-        let multiplier = prior
-            .economy
-            .as_ref()
-            .unwrap()
-            .tariffs(now.as_nanos_since_unix_epoch())
-            .0;
-        let price = |n| economy17::marginal(economy17::BALL_BASE_E8S, multiplier, n).unwrap();
-        let (delegated_amount, manual_amount) = (price(balls), price(balls + 1));
+        now.as_nanos_since_unix_epoch()
+    }
+
+    pub fn pay_construction(
+        &mut self,
+        pic: &PocketIc,
+        id: Principal,
+        ledger: Principal,
+        world: &World,
+        commands: [&str; 2],
+    ) -> Expected {
+        let now = Self::align_clock(pic);
+        let account = AccountIdentifier::new(&self.owner, &DEFAULT_SUBACCOUNT).to_hex();
+        let amounts = commands.map(|memo| {
+            let annotated = b2z_protocol::shout::parse_text(memo.as_bytes()).unwrap();
+            let memo = b2z_protocol::context_structures::encode(annotated.command).unwrap();
+            let items = b2z_native::economy17::quote_items(world, &account, &memo, now).unwrap();
+            assert_eq!(items.len(), 1);
+            items[0]
+        });
+        self.pay_selected(pic, id, ledger, commands, amounts)
+    }
+
+    fn pay_selected(
+        &mut self,
+        pic: &PocketIc,
+        id: Principal,
+        ledger: Principal,
+        commands: [&str; 2],
+        amounts: [u64; 2],
+    ) -> Expected {
+        let [delegated_amount, manual_amount] = amounts;
         let mut live =
             PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
         let gateway = live.make_live(None);
         let config = json!({"network":"pocketic-local","canister_id":id.to_text(),
             "ledger":ledger.to_text(),"host":gateway.as_str(),
             "root_key_hex":hex(&pic.root_key().unwrap()),"installed_game":true,
-            "delegated_amount":delegated_amount.to_string(),"manual_amount":manual_amount.to_string()
+            "delegated_amount":delegated_amount.to_string(),"manual_amount":manual_amount.to_string(),
+            "delegated_memo":commands[0],"manual_memo":commands[1]
         });
         std::fs::write(
             self.out.join("signed-config.json"),
