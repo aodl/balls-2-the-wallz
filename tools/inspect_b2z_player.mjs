@@ -8,6 +8,8 @@ import {ArtifactAssembler,verifyCertificatePublication,verifyRetainedPredecessor
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {hex,unhex} from '@dtr/timeline-runtime/protocol/bytes';
 import {artifactBundleClient,verifiedSourceDescriptor} from '../apps/b2z-observer/mainnet.mjs';
+import {boundedObservationClient} from '../apps/b2z-observer/bounded-observation.mjs';
+import {bindOperationalBurn} from '../apps/b2z-observer/operational-burn.mjs';
 import {CONFIGURATION_ASSETS} from '../apps/b2z-observer/configuration.generated.mjs';
 import {snapshot} from '../apps/b2z-observer/model.mjs';
 import {canonicalAccount} from '../apps/b2z-observer/identity.mjs';
@@ -19,13 +21,14 @@ const account=canonicalAccount(get('--account')??''),quantity=Number(get('--quan
 let policy={network:'ic',host:'https://icp-api.io',canister_id:'s5ir5-gqaaa-aaaas-amyna-cai',ledger:'ryjl3-tyaaa-aaaaa-aaaba-cai',index:'qhbym-qaaaa-aaaaa-aaafq-cai'};
 if(get('--local-config')){const p=JSON.parse(await readFile(get('--local-config'),'utf8'));if(p.network!=='pocketic-local'||!['127.0.0.1','localhost'].includes(new URL(p.host).hostname))throw Error('explicit disposable loopback configuration required');policy={...p,rootKey:unhex(p.root_key_hex)};}
 const {rootKey,network,host,canister_id}=policy,verify=certificateVerifier({network,...(rootKey?{rootKey}:{})}),base=await liveClient({network,host,canister_id,...(rootKey?{rootKey}:{})});
+const agent=await HttpAgent.create({host,...(rootKey?{rootKey}:{}),shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true});
 // Reuse the actual browser's atomic delivery client on the explicitly pinned
 // disposable network. Mainnet uses the same public chunk protocol directly.
 const client=network==='pocketic-local'?await artifactBundleClient({network,host,canister_id,rootKey},base):base;
-const response=await client.observation(),ticket=await verifyCertificatePublication(response.publication,response.certificate,{network,canister_id,now_ns:BigInt(Date.now())*1000000n,max_age_ns:300000000000n,max_future_ns:30000000000n},verify);
+const response=network==='ic'?await (await boundedObservationClient(policy,{agent})).observation():await client.observation();
+const ticket=await verifyCertificatePublication(response.publication,response.certificate,{network,canister_id,now_ns:BigInt(Date.now())*1000000n,max_age_ns:300000000000n,max_future_ns:30000000000n},async(certificate,deployment)=>(await bindOperationalBurn(response.publication,response.operationalBurn,await verify(certificate,deployment))).claim);
 async function artifact(ticket,kind){const index=['state','events','scores'].indexOf(kind),reader=new ArtifactAssembler(ticket,kind),segment=ticket.publication.head.segment_id;for(let i=0;i<reader.descriptor.chunks.length;i++)await reader.accept(i,segment===null?await client.currentChunk(ticket.root_hash,index,i):await client.chunk(Number(segment),ticket.root_hash,index,i));return reader.finish();}
 const [state,events]=await Promise.all([artifact(ticket,'state'),artifact(ticket,'events')]),world=snapshot(state,ticket.publication.identity),configName=CONFIGURATION_ASSETS[ticket.publication.identity.config_hash];if(!configName)throw Error('unsupported authenticated configuration');const configBytes=new Uint8Array(await readFile(new URL('../apps/b2z-observer/'+configName,import.meta.url)));if(await sha256Web(configBytes)!==ticket.publication.identity.config_hash)throw Error('configuration commitment mismatch');const config=decodeCanonical(configBytes);
-const agent=await HttpAgent.create({host,...(rootKey?{rootKey}:{}),shouldFetchRootKey:false,shouldSyncTime:false,verifyQuerySignatures:true});
 const ref=IDL.Record({publication_hash:IDL.Text,state_hash:IDL.Text,segment_id:IDL.Opt(IDL.Nat64),certified_reply:IDL.Bool});
 const destination=IDL.Record({owner:IDL.Principal,ledger:IDL.Principal,index:IDL.Principal,receiving_numeric_subaccount:IDL.Nat64,icp_account:IDL.Text});
 const result=t=>IDL.Variant({Ok:t,Err:IDL.Text}),action=IDL.Variant({Fire:IDL.Record({cannon:IDL.Nat32,angle:IDL.Nat16,quantity:IDL.Nat8}),New:IDL.Record({angle:IDL.Nat16,quantity:IDL.Nat8,cell:IDL.Opt(IDL.Nat32)}),Move:IDL.Record({cannon:IDL.Nat32,cell:IDL.Nat32})});
