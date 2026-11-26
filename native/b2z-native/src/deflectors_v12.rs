@@ -98,7 +98,9 @@ pub fn validate(w: &World) -> Result<()> {
     }
     for b in &w.balls {
         validate_ball(b)?;
-        if at(w, b.cell).is_some() {
+        if at(w, b.cell).is_some_and(|d| {
+            !crate::passage_v20::exempts(w, b.id, crate::passage_v20::Kind::Deflector, d.id, d.cell)
+        }) {
             return Err("ball in blocked structure".into());
         }
     }
@@ -229,7 +231,12 @@ pub(crate) fn prepare_with_spacing(
     if crate::territory_v6::balls(w, w.owner(cell).unwrap_or(0)) == 0 {
         return fail("NO_ACTIVE_ISLAND");
     }
-    if crate::purchases_v6::occupied_cells(w)?.contains(&cell) {
+    let occupied = if w.version >= 12 {
+        crate::purchases_v6::occupied_structures(w).contains(&cell)
+    } else {
+        crate::purchases_v6::occupied_cells(w)?.contains(&cell)
+    };
+    if occupied {
         return fail("SITE_OCCUPIED");
     }
     if !spacing && !separation(w, cell) {

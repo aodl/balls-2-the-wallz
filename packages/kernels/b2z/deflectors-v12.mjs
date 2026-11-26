@@ -7,6 +7,7 @@ import{gcd,validRat,cmp,rat}from'./math.mjs';
 import{territoryBalls}from'./territory-v6.mjs';
 import{hasEnemyClearance}from'../../protocol/territory-clearance.mjs';
 import{decodeDeflectorMemo,ORIENTATIONS}from'../../protocol/deflector.mjs';
+import{exempts}from'./passage-v20.mjs';
 export function deflectorAt(w,cell){
  const rows=w.deflectors??[];let low=0,high=rows.length;
  while(low<high){const m=(low+high)>>1;if(rows[m].cell<cell)low=m+1;else high=m;}
@@ -31,7 +32,7 @@ export function validateDeflectorState(w){
   if(!deflectorSeparation(w,d.cell))throw Error('deflector spacing');
   previous=d.cell;ids.add(d.id);counts.set(d.owner,(counts.get(d.owner)??0)+1);if(w.version<9&&counts.get(d.owner)>16)throw Error('player structure capacity');
  }
- for(const b of w.balls){validateDeflectorBall(b);if(deflectorAt(w,b.cell))throw Error('ball in blocked structure');}
+ for(const b of w.balls){validateDeflectorBall(b);const d=deflectorAt(w,b.cell);if(d&&!exempts(w,b.id,'deflector',d.id,d.cell))throw Error('ball in blocked structure');}
 }
 export function removeLostDeflectors(w){
  if(w.version<7)return[];const gone=w.deflectors.filter(d=>playerAt(w,d.cell)!==d.owner);
@@ -52,8 +53,9 @@ export function prepareDeflectorPurchase(w,account,amount,memo,spacing=false,mul
  if(w.next_deflector_id===4294967295)return fail('DEFLECTOR_ID_EXHAUSTED');
  if(!territoryBalls(w,ownerAt(w,command.cell)))return fail('NO_ACTIVE_ISLAND');
  if(deflectorAt(w,command.cell)||w.cannons.some(c=>c.cell===command.cell))return fail('SITE_OCCUPIED');
- // Inclusive contact closure matches existing cannon construction restrictions.
- for(const b of w.balls){const [x,y]=position(b,w.time),cx=b.cell%w.width,cy=Math.floor(b.cell/w.width),xs=[cx],ys=[cy];
+ // Historical Rules19 keeps closed Ball occupancy; explicit Rules20 builds
+ // acquire a bounded per-Ball passage exception at authoritative creation.
+ if(w.version<12)for(const b of w.balls){const [x,y]=position(b,w.time),cx=b.cell%w.width,cy=Math.floor(b.cell/w.width),xs=[cx],ys=[cy];
   if(cmp(x,rat(cx*Q))===0)xs.push(cx-1);else if(cmp(x,rat((cx+1)*Q))===0)xs.push(cx+1);
   if(cmp(y,rat(cy*Q))===0)ys.push(cy-1);else if(cmp(y,rat((cy+1)*Q))===0)ys.push(cy+1);
   if(xs.some(x=>ys.some(y=>wrapCell(x,y,w.width,w.height)===command.cell)))return fail('SITE_OCCUPIED');

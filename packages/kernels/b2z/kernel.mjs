@@ -24,6 +24,7 @@ import {canonicalInputs, sha256} from '../../../node_modules/@dtr/timeline-runti
 import {add, cmp, heading, mulInt, rat, sub, validRat} from './math.mjs';
 import {B2Z_IDENTITY, TORUS_IDENTITY, MILLION_IDENTITY, PLAYABILITY_IDENTITY, ENTRY_IDENTITY, CLEARANCE_IDENTITY, WAR_CRY_IDENTITY, COMBINED_IDENTITY, DEFLECTOR_IDENTITY, CONTEXT_IDENTITY, DEFLECTOR_CONFIG, wrapCell, PRELAUNCH_IDENTITY, PRELAUNCH_CONFIG, decodeWorld, encodeWorld, LIMITS, position, Q, TEST_CONFIG, validateWorld, cellCount, ownerAt,playerAt, setOwner, ownershipCounts,validStrike} from './world.mjs';
 import {nextCrossing, reflected} from './geometry.mjs';
+import {exempts,retireAfterContact,pruneRemoved} from './passage-v20.mjs';
 import {beginCapture, beginCleanup, topologyStep} from './topology.mjs';
 import {beginSpawn, spawnStep} from './spawn.mjs';
 
@@ -88,6 +89,10 @@ function mutation(world, payment, moved, config) {
     return {reason: 'BALL_CAPACITY'};
   return {reason: 'ACCEPTED', kind: 'ball_spawned', cannon: cannon.id, ball: cloneCanonical(launch(world, cannon, command.value)),...(world.version>=4?{heading:command.value}:{})};
 }
+function blocksBall(w,b,cell){
+ return w.cannons.some(c=>c.cell===cell&&!exempts(w,b.id,'cannon',c.id,cell))
+   ||Boolean((d=>d&&!exempts(w,b.id,'deflector',d.id,cell))(deflectorAt(w,cell)));
+}
 function cornerPreferredAxis(world,ball,crossing){
  if(!(crossing.x&&crossing.y))return 'x';
  // Canonical source-tile checkerboard; grid y increases down, so x is to
@@ -102,9 +107,9 @@ export function classify(world, ball, crossing) {
   for (const axis of ['x', 'y']) if (crossing[axis]) {
     const x = cx + (axis === 'x' ? Math.sign(ball.vx) : 0), y = cy + (axis === 'y' ? Math.sign(ball.vy) : 0);
     const target = world.version>=4?wrapCell(x,y,world.width,world.height):x < 0 || y < 0 || x >= world.width || y >= world.height ? null : y * world.width + x;
-    const cannon = target !== null && world.cannons.some(c => c.cell === target);
-    const defender=target===null?0:playerAt(world,target),pass=target!==null&&defender===player&&!cannon&&!deflectorAt(world,target);
-    targets.push({axis, target, pass, capturable: target !== null && !cannon && !deflectorAt(world,target) && player!==undefined&&defender !== player, defender});
+    const anchor=target!==null&&blocksBall(world,ball,target);
+    const defender=target===null?0:playerAt(world,target),pass=target!==null&&defender===player&&!anchor;
+    targets.push({axis, target, pass, capturable: target !== null && !anchor && player!==undefined&&defender !== player, defender});
   }
   const sideAttacks=targets.filter(t=>t.capturable);
   const preferred=cornerPreferredAxis(world,ball,crossing);
@@ -117,14 +122,14 @@ export function classify(world, ball, crossing) {
     if(defender!==player&&!world.cannons.some(c=>c.cell===diagonal)&&!deflectorAt(world,diagonal))
       attack={axis:preferred==='x'?'y':'x',target:diagonal,from:targets.find(t=>t.axis===preferred)?.target,pass:false,capturable:true,defender};
   }
-  return {...crossing,...(world.version>=7&&(crossing.x!==crossing.y)?{deflector_target:targets.map(t=>deflectorAt(world,t.target)).find(Boolean)?.id??null}:{}), owner: ball.owner, cell: ball.cell, targets, attack};
+  return {...crossing,...(world.version>=7&&(crossing.x!==crossing.y)?{deflector_target:targets.map(t=>deflectorAt(world,t.target)).find(d=>d&&!exempts(world,ball.id,'deflector',d.id,d.cell))?.id??null}:{}), owner: ball.owner, cell: ball.cell, targets, attack};
 }
 export function passage(world,b,i){
  const player=b.owner;
  let passX=false,passY=false;
- for(const t of i.targets){const pass=t.pass&&playerAt(world,t.target)===player&&!world.cannons.some(c=>c.cell===t.target)&&!deflectorAt(world,t.target);if(t.axis==='x')passX=pass;else passY=pass;}
+ for(const t of i.targets){const pass=t.pass&&playerAt(world,t.target)===player&&!blocksBall(world,b,t.target);if(t.axis==='x')passX=pass;else passY=pass;}
  if(i.x&&i.y&&passX&&passY){const sx=Math.sign(b.vx),sy=Math.sign(b.vy),diagonal=world.version>=4?wrapCell(b.cell%world.width+sx,Math.floor(b.cell/world.width)+sy,world.width,world.height):b.cell+sx+sy*world.width;
-  if(playerAt(world,diagonal)!==player||world.cannons.some(c=>c.cell===diagonal)||deflectorAt(world,diagonal)){
+  if(playerAt(world,diagonal)!==player||blocksBall(world,b,diagonal)){
     if(world.version>=12&&i.attack?.target===diagonal&&!world.cannons.some(c=>c.cell===diagonal)&&!deflectorAt(world,diagonal))
       return cornerPreferredAxis(world,b,i)==='x'?{passX:true,passY:false,vertexBlocked:false}:{passX:false,passY:true,vertexBlocked:false};
     return {passX:false,passY:false,vertexBlocked:true};
@@ -324,6 +329,7 @@ export class B2zCursor {
         if(x<0)b.x0+=BigInt(this.world.width*Q)*(b.den??1n);if(x>=this.world.width)b.x0-=BigInt(this.world.width*Q)*(b.den??1n);
         if(y<0)b.y0+=BigInt(this.world.height*Q)*(b.den??1n);if(y>=this.world.height)b.y0-=BigInt(this.world.height*Q)*(b.den??1n);
       }else b.cell += (passX ? sx : 0) + (passY ? sy * this.world.width : 0);
+      retireAfterContact(this.world,b.id);
       this.emit({kind: 'motion', ball: b.id, from_cell: oldCell, ball_state: structuredClone(b), vertex_blocked: vertexBlocked,...(deflector_contact?{deflector_contact}:{})});
       const t = i.attack;
       const attack = !vertexBlocked && t && !this.claimed.includes(t.target)
@@ -355,6 +361,7 @@ export class B2zCursor {
       } else this.emit({kind: 'strike_cancelled', strike: p.id, reason: 'INVALIDATED'});
     } else if (this.phase === 'topology') {
       if (topologyStep(this.world, this.job)) {
+        pruneRemoved(this.world);
         this.emit({...this.jobMeta, ...(this.world.version===5?{cell_ranges:this.job.changed_ranges??[]}:{cells:[...this.job.cells].sort((a, b) => a - b)}),
           destroyed_balls: this.job.killed, eliminated_cannons: this.job.eliminated});
         this.areaDirty = true; this.job = null; this.jobMeta = null; this.phase = this.afterTopology;

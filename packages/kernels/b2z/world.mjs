@@ -1,6 +1,7 @@
 import {DELEGATION_ADAPTER,DELEGATION_LIFETIME_NS} from '../../protocol/delegation.mjs';
 import {emptyAuthorization,validateAuthorization} from './delegation-v18.mjs';
 import {authorizationV3FromV2,validateAuthorizationV3} from './delegation-v20.mjs';
+import {validatePassage} from './passage-v20.mjs';
 import {ECONOMY_ADAPTER,ECONOMY_PAYMENT} from '../../protocol/economy17.mjs';
 import {BALL_BASE_E8S,CANNON_BASE_E8S,DIVERTER_BASE_E8S,RESERVOIR_PRICE_E8S as ECONOMY_RESERVOIR_PRICE,FIXED_ACTION_E8S,DAY_NS,GRACE_NS} from '../../protocol/economy17.generated.mjs';
 import {validateEconomy} from './economy17.mjs';
@@ -284,6 +285,7 @@ export function validateWorld(w) {
   if(w.version>=10&&w.version<=11)validateAuthorization(w.authorization);
   else if(w.version===12)validateAuthorizationV3(w.authorization);
   else if(w.authorization!==undefined)throw Error('authorization schema');
+  validatePassage(w);
   return w;
 }
 export function encodeWorld(w) { validateWorld(w); return encodeCanonical(w); }

@@ -244,6 +244,12 @@ impl Cursor {
                         let ds = self.world.deflectors.as_mut().ok_or("structure state")?;
                         ds.push(d.clone());
                         ds.sort_by_key(|d| d.cell);
+                        crate::passage_v20::register(
+                            &mut self.world,
+                            crate::passage_v20::Kind::Deflector,
+                            id,
+                            *cell,
+                        )?;
                         self.receipt(&payment.saved,json!({"reason":"ACCEPTED","kind":"deflector_built","structure":d,"status":"applied","amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
                     }
                     Plan::DeflectorMove { id, cell, price } => {
@@ -253,6 +259,7 @@ impl Cursor {
                         d.cell = *cell;
                         let after = d.clone();
                         ds.sort_by_key(|d| d.cell);
+                        crate::passage_v20::prune_removed(&mut self.world);
                         self.receipt(&payment.saved,json!({"reason":"ACCEPTED","kind":"deflector_moved","before":before,"structure":after,"status":"applied","amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
                     }
                     Plan::DeflectorReorient {
@@ -280,6 +287,7 @@ impl Cursor {
                             .ok_or("UNKNOWN_CANNON")?;
                         let before = c.cell;
                         c.cell = *cell;
+                        crate::passage_v20::prune_removed(&mut self.world);
                         self.moved.push(*cannon);
                         self.receipt(&payment.saved,json!({"reason":"ACCEPTED","kind":"cannon_moved","status":"applied","cannon":cannon,"before":before,"after":cell,"amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
                     }

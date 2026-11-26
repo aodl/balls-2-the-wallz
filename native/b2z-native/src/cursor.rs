@@ -1076,6 +1076,7 @@ impl Cursor {
                     self.job.as_mut().ok_or("missing topology job")?,
                 )?;
                 if done {
+                    crate::passage_v20::prune_removed(&mut self.world);
                     let mut j = self.job.take().ok_or("missing topology job")?;
                     j.cells.sort_unstable();
                     let meta = self.job_meta.take().ok_or("missing topology event")?;
@@ -1204,6 +1205,7 @@ impl Cursor {
                 })) as usize;
         }
         self.world.balls[index] = b.clone();
+        crate::passage_v20::retire_after_contact(&mut self.world, b.id);
         let mut motion = json!({"kind":"motion","ball":b.id,"from_cell":old_cell,"ball_state":b,"vertex_blocked":vertex_blocked});
         if let Some(d) = deflector_contact {
             motion["deflector_contact"] = d;

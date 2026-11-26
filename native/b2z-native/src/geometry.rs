@@ -35,6 +35,14 @@ pub struct Intent {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub deflector_target: Option<u32>,
 }
+fn blocks_ball(w: &World, b: &Ball, cell: usize) -> bool {
+    use crate::passage_v20::{exempts, Kind};
+    w.cannons
+        .iter()
+        .any(|c| c.cell == cell && !exempts(w, b.id, Kind::Cannon, c.id, cell))
+        || crate::deflectors_v12::at(w, cell)
+            .is_some_and(|d| !exempts(w, b.id, Kind::Deflector, d.id, cell))
+}
 pub fn next_crossing(b: &Ball, width: usize, now: &Rat) -> Result<Crossing> {
     let d = b
         .den
@@ -124,9 +132,7 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
         } else {
             Some(y as usize * w.width + x as usize)
         };
-        let anchor = target.is_some_and(|t| {
-            w.cannons.iter().any(|c| c.cell == t) || crate::deflectors_v12::at(w, t).is_some()
-        });
+        let anchor = target.is_some_and(|t| blocks_ball(w, b, t));
         let defender = target.and_then(|t| w.player_at(t)).unwrap_or(0);
         targets.push(Target {
             axis: axis.into(),
@@ -197,6 +203,15 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
             .filter_map(|t| {
                 t.target
                     .and_then(|c| crate::deflectors_v12::at(w, c))
+                    .filter(|d| {
+                        !crate::passage_v20::exempts(
+                            w,
+                            b.id,
+                            crate::passage_v20::Kind::Deflector,
+                            d.id,
+                            d.cell,
+                        )
+                    })
                     .map(|d| d.id)
             })
             .next()
@@ -232,11 +247,8 @@ pub fn passage(w: &World, b: &Ball, i: &Intent) -> (bool, bool, bool) {
     let mut y = false;
     for t in &i.targets {
         let pass = t.pass
-            && t.target.is_some_and(|c| {
-                w.player_at(c) == player
-                    && !w.cannons.iter().any(|a| a.cell == c)
-                    && crate::deflectors_v12::at(w, c).is_none()
-            });
+            && t.target
+                .is_some_and(|c| w.player_at(c) == player && !blocks_ball(w, b, c));
         if t.axis == "x" {
             x = pass;
         } else {
@@ -256,10 +268,7 @@ pub fn passage(w: &World, b: &Ball, i: &Intent) -> (bool, bool, bool) {
         } else {
             (b.cell as i64 + sx + sy * w.width as i64) as usize
         };
-        if w.player_at(cell) != player
-            || w.cannons.iter().any(|c| c.cell == cell)
-            || crate::deflectors_v12::at(w, cell).is_some()
-        {
+        if w.player_at(cell) != player || blocks_ball(w, b, cell) {
             if w.version >= 12
                 && i.attack.as_ref().is_some_and(|a| a.target == Some(cell))
                 && !w.cannons.iter().any(|c| c.cell == cell)

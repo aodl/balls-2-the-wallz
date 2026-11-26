@@ -117,7 +117,12 @@ pub fn site_reason(
     if territory_v6::balls(world, world.owner(cell).unwrap_or(0)) == 0 {
         return Ok(Some("NO_ACTIVE_ISLAND"));
     }
-    if crate::reservoirs::has(world, cell) || purchases_v6::occupied_cells(world)?.contains(&cell) {
+    let occupied = if world.version >= 12 && moving.is_none() {
+        purchases_v6::occupied_structures(world).contains(&cell)
+    } else {
+        purchases_v6::occupied_cells(world)?.contains(&cell)
+    };
+    if crate::reservoirs::has(world, cell) || occupied {
         return Ok(Some("SITE_OCCUPIED"));
     }
     if deflector && !spacing {

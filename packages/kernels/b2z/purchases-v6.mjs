@@ -15,6 +15,7 @@ import {V6_POLICY,playerForCannon,reviveTerritory,metadataDelta,emptyMetadataDel
 import {ownerAt,playerAt,territoryBallCount,setOwner,validateWorld,neighbors,wrapCell,position,Q,PRELAUNCH_CONFIG} from './world.mjs';
 import {cmp,rat} from './math.mjs';
 import {launch} from './kernel.mjs';
+import {registerPassage} from './passage-v20.mjs';
 import {seedPatch} from './spawn.mjs';
 const U64=18446744073709551615n,U32=4294967295;
 function amount(n){if(typeof n!=='bigint'||n<0n||n>U64)throw Error('PAYMENT_AMOUNT');return n;}
@@ -30,7 +31,7 @@ export function adjacentSites(w,id){
  return [...sites].filter(c=>!blocked.has(c)&&(ownerAt(w,c)===0||playerAt(w,c)===id)).sort((a,b)=>a-b);
 }
 export function occupiedCells(w){
- const blocked=new Set([...w.cannons.map(c=>c.cell),...(w.deflectors??[]).map(d=>d.cell)]);
+ const blocked=occupiedStructures(w);
  for(const b of w.balls){const [x,y]=position(b,w.time),cx=b.cell%w.width,cy=Math.floor(b.cell/w.width),xs=[cx],ys=[cy];
   if(cmp(x,rat(cx*Q))===0)xs.push(cx-1);else if(cmp(x,rat((cx+1)*Q))===0)xs.push(cx+1);
   if(cmp(y,rat(cy*Q))===0)ys.push(cy-1);else if(cmp(y,rat((cy+1)*Q))===0)ys.push(cy+1);
@@ -38,6 +39,7 @@ export function occupiedCells(w){
  }
  return blocked;
 }
+export function occupiedStructures(w){return new Set([...w.cannons.map(c=>c.cell),...(w.deflectors??[]).map(d=>d.cell)]);}
 /** Isolated proposal, before enclosing cursor receipt/tally commit. */
 export function placeNew(w,account,budget,p,r,entryRules=false,contextRules=false,spacing=false,multiplier=null){
  if(p.kind!=='new')throw Error('NEW_CANNON_PLAN');
@@ -52,7 +54,8 @@ export function placeNew(w,account,budget,p,r,entryRules=false,contextRules=fals
   if(r.kind!==4||r.patch.length!==1||r.patch[0]!==r.cell||p.cell!==null&&p.cell!==r.cell||!contextRules&&!adjacentSites(w,p.player).includes(r.cell))throw Error('ILLEGAL_ADJACENT_SITE');
   patch=[r.cell];
  }
- const blocked=occupiedCells(w);if(patch.some(c=>blocked.has(c)||reservoirHas(reservoirOccupancy(w),c)))throw Error('PLACEMENT_OCCUPIED');
+ const blocked=w.version>=12&&p.explicit&&!p.first?occupiedStructures(w):occupiedCells(w);
+ if(patch.some(c=>blocked.has(c)||reservoirHas(reservoirOccupancy(w),c)))throw Error('PLACEMENT_OCCUPIED');
  // Draft state can include a grant added earlier in this same segment. A
  // later ordered revoke can remove it before any world bytes are produced.
  // Clone the draft without encoding it. The public and cursor encoders keep
@@ -68,6 +71,7 @@ export function placeNew(w,account,budget,p,r,entryRules=false,contextRules=fals
  const territory=p.first?allocateTerritory(next,player):mergeTerritories(next,labels);
  if(next.version<9&&territoryBalls(next,territory)>=V6_POLICY.max_purchase_balls_per_island)throw Error('BALL_CAPACITY');
  for(const c of patch){setOwner(next,c,territory);ownership_ops.push({kind:"set",cell:c,owner:territory});}next.cannons.push(cannon);
+ if(next.version>=12&&p.explicit&&!p.first)registerPassage(next,'cannon',cannon.id,cannon.cell);
  const ball=cloneCanonical(launch(next,cannon,p.angle)),reactivated=reviveTerritory(next,territory);validateWorld(next);
  return {world:next,cannon,ball,event:{kind:'cannon_spawned',cannon:cloneCanonical(cannon),player,patch,previous_owners,placement_class:r.kind,frontier_other:r.other,ball:cloneCanonical(ball),reactivated_cannons:reactivated,ownership_ops,metadata_delta:metadataDelta(w.playability,next.playability)}};
 }

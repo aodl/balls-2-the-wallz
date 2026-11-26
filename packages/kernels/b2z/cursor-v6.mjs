@@ -17,6 +17,7 @@ import {CaptureJob} from './capture-v6.mjs';
 import {finalizeElapsed,V6_POLICY} from './playability.mjs';
 import {validateWorld} from './world.mjs';
 import{prepareDeflectorPurchase}from'./deflectors-v12.mjs';
+import{registerPassage,pruneRemoved}from'./passage-v20.mjs';
 const rejected=(c,p,reason)=>c.receipt(p,{reason,status:'rejected',amount_used:0n,remainder:p.amount});
 function place(c,p,plan,r){
  const made=placeNew(c.world,p.account,p.amount,plan,r,!!c.v6.entry_rules,!!c.v6.context_rules,!!c.v6.spacing_rules,p.tariff?.multiplier??null),batch=PurchaseBatch.afterNew(p.account,p.amount,made.cannon.id,plan);
@@ -78,16 +79,19 @@ export function workV6(c,readPayment){
    }else if(plan.kind==='deflect'){
      const structure={id:c.world.next_deflector_id++,cell:plan.cell,owner:plan.owner,orientation:plan.orientation};
      c.world.deflectors.push(structure);c.world.deflectors.sort((a,b)=>a.cell-b.cell);
+     registerPassage(c.world,'deflector',structure.id,structure.cell);
      c.receipt(payment,{reason:'ACCEPTED',kind:'deflector_built',structure:{...structure},status:'applied',amount_used:plan.price,remainder:p.amount-plan.price});
    }else if(plan.kind==='deflector_move'||plan.kind==='deflector_reorient'){
      const structure=c.world.deflectors.find(d=>d.id===plan.id),before={...structure};
      if(plan.kind==='deflector_move'){
        structure.cell=plan.cell;
        c.world.deflectors.sort((a,b)=>a.cell-b.cell);
+       pruneRemoved(c.world);
      }else structure.orientation=plan.orientation;
      c.receipt(payment,{reason:'ACCEPTED',kind:plan.kind==='deflector_move'?'deflector_moved':'deflector_reoriented',before,structure:{...structure},status:'applied',amount_used:plan.price,remainder:p.amount-plan.price});
    }else if(plan.kind==='move'){
      const cannon=c.world.cannons.find(x=>x.id===plan.cannon),before=cannon.cell;cannon.cell=plan.cell;c.moved.push(cannon.id);
+     pruneRemoved(c.world);
      c.receipt(payment,{reason:'ACCEPTED',kind:'cannon_moved',status:'applied',cannon:cannon.id,before,after:plan.cell,amount_used:plan.price,remainder:p.amount-plan.price});
    }else if(plan.kind==='fire'){
      c.v6.batch={...PurchaseBatch.fire(p.account,p.amount,plan),...(tariff?{economy_multiplier:tariff.multiplier}:{})};c.v6.payment=payment;c.phase='v6_purchase';

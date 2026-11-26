@@ -220,6 +220,8 @@ pub struct World {
     pub economy: Option<crate::economy17::Schedule>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub authorization: Option<crate::delegation_v20::AuthorizationState>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub passage_exceptions: Vec<crate::passage_v20::Exception>,
 }
 pub fn account_ok(s: &str) -> bool {
     s.len() == 64
@@ -828,6 +830,7 @@ impl World {
             (10..=12, None) | (_, Some(_)) => return fail("authorization schema"),
             _ => {}
         }
+        crate::passage_v20::validate(self)?;
 
         Ok(())
     }

@@ -59,6 +59,23 @@ direction. Carry active exceptions across checkpoints and interrupted work
 when they cannot be derived. Retire them on exit, relocation or destruction.
 An epoch transition starts with no exceptions for historical structures.
 
+The provisional Schema12 representation is a canonically sorted row per
+affected Ball: Ball ID, structure kind, structure ID and original cell. Only
+explicit new Cannon or Diverter construction can create a row. A Ball already
+inside the new cell receives one; a Ball at an entry face receives one only
+when its forward crossing would enter owned terrain. At an exact diagonal
+corner, side-tile tangency alone grants none. The side gets a row only if the
+structure-free single-contact law would enter that side; a clear friendly
+diagonal passage grants the diagonal cell instead. The row is removed after
+the Ball exits the cell or the exact structure leaves it. This state is
+distinct from Cannon launch and from any general structure grace period.
+
+The current prototype has Rust and independent JavaScript tests for the
+canonical row, first entry, an unrelated arriving Ball, retirement, a later
+return, and exact-corner tangency. Those tests do **not** establish paid
+construction acceptance, cursor interruption/restart, full output equality,
+or an authenticated Rules19-to-Rules20 epoch transition.
+
 For a territory-only simultaneous-axis vertex, prefer the left orthogonal
 candidate from an even canonical source tile and the right from an odd tile.
 With canonical grid coordinates (positive y points south), the x-side is

@@ -99,10 +99,7 @@ pub fn adjacent_sites(world: &World, player: u32) -> Result<Vec<usize>> {
         .collect())
 }
 pub(crate) fn occupied_cells(world: &World) -> Result<BTreeSet<usize>> {
-    let mut blocked: BTreeSet<_> = world.cannons.iter().map(|c| c.cell).collect();
-    if let Some(ds) = &world.deflectors {
-        blocked.extend(ds.iter().map(|d| d.cell));
-    }
+    let mut blocked = occupied_structures(world);
     for b in &world.balls {
         let [x, y] = position(b, &world.time)?;
         let cx = (b.cell % world.width) as i64;
@@ -126,6 +123,14 @@ pub(crate) fn occupied_cells(world: &World) -> Result<BTreeSet<usize>> {
         }
     }
     Ok(blocked)
+}
+pub(crate) fn occupied_structures(world: &World) -> BTreeSet<usize> {
+    world
+        .cannons
+        .iter()
+        .map(|c| c.cell)
+        .chain(world.deflectors.iter().flatten().map(|d| d.cell))
+        .collect()
 }
 
 /// An isolated bounded proposal; errors never partially mutate the paid world.
@@ -237,7 +242,13 @@ pub(crate) fn place_new_with_context(
         }
         vec![placement.cell]
     };
-    let blocked = occupied_cells(world)?;
+    // Only an explicit successor construction may overlap a live Ball.
+    // Automatic first Join and relocation retain closed-footprint safety.
+    let blocked = if world.version >= 12 && *explicit && !*first {
+        occupied_structures(world)
+    } else {
+        occupied_cells(world)?
+    };
     if patch
         .iter()
         .any(|&c| blocked.contains(&c) || crate::reservoirs::has(world, c))
@@ -303,6 +314,14 @@ pub(crate) fn place_new_with_context(
         ownership_ops.push(json!({"kind":"set","cell":c,"owner":territory}));
     }
     next.cannons.push(cannon.clone());
+    if next.version >= 12 && *explicit && !*first {
+        crate::passage_v20::register(
+            &mut next,
+            crate::passage_v20::Kind::Cannon,
+            cannon.id,
+            cannon.cell,
+        )?;
+    }
     let ball = crate::cursor::launch(&mut next, &cannon, *angle)?;
     let reactivated = revive_territory(&mut next, territory)?;
     next.validate()?;

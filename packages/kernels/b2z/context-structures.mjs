@@ -4,7 +4,7 @@ import {decodeContextMemo} from '../../protocol/context-structures.mjs';
 import {hasFriendlyStructure,hasStructureClearance,structureMap,structureSiteReason} from '../../protocol/structure-sites.mjs';
 import {prepareDeflectorPurchase} from './deflectors-v12.mjs';
 import {playerForCannon} from './playability.mjs';
-import {occupiedCells,playerByAccount} from './purchases-v6.mjs';
+import {occupiedCells,occupiedStructures,playerByAccount} from './purchases-v6.mjs';
 import {territoryBalls} from './territory-v6.mjs';
 import {ownerAt,playerAt} from './world.mjs';
 
@@ -17,7 +17,7 @@ export function friendlyStructureNearby(world,cell,owner,moving,structures=conte
 
 export function contextSiteReason(world,owner,cell,{moving,deflector=false,spacing=false}={}) {
   return structureSiteReason({width:world.width,height:world.height,owner,cell,moving,deflector,spacing,
-    reservoirs:reservoirOccupancy(world),occupied:occupiedCells(world),structures:contextStructures(world),
+    reservoirs:reservoirOccupancy(world),occupied:world.version>=12&&!moving?occupiedStructures(world):occupiedCells(world),structures:contextStructures(world),
     ownerAt:c=>playerAt(world,c),active:c=>Boolean(territoryBalls(world,ownerAt(world,c)))});
 }
 

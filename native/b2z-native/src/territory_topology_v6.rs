@@ -322,6 +322,7 @@ impl SplitJob {
                         self.removed_deflectors
                             .extend(crate::deflectors_v12::remove_lost(w));
                     }
+                    crate::passage_v20::prune_removed(w);
                     w.validate()?;
                     self.phase = "done".into();
                 } else {
