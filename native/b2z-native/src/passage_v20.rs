@@ -287,6 +287,39 @@ mod tests {
             .unwrap(),
             crate::purchases_v6::Plan::Deflect { cell: 500500, .. }
         ));
+        let cannon_memo = b2z_protocol::v6::encode(b2z_protocol::v6::Command::New {
+            angle: 0,
+            quantity: 1,
+            cell: Some(500500),
+        })
+        .unwrap();
+        let terms = || crate::purchases_v6::PurchaseTerms {
+            amount: 1_000_000_000,
+            multiplier: Some(1),
+        };
+        assert!(matches!(
+            crate::purchases_v6::prepare_with_context(
+                &prior_rules, &account, terms(), &cannon_memo, &[], true, true
+            )
+            .unwrap(),
+            crate::purchases_v6::Plan::Rejected { reason } if reason == "SITE_OCCUPIED"
+        ));
+        assert!(matches!(
+            crate::purchases_v6::prepare_with_context(
+                &world,
+                &account,
+                terms(),
+                &cannon_memo,
+                &[],
+                true,
+                true
+            )
+            .unwrap(),
+            crate::purchases_v6::Plan::New {
+                cell: Some(500500),
+                ..
+            }
+        ));
         let structure = world.next_deflector_id.unwrap();
         *world.next_deflector_id.as_mut().unwrap() += 1;
         world.deflectors.as_mut().unwrap().push(Deflector {

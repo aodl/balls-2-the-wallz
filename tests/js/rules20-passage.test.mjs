@@ -7,6 +7,8 @@ import {classify,passage} from '../../packages/kernels/b2z/kernel.mjs';
 import {nextCrossing} from '../../packages/kernels/b2z/geometry.mjs';
 import {prepareDeflectorPurchase} from '../../packages/kernels/b2z/deflectors-v12.mjs';
 import {encodeDeflectorMemo} from '../../packages/protocol/deflector.mjs';
+import {preparePurchase} from '../../packages/kernels/b2z/purchases-v6.mjs';
+import {encodeV6Memo} from '../../packages/protocol/memo-v6.mjs';
 
 function world(){
  const vector=JSON.parse(readFileSync(new URL('../fixtures/b2z-delegation-v18.json',import.meta.url)));
@@ -79,4 +81,16 @@ test('explicit Diverter planning relaxes only the successor Ball-occupancy rule'
  }
  assert.equal(prepareDeflectorPurchase(historical,account,10_000_000n,memo,true).reason,'SITE_OCCUPIED');
  assert.equal(prepareDeflectorPurchase(successor,account,10_000_000n,memo,true).kind,'deflect');
+});
+test('explicit Cannon planning admits a Ball-occupied successor site without changing historical policy',()=>{
+ const vector=JSON.parse(readFileSync(new URL('../fixtures/b2z-delegation-v18.json',import.meta.url)));
+ const historical=migrateCompactReservoirs(decodeWorld(Buffer.from(vector.execution.state,'hex')));
+ const successor=migrateAuthorizationRows(historical);
+ const account=successor.playability.players.find(p=>p.id===1).account;
+ const memo=encodeV6Memo({kind:'new',angle:0,quantity:1,cell:500500});
+ for(const w of [historical,successor]){
+  const b=w.balls[0];b.cell=500500;b.x0=500n*1024n+512n;b.y0=500n*1024n+512n;b.vx=32000;b.vy=0;b.den=1n;
+ }
+ assert.equal(preparePurchase(historical,account,1_000_000_000n,memo,[],true,true,1).reason,'SITE_OCCUPIED');
+ assert.equal(preparePurchase(successor,account,1_000_000_000n,memo,[],true,true,1).kind,'new');
 });
