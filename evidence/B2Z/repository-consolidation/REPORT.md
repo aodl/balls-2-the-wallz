@@ -57,19 +57,24 @@ workflow's separate production inventory guard is informational. The earlier
 push run was cancelled by the existing PR concurrency policy. The surviving
 PR checks used the exact candidate SHA. Local source, native, Candid/Wasm,
 browser, clean DTR consumers and focused capped Trickle checks passed.
-The full local installed wrapper recorded 78 passing checks and two failures. The short million-cell journey aborted during wire-capture finalization. The sustained local journey met throughput and conservation checks but recorded presentation stalls. The standalone short-case retry returned **FAIL**. Raw evidence for both first attempts is retained in the operator archive. The exact-source hosted installed job passed.
+The full local installed wrapper recorded 78 passing checks and two failures. The short million-cell journey aborted during wire-capture finalization. The sustained local journey met throughput and conservation checks but recorded presentation stalls. The standalone short-case retry reproduced the same wire-capture **FAIL**. Raw evidence for both first attempts is retained in the operator archive. The exact-source hosted installed job passed.
 The Chromium temporary-path and native target-location retries are recorded.
 [Standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45771430502) · [Financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45771430348) · [Developer/Trickle](https://github.com/aodl/balls-2-the-wallz/actions/runs/45771430381) · [Qualification details](qualification.json)
 
 The qualified source was integrated with this reviewed evidence and a dated
 status update. Subsequent closeout commits contain observational records only.
-The final review ZIP and repository hygiene checks were performed on the
-published tree.
+Final review ZIP verification and the exact delivered tree inventory are
+recorded alongside the ZIP. [Repeatable export](../../../docs/operations/REPOSITORY_MAINTENANCE.md#committed-source-review-zip)
 
 Master uses ruleset `26518220`, targeting `refs/heads/master`, with deletion
 and non-fast-forward updates prevented. The ruleset retains ordinary
 authorized fast-forward publication and has no bypass actors.
-Branch retirement follows the master fast-forward and independent remote checks.
+The four audited feature branches and the temporary qualification branch
+were deleted after strict ancestry, active-workflow, PR and local worktree
+checks. GitHub advertises only `master`. The checkout-bound historical
+Rules18 branch was retained locally. Three unmounted local counterparts
+were removed. Other local branches and worktrees were preserved.
+[Branch results](branches.json) · [Qualification pull request](https://github.com/aodl/balls-2-the-wallz/pull/8)
 
 ## Production and next work
 
@@ -79,7 +84,7 @@ balance are recorded in the dated observation. Private funding tier, worker
 phase and the remaining owner-only eligibility conditions require secure
 controller or owner access. The public operating label describes capped
 Trickle. The later official Ledger balance independently matched the Index.
-[07:56–07:57 UTC closeout observation](production-closeout.json) · [Initial observation](production-observation.json) · [Ledger cross-check](treasury-balance.json)
+[08:49–08:50 UTC closeout observation](production-closeout.json) · [Initial observation](production-observation.json) · [Ledger cross-check](treasury-balance.json)
 
 Complete the pending owner sign-in and review dated resource runway first.
 Then undertake Cannon and Diverter manufacturing as a separate frontend

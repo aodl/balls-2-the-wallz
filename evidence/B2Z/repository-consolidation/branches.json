@@ -1,0 +1,109 @@
+{
+  "master_at_deletion": "8381550495f5289f4d60d1a3637df2afa80d2168",
+  "guard": "Normal Git deletion with negotiated pre-push old-object check and remote old-object comparison",
+  "protection_ruleset": {
+    "id": 26518220,
+    "name": "protect master",
+    "target": "branch",
+    "source_type": "Repository",
+    "source": "aodl/balls-2-the-wallz",
+    "enforcement": "active",
+    "conditions": {
+      "ref_name": {
+        "exclude": [],
+        "include": [
+          "refs/heads/master"
+        ]
+      }
+    },
+    "rules": [
+      {
+        "type": "deletion"
+      },
+      {
+        "type": "non_fast_forward"
+      }
+    ],
+    "node_id": "RRS_lACqUmVwb3NpdG9yec5UP2AazgGUosw",
+    "created_at": "2026-11-04T08:38:20.460Z",
+    "updated_at": "2026-11-26T06:41:35.360Z",
+    "bypass_actors": [],
+    "current_user_can_bypass": "never",
+    "_links": {
+      "self": {
+        "href": "https://api.github.com/repos/aodl/balls-2-the-wallz/rulesets/26518220"
+      },
+      "html": {
+        "href": "https://github.com/aodl/balls-2-the-wallz/rules/26518220"
+      }
+    }
+  },
+  "results": [
+    {
+      "branch": "feature/b2z-prelaunch-trickle",
+      "expected_tip": "741dbf898ade58ed2fa3a064d8bbe1acb577ed4a",
+      "master_at_check": "8381550495f5289f4d60d1a3637df2afa80d2168",
+      "checked_at": "2026-11-26T08:49:08.888350+00:00",
+      "master_side": 3,
+      "branch_side": 0,
+      "local_tip": "315fe2ff1ff873c16e8f693025cc625b0ae59cab",
+      "local_worktrees": [],
+      "remote_result": "DELETED",
+      "local_result": "DELETED"
+    },
+    {
+      "branch": "feature/b2z-rules18-delegated-payments",
+      "expected_tip": "366b6954cc0df7dba75cd70318fdaf3072430914",
+      "master_at_check": "8381550495f5289f4d60d1a3637df2afa80d2168",
+      "checked_at": "2026-11-26T08:49:11.990925+00:00",
+      "master_side": 42,
+      "branch_side": 0,
+      "local_tip": "366b6954cc0df7dba75cd70318fdaf3072430914",
+      "local_worktrees": [
+        "b2z-rules18"
+      ],
+      "remote_result": "DELETED",
+      "local_result": "RETAINED for the existing checkout and its local artifacts"
+    },
+    {
+      "branch": "feature/b2z-rules19-compact-reservoirs",
+      "expected_tip": "3f93d8b4c57f3c0ba752f3a8f6975e76069b9dc7",
+      "master_at_check": "8381550495f5289f4d60d1a3637df2afa80d2168",
+      "checked_at": "2026-11-26T08:49:17.994288+00:00",
+      "master_side": 8,
+      "branch_side": 0,
+      "local_tip": "3bece6769dac27b12857df23fbbad883b37aa922",
+      "local_worktrees": [],
+      "remote_result": "DELETED",
+      "local_result": "DELETED"
+    },
+    {
+      "branch": "feature/b2z-temporary-dev-speed",
+      "expected_tip": "1160ec17dbd06e9adf0ac6b11993c42505bd226e",
+      "master_at_check": "8381550495f5289f4d60d1a3637df2afa80d2168",
+      "checked_at": "2026-11-26T08:49:20.308533+00:00",
+      "master_side": 19,
+      "branch_side": 0,
+      "local_tip": "1160ec17dbd06e9adf0ac6b11993c42505bd226e",
+      "local_worktrees": [],
+      "remote_result": "DELETED",
+      "local_result": "DELETED"
+    },
+    {
+      "branch": "codex/repository-consolidation",
+      "expected_tip": "ecd3eb010af195ac2c59b34d8205ec81359c1632",
+      "master_at_check": "8381550495f5289f4d60d1a3637df2afa80d2168",
+      "checked_at": "2026-11-26T08:49:23.184913+00:00",
+      "master_side": 1,
+      "branch_side": 0,
+      "remote_result": "DELETED",
+      "local_worktrees": []
+    }
+  ],
+  "remaining_remote_heads": [
+    "8381550495f5289f4d60d1a3637df2afa80d2168\trefs/heads/master"
+  ],
+  "integration_pull_request": 8,
+  "integration": "Fast-forward to exact hosted-qualified source with a separate reviewed-evidence commit.",
+  "post_qualification_invariance": "Only STATUS.md and the repository-consolidation evidence directory changed after the exact candidate; application, dependencies, CI, tools and fixtures retained identical entries."
+}
