@@ -38,6 +38,9 @@ def verify_quantity_matrix(browser,url,out,report,save,width=None,height=None):
   if width and w!=width:continue
   if height and h!=height:continue
   print('quantity matrix',w,h,dpr,flush=True);c=browser.new_context(viewport={'width':w,'height':max(h,640)},device_scale_factor=dpr,has_touch=w<700,permissions=['clipboard-write'],record_video_dir=str(out/f'video-{w}-{h}-{dpr}'));c.add_init_script("globalThis.copyAudit=[];const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async v=>{await write(v);copyAudit.push(v)}");p=c.new_page();errors=[];p.on('pageerror',lambda e:errors.append(str(e)));
+  # The geometry fixture has no operational playback. A genuine saved mute
+  # still exposes the speaker so this test can verify the small-layout mask.
+  if h<280:p.add_init_script("localStorage.setItem('b2z.audio.v2',JSON.stringify({version:2,enabled:false}))")
   if w==390 and dpr==1 and h==844:p.emulate_media(reduced_motion='reduce',forced_colors='active')
   p.goto(url+'/?case=quantityLive');open_fire(p);
   if h<520:resize(p,{'width':w,'height':h});settled_panel(p)
@@ -87,7 +90,10 @@ def verify_quantity_matrix(browser,url,out,report,save,width=None,height=None):
    if h<280:
     p.keyboard.press('Escape');assert p.locator('#quantity-controls').is_hidden();resize(p,{'width':w,'height':640});p.locator('#centre-cannon').click();settled(p)
     if p.locator('#own-cannons button').first.is_visible():p.locator('#own-cannons button').first.click();settled(p)
-    assert p.locator('#audio-button').is_visible()and not p.evaluate('document.documentElement.classList.contains("quantity-constrained")');row['exception_exit']='PASS Escape restores complete toolbar/chrome before switching actions'
+    speaker=p.locator('#audio-button')
+    assert speaker.is_visible() and speaker.get_attribute('aria-label')=='Enable sound'
+    assert not p.evaluate('document.documentElement.classList.contains("quantity-constrained")')
+    row['exception_exit']='PASS Escape restores the available toolbar including the saved-muted speaker'
    for action in ['move','build']:
     p.locator('#'+action+'-action').click();assert p.locator('#quantity-controls').is_hidden()
    p.locator('#fire-action').click();editor(p)
