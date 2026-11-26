@@ -1,0 +1,9 @@
+# Audio contact fixture clock boundary
+
+Standard run [45869424221](https://github.com/aodl/balls-2-the-wallz/actions/runs/45869424221) at the isolated Rules20 registry draft `a360b08` failed the native browser contact-meaning fixture. Its original `results.json` recorded browser error `observer: playhead bounds`, no presented frames, and time approximately `-0.000003` seconds although the authenticated fixture segment begins at exactly zero. The branch's audio product code and the fixture were byte-identical to qualified master. This original job remains **FAIL**.
+
+The fixture sampled `performance.now()` when the controlled presentation started. A previously queued `requestAnimationFrame` can then deliver a timestamp from *before* that sample. The fixture converted the negative difference to a negative segment time, which `SegmentPlayer` correctly rejected. The correction clamps only the fixture's requested clock to its already authenticated segment bounds. It does not weaken `SegmentPlayer`, replay, audio event eligibility, lateness thresholds or production playback.
+
+The failing hosted fixture and result bytes are retained in the operator archive `prototype-audio-contact-clock-failure.zip`, SHA-256 `e5e6b05f3a55af5cb53caa86de269886c04772b5f461133fd048671896f1d690`. A focused regression proves the early-frame case would request time below zero without the bound. The corrected local native browser journey passed friendly, threat and spectator perspectives with all five expected events in each. Its first friendly attempt had only genuinely late contacts and was retried under the existing bounded policy; no late event was accepted. Raw local results remain in `.work/development-programme/audio-contact-clock-after/`.
+
+This is verifier-only. Exact-source hosted qualification is required before integration.
