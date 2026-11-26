@@ -450,7 +450,10 @@ impl Cursor {
             &payment.account,
             purchases_v6::PurchaseTerms {
                 amount,
-                multiplier: payment.tariff.as_ref().map(|p| p.multiplier),
+                tariff: payment
+                    .tariff
+                    .as_ref()
+                    .map(|p| crate::economy20::Tariff::Linear(p.multiplier)),
             },
             plan,
             placement,

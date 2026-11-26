@@ -31,7 +31,11 @@ This branch is **not a release candidate**.
   vectors. Schema12 state-only migration now records the effective boundary
   for the first successor formula. The daily selector retains an old linear
   tariff during the first exponential grace window, including unchanged
-  population at the formula change.
+  population at the formula change. Rust and JavaScript Cannon and Diverter
+  planners now accept the symbolic tariff and calculate the exact first-item
+  price, including fail-closed unrepresentable Cannon pricing. The ordered
+  payment cursor, batch continuation, receipts and public quotes still use
+  historical linear tariff fields and must be versioned before activation.
 
 The published precursor `35f32ee1` passed its exact standard hosted run
 `45896573914`. Draft PR #24 tracks this branch. Later branch changes require

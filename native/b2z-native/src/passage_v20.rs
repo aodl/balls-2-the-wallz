@@ -295,7 +295,7 @@ mod tests {
         .unwrap();
         let terms = || crate::purchases_v6::PurchaseTerms {
             amount: 1_000_000_000,
-            multiplier: Some(1),
+            tariff: Some(crate::economy20::Tariff::Linear(1)),
         };
         assert!(matches!(
             crate::purchases_v6::prepare_with_context(

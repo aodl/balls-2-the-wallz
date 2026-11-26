@@ -164,7 +164,7 @@ pub fn place_new_with_policy(
         account,
         PurchaseTerms {
             amount,
-            multiplier: None,
+            tariff: None,
         },
         plan,
         placement,
@@ -175,7 +175,7 @@ pub fn place_new_with_policy(
 
 pub(crate) struct PurchaseTerms {
     pub amount: u64,
-    pub multiplier: Option<u32>,
+    pub tariff: Option<crate::economy20::Tariff>,
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -385,7 +385,7 @@ pub fn prepare(
         account,
         PurchaseTerms {
             amount,
-            multiplier: None,
+            tariff: None,
         },
         memo,
         moved,
@@ -403,12 +403,12 @@ pub(crate) fn prepare_with_context(
     context_rules: bool,
     spacing: bool,
 ) -> Result<Plan> {
-    let PurchaseTerms { amount, multiplier } = terms;
+    let PurchaseTerms { amount, tariff } = terms;
     if world.version < 6 {
         return Err("EXPECTED_V6".into());
     }
     let capped = world.version < 9;
-    if capped == multiplier.is_some() {
+    if capped == tariff.is_some() {
         return Err("ECONOMY_PURCHASE_CONTEXT".into());
     }
     if world.version >= 7 && memo.first() == Some(&0xb7) {
@@ -479,8 +479,11 @@ pub(crate) fn prepare_with_context(
             if !capped && mine.is_empty() && state.next_territory_id == u32::MAX {
                 return Ok(reject("TERRITORY_ID_EXHAUSTED"));
             }
-            let price = if let Some(p) = multiplier {
-                let Some(price) = tariff::marginal(tariff::CANNON_BASE_E8S, p, mine.len()) else {
+            let price = if let Some(rate) = tariff {
+                let Some(price) = u32::try_from(mine.len())
+                    .ok()
+                    .and_then(|held| rate.price(tariff::CANNON_BASE_E8S, held))
+                else {
                     return Ok(reject("PRICE_OVERFLOW"));
                 };
                 price
@@ -556,9 +559,10 @@ pub(crate) fn prepare_with_context(
                 return Ok(reject("NOT_OWNER"));
             }
             let pool = world.territory_ball_count(cannon);
-            let price = if let Some(p) = multiplier {
-                let Some(price) =
-                    tariff::marginal(tariff::BALL_BASE_E8S, p, player_balls(world, account))
+            let price = if let Some(rate) = tariff {
+                let Some(price) = u32::try_from(player_balls(world, account))
+                    .ok()
+                    .and_then(|held| rate.price(tariff::BALL_BASE_E8S, held))
                 else {
                     return Ok(reject("PRICE_OVERFLOW"));
                 };

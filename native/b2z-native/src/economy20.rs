@@ -28,7 +28,7 @@ pub enum Tariff {
 }
 
 impl Tariff {
-    fn price(self, base: u64, held: u32) -> Option<u64> {
+    pub fn price(self, base: u64, held: u32) -> Option<u64> {
         match self {
             Self::Linear(multiplier) => {
                 b2z_protocol::economy17::marginal(base, multiplier, held as usize)
@@ -188,6 +188,91 @@ mod tests {
             tariffs(&same_population, 2 * day, 2 * day),
             (Tariff::Exponential(1_000), Some(Tariff::Linear(1_000)))
         );
+    }
+
+    #[test]
+    fn successor_structure_planners_apply_the_symbolic_price() {
+        use crate::purchases_v6::Plan;
+        use dtr_wire::unhex;
+        let vector: serde_json::Value = serde_json::from_str(include_str!(
+            "../../../tests/fixtures/b2z-delegation-v18.json"
+        ))
+        .unwrap();
+        let mut prior = crate::world::World::decode(
+            &unhex(vector["execution"]["state"].as_str().unwrap()).unwrap(),
+        )
+        .unwrap();
+        prior.reservoirs = Some(String::new());
+        let world =
+            crate::delegation_v20::migrate(crate::reservoirs::migrate_compact(prior).unwrap())
+                .unwrap();
+        let account = &world
+            .playability
+            .as_ref()
+            .unwrap()
+            .players
+            .iter()
+            .find(|player| player.id == 1)
+            .unwrap()
+            .account;
+        let rate = Tariff::Exponential(1_001);
+        let cannon_held = world
+            .cannons
+            .iter()
+            .filter(|c| &c.account == account)
+            .count() as u32;
+        let cannon_price = rate
+            .price(b2z_protocol::economy17::CANNON_BASE_E8S, cannon_held)
+            .unwrap();
+        let cannon_memo = b2z_protocol::v6::encode(b2z_protocol::v6::Command::New {
+            angle: 0,
+            quantity: 1,
+            cell: Some(500500),
+        })
+        .unwrap();
+        assert!(matches!(
+            crate::context_structures::prepare_at_tariff(
+                &world, account, cannon_price, &cannon_memo, &[], true, Some(rate)
+            )
+            .unwrap(),
+            Plan::New { price, .. } if price.0 == cannon_price.into()
+        ));
+        assert!(matches!(
+            crate::context_structures::prepare_at_tariff(
+                &world,
+                account,
+                u64::MAX,
+                &cannon_memo,
+                &[],
+                true,
+                Some(Tariff::Exponential(1_035))
+            )
+            .unwrap(),
+            Plan::Rejected { reason } if reason == "PRICE_OVERFLOW"
+        ));
+        let diverter_held = world
+            .deflectors
+            .as_ref()
+            .unwrap()
+            .iter()
+            .filter(|d| d.owner == 1)
+            .count() as u32;
+        let diverter_price = rate
+            .price(b2z_protocol::economy17::DIVERTER_BASE_E8S, diverter_held)
+            .unwrap();
+        let diverter_memo =
+            b2z_protocol::deflector::encode(b2z_protocol::deflector::Command::Deflect {
+                cell: 500500,
+                orientation: 0,
+            })
+            .unwrap();
+        assert!(matches!(
+            crate::context_structures::prepare_at_tariff(
+                &world, account, diverter_price, &diverter_memo, &[], true, Some(rate)
+            )
+            .unwrap(),
+            Plan::Deflect { price, .. } if price.0 == diverter_price.into()
+        ));
     }
 
     #[test]

@@ -1,4 +1,4 @@
-import {marginal} from '../../protocol/economy17.mjs';
+import {priceAtTariff} from './economy20.mjs';
 import {DIVERTER_BASE_E8S} from '../../protocol/economy17.generated.mjs';
 /** Provisional Rules12 structures; all state mutations belong to the cursor. */
 import{playerAt,ownerAt,cellCount,position,wrapCell,Q,validateWorld}from'./world.mjs';
@@ -45,7 +45,7 @@ export function prepareDeflectorPurchase(w,account,amount,memo,spacing=false,mul
  const player=w.playability.players.find(p=>p.account===account)?.id;
  if(player===undefined||playerAt(w,command.cell)!==player)return fail('NOT_OWN_TERRITORY');
  const retained=w.deflectors.filter(d=>d.owner===player).length;
- const price=multiplier===null?10000000n:marginal(DIVERTER_BASE_E8S,multiplier,retained);
+ const price=multiplier===null?10000000n:priceAtTariff(multiplier,DIVERTER_BASE_E8S,retained);
  if(price===null)return fail('PRICE_OVERFLOW');
  if(amount<price)return fail('UNDERFUNDED');
  if(w.version<9&&w.deflectors.length>=256)return fail('DEFLECTOR_CAPACITY');

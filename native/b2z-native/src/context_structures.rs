@@ -168,6 +168,26 @@ pub(crate) fn prepare_at(
     spacing: bool,
     multiplier: Option<u32>,
 ) -> Result<Plan> {
+    prepare_at_tariff(
+        world,
+        account,
+        amount,
+        memo,
+        moved,
+        spacing,
+        multiplier.map(crate::economy20::Tariff::Linear),
+    )
+}
+
+pub(crate) fn prepare_at_tariff(
+    world: &World,
+    account: &str,
+    amount: u64,
+    memo: &[u8],
+    moved: &[u32],
+    spacing: bool,
+    tariff: Option<crate::economy20::Tariff>,
+) -> Result<Plan> {
     let reject = |reason: &str| {
         Ok(Plan::Rejected {
             reason: reason.into(),
@@ -179,8 +199,8 @@ pub(crate) fn prepare_at(
     };
     let id = match command {
         codec::Command::Existing(b2z_protocol::deflector::Command::Deflect { .. }) => {
-            let plan = crate::deflectors_v12::prepare_with_spacing(
-                world, account, amount, memo, spacing, multiplier,
+            let plan = crate::deflectors_v12::prepare_with_tariff(
+                world, account, amount, memo, spacing, tariff,
             )?;
             if let Plan::Deflect { cell, owner, .. } = plan {
                 if let Some(reason) = separation_reason(world, owner, cell, None, spacing) {
@@ -193,7 +213,7 @@ pub(crate) fn prepare_at(
             return purchases_v6::prepare_with_context(
                 world,
                 account,
-                purchases_v6::PurchaseTerms { amount, multiplier },
+                purchases_v6::PurchaseTerms { amount, tariff },
                 memo,
                 moved,
                 true,

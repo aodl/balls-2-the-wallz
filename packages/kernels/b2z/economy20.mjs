@@ -32,7 +32,8 @@ export function tariffs20(schedule,formulaStartNs,blockNs){
    (current.formula!==prior.formula||current.population!==prior.population||current.multiplier!==prior.multiplier)?prior:null};
 }
 
-function price(tariff,base,held){
+export function priceAtTariff(tariff,base,held){
+ if(Number.isInteger(tariff))return marginal(base,tariff,held);
  switch(tariff.formula){
   case 'linear':return marginal(base,tariff.multiplier,held);
   case 'exponential':return marginalPrice(base,tariff.population,held);
@@ -43,14 +44,14 @@ function price(tariff,base,held){
 function affordable(tariff,purchase,payment){
  let remaining=payment,count=0;
  if(purchase.structure){
-  const first=price(tariff,purchase.structure.base,purchase.structure.held);
+  const first=priceAtTariff(tariff,purchase.structure.base,purchase.structure.held);
   if(first===null||first>remaining)return {tariff,count,spent:0n};
   remaining-=first;
   count=1;
  }
  for(let offset=0;offset<purchase.additionalBalls;offset++){
   const held=purchase.ballsHeld+offset;
-  const next=isCount(held)?price(tariff,BALL_BASE_E8S,held):null;
+  const next=isCount(held)?priceAtTariff(tariff,BALL_BASE_E8S,held):null;
   if(next===null||next>remaining)break;
   remaining-=next;
   count++;

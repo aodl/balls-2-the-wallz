@@ -54,9 +54,12 @@ the first Cannon, with the included Ball and before wallet fees.
 
 The shared exact fixtures cover all three base amounts, personal inventories,
 Ledger limits, up to one million world accounts, and maximum encoded counts.
-A separate successor change must bind this arithmetic to scheduling,
-affordability, receipts, cursor serialization, API/configuration and replay.
-Existing tariff bytes remain historical source inputs.
+The successor Cannon and Diverter planning functions now accept either a
+historical linear tariff or a symbolic exponential tariff. They use exact
+bounded prices and fail closed when a first item exceeds the Ledger amount.
+The authenticated cursor still needs to pass the selected formula through
+batch continuation, receipts, public quotes and independent replay. Existing
+tariff bytes remain historical source inputs.
 
 The prepared-purchase vectors compare independent current and previous tariffs.
 They include a cheaper current tariff after a population decline, exact tie

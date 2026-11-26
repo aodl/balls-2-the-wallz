@@ -182,6 +182,24 @@ pub(crate) fn prepare_with_spacing(
     spacing: bool,
     multiplier: Option<u32>,
 ) -> Result<crate::purchases_v6::Plan> {
+    prepare_with_tariff(
+        w,
+        account,
+        amount,
+        memo,
+        spacing,
+        multiplier.map(crate::economy20::Tariff::Linear),
+    )
+}
+
+pub(crate) fn prepare_with_tariff(
+    w: &World,
+    account: &str,
+    amount: u64,
+    memo: &[u8],
+    spacing: bool,
+    tariff: Option<crate::economy20::Tariff>,
+) -> Result<crate::purchases_v6::Plan> {
     use crate::purchases_v6::Plan;
     let fail = |reason: &str| {
         Ok(Plan::Rejected {
@@ -207,9 +225,12 @@ pub(crate) fn prepare_with_spacing(
     }
     let ds = w.deflectors.as_ref().ok_or("structure state")?;
     let retained = ds.iter().filter(|d| d.owner == owner).count();
-    let price = if let Some(p) = multiplier {
-        use b2z_protocol::economy17::{marginal, DIVERTER_BASE_E8S};
-        let Some(price) = marginal(DIVERTER_BASE_E8S, p, retained) else {
+    let price = if let Some(rate) = tariff {
+        use b2z_protocol::economy17::DIVERTER_BASE_E8S;
+        let Some(price) = u32::try_from(retained)
+            .ok()
+            .and_then(|held| rate.price(DIVERTER_BASE_E8S, held))
+        else {
             return fail("PRICE_OVERFLOW");
         };
         price
