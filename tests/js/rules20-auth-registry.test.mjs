@@ -5,7 +5,7 @@ import {gunzipSync} from 'node:zlib';
 import {encodeCanonical,decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {decodeDelegatedPayment,icpAccount} from '../../packages/protocol/delegation.mjs';
-import {emptyAuthorization,authorizePayment} from '../../packages/kernels/b2z/delegation-v18.mjs';
+import {emptyAuthorization,authorizePayment,receiptTransfer,verifyAuthorizationReceipts} from '../../packages/kernels/b2z/delegation-v18.mjs';
 import {authorizationV3FromV2,authorizationV2FromV3,authorizePaymentV3,validateAuthorizationV3} from '../../packages/kernels/b2z/delegation-v20.mjs';
 import {decodeWorld,encodeWorld,migrateCompactReservoirs,migrateAuthorizationRows} from '../../packages/kernels/b2z/world.mjs';
 
@@ -92,4 +92,20 @@ test('direct successor rows accept all 16 account-leading hex digits',()=>{
   assert.equal(authorizePaymentV3(rows,grant,4n),'granted');
   assert.equal(validateAuthorizationV3(decodeCanonical(encodeCanonical(rows))).grants[0].account,account);
  }
+});
+
+test('successor receipt verification binds the exact digit-leading grant and rejects altered records',()=>{
+ const payment=decodeDelegatedPayment(vector.envelope);
+ const grant={...payment,position:4n,amount:0n,spender:null,memo:Uint8Array.from(Buffer.from(vector.grant_memo,'hex'))};
+ const initial={authorization:authorizationV3FromV2(emptyAuthorization(payment.to)),received_e8s:17n};
+ const final=structuredClone(initial);
+ assert.equal(authorizePaymentV3(final.authorization,grant,4n),'granted');
+ const receipt={account:grant.from,amount:0n,position:4n,spender:null,
+  ledger_recorded_ns:grant.ledger_time_ns,transfer:receiptTransfer(grant),
+  status:'configured',reason:'DELEGATION_GRANTED',amount_used:0n,remainder:0n};
+ const scope={source_from:4n,source_to_exclusive:5n,input_count:1n};
+ assert.doesNotThrow(()=>verifyAuthorizationReceipts(initial,final,[receipt],scope,authorizePaymentV3));
+ const altered=structuredClone(receipt);
+ altered.transfer.memo='00';
+ assert.throws(()=>verifyAuthorizationReceipts(initial,final,[altered],scope,authorizePaymentV3));
 });
