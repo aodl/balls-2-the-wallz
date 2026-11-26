@@ -5,6 +5,8 @@ import {decodeWorld,encodeWorld,migrateCompactReservoirs,migrateAuthorizationRow
 import {registerPassage,exempts,retireAfterContact,pruneRemoved} from '../../packages/kernels/b2z/passage-v20.mjs';
 import {classify,passage} from '../../packages/kernels/b2z/kernel.mjs';
 import {nextCrossing} from '../../packages/kernels/b2z/geometry.mjs';
+import {prepareDeflectorPurchase} from '../../packages/kernels/b2z/deflectors-v12.mjs';
+import {encodeDeflectorMemo} from '../../packages/protocol/deflector.mjs';
 
 function world(){
  const vector=JSON.parse(readFileSync(new URL('../fixtures/b2z-delegation-v18.json',import.meta.url)));
@@ -65,4 +67,16 @@ test('an exact corner tangency does not grant passage through a side tile',()=>{
  setOwner(w,501500,0);
  registerPassage(w,'deflector',d.id,d.cell);
  assert.equal(w.passage_exceptions.length,1);
+});
+test('explicit Diverter planning relaxes only the successor Ball-occupancy rule',()=>{
+ const vector=JSON.parse(readFileSync(new URL('../fixtures/b2z-delegation-v18.json',import.meta.url)));
+ const historical=migrateCompactReservoirs(decodeWorld(Buffer.from(vector.execution.state,'hex')));
+ const successor=migrateAuthorizationRows(historical);
+ const account=successor.playability.players.find(p=>p.id===1).account;
+ const memo=encodeDeflectorMemo({kind:'deflect',cell:500500,orientation:'NE'});
+ for(const w of [historical,successor]){
+  const b=w.balls[0];b.cell=500500;b.x0=500n*1024n+512n;b.y0=500n*1024n+512n;b.vx=32000;b.vy=0;b.den=1n;
+ }
+ assert.equal(prepareDeflectorPurchase(historical,account,10_000_000n,memo,true).reason,'SITE_OCCUPIED');
+ assert.equal(prepareDeflectorPurchase(successor,account,10_000_000n,memo,true).kind,'deflect');
 });

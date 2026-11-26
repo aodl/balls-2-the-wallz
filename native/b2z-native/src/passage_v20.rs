@@ -254,6 +254,39 @@ mod tests {
         b.vy = 0;
         b.den = Some(Int(1.into()));
         let id = b.id;
+        let account = world
+            .playability
+            .as_ref()
+            .unwrap()
+            .players
+            .iter()
+            .find(|player| player.id == 1)
+            .unwrap()
+            .account
+            .clone();
+        let memo = b2z_protocol::deflector::encode(b2z_protocol::deflector::Command::Deflect {
+            cell: 500500,
+            orientation: 0,
+        })
+        .unwrap();
+        let prior_rules = World {
+            version: 11,
+            ..world.clone()
+        };
+        assert!(matches!(
+            crate::deflectors_v12::prepare_with_spacing(
+                &prior_rules, &account, 10_000_000, &memo, true, None
+            )
+            .unwrap(),
+            crate::purchases_v6::Plan::Rejected { reason } if reason == "SITE_OCCUPIED"
+        ));
+        assert!(matches!(
+            crate::deflectors_v12::prepare_with_spacing(
+                &world, &account, 10_000_000, &memo, true, None
+            )
+            .unwrap(),
+            crate::purchases_v6::Plan::Deflect { cell: 500500, .. }
+        ));
         let structure = world.next_deflector_id.unwrap();
         *world.next_deflector_id.as_mut().unwrap() += 1;
         world.deflectors.as_mut().unwrap().push(Deflector {
