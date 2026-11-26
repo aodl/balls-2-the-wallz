@@ -80,9 +80,9 @@ pub fn seed(
         .and_then(|s| s.ready_hash.clone())
         .ok_or("profiling predecessor incomplete")?;
     h.apply(Action::Publish { manifest_hash })?;
-    w.authorization = Some(b2z_native::delegation_v20::AuthorizationState::Historical(b2z_native::delegation_v18::Registry::empty(
-        source.recipient_hex.clone(),
-    )?));
+    w.authorization = Some(b2z_native::delegation_v20::AuthorizationState::Historical(
+        b2z_native::delegation_v18::Registry::empty(source.recipient_hex.clone())?,
+    ));
     let output = Output {
         state: w.encode()?,
         events: dtr_wire::unhex(&h.record.journal.head.event_hex)?,
