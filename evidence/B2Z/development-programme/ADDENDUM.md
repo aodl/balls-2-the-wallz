@@ -1,6 +1,6 @@
 # Addendum acceptance matrix — 26 November 2026
 
-Candidate frontend source: `8a3100363f8c10adc2d343ae0a0096b5612ba4b2` (PR #16). The Rules19 European backend is unchanged. Exact-source hosted qualification on this candidate is in progress at standard 45832046550, financial 45832046637 (PASS), and developer/prelaunch 45832046592. The companion documentation/tooling source is `0855896239ba222892a372e6eeba22530fa59afc` (PR #17); its own three hosted runs are in progress. This matrix distinguishes local focused passes from full hosted qualification.
+Candidate frontend source: `8a3100363f8c10adc2d343ae0a0096b5612ba4b2` (PR #16). The Rules19 European backend is unchanged. Exact-source hosted qualification on this candidate is in progress at standard 45832046550, financial 45832046637 (PASS), and developer/prelaunch 45832046592. The companion documentation/tooling source is `0855896239ba222892a372e6eeba22530fa59afc` (PR #17); its own three hosted runs are in progress. The separate [paid-replay follow-up PR #18](https://github.com/aodl/balls-2-the-wallz/pull/18) has an isolated local installed pass and awaits its own exact-source hosted gate. This matrix distinguishes local focused passes from full hosted qualification.
 
 | Request | Implementation and exact source | Focused evidence | Historical and deployment boundary |
 | --- | --- | --- | --- |
