@@ -94,7 +94,15 @@ with (out / "server.log").open("w") as log:
                     page.touchscreen.tap(point["sx"], point["sy"])
                 else:
                     page.mouse.click(point["sx"], point["sy"])
-                page.locator("#reorient-action").click()
+                # Owned Diverters now open Reorient on selection. Wait for the
+                # actual selected structure and action instead of clicking the
+                # already active action during the browser's selection turn.
+                page.wait_for_function(
+                    "()=>document.querySelector('#panel-title')?.textContent==='Diverter #2' && "
+                    "__b2zExperience.composer.mode==='deflector_reorient'",
+                    timeout=10000,
+                )
+                assert page.locator("#deflector-directions").is_visible()
                 page.locator("#deflector-directions button").filter(has_text="N").click()
                 page.get_by_placeholder("Shout (optional)").fill("Hold")
                 assert page.locator("#text-memo").text_content() == "DROT 2 N|Hold"
