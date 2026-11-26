@@ -5,7 +5,7 @@ use b2z_native::{
     territory_v6::Territory,
     world::{self, Ball, Cannon, World},
 };
-use serde_json::{Value, json};
+use serde_json::{json, Value};
 
 fn seed(case: &str) -> World {
     let mut world = World::decode(&bytes("B2Z_COST_WORLD")).unwrap();
@@ -560,11 +560,9 @@ fn compact_cutover(
                 candid::encode_one(dtr_wire::hash(&old_obs.publication)).unwrap(),
             )
             .unwrap();
-        assert!(
-            decode_one::<Result<Vec<u8>, String>>(&result)
-                .unwrap()
-                .is_err()
-        );
+        assert!(decode_one::<Result<Vec<u8>, String>>(&result)
+            .unwrap()
+            .is_err());
         assert_eq!(observe(pic, id).0.publication, old_obs.publication);
         pic.start_canister(index, Some(controller())).unwrap();
     }
@@ -902,15 +900,13 @@ fn rules18_cost_matrix() {
         .unwrap();
         let verify = Path::new(env!("CARGO_MANIFEST_DIR"))
             .join("../../tools/verify_compact_cost_replay.mjs");
-        assert!(
-            std::process::Command::new("node")
-                .arg(verify)
-                .arg(&out)
-                .arg(checkpoints.to_string())
-                .status()
-                .unwrap()
-                .success()
-        );
+        assert!(std::process::Command::new("node")
+            .arg(verify)
+            .arg(&out)
+            .arg(checkpoints.to_string())
+            .status()
+            .unwrap()
+            .success());
     }
     let world = arena_world(&pic, id);
     let result = json!({
@@ -1068,17 +1064,15 @@ fn prelaunch_trickle_rules19() {
     assert!(speed::switch(&pic, id, payer, true, None).is_err());
     let capped_cost = measure_ordinary(&pic, id, &out.join("capped"), 100_000);
     std::fs::write(out.join("capped/replay-inputs.bin"), b"[]").unwrap();
-    assert!(
-        std::process::Command::new("node")
-            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
-            .arg("tools/verify_compact_cost_replay.mjs")
-            .arg(out.join("capped"))
-            .arg("4")
-            .arg(out.join("cutover"))
-            .status()
-            .unwrap()
-            .success()
-    );
+    assert!(std::process::Command::new("node")
+        .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+        .arg("tools/verify_compact_cost_replay.mjs")
+        .arg(out.join("capped"))
+        .arg("4")
+        .arg(out.join("cutover"))
+        .status()
+        .unwrap()
+        .success());
     // The minimum observed checkpoint debit excludes a coincident source poll.
     let baseline_cost = *baseline.iter().min().unwrap();
     let adjusted_cost = *capped_cost.iter().min().unwrap();
@@ -1389,4 +1383,96 @@ fn signed_rules19_construction_presentation() {
         "{}",
         String::from_utf8_lossy(&verified.stderr)
     );
+}
+
+#[test]
+#[ignore = "explicit same-ID PocketIC operational certification rehearsal"]
+fn certified_operational_burn_roundtrip() {
+    #[derive(CandidType, Deserialize)]
+    struct CertifiedObservation {
+        publication: Vec<u8>,
+        certificate: Option<Vec<u8>>,
+        operational_burn: Option<Vec<u8>>,
+    }
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let (pic, id, ledger, _) = arena_setup_world(
+        bytes("B2Z_COST_PROFILE_WASM"),
+        seed("two_ball").encode().unwrap(),
+    );
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    compact_cutover(&pic, id, ledger, &compact, &out);
+    upgrade_during_recovery(&pic, id, &bytes("B2Z_BURN_PRIOR_WASM")).unwrap();
+    let witness = |name: &str| {
+        let reply = pic
+            .query_call(
+                id,
+                Principal::anonymous(),
+                "observation",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        let observation = decode_one::<Result<CertifiedObservation, String>>(&reply)
+            .unwrap()
+            .unwrap();
+        let path = out.join(format!("{name}.json"));
+        let fixture = json!({
+            "id": id.to_text(),
+            "at": pic.get_time().as_nanos_since_unix_epoch().to_string(),
+            "root_key": hex(&pic.root_key().unwrap()),
+            "publication": hex(&observation.publication),
+            "certificate": hex(&observation.certificate.expect("certified query evidence")),
+            "record": observation.operational_burn.as_ref().map(|bytes| hex(bytes)),
+        });
+        std::fs::write(&path, serde_json::to_vec(&fixture).unwrap()).unwrap();
+        let verified = std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .arg("tools/verify_operational_burn_fixture.mjs")
+            .arg(path)
+            .output()
+            .unwrap();
+        assert!(
+            verified.status.success(),
+            "{}",
+            String::from_utf8_lossy(&verified.stderr)
+        );
+        serde_json::from_slice::<Value>(&verified.stdout).unwrap()
+    };
+    let prior = witness("prior");
+    assert!(prior["burn"].is_null());
+    let paid_world = arena_world(&pic, id);
+    let candidate = bytes("B2Z_BURN_CANDIDATE_WASM");
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    assert_eq!(arena_world(&pic, id), paid_world);
+    let first = witness("initial");
+    assert_eq!(first["publication"], prior["publication"]);
+    assert!(first["burn"].is_null());
+    for _ in 0..18 {
+        advance(&pic, 60_000);
+    }
+    let partial = witness("partial");
+    assert_eq!(partial["burn"]["quality"], "preliminary");
+    assert_eq!(partial["publication"], prior["publication"]);
+    for _ in 0..60 {
+        advance(&pic, 60_000);
+    }
+    let full = witness("full");
+    assert_eq!(full["burn"]["quality"], "established");
+    assert_eq!(full["publication"], prior["publication"]);
+    pic.add_cycles(id, 100_000_000_000);
+    for _ in 0..6 {
+        advance(&pic, 60_000);
+    }
+    let stale = witness("top-up");
+    assert_eq!(stale["burn"]["quality"], "stale");
+    assert_eq!(stale["burn"]["cyclesPerDay"], full["burn"]["cyclesPerDay"]);
+    assert_eq!(stale["publication"], prior["publication"]);
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    assert_eq!(witness("restart")["burn"]["quality"], "stale");
+    upgrade_during_recovery(&pic, id, &bytes("B2Z_BURN_PRIOR_WASM")).unwrap();
+    assert_eq!(witness("recovery"), prior);
+    assert_eq!(arena_world(&pic, id), paid_world);
+    std::fs::write(out.join("result.json"), serde_json::to_vec_pretty(&json!({
+        "status":"PASS","partial":partial,"full":full,"stale":stale,"scope":"disposable paused Rules19 same-ID certificate and recovery"
+    })).unwrap()).unwrap();
 }

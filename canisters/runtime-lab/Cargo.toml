@@ -12,6 +12,7 @@ cost-profile-legacy-reservoir = ["cost-profile", "b2z-native/legacy-reservoir-pu
 developer-speed = []
 prelaunch-trickle = ["developer-speed"]
 public-launch = []
+certified-operational-burn = []
 [lib]
 crate-type = ["cdylib", "rlib"]
 [dependencies]

@@ -28,7 +28,7 @@ function artifactBundleReader(agent,canisterId){
 }
 function artifactDeliveryClient(agent,canisterId,base){
  const bundle=artifactBundleReader(agent,canisterId);
- const actor=Actor.createActor(({IDL})=>IDL.Service({observation_bundle:IDL.Func([],[IDL.Variant({Ok:IDL.Record({observation:IDL.Record({publication:IDL.Vec(IDL.Nat8),certificate:IDL.Opt(IDL.Vec(IDL.Nat8))}),artifacts:IDL.Vec(IDL.Vec(IDL.Nat8))}),Err:IDL.Text})],['query'])}),{agent,canisterId});
+ const actor=Actor.createActor(({IDL})=>IDL.Service({observation_bundle:IDL.Func([],[IDL.Variant({Ok:IDL.Record({observation:IDL.Record({publication:IDL.Vec(IDL.Nat8),certificate:IDL.Opt(IDL.Vec(IDL.Nat8)),operational_burn:IDL.Opt(IDL.Vec(IDL.Nat8))}),artifacts:IDL.Vec(IDL.Vec(IDL.Nat8))}),Err:IDL.Text})],['query'])}),{agent,canisterId});
  let cached=null,atomicAvailable=true;
  return Object.freeze({...base,
   observation:async({lean=false}={})=>{
@@ -38,7 +38,7 @@ function artifactDeliveryClient(agent,canisterId,base){
     try{
      const result=await actor.observation_bundle();
      if(!result.Ok){failure=new Error(String(result.Err??'observation bundle unavailable'));break;}
-     const observation={publication:Uint8Array.from(result.Ok.observation.publication),certificate:result.Ok.observation.certificate.length?Uint8Array.from(result.Ok.observation.certificate[0]):null};
+     const observation={publication:Uint8Array.from(result.Ok.observation.publication),certificate:result.Ok.observation.certificate.length?Uint8Array.from(result.Ok.observation.certificate[0]):null,operationalBurn:result.Ok.observation.operational_burn?.length?Uint8Array.from(result.Ok.observation.operational_burn[0]):null};
      cached={publication:await sha256Web(observation.publication),artifacts:result.Ok.artifacts.map(bytes=>Uint8Array.from(bytes))};
      return observation;
     }catch(error){failure=error;}

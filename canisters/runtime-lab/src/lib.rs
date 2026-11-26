@@ -21,6 +21,8 @@ mod dev_speed;
 mod funding;
 mod health;
 mod operation_kernel;
+#[cfg(feature = "certified-operational-burn")]
+mod operational_burn;
 mod pace;
 mod playability_runtime;
 mod player_api;
@@ -101,6 +103,14 @@ fn test_trap_next_index_reply() {
     assert!(ic_cdk::api::is_controller(&ic_cdk::api::msg_caller()));
     TRAP_NEXT_INDEX_REPLY.with(|flag| flag.set(true));
 }
+fn set_observation_root(publication: &[u8]) {
+    #[cfg(feature = "certified-operational-burn")]
+    let composed = operational_burn::certified_root(publication);
+    #[cfg(feature = "certified-operational-burn")]
+    let publication = &composed;
+    ic_cdk::api::certified_data_set(publication);
+}
+
 fn memory(id: u8) -> Memory {
     MANAGER.with(|m| m.borrow().get(MemoryId::new(id)))
 }
@@ -259,6 +269,8 @@ struct Status {
 struct Observation {
     publication: Vec<u8>,
     certificate: Option<Vec<u8>>,
+    #[cfg(feature = "certified-operational-burn")]
+    operational_burn: Option<Vec<u8>>,
 }
 #[derive(CandidType, Deserialize)]
 struct ObservationBundle {
@@ -1207,10 +1219,7 @@ fn persist_inner(
     persistence_fault("after-root", publication_changed);
     ARENA_IDLE.with(|flag| flag.set(idle));
     if update_certified_data {
-        measure_cost!(
-            "persist.certify",
-            ic_cdk::api::certified_data_set(certified_root)
-        );
+        measure_cost!("persist.certify", set_observation_root(&certified_root));
         #[cfg(feature = "test-hooks")]
         persistence_fault("after-certification", publication_changed);
     }
@@ -1399,6 +1408,8 @@ fn sample_health() {
         .ok()
         .and_then(|s| s.total_cycles_reported.parse::<u128>().ok())
         .unwrap_or(0);
+    #[cfg(feature = "certified-operational-burn")]
+    operational_burn::sample(None);
     HEALTH.with(|h| {
         h.borrow_mut().sample(
             ic_cdk::api::time(),
@@ -1866,7 +1877,7 @@ fn post_upgrade() {
             r.run.last_error = None;
         }
         save_root_only(&r)?;
-        ic_cdk::api::certified_data_set(unhex(&r.publication_hash)?);
+        set_observation_root(&unhex(&r.publication_hash)?);
         cache_poke_policy(&r.source);
         refresh_pace();
         install_source_timer();
@@ -1973,6 +1984,8 @@ fn observation() -> std::result::Result<Observation, String> {
     Ok(Observation {
         publication: unhex(&r.publication_hex)?,
         certificate: ic_cdk::api::data_certificate(),
+        #[cfg(feature = "certified-operational-burn")]
+        operational_burn: Some(operational_burn::current_record().to_vec()),
     })
 }
 /// Returns one atomic certified snapshot and its small public artifacts. The
@@ -2018,6 +2031,8 @@ fn observation_bundle() -> std::result::Result<ObservationBundle, String> {
         observation: Observation {
             publication: publication_bytes,
             certificate: ic_cdk::api::data_certificate(),
+            #[cfg(feature = "certified-operational-burn")]
+            operational_burn: Some(operational_burn::current_record().to_vec()),
         },
         artifacts,
     })
@@ -2486,6 +2501,8 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
         r.source = next;
         save_root_only(&r)?;
     }
+    #[cfg(feature = "certified-operational-burn")]
+    operational_burn::sample(Some(&r));
     if active_transition(&r)?.is_some_and(|t| t.phase == "drain") && r.source.pending.is_none() {
         active_transition_mut(&mut r)?
             .ok_or("missing active cutover")?
