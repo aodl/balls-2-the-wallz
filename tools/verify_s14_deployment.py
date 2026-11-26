@@ -222,7 +222,7 @@ def verify_paid_v8_scene(page,out,record):
         if attempt==0:
             page.reload();wait_until(page,lambda:page.evaluate('Boolean(globalThis.__dtrLive?.connected)'),30000)
 
-def verify_million_scene(page,context,out,record,report,save,stop_capture,sustained=False):
+def verify_million_scene(page,context,out,record,report,save,stop_capture,sustained=False,wire_capture=None):
     install_boundary_trace(page)
     (out/'browser-million-ready').write_text('certified million-cell genesis visible; begin production\n')
     assert '1,000 × 1,000' in world_text(page)
@@ -301,7 +301,17 @@ def verify_million_scene(page,context,out,record,report,save,stop_capture,sustai
         assert report['million_sustained_analysis']['status']=='PASS',report['million_sustained_analysis']
         record('normal-only-exact-production-artifact-no-fault-phases')
         return
-    (out/'browser-million-normal-complete').write_text('normal playback measured\n')
+    # The disposable module upgrade can hold a query past its 10-second
+    # browser deadline. Use the observer's existing lifecycle to quiesce
+    # between measurement windows, with the capture still armed throughout.
+    page.evaluate("document.dispatchEvent(new Event('freeze'))")
+    try:
+        wait_until(page,lambda:page.evaluate("!__b2zExperience.session.busy") and not wire_capture.pending,15000)
+        (out/'browser-million-normal-complete').write_text('normal playback measured and observation drained\n')
+        wait_until(page,lambda:(out/'browser-million-economy-installed').exists(),60000)
+    finally:
+        page.evaluate("document.dispatchEvent(new Event('resume'))")
+    record('controlled-observation-drain-across-disposable-upgrade',{'scope':'Synthetic lifecycle between timed windows; wire capture remained armed'})
     wait_until(page,lambda:page.evaluate('__dtrLive.playback.target_rate')==.5,30000);page.wait_for_timeout(4000)
     # The normal-to-hooks code upgrade may hold an in-flight query. Bound the
     # recovery before measuring steady Economy, so old Normal publications do
@@ -835,7 +845,7 @@ def main():
                 elif a.prelaunch_trickle_scene_only:verify_prelaunch_trickle(page,out,record)
                 elif a.compact_reservoir_scene_only:verify_compact_reservoir_transition(page,browser,url,out,record,errors)
                 elif a.transition_only:verify_epoch_transition(page,context,out,record,report,save,errors)
-                elif a.million_scene_only or a.paid_v8_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained)
+                elif a.million_scene_only or a.paid_v8_scene_only:verify_million_scene(page,context,out,record,report,save,stop_wire_capture,a.million_sustained,wire_capture)
                 else:verify_torus_scene(page,context,out,record,report,save)
                 if wire_capture:stop_wire_capture()
                 assert not errors,errors

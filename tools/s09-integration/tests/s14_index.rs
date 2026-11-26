@@ -4826,6 +4826,11 @@ fn million_browser_qualification(sustained: bool) {
                 candid::encode_one(17_000_000_000_000u64).unwrap(),
             );
             assert_eq!(status.run.pace.unwrap().mode, "Economy");
+            std::fs::write(
+                out.join("browser-million-economy-installed"),
+                "disposable upgrade and economy budget complete\n",
+            )
+            .unwrap();
             economy = true;
         }
         if economy && !lifeline && out.join("browser-million-economy-complete").exists() {
