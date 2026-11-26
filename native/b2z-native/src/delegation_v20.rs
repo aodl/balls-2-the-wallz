@@ -1,6 +1,6 @@
-//! Draft successor storage for ordered Ledger authorization. Rules18/19 retain
-//! their original map encoding and decoders. This module is not wired into a
-//! gameplay epoch until a paid-state-preserving Schema12 transition is proven.
+//! Schema12 successor storage for ordered Ledger authorization. Rules18/19
+//! retain their original map encoding and decoders. The host must prove the
+//! paid-state-preserving epoch transition before any production activation.
 use crate::delegation_v18::{Decision, Grant, Registry};
 use b2z_protocol::delegation::{
     account_id, account_ok, decode_authorization, AuthorizationMemo, Payment, LIFETIME_NS,

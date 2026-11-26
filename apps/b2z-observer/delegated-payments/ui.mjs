@@ -1,7 +1,7 @@
 import {signedConstruction} from '../manufacturing.mjs';
 /** Optional signing controls gated by authenticated payment-source and epoch identities. */
 import{paymentSession,DERIVATION_ORIGIN}from'./auth.mjs';import{signedLedger}from'./ledger.mjs';import{paymentJournal}from'./intents.mjs';import{explicitFunding,verifiedPaymentSource,verifiedGameAccess,verifiedPayment,assertIntentAuthority,paymentIntent,verifyGameReceipt}from'./context.mjs';import{ownerSetup,ownerRevocation}from'./setup.mjs';
-import{parseSendingAccount}from'../identity.mjs';import{icpAccount}from'../../../packages/protocol/delegation.mjs';import{DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY}from'../torus-identity.generated.mjs';
+import{parseSendingAccount}from'../identity.mjs';import{icpAccount}from'../../../packages/protocol/delegation.mjs';import{grantForAccount}from'../../../packages/kernels/b2z/delegation-v20.mjs';import{DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY,RULES20_IDENTITY}from'../torus-identity.generated.mjs';
 const icp=n=>{n=BigInt(n);return`${n/100000000n}.${String(n%100000000n).padStart(8,'0')}`.replace(/\.?0+$/,'')+' ICP';};
 const amount=s=>{const m=/^(0|[1-9][0-9]{0,10})(?:\.([0-9]{1,8}))?$/.exec(s);if(!m)throw Error('Enter an exact ICP allowance');return BigInt(m[1])*100000000n+BigInt((m[2]??'').padEnd(8,'0'));};
 const publicError=e=>{const k=String(e?.message??e);if(/FUNDING_OWNER|INTENT_ACCOUNT/.test(k))return 'Enter the funding principal or ICRC account';if(/FUNDING_SUBACCOUNT/.test(k))return 'Check the 32-byte funding subaccount';if(/expired|InsufficientAllowance|allowance/i.test(k))return 'Refresh the spending allowance before paying';if(/Funds/.test(k))return 'Funding account has insufficient ICP';if(/fee/i.test(k))return 'Transfer fee changed. Review it before paying.';if(/STORAGE|storage/i.test(k))return 'Payment storage unavailable. Wallet instructions still work.';if(/SIGN|session/i.test(k))return 'Sign in again before paying';if(/BUSY|PENDING|previous payment/i.test(k))return 'Resolve the previous payment before another one';if(/VERIF|BINDING|SOURCE|CONFIGURATION|ACCESS|UNAUTHORIZED/i.test(k))return 'Payment permissions need verification';if(/changed instructions|QUOTE_CHANGED|INTENT_AUTHORITY_CHANGED|PACKET_SCOPE/i.test(k))return 'Review changed instructions before paying';return 'In-game payment unavailable. Wallet instructions still work.';};
@@ -25,7 +25,7 @@ export function mountPayments(doc,{enabled=false,session,arcade,policy,storage,l
   if(!localTest&&globalThis.location?.origin!==DERIVATION_ORIGIN)return false;
   try{verifiedPaymentSource(session(),{localTest,predecessor:true});return true;}catch{return false;}
  }
- function activated(){const s=session(),id=s?.sequence?.last?.publication?.identity;return canSignIn()&&id&&[DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY].some(expected=>Object.keys(expected).every(k=>id[k]===expected[k]));}
+ function activated(){const s=session(),id=s?.sequence?.last?.publication?.identity;return canSignIn()&&id&&[DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY,RULES20_IDENTITY].some(expected=>Object.keys(expected).every(k=>id[k]===expected[k]));}
  function note(s){if($('payment-setup-note').textContent!==s)$('payment-setup-note').textContent=s;}
  function text(id,value){if($(id).textContent!==value)$(id).textContent=value;}
  function clearOwner(){ownerRevision++;ownerState=null;text('owner-command-text','');$('owner-instructions').hidden=true;$('owner-instructions').open=false;}
@@ -34,7 +34,7 @@ export function mountPayments(doc,{enabled=false,session,arcade,policy,storage,l
   // Setup must also work before the first grant. Only that final grant check is
   // optional; certificate/configuration/source/destination checks remain intact.
   try{verifiedGameAccess(s,funding,spender,{localTest});}catch(e){if(e.message!=='GAME_ACCESS_EXPIRED_OR_UNAUTHORIZED')throw e;}
-  const a=icpAccount(funding.owner,Uint8Array.from(funding.subaccount.match(/../g),h=>parseInt(h,16))),grant=s.referenceWorld.authorization.grants[a]??null;
+  const a=icpAccount(funding.owner,Uint8Array.from(funding.subaccount.match(/../g),h=>parseInt(h,16))),grant=grantForAccount(s.referenceWorld.authorization,a);
   if(query&&!permission)throw Error('OWNER_QUERY_REQUIRED');
   return JSON.stringify({funding,spender,network:p.network,host:p.host,backend:p.canister_id,ledger:p.ledger,policyLedger:policy().ledger,rootKey:p.root_key_hex,source:s.source,identity:s.sequence.last.publication.identity,grant,expired:grant?grant.expires_at_ns<=BigInt(Date.now())*1000000n:false,...(query?{fee:permission.fee,allowance:permission.allowance,expires:permission.expires_at,changed:permissionMayHaveChanged}: {})},(_k,v)=>typeof v==='bigint'?String(v):v);
  }
@@ -89,7 +89,7 @@ export function mountPayments(doc,{enabled=false,session,arcade,policy,storage,l
   const currentSession=session();
   if(arcade.constructionPayments){
    const plans=[];
-   if(currentSession?.config?.rules_version===19)for(const item of rows){
+   if([19,20].includes(currentSession?.config?.rules_version))for(const item of rows){
     const candidate=item.index===null?null:currentSession.receipts?.get(item.index);
     let receipt=null;
     if(candidate)try{verifyGameReceipt(currentSession,item,candidate);receipt=candidate;}catch{/* A saved intent alone cannot bind a birth. */}

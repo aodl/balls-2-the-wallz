@@ -328,8 +328,10 @@ fn cannon(w: &World, id: u32) -> Result<Option<CannonView>> {
 pub fn game_info() -> Result<GameInfo> {
     let (r, p, w) = load()?;
     let configuration = if p.identity.config_hash
-        == b2z_native::reservoirs::compact_identity()["config_hash"]
+        == b2z_native::delegation_v20::identity()["config_hash"]
     {
+        b2z_native::delegation_v20::configuration()
+    } else if p.identity.config_hash == b2z_native::reservoirs::compact_identity()["config_hash"] {
         b2z_native::reservoirs::compact_configuration()
     } else if p.identity.config_hash == b2z_native::delegation_v18::identity()["config_hash"] {
         b2z_native::delegation_v18::configuration()

@@ -1,5 +1,6 @@
 import {economyAt} from '../../packages/kernels/b2z/economy17.mjs';
-import {marginal,U64_MAX} from '../../packages/protocol/economy17.mjs';
+import {tariffs20,priceAtTariff} from '../../packages/kernels/b2z/economy20.mjs';
+import {U64_MAX} from '../../packages/protocol/economy17.mjs';
 import {reservoirDirective,encodeReservoirMemo} from '../../packages/protocol/reservoir.mjs';
 import {contextSupported,reservoirSupported,economySupported} from './context-policy.mjs';
 import {contextSites} from './context-sites.mjs';
@@ -21,11 +22,11 @@ const adjacent=cell=>{const x=cell%1000,y=Math.floor(cell/1000);return[((y+999)%
 export function legalAdjacentSites(w,account,config=null){
  check(w.version>=6,'EXPECTED_V6');const player=w.playability.players.find(p=>p.account===account)?.id;if(player===undefined)return[];
  const pool=new Set(w.balls.filter(b=>b.owner===player).map(b=>islandAt(w,b.cell))),candidates=new Set(w.cannons.filter(c=>c.account===account&&pool.has(islandAt(w,c.cell))).flatMap(c=>adjacent(c.cell))),blocked=new Set([...w.cannons.map(c=>c.cell),...(w.deflectors??[]).map(d=>d.cell)]);
- for(const b of w.balls){const [num,den]=w.time,axis=(intercept,velocity)=>{const scale=b.den??1n,v=intercept*den+BigInt(velocity)*num*scale,unit=1024n*den*scale,raw=v/unit,cell=Number((raw%1000n+1000n)%1000n);return v%unit===0n?[cell,(cell+999)%1000]:[cell];};for(const x of axis(b.x0,b.vx))for(const y of axis(b.y0,b.vy))blocked.add(y*1000+x);}
+ if(w.version<12)for(const b of w.balls){const [num,den]=w.time,axis=(intercept,velocity)=>{const scale=b.den??1n,v=intercept*den+BigInt(velocity)*num*scale,unit=1024n*den*scale,raw=v/unit,cell=Number((raw%1000n+1000n)%1000n);return v%unit===0n?[cell,(cell+999)%1000]:[cell];};for(const x of axis(b.x0,b.vx))for(const y of axis(b.y0,b.vy))blocked.add(y*1000+x);}
  return[...candidates].filter(c=>!blocked.has(c)&&(islandAt(w,c)===0||playerAt(w,c)===player)&&(!clearanceActive(config)||hasEnemyClearance(w.width,w.height,c,player,n=>playerAt(w,n)))).sort((a,b)=>a-b);
 }
 export function legalMove(w,account,cannon,cell,config=null){
- if(![6,7,8,9,10,11].includes(w.version)||!integer(cell,999999))return false;const c=w.cannons.find(c=>c.id===cannon),life=w.playability.lifecycle.find(l=>l.cannon===cannon);
+ if(![6,7,8,9,10,11,12].includes(w.version)||!integer(cell,999999))return false;const c=w.cannons.find(c=>c.id===cannon),life=w.playability.lifecycle.find(l=>l.cannon===cannon);
  if(c?.account!==account||!life||life.deadline_ns!==undefined||playerAt(w,cell)!==life.player||w.cannons.some(c=>c.id!==cannon&&c.cell===cell)||(w.deflectors??[]).some(d=>d.cell===cell))return false;
  if(contextSupported(config)&&(c.cell===cell||contextSites(w,config).reason(account,cell,{moving:{kind:'cannon',id:cannon}})))return false;
  return (!clearanceActive(config)||hasEnemyClearance(w.width,w.height,cell,life.player,n=>playerAt(w,n)))&&(islandAt(w,c.cell)===islandAt(w,cell)||w.cannons.filter(other=>islandAt(w,other.cell)===islandAt(w,c.cell)).length>1);
@@ -35,10 +36,10 @@ export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quanti
  check(w.version>=6,'EXPECTED_V6');check(/^[0-9a-f]{64}$/.test(account),'ACCOUNT_BOUNDS');check(integer(quantity,64)&&quantity>=1,'QUANTITY_BOUNDS');
  const daily=economySupported(config);
  check(daily===(w.version>=9),'ECONOMY_SCHEMA');
- const rate=daily?economyAt(w.economy,priced_at_ns).current:null;
+ const rate=daily?(w.version>=12?tariffs20(w.economy,w.economy_formula_start_ns,priced_at_ns).current:economyAt(w.economy,priced_at_ns).current):null;
  const mine=w.cannons.filter(c=>c.account===account),free=daily?0xffffffff-w.next_ball_id:config.max_balls-w.balls.length;
  const count=()=>{const player=w.playability.players.find(p=>p.account===account)?.id;return w.balls.filter(b=>b.owner===player).length;};
- const scaled=(base,n)=>{const price=marginal(base,rate,n);check(price!==null,'PRICE_OVERFLOW');return price;};
+ const scaled=(base,n)=>{const price=priceAtTariff(rate,base,n);check(price!==null,'PRICE_OVERFLOW');return price;};
  let amount,fill,per_item=[],pool=0,text;
  const successor=contextSupported(config);
  if(kind==='reservoir'){

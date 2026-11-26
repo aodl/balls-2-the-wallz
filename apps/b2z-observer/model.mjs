@@ -1,12 +1,13 @@
 import {emptyAuthorization,verifyAuthorizationReceipts,validateAuthorization} from '../../packages/kernels/b2z/delegation-v18.mjs';
 import {authorizePaymentV3,validateAuthorizationV3} from '../../packages/kernels/b2z/delegation-v20.mjs';
+import {migrateAuthorizationRows} from '../../packages/kernels/b2z/world.mjs';
 import {migrateEconomy,validateEconomy,participatingPlayers,observeEconomy} from '../../packages/kernels/b2z/economy17.mjs';
 import {reservoirSites,reservoirOccupancy,validateReservoirs,migrateReservoirEncoding} from '../../packages/protocol/reservoir.mjs';
 import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorOperation,applyDeflectorRemovals,matchesDeflectors}from'./model-deflector.mjs';
 import {launchAnnotationValidator}from'./war-cry-events.mjs';
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY,ECONOMY_IDENTITY,DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY,ECONOMY_IDENTITY,DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY,RULES20_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -16,8 +17,8 @@ import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
 const identityMatches=(id,expected)=>Object.keys(expected).every(key=>id?.[key]===expected[key]);
-const playabilityIdentity=(id,version=6)=>(version===11?[COMPACT_RESERVOIR_IDENTITY]:version===10?[DELEGATED_IDENTITY]:version===9?[ECONOMY_IDENTITY]:version===8?[RESERVOIR_IDENTITY]:version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>identityMatches(id,expected));
-const contextIdentity=id=>identityMatches(id,CONTEXT_IDENTITY)||identityMatches(id,SHOUT_IDENTITY)||identityMatches(id,SPACING_IDENTITY)||identityMatches(id,RESERVOIR_IDENTITY)||identityMatches(id,ECONOMY_IDENTITY)||identityMatches(id,DELEGATED_IDENTITY)||identityMatches(id,COMPACT_RESERVOIR_IDENTITY);
+const playabilityIdentity=(id,version=6)=>(version===12?[RULES20_IDENTITY]:version===11?[COMPACT_RESERVOIR_IDENTITY]:version===10?[DELEGATED_IDENTITY]:version===9?[ECONOMY_IDENTITY]:version===8?[RESERVOIR_IDENTITY]:version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>identityMatches(id,expected));
+const contextIdentity=id=>identityMatches(id,CONTEXT_IDENTITY)||identityMatches(id,SHOUT_IDENTITY)||identityMatches(id,SPACING_IDENTITY)||identityMatches(id,RESERVOIR_IDENTITY)||identityMatches(id,ECONOMY_IDENTITY)||identityMatches(id,DELEGATED_IDENTITY)||identityMatches(id,COMPACT_RESERVOIR_IDENTITY)||identityMatches(id,RULES20_IDENTITY);
 function verifyShoutTarget(model,annotation){
   const a=annotation;
   const target=a.kind==='cannon'?model.cannons.get(a.id):model.deflectors.get(a.id);
@@ -344,7 +345,13 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
   check(scores.version===final.version&&Array.isArray(scores.area_time)&&scores.area_time.length===0,'checkpoint scores');
   const context=events.events[0]?.context;
   const kind=events.events[0]?.kind;
-  if(kind==='reservoir_encoding_compacted'){
+  if(kind==='rules20_activated'){
+    check(initial.version===11&&final.version===12&&publication.version===8&&publication.epoch.version===2&&events.events.length===1,'Rules20 checkpoint format');
+    check(identityMatches(prior.identity,COMPACT_RESERVOIR_IDENTITY)&&identityMatches(publication.identity,RULES20_IDENTITY),'Rules20 exact identities');
+    const expected={version:16,migration:'B2Z_RULES_20',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:publication.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context?.ledger_cutover,account_history_complete_through:context?.ledger_cutover,index_synced:context?.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:12,memo_adapter_after:12};
+    check(context&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash&&typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'Rules20 checkpoint source commitment');
+    check(sameCanonical(final,migrateAuthorizationRows(structuredClone(initial))),'Rules20 checkpoint preserved world');
+  }else if(kind==='reservoir_encoding_compacted'){
     check(initial.version===10&&final.version===11&&publication.version===8&&publication.epoch.version===2&&events.events.length===1,'compact Reservoir checkpoint format');
     check(identityMatches(prior.identity,DELEGATED_IDENTITY)&&identityMatches(publication.identity,COMPACT_RESERVOIR_IDENTITY),'compact Reservoir exact identities');
     const expected={version:15,migration:'B2Z_COMPACT_RESERVOIR_RULES_19',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:publication.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context?.ledger_cutover,account_history_complete_through:context?.ledger_cutover,index_synced:context?.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:12,memo_adapter_after:12};

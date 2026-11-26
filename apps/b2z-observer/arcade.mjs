@@ -230,7 +230,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
     }
     entry.append(details);
    }
-   if(config?.rules_version===19&&construction.hasPlan(r)){
+   if([19,20].includes(config?.rules_version)&&construction.hasPlan(r)){
     const dismiss=doc.createElement('button');dismiss.type='button';dismiss.textContent='Hide construction preview';
     dismiss.onclick=()=>{construction.dismiss('manual/'+r.id);dismiss.remove();};
     entry.append(dismiss);
@@ -426,7 +426,7 @@ export function createArcade(doc,{paymentCurrent=()=>true}={}){
  $('close-panel').onclick=()=>api.cancel();
  const api={
   constructionPayments:sites=>construction.signed(sites),
-  manufacturing:view=>config?.rules_version===19?construction.sites(view,declaration?.account,source.owner):[],
+  manufacturing:view=>[19,20].includes(config?.rules_version)?construction.sites(view,declaration?.account,source.owner):[],
   render(w,c,s,root=''){
    const nextContext=`${s.network}:${s.owner}`;
    if(context!==nextContext){const firstContext=context===null;context=nextContext;if(!firstContext){cancelEntryNavigation();view=null;$('workspace').hidden=true;}store=identityStore(s.network,s.owner,storage);declaration=(firstContext&&declaration)||store.read();history=createHandoffs(storage,`B2Z-activity-v1:${context}`);construction.manual(history.records());construction.signed([]);clearHandoff();id=null;tileSelection=deflectorId=null;mode='inspect';try{const raw=storage?.getItem(`B2Z-view-v1:${context}`);preferences=raw&&raw.length<4096?JSON.parse(raw):{};}catch{preferences={};}cameraState=declaration?.camera?.projection==='isometric-1'?declaration.camera:null;// Remembered navigation preference is not an explicit session selection.

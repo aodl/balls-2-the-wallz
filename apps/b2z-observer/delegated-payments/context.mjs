@@ -1,6 +1,6 @@
 /** Re-derive every spending field from latest verified state, never from DOM. */
 import{Principal}from'@icp-sdk/core/principal';import{sha256 as sha256Bytes}from'@noble/hashes/sha2.js';import{encodeCanonical}from'@dtr/timeline-runtime/runtime/canonical';
-import{DELEGATED_IDENTITY,ECONOMY_IDENTITY,COMPACT_RESERVOIR_IDENTITY}from'../torus-identity.generated.mjs';import{icpAccount}from'../../../packages/protocol/delegation.mjs';import{quoteForMemo}from'./quote.mjs';
+import{DELEGATED_IDENTITY,ECONOMY_IDENTITY,COMPACT_RESERVOIR_IDENTITY,RULES20_IDENTITY}from'../torus-identity.generated.mjs';import{icpAccount}from'../../../packages/protocol/delegation.mjs';import{grantForAccount}from'../../../packages/kernels/b2z/delegation-v20.mjs';import{quoteForMemo}from'./quote.mjs';
 import{paymentDestination}from'../identity.mjs';import{explicitFunding}from'./funding.mjs';import{freshObservation}from'../warm-return.mjs';import{makeIntent}from'./intents.mjs';import{ICP_LEDGER}from'./ledger.mjs';
 const hex=b=>Array.from(b,v=>v.toString(16).padStart(2,'0')).join('');
 const sha256=b=>hex(sha256Bytes(b));
@@ -11,7 +11,7 @@ export function verifiedPaymentSource(session,{now=performance.now(),wallNow=Dat
  if(!session?.ready||session.error||session.root!==session.freshnessRoot||!freshObservation(session,now,wallNow))throw Error('VERIFIED_PAYMENT_UNAVAILABLE');
  const identity=session.sequence?.last?.publication?.identity;
  const matches=expected=>Object.keys(expected).every(k=>identity?.[k]===expected[k]);
- const active=matches(DELEGATED_IDENTITY)||matches(COMPACT_RESERVOIR_IDENTITY);
+ const active=matches(DELEGATED_IDENTITY)||matches(COMPACT_RESERVOIR_IDENTITY)||matches(RULES20_IDENTITY);
  if(!active&&(!predecessor||!matches(ECONOMY_IDENTITY)))throw Error('GAME_DELEGATION_NOT_ACTIVE');
  if(sha256(encodeCanonical(session.config))!==identity.config_hash)throw Error('PAYMENT_CONFIGURATION_BINDING');
  const source=session.source;
@@ -25,7 +25,7 @@ export function verifiedPaymentSource(session,{now=performance.now(),wallNow=Dat
 export function verifiedGameAccess(session,funding,spender,{now=performance.now(),wallNow=Date.now(),localTest=false}={}){
  const {source,destination}=verifiedPaymentSource(session,{now,wallNow,localTest});
  const from=explicitFunding(funding),a=icpAccount(from.owner,Uint8Array.from(from.subaccount.match(/../g),h=>parseInt(h,16))),s=Principal.fromText(spender);if(s.toUint8Array().length!==29||s.toUint8Array()[28]!==2||s.toText()!==spender)throw Error('USER_SPENDER_REQUIRED');
- const auth=session.referenceWorld.authorization,g=auth.grants[a];
+ const auth=session.referenceWorld.authorization,g=grantForAccount(auth,a);
  const nowNs=BigInt(Math.floor(wallNow))*1000000n,certNs=BigInt(session.certificateTimeNs);if(!g||g.spender_principal!==hex(s.toUint8Array())||g.expires_at_ns<=nowNs||g.expires_at_ns<=certNs)throw Error('GAME_ACCESS_EXPIRED_OR_UNAUTHORIZED');
  return{from,account:a,grant:g,source,destination};
 }

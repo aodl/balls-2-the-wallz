@@ -659,6 +659,28 @@ pub fn compact_reservoir_candidate<K: Kernel>(
     )
 }
 
+pub fn rules20_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    schema7_candidate(
+        h,
+        t,
+        source,
+        b2z_native::reservoirs::compact_identity(),
+        b2z_native::delegation_v20::identity(),
+        Schema7Cutover {
+            bootstrap_ns: None,
+            version: 16,
+            migration: "B2Z_RULES_20",
+            event: "rules20_activated",
+            previous_adapter: b2z_protocol::delegation::ADAPTER_VERSION,
+            next_adapter: b2z_protocol::delegation::ADAPTER_VERSION,
+        },
+    )
+}
+
 fn schema7_candidate<K: Kernel>(
     h: &Coordinator<K>,
     t: &Transition,
@@ -713,6 +735,7 @@ fn schema7_candidate<K: Kernel>(
     }
     if old.version
         != match policy.version {
+            16 => 11,
             15 => 10,
             14 => 9,
             13 => 8,
@@ -732,7 +755,9 @@ fn schema7_candidate<K: Kernel>(
     if old.encode()? != state {
         return Err("noncanonical state at schema7 cutover".into());
     }
-    let next = if let Some(ns) = policy.bootstrap_ns {
+    let next = if policy.version == 16 {
+        b2z_native::delegation_v20::migrate(old.clone())?
+    } else if let Some(ns) = policy.bootstrap_ns {
         b2z_native::economy17::migrate(old.clone(), ns)?
     } else if policy.version == 15 {
         b2z_native::reservoirs::migrate_compact(old.clone())?

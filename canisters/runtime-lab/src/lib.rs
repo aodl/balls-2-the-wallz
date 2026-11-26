@@ -204,6 +204,8 @@ struct Root {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     compact_reservoir_transition: Option<transition::Transition>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    rules20_transition: Option<transition::Transition>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_barrier: Option<playability_runtime::Barrier>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     lifecycle_error: Option<String>,
@@ -322,6 +324,7 @@ fn active_transition(r: &Root) -> AppResult<Option<&transition::Transition>> {
         r.economy_transition.as_ref(),
         r.delegation_transition.as_ref(),
         r.compact_reservoir_transition.as_ref(),
+        r.rules20_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -349,6 +352,7 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.economy_transition.as_ref(),
         r.delegation_transition.as_ref(),
         r.compact_reservoir_transition.as_ref(),
+        r.rules20_transition.as_ref(),
     ]
     .map(|t| t.is_some_and(|t| t.holding()));
     if flags.into_iter().filter(|v| *v).count() > 1 {
@@ -384,6 +388,8 @@ fn active_transition_mut(r: &mut Root) -> AppResult<Option<&mut transition::Tran
         r.delegation_transition.as_mut()
     } else if flags[14] {
         r.compact_reservoir_transition.as_mut()
+    } else if flags[15] {
+        r.rules20_transition.as_mut()
     } else {
         None
     })
@@ -408,6 +414,7 @@ fn transition_evidence<'a>(
         r.economy_transition.as_ref(),
         r.delegation_transition.as_ref(),
         r.compact_reservoir_transition.as_ref(),
+        r.rules20_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -507,7 +514,23 @@ fn validate_retention(retention: &RetentionState, current: &Publication) -> AppR
     Ok(())
 }
 fn validate_shout_binding(r: &Root, publication: &Publication) -> AppResult<()> {
-    let compact = b2z_native::reservoirs::compact_identity();
+    let successor = b2z_native::delegation_v20::identity();
+    let successor_enabled = publication.identity.config_hash == successor["config_hash"];
+    if successor_enabled
+        != r.rules20_transition
+            .as_ref()
+            .is_some_and(|t| t.phase == "complete")
+        || successor_enabled
+            && (publication.identity.rules_hash != successor["rules_hash"]
+                || publication.identity.schema_hash != successor["schema_hash"])
+    {
+        return Err("Rules20 epoch/config capability mismatch".into());
+    }
+    let compact = if successor_enabled {
+        successor
+    } else {
+        b2z_native::reservoirs::compact_identity()
+    };
     let compact_enabled = publication.identity.config_hash == compact["config_hash"];
     if compact_enabled
         != r.compact_reservoir_transition
@@ -704,6 +727,12 @@ fn root() -> AppResult<Root> {
             return Err("Rules19 transition version".into());
         }
     }
+    if let Some(t) = &r.rules20_transition {
+        t.validate()?;
+        if t.version != 16 {
+            return Err("Rules20 transition version".into());
+        }
+    }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
     }
@@ -762,6 +791,7 @@ fn root() -> AppResult<Root> {
         r.economy_transition.as_ref(),
         r.delegation_transition.as_ref(),
         r.compact_reservoir_transition.as_ref(),
+        r.rules20_transition.as_ref(),
     ]
     .into_iter()
     .flatten()
@@ -1076,6 +1106,7 @@ fn persist_inner(
         economy_transition: old.and_then(|r| r.economy_transition.clone()),
         delegation_transition: old.and_then(|r| r.delegation_transition.clone()),
         compact_reservoir_transition: old.and_then(|r| r.compact_reservoir_transition.clone()),
+        rules20_transition: old.and_then(|r| r.rules20_transition.clone()),
         lifecycle_context: old.and_then(|r| r.lifecycle_context.clone()),
         lifecycle_barrier: old.and_then(|r| r.lifecycle_barrier.clone()),
         lifecycle_error: old.and_then(|r| r.lifecycle_error.clone()),
@@ -1291,6 +1322,12 @@ fn save_root_only(r: &Root) -> AppResult<()> {
         t.validate()?;
         if t.version != 15 {
             return Err("Rules19 transition version".into());
+        }
+    }
+    if let Some(t) = &r.rules20_transition {
+        t.validate()?;
+        if t.version != 16 {
+            return Err("Rules20 transition version".into());
         }
     }
     if let Some(c) = &r.lifecycle_context {
@@ -3935,6 +3972,7 @@ enum StructureEpoch {
     Economy,
     Delegation,
     CompactReservoir,
+    Rules20,
 }
 impl StructureEpoch {
     fn number(self) -> u32 {
@@ -3945,6 +3983,7 @@ impl StructureEpoch {
             Self::Economy => 17,
             Self::Delegation => 18,
             Self::CompactReservoir => 19,
+            Self::Rules20 => 20,
         }
     }
     fn record(self, r: &Root) -> &Option<transition::Transition> {
@@ -3955,6 +3994,7 @@ impl StructureEpoch {
             Self::Economy => &r.economy_transition,
             Self::Delegation => &r.delegation_transition,
             Self::CompactReservoir => &r.compact_reservoir_transition,
+            Self::Rules20 => &r.rules20_transition,
         }
     }
     fn record_mut(self, r: &mut Root) -> &mut Option<transition::Transition> {
@@ -3965,6 +4005,7 @@ impl StructureEpoch {
             Self::Economy => &mut r.economy_transition,
             Self::Delegation => &mut r.delegation_transition,
             Self::CompactReservoir => &mut r.compact_reservoir_transition,
+            Self::Rules20 => &mut r.rules20_transition,
         }
     }
     fn predecessor(self) -> AppResult<serde_json::Value> {
@@ -3975,6 +4016,7 @@ impl StructureEpoch {
             Self::Economy => Ok(b2z_native::reservoirs::identity()),
             Self::Delegation => Ok(b2z_native::economy17::identity()),
             Self::CompactReservoir => Ok(b2z_native::delegation_v18::identity()),
+            Self::Rules20 => Ok(b2z_native::reservoirs::compact_identity()),
         }
     }
     fn identity(self) -> AppResult<serde_json::Value> {
@@ -3985,6 +4027,7 @@ impl StructureEpoch {
             Self::Economy => Ok(b2z_native::economy17::identity()),
             Self::Delegation => Ok(b2z_native::delegation_v18::identity()),
             Self::CompactReservoir => Ok(b2z_native::reservoirs::compact_identity()),
+            Self::Rules20 => Ok(b2z_native::delegation_v20::identity()),
         }
     }
     fn previous_adapter(self) -> u8 {
@@ -3993,7 +4036,7 @@ impl StructureEpoch {
             Self::Spacing | Self::Reservoir => b2z_protocol::shout::MEMO_ADAPTER_VERSION,
             Self::Economy => b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
             Self::Delegation => b2z_protocol::economy17::MEMO_ADAPTER_VERSION,
-            Self::CompactReservoir => b2z_protocol::delegation::ADAPTER_VERSION,
+            Self::CompactReservoir | Self::Rules20 => b2z_protocol::delegation::ADAPTER_VERSION,
         }
     }
     fn next_adapter(self) -> u8 {
@@ -4002,7 +4045,7 @@ impl StructureEpoch {
             Self::Reservoir => b2z_protocol::reservoir::MEMO_ADAPTER_VERSION,
             Self::Economy => b2z_protocol::economy17::MEMO_ADAPTER_VERSION,
             Self::Delegation => b2z_protocol::delegation::ADAPTER_VERSION,
-            Self::CompactReservoir => b2z_protocol::delegation::ADAPTER_VERSION,
+            Self::CompactReservoir | Self::Rules20 => b2z_protocol::delegation::ADAPTER_VERSION,
         }
     }
 }
@@ -4056,6 +4099,20 @@ fn commit_compact_reservoir_transition(
 ) -> std::result::Result<Vec<u8>, String> {
     commit_structure_transition(expected_previous_manifest, StructureEpoch::CompactReservoir)
 }
+#[ic_cdk::update]
+fn prepare_rules20_transition() -> std::result::Result<Vec<u8>, String> {
+    prepare_structure_transition(StructureEpoch::Rules20)
+}
+#[ic_cdk::query]
+fn rules20_transition_status() -> std::result::Result<Vec<u8>, String> {
+    structure_transition_status(StructureEpoch::Rules20)
+}
+#[ic_cdk::update]
+fn commit_rules20_transition(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
+    commit_structure_transition(expected_previous_manifest, StructureEpoch::Rules20)
+}
 fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
     authorized()?;
     let rules = target.number();
@@ -4092,6 +4149,7 @@ fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
         StructureEpoch::Economy => 8,
         StructureEpoch::Delegation => 9,
         StructureEpoch::CompactReservoir => 10,
+        StructureEpoch::Rules20 => 11,
         _ => 7,
     };
     if matches!(target, StructureEpoch::Delegation) && r.source.receiving_subaccount != 0 {
@@ -4139,6 +4197,7 @@ fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
         StructureEpoch::Economy => transition::Transition::economy(),
         StructureEpoch::Delegation => transition::Transition::delegation(),
         StructureEpoch::CompactReservoir => transition::Transition::compact_reservoir(),
+        StructureEpoch::Rules20 => transition::Transition::rules20(),
     });
     save_root_only(&r)?;
     ARENA_IDLE.with(|f| {
@@ -4257,6 +4316,7 @@ fn commit_structure_transition(
         StructureEpoch::CompactReservoir => {
             playability_runtime::compact_reservoir_candidate(&h, t, &r.source)?
         }
+        StructureEpoch::Rules20 => playability_runtime::rules20_candidate(&h, t, &r.source)?,
     };
     let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
     h.apply(Action::Transition {
@@ -4303,6 +4363,7 @@ fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, Strin
         r.economy_transition.as_ref(),
         r.delegation_transition.as_ref(),
         r.compact_reservoir_transition.as_ref(),
+        r.rules20_transition.as_ref(),
     ]
     .into_iter()
     .flatten()

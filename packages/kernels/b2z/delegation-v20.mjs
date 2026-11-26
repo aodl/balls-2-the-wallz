@@ -53,6 +53,16 @@ function rowIndex(rows, account) {
  return low;
 }
 
+/** Read either the historical map or the successor sorted rows without
+ * converting valid digit-leading account identifiers into object keys. */
+export function grantForAccount(registry,account){
+ if(registry?.version===3){
+  const at=rowIndex(registry.grants,account);
+  return registry.grants[at]?.account===account?registry.grants[at]:null;
+ }
+ return registry?.version===2?registry.grants[account]??null:null;
+}
+
 /** Ordered Ledger facts update the canonical rows directly; account bytes
  * never become canonical object keys in the successor. */
 export function authorizePaymentV3(registry,payment,position) {
