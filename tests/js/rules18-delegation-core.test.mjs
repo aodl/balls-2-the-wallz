@@ -53,6 +53,29 @@ test('keyed authorization admits thousands of distinct grants without the previo
  assert.equal(Object.keys(validateAuthorization(registry).grants).length,2048);
 });
 
+test('construction can clone a temporary digit-leading grant before its ordered revoke',async()=>{
+ const {decodeCanonical,encodeCanonical}=await import('@dtr/timeline-runtime/runtime/canonical');
+ const {preparePurchase,placeNew}=await import('../../packages/kernels/b2z/purchases-v6.mjs');
+ const {encodeV6Memo}=await import('../../packages/protocol/memo-v6.mjs');
+ const w=decodeCanonical(Buffer.from(vector.execution.state,'hex'));
+ const account=w.cannons[0].account,cell=3000,budget=1000000000n;
+ const plan=preparePurchase(w,account,budget,encodeV6Memo({kind:'new',angle:0,quantity:1,cell}),[],true,true,w.economy.initial_multiplier);
+ assert.equal(plan.kind,'new');
+ const raw=new Uint8Array(29);raw[28]=2;
+ const key=icpAccount(raw);
+ assert.match(key,/^[0-9]/);
+ w.authorization.grants[key]={spender_principal:hex(raw),activation_position:0n,expires_at_ns:9999999999999999999n};
+ w.authorization.last_position=0n;
+ // This is a valid transient grant but DTR's canonical object-key encoder
+ // cannot serialize its digit-leading key. The later revoke removes it.
+ assert.throws(()=>encodeCanonical(w),/reserved\/noncanonical object key/);
+ const result=placeNew(w,account,budget,plan,{kind:4,cell,patch:[cell]},false,true,true,w.economy.initial_multiplier);
+ assert.equal(result.world.cannons.at(-1).cell,cell);
+ assert.equal(Object.keys(result.world.authorization.grants)[0],key);
+ delete result.world.authorization.grants[key];
+ assert.doesNotThrow(()=>encodeCanonical(result.world));
+});
+
 test('candidate Schema10 changes only the version and adds an empty recipient-bound registry',async()=>{
  const {sha256}=await import('@dtr/timeline-runtime/runtime/seal');
  const {decodeWorld,encodeWorld,migrateDelegation,DELEGATED_IDENTITY}=await import('../../packages/kernels/b2z/world.mjs');
