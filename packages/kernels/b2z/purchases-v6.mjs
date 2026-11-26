@@ -53,7 +53,11 @@ export function placeNew(w,account,budget,p,r,entryRules=false,contextRules=fals
   patch=[r.cell];
  }
  const blocked=occupiedCells(w);if(patch.some(c=>blocked.has(c)||reservoirHas(reservoirOccupancy(w),c)))throw Error('PLACEMENT_OCCUPIED');
- const previous_owners=patch.map(c=>ownerAt(w,c)),next=cloneCanonical(w),state=next.playability;
+ // Draft state can include a grant added earlier in this same segment. A
+ // later ordered revoke can remove it before any world bytes are produced.
+ // Clone the draft without encoding it. The public and cursor encoders keep
+ // enforcing their existing canonical format at their own boundaries.
+ const previous_owners=patch.map(c=>ownerAt(w,c)),next=w.version>=10?structuredClone(w):cloneCanonical(w),state=next.playability;
  let player=p.player;
  if(player===null){player=state.next_player_id++;state.players.push({id:player,account});}
  const cannon={id:next.next_cannon_id++,cell:r.cell,account,heading:p.angle};
