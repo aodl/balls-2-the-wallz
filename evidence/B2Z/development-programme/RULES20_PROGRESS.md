@@ -28,6 +28,14 @@ draft PR #25 carries the successor. This branch is **not a release candidate**.
   and score output for all three paid successor segments. Raw captures and
   results are under `.work/rules20-installed-9497894e/` in the rehearsal
   worktree; the executable test and verifier are committed to PR #25.
+- A separate same-ID rehearsal paid for a Cannon on existing Ball 1's tile
+  `98008` and a Diverter on existing Ball 2's tile `42022`. Both payments were
+  admitted while gameplay was paused, then applied together after resuming.
+  The exact installed Rules19 predecessor and the same successor Wasm were
+  used. Independent JavaScript replay matched the one successor segment's
+  state, event and score bytes with both genuine Ledger/Index inputs. Raw
+  evidence is under `.work/rules20-construction-final/` in the rehearsal
+  worktree.
 - Exact source `9497894e` built the capped-Trickle backend with raw SHA-256
   `fffa5e3e2e61096b62266e30cb34e7f97d84a5f7f711ed79296b3c5dd3f7a24d`.
   This equals the executable used in the passing rehearsal. Candid/export
@@ -52,9 +60,10 @@ draft PR #25 carries the successor. This branch is **not a release candidate**.
 
 ## Release gates still open
 
-1. Exercise genuine disposable paid Cannon and Diverter construction over
-   occupied Ball tiles and exact future collision behavior, then complete the
-   corner ownership/structure output matrix with independent replay.
+1. Complete the corner ownership/structure output matrix with independent
+   replay, including actual one-traversal retirement, later encounters and
+   interrupted checkpoint/restart across the exception boundary. The paid
+   construction admission itself now has exact installed evidence.
 2. Qualify interrupted transition preparation and commit, restart, recovery,
    a retained compatible executable and source publication after interruption.
 3. Freeze the final exact-source release artifacts and require all eleven

@@ -116,10 +116,13 @@ distinct from Cannon launch and from any general structure grace period.
 
 The current implementation has Rust and independent JavaScript tests for the
 canonical row, first entry, an unrelated arriving Ball, retirement, a later
-return, and exact-corner tangency. A separate disposable rehearsal establishes
-the authenticated Rules19-to-Rules20 epoch and three paid inputs. It does
-**not** yet establish paid construction over an occupied Ball, interrupted
-passage/restart or complete public-output equality for the contact matrix.
+return, and exact-corner tangency. Disposable rehearsals establish the
+authenticated Rules19-to-Rules20 epoch, three initial paid inputs, and both
+genuine Cannon and Diverter purchases on existing Ball tiles in one later
+segment. Independent JavaScript replay matched its exact public bytes. Those
+checks do **not** yet establish an interrupted passage/restart, an actual
+later encounter with the new structure or complete public-output equality
+for the contact matrix.
 
 For a territory-only simultaneous-axis vertex, prefer the left orthogonal
 candidate from an even canonical source tile and the right from an odd tile.
@@ -142,7 +145,7 @@ added to the Ball.
 The Rust and independent JavaScript classifiers now exercise the four diagonal
 directions, both parities, mixed neutral/enemy sides, both toroidal seams and
 the historical Rules19 branch. This is **focused classifier evidence only**.
-The successor identity and authenticated migration have focused disposable
-coverage. Complete equal-time replay, strike/capture output equality, contact
-with Diverters, paid construction over occupied Balls and interrupted cursor
-recovery still require qualification before activation.
+The successor identity, authenticated migration and paid construction over
+occupied Balls have focused disposable coverage. Complete equal-time replay,
+strike/capture output equality, later contact with the new structures and
+interrupted cursor recovery still require qualification before activation.
