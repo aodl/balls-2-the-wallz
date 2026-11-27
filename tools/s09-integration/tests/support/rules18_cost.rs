@@ -1402,7 +1402,7 @@ fn certified_operational_burn_roundtrip() {
     }
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
-    let (pic, id, ledger, _) = arena_setup_world(
+    let (pic, id, ledger, payer) = arena_setup_world(
         bytes("B2Z_COST_PROFILE_WASM"),
         seed("two_ball").encode().unwrap(),
     );
@@ -1611,10 +1611,71 @@ fn certified_operational_burn_roundtrip() {
     } else {
         Value::Null
     };
+    let treasury_credit = if std::env::var_os("B2Z_BURN_TREASURY_CREDIT_PROBE").is_some() {
+        assert!(
+            protected.is_null(),
+            "credit and protection use separate disposable cases"
+        );
+        // A genuine Ledger transfer and local CMC notification create an
+        // identified treasury credit. The meter must invalidate the old
+        // established window instead of treating that credit as negative burn.
+        let cmc = Principal::from_text("rkp4c-7iaaa-aaaaa-aaaca-cai").unwrap();
+        pic.create_canister_with_id(
+            Some(controller()),
+            Some(CanisterSettings {
+                controllers: Some(vec![controller()]),
+                ..Default::default()
+            }),
+            cmc,
+        )
+        .unwrap();
+        pic.install_canister(
+            cmc,
+            bytes("B2Z_CMC_MOCK_WASM"),
+            encode_args((id, ledger)).unwrap(),
+            Some(controller()),
+        );
+        playability_installed::funding_paused(&pic, id, false);
+        super::operation_cost::prepare_notify_pending(&pic, id, ledger, payer);
+        let world_before_credit = arena_world(&pic, id);
+        let publication_before_credit = observe(&pic, id).0.publication;
+        pic.start_canister(cmc, Some(controller())).unwrap();
+        for _ in 0..3 {
+            advance(&pic, 300_000);
+            if funding_tests::full_finance(&pic, id)["phase"] == "Idle" {
+                break;
+            }
+        }
+        assert_eq!(funding_tests::full_finance(&pic, id)["phase"], "Idle");
+        assert_eq!(
+            funding_tests::full_finance(&pic, id)["total_cycles_reported"],
+            "1000000000000"
+        );
+        assert_eq!(arena_world(&pic, id), world_before_credit);
+        assert_eq!(observe(&pic, id).0.publication, publication_before_credit);
+        let mut after = witness("treasury-credit-0");
+        for minute in 1..=5 {
+            if after["burn"]["quality"] == "stale" {
+                break;
+            }
+            advance(&pic, 60_000);
+            after = witness(&format!("treasury-credit-{minute}"));
+        }
+        assert_eq!(after["burn"]["quality"], "stale");
+        assert_eq!(
+            after["burn"]["cyclesPerDay"],
+            active["burn"]["cyclesPerDay"]
+        );
+        assert_eq!(after["burn"]["endNs"], active["burn"]["endNs"]);
+        after
+    } else {
+        Value::Null
+    };
     std::fs::write(out.join("result.json"), serde_json::to_vec_pretty(&json!({
         "status":"PASS","index_phase_ms":index_phase_ms,"slow_index":slow_index,
         "partial":partial,"full":full,"stale":stale,"active":active,
         "external_settled_cycles_per_day":external_rate.to_string(),"reserve_protection":protected,
+        "treasury_credit":treasury_credit,
         "scope":"disposable Rules19 same-ID certificate, recovery and capped ordinary checkpoints"
     })).unwrap()).unwrap();
 }

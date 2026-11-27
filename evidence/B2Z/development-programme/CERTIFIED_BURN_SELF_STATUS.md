@@ -177,3 +177,25 @@ workflow artifact list also retains composed/direct live browser and agent
 captures. A positive standard rerun remains required. The broader reservation,
 credit, prolonged unavailability and operating-profile matrix remain open.
 The meter remains disabled in ordinary release builds.
+
+## Genuine treasury-credit continuation
+
+The optional installed credit case passed on the pinned disposable meter
+candidate `81e6a31bf13c8642c717fadd95c64754faa82a03df81dcf6d6c02991b58f7f6b`
+with a 17.321-second Index phase. Its established certified rate was
+**396.135B cycles/day** against **401.432B cycles/day** settled management
+movement, a **1.319%** difference within the predeclared 5% bound. A genuine
+Ledger transfer and the checksum-pinned local CMC fixture then reported one
+**1T-cycle treasury credit**. The certified observation became **stale** and
+retained the exact prior rate and sample end. The paid world and committed
+publication remained identical across the credit. Raw source, certificates,
+funding assertions and the test result are under
+`.work/burn-balance-probe/treasury-credit-2/`. The preceding
+`treasury-credit-1` attempt failed before the credit because that disposable
+instance had no CMC canister; it is retained as fixture-setup failure evidence.
+
+This establishes correct treatment of an identified treasury credit in that
+schedule. It does not reconstruct unknown external credits or prove a stable
+reservation offset under concurrent slow Index replies, Full Speed or all
+protected and dormant states. The capability remains disabled in ordinary
+release profiles. The new credit case has not yet run in hosted qualification.

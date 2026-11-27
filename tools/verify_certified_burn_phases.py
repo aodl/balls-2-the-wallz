@@ -21,11 +21,17 @@ def main():
     parser.add_argument("--world", type=Path, required=True)
     parser.add_argument("--phase-ms", type=int, action="append", required=True)
     parser.add_argument("--slow-index", action="store_true", help="stop the disposable Index for active minutes 20–30")
+    parser.add_argument("--treasury-credit", action="store_true", help="exercise a genuine Ledger/CMC treasury credit after the established window")
+    parser.add_argument("--cmc", type=Path, help="exact disposable CMC fixture Wasm, required for treasury credit")
     parser.add_argument("--artifacts", type=Path, default=Path.home() / "dtr-s09-artifacts")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
     if len(set(args.phase_ms)) != len(args.phase_ms) or any(not 0 <= n < 60_000 for n in args.phase_ms):
         parser.error("distinct Index phases must be in [0, 60000) milliseconds")
+    if args.treasury_credit != bool(args.cmc):
+        parser.error("treasury credit requires --cmc and --cmc requires --treasury-credit")
+    if args.cmc and sha256(args.cmc) != "d336165b2f81ca4e587ed5e749dbda69717c941c33c3c1086f667f3d706f7cb5":
+        parser.error("disposable CMC fixture checksum mismatch")
     output = args.output.resolve()
     output.mkdir(parents=True, exist_ok=False)
     env = {
@@ -38,6 +44,7 @@ def main():
         "B2Z_BURN_PRIOR_WASM": str(args.prior.resolve()),
         "B2Z_BURN_CANDIDATE_WASM": str(args.candidate.resolve()),
         "B2Z_COST_WORLD": str(args.world.resolve()),
+        **({"B2Z_CMC_MOCK_WASM": str(args.cmc.resolve())} if args.cmc else {}),
     }
     report = {
         "source": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
@@ -46,6 +53,7 @@ def main():
         "prior_sha256": sha256(args.prior),
         "candidate_sha256": sha256(args.candidate),
         "world_sha256": sha256(args.world),
+        "cmc_sha256": sha256(args.cmc) if args.cmc else None,
         "checks": [],
     }
     binary = harness(output, env)
@@ -60,13 +68,15 @@ def main():
                 location, 900,
                 {**env, "B2Z_BURN_INDEX_PHASE_MS": str(phase),
                  **({"B2Z_BURN_SLOW_INDEX_PROBE": "1"} if args.slow_index else {}),
+                 **({"B2Z_BURN_TREASURY_CREDIT_PROBE": "1"} if args.treasury_credit else {}),
                  "POCKET_IC_SERVER_URL": server[3],
                  "S14_DEPLOYMENT_OUTPUT": str(location / "evidence")},
             )
             if row["status"] == "PASS":
                 result = json.loads((location / "evidence" / "result.json").read_text())
                 if (result["status"] != "PASS" or result["index_phase_ms"] != phase
-                        or result["slow_index"] != args.slow_index):
+                        or result["slow_index"] != args.slow_index
+                        or bool(result["treasury_credit"]) != args.treasury_credit):
                     row.update(status="FAIL", reason="phase evidence mismatch")
             report["checks"].append(row)
             (output / "results.json").write_text(json.dumps(report, indent=2) + "\n")

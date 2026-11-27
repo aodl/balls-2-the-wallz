@@ -57,7 +57,9 @@ matrix before freezing a release. The successor frontend has a dedicated
 configuration and inventory.
 
 Certified burn has a promising replicated self-status sampling point.
-Confirm reservation behavior across concurrent activity and protection,
-known treasury credits, external top-up semantics, live observer/agent
-acceptance and measured incremental overhead. The capability remains
-disabled and is independent of the authorization repair.
+Two shifted Index phases, a stopped Index, a genuine identified treasury
+credit, a matched active-Trickle operating-cost comparison and hosted live
+browser/agent consumption passed. Confirm changing reservations under
+concurrent slow replies and other operating modes, smaller unknown external
+credits, prolonged unavailability and the complete compatible release profile.
+The capability remains disabled and is independent of the authorization repair.
