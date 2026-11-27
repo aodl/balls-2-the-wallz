@@ -138,11 +138,12 @@ fn main_inner() -> Result<()> {
     }
     if matches!(
         args.get(1).map(String::as_str),
-        Some("rules20-corner" | "rules20-passage")
+        Some("rules20-corner" | "rules20-corner-matrix" | "rules20-passage")
     ) {
         let mode = args[1].as_str();
         let fixture = match mode {
             "rules20-corner" => "rules20-corner-public-equality.json",
+            "rules20-corner-matrix" => "rules20-corner-matrix-public-equality.json",
             _ => "rules20-passage-public-equality.json",
         };
         let data = load(&root, fixture)?;

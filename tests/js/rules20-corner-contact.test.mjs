@@ -1,12 +1,13 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {decodeWorld,setOwner,wrapCell,neighbors} from '../../packages/kernels/b2z/world.mjs';
+import {decodeWorld,setOwner,wrapCell,neighbors,validateWorld} from '../../packages/kernels/b2z/world.mjs';
 import {B2zKernel,classify,passage} from '../../packages/kernels/b2z/kernel.mjs';
 import {decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 
 const rows=JSON.parse(readFileSync(new URL('../fixtures/context-structures-v13.json',import.meta.url))).rows;
 const publicCorners=JSON.parse(readFileSync(new URL('../fixtures/rules20-corner-public-equality.json',import.meta.url))).rows;
+const opponentMatrix=JSON.parse(readFileSync(new URL('../fixtures/rules20-corner-matrix-public-equality.json',import.meta.url))).rows;
 function world(){
  const w=decodeWorld(Buffer.from(rows[0].initial_hex,'hex'));
  w.version=12; // Exercise the successor contact law without claiming a migration.
@@ -128,6 +129,34 @@ test('exact diagonal captures and mixed structure corners preserve Rules20 publi
    const motion=decodeCanonical(output.events).events.filter(Array.isArray);
    assert.equal(motion.length,balls.length,row.name);
    assert.ok(motion.every(event=>event[2][0]==='0'),row.name);
+  }
+ }
+});
+test('active opponent corners, protected contact and simultaneous Balls retain exact public motion',()=>{
+ for(const row of opponentMatrix){
+  const cursor=B2zKernel.begin(Buffer.from(row.initial_hex,'hex'),
+   decodeCanonical(Buffer.from(row.inputs_hex,'hex')),
+   decodeCanonical(Buffer.from(row.context_hex,'hex')));
+  let complete=false;
+  for(let n=0;n<1000&&!complete;n++)complete=cursor.step(31).complete;
+  assert.equal(complete,true,row.name);
+  cursor.finalizeElapsed(BigInt(row.observed_ns));
+  const output=cursor.result();
+  for(const kind of ['state','events','scores'])
+   assert.equal(Buffer.from(output[kind]).toString('hex'),row.outputs[kind].hex,`${row.name} ${kind}`);
+  const world=decodeWorld(output.state),events=decodeCanonical(output.events).events;
+  validateWorld(world);
+  assert.deepEqual(events.filter(event=>event.kind==='capture').map(event=>event.target),
+   row.expected_capture===null?[]:[row.expected_capture],row.name);
+  assert.deepEqual(events.filter(event=>event.kind==='strike_armed').map(event=>event.strike.to),
+   row.expected_strike===null?[]:[row.expected_strike],row.name);
+  assert.deepEqual(world.balls.map(ball=>[ball.id,ball.cell,ball.vx,ball.vy]),row.expected_motion,row.name);
+  const last=new Map(),motions=events.filter(Array.isArray);
+  assert.ok(motions.length>0&&motions.length<100,row.name);
+  for(const event of motions){
+   const [numerator,denominator]=event[2].map(BigInt),previous=last.get(event[3]);
+   if(previous)assert.ok(numerator*previous[1]>previous[0]*denominator,`${row.name} repeated contact time`);
+   last.set(event[3],[numerator,denominator]);
   }
  }
 });

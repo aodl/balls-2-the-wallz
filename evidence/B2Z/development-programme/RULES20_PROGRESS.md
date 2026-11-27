@@ -315,3 +315,17 @@ predecessor interval, then activated Rules20 and applied a later payment.
 Independent JavaScript replay matched recovered and successor public bytes.
 Earlier stale expected manifests were rejected by compare-and-swap; the
 successful controller route used the actual current predecessor head.
+
+A separate six-row corner matrix now covers active opponent ownership on
+either side, two different opponent owners, a Cannon-protected foreign side,
+and a friendly side opposite foreign territory. Each row fixes complete
+state, event and score bytes and checks captured tile, armed strike, every
+Ball's final cell and velocity, and strictly advancing per-Ball contact time.
+The matrix retains the original fifteen-row corner fixture unchanged.
+JavaScript's nine focused corner tests passed, and native Rust replay with
+durable cursor restoration passed **24** Rules20 public-output comparisons
+through `tools/verify_portable_native.py`. The additional fixture is
+`tests/fixtures/rules20-corner-matrix-public-equality.json`; its deterministic
+construction is checked by `tools/generate_rules20_corner_matrix.mjs`.
+Protected territory under other ownership arrangements, installed
+interruption and the full multi-Ball ownership matrix remain release gates.

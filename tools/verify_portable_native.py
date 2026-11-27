@@ -16,7 +16,7 @@ def main():
     for row in json.loads((ROOT/'tests/fixtures/numeric-v4.json').read_text())['cases']:expected.append(f"numeric\t{row['id']}\t{'/'.join(row['sum'])}")
     if result.stdout.splitlines()!=expected:print('FAIL: native output differs, missing/extra rows fail');return 1
     rules20_count=0
-    for mode,fixture in [('rules20-corner','rules20-corner-public-equality.json'),('rules20-passage','rules20-passage-public-equality.json')]:
+    for mode,fixture in [('rules20-corner','rules20-corner-public-equality.json'),('rules20-corner-matrix','rules20-corner-matrix-public-equality.json'),('rules20-passage','rules20-passage-public-equality.json')]:
         checked=subprocess.run([*command,mode],cwd=ROOT,text=True,capture_output=True,timeout=90)
         if checked.returncode:print(checked.stderr);return 1
         data=json.loads((ROOT/'tests/fixtures'/fixture).read_text())
