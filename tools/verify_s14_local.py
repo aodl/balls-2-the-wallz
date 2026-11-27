@@ -197,6 +197,10 @@ def main():
                 'canister_query rules20_transition_status',
                 'canister_update prepare_rules20_transition',
                 'canister_update commit_rules20_transition',
+                'canister_query rules19_recovery_status',
+                'canister_update prepare_rules19_recovery',
+                'canister_update commit_rules19_recovery',
+                'canister_update finish_rules19_recovery',
             })
             if set(wasm_exports(candidate))!=expected:
                 raise ValueError('production Wasm exports must be the predecessor plus the reviewed speed, compact-reservoir and Rules20 transition methods')

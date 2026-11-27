@@ -505,8 +505,10 @@ impl Cursor {
         let economy = crate::economy17::identity();
         let delegated = crate::delegation_v18::identity();
         let compact = crate::reservoirs::compact_identity();
+        let recovery = crate::delegation_v20::recovery_identity();
         let successor = crate::delegation_v20::identity();
         let is_successor = context.get("config_hash") == successor.get("config_hash");
+        let is_recovery = context.get("rules_hash") == recovery.get("rules_hash");
         let is_compact = is_successor || context.get("config_hash") == compact.get("config_hash");
         let is_delegated = is_compact || context.get("config_hash") == delegated.get("config_hash");
         let is_economy = is_delegated || context.get("config_hash") == economy.get("config_hash");
@@ -531,7 +533,9 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_successor {
+        let expected = if is_recovery {
+            recovery
+        } else if is_successor {
             successor
         } else if is_compact {
             compact
@@ -574,6 +578,9 @@ impl Cursor {
             }
         }
         let world = World::decode(state)?;
+        if world.version == 11 && matches!(world.authorization, Some(crate::delegation_v20::AuthorizationState::Rows(_))) != is_recovery {
+            return Err("authorization recovery identity".into());
+        }
         if world.version
             != if is_successor {
                 12

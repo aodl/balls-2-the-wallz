@@ -832,6 +832,9 @@ impl World {
             (10..=11, Some(crate::delegation_v20::AuthorizationState::Historical(registry))) => {
                 registry.validate()?
             }
+            (11, Some(crate::delegation_v20::AuthorizationState::Rows(registry))) => {
+                registry.validate()?
+            }
             (12, Some(crate::delegation_v20::AuthorizationState::Rows(registry))) => {
                 registry.validate()?
             }

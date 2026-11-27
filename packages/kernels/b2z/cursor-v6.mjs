@@ -82,7 +82,7 @@ export function workV6(c,readPayment){
    if(c.world.version>=10){
      const admitted=decodeDelegatedPayment(payload);
      transfer=receiptTransfer(admitted);
-     const decision=(c.world.version>=12?authorizePaymentV3:authorizePayment)(c.world.authorization,admitted,input.position);
+     const decision=(c.world.authorization?.version===3?authorizePaymentV3:authorizePayment)(c.world.authorization,admitted,input.position);
      if(decision!=='gameplay'){
        const {amount,from:account}=admitted,payment={account,amount,transfer};
        if(c.world.received_e8s+amount>=1n<<128n)throw Error('treasury overflow');

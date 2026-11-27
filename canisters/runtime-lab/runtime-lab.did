@@ -346,6 +346,7 @@ service : (blob, nat64, IndexConfig) -> {
   // Derives the v6 metadata once. No caller-supplied world, time or identities.
   commit_playability_transition : (text) -> (Result_2);
   commit_reservoir_transition : (text) -> (Result_2);
+  commit_rules19_recovery : (text) -> (Result_2);
   // Paused and drained Rules19→20 commit; the caller supplies only the
   // expected predecessor manifest, never replacement state or tariff data.
   commit_rules20_transition : (text) -> (Result_2);
@@ -368,6 +369,7 @@ service : (blob, nat64, IndexConfig) -> {
   // Content-addressed application metadata. Hash against the independently
   // authenticated epoch.metadata_hash; this convenience reply is not certified.
   epoch_metadata : (text) -> (Result_2) query;
+  finish_rules19_recovery : () -> (Result_2);
   game_info : () -> (Result_7) query;
   get_api_doc : () -> (text) query;
   lab_status : () -> (Result_8) query;
@@ -399,6 +401,7 @@ service : (blob, nat64, IndexConfig) -> {
   // The existing fenced source worker obtains its own Ledger/Index watermarks.
   prepare_playability_transition : () -> (Result_2);
   prepare_reservoir_transition : () -> (Result_2);
+  prepare_rules19_recovery : () -> (Result_2);
   prepare_rules20_transition : () -> (Result_2);
   prepare_shout_transition : () -> (Result_2);
   prepare_spacing_transition : () -> (Result_2);
@@ -410,6 +413,7 @@ service : (blob, nat64, IndexConfig) -> {
   retained_artifact_chunk : (nat64, text, nat8, nat16) -> (Result_2) query;
   retained_publication : (nat64) -> (Result_2) query;
   retention_status : () -> (Result_14) query;
+  rules19_recovery_status : () -> (Result_2) query;
   rules20_transition_status : () -> (Result_2) query;
   runtime_health : () -> (Health) query;
   set_funding_paused : (bool) -> (Result_4);

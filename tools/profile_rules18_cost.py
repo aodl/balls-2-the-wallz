@@ -35,10 +35,11 @@ def checked_artifacts(artifacts):
 
 def harness(output, env):
     command = [
-        "cargo", "test", "--manifest-path", "tools/s09-integration/Cargo.toml",
+        "cargo", *(["--config", os.environ["S14_DTR_CONFIG"]] if os.environ.get("S14_DTR_CONFIG") else []),
+        "test", "--manifest-path", "tools/s09-integration/Cargo.toml",
         "--locked", "--offline", "--test", "s14_index", "--no-run", "--message-format=json",
     ]
-    row = execute("build-harness", command, output, 360, env)
+    row = execute("build-harness", command, output, 1200, env)
     log = output / row["log"]
     if row["status"] != "PASS":
         raise ValueError(f"test harness build failed, see {log}")

@@ -122,6 +122,7 @@ pub fn bind_seed(r: &mut Root, h: &Coordinator<B2zHostKernel>) -> Result<()> {
                 hash(&bytes)
             }),
             previous_manifest: None,
+            recovery_source_complete: false,
         }))
     };
     // Explicit fixture milestones allow the ordinary installed module to check

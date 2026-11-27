@@ -122,3 +122,23 @@ unqualified runtime code into master or install it on production.
   scores for seam traversal and a two-Ball equal-time ownership change.
   These vectors are disposable kernel evidence. The paid construction
   gate and installed interruption scope remain separate.
+
+## Obstructed predecessor engineering continuation, 27 November
+
+The exact installed Rules19 module's digit-leading authorization failure now
+has a positive disposable recovery path. DTR 0.16.0 binds the unreserved
+ordered pending prefix in a version-2 recovery obligation while retaining
+the version-1 sealed-stage path and ordinary drained epochs. B2Z uses a
+dedicated Rules19 recovery identity with canonical authorization rows and
+historical Rules19 payment/gameplay policy, then takes the ordinary Rules20
+transition after the old source fence drains. Exact pinned backend
+`61637db4671b665d7dd3293aa9a74786e083c0a9ef1eeb2dca525a36a661bd38`
+passed the installed obstruction, old-module rejection after the recovery
+boundary, same-module restart, complete ordered input retirement, an
+additional post-cutoff payment and independent JavaScript replay. The
+clean published DTR Rust and JavaScript consumer gate passed. See
+`RULES20_OBSTRUCTED_RECOVERY.md` for exact scope and raw-log locations.
+
+The exceptional recovery matrix, remaining construction/corner/pricing
+acceptance, telemetry separation and full exact-source hosted qualification
+remain release gates. No production backend operation occurred.

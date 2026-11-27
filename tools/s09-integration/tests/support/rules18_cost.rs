@@ -295,6 +295,22 @@ fn capture(pic: &PocketIc, id: Principal, out: &Path, ordinal: u64) -> (Observat
     (obs, p)
 }
 
+fn capture_retained(pic: &PocketIc, id: Principal, out: &Path, segment: u64, ordinal: u64) -> Publication {
+    let raw: Vec<u8> = get_query(pic, id, "retained_publication", candid::encode_one(segment).unwrap());
+    let publication: Publication = decode(&raw).unwrap();
+    assert_eq!(publication.head.segment_id.as_ref().unwrap(), &Int(segment.into()));
+    std::fs::write(out.join(format!("{ordinal}-publication.bin")), &raw).unwrap();
+    let artifacts: Vec<Vec<u8>> = get_query(pic, id, "artifact_bundle",
+        encode_args((segment, dtr_wire::hash(&raw))).unwrap());
+    assert_eq!(artifacts.len(), publication.artifacts.len());
+    for (descriptor, body) in publication.artifacts.iter().zip(artifacts) {
+        assert_eq!(body.len(), descriptor.length);
+        assert_eq!(dtr_wire::hash(&body), descriptor.sha256);
+        std::fs::write(out.join(format!("{ordinal}-{}.bin", descriptor.kind)), body).unwrap();
+    }
+    publication
+}
+
 fn replay(out: &Path, checkpoints: u64, inputs: &[b2z_native::Input]) {
     for number in 1..=checkpoints {
         let artifact = |n, kind| std::fs::read(out.join(format!("{n}-{kind}.bin"))).unwrap();
@@ -1578,6 +1594,7 @@ fn rules19_digit_leading_grant_wire_boundary() {
     let final_world = arena_world(&pic, id);
     #[derive(CandidType, Deserialize)]
     struct PendingWork {
+        phase: Option<String>,
         pending_inputs: u32,
     }
     let pending: PendingWork = get_query(&pic, id, "controller_work", encode_args(()).unwrap());
@@ -1653,12 +1670,177 @@ fn rules19_digit_leading_grant_wire_boundary() {
             "upgrade_retry_running":after_upgrade_retry.run.running,
             "publication_still_preserved":final_observation.publication==prior.publication,
             "pending_controller_inputs":pending.pending_inputs,
+            "pending_stage_phase":pending.phase,
             "received_e8s_before_grant":prior_received,
             "received_e8s_after_retries":final_world.received_e8s,
         }))
         .unwrap(),
     )
     .unwrap();
+
+    // Positive route: the same durable obstructed journal, without test_apply
+    // or input mutation, crosses the authenticated DTR recovery boundary.
+    let _: Vec<u8> = get_result(&pic, id, "prepare_rules19_recovery", encode_args(()).unwrap());
+    let mut recovery_ready = false;
+    for _ in 0..180 {
+        advance(&pic, 1000);
+        let raw: Vec<u8> = get_query(&pic, id, "rules19_recovery_status", encode_args(()).unwrap());
+        let view: serde_json::Value = decode(&raw).unwrap();
+        if view["transition"]["phase"] == "ready" { recovery_ready = true; break; }
+    }
+    assert!(recovery_ready, "measured recovery Ledger/Index fence");
+    let stale = pic.update_call(id, controller(), "commit_rules19_recovery",
+        candid::encode_one("00".repeat(32)).unwrap()).unwrap();
+    assert!(decode_one::<Result<Vec<u8>, String>>(&stale).unwrap().is_err());
+    assert_eq!(observe(&pic, id).0.publication, prior.publication);
+    let _: Vec<u8> = get_result(&pic, id, "commit_rules19_recovery",
+        candid::encode_one(publication.head.manifest_hash.clone()).unwrap());
+    let (recovered_observation, recovered_publication) = capture(&pic, id, &out, 1);
+    assert_eq!(recovered_publication.version, 10);
+    assert_eq!(recovered_publication.epoch.as_ref().unwrap().version, 4);
+    assert_eq!(recovered_publication.head.source_to_exclusive,
+        publication.head.source_to_exclusive);
+    assert_eq!(recovered_publication.epoch.as_ref().unwrap().recovery.as_ref().unwrap().pending_count, 2);
+    assert_eq!(arena_world(&pic, id).received_e8s, prior_received);
+    let old_segment = publication.head.segment_id.as_ref().unwrap().0.to_string().parse::<u64>().unwrap();
+    let retained: Vec<u8> = get_query(&pic, id, "retained_publication",
+        candid::encode_one(old_segment).unwrap());
+    assert_eq!(retained, prior.publication, "committed Rules19 bytes survive recovery");
+    let _: Vec<u8> = get_result(&pic, id, "commit_rules19_recovery",
+        candid::encode_one(publication.head.manifest_hash.clone()).unwrap());
+    assert_eq!(observe(&pic, id).0.publication, recovered_observation.publication);
+    let recovery_module_hash = pic.canister_status(id, Some(controller())).unwrap().module_hash;
+    assert!(upgrade_during_recovery(&pic, id, &installed).is_err());
+    assert_eq!(pic.canister_status(id, Some(controller())).unwrap().module_hash,
+        recovery_module_hash, "Rules19 must reject the first durable recovery boundary");
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    assert_eq!(observe(&pic, id).0.publication, recovered_observation.publication);
+    // A payment arriving after the measured Ledger fence belongs to the
+    // successor. It must not enter the retained Rules19 execution prefix.
+    let successor_payment = transfer_text(&pic, ledger, other, id, 300_000_000, b"NEW 0 1");
+    assert!(successor_payment > later_position);
+    let digit_account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+    let mut settled = false;
+    for _ in 0..600 {
+        advance(&pic, 1000);
+        let work: PendingWork = get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+        let raw: Vec<u8> = get_query(&pic, id, "rules19_recovery_status", encode_args(()).unwrap());
+        let view: serde_json::Value = decode(&raw).unwrap();
+        let world = arena_world(&pic, id);
+        let granted = matches!(world.authorization.as_ref(),
+            Some(b2z_native::delegation_v20::AuthorizationState::Rows(rows))
+                if rows.grants.iter().any(|row| row.account == digit_account));
+        if work.pending_inputs == 0 && work.phase.is_none()
+            && view["transition"]["recovery_source_complete"] == true
+            && granted && world.received_e8s.0 == prior_received.0.clone() + 100_000_000u64 {
+            settled = true; break;
+        }
+    }
+    assert!(settled, "both original inputs must retire and publish under Rules19 policy: {:?}",
+        status(&pic, id).run.last_error);
+    let final_world = arena_world(&pic, id);
+    assert_eq!(final_world.version, 11);
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, later_position + 1);
+    let _: Vec<u8> = get_result(&pic, id, "finish_rules19_recovery", encode_args(()).unwrap());
+    let raw: Vec<u8> = get_query(&pic, id, "rules19_recovery_status", encode_args(()).unwrap());
+    let view: serde_json::Value = decode(&raw).unwrap();
+    assert_eq!(view["transition"]["phase"], "fenced");
+    let (before_successor, before_successor_pub) = capture(&pic, id, &out, 2);
+    assert_eq!(before_successor_pub.head.segment_id.as_ref().unwrap(),
+        &Int((old_segment + 2).into()), "one recovered segment must retire the exact pending prefix");
+    let recovered_seal = before_successor_pub.head.seal.as_ref().unwrap();
+    assert_eq!(recovered_seal.input_count, 2);
+    assert_eq!(recovered_seal.source_to_exclusive, Int((later_position + 1).into()));
+    let expected = BTreeMap::from([
+        (position, ("DELEGATION_GRANTED".into(), 0, None)),
+        (later_position, ("ACCEPTED".into(), 100_000_000, None)),
+        (successor_payment, ("ACCEPTED".into(), 300_000_000, None)),
+    ]);
+    let mut records = super::delegation_installed::official_inputs(&pic, id, &expected);
+    records.sort_by_key(|(payment, _)| payment.position);
+    let inputs = records.into_iter().filter(|(payment, _)| payment.position <= later_position)
+        .into_iter().map(|(payment, _)| b2z_native::Input {
+            position: Int(payment.position.into()),
+            payload_hex: hex(&payment.encode().unwrap()),
+        }).collect::<Vec<_>>();
+    assert_eq!(inputs.iter().map(|i| i.position.clone()).collect::<Vec<_>>(),
+        vec![Int(position.into()), Int(later_position.into())]);
+    let root = dtr_host::input_root(&inputs.iter().map(|i| dtr_host::Input {
+        position:i.position.clone(),payload_hex:i.payload_hex.clone(),
+    }).collect::<Vec<_>>(),
+        recovered_seal.source_from.0.to_string().parse().unwrap(),
+        recovered_seal.source_to_exclusive.0.to_string().parse().unwrap()).unwrap();
+    assert_eq!(root, recovered_seal.input_root);
+    std::fs::write(out.join("2-inputs.bin"), dtr_wire::encode(&inputs).unwrap()).unwrap();
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    assert_eq!(observe(&pic, id).0.publication, before_successor.publication);
+    playability_installed::prepare(&pic, id, "prepare_rules20_transition");
+    let mut ready = false;
+    for _ in 0..180 {
+        advance(&pic, 1000);
+        let raw: Vec<u8> = get_query(&pic, id, "rules20_transition_status", encode_args(()).unwrap());
+        let view: serde_json::Value = decode(&raw).unwrap();
+        if view["transition"]["phase"] == "ready" && transition_drained(&pic, id) {
+            ready = true; break;
+        }
+    }
+    assert!(ready, "ordinary Rules20 transition after drained recovery");
+    let _: Vec<u8> = get_result(&pic, id, "commit_rules20_transition",
+        candid::encode_one(before_successor_pub.head.manifest_hash).unwrap());
+    let successor = arena_world(&pic, id);
+    assert_eq!(successor.version, 12);
+    assert_eq!(successor.received_e8s, final_world.received_e8s);
+    let (_, successor_pub) = capture(&pic, id, &out, 3);
+    assert_eq!(successor_pub.version, 8);
+    playability_installed::configuration(&pic, id, 512);
+    let mut later_settled = false;
+    for _ in 0..300 {
+        advance(&pic, 1000);
+        let world = arena_world(&pic, id);
+        if status(&pic, id).source.admitted_to_exclusive > successor_payment
+            && world.received_e8s.0 == &successor.received_e8s.0 + 300_000_000u64 {
+            later_settled = true; break;
+        }
+    }
+    assert!(later_settled, "post-fence payment must publish under Rules20");
+    let paid_segment = observe(&pic, id).1.head.segment_id.as_ref().unwrap().0.to_string().parse::<u64>().unwrap();
+    let successor_segment = successor_pub.head.segment_id.as_ref().unwrap().0.to_string().parse::<u64>().unwrap();
+    assert!(paid_segment > successor_segment && paid_segment - successor_segment <= 16,
+        "bounded retained successor history");
+    for segment in successor_segment + 1..paid_segment {
+        let ordinal = 3 + segment - successor_segment;
+        let intermediate = capture_retained(&pic, id, &out, segment, ordinal);
+        assert_eq!(intermediate.head.seal.as_ref().unwrap().input_count, 0,
+            "only the final successor segment applies the later payment");
+        std::fs::write(out.join(format!("{ordinal}-inputs.bin")),
+            dtr_wire::encode(&Vec::<b2z_native::Input>::new()).unwrap()).unwrap();
+    }
+    let paid_ordinal = 3 + paid_segment - successor_segment;
+    let (_, successor_paid_pub) = capture(&pic, id, &out, paid_ordinal);
+    assert_eq!(successor_paid_pub.head.seal.as_ref().unwrap().input_count, 1);
+    let expected_later = BTreeMap::from([(successor_payment, ("ACCEPTED".into(), 300_000_000, None))]);
+    let later_input = super::delegation_installed::official_inputs(&pic, id, &expected_later)
+        .into_iter().map(|(payment, _)| b2z_native::Input {
+            position: Int(payment.position.into()), payload_hex: hex(&payment.encode().unwrap()),
+        }).collect::<Vec<_>>();
+    std::fs::write(out.join(format!("{paid_ordinal}-inputs.bin")), dtr_wire::encode(&later_input).unwrap()).unwrap();
+    let independent = std::process::Command::new("node")
+        .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+        .arg("tools/verify_rules20_installed_replay.mjs")
+        .arg(&out).arg(paid_ordinal.to_string()).output().unwrap();
+    assert!(independent.status.success(), "independent obstructed recovery replay: {}{}",
+        String::from_utf8_lossy(&independent.stdout),
+        String::from_utf8_lossy(&independent.stderr));
+    std::fs::write(out.join("obstructed-recovery-result.json"), serde_json::to_vec_pretty(&json!({
+        "status":"PASS","old_manifest":publication.head.manifest_hash,
+        "recovery_manifest":recovered_publication.head.manifest_hash,
+        "pending_count":2,"grant_position":position,"later_payment_position":later_position,
+        "admitted_cursor":status(&pic, id).source.admitted_to_exclusive,
+        "received_e8s_at_transition":successor.received_e8s,
+        "successor_payment_position":successor_payment,
+        "received_e8s_after_successor_payment":arena_world(&pic, id).received_e8s,
+        "successor_version":successor.version
+    })).unwrap()).unwrap();
 }
 
 #[test]

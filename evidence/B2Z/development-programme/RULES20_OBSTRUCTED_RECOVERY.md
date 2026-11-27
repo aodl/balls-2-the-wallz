@@ -58,5 +58,59 @@ module remains the rollback executable only on the old decoder side of the
 new boundary. A separate exact compatible recovery executable is required
 after it. Removing inputs, substituting a later Ledger time or treating a
 settled admission cursor as a retired game prefix would change paid
-history. The pinned DTR boundary and recovery-specific replay support are
-the current engineering blockers to a release candidate.
+history. This was the pre-repair assessment. The later executed result follows.
+
+## 27 November positive recovery continuation
+
+The exact installed Rules19 executable reproduced the obstruction again on
+the pinned paid-world fixture. This run's last old publication was segment 4,
+with 108,100,000 e8s committed. Grant position 2 and unrelated 1 ICP payment
+position 3 were admitted in order; the source cursor reached 4 while the
+retired frontier stayed at 0. Retries and identical-module upgrade left both
+pending. The failed Rules19 attempt had cleared its uncommitted stage and
+reservation, so no durable seal existed to migrate. Ordinary Rules20
+preparation still refused this state.
+
+Generic DTR 0.16.0 adds an epoch-v4 recovery obligation version 2 for this
+precise unreserved journal shape. It binds the last committed publication,
+coordinator revision, retired and admitted source frontiers and anchors, and
+the complete ordered pending-input root. The first recovered seal must execute
+exactly the admitted prefix. The separate version-1 obligation retains its
+original sealed-stage constraints. Ordinary drained epochs are unchanged.
+The Rust toy host and JavaScript Life/runtime tests compare exact shared
+recovery publication and first-seal bytes. Full DTR Rust, JavaScript and
+Clippy gates pass on published source `1c7fa8b3bd2c3973a9dc6525b2fe8bb744f21e2e`.
+
+The B2Z recovery checkpoint changed only the Schema11 authorization map to
+canonical rows under the dedicated Rules19-recovery identity. It retained
+Rules19 command, tariff, motion and payment policy for the old prefix. The
+disposable checkpoint published as segment 5, retained the exact old segment-4
+bytes, and committed pending root
+`8bb42750340d2cc888674d9efa40f91eafc3592841fb485cd4d93e3651083330`.
+The first successor seal in segment 6 used that same root and retired the two
+original inputs together. The digit-leading grant appeared in the public
+registry; committed received value became 208,100,000 e8s. Identical retry
+was idempotent. The old module rejected upgrade after the recovery checkpoint;
+the same recovery-capable module restarted and continued.
+
+After the old prefix and measured source cutoff drained, an ordinary Rules20
+checkpoint published at segment 7. A new 3 ICP payment at position 4, sent
+after the recovery cutoff, stayed out of the Rules19 prefix and was applied
+under Rules20 at segment 9. Segment 8 was an intervening empty input segment.
+Received value then became 508,100,000 e8s. Independent JavaScript replay
+matched exact state, event and score bytes for segments 6, 8 and 9 and
+verified both checkpoints and the complete consecutive history. The official
+disposable Index supplied all three input payloads. Raw execution and captures
+are under `.work/rules19-recovery/installed-10/`; the exact executable test is
+`rules19_digit_leading_grant_wire_boundary`.
+
+The tested candidate `9c6335037c138a471109b5363d3630a092e2b3fa8333ff8de78f25a8c4dfa515`
+used the explicit development override at DTR `8e3c463a`, before its version
+bump. B2Z now pins published DTR 0.16.0 and the cleanly reproduced JavaScript
+package. The exact pinned B2Z executable
+`61637db4671b665d7dd3293aa9a74786e083c0a9ef1eeb2dca525a36a661bd38`
+also passed the same positive installed case and independent replay without a
+development override; raw results are under `.work/rules19-recovery/installed-pinned/`.
+The broader adversarial recovery matrix still requires qualification. This is
+a positive recovery proof for the documented obstruction, not yet a Rules20
+production release.

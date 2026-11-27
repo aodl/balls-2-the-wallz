@@ -107,6 +107,16 @@ export const COMPACT_RESERVOIR_IDENTITY=Object.freeze({
   schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_11_CANONICAL_RESERVOIR_RANGES')),
   config_hash:sha256(encodeCanonical(COMPACT_RESERVOIR_CONFIG)),
 });
+export const RECOVERY_IDENTITY=Object.freeze({...COMPACT_RESERVOIR_IDENTITY,
+  rules_hash:sha256(new TextEncoder().encode('B2Z_RULES_19_AUTH_RECOVERY_01')),
+  schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_11_AUTH_ROWS_RECOVERY_01')),
+});
+export function recoverAuthorizationRows(predecessor){
+  if(predecessor.version!==11||predecessor.authorization?.version!==2)throw Error('AUTH_RECOVERY_PREDECESSOR');
+  const next=cloneCanonical(validateWorld(predecessor));
+  next.authorization=authorizationV3FromV2(next.authorization);
+  return validateWorld(next);
+}
 // Rules20 changes canonical state and contact/pricing semantics. The adapter
 // and memo grammar remain those of the installed Rules19 predecessor.
 export const RULES20_CONFIG=Object.freeze({
@@ -130,7 +140,8 @@ export function migrateCompactReservoirs(predecessor) {
 export function migrateAuthorizationRows(predecessor,activationNs=predecessor.playability?.elapsed_ns) {
   if(predecessor.version!==11)throw Error('AUTH_V3_PREDECESSOR');
   const next=cloneCanonical(validateWorld(predecessor));
-  next.authorization=authorizationV3FromV2(next.authorization);
+  if(next.authorization?.version===2)next.authorization=authorizationV3FromV2(next.authorization);
+  else validateAuthorizationV3(next.authorization);
   // Existing announced prices stay linear. The first successor observation
   // occurs at the next midnight and takes effect at the midnight after it.
   next.economy_formula_start_ns=successorFormulaStart(next.playability.elapsed_ns,activationNs);
@@ -305,7 +316,8 @@ export function validateWorld(w) {
        w.economy_formula_start_ns>18446744073709551615n||w.economy_formula_start_ns%DAY_NS!==0n)
       throw Error('successor tariff formula boundary');
   }else if(w.economy_formula_start_ns!==undefined)throw Error('successor tariff formula boundary');
-  if(w.version>=10&&w.version<=11)validateAuthorization(w.authorization);
+  if(w.version===11&&w.authorization?.version===3)validateAuthorizationV3(w.authorization);
+  else if(w.version>=10&&w.version<=11)validateAuthorization(w.authorization);
   else if(w.version===12)validateAuthorizationV3(w.authorization);
   else if(w.authorization!==undefined)throw Error('authorization schema');
   validatePassage(w);

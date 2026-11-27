@@ -21,6 +21,27 @@ pub fn identity() -> serde_json::Value {
     })
 }
 
+/// The exceptional policy keeps Rules19 interpretation while allowing the
+/// corrected authorization rows. Its configuration bytes remain Rules19's.
+pub fn recovery_identity() -> serde_json::Value {
+    let mut identity = crate::reservoirs::compact_identity();
+    identity["rules_hash"] = serde_json::json!(dtr_wire::hash(b"B2Z_RULES_19_AUTH_RECOVERY_01"));
+    identity["schema_hash"] = serde_json::json!(dtr_wire::hash(b"B2Z_STATE_11_AUTH_ROWS_RECOVERY_01"));
+    identity
+}
+
+pub fn recover_registry(mut predecessor: crate::world::World) -> Result<crate::world::World> {
+    predecessor.validate()?;
+    if predecessor.version != 11 { return Err("AUTH_RECOVERY_PREDECESSOR".into()); }
+    let historical = match predecessor.authorization.take() {
+        Some(AuthorizationState::Historical(value)) => value,
+        _ => return Err("AUTH_RECOVERY_PREDECESSOR".into()),
+    };
+    predecessor.authorization = Some(AuthorizationState::Rows(RegistryV3::from_v2(&historical)?));
+    predecessor.validate()?;
+    Ok(predecessor)
+}
+
 fn uint(value: &Int) -> Result<u64> {
     value.0.to_u64().ok_or_else(|| "AUTH_INTEGER".into())
 }
@@ -256,11 +277,11 @@ pub fn migrate_at(
     if predecessor.version != 11 {
         return Err("AUTH_V3_PREDECESSOR".into());
     }
-    let historical = match predecessor.authorization.take() {
-        Some(AuthorizationState::Historical(value)) => value,
+    predecessor.authorization = Some(match predecessor.authorization.take() {
+        Some(AuthorizationState::Historical(value)) => AuthorizationState::Rows(RegistryV3::from_v2(&value)?),
+        Some(AuthorizationState::Rows(value)) => AuthorizationState::Rows(value),
         _ => return Err("AUTH_V3_PREDECESSOR".into()),
-    };
-    predecessor.authorization = Some(AuthorizationState::Rows(RegistryV3::from_v2(&historical)?));
+    });
     // The first tariff observed after activation is announced at the next
     // midnight and effective the following midnight. Existing announced
     // tariffs keep their historical linear meaning through that boundary.

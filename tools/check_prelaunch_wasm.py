@@ -25,6 +25,10 @@ expected.update({
     "canister_update prepare_rules20_transition",
     "canister_update commit_rules20_transition",
     "canister_query rules20_transition_status",
+    "canister_update prepare_rules19_recovery",
+    "canister_update commit_rules19_recovery",
+    "canister_update finish_rules19_recovery",
+    "canister_query rules19_recovery_status",
 })
 if args.profile != "public-launch":
     expected.update({

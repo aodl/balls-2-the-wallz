@@ -14,7 +14,7 @@ if(!Number.isInteger(last)||last<2||last>32)throw Error('invalid final capture o
 const read=(n,kind)=>readFileSync(join(directory,`${n}-${kind}.bin`));
 const publication=n=>decodeCanonical(read(n,'publication'));
 const predecessor=publication(0),successor=publication(1);
-assert.equal(successor.version,8);
+assert.ok([8,10].includes(successor.version),'authenticated Rules20 or Rules19 recovery epoch');
 await prepareCheckpoint(read(0,'state'),{
  state:read(1,'state'),events:read(1,'events'),scores:read(1,'scores'),
 },successor,predecessor);
@@ -24,7 +24,7 @@ for(let n=2;n<=last;n++){
  assert.equal(current.head.segment_id,prior.head.segment_id+1n,'consecutive paid history');
  const start=read(n-1,'state'),end=read(n,'state'),events=read(n,'events');
  if(current.head.seal===null){
-  assert.equal(current.version,9,'post-activation lifecycle checkpoint');
+  assert.ok([8,9,10].includes(current.version),'authenticated successor checkpoint');
   await prepareCheckpoint(start,{state:end,events,scores:read(n,'scores')},current,prior);
   continue;
  }
