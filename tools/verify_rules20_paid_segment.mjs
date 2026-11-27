@@ -25,15 +25,20 @@ const decodedEvents=decodeCanonical(events);
 const receipt=decodedEvents.receipts.find(row=>row.position===inputs[0].position);
 assert.equal(inputs.length,1,'one genuine Ledger input');
 const memo=Buffer.from(receipt.transfer.memo,'hex');
-const match=/^NEW 0 1(?: ([0-9]+))?$/.exec(memo.toString('utf8'));
-assert.ok(match,'genuine initial or explicit additional Cannon memo');
-const command={kind:'new',quantity:1,cell:match[1]===undefined?null:Number(match[1]),
- priced_at_ns:receipt.ledger_recorded_ns};
+const cannon=/^NEW 0 1(?: ([0-9]+))?$/.exec(memo.toString('utf8'));
+const diverter=/^DEFLECT ([0-9]+) N$/.exec(memo.toString('utf8'));
+assert.ok(cannon||diverter,'genuine initial/additional Cannon or north-facing Diverter memo');
+const command=cannon
+ ?{kind:'new',quantity:1,cell:cannon[1]===undefined?null:Number(cannon[1]),priced_at_ns:receipt.ledger_recorded_ns}
+ :{kind:'deflect',cell:Number(diverter[1]),angle:'180',priced_at_ns:receipt.ledger_recorded_ns};
 const world=decodeCanonical(start);
 if(receipt.status==='applied'){
  const quote=quoteV6(world,RULES20_CONFIG,receipt.account,command);
  assert.equal(quote.amount,receipt.amount_used,'frontend quote matches paid amount');
- assert.deepEqual(quote.per_item,receipt.per_item_prices,'frontend quote matches receipt prices');
+ if(diverter){
+  assert.equal(receipt.per_item_prices,undefined,'single Diverter receipt has no batch price list');
+  assert.deepEqual(quote.per_item,[receipt.amount_used],'frontend Diverter item matches paid amount');
+ }else assert.deepEqual(quote.per_item,receipt.per_item_prices,'frontend quote matches receipt prices');
  assert.deepEqual(Buffer.from(quote.memo_bytes),memo,'frontend quote preserves wallet memo bytes');
 }else{
  assert.equal(receipt.amount_used,0n);

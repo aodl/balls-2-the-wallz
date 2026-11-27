@@ -3311,19 +3311,67 @@ fn rules20_paid_overflow_grace() {
     run_rules20_paid_symbolic_population(1035, Some(1_000_000), true);
 }
 
+#[test]
+#[ignore = "disposable authenticated Rules20 personal Diverter inventory prices"]
+fn rules20_paid_diverter_inventory() {
+    run_rules20_paid_symbolic_population_mode(1001, Some(200_000_000), false, true);
+}
+
 fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, grace: bool) {
+    run_rules20_paid_symbolic_population_mode(target, exact_price, grace, false);
+}
+
+fn run_rules20_paid_symbolic_population_mode(
+    target: u32,
+    exact_price: Option<u64>,
+    grace: bool,
+    diverter_inventory: bool,
+) {
     let expect_applied = exact_price.is_some();
-    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
-        .join(format!("rules20-symbolic-population-{target}"));
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join(format!(
+        "rules20-symbolic-population-{target}{}",
+        if diverter_inventory {
+            "-diverter-inventory"
+        } else {
+            ""
+        }
+    ));
     std::fs::create_dir_all(&out).unwrap();
-    let population = seed_symbolic_population(target);
-    let payer = Principal::self_authenticating([99; 32]);
+    let mut population = seed_symbolic_population(target);
+    if diverter_inventory {
+        // The automatic Join island is deliberately small and has only one
+        // legal spaced structure site. Use the genuine pre-existing active
+        // player with broad territory for the second personal purchase.
+        let old = population.cannons[0].account.clone();
+        let account = AccountIdentifier::new(
+            &Principal::self_authenticating([9; 32]),
+            &DEFAULT_SUBACCOUNT,
+        )
+        .to_hex();
+        for cannon in &mut population.cannons {
+            if cannon.account == old {
+                cannon.account = account.clone();
+            }
+        }
+        for player in &mut population.playability.as_mut().unwrap().players {
+            if player.account == old {
+                player.account = account.clone();
+            }
+        }
+        population
+            .deflectors
+            .as_mut()
+            .unwrap()
+            .retain(|row| row.owner != 1);
+        population.validate().unwrap();
+    }
+    let fixture_payer = Principal::self_authenticating([99; 32]);
     let (pic, id, ledger, payer) = arena_setup_world_fee_clock_payers_options(
         bytes("B2Z_COST_PROFILE_WASM"),
         population.encode().unwrap(),
         10_000,
         0,
-        &[payer],
+        &[fixture_payer],
         true,
     );
     let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
@@ -3394,8 +3442,36 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, g
     );
     let (_, before_payment) = capture(&pic, id, &out, 1);
     let amount = exact_price.unwrap_or(2_000_000_000);
-    let position = transfer_text(&pic, ledger, payer, id, amount, b"NEW 0 1");
+    let inventory_player = diverter_inventory.then(|| {
+        arena_world(&pic, id)
+            .playability
+            .as_ref()
+            .unwrap()
+            .players
+            .iter()
+            .find(|row| row.account == AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex())
+            .unwrap()
+            .id
+    });
+    let first_diverter_site = inventory_player.map(|player| {
+        let before = arena_world(&pic, id);
+        (0..before.cell_count())
+            .find(|&cell| {
+                before.player_at(cell) == Some(player)
+                    && b2z_native::context_structures::site_reason(
+                        &before, player, cell, None, true, true,
+                    )
+                    .unwrap()
+                    .is_none()
+            })
+            .expect("existing active player's first legal Diverter site")
+    });
+    let first_memo = first_diverter_site
+        .map(|site| format!("DEFLECT {site} N"))
+        .unwrap_or_else(|| "NEW 0 1".into());
+    let position = transfer_text(&pic, ledger, payer, id, amount, first_memo.as_bytes());
     let before_cannons = observed.cannons.len();
+    let before_deflectors = observed.deflectors.as_ref().unwrap().len();
     let mut indexed = false;
     for _ in 0..600 {
         advance(&pic, 1000);
@@ -3428,7 +3504,11 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, g
             assert!(status(&pic, id).run.last_error.is_none());
             assert_eq!(
                 current.cannons.len(),
-                before_cannons + usize::from(expect_applied)
+                before_cannons + usize::from(expect_applied && !diverter_inventory)
+            );
+            assert_eq!(
+                current.deflectors.as_ref().unwrap().len(),
+                before_deflectors + usize::from(expect_applied && diverter_inventory)
             );
             published = true;
             break;
@@ -3467,10 +3547,14 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, g
     }
     if expect_applied {
         assert_eq!(receipt["amount_used"]["$integer"], amount.to_string());
-        assert_eq!(
-            receipt["per_item_prices"][0]["$integer"],
-            amount.to_string()
-        );
+        if diverter_inventory {
+            assert!(receipt["per_item_prices"].is_null());
+        } else {
+            assert_eq!(
+                receipt["per_item_prices"][0]["$integer"],
+                amount.to_string()
+            );
+        }
     } else {
         assert_eq!(receipt["amount_used"]["$integer"], "0");
         assert_eq!(receipt["remainder"]["$integer"], amount.to_string());
@@ -3730,6 +3814,137 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, g
     } else {
         Value::Null
     };
+    let personal_diverters = if diverter_inventory {
+        let account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+        let mut purchased = Vec::new();
+        for held in 1..2u32 {
+            pause(&pic, id);
+            let before = arena_world(&pic, id);
+            let player = before
+                .playability
+                .as_ref()
+                .unwrap()
+                .players
+                .iter()
+                .find(|row| row.account == account)
+                .unwrap()
+                .id;
+            assert_eq!(
+                before
+                    .deflectors
+                    .iter()
+                    .flatten()
+                    .filter(|row| row.owner == player)
+                    .count(),
+                held as usize
+            );
+            let site = (0..before.cell_count())
+                .find(|&cell| {
+                    before.player_at(cell) == Some(player)
+                        && b2z_native::context_structures::site_reason(
+                            &before, player, cell, None, true, true,
+                        )
+                        .unwrap()
+                        .is_none()
+                })
+                .expect("active player's legal Diverter site");
+            let price = b2z_native::economy20::marginal_price(
+                b2z_protocol::economy17::DIVERTER_BASE_E8S,
+                target,
+                held,
+            )
+            .unwrap();
+            assert_eq!(price, if held == 0 { 200_000_000 } else { 800_000_000 });
+            let position = transfer_text(
+                &pic,
+                ledger,
+                payer,
+                id,
+                price,
+                format!("DEFLECT {site} N").as_bytes(),
+            );
+            for _ in 0..600 {
+                advance(&pic, 1000);
+                if status(&pic, id).source.admitted_to_exclusive > position {
+                    break;
+                }
+            }
+            assert!(status(&pic, id).source.admitted_to_exclusive > position);
+            assert_eq!(arena_world(&pic, id), before);
+            let ordinal = held + 2;
+            let previous: Publication = decode(
+                &std::fs::read(out.join(format!("{}-publication.bin", ordinal - 1))).unwrap(),
+            )
+            .unwrap();
+            let before_segments = status(&pic, id).run.completed_segments;
+            playability_installed::configuration(&pic, id, 512);
+            for _ in 0..600 {
+                advance(&pic, 1000);
+                if status(&pic, id).run.completed_segments > before_segments {
+                    break;
+                }
+            }
+            assert_eq!(status(&pic, id).run.completed_segments, before_segments + 1);
+            let (_, publication) = capture(&pic, id, &out, u64::from(ordinal));
+            assert_eq!(
+                publication.head.segment_id.as_ref().unwrap(),
+                &Int(&previous.head.segment_id.as_ref().unwrap().0 + 1u32)
+            );
+            let events: Value =
+                decode(&std::fs::read(out.join(format!("{ordinal}-events.bin"))).unwrap()).unwrap();
+            let receipt = events["receipts"]
+                .as_array()
+                .unwrap()
+                .iter()
+                .find(|row| row["position"]["$integer"] == position.to_string())
+                .unwrap();
+            assert_eq!(receipt["status"], "applied");
+            assert_eq!(receipt["amount_used"]["$integer"], price.to_string());
+            assert!(receipt["per_item_prices"].is_null());
+            assert_eq!(receipt["price_tariff"]["formula"], "exponential");
+            assert_eq!(receipt["price_tariff"]["population"], target);
+            assert_eq!(
+                arena_world(&pic, id)
+                    .deflectors
+                    .iter()
+                    .flatten()
+                    .filter(|row| row.owner == player)
+                    .count(),
+                held as usize + 1
+            );
+            let expected = BTreeMap::from([(position, ("ACCEPTED".into(), 0, None))]);
+            let inputs = super::delegation_installed::official_inputs(&pic, id, &expected)
+                .into_iter()
+                .map(|(payment, _)| b2z_native::Input {
+                    position: Int(payment.position.into()),
+                    payload_hex: hex(&payment.encode().unwrap()),
+                })
+                .collect::<Vec<_>>();
+            std::fs::write(
+                out.join(format!("{ordinal}-inputs.bin")),
+                dtr_wire::encode(&inputs).unwrap(),
+            )
+            .unwrap();
+            let independent = std::process::Command::new("node")
+                .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+                .arg("tools/verify_rules20_paid_segment.mjs")
+                .arg(&out)
+                .arg(ordinal.to_string())
+                .output()
+                .unwrap();
+            assert!(
+                independent.status.success(),
+                "independent personal Diverter quote and replay: {}{}",
+                String::from_utf8_lossy(&independent.stdout),
+                String::from_utf8_lossy(&independent.stderr)
+            );
+            purchased.push(json!({"position":position,"held_before":held,"site":site,
+                "price_e8s":price,"independent_quote_and_replay":true}));
+        }
+        json!(purchased)
+    } else {
+        Value::Null
+    };
     std::fs::write(
         out.join("results.json"),
         serde_json::to_vec_pretty(&json!({
@@ -3741,7 +3956,8 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, g
             "grace_block_time_before_execution_after_window":grace,
             "receipt_reason":receipt["reason"],
             "applied":expect_applied, "independent_replay":true,"partial_batch":partial_batch,
-            "personal_cannon":personal_cannon,
+            "personal_cannon":personal_cannon,"personal_diverters":personal_diverters,
+            "diverter_inventory":diverter_inventory,
         }))
         .unwrap(),
     )

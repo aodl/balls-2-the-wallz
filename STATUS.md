@@ -131,10 +131,15 @@ predecessor source `68430e67` also passed all three hosted workflows,
 including standard installed-IC qualification. The installed finite overdue
 lifecycle barrier case also completed: the recovered old-policy segment,
 an intervening sealed zero-input predecessor interval and a later Rules20
-payment all matched independent public replay. The newer recovery and
-passage additions have not completed exact-source hosted runs. The recovery
-branch is **not** a production
-release candidate. Four local
+payment all matched independent public replay. Source `b0c93c7f` passed its
+[developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070833362)
+and [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070833382)
+workflows; the developer artifact records 18 named installed Rules20 PASS
+cases, including recovery, interrupted passage and paid tariffs. Its standard
+workflow is still running. The later eleven-row active-owner corner matrix
+passed 29 native Rules20 public-output comparisons and focused JavaScript
+tests; it requires new hosted qualification. The recovery branch is **not** a
+production release candidate. Four local
 authenticated high-population payment cases passed. A subsequent genuine
 1,000-account Fire batch paid for the first two of three symbolic Ball
 prices; its receipt, frontend quote and independent public replay agree.
@@ -155,9 +160,12 @@ the same authoritative segment retired both rows, recorded exact receipts
 and matched independent replay. A sealed, partially stepped checkpoint
 with both exceptions active survived a same-ID upgrade; autonomous
 continuation and later paid relocation matched independent replay.
-Structure and Ball destruction remain separate passage gates. Diverter
-inventory, mid-batch overflow and interrupted purchase acceptance remain
-financial gates.
+Structure and Ball destruction remain separate passage gates. A separate
+authenticated 1,001-account fixture paid for the first and second personal
+Diverters at 2 and 8 ICP with exact receipts, frontend wallet quotes and
+independent public replay; the refactored original first-Cannon case passed
+again. Mid-batch overflow and interrupted purchase acceptance remain
+financial gates, and the new Diverter case needs hosted execution.
 The certified burn
 meter remains disabled and is tracked separately. Sustained Full Speed throughput,
 physical devices, dense-scene P09

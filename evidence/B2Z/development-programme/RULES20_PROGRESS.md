@@ -413,3 +413,41 @@ correction passed under `.work/rules19-recovery/corner-matrix-source-1/`,
 including the sequential Node suite, source structure and documentation
 links. Its native portable comparison separately passed 24 Rules20
 public-output rows. Exact-source hosted qualification remains required.
+
+Published source `b0c93c7f9987e20452be6ffa07c576c68ecac5a1` passed the
+[developer/prelaunch workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070833362).
+The downloaded `ci-rules20-installed/results.json` names **18 executed PASS**
+cases, including exact Rules19 obstruction, all recovery variants, healthy
+cutover, paid passage with interrupted checkpoint and restart, second personal
+Cannon, and all six high-population/grace cases. Its hosted successor Wasm is
+`980ea23e39c42379ad5d22c8ac9cf5edd9df3f331ded0e475c35253162438c7e`.
+The [financial workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070833382)
+also passed. The standard workflow on this source is still running at this
+observation. The eleven-row active-owner corner extension and the new
+personal-Diverter acceptance are later source and require their own hosted
+qualification. The installed Diverter fixture's first genuine payment and
+independent replay passed locally; its two-purchase continuation remains open.
+
+The separate authenticated `rules20_paid_diverter_inventory` case has now
+passed locally under `.work/rules19-recovery/symbolic-diverter-inventory-5/`.
+The fixture starts from the unchanged Rules19 executable, transitions through
+the maintained Rules20 controller route, and retains a 1,001-account tariff
+whose disposable live population later falls to one. The existing active
+player has broad territory; the earlier automatic-Join island had only one
+legal site under the four-cell structure-clearance rule. Genuine Ledger/Index
+payments at positions 2 and 3 constructed the first and second personal
+Diverters at sites 8 and 12, charging **200,000,000 and 800,000,000 e8s**
+respectively. Both receipts selected the authenticated exponential tariff.
+The maintained frontend independently matched each charged amount and exact
+`DEFLECT … N` wallet memo; JavaScript replay matched complete public state,
+events and scores for consecutive publications 14 and 15. The installed
+candidate was `1d6f231ef8f1a07d94d7eba1b0cec04964dde22611a10dab3ef01edefae473b0`.
+Raw earlier attempts `symbolic-diverter-inventory-{1,2,3,4}` retain the
+receipt-shape, screen-angle, site-availability and capture-index fixture
+corrections. The passing case is now named in the actual release suite but
+has not yet passed on a hosted source. The refactored ordinary first-Cannon
+case also passed its complete installed payment and independent replay under
+`.work/rules19-recovery/symbolic-preservation-after-inventory-1/`. Both local
+cases used the same exact installed Rules19 and recovery-capable successor
+executables. The new source still requires complete exact-source hosted
+qualification.
