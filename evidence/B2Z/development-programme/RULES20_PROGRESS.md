@@ -152,3 +152,27 @@ the ordinary Rules20 transition and applied a post-cutoff payment. Independent
 JavaScript replay matched every captured public state, event and score byte.
 The strengthened case passed twice; raw results are in
 `.work/rules19-recovery/multi-installed-1/` and `multi-installed-2/`.
+
+The next six-input installed case added an independent account's grant and
+revoke, preserved the later digit-leading replacement grant, and accounted
+for two paid commands at the original Rules19 price. A UTC-crossing variant
+initially exposed a stale lifecycle error after recovery and a browser-model
+rejection of the authenticated terminal daily economy snapshot. Both were
+corrected narrowly. A fresh installed case crossed midnight, retired the
+ordered old prefix, completed ordinary Rules20 activation and independently
+replayed all public bytes. A separate resource case used a disposable
+test-hook probe only to reduce cycle headroom, reinstalled the exact
+recovery-profile executable before each protected call, and proved both
+preparation and commitment refuse below 500B without changing the pending
+queue or publication. It completed recovery after headroom was restored.
+Full details and failed-run provenance are in
+`RULES20_OBSTRUCTED_RECOVERY.md`.
+
+Hosted source `014b2c8e` exposed a stale `app.mjs` checksum in the Rules20
+frontend review inventory after the observer correction. The source and
+native/financial jobs were distinct from this failed frontend gate.
+The newly built bundle has SHA-256
+`918317491c22559399909178b88d149e04f51af746ae95d117d8c88abf6fee8d`;
+the other four reviewed asset hashes are unchanged. The frozen Rules18
+source/inventory check and local developer frontend assembly now pass with
+that exact pin. Hosted requalification of the corrected source remains due.

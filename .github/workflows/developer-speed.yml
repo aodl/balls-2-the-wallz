@@ -183,6 +183,7 @@ jobs:
           python -B tools/verify_rules20_installed.py \
             --installed .work/rules19-installed.wasm --compact .work/rules19-production.wasm \
             --profile .work/rules19-profile.wasm --candidate .work/prelaunch-trickle.wasm \
+            --protection-probe .work/prelaunch-trickle-probe.wasm \
             --world .work/rules19-paid-world.bin --output .work/ci-rules20-installed
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()

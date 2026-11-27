@@ -1512,31 +1512,38 @@ fn signed_rules19_construction_presentation() {
 #[test]
 #[ignore = "isolated reproduction of the current authorization wire boundary"]
 fn rules19_digit_leading_grant_wire_boundary() {
-    run_rules19_digit_leading_grant_wire_boundary(false, false, false);
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false);
 }
 
 #[test]
 #[ignore = "multiple real pending Rules19 inputs through authenticated recovery"]
 fn rules19_multi_pending_recovery() {
-    run_rules19_digit_leading_grant_wire_boundary(true, false, false);
+    run_rules19_digit_leading_grant_wire_boundary(true, false, false, false);
 }
 
 #[test]
 #[ignore = "ordered Rules19 grants, revoke and payments through installed recovery"]
 fn rules19_grant_revoke_recovery() {
-    run_rules19_digit_leading_grant_wire_boundary(true, true, false);
+    run_rules19_digit_leading_grant_wire_boundary(true, true, false, false);
 }
 
 #[test]
 #[ignore = "Rules19 recovery preparation and commit across UTC tariff midnight"]
 fn rules19_recovery_utc_boundary() {
-    run_rules19_digit_leading_grant_wire_boundary(true, true, true);
+    run_rules19_digit_leading_grant_wire_boundary(true, true, true, false);
+}
+
+#[test]
+#[ignore = "obstructed Rules19 recovery remains fail-closed under disposable resource protection"]
+fn rules19_recovery_resource_protection() {
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false, true);
 }
 
 fn run_rules19_digit_leading_grant_wire_boundary(
     extra_pending: bool,
     revoke_pending: bool,
     cross_utc: bool,
+    protect: bool,
 ) {
     assert!(!revoke_pending || extra_pending);
     assert!(!cross_utc || revoke_pending);
@@ -1760,6 +1767,39 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     )
     .unwrap();
 
+    let refuse_under_protection = |method: &str, argument: Vec<u8>| {
+        let before = pic.cycle_balance(id);
+        let probe = bytes("B2Z_RULES20_PROTECTION_PROBE_WASM");
+        upgrade_during_recovery(&pic, id, &probe).unwrap();
+        let _: Status = get_result(
+            &pic,
+            id,
+            "test_liquid_budget",
+            candid::encode_one(400_000_000_000u64).unwrap(),
+        );
+        upgrade_during_recovery(&pic, id, &candidate).unwrap();
+        assert_eq!(
+            pic.canister_status(id, Some(controller()))
+                .unwrap()
+                .module_hash,
+            Some(dtr_wire::unhex(&dtr_wire::hash(&candidate)).unwrap())
+        );
+        let reply = pic.update_call(id, controller(), method, argument).unwrap();
+        assert_eq!(
+            decode_one::<Result<Vec<u8>, String>>(&reply)
+                .unwrap()
+                .unwrap_err(),
+            "insufficient liquid cycles for safe recovery"
+        );
+        assert_eq!(observe(&pic, id).0.publication, prior.publication);
+        let work: PendingWork = get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+        assert_eq!(work.pending_inputs, pending_count);
+        pic.add_cycles(id, before - pic.cycle_balance(id));
+    };
+    if protect {
+        refuse_under_protection("prepare_rules19_recovery", encode_args(()).unwrap());
+    }
+
     // Positive route: the same durable obstructed journal, without test_apply
     // or input mutation, crosses the authenticated DTR recovery boundary.
     let _: Vec<u8> = get_result(
@@ -1810,6 +1850,12 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         assert_eq!(observe(&pic, id).0.publication, prior.publication);
     }
     let commit_utc_day = pic.get_time().as_nanos_since_unix_epoch() / day_ns;
+    if protect {
+        refuse_under_protection(
+            "commit_rules19_recovery",
+            candid::encode_one(publication.head.manifest_hash.clone()).unwrap(),
+        );
+    }
     let stale = pic
         .update_call(
             id,
@@ -2172,7 +2218,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         }
     }
     assert!(ready, "ordinary Rules20 transition after drained recovery");
-    eprintln!("Rules20 successor drain ready after UTC recovery");
+    eprintln!("Rules20 successor drain ready after Rules19 recovery");
     let _: Vec<u8> = get_result(
         &pic,
         id,
@@ -2275,7 +2321,8 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         serde_json::to_vec_pretty(&json!({
             "status":"PASS","old_manifest":publication.head.manifest_hash,
             "preparation_utc_day":preparation_utc_day,"commit_utc_day":commit_utc_day,
-            "cross_utc":cross_utc,
+            "cross_utc":cross_utc,"resource_protection_checked":protect,
+            "resource_protection_probe_sha256":protect.then(|| dtr_wire::hash(&bytes("B2Z_RULES20_PROTECTION_PROBE_WASM"))),
             "recovery_manifest":recovered_publication.head.manifest_hash,
             "pending_count":pending_count,"grant_position":position,
             "later_payment_position":later_position,"extra_pending_positions":extra_positions,

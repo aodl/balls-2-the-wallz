@@ -15,6 +15,7 @@ CASES = (
     "rules19_multi_pending_recovery",
     "rules19_grant_revoke_recovery",
     "rules19_recovery_utc_boundary",
+    "rules19_recovery_resource_protection",
     "rules20_paid_epoch_and_recovery",
     "rules20_paid_construction_over_existing_balls",
     "rules20_paid_threshold_population",
@@ -30,11 +31,15 @@ def main():
     parser.add_argument("--compact", type=Path, required=True)
     parser.add_argument("--profile", type=Path, required=True)
     parser.add_argument("--candidate", type=Path, required=True)
+    parser.add_argument("--protection-probe", type=Path,
+                        help="same-source disposable test-hooks module for the resource-protection case")
     parser.add_argument("--world", type=Path, required=True)
     parser.add_argument("--artifacts", type=Path, default=Path.home() / "dtr-s09-artifacts")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--case", choices=CASES, action="append")
     args = parser.parse_args()
+    if "rules19_recovery_resource_protection" in (args.case or CASES) and not args.protection_probe:
+        parser.error("the resource-protection case requires --protection-probe")
 
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)
@@ -53,6 +58,8 @@ def main():
         "B2Z_RULES20_CANDIDATE_WASM": str(args.candidate.resolve()),
         "B2Z_COST_WORLD": str(args.world.resolve()),
     }
+    if args.protection_probe:
+        env["B2Z_RULES20_PROTECTION_PROBE_WASM"] = str(args.protection_probe.resolve())
     report = {
         "source": subprocess.check_output(["git", "rev-parse", "HEAD"], text=True).strip(),
         "candidate_sha256": sha256(args.candidate),

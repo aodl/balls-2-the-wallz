@@ -191,10 +191,34 @@ Its first resumed segment retired the six retained inputs from source interval
 Rules20 path accounted for a separate payment at position 9, advancing the source
 interval to 10. Received value was 408,100,000 e8s after old-prefix
 recovery and 708,100,000 e8s after the later payment. The installed case
+sent that later official payment after the recovery checkpoint while the
+old-prefix segment was still pending; the authenticated source fence kept it
+out of Rules19 execution and admitted it only after ordinary Rules20 cutover.
+It therefore also exercises an additional source record arriving during
+recovery. The installed case
 included same-ID restart, exact predecessor rejection after recovery, and
 independent JavaScript replay of all state, event and score bytes through
 both checkpoints and both paid segments. The corrected executable SHA-256 is
 `a40589a203c86ab2d66ec60fc28fa140f074394e977d4815297b416729e36c9a`.
-This closes the specific UTC-crossing case; expiry, the reserved-stage
-application boundary, source arrivals during recovery and resource protection
-remain separate gates.
+This closes the specific UTC-crossing case; expiry and the reserved-stage
+application boundary remain separate gates.
+
+## Resource protection, 27 November
+
+The exact Rules20 recovery-profile executable
+`a40589a203c86ab2d66ec60fc28fa140f074394e977d4815297b416729e36c9a`
+passed a further installed case using the original two genuine pending
+inputs. A separate same-source disposable test-hook module
+`0f3cb0fd5dddbf7d7b8c5fc16671baa76b3ca900a407f49d1689b4d0be48bb26`
+lowered liquid cycles to 400B before each protected operation, then the
+exact recovery executable was reinstalled before the controller call.
+Preparation and commitment each refused with `insufficient liquid cycles for
+safe recovery`; the old committed publication and pending-input count stayed
+unchanged. Disposable headroom was restored between calls. The same queue
+then recovered normally, retired once, activated Rules20 and passed
+independent JavaScript replay. Raw execution is under
+`.work/rules19-recovery/protection-installed-2/`. The initial attempt used
+the release executable to invoke the test-only balance hook and was stopped
+as an invalid fixture; it is not counted as a qualification result.
+
+Expiry and the reserved-stage application boundary remain open.
