@@ -1,9 +1,16 @@
 import {marginal} from '../../protocol/economy17.mjs';
-import {BALL_BASE_E8S} from '../../protocol/economy17.generated.mjs';
+import {BALL_BASE_E8S,DAY_NS} from '../../protocol/economy17.generated.mjs';
 
 // The tariff supplies its authenticated population symbolically. Reject an
 // amount beyond the Ledger bound before evaluating its exponential factor.
 const MAX_LEDGER_AMOUNT=(1n<<64n)-1n;
+export function successorFormulaStart(predecessorNs,activationNs){
+ if(typeof activationNs!=='bigint'||activationNs<predecessorNs)throw Error('SUCCESSOR_TARIFF_TIME_ROLLBACK');
+ const start=(activationNs/DAY_NS+2n)*DAY_NS;
+ if(start>MAX_LEDGER_AMOUNT)throw Error('SUCCESSOR_TARIFF_BOUNDARY_OVERFLOW');
+ return start;
+}
+
 function isCount(n){return Number.isInteger(n)&&n>=0&&n<=0xffff_ffff;}
 
 export function marginalPrice(baseE8s,population,currentPersonalCount){

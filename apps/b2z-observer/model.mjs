@@ -1,6 +1,6 @@
 import {emptyAuthorization,verifyAuthorizationReceipts,validateAuthorization} from '../../packages/kernels/b2z/delegation-v18.mjs';
 import {authorizationV3FromV2,authorizePaymentV3,validateAuthorizationV3} from '../../packages/kernels/b2z/delegation-v20.mjs';
-import {DAY_NS} from '../../packages/protocol/economy17.generated.mjs';
+import {successorFormulaStart} from '../../packages/kernels/b2z/economy20.mjs';
 import {migrateEconomy,validateEconomy,participatingPlayers,observeEconomy} from '../../packages/kernels/b2z/economy17.mjs';
 import {reservoirSites,reservoirOccupancy,validateReservoirs,migrateReservoirEncoding} from '../../packages/protocol/reservoir.mjs';
 import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorOperation,applyDeflectorRemovals,matchesDeflectors}from'./model-deflector.mjs';
@@ -348,13 +348,13 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
   if(kind==='rules20_activated'){
     check(initial.version===11&&final.version===12&&publication.version===8&&publication.epoch.version===2&&events.events.length===1,'Rules20 checkpoint format');
     check(identityMatches(prior.identity,COMPACT_RESERVOIR_IDENTITY)&&identityMatches(publication.identity,RULES20_IDENTITY),'Rules20 exact identities');
-    const expected={version:16,migration:'B2Z_RULES_20',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:publication.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context?.ledger_cutover,account_history_complete_through:context?.ledger_cutover,index_synced:context?.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:12,memo_adapter_after:12};
+    const expected={version:16,migration:'B2Z_RULES_20',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:publication.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context?.ledger_cutover,account_history_complete_through:context?.ledger_cutover,index_synced:context?.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:12,memo_adapter_after:12,activation_observed_ns:context?.activation_observed_ns};
     check(context&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash&&typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'Rules20 checkpoint source commitment');
     // Keep the checkpoint projection browser-safe. The authoritative world module
     // uses Node crypto and cannot enter the embedded frontend dependency graph.
     const projected=structuredClone(initial);
     projected.authorization=authorizationV3FromV2(projected.authorization);
-    projected.economy_formula_start_ns=(projected.playability.elapsed_ns/DAY_NS+2n)*DAY_NS;
+    projected.economy_formula_start_ns=successorFormulaStart(projected.playability.elapsed_ns,context.activation_observed_ns);
     projected.version=12;
     check(sameCanonical(final,projected),'Rules20 checkpoint preserved world');
   }else if(kind==='reservoir_encoding_compacted'){

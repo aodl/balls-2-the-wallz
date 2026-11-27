@@ -15,14 +15,16 @@ const fixture=JSON.parse(readFileSync(new URL('../fixtures/b2z-delegation-v18.js
 function checkpoint(){
   const historical=decodeWorld(Buffer.from(fixture.execution.state,'hex'));
   historical.reservoirs='';
-  const before=migrateCompactReservoirs(historical),after=migrateAuthorizationRows(before);
+  const before=migrateCompactReservoirs(historical),day=86400000000000n;
+  const activationNs=(before.playability.elapsed_ns/day+1n)*day;
+  const after=migrateAuthorizationRows(before,activationNs);
   const initial=encodeWorld(before),state=encodeWorld(after),source_id='rules20-checkpoint-fixture';
   const prior={identity:{...COMPACT_RESERVOIR_IDENTITY,source_id},head:{state_hash:sha256(initial),logical_end:before.time[0],source_to_exclusive:2n,seal:{source_anchor:'ab'.repeat(32)}}};
   const identity={...RULES20_IDENTITY,source_id};
   const context={version:16,migration:'B2Z_RULES_20',old_identity:prior.identity,new_identity:identity,
     previous_state:prior.head.state_hash,new_state:sha256(state),logical_boundary:before.time,
     source_cursor:2n,ledger_cutover:2n,account_history_complete_through:2n,index_synced:2n,
-    source_anchor:prior.head.seal.source_anchor,memo_adapter_before:12,memo_adapter_after:12};
+    source_anchor:prior.head.seal.source_anchor,memo_adapter_before:12,memo_adapter_after:12,activation_observed_ns:activationNs};
   const events=encodeCanonical({version:12,receipts:[],events:[{kind:'rules20_activated',sequence:0,time:before.time,context}]});
   const scores=encodeCanonical({version:12,area_time:[]});
   const artifacts={state,events,scores};
@@ -38,6 +40,7 @@ test('Rules20 checkpoint verifies the exact paid predecessor migration and sourc
   assert.equal(segment.checkpoint,true);
   assert.equal(segment.final.version,12);
   assert.deepEqual(segment.final,row.after);
+  assert.equal(segment.final.economy_formula_start_ns,row.context.activation_observed_ns+2n*86400000000000n);
   assert.deepEqual(snapshot(row.artifacts.state,row.publication.identity),row.after);
 });
 

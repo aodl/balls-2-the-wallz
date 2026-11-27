@@ -663,6 +663,7 @@ pub fn rules20_candidate<K: Kernel>(
     h: &Coordinator<K>,
     t: &Transition,
     source: &SourceState,
+    observed_ns: u64,
 ) -> Result<(Output, Vec<u8>, Identity)> {
     schema7_candidate(
         h,
@@ -671,7 +672,7 @@ pub fn rules20_candidate<K: Kernel>(
         b2z_native::reservoirs::compact_identity(),
         b2z_native::delegation_v20::identity(),
         Schema7Cutover {
-            bootstrap_ns: None,
+            bootstrap_ns: Some(observed_ns),
             version: 16,
             migration: "B2Z_RULES_20",
             event: "rules20_activated",
@@ -756,7 +757,7 @@ fn schema7_candidate<K: Kernel>(
         return Err("noncanonical state at schema7 cutover".into());
     }
     let next = if policy.version == 16 {
-        b2z_native::delegation_v20::migrate(old.clone())?
+        b2z_native::delegation_v20::migrate_at(old.clone(), policy.bootstrap_ns.unwrap())?
     } else if let Some(ns) = policy.bootstrap_ns {
         b2z_native::economy17::migrate(old.clone(), ns)?
     } else if policy.version == 15 {
@@ -784,6 +785,9 @@ fn schema7_candidate<K: Kernel>(
     }
     if policy.version == 14 {
         metadata["recipient"] = json!(source.recipient_hex);
+    }
+    if policy.version == 16 {
+        metadata["activation_observed_ns"] = json!(Int(policy.bootstrap_ns.unwrap().into()));
     }
     Ok((
         Output {

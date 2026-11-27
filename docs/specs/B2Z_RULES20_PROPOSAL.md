@@ -39,12 +39,15 @@ tie-breaking and fixed-price actions retain their prior meaning.
 The Schema12 draft stores `economy_formula_start_ns` as an exact UTC midnight
 boundary, in addition to the existing authenticated daily population
 schedule. It is the effective boundary of the first tariff observed after
-the successor epoch. Earlier tariff snapshots keep the historical linear
+the successor epoch, with at least one full UTC announcement day. Earlier
+tariff snapshots keep the historical linear
 formula; successor snapshots at or after this boundary use the symbolic
 exponential formula. At a grace boundary, the active and previous snapshot
 each carry their own formula meaning. The value is computed from the
-predecessor committed clock during migration, not from a browser clock. This
-field is encoded identically by the Rust and JavaScript Schema12 migrations.
+replica time committed in authenticated activation metadata. Activation
+time must be at or after the predecessor's committed clock. Preparation can
+cross midnight without advancing that clock, so preparation time cannot
+select the formula boundary. Rust and JavaScript derive the same boundary.
 The successor payment continuation now carries a tagged
 `tariff20` record containing immutable Ledger block time and the selected
 linear multiplier or exponential population. Rules17–19 retain their original

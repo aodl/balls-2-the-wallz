@@ -4316,7 +4316,9 @@ fn commit_structure_transition(
         StructureEpoch::CompactReservoir => {
             playability_runtime::compact_reservoir_candidate(&h, t, &r.source)?
         }
-        StructureEpoch::Rules20 => playability_runtime::rules20_candidate(&h, t, &r.source)?,
+        StructureEpoch::Rules20 => {
+            playability_runtime::rules20_candidate(&h, t, &r.source, ic_cdk::api::time())?
+        }
     };
     let epoch = h.prepare_transition(identity, &output, hash(&metadata))?;
     h.apply(Action::Transition {

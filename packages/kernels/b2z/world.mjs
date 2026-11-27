@@ -1,3 +1,4 @@
+import {successorFormulaStart} from './economy20.mjs';
 import {DELEGATION_ADAPTER,DELEGATION_LIFETIME_NS} from '../../protocol/delegation.mjs';
 import {emptyAuthorization,validateAuthorization} from './delegation-v18.mjs';
 import {authorizationV3FromV2,validateAuthorizationV3} from './delegation-v20.mjs';
@@ -126,15 +127,13 @@ export function migrateCompactReservoirs(predecessor) {
 }
 
 /** State-only Schema12 conversion; authenticated activation belongs to the host. */
-export function migrateAuthorizationRows(predecessor) {
+export function migrateAuthorizationRows(predecessor,activationNs=predecessor.playability?.elapsed_ns) {
   if(predecessor.version!==11)throw Error('AUTH_V3_PREDECESSOR');
   const next=cloneCanonical(validateWorld(predecessor));
   next.authorization=authorizationV3FromV2(next.authorization);
   // Existing announced prices stay linear. The first successor observation
   // occurs at the next midnight and takes effect at the midnight after it.
-  const start=(next.playability.elapsed_ns/DAY_NS+2n)*DAY_NS;
-  if(start>18446744073709551615n)throw Error('SUCCESSOR_TARIFF_BOUNDARY_OVERFLOW');
-  next.economy_formula_start_ns=start;
+  next.economy_formula_start_ns=successorFormulaStart(next.playability.elapsed_ns,activationNs);
   next.version=12;
   return validateWorld(next);
 }

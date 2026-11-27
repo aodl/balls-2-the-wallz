@@ -237,7 +237,21 @@ impl RegistryV3 {
 
 /// Exact state-only successor transition. The authenticated host must still
 /// establish its source cutoff and commit boundary before publishing this state.
-pub fn migrate(mut predecessor: crate::world::World) -> Result<crate::world::World> {
+pub fn migrate(predecessor: crate::world::World) -> Result<crate::world::World> {
+    let observed_ns = crate::playability::elapsed(
+        &predecessor
+            .playability
+            .as_ref()
+            .ok_or("EXPECTED_V6")?
+            .elapsed_ns,
+    )?;
+    migrate_at(predecessor, observed_ns)
+}
+
+pub fn migrate_at(
+    mut predecessor: crate::world::World,
+    observed_ns: u64,
+) -> Result<crate::world::World> {
     predecessor.validate()?;
     if predecessor.version != 11 {
         return Err("AUTH_V3_PREDECESSOR".into());
@@ -258,7 +272,10 @@ pub fn migrate(mut predecessor: crate::world::World) -> Result<crate::world::Wor
             .ok_or("EXPECTED_V6")?
             .elapsed_ns,
     )?;
-    let formula_start = elapsed
+    if observed_ns < elapsed {
+        return Err("SUCCESSOR_TARIFF_TIME_ROLLBACK".into());
+    }
+    let formula_start = observed_ns
         .checked_div(day)
         .and_then(|days| days.checked_add(2))
         .and_then(|days| days.checked_mul(day))

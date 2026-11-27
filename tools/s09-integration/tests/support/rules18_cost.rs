@@ -136,6 +136,84 @@ fn seed(case: &str) -> World {
     world
 }
 
+fn seed_symbolic_population(target: u32) -> World {
+    let mut world = seed("two_ball");
+    let additions = target as usize - b2z_native::economy17::population(&world) as usize;
+    let elapsed = world.playability.as_ref().unwrap().elapsed_ns.clone();
+    let deadline = Int(&elapsed.0 + playability::DORMANCY_GRACE_NS);
+    let mut accounts = world
+        .cannons
+        .iter()
+        .map(|c| c.account.clone())
+        .collect::<std::collections::BTreeSet<_>>();
+    let sites = (50usize..950)
+        .step_by(8)
+        .flat_map(|y| (50usize..950).step_by(8).map(move |x| (x, y)))
+        .filter(|&(x, y)| {
+            (y - 1..=y + 1)
+                .all(|row| (x - 1..=x + 1).all(|col| world.owner(row * 1000 + col) == Some(0)))
+                && world.cannons.iter().all(|c| {
+                    let cx = c.cell % 1000;
+                    let cy = c.cell / 1000;
+                    cx.abs_diff(x).max(cy.abs_diff(y)) >= 4
+                })
+        })
+        .take(additions)
+        .collect::<Vec<_>>();
+    assert_eq!(
+        sites.len(),
+        additions,
+        "isolated synthetic population sites"
+    );
+    // Dormant, one-tile retained Cannons count as participating accounts. The
+    // grid spacing keeps this synthetic tariff fixture away from real anchors.
+    for (n, (x, y)) in sites.into_iter().enumerate() {
+        let mut principal_seed = [0u8; 32];
+        principal_seed[..4].copy_from_slice(&(n as u32).to_le_bytes());
+        principal_seed[31] = 0x20;
+        let account = AccountIdentifier::new(
+            &Principal::self_authenticating(principal_seed),
+            &DEFAULT_SUBACCOUNT,
+        )
+        .to_hex();
+        assert!(accounts.insert(account.clone()), "unique synthetic account");
+        let state = world.playability.as_mut().unwrap();
+        let player = state.next_player_id;
+        let territory = state.next_territory_id;
+        let cannon = world.next_cannon_id;
+        state.next_player_id += 1;
+        state.next_territory_id += 1;
+        state.players.push(playability::Player {
+            id: player,
+            account: account.clone(),
+        });
+        state.territories.push(Territory {
+            id: territory,
+            player,
+        });
+        state.lifecycle.push(playability::Lifecycle {
+            cannon,
+            player,
+            generation: 1,
+            dormant_since_ns: Some(elapsed.clone()),
+            deadline_ns: Some(deadline.clone()),
+        });
+        world.next_cannon_id += 1;
+        world.cannons.push(Cannon {
+            id: cannon,
+            account,
+            cell: y * 1000 + x,
+            heading: Some(0),
+        });
+        world
+            .set_owner_range(y * 1000 + x, y * 1000 + x + 1, 0, territory)
+            .unwrap();
+    }
+    assert_eq!(b2z_native::economy17::population(&world), target);
+    world.validate().unwrap();
+    world
+}
+
 fn profile(pic: &PocketIc, id: Principal, instrumented: bool) -> Option<Value> {
     instrumented.then(|| {
         let value: String = get_query(pic, id, "test_cost_profile", encode_args(()).unwrap());
@@ -1405,17 +1483,26 @@ fn rules19_digit_leading_grant_wire_boundary() {
                 .is_ascii_digit()
         })
         .unwrap();
+    let other = Principal::self_authenticating([9; 32]);
+    assert_ne!(other, payer);
     let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers_options(
         bytes("B2Z_COST_PROFILE_WASM"),
         seed("two_ball").encode().unwrap(),
         10_000,
         0,
-        &[payer],
+        &[payer, other],
         true,
     );
     let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
     compact_cutover(&pic, id, ledger, &compact, &out);
-    upgrade_during_recovery(&pic, id, &bytes("B2Z_CONSTRUCTION_PRIOR_WASM")).unwrap();
+    let installed = bytes("B2Z_RULES20_INSTALLED_WASM");
+    let installed_sha256 = dtr_wire::hash(&installed);
+    assert_eq!(
+        installed_sha256,
+        "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90"
+    );
+    upgrade_during_recovery(&pic, id, &installed).unwrap();
+    playability_installed::one_tick(&pic, id);
     let (prior, publication) = capture(&pic, id, &out, 0);
     let prior_received = arena_world(&pic, id).received_e8s;
     let spender = Principal::self_authenticating([77; 32]);
@@ -1452,7 +1539,6 @@ fn rules19_digit_leading_grant_wire_boundary() {
 
     // The failed publication is not a Ledger rollback. Probe the independent
     // source cursor, a normal retry, and stable-module recovery separately.
-    let other = Principal::self_authenticating([9; 32]);
     let later_position = transfer_text(&pic, ledger, other, id, 100_000_000, b"NEW 0 1");
     for _ in 0..180 {
         advance(&pic, 1000);
@@ -1471,7 +1557,7 @@ fn rules19_digit_leading_grant_wire_boundary() {
     }
     let after_retry = status(&pic, id);
     assert_eq!(observe(&pic, id).0.publication, prior.publication);
-    upgrade_during_recovery(&pic, id, &bytes("B2Z_CONSTRUCTION_PRIOR_WASM")).unwrap();
+    upgrade_during_recovery(&pic, id, &installed).unwrap();
     let after_upgrade = status(&pic, id);
     playability_installed::configuration(&pic, id, 512);
     advance(&pic, 100_000);
@@ -1493,10 +1579,63 @@ fn rules19_digit_leading_grant_wire_boundary() {
         final_world.received_e8s, prior_received,
         "no later transfer may be falsely reported as applied while publication is blocked"
     );
+    assert_eq!(
+        after_later_payment.source.admitted_to_exclusive,
+        later_position + 1
+    );
+    assert_eq!(after_retry.run.last_error.as_deref(), Some(error));
+    assert_eq!(after_upgrade.run.last_error.as_deref(), Some(error));
+    assert_eq!(after_upgrade_retry.run.last_error.as_deref(), Some(error));
+    assert_eq!(pending.pending_inputs, 2);
+    assert_eq!(final_observation.publication, prior.publication);
+
+    let candidate = bytes("B2Z_RULES20_CANDIDATE_WASM");
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    let prepare = || -> Result<Vec<u8>, String> {
+        let reply = pic
+            .update_call(
+                id,
+                controller(),
+                "prepare_rules20_transition",
+                encode_args(()).unwrap(),
+            )
+            .expect("preparation call must return an application result");
+        candid::decode_one(&reply).unwrap()
+    };
+    // Let the upgrade's independent Index check settle. The actual
+    // obstruction must survive a clean source scan and a compatible upgrade.
+    for _ in 0..180 {
+        advance(&pic, 1000);
+        let source = status(&pic, id).source;
+        if !source.scan_in_flight && source.pending_records == 0 && source.last_error.is_none() {
+            break;
+        }
+    }
+    let after_successor_upgrade = status(&pic, id);
+    assert_eq!(
+        after_successor_upgrade.run.last_error.as_deref(),
+        Some(error)
+    );
+    assert_eq!(
+        after_successor_upgrade.source.admitted_to_exclusive,
+        later_position + 1
+    );
+    let preparation_error = prepare().unwrap_err();
+    assert_eq!(
+        preparation_error,
+        "finish existing source reconciliation and recover errors before cutover"
+    );
+    assert_eq!(observe(&pic, id).0.publication, prior.publication);
+    let successor_pending: PendingWork =
+        get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+    assert_eq!(successor_pending.pending_inputs, 2);
+
     std::fs::write(
         out.join("digit-leading-grant.json"),
         serde_json::to_vec_pretty(&json!({
             "status":"REPRODUCED","scope":"genuine disposable Rules19 Ledger/Index and installed backend",
+            "installed_sha256":installed_sha256,"candidate_sha256":dtr_wire::hash(&candidate),
+            "normal_transition_preparation_error":preparation_error,
             "funding_account_key_begins_with_digit":true,"grant_position":position,
             "source_cursor":state.source.admitted_to_exclusive,"published_head":publication.head.segment_id,
             "published_head_preserved":true,"run_error":error,"running":state.run.running,
@@ -1608,6 +1747,10 @@ fn rules20_paid_epoch_and_recovery() {
     upgrade_during_recovery(&pic, id, &candidate).unwrap();
     assert_eq!(observe(&pic, id).0.publication, before_obs.publication);
     assert!(transition_drained(&pic, id));
+    let day = b2z_protocol::economy17::DAY_NS;
+    let prepared_ns = pic.get_time().as_nanos_since_unix_epoch();
+    let midnight = (prepared_ns / day + 1) * day;
+    pic.advance_time(Duration::from_nanos(midnight - prepared_ns + 1_000_000_000));
     let _: Vec<u8> = get_result(
         &pic,
         id,
@@ -1618,7 +1761,11 @@ fn rules20_paid_epoch_and_recovery() {
     let (after_obs, after_pub) = capture(&pic, id, &out, 1);
     assert_eq!(
         after,
-        b2z_native::delegation_v20::migrate(before.clone()).unwrap()
+        b2z_native::delegation_v20::migrate_at(before.clone(), midnight).unwrap()
+    );
+    assert_eq!(
+        after.economy_formula_start_ns,
+        Some(Int((midnight + 2 * day).into()))
     );
     assert_eq!(after.received_e8s, received);
     assert_eq!(status(&pic, id).source.admitted_to_exclusive, source_cursor);
@@ -1799,6 +1946,193 @@ fn rules20_paid_epoch_and_recovery() {
             "same_candidate_recovery":true,
         })).unwrap(),
     ).unwrap();
+}
+
+#[test]
+#[ignore = "disposable authenticated Rules20 high-population Ledger/Index tariff"]
+fn rules20_paid_symbolic_population() {
+    run_rules20_paid_symbolic_population(1001, Some(2_000_000_000));
+}
+
+#[test]
+#[ignore = "disposable authenticated Rules20 threshold Ledger/Index tariff"]
+fn rules20_paid_threshold_population() {
+    run_rules20_paid_symbolic_population(1000, Some(1_000_000_000));
+}
+
+#[test]
+#[ignore = "disposable authenticated Rules20 second doubling Ledger/Index tariff"]
+fn rules20_paid_second_doubling_population() {
+    run_rules20_paid_symbolic_population(1002, Some(4_000_000_000));
+}
+
+#[test]
+#[ignore = "disposable authenticated Rules20 unrepresentable Ledger/Index tariff"]
+fn rules20_paid_unrepresentable_population() {
+    run_rules20_paid_symbolic_population(1035, None);
+}
+
+fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
+    let expect_applied = exact_price.is_some();
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
+        .join(format!("rules20-symbolic-population-{target}"));
+    std::fs::create_dir_all(&out).unwrap();
+    let population = seed_symbolic_population(target);
+    let payer = Principal::self_authenticating([99; 32]);
+    let (pic, id, ledger, payer) = arena_setup_world_fee_clock_payers_options(
+        bytes("B2Z_COST_PROFILE_WASM"),
+        population.encode().unwrap(),
+        10_000,
+        0,
+        &[payer],
+        true,
+    );
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    compact_cutover(&pic, id, ledger, &compact, &out);
+    playability_installed::one_tick(&pic, id);
+    let candidate = bytes("B2Z_RULES20_CANDIDATE_WASM");
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    playability_installed::prepare(&pic, id, "prepare_rules20_transition");
+    let mut ready = false;
+    for _ in 0..1800 {
+        let raw: Vec<u8> = get_query(
+            &pic,
+            id,
+            "rules20_transition_status",
+            encode_args(()).unwrap(),
+        );
+        let view: serde_json::Value = dtr_wire::decode(&raw).unwrap();
+        if view["transition"]["phase"] == "ready" && transition_drained(&pic, id) {
+            ready = true;
+            break;
+        }
+        advance(&pic, 1000);
+    }
+    assert!(ready, "high-population source must drain before epoch");
+    let (_, before_pub) = capture(&pic, id, &out, 0);
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_rules20_transition",
+        candid::encode_one(before_pub.head.manifest_hash).unwrap(),
+    );
+    let after = arena_world(&pic, id);
+    assert_eq!(after.version, 12);
+    assert_eq!(b2z_native::economy17::population(&after), target);
+    let formula_start =
+        b2z_native::playability::elapsed(after.economy_formula_start_ns.as_ref().unwrap()).unwrap();
+    let first_boundary = formula_start - b2z_protocol::economy17::DAY_NS;
+    let now = pic.get_time().as_nanos_since_unix_epoch();
+    assert!(now < first_boundary);
+    advance(&pic, (first_boundary + 1_000_000_000 - now) / 1_000_000);
+    playability_installed::one_tick(&pic, id);
+    let observed = arena_world(&pic, id);
+    assert_eq!(
+        observed
+            .economy
+            .as_ref()
+            .unwrap()
+            .snapshots
+            .last()
+            .unwrap()
+            .population,
+        target
+    );
+    let now = pic.get_time().as_nanos_since_unix_epoch();
+    assert!(now < formula_start);
+    // Isolate the current formula. A separate grace test must exercise
+    // fallback to the previous linear tariff for the same valid payment.
+    let block_offset = b2z_protocol::economy17::GRACE_NS + 1_000_000_000;
+    advance(&pic, (formula_start + block_offset - now) / 1_000_000);
+    let (_, before_payment) = capture(&pic, id, &out, 1);
+    let amount = exact_price.unwrap_or(2_000_000_000);
+    let position = transfer_text(&pic, ledger, payer, id, amount, b"NEW 0 1");
+    let before_cannons = observed.cannons.len();
+    let mut indexed = false;
+    for _ in 0..600 {
+        advance(&pic, 1000);
+        if status(&pic, id).source.admitted_to_exclusive > position {
+            assert_eq!(arena_world(&pic, id).cannons.len(), before_cannons);
+            indexed = true;
+            break;
+        }
+    }
+    assert!(indexed, "paused source must index the genuine payment");
+    let before_segments = status(&pic, id).run.completed_segments;
+    playability_installed::configuration(&pic, id, 512);
+    let mut published = false;
+    for _ in 0..600 {
+        advance(&pic, 1000);
+        let current = arena_world(&pic, id);
+        if status(&pic, id).run.completed_segments > before_segments {
+            assert!(status(&pic, id).run.last_error.is_none());
+            assert_eq!(
+                current.cannons.len(),
+                before_cannons + usize::from(expect_applied)
+            );
+            published = true;
+            break;
+        }
+    }
+    assert!(
+        published,
+        "authentic high-population Ledger receipt must publish"
+    );
+    let (_, paid_pub) = capture(&pic, id, &out, 2);
+    let paid_events: Value = decode(&std::fs::read(out.join("2-events.bin")).unwrap()).unwrap();
+    let receipt = paid_events["receipts"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|row| row["position"]["$integer"] == position.to_string())
+        .expect("genuine payment receipt");
+    assert_eq!(receipt["status"] == "applied", expect_applied);
+    assert_eq!(receipt["price_tariff"]["formula"], "exponential");
+    assert_eq!(receipt["price_tariff"]["population"], target);
+    if expect_applied {
+        assert_eq!(receipt["amount_used"]["$integer"], amount.to_string());
+        assert_eq!(
+            receipt["per_item_prices"][0]["$integer"],
+            amount.to_string()
+        );
+    } else {
+        assert_eq!(receipt["amount_used"]["$integer"], "0");
+        assert_eq!(receipt["remainder"]["$integer"], amount.to_string());
+    }
+    let expected = BTreeMap::from([(position, ("ACCEPTED".into(), 0, None))]);
+    let inputs = super::delegation_installed::official_inputs(&pic, id, &expected)
+        .into_iter()
+        .map(|(payment, _)| b2z_native::Input {
+            position: Int(payment.position.into()),
+            payload_hex: hex(&payment.encode().unwrap()),
+        })
+        .collect::<Vec<_>>();
+    std::fs::write(out.join("2-inputs.bin"), dtr_wire::encode(&inputs).unwrap()).unwrap();
+    let independent = std::process::Command::new("node")
+        .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+        .arg("tools/verify_rules20_paid_segment.mjs")
+        .arg(&out)
+        .output()
+        .unwrap();
+    assert!(
+        independent.status.success(),
+        "independent tariff replay: {}{}",
+        String::from_utf8_lossy(&independent.stdout),
+        String::from_utf8_lossy(&independent.stderr)
+    );
+    std::fs::write(
+        out.join("results.json"),
+        serde_json::to_vec_pretty(&json!({
+            "status":"PASS", "population":target, "payment_e8s":amount,
+            "ledger_position":position, "candidate_sha256":dtr_wire::hash(&candidate),
+            "formula_start_ns":formula_start, "publication":paid_pub.head.segment_id,
+            "predecessor_publication":before_payment.head.segment_id,
+            "receipt_tariff":"exponential", "receipt_reason":receipt["reason"],
+            "applied":expect_applied, "independent_replay":true,
+        }))
+        .unwrap(),
+    )
+    .unwrap();
 }
 
 #[test]
