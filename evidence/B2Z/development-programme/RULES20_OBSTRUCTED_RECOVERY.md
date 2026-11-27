@@ -351,3 +351,38 @@ six-input UTC-crossing prepared-restart case under
 `.work/rules19-recovery/expiry-utc-regression-1/`. Those runs keep the
 ordinary recovery and previously qualified interruption path distinct from
 the new expired-delegation proof.
+
+## Finite overdue lifecycle barrier, 27 November
+
+The exact installed Rules19 executable was installed over a disposable world
+with two moving Balls and a separate dormant Cannon. It admitted a genuine
+digit-leading grant at Ledger position 3 and an unrelated valid payment at
+position 4 before the dormant deadline became due. The grant stopped
+authoritative publication with both original inputs pending. The finite
+lifecycle barrier was present and ready against the admitted source frontier;
+ordinary Rules20 preparation refused the obstructed predecessor. The same
+recovery executable SHA-256 `1d6f231ef8f1a07d94d7eba1b0cec04964dde22611a10dab3ef01edefae473b0`
+authenticated the barrier and original obligations, recovered and retired
+both inputs once, and fenced the old Ledger/Index prefix.
+
+The overdue Cannon then expired in a genuine predecessor lifecycle
+checkpoint. During subsequent Rules20 preparation, a further sealed
+zero-input Rules19 interval committed. Earlier attempts' stale manifests
+were correctly rejected by compare-and-swap; the successful route retained
+both intervening publications and committed against the actual latest head.
+No source input crossed the old-policy fence. The source cursor advanced to
+6 after a later valid Rules20 payment. Received value was 208,100,000 e8s
+at successor activation and 508,100,000 e8s after that payment. Independent
+JavaScript replay matched the public state, event and score bytes for the
+recovered two-input segment, the zero-input predecessor interval and the
+later successor payment, while preserving the historical committed heads.
+The installed case passed in 417.43 seconds under
+`.work/rules19-recovery/barrier-14/`.
+
+Earlier `barrier-1` through `barrier-13` attempts remain raw fixture and
+assertion evidence. The useful failed observations established source
+backpressure before admission, the requirement for a sealed predecessor,
+the ordinary transition refusal, and the stale-manifest compare-and-swap.
+They are not positive recovery results. The final fixture uses only the
+actual same-ID upgrade, authenticated recovery and ordinary successor
+transition for the positive path.

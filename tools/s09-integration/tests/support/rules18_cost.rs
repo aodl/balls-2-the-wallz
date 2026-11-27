@@ -60,6 +60,7 @@ fn seed(case: &str) -> World {
         }
     }
     let (players, balls_per_player) = match case {
+        "barrier" => (1, 0),
         "moderate" => (4, 3),
         "large" => (14, 6),
         _ => (0, 0),
@@ -131,6 +132,23 @@ fn seed(case: &str) -> World {
             world.next_ball_id += 1;
         }
         b2z_native::reservoirs::place(&mut world, (y + 6) * 1000 + x + 11).unwrap();
+    }
+    if case == "barrier" {
+        let s = world.playability.as_mut().unwrap();
+        let elapsed = s.elapsed_ns.clone();
+        let life = s.lifecycle.last_mut().unwrap();
+        life.dormant_since_ns = Some(elapsed.clone());
+        life.deadline_ns = Some(Int(&elapsed.0 + playability::DORMANCY_GRACE_NS));
+        let cell = world.cannons.last().unwrap().cell;
+        let territory = world.owner(cell).unwrap();
+        let x = cell % 1000;
+        let y = cell / 1000;
+        for row in y..y + 7 {
+            let start = row * 1000 + x + usize::from(row == y);
+            world
+                .set_owner_range(start, row * 1000 + x + 12, territory, 0)
+                .unwrap();
+        }
     }
     world.validate().unwrap();
     world
@@ -1704,6 +1722,14 @@ fn rules19_expired_delegation_recovery() {
     run_rules19_digit_leading_grant_wire_boundary(false, false, false, false, false, false, true);
 }
 
+#[test]
+#[ignore = "overdue Rules19 lifecycle barrier and pending grant through authenticated recovery"]
+fn rules19_overdue_lifecycle_barrier_recovery() {
+    run_rules19_digit_leading_grant_wire_boundary_seed(
+        false, false, false, false, false, false, false, true,
+    );
+}
+
 fn run_rules19_digit_leading_grant_wire_boundary(
     extra_pending: bool,
     revoke_pending: bool,
@@ -1713,10 +1739,33 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     partial_stage: bool,
     expired_delegate: bool,
 ) {
+    run_rules19_digit_leading_grant_wire_boundary_seed(
+        extra_pending,
+        revoke_pending,
+        cross_utc,
+        protect,
+        reserved_stage,
+        partial_stage,
+        expired_delegate,
+        false,
+    );
+}
+
+fn run_rules19_digit_leading_grant_wire_boundary_seed(
+    extra_pending: bool,
+    revoke_pending: bool,
+    cross_utc: bool,
+    protect: bool,
+    reserved_stage: bool,
+    partial_stage: bool,
+    expired_delegate: bool,
+    barrier_due: bool,
+) {
     assert!(!revoke_pending || extra_pending);
     assert!(!cross_utc || revoke_pending);
     assert!(!partial_stage || reserved_stage);
     assert!(!expired_delegate || !reserved_stage);
+    assert!(!barrier_due || !reserved_stage);
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
     let payer = (0..=u8::MAX)
@@ -1734,7 +1783,9 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     assert_ne!(third, payer);
     let (pic, id, ledger, _) = arena_setup_world_fee_clock_payers_options(
         bytes("B2Z_COST_PROFILE_WASM"),
-        seed("two_ball").encode().unwrap(),
+        seed(if barrier_due { "barrier" } else { "two_ball" })
+            .encode()
+            .unwrap(),
         10_000,
         0,
         &[payer, other, third],
@@ -1749,6 +1800,9 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90"
     );
     upgrade_during_recovery(&pic, id, &installed).unwrap();
+    // Recovery must start from a sealed Rules19 publication. The dormant
+    // Cannon in the barrier fixture has no Balls; the original pair still
+    // advances and supplies this genuine predecessor interval.
     playability_installed::one_tick(&pic, id);
     let (prior, publication) = capture(&pic, id, &out, 0);
     let prior_received = arena_world(&pic, id).received_e8s;
@@ -1880,6 +1934,17 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             break;
         }
     }
+    if barrier_due {
+        let due_at = pic.get_time().as_nanos_since_unix_epoch()
+            + playability::DORMANCY_GRACE_NS
+            + 60_000_000_000;
+        pic.set_time(pocket_ic::Time::from(
+            std::time::UNIX_EPOCH + Duration::from_nanos(due_at),
+        ));
+        for _ in 0..4 {
+            pic.tick();
+        }
+    }
     let after_later_payment = status(&pic, id);
     playability_installed::configuration(&pic, id, 512);
     advance(&pic, 100_000);
@@ -1950,6 +2015,16 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         }
     }
     let after_successor_upgrade = status(&pic, id);
+    if barrier_due {
+        let observed = decode::<Value>(&get_query::<Vec<u8>>(
+            &pic,
+            id,
+            "rules20_transition_status",
+            encode_args(()).unwrap(),
+        ))
+        .unwrap();
+        assert!(!observed["lifecycle_barrier"].is_null(), "{observed}");
+    }
     assert_eq!(
         after_successor_upgrade.run.last_error.as_deref(),
         Some(error)
@@ -2590,7 +2665,28 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         status(&pic, id).source.last_error,
         status(&pic, id).run.last_error
     );
-    if cross_utc || expired_delegate {
+    if barrier_due {
+        // The recovered input fence precedes the already due lifecycle
+        // checkpoint. Let that independently committed Rules19-policy work
+        // finish before preparing the ordinary successor epoch.
+        let mut cleared = false;
+        for _ in 0..180 {
+            let raw: Vec<u8> = get_query(
+                &pic,
+                id,
+                "rules20_transition_status",
+                encode_args(()).unwrap(),
+            );
+            let view: Value = decode(&raw).unwrap();
+            if view["lifecycle_barrier"].is_null() && view["lifecycle_error"].is_null() {
+                cleared = true;
+                break;
+            }
+            advance(&pic, 1000);
+        }
+        assert!(cleared, "overdue predecessor lifecycle must settle");
+    }
+    if cross_utc || expired_delegate || barrier_due {
         let mut prepared = false;
         let mut last_error = String::new();
         for _ in 0..180 {
@@ -2638,10 +2734,11 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         playability_installed::prepare(&pic, id, "prepare_rules20_transition");
     }
     let mut successor_ordinal = old_final_ordinal + 1;
-    if expired_delegate {
-        // Seven days of elapsed time can make an existing Cannon's dormant
-        // lifecycle checkpoint due. Preserve and independently verify each
-        // authentic no-input checkpoint before the ordinary successor epoch.
+    if expired_delegate || barrier_due {
+        // Long elapsed time or the deliberately overdue dormant Cannon can
+        // commit a lifecycle checkpoint after the recovered input prefix.
+        // Bind the successor to the actual last committed predecessor and
+        // retain every intervening historical publication for replay.
         let prior_segment = before_successor_pub
             .head
             .segment_id
@@ -2662,6 +2759,9 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             .parse::<u64>()
             .unwrap();
         assert!(current_segment >= prior_segment && current_segment - prior_segment <= 16);
+        if barrier_due {
+            assert!(current_segment > prior_segment, "overdue lifecycle checkpoint must commit");
+        }
         for segment in prior_segment + 1..=current_segment {
             let ordinal = old_final_ordinal + segment - prior_segment;
             let checkpoint = capture_retained(&pic, id, &out, segment, ordinal);
@@ -2690,6 +2790,43 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     }
     assert!(ready, "ordinary Rules20 transition after drained recovery");
     eprintln!("Rules20 successor drain ready after Rules19 recovery");
+    // A due lifecycle or ordinary zero-input predecessor interval may
+    // commit while Index preparation settles. The expected manifest is a
+    // compare-and-swap against the current committed head, so retain and
+    // replay each intervening predecessor publication before committing.
+    let current_pub = observe(&pic, id).1;
+    let prior_segment = before_successor_pub
+        .head
+        .segment_id
+        .as_ref()
+        .unwrap()
+        .0
+        .to_string()
+        .parse::<u64>()
+        .unwrap();
+    let current_segment = current_pub
+        .head
+        .segment_id
+        .as_ref()
+        .unwrap()
+        .0
+        .to_string()
+        .parse::<u64>()
+        .unwrap();
+    assert!(current_segment >= prior_segment && current_segment - prior_segment <= 16);
+    for segment in prior_segment + 1..=current_segment {
+        let checkpoint = capture_retained(&pic, id, &out, segment, successor_ordinal);
+        if let Some(seal) = &checkpoint.head.seal {
+            assert_eq!(seal.input_count, 0, "no later source input may cross the recovery fence");
+            std::fs::write(
+                out.join(format!("{successor_ordinal}-inputs.bin")),
+                dtr_wire::encode(&Vec::<b2z_native::Input>::new()).unwrap(),
+            )
+            .unwrap();
+        }
+        successor_ordinal += 1;
+    }
+    before_successor_pub = current_pub;
     let _: Vec<u8> = get_result(
         &pic,
         id,

@@ -278,8 +278,8 @@ wait error tied exactly to the stopped publication; exceptional recovery now
 allows that identified error without relaxing ordinary epoch gates. The
 positive 153.16-second run is `.work/rules19-recovery/expiry-5/`, using
 candidate SHA-256 `1d6f231ef8f1a07d94d7eba1b0cec04964dde22611a10dab3ef01edefae473b0`.
-The barrier-present lifecycle shape and further adversarial combinations
-remain open. See the chronological recovery report for failed fixture scope.
+The barrier-present lifecycle shape has since passed; further adversarial
+combinations remain open. See the chronological recovery report for scope.
 
 Published predecessor source `68430e6750f23e36487eae2f6ce07ae693d99456`
 completed all three hosted workflows: standard
@@ -289,3 +289,29 @@ and developer/prelaunch
 [`46040741460`](https://github.com/aodl/balls-2-the-wallz/actions/runs/46040741460).
 Those runs precede the new passage-restart, reserved-stage and expiry changes;
 they are not their exact-source release qualification.
+
+Hosted source `4148558e80ace356042f785676cbd378e147b784` passed the
+financial run [46051955511](https://github.com/aodl/balls-2-the-wallz/actions/runs/46051955511)
+and developer/prelaunch run
+[46051955496](https://github.com/aodl/balls-2-the-wallz/actions/runs/46051955496).
+The latter explicitly executed all named Rules20 installed cases, including
+the 1,000-, 1,001- and 1,002-account exponential tariffs, unrepresentable
+current price, first exponential grace under the previous linear formula,
+and overflow-current with affordable linear grace. Its 1,000-account case
+also executed a genuine partial Ball batch with independent JavaScript quote
+and receipt replay. These are exact-source positive hosted results; inventory
+scaling for every structure and interrupted purchase continuation remain
+separate gates. The standard run
+[46051955457](https://github.com/aodl/balls-2-the-wallz/actions/runs/46051955457)
+was still in progress when this observation was recorded. The subsequent
+barrier-present recovery fixture is new source and requires its own result.
+
+The installed finite-barrier case subsequently passed in 417.43 seconds
+under `.work/rules19-recovery/barrier-14/`. It used the exact installed
+Rules19 executable, admitted the original grant and unrelated payment
+before the deadline, recovered both pending inputs under Rules19 policy,
+retained the overdue lifecycle checkpoint and a later sealed zero-input
+predecessor interval, then activated Rules20 and applied a later payment.
+Independent JavaScript replay matched recovered and successor public bytes.
+Earlier stale expected manifests were rejected by compare-and-swap; the
+successful controller route used the actual current predecessor head.
