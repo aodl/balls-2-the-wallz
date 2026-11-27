@@ -1,0 +1,35 @@
+{
+  "scope": "Read-only certified public and signed operational observation; last comparable settled hourly rate retained as conditional projection",
+  "observed_at": "2026-11-27T21:42:53.460Z",
+  "backend": {
+    "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "total_cycles": "2274482727220",
+    "liquid_cycles": "2216548750090",
+    "estimated_freezing_cycles": "57933977130",
+    "certified_head": "19437",
+    "logical_time": "19420",
+    "source_cursor": "40647923",
+    "source_pending": 0,
+    "source_bound": true,
+    "pacing": "capped Trickle, 0.01 tick/s, admission open"
+  },
+  "frontend": {
+    "canister": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+    "total_cycles": "770526618587",
+    "estimated_freezing_cycles": "203716879590",
+    "above_freezing_cycles": "566809738997",
+    "beyond_450b_installation_recovery_allowance_cycles": "116809738997"
+  },
+  "projection": {
+    "rate_source": "settled 2026-11-27 20:28:51 to 21:29:36 bracket",
+    "net_cycles_per_day": "570213873146",
+    "conditional_hours_to_2_07t_full_speed_floor": 6.17,
+    "conditional_days_to_1t_reserve_protection": 2.13,
+    "current_short_bracket": "13 minutes; not used to establish a replacement hourly rate",
+    "credits_or_workload_change": "would change these projections; unknown credits cannot be reconstructed"
+  },
+  "raw_untracked": ".work/rules19-recovery/production-observation-20.json",
+  "production_write": false
+}
