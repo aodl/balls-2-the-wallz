@@ -15,6 +15,7 @@ for name in ("profile", "compact", "prior", "candidate", "world"):
 parser.add_argument("--artifacts", type=Path, default=Path.home() / "dtr-s09-artifacts")
 parser.add_argument("--browser-python", type=Path, required=True)
 parser.add_argument("--agent-only", action="store_true")
+parser.add_argument("--cost", action="store_true", help="run the matched enabled/disabled operating-cost case")
 parser.add_argument("--output", type=Path, required=True)
 args = parser.parse_args()
 out = args.output.resolve()
@@ -41,8 +42,10 @@ report = {"source": subprocess.check_output(["git", "rev-parse", "HEAD"], text=T
 binary = harness(out, env)
 server = start_pocketic(env["POCKET_IC_BIN"], out, hard_ttl_seconds=1200, idle_ttl_seconds=120)
 try:
-    row = execute("live-consumers", [binary, "--ignored", "--exact",
-                                     "rules18_cost::certified_operational_burn_live_consumers",
+    case = ("rules18_cost::certified_operational_burn_matched_cost" if args.cost else
+            "rules18_cost::certified_operational_burn_live_consumers")
+    row = execute("matched-cost" if args.cost else "live-consumers", [binary, "--ignored", "--exact",
+                                     case,
                                      "--nocapture", "--test-threads=1"], out, 900,
                   {**env, "POCKET_IC_SERVER_URL": server[3],
                    "S14_DEPLOYMENT_OUTPUT": str(out / "evidence")})

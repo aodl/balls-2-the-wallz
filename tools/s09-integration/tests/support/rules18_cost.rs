@@ -1735,3 +1735,109 @@ fn certified_operational_burn_live_consumers() {
     assert!(observation(&pic).operational_burn.is_none());
     run_live(&pic, "direct", false);
 }
+
+#[test]
+#[ignore = "matched disposable active-Trickle cost of the optional certified operational meter"]
+fn certified_operational_burn_matched_cost() {
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    let run = |label: &str, module: &[u8]| {
+        let case_out = out.join(label);
+        std::fs::create_dir_all(&case_out).unwrap();
+        let (pic, id, ledger, _) = arena_setup_world(
+            bytes("B2Z_COST_PROFILE_WASM"),
+            seed("two_ball").encode().unwrap(),
+        );
+        compact_cutover(&pic, id, ledger, &compact, &case_out);
+        upgrade_during_recovery(&pic, id, module).unwrap();
+        let _: Status = get_result(
+            &pic,
+            id,
+            "start_autonomous",
+            candid::encode_one(RunConfig {
+                segment_ticks: 1,
+                pacing_seconds: 1,
+                work_budget: 512,
+            })
+            .unwrap(),
+        );
+        let mut first = None;
+        let mut last = None;
+        for minute in 1..=65 {
+            advance(&pic, 60_000);
+            if minute == 5 || minute == 65 {
+                let management = pic.canister_status(id, Some(controller())).unwrap();
+                let runtime = status(&pic, id);
+                let row = json!({
+                    "minute":minute,
+                    "cycles":management.cycles.to_string(),
+                    "memory_bytes":management.memory_size.0.to_string(),
+                    "publications":runtime.run.completed_segments,
+                    "callbacks":runtime.run.callback_count,
+                    "index_calls":runtime.source.index_calls,
+                    "treasury_credits":funding_tests::full_finance(&pic,id)["total_cycles_reported"],
+                });
+                if minute == 5 {
+                    first = Some(row);
+                } else {
+                    last = Some(row);
+                }
+            }
+        }
+        let first = first.unwrap();
+        let last = last.unwrap();
+        assert_eq!(first["treasury_credits"], "0");
+        assert_eq!(last["treasury_credits"], "0");
+        let before = first["cycles"]
+            .as_str()
+            .unwrap()
+            .replace('_', "")
+            .parse::<u128>()
+            .unwrap();
+        let after = last["cycles"]
+            .as_str()
+            .unwrap()
+            .replace('_', "")
+            .parse::<u128>()
+            .unwrap();
+        assert!(before > after);
+        let publication_delta =
+            last["publications"].as_u64().unwrap() - first["publications"].as_u64().unwrap();
+        let index_delta =
+            last["index_calls"].as_u64().unwrap() - first["index_calls"].as_u64().unwrap();
+        let callback_delta =
+            last["callbacks"].as_u64().unwrap() - first["callbacks"].as_u64().unwrap();
+        let query_before = pic.canister_status(id, Some(controller())).unwrap().cycles;
+        for _ in 0..100 {
+            let _ = pic
+                .query_call(
+                    id,
+                    Principal::anonymous(),
+                    "observation",
+                    encode_args(()).unwrap(),
+                )
+                .unwrap();
+        }
+        let query_after = pic.canister_status(id, Some(controller())).unwrap().cycles;
+        assert!(query_before >= query_after);
+        json!({"module_sha256":dtr_wire::hash(module),"first":first,"last":last,
+            "settled_cycles_per_day":(before-after)*24,
+            "publications":publication_delta,"game_callbacks":callback_delta,"index_calls":index_delta,
+            "one_hundred_observation_queries_cycles":query_before-query_after})
+    };
+    let prior = run("prior", &bytes("B2Z_BURN_PRIOR_WASM"));
+    let candidate = run("candidate", &bytes("B2Z_BURN_CANDIDATE_WASM"));
+    assert_eq!(prior["publications"], candidate["publications"]);
+    assert_eq!(prior["index_calls"], candidate["index_calls"]);
+    let prior_rate = prior["settled_cycles_per_day"].as_u64().unwrap() as i128;
+    let candidate_rate = candidate["settled_cycles_per_day"].as_u64().unwrap() as i128;
+    let report = json!({"status":"PASS","prior":prior,"candidate":candidate,
+        "incremental_cycles_per_day":candidate_rate-prior_rate,
+        "scope":"matched 60-minute active Trickle; raw settled balance movement includes all feature costs"});
+    std::fs::write(
+        out.join("matched-cost.json"),
+        serde_json::to_vec_pretty(&report).unwrap(),
+    )
+    .unwrap();
+}

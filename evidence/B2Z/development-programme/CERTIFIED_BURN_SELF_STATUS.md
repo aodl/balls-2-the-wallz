@@ -28,10 +28,11 @@ raw status endpoints, without offset subtraction or smoothing.
 | Paused sample, external 100B top-up, stale value, same-ID restart and prior-Wasm recovery | **PASS** on the same disposable fixture |
 | ReserveProtection below the Index floor | **PASS**, the prior publication and estimate stayed intact, and the witness became stale after 15 simulated minutes |
 | Browser-native Web Crypto and CSP | **PASS** using a genuine PocketIC capture at its recorded consensus clock, including altered witness and wrong-canister rejection in sandboxed Chromium |
-| Existing direct and composed root consumers | **PASS** on 25 focused JavaScript checks, including maintained agent interfaces |
+| Existing direct and composed root consumers | **PASS** on focused JavaScript checks and the installed maintained-agent journey below |
 | Active Trickle with 17.321-second shifted Index timer phase | **PASS**, certified 396.135B/day versus settled management 401.432B/day, 1.319% difference |
 | Active Trickle with 47.777-second shifted Index timer phase | **PASS**, certified 396.135B/day versus settled management 401.431B/day, 1.319% difference |
 | Active Trickle with Index stopped for ten simulated minutes, then restarted | **PASS**, certified 394.730B/day versus settled management 400.112B/day, 1.345% difference |
+| Matched optional-meter operating cost, 60 simulated minutes | **PASS**, 407.834B/day candidate versus 403.269B/day exact Rules19 baseline, **4.565B cycles/day incremental** |
 
 Raw callback logs, certificate captures, build inputs and test reports
 are in `.work/burn-balance-probe/`. The browser evidence exercises replay
@@ -69,8 +70,8 @@ funding and credits before release. Known treasury credit and smaller
 external top-up cases need coverage. Reported burn is a net balance
 estimate, so a smaller external credit can be hidden inside the interval.
 Direct monotonic consumed-cycle counters require a controller or subnet
-admin under the current management contract. Matched incremental cost
-and complete live consumer acceptance are also pending. The capability
+admin under the current management contract. The measured cost applies to
+one matched schedule; complete live consumer acceptance is pending. The capability
 remains disabled in ordinary backend profiles. [IC management counters](https://docs.internetcomputer.org/references/ic-interface-spec/management-canister/#ic-method-canister_metrics)
 
 ## Live maintained consumer continuation
@@ -103,6 +104,19 @@ requests. Raw failed attempts are in `live-consumers-4` through
 `live-consumers-6`. No system package was installed. Matched incremental
 cost, changing reservations, credits and full live browser acceptance
 remain open. The telemetry feature remains disabled in normal builds.
+
+The matched-cost fixture used identical fresh worlds, compact cutovers and
+active Trickle schedules. Each executable completed 30 publications, 30 game
+callbacks and 60 Index calls in the measured hour; both reported zero
+treasury credits. Settled management balance fell by 16.802B cycles for the
+exact Rules19 baseline and 16.993B for the meter candidate. The 4.565B/day
+increment includes the candidate's management calls, callbacks, stable
+storage and certification work under this workload. Candidate management
+memory was 55.220MB at minute 65 versus 46.683MB for the baseline; this
+comparison includes all executable and state differences. One hundred
+observation queries consumed 1.566M cycles in either fixture. This single
+schedule establishes a measured cost, not a universal operating bound.
+Raw results are under `.work/burn-balance-probe/matched-cost-2/`.
 
 The complete source check on published telemetry continuation `29a857fb`
 also passed, including the Node suite and source structure; raw output is
