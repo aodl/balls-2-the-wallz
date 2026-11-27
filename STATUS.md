@@ -1,60 +1,46 @@
 # B2Z current status
 
-Operational observation **2026-11-26 19:47:59 UTC**. The current published
-repository head is the [maintained master branch](https://github.com/aodl/balls-2-the-wallz/commits/master/).
-The latest qualified substantive code source is
-[`dcd52e4c291c1c0b61f5384d1d128dbd5b1b4dfa`](https://github.com/aodl/balls-2-the-wallz/commit/dcd52e4c291c1c0b61f5384d1d128dbd5b1b4dfa);
-its [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45875201174),
-[financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45875201159)
-and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45875201152)
-runs passed all eleven substantive jobs. Later evidence-only commits preserve
-its exact runtime, build, test and dependency inputs.
-The installed source is `741dbf898ade58ed2fa3a064d8bbe1acb577ed4a`.
-Rules19 / Schema11 / Adapter12 (`BTZPAY09`) runs in the capped
-`prelaunch-trickle` profile. This is controlled European prelaunch.
+Operational observation **2026-11-27 12:23:11 UTC**. The maintained
+[master](https://github.com/aodl/balls-2-the-wallz/commits/master/) verifier source
+[`ae734acdc431adf69978ab41be07a8222139c69d`](https://github.com/aodl/balls-2-the-wallz/commit/ae734acdc431adf69978ab41be07a8222139c69d)
+passed the [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45923880788),
+[financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45923880915)
+and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45923880797)
+qualification. The paid backend runs Rules19 / Schema11 / Adapter12
+(`BTZPAY09`) in the capped `prelaunch-trickle` profile.
 
-| Installation | Canister | Certified raw module SHA-256 |
-| --- | --- | --- |
-| Backend | `s5ir5-gqaaa-aaaas-amyna-cai` | `b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90` |
-| Embedded frontend | `s2jxj-liaaa-aaaas-amynq-cai` | `2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff` |
+| Installation | Canister | Qualified source | Certified raw module SHA-256 |
+| --- | --- | --- | --- |
+| Paid backend | `s5ir5-gqaaa-aaaas-amyna-cai` | `741dbf898ade58ed2fa3a064d8bbe1acb577ed4a` | `b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90` |
+| Embedded manufacturing frontend | `s2jxj-liaaa-aaaas-amynq-cai` | `0855896239ba222892a372e6eeba22530fa59afc` | `1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5` |
 
 ## Operating position
 
-- The authenticated head was segment **18,505**, logical time **18,489**.
-  It contained two Cannons under one distinct funding account, two Balls,
-  one Diverter and four Reservoir tiles. The funding-account count is
-  derived from active Cannons. It does not measure unique humans or
-  historical participation.
-- Gameplay was running, admission open, 0.01 ticks/s and one tick per
-  checkpoint. Full Speed was inactive as inferred from the effective
-  rate. The observed public label **Trickle** describes the capped
-  operating mode. The underlying private funding tier and owner-only
-  eligibility gates could not be freshly read.
-- Signed source health showed the official Index bound, no error,
-  zero pending records and cursor **40,647,923**. Event Horizon was disabled
-  in the installed configuration. The private treasury-worker state was not
-  freshly established in this observation.
-- Settled management readings had backend total **2.883126T** and observed
-  liquid **2.825292T** cycles. Frontend total was **0.963230T**. Estimated
-  freezing reserve was approximately 0.057834T backend and 0.203706T frontend.
-- Backend liquid was above the 2.07T default Full Speed cycle floor.
-  Across an exact 3,612.096547919-second settled bracket with 36 ordinary
-  publications, backend liquid declined 22.841B cycles, equivalent to
-  **0.546351T/day** of observed net balance movement. Under the same workload,
-  with no intervening credits, about **3.34 days** remained to the 1T
-  protection boundary and **1.38 days** to the Full Speed cycle floor. These dated
-  projections are not gross charges or guarantees. Review the runway before
-  owner playtesting or any separately approved operation.
+- Authenticated head **19,102**, logical time **19,085** and source cursor
+  **40,647,923**. The world contained two Cannons under one funding account,
+  two Balls, one Diverter and four Reservoir tiles.
+- Gameplay and admission were active at **0.01 ticks/s** with one tick per
+  checkpoint. The official Index was bound, with zero pending records and
+  no signed source error. Event Horizon was disabled in the installed
+  configuration.
+- Settled backend total was **2.496T**, liquid **2.438T** and estimated
+  freezing reserve **0.058T**. Frontend total was **0.773T**, with a
+  **0.204T** estimated freezing reserve and **0.569T** above freezing.
+  Conservative frontend installation/recovery headroom was **0.119T**.
+- Across 146 publications and 14,584 seconds since the 08:20 UTC sample,
+  settled backend liquidity declined **0.567T/day**. At the observed workload
+  and without intervening credits, the conditional projection was
+  **15.6 hours** to the 2.07T default Full Speed cycle floor and **2.54 days**
+  to the 1T protection boundary. The
+  balance floor is one of the owner's Full Speed eligibility checks.
+  An earlier bracket rebounded by 83.7B cycles in 34 seconds. The projection
+  uses the repeated comparable observations.
 
-[Latest reviewed production observation](evidence/B2Z/development-programme/production-observation-2026-11-26-1947.json) · [Previous observation](evidence/B2Z/development-programme/production-observation-2026-11-26-1545.json)
-
-The raw signed read-only observation and its settled cycle bracket are retained
-in the operator's development-programme archive. Its SHA-256 is recorded in
-the reviewed observation linked above; the raw capture stays outside Git.
+[Preflight, installation, browser and later observation](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json)
 
 ## Qualification and acceptance
 
-The installed source passed all 11 substantive hosted jobs and on
+The installed backend source passed all 11 substantive hosted jobs and on
 25 November passed the production capped Trickle acceptance. Its
 905.5-second accepted window covered nine checkpoints 100.030–100.317 s
 apart, exact independent replay, and authenticated browser/manual-wallet
@@ -89,11 +75,20 @@ uses exact settled health-sample time for workload-specific net runway.
 The qualified `dcd52e4` tooling source has identical application, canister,
 native, dependency, fixture and active-specification Git objects to the prior
 qualified master; [input-invariance record](evidence/B2Z/development-programme/tooling-input-invariance.json).
-Production installation has not occurred.
-The Rules20 construction, corner and pricing successor remains incomplete and
-inactive. A disposable Ledger/Index test identified an existing Rules19
-authorization-registry encoding boundary for some valid accounts; a compatible
-versioned backend repair is outstanding. Sustained Full Speed throughput,
+The manufacturing frontend was installed in place on 27 November. Certified
+delivery, the existing backend binding, the permanent Internet Identity
+origin and read-only desktop/390/320 browser acceptance passed. The earlier
+capped Trickle frontend is retained for exact compatible recovery.
+
+Rules20 development implements Schema12 authorization, initial passage,
+checkerboard corners and symbolic tariffs. Qualification remains blocked by
+recovery of an already obstructed Rules19 predecessor. The updated source
+`95a439e3` passed [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043400),
+[financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043269)
+and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043439)
+hosted jobs, including the named installed successor gates. Four local
+authenticated high-population payment cases passed. The certified burn
+meter remains disabled and is tracked separately. Sustained Full Speed throughput,
 physical devices, dense-scene P09
 qualification and wider-launch readiness remain open. Automatic player payouts
 and refunds are unavailable.

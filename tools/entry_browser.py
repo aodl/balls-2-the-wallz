@@ -45,10 +45,21 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
     if configuration.get('clearance_rules_version')==11:
         select_cannon(page,2);page.locator('#fire-action').click()
         wait_until(page,lambda:page.locator('[data-copy=amount]').is_enabled(),30000)
-        page.evaluate('''()=>{const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async value=>{await write(value);globalThis.combinedCopied=value}}''')
+        page.evaluate('''()=>{const write=navigator.clipboard.writeText.bind(navigator.clipboard);navigator.clipboard.writeText=async value=>{globalThis.combinedCopyAttempt=value;try{await write(value);globalThis.combinedCopied=value}catch(error){globalThis.combinedCopyError=String(error);throw error}}}''')
         old_packet={'memo':page.locator('#text-memo').inner_text(),'amount':page.locator('#transfer-amount').inner_text()}
         assert '|'not in old_packet['memo']and page.locator('#war-cry-editor').is_hidden()
-        page.locator('[data-copy=text]').click();wait_until(page,lambda:page.evaluate('globalThis.combinedCopied')==old_packet['memo'],10000)
+        page.locator('[data-copy=text]').click()
+        try:
+            wait_until(page,lambda:page.evaluate('globalThis.combinedCopied')==old_packet['memo'],10000)
+        except TimeoutError as error:
+            # Preserve the exact-copy assertion; distinguish an uninvoked handler,
+            # a rejected native write, and a slow pending browser write.
+            state=page.evaluate('''()=>({attempt:globalThis.combinedCopyAttempt??null,
+              copied:globalThis.combinedCopied??null,error:globalThis.combinedCopyError??null,
+              disabled:document.querySelector('[data-copy=text]').disabled,
+              feedback:document.querySelector('#copy-feedback')?.textContent??null,
+              memo:document.querySelector('#text-memo')?.textContent??null})''')
+            raise AssertionError(f'old-rule native copy did not complete: {state}') from error
         page.screenshot(path=str(out/'rules7-copied-before-combined.png'))
     (out/'browser-join-seen').write_text('genuine receipt and same-page presentation verified\n')
     if old_packet:
