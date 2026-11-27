@@ -151,3 +151,12 @@ The new offline [operating-runway calculator](../../../tools/estimate_operating_
 The closeout documentation and offline tool passed the complete local `python3.11 -B tools/check.py source --output .work/development-programme/closeout-source` gate, including source vectors, Node tests, documentation links and Python tool tests. Raw logs remain under `.work/`.
 
 The exact installed and compatible recovery bundles remain under [the installed release](https://github.com/aodl/balls-2-the-wallz/releases/tag/production/europe-rules19-prelaunch-trickle) and [Rules19 predecessor release](https://github.com/aodl/balls-2-the-wallz/releases/tag/production/europe-rules19). The current frontend Wasm hash above is the appropriate same-ID recovery for a frontend-only review of the new candidate. The paid backend remains on its existing module.
+
+## 27 November continuation
+
+The exact manufacturing frontend passed the live same-ID upgrade and
+bounded desktop/mobile acceptance. The paid Rules19 backend continued
+running. The [dated final summary](FINAL_QUALIFICATION_2026-11-27.md) records
+the installed identities, refreshed runway, the obstructed recovery gate,
+the Rules20 installed and verifier work, and independent certified-burn
+sampling results.

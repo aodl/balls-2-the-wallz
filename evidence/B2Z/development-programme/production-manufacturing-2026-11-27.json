@@ -1,0 +1,930 @@
+{
+  "operation": "authorized same-ID embedded frontend upgrade",
+  "installed_at_or_after": "2026-11-27T07:44:25Z",
+  "source": "0855896239ba222892a372e6eeba22530fa59afc",
+  "origin": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io",
+  "recovery_sha256": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff",
+  "observed_frontend_cycle_delta": "185545304906",
+  "assets": {
+    "files": 91,
+    "verified_get_representations": 98,
+    "verified_head_responses": 91,
+    "verified_route_responses": 28,
+    "altered_body_or_status_rejected": true
+  },
+  "browser": {
+    "chromium": "153.0.8010.12",
+    "rows": [
+      {
+        "viewport": [
+          1440,
+          900
+        ],
+        "rules": 19,
+        "certificates": 1,
+        "head": 18942,
+        "balls": 2,
+        "cycles": "Cycles 2.60T",
+        "cannon_mode": "start",
+        "diverter_mode": "deflect",
+        "site_restrictions": {
+          "cannon": [
+            "Choose a tile at least four tiles from every other structure."
+          ]
+        },
+        "compass": "passed",
+        "zoom": "passed",
+        "identity_gateway": "id.ai",
+        "mute_unmute": "passed",
+        "write_attempts": 0
+      },
+      {
+        "viewport": [
+          390,
+          844
+        ],
+        "rules": 19,
+        "certificates": 1,
+        "head": 18943,
+        "balls": 2,
+        "cycles": "Cycles 2.51T",
+        "cannon_mode": "start",
+        "diverter_mode": "deflect",
+        "site_restrictions": {
+          "diverter": [
+            "Choose a tile at least four tiles from every other structure."
+          ]
+        },
+        "compass": "passed",
+        "zoom": "passed",
+        "identity_gateway": null,
+        "mute_unmute": "passed",
+        "write_attempts": 0
+      },
+      {
+        "viewport": [
+          320,
+          640
+        ],
+        "rules": 19,
+        "certificates": 1,
+        "head": 18943,
+        "balls": 2,
+        "cycles": "Cycles 2.60T",
+        "cannon_mode": "start",
+        "diverter_mode": "deflect",
+        "site_restrictions": {},
+        "compass": "passed",
+        "zoom": "passed",
+        "identity_gateway": null,
+        "mute_unmute": "passed",
+        "write_attempts": 0
+      }
+    ]
+  },
+  "observations": {
+    "preflight": {
+      "observed_at": "2026-11-27T07:44:23.901Z",
+      "backend": {
+        "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "2605766758528",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "1927783939",
+        "reserved_cycles": "0"
+      },
+      "frontend": {
+        "id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "module_sha256": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "959927689745",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "6790193893",
+        "reserved_cycles": "0"
+      },
+      "publication": {
+        "root": "9be1daa85d10c65355a9195dc4f625c81457193564d3bd94efa583c3e14f368c",
+        "head": "18935",
+        "logical_time": "18918",
+        "source_cursor": "40647923",
+        "identity": {
+          "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+          "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+          "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "state_sha256": "415e9ea21a89be49f829015a511c8ec2048ba19a04fbd9b8862f3701ddb63c27",
+        "accounts_with_cannons": 1,
+        "cannons": 2,
+        "balls": 2,
+        "diverters": 1,
+        "reservoirs": 4,
+        "source": {
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "subaccount": "0",
+          "network": "ic"
+        }
+      },
+      "signed_status": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "18918",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40647923"
+        }
+      },
+      "settlement": {
+        "settled": true,
+        "management_before": "2605766758528",
+        "management_after": "2605766758528",
+        "management_gap": "0",
+        "health_gap": "57833518170",
+        "estimated_freezing": "57833518170",
+        "unexpected_gap": "0"
+      },
+      "runway": {
+        "backend_freezing_estimate_cycles": "57833518170",
+        "frontend_freezing_estimate_cycles": "203705816790",
+        "frontend_install_recovery_headroom_cycles": "306221872955",
+        "backend_liquid_cycles": "2547933240358",
+        "full_speed_cycle_floor_met": true,
+        "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+        "elapsed_ns": "40420873065858",
+        "elapsed_seconds": 40420,
+        "liquid_decline_cycles": "261308295867",
+        "net_cycles_per_day": "558548963703",
+        "publication_delta": "405",
+        "seconds_to_reserve_protection": "239444",
+        "seconds_to_full_speed_floor": "73929"
+      },
+      "raw_sha256": "3aa22742b7e07f89c3962e5be4af442505f399d39838aabbb6da7b6adf596150"
+    },
+    "postinstall": {
+      "observed_at": "2026-11-27T07:45:11.204Z",
+      "backend": {
+        "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "2605661130378",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "1927783939",
+        "reserved_cycles": "0"
+      },
+      "frontend": {
+        "id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "774382384839",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "6790562653",
+        "reserved_cycles": "0"
+      },
+      "publication": {
+        "root": "9be1daa85d10c65355a9195dc4f625c81457193564d3bd94efa583c3e14f368c",
+        "head": "18935",
+        "logical_time": "18918",
+        "source_cursor": "40647923",
+        "identity": {
+          "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+          "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+          "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "state_sha256": "415e9ea21a89be49f829015a511c8ec2048ba19a04fbd9b8862f3701ddb63c27",
+        "accounts_with_cannons": 1,
+        "cannons": 2,
+        "balls": 2,
+        "diverters": 1,
+        "reservoirs": 4,
+        "source": {
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "subaccount": "0",
+          "network": "ic"
+        }
+      },
+      "signed_status": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "18918",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40647923"
+        }
+      },
+      "settlement": {
+        "settled": true,
+        "management_before": "2605661554311",
+        "management_after": "2605661130378",
+        "management_gap": "423933",
+        "health_gap": "57833518170",
+        "estimated_freezing": "57833518170",
+        "unexpected_gap": "0"
+      },
+      "runway": {
+        "backend_freezing_estimate_cycles": "57833518170",
+        "frontend_freezing_estimate_cycles": "203716879590",
+        "frontend_install_recovery_headroom_cycles": "120665505249",
+        "backend_liquid_cycles": "2547828036141",
+        "full_speed_cycle_floor_met": true,
+        "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+        "elapsed_ns": "40467910964153",
+        "elapsed_seconds": 40467,
+        "liquid_decline_cycles": "261413500084",
+        "net_cycles_per_day": "558124347640",
+        "publication_delta": "405",
+        "seconds_to_reserve_protection": "239610",
+        "seconds_to_full_speed_floor": "73969"
+      },
+      "raw_sha256": "33af5f04633c66e88bd104b1432adafd21f7c1ed93ac9da994bb1841e1174cc3"
+    },
+    "later": {
+      "observed_at": "2026-11-27T07:57:46.775Z",
+      "backend": {
+        "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "2600447706678",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "1927783939",
+        "reserved_cycles": "0"
+      },
+      "frontend": {
+        "id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "774324067740",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "6790562653",
+        "reserved_cycles": "0"
+      },
+      "publication": {
+        "root": "b3eed9f5079d3897143647a3a24717a237f5baa94f8c9b20ffb7f64a8963f09a",
+        "head": "18943",
+        "logical_time": "18926",
+        "source_cursor": "40647923",
+        "identity": {
+          "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+          "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+          "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "state_sha256": "340fa812fbce66e7bd26b26b314af104443d7b7006c5d76725e16637476d6cce",
+        "accounts_with_cannons": 1,
+        "cannons": 2,
+        "balls": 2,
+        "diverters": 1,
+        "reservoirs": 4,
+        "source": {
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "subaccount": "0",
+          "network": "ic"
+        }
+      },
+      "signed_status": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "18926",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40647923"
+        }
+      },
+      "settlement": {
+        "settled": true,
+        "management_before": "2600447706678",
+        "management_after": "2600447706678",
+        "management_gap": "0",
+        "health_gap": "57833518170",
+        "estimated_freezing": "57833518170",
+        "unexpected_gap": "0"
+      },
+      "runway": {
+        "backend_freezing_estimate_cycles": "57833518170",
+        "frontend_freezing_estimate_cycles": "203716879590",
+        "frontend_install_recovery_headroom_cycles": "120607188150",
+        "backend_liquid_cycles": "2542614188508",
+        "full_speed_cycle_floor_met": true,
+        "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+        "elapsed_ns": "41223557968735",
+        "elapsed_seconds": 41223,
+        "liquid_decline_cycles": "266627347717",
+        "net_cycles_per_day": "558821314264",
+        "publication_delta": "413",
+        "seconds_to_reserve_protection": "238505",
+        "seconds_to_full_speed_floor": "73071"
+      },
+      "raw_sha256": "729cc2e0572c6bc1ddb9c5463d6b1985b88c7af4d3428b714c0d88399630a437"
+    },
+    "balance_rebound_initial": {
+      "observed_at": "2026-11-27T08:08:42.156Z",
+      "backend": {
+        "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "2512239485644",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "1927783939",
+        "reserved_cycles": "0"
+      },
+      "frontend": {
+        "id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "774273295710",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "6790562653",
+        "reserved_cycles": "0"
+      },
+      "publication": {
+        "root": "55113f76d4e2c95bba1e238718c358ccb464d6d29a01ee253bf483ac7257cde2",
+        "head": "18949",
+        "logical_time": "18932",
+        "source_cursor": "40647923",
+        "identity": {
+          "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+          "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+          "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "state_sha256": "0cf17a544ba646dd43c7a517863108344bf66a3ca57d533baf5a77dc70203bb9",
+        "accounts_with_cannons": 1,
+        "cannons": 2,
+        "balls": 2,
+        "diverters": 1,
+        "reservoirs": 4,
+        "source": {
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "subaccount": "0",
+          "network": "ic"
+        }
+      },
+      "signed_status": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "18932",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40647923"
+        }
+      },
+      "settlement": {
+        "settled": true,
+        "management_before": "2512239485644",
+        "management_after": "2512239485644",
+        "management_gap": "0",
+        "health_gap": "57833518170",
+        "estimated_freezing": "57833518170",
+        "unexpected_gap": "0"
+      },
+      "runway": {
+        "backend_freezing_estimate_cycles": "57833518170",
+        "frontend_freezing_estimate_cycles": "203716879590",
+        "frontend_install_recovery_headroom_cycles": "120556416120",
+        "backend_liquid_cycles": "2454405967474",
+        "full_speed_cycle_floor_met": true,
+        "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+        "elapsed_ns": "41878243757143",
+        "elapsed_seconds": 41878,
+        "liquid_decline_cycles": "354835568751",
+        "net_cycles_per_day": "732069695135",
+        "publication_delta": "419",
+        "seconds_to_reserve_protection": "171651",
+        "seconds_to_full_speed_floor": "45368"
+      },
+      "raw_sha256": "2d18d906637d44ee9a540c51309a865c958cb19e4862df805778f78f1c09709a"
+    },
+    "balance_rebound_followup": {
+      "observed_at": "2026-11-27T08:09:16.411Z",
+      "backend": {
+        "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "2595941629484",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "1927783939",
+        "reserved_cycles": "0"
+      },
+      "frontend": {
+        "id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "774271802415",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "6790562653",
+        "reserved_cycles": "0"
+      },
+      "publication": {
+        "root": "a64bd812e2612a54c088de61226fc3e88abe8a946869f678ceae868be91d49d1",
+        "head": "18950",
+        "logical_time": "18933",
+        "source_cursor": "40647923",
+        "identity": {
+          "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+          "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+          "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "state_sha256": "b9c9d3e6c2761ebffe63c238713f4f2ba2a9cd65a0a4dc9cae4f3b3962a0597f",
+        "accounts_with_cannons": 1,
+        "cannons": 2,
+        "balls": 2,
+        "diverters": 1,
+        "reservoirs": 4,
+        "source": {
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "subaccount": "0",
+          "network": "ic"
+        }
+      },
+      "signed_status": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "18933",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40647923"
+        }
+      },
+      "settlement": {
+        "settled": true,
+        "management_before": "2595942053417",
+        "management_after": "2595941629484",
+        "management_gap": "423933",
+        "health_gap": "57833518170",
+        "estimated_freezing": "57833518170",
+        "unexpected_gap": "0"
+      },
+      "runway": {
+        "backend_freezing_estimate_cycles": "57833518170",
+        "frontend_freezing_estimate_cycles": "203716879590",
+        "frontend_install_recovery_headroom_cycles": "120554922825",
+        "backend_liquid_cycles": "2538108535247",
+        "full_speed_cycle_floor_met": true,
+        "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+        "elapsed_ns": "41912961355656",
+        "elapsed_seconds": 41912,
+        "liquid_decline_cycles": "271133000978",
+        "net_cycles_per_day": "558917588421",
+        "publication_delta": "420",
+        "seconds_to_reserve_protection": "237767",
+        "seconds_to_full_speed_floor": "72362"
+      },
+      "raw_sha256": "71e10afccf7568eb960ffdfb8a62f358a9c827b009b362b0550d4af061d6ddf9"
+    },
+    "qualification_final": {
+      "observed_at": "2026-11-27T08:09:55.214Z",
+      "backend": {
+        "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "2595835978774",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "1927783939",
+        "reserved_cycles": "0"
+      },
+      "frontend": {
+        "id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "774268815825",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "6790562653",
+        "reserved_cycles": "0"
+      },
+      "publication": {
+        "root": "a64bd812e2612a54c088de61226fc3e88abe8a946869f678ceae868be91d49d1",
+        "head": "18950",
+        "logical_time": "18933",
+        "source_cursor": "40647923",
+        "identity": {
+          "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+          "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+          "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "state_sha256": "b9c9d3e6c2761ebffe63c238713f4f2ba2a9cd65a0a4dc9cae4f3b3962a0597f",
+        "accounts_with_cannons": 1,
+        "cannons": 2,
+        "balls": 2,
+        "diverters": 1,
+        "reservoirs": 4,
+        "source": {
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "subaccount": "0",
+          "network": "ic"
+        }
+      },
+      "signed_status": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "18933",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40647923"
+        }
+      },
+      "settlement": {
+        "settled": true,
+        "management_before": "2595836402707",
+        "management_after": "2595835978774",
+        "management_gap": "423933",
+        "health_gap": "57833518170",
+        "estimated_freezing": "57833518170",
+        "unexpected_gap": "0"
+      },
+      "runway": {
+        "backend_freezing_estimate_cycles": "57833518170",
+        "frontend_freezing_estimate_cycles": "203716879590",
+        "frontend_install_recovery_headroom_cycles": "120551936235",
+        "backend_liquid_cycles": "2538002884537",
+        "full_speed_cycle_floor_met": true,
+        "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+        "elapsed_ns": "41951786641232",
+        "elapsed_seconds": 41951,
+        "liquid_decline_cycles": "271238651688",
+        "net_cycles_per_day": "558617913135",
+        "publication_delta": "420",
+        "seconds_to_reserve_protection": "237878",
+        "seconds_to_full_speed_floor": "72384"
+      },
+      "raw_sha256": "74d9a03d7c185a6fe9c39fd94f9a848292d970042657e318dc3a91d422d8134b"
+    },
+    "final": {
+      "observed_at": "2026-11-27T08:20:06.547Z",
+      "backend": {
+        "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "2591939192334",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "1927783939",
+        "reserved_cycles": "0"
+      },
+      "frontend": {
+        "id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "774220794603",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "6790562653",
+        "reserved_cycles": "0"
+      },
+      "publication": {
+        "root": "e230b48dfd87015f071b85a3641a8a07ee7cc3aa5aadc2948bf7e3480288cbae",
+        "head": "18956",
+        "logical_time": "18939",
+        "source_cursor": "40647923",
+        "identity": {
+          "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+          "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+          "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "state_sha256": "fde289710946f60b5bae1ff14b186a4e910bbc2545c7f73b8fd891849c867186",
+        "accounts_with_cannons": 1,
+        "cannons": 2,
+        "balls": 2,
+        "diverters": 1,
+        "reservoirs": 4,
+        "source": {
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "subaccount": "0",
+          "network": "ic"
+        }
+      },
+      "signed_status": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "18939",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40647923"
+        }
+      },
+      "settlement": {
+        "settled": true,
+        "management_before": "2591939192334",
+        "management_after": "2591939192334",
+        "management_gap": "0",
+        "health_gap": "57833518170",
+        "estimated_freezing": "57833518170",
+        "unexpected_gap": "0"
+      },
+      "runway": {
+        "backend_freezing_estimate_cycles": "57833518170",
+        "frontend_freezing_estimate_cycles": "203716879590",
+        "frontend_install_recovery_headroom_cycles": "120503915013",
+        "backend_liquid_cycles": "2534105674164",
+        "full_speed_cycle_floor_met": true,
+        "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+        "elapsed_ns": "42562976386836",
+        "elapsed_seconds": 42562,
+        "liquid_decline_cycles": "275135862061",
+        "net_cycles_per_day": "558507428287",
+        "publication_delta": "426",
+        "seconds_to_reserve_protection": "237323",
+        "seconds_to_full_speed_floor": "71796"
+      },
+      "raw_sha256": "287d3259620b75bd9f1f31d35e945d504c8aa99a391b601a37b73df0db03d389"
+    },
+    "later_1223": {
+      "observed_at": "2026-11-27T12:23:11.027Z",
+      "backend": {
+        "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+        "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "2496277164265",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "1931132571",
+        "reserved_cycles": "0"
+      },
+      "frontend": {
+        "id": "s2jxj-liaaa-aaaas-amynq-cai",
+        "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+        "module_certificate_verified": true,
+        "status": {
+          "running": null
+        },
+        "cycles": "773103809953",
+        "settings": {
+          "freezing_threshold": "2592000"
+        },
+        "idle_cycles_burned_per_day": "6790562653",
+        "reserved_cycles": "0"
+      },
+      "publication": {
+        "root": "8e78ea5f7d6dfc1bc5eabcbc0631fd75af83dd54f1234c2e30c8ff2bfad5fba4",
+        "head": "19102",
+        "logical_time": "19085",
+        "source_cursor": "40647923",
+        "identity": {
+          "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+          "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+          "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+          "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+        },
+        "state_sha256": "90c12fcaddf17cc44ccd787deafe4861884225536ddd43be4696b886bdb3aa94",
+        "accounts_with_cannons": 1,
+        "cannons": 2,
+        "balls": 2,
+        "diverters": 1,
+        "reservoirs": 4,
+        "source": {
+          "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+          "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+          "subaccount": "0",
+          "network": "ic"
+        }
+      },
+      "signed_status": {
+        "run": {
+          "last_error": [],
+          "world_transition": false,
+          "idle": false,
+          "pace": {
+            "nominal_milli": 10,
+            "supported_milli": 10,
+            "mode": "Trickle",
+            "admission_open": true,
+            "performance_limited": false
+          },
+          "segment_ticks": "1",
+          "publication_ticks": "1",
+          "completed_segments": "19085",
+          "running": true
+        },
+        "source": {
+          "last_error": [],
+          "binding_checked": true,
+          "pending_records": 0,
+          "admitted_to_exclusive": "40647923"
+        }
+      },
+      "health": {
+        "observed_at_ns": "1795782189655739229",
+        "runtime_started_ns": "1795635245561720103",
+        "known_treasury_credit_delta": "0",
+        "version": 1,
+        "reservation_gap_end": "57933977130",
+        "total_cycles": "2496277164265",
+        "reservation_gap_start": "57933977130",
+        "liquid_cycles": "2438343187135"
+      },
+      "settlement": {
+        "settled": true,
+        "management_before": "2496277164265",
+        "management_after": "2496277164265",
+        "management_gap": "0",
+        "health_gap": "57933977130",
+        "estimated_freezing": "57933977130",
+        "unexpected_gap": "0"
+      },
+      "runway": {
+        "backend_freezing_estimate_cycles": "57933977130",
+        "frontend_freezing_estimate_cycles": "203716879590",
+        "frontend_install_recovery_headroom_cycles": "119386930363",
+        "backend_liquid_cycles": "2438343187135",
+        "full_speed_cycle_floor_met": true,
+        "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+        "elapsed_ns": "14584826429741",
+        "elapsed_seconds": 14584,
+        "liquid_decline_cycles": "95762487029",
+        "net_cycles_per_day": "567293612931",
+        "publication_delta": "146",
+        "seconds_to_reserve_protection": "219062",
+        "seconds_to_full_speed_floor": "56099"
+      },
+      "raw_sha256": "3a3b543f5667ea632956dc80c6644ea416f061ac059fb0c9afaaf75f004c2302"
+    }
+  },
+  "runway_note": "The 08:08 bracket passed the single-bracket check and rebounded 83.7B cycles on a repeat 34 seconds later. Use the repeat group for runway, and retain the excursion as an accounting diagnostic."
+}
