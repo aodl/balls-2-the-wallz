@@ -586,7 +586,10 @@ fn compact_cutover(
         Some(controller()),
     )
     .unwrap();
-    let upgrade_cycles = before_upgrade - pic.cycle_balance(id);
+    let after_upgrade = pic.cycle_balance(id);
+    // A pending callback refund can put the measured end above the start.
+    // This bracket records net balance movement, not isolated install cost.
+    let upgrade_cycles = Int(before_upgrade.into()).0 - Int(after_upgrade.into()).0;
     assert_eq!(observe(pic, id).0.publication, old_obs.publication);
     if let Some(prior) = &predecessor {
         upgrade_during_recovery(pic, id, prior).unwrap();
@@ -732,6 +735,7 @@ fn compact_cutover(
         "old_state_bytes":legacy.encode().unwrap().len(),"new_state_bytes":actual.encode().unwrap().len(),
         "old_ranges":legacy.reservoirs.as_ref().unwrap().len(),"new_ranges":actual.reservoir_ranges,
         "upgrade_cycles":upgrade_cycles.to_string(),"cutover_cycles":cutover_cycles.to_string(),
+        "upgrade_balance_before":before_upgrade.to_string(),"upgrade_balance_after":after_upgrade.to_string(),
         "source_cursor":old_pub.head.source_to_exclusive,"rollback_rehearsed":predecessor.is_some(),
     });
     std::fs::write(

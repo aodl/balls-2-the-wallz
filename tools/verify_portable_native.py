@@ -19,10 +19,13 @@ def main():
     for mode,fixture in [('rules20-corner','rules20-corner-public-equality.json'),('rules20-passage','rules20-passage-public-equality.json')]:
         checked=subprocess.run([*command,mode],cwd=ROOT,text=True,capture_output=True,timeout=90)
         if checked.returncode:print(checked.stderr);return 1
-        rows=json.loads((ROOT/'tests/fixtures'/fixture).read_text())['rows']
-        if checked.stdout.splitlines()!=[f"{mode}\t{row['name']}" for row in rows]:
+        data=json.loads((ROOT/'tests/fixtures'/fixture).read_text())
+        required=[f"{mode}\t{row['name']}" for row in data['rows']]
+        if mode=='rules20-passage':
+            required.append(f"{mode}\tcontinuous-toroidal-return")
+        if checked.stdout.splitlines()!=required:
             print(f'FAIL: {mode} public-output comparisons missing or changed');return 1
-        rules20_count+=len(rows)
+        rules20_count+=len(required)
     for name,slices,budget in ([('admission',10,1),('severance',30,1),('near-impact',20,1),('dense',100,7)] if args.legacy_cursors else []):
         exported=subprocess.run([*command,'export',name,str(slices),str(budget)],cwd=ROOT,text=True,capture_output=True,timeout=30)
         if exported.returncode:print(exported.stderr);return 1
