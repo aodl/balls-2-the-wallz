@@ -107,7 +107,10 @@ and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs
 hosted jobs, including the named installed successor gates. The recovery branch
 is under fresh hosted qualification and is **not** a production
 release candidate. Four local
-authenticated high-population payment cases passed. The certified burn
+authenticated high-population payment cases passed. A subsequent genuine
+1,000-account Fire batch paid for the first two of three symbolic Ball
+prices; its receipt, frontend quote and independent public replay agree.
+The certified burn
 meter remains disabled and is tracked separately. Sustained Full Speed throughput,
 physical devices, dense-scene P09
 qualification and wider-launch readiness remain open. Automatic player payouts

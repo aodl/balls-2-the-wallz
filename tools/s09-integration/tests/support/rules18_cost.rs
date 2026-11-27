@@ -2823,6 +2823,102 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
         String::from_utf8_lossy(&independent.stdout),
         String::from_utf8_lossy(&independent.stderr)
     );
+    let partial_batch = if target == 1000 {
+        pause(&pic, id);
+        let before_batch = arena_world(&pic, id);
+        let payer_account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+        let player = before_batch
+            .playability
+            .as_ref()
+            .unwrap()
+            .players
+            .iter()
+            .find(|row| row.account == payer_account)
+            .unwrap()
+            .id;
+        let cannon = before_batch
+            .cannons
+            .iter()
+            .find(|row| row.account == payer_account)
+            .unwrap()
+            .id;
+        let held = before_batch
+            .balls
+            .iter()
+            .filter(|ball| ball.owner == player)
+            .count() as u32;
+        let prices = (0..3)
+            .map(|n| {
+                b2z_native::economy20::marginal_price(
+                    b2z_protocol::economy17::BALL_BASE_E8S,
+                    target,
+                    held + n,
+                )
+                .unwrap()
+            })
+            .collect::<Vec<_>>();
+        let amount = prices[0] + prices[1];
+        assert!(amount < prices.iter().sum::<u64>());
+        let memo = format!("FIRE {cannon} 0 3");
+        let position = transfer_text(&pic, ledger, payer, id, amount, memo.as_bytes());
+        for _ in 0..600 {
+            advance(&pic, 1000);
+            if status(&pic, id).source.admitted_to_exclusive > position {
+                break;
+            }
+        }
+        assert!(status(&pic, id).source.admitted_to_exclusive > position);
+        let (_, prior_batch) = capture(&pic, id, &out, 3);
+        let before_segments = status(&pic, id).run.completed_segments;
+        playability_installed::configuration(&pic, id, 512);
+        for _ in 0..600 {
+            advance(&pic, 1000);
+            if status(&pic, id).run.completed_segments > before_segments {
+                break;
+            }
+        }
+        assert_eq!(status(&pic, id).run.completed_segments, before_segments + 1);
+        let (_, batch_pub) = capture(&pic, id, &out, 4);
+        assert_eq!(
+            batch_pub.head.segment_id.as_ref().unwrap(),
+            &Int(&prior_batch.head.segment_id.as_ref().unwrap().0 + 1u32)
+        );
+        let event_log: Value = decode(&std::fs::read(out.join("4-events.bin")).unwrap()).unwrap();
+        let receipt = event_log["receipts"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|row| row["position"]["$integer"] == position.to_string())
+            .unwrap();
+        assert_eq!(receipt["status"], "partially_applied");
+        assert_eq!(receipt["actual_quantity"], 2);
+        assert_eq!(receipt["requested_quantity"], 3);
+        assert_eq!(receipt["amount_used"]["$integer"], amount.to_string());
+        assert_eq!(receipt["price_tariff"]["formula"], "exponential");
+        assert_eq!(receipt["price_tariff"]["population"], 1000);
+        assert_eq!(receipt["per_item_prices"][0]["$integer"], prices[0].to_string());
+        assert_eq!(receipt["per_item_prices"][1]["$integer"], prices[1].to_string());
+        let expected = BTreeMap::from([(position, ("ACCEPTED".into(), 0, None))]);
+        let inputs = super::delegation_installed::official_inputs(&pic, id, &expected)
+            .into_iter()
+            .map(|(payment, _)| b2z_native::Input {
+                position: Int(payment.position.into()),
+                payload_hex: hex(&payment.encode().unwrap()),
+            })
+            .collect::<Vec<_>>();
+        std::fs::write(out.join("4-inputs.bin"), dtr_wire::encode(&inputs).unwrap()).unwrap();
+        let independent = std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .arg("tools/verify_rules20_paid_batch.mjs")
+            .arg(&out)
+            .output()
+            .unwrap();
+        assert!(independent.status.success(), "independent paid batch: {}", String::from_utf8_lossy(&independent.stderr));
+        json!({"position":position,"held_before":held,"prices":prices,"paid_e8s":amount,
+            "actual_quantity":2,"requested_quantity":3,"independent_quote_and_replay":true})
+    } else {
+        Value::Null
+    };
     std::fs::write(
         out.join("results.json"),
         serde_json::to_vec_pretty(&json!({
@@ -2831,7 +2927,7 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
             "formula_start_ns":formula_start, "publication":paid_pub.head.segment_id,
             "predecessor_publication":before_payment.head.segment_id,
             "receipt_tariff":"exponential", "receipt_reason":receipt["reason"],
-            "applied":expect_applied, "independent_replay":true,
+            "applied":expect_applied, "independent_replay":true,"partial_batch":partial_batch,
         }))
         .unwrap(),
     )

@@ -176,3 +176,16 @@ The newly built bundle has SHA-256
 the other four reviewed asset hashes are unchanged. The frozen Rules18
 source/inventory check and local developer frontend assembly now pass with
 that exact pin. Hosted requalification of the corrected source remains due.
+
+The next installed authenticated tariff case reused the 1,000-account
+historical snapshot and paid a genuine 1.3 ICP `FIRE` batch through the
+disposable Ledger and Index. The player held one Ball. The applicable
+exponential prices were 0.4, 0.9 and 1.6 ICP; the receipt accounted for
+exactly the first two items and reported partial application. The maintained
+frontend quote matched both paid prices, and independent JavaScript replay
+matched the segment's state, events and scores byte for byte. Local
+`rules20_paid_threshold_population` passed in 154.43 seconds; raw evidence
+is under `.work/rules19-recovery/threshold-batch-2/`. This closes the
+authenticated Ball batch partial-fulfillment case. Inventory scaling for
+Cannon and Diverter, tariff grace, delayed admission, interruption and
+overflow part-way through a batch remain open.
