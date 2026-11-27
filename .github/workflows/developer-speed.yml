@@ -174,6 +174,18 @@ jobs:
             --measure-wasm .work/prelaunch-trickle.wasm --prelaunch-test-wasm .work/prelaunch-trickle-probe.wasm \
             --prelaunch-frontend "$(dirname "${frontend[0]}")" --case two_ball --browser-python "$(command -v python)" \
             --output .work/ci-prelaunch-trickle
+      - name: Live certified burn browser and maintained agent on disposable PocketIC
+        if: github.head_ref == 'codex/certified-burn-integration'
+        run: |
+          export CARGO_TARGET_DIR="$PWD/.work/dev-target"
+          cargo build --manifest-path canisters/runtime-lab/Cargo.toml --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle,certified-operational-burn,test-hooks
+          cp "$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm" .work/certified-burn-test.wasm
+          sha256sum .work/certified-burn-test.wasm > .work/certified-burn-test.sha256
+          python -B tools/run_certified_burn_live.py \
+            --profile .work/rules19-profile.wasm --compact .work/prelaunch-trickle.wasm \
+            --prior .work/rules19-production.wasm --candidate .work/certified-burn-test.wasm \
+            --world .work/rules19-paid-world.bin --artifacts /home/runner/dtr-s09-artifacts \
+            --browser-python "$(command -v python)" --output .work/ci-certified-burn-live
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -202,5 +214,9 @@ jobs:
             .work/ci-dev-rules18/deployment/reservoir/developer-speed-certified-frontend.json
             .work/ci-dev-rules18/deployment/reservoir/authenticated/result.json
             .work/ci-dev-rules18/logs/**
+            .work/certified-burn-test.sha256
+            .work/ci-certified-burn-live/results.json
+            .work/ci-certified-burn-live/logs/**
+            .work/ci-certified-burn-live/evidence/*.json
           if-no-files-found: warn
           retention-days: 14
