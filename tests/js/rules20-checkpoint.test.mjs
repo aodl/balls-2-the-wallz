@@ -9,6 +9,7 @@ import {grantForAccount} from '../../packages/kernels/b2z/delegation-v20.mjs';
 import {quoteV6} from '../../apps/b2z-observer/action-quote-v6.mjs';
 import {contextSites} from '../../apps/b2z-observer/context-sites.mjs';
 import {prepareCheckpoint,snapshot} from '../../apps/b2z-observer/model.mjs';
+import {projectAnimationEvents} from '../../packages/kernels/b2z/animation-projection.mjs';
 
 const fixture=JSON.parse(readFileSync(new URL('../fixtures/b2z-delegation-v18.json',import.meta.url)));
 function checkpoint(){
@@ -38,6 +39,13 @@ test('Rules20 checkpoint verifies the exact paid predecessor migration and sourc
   assert.equal(segment.final.version,12);
   assert.deepEqual(segment.final,row.after);
   assert.deepEqual(snapshot(row.artifacts.state,row.publication.identity),row.after);
+});
+
+test('Rules20 derived animation accepts successor state and rejects a mismatched audit version',()=>{
+  const world=checkpoint().after;
+  const valid=projectAnimationEvents(world,encodeCanonical({version:12,receipts:[],events:[]}));
+  assert.deepEqual(valid,{receipts:[],events:[],statistics:{source_events:0,render_events:0,omitted_motion_events:0}});
+  assert.throws(()=>projectAnimationEvents(world,encodeCanonical({version:11,receipts:[],events:[]})),/source version/);
 });
 
 test('Rules20 checkpoint rejects an authenticated but incomplete source fence',async()=>{
