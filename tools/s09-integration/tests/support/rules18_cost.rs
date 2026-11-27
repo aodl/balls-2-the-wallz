@@ -1515,3 +1515,110 @@ fn rules19_digit_leading_grant_wire_boundary() {
     )
     .unwrap();
 }
+
+#[test]
+#[ignore = "exact installed Rules19 predecessor and valueless Rules20 Ledger/Index cutover"]
+fn rules20_paid_epoch_and_recovery() {
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("rules20");
+    std::fs::create_dir_all(&out).unwrap();
+    let profile = bytes("B2Z_COST_PROFILE_WASM");
+    let world = seed("two_ball").encode().unwrap();
+    let (pic, id, ledger, payer) = arena_setup_world(profile, world);
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    assert_eq!(
+        dtr_wire::hash(&std::fs::read(&compact).unwrap()),
+        "b258ec234b9abd7db9e7b170c14e432b4d1ef2d9b2545632bddb58668a6095de"
+    );
+    compact_cutover(&pic, id, ledger, &compact, &out);
+    // The cutover itself is a zero-time publication. Rules20 preparation
+    // requires one complete predecessor gameplay interval after that epoch.
+    playability_installed::one_tick(&pic, id);
+    let installed = bytes("B2Z_RULES20_INSTALLED_WASM");
+    assert_eq!(
+        dtr_wire::hash(&installed),
+        "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90"
+    );
+    let candidate = bytes("B2Z_RULES20_CANDIDATE_WASM");
+    let predecessor_publication = observe(&pic, id).0.publication;
+    upgrade_during_recovery(&pic, id, &installed).unwrap();
+    assert_eq!(observe(&pic, id).0.publication, predecessor_publication);
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    assert_eq!(observe(&pic, id).0.publication, predecessor_publication);
+    // Before the durable epoch, the exact installed module remains a valid
+    // recovery target; after activation it must fail rather than misdecode.
+    upgrade_during_recovery(&pic, id, &installed).unwrap();
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    playability_installed::prepare(&pic, id, "prepare_rules20_transition");
+    let mut ready = false;
+    for _ in 0..1800 {
+        let raw: Vec<u8> = get_query(
+            &pic, id, "rules20_transition_status", encode_args(()).unwrap(),
+        );
+        let view: serde_json::Value = dtr_wire::decode(&raw).unwrap();
+        if view["transition"]["phase"] == "ready" && transition_drained(&pic, id) {
+            ready = true;
+            break;
+        }
+        advance(&pic, 1000);
+    }
+    assert!(ready, "Rules20 source must drain to an official Ledger/Index cutoff");
+    let before = arena_world(&pic, id);
+    let (before_obs, before_pub) = capture(&pic, id, &out, 0);
+    let source_cursor = status(&pic, id).source.admitted_to_exclusive;
+    let received = before.received_e8s.clone();
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_rules20_transition",
+        candid::encode_one(before_pub.head.manifest_hash.clone()).unwrap(),
+    );
+    let after = arena_world(&pic, id);
+    let (after_obs, after_pub) = capture(&pic, id, &out, 1);
+    assert_eq!(after, b2z_native::delegation_v20::migrate(before.clone()).unwrap());
+    assert_eq!(after.received_e8s, received);
+    assert_eq!(status(&pic, id).source.admitted_to_exclusive, source_cursor);
+    assert_eq!(after_pub.head.logical_end, before_pub.head.logical_end);
+    assert_eq!(after_pub.head.source_to_exclusive, before_pub.head.source_to_exclusive);
+    assert_ne!(after_obs.publication, before_obs.publication);
+    let before_segment = before_pub.head.segment_id.as_ref().unwrap().0.to_string().parse::<u64>().unwrap();
+    let retained: Vec<u8> = get_query(&pic, id, "retained_publication", candid::encode_one(before_segment).unwrap());
+    assert_eq!(retained, before_obs.publication);
+    let current_hash = pic.canister_status(id, Some(controller())).unwrap().module_hash;
+    assert!(upgrade_during_recovery(&pic, id, &installed).is_err());
+    assert_eq!(pic.canister_status(id, Some(controller())).unwrap().module_hash, current_hash);
+    assert_eq!(observe(&pic, id).0.publication, after_obs.publication);
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    assert_eq!(observe(&pic, id).0.publication, after_obs.publication);
+    playability_installed::configuration(&pic, id, 512);
+    let position = transfer_text(&pic, ledger, payer, id, 1_000_000, b"NEW 0 1");
+    let account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+    let mut applied = false;
+    for _ in 0..240 {
+        advance(&pic, 1000);
+        let current = arena_world(&pic, id);
+        if status(&pic, id).source.admitted_to_exclusive > position
+            && current.cannons.iter().any(|c| c.account == account)
+        {
+            assert_eq!(current.received_e8s.0, &received.0 + 1_000_000u64);
+            applied = true;
+            break;
+        }
+    }
+    assert!(applied, "successor must execute a real indexed Ledger Join after activation");
+    let (_, paid_pub) = capture(&pic, id, &out, 2);
+    std::fs::write(
+        out.join("results.json"),
+        serde_json::to_vec_pretty(&json!({
+            "status":"PASS","scope":"disposable exact Rules19 same-ID upgrade, authenticated Rules20 epoch and genuine Ledger/Index payment",
+            "installed_wasm_sha256":dtr_wire::hash(&installed),
+            "candidate_wasm_sha256":dtr_wire::hash(&candidate),
+            "predecessor_publication_sha256":dtr_wire::hash(&before_obs.publication),
+            "successor_publication_sha256":dtr_wire::hash(&after_obs.publication),
+            "source_cursor_at_cutover":source_cursor,
+            "post_cutover_payment_position":position,
+            "post_cutover_publication":paid_pub.head.segment_id,
+            "old_module_rejected_after_epoch":true,
+            "same_candidate_recovery":true,
+        })).unwrap(),
+    ).unwrap();
+}
