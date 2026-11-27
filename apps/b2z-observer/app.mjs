@@ -138,7 +138,7 @@ async function certifiedTicket(s,response){
   if(active(s)&&ticket.certificate_time_ns>(s.burnCertificateTime??-1n)){
     s.burnCertificateTime=ticket.certificate_time_ns;
     s.verifiedBurn=authenticatedBurn;
-    if(s.publicCycles)renderCycleReadout(document,{...s.publicCycles,verifiedBurn:s.verifiedBurn});
+    renderCycleReadout(document,{...s.publicCycles,verifiedBurn:s.verifiedBurn});
   }
   return ticket;
 }

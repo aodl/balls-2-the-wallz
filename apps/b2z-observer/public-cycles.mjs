@@ -28,6 +28,7 @@ export function cycleReadout(value){
  const burn=value.verifiedBurn;
  const rate=typeof burn?.cyclesPerDay==='bigint'&&burn.cyclesPerDay>=0n?'(~'+formatCycles(burn.cyclesPerDay).replace(/\.00(?=[TBM]$)/,'')+'/day)':'';
  let detail='Cycle data temporarily unavailable';
+ if(balance===null&&rate)detail='Certified approximate net-balance burn. Total cycle balance unavailable.';
  if(balance!==null){
   detail='Management total cycles. Certified daily burn is unavailable on this backend.';
   if(rate)detail='Management total cycles. '+burn.detail;
@@ -36,7 +37,7 @@ export function cycleReadout(value){
  return {balance:balance??'Unavailable',burn:rate,detail};
 }
 export function renderCycleReadout(doc,value){
- const v=cycleReadout(value),unavailable=v.balance==='Unavailable';
+ const v=cycleReadout(value),unavailable=v.balance==='Unavailable'&&!v.burn;
  doc.getElementById('cycle-unavailable').hidden=!unavailable;
  doc.getElementById('cycle-values').hidden=unavailable;
  doc.getElementById('cycles-burn').hidden=!v.burn;

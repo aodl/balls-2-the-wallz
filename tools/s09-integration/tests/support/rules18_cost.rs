@@ -1618,3 +1618,120 @@ fn certified_operational_burn_roundtrip() {
         "scope":"disposable Rules19 same-ID certificate, recovery and capped ordinary checkpoints"
     })).unwrap()).unwrap();
 }
+
+#[test]
+#[ignore = "live read-only browser and maintained agent against a disposable certified burn canister"]
+fn certified_operational_burn_live_consumers() {
+    #[derive(CandidType, Deserialize)]
+    struct CertifiedObservation {
+        publication: Vec<u8>,
+        certificate: Option<Vec<u8>>,
+        operational_burn: Option<Vec<u8>>,
+    }
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let (pic, id, ledger, payer) = arena_setup_world(
+        bytes("B2Z_COST_PROFILE_WASM"),
+        seed("two_ball").encode().unwrap(),
+    );
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    compact_cutover(&pic, id, ledger, &compact, &out);
+    let prior = bytes("B2Z_BURN_PRIOR_WASM");
+    upgrade_during_recovery(&pic, id, &prior).unwrap();
+    let candidate = bytes("B2Z_BURN_CANDIDATE_WASM");
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    let _: Status = get_result(
+        &pic,
+        id,
+        "start_autonomous",
+        candid::encode_one(RunConfig {
+            segment_ticks: 1,
+            pacing_seconds: 1,
+            work_budget: 512,
+        })
+        .unwrap(),
+    );
+    for _ in 0..65 {
+        advance(&pic, 60_000);
+    }
+    let observation = |pic: &PocketIc| {
+        let reply = pic
+            .query_call(
+                id,
+                Principal::anonymous(),
+                "observation",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        decode_one::<Result<CertifiedObservation, String>>(&reply)
+            .unwrap()
+            .unwrap()
+    };
+    assert!(observation(&pic).operational_burn.is_some());
+    let wall = pocket_ic::Time::from(std::time::SystemTime::now());
+    if wall > pic.get_time() {
+        pic.set_time(wall);
+        for _ in 0..4 {
+            pic.tick();
+        }
+    }
+    let root_key = pic.root_key().unwrap();
+    std::fs::write(out.join("root-key.der"), &root_key).unwrap();
+    std::fs::write(out.join("metadata.json"), b"{}").unwrap();
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let run_live = |pic: &PocketIc, label: &str, expect_burn: bool| {
+        let mut live =
+            PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
+        let gateway = live.make_live(None);
+        let configuration = out.join("configuration.json");
+        std::fs::write(
+            &configuration,
+            serde_json::to_vec(&json!({
+                "network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),
+                "ledger":ledger.to_text(),"index":status(pic,id).source.index.to_text(),
+                "recipient":source::receiving_account(id,0).to_hex(),
+                "listening_account":AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex(),
+                "root_key_hex":hex(&root_key),
+            }))
+            .unwrap(),
+        )
+        .unwrap();
+        let mut command = std::process::Command::new(
+            std::env::var_os("B2Z_BURN_BROWSER_PYTHON").unwrap_or_else(|| "python3.11".into()),
+        );
+        command
+            .current_dir(&repo)
+            .args([
+                "-B",
+                "tools/verify_certified_burn_live.py",
+                "--configuration",
+            ])
+            .arg(&configuration)
+            .arg("--output")
+            .arg(out.join(label));
+        if expect_burn {
+            command.arg("--expect-burn");
+        }
+        if std::env::var_os("B2Z_BURN_AGENT_ONLY").is_some() {
+            command.arg("--agent-only");
+        }
+        let output = command.output().unwrap();
+        std::fs::write(
+            out.join(format!("{label}.log")),
+            [&output.stdout[..], &output.stderr[..]].concat(),
+        )
+        .unwrap();
+        live.stop_live();
+        assert!(
+            output.status.success(),
+            "live consumer {label}: {}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+    };
+    run_live(&pic, "composed", true);
+    let committed = observation(&pic).publication;
+    upgrade_during_recovery(&pic, id, &prior).unwrap();
+    assert_eq!(observation(&pic).publication, committed);
+    assert!(observation(&pic).operational_burn.is_none());
+    run_live(&pic, "direct", false);
+}

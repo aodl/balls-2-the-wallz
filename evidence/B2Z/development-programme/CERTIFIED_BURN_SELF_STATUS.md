@@ -72,3 +72,34 @@ Direct monotonic consumed-cycle counters require a controller or subnet
 admin under the current management contract. Matched incremental cost
 and complete live consumer acceptance are also pending. The capability
 remains disabled in ordinary backend profiles. [IC management counters](https://docs.internetcomputer.org/references/ic-interface-spec/management-canister/#ic-method-canister_metrics)
+
+## Live maintained consumer continuation
+
+The actual maintained agent had two independent compatibility gaps when
+reading the live Rules19 certified fixture: it allowed only Rules6/7
+identities and required event version 6 even though the authenticated
+Rules19 world and event envelope are version 11. Its identity list now
+includes the reviewed historical identities already accepted by the
+frontend, and it requires the event version to match the authenticated
+world version. The old archived Rules6 agent tests and 23 focused
+certificate, cycles and observer tests pass.
+
+An installed 65-minute active-Trickle disposable case then used the exact
+Rules19 backend, the existing telemetry candidate, real PocketIC
+certificates and the maintained `VerifiedObserver`. It passed on both the
+composed certified root and the restored direct-root backend. Both reads
+authenticated head 37 and the same publication root; the composed read
+included the operational witness and the direct read did not. The same-ID
+recovery kept the publication bytes unchanged. Raw results are under
+`.work/burn-balance-probe/live-agent-3/`.
+
+The browser leg reached a live certified fixture and built the observer,
+but local Chromium could not start because this Linux host lacks
+`libatk-1.0.so.0`. This is a **BLOCKED browser gate**, not a browser pass.
+The consumer script retains its query-only browser checks for an equipped
+hosted runner. It verifies an established rate on first load and reload,
+the compact line, exact publication identity, and absence of mutation
+requests. Raw failed attempts are in `live-consumers-4` through
+`live-consumers-6`. No system package was installed. Matched incremental
+cost, changing reservations, credits and full live browser acceptance
+remain open. The telemetry feature remains disabled in normal builds.

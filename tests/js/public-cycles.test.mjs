@@ -1,5 +1,5 @@
 import test from 'node:test';import assert from 'node:assert/strict';
-import {formatCycles,publicStatusReader,statusInterface,cycleReadout} from '../../apps/b2z-observer/public-cycles.mjs';
+import {formatCycles,publicStatusReader,statusInterface,cycleReadout,renderCycleReadout} from '../../apps/b2z-observer/public-cycles.mjs';
 import {IDL} from '@icp-sdk/core/candid';
 import {HttpAgent,IC_ROOT_KEY} from '@icp-sdk/core/agent';
 const backend='s5ir5-gqaaa-aaaas-amyna-cai',status=(cycles=1000000000000n,more={})=>({backend,cycles,reserved_cycles:0n,idle_cycles_burned_per_day:100n,version:1n,module_hash:[Uint8Array.of(1)],settings:{status_visibility:{public:null}},...more});
@@ -11,4 +11,15 @@ test('one-line readout omits estimates from an older backend and formats exact d
  assert.equal(cycleReadout({balance:2430000000000n,rate:25n,label:'Available'}).burn,'');
  assert.equal(cycleReadout({balance:2430000000000n,verifiedBurn:{cyclesPerDay:8000000000n,detail:'Partial window.'}}).burn,'(~8B/day)');
  assert.equal(cycleReadout({balance:9n,verifiedBurn:{cyclesPerDay:-1n}}).burn,'');
+});
+
+test('a certified estimate remains visible when a local browser has no public balance query',()=>{
+ const nodes=new Map(['cycle-unavailable','cycle-values','cycles-balance','cycles-burn','cycle-detail'].map(id=>[id,{hidden:false,textContent:''}]));
+ renderCycleReadout({getElementById:id=>nodes.get(id)}, {verifiedBurn:{cyclesPerDay:403851000000n,detail:'Established window.'}});
+ assert.equal(nodes.get('cycle-unavailable').hidden,true);
+ assert.equal(nodes.get('cycle-values').hidden,false);
+ assert.equal(nodes.get('cycles-balance').textContent,'Unavailable');
+ assert.equal(nodes.get('cycles-burn').textContent,'(~403.85B/day)');
+ assert.equal(nodes.get('cycles-burn').hidden,false);
+ assert.match(nodes.get('cycle-detail').textContent,/Total cycle balance unavailable/);
 });
