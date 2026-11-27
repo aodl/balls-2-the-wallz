@@ -15,11 +15,16 @@ def main():
     for i,row in enumerate(json.loads((ROOT/'tests/fixtures/cursor-v4.json').read_text())['rows'] if args.legacy_cursors else []):expected.append(f"cursor\t{i}\t{byname[row['name']]['outputs']['state']['sha256']}")
     for row in json.loads((ROOT/'tests/fixtures/numeric-v4.json').read_text())['cases']:expected.append(f"numeric\t{row['id']}\t{'/'.join(row['sum'])}")
     if result.stdout.splitlines()!=expected:print('FAIL: native output differs, missing/extra rows fail');return 1
+    corner=subprocess.run([*command,'rules20-corner'],cwd=ROOT,text=True,capture_output=True,timeout=90)
+    if corner.returncode:print(corner.stderr);return 1
+    corner_rows=json.loads((ROOT/'tests/fixtures/rules20-corner-public-equality.json').read_text())['rows']
+    if corner.stdout.splitlines()!=[f"rules20-corner\t{row['name']}" for row in corner_rows]:
+        print('FAIL: Rules20 exact-corner public-output comparisons missing or changed');return 1
     for name,slices,budget in ([('admission',10,1),('severance',30,1),('near-impact',20,1),('dense',100,7)] if args.legacy_cursors else []):
         exported=subprocess.run([*command,'export',name,str(slices),str(budget)],cwd=ROOT,text=True,capture_output=True,timeout=30)
         if exported.returncode:print(exported.stderr);return 1
         resumed=subprocess.run(['node','tools/native_bridge.mjs',name],input=exported.stdout,cwd=ROOT,text=True,capture_output=True,timeout=30)
         if resumed.returncode:print(resumed.stderr);return 1
         print(resumed.stdout.strip())
-    print(f'PASS: {len(expected)} native byte/arithmetic comparisons (private cross-language continuations are optional legacy diagnostics).');return 0
+    print(f'PASS: {len(expected)} native byte/arithmetic comparisons and {len(corner_rows)} Rules20 exact-corner public-output comparisons (private cross-language continuations are optional legacy diagnostics).');return 0
 if __name__=='__main__':raise SystemExit(main())

@@ -136,6 +136,38 @@ fn main_inner() -> Result<()> {
         }
         return Ok(());
     }
+    if args.get(1).map(String::as_str) == Some("rules20-corner") {
+        let data = load(&root, "rules20-corner-public-equality.json")?;
+        for row in data["rows"].as_array().ok_or("corner rows")? {
+            let mut cursor = begin(row)?;
+            let mut slices = 0usize;
+            loop {
+                let (_, done) = cursor.step(31)?;
+                if done {
+                    break;
+                }
+                slices += 1;
+                if slices > 100_000 {
+                    return Err("corner work bound".into());
+                }
+                let snapshot = cursor.snapshot()?;
+                cursor = Cursor::restore(&snapshot, &hash(&snapshot))?;
+            }
+            cursor.finalize_elapsed(
+                row["observed_ns"]
+                    .as_str()
+                    .ok_or("corner elapsed")?
+                    .parse()
+                    .map_err(|_| "corner elapsed")?,
+            )?;
+            check_output(&cursor.result()?, &row["outputs"])?;
+            println!(
+                "rules20-corner\t{}",
+                row["name"].as_str().ok_or("corner name")?
+            );
+        }
+        return Ok(());
+    }
     let golden = load(&root, "b2z-v3-golden.json")?;
     let cases = golden["cases"].as_array().ok_or("golden cases")?;
     if args.get(1).map(String::as_str) == Some("export") {

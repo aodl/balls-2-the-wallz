@@ -2,9 +2,11 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {decodeWorld,setOwner,wrapCell,neighbors} from '../../packages/kernels/b2z/world.mjs';
-import {classify,passage} from '../../packages/kernels/b2z/kernel.mjs';
+import {B2zKernel,classify,passage} from '../../packages/kernels/b2z/kernel.mjs';
+import {decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 
 const rows=JSON.parse(readFileSync(new URL('../fixtures/context-structures-v13.json',import.meta.url))).rows;
+const publicCorners=JSON.parse(readFileSync(new URL('../fixtures/rules20-corner-public-equality.json',import.meta.url))).rows;
 function world(){
  const w=decodeWorld(Buffer.from(rows[0].initial_hex,'hex'));
  w.version=12; // Exercise the successor contact law without claiming a migration.
@@ -86,4 +88,21 @@ test('a foreign diagonal strike originates in the passed friendly side cell',()=
  const j=classify(odd,other.b,other.crossing);
  assert.equal(j.attack.from,other.sideY);
  assert.equal(j.attack.axis,'x');
+});
+test('eight exact diagonal contacts capture once and preserve Rules20 public bytes',()=>{
+ for(const row of publicCorners){
+  const initial=Buffer.from(row.initial_hex,'hex');
+  const inputs=decodeCanonical(Buffer.from(row.inputs_hex,'hex'));
+  const context=decodeCanonical(Buffer.from(row.context_hex,'hex'));
+  const cursor=B2zKernel.begin(initial,inputs,context);
+  let complete=false;
+  for(let n=0;n<1000&&!complete;n++)complete=cursor.step(127).complete;
+  assert.equal(complete,true,row.name);
+  cursor.finalizeElapsed(BigInt(row.observed_ns));
+  const output=cursor.result();
+  for(const kind of ['state','events','scores'])
+   assert.equal(Buffer.from(output[kind]).toString('hex'),row.outputs[kind].hex,`${row.name} ${kind}`);
+  const captures=decodeCanonical(output.events).events.filter(event=>event.kind==='capture');
+  assert.deepEqual(captures.map(event=>event.target),[row.expected_capture],row.name);
+ }
 });
