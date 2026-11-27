@@ -1,0 +1,44 @@
+{
+  "observation_utc": "2026-11-26T19:53:58Z",
+  "master_before_closeout": "34e2241ea5a6e926957931280838a7559750d6c1",
+  "deleted_remote_branches": [
+    {
+      "name": "codex/clipboard-fixture-race",
+      "verified_tip": "ddd18b28dd1ff148a7265a920bdccdc7624fc3cf",
+      "relationship": "ancestor of master; PR 19 merged"
+    },
+    {
+      "name": "codex/audio-contact-clock-fence",
+      "verified_tip": "acd0f5be5ddd3bceb2763623c4bf7028777ffcc6",
+      "relationship": "ancestor of master; PR 21 merged"
+    },
+    {
+      "name": "codex/runway-tool-integrate",
+      "verified_tip": "68c4c84a8c60934964bf8514acd6d91b510729f3",
+      "relationship": "ancestor of master; PR 20 merged"
+    },
+    {
+      "name": "codex/runway-time-precision",
+      "verified_tip": "29abeaea4d25c6b03d676420120d0b1718a6594b",
+      "relationship": "ancestor of master; standard hosted pass"
+    },
+    {
+      "name": "codex/programme-tooling-final",
+      "verified_tip": "dcd52e4c291c1c0b61f5384d1d128dbd5b1b4dfa",
+      "relationship": "ancestor of master; PR 22 merged and all eleven substantive jobs passed"
+    },
+    {
+      "name": "codex/prelaunch-operating-readiness",
+      "verified_tip": "eff22764c767cb788e56558f6df19e2e3a1ec410",
+      "relationship": "one branch-only commit, patch-equivalent to integrated read-only runway work (git cherry returned -); no open PR or worktree"
+    }
+  ],
+  "delete_method": "Individual non-force git push --delete with exact-tip --force-with-lease; remote absence verified after deletion.",
+  "remaining_remote_branches": {
+    "master": "maintained published branch",
+    "codex/certified-burn-prototype": "unqualified certified telemetry prototype",
+    "codex/rules20-auth-registry": "unqualified Rules20 authorization storage prototype",
+    "codex/rules20-symbolic-tariffs": "unqualified Rules20 pricing prototype"
+  },
+  "local_worktrees": "No worktree was removed or discarded; historical local worktrees remain separately."
+}

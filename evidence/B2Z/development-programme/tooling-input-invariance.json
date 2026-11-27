@@ -1,0 +1,75 @@
+{
+  "baseline": "b70f1f880a4994c8aef607a3987a298e807bda0b",
+  "candidate": "dcd52e4c291c1c0b61f5384d1d128dbd5b1b4dfa",
+  "changed_paths": [
+    "docs/operations/B2Z_PRELAUNCH_TRICKLE.md",
+    "evidence/B2Z/development-programme/AUDIO_CONTACT_CLOCK_FOLLOWUP.md",
+    "evidence/B2Z/development-programme/CLIPBOARD_FIXTURE_FOLLOWUP.md",
+    "tests/js/audio-contact-clock.test.mjs",
+    "tests/js/prelaunch-runway.test.mjs",
+    "tools/fixtures/audio-contact-browser.mjs",
+    "tools/fixtures/audio-contact-clock.mjs",
+    "tools/observe_europe_prelaunch.mjs",
+    "tools/prelaunch_runway.mjs",
+    "tools/verify_boundary_deflector_browser.py"
+  ],
+  "input_trees": {
+    "apps": {
+      "before": "b8a1670df3313e74ae15671c7b2b72870c3c1001",
+      "after": "b8a1670df3313e74ae15671c7b2b72870c3c1001"
+    },
+    "native": {
+      "before": "5c3c2f65dc10f1afccce683c787f5363dc9535bf",
+      "after": "5c3c2f65dc10f1afccce683c787f5363dc9535bf"
+    },
+    "canisters": {
+      "before": "4282326edf0230a9f516f794b46a18d3d3940f85",
+      "after": "4282326edf0230a9f516f794b46a18d3d3940f85"
+    },
+    "packages": {
+      "before": "ea26fece9a91ab9891f7ace65f5d143e45dbcd6e",
+      "after": "ea26fece9a91ab9891f7ace65f5d143e45dbcd6e"
+    },
+    "config": {
+      "before": "dcc4d5202ef8006f64e7c027d5f02eabe38317c9",
+      "after": "dcc4d5202ef8006f64e7c027d5f02eabe38317c9"
+    },
+    "Cargo.lock": {
+      "before": "a81f1d791204d04b35f1c922309e11f979d908f2",
+      "after": "a81f1d791204d04b35f1c922309e11f979d908f2"
+    },
+    "package-lock.json": {
+      "before": "eaf1642bbe2d4c6a1a062b3ae412613bed3b58f9",
+      "after": "eaf1642bbe2d4c6a1a062b3ae412613bed3b58f9"
+    },
+    "vendor": {
+      "before": "da0f5b685d2a2596cd77a99f0e474e8524f95244",
+      "after": "da0f5b685d2a2596cd77a99f0e474e8524f95244"
+    },
+    "tests/fixtures": {
+      "before": "1f510945e5fcf440b499bcf6f2339468c0f60da7",
+      "after": "1f510945e5fcf440b499bcf6f2339468c0f60da7"
+    },
+    "interfaces": {
+      "before": "3f77c3475273499329fbf7307bdb90653965a17e",
+      "after": "3f77c3475273499329fbf7307bdb90653965a17e"
+    },
+    "rust-toolchain.toml": {
+      "before": "6af31eef7f39a5fe3e63c7eaee4ddfe795df2dd8",
+      "after": "6af31eef7f39a5fe3e63c7eaee4ddfe795df2dd8"
+    },
+    "package.json": {
+      "before": "3e208c972f27baa5cf3cdc05d0e5564c4bdb47e8",
+      "after": "3e208c972f27baa5cf3cdc05d0e5564c4bdb47e8"
+    },
+    ".github/workflows": {
+      "before": "52a41cca0114574c4e7dd5ddcf487a9c068f02da",
+      "after": "52a41cca0114574c4e7dd5ddcf487a9c068f02da"
+    },
+    "docs/specs": {
+      "before": "8e9146ddc8777d015339c6da530f3edc6f8fa49b",
+      "after": "8e9146ddc8777d015339c6da530f3edc6f8fa49b"
+    }
+  },
+  "conclusion": "All listed runtime, dependency, asset and deterministic fixture Git objects are identical. Only reviewed documentation and verification/operator tooling changed."
+}

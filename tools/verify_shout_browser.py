@@ -6,7 +6,7 @@ import socket
 import subprocess
 from pathlib import Path
 
-from playwright.sync_api import sync_playwright
+from playwright.sync_api import sync_playwright, TimeoutError as PlaywrightTimeoutError
 
 parser = argparse.ArgumentParser(description=__doc__)
 parser.add_argument("--configuration", type=Path, required=True)
@@ -97,11 +97,28 @@ with (out / "server.log").open("w") as log:
                 # Owned Diverters now open Reorient on selection. Wait for the
                 # actual selected structure and action instead of clicking the
                 # already active action during the browser's selection turn.
-                page.wait_for_function(
-                    "()=>document.querySelector('#panel-title')?.textContent==='Diverter #2' && "
-                    "__b2zExperience.composer.mode==='deflector_reorient'",
-                    timeout=10000,
-                )
+                try:
+                    page.wait_for_function(
+                        "()=>document.querySelector('#panel-title')?.textContent==='Diverter #2' && "
+                        "__b2zExperience.composer.mode==='deflector_reorient'",
+                        timeout=10000,
+                    )
+                except PlaywrightTimeoutError as error:
+                    # Preserve the real selection assertion. A failed mobile
+                    # tap needs the picked control and current composer state,
+                    # not an unqualified increase to the wait time.
+                    page.screenshot(path=out / f"{width}-selection-failed.png")
+                    state = page.evaluate("""p=>({
+                        point:p, hit:document.elementFromPoint(p.sx,p.sy)?.outerHTML.slice(0,240),
+                        title:document.querySelector('#panel-title')?.textContent??null,
+                        mode:__b2zExperience?.composer?.mode??null,
+                        deflectorCell:__b2zExperience?.visible?.deflectors?.get(2)?.cell??null,
+                        errors:globalThis.__b2zErrors??null
+                    })""", point)
+                    (out / f"{width}-selection-failed.json").write_text(
+                        json.dumps({"state": state, "page_errors": errors, "mutations": mutations}, indent=2)+"\n"
+                    )
+                    raise AssertionError(f"Diverter selection did not settle: {state}") from error
                 assert page.locator("#deflector-directions").is_visible()
                 page.locator("#deflector-directions button").filter(has_text="N").click()
                 page.get_by_placeholder("Shout (optional)").fill("Hold")

@@ -1,0 +1,49 @@
+{
+  "observation_utc": "2026-11-26T19:47:59.134Z",
+  "scope": "Authenticated settled read-only European observation; no production mutation",
+  "backend_module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+  "frontend_module_sha256": "2a6da764e4e7f63bf367bc6e55265df00a4714121019e895e67d0598521475ff",
+  "certified_head": "18505",
+  "logical_time": "18489",
+  "rules": "Rules19",
+  "schema": "Schema11",
+  "adapter": "Adapter12 / BTZPAY09",
+  "pace": {
+    "nominal_milli": 10,
+    "supported_milli": 10,
+    "mode": "Trickle",
+    "admission_open": true,
+    "performance_limited": false
+  },
+  "running": true,
+  "pending_source_records": 0,
+  "counts": {
+    "cannons": 2,
+    "balls": 2,
+    "diverters": 1,
+    "reservoir_tiles": 4,
+    "funding_accounts_with_cannons": 1
+  },
+  "cycles": {
+    "backend_total": "2883125904881",
+    "backend_liquid": "2825292386711",
+    "frontend_total": "963229766940",
+    "frontend_install_recovery_headroom": "309523950150"
+  },
+  "comparison": {
+    "start_utc": "2026-11-26T18:47:46.944Z",
+    "duration_ns": "3612096547919",
+    "publication_delta": 36,
+    "settled_net_decline_cycles": "22841125922",
+    "net_cycles_per_day": "546351198945",
+    "seconds_to_reserve_protection": "288651",
+    "seconds_to_usual_full_speed_cycle_floor": "119441"
+  },
+  "limitations": [
+    "Net balance decline is not proven gross execution cost.",
+    "Unknown intervening credits and changed workload can change future rates.",
+    "The Full Speed cycle floor is only one eligibility condition.",
+    "One funding account with Cannons does not establish the number of individual humans."
+  ],
+  "raw_operator_observation_sha256": "741837027f4bec3a31ec81c06bcbd022595814af63891efa902c31e8c87a6e64"
+}

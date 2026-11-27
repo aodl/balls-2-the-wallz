@@ -96,10 +96,12 @@ def main():
         actual=hashlib.sha256(path.read_bytes()).hexdigest()
         if actual!=expected[name]:result.update(overall='FAIL',reason='pinned runtime/artifact mismatch: '+name);save();return 1
         result['artifacts'].append({'name':name,'sha256':actual,'path':str(path)})
-    if not a.test_filter or 'deployed_bundle' in a.test_filter or a.test_filter=='torus_' or 'torus_browser' in a.test_filter or 'million_browser' in a.test_filter:
+    # This installed Shout case launches a real browser despite its test name
+    # lacking "browser". Check the selected interpreter before expensive builds.
+    if not a.test_filter or 'deployed_bundle' in a.test_filter or a.test_filter=='torus_' or 'torus_browser' in a.test_filter or 'million_browser' in a.test_filter or 'shout_rules13_upgrade_official_payments_and_recovery' in a.test_filter:
         try:
             probe=__import__('subprocess').run([a.browser_python,'-c',
-              "from pathlib import Path; from playwright.sync_api import sync_playwright; p=sync_playwright().start(); assert Path(p.chromium.executable_path).is_file(), 'Chromium missing'; p.stop()"],capture_output=True,text=True,timeout=20)
+              "from playwright.sync_api import sync_playwright; p=sync_playwright().start(); b=p.chromium.launch(headless=True,chromium_sandbox=True); b.close(); p.stop()"],capture_output=True,text=True,timeout=45)
             if probe.returncode:raise RuntimeError(probe.stderr.strip())
         except Exception as error:
             result.update(overall='BLOCKED',reason='Local deployment browser prerequisite: '+str(error));save();return 2
