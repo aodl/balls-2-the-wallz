@@ -1,68 +1,70 @@
-# Rules20 successor progress — 26 November 2026
+# Rules20 successor progress — 27 November 2026
 
-This is a development branch record. Rules19 remains installed in Europe; no
-production operation was performed. Master `6d0a30e` is the frontend
-development baseline; its most recent standard hosted run failed one
-historical browser test while the financial and developer runs passed.
-This branch is **not a release candidate**.
+This is a development-branch record. Rules19 remains installed in Europe. No
+production operation was performed. Master `6d0a30e` is the starting baseline;
+draft PR #25 carries the successor. This branch is **not a release candidate**.
 
 ## Established facts
 
-- A valid digit-leading funding account can stop Rules19 publication after a
-  genuine disposable authorization grant. Source admission continues, but
-  later paid gameplay remains unapplied. Ordinary retry and an identical-Wasm
-  upgrade do not repair it. See [the retained incident](AUTHORIZATION_REGISTRY_INCIDENT.md).
-- Canonically sorted Schema12 grant rows preserve account identity as a value.
-  Rust and independent JavaScript accept all 16 leading hex digits; old
-  Schema10/11 decoding and historical bytes remain unchanged. Direct row
-  operations avoid full map conversion on every payment.
-- The proposed construction law now has a canonical per-Ball, per-structure
-  passage row. Explicit new Cannon and Diverter planning allows a Ball-occupied
-  site under Schema12 while historical Rules19 planning still rejects it.
-  Focused tests cover first entry, exact-corner tangency, unrelated arrivals,
-  retirement and later return in both kernels. The JavaScript Cannon birth
-  regression also checks that the existing Ball receives the row while the
-  Cannon's included newly launched Ball does not.
-- Focused Rust and JavaScript checkerboard contact tests cover four diagonal
-  directions, both parities, toroidal seams, mixed neutral/enemy/friendly side
-  cells and the old Rules19 branch. These are contact-classifier tests, not
-  complete public-output equality.
-- The symbolic price functions and grace-prefix selection agree on exact
-  vectors. Schema12 state-only migration now records the effective boundary
-  for the first successor formula. The daily selector retains an old linear
-  tariff during the first exponential grace window, including unchanged
-  population at the formula change. Rust and JavaScript Cannon and Diverter
-  planners now accept the symbolic tariff and calculate the exact first-item
-  price, including fail-closed unrepresentable Cannon pricing. The ordered
-  payment cursor, batch continuation, receipts and public quotes still use
-  historical linear tariff fields and must be versioned before activation.
+- A valid digit-leading funding account can stop the exact installed Rules19
+  module from publishing a genuine disposable authorization grant. Source
+  admission continues, while later paid gameplay remains unapplied. Ordinary
+  retry and an identical-Wasm upgrade do not repair it. All received payments
+  remain accounted for. See [the incident](AUTHORIZATION_REGISTRY_INCIDENT.md).
+- Sorted Schema12 grant rows store canonical account identifiers as values.
+  Rust and independent JavaScript accept all 16 leading hexadecimal digits;
+  old Schema10/11 decoding and historical bytes remain unchanged. Direct row
+  operations avoid a complete map conversion on every payment.
+- The Rules20/Schema12 host now supports an authenticated zero-time epoch
+  transition from the exact installed Rules19/Schema11 predecessor. The
+  successor observer checks the identity and source fence. Adapter12 and the
+  existing payment grammar remain unchanged. A disposable same-ID rehearsal
+  preserved predecessor publication and paid state, rejected old-module
+  recovery after the durable epoch, and recovered with the same successor
+  executable.
+- That rehearsal applied one genuine indexed Ledger Join, published a valid
+  digit-leading authorization grant, then published an unrelated later
+  payment. Independent JavaScript replay matched exact public state, event
+  and score output for all three paid successor segments. Raw captures and
+  results are under `.work/rules20-installed-9497894e/` in the rehearsal
+  worktree; the executable test and verifier are committed to PR #25.
+- Exact source `9497894e` built the capped-Trickle backend with raw SHA-256
+  `fffa5e3e2e61096b62266e30cb34e7f97d84a5f7f711ed79296b3c5dd3f7a24d`.
+  This equals the executable used in the passing rehearsal. Candid/export
+  validation passed locally. The exact-source hosted standard and financial
+  runs remain in progress; the first developer run failed only because the
+  newly added test was not rustfmt-clean. A test-only formatting commit is
+  ready locally and requires new hosted qualification after publication.
+- Explicit new Cannon and Diverter planning under Schema12 ignores Ball-only
+  occupancy, while relocation and first Join retain the old policy. Canonical
+  per-Ball, per-new-structure passage rows survive encoding and retire on exit
+  or structure removal. Rust and independent JavaScript focused tests cover
+  entry, tangency, unrelated arrivals, later return and Cannon birth.
+- The exact corner classifier uses canonical source-tile checkerboard parity.
+  Focused Rust and JavaScript tests cover four diagonal directions, both
+  parities, seams, mixed ownership and historical Rules19 behavior. This is
+  not yet the complete public-output acceptance matrix.
+- Symbolic population tariffs are integrated through the successor payment
+  cursor, batch continuation, receipts, public quotes and browser capability
+  gating. Focused independent tests cover exact prices, overflow, partial
+  affordability and linear-grace comparison. Historical linear tariffs retain
+  their own identity and immutable Ledger block-time selection.
 
-The published precursor `35f32ee1` passed its exact standard hosted run
-`45896573914`. Draft PR #24 tracks this branch. Later branch changes require
-their own qualification; the passing precursor is not a successor release.
-After the direct Cannon birth and mixed-contact tests, the local native library
-gate passed 23/23 and the focused JavaScript passage and corner suites passed
-8/8 and 6/6 respectively. Those checks do not replace installed paid-input
-qualification.
+## Release gates still open
 
-## Release blockers
+1. Exercise genuine disposable paid Cannon and Diverter construction over
+   occupied Ball tiles and exact future collision behavior, then complete the
+   corner ownership/structure output matrix with independent replay.
+2. Qualify interrupted transition preparation and commit, restart, recovery,
+   a retained compatible executable and source publication after interruption.
+3. Freeze the final exact-source release artifacts and require all eleven
+   substantive hosted jobs on that source. The informational production
+   inventory guard is separate.
+4. Complete certified-burn operational sampling, consumer compatibility,
+   browser and incremental cost checks on its separate draft branch before
+   deciding whether to include it in the eventual backend release.
 
-1. Complete symbolic tariff integration through actual purchase planning,
-   batch continuation, receipts, quotes and frontend capability gating.
-2. Establish the final Rules20 identity and authenticated epoch transition
-   from the exact installed Rules19 predecessor, preserving paid state and
-   source cutoff. Qualify interrupted preparation/commit, restart, first
-   durable decoder boundary and a compatible recovery module.
-3. Exercise real disposable Ledger/Index grants and construction payments
-   through the successor, then require exact Rust/JavaScript public-output
-   equality and independent replay across interruption and upgrade.
-4. Qualify the complete corner ownership/structure matrix and one-traversal
-   lifecycle through checkpoint, destruction, relocation and both seams.
-5. Complete the separately developed certified-burn feature's operational
-   sampling, consumer compatibility, cost and browser qualification before
-   deciding whether to include it in the eventual backend candidate.
-
-The P0 registry repair can be separated into an earlier versioned epoch only
-if that path obtains its own paid-state transition and compatible recovery
-proof. Merely encoding rows in a local kernel cannot repair the installed
-Rules19 module. No unqualified runtime code should be merged into master.
+The P0 registry repair requires a versioned paid-state transition and
+compatible recovery even if separated from the rest of Rules20. The combined
+successor is currently the narrower reviewed transition path. Do not merge
+unqualified runtime code into master or install it on production.

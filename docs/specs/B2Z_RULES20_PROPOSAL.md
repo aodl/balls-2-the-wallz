@@ -4,10 +4,12 @@ Rules19 remains the active ruleset. The proposed successor requires an
 authenticated epoch and an independently verified state-preserving transition.
 This branch defines and tests bounded pricing, grace-prefix selection,
 checkerboard contact and one-traversal construction exceptions. It includes
-a Schema11-to-12 **state-only** migration for authorization rows and the
-tariff formula boundary. A versioned Rules20/Schema12 configuration and
-identity now select the migrated state in both independent cursors. They do
-not establish an authenticated host cutover or activate production rules.
+a Schema11-to-12 migration for authorization rows and the tariff formula
+boundary. A versioned Rules20/Schema12 configuration and identity select the
+migrated state in both independent cursors. The host now implements an
+authenticated, source-fenced zero-time cutover from the exact Rules19
+predecessor. Production remains Rules19; the successor is not qualified for
+installation.
 
 The exact draft identity is rules hash
 `4e5ddc6f2108115e567894c5827047d76915d84c74d797f951a518390d62cc21`,
@@ -18,7 +20,10 @@ and configuration hash
 The payment adapter remains Adapter12/BTZPAY09. A no-input successor segment
 from a migrated paid fixture produced identical state, event and score
 SHA-256 identities in Rust and JavaScript, including cursor restoration.
-Paid successor admission and the authenticated epoch remain unqualified.
+A disposable authenticated epoch rehearsal preserved the predecessor paid
+world and public bytes, then applied and independently replayed three genuine
+Ledger/Index inputs: a Join, a digit-leading authorization grant and a later
+unrelated payment. This is focused evidence, not complete release qualification.
 
 ## Tariff inputs and amounts
 
@@ -38,14 +43,14 @@ the successor epoch. Earlier tariff snapshots keep the historical linear
 formula; successor snapshots at or after this boundary use the symbolic
 exponential formula. At a grace boundary, the active and previous snapshot
 each carry their own formula meaning. The value is computed from the
-predecessor committed clock during state-only migration, not from a browser
-clock. This field is encoded identically by the Rust and JavaScript Schema12
-migration prototypes. The successor payment continuation now carries a tagged
+predecessor committed clock during migration, not from a browser clock. This
+field is encoded identically by the Rust and JavaScript Schema12 migrations.
+The successor payment continuation now carries a tagged
 `tariff20` record containing immutable Ledger block time and the selected
 linear multiplier or exponential population. Rules17–19 retain their original
 numeric tariff and receipt fields. The successor receipt adds `price_tariff`
-and the host quote path evaluates the current symbolic tariff. These source
-changes do not activate a successor epoch.
+and the host quote path evaluates the current symbolic tariff. Activation
+requires the separately prepared and committed authenticated host epoch.
 
 For population at most 1,000 the multiplier is `max(1, population)`. Above
 1,000 it is `1000 × 2^(population-1000)`. Evaluate the applicable base amount
@@ -77,8 +82,9 @@ The Rust and JavaScript planners now select the formula using Ledger block
 time, compare valid grace prefixes and carry the formula through Ball batch
 continuation. Focused tests cover a linear grace payment despite an
 unrepresentable current price, partial Ball purchase and durable tariff
-roundtrip. An authenticated Rules20 identity, full independent replay, real
-Ledger/Index admission and frontend quote capability remain release gates.
+roundtrip. The authenticated identity, three genuine paid inputs and
+independent successor replay have focused disposable coverage. High-population
+paid admission, interruption and complete hosted qualification remain gates.
 Existing tariff bytes remain historical source inputs.
 
 The prepared-purchase vectors compare independent current and previous tariffs.
@@ -108,11 +114,12 @@ diagonal passage grants the diagonal cell instead. The row is removed after
 the Ball exits the cell or the exact structure leaves it. This state is
 distinct from Cannon launch and from any general structure grace period.
 
-The current prototype has Rust and independent JavaScript tests for the
+The current implementation has Rust and independent JavaScript tests for the
 canonical row, first entry, an unrelated arriving Ball, retirement, a later
-return, and exact-corner tangency. Those tests do **not** establish paid
-construction acceptance, cursor interruption/restart, full output equality,
-or an authenticated Rules19-to-Rules20 epoch transition.
+return, and exact-corner tangency. A separate disposable rehearsal establishes
+the authenticated Rules19-to-Rules20 epoch and three paid inputs. It does
+**not** yet establish paid construction over an occupied Ball, interrupted
+passage/restart or complete public-output equality for the contact matrix.
 
 For a territory-only simultaneous-axis vertex, prefer the left orthogonal
 candidate from an even canonical source tile and the right from an odd tile.
@@ -135,6 +142,7 @@ added to the Ball.
 The Rust and independent JavaScript classifiers now exercise the four diagonal
 directions, both parities, mixed neutral/enemy sides, both toroidal seams and
 the historical Rules19 branch. This is **focused classifier evidence only**.
-The successor identity, complete equal-time replay, strike/capture output
-equality, contact with Diverters, payment acceptance, interrupted cursor and
-authenticated migration still require qualification before activation.
+The successor identity and authenticated migration have focused disposable
+coverage. Complete equal-time replay, strike/capture output equality, contact
+with Diverters, paid construction over occupied Balls and interrupted cursor
+recovery still require qualification before activation.
