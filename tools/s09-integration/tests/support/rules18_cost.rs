@@ -1534,7 +1534,12 @@ fn rules20_paid_epoch_and_recovery() {
         .unwrap();
     let later_payer = Principal::self_authenticating([10; 32]);
     let (pic, id, ledger, payer) = arena_setup_world_fee_clock_payers_options(
-        profile, world, 10_000, 0, &[digit_payer, later_payer], true,
+        profile,
+        world,
+        10_000,
+        0,
+        &[digit_payer, later_payer],
+        true,
     );
     let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
     assert_eq!(
@@ -1564,7 +1569,10 @@ fn rules20_paid_epoch_and_recovery() {
     let mut ready = false;
     for _ in 0..1800 {
         let raw: Vec<u8> = get_query(
-            &pic, id, "rules20_transition_status", encode_args(()).unwrap(),
+            &pic,
+            id,
+            "rules20_transition_status",
+            encode_args(()).unwrap(),
         );
         let view: serde_json::Value = dtr_wire::decode(&raw).unwrap();
         if view["transition"]["phase"] == "ready" && transition_drained(&pic, id) {
@@ -1573,7 +1581,10 @@ fn rules20_paid_epoch_and_recovery() {
         }
         advance(&pic, 1000);
     }
-    assert!(ready, "Rules20 source must drain to an official Ledger/Index cutoff");
+    assert!(
+        ready,
+        "Rules20 source must drain to an official Ledger/Index cutoff"
+    );
     let before = arena_world(&pic, id);
     let (before_obs, before_pub) = capture(&pic, id, &out, 0);
     let source_cursor = status(&pic, id).source.admitted_to_exclusive;
@@ -1586,18 +1597,45 @@ fn rules20_paid_epoch_and_recovery() {
     );
     let after = arena_world(&pic, id);
     let (after_obs, after_pub) = capture(&pic, id, &out, 1);
-    assert_eq!(after, b2z_native::delegation_v20::migrate(before.clone()).unwrap());
+    assert_eq!(
+        after,
+        b2z_native::delegation_v20::migrate(before.clone()).unwrap()
+    );
     assert_eq!(after.received_e8s, received);
     assert_eq!(status(&pic, id).source.admitted_to_exclusive, source_cursor);
     assert_eq!(after_pub.head.logical_end, before_pub.head.logical_end);
-    assert_eq!(after_pub.head.source_to_exclusive, before_pub.head.source_to_exclusive);
+    assert_eq!(
+        after_pub.head.source_to_exclusive,
+        before_pub.head.source_to_exclusive
+    );
     assert_ne!(after_obs.publication, before_obs.publication);
-    let before_segment = before_pub.head.segment_id.as_ref().unwrap().0.to_string().parse::<u64>().unwrap();
-    let retained: Vec<u8> = get_query(&pic, id, "retained_publication", candid::encode_one(before_segment).unwrap());
+    let before_segment = before_pub
+        .head
+        .segment_id
+        .as_ref()
+        .unwrap()
+        .0
+        .to_string()
+        .parse::<u64>()
+        .unwrap();
+    let retained: Vec<u8> = get_query(
+        &pic,
+        id,
+        "retained_publication",
+        candid::encode_one(before_segment).unwrap(),
+    );
     assert_eq!(retained, before_obs.publication);
-    let current_hash = pic.canister_status(id, Some(controller())).unwrap().module_hash;
+    let current_hash = pic
+        .canister_status(id, Some(controller()))
+        .unwrap()
+        .module_hash;
     assert!(upgrade_during_recovery(&pic, id, &installed).is_err());
-    assert_eq!(pic.canister_status(id, Some(controller())).unwrap().module_hash, current_hash);
+    assert_eq!(
+        pic.canister_status(id, Some(controller()))
+            .unwrap()
+            .module_hash,
+        current_hash
+    );
     assert_eq!(observe(&pic, id).0.publication, after_obs.publication);
     upgrade_during_recovery(&pic, id, &candidate).unwrap();
     assert_eq!(observe(&pic, id).0.publication, after_obs.publication);
@@ -1618,11 +1656,19 @@ fn rules20_paid_epoch_and_recovery() {
             break;
         }
     }
-    assert!(applied, "successor must execute a real indexed Ledger Join after activation");
+    assert!(
+        applied,
+        "successor must execute a real indexed Ledger Join after activation"
+    );
     let (_, paid_pub) = capture(&pic, id, &out, 2);
     let paid_events: Value = decode(&std::fs::read(out.join("2-events.bin")).unwrap()).unwrap();
-    assert!(paid_events["events"].as_array().unwrap().iter().any(|event|
-        event["kind"] == "purchase_completed" && event["status"] == "applied"));
+    assert!(
+        paid_events["events"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|event| event["kind"] == "purchase_completed" && event["status"] == "applied")
+    );
     let save_inputs = |position: u64, ordinal: u64| {
         let expected = BTreeMap::from([(position, ("ACCEPTED".into(), 0, None))]);
         let inputs = super::delegation_installed::official_inputs(&pic, id, &expected)
@@ -1635,7 +1681,8 @@ fn rules20_paid_epoch_and_recovery() {
         std::fs::write(
             out.join(format!("{ordinal}-inputs.bin")),
             dtr_wire::encode(&inputs).unwrap(),
-        ).unwrap();
+        )
+        .unwrap();
     };
     save_inputs(position, 2);
 
@@ -1647,15 +1694,17 @@ fn rules20_paid_epoch_and_recovery() {
         &b2z_protocol::delegation::AuthorizationMemo::Grant(
             Principal::self_authenticating([77; 32]).as_slice().to_vec(),
         ),
-    ).unwrap();
+    )
+    .unwrap();
     let grant_position = transfer_text(&pic, ledger, digit_payer, id, 0, &grant_memo);
     let mut grant_applied = false;
     for _ in 0..300 {
         advance(&pic, 1000);
         let current = arena_world(&pic, id);
         let stored = match current.authorization.as_ref().unwrap() {
-            b2z_native::delegation_v20::AuthorizationState::Rows(rows) =>
-                rows.grants.iter().any(|row| row.account == digit_account),
+            b2z_native::delegation_v20::AuthorizationState::Rows(rows) => {
+                rows.grants.iter().any(|row| row.account == digit_account)
+            }
             _ => false,
         };
         if status(&pic, id).source.admitted_to_exclusive > grant_position && stored {
@@ -1664,7 +1713,10 @@ fn rules20_paid_epoch_and_recovery() {
             break;
         }
     }
-    assert!(grant_applied, "digit-leading grant must publish and remain usable");
+    assert!(
+        grant_applied,
+        "digit-leading grant must publish and remain usable"
+    );
     let (_, grant_pub) = capture(&pic, id, &out, 3);
     save_inputs(grant_position, 3);
 
@@ -1684,7 +1736,10 @@ fn rules20_paid_epoch_and_recovery() {
             break;
         }
     }
-    assert!(later_applied, "later unrelated indexed payment must publish");
+    assert!(
+        later_applied,
+        "later unrelated indexed payment must publish"
+    );
     let (_, later_pub) = capture(&pic, id, &out, 4);
     save_inputs(later_position, 4);
     let independent = std::process::Command::new("node")
