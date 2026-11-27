@@ -26,6 +26,7 @@ raw status endpoints, without offset subtraction or smoothing.
 | Exact feature-and-test-hooks Wasm | `81e6a31bf13c8642c717fadd95c64754faa82a03df81dcf6d6c02991b58f7f6b` |
 | Active capped Trickle, 65 simulated minutes | **PASS**, established 12 samples over 55 minutes, **403.851B/day** against **409.211B/day** observed external balance movement |
 | Paused sample, external 100B top-up, stale value, same-ID restart and prior-Wasm recovery | **PASS** on the same disposable fixture |
+| ReserveProtection below the Index floor | **PASS**, the prior publication and estimate stayed intact, and the witness became stale after 15 simulated minutes |
 | Browser-native Web Crypto and CSP | **PASS** using a genuine PocketIC capture at its recorded consensus clock, including altered witness and wrong-canister rejection in sandboxed Chromium |
 | Existing direct and composed root consumers | **PASS** on 25 focused JavaScript checks, including maintained agent interfaces |
 
@@ -40,7 +41,7 @@ Trickle schedule. A replicated management observation can still carry
 reservations from other work. Production read-only observations on
 27 November demonstrated an 83.7B rebound in 34 seconds even though the
 initial single-bracket consistency checks passed. Establish a repeatable
-reservation bound under other timer phases, source workload, protection,
+reservation bound under other timer phases, source workload,
 funding and credits before release. Known treasury credit and smaller
 external top-up cases need coverage. Reported burn is a net balance
 estimate, so a smaller external credit can be hidden inside the interval.

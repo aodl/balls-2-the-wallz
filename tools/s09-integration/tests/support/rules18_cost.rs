@@ -1551,9 +1551,32 @@ fn certified_operational_burn_roundtrip() {
         certified.abs_diff(external_rate) * 100 <= external_rate * 5,
         "certified {certified} versus settled management {external_rate} cycles/day"
     );
+    let protected = if std::env::var_os("B2Z_BURN_PROTECTION_PROBE").is_some() {
+        let target = 100_000_000_000u64;
+        let _: Status = get_result(
+            &pic,
+            id,
+            "test_liquid_budget",
+            candid::encode_one(target).unwrap(),
+        );
+        for _ in 0..15 {
+            advance(&pic, 60_000);
+        }
+        let stale = witness("reserve-protection");
+        assert_eq!(stale["publication"], active["publication"]);
+        assert_eq!(stale["burn"]["quality"], "stale");
+        assert_eq!(stale["burn"]["endNs"], active["burn"]["endNs"]);
+        assert_eq!(
+            stale["burn"]["cyclesPerDay"],
+            active["burn"]["cyclesPerDay"]
+        );
+        stale
+    } else {
+        Value::Null
+    };
     std::fs::write(out.join("result.json"), serde_json::to_vec_pretty(&json!({
         "status":"PASS","partial":partial,"full":full,"stale":stale,"active":active,
-        "external_settled_cycles_per_day":external_rate.to_string(),
+        "external_settled_cycles_per_day":external_rate.to_string(),"reserve_protection":protected,
         "scope":"disposable Rules19 same-ID certificate, recovery and capped ordinary checkpoints"
     })).unwrap()).unwrap();
 }
