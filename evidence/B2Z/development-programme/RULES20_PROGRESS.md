@@ -501,3 +501,17 @@ The row fixes complete motion and public state, event and score bytes. All
 nine focused JavaScript tests and 151 historical plus **31 Rules20** native
 public-output comparisons passed. This closes that source-level race shape;
 installed interruption and broader mixed-ownership coverage remain open.
+
+The distinct installed `rules20_paid_delayed_index_grace` case passed in
+181.66 seconds under `.work/rules19-recovery/delayed-index-grace-1/`. It
+stopped the official disposable Index before a genuine Ledger transfer at
+position 2. The payment stayed unadmitted while virtual time passed the
+first exponential grace window. After Index restart, the maintained source
+admitted that original block without cursor reversal, and the receipt
+selected the authenticated previous **linear** tariff at historical
+population 1,001 even though live population had fallen to one. The payment
+applied, the maintained frontend quote matched, and independent JavaScript
+replay matched complete public state, events and scores. This is different
+from the earlier case that admitted the input promptly but delayed its
+execution. It is now a named installed release case; exact-source hosted
+execution remains required.

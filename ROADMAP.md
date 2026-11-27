@@ -64,7 +64,7 @@ admission. Additional exact seam and equal-time contact cases passed. A six-inpu
 Rules19 recovery now passes across UTC midnight, same-ID restart and
 independent public replay. Complete the broader
 obstructed recovery matrix, remaining installed passage destruction lifecycle, corner matrix and
-delayed Index admission and interrupted-purchase
+interrupted-purchase
 matrix before freezing a release. The successor frontend has a dedicated
 configuration and inventory.
 

@@ -3314,7 +3314,7 @@ fn rules20_paid_overflow_grace() {
 #[test]
 #[ignore = "disposable authenticated Rules20 personal Diverter inventory prices"]
 fn rules20_paid_diverter_inventory() {
-    run_rules20_paid_symbolic_population_mode(1001, Some(200_000_000), false, true);
+    run_rules20_paid_symbolic_population_mode(1001, Some(200_000_000), false, true, false);
 }
 
 #[test]
@@ -3323,8 +3323,14 @@ fn rules20_paid_midbatch_overflow() {
     run_rules20_paid_symbolic_population(1037, None, false);
 }
 
+#[test]
+#[ignore = "genuine Ledger block admitted after Index restart retains its earlier grace tariff"]
+fn rules20_paid_delayed_index_grace() {
+    run_rules20_paid_symbolic_population_mode(1001, Some(1_000_000), true, false, true);
+}
+
 fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, grace: bool) {
-    run_rules20_paid_symbolic_population_mode(target, exact_price, grace, false);
+    run_rules20_paid_symbolic_population_mode(target, exact_price, grace, false, false);
 }
 
 fn run_rules20_paid_symbolic_population_mode(
@@ -3332,15 +3338,17 @@ fn run_rules20_paid_symbolic_population_mode(
     exact_price: Option<u64>,
     grace: bool,
     diverter_inventory: bool,
+    delayed_index: bool,
 ) {
     let expect_applied = exact_price.is_some();
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join(format!(
-        "rules20-symbolic-population-{target}{}",
+        "rules20-symbolic-population-{target}{}{}",
         if diverter_inventory {
             "-diverter-inventory"
         } else {
             ""
-        }
+        },
+        if delayed_index { "-delayed-index" } else { "" }
     ));
     std::fs::create_dir_all(&out).unwrap();
     let mut population = seed_symbolic_population(target);
@@ -3510,19 +3518,24 @@ fn run_rules20_paid_symbolic_population_mode(
                 "NEW 0 1".into()
             }
         });
+    let index = status(&pic, id).source.index;
+    if delayed_index {
+        pic.stop_canister(index, Some(controller())).unwrap();
+    }
     let position = transfer_text(&pic, ledger, payer, id, amount, first_memo.as_bytes());
     let before_cannons = observed.cannons.len();
     let before_deflectors = observed.deflectors.as_ref().unwrap().len();
     let mut indexed = false;
-    for _ in 0..600 {
-        advance(&pic, 1000);
-        if status(&pic, id).source.admitted_to_exclusive > position {
-            assert_eq!(arena_world(&pic, id).cannons.len(), before_cannons);
-            indexed = true;
-            break;
+    if !delayed_index {
+        for _ in 0..600 {
+            advance(&pic, 1000);
+            if status(&pic, id).source.admitted_to_exclusive > position {
+                assert_eq!(arena_world(&pic, id).cannons.len(), before_cannons);
+                indexed = true;
+                break;
+            }
         }
     }
-    assert!(indexed, "paused source must index the genuine payment");
     if grace {
         // The original Ledger block time remains within the linear grace
         // window even though execution starts after that window has closed.
@@ -3535,6 +3548,22 @@ fn run_rules20_paid_symbolic_population_mode(
                 > formula_start + b2z_protocol::economy17::GRACE_NS
         );
     }
+    if delayed_index {
+        assert!(
+            status(&pic, id).source.admitted_to_exclusive <= position,
+            "stopped Index cannot admit the new Ledger block"
+        );
+        pic.start_canister(index, Some(controller())).unwrap();
+        for _ in 0..600 {
+            advance(&pic, 1000);
+            if status(&pic, id).source.admitted_to_exclusive > position {
+                assert_eq!(arena_world(&pic, id).cannons.len(), before_cannons);
+                indexed = true;
+                break;
+            }
+        }
+    }
+    assert!(indexed, "paused source must index the genuine payment");
     let before_segments = status(&pic, id).run.completed_segments;
     playability_installed::configuration(&pic, id, 512);
     let mut published = false;
@@ -4111,6 +4140,7 @@ fn run_rules20_paid_symbolic_population_mode(
             "personal_cannon":personal_cannon,"personal_diverters":personal_diverters,
             "overflow_batch":overflow_batch,
             "diverter_inventory":diverter_inventory,
+            "delayed_index":delayed_index,
         }))
         .unwrap(),
     )

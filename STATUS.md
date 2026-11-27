@@ -153,6 +153,9 @@ frontend quote, wallet memo and independent public replay agreed.
 An installed 1,037-account case fulfilled exactly one Ball from a two-item
 Fire request before the next symbolic price exceeded the Ledger bound; the
 receipt, frontend prefix quote and independent public replay matched.
+A separate stopped-Index fixture admitted a genuine Ledger payment only
+after the first exponential grace window and still selected its original
+linear block-time tariff with exact frontend and replay agreement.
 An installed paid Cannon/Diverter case kept two first-passage exceptions
 active through a same-ID restart and subsequent tick. Both pre-existing Balls
 kept their exact cells and headings; independent replay matched the public
