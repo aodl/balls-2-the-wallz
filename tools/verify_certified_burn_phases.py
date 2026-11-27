@@ -20,6 +20,7 @@ def main():
     parser.add_argument("--candidate", type=Path, required=True)
     parser.add_argument("--world", type=Path, required=True)
     parser.add_argument("--phase-ms", type=int, action="append", required=True)
+    parser.add_argument("--slow-index", action="store_true", help="stop the disposable Index for active minutes 20–30")
     parser.add_argument("--artifacts", type=Path, default=Path.home() / "dtr-s09-artifacts")
     parser.add_argument("--output", type=Path, required=True)
     args = parser.parse_args()
@@ -58,12 +59,14 @@ def main():
                 [binary, "--ignored", "--exact", CASE, "--nocapture", "--test-threads=1"],
                 location, 900,
                 {**env, "B2Z_BURN_INDEX_PHASE_MS": str(phase),
+                 **({"B2Z_BURN_SLOW_INDEX_PROBE": "1"} if args.slow_index else {}),
                  "POCKET_IC_SERVER_URL": server[3],
                  "S14_DEPLOYMENT_OUTPUT": str(location / "evidence")},
             )
             if row["status"] == "PASS":
                 result = json.loads((location / "evidence" / "result.json").read_text())
-                if result["status"] != "PASS" or result["index_phase_ms"] != phase:
+                if (result["status"] != "PASS" or result["index_phase_ms"] != phase
+                        or result["slow_index"] != args.slow_index):
                     row.update(status="FAIL", reason="phase evidence mismatch")
             report["checks"].append(row)
             (output / "results.json").write_text(json.dumps(report, indent=2) + "\n")

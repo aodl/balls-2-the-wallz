@@ -1507,8 +1507,23 @@ fn certified_operational_burn_roundtrip() {
         .unwrap(),
     );
     let mut active_samples = Vec::new();
+    let slow_index = std::env::var_os("B2Z_BURN_SLOW_INDEX_PROBE").is_some();
+    let mut source_trace = Vec::new();
+    let index = status(&pic, id).source.index;
     for minute in 1..=65 {
+        if slow_index && minute == 20 {
+            pic.stop_canister(index, Some(controller())).unwrap();
+        }
+        if slow_index && minute == 30 {
+            pic.start_canister(index, Some(controller())).unwrap();
+        }
         advance(&pic, 60_000);
+        if slow_index {
+            let run = status(&pic, id);
+            source_trace.push(json!({"minute":minute,"index_calls":run.source.index_calls,
+                "in_flight":run.source.scan_in_flight,"pending":run.source.pending_records,
+                "error":run.source.last_error}));
+        }
         if minute % 5 == 0 {
             let verified = witness(&format!("active-{minute:02}"));
             let cycles = pic.canister_status(id, Some(controller())).unwrap().cycles;
@@ -1529,6 +1544,13 @@ fn certified_operational_burn_roundtrip() {
         serde_json::to_vec_pretty(&active_samples).unwrap(),
     )
     .unwrap();
+    if slow_index {
+        std::fs::write(
+            out.join("slow-index-source-trace.json"),
+            serde_json::to_vec_pretty(&source_trace).unwrap(),
+        )
+        .unwrap();
+    }
     assert_ne!(active["publication"], prior["publication"]);
     assert_eq!(active["burn"]["quality"], "established");
     let certified = active["burn"]["cyclesPerDay"]
@@ -1550,10 +1572,15 @@ fn certified_operational_burn_roundtrip() {
     assert!(
         active_samples
             .iter()
-            .all(|row| row["source_in_flight"] == false
-                && row["source_pending"] == 0
-                && row["treasury_credits"] == "0")
+            .all(|row| row["source_pending"] == 0 && row["treasury_credits"] == "0")
     );
+    if !slow_index {
+        assert!(
+            active_samples
+                .iter()
+                .all(|row| row["source_in_flight"] == false)
+        );
+    }
     // A separate between-message management bracket covers 60 minutes of
     // the same active fixture. Compare the estimators without adjusting either.
     let external_rate = (first - final_balance) * 24;
@@ -1585,7 +1612,7 @@ fn certified_operational_burn_roundtrip() {
         Value::Null
     };
     std::fs::write(out.join("result.json"), serde_json::to_vec_pretty(&json!({
-        "status":"PASS","index_phase_ms":index_phase_ms,
+        "status":"PASS","index_phase_ms":index_phase_ms,"slow_index":slow_index,
         "partial":partial,"full":full,"stale":stale,"active":active,
         "external_settled_cycles_per_day":external_rate.to_string(),"reserve_protection":protected,
         "scope":"disposable Rules19 same-ID certificate, recovery and capped ordinary checkpoints"

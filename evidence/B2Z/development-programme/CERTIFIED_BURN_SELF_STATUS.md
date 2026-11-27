@@ -31,6 +31,7 @@ raw status endpoints, without offset subtraction or smoothing.
 | Existing direct and composed root consumers | **PASS** on 25 focused JavaScript checks, including maintained agent interfaces |
 | Active Trickle with 17.321-second shifted Index timer phase | **PASS**, certified 396.135B/day versus settled management 401.432B/day, 1.319% difference |
 | Active Trickle with 47.777-second shifted Index timer phase | **PASS**, certified 396.135B/day versus settled management 401.431B/day, 1.319% difference |
+| Active Trickle with Index stopped for ten simulated minutes, then restarted | **PASS**, certified 394.730B/day versus settled management 400.112B/day, 1.345% difference |
 
 Raw callback logs, certificate captures, build inputs and test reports
 are in `.work/burn-balance-probe/`. The browser evidence exercises replay
@@ -47,6 +48,16 @@ management comparison. Raw results are under
 measure a concurrently reserved Index callback or establish that the
 replicated status offset remains stable during slow or interrupted Index
 replies.
+
+The stopped-Index run used the 17.321-second phase and captured ten
+consecutive source errors while the disposable Index was stopped. Source
+calls resumed after restart, from 122 at minute 29 to 158 at minute 65.
+Its 12-sample established estimate stayed within the preset 5% comparison
+bound. None of the minute snapshots caught an in-flight lease: the stopped
+canister rejected calls promptly. This qualifies an interrupted Index
+service, not a slow held response or a varying live reservation. Raw source
+trace, certificates and management samples are under
+`.work/burn-balance-probe/slow-index-1/`.
 
 The result establishes a plausible sampling basis for this active
 Trickle schedule. A replicated management observation can still carry
