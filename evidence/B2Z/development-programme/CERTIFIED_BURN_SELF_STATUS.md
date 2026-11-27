@@ -128,4 +128,20 @@ The first hosted developer run on this branch failed the historical
 observer bundle. The original manufacturing manifest remains untouched.
 This branch now uses `certified-burn-review-assets.json` to pin its own
 exact observer bytes; the full historical frozen-base reconstruction still
-runs. Hosted requalification of that branch-specific inventory is pending.
+runs. The subsequent hosted frontend and historical-base checks passed.
+
+The hosted developer run
+[46059432575](https://github.com/aodl/balls-2-the-wallz/actions/runs/46059432575)
+reached the new live Chromium/PocketIC gate. Its composed-root browser and
+maintained-agent leg completed; the direct-root browser leg then failed a
+test assertion that required identical publication roots across reload.
+The live canister legitimately advanced from head 40 to 41 during that
+reload, while both direct reads correctly showed no optional burn witness.
+The browser acceptance now permits a newer authenticated head and requires
+the same root only when the head and operational sample are unchanged. For
+composed reads it also
+requires a nondecreasing certified sample end and identical rate only when
+that end is unchanged. The hosted direct-root fixture now pins the exact
+installed Rules19 executable rather than the older compact development
+module. This correction still requires a fresh hosted positive run; the
+failed run remains a failure, not browser acceptance.

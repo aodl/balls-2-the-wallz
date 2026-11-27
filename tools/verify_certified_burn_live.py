@@ -79,6 +79,7 @@ with (out / "server.log").open("w") as log:
                     const display=document.getElementById('cycles-display');
                     return {root:s.sequence.last.root_hash,head:String(s.sequence.last.publication.head.segment_id),
                         quality:s.verifiedBurn?.quality??null,rate:s.verifiedBurn?.cyclesPerDay?.toString()??null,
+                        burnEndNs:s.verifiedBurn?.endNs?.toString()??null,
                         line:display.textContent.replace(/\\s+/g,' ').trim(),valuesVisible:!values.hidden,
                         burnVisible:!burn.hidden,displayHeight:display.getBoundingClientRect().height,
                         valueHeight:values.getBoundingClientRect().height};
@@ -91,8 +92,15 @@ with (out / "server.log").open("w") as log:
                 else:
                     assert row["quality"] is None and not row["burnVisible"], row
                 observations.append(row)
-            assert observations[0]["root"] == observations[1]["root"], observations
-            assert observations[0]["rate"] == observations[1]["rate"], observations
+            assert int(observations[1]["head"]) >= int(observations[0]["head"]), observations
+            if observations[0]["head"] == observations[1]["head"] and (
+                not args.expect_burn or observations[0]["burnEndNs"] == observations[1]["burnEndNs"]
+            ):
+                assert observations[0]["root"] == observations[1]["root"], observations
+            if args.expect_burn:
+                assert int(observations[1]["burnEndNs"]) >= int(observations[0]["burnEndNs"]), observations
+                if observations[0]["burnEndNs"] == observations[1]["burnEndNs"]:
+                    assert observations[0]["rate"] == observations[1]["rate"], observations
             assert not mutations and not errors, (mutations, errors)
             page.screenshot(path=out / "live-observer.png")
             context.close()
