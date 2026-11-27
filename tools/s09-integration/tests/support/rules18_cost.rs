@@ -3602,6 +3602,134 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, g
     } else {
         Value::Null
     };
+    let personal_cannon = if target == 1000 && !grace {
+        pause(&pic, id);
+        let before = arena_world(&pic, id);
+        let account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+        let player = before
+            .playability
+            .as_ref()
+            .unwrap()
+            .players
+            .iter()
+            .find(|row| row.account == account)
+            .unwrap()
+            .id;
+        let held = before
+            .cannons
+            .iter()
+            .filter(|row| row.account == account)
+            .count();
+        assert_eq!(held, 1);
+        let site = (0..before.cell_count())
+            .find(|&cell| {
+                before.player_at(cell) == Some(player)
+                    && b2z_native::context_structures::site_reason(
+                        &before, player, cell, None, false, true,
+                    )
+                    .unwrap()
+                    .is_none()
+            })
+            .expect("active player's legal explicit additional Cannon site");
+        let price = b2z_native::economy20::marginal_price(
+            b2z_protocol::economy17::CANNON_BASE_E8S,
+            target,
+            held as u32,
+        )
+        .unwrap();
+        assert_eq!(price, 4_000_000_000);
+        // The fixture payer began with 50 valueless test ICP. Replenish it
+        // from another fixture account after the first Cannon and Ball batch.
+        // This ordinary Ledger transfer does not target B2Z and must not
+        // appear as a gameplay input at the next sparse source position.
+        let unrelated = transfer_text(
+            &pic,
+            ledger,
+            Principal::self_authenticating([99; 32]),
+            payer,
+            200_000_000,
+            b"FIXTURE FUNDING",
+        );
+        let position = transfer_text(
+            &pic,
+            ledger,
+            payer,
+            id,
+            price,
+            format!("NEW 0 1 {site}").as_bytes(),
+        );
+        assert!(position > unrelated);
+        for _ in 0..600 {
+            advance(&pic, 1000);
+            if status(&pic, id).source.admitted_to_exclusive > position {
+                break;
+            }
+        }
+        assert!(status(&pic, id).source.admitted_to_exclusive > position);
+        assert_eq!(arena_world(&pic, id), before);
+        let previous: Publication =
+            decode(&std::fs::read(out.join("4-publication.bin")).unwrap()).unwrap();
+        let before_segments = status(&pic, id).run.completed_segments;
+        playability_installed::configuration(&pic, id, 512);
+        for _ in 0..600 {
+            advance(&pic, 1000);
+            if status(&pic, id).run.completed_segments > before_segments {
+                break;
+            }
+        }
+        assert_eq!(status(&pic, id).run.completed_segments, before_segments + 1);
+        let (_, publication) = capture(&pic, id, &out, 5);
+        assert_eq!(
+            publication.head.segment_id.as_ref().unwrap(),
+            &Int(&previous.head.segment_id.as_ref().unwrap().0 + 1u32)
+        );
+        let events: Value = decode(&std::fs::read(out.join("5-events.bin")).unwrap()).unwrap();
+        let receipt = events["receipts"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .find(|row| row["position"]["$integer"] == position.to_string())
+            .unwrap();
+        assert_eq!(receipt["status"], "applied");
+        assert_eq!(receipt["amount_used"]["$integer"], price.to_string());
+        assert_eq!(receipt["per_item_prices"][0]["$integer"], price.to_string());
+        assert_eq!(receipt["price_tariff"]["formula"], "exponential");
+        assert_eq!(receipt["price_tariff"]["population"], target);
+        assert_eq!(
+            arena_world(&pic, id)
+                .cannons
+                .iter()
+                .filter(|row| row.account == account)
+                .count(),
+            2
+        );
+        let expected = BTreeMap::from([(position, ("ACCEPTED".into(), 0, None))]);
+        let inputs = super::delegation_installed::official_inputs(&pic, id, &expected)
+            .into_iter()
+            .map(|(payment, _)| b2z_native::Input {
+                position: Int(payment.position.into()),
+                payload_hex: hex(&payment.encode().unwrap()),
+            })
+            .collect::<Vec<_>>();
+        std::fs::write(out.join("5-inputs.bin"), dtr_wire::encode(&inputs).unwrap()).unwrap();
+        let independent = std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .arg("tools/verify_rules20_paid_segment.mjs")
+            .arg(&out)
+            .arg("5")
+            .output()
+            .unwrap();
+        assert!(
+            independent.status.success(),
+            "independent second Cannon quote and replay: {}{}",
+            String::from_utf8_lossy(&independent.stdout),
+            String::from_utf8_lossy(&independent.stderr)
+        );
+        json!({"ledger_position":position,"held_before":held,"site":site,
+            "price_e8s":price,"independent_quote_and_replay":true})
+    } else {
+        Value::Null
+    };
     std::fs::write(
         out.join("results.json"),
         serde_json::to_vec_pretty(&json!({
@@ -3613,6 +3741,7 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, g
             "grace_block_time_before_execution_after_window":grace,
             "receipt_reason":receipt["reason"],
             "applied":expect_applied, "independent_replay":true,"partial_batch":partial_batch,
+            "personal_cannon":personal_cannon,
         }))
         .unwrap(),
     )
@@ -3832,13 +3961,72 @@ fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool) {
             ball_sites
         );
         pause(&pic, id);
+        // Persist a normal sealed, partially stepped checkpoint while both
+        // first-passage rows are active. The disposable test-hook executable
+        // may choose coordinator actions but cannot admit payment inputs.
+        upgrade_during_recovery(&pic, id, &bytes("B2Z_COST_PROFILE_WASM")).unwrap();
+        let revision = status(&pic, id).revision;
+        let _: Status = get_result(
+            &pic,
+            id,
+            "test_apply",
+            encode_args((
+                revision,
+                dtr_wire::encode(&Action::Seal {
+                    logical_end: Int(&final_publication.head.logical_end.0 + 1u32),
+                })
+                .unwrap(),
+            ))
+            .unwrap(),
+        );
+        let revision = status(&pic, id).revision;
+        let _: Status = get_result(
+            &pic,
+            id,
+            "test_apply",
+            encode_args((
+                revision,
+                dtr_wire::encode(&Action::Step { budget: 1 }).unwrap(),
+            ))
+            .unwrap(),
+        );
+        let pending: playability_installed::BoundaryWork =
+            get_query(&pic, id, "controller_work", encode_args(()).unwrap());
+        assert_eq!(pending.phase.as_deref(), Some("running"));
+        assert_eq!(
+            observe(&pic, id).0.publication,
+            std::fs::read(out.join("2-publication.bin")).unwrap()
+        );
+        eprintln!("passage interrupted stage persisted");
         upgrade_during_recovery(&pic, id, &candidate).unwrap();
+        eprintln!("passage normal executable restored");
         assert_eq!(arena_world(&pic, id), final_world);
         assert_eq!(
             observe(&pic, id).0.publication,
             std::fs::read(out.join("2-publication.bin")).unwrap()
         );
-        playability_installed::one_tick(&pic, id);
+        let next = status(&pic, id).run.completed_segments + 1;
+        playability_installed::configuration(&pic, id, 512);
+        for attempt in 0..300 {
+            advance(&pic, 1000);
+            let current = status(&pic, id);
+            assert!(
+                current.run.last_error.is_none(),
+                "{:?}",
+                current.run.last_error
+            );
+            if current.run.completed_segments == next {
+                break;
+            }
+            if attempt % 50 == 0 {
+                eprintln!(
+                    "passage resume attempt {attempt}: completed {}",
+                    current.run.completed_segments
+                );
+            }
+        }
+        pause(&pic, id);
+        assert_eq!(status(&pic, id).run.completed_segments, next);
         let after_restart = arena_world(&pic, id);
         assert_eq!(
             after_restart.passage_exceptions,

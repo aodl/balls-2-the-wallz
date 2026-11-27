@@ -1,0 +1,38 @@
+{
+  "scope": "Read-only certified public and signed operational observation; settled net decline",
+  "observed_at": "2026-11-27T21:29:36.633Z",
+  "comparison_from": "2026-11-27T20:28:51.386Z",
+  "backend": {
+    "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "total_cycles": "2279814308093",
+    "liquid_cycles": "2221880330963",
+    "estimated_freezing_cycles": "57933977130",
+    "certified_head": "19429",
+    "logical_time": "19412",
+    "source_cursor": "40647923",
+    "source_pending": 0,
+    "source_bound": true,
+    "source_error": null,
+    "pacing": "capped Trickle, 0.01 tick/s, admission open"
+  },
+  "frontend": {
+    "canister": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+    "total_cycles": "770587843682",
+    "estimated_freezing_cycles": "203716879590",
+    "above_freezing_cycles": "566870964092",
+    "beyond_450b_installation_recovery_allowance_cycles": "116870964092"
+  },
+  "settled_comparison": {
+    "elapsed_seconds": 3645,
+    "publications": 36,
+    "liquid_decline_cycles": "24058345422",
+    "net_cycles_per_day": "570213873146",
+    "conditional_seconds_to_2_07t_full_speed_floor": 23013,
+    "conditional_seconds_to_1t_reserve_protection": 185141,
+    "credits_or_workload_change": "would change these projections; unknown credits cannot be reconstructed"
+  },
+  "raw_untracked": ".work/rules19-recovery/production-observation-17.json and production-observation-19.json",
+  "production_write": false
+}

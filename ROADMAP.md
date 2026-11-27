@@ -55,12 +55,16 @@ toroidal return, four authenticated high-population tariff payments, a
 genuine two-of-three paid Ball batch with exact frontend quote and replay,
 first exponential grace and overflow-current payments at the previous linear
 tariff, installed passage-exception preservation through same-ID restart and
-two genuine paid structure relocations that retire their exceptions, and
-additional exact seam and equal-time contact cases. A six-input obstructed
+two genuine paid structure relocations that retire their exceptions,
+an interrupted sealed checkpoint with active exceptions followed by
+same-ID recovery, and a genuine second personal Cannon at 40 ICP under the
+authenticated 1,000-account tariff with exact quote and replay. It also
+proved that an unrelated global Ledger transfer is skipped by target-filtered
+admission. Additional exact seam and equal-time contact cases passed. A six-input obstructed
 Rules19 recovery now passes across UTC midnight, same-ID restart and
 independent public replay. Complete the broader
-obstructed recovery matrix, remaining installed passage destruction and interrupted checkpoint lifecycle, corner matrix and
-authenticated Cannon/Diverter inventory, batch-overflow, delayed Index admission and interrupted-purchase
+obstructed recovery matrix, remaining installed passage destruction lifecycle, corner matrix and
+authenticated Diverter inventory, batch-overflow, delayed Index admission and interrupted-purchase
 matrix before freezing a release. The successor frontend has a dedicated
 configuration and inventory.
 

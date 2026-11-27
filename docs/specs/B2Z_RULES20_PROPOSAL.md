@@ -78,6 +78,10 @@ the first Cannon, with the included Ball and before wallet fees.
 
 The shared exact fixtures cover all three base amounts, personal inventories,
 Ledger limits, up to one million world accounts, and maximum encoded counts.
+At applicable population 1,000, the authenticated installed fixture charged
+10 ICP for the first personal Cannon and 40 ICP for the second, reflecting
+the squared personal-count factor. Its second receipt and the maintained
+frontend quote agreed with independent public replay.
 The successor Cannon and Diverter planning functions now accept either a
 historical linear tariff or a symbolic exponential tariff. They use exact
 bounded prices and fail closed when a first item exceeds the Ledger amount.
@@ -122,10 +126,12 @@ canonical row, first entry, an unrelated arriving Ball, retirement, a later
 return, and exact-corner tangency. Disposable rehearsals establish the
 authenticated Rules19-to-Rules20 epoch, three initial paid inputs, and both
 genuine Cannon and Diverter purchases on existing Ball tiles in one later
-segment. Independent JavaScript replay matched its exact public bytes. Those
-checks do **not** yet establish an interrupted passage/restart, an actual
-later encounter with the new structure or complete public-output equality
-for the contact matrix.
+segment. Independent JavaScript replay matched its exact public bytes. A
+continuous 33-interval toroidal return proves the original Ball respects the
+Diverter on its next encounter. An installed case preserves active exceptions
+through a same-ID upgrade and an interrupted sealed checkpoint, then retires
+them on two genuine paid structure relocations with exact public replay.
+Structure and Ball destruction remain open.
 
 For a territory-only simultaneous-axis vertex, prefer the left orthogonal
 candidate from an even canonical source tile and the right from an odd tile.
@@ -145,10 +151,9 @@ added to the Ball.
 | A genuine structure in either side cell or the diagonal cell, with a simultaneous territory candidate | Suppress the territory capture. Keep the existing per-axis passage/reflection law; the both-friendly-side diagonal structure remains a blocked vertex. No parity bypass. |
 | No eligible contact | Preserve normal reflection or passage without inventing capture. |
 
-The Rust and independent JavaScript classifiers now exercise the four diagonal
-directions, both parities, mixed neutral/enemy sides, both toroidal seams and
-the historical Rules19 branch. This is **focused classifier evidence only**.
-The successor identity, authenticated migration and paid construction over
-occupied Balls have focused disposable coverage. Complete equal-time replay,
-strike/capture output equality, later contact with the new structures and
-interrupted cursor recovery still require qualification before activation.
+Rust and JavaScript exercise the four diagonal directions, both parities,
+mixed ownership, both toroidal seams and the historical Rules19 branch.
+Twenty-four exact public-output rows now compare state, events and scores,
+including structure obstruction, equal-time contacts and native cursor
+interruption. Protected ownership combinations and the full multi-Ball
+matrix still require qualification before activation.

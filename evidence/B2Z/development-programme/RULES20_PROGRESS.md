@@ -327,8 +327,54 @@ and restart segments. The passing run is
 authoritative assertions but captured the two official inputs in reverse
 order for replay; the corrected harness sorts by immutable Ledger position.
 This closes installed relocation while the exception is active. Structure
-destruction, Ball destruction and an interrupted in-progress checkpoint
-remain separate gates.
+destruction and Ball destruction remain separate gates.
+
+A further installed run persisted a normal sealed checkpoint and one
+coordinator Step while both first-passage exceptions were active. The
+disposable test-hook executable only selected coordinator actions; it did
+not admit or fabricate a payment. After restoring the normal successor
+executable through a same-ID upgrade, autonomous work completed the
+interrupted segment. The original Balls retained their exact cells and
+headings at the checkpoint boundary, and JavaScript matched every captured
+public state, event and score byte through the later two genuine relocation
+payments. The bounded positive case passed in 87.37 seconds under
+`.work/rules19-recovery/passage-partial-3/`. An earlier diagnostic run
+used a cold test target and was manually stopped after an excessively long
+unbounded tick wait; it is not positive evidence.
+
+Published source `b76f488c72a97ec6c87ec52e8334f220e12742c1` passed the
+[hosted developer/prelaunch workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46064790878).
+Its archived `ci-rules20-installed/results.json` records **18 named installed
+tests PASS**, including the original obstruction, multiple pending inputs,
+reserved and partial stages, expired delegation, the finite overdue
+lifecycle barrier, healthy cutover, paid passage/restart and all six
+high-population/grace cases. The hosted built successor executable in that
+run has raw SHA-256
+`980ea23e39c42379ad5d22c8ac9cf5edd9df3f331ded0e475c35253162438c7e`.
+The later locally passing interrupted passage extension and the second-Cannon
+inventory fixture are newer test source and are not covered by this hosted
+run. The financial workflow on `b76f488c` passed; its standard workflow is
+still running at this observation.
+
+The installed 1,000-account tariff fixture now paid for a **second personal
+Cannon**. Its first Cannon cost 10 ICP, a later two-of-three Ball batch
+cost 1.3 ICP, and the additional explicit Cannon at owned site `500506`
+cost **40 ICP** under the authenticated exponential tariff's squared
+personal-count factor. A valueless fixture transfer replenished the payer
+from a different Ledger account at global position 4; the B2Z payment at
+position 5 alone entered the sealed input range 4–6. The receipt charged
+4,000,000,000 e8s, the maintained frontend quote reproduced that price and
+the exact wallet memo, and independent JavaScript replay matched state,
+events and scores for publication 16. The complete installed case passed
+under `.work/rules19-recovery/threshold-cannon-second-4/` with candidate
+`1d6f231ef8f1a07d94d7eba1b0cec04964dde22611a10dab3ef01edefae473b0`.
+The earlier failed attempts (`threshold-cannon-second-{1,2,3}`) record a
+wrong expected count factor, an incorrectly addressed fixture top-up and
+an incomplete frontend quote input respectively; the third attempt's
+authoritative publication passed an independent replay after the verifier
+correction, but only the fourth is a full end-to-end PASS. Diverter
+inventory, mid-batch overflow and interrupted purchase continuation remain
+open.
 
 A separate six-row corner matrix now covers active opponent ownership on
 either side, two different opponent owners, a Cannon-protected foreign side,
