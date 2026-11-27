@@ -103,3 +103,22 @@ The P0 registry repair requires a versioned paid-state transition and
 compatible recovery even if separated from the rest of Rules20. The combined
 successor is currently the narrower reviewed transition path. Do not merge
 unqualified runtime code into master or install it on production.
+
+
+## 27 November continuation
+
+- The exact obstructed Rules19 fixture now verifies the refusal of normal
+  Rules20 preparation after the candidate opens the durable journal. See
+  [the observed boundary and recovery requirements](RULES20_OBSTRUCTED_RECOVERY.md).
+- The tariff formula starts from authenticated activation time, including
+  preparation crossing UTC midnight. The successor frontend now packages
+  the configuration bytes selected by that certified identity in a
+  separate inventory.
+- The native and JavaScript passage gates now follow Ball 1 through 33
+  uninterrupted public intervals. It enters the Diverter at time 0 with
+  identical trajectory, circles through the toroidal seam and deflects at
+  the same site at time 32. Native execution interrupts and restores each
+  interval. Three more corner vectors compare exact state, events and
+  scores for seam traversal and a two-Ball equal-time ownership change.
+  These vectors are disposable kernel evidence. The paid construction
+  gate and installed interruption scope remain separate.
