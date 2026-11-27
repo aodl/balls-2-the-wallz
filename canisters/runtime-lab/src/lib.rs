@@ -1360,6 +1360,8 @@ fn install_source_timer() {
             // Sample before the Index call reserves temporary cycles.
             operational_burn::sample(None);
         }
+        #[cfg(all(feature = "certified-operational-burn", feature = "test-hooks"))]
+        ic_cdk::futures::spawn(operational_burn::probe_management());
         let _ = request_reconciliation();
     });
     SOURCE_TIMER.with(|slot| *slot.borrow_mut() = Some(timer));
@@ -2571,6 +2573,8 @@ async fn reconcile() -> AppResult<()> {
         let trap_after_reply = TRAP_NEXT_INDEX_REPLY.with(|flag| flag.replace(false));
         #[cfg(feature = "cost-profile")]
         cost_profile::volume("source.index_request", 1, 0);
+        #[cfg(all(feature = "certified-operational-burn", feature = "test-hooks"))]
+        operational_burn::balance_probe("index-send", r.source.in_flight, false);
         let response = Call::bounded_wait(lease.index, "get_account_identifier_transactions")
             .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
             .with_arg(source::HistoryArgs {
@@ -2578,8 +2582,16 @@ async fn reconcile() -> AppResult<()> {
                 start: lease.before,
                 max_results: source::PAGE,
             })
-            .await
-            .map_err(|e| format!("index unavailable: {e}"))?;
+            .await;
+        // A call-perform failure can complete without a reply/reject callback.
+        #[cfg(all(feature = "certified-operational-burn", feature = "test-hooks"))]
+        if matches!(
+            response,
+            Ok(_) | Err(ic_cdk::call::CallFailed::CallRejected(_))
+        ) {
+            operational_burn::balance_probe("index-reply", r.source.in_flight, true);
+        }
+        let response = response.map_err(|e| format!("index unavailable: {e}"))?;
         #[cfg(feature = "test-hooks")]
         if trap_after_reply {
             ic_cdk::trap("S14 injected B2Z response-handler trap after index await");

@@ -179,6 +179,65 @@ pub(crate) fn certified_root(publication: &[u8]) -> Vec<u8> {
     super::unhex(&dtr_wire::hash(&bytes)).expect("hash encodes 32 bytes")
 }
 
+// Keep the probe out of every releasable module and out of the estimator.
+#[cfg(all(feature = "certified-operational-burn", feature = "test-hooks"))]
+pub(crate) fn balance_probe(phase: &str, source_in_flight: bool, callback: bool) {
+    let refunded = callback.then(ic_cdk::api::msg_cycles_refunded);
+    ic_cdk::println!(
+        "b2z-burn-probe {phase} now={} total={} liquid={} source_in_flight={source_in_flight} refunded={refunded:?} instructions={}",
+        ic_cdk::api::time(),
+        ic_cdk::api::canister_cycle_balance(),
+        ic_cdk::api::canister_liquid_cycle_balance(),
+        ic_cdk::api::performance_counter(0)
+    );
+}
+
+/// Probe a replica-observed balance while the probe's own callback is pending.
+#[cfg(all(feature = "certified-operational-burn", feature = "test-hooks"))]
+pub(crate) async fn probe_management() {
+    use candid::{CandidType, Nat, Principal};
+    use serde::Deserialize;
+    #[derive(CandidType)]
+    struct Target {
+        canister_id: Principal,
+    }
+    #[derive(CandidType, Deserialize)]
+    struct Balance {
+        cycles: Nat,
+        reserved_cycles: Nat,
+    }
+    let now = ic_cdk::api::time();
+    let previous = MANAGEMENT_PROBE_NS.with(|at| at.get());
+    if now.saturating_sub(previous) < SAMPLE_NS {
+        return;
+    }
+    MANAGEMENT_PROBE_NS.with(|at| at.set(now));
+    let before = ic_cdk::api::canister_cycle_balance();
+    let status =
+        ic_cdk::call::Call::bounded_wait(Principal::management_canister(), "canister_status")
+            .change_timeout(10)
+            .with_arg(Target {
+                canister_id: ic_cdk::api::canister_self(),
+            })
+            .await;
+    let after = ic_cdk::api::canister_cycle_balance();
+    match status
+        .map_err(|error| error.to_string())
+        .and_then(|response| response.candid::<Balance>().map_err(|error| error.to_string()))
+    {
+        Ok(balance) => ic_cdk::println!(
+            "b2z-burn-management now={now} reply={} before={before} observed={} reserved={} after={after}",
+            ic_cdk::api::time(), balance.cycles, balance.reserved_cycles
+        ),
+        Err(error) => ic_cdk::println!("b2z-burn-management now={now} unavailable={error}"),
+    }
+}
+
+#[cfg(all(feature = "certified-operational-burn", feature = "test-hooks"))]
+thread_local! {
+    static MANAGEMENT_PROBE_NS: std::cell::Cell<u64> = const { std::cell::Cell::new(0) };
+}
+
 #[cfg(feature = "certified-operational-burn")]
 pub(crate) fn sample(root: Option<&super::Root>) {
     let now = ic_cdk::api::time();
@@ -215,6 +274,8 @@ pub(crate) fn sample(root: Option<&super::Root>) {
     {
         return;
     }
+    #[cfg(feature = "test-hooks")]
+    balance_probe("meter", root.source.in_flight, false);
     let total = ic_cdk::api::canister_cycle_balance();
     let changed = METER.with(|meter| {
         let mut meter = meter.borrow_mut();
