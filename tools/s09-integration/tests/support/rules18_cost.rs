@@ -3881,6 +3881,106 @@ fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool) {
             String::from_utf8_lossy(&independent.stdout),
             String::from_utf8_lossy(&independent.stderr)
         );
+        // Two genuine fixed-price relocation payments remove the structures
+        // while their original overlapping Balls still hold passage rows.
+        // The same authoritative segment must retire both stale rows.
+        let cannon = final_world
+            .passage_exceptions
+            .iter()
+            .find(|row| row.kind == b2z_native::passage_v20::Kind::Cannon)
+            .unwrap()
+            .structure;
+        let deflector = final_world
+            .passage_exceptions
+            .iter()
+            .find(|row| row.kind == b2z_native::passage_v20::Kind::Deflector)
+            .unwrap()
+            .structure;
+        let move_cannon = transfer_text(
+            &pic,
+            ledger,
+            payer,
+            id,
+            10_000,
+            format!("MOVE {cannon} 8").as_bytes(),
+        );
+        let move_deflector = transfer_text(
+            &pic,
+            ledger,
+            payer,
+            id,
+            10_000,
+            format!("DMOVE {deflector} 20").as_bytes(),
+        );
+        for _ in 0..300 {
+            advance(&pic, 1000);
+            if status(&pic, id).source.admitted_to_exclusive > move_deflector {
+                break;
+            }
+        }
+        assert!(status(&pic, id).source.admitted_to_exclusive > move_deflector);
+        let before_moves = status(&pic, id).run.completed_segments;
+        playability_installed::configuration(&pic, id, 512);
+        for _ in 0..300 {
+            advance(&pic, 1000);
+            if status(&pic, id).run.completed_segments > before_moves {
+                break;
+            }
+        }
+        assert_eq!(status(&pic, id).run.completed_segments, before_moves + 1);
+        let moved = arena_world(&pic, id);
+        assert_eq!(
+            moved
+                .cannons
+                .iter()
+                .find(|row| row.id == cannon)
+                .unwrap()
+                .cell,
+            8
+        );
+        assert_eq!(
+            moved
+                .deflectors
+                .iter()
+                .flatten()
+                .find(|row| row.id == deflector)
+                .unwrap()
+                .cell,
+            20
+        );
+        assert!(moved.passage_exceptions.is_empty());
+        let (_, moved_publication) = capture(&pic, id, &out, 4);
+        assert_eq!(
+            moved_publication.head.segment_id.as_ref().unwrap().0,
+            &restarted_publication.head.segment_id.as_ref().unwrap().0 + 1u32
+        );
+        let expected = BTreeMap::from([
+            (move_cannon, ("ACCEPTED".into(), 10_000, None)),
+            (move_deflector, ("ACCEPTED".into(), 10_000, None)),
+        ]);
+        let mut official = super::delegation_installed::official_inputs(&pic, id, &expected);
+        official.sort_by_key(|(payment, _)| payment.position);
+        let inputs = official
+            .into_iter()
+            .map(|(payment, _)| b2z_native::Input {
+                position: Int(payment.position.into()),
+                payload_hex: hex(&payment.encode().unwrap()),
+            })
+            .collect::<Vec<_>>();
+        std::fs::write(out.join("4-inputs.bin"), dtr_wire::encode(&inputs).unwrap()).unwrap();
+        let independent = std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .arg("tools/verify_rules20_installed_replay.mjs")
+            .arg(&out)
+            .arg("4")
+            .output()
+            .unwrap();
+        assert!(
+            independent.status.success(),
+            "independent paid relocation replay: {}{}",
+            String::from_utf8_lossy(&independent.stdout),
+            String::from_utf8_lossy(&independent.stderr)
+        );
     }
     std::fs::write(
         out.join("results.json"),

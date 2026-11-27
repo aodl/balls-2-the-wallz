@@ -1,7 +1,8 @@
 # B2Z current status
 
-Latest settled operational observation **2026-11-27 18:30:28 UTC**. The maintained
-[master](https://github.com/aodl/balls-2-the-wallz/commits/master/) verifier source
+Latest settled operational observation **2026-11-27 20:28:51 UTC**. Published
+[master](https://github.com/aodl/balls-2-the-wallz/commits/master/) remains
+`cf6605efecd0115b1faebaec37f5efafedad3a40`; its qualified implementation/tooling ancestor
 [`ae734acdc431adf69978ab41be07a8222139c69d`](https://github.com/aodl/balls-2-the-wallz/commit/ae734acdc431adf69978ab41be07a8222139c69d)
 passed the [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45923880788),
 [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45923880915)
@@ -16,28 +17,27 @@ qualification. The paid backend runs Rules19 / Schema11 / Adapter12
 
 ## Operating position
 
-- Authenticated head **19,322**, logical time **19,305** and source cursor
+- Authenticated head **19,393**, logical time **19,376** and source cursor
   **40,647,923**. The world contained two Cannons under one funding account,
   two Balls, one Diverter and four Reservoir tiles.
 - Gameplay and admission were active at **0.01 ticks/s** with one tick per
   checkpoint. The official Index was bound, with zero pending records and
   no signed source error. Event Horizon was disabled in the installed
   configuration.
-- Settled backend total was **2.351T**, liquid **2.293T** and estimated
+- Settled backend total was **2.304T**, liquid **2.246T** and estimated
   freezing reserve **0.058T**. Frontend total was **0.771T**, with a
-  **0.204T** estimated freezing reserve and **0.568T** above freezing.
-  Conservative frontend installation/recovery headroom was **0.1177T**.
-- Across comparable settled observations at 16:54 and 17:58 UTC,
-  backend liquidity declined **25.820B cycles**, approximately **0.572T/day**.
-  The 18:30 observation is less than an hour after the preceding settled
-  sample, so it does not establish a new rate. Applying the last established
-  rate conditionally to its liquid balance gives approximately **9.36 hours**
-  to the 2.07T default Full Speed cycle floor and **2.26 days** to the 1T
+  **0.204T** estimated freezing reserve and **0.567T** above freezing.
+  Conservative frontend installation/recovery headroom was **0.1172T**.
+- Across comparable settled observations at 18:30 and 20:28 UTC,
+  backend liquidity declined **47.205B cycles**, approximately **0.574T/day**.
+  At that workload, the conditional interval is **7.35 hours** to the
+  2.07T default Full Speed cycle floor and **2.17 days** to the 1T
   protection boundary, absent credits or a workload change. The
   balance floor is one of the owner's Full Speed eligibility checks; crossing
   it does not by itself stop ordinary Trickle operation.
-  An earlier bracket rebounded by 83.7B cycles in 34 seconds. The projection
-  uses the repeated comparable observations. Funding before any desired
+  An earlier bracket rebounded by 83.7B cycles in 34 seconds. The 20:27
+  observation was unsettled and excluded; this projection uses settled
+  comparable observations. Funding before any desired
   future Full Speed window is an owner decision; no funding was performed.
 
 [Preflight, installation, browser and later observation](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json)
@@ -126,7 +126,10 @@ release gates. The earlier source
 and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043439)
 hosted jobs, including the named installed successor gates. Published
 predecessor source `68430e67` also passed all three hosted workflows,
-including standard installed-IC qualification. The newer recovery and
+including standard installed-IC qualification. The installed finite overdue
+lifecycle barrier case also completed: the recovered old-policy segment,
+an intervening sealed zero-input predecessor interval and a later Rules20
+payment all matched independent public replay. The newer recovery and
 passage additions have not completed exact-source hosted runs. The recovery
 branch is **not** a production
 release candidate. Four local
@@ -140,7 +143,10 @@ An installed paid Cannon/Diverter case kept two first-passage exceptions
 active through a same-ID restart and subsequent tick. Both pre-existing Balls
 kept their exact cells and headings; independent replay matched the public
 state, events and scores. The observer now accepts only a bound exception for
-a Ball occupying a Diverter. Destruction, relocation and an interrupted
+a Ball occupying a Diverter. Two later genuine Ledger/Index relocation
+payments moved those structures while their exceptions remained active;
+the same authoritative segment retired both rows, recorded exact receipts
+and matched independent replay. Destruction and an interrupted
 in-progress checkpoint remain separate passage gates.
 The certified burn
 meter remains disabled and is tracked separately. Sustained Full Speed throughput,

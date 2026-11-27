@@ -54,11 +54,12 @@ healthy predecessor, real paid Cannon and Diverter admission, a continuous
 toroidal return, four authenticated high-population tariff payments, a
 genuine two-of-three paid Ball batch with exact frontend quote and replay,
 first exponential grace and overflow-current payments at the previous linear
-tariff, installed passage-exception preservation through same-ID restart, and
+tariff, installed passage-exception preservation through same-ID restart and
+two genuine paid structure relocations that retire their exceptions, and
 additional exact seam and equal-time contact cases. A six-input obstructed
 Rules19 recovery now passes across UTC midnight, same-ID restart and
 independent public replay. Complete the broader
-obstructed recovery matrix, remaining installed passage lifecycle, corner matrix and
+obstructed recovery matrix, remaining installed passage destruction and interrupted checkpoint lifecycle, corner matrix and
 authenticated Cannon/Diverter inventory, batch-overflow, delayed Index admission and interrupted-purchase
 matrix before freezing a release. The successor frontend has a dedicated
 configuration and inventory.

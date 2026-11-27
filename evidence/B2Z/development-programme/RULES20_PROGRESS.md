@@ -316,6 +316,20 @@ Independent JavaScript replay matched recovered and successor public bytes.
 Earlier stale expected manifests were rejected by compare-and-swap; the
 successful controller route used the actual current predecessor head.
 
+The installed `rules20_paid_passage_restart` case now also sends two genuine
+Ledger/Index relocation payments after a same-ID restart while Cannon and
+Diverter first-passage exceptions are active. One authoritative segment moved
+both structures, retired both exception rows, and recorded the two exact
+fixed-price receipts. Independent JavaScript replay matched that segment's
+public state, events and scores, as well as the preceding paid construction
+and restart segments. The passing run is
+`.work/rules19-recovery/passage-relocation-2/`. Its first run reached the
+authoritative assertions but captured the two official inputs in reverse
+order for replay; the corrected harness sorts by immutable Ledger position.
+This closes installed relocation while the exception is active. Structure
+destruction, Ball destruction and an interrupted in-progress checkpoint
+remain separate gates.
+
 A separate six-row corner matrix now covers active opponent ownership on
 either side, two different opponent owners, a Cannon-protected foreign side,
 and a friendly side opposite foreign territory. Each row fixes complete
