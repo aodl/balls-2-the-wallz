@@ -61,11 +61,14 @@ draft PR #25 carries the successor. This branch is **not a release candidate**.
 - The exact corner classifier uses canonical source-tile checkerboard parity.
   Focused Rust and JavaScript tests cover four diagonal directions, both
   parities, seams, mixed ownership and historical Rules19 behavior. Eight
-  exact diagonal simulations across both parities now compare independent
-  Rust and JavaScript **public state, event and score bytes** after native
-  cursor interruption; each captures exactly one tile. The new fixture is
-  checked by the ordinary portable-native gate. Mixed structure contacts,
-  protection and equal-time public-output cases remain open.
+  exact diagonal simulations across both parities compare independent Rust
+  and JavaScript **public state, event and score bytes** after native cursor
+  interruption; each captures exactly one tile. Four further exact vertex
+  simulations place a genuine Cannon or Diverter at a side or diagonal cell
+  while another side is capturable. The structure takes precedence, no
+  territory capture occurs, and the ordinary per-axis reflection law remains.
+  The ordinary portable-native gate checks all twelve vectors. Protected
+  territory and equal-time public-output cases remain open.
 - Symbolic population tariffs are integrated through the successor payment
   cursor, batch continuation, receipts, public quotes and browser capability
   gating. Focused independent tests cover exact prices, overflow, partial

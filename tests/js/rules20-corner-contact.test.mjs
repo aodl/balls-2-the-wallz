@@ -53,6 +53,24 @@ test('Rules20 foreign diagonal after friendly sides uses one face; a Cannon corn
   assert.deepEqual(passage(w,b,solid),{passX:false,passY:false,vertexBlocked:true});
  }
 });
+test('a genuine mixed structure corner takes precedence over a simultaneous territory contact',()=>{
+ for(const structure of ['side-cannon','diagonal-cannon','side-deflector','diagonal-deflector']){
+  const w=world(),{b,crossing,sideX,sideY,diagonal}=contact(w,500,500,1,1);
+  setOwner(w,sideX,0);setOwner(w,sideY,0);setOwner(w,diagonal,0);
+  const site=structure.startsWith('side')?sideX:diagonal;
+  if(structure.endsWith('cannon'))w.cannons[0].cell=site;
+  else w.deflectors.push({id:w.next_deflector_id++,cell:site,owner:1,orientation:'NE'});
+  const intent=classify(w,b,crossing);
+  assert.equal(intent.attack,null,structure);
+  assert.deepEqual(passage(w,b,intent),{passX:false,passY:false,vertexBlocked:false},structure);
+ }
+ const w=world(),{b,crossing,sideX,sideY}=contact(w,500,500,1,1);
+ setOwner(w,sideX,0);setOwner(w,sideY,1);
+ w.cannons[0].cell=sideX;
+ const intent=classify(w,b,crossing);
+ assert.equal(intent.attack,null);
+ assert.deepEqual(passage(w,b,intent),{passX:false,passY:true,vertexBlocked:false});
+});
 test('Rules19 retains the historical lowest-cell side and blocked diagonal law',()=>{
  const w=world(),{b,crossing,sideX,sideY,diagonal}=contact(w,500,500,1,1);
  w.version=11;setOwner(w,sideX,0);setOwner(w,sideY,0);
@@ -89,7 +107,7 @@ test('a foreign diagonal strike originates in the passed friendly side cell',()=
  assert.equal(j.attack.from,other.sideY);
  assert.equal(j.attack.axis,'x');
 });
-test('eight exact diagonal contacts capture once and preserve Rules20 public bytes',()=>{
+test('exact diagonal captures and mixed structure corners preserve Rules20 public bytes',()=>{
  for(const row of publicCorners){
   const initial=Buffer.from(row.initial_hex,'hex');
   const inputs=decodeCanonical(Buffer.from(row.inputs_hex,'hex'));
@@ -103,6 +121,6 @@ test('eight exact diagonal contacts capture once and preserve Rules20 public byt
   for(const kind of ['state','events','scores'])
    assert.equal(Buffer.from(output[kind]).toString('hex'),row.outputs[kind].hex,`${row.name} ${kind}`);
   const captures=decodeCanonical(output.events).events.filter(event=>event.kind==='capture');
-  assert.deepEqual(captures.map(event=>event.target),[row.expected_capture],row.name);
+  assert.deepEqual(captures.map(event=>event.target),row.expected_capture===null?[]:[row.expected_capture],row.name);
  }
 });

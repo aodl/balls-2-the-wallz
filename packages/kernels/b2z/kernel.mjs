@@ -93,6 +93,14 @@ function blocksBall(w,b,cell){
  return w.cannons.some(c=>c.cell===cell&&!exempts(w,b.id,'cannon',c.id,cell))
    ||Boolean((d=>d&&!exempts(w,b.id,'deflector',d.id,cell))(deflectorAt(w,cell)));
 }
+function solidVertex(world,ball,crossing,targets){
+ if(world.version<12||!crossing.x||!crossing.y)return false;
+ const x=ball.cell%world.width,y=Math.floor(ball.cell/world.width);
+ const diagonal=wrapCell(x+Math.sign(ball.vx),y+Math.sign(ball.vy),world.width,world.height);
+ // A real structure at any simultaneously touched cell owns this vertex.
+ // Territory bias cannot turn the structure contact into a capture.
+ return targets.some(t=>t.target!==null&&blocksBall(world,ball,t.target))||blocksBall(world,ball,diagonal);
+}
 function cornerPreferredAxis(world,ball,crossing){
  if(!(crossing.x&&crossing.y))return 'x';
  // Canonical source-tile checkerboard; grid y increases down, so x is to
@@ -113,7 +121,7 @@ export function classify(world, ball, crossing) {
   }
   const sideAttacks=targets.filter(t=>t.capturable);
   const preferred=cornerPreferredAxis(world,ball,crossing);
-  let attack=world.version>=12&&crossing.x&&crossing.y&&sideAttacks.length===2
+  let attack=solidVertex(world,ball,crossing,targets)?null:world.version>=12&&crossing.x&&crossing.y&&sideAttacks.length===2
     ?sideAttacks.find(t=>t.axis===preferred)
     :sideAttacks.sort((a,b)=>a.target-b.target)[0]??null;
   if(world.version>=12&&crossing.x&&crossing.y&&!attack&&targets.length===2&&targets.every(t=>t.pass)){

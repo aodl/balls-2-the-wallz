@@ -139,7 +139,7 @@ added to the Ball.
 | Both side cells clear and friendly; diagonal cell capturable | Select the diagonal as one contact. Pass the parity-selected side and reflect the other face, leaving the Ball in the friendly side cell. |
 | Both side cells clear and friendly; diagonal cell friendly | Pass both faces. |
 | Both side cells clear and friendly; diagonal cell contains a structure | Preserve the solid blocked-vertex response; no diagonal capture. |
-| No capturable side and a genuine structure in a side cell | Preserve the structure obstruction/contact law. No parity bypass. |
+| A genuine structure in either side cell or the diagonal cell, with a simultaneous territory candidate | Suppress the territory capture. Keep the existing per-axis passage/reflection law; the both-friendly-side diagonal structure remains a blocked vertex. No parity bypass. |
 | No eligible contact | Preserve normal reflection or passage without inventing capture. |
 
 The Rust and independent JavaScript classifiers now exercise the four diagonal

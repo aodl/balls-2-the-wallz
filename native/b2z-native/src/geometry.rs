@@ -43,6 +43,25 @@ fn blocks_ball(w: &World, b: &Ball, cell: usize) -> bool {
         || crate::deflectors_v12::at(w, cell)
             .is_some_and(|d| !exempts(w, b.id, Kind::Deflector, d.id, cell))
 }
+fn solid_vertex(w: &World, b: &Ball, crossing: &Crossing, targets: &[Target]) -> bool {
+    if w.version < 12 || !crossing.x || !crossing.y {
+        return false;
+    }
+    let sx = b.vx.signum() as i64;
+    let sy = b.vy.signum() as i64;
+    let diagonal = crate::world::wrap_cell(
+        (b.cell % w.width) as i64 + sx,
+        (b.cell / w.width) as i64 + sy,
+        w.width,
+        w.height,
+    );
+    // A real structure at any simultaneously touched cell owns this vertex.
+    // The checkerboard territory choice cannot convert that contact to capture.
+    targets
+        .iter()
+        .any(|t| t.target.is_some_and(|cell| blocks_ball(w, b, cell)))
+        || blocks_ball(w, b, diagonal)
+}
 pub fn next_crossing(b: &Ball, width: usize, now: &Rat) -> Result<Crossing> {
     let d = b
         .den
@@ -147,7 +166,9 @@ pub fn classify(w: &World, b: &Ball, crossing: Crossing) -> Intent {
     // tile, not the linear cell ID or camera, supplies the checkerboard bias.
     let preferred = corner_preferred_axis(w, b, &crossing);
     let side_attacks: Vec<_> = targets.iter().filter(|t| t.capturable).collect();
-    let mut attack = if w.version >= 12 && crossing.x && crossing.y && side_attacks.len() == 2 {
+    let mut attack = if solid_vertex(w, b, &crossing, &targets) {
+        None
+    } else if w.version >= 12 && crossing.x && crossing.y && side_attacks.len() == 2 {
         side_attacks
             .iter()
             .find(|t| t.axis == preferred)
@@ -432,6 +453,29 @@ mod tests {
             assert!(solid.attack.is_none());
             assert_eq!(passage(&w, &b, &solid), (false, false, true));
         }
+    }
+
+    #[test]
+    fn genuine_structure_contact_suppresses_mixed_vertex_capture_without_changing_axis_law() {
+        for site in ["side", "diagonal"] {
+            let mut w = fixture();
+            let (b, crossing, side_x, side_y, diagonal) = contact(&mut w, 500, 500, 1, 1);
+            w.set_owner(side_x, 0).unwrap();
+            w.set_owner(side_y, 0).unwrap();
+            w.set_owner(diagonal, 0).unwrap();
+            w.cannons[0].cell = if site == "side" { side_x } else { diagonal };
+            let intent = classify(&w, &b, crossing);
+            assert!(intent.attack.is_none(), "{site}");
+            assert_eq!(passage(&w, &b, &intent), (false, false, false), "{site}");
+        }
+        let mut w = fixture();
+        let (b, crossing, side_x, side_y, _) = contact(&mut w, 500, 500, 1, 1);
+        w.set_owner(side_x, 0).unwrap();
+        w.set_owner(side_y, 1).unwrap();
+        w.cannons[0].cell = side_x;
+        let intent = classify(&w, &b, crossing);
+        assert!(intent.attack.is_none());
+        assert_eq!(passage(&w, &b, &intent), (false, true, false));
     }
 
     #[test]
