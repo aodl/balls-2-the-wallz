@@ -192,9 +192,12 @@ def main():
                 'canister_query compact_reservoir_transition_status',
                 'canister_update prepare_compact_reservoir_transition',
                 'canister_update commit_compact_reservoir_transition',
+                'canister_query rules20_transition_status',
+                'canister_update prepare_rules20_transition',
+                'canister_update commit_rules20_transition',
             })
             if set(wasm_exports(candidate))!=expected:
-                raise ValueError('production Wasm exports must be the predecessor plus the reviewed speed and compact-reservoir methods')
+                raise ValueError('production Wasm exports must be the predecessor plus the reviewed speed, compact-reservoir and Rules20 transition methods')
             env.update(B2Z_DEV_SPEED_RELEASE_WASM=str(candidate),B2Z_RULES18_PRIOR_WASM=str(prior))
             if a.dev_speed_prior_wasm:
                 deployed=a.dev_speed_prior_wasm.resolve()

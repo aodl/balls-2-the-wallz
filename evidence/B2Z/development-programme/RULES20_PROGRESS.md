@@ -36,13 +36,16 @@ draft PR #25 carries the successor. This branch is **not a release candidate**.
   state, event and score bytes with both genuine Ledger/Index inputs. Raw
   evidence is under `.work/rules20-construction-final/` in the rehearsal
   worktree.
-- Exact source `9497894e` built the capped-Trickle backend with raw SHA-256
+- Runtime-input source `9497894e` built the capped-Trickle backend with raw SHA-256
   `fffa5e3e2e61096b62266e30cb34e7f97d84a5f7f711ed79296b3c5dd3f7a24d`.
   This equals the executable used in the passing rehearsal. Candid/export
-  validation passed locally. The exact-source hosted standard and financial
-  runs remain in progress; the first developer run failed only because the
-  newly added test was not rustfmt-clean. A test-only formatting commit is
-  ready locally and requires new hosted qualification after publication.
+  validation passed locally. Exact-source hosted standard and financial runs
+  for `859ac38b` remain in progress. Its developer run failed at a verifier
+  export allowlist that still expected only the Rules18 speed and Rules19
+  compact-reservoir additions. The downloaded hosted candidate had exactly
+  the three reviewed Rules20 transition methods in addition to those allowed
+  methods, with no removed predecessor exports. The strict allowlist has been
+  corrected and needs exact-source hosted requalification.
 - Explicit new Cannon and Diverter planning under Schema12 ignores Ball-only
   occupancy, while relocation and first Join retain the old policy. Canonical
   per-Ball, per-new-structure passage rows survive encoding and retire on exit
@@ -50,8 +53,12 @@ draft PR #25 carries the successor. This branch is **not a release candidate**.
   entry, tangency, unrelated arrivals, later return and Cannon birth.
 - The exact corner classifier uses canonical source-tile checkerboard parity.
   Focused Rust and JavaScript tests cover four diagonal directions, both
-  parities, seams, mixed ownership and historical Rules19 behavior. This is
-  not yet the complete public-output acceptance matrix.
+  parities, seams, mixed ownership and historical Rules19 behavior. Eight
+  exact diagonal simulations across both parities now compare independent
+  Rust and JavaScript **public state, event and score bytes** after native
+  cursor interruption; each captures exactly one tile. The new fixture is
+  checked by the ordinary portable-native gate. Mixed structure contacts,
+  protection and equal-time public-output cases remain open.
 - Symbolic population tariffs are integrated through the successor payment
   cursor, batch continuation, receipts, public quotes and browser capability
   gating. Focused independent tests cover exact prices, overflow, partial
