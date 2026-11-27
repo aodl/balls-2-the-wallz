@@ -1,6 +1,6 @@
 # B2Z current status
 
-Operational observation **2026-11-27 12:23:11 UTC**. The maintained
+Operational observation **2026-11-27 14:11:06 UTC**. The maintained
 [master](https://github.com/aodl/balls-2-the-wallz/commits/master/) verifier source
 [`ae734acdc431adf69978ab41be07a8222139c69d`](https://github.com/aodl/balls-2-the-wallz/commit/ae734acdc431adf69978ab41be07a8222139c69d)
 passed the [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45923880788),
@@ -16,23 +16,25 @@ qualification. The paid backend runs Rules19 / Schema11 / Adapter12
 
 ## Operating position
 
-- Authenticated head **19,102**, logical time **19,085** and source cursor
+- Authenticated head **19,166**, logical time **19,149** and source cursor
   **40,647,923**. The world contained two Cannons under one funding account,
   two Balls, one Diverter and four Reservoir tiles.
 - Gameplay and admission were active at **0.01 ticks/s** with one tick per
   checkpoint. The official Index was bound, with zero pending records and
   no signed source error. Event Horizon was disabled in the installed
   configuration.
-- Settled backend total was **2.496T**, liquid **2.438T** and estimated
+- Settled backend total was **2.454T**, liquid **2.396T** and estimated
   freezing reserve **0.058T**. Frontend total was **0.773T**, with a
   **0.204T** estimated freezing reserve and **0.569T** above freezing.
   Conservative frontend installation/recovery headroom was **0.119T**.
-- Across 146 publications and 14,584 seconds since the 08:20 UTC sample,
-  settled backend liquidity declined **0.567T/day**. At the observed workload
+- Across two comparable settled observations at 13:31 and 14:11 UTC,
+  backend liquidity declined **15.822B cycles**, approximately **0.571T/day**.
+  At the observed workload
   and without intervening credits, the conditional projection was
-  **15.6 hours** to the 2.07T default Full Speed cycle floor and **2.54 days**
+  **13.7 hours** to the 2.07T default Full Speed cycle floor and **2.45 days**
   to the 1T protection boundary. The
-  balance floor is one of the owner's Full Speed eligibility checks.
+  balance floor is one of the owner's Full Speed eligibility checks; crossing
+  it does not by itself stop ordinary Trickle operation.
   An earlier bracket rebounded by 83.7B cycles in 34 seconds. The projection
   uses the repeated comparable observations.
 
@@ -81,12 +83,18 @@ origin and read-only desktop/390/320 browser acceptance passed. The earlier
 capped Trickle frontend is retained for exact compatible recovery.
 
 Rules20 development implements Schema12 authorization, initial passage,
-checkerboard corners and symbolic tariffs. Qualification remains blocked by
-recovery of an already obstructed Rules19 predecessor. The updated source
+checkerboard corners and symbolic tariffs. A dedicated authenticated recovery
+operation now repairs the demonstrated obstructed Rules19 predecessor in a
+disposable installed test, preserving its complete ordered pending prefix and
+historical Rules19 policy. Exact Rust/JavaScript replay and subsequent ordinary
+Rules20 activation passed with the pinned candidate. The adversarial recovery
+matrix and other feature-specific gates remain open. The earlier source
 `95a439e3` passed [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043400),
 [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043269)
 and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043439)
-hosted jobs, including the named installed successor gates. Four local
+hosted jobs, including the named installed successor gates. The recovery source
+`4d330753` is under fresh hosted qualification and is **not** a production
+release candidate. Four local
 authenticated high-population payment cases passed. The certified burn
 meter remains disabled and is tracked separately. Sustained Full Speed throughput,
 physical devices, dense-scene P09
