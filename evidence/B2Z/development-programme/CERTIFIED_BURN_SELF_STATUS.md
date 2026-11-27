@@ -212,3 +212,31 @@ predicate and retries only a click that made no write attempt. A rejected
 native write or incorrect copied value still fails. Python syntax and diff
 checks passed locally; the corrected browser gate requires a fresh hosted
 run. The failed standard run is not telemetry qualification.
+
+## Held Index reservation and refund
+
+An additional disposable fixture replaced only the Index transport with the
+test-only response-hold executable while retaining the original official
+Index reply bytes. With the 17.321-second timer phase and the exact meter
+candidate `81e6a31`, a genuine asynchronous Index response stayed pending
+for ten simulated minutes. Both five-minute certified observations during
+the hold remained established. After release, the fixture resumed immediate
+replies and preserved the source cursor. The settled management balance
+rebounded **82,593,477,536 cycles** between the minute-10 and minute-15
+observations, demonstrating a material changing reservation offset.
+
+The tightened installed case passed under
+`.work/burn-balance-probe/held-index-3/`: the final certified rolling rate
+was **396.604B/day**, versus **401.963B/day** over the comparable 60-minute
+settled management bracket, a **1.33%** difference. Certified rates at both
+held samples also remained within the preset 5% bound of that settled rate.
+The first `held-index-1` attempt left all later fixture responses held and
+therefore had no settled final endpoint; `held-index-2` established the
+positive result before the explicit reservation/refund assertions were
+added. Neither is substituted for the final tightened test.
+
+This qualifies one controlled ten-minute reservation and refund at one
+active-Trickle schedule. Additional concurrent checkpoint patterns, Full
+Speed, prolonged unavailable sampling and production workload diversity
+remain open. No fixed offset was subtracted, and unknown external credits
+remain unobservable. The optional meter stays disabled in normal profiles.

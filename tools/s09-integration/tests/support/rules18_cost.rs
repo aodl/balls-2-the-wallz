@@ -1588,6 +1588,146 @@ fn certified_operational_burn_roundtrip() {
         certified.abs_diff(external_rate) * 100 <= external_rate * 5,
         "certified {certified} versus settled management {external_rate} cycles/day"
     );
+    let held_index = if std::env::var_os("B2Z_BURN_HELD_INDEX_PROBE").is_some() {
+        assert!(
+            !slow_index,
+            "held and stopped Index use separate disposable fixtures"
+        );
+        let source_before = status(&pic, id).source.admitted_to_exclusive;
+        let history_query = candid::encode_one(source::HistoryArgs {
+            account_identifier: source::receiving_account(id, 0).to_hex(),
+            start: None,
+            max_results: 64,
+        })
+        .unwrap();
+        let original_reply = pic
+            .query_call(
+                index,
+                Principal::anonymous(),
+                "get_account_identifier_transactions",
+                history_query,
+            )
+            .unwrap();
+        let _: source::HistoryResult = decode_one(&original_reply).unwrap();
+        let start_cycles = pic.canister_status(id, Some(controller())).unwrap().cycles;
+        pic.reinstall_canister(
+            index,
+            bytes("S14_SLOW_INDEX_WASM"),
+            encode_args((ledger, 1u32, original_reply.clone())).unwrap(),
+            Some(controller()),
+        )
+        .unwrap();
+        pic.start_canister(index, Some(controller())).unwrap();
+        let mut held_trace = Vec::new();
+        let mut held_request = None;
+        for minute in 1..=60 {
+            advance(&pic, 60_000);
+            if minute <= 10 {
+                let requests = pic.get_canister_http();
+                if !requests.is_empty() {
+                    assert_eq!(requests.len(), 1);
+                    held_request = Some((requests[0].subnet_id, requests[0].request_id));
+                }
+            }
+            if minute % 5 == 0 {
+                let verified = witness(&format!("held-index-{minute:02}"));
+                let cycles = pic.canister_status(id, Some(controller())).unwrap().cycles;
+                let source = status(&pic, id).source;
+                held_trace.push(json!({"minute":minute,"cycles":cycles.to_string(),
+                    "burn":verified["burn"],"in_flight":source.scan_in_flight,
+                    "cursor":source.admitted_to_exclusive}));
+            }
+            if minute == 10 {
+                let (subnet_id, request_id) = held_request.expect("real held Index HTTP await");
+                assert!(
+                    status(&pic, id).source.scan_in_flight,
+                    "source call must remain reserved during held response"
+                );
+                pic.mock_canister_http_response(
+                    pocket_ic::common::rest::MockCanisterHttpResponse {
+                        subnet_id,
+                        request_id,
+                        response: pocket_ic::common::rest::CanisterHttpResponse::CanisterHttpReply(
+                            pocket_ic::common::rest::CanisterHttpReply {
+                                status: 200,
+                                headers: vec![],
+                                body: vec![],
+                            },
+                        ),
+                        additional_responses: vec![],
+                    },
+                );
+                pic.update_call(
+                    index,
+                    controller(),
+                    "set_reply",
+                    encode_args((0u32, original_reply.clone())).unwrap(),
+                )
+                .unwrap();
+            }
+        }
+        assert_eq!(status(&pic, id).source.admitted_to_exclusive, source_before);
+        assert!(!status(&pic, id).source.scan_in_flight);
+        let end_cycles = pic.canister_status(id, Some(controller())).unwrap().cycles;
+        let final_burn = witness("held-index-final");
+        assert_eq!(final_burn["burn"]["quality"], "established");
+        let reported = final_burn["burn"]["cyclesPerDay"]
+            .as_str()
+            .unwrap()
+            .parse::<u128>()
+            .unwrap();
+        let settled = (start_cycles - end_cycles)
+            .0
+            .to_string()
+            .parse::<u128>()
+            .unwrap()
+            * 24;
+        assert_eq!(held_trace[0]["in_flight"], true);
+        assert_eq!(held_trace[1]["in_flight"], true);
+        assert_eq!(held_trace[2]["in_flight"], false);
+        let balance_at = |n: usize| {
+            held_trace[n]["cycles"]
+                .as_str()
+                .unwrap()
+                .replace('_', "")
+                .parse::<u128>()
+                .unwrap()
+        };
+        let reservation_refund = balance_at(2)
+            .checked_sub(balance_at(1))
+            .expect("released Index reservation must rebound in settled balance");
+        assert!(
+            reservation_refund > 40_000_000_000,
+            "held Index must expose a material reservation/refund offset"
+        );
+        for sample in &held_trace[..2] {
+            assert_eq!(sample["burn"]["quality"], "established");
+            let during = sample["burn"]["cyclesPerDay"]
+                .as_str()
+                .unwrap()
+                .parse::<u128>()
+                .unwrap();
+            assert!(
+                during.abs_diff(settled) * 100 <= settled * 5,
+                "certified rate during held reservation {during} versus settled {settled}"
+            );
+        }
+        assert!(
+            reported.abs_diff(settled) * 100 <= settled * 5,
+            "held Index certified {reported} versus management {settled} cycles/day"
+        );
+        std::fs::write(
+            out.join("held-index-trace.json"),
+            serde_json::to_vec_pretty(&held_trace).unwrap(),
+        )
+        .unwrap();
+        json!({"certified_cycles_per_day":reported.to_string(),
+            "external_settled_cycles_per_day":settled.to_string(),
+            "held_samples":held_trace,"source_cursor_preserved":source_before,
+            "observed_reservation_refund_cycles":reservation_refund.to_string()})
+    } else {
+        Value::Null
+    };
     let protected = if std::env::var_os("B2Z_BURN_PROTECTION_PROBE").is_some() {
         let target = 100_000_000_000u64;
         let _: Status = get_result(
@@ -1675,7 +1815,7 @@ fn certified_operational_burn_roundtrip() {
         "status":"PASS","index_phase_ms":index_phase_ms,"slow_index":slow_index,
         "partial":partial,"full":full,"stale":stale,"active":active,
         "external_settled_cycles_per_day":external_rate.to_string(),"reserve_protection":protected,
-        "treasury_credit":treasury_credit,
+        "treasury_credit":treasury_credit,"held_index":held_index,
         "scope":"disposable Rules19 same-ID certificate, recovery and capped ordinary checkpoints"
     })).unwrap()).unwrap();
 }

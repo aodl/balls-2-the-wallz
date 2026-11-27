@@ -58,8 +58,9 @@ configuration and inventory.
 
 Certified burn has a promising replicated self-status sampling point.
 Two shifted Index phases, a stopped Index, a genuine identified treasury
-credit, a matched active-Trickle operating-cost comparison and hosted live
-browser/agent consumption passed. Confirm changing reservations under
-concurrent slow replies and other operating modes, smaller unknown external
+credit, a held Index response with an 82.593B-cycle reservation refund,
+a matched active-Trickle operating-cost comparison and hosted live
+browser/agent consumption passed. Confirm broader concurrent checkpoint
+reservations and other operating modes, smaller unknown external
 credits, prolonged unavailability and the complete compatible release profile.
 The capability remains disabled and is independent of the authorization repair.
