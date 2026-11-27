@@ -532,3 +532,14 @@ path, and the second proved that the private cursor is wrapped in a versioned
 `Snapshot`; both remain recorded as failed fixture attempts under
 `interrupted-purchase-{1,2}`. The final test-only query is absent from normal
 release Wasm. The new named case still needs exact-source hosted execution.
+
+Published source `d18efb566be2c057a6a3927a58ebd83553e8c3f0` passed
+[financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/46079629817)
+and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/46079629827)
+hosted workflows. The downloaded developer artifact contains **20 separately
+executed installed PASS cases**, including the paid mid-batch overflow, and
+candidate raw SHA-256 `980ea23e39c42379ad5d22c8ac9cf5edd9df3f331ded0e475c35253162438c7e`.
+Its [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46079629851)
+was still running at this review point. The delayed Index and interrupted
+purchase cases are newer local source and therefore are not included in those
+20 hosted results.

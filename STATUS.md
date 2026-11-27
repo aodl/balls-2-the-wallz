@@ -130,12 +130,13 @@ predecessor source `68430e67` also passed all three hosted workflows,
 including standard installed-IC qualification. The installed finite overdue
 lifecycle barrier case also completed: the recovered old-policy segment,
 an intervening sealed zero-input predecessor interval and a later Rules20
-payment all matched independent public replay. Source `b0c93c7f` passed its
-[developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070833362)
-and [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070833382)
-workflows; its [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070833301)
-also passed. The developer artifact records 18 named installed Rules20 PASS
-cases, including recovery, interrupted passage and paid tariffs. The later
+payment all matched independent public replay. Source `b0c93c7f` passed all
+three hosted workflows. Later published source `d18efb56` passed its
+[financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/46079629817)
+and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/46079629827)
+workflows; its [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46079629851)
+remains in progress. The later developer artifact records **20 named installed
+PASS cases**, including recovery, interrupted passage and paid tariffs. The later
 thirteen-row active-owner corner matrix passed 31 native Rules20 public-output
 comparisons and focused JavaScript tests; exact-source hosted qualification
 is pending. The recovery branch is **not** a
