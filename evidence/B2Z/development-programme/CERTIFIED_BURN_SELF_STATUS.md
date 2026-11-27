@@ -103,3 +103,8 @@ requests. Raw failed attempts are in `live-consumers-4` through
 `live-consumers-6`. No system package was installed. Matched incremental
 cost, changing reservations, credits and full live browser acceptance
 remain open. The telemetry feature remains disabled in normal builds.
+
+The complete source check on published telemetry continuation `29a857fb`
+also passed, including the Node suite and source structure; raw output is
+under `.work/burn-balance-probe/live-source-1/`. This does not replace the
+blocked native browser or remaining operating-cost qualification.
