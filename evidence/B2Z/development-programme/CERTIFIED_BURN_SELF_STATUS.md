@@ -199,3 +199,16 @@ schedule. It does not reconstruct unknown external credits or prove a stable
 reservation offset under concurrent slow Index replies, Full Speed or all
 protected and dormant states. The capability remains disabled in ordinary
 release profiles. The new credit case has not yet run in hosted qualification.
+
+## Standard workflow handoff correction
+
+The subsequent [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070975113)
+on `7b75e1a4` failed in the historical entry-browser Copy assertion during
+`tools/check.py integration`. Its diagnostic recorded an enabled visible
+control, unchanged `FIRE 2 0 1` memo, and **no native clipboard attempt**.
+The actual handoff predicate also checks latest-head payment authority, which
+can briefly lag visible control state. The acceptance now waits for that
+predicate and retries only a click that made no write attempt. A rejected
+native write or incorrect copied value still fails. Python syntax and diff
+checks passed locally; the corrected browser gate requires a fresh hosted
+run. The failed standard run is not telemetry qualification.
