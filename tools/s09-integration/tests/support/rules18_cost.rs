@@ -1512,31 +1512,43 @@ fn signed_rules19_construction_presentation() {
 #[test]
 #[ignore = "isolated reproduction of the current authorization wire boundary"]
 fn rules19_digit_leading_grant_wire_boundary() {
-    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false);
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false, false, false);
 }
 
 #[test]
 #[ignore = "multiple real pending Rules19 inputs through authenticated recovery"]
 fn rules19_multi_pending_recovery() {
-    run_rules19_digit_leading_grant_wire_boundary(true, false, false, false);
+    run_rules19_digit_leading_grant_wire_boundary(true, false, false, false, false, false);
 }
 
 #[test]
 #[ignore = "ordered Rules19 grants, revoke and payments through installed recovery"]
 fn rules19_grant_revoke_recovery() {
-    run_rules19_digit_leading_grant_wire_boundary(true, true, false, false);
+    run_rules19_digit_leading_grant_wire_boundary(true, true, false, false, false, false);
 }
 
 #[test]
 #[ignore = "Rules19 recovery preparation and commit across UTC tariff midnight"]
 fn rules19_recovery_utc_boundary() {
-    run_rules19_digit_leading_grant_wire_boundary(true, true, true, false);
+    run_rules19_digit_leading_grant_wire_boundary(true, true, true, false, false, false);
 }
 
 #[test]
 #[ignore = "obstructed Rules19 recovery remains fail-closed under disposable resource protection"]
 fn rules19_recovery_resource_protection() {
-    run_rules19_digit_leading_grant_wire_boundary(false, false, false, true);
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false, true, false, false);
+}
+
+#[test]
+#[ignore = "obstructed Rules19 reserved execution stage through authenticated recovery"]
+fn rules19_reserved_stage_recovery() {
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false, true, false);
+}
+
+#[test]
+#[ignore = "obstructed Rules19 interrupted execution cursor through authenticated recovery"]
+fn rules19_partial_stage_recovery() {
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false, true, true);
 }
 
 fn run_rules19_digit_leading_grant_wire_boundary(
@@ -1544,9 +1556,12 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     revoke_pending: bool,
     cross_utc: bool,
     protect: bool,
+    reserved_stage: bool,
+    partial_stage: bool,
 ) {
     assert!(!revoke_pending || extra_pending);
     assert!(!cross_utc || revoke_pending);
+    assert!(!partial_stage || reserved_stage);
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
     let payer = (0..=u8::MAX)
@@ -1587,6 +1602,8 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         &b2z_protocol::delegation::AuthorizationMemo::Grant(spender.as_slice().to_vec()),
     )
     .unwrap();
+    let first_valid_position =
+        partial_stage.then(|| transfer_text(&pic, ledger, other, id, 100_000_000, b"NEW 0 1"));
     let position = transfer_text(&pic, ledger, payer, id, 0, &grant);
     for _ in 0..180 {
         advance(&pic, 1000);
@@ -1596,6 +1613,42 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         }
     }
     assert_eq!(status(&pic, id).source.admitted_to_exclusive, position + 1);
+    if reserved_stage {
+        // The exact installed scheduler coalesces Seal and the failing Step
+        // in one callback, leaving no durable reservation. Use the reviewed
+        // disposable test hook only to commit the normal DTR Seal over the
+        // genuine admitted Ledger input, then let exact Rules19 execute it.
+        upgrade_during_recovery(&pic, id, &bytes("B2Z_COST_PROFILE_WASM")).unwrap();
+        let revision = status(&pic, id).revision;
+        let _: Status = get_result(
+            &pic,
+            id,
+            "test_apply",
+            encode_args((
+                revision,
+                dtr_wire::encode(&Action::Seal {
+                    logical_end: Int(&publication.head.logical_end.0 + 1u32),
+                })
+                .unwrap(),
+            ))
+            .unwrap(),
+        );
+        if partial_stage {
+            let revision = status(&pic, id).revision;
+            let _: Status = get_result(
+                &pic,
+                id,
+                "test_apply",
+                encode_args((
+                    revision,
+                    dtr_wire::encode(&Action::Step { budget: 1 }).unwrap(),
+                ))
+                .unwrap(),
+            );
+        }
+        upgrade_during_recovery(&pic, id, &installed).unwrap();
+        assert_eq!(observe(&pic, id).0.publication, prior.publication);
+    }
     playability_installed::configuration(&pic, id, 512);
     advance(&pic, 100_000);
     for _ in 0..250 {
@@ -1616,7 +1669,19 @@ fn run_rules19_digit_leading_grant_wire_boundary(
 
     // The failed publication is not a Ledger rollback. Probe the independent
     // source cursor, a normal retry, and stable-module recovery separately.
-    let later_position = transfer_text(&pic, ledger, other, id, 100_000_000, b"NEW 0 1");
+    let later_command = if partial_stage {
+        format!("FIRE {} 0 1", arena_world(&pic, id).next_cannon_id)
+    } else {
+        "NEW 0 1".into()
+    };
+    let later_position = transfer_text(
+        &pic,
+        ledger,
+        other,
+        id,
+        100_000_000,
+        later_command.as_bytes(),
+    );
     let mut extra_positions = Vec::new();
     if extra_pending {
         let extra_spender = Principal::self_authenticating([78; 32]);
@@ -1649,7 +1714,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             b"NEW 0 1",
         ));
     }
-    let pending_count = 2 + extra_positions.len() as u32;
+    let pending_count = 2 + extra_positions.len() as u32 + u32::from(partial_stage);
     let last_old_position = extra_positions.last().copied().unwrap_or(later_position);
     for _ in 0..180 {
         advance(&pic, 1000);
@@ -1699,6 +1764,9 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     assert_eq!(after_upgrade.run.last_error.as_deref(), Some(error));
     assert_eq!(after_upgrade_retry.run.last_error.as_deref(), Some(error));
     assert_eq!(pending.pending_inputs, pending_count);
+    if reserved_stage {
+        assert_eq!(pending.phase.as_deref(), Some("running"));
+    }
     assert_eq!(final_observation.publication, prior.publication);
 
     let candidate = bytes("B2Z_RULES20_CANDIDATE_WASM");
@@ -1917,6 +1985,17 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             .pending_count,
         pending_count
     );
+    assert_eq!(
+        recovered_publication
+            .epoch
+            .as_ref()
+            .unwrap()
+            .recovery
+            .as_ref()
+            .unwrap()
+            .version,
+        if reserved_stage { 1 } else { 2 }
+    );
     assert_eq!(arena_world(&pic, id).received_e8s, prior_received);
     let old_segment = publication
         .head
@@ -2004,6 +2083,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(
                     } else {
                         100_000_000u64
                     })
+                    + if partial_stage { 100_000_000u64 } else { 0 }
         {
             settled = true;
             break;
@@ -2062,7 +2142,10 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     let view: serde_json::Value = decode(&raw).unwrap();
     assert_eq!(view["transition"]["phase"], "fenced");
     eprintln!("Rules19 recovery fenced with original inputs retired");
-    let (before_successor, before_successor_pub) = capture(&pic, id, &out, 2);
+    let old_final_ordinal = if reserved_stage { 3 } else { 2 };
+    let first_reserved_pub =
+        reserved_stage.then(|| capture_retained(&pic, id, &out, old_segment + 2, 2));
+    let (before_successor, before_successor_pub) = capture(&pic, id, &out, old_final_ordinal);
     if extra_pending {
         let event_log: Value = decode(&std::fs::read(out.join("2-events.bin")).unwrap()).unwrap();
         let receipts = event_log["receipts"].as_array().unwrap();
@@ -2091,11 +2174,20 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     }
     assert_eq!(
         before_successor_pub.head.segment_id.as_ref().unwrap(),
-        &Int((old_segment + 2).into()),
-        "one recovered segment must retire the exact pending prefix"
+        &Int((old_segment + 2 + u64::from(reserved_stage)).into()),
+        "recovered segments must retire the exact pending prefix"
     );
     let recovered_seal = before_successor_pub.head.seal.as_ref().unwrap();
-    assert_eq!(recovered_seal.input_count, pending_count);
+    let reserved_inputs = 1 + usize::from(partial_stage);
+    assert_eq!(
+        recovered_seal.input_count,
+        pending_count
+            - if reserved_stage {
+                reserved_inputs as u32
+            } else {
+                0
+            }
+    );
     assert_eq!(
         recovered_seal.source_to_exclusive,
         Int((last_old_position + 1).into())
@@ -2105,6 +2197,9 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         (later_position, ("ACCEPTED".into(), 100_000_000, None)),
         (successor_payment, ("ACCEPTED".into(), 300_000_000, None)),
     ]);
+    if let Some(first) = first_valid_position {
+        expected.insert(first, ("ACCEPTED".into(), 100_000_000, None));
+    }
     if extra_pending {
         expected.insert(extra_positions[0], ("DELEGATION_GRANTED".into(), 0, None));
         if revoke_pending {
@@ -2127,7 +2222,8 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             payload_hex: hex(&payment.encode().unwrap()),
         })
         .collect::<Vec<_>>();
-    let mut expected_positions = vec![position, later_position];
+    let mut expected_positions = first_valid_position.into_iter().collect::<Vec<_>>();
+    expected_positions.extend([position, later_position]);
     expected_positions.extend(extra_positions.iter().copied());
     assert_eq!(
         inputs
@@ -2139,8 +2235,13 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             .map(|p| Int(p.into()))
             .collect::<Vec<_>>()
     );
+    let final_inputs = if reserved_stage {
+        &inputs[reserved_inputs..]
+    } else {
+        &inputs[..]
+    };
     let root = dtr_host::input_root(
-        &inputs
+        &final_inputs
             .iter()
             .map(|i| dtr_host::Input {
                 position: i.position.clone(),
@@ -2157,7 +2258,78 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     )
     .unwrap();
     assert_eq!(root, recovered_seal.input_root);
-    std::fs::write(out.join("2-inputs.bin"), dtr_wire::encode(&inputs).unwrap()).unwrap();
+    if let Some(first_pub) = first_reserved_pub {
+        let first_seal = first_pub.head.seal.as_ref().unwrap();
+        let obligation = recovered_publication
+            .epoch
+            .as_ref()
+            .unwrap()
+            .recovery
+            .as_ref()
+            .unwrap();
+        let original_seal = obligation.reserved_seal.as_ref().unwrap();
+        assert!(obligation.reserved_stage_hash.is_some());
+        assert_eq!(first_seal.logical_end, original_seal.logical_end);
+        assert_eq!(
+            first_seal.source_to_exclusive,
+            original_seal.source_to_exclusive
+        );
+        assert_eq!(first_seal.source_anchor, original_seal.source_anchor);
+        assert_eq!(first_seal.input_root, original_seal.input_root);
+        assert_eq!(first_seal.input_count, reserved_inputs as u32);
+        assert_eq!(first_seal.source_to_exclusive, Int((position + 1).into()));
+        assert_eq!(recovered_seal.source_from, first_seal.source_to_exclusive);
+        let first_root = dtr_host::input_root(
+            &inputs[..reserved_inputs]
+                .iter()
+                .map(|input| dtr_host::Input {
+                    position: input.position.clone(),
+                    payload_hex: input.payload_hex.clone(),
+                })
+                .collect::<Vec<_>>(),
+            first_seal.source_from.0.to_string().parse().unwrap(),
+            first_seal
+                .source_to_exclusive
+                .0
+                .to_string()
+                .parse()
+                .unwrap(),
+        )
+        .unwrap();
+        assert_eq!(first_root, first_seal.input_root);
+        let first_events: Value =
+            decode(&std::fs::read(out.join("2-events.bin")).unwrap()).unwrap();
+        let first_receipts = first_events["receipts"].as_array().unwrap();
+        assert_eq!(first_receipts.len(), reserved_inputs);
+        if let Some(first) = first_valid_position {
+            assert_eq!(first_receipts[0]["position"]["$integer"], first.to_string());
+            assert_eq!(first_receipts[0]["status"], "applied");
+            assert_eq!(first_receipts[0]["price_multiplier"], 1);
+        }
+        let grant_receipt = &first_receipts[reserved_inputs - 1];
+        assert_eq!(grant_receipt["position"]["$integer"], position.to_string());
+        assert_eq!(grant_receipt["reason"], "DELEGATION_GRANTED");
+        let later_events: Value =
+            decode(&std::fs::read(out.join("3-events.bin")).unwrap()).unwrap();
+        let later_receipts = later_events["receipts"].as_array().unwrap();
+        assert_eq!(later_receipts.len(), 1);
+        assert_eq!(
+            later_receipts[0]["position"]["$integer"],
+            later_position.to_string()
+        );
+        assert_eq!(later_receipts[0]["status"], "applied");
+        assert_eq!(later_receipts[0]["price_multiplier"], 1);
+        std::fs::write(
+            out.join("2-inputs.bin"),
+            dtr_wire::encode(&inputs[..reserved_inputs]).unwrap(),
+        )
+        .unwrap();
+    }
+    std::fs::write(
+        out.join(format!("{old_final_ordinal}-inputs.bin")),
+        dtr_wire::encode(final_inputs).unwrap(),
+    )
+    .unwrap();
     upgrade_during_recovery(&pic, id, &candidate).unwrap();
     assert_eq!(
         observe(&pic, id).0.publication,
@@ -2264,7 +2436,8 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     let successor = arena_world(&pic, id);
     assert_eq!(successor.version, 12);
     assert_eq!(successor.received_e8s, final_world.received_e8s);
-    let (_, successor_pub) = capture(&pic, id, &out, 3);
+    let successor_ordinal = old_final_ordinal + 1;
+    let (_, successor_pub) = capture(&pic, id, &out, successor_ordinal);
     assert_eq!(successor_pub.version, 8);
     playability_installed::configuration(&pic, id, 512);
     let mut later_settled = false;
@@ -2306,7 +2479,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         "bounded retained successor history"
     );
     for segment in successor_segment + 1..paid_segment {
-        let ordinal = 3 + segment - successor_segment;
+        let ordinal = successor_ordinal + segment - successor_segment;
         let intermediate = capture_retained(&pic, id, &out, segment, ordinal);
         assert_eq!(
             intermediate.head.seal.as_ref().unwrap().input_count,
@@ -2319,7 +2492,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         )
         .unwrap();
     }
-    let paid_ordinal = 3 + paid_segment - successor_segment;
+    let paid_ordinal = successor_ordinal + paid_segment - successor_segment;
     let (_, successor_paid_pub) = capture(&pic, id, &out, paid_ordinal);
     assert_eq!(
         successor_paid_pub.head.seal.as_ref().unwrap().input_count,
@@ -2370,6 +2543,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             "status":"PASS","old_manifest":publication.head.manifest_hash,
             "preparation_utc_day":preparation_utc_day,"commit_utc_day":commit_utc_day,
             "cross_utc":cross_utc,"resource_protection_checked":protect,
+            "reserved_stage":reserved_stage,"partial_stage":partial_stage,
             "resource_protection_probe_sha256":protect.then(|| dtr_wire::hash(&bytes("B2Z_RULES20_PROTECTION_PROBE_WASM"))),
             "recovery_manifest":recovered_publication.head.manifest_hash,
             "pending_count":pending_count,"grant_position":position,

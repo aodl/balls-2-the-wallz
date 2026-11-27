@@ -16,22 +16,22 @@ qualification. The paid backend runs Rules19 / Schema11 / Adapter12
 
 ## Operating position
 
-- Authenticated head **19,264**, logical time **19,247** and source cursor
+- Authenticated head **19,303**, logical time **19,286** and source cursor
   **40,647,923**. The world contained two Cannons under one funding account,
   two Balls, one Diverter and four Reservoir tiles.
 - Gameplay and admission were active at **0.01 ticks/s** with one tick per
   checkpoint. The official Index was bound, with zero pending records and
   no signed source error. Event Horizon was disabled in the installed
   configuration.
-- Settled backend total was **2.389T**, liquid **2.331T** and estimated
+- Settled backend total was **2.364T**, liquid **2.306T** and estimated
   freezing reserve **0.058T**. Frontend total was **0.772T**, with a
   **0.204T** estimated freezing reserve and **0.568T** above freezing.
-  Conservative frontend installation/recovery headroom was **0.118T**.
-- Across two comparable settled observations at 13:31 and 16:54 UTC,
-  backend liquidity declined **80.423B cycles**, approximately **0.571T/day**.
+  Conservative frontend installation/recovery headroom was **0.1178T**.
+- Across comparable settled observations at 16:54 and 17:58 UTC,
+  backend liquidity declined **25.820B cycles**, approximately **0.572T/day**.
   At the observed workload
   and without intervening credits, the conditional projection was
-  **11.0 hours** to the 2.07T default Full Speed cycle floor and **2.33 days**
+  **9.88 hours** to the 2.07T default Full Speed cycle floor and **2.28 days**
   to the 1T protection boundary. The
   balance floor is one of the owner's Full Speed eligibility checks; crossing
   it does not by itself stop ordinary Trickle operation.
@@ -102,8 +102,16 @@ that the exact recovery executable rejects preparation and commitment below
 its liquid-cycle floor without changing the publication or pending queue,
 then completes recovery after headroom is restored. The UTC case's first five
 attempts exposed and then isolated a stale lifecycle error and an observer
-endpoint validation gap;
-the failed runs remain recorded in the recovery report. The earlier source
+endpoint validation gap; the failed runs remain recorded in the recovery
+report.
+Two more installed cases preserved an original reserved seal and a partially
+executed cursor through the exact Rules19 failure. Version-1 recovery bound
+the original seal and stage hash, retired the old inputs in their original
+order and at Rules19 prices, then applied a later Rules20 payment. Every
+captured public output matched independent JavaScript replay. The controlled
+disposable test hook only sealed and stepped genuine admitted inputs; the
+exact installed module produced the failure. Expiry and additional tamper and
+arrival combinations remain release gates. The earlier source
 `95a439e3` passed [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043400),
 [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043269)
 and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043439)

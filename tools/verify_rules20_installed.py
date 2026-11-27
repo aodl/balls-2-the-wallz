@@ -16,6 +16,8 @@ CASES = (
     "rules19_grant_revoke_recovery",
     "rules19_recovery_utc_boundary",
     "rules19_recovery_resource_protection",
+    "rules19_reserved_stage_recovery",
+    "rules19_partial_stage_recovery",
     "rules20_paid_epoch_and_recovery",
     "rules20_paid_construction_over_existing_balls",
     "rules20_paid_passage_restart",

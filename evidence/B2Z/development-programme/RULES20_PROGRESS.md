@@ -251,3 +251,16 @@ publication bytes stayed unchanged, and the old prefix and later Rules20
 payment replayed exactly after commitment. The 178.79-second installed pass
 is under `.work/rules19-recovery/precommit-restart-1/`. This narrows, but does
 not close, the separate reserved-stage interruption gate.
+
+The reserved-stage and partial-cursor installed cases now pass. A disposable
+test hook committed only a normal DTR seal, and in the partial case one normal
+coordinator step, over real admitted Ledger/Index records. Exact installed
+Rules19 then failed on the original digit-leading grant. DTR's version-1
+recovery obligation bound the original seal and stage hash, and the successor
+retired every original input in order across two Rules19-policy segments.
+Independent JavaScript replay matched those segments and a later Rules20 Fire
+payment. The receipt-checked cases passed in 158.73 and 159.59 seconds under
+`.work/rules19-recovery/reserved-stage-4/` and `partial-stage-3/`.
+Earlier failed fixture attempts remain recorded in the recovery report.
+Application-level reserved and partially executed stage preservation is now
+qualified for these shapes; expiry and additional tamper/arrival cases remain.

@@ -259,3 +259,49 @@ JavaScript public replay still passed. The installed case completed in
 `.work/rules19-recovery/precommit-restart-1/`. This covers a durable
 precommit interruption; an application-level reserved execution stage
 remains open.
+
+## Reserved and interrupted execution recovery, 27 November
+
+Two additional installed fixtures exercised the DTR version-1 recovery
+obligation. A disposable test-hook executable invoked only the ordinary DTR
+`Seal` operation over genuine already-admitted Ledger/Index records, then the
+exact installed Rules19 executable was reinstalled to execute the sealed
+grant. Its `reserved/noncanonical key` failure persisted through ordinary
+retry and identical-module upgrade while the original committed publication
+stayed intact. This controlled scheduling was needed because the installed
+default callback coalesces Seal and the failing Step before a seal can persist.
+The test hook did not admit, change or synthesize an input.
+
+The first fixture sealed the digit-leading grant, then admitted an unrelated
+payment. Recovery authenticated the original reserved seal and stage hash,
+retired the grant in segment 6 and the payment in segment 7, preserved the
+Rules19 tariff and applied a later Rules20 payment in segment 9. Original
+source ranges and input roots were checked separately, with one correct
+receipt per old input. The complete public state, event and score outputs
+matched independent JavaScript replay. The final receipt-checked run passed
+in 158.73 seconds under `.work/rules19-recovery/reserved-stage-4/`.
+
+The interrupted-cursor fixture placed a valid 1 ICP payment before the
+digit-leading grant in the same original seal. A disposable coordinator
+`Step { budget: 1 }` persisted one unit of uncommitted execution, then the
+exact installed Rules19 module failed on the grant. Recovery bound that
+original stage hash and seal and deterministically re-executed its two-input
+prefix from the unchanged committed predecessor. The first recovered segment
+applied the payment at the Rules19 multiplier and configured the grant. The
+next segment applied a subsequent valid Fire payment under Rules19 policy;
+after ordinary Rules20 activation a later Fire payment applied under Rules20.
+Source ranges 0–5, 5–6 and 6–7 and all receipts were checked against official
+records, and independent JavaScript replay matched every captured public byte.
+Received value at the old-policy transition was 308,100,000 e8s and after
+the successor payment 608,100,000 e8s. The case passed in 159.59 seconds
+under `.work/rules19-recovery/partial-stage-3/`.
+
+The initial one-unit scheduler attempt did not persist a seal; it failed as a
+fixture in `reserved-stage-1`. An interrupted-cursor attempt with the defective
+grant first failed on its first work unit, and a subsequent attempt used an
+invalid second `NEW 0 1` after the first Join; the interpreter correctly
+rejected that command. Those attempts remain under `partial-stage-{1,2}`.
+The final fixture uses a valid Fire command. This closes the demonstrated
+application-level reserved and partially executed stage recovery shapes.
+Expiry and remaining adversarial tamper/arrival combinations remain release
+gates.
