@@ -515,3 +515,20 @@ replay matched complete public state, events and scores. This is different
 from the earlier case that admitted the input promptly but delayed its
 execution. It is now a named installed release case; exact-source hosted
 execution remains required.
+
+The installed `rules20_paid_interrupted_purchase` case passed in 224.70
+seconds under `.work/rules19-recovery/interrupted-purchase-3/`. It used the
+exact installed Rules19 module, the same Rules20 candidate as the earlier
+paid batch acceptance (raw SHA-256 `980ea23e39c42379ad5d22c8ac9cf5edd9df3f331ded0e475c35253162438c7e`),
+and a separate test-only same-source probe. The genuine Ledger/Index Fire
+payment was sealed with one retained input. Two one-unit coordinator Steps
+left an uncommitted cursor in `v6_purchase` with exactly one Ball priced.
+The committed publication was still byte identical. A same-ID upgrade back
+to the normal candidate preserved that publication and world; autonomous
+work then committed the original two-of-three partial purchase. Its exact
+receipt, frontend quote and independent JavaScript public state, event and
+score replay passed. The first local attempt used the wrong diagnostic JSON
+path, and the second proved that the private cursor is wrapped in a versioned
+`Snapshot`; both remain recorded as failed fixture attempts under
+`interrupted-purchase-{1,2}`. The final test-only query is absent from normal
+release Wasm. The new named case still needs exact-source hosted execution.

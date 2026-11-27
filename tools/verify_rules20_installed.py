@@ -28,6 +28,7 @@ CASES = (
     "rules20_paid_diverter_inventory",
     "rules20_paid_midbatch_overflow",
     "rules20_paid_delayed_index_grace",
+    "rules20_paid_interrupted_purchase",
     "rules20_paid_second_doubling_population",
     "rules20_paid_unrepresentable_population",
     "rules20_paid_first_exponential_grace",
@@ -42,14 +43,14 @@ def main():
     parser.add_argument("--profile", type=Path, required=True)
     parser.add_argument("--candidate", type=Path, required=True)
     parser.add_argument("--protection-probe", type=Path,
-                        help="same-source disposable test-hooks module for the resource-protection case")
+                        help="same-source disposable test-hooks module for resource-protection and purchase-interruption cases")
     parser.add_argument("--world", type=Path, required=True)
     parser.add_argument("--artifacts", type=Path, default=Path.home() / "dtr-s09-artifacts")
     parser.add_argument("--output", type=Path, required=True)
     parser.add_argument("--case", choices=CASES, action="append")
     args = parser.parse_args()
-    if "rules19_recovery_resource_protection" in (args.case or CASES) and not args.protection_probe:
-        parser.error("the resource-protection case requires --protection-probe")
+    if {"rules19_recovery_resource_protection", "rules20_paid_interrupted_purchase"}.intersection(args.case or CASES) and not args.protection_probe:
+        parser.error("the resource-protection and purchase-interruption cases require --protection-probe")
 
     out = args.output.resolve()
     out.mkdir(parents=True, exist_ok=False)

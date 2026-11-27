@@ -3314,7 +3314,7 @@ fn rules20_paid_overflow_grace() {
 #[test]
 #[ignore = "disposable authenticated Rules20 personal Diverter inventory prices"]
 fn rules20_paid_diverter_inventory() {
-    run_rules20_paid_symbolic_population_mode(1001, Some(200_000_000), false, true, false);
+    run_rules20_paid_symbolic_population_mode(1001, Some(200_000_000), false, true, false, false);
 }
 
 #[test]
@@ -3326,11 +3326,17 @@ fn rules20_paid_midbatch_overflow() {
 #[test]
 #[ignore = "genuine Ledger block admitted after Index restart retains its earlier grace tariff"]
 fn rules20_paid_delayed_index_grace() {
-    run_rules20_paid_symbolic_population_mode(1001, Some(1_000_000), true, false, true);
+    run_rules20_paid_symbolic_population_mode(1001, Some(1_000_000), true, false, true, false);
+}
+
+#[test]
+#[ignore = "genuine two-item Ball purchase resumes after an installed mid-batch restart"]
+fn rules20_paid_interrupted_purchase() {
+    run_rules20_paid_symbolic_population_mode(1000, Some(1_000_000_000), false, false, false, true);
 }
 
 fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, grace: bool) {
-    run_rules20_paid_symbolic_population_mode(target, exact_price, grace, false, false);
+    run_rules20_paid_symbolic_population_mode(target, exact_price, grace, false, false, false);
 }
 
 fn run_rules20_paid_symbolic_population_mode(
@@ -3339,16 +3345,22 @@ fn run_rules20_paid_symbolic_population_mode(
     grace: bool,
     diverter_inventory: bool,
     delayed_index: bool,
+    interrupted_purchase: bool,
 ) {
     let expect_applied = exact_price.is_some();
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join(format!(
-        "rules20-symbolic-population-{target}{}{}",
+        "rules20-symbolic-population-{target}{}{}{}",
         if diverter_inventory {
             "-diverter-inventory"
         } else {
             ""
         },
-        if delayed_index { "-delayed-index" } else { "" }
+        if delayed_index { "-delayed-index" } else { "" },
+        if interrupted_purchase {
+            "-interrupted-purchase"
+        } else {
+            ""
+        }
     ));
     std::fs::create_dir_all(&out).unwrap();
     let mut population = seed_symbolic_population(target);
@@ -3808,6 +3820,77 @@ fn run_rules20_paid_symbolic_population_mode(
         assert!(status(&pic, id).source.admitted_to_exclusive > position);
         let (_, prior_batch) = capture(&pic, id, &out, 3);
         let before_segments = status(&pic, id).run.completed_segments;
+        if interrupted_purchase {
+            let probe = bytes("B2Z_RULES20_PROTECTION_PROBE_WASM");
+            upgrade_during_recovery(&pic, id, &probe).unwrap();
+            let revision = status(&pic, id).revision;
+            let _: Status = get_result(
+                &pic,
+                id,
+                "test_apply",
+                encode_args((
+                    revision,
+                    dtr_wire::encode(&Action::Seal {
+                        logical_end: Int(&prior_batch.head.logical_end.0 + 1u32),
+                    })
+                    .unwrap(),
+                ))
+                .unwrap(),
+            );
+            let sealed: Option<(String, u16, u16)> =
+                get_query(&pic, id, "test_purchase_progress", encode_args(()).unwrap());
+            assert_eq!(
+                sealed.as_ref().map(|row| row.2),
+                Some(1),
+                "sealed stage must retain the genuine Ball payment"
+            );
+            let mut priced_one = false;
+            let mut last_progress = None;
+            for step in 0..600 {
+                let revision = status(&pic, id).revision;
+                let _: Status = get_result(
+                    &pic,
+                    id,
+                    "test_apply",
+                    encode_args((
+                        revision,
+                        dtr_wire::encode(&Action::Step { budget: 1 }).unwrap(),
+                    ))
+                    .unwrap(),
+                );
+                let progress: Option<(String, u16, u16)> =
+                    get_query(&pic, id, "test_purchase_progress", encode_args(()).unwrap());
+                if step % 50 == 0
+                    || progress
+                        .as_ref()
+                        .is_some_and(|(phase, _, _)| phase == "v6_purchase")
+                {
+                    eprintln!("purchase stage step {step}: {progress:?}");
+                }
+                if progress
+                    .as_ref()
+                    .is_some_and(|(phase, n, _)| phase == "v6_purchase" && *n == 1)
+                {
+                    priced_one = true;
+                    break;
+                }
+                last_progress = progress;
+            }
+            assert!(
+                priced_one,
+                "durable cursor must contain exactly one priced Ball, last={last_progress:?}"
+            );
+            assert_eq!(
+                observe(&pic, id).0.publication,
+                std::fs::read(out.join("3-publication.bin")).unwrap()
+            );
+            upgrade_during_recovery(&pic, id, &candidate).unwrap();
+            assert_eq!(arena_world(&pic, id), before_batch);
+            assert_eq!(
+                observe(&pic, id).0.publication,
+                std::fs::read(out.join("3-publication.bin")).unwrap()
+            );
+        }
         playability_installed::configuration(&pic, id, 512);
         for _ in 0..600 {
             advance(&pic, 1000);

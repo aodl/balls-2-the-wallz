@@ -46,32 +46,30 @@ replay correction, native devices and P09 remain separate acceptance items.
 
 Rules20 implements the new canonical authorization registry, construction
 over Balls with a first-passage exception, checkerboard corner handling and
-symbolic tariffs. The integrated recovery branch pins published DTR 0.16.0
-and is in hosted qualification. Earlier source `95a439e3` passed
-its three hosted workflows,
-including explicit installed successor gates. The draft qualifies the
-healthy predecessor, real paid Cannon and Diverter admission, a continuous
-toroidal return, four authenticated high-population tariff payments, a
-genuine two-of-three paid Ball batch with exact frontend quote and replay,
-first exponential grace and overflow-current payments at the previous linear
-tariff, installed passage-exception preservation through same-ID restart and
-two genuine paid structure relocations that retire their exceptions,
-an interrupted sealed checkpoint with active exceptions followed by
-same-ID recovery, and a genuine second personal Cannon at 40 ICP under the
-authenticated 1,000-account tariff with exact quote and replay. It also
-proved that an unrelated global Ledger transfer is skipped by target-filtered
-admission. Additional exact seam and equal-time contact cases passed. A six-input obstructed
-Rules19 recovery now passes across UTC midnight, same-ID restart and
-independent public replay. Complete the broader
-obstructed recovery matrix, remaining installed passage destruction lifecycle, corner matrix and
-interrupted-purchase
-matrix before freezing a release. The successor frontend has a dedicated
-configuration and inventory.
+symbolic tariffs. The integrated recovery branch pins published DTR 0.16.0.
+Source `b0c93c7f` passed standard, financial and developer/prelaunch hosted
+qualification with 18 named installed successor cases. The draft qualifies
+healthy and obstructed Rules19 predecessors, including six ordered pending
+inputs, an overdue lifecycle barrier, reserved and partially executed stages,
+UTC crossing and exact independent replay. Genuine paid Cannon and Diverter
+construction, continuous toroidal return, active-exception restart and paid
+structure relocation passed. Authenticated 1,000–1,002-account tariffs,
+personal Cannon and Diverter scaling, partial and overflowing Ball batches,
+delayed Index grace selection and interrupted purchase continuation passed
+in installed disposable tests with exact receipts, frontend quotes and replay.
+Additional seam and equal-time corner outputs passed in source conformance.
+Complete structure and Ball destruction, remaining installed corner and
+adversarial recovery cases, the remaining tariff matrix, and final exact-source
+hosted qualification before freezing a release. The successor frontend has a
+dedicated configuration and inventory.
 
 Certified burn has a promising replicated self-status sampling point.
-Two shifted Index phases and a stopped-then-restarted Index passed the
-predeclared 5% settled-balance comparison. Confirm live reservation behavior
-across concurrent activity and protection,
-known treasury credits, external top-up semantics, live observer/agent
-acceptance and measured incremental overhead. The capability remains
-disabled and is independent of the authorization repair.
+Two shifted Index phases, a stopped Index, an identified 1T treasury credit,
+and a held Index response with a material 82.593B-cycle refund passed their
+disposable gates. Active Trickle stayed within the predeclared 5% settled
+comparison; the matched incremental cost was 4.565B cycles/day. Live browser
+and maintained agent consumption passed for direct and composed roots.
+Complete concurrent checkpoint, Full Speed, dormant/protected, prolonged
+unavailable and wider reservation schedules. Unknown external credits remain
+unobservable. The capability remains disabled and independent of the Rules20
+authorization repair.

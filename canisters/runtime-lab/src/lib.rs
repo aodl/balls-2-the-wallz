@@ -2366,6 +2366,36 @@ fn test_apply(
     )?))
 }
 
+// Disposable inspection of an unfinished purchase's private cursor. This is
+// absent from every normal release executable and cannot mutate paid state.
+#[cfg(feature = "test-hooks")]
+#[ic_cdk::query]
+fn test_purchase_progress() -> std::result::Result<Option<(String, u16, u16)>, String> {
+    authorized()?;
+    let r = root()?;
+    let h = host(&r)?;
+    let Some(stage) = h.record.journal.stage.as_ref() else {
+        return Ok(None);
+    };
+    if stage.phase != "running" {
+        return Ok(None);
+    }
+    let cursor: serde_json::Value = decode(&unhex(&stage.cursor_hex)?)?;
+    let phase = cursor
+        .pointer("/cursor/phase")
+        .and_then(|v| v.as_str())
+        .ok_or("purchase cursor phase")?;
+    let count = cursor
+        .pointer("/cursor/v6/batch/prices")
+        .and_then(|v| v.as_array())
+        .map_or(0, Vec::len);
+    Ok(Some((
+        phase.to_owned(),
+        u16::try_from(count).map_err(|_| "purchase progress bound")?,
+        u16::try_from(stage.inputs.len()).map_err(|_| "purchase input bound")?,
+    )))
+}
+
 fn request_reconciliation() -> AppResult<()> {
     #[cfg(feature = "cost-profile")]
     let _span = cost_profile::span("source.request");

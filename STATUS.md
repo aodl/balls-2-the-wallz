@@ -1,6 +1,6 @@
 # B2Z current status
 
-Latest settled operational observation **2026-11-27 22:28:50 UTC**. Published
+Latest settled operational observation **2026-11-27 23:29:25 UTC**. Published
 [master](https://github.com/aodl/balls-2-the-wallz/commits/master/) remains
 `cf6605efecd0115b1faebaec37f5efafedad3a40`; its qualified implementation/tooling ancestor
 [`ae734acdc431adf69978ab41be07a8222139c69d`](https://github.com/aodl/balls-2-the-wallz/commit/ae734acdc431adf69978ab41be07a8222139c69d)
@@ -17,22 +17,22 @@ qualification. The paid backend runs Rules19 / Schema11 / Adapter12
 
 ## Operating position
 
-- Authenticated head **19,464**, logical time **19,447** and source cursor
+- Authenticated head **19,501**, logical time **19,484** and source cursor
   **40,647,923**. The world contained two Cannons under one funding account,
   two Balls, one Diverter and four Reservoir tiles.
 - Gameplay and admission were active at **0.01 ticks/s** with one tick per
   checkpoint. The official Index was bound, with zero pending records and
   no signed source error. Event Horizon was disabled in the installed
   configuration.
-- Settled backend total was **2.256T**, liquid **2.198T** and estimated
-  freezing reserve **0.058T**. Frontend total was **0.771T**, with a
-  **0.204T** estimated freezing reserve and **0.567T** above freezing.
-  Conservative frontend installation/recovery headroom was **0.1166T**.
-- Across comparable settled observations at 20:28 and 22:28 UTC,
-  backend liquidity declined **47.519B cycles** in 7,199 seconds across
-  71 publications, approximately **0.570T/day**. At that workload, the
-  conditional intervals from the 22:28 balance are **5.40 hours** to the
-  2.07T default Full Speed cycle floor and **2.10 days** to the 1T
+- Settled backend total was **2.232T**, liquid **2.174T** and estimated
+  freezing reserve **0.058T**. Frontend total was **0.770T**, with a
+  **0.204T** estimated freezing reserve and **0.566T** above freezing.
+  Conservative frontend installation/recovery headroom was **0.1163T**.
+- Across comparable settled observations at 22:28 and 23:29 UTC,
+  backend liquidity declined **24.535B cycles** in 3,634 seconds across
+  37 publications, approximately **0.583T/day**. At that workload, the
+  conditional intervals from the 23:29 balance are **4.27 hours** to the
+  2.07T default Full Speed cycle floor and **2.01 days** to the 1T
   protection boundary, absent credits or a workload change. The
   balance floor is one of the owner's Full Speed eligibility checks; crossing
   it does not by itself stop ordinary Trickle operation.
@@ -41,7 +41,7 @@ qualification. The paid backend runs Rules19 / Schema11 / Adapter12
   comparable observations. Funding before any desired
   future Full Speed window is an owner decision; no funding was performed.
 
-[Preflight, installation and browser](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json) · [Latest reviewed operating observation](evidence/B2Z/development-programme/production-operating-2026-11-27-2142.json)
+[Preflight, installation and browser](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json) · [Latest reviewed operating observation](evidence/B2Z/development-programme/production-operating-2026-11-27-2329.json)
 
 ## Qualification and acceptance
 
@@ -156,6 +156,11 @@ receipt, frontend prefix quote and independent public replay matched.
 A separate stopped-Index fixture admitted a genuine Ledger payment only
 after the first exponential grace window and still selected its original
 linear block-time tariff with exact frontend and replay agreement.
+An installed partial Fire batch also survived a same-ID restart after its
+private cursor had durably priced exactly one Ball from the original sealed
+payment. The earlier publication remained identical; the final two-of-three
+receipt and independent replay passed. This case is in the named release
+suite and awaits hosted execution on the committed source.
 An installed paid Cannon/Diverter case kept two first-passage exceptions
 active through a same-ID restart and subsequent tick. Both pre-existing Balls
 kept their exact cells and headings; independent replay matched the public
