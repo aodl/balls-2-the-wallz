@@ -50,7 +50,14 @@ draft PR #25 carries the successor. This branch is **not a release candidate**.
   occupancy, while relocation and first Join retain the old policy. Canonical
   per-Ball, per-new-structure passage rows survive encoding and retire on exit
   or structure removal. Rust and independent JavaScript focused tests cover
-  entry, tangency, unrelated arrivals, later return and Cannon birth.
+  entry, tangency, unrelated arrivals, later return and Cannon birth. Two new
+  public-output vectors show an initially overlapping Ball crossing a new
+  Diverter unchanged while a later Ball is deflected, then the same first Ball
+  being deflected after its row has retired. Independent Rust and JavaScript
+  state, event and score bytes match with interrupted native cursor restores.
+  The second vector deliberately repositions the saved Ball for a controlled
+  return; it is a synthetic later-contact regression, not a continuous natural
+  orbit or an additional paid construction acceptance.
 - The exact corner classifier uses canonical source-tile checkerboard parity.
   Focused Rust and JavaScript tests cover four diagonal directions, both
   parities, seams, mixed ownership and historical Rules19 behavior. Eight
@@ -68,9 +75,9 @@ draft PR #25 carries the successor. This branch is **not a release candidate**.
 ## Release gates still open
 
 1. Complete the corner ownership/structure output matrix with independent
-   replay, including actual one-traversal retirement, later encounters and
-   interrupted checkpoint/restart across the exception boundary. The paid
-   construction admission itself now has exact installed evidence.
+   replay, including interrupted checkpoint/restart across an in-progress
+   exception. The paid construction admission and the initial/later passage
+   public bytes have focused evidence, but the full acceptance matrix is open.
 2. Qualify interrupted transition preparation and commit, restart, recovery,
    a retained compatible executable and source publication after interruption.
 3. Freeze the final exact-source release artifacts and require all eleven
