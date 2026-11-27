@@ -1523,7 +1523,19 @@ fn rules20_paid_epoch_and_recovery() {
     std::fs::create_dir_all(&out).unwrap();
     let profile = bytes("B2Z_COST_PROFILE_WASM");
     let world = seed("two_ball").encode().unwrap();
-    let (pic, id, ledger, payer) = arena_setup_world(profile, world);
+    let digit_payer = (0..=u8::MAX)
+        .map(|value| Principal::self_authenticating([value; 32]))
+        .find(|p| {
+            AccountIdentifier::new(p, &DEFAULT_SUBACCOUNT)
+                .to_hex()
+                .as_bytes()[0]
+                .is_ascii_digit()
+        })
+        .unwrap();
+    let later_payer = Principal::self_authenticating([10; 32]);
+    let (pic, id, ledger, payer) = arena_setup_world_fee_clock_payers_options(
+        profile, world, 10_000, 0, &[digit_payer, later_payer], true,
+    );
     let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
     assert_eq!(
         dtr_wire::hash(&std::fs::read(&compact).unwrap()),
@@ -1592,11 +1604,13 @@ fn rules20_paid_epoch_and_recovery() {
     playability_installed::configuration(&pic, id, 512);
     let position = transfer_text(&pic, ledger, payer, id, 1_000_000, b"NEW 0 1");
     let account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+    let previous_cannons = after.cannons.len();
     let mut applied = false;
     for _ in 0..240 {
         advance(&pic, 1000);
         let current = arena_world(&pic, id);
         if status(&pic, id).source.admitted_to_exclusive > position
+            && current.cannons.len() == previous_cannons + 1
             && current.cannons.iter().any(|c| c.account == account)
         {
             assert_eq!(current.received_e8s.0, &received.0 + 1_000_000u64);
@@ -1606,10 +1620,89 @@ fn rules20_paid_epoch_and_recovery() {
     }
     assert!(applied, "successor must execute a real indexed Ledger Join after activation");
     let (_, paid_pub) = capture(&pic, id, &out, 2);
+    let paid_events: Value = decode(&std::fs::read(out.join("2-events.bin")).unwrap()).unwrap();
+    assert!(paid_events["events"].as_array().unwrap().iter().any(|event|
+        event["kind"] == "purchase_completed" && event["status"] == "applied"));
+    let save_inputs = |position: u64, ordinal: u64| {
+        let expected = BTreeMap::from([(position, ("ACCEPTED".into(), 0, None))]);
+        let inputs = super::delegation_installed::official_inputs(&pic, id, &expected)
+            .into_iter()
+            .map(|(payment, _)| b2z_native::Input {
+                position: Int(payment.position.into()),
+                payload_hex: hex(&payment.encode().unwrap()),
+            })
+            .collect::<Vec<_>>();
+        std::fs::write(
+            out.join(format!("{ordinal}-inputs.bin")),
+            dtr_wire::encode(&inputs).unwrap(),
+        ).unwrap();
+    };
+    save_inputs(position, 2);
+
+    // The exact old module cannot publish this valid account as a map key.
+    // Schema12 must apply and publish the genuine indexed grant as a row.
+    let digit_account = AccountIdentifier::new(&digit_payer, &DEFAULT_SUBACCOUNT).to_hex();
+    assert!(digit_account.as_bytes()[0].is_ascii_digit());
+    let grant_memo = b2z_protocol::delegation::encode_authorization(
+        &b2z_protocol::delegation::AuthorizationMemo::Grant(
+            Principal::self_authenticating([77; 32]).as_slice().to_vec(),
+        ),
+    ).unwrap();
+    let grant_position = transfer_text(&pic, ledger, digit_payer, id, 0, &grant_memo);
+    let mut grant_applied = false;
+    for _ in 0..300 {
+        advance(&pic, 1000);
+        let current = arena_world(&pic, id);
+        let stored = match current.authorization.as_ref().unwrap() {
+            b2z_native::delegation_v20::AuthorizationState::Rows(rows) =>
+                rows.grants.iter().any(|row| row.account == digit_account),
+            _ => false,
+        };
+        if status(&pic, id).source.admitted_to_exclusive > grant_position && stored {
+            assert!(status(&pic, id).run.last_error.is_none());
+            grant_applied = true;
+            break;
+        }
+    }
+    assert!(grant_applied, "digit-leading grant must publish and remain usable");
+    let (_, grant_pub) = capture(&pic, id, &out, 3);
+    save_inputs(grant_position, 3);
+
+    // A subsequent independent payer must progress after the repaired grant.
+    let later_account = AccountIdentifier::new(&later_payer, &DEFAULT_SUBACCOUNT).to_hex();
+    let later_position = transfer_text(&pic, ledger, later_payer, id, 1_000_000, b"NEW 0 1");
+    let mut later_applied = false;
+    for _ in 0..300 {
+        advance(&pic, 1000);
+        let current = arena_world(&pic, id);
+        if status(&pic, id).source.admitted_to_exclusive > later_position
+            && current.cannons.iter().any(|c| c.account == later_account)
+            && current.received_e8s.0 == &received.0 + 2_000_000u64
+        {
+            assert!(status(&pic, id).run.last_error.is_none());
+            later_applied = true;
+            break;
+        }
+    }
+    assert!(later_applied, "later unrelated indexed payment must publish");
+    let (_, later_pub) = capture(&pic, id, &out, 4);
+    save_inputs(later_position, 4);
+    let independent = std::process::Command::new("node")
+        .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+        .arg("tools/verify_rules20_installed_replay.mjs")
+        .arg(&out)
+        .output()
+        .unwrap();
+    assert!(
+        independent.status.success(),
+        "independent successor replay: {}{}",
+        String::from_utf8_lossy(&independent.stdout),
+        String::from_utf8_lossy(&independent.stderr)
+    );
     std::fs::write(
         out.join("results.json"),
         serde_json::to_vec_pretty(&json!({
-            "status":"PASS","scope":"disposable exact Rules19 same-ID upgrade, authenticated Rules20 epoch and genuine Ledger/Index payment",
+            "status":"PASS","scope":"disposable exact Rules19 same-ID upgrade, authenticated Rules20 epoch, genuine Ledger/Index payments and digit-leading grant",
             "installed_wasm_sha256":dtr_wire::hash(&installed),
             "candidate_wasm_sha256":dtr_wire::hash(&candidate),
             "predecessor_publication_sha256":dtr_wire::hash(&before_obs.publication),
@@ -1617,6 +1710,10 @@ fn rules20_paid_epoch_and_recovery() {
             "source_cursor_at_cutover":source_cursor,
             "post_cutover_payment_position":position,
             "post_cutover_publication":paid_pub.head.segment_id,
+            "digit_leading_grant_position":grant_position,
+            "digit_leading_grant_publication":grant_pub.head.segment_id,
+            "later_unrelated_payment_position":later_position,
+            "later_unrelated_publication":later_pub.head.segment_id,
             "old_module_rejected_after_epoch":true,
             "same_candidate_recovery":true,
         })).unwrap(),
