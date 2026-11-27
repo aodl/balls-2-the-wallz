@@ -9,7 +9,9 @@ use serde::{Deserialize, Serialize};
 use serde_json::json;
 /// World migration headroom is independent of ordinary gameplay pacing bands.
 pub const MIN_LIQUID_CYCLES: u128 = 500_000_000_000;
-fn is_false(value: &bool) -> bool { !value }
+fn is_false(value: &bool) -> bool {
+    !value
+}
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Transition {
@@ -128,15 +130,18 @@ impl Transition {
         }
     }
     pub fn rules19_recovery() -> Self {
-        Self { version: 17, ..Self::new() }
+        Self {
+            version: 17,
+            ..Self::new()
+        }
     }
     pub fn holding(&self) -> bool {
         self.phase != "complete" && self.phase != "fenced"
     }
     pub fn validate(&self) -> Result<()> {
         if !matches!(self.version, 1..=17)
-            || !["ledger", "index", "drain", "ready", "complete"].contains(&self.phase.as_str())
-                && !(self.version == 17 && ["recover", "fenced"].contains(&self.phase.as_str()))
+            || !(["ledger", "index", "drain", "ready", "complete"].contains(&self.phase.as_str())
+                || self.version == 17 && ["recover", "fenced"].contains(&self.phase.as_str()))
             || self.recovery_source_complete && self.version != 17
         {
             return Err("world transition phase".into());
@@ -166,8 +171,10 @@ impl Transition {
         {
             return Err("missing transition evidence".into());
         }
-        if self.version == 17 && ["fenced", "complete"].contains(&self.phase.as_str())
-            && !self.recovery_source_complete {
+        if self.version == 17
+            && ["fenced", "complete"].contains(&self.phase.as_str())
+            && !self.recovery_source_complete
+        {
             return Err("recovery source obligations incomplete".into());
         }
         if self

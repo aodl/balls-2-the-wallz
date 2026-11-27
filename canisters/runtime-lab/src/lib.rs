@@ -425,8 +425,11 @@ fn transition_evidence<'a>(
     ]
     .into_iter()
     .flatten()
-    .filter(|t| (t.phase == "complete" || t.version == 17 && ["recover", "fenced"].contains(&t.phase.as_str()))
-        && t.transition_hash.as_deref() == Some(transition_hash))
+    .filter(|t| {
+        (t.phase == "complete"
+            || t.version == 17 && ["recover", "fenced"].contains(&t.phase.as_str()))
+            && t.transition_hash.as_deref() == Some(transition_hash)
+    })
     .collect::<Vec<_>>();
     if matches.len() != 1 {
         return Err("epoch missing unique application transition evidence".into());
@@ -534,7 +537,9 @@ fn validate_shout_binding(r: &Root, publication: &Publication) -> AppResult<()> 
     {
         return Err("Rules20 epoch/config capability mismatch".into());
     }
-    let recovery_active = r.rules19_recovery.as_ref()
+    let recovery_active = r
+        .rules19_recovery
+        .as_ref()
         .is_some_and(|t| ["recover", "fenced", "complete"].contains(&t.phase.as_str()));
     let compact = if successor_enabled {
         successor
@@ -747,7 +752,9 @@ fn root() -> AppResult<Root> {
     }
     if let Some(t) = &r.rules19_recovery {
         t.validate()?;
-        if t.version != 17 { return Err("Rules19 recovery version".into()); }
+        if t.version != 17 {
+            return Err("Rules19 recovery version".into());
+        }
     }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
@@ -1350,7 +1357,9 @@ fn save_root_only(r: &Root) -> AppResult<()> {
     }
     if let Some(t) = &r.rules19_recovery {
         t.validate()?;
-        if t.version != 17 { return Err("Rules19 recovery version".into()); }
+        if t.version != 17 {
+            return Err("Rules19 recovery version".into());
+        }
     }
     if let Some(c) = &r.lifecycle_context {
         c.validate()?;
@@ -2420,9 +2429,11 @@ fn begin_reconciliation() -> AppResult<Option<(Lease, Root)>> {
         .transpose()?
         .flatten();
     if transition_phase.as_deref() == Some("ready")
-        || r.rules19_recovery.as_ref().is_some_and(|t|
+        || r.rules19_recovery.as_ref().is_some_and(|t| {
             t.phase == "fenced" && r.rules20_transition.is_none()
-                || t.phase == "recover" && t.recovery_source_complete) {
+                || t.phase == "recover" && t.recovery_source_complete
+        })
+    {
         save_root_only(&r)?;
         return Ok(None);
     }
@@ -2511,16 +2522,20 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
                 next.last_error = None;
                 r.source = next;
                 let t = active_transition_mut(&mut r)?.ok_or("missing active cutover")?;
-                if t.version == 17 { t.recovery_source_complete = true; }
-                else { t.phase = "ready".into(); }
+                if t.version == 17 {
+                    t.recovery_source_complete = true;
+                } else {
+                    t.phase = "ready".into();
+                }
                 save_root_only(&r)?;
                 return Ok(());
             }
         }
         next.page(page)?;
         if next.pending.is_none() {
-            if let Some(t) = active_transition_mut(&mut r)?
-                .filter(|t| t.version == 17 && t.phase == "recover") {
+            if let Some(t) =
+                active_transition_mut(&mut r)?.filter(|t| t.version == 17 && t.phase == "recover")
+            {
                 t.recovery_source_complete = true;
             }
         }
@@ -2531,7 +2546,8 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
         barrier.reply(lease.nonce, &next)?;
     }
     if next.pending.as_ref().is_some_and(|p| p.complete) {
-        if let Some(t) = active_transition(&r)?.filter(|t| t.version == 17 && t.phase == "recover") {
+        if let Some(t) = active_transition(&r)?.filter(|t| t.version == 17 && t.phase == "recover")
+        {
             let cutoff = number(t.ledger_cutover.as_ref().ok_or("recovery Ledger cutoff")?)?;
             if next.pending.as_ref().is_some_and(|p| p.high >= cutoff) {
                 return Err("recovery pending page exceeds Ledger cutoff".into());
@@ -2572,8 +2588,8 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
     }
     if r.source.requested
         || r.source.pending.is_some()
-        || active_transition(&r)?.is_some_and(|t|
-            t.version == 17 && t.phase == "recover" && !t.recovery_source_complete)
+        || active_transition(&r)?
+            .is_some_and(|t| t.version == 17 && t.phase == "recover" && !t.recovery_source_complete)
         || r.lifecycle_barrier
             .as_ref()
             .map(|b| b.permits_scan(&r.source))
@@ -4161,21 +4177,38 @@ fn prepare_rules19_recovery() -> std::result::Result<Vec<u8>, String> {
         return Err("insufficient liquid cycles for safe recovery".into());
     }
     let mut r = root()?;
-    if let Some(t) = &r.rules19_recovery { return encode(t); }
-    if active_transition(&r)?.is_some() || r.lifecycle_barrier.is_some()
-        || r.lifecycle_error.is_some() || !r.source.binding_checked
-        || r.source.in_flight || r.source.last_error.is_some()
+    if let Some(t) = &r.rules19_recovery {
+        return encode(t);
+    }
+    if active_transition(&r)?.is_some()
+        || r.lifecycle_barrier.is_some()
+        || r.lifecycle_error.is_some()
+        || !r.source.binding_checked
+        || r.source.in_flight
+        || r.source.last_error.is_some()
         || r.source.memo_adapter_version != b2z_protocol::delegation::ADAPTER_VERSION
-    { return Err("Rules19 recovery requires a settled source and no other cutover".into()); }
-    if r.run.running || !r.run.last_error.as_deref().is_some_and(|e| e.contains("reserved/noncanonical key")) {
+    {
+        return Err("Rules19 recovery requires a settled source and no other cutover".into());
+    }
+    if r.run.running
+        || !r
+            .run
+            .last_error
+            .as_deref()
+            .is_some_and(|e| e.contains("reserved/noncanonical key"))
+    {
         return Err("Rules19 recovery requires the identified stopped publication failure".into());
     }
     let h = host(&r)?;
     let old = b2z_native::reservoirs::compact_identity();
     let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
-    if ["rules_hash", "config_hash", "schema_hash"].iter().any(|k| actual[*k] != old[*k])
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != old[*k])
         || h.record.inbox.pending.is_empty()
-    { return Err("Rules19 recovery requires exact obstructed predecessor".into()); }
+    {
+        return Err("Rules19 recovery requires exact obstructed predecessor".into());
+    }
     if World::decode(&unhex(&h.record.journal.head.state_hex)?)?.version != 11 {
         return Err("Rules19 recovery schema".into());
     }
@@ -4199,30 +4232,48 @@ fn rules19_recovery_status() -> std::result::Result<Vec<u8>, String> {
 }
 
 #[ic_cdk::update]
-fn commit_rules19_recovery(expected_previous_manifest: String) -> std::result::Result<Vec<u8>, String> {
+fn commit_rules19_recovery(
+    expected_previous_manifest: String,
+) -> std::result::Result<Vec<u8>, String> {
     authorized()?;
-    if unhex(&expected_previous_manifest)?.len() != 32 { return Err("expected manifest hash".into()); }
+    if unhex(&expected_previous_manifest)?.len() != 32 {
+        return Err("expected manifest hash".into());
+    }
     if ic_cdk::api::canister_liquid_cycle_balance() < transition::MIN_LIQUID_CYCLES {
         return Err("insufficient liquid cycles for safe recovery".into());
     }
     let mut r = root()?;
     let mut h = host(&r)?;
-    let t = r.rules19_recovery.as_ref().ok_or("prepare Rules19 recovery first")?;
+    let t = r
+        .rules19_recovery
+        .as_ref()
+        .ok_or("prepare Rules19 recovery first")?;
     if ["recover", "fenced", "complete"].contains(&t.phase.as_str()) {
         if t.previous_manifest.as_deref() != Some(&expected_previous_manifest) {
             return Err("conflicting Rules19 recovery retry".into());
         }
         return encode(t);
     }
-    if t.phase != "ready" || r.run.running
-        || !r.run.last_error.as_deref().is_some_and(|e| e.contains("reserved/noncanonical key"))
+    if t.phase != "ready"
+        || r.run.running
+        || !r
+            .run
+            .last_error
+            .as_deref()
+            .is_some_and(|e| e.contains("reserved/noncanonical key"))
         || h.record.journal.head.manifest_hash != expected_previous_manifest
-    { return Err("Rules19 recovery boundary changed".into()); }
+    {
+        return Err("Rules19 recovery boundary changed".into());
+    }
     let (out, metadata, identity) =
         playability_runtime::rules19_recovery_candidate(&h, t, &r.source)?;
     let epoch = h.prepare_recovery(identity, &out, hash(&metadata))?;
-    h.apply(Action::Transition { epoch: Box::new(epoch.clone()),
-        state_hex: hex(&out.state), event_hex: hex(&out.events), score_hex: hex(&out.scores) })?;
+    h.apply(Action::Transition {
+        epoch: Box::new(epoch.clone()),
+        state_hex: hex(&out.state),
+        event_hex: hex(&out.events),
+        score_hex: hex(&out.scores),
+    })?;
     let t = r.rules19_recovery.as_mut().unwrap();
     t.phase = "recover".into();
     t.metadata_hex = Some(hex(&metadata));
@@ -4243,17 +4294,29 @@ fn finish_rules19_recovery() -> std::result::Result<Vec<u8>, String> {
     authorized()?;
     let mut r = root()?;
     let h = host(&r)?;
-    let t = r.rules19_recovery.as_ref().ok_or("missing Rules19 recovery")?;
-    if t.phase == "fenced" || t.phase == "complete" { return encode(t); }
-    if t.phase != "recover" || !t.recovery_source_complete
-        || r.source.pending.is_some() || r.source.in_flight || r.source.last_error.is_some()
-        || r.run.running || r.run.last_error.is_some()
-        || h.record.journal.stage.is_some() || h.record.inbox.reservation.is_some()
+    let t = r
+        .rules19_recovery
+        .as_ref()
+        .ok_or("missing Rules19 recovery")?;
+    if t.phase == "fenced" || t.phase == "complete" {
+        return encode(t);
+    }
+    if t.phase != "recover"
+        || !t.recovery_source_complete
+        || r.source.pending.is_some()
+        || r.source.in_flight
+        || r.source.last_error.is_some()
+        || r.run.running
+        || r.run.last_error.is_some()
+        || h.record.journal.stage.is_some()
+        || h.record.inbox.reservation.is_some()
         || !h.record.inbox.pending.is_empty()
         || h.record.inbox.cursor != h.record.inbox.retired_to
         || h.record.inbox.cursor != h.record.journal.head.source_to_exclusive
         || Int(r.source.cursor.into()) != h.record.inbox.cursor
-    { return Err("Rules19 recovery obligations remain".into()); }
+    {
+        return Err("Rules19 recovery obligations remain".into());
+    }
     r.rules19_recovery.as_mut().unwrap().phase = "fenced".into();
     save_root_only(&r)?;
     encode(&r.rules19_recovery)
@@ -4282,9 +4345,14 @@ fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
         return Err("finish existing world transition first".into());
     }
     let expected = if matches!(target, StructureEpoch::Rules20)
-        && r.rules19_recovery.as_ref().is_some_and(|t| t.phase == "fenced") {
+        && r.rules19_recovery
+            .as_ref()
+            .is_some_and(|t| t.phase == "fenced")
+    {
         b2z_native::delegation_v20::recovery_identity()
-    } else { target.predecessor()? };
+    } else {
+        target.predecessor()?
+    };
     let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
     if ["rules_hash", "config_hash", "schema_hash"]
         .iter()
@@ -4339,8 +4407,13 @@ fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
         );
     }
     let recovered_cutoff = if matches!(target, StructureEpoch::Rules20) {
-        r.rules19_recovery.as_ref().filter(|t| t.phase == "fenced").cloned()
-    } else { None };
+        r.rules19_recovery
+            .as_ref()
+            .filter(|t| t.phase == "fenced")
+            .cloned()
+    } else {
+        None
+    };
     let mut transition = match target {
         StructureEpoch::Shout => transition::Transition::shout(),
         StructureEpoch::Spacing => transition::Transition::spacing(),
@@ -4366,7 +4439,9 @@ fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {
         )
     });
     install_run_timer(&r.run);
-    if recovered_cutoff.is_none() { request_reconciliation()?; }
+    if recovered_cutoff.is_none() {
+        request_reconciliation()?;
+    }
     encode(target.record(&r))
 }
 fn structure_transition_status(target: StructureEpoch) -> AppResult<Vec<u8>> {
@@ -4492,7 +4567,10 @@ fn commit_structure_transition(
     t.transition_hash = Some(epoch.transition_hash);
     t.previous_manifest = Some(expected_previous_manifest);
     if matches!(target, StructureEpoch::Rules20)
-        && r.rules19_recovery.as_ref().is_some_and(|t| t.phase == "fenced") {
+        && r.rules19_recovery
+            .as_ref()
+            .is_some_and(|t| t.phase == "fenced")
+    {
         r.rules19_recovery.as_mut().unwrap().phase = "complete".into();
     }
     r.source.memo_adapter_version = target.next_adapter();
@@ -4534,8 +4612,10 @@ fn epoch_metadata(transition_hash: String) -> std::result::Result<Vec<u8>, Strin
     .into_iter()
     .flatten()
     {
-        if (t.phase == "complete" || t.version == 17 && ["recover", "fenced"].contains(&t.phase.as_str()))
-            && t.transition_hash.as_deref() == Some(&transition_hash) {
+        if (t.phase == "complete"
+            || t.version == 17 && ["recover", "fenced"].contains(&t.phase.as_str()))
+            && t.transition_hash.as_deref() == Some(&transition_hash)
+        {
             return unhex(t.metadata_hex.as_ref().ok_or("missing epoch metadata")?);
         }
     }
@@ -5001,6 +5081,7 @@ mod tests {
             metadata_hex: None,
             transition_hash: None,
             previous_manifest: None,
+            recovery_source_complete: false,
         };
         let (output, metadata, identity) = transition::candidate(&h, &t, &source).unwrap();
         let old = World::decode(&unhex(&h.record.journal.head.state_hex).unwrap()).unwrap();

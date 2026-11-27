@@ -114,3 +114,27 @@ development override; raw results are under `.work/rules19-recovery/installed-pi
 The broader adversarial recovery matrix still requires qualification. This is
 a positive recovery proof for the documented obstruction, not yet a Rules20
 production release.
+
+## Longer ordered prefix, 27 November
+
+The exact installed Rules19 executable was exercised again with four genuine
+pending Ledger/Index inputs after the obstruction: a digit-leading grant,
+an unrelated 1 ICP `NEW 0 1`, a later replacement grant for the same
+digit-leading funding account, and a 2 ICP `NEW 0 1` from a third funding
+account. Their disposable Ledger positions were 3, 4, 5 and 6. Old retry and
+identical-module upgrade left all four pending while the admitted cursor
+advanced. The recovery checkpoint retained pending count 4; its first seal
+retired the exact four-input root with source interval 0–7. Every input has
+one ordered receipt in the resulting public event artifact. Both paid
+commands used the original Rules19 multiplier 1 and 1,000,000 e8s first
+Cannon price. The later grant replaced the earlier grant without erasing
+either receipt. Committed received value was 408,100,000 e8s after the old
+prefix and 708,100,000 e8s after a separate post-cutoff 3 ICP successor
+payment at position 7. Independent JavaScript replay matched the complete
+consecutive public state, event and score bytes through both transitions and
+the successor payment. The executed result and raw captures are under
+`.work/rules19-recovery/multi-installed-1/`.
+
+This strengthens the ordered-prefix and historical-tariff result. Revokes,
+expiry, a reserved old stage, resource protection and a recovery cutoff
+crossing UTC remain separate acceptance cases.

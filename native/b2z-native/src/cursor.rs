@@ -578,7 +578,12 @@ impl Cursor {
             }
         }
         let world = World::decode(state)?;
-        if world.version == 11 && matches!(world.authorization, Some(crate::delegation_v20::AuthorizationState::Rows(_))) != is_recovery {
+        if world.version == 11
+            && matches!(
+                world.authorization,
+                Some(crate::delegation_v20::AuthorizationState::Rows(_))
+            ) != is_recovery
+        {
             return Err("authorization recovery identity".into());
         }
         if world.version

@@ -666,7 +666,8 @@ pub fn rules20_candidate<K: Kernel>(
     observed_ns: u64,
 ) -> Result<(Output, Vec<u8>, Identity)> {
     let predecessor = if Some(h.record.journal.identity.rules_hash.as_str())
-        == b2z_native::delegation_v20::recovery_identity()["rules_hash"].as_str() {
+        == b2z_native::delegation_v20::recovery_identity()["rules_hash"].as_str()
+    {
         b2z_native::delegation_v20::recovery_identity()
     } else {
         b2z_native::reservoirs::compact_identity()
@@ -698,19 +699,26 @@ pub fn rules19_recovery_candidate<K: Kernel>(
 ) -> Result<(Output, Vec<u8>, Identity)> {
     t.validate()?;
     h.validate()?;
-    if t.version != 17 || t.phase != "ready" || !source.binding_checked
+    if t.version != 17
+        || t.phase != "ready"
+        || !source.binding_checked
         || source.in_flight
         || source.last_error.is_some()
         || source.memo_adapter_version != b2z_protocol::delegation::ADAPTER_VERSION
         || Int(source.cursor.into()) != h.record.inbox.cursor
-    { return Err("Rules19 recovery source boundary".into()); }
+    {
+        return Err("Rules19 recovery source boundary".into());
+    }
     let cutoff = super::number(t.ledger_cutover.as_ref().ok_or("Rules19 recovery cutoff")?)?;
     if source.pending.as_ref().is_some_and(|p| p.high >= cutoff) {
         return Err("Rules19 recovery pending source page exceeds cutoff".into());
     }
     let predecessor = b2z_native::reservoirs::compact_identity();
     let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
-    if ["rules_hash", "config_hash", "schema_hash"].iter().any(|k| actual[*k] != predecessor[*k]) {
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != predecessor[*k])
+    {
         return Err("Rules19 recovery exact predecessor".into());
     }
     let stage = h.record.journal.stage.as_ref();
@@ -719,10 +727,13 @@ pub fn rules19_recovery_candidate<K: Kernel>(
     }
     let before = dtr_wire::unhex(&h.record.journal.head.state_hex)?;
     let old = World::decode(&before)?;
-    if old.version != 11 || old.encode()? != before
+    if old.version != 11
+        || old.encode()? != before
         || !old.time.0.is_integer()
         || old.time.0.to_integer() != h.record.journal.head.logical_end.0
-    { return Err("Rules19 recovery committed state".into()); }
+    {
+        return Err("Rules19 recovery committed state".into());
+    }
     let next = b2z_native::delegation_v20::recover_registry(old.clone())?;
     let state = next.encode()?;
     let mut recovery = b2z_native::delegation_v20::recovery_identity();
@@ -747,13 +758,17 @@ pub fn rules19_recovery_candidate<K: Kernel>(
             "receiving_subaccount":source.receiving_subaccount,"recipient":source.recipient_hex,
             "event_horizon":source.event_horizon,"memo_adapter_version":source.memo_adapter_version}
     });
-    Ok((Output {
-        state,
-        events: encode(&json!({"version":11,"receipts":[],"events":[{
-            "kind":"authorization_recovery_activated","sequence":0,"time":old.time,"context":metadata
-        }]}))?,
-        scores: encode(&json!({"version":11,"area_time":[]}))?,
-    }, encode(&metadata)?, identity))
+    Ok((
+        Output {
+            state,
+            events: encode(&json!({"version":11,"receipts":[],"events":[{
+                "kind":"authorization_recovery_activated","sequence":0,"time":old.time,"context":metadata
+            }]}))?,
+            scores: encode(&json!({"version":11,"area_time":[]}))?,
+        },
+        encode(&metadata)?,
+        identity,
+    ))
 }
 
 fn schema7_candidate<K: Kernel>(
@@ -1352,6 +1367,7 @@ mod tests {
             metadata_hex: None,
             transition_hash: None,
             previous_manifest: None,
+            recovery_source_complete: false,
         };
         let mut publications = Vec::new();
         let mut artifact_events = Vec::new();

@@ -142,3 +142,13 @@ clean published DTR Rust and JavaScript consumer gate passed. See
 The exceptional recovery matrix, remaining construction/corner/pricing
 acceptance, telemetry separation and full exact-source hosted qualification
 remain release gates. No production backend operation occurred.
+
+The next disposable exact installed case retained four pending inputs behind
+the original Rules19 grant failure: two digit-leading grants and two unrelated
+paid commands from different funding accounts. The authenticated recovery
+retired all four in their Ledger order; exact receipt assertions verified
+both original Rules19 prices and the final replacement grant. It then took
+the ordinary Rules20 transition and applied a post-cutoff payment. Independent
+JavaScript replay matched every captured public state, event and score byte.
+The strengthened case passed twice; raw results are in
+`.work/rules19-recovery/multi-installed-1/` and `multi-installed-2/`.

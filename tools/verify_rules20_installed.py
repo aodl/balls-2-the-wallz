@@ -12,6 +12,7 @@ INSTALLED = "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90"
 COMPACT = "b258ec234b9abd7db9e7b170c14e432b4d1ef2d9b2545632bddb58668a6095de"
 CASES = (
     "rules19_digit_leading_grant_wire_boundary",
+    "rules19_multi_pending_recovery",
     "rules20_paid_epoch_and_recovery",
     "rules20_paid_construction_over_existing_balls",
     "rules20_paid_threshold_population",

@@ -26,13 +26,16 @@ pub fn identity() -> serde_json::Value {
 pub fn recovery_identity() -> serde_json::Value {
     let mut identity = crate::reservoirs::compact_identity();
     identity["rules_hash"] = serde_json::json!(dtr_wire::hash(b"B2Z_RULES_19_AUTH_RECOVERY_01"));
-    identity["schema_hash"] = serde_json::json!(dtr_wire::hash(b"B2Z_STATE_11_AUTH_ROWS_RECOVERY_01"));
+    identity["schema_hash"] =
+        serde_json::json!(dtr_wire::hash(b"B2Z_STATE_11_AUTH_ROWS_RECOVERY_01"));
     identity
 }
 
 pub fn recover_registry(mut predecessor: crate::world::World) -> Result<crate::world::World> {
     predecessor.validate()?;
-    if predecessor.version != 11 { return Err("AUTH_RECOVERY_PREDECESSOR".into()); }
+    if predecessor.version != 11 {
+        return Err("AUTH_RECOVERY_PREDECESSOR".into());
+    }
     let historical = match predecessor.authorization.take() {
         Some(AuthorizationState::Historical(value)) => value,
         _ => return Err("AUTH_RECOVERY_PREDECESSOR".into()),
@@ -278,7 +281,9 @@ pub fn migrate_at(
         return Err("AUTH_V3_PREDECESSOR".into());
     }
     predecessor.authorization = Some(match predecessor.authorization.take() {
-        Some(AuthorizationState::Historical(value)) => AuthorizationState::Rows(RegistryV3::from_v2(&value)?),
+        Some(AuthorizationState::Historical(value)) => {
+            AuthorizationState::Rows(RegistryV3::from_v2(&value)?)
+        }
         Some(AuthorizationState::Rows(value)) => AuthorizationState::Rows(value),
         _ => return Err("AUTH_V3_PREDECESSOR".into()),
     });
