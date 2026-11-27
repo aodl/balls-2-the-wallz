@@ -78,12 +78,21 @@ draft PR #25 carries the successor. This branch is **not a release candidate**.
    replay, including interrupted checkpoint/restart across an in-progress
    exception. The paid construction admission and the initial/later passage
    public bytes have focused evidence, but the full acceptance matrix is open.
-2. Qualify interrupted transition preparation and commit, restart, recovery,
+2. Exercise a genuine Ledger/Index payment at an authenticated synthetic
+   high-population tariff, including an unrepresentable-price receipt. The
+   independent scalar, grace and purchase-planning tests already pass. A
+   normal executable correctly refused direct Schema12 genesis; a disposable
+   test-hooks attempt also refused to claim a completed Rules20 transition
+   without a real DTR epoch. Those guards were preserved. The remaining test
+   needs a fixture made through the authenticated transition machinery, rather
+   than an invented genesis marker. Raw attempts remain under
+   `.work/rules20-symbolic-paid/`.
+3. Qualify interrupted transition preparation and commit, restart, recovery,
    a retained compatible executable and source publication after interruption.
-3. Freeze the final exact-source release artifacts and require all eleven
+4. Freeze the final exact-source release artifacts and require all eleven
    substantive hosted jobs on that source. The informational production
    inventory guard is separate.
-4. Complete certified-burn operational sampling, consumer compatibility,
+5. Complete certified-burn operational sampling, consumer compatibility,
    browser and incremental cost checks on its separate draft branch before
    deciding whether to include it in the eventual backend release.
 
