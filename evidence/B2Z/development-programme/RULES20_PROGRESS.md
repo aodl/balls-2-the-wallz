@@ -329,3 +329,16 @@ through `tools/verify_portable_native.py`. The additional fixture is
 construction is checked by `tools/generate_rules20_corner_matrix.mjs`.
 Protected territory under other ownership arrangements, installed
 interruption and the full multi-Ball ownership matrix remain release gates.
+
+Hosted developer run
+[46061624364](https://github.com/aodl/balls-2-the-wallz/actions/runs/46061624364)
+on `d5b11052` failed at the nested integration crate's `cargo fmt --check`.
+The installed barrier case had already passed locally on that source; the
+hosted job did not reach it. The two long assertions are now formatted, and
+the exact nested format check passes locally. This is a tooling failure on
+`d5b11052`, not a positive hosted barrier result.
+The complete local source check after the corner matrix and formatting
+correction passed under `.work/rules19-recovery/corner-matrix-source-1/`,
+including the sequential Node suite, source structure and documentation
+links. Its native portable comparison separately passed 24 Rules20
+public-output rows. Exact-source hosted qualification remains required.

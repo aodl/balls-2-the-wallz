@@ -2760,7 +2760,10 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
             .unwrap();
         assert!(current_segment >= prior_segment && current_segment - prior_segment <= 16);
         if barrier_due {
-            assert!(current_segment > prior_segment, "overdue lifecycle checkpoint must commit");
+            assert!(
+                current_segment > prior_segment,
+                "overdue lifecycle checkpoint must commit"
+            );
         }
         for segment in prior_segment + 1..=current_segment {
             let ordinal = old_final_ordinal + segment - prior_segment;
@@ -2817,7 +2820,10 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
     for segment in prior_segment + 1..=current_segment {
         let checkpoint = capture_retained(&pic, id, &out, segment, successor_ordinal);
         if let Some(seal) = &checkpoint.head.seal {
-            assert_eq!(seal.input_count, 0, "no later source input may cross the recovery fence");
+            assert_eq!(
+                seal.input_count, 0,
+                "no later source input may cross the recovery fence"
+            );
             std::fs::write(
                 out.join(format!("{successor_ordinal}-inputs.bin")),
                 dtr_wire::encode(&Vec::<b2z_native::Input>::new()).unwrap(),
