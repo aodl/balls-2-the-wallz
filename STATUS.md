@@ -136,7 +136,7 @@ and [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/460708333
 workflows; its [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070833301)
 also passed. The developer artifact records 18 named installed Rules20 PASS
 cases, including recovery, interrupted passage and paid tariffs. The later
-twelve-row active-owner corner matrix passed 30 native Rules20 public-output
+thirteen-row active-owner corner matrix passed 31 native Rules20 public-output
 comparisons and focused JavaScript tests; exact-source hosted qualification
 is pending. The recovery branch is **not** a
 production release candidate. Four local

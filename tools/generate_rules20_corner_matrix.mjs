@@ -45,6 +45,8 @@ const cases=[
  {name:'friendly-side-third-opponent-other',index:0,x:1,y:3,third:true,capture:97008,strike:97008},
  {name:'simultaneous-separated-checkerboard-corners',index:0,x:2,y:0,simultaneous:true,
   capture:[98007,98107],strike:[98007,98107]},
+ {name:'equal-time-shared-territory-corner',index:0,x:0,y:0,shared:true,
+  capture:98007,strike:null},
 ];
 const rows=[];
 for(const spec of cases){
@@ -55,6 +57,12 @@ for(const spec of cases){
   world.balls.push({...first,id:world.next_ball_id++,cell:first.cell+shift,
    x0:first.x0+BigInt(shift*1024)});
   setOwner(world,row.side_x+shift,2);setOwner(world,row.side_y+shift,0);
+ }
+ if(spec.shared){
+  const first=world.balls[0];
+  world.balls.push({...first,id:world.next_ball_id++,owner:2,
+   cell:98006,x0:7n*1024n,vx:1,vy:-1});
+  setOwner(world,98006,2);setOwner(world,97006,2);
  }
  if(spec.anchor){world.cannons[1].cell=row.side_x;setOwner(world,4013,0);}
  if(spec.deflector){

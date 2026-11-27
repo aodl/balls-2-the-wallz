@@ -489,6 +489,15 @@ generator fixes both captured targets and armed strikes and records every
 Ball's final cell and velocity. The focused nine JavaScript corner tests
 passed, and `tools/verify_portable_native.py` passed 151 historical native
 comparisons plus **30 Rules20** state, event and score public-output
-comparisons. This extends source-level simultaneous-contact coverage; a
-shared-target ownership race and installed interruption remain separate
-release gates. Historical Rules19 corner behavior remains in its own test.
+comparisons. This extends source-level simultaneous-contact coverage;
+installed interruption remains a separate release gate. Historical Rules19
+corner behavior remains in its own test.
+
+A thirteenth row adds an equal-time shared-target ownership race. One Ball
+captures the neutral tile, while a second active opponent Ball reaches the
+same tile at that logical instant. The second Ball resolves against the
+changed ownership without a duplicate capture or repeated zero-time contact.
+The row fixes complete motion and public state, event and score bytes. All
+nine focused JavaScript tests and 151 historical plus **31 Rules20** native
+public-output comparisons passed. This closes that source-level race shape;
+installed interruption and broader mixed-ownership coverage remain open.
