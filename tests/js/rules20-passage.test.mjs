@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
-import {decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {decodeWorld,encodeWorld,migrateCompactReservoirs,migrateAuthorizationRows,validateWorld,setOwner} from '../../packages/kernels/b2z/world.mjs';
 import {registerPassage,exempts,retireAfterContact,pruneRemoved} from '../../packages/kernels/b2z/passage-v20.mjs';
@@ -11,6 +11,7 @@ import {prepareDeflectorPurchase} from '../../packages/kernels/b2z/deflectors-v1
 import {encodeDeflectorMemo} from '../../packages/protocol/deflector.mjs';
 import {preparePurchase,placeNew} from '../../packages/kernels/b2z/purchases-v6.mjs';
 import {encodeV6Memo} from '../../packages/protocol/memo-v6.mjs';
+import {snapshot} from '../../apps/b2z-observer/model.mjs';
 
 function world(){
  const vector=JSON.parse(readFileSync(new URL('../fixtures/b2z-delegation-v18.json',import.meta.url)));
@@ -34,6 +35,16 @@ test('successor entry-boundary exception survives canonical world roundtrip and 
  b.cell=500499;retireAfterContact(w,b.id);
  assert.equal(w.passage_exceptions,undefined);
  assert.equal(exempts(w,b.id,'deflector',d.id,d.cell),false);
+});
+test('observer accepts only a bound Rules20 exception for a Ball in a Diverter',()=>{
+ const w=world(),d=structure(w),b=w.balls[0];
+ b.cell=d.cell;b.x0=500n*1024n+512n;b.y0=500n*1024n+512n;
+ registerPassage(w,'deflector',d.id,d.cell);
+ assert.doesNotThrow(()=>snapshot(encodeWorld(w)));
+ const invalid=structuredClone(w);invalid.passage_exceptions[0].structure=d.id+1;
+ assert.throws(()=>snapshot(encodeCanonical(invalid)),/passage binding/);
+ delete w.passage_exceptions;
+ assert.throws(()=>snapshot(encodeCanonical(w)),/ball in structure/);
 });
 test('away-boundary and unrelated arriving Ball acquire no passage authority',()=>{
  const w=world(),d=structure(w),b=w.balls[0];

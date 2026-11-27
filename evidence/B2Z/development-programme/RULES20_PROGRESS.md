@@ -222,3 +222,32 @@ before installed acceptance; the two long assertion lines were formatted
 in the successor commit. The standard workflow was still running when the
 next source was prepared. This is a tooling failure on that exact source,
 not evidence for the newly added installed cases.
+
+The next installed construction case paid for a Cannon and Diverter over the
+two existing Balls with valid slow trajectories, so both first-passage rows
+remained active at publication. A same-ID upgrade preserved the exact public
+head, world and both rows; a subsequent tick preserved each existing Ball's
+cell and velocity. Independent JavaScript replay matched the paid segment and
+post-restart public state, event and score bytes. The initially attempted
+fixture used a noncanonical diagonal speed and failed validation. The first
+valid paid fixture then exposed a maintained observer check that rejected a
+Ball on a Diverter even with its authenticated exception. The observer check
+now validates the bounded row and its structure binding, while still rejecting
+an occupied Diverter without a row. A second attempt's assertion mistakenly
+included a newly spawned Ball that correctly moved during the next tick.
+The corrected installed case passed in 212.43 seconds; raw attempts and the
+pass are in `.work/rules19-recovery/passage-restart-{1,2,3,4}/`.
+The focused passage tests, historical frontend inventory and complete local
+source check passed. The new reviewed `app.mjs` SHA-256 is
+`55dcd993192494479917b750c54ed1697991d1a310182c6fa2abf263a176ce39`.
+Actual later encounter remains covered by the separate 33-interval toroidal
+return; installed destruction, relocation and interrupted in-progress
+checkpoint are still open.
+
+The UTC-crossing six-input recovery case also passed after a new same-ID
+restart between the durable `ready` fence and controller commitment. The
+prepared authenticated operation remained ready, the committed Rules19
+publication bytes stayed unchanged, and the old prefix and later Rules20
+payment replayed exactly after commitment. The 178.79-second installed pass
+is under `.work/rules19-recovery/precommit-restart-1/`. This narrows, but does
+not close, the separate reserved-stage interruption gate.

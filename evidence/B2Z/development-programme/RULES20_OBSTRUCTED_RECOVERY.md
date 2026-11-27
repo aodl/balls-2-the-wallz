@@ -245,3 +245,17 @@ Expiry and an application-level reserved-stage interruption remain release
 gates. The generic DTR reserved-stage operation has separate independent
 qualification; this result exercises the actual unreserved obstructed
 Rules19 journal shape.
+
+## Prepared recovery restart before commitment, 27 November
+
+The six-input UTC-crossing fixture now restarts the exact recovery-capable
+Wasm after the authenticated Ledger/Index fence reaches `ready` but before
+controller commitment. The prepared operation remained `ready` after the
+same-ID upgrade, the original committed publication bytes were unchanged,
+and the controller then committed the same predecessor manifest hash.
+Ordered Rules19 prefix retirement, ordinary Rules20 activation and independent
+JavaScript public replay still passed. The installed case completed in
+178.79 seconds; raw evidence is under
+`.work/rules19-recovery/precommit-restart-1/`. This covers a durable
+precommit interruption; an application-level reserved execution stage
+remains open.

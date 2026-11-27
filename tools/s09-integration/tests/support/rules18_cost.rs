@@ -1848,6 +1848,29 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             "prepared source obligations survive UTC midnight"
         );
         assert_eq!(observe(&pic, id).0.publication, prior.publication);
+        // The prepared recovery fence is durable across a same-ID software
+        // restart before the controller commits the authenticated boundary.
+        upgrade_during_recovery(&pic, id, &candidate).unwrap();
+        assert_eq!(observe(&pic, id).0.publication, prior.publication);
+        let mut prepared_after_restart = false;
+        for _ in 0..180 {
+            let raw: Vec<u8> = get_query(
+                &pic,
+                id,
+                "rules19_recovery_status",
+                encode_args(()).unwrap(),
+            );
+            let view: serde_json::Value = decode(&raw).unwrap();
+            if view["transition"]["phase"] == "ready" {
+                prepared_after_restart = true;
+                break;
+            }
+            advance(&pic, 1000);
+        }
+        assert!(
+            prepared_after_restart,
+            "recovery preparation survives restart"
+        );
     }
     let commit_utc_day = pic.get_time().as_nanos_since_unix_epoch() / day_ns;
     if protect {
@@ -3019,8 +3042,22 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, g
 #[test]
 #[ignore = "disposable exact Rules19 to Rules20 paid construction over Balls"]
 fn rules20_paid_construction_over_existing_balls() {
+    run_rules20_paid_construction_over_existing_balls(false);
+}
+
+#[test]
+#[ignore = "disposable installed passage exception survives same-ID restart"]
+fn rules20_paid_passage_restart() {
+    run_rules20_paid_construction_over_existing_balls(true);
+}
+
+fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool) {
     let out =
-        PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("rules20-construction");
+        PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join(if slow_passage {
+            "rules20-passage-restart"
+        } else {
+            "rules20-construction"
+        });
     std::fs::create_dir_all(&out).unwrap();
     let payer = Principal::self_authenticating([9; 32]);
     let account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
@@ -3034,6 +3071,19 @@ fn rules20_paid_construction_over_existing_balls() {
         if player.account == old_account {
             player.account = account.clone();
         }
+    }
+    if slow_passage {
+        let time = initial.time.0.to_integer();
+        for ball in &mut initial.balls {
+            let x = ball.cell % initial.width;
+            let y = ball.cell / initial.width;
+            ball.den = Some(Int(1.into()));
+            ball.x0 = Int(Int((x * 1024 + 512).into()).0 - &time);
+            ball.y0 = Int((y * 1024 + 512).into());
+            ball.vx = 1;
+            ball.vy = 0;
+        }
+        initial.validate().unwrap();
     }
     let (pic, id, ledger, actual_payer) = arena_setup_world_fee_clock_payers_options(
         bytes("B2Z_COST_PROFILE_WASM"),
@@ -3191,6 +3241,67 @@ fn rules20_paid_construction_over_existing_balls() {
         String::from_utf8_lossy(&independent.stdout),
         String::from_utf8_lossy(&independent.stderr)
     );
+    if slow_passage {
+        assert_eq!(final_world.passage_exceptions.len(), 2);
+        assert_eq!(
+            final_world
+                .passage_exceptions
+                .iter()
+                .map(|row| (row.ball, row.cell))
+                .collect::<Vec<_>>(),
+            ball_sites
+        );
+        pause(&pic, id);
+        upgrade_during_recovery(&pic, id, &candidate).unwrap();
+        assert_eq!(arena_world(&pic, id), final_world);
+        assert_eq!(
+            observe(&pic, id).0.publication,
+            std::fs::read(out.join("2-publication.bin")).unwrap()
+        );
+        playability_installed::one_tick(&pic, id);
+        let after_restart = arena_world(&pic, id);
+        assert_eq!(
+            after_restart.passage_exceptions,
+            final_world.passage_exceptions
+        );
+        assert_eq!(
+            after_restart
+                .balls
+                .iter()
+                .filter(|ball| ball_sites.iter().any(|(id, _)| *id == ball.id))
+                .map(|ball| (ball.id, ball.cell, ball.vx, ball.vy))
+                .collect::<Vec<_>>(),
+            final_world
+                .balls
+                .iter()
+                .filter(|ball| ball_sites.iter().any(|(id, _)| *id == ball.id))
+                .map(|ball| (ball.id, ball.cell, ball.vx, ball.vy))
+                .collect::<Vec<_>>()
+        );
+        let (_, restarted_publication) = capture(&pic, id, &out, 3);
+        assert_eq!(
+            restarted_publication.head.segment_id.as_ref().unwrap().0,
+            &final_publication.head.segment_id.as_ref().unwrap().0 + 1u32
+        );
+        std::fs::write(
+            out.join("3-inputs.bin"),
+            dtr_wire::encode(&Vec::<b2z_native::Input>::new()).unwrap(),
+        )
+        .unwrap();
+        let independent = std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .arg("tools/verify_rules20_installed_replay.mjs")
+            .arg(&out)
+            .arg("3")
+            .output()
+            .unwrap();
+        assert!(
+            independent.status.success(),
+            "independent restarted passage replay: {}{}",
+            String::from_utf8_lossy(&independent.stdout),
+            String::from_utf8_lossy(&independent.stderr)
+        );
+    }
     std::fs::write(
         out.join("results.json"),
         serde_json::to_vec_pretty(&json!({
@@ -3199,6 +3310,7 @@ fn rules20_paid_construction_over_existing_balls() {
             "ball_sites":ball_sites,"cannon_payment_position":first,
             "diverter_payment_position":second,
             "final_publication":final_publication.head.segment_id,
+            "passage_restart":slow_passage,
         }))
         .unwrap(),
     )

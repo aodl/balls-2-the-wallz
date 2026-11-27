@@ -95,7 +95,8 @@ retired six pending grants, a revoke and paid inputs in original order. A
 fresh six-input rerun also applied a valid post-fence Rules20 Fire payment
 to the Cannon created by the retained prefix, with exact replay. A
 fresh UTC-crossing case passed recovery preparation before midnight,
-commitment after midnight, same-ID restart, ordinary Rules20 activation and
+commitment after midnight, same-ID restart both before commitment and after
+the recovery boundary, ordinary Rules20 activation and
 exact independent public replay. A separate disposable resource case proved
 that the exact recovery executable rejects preparation and commitment below
 its liquid-cycle floor without changing the publication or pending queue,
@@ -115,6 +116,12 @@ prices; its receipt, frontend quote and independent public replay agree.
 Two additional genuine payments retained the previous linear tariff during
 the first exponential grace window, including an unrepresentable current
 first-Cannon price; both matched the frontend quote and independent replay.
+An installed paid Cannon/Diverter case kept two first-passage exceptions
+active through a same-ID restart and subsequent tick. Both pre-existing Balls
+kept their exact cells and headings; independent replay matched the public
+state, events and scores. The observer now accepts only a bound exception for
+a Ball occupying a Diverter. Destruction, relocation and an interrupted
+in-progress checkpoint remain separate passage gates.
 The certified burn
 meter remains disabled and is tracked separately. Sustained Full Speed throughput,
 physical devices, dense-scene P09
