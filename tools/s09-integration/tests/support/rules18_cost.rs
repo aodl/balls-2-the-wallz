@@ -1774,3 +1774,192 @@ fn rules20_paid_epoch_and_recovery() {
         })).unwrap(),
     ).unwrap();
 }
+
+#[test]
+#[ignore = "disposable exact Rules19 to Rules20 paid construction over Balls"]
+fn rules20_paid_construction_over_existing_balls() {
+    let out =
+        PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join("rules20-construction");
+    std::fs::create_dir_all(&out).unwrap();
+    let payer = Principal::self_authenticating([9; 32]);
+    let account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+    let mut initial = seed("two_ball");
+    let old_account = initial.cannons[0].account.clone();
+    for cannon in &mut initial.cannons {
+        assert_eq!(cannon.account, old_account);
+        cannon.account = account.clone();
+    }
+    for player in &mut initial.playability.as_mut().unwrap().players {
+        if player.account == old_account {
+            player.account = account.clone();
+        }
+    }
+    let (pic, id, ledger, actual_payer) = arena_setup_world_fee_clock_payers_options(
+        bytes("B2Z_COST_PROFILE_WASM"),
+        initial.encode().unwrap(),
+        10_000,
+        0,
+        &[],
+        true,
+    );
+    assert_eq!(actual_payer, payer);
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    compact_cutover(&pic, id, ledger, &compact, &out);
+    playability_installed::one_tick(&pic, id);
+    let installed = bytes("B2Z_RULES20_INSTALLED_WASM");
+    assert_eq!(
+        dtr_wire::hash(&installed),
+        "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90"
+    );
+    let candidate = bytes("B2Z_RULES20_CANDIDATE_WASM");
+    upgrade_during_recovery(&pic, id, &installed).unwrap();
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    playability_installed::prepare(&pic, id, "prepare_rules20_transition");
+    let mut ready = false;
+    for _ in 0..1800 {
+        let raw: Vec<u8> = get_query(
+            &pic,
+            id,
+            "rules20_transition_status",
+            encode_args(()).unwrap(),
+        );
+        let view: serde_json::Value = dtr_wire::decode(&raw).unwrap();
+        if view["transition"]["phase"] == "ready" && transition_drained(&pic, id) {
+            ready = true;
+            break;
+        }
+        advance(&pic, 1000);
+    }
+    assert!(ready);
+    let (_, prior) = capture(&pic, id, &out, 0);
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_rules20_transition",
+        candid::encode_one(prior.head.manifest_hash).unwrap(),
+    );
+    let migrated = arena_world(&pic, id);
+    assert_eq!(migrated.version, 12);
+    pause(&pic, id);
+    let ball_sites = migrated
+        .balls
+        .iter()
+        .map(|ball| {
+            assert_eq!(ball.owner, 1);
+            assert_eq!(
+                b2z_native::context_structures::site_reason(
+                    &migrated, ball.owner, ball.cell, None, false, true
+                )
+                .unwrap(),
+                None,
+                "Rules20 must allow explicit construction on the existing Ball's cell"
+            );
+            (ball.id, ball.cell)
+        })
+        .collect::<Vec<_>>();
+    assert_eq!(ball_sites.len(), 2);
+    assert_ne!(ball_sites[0].1, ball_sites[1].1);
+    let buy = format!("NEW 0 1 {}", ball_sites[0].1);
+    let diverter = format!("DEFLECT {} N", ball_sites[1].1);
+    let first = transfer_text(&pic, ledger, payer, id, 100_000_000, buy.as_bytes());
+    let second = transfer_text(&pic, ledger, payer, id, 10_000_000, diverter.as_bytes());
+    let mut staged = false;
+    for _ in 0..300 {
+        advance(&pic, 1000);
+        if status(&pic, id).source.admitted_to_exclusive > second {
+            staged = true;
+            break;
+        }
+    }
+    assert!(
+        staged,
+        "both genuine Ledger/Index inputs must be admitted while paused"
+    );
+    let held = arena_world(&pic, id);
+    assert_eq!(
+        held.balls
+            .iter()
+            .map(|ball| (ball.id, ball.cell))
+            .collect::<Vec<_>>(),
+        ball_sites
+    );
+    assert!(!held.cannons.iter().any(|c| c.cell == ball_sites[0].1));
+    assert!(
+        !held
+            .deflectors
+            .iter()
+            .flatten()
+            .any(|d| d.cell == ball_sites[1].1)
+    );
+    let (_, staged_publication) = capture(&pic, id, &out, 1);
+    playability_installed::configuration(&pic, id, 512);
+    let mut applied = false;
+    for _ in 0..300 {
+        advance(&pic, 1000);
+        let current = arena_world(&pic, id);
+        if current.cannons.iter().any(|c| c.cell == ball_sites[0].1)
+            && current
+                .deflectors
+                .iter()
+                .flatten()
+                .any(|d| d.cell == ball_sites[1].1)
+        {
+            applied = true;
+            break;
+        }
+    }
+    assert!(
+        applied,
+        "both paid structures must be built over existing Ball sites"
+    );
+    let final_world = arena_world(&pic, id);
+    assert_eq!(
+        final_world.received_e8s.0,
+        &migrated.received_e8s.0 + 110_000_000u64
+    );
+    let (_, final_publication) = capture(&pic, id, &out, 2);
+    assert_eq!(
+        final_publication.head.segment_id.as_ref().unwrap().0,
+        &staged_publication.head.segment_id.as_ref().unwrap().0 + 1u32,
+        "the paid construction capture must contain complete consecutive history"
+    );
+    let expected = BTreeMap::from([
+        (first, ("ACCEPTED".into(), 0, None)),
+        (second, ("ACCEPTED".into(), 0, None)),
+    ]);
+    let mut official = super::delegation_installed::official_inputs(&pic, id, &expected);
+    official.sort_by_key(|(payment, _)| payment.position);
+    let inputs = official
+        .into_iter()
+        .map(|(payment, _)| b2z_native::Input {
+            position: Int(payment.position.into()),
+            payload_hex: hex(&payment.encode().unwrap()),
+        })
+        .collect::<Vec<_>>();
+    std::fs::write(out.join("2-inputs.bin"), dtr_wire::encode(&inputs).unwrap()).unwrap();
+    let independent = std::process::Command::new("node")
+        .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+        .arg("tools/verify_rules20_installed_replay.mjs")
+        .arg(&out)
+        .arg("2")
+        .output()
+        .unwrap();
+    assert!(
+        independent.status.success(),
+        "independent paid construction replay: {}{}",
+        String::from_utf8_lossy(&independent.stdout),
+        String::from_utf8_lossy(&independent.stderr)
+    );
+    std::fs::write(
+        out.join("results.json"),
+        serde_json::to_vec_pretty(&json!({
+            "status":"PASS", "installed_wasm_sha256":dtr_wire::hash(&installed),
+            "candidate_wasm_sha256":dtr_wire::hash(&candidate),
+            "ball_sites":ball_sites,"cannon_payment_position":first,
+            "diverter_payment_position":second,
+            "final_publication":final_publication.head.segment_id,
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+}

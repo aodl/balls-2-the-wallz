@@ -9,6 +9,8 @@ import {prepareCheckpoint,prepareDerivedSegment} from '../apps/b2z-observer/mode
 
 const directory=process.argv[2];
 if(!directory)throw Error('usage: node tools/verify_rules20_installed_replay.mjs <capture-directory>');
+const last=process.argv[3]===undefined?4:Number(process.argv[3]);
+if(!Number.isInteger(last)||last<2||last>32)throw Error('invalid final capture ordinal');
 const read=(n,kind)=>readFileSync(join(directory,`${n}-${kind}.bin`));
 const publication=n=>decodeCanonical(read(n,'publication'));
 const predecessor=publication(0),successor=publication(1);
@@ -17,7 +19,7 @@ await prepareCheckpoint(read(0,'state'),{
  state:read(1,'state'),events:read(1,'events'),scores:read(1,'scores'),
 },successor,predecessor);
 const rows=[];
-for(let n=2;n<=4;n++){
+for(let n=2;n<=last;n++){
  const prior=publication(n-1),current=publication(n);
  assert.equal(current.head.segment_id,prior.head.segment_id+1n,'consecutive paid history');
  const start=read(n-1,'state'),end=read(n,'state'),events=read(n,'events');
@@ -37,4 +39,4 @@ for(let n=2;n<=4;n++){
 }
 writeFileSync(join(directory,'independent-replay.json'),JSON.stringify({status:'PASS',
  predecessor_manifest:predecessor.head.manifest_hash,successor_manifest:successor.head.manifest_hash,rows},null,2)+'\n');
-console.log('PASS independent Rules20 epoch and three genuine paid segments');
+console.log(`PASS independent Rules20 epoch and ${rows.length} genuine paid segment(s)`);
