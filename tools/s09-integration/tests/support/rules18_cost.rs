@@ -1447,6 +1447,16 @@ fn certified_operational_burn_roundtrip() {
     let prior = witness("prior");
     assert!(prior["burn"].is_null());
     let paid_world = arena_world(&pic, id);
+    // Shift the Index timer relative to the candidate's five-minute
+    // self-status timer. The default is the historical zero-offset fixture.
+    let index_phase_ms = std::env::var("B2Z_BURN_INDEX_PHASE_MS")
+        .ok()
+        .map(|value| value.parse::<u64>().unwrap())
+        .unwrap_or(0);
+    assert!(index_phase_ms < 60_000);
+    if index_phase_ms > 0 {
+        advance(&pic, index_phase_ms);
+    }
     let candidate = bytes("B2Z_BURN_CANDIDATE_WASM");
     upgrade_during_recovery(&pic, id, &candidate).unwrap();
     assert_eq!(arena_world(&pic, id), paid_world);
@@ -1575,7 +1585,8 @@ fn certified_operational_burn_roundtrip() {
         Value::Null
     };
     std::fs::write(out.join("result.json"), serde_json::to_vec_pretty(&json!({
-        "status":"PASS","partial":partial,"full":full,"stale":stale,"active":active,
+        "status":"PASS","index_phase_ms":index_phase_ms,
+        "partial":partial,"full":full,"stale":stale,"active":active,
         "external_settled_cycles_per_day":external_rate.to_string(),"reserve_protection":protected,
         "scope":"disposable Rules19 same-ID certificate, recovery and capped ordinary checkpoints"
     })).unwrap()).unwrap();

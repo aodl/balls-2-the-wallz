@@ -29,12 +29,24 @@ raw status endpoints, without offset subtraction or smoothing.
 | ReserveProtection below the Index floor | **PASS**, the prior publication and estimate stayed intact, and the witness became stale after 15 simulated minutes |
 | Browser-native Web Crypto and CSP | **PASS** using a genuine PocketIC capture at its recorded consensus clock, including altered witness and wrong-canister rejection in sandboxed Chromium |
 | Existing direct and composed root consumers | **PASS** on 25 focused JavaScript checks, including maintained agent interfaces |
+| Active Trickle with 17.321-second shifted Index timer phase | **PASS**, certified 396.135B/day versus settled management 401.432B/day, 1.319% difference |
+| Active Trickle with 47.777-second shifted Index timer phase | **PASS**, certified 396.135B/day versus settled management 401.431B/day, 1.319% difference |
 
 Raw callback logs, certificate captures, build inputs and test reports
 are in `.work/burn-balance-probe/`. The browser evidence exercises replay
 of the genuine certificate over a real CSP server. Running the complete
 maintained observer against a live telemetry-enabled fixture remains
 an open gate.
+
+The two additional phase runs use the same exact candidate and distinct
+pre-upgrade virtual-time offsets. The test kept the 5% relative comparison
+limit fixed before execution; both ran 65 active-Trickle minutes with 12
+established samples and zero observed source leases at each five-minute
+management comparison. Raw results are under
+`.work/burn-balance-probe/phase-variants-1/`. These results do not yet
+measure a concurrently reserved Index callback or establish that the
+replicated status offset remains stable during slow or interrupted Index
+replies.
 
 The result establishes a plausible sampling basis for this active
 Trickle schedule. A replicated management observation can still carry
