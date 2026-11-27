@@ -1589,6 +1589,25 @@ fn rules20_paid_epoch_and_recovery() {
     let (before_obs, before_pub) = capture(&pic, id, &out, 0);
     let source_cursor = status(&pic, id).source.admitted_to_exclusive;
     let received = before.received_e8s.clone();
+    let wrong = pic
+        .update_call(
+            id,
+            controller(),
+            "commit_rules20_transition",
+            candid::encode_one("00".repeat(32)).unwrap(),
+        )
+        .unwrap();
+    assert!(
+        decode_one::<Result<Vec<u8>, String>>(&wrong)
+            .unwrap()
+            .is_err()
+    );
+    assert_eq!(observe(&pic, id).0.publication, before_obs.publication);
+    // A same-ID restart preserves the prepared source fence and predecessor
+    // publication before the authenticated commit.
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    assert_eq!(observe(&pic, id).0.publication, before_obs.publication);
+    assert!(transition_drained(&pic, id));
     let _: Vec<u8> = get_result(
         &pic,
         id,
@@ -1609,6 +1628,13 @@ fn rules20_paid_epoch_and_recovery() {
         before_pub.head.source_to_exclusive
     );
     assert_ne!(after_obs.publication, before_obs.publication);
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_rules20_transition",
+        candid::encode_one(before_pub.head.manifest_hash.clone()).unwrap(),
+    );
+    assert_eq!(observe(&pic, id).0.publication, after_obs.publication);
     let before_segment = before_pub
         .head
         .segment_id
