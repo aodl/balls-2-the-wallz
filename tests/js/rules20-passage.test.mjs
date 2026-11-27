@@ -1,9 +1,10 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
+import {decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {decodeWorld,encodeWorld,migrateCompactReservoirs,migrateAuthorizationRows,validateWorld,setOwner} from '../../packages/kernels/b2z/world.mjs';
 import {registerPassage,exempts,retireAfterContact,pruneRemoved} from '../../packages/kernels/b2z/passage-v20.mjs';
-import {classify,passage} from '../../packages/kernels/b2z/kernel.mjs';
+import {B2zKernel,classify,passage} from '../../packages/kernels/b2z/kernel.mjs';
 import {nextCrossing} from '../../packages/kernels/b2z/geometry.mjs';
 import {prepareDeflectorPurchase} from '../../packages/kernels/b2z/deflectors-v12.mjs';
 import {encodeDeflectorMemo} from '../../packages/protocol/deflector.mjs';
@@ -123,4 +124,24 @@ test('Cannon birth grants passage only to a Ball already traversing its new tile
  assert.equal(exceptions[0].structure,made.cannon.id);
  assert.equal(exempts(made.world,made.ball.id,'cannon',made.cannon.id,made.cannon.cell),false);
  assert.deepEqual(decodeWorld(encodeWorld(made.world)),made.world);
+});
+test('Rules20 public continuation lets only the initial Ball pass and retires its exception',()=>{
+ const vectors=JSON.parse(readFileSync(new URL('../fixtures/rules20-passage-public-equality.json',import.meta.url))).rows;
+ for(const row of vectors){
+  const cursor=B2zKernel.begin(Buffer.from(row.initial_hex,'hex'),
+   decodeCanonical(Buffer.from(row.inputs_hex,'hex')),
+   decodeCanonical(Buffer.from(row.context_hex,'hex')));
+  let complete=false;
+  for(let n=0;n<1000&&!complete;n++)complete=cursor.step(127).complete;
+  assert.equal(complete,true,row.name);
+  cursor.finalizeElapsed(BigInt(row.observed_ns));
+  const output=cursor.result();
+  for(const kind of ['state','events','scores'])
+   assert.equal(Buffer.from(output[kind]).toString('hex'),row.outputs[kind].hex,`${row.name} ${kind}`);
+  const state=decodeWorld(output.state);
+  assert.equal(state.balls.find(ball=>ball.id===1)?.vx,row.expected.ball1_vx,row.name);
+  if(row.expected.ball2_vx!==null)
+   assert.equal(state.balls.find(ball=>ball.id===2)?.vx,row.expected.ball2_vx,row.name);
+  assert.equal(state.passage_exceptions?.length??0,row.expected.passage_count,row.name);
+ }
 });

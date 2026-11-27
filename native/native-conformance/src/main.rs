@@ -136,9 +136,17 @@ fn main_inner() -> Result<()> {
         }
         return Ok(());
     }
-    if args.get(1).map(String::as_str) == Some("rules20-corner") {
-        let data = load(&root, "rules20-corner-public-equality.json")?;
-        for row in data["rows"].as_array().ok_or("corner rows")? {
+    if matches!(
+        args.get(1).map(String::as_str),
+        Some("rules20-corner" | "rules20-passage")
+    ) {
+        let mode = args[1].as_str();
+        let fixture = match mode {
+            "rules20-corner" => "rules20-corner-public-equality.json",
+            _ => "rules20-passage-public-equality.json",
+        };
+        let data = load(&root, fixture)?;
+        for row in data["rows"].as_array().ok_or("Rules20 rows")? {
             let mut cursor = begin(row)?;
             let mut slices = 0usize;
             loop {
@@ -148,7 +156,7 @@ fn main_inner() -> Result<()> {
                 }
                 slices += 1;
                 if slices > 100_000 {
-                    return Err("corner work bound".into());
+                    return Err("Rules20 work bound".into());
                 }
                 let snapshot = cursor.snapshot()?;
                 cursor = Cursor::restore(&snapshot, &hash(&snapshot))?;
@@ -156,15 +164,12 @@ fn main_inner() -> Result<()> {
             cursor.finalize_elapsed(
                 row["observed_ns"]
                     .as_str()
-                    .ok_or("corner elapsed")?
+                    .ok_or("Rules20 elapsed")?
                     .parse()
-                    .map_err(|_| "corner elapsed")?,
+                    .map_err(|_| "Rules20 elapsed")?,
             )?;
             check_output(&cursor.result()?, &row["outputs"])?;
-            println!(
-                "rules20-corner\t{}",
-                row["name"].as_str().ok_or("corner name")?
-            );
+            println!("{mode}\t{}", row["name"].as_str().ok_or("Rules20 name")?);
         }
         return Ok(());
     }
