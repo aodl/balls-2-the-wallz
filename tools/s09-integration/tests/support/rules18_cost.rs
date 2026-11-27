@@ -659,7 +659,8 @@ fn compact_cutover(
         ready = Some(capture(pic, id, &audit, 0));
     });
     let (ready_obs, ready_pub) = ready.unwrap();
-    let cutover_cycles = before_cutover - pic.cycle_balance(id);
+    let after_cutover = pic.cycle_balance(id);
+    let cutover_cycles = Int(before_cutover.into()).0 - Int(after_cutover.into()).0;
     let (new_obs, new_pub) = capture(pic, id, &audit, 1);
     let legacy = World::decode(&std::fs::read(audit.join("0-state.bin")).unwrap()).unwrap();
     let actual = arena_world(pic, id);
@@ -736,6 +737,7 @@ fn compact_cutover(
         "old_ranges":legacy.reservoirs.as_ref().unwrap().len(),"new_ranges":actual.reservoir_ranges,
         "upgrade_cycles":upgrade_cycles.to_string(),"cutover_cycles":cutover_cycles.to_string(),
         "upgrade_balance_before":before_upgrade.to_string(),"upgrade_balance_after":after_upgrade.to_string(),
+        "cutover_balance_before":before_cutover.to_string(),"cutover_balance_after":after_cutover.to_string(),
         "source_cursor":old_pub.head.source_to_exclusive,"rollback_rehearsed":predecessor.is_some(),
     });
     std::fs::write(
@@ -2064,6 +2066,11 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
     // fallback to the previous linear tariff for the same valid payment.
     let block_offset = b2z_protocol::economy17::GRACE_NS + 1_000_000_000;
     advance(&pic, (formula_start + block_offset - now) / 1_000_000);
+    let live_population = b2z_native::economy17::population(&arena_world(&pic, id));
+    assert!(
+        live_population < target,
+        "expired dormant accounts must lower the live population"
+    );
     let (_, before_payment) = capture(&pic, id, &out, 1);
     let amount = exact_price.unwrap_or(2_000_000_000);
     let position = transfer_text(&pic, ledger, payer, id, amount, b"NEW 0 1");
@@ -2143,7 +2150,7 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
     std::fs::write(
         out.join("results.json"),
         serde_json::to_vec_pretty(&json!({
-            "status":"PASS", "population":target, "payment_e8s":amount,
+            "status":"PASS", "population":target, "live_population_at_payment":live_population, "payment_e8s":amount,
             "ledger_position":position, "candidate_sha256":dtr_wire::hash(&candidate),
             "formula_start_ns":formula_start, "publication":paid_pub.head.segment_id,
             "predecessor_publication":before_payment.head.segment_id,

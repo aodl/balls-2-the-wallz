@@ -40,6 +40,10 @@ def main():
     env = {
         **checked_artifacts(args.artifacts),
         "DFX_IDENTITY": "codex_local",
+        # Start the published fixture before the seeded dormant-account
+        # deadlines. Advance across UTC only in the individual test.
+        "B2Z_PROFILE_FIXED_TIME_NS": "1795543283000000000",
+        "B2Z_PROFILE_FIDUCIARY": "0",
         "B2Z_RULES20_INSTALLED_WASM": str(args.installed.resolve()),
         "B2Z_COST_COMPACT_WASM": str(args.compact.resolve()),
         "B2Z_COST_PROFILE_WASM": str(args.profile.resolve()),
