@@ -31,10 +31,10 @@ def public_observer(out, inventory):
     overrides = json.loads(CURRENT_RELEASE.read_text())["public_asset_overrides"]
     assert set(overrides) == {"app.mjs", "backend.did", "configuration-compact-reservoir.bin"}
     expected.update(overrides)
-    # Keep historical executable inventories intact. Only separately reviewed
-    # frontend bodies can differ for the next compatible public candidate.
+    # Keep historical executable inventories intact. The successor's exact
+    # frontend and Candid changes need separate reviewed bytes.
     review = json.loads(REVIEW_ASSETS.read_text())
-    if not review or not set(review) <= {"app.mjs", "index.html", "style.css"}:
+    if not review or not set(review) <= {"app.mjs", "backend.did", "index.html", "style.css"}:
         raise ValueError("Unexpected prelaunch review asset override")
     expected.update(review)
     rows = [{"path": path.relative_to(observer).as_posix(),
