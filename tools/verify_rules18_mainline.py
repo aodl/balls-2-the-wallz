@@ -16,7 +16,7 @@ HISTORICAL_SOURCE = "351d96d7059f7f84957af1470c86a7028c588392"
 REVIEWED_SOURCE = "53e737c382e0cc0299cf8c35dd5e2449cc78ce70"
 QUALIFIED_RULES18 = "aeb9cd3fb04426b9851383dae490b6f873e43388"
 CURRENT_RELEASE = ROOT / "evidence/B2Z/rules19-compact-reservoirs/artifact-pins.json"
-REVIEW_ASSETS = ROOT / "config/frontend/prelaunch-review-assets.json"
+REVIEW_ASSETS = ROOT / "config/frontend/certified-burn-review-assets.json"
 
 
 def run(*command, cwd=ROOT):

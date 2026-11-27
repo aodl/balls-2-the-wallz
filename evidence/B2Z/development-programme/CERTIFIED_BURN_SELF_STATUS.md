@@ -108,3 +108,10 @@ The complete source check on published telemetry continuation `29a857fb`
 also passed, including the Node suite and source structure; raw output is
 under `.work/burn-balance-probe/live-source-1/`. This does not replace the
 blocked native browser or remaining operating-cost qualification.
+
+The first hosted developer run on this branch failed the historical
+`prelaunch-review-assets.json` checksum for the intentionally changed
+observer bundle. The original manufacturing manifest remains untouched.
+This branch now uses `certified-burn-review-assets.json` to pin its own
+exact observer bytes; the full historical frozen-base reconstruction still
+runs. Hosted requalification of that branch-specific inventory is pending.
