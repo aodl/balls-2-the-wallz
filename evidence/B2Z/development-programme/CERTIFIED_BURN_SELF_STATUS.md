@@ -145,3 +145,26 @@ that end is unchanged. The hosted direct-root fixture now pins the exact
 installed Rules19 executable rather than the older compact development
 module. This correction still requires a fresh hosted positive run; the
 failed run remains a failure, not browser acceptance.
+
+## Hosted live consumer result, 27 November
+
+Published source `b154f28cef0fdb45246c08f0efd9e647790e9af7` passed the
+[developer/prelaunch workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46062714910),
+including the explicitly executed live PocketIC browser and maintained-agent
+test. The candidate backend SHA-256 was
+`0050509f9664359e713aa1ff5563d711cb431faaf1e2be075611b6da759b4ec5`;
+the direct-root recovery leg used the exact installed Rules19 SHA-256
+`b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90`.
+The live test's composed and direct legs each loaded and reloaded the
+maintained observer at 390px, checked current authenticated publication,
+required the established certified estimate and compact Cycles line on the
+composed leg, required no optional witness on the direct leg, and recorded
+zero browser mutation requests or page errors. The maintained agent passed
+both roots. The hosted integration artifact records the named test as PASS
+in 23.211 seconds under `ci-certified-burn-live/results.json`; the two
+previous failed hosted attempts remain separately recorded above.
+
+The [financial workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46062714895)
+passed on this source. The standard workflow and broader reservation,
+credit, prolonged unavailability and operating-profile matrix remain open.
+The meter remains disabled in ordinary release builds.
