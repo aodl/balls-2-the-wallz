@@ -165,6 +165,15 @@ in 23.211 seconds under `ci-certified-burn-live/results.json`; the two
 previous failed hosted attempts remain separately recorded above.
 
 The [financial workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46062714895)
-passed on this source. The standard workflow and broader reservation,
+passed on this source. The
+[standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46062714860)
+failed after its source, native, browser, Wasm, frontend and packaged-consumer
+jobs passed: the historical Shout installed browser's Diverter selection did
+not settle within its 10-second assertion. This is a real standard-workflow
+failure, outside the new operational witness test. Master `cf6605ef` already
+contains the focused diagnostic capture for that same selection assertion;
+the telemetry branch has now merged it for an exact-source rerun. The new
+workflow artifact list also retains composed/direct live browser and agent
+captures. A positive standard rerun remains required. The broader reservation,
 credit, prolonged unavailability and operating-profile matrix remain open.
 The meter remains disabled in ordinary release builds.
