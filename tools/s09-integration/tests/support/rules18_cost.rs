@@ -1943,7 +1943,16 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     );
     // A payment arriving after the measured Ledger fence belongs to the
     // successor. It must not enter the retained Rules19 execution prefix.
-    let successor_payment = transfer_text(&pic, ledger, other, id, 300_000_000, b"NEW 0 1");
+    let expected_other_cannon = arena_world(&pic, id).next_cannon_id;
+    let successor_command = format!("FIRE {expected_other_cannon} 0 1");
+    let successor_payment = transfer_text(
+        &pic,
+        ledger,
+        other,
+        id,
+        300_000_000,
+        successor_command.as_bytes(),
+    );
     assert!(successor_payment > last_old_position);
     let digit_account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
     let mut settled = false;
@@ -1984,6 +1993,10 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     );
     let final_world = arena_world(&pic, id);
     assert_eq!(final_world.version, 11);
+    assert!(final_world.cannons.iter().any(|c| {
+        c.id == expected_other_cannon
+            && c.account == AccountIdentifier::new(&other, &DEFAULT_SUBACCOUNT).to_hex()
+    }));
     if extra_pending {
         let rows = match final_world.authorization.as_ref() {
             Some(b2z_native::delegation_v20::AuthorizationState::Rows(rows)) => rows,
@@ -2289,6 +2302,18 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         successor_paid_pub.head.seal.as_ref().unwrap().input_count,
         1
     );
+    let successor_events: Value =
+        decode(&std::fs::read(out.join(format!("{paid_ordinal}-events.bin"))).unwrap()).unwrap();
+    let successor_receipt = successor_events["receipts"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|row| row["position"]["$integer"] == successor_payment.to_string())
+        .expect("one later Rules20 receipt");
+    assert_eq!(successor_receipt["status"], "applied");
+    assert_eq!(successor_receipt["actual_quantity"], 1);
+    assert_eq!(successor_receipt["cannon"], expected_other_cannon);
+    assert!(successor_receipt["amount_used"]["$integer"] != "0");
     let expected_later =
         BTreeMap::from([(successor_payment, ("ACCEPTED".into(), 300_000_000, None))]);
     let later_input = super::delegation_installed::official_inputs(&pic, id, &expected_later)
@@ -2329,6 +2354,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             "admitted_cursor":status(&pic, id).source.admitted_to_exclusive,
             "received_e8s_at_transition":successor.received_e8s,
             "successor_payment_position":successor_payment,
+            "successor_payment_applied":true,
             "received_e8s_after_successor_payment":arena_world(&pic, id).received_e8s,
             "successor_version":successor.version
         }))
@@ -2649,28 +2675,40 @@ fn rules20_paid_epoch_and_recovery() {
 #[test]
 #[ignore = "disposable authenticated Rules20 high-population Ledger/Index tariff"]
 fn rules20_paid_symbolic_population() {
-    run_rules20_paid_symbolic_population(1001, Some(2_000_000_000));
+    run_rules20_paid_symbolic_population(1001, Some(2_000_000_000), false);
 }
 
 #[test]
 #[ignore = "disposable authenticated Rules20 threshold Ledger/Index tariff"]
 fn rules20_paid_threshold_population() {
-    run_rules20_paid_symbolic_population(1000, Some(1_000_000_000));
+    run_rules20_paid_symbolic_population(1000, Some(1_000_000_000), false);
 }
 
 #[test]
 #[ignore = "disposable authenticated Rules20 second doubling Ledger/Index tariff"]
 fn rules20_paid_second_doubling_population() {
-    run_rules20_paid_symbolic_population(1002, Some(4_000_000_000));
+    run_rules20_paid_symbolic_population(1002, Some(4_000_000_000), false);
 }
 
 #[test]
 #[ignore = "disposable authenticated Rules20 unrepresentable Ledger/Index tariff"]
 fn rules20_paid_unrepresentable_population() {
-    run_rules20_paid_symbolic_population(1035, None);
+    run_rules20_paid_symbolic_population(1035, None, false);
 }
 
-fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
+#[test]
+#[ignore = "disposable authenticated first exponential grace Ledger/Index payment"]
+fn rules20_paid_first_exponential_grace() {
+    run_rules20_paid_symbolic_population(1001, Some(1_000_000), true);
+}
+
+#[test]
+#[ignore = "disposable authenticated overflow-current linear grace Ledger/Index payment"]
+fn rules20_paid_overflow_grace() {
+    run_rules20_paid_symbolic_population(1035, Some(1_000_000), true);
+}
+
+fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>, grace: bool) {
     let expect_applied = exact_price.is_some();
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
         .join(format!("rules20-symbolic-population-{target}"));
@@ -2740,7 +2778,11 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
     assert!(now < formula_start);
     // Isolate the current formula. A separate grace test must exercise
     // fallback to the previous linear tariff for the same valid payment.
-    let block_offset = b2z_protocol::economy17::GRACE_NS + 1_000_000_000;
+    let block_offset = if grace {
+        1_000_000_000
+    } else {
+        b2z_protocol::economy17::GRACE_NS + 1_000_000_000
+    };
     advance(&pic, (formula_start + block_offset - now) / 1_000_000);
     let live_population = b2z_native::economy17::population(&arena_world(&pic, id));
     assert!(
@@ -2761,6 +2803,18 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
         }
     }
     assert!(indexed, "paused source must index the genuine payment");
+    if grace {
+        // The original Ledger block time remains within the linear grace
+        // window even though execution starts after that window has closed.
+        advance(
+            &pic,
+            (b2z_protocol::economy17::GRACE_NS + 1_000_000_000) / 1_000_000,
+        );
+        assert!(
+            pic.get_time().as_nanos_since_unix_epoch()
+                > formula_start + b2z_protocol::economy17::GRACE_NS
+        );
+    }
     let before_segments = status(&pic, id).run.completed_segments;
     playability_installed::configuration(&pic, id, 512);
     let mut published = false;
@@ -2790,8 +2844,24 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
         .find(|row| row["position"]["$integer"] == position.to_string())
         .expect("genuine payment receipt");
     assert_eq!(receipt["status"] == "applied", expect_applied);
-    assert_eq!(receipt["price_tariff"]["formula"], "exponential");
-    assert_eq!(receipt["price_tariff"]["population"], target);
+    if grace {
+        let recorded_ns = receipt["ledger_recorded_ns"]["$integer"]
+            .as_str()
+            .unwrap()
+            .parse::<u64>()
+            .unwrap();
+        assert!(recorded_ns >= formula_start);
+        assert!(recorded_ns < formula_start + b2z_protocol::economy17::GRACE_NS);
+    }
+    assert_eq!(
+        receipt["price_tariff"]["formula"],
+        if grace { "linear" } else { "exponential" }
+    );
+    if grace {
+        assert_eq!(receipt["price_tariff"]["multiplier"], 1);
+    } else {
+        assert_eq!(receipt["price_tariff"]["population"], target);
+    }
     if expect_applied {
         assert_eq!(receipt["amount_used"]["$integer"], amount.to_string());
         assert_eq!(
@@ -2823,7 +2893,7 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
         String::from_utf8_lossy(&independent.stdout),
         String::from_utf8_lossy(&independent.stderr)
     );
-    let partial_batch = if target == 1000 {
+    let partial_batch = if target == 1000 && !grace {
         pause(&pic, id);
         let before_batch = arena_world(&pic, id);
         let payer_account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
@@ -2896,8 +2966,14 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
         assert_eq!(receipt["amount_used"]["$integer"], amount.to_string());
         assert_eq!(receipt["price_tariff"]["formula"], "exponential");
         assert_eq!(receipt["price_tariff"]["population"], 1000);
-        assert_eq!(receipt["per_item_prices"][0]["$integer"], prices[0].to_string());
-        assert_eq!(receipt["per_item_prices"][1]["$integer"], prices[1].to_string());
+        assert_eq!(
+            receipt["per_item_prices"][0]["$integer"],
+            prices[0].to_string()
+        );
+        assert_eq!(
+            receipt["per_item_prices"][1]["$integer"],
+            prices[1].to_string()
+        );
         let expected = BTreeMap::from([(position, ("ACCEPTED".into(), 0, None))]);
         let inputs = super::delegation_installed::official_inputs(&pic, id, &expected)
             .into_iter()
@@ -2913,7 +2989,11 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
             .arg(&out)
             .output()
             .unwrap();
-        assert!(independent.status.success(), "independent paid batch: {}", String::from_utf8_lossy(&independent.stderr));
+        assert!(
+            independent.status.success(),
+            "independent paid batch: {}",
+            String::from_utf8_lossy(&independent.stderr)
+        );
         json!({"position":position,"held_before":held,"prices":prices,"paid_e8s":amount,
             "actual_quantity":2,"requested_quantity":3,"independent_quote_and_replay":true})
     } else {
@@ -2926,7 +3006,9 @@ fn run_rules20_paid_symbolic_population(target: u32, exact_price: Option<u64>) {
             "ledger_position":position, "candidate_sha256":dtr_wire::hash(&candidate),
             "formula_start_ns":formula_start, "publication":paid_pub.head.segment_id,
             "predecessor_publication":before_payment.head.segment_id,
-            "receipt_tariff":"exponential", "receipt_reason":receipt["reason"],
+            "receipt_tariff":if grace { "linear" } else { "exponential" },
+            "grace_block_time_before_execution_after_window":grace,
+            "receipt_reason":receipt["reason"],
             "applied":expect_applied, "independent_replay":true,"partial_batch":partial_batch,
         }))
         .unwrap(),

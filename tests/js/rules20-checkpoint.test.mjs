@@ -82,6 +82,25 @@ test('Rules20 browser quote uses the authenticated symbolic tariff and sorted gr
   assert.equal(grantForAccount({version:3,grants:[{account:'1'.repeat(64),spender_principal:'a'}]},'1'.repeat(64)).spender_principal,'a');
 });
 
+test('Rules20 grace quote selects an affordable previous linear tariff and retains the current tie',()=>{
+ const world=checkpoint().after,account='ab'.repeat(32),day=86400000000000n,start=2n*day;
+ world.economy_formula_start_ns=start;
+ const command={kind:'new',angle:'0',quantity:1,priced_at_ns:start+1n};
+ world.economy.snapshots=[{effective_ns:start,previous_multiplier:1000,multiplier:1001,
+  grace_end_ns:start+3600000000000n}];
+ const previous=quoteV6(world,RULES20_CONFIG,account,command);
+ assert.equal(previous.amount,1000000000n,'lower linear price for a complete first Cannon');
+ assert.equal(quoteV6(world,RULES20_CONFIG,account,{...command,tariff_selection:'current'}).amount,2000000000n);
+ assert.equal(quoteV6(world,RULES20_CONFIG,account,{...command,priced_at_ns:start+3600000000000n}).amount,2000000000n);
+ world.economy.snapshots[0].multiplier=1035;
+ assert.equal(quoteV6(world,RULES20_CONFIG,account,command).amount,1000000000n,
+  'representable linear predecessor survives current overflow');
+ assert.throws(()=>quoteV6(world,RULES20_CONFIG,account,{...command,tariff_selection:'current'}),/PRICE_OVERFLOW/);
+ world.economy.snapshots[0].multiplier=1000;
+ assert.equal(quoteV6(world,RULES20_CONFIG,account,command).amount,1000000000n,
+  'equal totals keep the current tariff');
+});
+
 test('Rules20 placement preview removes only the Ball occupancy prohibition',()=>{
   const world=checkpoint().after,ball=world.balls[0],account=world.playability.players.find(p=>p.id===ball.owner).account;
   // A separate spacing rejection remains authoritative at this fixture site.

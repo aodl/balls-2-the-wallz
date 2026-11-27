@@ -32,11 +32,26 @@ export function legalMove(w,account,cannon,cell,config=null){
  return (!clearanceActive(config)||hasEnemyClearance(w.width,w.height,cell,life.player,n=>playerAt(w,n)))&&(islandAt(w,c.cell)===islandAt(w,cell)||w.cannons.filter(other=>islandAt(w,other.cell)===islandAt(w,c.cell)).length>1);
 }
 export function sitePool(w,account,cell){const player=w.playability.players.find(p=>p.account===account)?.id,labels=new Set([cell,...adjacent(cell)].filter(c=>playerAt(w,c)===player).map(c=>islandAt(w,c)));return w.balls.filter(b=>b.owner===player&&labels.has(islandAt(w,b.cell))).length;}
-export function quoteV6(w,config,account,{kind,cannon,deflector,angle='0',quantity=1,cell=null,priced_at_ns=w.playability?.elapsed_ns}){
+export function quoteV6(w,config,account,command){
+ const {kind,cannon,deflector,angle='0',quantity=1,cell=null,priced_at_ns=w.playability?.elapsed_ns,tariff_selection=null}=command;
  check(w.version>=6,'EXPECTED_V6');check(/^[0-9a-f]{64}$/.test(account),'ACCOUNT_BOUNDS');check(integer(quantity,64)&&quantity>=1,'QUANTITY_BOUNDS');
  const daily=economySupported(config);
  check(daily===(w.version>=9),'ECONOMY_SCHEMA');
- const rate=daily?(w.version>=12?tariffs20(w.economy,w.economy_formula_start_ns,priced_at_ns).current:economyAt(w.economy,priced_at_ns).current):null;
+ const rates=daily&&w.version>=12?tariffs20(w.economy,w.economy_formula_start_ns,priced_at_ns):null;
+ // A wallet quote for the previous grace tariff is exact only when its full
+ // requested quantity costs less than the current tariff. At that payment,
+ // the interpreter obtains more items from the previous tariff and selects it.
+ if(rates?.previous&&tariff_selection===null){
+  let current,previous,currentError;
+  try{current=quoteV6(w,config,account,{...command,tariff_selection:'current'});}catch(error){currentError=error;}
+  try{previous=quoteV6(w,config,account,{...command,tariff_selection:'previous'});}catch{}
+  if(previous&&(!current||previous.amount<current.amount))return previous;
+  if(current)return current;
+  throw currentError;
+ }
+ check(tariff_selection===null||tariff_selection==='current'||tariff_selection==='previous','TARIFF_SELECTION');
+ check(tariff_selection!=='previous'||rates?.previous,'NO_PREVIOUS_TARIFF');
+ const rate=daily?(w.version>=12?(tariff_selection==='previous'?rates.previous:rates.current):economyAt(w.economy,priced_at_ns).current):null;
  const mine=w.cannons.filter(c=>c.account===account),free=daily?0xffffffff-w.next_ball_id:config.max_balls-w.balls.length;
  const count=()=>{const player=w.playability.players.find(p=>p.account===account)?.id;return w.balls.filter(b=>b.owner===player).length;};
  const scaled=(base,n)=>{const price=priceAtTariff(rate,base,n);check(price!==null,'PRICE_OVERFLOW');return price;};

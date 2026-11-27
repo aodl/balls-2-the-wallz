@@ -222,3 +222,26 @@ the release executable to invoke the test-only balance hook and was stopped
 as an invalid fixture; it is not counted as a qualification result.
 
 Expiry and the reserved-stage application boundary remain open.
+
+## Valid successor payment after the obstructed recovery, 27 November
+
+The six-input installed fixture was rerun with the same exact installed
+Rules19 module and recovery executable. A genuine 3 ICP payment at source
+position 9 arrived after the recovery checkpoint while the old six-input
+prefix remained pending. Its `FIRE 3 0 1` instruction targeted the Cannon
+that the retained Rules19 purchase created for the payer. The authenticated
+source fence excluded it from old-prefix execution. After the prefix retired
+once and ordinary Rules20 activated, the payment published as **applied**:
+one Ball, 40,000 e8s used, 299,960,000 e8s retained. Received value moved
+from 408,100,000 to 708,100,000 e8s. The complete source interval ended at
+10, and independent JavaScript replay matched public state, events and
+scores through the recovered and successor segments. This replaces the
+earlier post-cutover `NEW` example, whose value was accounted for but whose
+gameplay instruction was rejected by the successor's explicit-site rule.
+The fresh case passed in 153.61 seconds; raw evidence is under
+`.work/rules19-recovery/valid-successor-payment-1/`.
+
+Expiry and an application-level reserved-stage interruption remain release
+gates. The generic DTR reserved-stage operation has separate independent
+qualification; this result exercises the actual unreserved obstructed
+Rules19 journal shape.

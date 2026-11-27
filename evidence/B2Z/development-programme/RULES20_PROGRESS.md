@@ -189,3 +189,36 @@ is under `.work/rules19-recovery/threshold-batch-2/`. This closes the
 authenticated Ball batch partial-fulfillment case. Inventory scaling for
 Cannon and Diverter, tariff grace, delayed admission, interruption and
 overflow part-way through a batch remain open.
+
+Two more installed Ledger/Index tariff cases passed with the exact
+`a40589a2` candidate. At an authenticated 1,001-account effective
+population, a 0.01 ICP first-Cannon payment recorded inside the first
+exponential grace window was executed after that window ended; its receipt
+retained the preceding linear tariff. At population 1,035 the current
+first-Cannon price was unrepresentable, yet the same valid preceding linear
+price applied. Both cases passed complete independent public replay and an
+exact frontend quote comparison using the immutable Ledger block time.
+Focused quote tests also cover the no-grace boundary and current-tariff tie.
+The new reviewed `app.mjs` checksum is
+`ced7844460cdf3cef2b82f359b5ca34baba56dba3e48e4ad6fd56837664f0443`;
+the other reviewed asset bytes are unchanged. Raw passes are in
+`.work/rules19-recovery/grace-paid-1/` and `grace-paid-2/`. The first
+combined runner records a second-case harness-file failure caused by local
+generated-cache cleanup after its first pass; the second case was rebuilt
+and passed independently. This does not represent a payment failure.
+
+The exact six-input obstruction was rerun with a later genuine Fire payment
+sent while the old prefix remained pending. The source fence held it until
+ordinary Rules20 activation. The successor applied the payment to the
+Rules19-created Cannon, used 40,000 e8s for one Ball and retained the
+299,960,000 e8s remainder. Every recovered and successor public state,
+event and score byte matched independent JavaScript replay. This closes the
+specific post-recovery valid-gameplay acceptance gap; expiry and the
+application-level reserved-stage interruption remain open.
+
+Hosted source `75b2f1c2` passed the financial workflow. Its developer
+workflow stopped at the nested integration crate's `cargo fmt --check`
+before installed acceptance; the two long assertion lines were formatted
+in the successor commit. The standard workflow was still running when the
+next source was prepared. This is a tooling failure on that exact source,
+not evidence for the newly added installed cases.

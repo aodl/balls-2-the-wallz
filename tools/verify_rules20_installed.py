@@ -22,6 +22,8 @@ CASES = (
     "rules20_paid_symbolic_population",
     "rules20_paid_second_doubling_population",
     "rules20_paid_unrepresentable_population",
+    "rules20_paid_first_exponential_grace",
+    "rules20_paid_overflow_grace",
 )
 
 
