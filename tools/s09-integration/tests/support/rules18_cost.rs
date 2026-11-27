@@ -1812,6 +1812,21 @@ fn rules20_paid_epoch_and_recovery() {
     assert_eq!(observe(&pic, id).0.publication, after_obs.publication);
     upgrade_during_recovery(&pic, id, &candidate).unwrap();
     assert_eq!(observe(&pic, id).0.publication, after_obs.publication);
+    // Midnight crossed while the predecessor clock was paused. Observe and
+    // independently verify the first successor economy checkpoint in order.
+    for _ in 0..120 {
+        advance(&pic, 1000);
+        if observe(&pic, id).1.version == 9 {
+            break;
+        }
+    }
+    let (_, midnight_pub) = capture(&pic, id, &out, 2);
+    assert_eq!(midnight_pub.version, 9);
+    assert_eq!(midnight_pub.head.logical_end, after_pub.head.logical_end);
+    assert_eq!(
+        arena_world(&pic, id).economy_formula_start_ns,
+        after.economy_formula_start_ns
+    );
     playability_installed::configuration(&pic, id, 512);
     let position = transfer_text(&pic, ledger, payer, id, 1_000_000, b"NEW 0 1");
     let account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
@@ -1833,8 +1848,8 @@ fn rules20_paid_epoch_and_recovery() {
         applied,
         "successor must execute a real indexed Ledger Join after activation"
     );
-    let (_, paid_pub) = capture(&pic, id, &out, 2);
-    let paid_events: Value = decode(&std::fs::read(out.join("2-events.bin")).unwrap()).unwrap();
+    let (_, paid_pub) = capture(&pic, id, &out, 3);
+    let paid_events: Value = decode(&std::fs::read(out.join("3-events.bin")).unwrap()).unwrap();
     assert!(
         paid_events["events"]
             .as_array()
@@ -1857,7 +1872,7 @@ fn rules20_paid_epoch_and_recovery() {
         )
         .unwrap();
     };
-    save_inputs(position, 2);
+    save_inputs(position, 3);
 
     // The exact old module cannot publish this valid account as a map key.
     // Schema12 must apply and publish the genuine indexed grant as a row.
@@ -1890,8 +1905,8 @@ fn rules20_paid_epoch_and_recovery() {
         grant_applied,
         "digit-leading grant must publish and remain usable"
     );
-    let (_, grant_pub) = capture(&pic, id, &out, 3);
-    save_inputs(grant_position, 3);
+    let (_, grant_pub) = capture(&pic, id, &out, 4);
+    save_inputs(grant_position, 4);
 
     // A subsequent independent payer must progress after the repaired grant.
     let later_account = AccountIdentifier::new(&later_payer, &DEFAULT_SUBACCOUNT).to_hex();
@@ -1913,12 +1928,13 @@ fn rules20_paid_epoch_and_recovery() {
         later_applied,
         "later unrelated indexed payment must publish"
     );
-    let (_, later_pub) = capture(&pic, id, &out, 4);
-    save_inputs(later_position, 4);
+    let (_, later_pub) = capture(&pic, id, &out, 5);
+    save_inputs(later_position, 5);
     let independent = std::process::Command::new("node")
         .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
         .arg("tools/verify_rules20_installed_replay.mjs")
         .arg(&out)
+        .arg("5")
         .output()
         .unwrap();
     assert!(

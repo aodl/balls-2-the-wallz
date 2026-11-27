@@ -171,6 +171,58 @@ fn main_inner() -> Result<()> {
             check_output(&cursor.result()?, &row["outputs"])?;
             println!("{mode}\t{}", row["name"].as_str().ok_or("Rules20 name")?);
         }
+        if mode == "rules20-passage" {
+            let orbit = &data["orbit"];
+            let base = data["rows"]
+                .as_array()
+                .and_then(|rows| rows.iter().find(|row| row["name"] == orbit["initial_row"]))
+                .ok_or("Rules20 orbit initial state")?;
+            let mut state = bytes(&base["initial_hex"])?;
+            let mut context: Value = decode(&bytes(&base["context_hex"])?)?;
+            let observed_ns = base["observed_ns"]
+                .as_str()
+                .ok_or("Rules20 orbit elapsed")?
+                .parse()
+                .map_err(|_| "Rules20 orbit elapsed")?;
+            for (tick, expected) in orbit["steps"]
+                .as_array()
+                .ok_or("Rules20 orbit steps")?
+                .iter()
+                .enumerate()
+            {
+                context["logical_start"] = serde_json::json!(dtr_wire::Int(tick.into()));
+                context["logical_end"] = serde_json::json!(dtr_wire::Int((tick + 1).into()));
+                let mut cursor = Cursor::begin(&state, vec![], &context)?;
+                // Interrupt every interval while it still has work.
+                if cursor.step(1)?.1 {
+                    return Err(format!(
+                        "Rules20 orbit tick {tick} finished before interruption"
+                    ));
+                }
+                let saved = cursor.snapshot()?;
+                cursor = Cursor::restore(&saved, &hash(&saved))?;
+                let mut slices = 0;
+                while !cursor.step(127)?.1 {
+                    slices += 1;
+                    if slices > 1000 {
+                        return Err(format!("Rules20 orbit work bound at tick {tick}"));
+                    }
+                }
+                cursor.finalize_elapsed(observed_ns)?;
+                let out = cursor.result()?;
+                for (kind, actual) in [
+                    ("state", &out.state),
+                    ("events", &out.events),
+                    ("scores", &out.scores),
+                ] {
+                    if expected[kind] != hash(actual) {
+                        return Err(format!("Rules20 orbit tick {tick} {kind} mismatch"));
+                    }
+                }
+                state = out.state;
+            }
+            println!("{mode}\tcontinuous-toroidal-return");
+        }
         return Ok(());
     }
     let golden = load(&root, "b2z-v3-golden.json")?;

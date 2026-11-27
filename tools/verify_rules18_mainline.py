@@ -16,7 +16,7 @@ HISTORICAL_SOURCE = "351d96d7059f7f84957af1470c86a7028c588392"
 REVIEWED_SOURCE = "53e737c382e0cc0299cf8c35dd5e2449cc78ce70"
 QUALIFIED_RULES18 = "aeb9cd3fb04426b9851383dae490b6f873e43388"
 CURRENT_RELEASE = ROOT / "evidence/B2Z/rules19-compact-reservoirs/artifact-pins.json"
-REVIEW_ASSETS = ROOT / "config/frontend/prelaunch-review-assets.json"
+REVIEW_ASSETS = ROOT / "config/frontend/rules20-review-assets.json"
 
 
 def run(*command, cwd=ROOT):
@@ -34,7 +34,7 @@ def public_observer(out, inventory):
     # Keep historical executable inventories intact. The successor's exact
     # frontend and Candid changes need separate reviewed bytes.
     review = json.loads(REVIEW_ASSETS.read_text())
-    if not review or not set(review) <= {"app.mjs", "backend.did", "index.html", "style.css"}:
+    if not review or not set(review) <= {"app.mjs", "backend.did", "configuration-rules20.bin", "index.html", "style.css"}:
         raise ValueError("Unexpected prelaunch review asset override")
     expected.update(review)
     rows = [{"path": path.relative_to(observer).as_posix(),

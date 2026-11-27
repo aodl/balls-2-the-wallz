@@ -23,6 +23,11 @@ for(let n=2;n<=last;n++){
  const prior=publication(n-1),current=publication(n);
  assert.equal(current.head.segment_id,prior.head.segment_id+1n,'consecutive paid history');
  const start=read(n-1,'state'),end=read(n,'state'),events=read(n,'events');
+ if(current.head.seal===null){
+  assert.equal(current.version,9,'post-activation lifecycle checkpoint');
+  await prepareCheckpoint(start,{state:end,events,scores:read(n,'scores')},current,prior);
+  continue;
+ }
  const inputs=decodeCanonical(read(n,'inputs'));
  assert.equal(current.head.seal.input_count,inputs.length,'complete source input count');
  await prepareDerivedSegment(start,end,events,current);

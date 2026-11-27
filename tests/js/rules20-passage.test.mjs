@@ -2,6 +2,7 @@ import test from 'node:test';
 import assert from 'node:assert/strict';
 import {readFileSync} from 'node:fs';
 import {decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
+import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {decodeWorld,encodeWorld,migrateCompactReservoirs,migrateAuthorizationRows,validateWorld,setOwner} from '../../packages/kernels/b2z/world.mjs';
 import {registerPassage,exempts,retireAfterContact,pruneRemoved} from '../../packages/kernels/b2z/passage-v20.mjs';
 import {B2zKernel,classify,passage} from '../../packages/kernels/b2z/kernel.mjs';
@@ -144,4 +145,31 @@ test('Rules20 public continuation lets only the initial Ball pass and retires it
    assert.equal(state.balls.find(ball=>ball.id===2)?.vx,row.expected.ball2_vx,row.name);
   assert.equal(state.passage_exceptions?.length??0,row.expected.passage_count,row.name);
  }
+});
+
+test('the same Ball meets the same Diverter after a continuous toroidal orbit',()=>{
+ const fixture=JSON.parse(readFileSync(new URL('../fixtures/rules20-passage-public-equality.json',import.meta.url)));
+ const {initial_row,steps}=fixture.orbit;
+ const base=fixture.rows.find(row=>row.name===initial_row);
+ let state=Buffer.from(base.initial_hex,'hex'), entry, returned;
+ const context=decodeCanonical(Buffer.from(base.context_hex,'hex'));
+ for(const [tick,output] of steps.entries()){
+  const cursor=B2zKernel.begin(state,[],{...context,logical_start:BigInt(tick),logical_end:BigInt(tick+1)});
+  let done=false;
+  for(let slice=0;slice<1000&&!done;slice++)done=cursor.step(127).complete;
+  assert.equal(done,true);
+  cursor.finalizeElapsed(BigInt(base.observed_ns));
+  const result=cursor.result();
+  for(const kind of ['state','events','scores'])assert.equal(sha256(result[kind]),output[kind],`tick ${tick} ${kind}`);
+  const contact=decodeCanonical(result.events).events.find(row=>Array.isArray(row)&&row[3]===1&&row[4]===500501);
+  if(tick===0)entry=contact;
+  if(tick===32)returned=contact;
+  state=result.state;
+ }
+ assert.deepEqual(entry[5],[500500,'513024','512512',-32000,0,'1']);
+ assert.equal(entry[6],null);
+ assert.deepEqual(returned[2],['32','1']);
+ assert.deepEqual(returned[5].slice(3,5),[22627,-22627]);
+ assert.equal(returned[6][0],1);
+ assert.equal(decodeWorld(state).passage_exceptions,undefined);
 });

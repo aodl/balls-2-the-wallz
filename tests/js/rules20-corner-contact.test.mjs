@@ -122,5 +122,12 @@ test('exact diagonal captures and mixed structure corners preserve Rules20 publi
    assert.equal(Buffer.from(output[kind]).toString('hex'),row.outputs[kind].hex,`${row.name} ${kind}`);
   const captures=decodeCanonical(output.events).events.filter(event=>event.kind==='capture');
   assert.deepEqual(captures.map(event=>event.target),row.expected_capture===null?[]:[row.expected_capture],row.name);
+  if(row.expected_motion){
+   const balls=decodeWorld(output.state).balls.map(ball=>[ball.id,ball.cell,ball.vx,ball.vy]);
+   assert.deepEqual(balls,row.expected_motion,row.name);
+   const motion=decodeCanonical(output.events).events.filter(Array.isArray);
+   assert.equal(motion.length,balls.length,row.name);
+   assert.ok(motion.every(event=>event[2][0]==='0'),row.name);
+  }
  }
 });
