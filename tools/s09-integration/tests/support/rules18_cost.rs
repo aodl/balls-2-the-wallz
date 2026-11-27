@@ -1509,46 +1509,199 @@ fn signed_rules19_construction_presentation() {
     );
 }
 
+/// A genuine disposable ICRC-2 approval and transfer_from. The transfer's
+/// immutable Ledger block time is deliberately later than the prior grant.
+fn expired_delegated_payment(
+    pic: &PocketIc,
+    ledger: Principal,
+    payer: Principal,
+    spender: Principal,
+    receiver: Principal,
+) -> u64 {
+    #[derive(CandidType)]
+    struct ApproveArg {
+        from_subaccount: Option<Vec<u8>>,
+        spender: IcrcAccount,
+        amount: candid::Nat,
+        expected_allowance: Option<candid::Nat>,
+        expires_at: Option<u64>,
+        fee: Option<candid::Nat>,
+        memo: Option<Vec<u8>>,
+        created_at_time: Option<u64>,
+    }
+    #[derive(CandidType, Deserialize, Debug)]
+    enum ApproveError {
+        BadFee {
+            expected_fee: candid::Nat,
+        },
+        InsufficientFunds {
+            balance: candid::Nat,
+        },
+        AllowanceChanged {
+            current_allowance: candid::Nat,
+        },
+        Expired {
+            ledger_time: u64,
+        },
+        TooOld,
+        CreatedInFuture {
+            ledger_time: u64,
+        },
+        Duplicate {
+            duplicate_of: candid::Nat,
+        },
+        TemporarilyUnavailable,
+        GenericError {
+            error_code: candid::Nat,
+            message: String,
+        },
+    }
+    #[derive(CandidType)]
+    struct TransferFromArg {
+        spender_subaccount: Option<Vec<u8>>,
+        from: IcrcAccount,
+        to: IcrcAccount,
+        amount: candid::Nat,
+        fee: Option<candid::Nat>,
+        memo: Option<Vec<u8>>,
+        created_at_time: Option<u64>,
+    }
+    #[derive(CandidType, Deserialize, Debug)]
+    enum TransferFromError {
+        BadFee {
+            expected_fee: candid::Nat,
+        },
+        BadBurn {
+            min_burn_amount: candid::Nat,
+        },
+        InsufficientFunds {
+            balance: candid::Nat,
+        },
+        InsufficientAllowance {
+            allowance: candid::Nat,
+        },
+        TooOld,
+        CreatedInFuture {
+            ledger_time: u64,
+        },
+        Duplicate {
+            duplicate_of: candid::Nat,
+        },
+        TemporarilyUnavailable,
+        GenericError {
+            error_code: candid::Nat,
+            message: String,
+        },
+    }
+    let now = pic.get_time().as_nanos_since_unix_epoch();
+    let lifetime = b2z_protocol::delegation::LIFETIME_NS;
+    let approved_until = now + 2 * lifetime;
+    let reply = pic
+        .update_call(
+            ledger,
+            payer,
+            "icrc2_approve",
+            candid::encode_one(ApproveArg {
+                from_subaccount: None,
+                spender: IcrcAccount {
+                    owner: spender,
+                    subaccount: None,
+                },
+                amount: 200_000_000u64.into(),
+                expected_allowance: None,
+                expires_at: Some(approved_until),
+                fee: Some(10_000u64.into()),
+                memo: None,
+                created_at_time: None,
+            })
+            .unwrap(),
+        )
+        .unwrap();
+    decode_one::<Result<candid::Nat, ApproveError>>(&reply)
+        .unwrap()
+        .unwrap();
+    let expired_at = now + lifetime + 86_400_000_000_000;
+    pic.set_time(pocket_ic::Time::from(
+        std::time::UNIX_EPOCH + Duration::from_nanos(expired_at),
+    ));
+    let reply = pic
+        .update_call(
+            ledger,
+            spender,
+            "icrc2_transfer_from",
+            candid::encode_one(TransferFromArg {
+                spender_subaccount: None,
+                from: IcrcAccount {
+                    owner: payer,
+                    subaccount: None,
+                },
+                to: IcrcAccount {
+                    owner: receiver,
+                    subaccount: None,
+                },
+                amount: 100_000_000u64.into(),
+                fee: Some(10_000u64.into()),
+                memo: Some(b"NEW 0 1".to_vec()),
+                created_at_time: None,
+            })
+            .unwrap(),
+        )
+        .unwrap();
+    decode_one::<Result<candid::Nat, TransferFromError>>(&reply)
+        .unwrap()
+        .unwrap()
+        .0
+        .to_string()
+        .parse()
+        .unwrap()
+}
+
 #[test]
 #[ignore = "isolated reproduction of the current authorization wire boundary"]
 fn rules19_digit_leading_grant_wire_boundary() {
-    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false, false, false);
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false, false, false, false);
 }
 
 #[test]
 #[ignore = "multiple real pending Rules19 inputs through authenticated recovery"]
 fn rules19_multi_pending_recovery() {
-    run_rules19_digit_leading_grant_wire_boundary(true, false, false, false, false, false);
+    run_rules19_digit_leading_grant_wire_boundary(true, false, false, false, false, false, false);
 }
 
 #[test]
 #[ignore = "ordered Rules19 grants, revoke and payments through installed recovery"]
 fn rules19_grant_revoke_recovery() {
-    run_rules19_digit_leading_grant_wire_boundary(true, true, false, false, false, false);
+    run_rules19_digit_leading_grant_wire_boundary(true, true, false, false, false, false, false);
 }
 
 #[test]
 #[ignore = "Rules19 recovery preparation and commit across UTC tariff midnight"]
 fn rules19_recovery_utc_boundary() {
-    run_rules19_digit_leading_grant_wire_boundary(true, true, true, false, false, false);
+    run_rules19_digit_leading_grant_wire_boundary(true, true, true, false, false, false, false);
 }
 
 #[test]
 #[ignore = "obstructed Rules19 recovery remains fail-closed under disposable resource protection"]
 fn rules19_recovery_resource_protection() {
-    run_rules19_digit_leading_grant_wire_boundary(false, false, false, true, false, false);
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false, true, false, false, false);
 }
 
 #[test]
 #[ignore = "obstructed Rules19 reserved execution stage through authenticated recovery"]
 fn rules19_reserved_stage_recovery() {
-    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false, true, false);
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false, true, false, false);
 }
 
 #[test]
 #[ignore = "obstructed Rules19 interrupted execution cursor through authenticated recovery"]
 fn rules19_partial_stage_recovery() {
-    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false, true, true);
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false, true, true, false);
+}
+
+#[test]
+#[ignore = "expired delegated Ledger payment retains Rules19 authorization policy through recovery"]
+fn rules19_expired_delegation_recovery() {
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false, false, false, false, true);
 }
 
 fn run_rules19_digit_leading_grant_wire_boundary(
@@ -1558,10 +1711,12 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     protect: bool,
     reserved_stage: bool,
     partial_stage: bool,
+    expired_delegate: bool,
 ) {
     assert!(!revoke_pending || extra_pending);
     assert!(!cross_utc || revoke_pending);
     assert!(!partial_stage || reserved_stage);
+    assert!(!expired_delegate || !reserved_stage);
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
     let payer = (0..=u8::MAX)
@@ -1669,6 +1824,8 @@ fn run_rules19_digit_leading_grant_wire_boundary(
 
     // The failed publication is not a Ledger rollback. Probe the independent
     // source cursor, a normal retry, and stable-module recovery separately.
+    let expired_position =
+        expired_delegate.then(|| expired_delegated_payment(&pic, ledger, payer, spender, id));
     let later_command = if partial_stage {
         format!("FIRE {} 0 1", arena_world(&pic, id).next_cannon_id)
     } else {
@@ -1714,7 +1871,8 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             b"NEW 0 1",
         ));
     }
-    let pending_count = 2 + extra_positions.len() as u32 + u32::from(partial_stage);
+    let pending_count =
+        2 + extra_positions.len() as u32 + u32::from(partial_stage) + u32::from(expired_delegate);
     let last_old_position = extra_positions.last().copied().unwrap_or(later_position);
     for _ in 0..180 {
         advance(&pic, 1000);
@@ -1866,6 +2024,31 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     };
     if protect {
         refuse_under_protection("prepare_rules19_recovery", encode_args(()).unwrap());
+    }
+    if expired_delegate {
+        let source = status(&pic, id).source;
+        eprintln!(
+            "expired recovery preflight source={:?} status={:?} lifecycle={:?}",
+            (
+                source.binding_checked,
+                source.pending_records,
+                source.scan_in_flight,
+                source.reconciliation_requested,
+                source.last_error
+            ),
+            decode::<Value>(&get_query::<Vec<u8>>(
+                &pic,
+                id,
+                "rules19_recovery_status",
+                encode_args(()).unwrap(),
+            )),
+            decode::<Value>(&get_query::<Vec<u8>>(
+                &pic,
+                id,
+                "rules20_transition_status",
+                encode_args(()).unwrap(),
+            ))
+        );
     }
 
     // Positive route: the same durable obstructed journal, without test_apply
@@ -2084,6 +2267,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(
                         100_000_000u64
                     })
                     + if partial_stage { 100_000_000u64 } else { 0 }
+                    + if expired_delegate { 100_000_000u64 } else { 0 }
         {
             settled = true;
             break;
@@ -2145,7 +2329,19 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     let old_final_ordinal = if reserved_stage { 3 } else { 2 };
     let first_reserved_pub =
         reserved_stage.then(|| capture_retained(&pic, id, &out, old_segment + 2, 2));
-    let (before_successor, before_successor_pub) = capture(&pic, id, &out, old_final_ordinal);
+    let (before_successor, mut before_successor_pub) = capture(&pic, id, &out, old_final_ordinal);
+    if let Some(expired) = expired_position {
+        let events: Value = decode(&std::fs::read(out.join("2-events.bin")).unwrap()).unwrap();
+        let receipts = events["receipts"].as_array().unwrap();
+        assert_eq!(receipts.len(), pending_count as usize);
+        let row = receipts
+            .iter()
+            .find(|row| row["position"]["$integer"] == expired.to_string())
+            .unwrap();
+        assert_eq!(row["reason"], "UNAUTHORIZED_SPENDER");
+        assert_eq!(row["status"], "rejected");
+        assert_eq!(row["amount"]["$integer"], "100000000");
+    }
     if extra_pending {
         let event_log: Value = decode(&std::fs::read(out.join("2-events.bin")).unwrap()).unwrap();
         let receipts = event_log["receipts"].as_array().unwrap();
@@ -2200,6 +2396,12 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     if let Some(first) = first_valid_position {
         expected.insert(first, ("ACCEPTED".into(), 100_000_000, None));
     }
+    if let Some(expired) = expired_position {
+        expected.insert(
+            expired,
+            ("UNAUTHORIZED_SPENDER".into(), 100_000_000, Some(spender)),
+        );
+    }
     if extra_pending {
         expected.insert(extra_positions[0], ("DELEGATION_GRANTED".into(), 0, None));
         if revoke_pending {
@@ -2213,6 +2415,29 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     }
     let mut records = super::delegation_installed::official_inputs(&pic, id, &expected);
     records.sort_by_key(|(payment, _)| payment.position);
+    if let Some(expired) = expired_position {
+        let payment = &records
+            .iter()
+            .find(|(payment, _)| payment.position == expired)
+            .unwrap()
+            .0;
+        let account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+        assert_eq!(hex(&payment.from), account);
+        assert_eq!(
+            payment.spender.map(|value| hex(&value)),
+            Some(AccountIdentifier::new(&spender, &DEFAULT_SUBACCOUNT).to_hex())
+        );
+        let rows = match final_world.authorization.as_ref() {
+            Some(b2z_native::delegation_v20::AuthorizationState::Rows(rows)) => rows,
+            _ => panic!("recovery authorization rows required"),
+        };
+        let grant = rows
+            .grants
+            .iter()
+            .find(|row| row.account == account)
+            .unwrap();
+        assert!(grant.expires_at_ns <= Int(payment.ledger_time_ns.into()));
+    }
     let inputs = records
         .into_iter()
         .filter(|(payment, _)| payment.position <= last_old_position)
@@ -2223,7 +2448,9 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         })
         .collect::<Vec<_>>();
     let mut expected_positions = first_valid_position.into_iter().collect::<Vec<_>>();
-    expected_positions.extend([position, later_position]);
+    expected_positions.push(position);
+    expected_positions.extend(expired_position);
+    expected_positions.push(later_position);
     expected_positions.extend(extra_positions.iter().copied());
     assert_eq!(
         inputs
@@ -2363,7 +2590,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         status(&pic, id).source.last_error,
         status(&pic, id).run.last_error
     );
-    if cross_utc {
+    if cross_utc || expired_delegate {
         let mut prepared = false;
         let mut last_error = String::new();
         for _ in 0..180 {
@@ -2406,9 +2633,45 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             prepared,
             "Rules20 preparation after UTC recovery remained blocked: {last_error}; lifecycle={transition_view}"
         );
-        eprintln!("Rules20 preparation accepted after UTC recovery");
+        eprintln!("Rules20 preparation accepted after Rules19 recovery");
     } else {
         playability_installed::prepare(&pic, id, "prepare_rules20_transition");
+    }
+    let mut successor_ordinal = old_final_ordinal + 1;
+    if expired_delegate {
+        // Seven days of elapsed time can make an existing Cannon's dormant
+        // lifecycle checkpoint due. Preserve and independently verify each
+        // authentic no-input checkpoint before the ordinary successor epoch.
+        let prior_segment = before_successor_pub
+            .head
+            .segment_id
+            .as_ref()
+            .unwrap()
+            .0
+            .to_string()
+            .parse::<u64>()
+            .unwrap();
+        let current_pub = observe(&pic, id).1;
+        let current_segment = current_pub
+            .head
+            .segment_id
+            .as_ref()
+            .unwrap()
+            .0
+            .to_string()
+            .parse::<u64>()
+            .unwrap();
+        assert!(current_segment >= prior_segment && current_segment - prior_segment <= 16);
+        for segment in prior_segment + 1..=current_segment {
+            let ordinal = old_final_ordinal + segment - prior_segment;
+            let checkpoint = capture_retained(&pic, id, &out, segment, ordinal);
+            assert!(
+                checkpoint.head.seal.is_none(),
+                "overdue lifecycle checkpoint"
+            );
+        }
+        successor_ordinal += current_segment - prior_segment;
+        before_successor_pub = current_pub;
     }
     let mut ready = false;
     for _ in 0..180 {
@@ -2436,7 +2699,6 @@ fn run_rules19_digit_leading_grant_wire_boundary(
     let successor = arena_world(&pic, id);
     assert_eq!(successor.version, 12);
     assert_eq!(successor.received_e8s, final_world.received_e8s);
-    let successor_ordinal = old_final_ordinal + 1;
     let (_, successor_pub) = capture(&pic, id, &out, successor_ordinal);
     assert_eq!(successor_pub.version, 8);
     playability_installed::configuration(&pic, id, 512);
@@ -2544,6 +2806,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(
             "preparation_utc_day":preparation_utc_day,"commit_utc_day":commit_utc_day,
             "cross_utc":cross_utc,"resource_protection_checked":protect,
             "reserved_stage":reserved_stage,"partial_stage":partial_stage,
+            "expired_delegate":expired_delegate,"expired_payment_position":expired_position,
             "resource_protection_probe_sha256":protect.then(|| dtr_wire::hash(&bytes("B2Z_RULES20_PROTECTION_PROBE_WASM"))),
             "recovery_manifest":recovered_publication.head.manifest_hash,
             "pending_count":pending_count,"grant_position":position,

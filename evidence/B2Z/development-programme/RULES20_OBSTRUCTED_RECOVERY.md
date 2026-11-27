@@ -305,3 +305,49 @@ The final fixture uses a valid Fire command. This closes the demonstrated
 application-level reserved and partially executed stage recovery shapes.
 Expiry and remaining adversarial tamper/arrival combinations remain release
 gates.
+
+## Expired delegated input and overdue lifecycle, 27 November
+
+A further genuine disposable fixture used the exact installed Rules19 Wasm to
+admit a digit-leading grant at Ledger position 3. After publication stopped,
+the fixture made an official ICRC-2 approval and delegated transfer at position
+5, with immutable Ledger block time more than seven days after the grant. An
+unrelated valid payment followed at position 6. The official Index admitted
+all three in their sparse Ledger order; source cursor 7, three durable pending
+inputs, and the original committed publication remained unchanged.
+
+The seven-day clock advance also made lifecycle work overdue. The first
+recovery attempts (`expiry-1` and `expiry-3`) correctly refused preparation:
+the source was settled, but the lifecycle timer had recorded the exact error
+`lifecycle waits for halted game work: reserved/noncanonical key`. An
+intermediate `expiry-2` attempt failed to compile a diagnostic and is not a
+runtime result. `expiry-4` established that this particular fixture had no
+persisted lifecycle barrier, only that identified wait error. The narrow
+recovery preparation now admits this exact error only for the already
+identified, stopped Rules19 publication failure. Other lifecycle errors,
+ordinary transitions and source-safety checks remain fail closed. If a finite
+overdue lifecycle barrier is present, recovery also requires it to be ready,
+uses the already admitted cursor as its cutoff, and binds the barrier into
+the authenticated recovery context. That separate barrier-present shape
+still requires an installed positive test.
+
+The corrected capped-Trickle executable SHA-256
+`1d6f231ef8f1a07d94d7eba1b0cec04964dde22611a10dab3ef01edefae473b0`
+passed the installed `rules19_expired_delegation_recovery` case in 153.16 s
+under `.work/rules19-recovery/expiry-5/`. The recovered Rules19 receipt for
+position 5 was `UNAUTHORIZED_SPENDER`, with the original 100,000,000 e8s
+received but no purchased game action. Its grant expiry was no later than
+that transfer's official block time. The unrelated position-6 payment
+applied under Rules19 policy. Received value was 108,100,000 e8s at the old
+committed head, 308,100,000 e8s after the old prefix retired, and
+608,100,000 e8s after a separate valid Rules20 Fire payment at position 7.
+Recovery kept the old publication bytes and moved the source cursor forward
+to 8. Independent JavaScript replay matched every captured public state,
+event and score byte of the recovered segment and successor paid segment.
+The exact source has not completed the full hosted release matrix.
+The same corrected executable also passed the original two-input obstruction
+again under `.work/rules19-recovery/expiry-base-regression-1/` and the
+six-input UTC-crossing prepared-restart case under
+`.work/rules19-recovery/expiry-utc-regression-1/`. Those runs keep the
+ordinary recovery and previously qualified interruption path distinct from
+the new expired-delegation proof.

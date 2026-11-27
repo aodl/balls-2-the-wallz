@@ -18,6 +18,7 @@ CASES = (
     "rules19_recovery_resource_protection",
     "rules19_reserved_stage_recovery",
     "rules19_partial_stage_recovery",
+    "rules19_expired_delegation_recovery",
     "rules20_paid_epoch_and_recovery",
     "rules20_paid_construction_over_existing_balls",
     "rules20_paid_passage_restart",

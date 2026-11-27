@@ -2410,7 +2410,19 @@ fn begin_reconciliation() -> AppResult<Option<(Lease, Root)>> {
     }
     r.source.wake_scheduled = false;
     if let Some(barrier) = &r.lifecycle_barrier {
-        if !barrier.permits_scan(&r.source)? {
+        // An obstructed Rules19 journal may acquire an overdue lifecycle
+        // barrier while its input prefix is halted. The exceptional recovery
+        // may measure the already-admitted cutoff and reconcile only through
+        // that cutoff; later source records remain behind the barrier.
+        let recovery_reconcile = r.rules19_recovery.as_ref().is_some_and(|t| {
+            t.version == 17
+                && ["index", "recover"].contains(&t.phase.as_str())
+                && t.ledger_cutover
+                    .as_ref()
+                    .and_then(|end| number(end).ok())
+                    .is_some_and(|end| end <= r.source.cursor)
+        });
+        if !barrier.permits_scan(&r.source)? && !recovery_reconcile {
             r.source.requested = true;
             save_root_only(&r)?;
             return Ok(None);
@@ -4180,9 +4192,16 @@ fn prepare_rules19_recovery() -> std::result::Result<Vec<u8>, String> {
     if let Some(t) = &r.rules19_recovery {
         return encode(t);
     }
+    let identified_lifecycle_error = r.lifecycle_error.as_deref()
+        == Some("lifecycle waits for halted game work: reserved/noncanonical key");
+    let lifecycle_wait = r.lifecycle_error.is_none() || identified_lifecycle_error;
+    let lifecycle_barrier_ready = r
+        .lifecycle_barrier
+        .as_ref()
+        .is_none_or(|barrier| barrier.ready(&r.source).unwrap_or(false));
     if active_transition(&r)?.is_some()
-        || r.lifecycle_barrier.is_some()
-        || r.lifecycle_error.is_some()
+        || !lifecycle_wait
+        || !lifecycle_barrier_ready
         || !r.source.binding_checked
         || r.source.in_flight
         || r.source.last_error.is_some()
@@ -4212,7 +4231,16 @@ fn prepare_rules19_recovery() -> std::result::Result<Vec<u8>, String> {
     if World::decode(&unhex(&h.record.journal.head.state_hex)?)?.version != 11 {
         return Err("Rules19 recovery schema".into());
     }
-    r.rules19_recovery = Some(transition::Transition::rules19_recovery());
+    let mut recovery = transition::Transition::rules19_recovery();
+    if r.lifecycle_barrier.is_some() {
+        // The barrier already fixed an authenticated finite Index window.
+        // The admitted cursor is complete through that window, so it is the
+        // oldest safe recovery cutoff. Verify the Index watermark next;
+        // measuring a fresh Ledger tip here could overrun the barrier.
+        recovery.ledger_cutover = Some(Int(r.source.cursor.into()));
+        recovery.phase = "index".into();
+    }
+    r.rules19_recovery = Some(recovery);
     save_root_only(&r)?;
     request_reconciliation()?;
     encode(&r.rules19_recovery)
@@ -4265,8 +4293,12 @@ fn commit_rules19_recovery(
     {
         return Err("Rules19 recovery boundary changed".into());
     }
-    let (out, metadata, identity) =
-        playability_runtime::rules19_recovery_candidate(&h, t, &r.source)?;
+    let (out, metadata, identity) = playability_runtime::rules19_recovery_candidate(
+        &h,
+        t,
+        &r.source,
+        r.lifecycle_barrier.as_ref(),
+    )?;
     let epoch = h.prepare_recovery(identity, &out, hash(&metadata))?;
     h.apply(Action::Transition {
         epoch: Box::new(epoch.clone()),

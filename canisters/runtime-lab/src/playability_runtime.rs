@@ -696,6 +696,7 @@ pub fn rules19_recovery_candidate<K: Kernel>(
     h: &Coordinator<K>,
     t: &Transition,
     source: &SourceState,
+    lifecycle_barrier: Option<&Barrier>,
 ) -> Result<(Output, Vec<u8>, Identity)> {
     t.validate()?;
     h.validate()?;
@@ -754,6 +755,7 @@ pub fn rules19_recovery_candidate<K: Kernel>(
         "pending_root":dtr_host::input_root(&h.record.inbox.pending,
             super::number(&h.record.inbox.retired_to)?,super::number(&h.record.inbox.cursor)?)?,
         "ledger_cutover":t.ledger_cutover,"index_synced":t.index_synced,
+        "lifecycle_barrier":lifecycle_barrier,
         "source":{"network":source.network,"ledger":source.ledger,"index":source.index,
             "receiving_subaccount":source.receiving_subaccount,"recipient":source.recipient_hex,
             "event_horizon":source.event_horizon,"memo_adapter_version":source.memo_adapter_version}

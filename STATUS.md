@@ -1,6 +1,6 @@
 # B2Z current status
 
-Operational observation **2026-11-27 16:54:00 UTC**. The maintained
+Latest settled operational observation **2026-11-27 18:30:28 UTC**. The maintained
 [master](https://github.com/aodl/balls-2-the-wallz/commits/master/) verifier source
 [`ae734acdc431adf69978ab41be07a8222139c69d`](https://github.com/aodl/balls-2-the-wallz/commit/ae734acdc431adf69978ab41be07a8222139c69d)
 passed the [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45923880788),
@@ -16,27 +16,29 @@ qualification. The paid backend runs Rules19 / Schema11 / Adapter12
 
 ## Operating position
 
-- Authenticated head **19,303**, logical time **19,286** and source cursor
+- Authenticated head **19,322**, logical time **19,305** and source cursor
   **40,647,923**. The world contained two Cannons under one funding account,
   two Balls, one Diverter and four Reservoir tiles.
 - Gameplay and admission were active at **0.01 ticks/s** with one tick per
   checkpoint. The official Index was bound, with zero pending records and
   no signed source error. Event Horizon was disabled in the installed
   configuration.
-- Settled backend total was **2.364T**, liquid **2.306T** and estimated
-  freezing reserve **0.058T**. Frontend total was **0.772T**, with a
+- Settled backend total was **2.351T**, liquid **2.293T** and estimated
+  freezing reserve **0.058T**. Frontend total was **0.771T**, with a
   **0.204T** estimated freezing reserve and **0.568T** above freezing.
-  Conservative frontend installation/recovery headroom was **0.1178T**.
+  Conservative frontend installation/recovery headroom was **0.1177T**.
 - Across comparable settled observations at 16:54 and 17:58 UTC,
   backend liquidity declined **25.820B cycles**, approximately **0.572T/day**.
-  At the observed workload
-  and without intervening credits, the conditional projection was
-  **9.88 hours** to the 2.07T default Full Speed cycle floor and **2.28 days**
-  to the 1T protection boundary. The
+  The 18:30 observation is less than an hour after the preceding settled
+  sample, so it does not establish a new rate. Applying the last established
+  rate conditionally to its liquid balance gives approximately **9.36 hours**
+  to the 2.07T default Full Speed cycle floor and **2.26 days** to the 1T
+  protection boundary, absent credits or a workload change. The
   balance floor is one of the owner's Full Speed eligibility checks; crossing
   it does not by itself stop ordinary Trickle operation.
   An earlier bracket rebounded by 83.7B cycles in 34 seconds. The projection
-  uses the repeated comparable observations.
+  uses the repeated comparable observations. Funding before any desired
+  future Full Speed window is an owner decision; no funding was performed.
 
 [Preflight, installation, browser and later observation](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json)
 
@@ -110,13 +112,23 @@ the original seal and stage hash, retired the old inputs in their original
 order and at Rules19 prices, then applied a later Rules20 payment. Every
 captured public output matched independent JavaScript replay. The controlled
 disposable test hook only sealed and stepped genuine admitted inputs; the
-exact installed module produced the failure. Expiry and additional tamper and
-arrival combinations remain release gates. The earlier source
+exact installed module produced the failure. A genuine ICRC-2 payment whose
+original Ledger block time followed the pending grant's seven-day expiry was
+retained through the same obstruction. The recovery receipt rejected its
+spender under Rules19 policy, preserved its received value, then applied an
+unrelated old-policy payment and a later Rules20 payment. This case exposed
+the overdue lifecycle timer's exact wait error; the exceptional recovery now
+admits that identified error without relaxing ordinary transitions. Exact
+independent replay passed. Additional tamper and arrival combinations remain
+release gates. The earlier source
 `95a439e3` passed [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043400),
 [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043269)
 and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043439)
-hosted jobs, including the named installed successor gates. The recovery branch
-is under fresh hosted qualification and is **not** a production
+hosted jobs, including the named installed successor gates. Published
+predecessor source `68430e67` also passed all three hosted workflows,
+including standard installed-IC qualification. The newer recovery and
+passage additions have not completed exact-source hosted runs. The recovery
+branch is **not** a production
 release candidate. Four local
 authenticated high-population payment cases passed. A subsequent genuine
 1,000-account Fire batch paid for the first two of three symbolic Ball

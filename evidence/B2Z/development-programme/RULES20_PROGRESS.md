@@ -264,3 +264,28 @@ payment. The receipt-checked cases passed in 158.73 and 159.59 seconds under
 Earlier failed fixture attempts remain recorded in the recovery report.
 Application-level reserved and partially executed stage preservation is now
 qualified for these shapes; expiry and additional tamper/arrival cases remain.
+
+An installed expired-delegation recovery case now passes with genuine
+ICRC-2 approval and transfer-from records. The exact Rules19 executable
+admitted the digit-leading grant, then stalled with that delegated payment
+and an unrelated valid payment pending. The delegated transfer's immutable
+Ledger time followed the grant's seven-day expiry; recovery rejected its
+spender under Rules19 policy, retained the 1 ICP received amount, applied
+the unrelated old-policy payment, and then applied a later Rules20 Fire.
+Independent JavaScript replay matched the recovered and successor public
+state, events and scores. The long clock advance exposed a lifecycle timer
+wait error tied exactly to the stopped publication; exceptional recovery now
+allows that identified error without relaxing ordinary epoch gates. The
+positive 153.16-second run is `.work/rules19-recovery/expiry-5/`, using
+candidate SHA-256 `1d6f231ef8f1a07d94d7eba1b0cec04964dde22611a10dab3ef01edefae473b0`.
+The barrier-present lifecycle shape and further adversarial combinations
+remain open. See the chronological recovery report for failed fixture scope.
+
+Published predecessor source `68430e6750f23e36487eae2f6ce07ae693d99456`
+completed all three hosted workflows: standard
+[`46040740873`](https://github.com/aodl/balls-2-the-wallz/actions/runs/46040740873),
+financial [`46040740752`](https://github.com/aodl/balls-2-the-wallz/actions/runs/46040740752),
+and developer/prelaunch
+[`46040741460`](https://github.com/aodl/balls-2-the-wallz/actions/runs/46040741460).
+Those runs precede the new passage-restart, reserved-stage and expiry changes;
+they are not their exact-source release qualification.
