@@ -192,11 +192,17 @@ pub(crate) fn balance_probe(phase: &str, source_in_flight: bool, callback: bool)
     );
 }
 
-/// Probe a replica-observed balance while the probe's own callback is pending.
-#[cfg(all(feature = "certified-operational-burn", feature = "test-hooks"))]
-pub(crate) async fn probe_management() {
+// Bind samples to one replicated management operation from the same timer.
+#[cfg(feature = "certified-operational-burn")]
+thread_local! {
+    static LAST_ATTEMPT_NS: std::cell::Cell<u64> = const { std::cell::Cell::new(0) };
+}
+
+#[cfg(feature = "certified-operational-burn")]
+pub(crate) async fn sample() {
     use candid::{CandidType, Nat, Principal};
     use serde::Deserialize;
+
     #[derive(CandidType)]
     struct Target {
         canister_id: Principal,
@@ -204,79 +210,41 @@ pub(crate) async fn probe_management() {
     #[derive(CandidType, Deserialize)]
     struct Balance {
         cycles: Nat,
-        reserved_cycles: Nat,
     }
     let now = ic_cdk::api::time();
-    let previous = MANAGEMENT_PROBE_NS.with(|at| at.get());
-    if now.saturating_sub(previous) < SAMPLE_NS {
+    if LAST_ATTEMPT_NS.with(|at| now.saturating_sub(at.get()) < SAMPLE_NS)
+        || ic_cdk::api::canister_liquid_cycle_balance() < super::pace::INDEX_FLOOR
+    {
         return;
     }
-    MANAGEMENT_PROBE_NS.with(|at| at.set(now));
-    let before = ic_cdk::api::canister_cycle_balance();
-    let status =
+    let Some(credits) = settled_credits() else {
+        return;
+    };
+    LAST_ATTEMPT_NS.with(|at| at.set(now));
+    let Ok(response) =
         ic_cdk::call::Call::bounded_wait(Principal::management_canister(), "canister_status")
             .change_timeout(10)
             .with_arg(Target {
                 canister_id: ic_cdk::api::canister_self(),
             })
-            .await;
-    let after = ic_cdk::api::canister_cycle_balance();
-    match status
-        .map_err(|error| error.to_string())
-        .and_then(|response| response.candid::<Balance>().map_err(|error| error.to_string()))
-    {
-        Ok(balance) => ic_cdk::println!(
-            "b2z-burn-management now={now} reply={} before={before} observed={} reserved={} after={after}",
-            ic_cdk::api::time(), balance.cycles, balance.reserved_cycles
-        ),
-        Err(error) => ic_cdk::println!("b2z-burn-management now={now} unavailable={error}"),
-    }
-}
-
-#[cfg(all(feature = "certified-operational-burn", feature = "test-hooks"))]
-thread_local! {
-    static MANAGEMENT_PROBE_NS: std::cell::Cell<u64> = const { std::cell::Cell::new(0) };
-}
-
-#[cfg(feature = "certified-operational-burn")]
-pub(crate) fn sample(root: Option<&super::Root>) {
-    let now = ic_cdk::api::time();
-    let too_soon = METER.with(|meter| {
-        meter
-            .borrow()
-            .samples
-            .back()
-            .is_some_and(|last| now >= last.time_ns && now - last.time_ns < SAMPLE_NS)
-    });
-    if too_soon {
-        return;
-    }
-    let loaded;
-    let root = match root {
-        Some(root) => root,
-        None => {
-            let Ok(root) = super::root() else { return };
-            loaded = root;
-            &loaded
-        }
-    };
-    let Ok(funding) = super::funding::read() else {
+            .await
+    else {
         return;
     };
-    let Ok(credits) = funding.total_cycles_reported.parse::<u128>() else {
+    let Ok(balance) = response.candid::<Balance>() else {
         return;
     };
-    // Skip work with outstanding Index or treasury calls. Durable funding
-    // uncertainty also invalidates a comparison across credits.
-    if root.source.in_flight
-        || super::funding::busy()
-        || funding.phase != super::funding::Phase::Idle
-    {
+    let Ok(total) = u128::try_from(balance.cycles.0) else {
+        return;
+    };
+    if settled_credits() != Some(credits) {
         return;
     }
+    let Ok(root) = super::root() else {
+        return;
+    };
     #[cfg(feature = "test-hooks")]
-    balance_probe("meter", root.source.in_flight, false);
-    let total = ic_cdk::api::canister_cycle_balance();
+    ic_cdk::println!("b2z-burn-sample now={now} observed={total} reported_credits={credits}");
     let changed = METER.with(|meter| {
         let mut meter = meter.borrow_mut();
         let before = meter.record();
@@ -290,6 +258,15 @@ pub(crate) fn sample(root: Option<&super::Root>) {
         STORED.with(|slot| slot.borrow_mut().set(record));
         super::set_observation_root(&publication);
     }
+}
+
+#[cfg(feature = "certified-operational-burn")]
+fn settled_credits() -> Option<u128> {
+    let funding = super::funding::read().ok()?;
+    if super::funding::busy() || funding.phase != super::funding::Phase::Idle {
+        return None;
+    }
+    funding.total_cycles_reported.parse().ok()
 }
 
 #[cfg(test)]

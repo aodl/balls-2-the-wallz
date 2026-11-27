@@ -1358,10 +1358,8 @@ fn install_source_timer() {
         {
             // This fallback also fires during Trickle, pause and protection.
             // Sample before the Index call reserves temporary cycles.
-            operational_burn::sample(None);
+            ic_cdk::futures::spawn(operational_burn::sample());
         }
-        #[cfg(all(feature = "certified-operational-burn", feature = "test-hooks"))]
-        ic_cdk::futures::spawn(operational_burn::probe_management());
         let _ = request_reconciliation();
     });
     SOURCE_TIMER.with(|slot| *slot.borrow_mut() = Some(timer));
@@ -1416,8 +1414,6 @@ fn sample_health() {
         .ok()
         .and_then(|s| s.total_cycles_reported.parse::<u128>().ok())
         .unwrap_or(0);
-    #[cfg(feature = "certified-operational-burn")]
-    operational_burn::sample(None);
     HEALTH.with(|h| {
         h.borrow_mut().sample(
             ic_cdk::api::time(),
@@ -2509,8 +2505,6 @@ fn finish_page(lease: &Lease, page: Option<source::History>) -> AppResult<()> {
         r.source = next;
         save_root_only(&r)?;
     }
-    #[cfg(feature = "certified-operational-burn")]
-    operational_burn::sample(Some(&r));
     if active_transition(&r)?.is_some_and(|t| t.phase == "drain") && r.source.pending.is_none() {
         active_transition_mut(&mut r)?
             .ok_or("missing active cutover")?
