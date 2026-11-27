@@ -21,6 +21,11 @@ with tempfile.TemporaryDirectory(dir=args.wasm.resolve().parent) as directory:
     predecessor = Path(directory) / "rules19.wasm"
     predecessor.write_bytes(decoded)
     expected = set(wasm_exports(predecessor))
+expected.update({
+    "canister_update prepare_rules20_transition",
+    "canister_update commit_rules20_transition",
+    "canister_query rules20_transition_status",
+})
 if args.profile != "public-launch":
     expected.update({
         "canister_update set_dev_simulation_speed",

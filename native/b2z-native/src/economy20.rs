@@ -223,7 +223,7 @@ pub fn quote_items(
     let slots = u32::MAX - world.next_ball_id;
     let mut prices = Vec::new();
     let (mut held, mut remaining) = match plan {
-        Plan::Rejected { reason } => return Err(reason.into()),
+        Plan::Rejected { reason } => return Err(reason),
         Plan::Fire { quantity, .. } => (
             player_balls(world, account) as u32,
             u32::from(quantity).min(slots),
