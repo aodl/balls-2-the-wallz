@@ -451,3 +451,33 @@ case also passed its complete installed payment and independent replay under
 cases used the same exact installed Rules19 and recovery-capable successor
 executables. The new source still requires complete exact-source hosted
 qualification.
+
+The separate `rules20_paid_midbatch_overflow` installed case passed locally
+under `.work/rules19-recovery/midbatch-overflow-5/` in 199.34 seconds. It
+installed the exact Rules19 module and the same Rules20 recovery-capable
+candidate, then selected an authenticated historical **1,037-account**
+exponential tariff while the disposable live population had fallen to one.
+An existing player owned two Balls. The genuine position-3 Ledger/Index Fire
+payment requested two more at **12,369,505,812,480,000,000 e8s**. The first
+price was representable; the next personal-inventory price exceeded the
+Ledger bound. The receipt was `partially_applied`, used exactly the first
+price and fulfilled one of two Balls. The maintained frontend quoted the
+single representable item exactly and rejected the full two-item quote as
+`PRICE_OVERFLOW`; independent JavaScript replay matched all state, event and
+score bytes. A preceding genuine Cannon payment independently recorded a
+first-item `PRICE_OVERFLOW` rejection. The 13,000,000,000,000,000,000 e8s
+payer balance was confined to the valueless disposable Ledger fixture.
+Earlier `midbatch-overflow-{1,2,3,4}` attempts retain missing-path,
+unowned-payer, explicit-site and pre-existing Ball-count fixture failures.
+They are not positive payment results. This new named release case still
+requires exact-source hosted execution.
+
+The full local `tools/check.py source` suite passed under
+`.work/rules19-recovery/midbatch-source-1/` after the new installed case.
+The telemetry branch's hosted standard failure then exposed a historical
+entry-browser timing race: its visible Copy button can briefly precede the
+separate latest-head payment handoff fence. Rules20 carries the same narrow
+acceptance correction, which waits for the actual handoff predicate and
+retries only a click that made no native clipboard attempt. Python syntax
+and diff checks passed after that carry; exact-source hosted standard and
+developer qualification remain required.

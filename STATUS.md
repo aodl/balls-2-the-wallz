@@ -149,6 +149,9 @@ At the authenticated 1,000-account tariff, a further genuine payment bought
 the same account's second Cannon for 40 ICP. The target-filtered source
 omitted an unrelated preceding Ledger transfer, and the exact receipt,
 frontend quote, wallet memo and independent public replay agreed.
+An installed 1,037-account case fulfilled exactly one Ball from a two-item
+Fire request before the next symbolic price exceeded the Ledger bound; the
+receipt, frontend prefix quote and independent public replay matched.
 An installed paid Cannon/Diverter case kept two first-passage exceptions
 active through a same-ID restart and subsequent tick. Both pre-existing Balls
 kept their exact cells and headings; independent replay matched the public

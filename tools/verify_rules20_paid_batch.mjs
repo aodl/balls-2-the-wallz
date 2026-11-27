@@ -11,6 +11,7 @@ import {prepareDerivedSegment} from '../apps/b2z-observer/model.mjs';
 
 const directory=process.argv[2];
 if(!directory)throw Error('usage: node tools/verify_rules20_paid_batch.mjs <capture-directory>');
+const overflow=process.argv[3]==='overflow';
 const read=(n,kind)=>readFileSync(join(directory,`${n}-${kind}.bin`));
 const prior=decodeCanonical(read(3,'publication'));
 const current=decodeCanonical(read(4,'publication'));
@@ -24,13 +25,18 @@ const eventLog=decodeCanonical(events);
 const receipt=eventLog.receipts.find(row=>row.position===inputs[0].position);
 assert.ok(receipt,'batch receipt');
 assert.equal(receipt.status,'partially_applied');
-assert.equal(receipt.actual_quantity,2);
-assert.equal(receipt.requested_quantity,3);
+assert.equal(receipt.actual_quantity,overflow?1:2);
+assert.equal(receipt.requested_quantity,overflow?2:3);
 const quote=quoteV6(decodeCanonical(start),RULES20_CONFIG,receipt.account,
- {kind:'fire',cannon:receipt.cannon,angle:'0',quantity:3,priced_at_ns:receipt.ledger_recorded_ns});
-assert.deepEqual(quote.per_item.slice(0,2),receipt.per_item_prices,'frontend prefix prices equal receipt');
-assert.equal(quote.per_item[0]+quote.per_item[1],receipt.amount_used,'frontend prefix total equals receipt');
-assert.ok(quote.per_item[2]>receipt.remainder,'third item unaffordable');
+ {kind:'fire',cannon:receipt.cannon,angle:'0',quantity:overflow?1:3,priced_at_ns:receipt.ledger_recorded_ns});
+assert.deepEqual(quote.per_item.slice(0,receipt.actual_quantity),receipt.per_item_prices,'frontend prefix prices equal receipt');
+assert.equal(receipt.per_item_prices.reduce((a,b)=>a+b,0n),receipt.amount_used,'frontend prefix total equals receipt');
+if(overflow){
+ assert.throws(()=>quoteV6(decodeCanonical(start),RULES20_CONFIG,receipt.account,
+  {kind:'fire',cannon:receipt.cannon,angle:'0',quantity:2,priced_at_ns:receipt.ledger_recorded_ns}),/PRICE_OVERFLOW/,
+  'frontend rejects an unrepresentable second item');
+ assert.equal(receipt.remainder,0n);
+}else assert.ok(quote.per_item[2]>receipt.remainder,'third item unaffordable');
 const observed=eventLog.events.at(-1)?.observed_ns;
 assert.equal(typeof observed,'bigint','authenticated elapsed observation');
 const cursor=B2zKernel.begin(start,inputs,current.head.seal);
@@ -42,5 +48,6 @@ for(const kind of ['state','events','scores'])
 writeFileSync(join(directory,'independent-paid-batch.json'),JSON.stringify({status:'PASS',
  segment:current.head.segment_id.toString(),source_from:current.head.seal.source_from.toString(),
  source_to_exclusive:current.head.seal.source_to_exclusive.toString(),inputs:inputs.length,
- actual_quantity:receipt.actual_quantity,requested_quantity:receipt.requested_quantity},null,2)+'\n');
+ actual_quantity:receipt.actual_quantity,requested_quantity:receipt.requested_quantity,
+ overflow_boundary:overflow},null,2)+'\n');
 console.log('PASS independent Rules20 partial batch');

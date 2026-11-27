@@ -26,6 +26,7 @@ CASES = (
     "rules20_paid_threshold_population",
     "rules20_paid_symbolic_population",
     "rules20_paid_diverter_inventory",
+    "rules20_paid_midbatch_overflow",
     "rules20_paid_second_doubling_population",
     "rules20_paid_unrepresentable_population",
     "rules20_paid_first_exponential_grace",
