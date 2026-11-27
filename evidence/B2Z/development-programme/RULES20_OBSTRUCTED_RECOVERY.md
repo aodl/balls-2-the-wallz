@@ -135,6 +135,66 @@ consecutive public state, event and score bytes through both transitions and
 the successor payment. The executed result and raw captures are under
 `.work/rules19-recovery/multi-installed-1/`.
 
-This strengthens the ordered-prefix and historical-tariff result. Revokes,
-expiry, a reserved old stage, resource protection and a recovery cutoff
+This strengthens the ordered-prefix and historical-tariff result. Expiry,
+a reserved old stage, resource protection and a recovery cutoff
 crossing UTC remain separate acceptance cases.
+
+An additional installed case retained six inputs: the same two digit-leading
+grants, an unrelated 1 ICP purchase, a grant followed by a revoke from a
+second funding account, and a 2 ICP purchase from a third account. The old
+module stayed obstructed with all six inputs pending. The recovery checkpoint
+bound six inputs and the first resumed seal retired them in Ledger order,
+from source interval 0–9. Each received one receipt. The revoked account's
+grant was absent from the final authorization rows; the later digit-leading
+grant remained. Both purchases used the original Rules19 multiplier and
+1,000,000 e8s first-Cannon price. Received value reached 408,100,000 e8s
+after recovery and 708,100,000 e8s after an independent post-cutoff payment.
+JavaScript replay matched complete public state, event and score bytes through
+the ordinary Rules20 activation. Raw results are under
+`.work/rules19-recovery/revoke-installed-1/`.
+
+Expiry, the reserved-stage application boundary and resource protection
+remain open. Two UTC-crossing attempts published the six-input recovery
+segment but could not prepare Rules20 after restart. The second attempt
+established that signed source reconciliation had settled. A third diagnostic
+run captured `lifecycle_barrier: null` and a durable lifecycle error,
+`lifecycle waits for halted game work: reserved/noncanonical key`. The timer
+had recorded the predecessor's publication failure during the midnight
+crossing and retained it after the original work was repaired. Raw failures
+are under `.work/rules19-recovery/utc-installed-{1,2,3}/`. A narrowly scoped
+change clears only this exact predecessor error after the recovery-finish
+checks prove the entire old prefix has retired; it rearms lifecycle maintenance.
+The failed attempts remain failed evidence.
+
+The next installed run on executable
+`a40589a203c86ab2d66ec60fc28fa140f074394e977d4815297b416729e36c9a`
+passed recovery finish, Rules20 preparation and the ordinary successor drain.
+Its final independent browser-model replay failed at the recovered segment:
+the authenticated daily `economy_snapshot` was emitted at the final logical
+time immediately before `lifecycle_time`, while the observer admitted only
+the latter at that endpoint. The event stream itself matched native and
+JavaScript kernel outputs. The observer now admits precisely that terminal
+pair and rejects other final-time events. Replay of the retained genuine
+installed capture matches the complete public state, event and score bytes
+for the six-input Rules19 segment and post-cutoff Rules20 payment. A focused
+economy regression passed. The prior run at
+`.work/rules19-recovery/utc-installed-5/` remains a failure.
+
+The complete fresh installed rerun **passed** under
+`.work/rules19-recovery/utc-installed-6/`. Recovery preparation occurred on
+UTC day 20781 and commitment on day 20782. The exact old committed manifest
+`03c02cf44ad0c2dc7b1d923d38da7c3a024cf1523493bc1f877753bedddc44da`
+remained unchanged. The authenticated recovery checkpoint committed manifest
+`4bbc0718bc440e16fd882093b40026ec0341469e102e4e7237ad5e3005f69fe7`.
+Its first resumed segment retired the six retained inputs from source interval
+0–9, under Rules19 command and tariff semantics. The subsequent ordinary
+Rules20 path accounted for a separate payment at position 9, advancing the source
+interval to 10. Received value was 408,100,000 e8s after old-prefix
+recovery and 708,100,000 e8s after the later payment. The installed case
+included same-ID restart, exact predecessor rejection after recovery, and
+independent JavaScript replay of all state, event and score bytes through
+both checkpoints and both paid segments. The corrected executable SHA-256 is
+`a40589a203c86ab2d66ec60fc28fa140f074394e977d4815297b416729e36c9a`.
+This closes the specific UTC-crossing case; expiry, the reserved-stage
+application boundary, source arrivals during recovery and resource protection
+remain separate gates.

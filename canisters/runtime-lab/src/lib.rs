@@ -4317,8 +4317,18 @@ fn finish_rules19_recovery() -> std::result::Result<Vec<u8>, String> {
     {
         return Err("Rules19 recovery obligations remain".into());
     }
+    // A lifecycle timer can record the predecessor's publication failure
+    // while the sealed old prefix is still blocked. Once every original
+    // obligation has retired, that specific error no longer describes the
+    // committed world. Keep all unrelated lifecycle errors fail closed.
+    if r.lifecycle_error.as_deref()
+        == Some("lifecycle waits for halted game work: reserved/noncanonical key")
+    {
+        r.lifecycle_error = None;
+    }
     r.rules19_recovery.as_mut().unwrap().phase = "fenced".into();
     save_root_only(&r)?;
+    playability_runtime::install(&r)?;
     encode(&r.rules19_recovery)
 }
 fn prepare_structure_transition(target: StructureEpoch) -> AppResult<Vec<u8>> {

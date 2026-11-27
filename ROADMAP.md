@@ -52,14 +52,18 @@ its three hosted workflows,
 including explicit installed successor gates. The draft qualifies the
 healthy predecessor, real paid Cannon and Diverter admission, a continuous
 toroidal return, four authenticated high-population tariff payments, and
-additional exact seam and equal-time contact cases. Complete the broader
+additional exact seam and equal-time contact cases. A six-input obstructed
+Rules19 recovery now passes across UTC midnight, same-ID restart and
+independent public replay. Complete the broader
 obstructed recovery matrix, installed passage lifecycle, remaining corner matrix and
 authenticated inventory, batch, grace-window and interrupted-purchase
 matrix before freezing a release. The successor frontend has a dedicated
 configuration and inventory.
 
 Certified burn has a promising replicated self-status sampling point.
-Confirm reservation behavior across concurrent activity and protection,
+Two shifted Index phases and a stopped-then-restarted Index passed the
+predeclared 5% settled-balance comparison. Confirm live reservation behavior
+across concurrent activity and protection,
 known treasury credits, external top-up semantics, live observer/agent
 acceptance and measured incremental overhead. The capability remains
 disabled and is independent of the authorization repair.

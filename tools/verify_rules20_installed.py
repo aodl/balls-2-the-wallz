@@ -13,6 +13,8 @@ COMPACT = "b258ec234b9abd7db9e7b170c14e432b4d1ef2d9b2545632bddb58668a6095de"
 CASES = (
     "rules19_digit_leading_grant_wire_boundary",
     "rules19_multi_pending_recovery",
+    "rules19_grant_revoke_recovery",
+    "rules19_recovery_utc_boundary",
     "rules20_paid_epoch_and_recovery",
     "rules20_paid_construction_over_existing_balls",
     "rules20_paid_threshold_population",

@@ -195,6 +195,12 @@ export class B2zView {
 /** Integrity links + exact ordering + end-state visual conformance BEFORE buffer admission.
  * Endpoint equality is not a proof that intermediate game rules were executed correctly.
  */
+function terminalElapsedEvent(event,events,version,end){
+  if(version<6||cmp(event.time,end)!==0)return false;
+  const last=events.at(-1);
+  return event===last&&event.kind==='lifecycle_time'||
+    event===events.at(-2)&&event.kind==='economy_snapshot'&&last?.kind==='lifecycle_time';
+}
 export async function prepareSegment(initialBytes,finalBytes,renderBytes,publication){
   check(renderBytes instanceof Uint8Array&&renderBytes.length<=1048576,'animation bounds');
   check(await sha256Web(renderBytes)===publication.artifacts.find(a=>a.kind==='render')?.sha256,'animation artifact hash');
@@ -212,7 +218,7 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   const validateAnnotation=launchAnnotationValidator(p.receipts,publication.identity);
   const contextStructures=contextIdentity(publication.identity),model=new B2zView(initial,contextStructures);let prior=initial.time,seq=-1;
   for(const e of p.events){
-    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version>=6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'animation event order/range');
+    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||terminalElapsedEvent(e,p.events,initial.version,final.time)),'animation event order/range');
     seq=e.sequence;prior=e.time;validateAnnotation(e);model.apply(e);if(e.action_annotation)verifyShoutTarget(model,e.action_annotation);
   }
   model.matches(final);
@@ -242,7 +248,7 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
   const validateAnnotation=launchAnnotationValidator(p.receipts,publication.identity);
   const contextStructures=contextIdentity(publication.identity),model=new B2zView(initial,contextStructures);let prior=initial.time,seq=-1;
   for(const e of p.events){
-    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version>=6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'derived animation event order/range');
+    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||terminalElapsedEvent(e,p.events,initial.version,final.time)),'derived animation event order/range');
     seq=e.sequence;prior=e.time;validateAnnotation(e);model.apply(e);if(e.action_annotation)verifyShoutTarget(model,e.action_annotation);
   }
   model.matches(final);

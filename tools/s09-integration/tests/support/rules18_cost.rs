@@ -1512,16 +1512,34 @@ fn signed_rules19_construction_presentation() {
 #[test]
 #[ignore = "isolated reproduction of the current authorization wire boundary"]
 fn rules19_digit_leading_grant_wire_boundary() {
-    run_rules19_digit_leading_grant_wire_boundary(false);
+    run_rules19_digit_leading_grant_wire_boundary(false, false, false);
 }
 
 #[test]
 #[ignore = "multiple real pending Rules19 inputs through authenticated recovery"]
 fn rules19_multi_pending_recovery() {
-    run_rules19_digit_leading_grant_wire_boundary(true);
+    run_rules19_digit_leading_grant_wire_boundary(true, false, false);
 }
 
-fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
+#[test]
+#[ignore = "ordered Rules19 grants, revoke and payments through installed recovery"]
+fn rules19_grant_revoke_recovery() {
+    run_rules19_digit_leading_grant_wire_boundary(true, true, false);
+}
+
+#[test]
+#[ignore = "Rules19 recovery preparation and commit across UTC tariff midnight"]
+fn rules19_recovery_utc_boundary() {
+    run_rules19_digit_leading_grant_wire_boundary(true, true, true);
+}
+
+fn run_rules19_digit_leading_grant_wire_boundary(
+    extra_pending: bool,
+    revoke_pending: bool,
+    cross_utc: bool,
+) {
+    assert!(!revoke_pending || extra_pending);
+    assert!(!cross_utc || revoke_pending);
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
     let payer = (0..=u8::MAX)
@@ -1600,6 +1618,21 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
         )
         .unwrap();
         extra_positions.push(transfer_text(&pic, ledger, payer, id, 0, &extra_grant));
+        if revoke_pending {
+            let other_spender = Principal::self_authenticating([79; 32]);
+            let other_grant = b2z_protocol::delegation::encode_authorization(
+                &b2z_protocol::delegation::AuthorizationMemo::Grant(
+                    other_spender.as_slice().to_vec(),
+                ),
+            )
+            .unwrap();
+            let other_revoke = b2z_protocol::delegation::encode_authorization(
+                &b2z_protocol::delegation::AuthorizationMemo::Revoke,
+            )
+            .unwrap();
+            extra_positions.push(transfer_text(&pic, ledger, other, id, 0, &other_grant));
+            extra_positions.push(transfer_text(&pic, ledger, other, id, 0, &other_revoke));
+        }
         extra_positions.push(transfer_text(
             &pic,
             ledger,
@@ -1609,6 +1642,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
             b"NEW 0 1",
         ));
     }
+    let pending_count = 2 + extra_positions.len() as u32;
     let last_old_position = extra_positions.last().copied().unwrap_or(later_position);
     for _ in 0..180 {
         advance(&pic, 1000);
@@ -1657,7 +1691,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
     assert_eq!(after_retry.run.last_error.as_deref(), Some(error));
     assert_eq!(after_upgrade.run.last_error.as_deref(), Some(error));
     assert_eq!(after_upgrade_retry.run.last_error.as_deref(), Some(error));
-    assert_eq!(pending.pending_inputs, if extra_pending { 4 } else { 2 });
+    assert_eq!(pending.pending_inputs, pending_count);
     assert_eq!(final_observation.publication, prior.publication);
 
     let candidate = bytes("B2Z_RULES20_CANDIDATE_WASM");
@@ -1699,10 +1733,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
     assert_eq!(observe(&pic, id).0.publication, prior.publication);
     let successor_pending: PendingWork =
         get_query(&pic, id, "controller_work", encode_args(()).unwrap());
-    assert_eq!(
-        successor_pending.pending_inputs,
-        if extra_pending { 4 } else { 2 }
-    );
+    assert_eq!(successor_pending.pending_inputs, pending_count);
 
     std::fs::write(
         out.join("digit-leading-grant.json"),
@@ -1753,6 +1784,32 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
         }
     }
     assert!(recovery_ready, "measured recovery Ledger/Index fence");
+    let day_ns = b2z_protocol::economy17::DAY_NS;
+    let preparation_utc_day = pic.get_time().as_nanos_since_unix_epoch() / day_ns;
+    if cross_utc {
+        let next_day = (preparation_utc_day + 1) * day_ns + 1_000_000_000;
+        pic.set_time(pocket_ic::Time::from(
+            std::time::UNIX_EPOCH + Duration::from_nanos(next_day),
+        ));
+        advance(&pic, 1000);
+        assert_eq!(
+            pic.get_time().as_nanos_since_unix_epoch() / day_ns,
+            preparation_utc_day + 1
+        );
+        let raw: Vec<u8> = get_query(
+            &pic,
+            id,
+            "rules19_recovery_status",
+            encode_args(()).unwrap(),
+        );
+        let view: serde_json::Value = decode(&raw).unwrap();
+        assert_eq!(
+            view["transition"]["phase"], "ready",
+            "prepared source obligations survive UTC midnight"
+        );
+        assert_eq!(observe(&pic, id).0.publication, prior.publication);
+    }
+    let commit_utc_day = pic.get_time().as_nanos_since_unix_epoch() / day_ns;
     let stale = pic
         .update_call(
             id,
@@ -1789,7 +1846,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
             .as_ref()
             .unwrap()
             .pending_count,
-        if extra_pending { 4 } else { 2 }
+        pending_count
     );
     assert_eq!(arena_world(&pic, id).received_e8s, prior_received);
     let old_segment = publication
@@ -1896,6 +1953,13 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
             hex(Principal::self_authenticating([78; 32]).as_slice()),
             "later Rules19 grant replaces the first without losing its input receipt"
         );
+        if revoke_pending {
+            let other_account = AccountIdentifier::new(&other, &DEFAULT_SUBACCOUNT).to_hex();
+            assert!(
+                rows.grants.iter().all(|row| row.account != other_account),
+                "Rules19 revoke removes only its funding account's grant"
+            );
+        }
     }
     assert_eq!(
         status(&pic, id).source.admitted_to_exclusive,
@@ -1915,26 +1979,28 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
     );
     let view: serde_json::Value = decode(&raw).unwrap();
     assert_eq!(view["transition"]["phase"], "fenced");
+    eprintln!("Rules19 recovery fenced with original inputs retired");
     let (before_successor, before_successor_pub) = capture(&pic, id, &out, 2);
     if extra_pending {
         let event_log: Value = decode(&std::fs::read(out.join("2-events.bin")).unwrap()).unwrap();
         let receipts = event_log["receipts"].as_array().unwrap();
         assert_eq!(
             receipts.len(),
-            4,
+            pending_count as usize,
             "every admitted Rules19 input has one receipt"
         );
-        for (row, expected_position) in receipts.iter().zip([
-            position,
-            later_position,
-            extra_positions[0],
-            extra_positions[1],
-        ]) {
+        let mut receipt_positions = vec![position, later_position];
+        receipt_positions.extend(extra_positions.iter().copied());
+        for (row, expected_position) in receipts.iter().zip(receipt_positions) {
             assert_eq!(row["position"]["$integer"], expected_position.to_string());
         }
         assert_eq!(receipts[0]["reason"], "DELEGATION_GRANTED");
         assert_eq!(receipts[2]["reason"], "DELEGATION_GRANTED");
-        for (row, paid) in [(1, 100_000_000u64), (3, 200_000_000u64)] {
+        if revoke_pending {
+            assert_eq!(receipts[3]["reason"], "DELEGATION_GRANTED");
+            assert_eq!(receipts[4]["reason"], "DELEGATION_REVOKED");
+        }
+        for (row, paid) in [(1, 100_000_000u64), (receipts.len() - 1, 200_000_000u64)] {
             assert_eq!(receipts[row]["status"], "applied");
             assert_eq!(receipts[row]["amount"]["$integer"], paid.to_string());
             assert_eq!(receipts[row]["price_multiplier"], 1);
@@ -1947,10 +2013,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
         "one recovered segment must retire the exact pending prefix"
     );
     let recovered_seal = before_successor_pub.head.seal.as_ref().unwrap();
-    assert_eq!(
-        recovered_seal.input_count,
-        if extra_pending { 4 } else { 2 }
-    );
+    assert_eq!(recovered_seal.input_count, pending_count);
     assert_eq!(
         recovered_seal.source_to_exclusive,
         Int((last_old_position + 1).into())
@@ -1962,7 +2025,14 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
     ]);
     if extra_pending {
         expected.insert(extra_positions[0], ("DELEGATION_GRANTED".into(), 0, None));
-        expected.insert(extra_positions[1], ("ACCEPTED".into(), 200_000_000, None));
+        if revoke_pending {
+            expected.insert(extra_positions[1], ("DELEGATION_GRANTED".into(), 0, None));
+            expected.insert(extra_positions[2], ("DELEGATION_REVOKED".into(), 0, None));
+        }
+        expected.insert(
+            *extra_positions.last().unwrap(),
+            ("ACCEPTED".into(), 200_000_000, None),
+        );
     }
     let mut records = super::delegation_installed::official_inputs(&pic, id, &expected);
     records.sort_by_key(|(payment, _)| payment.position);
@@ -2011,7 +2081,81 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
         observe(&pic, id).0.publication,
         before_successor.publication
     );
-    playability_installed::prepare(&pic, id, "prepare_rules20_transition");
+    let mut source_settled = false;
+    for _ in 0..180 {
+        let current = status(&pic, id);
+        let raw: Vec<u8> = get_query(
+            &pic,
+            id,
+            "rules19_recovery_status",
+            encode_args(()).unwrap(),
+        );
+        let view: serde_json::Value = decode(&raw).unwrap();
+        if !current.source.scan_in_flight
+            && current.source.pending_records == 0
+            && current.source.last_error.is_none()
+            && current.run.last_error.is_none()
+            && view["source_pending"] == false
+            && view["source_in_flight"] == false
+        {
+            source_settled = true;
+            break;
+        }
+        advance(&pic, 1000);
+    }
+    assert!(
+        source_settled,
+        "source reconciliation after recovery restart: source={:?} run={:?}",
+        status(&pic, id).source.last_error,
+        status(&pic, id).run.last_error
+    );
+    if cross_utc {
+        let mut prepared = false;
+        let mut last_error = String::new();
+        for _ in 0..180 {
+            let reply = pic
+                .update_call(
+                    id,
+                    controller(),
+                    "prepare_rules20_transition",
+                    encode_args(()).unwrap(),
+                )
+                .unwrap();
+            match decode_one::<Result<Vec<u8>, String>>(&reply).unwrap() {
+                Ok(_) => {
+                    prepared = true;
+                    break;
+                }
+                Err(error)
+                    if error
+                        == "finish existing source reconciliation and recover errors before cutover" =>
+                {
+                    last_error = error;
+                    advance(&pic, 1000);
+                }
+                Err(error) => panic!("unexpected Rules20 preparation error: {error}"),
+            }
+        }
+        let transition_status: Vec<u8> = get_query(
+            &pic,
+            id,
+            "rules20_transition_status",
+            encode_args(()).unwrap(),
+        );
+        let transition_view: serde_json::Value = decode(&transition_status).unwrap();
+        std::fs::write(
+            out.join("utc-transition-status.json"),
+            serde_json::to_vec_pretty(&transition_view).unwrap(),
+        )
+        .unwrap();
+        assert!(
+            prepared,
+            "Rules20 preparation after UTC recovery remained blocked: {last_error}; lifecycle={transition_view}"
+        );
+        eprintln!("Rules20 preparation accepted after UTC recovery");
+    } else {
+        playability_installed::prepare(&pic, id, "prepare_rules20_transition");
+    }
     let mut ready = false;
     for _ in 0..180 {
         advance(&pic, 1000);
@@ -2028,6 +2172,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
         }
     }
     assert!(ready, "ordinary Rules20 transition after drained recovery");
+    eprintln!("Rules20 successor drain ready after UTC recovery");
     let _: Vec<u8> = get_result(
         &pic,
         id,
@@ -2129,8 +2274,10 @@ fn run_rules19_digit_leading_grant_wire_boundary(extra_pending: bool) {
         out.join("obstructed-recovery-result.json"),
         serde_json::to_vec_pretty(&json!({
             "status":"PASS","old_manifest":publication.head.manifest_hash,
+            "preparation_utc_day":preparation_utc_day,"commit_utc_day":commit_utc_day,
+            "cross_utc":cross_utc,
             "recovery_manifest":recovered_publication.head.manifest_hash,
-            "pending_count":if extra_pending {4} else {2},"grant_position":position,
+            "pending_count":pending_count,"grant_position":position,
             "later_payment_position":later_position,"extra_pending_positions":extra_positions,
             "admitted_cursor":status(&pic, id).source.admitted_to_exclusive,
             "received_e8s_at_transition":successor.received_e8s,
