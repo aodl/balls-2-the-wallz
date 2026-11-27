@@ -1,0 +1,68 @@
+{
+  "schema": "b2z-certified-burn-active-blocker-1",
+  "candidate_source": "52e6b37f4f85876304498dccf1f76b8f97703f47",
+  "feature": "certified-operational-burn (disabled in ordinary release profiles)",
+  "rows": [
+    {
+      "variant": "original_mixed",
+      "wasm_sha256": "1b3457bce66726a36662002c8b8103dac753df67a5bef422287a5b652ebe49c5",
+      "result": "FAIL",
+      "active_simulated_minutes": 65,
+      "final_quality": "stale",
+      "final_certified_rate_cycles_per_day": "12584147655072",
+      "certified_sample_count": 2,
+      "certified_window_minutes": 5.0,
+      "management_balance_net_decline_cycles": "16930746765",
+      "management_net_rate_cycles_per_day": "406337922360",
+      "reported_treasury_credits_first": "not recorded",
+      "reported_treasury_credits_last": "not recorded",
+      "raw_evidence": ".work/burn-active-52c/"
+    },
+    {
+      "variant": "timer_only",
+      "wasm_sha256": "ce6176566f2de093573199e424944ef0e542f86001279551be83a378f0d468b9",
+      "result": "FAIL",
+      "active_simulated_minutes": 65,
+      "final_quality": "preliminary",
+      "final_certified_rate_cycles_per_day": "12583868699712",
+      "certified_sample_count": 2,
+      "certified_window_minutes": 5.0,
+      "management_balance_net_decline_cycles": "16937636512",
+      "management_net_rate_cycles_per_day": "406503276288",
+      "reported_treasury_credits_first": "not recorded",
+      "reported_treasury_credits_last": "not recorded",
+      "raw_evidence": ".work/burn-active-timer-only/"
+    },
+    {
+      "variant": "post_index",
+      "wasm_sha256": "5c7a974ff20dac18ed72bc74395aed6d394a6e83ffdee4a3b158715baf4ef767",
+      "result": "FAIL",
+      "active_simulated_minutes": 65,
+      "final_quality": "stale",
+      "final_certified_rate_cycles_per_day": "12584143355808",
+      "certified_sample_count": 2,
+      "certified_window_minutes": 5.0,
+      "management_balance_net_decline_cycles": "16930616192",
+      "management_net_rate_cycles_per_day": "406334788608",
+      "reported_treasury_credits_first": "0",
+      "reported_treasury_credits_last": "0",
+      "raw_evidence": ".work/burn-active-post-index/"
+    },
+    {
+      "variant": "liquid_after_index",
+      "wasm_sha256": "05adb52cb4856a82dc4739f5d5aab63b533a75e3ff44cd869d5f466b60a5b5eb",
+      "result": "FAIL",
+      "active_simulated_minutes": 65,
+      "final_quality": "stale",
+      "final_certified_rate_cycles_per_day": "12584179586496",
+      "certified_sample_count": 2,
+      "certified_window_minutes": 5.0,
+      "management_balance_net_decline_cycles": "16930690495",
+      "management_net_rate_cycles_per_day": "406336571880",
+      "reported_treasury_credits_first": "0",
+      "reported_treasury_credits_last": "0",
+      "raw_evidence": ".work/burn-active-liquid/"
+    }
+  ],
+  "conclusion": "No tested callback/balance combination established a reliable 55-minute active Trickle window; feature is not qualified for release."
+}

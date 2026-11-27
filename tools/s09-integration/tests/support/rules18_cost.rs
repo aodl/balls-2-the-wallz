@@ -1478,7 +1478,59 @@ fn certified_operational_burn_roundtrip() {
     upgrade_during_recovery(&pic, id, &bytes("B2Z_BURN_PRIOR_WASM")).unwrap();
     assert_eq!(witness("recovery"), prior);
     assert_eq!(arena_world(&pic, id), paid_world);
+    // Sampling is independent of a browser session and of the game
+    // publication cadence. The prelaunch profile caps the effective ordinary
+    // cadence to 100 seconds while the unchanged public RunConfig remains
+    // within its 1–60 second validation range. Exercise that active window,
+    // including the 60-second source fallback, after the paused
+    // certification and recovery checks above.
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    let _: Status = get_result(
+        &pic,
+        id,
+        "start_autonomous",
+        candid::encode_one(RunConfig {
+            segment_ticks: 1,
+            pacing_seconds: 1,
+            work_budget: 512,
+        })
+        .unwrap(),
+    );
+    let mut active_samples = Vec::new();
+    for minute in 1..=65 {
+        advance(&pic, 60_000);
+        if minute % 5 == 0 {
+            let verified = witness(&format!("active-{minute:02}"));
+            let cycles = pic.canister_status(id, Some(controller())).unwrap().cycles;
+            let run = status(&pic, id);
+            active_samples.push(json!({
+                "minute":minute,
+                "cycles":cycles.to_string(),
+                "treasury_credits":funding_tests::full_finance(&pic, id)["total_cycles_reported"],
+                "source_in_flight":run.source.scan_in_flight,
+                "source_pending":run.source.pending_records,
+                "verified":verified,
+            }));
+        }
+    }
+    let active = witness("active-trickle");
+    std::fs::write(
+        out.join("active-samples.json"),
+        serde_json::to_vec_pretty(&active_samples).unwrap(),
+    )
+    .unwrap();
+    assert_ne!(active["publication"], prior["publication"]);
+    assert_eq!(active["burn"]["quality"], "established");
+    assert!(
+        active["burn"]["cyclesPerDay"]
+            .as_str()
+            .unwrap()
+            .parse::<u128>()
+            .unwrap()
+            > 0
+    );
     std::fs::write(out.join("result.json"), serde_json::to_vec_pretty(&json!({
-        "status":"PASS","partial":partial,"full":full,"stale":stale,"scope":"disposable paused Rules19 same-ID certificate and recovery"
+        "status":"PASS","partial":partial,"full":full,"stale":stale,"active":active,
+        "scope":"disposable Rules19 same-ID certificate, recovery and capped ordinary checkpoints"
     })).unwrap()).unwrap();
 }
