@@ -353,8 +353,8 @@ run has raw SHA-256
 `980ea23e39c42379ad5d22c8ac9cf5edd9df3f331ded0e475c35253162438c7e`.
 The later locally passing interrupted passage extension and the second-Cannon
 inventory fixture are newer test source and are not covered by this hosted
-run. The financial workflow on `b76f488c` passed; its standard workflow is
-still running at this observation.
+run. The financial workflow on `b76f488c` passed; its standard workflow was
+cancelled by the newer `b0c93c7f` push and cannot qualify that source.
 
 The installed 1,000-account tariff fixture now paid for a **second personal
 Cannon**. Its first Cannon cost 10 ICP, a later two-of-three Ball batch
@@ -389,6 +389,17 @@ through `tools/verify_portable_native.py`. The additional fixture is
 construction is checked by `tools/generate_rules20_corner_matrix.mjs`.
 Protected territory under other ownership arrangements, installed
 interruption and the full multi-Ball ownership matrix remain release gates.
+
+The matrix was extended on 27 November to eleven exact public-output rows.
+New rows reverse the two active opponent owners, put a genuine foreign Cannon
+or Diverter in a mixed-opponent corner, and place a third opponent opposite a
+friendly side. Both side and diagonal Diverter obstruction are exercised.
+The generator's explicit `--rewrite` mode updated only this successor fixture;
+the original fifteen corner vectors remain unchanged. All nine focused JS
+tests passed, and `tools/verify_portable_native.py` passed 151 historical
+native comparisons plus **29** Rules20 public-output comparisons, including
+the eleven-row matrix. These are source-level contact and replay results, not
+an installed interruption or the full ownership matrix.
 
 Hosted developer run
 [46061624364](https://github.com/aodl/balls-2-the-wallz/actions/runs/46061624364)

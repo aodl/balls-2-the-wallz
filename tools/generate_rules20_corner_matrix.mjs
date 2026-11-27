@@ -36,14 +36,25 @@ const cases=[
  {name:'even-neutral-preferred-foreign-other',index:0,x:0,y:2,capture:98007,strike:null},
  {name:'even-two-foreign-sides',index:0,x:2,y:2,capture:98007,strike:98007},
  {name:'odd-two-different-opponents',index:4,x:2,y:3,third:true,capture:97009,strike:97009},
+ {name:'odd-reversed-opponent-ownership',index:4,x:3,y:2,third:true,capture:97009,strike:97009},
  {name:'foreign-cannon-protects-neutral-corner',index:0,x:2,y:0,anchor:true,capture:null,strike:null},
+ {name:'foreign-cannon-obstructs-different-opponent',index:0,x:2,y:3,third:true,anchor:true,capture:null,strike:null},
+ {name:'foreign-diverter-obstructs-different-opponent',index:0,x:2,y:3,third:true,deflector:'side',capture:null,strike:null},
+ {name:'foreign-diagonal-diverter-obstructs-both-sides',index:0,x:2,y:3,third:true,deflector:'diagonal',capture:null,strike:null},
  {name:'friendly-side-foreign-other',index:0,x:1,y:2,capture:97008,strike:97008},
+ {name:'friendly-side-third-opponent-other',index:0,x:1,y:3,third:true,capture:97008,strike:97008},
 ];
 const rows=[];
 for(const spec of cases){
  const {row,world}=fixture(spec.index,spec.third);
  setOwner(world,row.side_x,spec.x);setOwner(world,row.side_y,spec.y);
  if(spec.anchor){world.cannons[1].cell=row.side_x;setOwner(world,4013,0);}
+ if(spec.deflector){
+  const site=spec.deflector==='side'?row.side_x:row.side_x-1000;
+  world.deflectors.push({id:world.next_deflector_id++,cell:site,owner:2,orientation:'NE'});
+  world.deflectors.sort((a,b)=>a.cell-b.cell);
+  setOwner(world,site,2);
+ }
  validateWorld(world);
  const initial=encodeWorld(world),inputs=encodeCanonical([]),context=Buffer.from(row.context_hex,'hex');
  const cursor=B2zKernel.begin(initial,[],decodeCanonical(context));
@@ -67,5 +78,6 @@ for(const spec of cases){
 const bytes=JSON.stringify({schema:'b2z-rules20-corner-matrix-public-equality-1',rows})+'\n';
 if(process.argv.includes('--check')){
  if(readFileSync(target,'utf8')!==bytes)throw Error('corner matrix fixture drift');
-}else writeFileSync(target,bytes,{flag:'wx'});
+}else if(process.argv.includes('--rewrite'))writeFileSync(target,bytes);
+else writeFileSync(target,bytes,{flag:'wx'});
 console.log(`Rules20 corner matrix ${rows.length} exact public rows`);
