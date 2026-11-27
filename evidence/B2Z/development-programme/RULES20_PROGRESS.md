@@ -481,3 +481,14 @@ acceptance correction, which waits for the actual handoff predicate and
 retries only a click that made no native clipboard attempt. Python syntax
 and diff checks passed after that carry; exact-source hosted standard and
 developer qualification remain required.
+
+The active-owner corner fixture now includes a twelfth exact public-output
+row with two attacking Balls reaching distinct ambiguous checkerboard corners
+at the same logical time. It retains the separate active opponent Ball. The
+generator fixes both captured targets and armed strikes and records every
+Ball's final cell and velocity. The focused nine JavaScript corner tests
+passed, and `tools/verify_portable_native.py` passed 151 historical native
+comparisons plus **30 Rules20** state, event and score public-output
+comparisons. This extends source-level simultaneous-contact coverage; a
+shared-target ownership race and installed interruption remain separate
+release gates. Historical Rules19 corner behavior remains in its own test.

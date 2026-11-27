@@ -133,11 +133,12 @@ an intervening sealed zero-input predecessor interval and a later Rules20
 payment all matched independent public replay. Source `b0c93c7f` passed its
 [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070833362)
 and [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070833382)
-workflows; the developer artifact records 18 named installed Rules20 PASS
-cases, including recovery, interrupted passage and paid tariffs. Its standard
-workflow is still running. The later eleven-row active-owner corner matrix
-passed 29 native Rules20 public-output comparisons and focused JavaScript
-tests; it requires new hosted qualification. The recovery branch is **not** a
+workflows; its [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46070833301)
+also passed. The developer artifact records 18 named installed Rules20 PASS
+cases, including recovery, interrupted passage and paid tariffs. The later
+twelve-row active-owner corner matrix passed 30 native Rules20 public-output
+comparisons and focused JavaScript tests; exact-source hosted qualification
+is pending. The recovery branch is **not** a
 production release candidate. Four local
 authenticated high-population payment cases passed. A subsequent genuine
 1,000-account Fire batch paid for the first two of three symbolic Ball

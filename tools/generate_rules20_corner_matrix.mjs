@@ -43,11 +43,19 @@ const cases=[
  {name:'foreign-diagonal-diverter-obstructs-both-sides',index:0,x:2,y:3,third:true,deflector:'diagonal',capture:null,strike:null},
  {name:'friendly-side-foreign-other',index:0,x:1,y:2,capture:97008,strike:97008},
  {name:'friendly-side-third-opponent-other',index:0,x:1,y:3,third:true,capture:97008,strike:97008},
+ {name:'simultaneous-separated-checkerboard-corners',index:0,x:2,y:0,simultaneous:true,
+  capture:[98007,98107],strike:[98007,98107]},
 ];
 const rows=[];
 for(const spec of cases){
  const {row,world}=fixture(spec.index,spec.third);
  setOwner(world,row.side_x,spec.x);setOwner(world,row.side_y,spec.y);
+ if(spec.simultaneous){
+  const first=world.balls[0],shift=100;
+  world.balls.push({...first,id:world.next_ball_id++,cell:first.cell+shift,
+   x0:first.x0+BigInt(shift*1024)});
+  setOwner(world,row.side_x+shift,2);setOwner(world,row.side_y+shift,0);
+ }
  if(spec.anchor){world.cannons[1].cell=row.side_x;setOwner(world,4013,0);}
  if(spec.deflector){
   const site=spec.deflector==='side'?row.side_x:row.side_x-1000;
@@ -65,8 +73,9 @@ for(const spec of cases){
  const outputs=cursor.result(),events=decodeCanonical(outputs.events).events;
  const captures=events.filter(event=>event.kind==='capture').map(event=>event.target);
  const strikes=events.filter(event=>event.kind==='strike_armed').map(event=>event.strike.to);
- if(JSON.stringify(captures)!==JSON.stringify(spec.capture===null?[]:[spec.capture])
-  ||JSON.stringify(strikes)!==JSON.stringify(spec.strike===null?[]:[spec.strike]))
+ const expected=value=>value===null?[]:Array.isArray(value)?value:[value];
+ if(JSON.stringify(captures)!==JSON.stringify(expected(spec.capture))
+  ||JSON.stringify(strikes)!==JSON.stringify(expected(spec.strike)))
   throw Error(`contact expectation ${spec.name}: ${captures} ${strikes}`);
  rows.push({name:spec.name,source:row.source,side_x:row.side_x,side_y:row.side_y,
   owner_x:spec.x,owner_y:spec.y,expected_capture:spec.capture,expected_strike:spec.strike,

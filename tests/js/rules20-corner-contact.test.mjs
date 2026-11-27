@@ -122,7 +122,7 @@ test('exact diagonal captures and mixed structure corners preserve Rules20 publi
   for(const kind of ['state','events','scores'])
    assert.equal(Buffer.from(output[kind]).toString('hex'),row.outputs[kind].hex,`${row.name} ${kind}`);
   const captures=decodeCanonical(output.events).events.filter(event=>event.kind==='capture');
-  assert.deepEqual(captures.map(event=>event.target),row.expected_capture===null?[]:[row.expected_capture],row.name);
+  assert.deepEqual(captures.map(event=>event.target),row.expected_capture===null?[]:Array.isArray(row.expected_capture)?row.expected_capture:[row.expected_capture],row.name);
   if(row.expected_motion){
    const balls=decodeWorld(output.state).balls.map(ball=>[ball.id,ball.cell,ball.vx,ball.vy]);
    assert.deepEqual(balls,row.expected_motion,row.name);
@@ -147,9 +147,9 @@ test('active opponent corners, protected contact and simultaneous Balls retain e
   const world=decodeWorld(output.state),events=decodeCanonical(output.events).events;
   validateWorld(world);
   assert.deepEqual(events.filter(event=>event.kind==='capture').map(event=>event.target),
-   row.expected_capture===null?[]:[row.expected_capture],row.name);
+   row.expected_capture===null?[]:Array.isArray(row.expected_capture)?row.expected_capture:[row.expected_capture],row.name);
   assert.deepEqual(events.filter(event=>event.kind==='strike_armed').map(event=>event.strike.to),
-   row.expected_strike===null?[]:[row.expected_strike],row.name);
+   row.expected_strike===null?[]:Array.isArray(row.expected_strike)?row.expected_strike:[row.expected_strike],row.name);
   assert.deepEqual(world.balls.map(ball=>[ball.id,ball.cell,ball.vx,ball.vy]),row.expected_motion,row.name);
   const last=new Map(),motions=events.filter(Array.isArray);
   assert.ok(motions.length>0&&motions.length<100,row.name);
