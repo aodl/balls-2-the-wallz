@@ -199,6 +199,39 @@ jobs:
             --profile .work/rules19-profile.wasm --candidate .work/combined-prelaunch.wasm \
             --protection-probe .work/combined-prelaunch-probe.wasm \
             --world .work/rules19-paid-world.bin --output .work/ci-rules20-installed
+      - name: Rehearse exact combined frontend upgrade and manufacturing recovery
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download candidate/europe-prelaunch-frontend-manufacturing-2026-11-26 \
+            --repo "$GITHUB_REPOSITORY" --dir .work/manufacturing-recovery
+          (cd .work/manufacturing-recovery && sha256sum -c SHA256SUMS)
+          printf '%s  %s\n' 1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5 .work/manufacturing-recovery/frontend.wasm | sha256sum --check
+          export CARGO_TARGET_DIR="$PWD/.work/dev-target"
+          export B2Z_DEV_SPEED_FRONTEND="$PWD/.work/qualified-dev-frontend/ci-dev-a/release"
+          export B2Z_DEV_FRONTEND_RECOVERY="$PWD/.work/manufacturing-recovery"
+          PYTHONPATH=tools python -B - <<'PY_CODE'
+          import os
+          from pathlib import Path
+          from profile_rules18_cost import checked_artifacts, harness
+          from verify_s09_local import execute, start_pocketic, stop_pocketic
+
+          output = Path(".work/ci-combined-frontend-recovery").resolve()
+          output.mkdir()
+          env = {**checked_artifacts(Path("/home/runner/dtr-s09-artifacts")),
+                 "DFX_IDENTITY": "codex_local", "S14_DEPLOYMENT_OUTPUT": str(output)}
+          binary = harness(output, env)
+          server = start_pocketic(env["POCKET_IC_BIN"], output, hard_ttl_seconds=900, idle_ttl_seconds=120)
+          try:
+              case = "dev_speed_installed::dev_frontend_same_id_recovery"
+              report = execute(case, [binary, "--ignored", "--exact", case, "--nocapture"],
+                               output, 800, {**env, "POCKET_IC_SERVER_URL": server[3]})
+              transcript = (output / report["log"]).read_text()
+              if report["status"] != "PASS" or "test result: ok. 1 passed;" not in transcript:
+                  raise SystemExit(transcript)
+          finally:
+              stop_pocketic(*server[:3])
+          PY_CODE
       - name: Verify combined live consumers and matched Rules20 overhead
         run: |
           export CARGO_TARGET_DIR="$PWD/.work/dev-target"
@@ -245,6 +278,8 @@ jobs:
             .work/combined-prelaunch.sha256
             .work/combined-prelaunch.did
             .work/combined-prelaunch-exports.json
+            .work/ci-combined-frontend-recovery/**/*.json
+            .work/ci-combined-frontend-recovery/logs/**
             .work/ci-certified-burn-*/**/*.json
             .work/ci-certified-burn-*/**/*.log
             .work/ci-certified-burn-live/evidence/*/*.png
