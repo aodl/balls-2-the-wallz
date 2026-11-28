@@ -51,7 +51,7 @@ Source `b0c93c7f` passed standard, financial and developer/prelaunch hosted
 qualification with 18 named installed successor cases.
 Published source `adc5a8e1` additionally passed financial and
 developer/prelaunch workflows with **22 named installed successor cases**;
-its standard workflow remains in installed-IC qualification. The exact
+its standard workflow also passed. The exact
 backend and public frontend candidate hashes are recorded in
 [release preparation](docs/operations/RULES20_RELEASE_PREPARATION.md). The
 local continuation after that source passed the full source suite but still

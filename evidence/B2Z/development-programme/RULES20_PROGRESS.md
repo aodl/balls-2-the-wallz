@@ -623,3 +623,12 @@ frontend bytes and raw reports were copied to
 `.work/rules19-recovery/frontend-budget-1/`. These are PocketIC measurements,
 not a mainnet cost guarantee or proof that the current manufacturing frontend
 is a safe recovery target after a Rules20 backend identity is activated.
+
+The later [standard run 46087123070](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123070)
+on exact published source `adc5a8e1` completed **SUCCESS**, joining the
+already passing financial and developer/prelaunch runs. Its source, native,
+packaged DTR consumer, frontend reproduction, browser HTTP/Web Crypto and
+installed-IC jobs all completed successfully. The local passage-cleanup
+test and updated release procedure are later source; they require a fresh
+exact-source hosted run after publication. The separately listed installed
+destruction, corner and adversarial recovery gates remain release blockers.

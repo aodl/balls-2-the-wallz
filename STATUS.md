@@ -192,7 +192,8 @@ Its disposable same-ID installation over the exact installed manufacturing
 frontend and restoration of that frontend passed certified asset/route checks;
 the respective PocketIC debits were **184.609B** and **185.525B cycles**.
 The [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123070)
-is still in installed-IC qualification. The newer local continuation passed
+also passed, completing all three hosted historical workflows on `adc5a8e1`.
+The newer local continuation passed
 the complete source suite but has not been published or hosted; the
 [candidate release procedure](docs/operations/RULES20_RELEASE_PREPARATION.md)
 keeps installation conditional on all remaining gates.

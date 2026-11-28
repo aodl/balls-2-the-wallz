@@ -52,8 +52,8 @@ disabled in this backend candidate, so publication uses the direct root.
    health and independent replay after each boundary.
 
 Installation, recovery and operating cycle budgets require separate fresh
-measurement. Source `adc5a8e1` still awaits its standard workflow conclusion,
-and additional installed construction-destruction, corner and adversarial
+measurement. Source `adc5a8e1` passed standard, financial and developer
+workflows, but additional installed construction-destruction, corner and adversarial
 recovery acceptance remains open. The local continuation after `adc5a8e1`
 also requires exact-source hosted qualification before any final freeze.
 
