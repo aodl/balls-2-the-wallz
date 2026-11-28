@@ -1,0 +1,59 @@
+{
+  "observed_at": "2026-11-28T00:29:56.874Z",
+  "scope": "Read-only certified public and signed operational queries",
+  "backend": {
+    "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "total_cycles": "2207113938479",
+    "liquid_cycles": "2149179961349",
+    "freezing_estimate_cycles": "57933977130"
+  },
+  "frontend": {
+    "id": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+    "total_cycles": "769757178692",
+    "freezing_estimate_cycles": "203716879590",
+    "headroom_beyond_450b_cycles": "116040299102"
+  },
+  "publication": {
+    "head": "19538",
+    "logical_time": "19520",
+    "source_cursor": "40647923",
+    "pending_records": 0,
+    "source_binding_checked": true,
+    "run_error": [],
+    "source_error": [],
+    "pace": {
+      "nominal_milli": 10,
+      "supported_milli": 10,
+      "mode": "Trickle",
+      "admission_open": true,
+      "performance_limited": false
+    }
+  },
+  "settlement": {
+    "settled": true,
+    "management_before": "2207113938479",
+    "management_after": "2207113938479",
+    "management_gap": "0",
+    "health_gap": "57933977130",
+    "estimated_freezing": "57933977130",
+    "unexpected_gap": "0"
+  },
+  "runway": {
+    "backend_freezing_estimate_cycles": "57933977130",
+    "frontend_freezing_estimate_cycles": "203716879590",
+    "frontend_install_recovery_headroom_cycles": "116040299102",
+    "backend_liquid_cycles": "2149179961349",
+    "full_speed_cycle_floor_met": true,
+    "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+    "elapsed_ns": "3631624121740",
+    "elapsed_seconds": 3631,
+    "liquid_decline_cycles": "24704534591",
+    "net_cycles_per_day": "587745790068",
+    "publication_delta": "37",
+    "seconds_to_reserve_protection": "168932",
+    "seconds_to_full_speed_floor": "11639"
+  },
+  "raw_local_evidence": ".work/rules19-recovery/production-observation-00-hour.json"
+}
