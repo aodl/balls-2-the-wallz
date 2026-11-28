@@ -333,3 +333,12 @@ returned **82,593,481,811 cycles** of reservation. The comparison uses
 settled endpoints around the hold because the in-flight management balance
 is not a settled baseline. This is a second genuine timer phase; it does not
 prove arbitrary reservation overlap or unknown external credits.
+
+The separate Full Speed burst at this second phase passed under
+`.work/burn-balance-probe/full-speed-phase-47777-1/`. It made **119
+authoritative publications in 120 seconds**. The established certified rate
+was **1,600,657,300,620 cycles/day** against **1,601,508,379,709
+cycles/day** over the exact matched management window (**0.053%** relative
+difference). Thus the shifted timer phase did not expose the earlier
+wrong-window comparison error. It remains a disposable two-minute burst,
+not a general Full Speed operating bound.
