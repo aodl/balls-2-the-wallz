@@ -6,6 +6,7 @@ import {SplitJob,rowRuns} from './territory-topology-v6.mjs';
 import {territoryPlayer,territoryBalls,pruneEmptyTerritory,mergeTerritories} from './territory-v6.mjs';
 import {reviveTerritory,metadataDelta} from './playability.mjs';
 import{deflectorAt,removeLostDeflectors}from'./deflectors-v12.mjs';
+import {pruneRemoved} from './passage-v20.mjs';
 
 export class CaptureJob {
   constructor(w) {
@@ -75,6 +76,7 @@ export class CaptureJob {
       else{this.reactivated=reviveTerritory(w,this.root);this.phase='commit';}
     }else if(this.phase==='commit'){
       if(w.version>=7)this.removed_deflectors.push(...removeLostDeflectors(w));
+      pruneRemoved(w);
       w.pending=w.pending.filter(p=>{if(validStrike(w,p))return true;this.cancelled_strikes.push(p.id);return false;});validateWorld(w);
       this.metadata_delta=metadataDelta(original.playability,w.playability);
       for(const key of Object.keys(original))delete original[key];Object.assign(original,w);this.phase='done';

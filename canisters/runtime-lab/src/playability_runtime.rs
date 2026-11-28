@@ -659,6 +659,120 @@ pub fn compact_reservoir_candidate<K: Kernel>(
     )
 }
 
+pub fn rules20_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+    observed_ns: u64,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    let predecessor = if Some(h.record.journal.identity.rules_hash.as_str())
+        == b2z_native::delegation_v20::recovery_identity()["rules_hash"].as_str()
+    {
+        b2z_native::delegation_v20::recovery_identity()
+    } else {
+        b2z_native::reservoirs::compact_identity()
+    };
+    schema7_candidate(
+        h,
+        t,
+        source,
+        predecessor,
+        b2z_native::delegation_v20::identity(),
+        Schema7Cutover {
+            bootstrap_ns: Some(observed_ns),
+            version: 16,
+            migration: "B2Z_RULES_20",
+            event: "rules20_activated",
+            previous_adapter: b2z_protocol::delegation::ADAPTER_VERSION,
+            next_adapter: b2z_protocol::delegation::ADAPTER_VERSION,
+        },
+    )
+}
+
+/// A representation-only checkpoint over the last committed Rules19 state.
+/// DTR authenticates the failed stage and the complete ordered inbox; the
+/// application keeps Rules19 payment, tariff, command and motion policy.
+pub fn rules19_recovery_candidate<K: Kernel>(
+    h: &Coordinator<K>,
+    t: &Transition,
+    source: &SourceState,
+    lifecycle_barrier: Option<&Barrier>,
+) -> Result<(Output, Vec<u8>, Identity)> {
+    t.validate()?;
+    h.validate()?;
+    if t.version != 17
+        || t.phase != "ready"
+        || !source.binding_checked
+        || source.in_flight
+        || source.last_error.is_some()
+        || source.memo_adapter_version != b2z_protocol::delegation::ADAPTER_VERSION
+        || Int(source.cursor.into()) != h.record.inbox.cursor
+    {
+        return Err("Rules19 recovery source boundary".into());
+    }
+    let cutoff = super::number(t.ledger_cutover.as_ref().ok_or("Rules19 recovery cutoff")?)?;
+    if source.pending.as_ref().is_some_and(|p| p.high >= cutoff) {
+        return Err("Rules19 recovery pending source page exceeds cutoff".into());
+    }
+    let predecessor = b2z_native::reservoirs::compact_identity();
+    let actual = serde_json::to_value(&h.record.journal.identity).map_err(|e| e.to_string())?;
+    if ["rules_hash", "config_hash", "schema_hash"]
+        .iter()
+        .any(|k| actual[*k] != predecessor[*k])
+    {
+        return Err("Rules19 recovery exact predecessor".into());
+    }
+    let stage = h.record.journal.stage.as_ref();
+    if h.record.inbox.pending.is_empty() {
+        return Err("Rules19 recovery pending inputs".into());
+    }
+    let before = dtr_wire::unhex(&h.record.journal.head.state_hex)?;
+    let old = World::decode(&before)?;
+    if old.version != 11
+        || old.encode()? != before
+        || !old.time.0.is_integer()
+        || old.time.0.to_integer() != h.record.journal.head.logical_end.0
+    {
+        return Err("Rules19 recovery committed state".into());
+    }
+    let next = b2z_native::delegation_v20::recover_registry(old.clone())?;
+    let state = next.encode()?;
+    let mut recovery = b2z_native::delegation_v20::recovery_identity();
+    recovery["source_id"] = json!(h.record.journal.identity.source_id);
+    let identity: Identity = serde_json::from_value(recovery).map_err(|e| e.to_string())?;
+    let metadata = json!({
+        "version":17,"migration":"B2Z_RULES_19_AUTH_RECOVERY_01",
+        "old_identity":h.record.journal.identity,"new_identity":identity,
+        "previous_state":hash(&before),"new_state":hash(&state),
+        "previous_manifest":h.record.journal.head.manifest_hash,
+        "logical_boundary":old.time,
+        "retired_source_cursor":h.record.inbox.retired_to,
+        "admitted_source_cursor":h.record.inbox.cursor,
+        "admitted_source_anchor":h.record.inbox.source_anchor,
+        "reserved_seal":stage.map(|s| &s.seal),
+        "reserved_stage_hash":stage.map(|s| encode(s).map(|b| hash(&b))).transpose()?,
+        "pending_count":h.record.inbox.pending.len(),
+        "pending_root":dtr_host::input_root(&h.record.inbox.pending,
+            super::number(&h.record.inbox.retired_to)?,super::number(&h.record.inbox.cursor)?)?,
+        "ledger_cutover":t.ledger_cutover,"index_synced":t.index_synced,
+        "lifecycle_barrier":lifecycle_barrier,
+        "source":{"network":source.network,"ledger":source.ledger,"index":source.index,
+            "receiving_subaccount":source.receiving_subaccount,"recipient":source.recipient_hex,
+            "event_horizon":source.event_horizon,"memo_adapter_version":source.memo_adapter_version}
+    });
+    Ok((
+        Output {
+            state,
+            events: encode(&json!({"version":11,"receipts":[],"events":[{
+                "kind":"authorization_recovery_activated","sequence":0,"time":old.time,"context":metadata
+            }]}))?,
+            scores: encode(&json!({"version":11,"area_time":[]}))?,
+        },
+        encode(&metadata)?,
+        identity,
+    ))
+}
+
 fn schema7_candidate<K: Kernel>(
     h: &Coordinator<K>,
     t: &Transition,
@@ -713,6 +827,7 @@ fn schema7_candidate<K: Kernel>(
     }
     if old.version
         != match policy.version {
+            16 => 11,
             15 => 10,
             14 => 9,
             13 => 8,
@@ -732,7 +847,9 @@ fn schema7_candidate<K: Kernel>(
     if old.encode()? != state {
         return Err("noncanonical state at schema7 cutover".into());
     }
-    let next = if let Some(ns) = policy.bootstrap_ns {
+    let next = if policy.version == 16 {
+        b2z_native::delegation_v20::migrate_at(old.clone(), policy.bootstrap_ns.unwrap())?
+    } else if let Some(ns) = policy.bootstrap_ns {
         b2z_native::economy17::migrate(old.clone(), ns)?
     } else if policy.version == 15 {
         b2z_native::reservoirs::migrate_compact(old.clone())?
@@ -759,6 +876,9 @@ fn schema7_candidate<K: Kernel>(
     }
     if policy.version == 14 {
         metadata["recipient"] = json!(source.recipient_hex);
+    }
+    if policy.version == 16 {
+        metadata["activation_observed_ns"] = json!(Int(policy.bootstrap_ns.unwrap().into()));
     }
     Ok((
         Output {
@@ -1162,7 +1282,9 @@ mod tests {
             reservoirs: None,
             reservoir_ranges: None,
             economy: None,
+            economy_formula_start_ns: None,
             authorization: None,
+            passage_exceptions: vec![],
             version: 3,
             width: 16,
             height: 8,
@@ -1247,6 +1369,7 @@ mod tests {
             metadata_hex: None,
             transition_hash: None,
             previous_manifest: None,
+            recovery_source_complete: false,
         };
         let mut publications = Vec::new();
         let mut artifact_events = Vec::new();

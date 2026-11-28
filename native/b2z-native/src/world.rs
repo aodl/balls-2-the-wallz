@@ -219,7 +219,11 @@ pub struct World {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub economy: Option<crate::economy17::Schedule>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
-    pub authorization: Option<crate::delegation_v18::Registry>,
+    pub economy_formula_start_ns: Option<Int>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub authorization: Option<crate::delegation_v20::AuthorizationState>,
+    #[serde(default, skip_serializing_if = "Vec::is_empty")]
+    pub passage_exceptions: Vec<crate::passage_v20::Exception>,
 }
 pub fn account_ok(s: &str) -> bool {
     s.len() == 64
@@ -557,7 +561,7 @@ impl World {
     /// For resolved states only. Topology continuation snapshots may be transiently disconnected.
     pub fn validate(&self) -> Result<()> {
         let fail = |s: &str| -> Result<()> { Err(s.into()) };
-        if ![3, 4, 5, 6, 7, 8, 9, 10, 11].contains(&self.version)
+        if ![3, 4, 5, 6, 7, 8, 9, 10, 11, 12].contains(&self.version)
             || (self.version == 4 && (self.width != 32 || self.height != 32))
             || (self.version >= 5 && (self.width != 1000 || self.height != 1000))
             || !(1..=1000).contains(&self.width)
@@ -812,17 +816,32 @@ impl World {
         }
         crate::reservoirs::validate(self)?;
         match (self.version, &self.economy) {
-            (9..=11, Some(schedule)) => schedule.validate(crate::playability::elapsed(
+            (9..=12, Some(schedule)) => schedule.validate(crate::playability::elapsed(
                 &self.playability.as_ref().ok_or("EXPECTED_V6")?.elapsed_ns,
             )?)?,
-            (9..=11, None) | (_, Some(_)) => return fail("economy schema"),
+            (9..=12, None) | (_, Some(_)) => return fail("economy schema"),
+            _ => {}
+        }
+        match (self.version, &self.economy_formula_start_ns) {
+            (12, Some(start))
+                if crate::playability::elapsed(start)? % b2z_protocol::economy17::DAY_NS == 0 => {}
+            (12, _) | (_, Some(_)) => return fail("successor tariff formula boundary"),
             _ => {}
         }
         match (self.version, &self.authorization) {
-            (10..=11, Some(registry)) => registry.validate()?,
-            (10..=11, None) | (_, Some(_)) => return fail("authorization schema"),
+            (10..=11, Some(crate::delegation_v20::AuthorizationState::Historical(registry))) => {
+                registry.validate()?
+            }
+            (11, Some(crate::delegation_v20::AuthorizationState::Rows(registry))) => {
+                registry.validate()?
+            }
+            (12, Some(crate::delegation_v20::AuthorizationState::Rows(registry))) => {
+                registry.validate()?
+            }
+            (10..=12, None) | (_, Some(_)) => return fail("authorization schema"),
             _ => {}
         }
+        crate::passage_v20::validate(self)?;
 
         Ok(())
     }

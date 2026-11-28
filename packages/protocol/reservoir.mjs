@@ -144,7 +144,7 @@ export function placeReservoir(world, cell) {
       reservoirHas(reservoirOccupancy(world), cell)) throw Error('RESERVOIR_OCCUPANCY');
   if (world.reservoir_ranges === undefined) {
     world.reservoirs = reservoirPut(world.reservoirs, cell);
-    if (world.version === 11) migrateReservoirEncoding(world);
+    if (world.version >= 11) migrateReservoirEncoding(world);
     return;
   }
   const ranges = world.reservoir_ranges;
@@ -168,7 +168,7 @@ export function validateReservoirs(world) {
     return;
   }
   if (ranges !== undefined) {
-    if (world.version !== 11 || bits !== undefined || !Array.isArray(ranges) ||
+    if (world.version < 11 || bits !== undefined || !Array.isArray(ranges) ||
         ranges.length > MAX_COMPACT_RANGES) throw Error('RESERVOIR_RANGE_SCHEMA');
     let previous = -1;
     for (const range of ranges) {
@@ -182,7 +182,7 @@ export function validateReservoirs(world) {
     const used = count % 4;
     if (used && bits.length === Math.ceil(count / 4) && parseInt(bits.at(-1), 16) >= 1 << used)
       throw Error('RESERVOIR_OCCUPANCY');
-    if (world.version === 11 && bitmapRanges(bits).length <= MAX_COMPACT_RANGES)
+    if (world.version >= 11 && bitmapRanges(bits).length <= MAX_COMPACT_RANGES)
       throw Error('RESERVOIR_NONCANONICAL_DENSE');
   }
   const occupancy = reservoirOccupancy(world);

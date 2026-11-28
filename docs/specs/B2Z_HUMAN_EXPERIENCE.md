@@ -1026,6 +1026,11 @@ Motion/time-only publications do not restart an otherwise identical proof.
 Financial quotes remain bound to the latest accepted head, not the cached proof's
 original snapshot. Any relevant change invalidates the cache and keeps the action
 unavailable until the new conclusion is established.
+During a Rules20 tariff grace window, a complete quantity quote compares the
+authenticated current and previous tariff. It uses the cheaper representable
+full quote; an actual payment of that amount must receive the same tariff under
+the interpreter's maximum-affordable-quantity rule. The receipt's immutable
+Ledger block time remains authoritative if admission or execution is delayed.
 
 
 ## Unified sound, return entry and compact action continuation (14 November)

@@ -74,7 +74,7 @@ export function receiptTransfer(payment) {
 
 /** Replay receipt authorization from the two independently authenticated
  * world snapshots and the signed publication's exact audit artifact. */
-export function verifyAuthorizationReceipts(initial,final,receipts,seal) {
+export function verifyAuthorizationReceipts(initial,final,receipts,seal,authorize=authorizePayment) {
  const registry=structuredClone(initial.authorization);
  let received=initial.received_e8s;
  if(receipts.length!==Number(seal.input_count))throw Error('AUTH_RECEIPT_COUNT');
@@ -82,7 +82,7 @@ export function verifyAuthorizationReceipts(initial,final,receipts,seal) {
   const t=receipt.transfer,position=receipt.position;
   if(!t||receipt.spender!==t.spender||receipt.ledger_recorded_ns!==t.ledger_recorded_ns||
      position<seal.source_from||position>=seal.source_to_exclusive)throw Error('AUTH_RECEIPT_SCOPE');
-  const decision=authorizePayment(registry,{
+  const decision=authorize(registry,{
    from:receipt.account,amount:receipt.amount,position,spender:t.spender,to:t.to,fee:t.fee,
    ledger_time_ns:t.ledger_recorded_ns,created_at_ns:t.created_at_ns,legacy_memo:t.legacy_memo,
    memo:t.memo===null?null:unhex(t.memo),raw_digest:t.raw_digest,

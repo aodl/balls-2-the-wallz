@@ -14,6 +14,7 @@ export function contextSites(world,config) {
   const playerAt=cell=>territories.get(islandAt(world,cell))??0;
   const cannonOwners=new Map(world.playability.lifecycle.map(c=>[c.cannon,c.player]));
   const occupied=structureOccupancy(world),structures=structureMap(world,id=>cannonOwners.get(id));
+  const structureCells=new Set(structures.keys());
   const activeIslands=new Set(world.balls.filter(b=>playerAt(b.cell)===b.owner).map(b=>islandAt(world,b.cell)));
   const active=cell=>activeIslands.has(islandAt(world,cell));
   const accounts=new Map(world.playability.players.map(p=>[p.account,p.id]));
@@ -29,7 +30,10 @@ export function contextSites(world,config) {
     },
     active,
     reason:(account,cell, options={})=>structureSiteReason({width:world.width,height:world.height,owner:accounts.get(account),cell,
-      ...options,spacing,reservoirs:reservoirOccupancy(world),occupied,structures,ownerAt:playerAt,active}),
+      ...options,spacing,reservoirs:reservoirOccupancy(world),
+      // Schema12 relaxes only explicit new Cannon/Diverter construction.
+      occupied:world.version>=12&&!options.moving&&!options.reservoir?
+        structureCells:occupied,structures,ownerAt:playerAt,active}),
     occupiedKey:[...occupied].sort((a,b)=>a-b).join(','),
     activeKey:[...activeIslands].sort((a,b)=>a-b).join(','),
     candidates(account,moving,source){

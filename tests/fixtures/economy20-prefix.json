@@ -1,0 +1,191 @@
+[
+  {
+    "name": "Increase during grace",
+    "current": {
+      "formula": "exponential",
+      "population": 1000
+    },
+    "previous": {
+      "formula": "linear",
+      "multiplier": 999
+    },
+    "structure": {
+      "base": "1000000",
+      "held": 0
+    },
+    "ballsHeld": 1,
+    "additionalBalls": 0,
+    "budget": "999000000",
+    "selected": "previous",
+    "count": 1,
+    "spent": "999000000"
+  },
+  {
+    "name": "Doubling with current tie priority",
+    "current": {
+      "formula": "exponential",
+      "population": 1001
+    },
+    "previous": {
+      "formula": "linear",
+      "multiplier": 1000
+    },
+    "structure": {
+      "base": "1000000",
+      "held": 0
+    },
+    "ballsHeld": 1,
+    "additionalBalls": 0,
+    "budget": "2000000000",
+    "selected": "current",
+    "count": 1,
+    "spent": "2000000000"
+  },
+  {
+    "name": "Current overflow during grace",
+    "current": {
+      "formula": "exponential",
+      "population": 1035
+    },
+    "previous": {
+      "formula": "linear",
+      "multiplier": 1000
+    },
+    "structure": {
+      "base": "1000000",
+      "held": 0
+    },
+    "ballsHeld": 1,
+    "additionalBalls": 0,
+    "budget": "1000000000",
+    "selected": "previous",
+    "count": 1,
+    "spent": "1000000000"
+  },
+  {
+    "name": "Current overflow after grace",
+    "current": {
+      "formula": "exponential",
+      "population": 1035
+    },
+    "previous": null,
+    "structure": {
+      "base": "1000000",
+      "held": 0
+    },
+    "ballsHeld": 1,
+    "additionalBalls": 0,
+    "budget": "18446744073709551615",
+    "selected": "current",
+    "count": 0,
+    "spent": "0"
+  },
+  {
+    "name": "Population declines",
+    "current": {
+      "formula": "exponential",
+      "population": 1001
+    },
+    "previous": {
+      "formula": "exponential",
+      "population": 1002
+    },
+    "structure": {
+      "base": "1000000",
+      "held": 0
+    },
+    "ballsHeld": 1,
+    "additionalBalls": 0,
+    "budget": "2000000000",
+    "selected": "current",
+    "count": 1,
+    "spent": "2000000000"
+  },
+  {
+    "name": "Previous tariff improves affordable Ball prefix",
+    "current": {
+      "formula": "exponential",
+      "population": 1001
+    },
+    "previous": {
+      "formula": "linear",
+      "multiplier": 1000
+    },
+    "structure": null,
+    "ballsHeld": 2,
+    "additionalBalls": 4,
+    "budget": "500000000",
+    "selected": "previous",
+    "count": 3,
+    "spent": "500000000"
+  },
+  {
+    "name": "Partial current prefix after grace",
+    "current": {
+      "formula": "exponential",
+      "population": 1001
+    },
+    "previous": null,
+    "structure": null,
+    "ballsHeld": 2,
+    "additionalBalls": 4,
+    "budget": "500000000",
+    "selected": "current",
+    "count": 2,
+    "spent": "500000000"
+  },
+  {
+    "name": "Cannon includes a Ball before the extra marginal prices",
+    "current": {
+      "formula": "exponential",
+      "population": 1001
+    },
+    "previous": null,
+    "structure": {
+      "base": "1000000",
+      "held": 0
+    },
+    "ballsHeld": 1,
+    "additionalBalls": 3,
+    "budget": "2260000000",
+    "selected": "current",
+    "count": 3,
+    "spent": "2260000000"
+  },
+  {
+    "name": "Exact personal Diverter multiplier",
+    "current": {
+      "formula": "exponential",
+      "population": 1002
+    },
+    "previous": null,
+    "structure": {
+      "base": "100000",
+      "held": 1
+    },
+    "ballsHeld": 0,
+    "additionalBalls": 0,
+    "budget": "1600000000",
+    "selected": "current",
+    "count": 1,
+    "spent": "1600000000"
+  },
+  {
+    "name": "Existing inventory bound stops prefix",
+    "current": {
+      "formula": "exponential",
+      "population": 1001
+    },
+    "previous": {
+      "formula": "linear",
+      "multiplier": 1000
+    },
+    "structure": null,
+    "ballsHeld": 4294967295,
+    "additionalBalls": 4,
+    "budget": "18446744073709551615",
+    "selected": "current",
+    "count": 0,
+    "spent": "0"
+  }
+]

@@ -17,9 +17,11 @@ def extract(output: str) -> str:
     return output.split(BEGIN, 1)[1].split(END, 1)[0].strip() + "\n"
 
 
-def reject_test_exports(candid: str) -> None:
+def reject_test_exports(candid: str, *, allow_developer: bool = False) -> None:
     # TEMPORARY DEVELOPMENT ONLY — REMOVE BEFORE PUBLIC LAUNCH
-    prohibited = ("__canbench__", "__tracing__", "test_", "dev_simulation_speed", "bind_dev_speed_operator")
+    prohibited = ["__canbench__", "__tracing__", "test_"]
+    if not allow_developer:
+        prohibited.extend(("dev_simulation_speed", "bind_dev_speed_operator"))
     found = [name for name in prohibited if name in candid]
     if found:
         raise ValueError("normal Candid contains test, benchmark or development exports: " + ", ".join(found))
@@ -32,10 +34,11 @@ def run(command: list[str], timeout: int = 600) -> subprocess.CompletedProcess[s
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, default=ROOT / ".work/runtime-lab.generated.did")
+    parser.add_argument("--profile", choices=("public-launch", "prelaunch-trickle"), default="public-launch")
     args = parser.parse_args()
     generated = run([
         "cargo", "test", "--manifest-path", str(MANIFEST), "--locked", "--offline",
-        "--features", "public-launch",
+        "--features", args.profile,
         "tests::print_generated_candid", "--", "--exact", "--nocapture",
     ])
     if generated.returncode:
@@ -43,7 +46,7 @@ def main() -> int:
         return generated.returncode
     try:
         candid = extract(generated.stdout + generated.stderr)
-        reject_test_exports(candid)
+        reject_test_exports(candid, allow_developer=args.profile == "prelaunch-trickle")
     except ValueError as error:
         print(f"FAIL: {error}", file=sys.stderr)
         return 1

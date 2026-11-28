@@ -9,7 +9,7 @@ The following items track work beyond that scope.
 | --- | --- | --- | --- |
 | 1. Latest owner sign-in | Deployed, owner acceptance pending. Binding, anonymous denial and official gateway opening passed on 25 November. Rules18 already included real sign-in and a signed Ledger read. | Complete the [owner procedure](docs/operations/B2Z_PRELAUNCH_TRICKLE.md#owner-sign-in-acceptance). Verify the bound owner sees scheduler rate, funding tier and owner controls. | Owner ceremony required. Gates owner-mode acceptance only. A live Full Speed window needs separate approval. |
 | 1. Operating reserves | Running capped Trickle with open Index admission. Dated balance, floors and conditional runway are in [STATUS](STATUS.md). | Continue comparable, settled observations and distinguish pause, reservations, credits and workload changes. | Funding, operating settings and Full Speed remain separate owner decisions. |
-| 1. Obstructed Rules19 recovery | Exact disposable Rules19 blocked with an accepted grant and unrelated payment durable in the queue. The healthy Rules20 transition preserves history and accepts canonical grant rows. Its ordinary preparation rejects the obstructed journal. | Qualify a versioned transition that retains and replays the pending prefix under Rules19 command and tariff semantics and publishes every outcome exactly once. | Rules20 release blocker. [Obstructed recovery evidence](https://github.com/aodl/balls-2-the-wallz/blob/codex/rules20-identity/evidence/B2Z/development-programme/RULES20_OBSTRUCTED_RECOVERY.md) |
+| 1. Obstructed Rules19 recovery | The exact installed Rules19 obstruction and two-, four- and six-input pending prefixes were recovered on disposable canisters with DTR 0.16.0. The six-input case includes grants, a revoke and genuine paid commands at Rules19 prices. A later genuine Fire payment remained behind the source fence and applied after ordinary Rules20 cutover. A distinct genuine Join arriving while recovery was prepared also stayed behind the old-policy source fence and applied once after Rules20 activation. UTC-crossing restarts before and after recovery commitment, resource-protection refusal, reserved and partially executed stage recovery, and exact independent public replay passed. A further genuine expired delegated transfer was rejected under its immutable Rules19 block-time policy while received value and unrelated payments were preserved. The old module rejects the first durable recovery boundary. DTR's generic sealed and unreserved tests reject altered pending roots; the installed controller route rejects unauthorized, stale and conflicting operations and accepts identical retries. | Local P0 gate complete. Run the full 28-case installed matrix and applicable hosted workflows on the final published source. | Positive proof for the reported defect; broader Rules20 release gate remains. [Obstructed recovery evidence](evidence/B2Z/development-programme/RULES20_OBSTRUCTED_RECOVERY.md) |
 | 2. Cannon and Diverter manufacturing | The exact Rules19-compatible frontend from `0855896` is installed on the permanent European canister. The executable, certified assets and read-only browser acceptance were verified. [Installation evidence](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json) | Complete physical-device and owner listening review. An end-to-end browser-to-Ledger player journey is a separate acceptance. | Owner sign-in and any real payment remain owner actions. |
 | 3. Owner playtesting | Bounded production acceptance covered certified delivery and manual Copy. Real construction/payment and interaction feedback remains outstanding. | Exercise ordinary Trickle, camera, construction and payment handoffs on the owner's devices. Record authentic receipts for any separately authorized transfer, then fix demonstrated defects. | Owner participation. Optional Full Speed requires separate authority and reserves. |
 | 4. Full Speed throughput | Implemented and qualified for temporary use. Prior production reached roughly 0.85 authoritative tick/s with browser continuity. Sustained 1 tick/s remains open. [Full Speed evidence](evidence/B2Z/temporary-dev-speed/MAINLINE_CI.md) | Measure scheduler target, certified checkpoint cadence, authenticated browser admission, presentation clock and rendered FPS separately. Pursue measured bottlenecks only. | Performance target for temporary playtesting. This override is excluded from public launch. |
@@ -46,18 +46,49 @@ replay correction, native devices and P09 remain separate acceptance items.
 
 Rules20 implements the new canonical authorization registry, construction
 over Balls with a first-passage exception, checkerboard corner handling and
-symbolic tariffs. Source `95a439e3` passed its three hosted workflows,
-including explicit installed successor gates. The draft qualifies the
-healthy predecessor, real paid Cannon and Diverter admission, a continuous
-toroidal return, four authenticated high-population tariff payments, and
-additional exact seam and equal-time contact cases. Complete the obstructed
-recovery, installed passage lifecycle, remaining corner matrix and
-authenticated inventory, batch, grace-window and interrupted-purchase
-matrix before freezing a release. The successor frontend has a dedicated
-configuration and inventory.
+symbolic tariffs. The integrated recovery branch pins published DTR 0.16.0.
+Source `b0c93c7f` passed standard, financial and developer/prelaunch hosted
+qualification with 18 named installed successor cases.
+Published source `adc5a8e1` additionally passed financial and
+developer/prelaunch workflows with **22 named installed successor cases**;
+its standard workflow also passed. The exact
+backend and public frontend candidate hashes are recorded in
+[release preparation](docs/operations/RULES20_RELEASE_PREPARATION.md). The
+local continuation after that source passed the full source suite but still
+requires publication and hosted qualification. The implementation qualifies
+healthy and obstructed Rules19 predecessors, including six ordered pending
+inputs, an overdue lifecycle barrier, reserved and partially executed stages,
+UTC crossing and exact independent replay. Genuine paid Cannon and Diverter
+construction, continuous toroidal return, active-exception restart and paid
+structure relocation passed. Authenticated 1,000–1,002-account tariffs,
+personal Cannon and Diverter scaling, partial and overflowing Ball batches,
+delayed Index grace selection and interrupted purchase continuation passed
+in installed disposable tests with exact receipts, frontend quotes and replay.
+A further paid installed case retained three existing Balls, including two
+overlapping at one Cannon site, with three separate passage rows and exact
+independent replay.
+An additional paid installed Diverter was removed after an opposing Ball
+captured its corridor. The `capture_annihilation` event named both Balls
+and the removed structure,
+its passage row retired, and thirteen consecutive publications matched
+independent public replay.
+Additional seam and equal-time corner outputs passed in source conformance.
+An installed mixed-owner corner capture survived a partially stepped
+checkpoint and same-ID restart with exact independent replay. Complete
+foreign-Cannon and Diverter installed corner obstructions also survived the
+same restart route and matched independent replay. The specified local
+recovery, passage and corner gates are complete. Run the full 28-case
+installed matrix and all applicable workflows on the final published source
+before freezing a release. The successor
+frontend has a dedicated configuration and inventory.
 
 Certified burn has a promising replicated self-status sampling point.
-Confirm reservation behavior across concurrent activity and protection,
-known treasury credits, external top-up semantics, live observer/agent
-acceptance and measured incremental overhead. The capability remains
-disabled and is independent of the authorization repair.
+Two shifted Index phases, a stopped Index, an identified 1T treasury credit,
+and a held Index response with a material 82.593B-cycle refund passed their
+disposable gates. Active Trickle stayed within the predeclared 5% settled
+comparison; the matched incremental cost was 4.565B cycles/day. Live browser
+and maintained agent consumption passed for direct and composed roots.
+Complete concurrent checkpoint, Full Speed, dormant/protected, prolonged
+unavailable and wider reservation schedules. Unknown external credits remain
+unobservable. The capability remains disabled and independent of the Rules20
+authorization repair.

@@ -12,7 +12,7 @@ import {decodeWorld,encodeWorld,ECONOMY_IDENTITY,ECONOMY_CONFIG,RESERVOIR_CONFIG
 import {B2zKernel,B2zCursor} from '../../packages/kernels/b2z/kernel.mjs';
 import {expireV6} from '../../packages/kernels/b2z/lifecycle-v6.mjs';
 import {quoteV6} from '../../apps/b2z-observer/action-quote-v6.mjs';
-import {snapshot} from '../../apps/b2z-observer/model.mjs';
+import {snapshot,prepareDerivedSegment} from '../../apps/b2z-observer/model.mjs';
 
 const initial=()=>migrateReservoirs(decodeWorld(Buffer.from(JSON.parse(readFileSync('tests/fixtures/context-structures-v13.json')).rows[0].initial_hex,'hex')));
 const hex=bytes=>Buffer.from(bytes).toString('hex');
@@ -73,6 +73,23 @@ test('late publisher records the preceding state, publishes tomorrow and never r
   assert.equal(missed.effective_ns,at+5n*DAY_NS);
   assert.deepEqual(resumed.time,current.time);
   assert.equal(economyAt(resumed.economy,at+3n*DAY_NS).current,record.multiplier);
+});
+
+test('authenticated interval accepts only the terminal daily economy snapshot before elapsed time',async()=>{
+  const predecessor=initial(),world=migrateEconomy(predecessor,at-20n,sha256(encodeWorld(predecessor)));
+  const start=encodeWorld(world),result=run(world,[],at+6_000_000_000n);
+  const events=decodeCanonical(result.events).events;
+  assert.deepEqual(events.slice(-2).map(e=>e.kind),['economy_snapshot','lifecycle_time']);
+  const publication={version:8,identity:ECONOMY_IDENTITY,render_format:null,
+    head:{seal:{logical_start:world.time[0],logical_end:world.time[0]+1n,previous_state:sha256(start)},state_hash:sha256(result.state)},
+    artifacts:[{kind:'events',sha256:sha256(result.events)}]};
+  const verified=await prepareDerivedSegment(start,result.state,result.events,publication);
+  assert.deepEqual(verified.events.slice(-2).map(e=>e.kind),['economy_snapshot','lifecycle_time']);
+  const altered=decodeCanonical(result.events);
+  altered.events[altered.events.length-2].kind='unrelated_terminal_event';
+  const alteredBytes=encodeCanonical(altered);
+  await assert.rejects(prepareDerivedSegment(start,result.state,alteredBytes,
+    {...publication,artifacts:[{kind:'events',sha256:sha256(alteredBytes)}]}),/derived animation event order\/range/);
 });
 
 test('delayed and grace Ledger payments keep one deterministic tariff across the entire batch',()=>{

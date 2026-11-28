@@ -1,8 +1,11 @@
 import {decodeDelegatedPayment,pricingEnvelope} from '../../protocol/delegation.mjs';
 import {hex} from '@dtr/timeline-runtime/protocol/bytes';
 import {authorizePayment,receiptTransfer} from './delegation-v18.mjs';
+import {authorizePaymentV3} from './delegation-v20.mjs';
 import {affordableBalls} from '../../protocol/economy17.mjs';
+import {BALL_BASE_E8S} from '../../protocol/economy17.generated.mjs';
 import {economyAt,observeEconomy} from './economy17.mjs';
+import {tariffs20,priceAtTariff} from './economy20.mjs';
 import {playerBalls} from './purchases-v6.mjs';
 import {prepareReservoir} from './reservoirs.mjs';
 import {reservoirCell,placeReservoir} from '../../protocol/reservoir.mjs';
@@ -16,12 +19,41 @@ import {CaptureJob} from './capture-v6.mjs';
 import {finalizeElapsed,V6_POLICY} from './playability.mjs';
 import {validateWorld} from './world.mjs';
 import{prepareDeflectorPurchase}from'./deflectors-v12.mjs';
+import{registerPassage,pruneRemoved}from'./passage-v20.mjs';
 const rejected=(c,p,reason)=>c.receipt(p,{reason,status:'rejected',amount_used:0n,remainder:p.amount});
 function place(c,p,plan,r){
- const made=placeNew(c.world,p.account,p.amount,plan,r,!!c.v6.entry_rules,!!c.v6.context_rules,!!c.v6.spacing_rules,p.tariff?.multiplier??null),batch=PurchaseBatch.afterNew(p.account,p.amount,made.cannon.id,plan);
+ const made=placeNew(c.world,p.account,p.amount,plan,r,!!c.v6.entry_rules,!!c.v6.context_rules,!!c.v6.spacing_rules,p.tariff20?.rate??p.tariff?.multiplier??null),batch=PurchaseBatch.afterNew(p.account,p.amount,made.cannon.id,plan);
  if(p.tariff)batch.economy_multiplier=p.tariff.multiplier;
+ if(p.tariff20)batch.economy_tariff20=p.tariff20.rate;
  c.world=made.world;c.emit(made.event);c.areaDirty=true;
  Object.assign(c.v6,{plan:null,payment:p,batch:{...batch}});c.phase='v6_purchase';
+}
+export function pricingPlan20(c,p,reservoir){
+ const w=c.world,{current,previous}=tariffs20(w.economy,w.economy_formula_start_ns,p.recordedNs);
+ const named=rate=>({ledger_recorded_ns:p.recordedNs,rate});
+ if(reservoir!==null)return [prepareReservoir(w,p.account,p.amount,reservoir),named(current)];
+ const prepare=rate=>prepareContextDeflector(w,p.account,p.amount,p.memo,true,rate)
+   ??preparePurchase(w,p.account,p.amount,p.memo,c.moved,true,true,rate);
+ const primary=prepare(current);
+ if(!previous)return [primary,named(current)];
+ const slots=0xffffffff-w.next_ball_id;
+ const count=(candidate,rate)=>{
+  if(candidate.kind==='rejected')return 0;
+  if(candidate.kind!=='new'&&candidate.kind!=='fire')return 1;
+  let remaining=p.amount,held=playerBalls(w,p.account),count=0,extras=0;
+  if(candidate.kind==='new'){
+   if(candidate.price>remaining)return 0;
+   remaining-=candidate.price;held++;count=1;extras=Math.min(candidate.quantity-1,Math.max(0,slots-1));
+  }else extras=Math.min(candidate.quantity,slots);
+  for(let i=0;i<extras;i++){
+   const price=priceAtTariff(rate,BALL_BASE_E8S,held+i);
+   if(price===null||price>remaining)break;
+   remaining-=price;count++;
+  }
+  return count;
+ };
+ const older=prepare(previous);
+ return count(older,previous)>count(primary,current)?[older,named(previous)]:[primary,named(current)];
 }
 function pricingPlan(c,p,reservoir){
  const w=c.world;
@@ -50,7 +82,7 @@ export function workV6(c,readPayment){
    if(c.world.version>=10){
      const admitted=decodeDelegatedPayment(payload);
      transfer=receiptTransfer(admitted);
-     const decision=authorizePayment(c.world.authorization,admitted,input.position);
+     const decision=(c.world.authorization?.version===3?authorizePaymentV3:authorizePayment)(c.world.authorization,admitted,input.position);
      if(decision!=='gameplay'){
        const {amount,from:account}=admitted,payment={account,amount,transfer};
        if(c.world.received_e8s+amount>=1n<<128n)throw Error('treasury overflow');
@@ -66,10 +98,10 @@ export function workV6(c,readPayment){
    const p=readPayment(payload);if(c.v6.war_cry_rules)c.v6.pending_cry=p.cry||null;
    if(c.world.received_e8s+p.amount>=1n<<128n)throw Error('treasury overflow');
    const reservoir=c.v6.reservoir_rules?reservoirCell(p.memo):null;
-   const [economyPlan,tariff]=c.world.version>=9?pricingPlan(c,p,reservoir):[];
+   const [economyPlan,tariff]=c.world.version>=12?pricingPlan20(c,p,reservoir):c.world.version>=9?pricingPlan(c,p,reservoir):[];
    const plan=economyPlan??(reservoir!==null?prepareReservoir(c.world,p.account,p.amount,reservoir):c.v6.context_rules?(prepareContextDeflector(c.world,p.account,p.amount,p.memo,!!c.v6.spacing_rules)??preparePurchase(c.world,p.account,p.amount,p.memo,c.moved,true,!!c.v6.spacing_rules)):(c.v6.deflector_rules?prepareDeflectorPurchase(c.world,p.account,p.amount,p.memo):null)??(c.v6.clearance_rules?preparePurchaseClearance:preparePurchase)(c.world,p.account,p.amount,p.memo,c.moved));
    c.world.received_e8s+=p.amount;
-   const payment={account:p.account,amount:p.amount,...(tariff?{tariff}:{}),...(transfer?{transfer}:{})};
+   const payment={account:p.account,amount:p.amount,...(tariff?c.world.version>=12?{tariff20:tariff}:{tariff}:{}),...(transfer?{transfer}:{})};
    if(plan.kind==='rejected')rejected(c,payment,plan.reason);
    else if(plan.kind==='reservoir'){
      placeReservoir(c.world,plan.cell);
@@ -77,19 +109,22 @@ export function workV6(c,readPayment){
    }else if(plan.kind==='deflect'){
      const structure={id:c.world.next_deflector_id++,cell:plan.cell,owner:plan.owner,orientation:plan.orientation};
      c.world.deflectors.push(structure);c.world.deflectors.sort((a,b)=>a.cell-b.cell);
+     registerPassage(c.world,'deflector',structure.id,structure.cell);
      c.receipt(payment,{reason:'ACCEPTED',kind:'deflector_built',structure:{...structure},status:'applied',amount_used:plan.price,remainder:p.amount-plan.price});
    }else if(plan.kind==='deflector_move'||plan.kind==='deflector_reorient'){
      const structure=c.world.deflectors.find(d=>d.id===plan.id),before={...structure};
      if(plan.kind==='deflector_move'){
        structure.cell=plan.cell;
        c.world.deflectors.sort((a,b)=>a.cell-b.cell);
+       pruneRemoved(c.world);
      }else structure.orientation=plan.orientation;
      c.receipt(payment,{reason:'ACCEPTED',kind:plan.kind==='deflector_move'?'deflector_moved':'deflector_reoriented',before,structure:{...structure},status:'applied',amount_used:plan.price,remainder:p.amount-plan.price});
    }else if(plan.kind==='move'){
      const cannon=c.world.cannons.find(x=>x.id===plan.cannon),before=cannon.cell;cannon.cell=plan.cell;c.moved.push(cannon.id);
+     pruneRemoved(c.world);
      c.receipt(payment,{reason:'ACCEPTED',kind:'cannon_moved',status:'applied',cannon:cannon.id,before,after:plan.cell,amount_used:plan.price,remainder:p.amount-plan.price});
    }else if(plan.kind==='fire'){
-     c.v6.batch={...PurchaseBatch.fire(p.account,p.amount,plan),...(tariff?{economy_multiplier:tariff.multiplier}:{})};c.v6.payment=payment;c.phase='v6_purchase';
+     c.v6.batch={...PurchaseBatch.fire(p.account,p.amount,plan),...(tariff?c.world.version>=12?{economy_tariff20:tariff.rate}:{economy_multiplier:tariff.multiplier}:{})};c.v6.payment=payment;c.phase='v6_purchase';
    }else if(plan.kind==='new'){
      if(c.spawnSearches>=8)rejected(c,payment,'SPAWN_SEARCH_CAPACITY');
      else{
@@ -144,6 +179,10 @@ export function validateV6Cursor(c){
  if(s.batch){
   Object.assign(Object.create(PurchaseBatch.prototype),s.batch).validate(c.world);
   if(s.batch.economy_multiplier!==s.payment?.tariff?.multiplier)throw Error('ECONOMY_PURCHASE_CONTINUATION');
+  if(JSON.stringify(s.batch.economy_tariff20)!==JSON.stringify(s.payment?.tariff20?.rate))throw Error('ECONOMY_PURCHASE_CONTINUATION');
+ }
+ if(s.payment){
+  if((c.world.version>=12)!==Boolean(s.payment.tariff20)||c.world.version>=12&&s.payment.tariff!==undefined)throw Error('ECONOMY_PAYMENT_CONTINUATION');
  }
  if(s.plan&&!(s.plan.kind==='new'&&s.plan.first))throw Error('V6_SPAWN_PLAN');
 }

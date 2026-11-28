@@ -9,6 +9,9 @@ use serde::{Deserialize, Serialize};
 use serde_json::json;
 /// World migration headroom is independent of ordinary gameplay pacing bands.
 pub const MIN_LIQUID_CYCLES: u128 = 500_000_000_000;
+fn is_false(value: &bool) -> bool {
+    !value
+}
 #[derive(Clone, Debug, Serialize, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Transition {
@@ -20,6 +23,8 @@ pub struct Transition {
     pub transition_hash: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub previous_manifest: Option<String>,
+    #[serde(default, skip_serializing_if = "is_false")]
+    pub recovery_source_complete: bool,
 }
 impl Transition {
     pub fn new() -> Self {
@@ -31,6 +36,7 @@ impl Transition {
             metadata_hex: None,
             transition_hash: None,
             previous_manifest: None,
+            recovery_source_complete: false,
         }
     }
     pub fn million() -> Self {
@@ -117,12 +123,26 @@ impl Transition {
             ..Self::new()
         }
     }
+    pub fn rules20() -> Self {
+        Self {
+            version: 16,
+            ..Self::new()
+        }
+    }
+    pub fn rules19_recovery() -> Self {
+        Self {
+            version: 17,
+            ..Self::new()
+        }
+    }
     pub fn holding(&self) -> bool {
-        self.phase != "complete"
+        self.phase != "complete" && self.phase != "fenced"
     }
     pub fn validate(&self) -> Result<()> {
-        if !matches!(self.version, 1..=15)
-            || !["ledger", "index", "drain", "ready", "complete"].contains(&self.phase.as_str())
+        if !matches!(self.version, 1..=17)
+            || !(["ledger", "index", "drain", "ready", "complete"].contains(&self.phase.as_str())
+                || self.version == 17 && ["recover", "fenced"].contains(&self.phase.as_str()))
+            || self.recovery_source_complete && self.version != 17
         {
             return Err("world transition phase".into());
         }
@@ -133,7 +153,7 @@ impl Transition {
                     .ok_or("missing Ledger cutover")?,
             )?;
         }
-        if ["drain", "ready", "complete"].contains(&self.phase.as_str())
+        if ["drain", "ready", "recover", "complete"].contains(&self.phase.as_str())
             && super::number(
                 self.index_synced
                     .as_ref()
@@ -142,7 +162,7 @@ impl Transition {
         {
             return Err("Index has not reached cutover".into());
         }
-        if self.phase == "complete"
+        if ["recover", "fenced", "complete"].contains(&self.phase.as_str())
             && (self.metadata_hex.is_none()
                 || self
                     .transition_hash
@@ -150,6 +170,12 @@ impl Transition {
                     .is_none_or(|h| unhex(h).map_or(true, |b| b.len() != 32)))
         {
             return Err("missing transition evidence".into());
+        }
+        if self.version == 17
+            && ["fenced", "complete"].contains(&self.phase.as_str())
+            && !self.recovery_source_complete
+        {
+            return Err("recovery source obligations incomplete".into());
         }
         if self
             .previous_manifest

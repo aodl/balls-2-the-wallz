@@ -91,6 +91,22 @@ impl Cursor {
             {
                 return Err("ECONOMY_PURCHASE_CONTINUATION".into());
             }
+            if batch.economy_tariff20
+                != s.payment
+                    .as_ref()
+                    .and_then(|p| p.tariff20.as_ref())
+                    .map(|p| p.rate.clone())
+            {
+                return Err("ECONOMY_PURCHASE_CONTINUATION".into());
+            }
+        }
+        if let Some(payment) = &s.payment {
+            if (self.world.version >= 12) != payment.tariff20.is_some()
+                || self.world.version >= 12 && payment.tariff.is_some()
+                || payment.tariff20.as_ref().is_some_and(|t| !t.rate.valid())
+            {
+                return Err("ECONOMY_PAYMENT_CONTINUATION".into());
+            }
         }
         if let Some(plan) = &s.plan {
             if !matches!(plan, Plan::New { first: true, .. }) {
@@ -118,6 +134,7 @@ impl Cursor {
                         account: dtr_wire::hex(&payment.from),
                         amount: Int(payment.amount.into()),
                         tariff: None,
+                        tariff20: None,
                         authorization_transfer: Some(receipt_transfer(&payment)),
                     };
                     let registry = self.world.authorization.as_mut().ok_or("AUTH_REGISTRY")?;
@@ -187,7 +204,19 @@ impl Cursor {
                 } else {
                     None
                 };
-                let plan = if let Some(time) = recorded_ns {
+                let plan = if self.world.version >= 12 {
+                    let time = recorded_ns.ok_or("LEDGER_RECORDED_TIME")?;
+                    let (plan, paid_at) = crate::economy20::prepare(
+                        &self.world,
+                        &payment.saved.account,
+                        amount,
+                        &payment.memo,
+                        &self.moved,
+                        time,
+                    )?;
+                    payment.saved.tariff20 = Some(paid_at);
+                    plan
+                } else if let Some(time) = recorded_ns {
                     let (plan, paid_at) = crate::economy17::prepare(
                         &self.world,
                         &payment.saved.account,
@@ -244,6 +273,12 @@ impl Cursor {
                         let ds = self.world.deflectors.as_mut().ok_or("structure state")?;
                         ds.push(d.clone());
                         ds.sort_by_key(|d| d.cell);
+                        crate::passage_v20::register(
+                            &mut self.world,
+                            crate::passage_v20::Kind::Deflector,
+                            id,
+                            *cell,
+                        )?;
                         self.receipt(&payment.saved,json!({"reason":"ACCEPTED","kind":"deflector_built","structure":d,"status":"applied","amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
                     }
                     Plan::DeflectorMove { id, cell, price } => {
@@ -253,6 +288,7 @@ impl Cursor {
                         d.cell = *cell;
                         let after = d.clone();
                         ds.sort_by_key(|d| d.cell);
+                        crate::passage_v20::prune_removed(&mut self.world);
                         self.receipt(&payment.saved,json!({"reason":"ACCEPTED","kind":"deflector_moved","before":before,"structure":after,"status":"applied","amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
                     }
                     Plan::DeflectorReorient {
@@ -280,6 +316,7 @@ impl Cursor {
                             .ok_or("UNKNOWN_CANNON")?;
                         let before = c.cell;
                         c.cell = *cell;
+                        crate::passage_v20::prune_removed(&mut self.world);
                         self.moved.push(*cannon);
                         self.receipt(&payment.saved,json!({"reason":"ACCEPTED","kind":"cannon_moved","status":"applied","cannon":cannon,"before":before,"after":cell,"amount_used":price,"remainder":Int(&payment.saved.amount.0-&price.0)}))?;
                     }
@@ -287,6 +324,8 @@ impl Cursor {
                         let mut batch = Batch::fire(payment.saved.account.clone(), amount, &plan)?;
                         batch.economy_multiplier =
                             payment.saved.tariff.as_ref().map(|p| p.multiplier);
+                        batch.economy_tariff20 =
+                            payment.saved.tariff20.as_ref().map(|p| p.rate.clone());
                         self.v6.as_mut().unwrap().batch = Some(batch);
                         self.v6.as_mut().unwrap().payment = Some(payment.saved);
                         self.phase = "v6_purchase".into();
@@ -442,7 +481,11 @@ impl Cursor {
             &payment.account,
             purchases_v6::PurchaseTerms {
                 amount,
-                multiplier: payment.tariff.as_ref().map(|p| p.multiplier),
+                tariff: payment
+                    .tariff
+                    .as_ref()
+                    .map(|p| crate::economy20::Tariff::Linear(p.multiplier))
+                    .or_else(|| payment.tariff20.as_ref().map(|p| p.rate.rate())),
             },
             plan,
             placement,
@@ -451,6 +494,7 @@ impl Cursor {
         )?;
         let mut batch = Batch::after_new(payment.account.clone(), amount, created.cannon.id, plan)?;
         batch.economy_multiplier = payment.tariff.as_ref().map(|p| p.multiplier);
+        batch.economy_tariff20 = payment.tariff20.as_ref().map(|p| p.rate.clone());
         self.world = created.world;
         self.emit(created.event)?;
         self.area_dirty = true;

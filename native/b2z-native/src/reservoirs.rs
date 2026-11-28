@@ -143,7 +143,7 @@ pub fn place(world: &mut World, cell: usize) -> Result<()> {
     } else {
         let bits = world.reservoirs.as_mut().ok_or("RESERVOIR_SCHEMA")?;
         set_bit(bits, cell);
-        if world.version == 11 {
+        if world.version >= 11 {
             let ranges = ranges_from_bitmap(bits);
             if ranges.len() <= MAX_COMPACT_RANGES {
                 world.reservoir_ranges = Some(ranges);
@@ -186,13 +186,13 @@ fn dense_required(bits: &str) -> bool {
 pub fn validate(world: &World) -> Result<()> {
     let cells = world.cell_count();
     match (world.version, &world.reservoirs, &world.reservoir_ranges) {
-        (8..=11, Some(bits), None) => {
+        (8..=12, Some(bits), None) => {
             validate_bitmap(bits, cells)?;
-            if world.version == 11 && !dense_required(bits) {
+            if world.version >= 11 && !dense_required(bits) {
                 return Err("RESERVOIR_NONCANONICAL_DENSE".into());
             }
         }
-        (11, None, Some(ranges)) => {
+        (11..=12, None, Some(ranges)) => {
             if ranges.len() > MAX_COMPACT_RANGES
                 || ranges
                     .iter()
@@ -244,7 +244,7 @@ pub fn migrate(mut world: World) -> Result<World> {
 }
 
 pub fn prepare(world: &World, account: &str, amount: u64, cell: usize) -> Result<Plan> {
-    if !matches!(world.version, 8..=11) {
+    if !matches!(world.version, 8..=12) {
         return Err("RESERVOIR_SCHEMA".into());
     }
     let price = if world.version >= 9 {

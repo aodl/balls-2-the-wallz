@@ -1,11 +1,13 @@
 import {emptyAuthorization,verifyAuthorizationReceipts,validateAuthorization} from '../../packages/kernels/b2z/delegation-v18.mjs';
+import {authorizationV3FromV2,authorizePaymentV3,validateAuthorizationV3} from '../../packages/kernels/b2z/delegation-v20.mjs';
+import {successorFormulaStart} from '../../packages/kernels/b2z/economy20.mjs';
 import {migrateEconomy,validateEconomy,participatingPlayers,observeEconomy} from '../../packages/kernels/b2z/economy17.mjs';
 import {reservoirSites,reservoirOccupancy,validateReservoirs,migrateReservoirEncoding} from '../../packages/protocol/reservoir.mjs';
 import{validateDeflectorSnapshot,applyDeflectorBuilt,applyDeflectorOperation,applyDeflectorRemovals,matchesDeflectors}from'./model-deflector.mjs';
 import {launchAnnotationValidator}from'./war-cry-events.mjs';
 import {validateV6Snapshot,trackV6,applyV6Event,matchesV6,statsV6} from './model-v6.mjs';
 /** B2Z-specific observer, not a simulator. Integer trajectories become floats ONLY for drawing. */
-import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY,ECONOMY_IDENTITY,DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY} from './torus-identity.generated.mjs';
+import {MILLION_IDENTITY,TORUS_IDENTITY,V3_IDENTITIES,PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY,ECONOMY_IDENTITY,DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY,RECOVERY_IDENTITY,RULES20_IDENTITY} from './torus-identity.generated.mjs';
 import {PlayoutClock} from '../../node_modules/@dtr/timeline-runtime/packages/client/playout.mjs';
 import {decodeCanonical,encodeCanonical} from '../../node_modules/@dtr/timeline-runtime/packages/runtime/canonical.mjs';
 import {sha256Web} from '../../node_modules/@dtr/timeline-runtime/packages/client/verification.mjs';
@@ -15,8 +17,8 @@ import {accountColor} from './identity.mjs';
 export const FORMAT='btz-animation-1';
 const MAX_EVENTS=131072;
 const identityMatches=(id,expected)=>Object.keys(expected).every(key=>id?.[key]===expected[key]);
-const playabilityIdentity=(id,version=6)=>(version===11?[COMPACT_RESERVOIR_IDENTITY]:version===10?[DELEGATED_IDENTITY]:version===9?[ECONOMY_IDENTITY]:version===8?[RESERVOIR_IDENTITY]:version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>identityMatches(id,expected));
-const contextIdentity=id=>identityMatches(id,CONTEXT_IDENTITY)||identityMatches(id,SHOUT_IDENTITY)||identityMatches(id,SPACING_IDENTITY)||identityMatches(id,RESERVOIR_IDENTITY)||identityMatches(id,ECONOMY_IDENTITY)||identityMatches(id,DELEGATED_IDENTITY)||identityMatches(id,COMPACT_RESERVOIR_IDENTITY);
+const playabilityIdentity=(id,version=6)=>(version===12?[RULES20_IDENTITY]:version===11?[COMPACT_RESERVOIR_IDENTITY,RECOVERY_IDENTITY]:version===10?[DELEGATED_IDENTITY]:version===9?[ECONOMY_IDENTITY]:version===8?[RESERVOIR_IDENTITY]:version===7?[DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY]:[PLAYABILITY_IDENTITY,ENTRY_IDENTITY,CLEARANCE_IDENTITY,WAR_CRY_IDENTITY,COMBINED_IDENTITY]).some(expected=>identityMatches(id,expected));
+const contextIdentity=id=>identityMatches(id,CONTEXT_IDENTITY)||identityMatches(id,SHOUT_IDENTITY)||identityMatches(id,SPACING_IDENTITY)||identityMatches(id,RESERVOIR_IDENTITY)||identityMatches(id,ECONOMY_IDENTITY)||identityMatches(id,DELEGATED_IDENTITY)||identityMatches(id,COMPACT_RESERVOIR_IDENTITY)||identityMatches(id,RECOVERY_IDENTITY)||identityMatches(id,RULES20_IDENTITY);
 function verifyShoutTarget(model,annotation){
   const a=annotation;
   const target=a.kind==='cannon'?model.cannons.get(a.id):model.deflectors.get(a.id);
@@ -42,10 +44,12 @@ function track(b,maxVelocity=4096){
 }
 export function snapshot(bytes,identity){
   check(bytes instanceof Uint8Array&&bytes.length<=1048576,'snapshot bounds');
-  const w=decodeCanonical(bytes);check([3,4,5,6,7,8,9,10,11].includes(w.version),'snapshot version');
+  const w=decodeCanonical(bytes);check([3,4,5,6,7,8,9,10,11,12].includes(w.version),'snapshot version');
   validateReservoirs(w);
   validateEconomy(w);
-  if(w.version>=10)validateAuthorization(w.authorization);
+  if(w.version===11&&w.authorization?.version===3){validateAuthorizationV3(w.authorization);if(identity)check(identityMatches(identity,RECOVERY_IDENTITY),'recovery identity');}
+  else if(w.version>=10&&w.version<=11)validateAuthorization(w.authorization);
+  else if(w.version===12)validateAuthorizationV3(w.authorization);
   else check(w.authorization===undefined,'authorization schema');
   if(w.version<7)check(w.deflectors===undefined&&w.next_deflector_id===undefined,'historical structure extension');
   check(Number.isInteger(w.width)&&w.width>=1&&w.width<=1000&&Number.isInteger(w.height)&&w.height>=1&&w.height<=1000,'dimensions');
@@ -191,6 +195,12 @@ export class B2zView {
 /** Integrity links + exact ordering + end-state visual conformance BEFORE buffer admission.
  * Endpoint equality is not a proof that intermediate game rules were executed correctly.
  */
+function terminalElapsedEvent(event,events,version,end){
+  if(version<6||cmp(event.time,end)!==0)return false;
+  const last=events.at(-1);
+  return event===last&&event.kind==='lifecycle_time'||
+    event===events.at(-2)&&event.kind==='economy_snapshot'&&last?.kind==='lifecycle_time';
+}
 export async function prepareSegment(initialBytes,finalBytes,renderBytes,publication){
   check(renderBytes instanceof Uint8Array&&renderBytes.length<=1048576,'animation bounds');
   check(await sha256Web(renderBytes)===publication.artifacts.find(a=>a.kind==='render')?.sha256,'animation artifact hash');
@@ -204,11 +214,11 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
   if(initial.version>=6||final.version>=6)check(initial.version>=6&&final.version===initial.version&&playabilityIdentity(publication.identity,initial.version),'playability rules/config/schema identity');
-  if(initial.version>=10)verifyAuthorizationReceipts(initial,final,p.receipts,s);
+  if(initial.version>=10)verifyAuthorizationReceipts(initial,final,p.receipts,s,initial.authorization?.version===3?authorizePaymentV3:undefined);
   const validateAnnotation=launchAnnotationValidator(p.receipts,publication.identity);
   const contextStructures=contextIdentity(publication.identity),model=new B2zView(initial,contextStructures);let prior=initial.time,seq=-1;
   for(const e of p.events){
-    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version>=6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'animation event order/range');
+    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||terminalElapsedEvent(e,p.events,initial.version,final.time)),'animation event order/range');
     seq=e.sequence;prior=e.time;validateAnnotation(e);model.apply(e);if(e.action_annotation)verifyShoutTarget(model,e.action_annotation);
   }
   model.matches(final);
@@ -219,7 +229,7 @@ export async function prepareSegment(initialBytes,finalBytes,renderBytes,publica
  * existing compact presentation from its authenticated predecessor and audit
  * events, then apply the same endpoint validation as recorded playback. */
 export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,publication){
-  check([6,7,8,9].includes(publication.version)&&publication.render_format===null&&!publication.artifacts.some(a=>a.kind==='render'),'native publication shape');
+  check([6,7,8,9,10].includes(publication.version)&&publication.render_format===null&&!publication.artifacts.some(a=>a.kind==='render'),'native publication shape');
   const events=publication.artifacts.find(a=>a.kind==='events');
   check(events&&await sha256Web(eventBytes)===events.sha256,'authenticated audit artifact');
   const initial=snapshot(initialBytes),final=snapshot(finalBytes),projected=projectAnimationEvents(initial,eventBytes),h=publication.head,s=h.seal;
@@ -234,11 +244,11 @@ export async function prepareDerivedSegment(initialBytes,finalBytes,eventBytes,p
   if(initial.version===4||final.version===4)check(initial.version===4&&final.version===4&&Object.keys(TORUS_IDENTITY).every(k=>publication.identity?.[k]===TORUS_IDENTITY[k]),'torus rules/config/schema identity');
   if(initial.version===5||final.version===5)check(initial.version===5&&final.version===5&&Object.keys(MILLION_IDENTITY).every(k=>publication.identity?.[k]===MILLION_IDENTITY[k]),'million rules/config/schema identity');
   if(initial.version>=6||final.version>=6)check(initial.version>=6&&final.version===initial.version&&playabilityIdentity(publication.identity,initial.version),'playability rules/config/schema identity');
-  if(initial.version>=10)verifyAuthorizationReceipts(initial,final,p.receipts,s);
+  if(initial.version>=10)verifyAuthorizationReceipts(initial,final,p.receipts,s,initial.authorization?.version===3?authorizePaymentV3:undefined);
   const validateAnnotation=launchAnnotationValidator(p.receipts,publication.identity);
   const contextStructures=contextIdentity(publication.identity),model=new B2zView(initial,contextStructures);let prior=initial.time,seq=-1;
   for(const e of p.events){
-    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||initial.version>=6&&e.kind==='lifecycle_time'&&e===p.events.at(-1)&&cmp(e.time,final.time)===0),'derived animation event order/range');
+    timeNumber(e.time);check(Number.isSafeInteger(e.sequence)&&e.sequence>seq&&cmp(e.time,prior)>=0&&(cmp(e.time,final.time)<0||terminalElapsedEvent(e,p.events,initial.version,final.time)),'derived animation event order/range');
     seq=e.sequence;prior=e.time;validateAnnotation(e);model.apply(e);if(e.action_annotation)verifyShoutTarget(model,e.action_annotation);
   }
   model.matches(final);
@@ -329,7 +339,7 @@ const sameCanonical=(a,b)=>{const x=encodeCanonical(a),y=encodeCanonical(b);retu
 /** Zero-time authenticated boundary. The caller still verifies the IC certificate
  * and ordered publication chain; these checks bind application context/content. */
 export async function prepareCheckpoint(initialBytes,artifacts,publication,prior){
-  check([7,8,9].includes(publication.version)&&publication.head.seal===null&&publication.epoch,'checkpoint publication');
+  check([7,8,9,10].includes(publication.version)&&publication.head.seal===null&&publication.epoch,'checkpoint publication');
   const initial=snapshot(initialBytes,prior.identity),final=snapshot(artifacts.state,publication.identity),at=timeNumber(initial.time);
   check(await sha256Web(initialBytes)===prior.head.state_hash,'checkpoint predecessor state binding');
   check(cmp(initial.time,final.time)===0&&cmp(initial.time,[BigInt(prior.head.logical_end),1n])===0&&BigInt(publication.head.logical_end)===BigInt(prior.head.logical_end),'checkpoint logical boundary');
@@ -342,7 +352,30 @@ export async function prepareCheckpoint(initialBytes,artifacts,publication,prior
   check(scores.version===final.version&&Array.isArray(scores.area_time)&&scores.area_time.length===0,'checkpoint scores');
   const context=events.events[0]?.context;
   const kind=events.events[0]?.kind;
-  if(kind==='reservoir_encoding_compacted'){
+  if(kind==='authorization_recovery_activated'){
+    check(initial.version===11&&final.version===11&&publication.version===10&&publication.epoch.version===4&&events.events.length===1,'Rules19 recovery checkpoint format');
+    check(identityMatches(prior.identity,COMPACT_RESERVOIR_IDENTITY)&&identityMatches(publication.identity,RECOVERY_IDENTITY),'Rules19 recovery exact identities');
+    const obligation=publication.epoch.recovery;
+    check(obligation&&context&&context.version===17&&context.migration==='B2Z_RULES_19_AUTH_RECOVERY_01'&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash,'Rules19 recovery authenticated context');
+    check(context.previous_manifest===prior.head.manifest_hash&&context.previous_state===prior.head.state_hash&&context.new_state===publication.head.state_hash&&sameCanonical(context.old_identity,prior.identity)&&sameCanonical(context.new_identity,publication.identity),'Rules19 recovery predecessor and successor');
+    check(context.retired_source_cursor===prior.head.source_to_exclusive&&context.retired_source_cursor===publication.epoch.source_cursor&&context.admitted_source_cursor===obligation.admitted_cursor&&context.admitted_source_anchor===obligation.admitted_anchor&&context.pending_count===obligation.pending_count&&context.pending_root===obligation.pending_root&&context.reserved_stage_hash===(obligation.reserved_stage_hash??null)&&((obligation.version===2&&context.reserved_seal===null)||(obligation.version===1&&sameCanonical(context.reserved_seal,obligation.reserved_seal))),'Rules19 recovery ordered input obligations');
+    check(typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=context.admitted_source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover,'Rules19 recovery source fence');
+    check(context.source?.memo_adapter_version===12&&context.source?.recipient===initial.authorization.recipient,'Rules19 recovery source configuration');
+    const projected=structuredClone(initial);projected.authorization=authorizationV3FromV2(projected.authorization);
+    check(sameCanonical(projected,final),'Rules19 recovery changes authorization representation only');
+  }else if(kind==='rules20_activated'){
+    check(initial.version===11&&final.version===12&&publication.version===8&&publication.epoch.version===2&&events.events.length===1,'Rules20 checkpoint format');
+    check((identityMatches(prior.identity,COMPACT_RESERVOIR_IDENTITY)||identityMatches(prior.identity,RECOVERY_IDENTITY))&&identityMatches(publication.identity,RULES20_IDENTITY),'Rules20 exact identities');
+    const expected={version:16,migration:'B2Z_RULES_20',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:publication.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context?.ledger_cutover,account_history_complete_through:context?.ledger_cutover,index_synced:context?.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:12,memo_adapter_after:12,activation_observed_ns:context?.activation_observed_ns};
+    check(context&&await sha256Web(encodeCanonical(context))===publication.epoch.metadata_hash&&typeof context.ledger_cutover==='bigint'&&context.ledger_cutover>=expected.source_cursor&&typeof context.index_synced==='bigint'&&context.index_synced>=context.ledger_cutover&&sameCanonical(context,expected),'Rules20 checkpoint source commitment');
+    // Keep the checkpoint projection browser-safe. The authoritative world module
+    // uses Node crypto and cannot enter the embedded frontend dependency graph.
+    const projected=structuredClone(initial);
+    if(projected.authorization.version===2)projected.authorization=authorizationV3FromV2(projected.authorization);
+    projected.economy_formula_start_ns=successorFormulaStart(projected.playability.elapsed_ns,context.activation_observed_ns);
+    projected.version=12;
+    check(sameCanonical(final,projected),'Rules20 checkpoint preserved world');
+  }else if(kind==='reservoir_encoding_compacted'){
     check(initial.version===10&&final.version===11&&publication.version===8&&publication.epoch.version===2&&events.events.length===1,'compact Reservoir checkpoint format');
     check(identityMatches(prior.identity,DELEGATED_IDENTITY)&&identityMatches(publication.identity,COMPACT_RESERVOIR_IDENTITY),'compact Reservoir exact identities');
     const expected={version:15,migration:'B2Z_COMPACT_RESERVOIR_RULES_19',old_identity:prior.identity,new_identity:publication.identity,previous_state:prior.head.state_hash,new_state:publication.head.state_hash,logical_boundary:initial.time,source_cursor:prior.head.source_to_exclusive,ledger_cutover:context?.ledger_cutover,account_history_complete_through:context?.ledger_cutover,index_synced:context?.index_synced,source_anchor:prior.head.seal?.source_anchor??prior.epoch?.source_anchor,memo_adapter_before:12,memo_adapter_after:12};

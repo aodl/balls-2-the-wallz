@@ -27,6 +27,8 @@ pub(crate) struct PaymentSaved {
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub tariff: Option<crate::economy17::PaymentTariff>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub tariff20: Option<crate::economy20::PaymentTariff20>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
     pub authorization_transfer: Option<Value>,
 }
 pub(crate) struct Payment {
@@ -136,6 +138,7 @@ pub(crate) fn read_payment_with_annotations(s: &str, allow: bool) -> Result<Paym
             account: hex(&b[8..40]),
             amount: Int(BigInt::from(amount)),
             tariff: None,
+            tariff20: None,
             authorization_transfer: None,
         },
         memo: b[48..56].to_vec(),
@@ -210,7 +213,7 @@ fn semantic_deflector_world(mut w: World, bytes: &[u8]) -> Result<Vec<u8>> {
     if w.version >= 9 {
         // Rules19 joins use the exact Rules18 spawn preimage. Compact state
         // remains authoritative everywhere outside this entropy projection.
-        if w.version == 11 {
+        if w.version >= 11 {
             w.reservoirs = Some(crate::reservoirs::legacy_bitmap(&w));
             w.reservoir_ranges = None;
         }
@@ -218,6 +221,10 @@ fn semantic_deflector_world(mut w: World, bytes: &[u8]) -> Result<Vec<u8>> {
         let mut semantic = serde_json::to_value(&w).map_err(|e| e.to_string())?;
         let fields = semantic.as_object_mut().ok_or("semantic world")?;
         fields.remove("economy");
+        if w.version >= 12 {
+            fields.remove("economy_formula_start_ns");
+            fields.remove("passage_exceptions");
+        }
         if w.version >= 10 {
             fields.remove("authorization");
             fields.insert("version".into(), json!(9));
@@ -420,7 +427,7 @@ fn incoming(w: &World, i: &Intent) -> Result<Option<Strike>> {
         .ok_or("incoming ball")?;
     Ok(Some(Strike {
         id: 0,
-        from: i.cell,
+        from: t.from.unwrap_or(i.cell),
         to: t.target.ok_or("incoming target")?,
         axis: t.axis.clone(),
         ball: b.id,
@@ -498,7 +505,11 @@ impl Cursor {
         let economy = crate::economy17::identity();
         let delegated = crate::delegation_v18::identity();
         let compact = crate::reservoirs::compact_identity();
-        let is_compact = context.get("config_hash") == compact.get("config_hash");
+        let recovery = crate::delegation_v20::recovery_identity();
+        let successor = crate::delegation_v20::identity();
+        let is_successor = context.get("config_hash") == successor.get("config_hash");
+        let is_recovery = context.get("rules_hash") == recovery.get("rules_hash");
+        let is_compact = is_successor || context.get("config_hash") == compact.get("config_hash");
         let is_delegated = is_compact || context.get("config_hash") == delegated.get("config_hash");
         let is_economy = is_delegated || context.get("config_hash") == economy.get("config_hash");
         let is_reservoir = is_economy || context.get("config_hash") == reservoir.get("config_hash");
@@ -522,7 +533,11 @@ impl Cursor {
             || is_million
             || is_torus
             || context.get("config_hash") == current.get("config_hash");
-        let expected = if is_compact {
+        let expected = if is_recovery {
+            recovery
+        } else if is_successor {
+            successor
+        } else if is_compact {
             compact
         } else if is_delegated {
             delegated
@@ -563,8 +578,18 @@ impl Cursor {
             }
         }
         let world = World::decode(state)?;
+        if world.version == 11
+            && matches!(
+                world.authorization,
+                Some(crate::delegation_v20::AuthorizationState::Rows(_))
+            ) != is_recovery
+        {
+            return Err("authorization recovery identity".into());
+        }
         if world.version
-            != if is_compact {
+            != if is_successor {
+                12
+            } else if is_compact {
                 11
             } else if is_delegated {
                 10
@@ -805,6 +830,10 @@ impl Cursor {
         if let Some(tariff) = &p.tariff {
             receipt["ledger_recorded_ns"] = json!(tariff.ledger_recorded_ns);
             receipt["price_multiplier"] = json!(tariff.multiplier);
+        }
+        if let Some(tariff) = &p.tariff20 {
+            receipt["ledger_recorded_ns"] = json!(tariff.ledger_recorded_ns);
+            receipt["price_tariff"] = json!(tariff.rate);
         }
         if let Some(transfer) = &p.authorization_transfer {
             receipt["spender"] = transfer["spender"].clone();
@@ -1076,6 +1105,7 @@ impl Cursor {
                     self.job.as_mut().ok_or("missing topology job")?,
                 )?;
                 if done {
+                    crate::passage_v20::prune_removed(&mut self.world);
                     let mut j = self.job.take().ok_or("missing topology job")?;
                     j.cells.sort_unstable();
                     let meta = self.job_meta.take().ok_or("missing topology event")?;
@@ -1204,6 +1234,7 @@ impl Cursor {
                 })) as usize;
         }
         self.world.balls[index] = b.clone();
+        crate::passage_v20::retire_after_contact(&mut self.world, b.id);
         let mut motion = json!({"kind":"motion","ball":b.id,"from_cell":old_cell,"ball_state":b,"vertex_blocked":vertex_blocked});
         if let Some(d) = deflector_contact {
             motion["deflector_contact"] = d;
@@ -1227,7 +1258,7 @@ impl Cursor {
                 }
                 let p = Strike {
                     id: self.world.next_strike_id,
-                    from: old_cell,
+                    from: t.from.unwrap_or(old_cell),
                     to: target,
                     axis: t.axis.clone(),
                     ball: b.id,

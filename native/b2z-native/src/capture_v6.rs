@@ -278,6 +278,7 @@ impl Job {
                         .ok_or("structure capture continuation")?
                         .extend(gone);
                 }
+                crate::passage_v20::prune_removed(&mut self.proposal);
                 let pending = std::mem::take(&mut self.proposal.pending);
                 for p in pending {
                     if self.proposal.valid_strike(&p) {

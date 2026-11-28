@@ -1,9 +1,9 @@
 /** Strict supplemental event/receipt binding; no new trust source. */
 import {validateCry,memoByteLength}from'../../packages/protocol/war-cry.mjs';
-import {WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY,ECONOMY_IDENTITY,DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY}from'./torus-identity.generated.mjs';
+import {WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY,SHOUT_IDENTITY,SPACING_IDENTITY,RESERVOIR_IDENTITY,ECONOMY_IDENTITY,DELEGATED_IDENTITY,COMPACT_RESERVOIR_IDENTITY,RULES20_IDENTITY}from'./torus-identity.generated.mjs';
 export function launchAnnotationValidator(receipts,identity){
  const matches=expected=>Object.keys(expected).every(k=>identity?.[k]===expected[k]);
- const seen=new Set(),shout=matches(SHOUT_IDENTITY)||matches(SPACING_IDENTITY)||matches(RESERVOIR_IDENTITY)||matches(ECONOMY_IDENTITY)||matches(DELEGATED_IDENTITY)||matches(COMPACT_RESERVOIR_IDENTITY),supported=shout||[WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY].some(matches);
+ const seen=new Set(),shout=matches(SHOUT_IDENTITY)||matches(SPACING_IDENTITY)||matches(RESERVOIR_IDENTITY)||matches(ECONOMY_IDENTITY)||matches(DELEGATED_IDENTITY)||matches(COMPACT_RESERVOIR_IDENTITY)||matches(RULES20_IDENTITY),supported=shout||[WAR_CRY_IDENTITY,COMBINED_IDENTITY,DEFLECTOR_IDENTITY,CONTEXT_IDENTITY].some(matches);
  let byPosition=null;
  return e=>{
   if(e.action_annotation!==undefined){

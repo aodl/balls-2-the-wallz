@@ -17,10 +17,10 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parents[1]
 DTR_GIT='https://github.com/aodl/dtr.git'
-DTR_REV='282d709143dacb4bca769a4d6e72b97fc93ef518'
-DTR_TREE='1e487a321de4f515510da01ac74ef66e4e9a71a6'
+DTR_REV='1c7fa8b3bd2c3973a9dc6525b2fe8bb744f21e2e'
+DTR_TREE='87df48cfa2278ec9d3afa75d480e97459ffb0c31'
 VENDOR_NPM='11.12.1'
-VENDOR=ROOT/'vendor/dtr/dtr-timeline-runtime-0.15.0.tgz'
+VENDOR=ROOT/'vendor/dtr/dtr-timeline-runtime-0.16.0.tgz'
 
 def digest(path,algorithm='sha256'):
     value=hashlib.new(algorithm)
@@ -168,7 +168,7 @@ def main():
             distribution=temporary/'distribution';distribution.mkdir()
             step('dtr-npm-install',['npm','ci','--ignore-scripts'],source)
             step('dtr-npm-pack',['npm','pack','--ignore-scripts','--pack-destination',str(distribution)],source,300)
-            generated=distribution/'dtr-timeline-runtime-0.15.0.tgz'
+            generated=distribution/'dtr-timeline-runtime-0.16.0.tgz'
             packaging_npm=report['tools']['npm']['text'].removeprefix('v')
             inventory,vendor_integrity,byte_reproduction=validate_vendor(source,generated,packaging_npm)
             report['package']={'packaging_tool':report['tools']['npm']['text'],'files':inventory,'file_count':len(inventory),

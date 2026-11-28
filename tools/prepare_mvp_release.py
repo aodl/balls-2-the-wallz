@@ -6,8 +6,8 @@ import argparse,hashlib,json,os,subprocess,tomllib
 from pathlib import Path
 from verify_s14_local import wasm_exports
 ROOT=Path(__file__).resolve().parents[1]
-DTR='282d709143dacb4bca769a4d6e72b97fc93ef518'
-PACKAGE_SHA='22fb89851542ce19361a3b78a35c8a921d65e65e27890050b23cfcd1375e7720'
+DTR='1c7fa8b3bd2c3973a9dc6525b2fe8bb744f21e2e'
+PACKAGE_SHA='c19e6e31db3f56aed51c693b3ce1413c2887ec5fdb8c1d9f6fee3f3a76342f22'
 NORMAL_METHODS={'prepare_entry_transition','commit_entry_transition','entry_transition_status','runtime_health','get_api_doc','game_info','player_state','cannon_state','nearby_region','action_quote','payment_receipt','prepare_torus_transition','commit_torus_transition','torus_transition_status','prepare_million_transition','commit_million_transition','million_transition_status','prepare_playability_transition','commit_playability_transition','playability_transition_status','epoch_metadata','controller_runtime','controller_funding','set_funding_paused','artifact_bundle','artifact_chunk','controller_work','lab_status','observation','observation_bundle','retained_artifact_chunk','retained_publication','retention_status','source_descriptor','pause_autonomous','poke','start_autonomous','<ic-cdk internal> timer_executor'}
 def sha(path):return hashlib.sha256(path.read_bytes()).hexdigest()
 def run(*command):return subprocess.check_output(command,cwd=ROOT,text=True,timeout=900).strip()
@@ -24,7 +24,7 @@ def main():
     for name in ['dtr-host','dtr-wire']:
         source=next(x['source'] for x in lock['package'] if x['name']==name)
         if source!=f'git+https://github.com/aodl/dtr.git?rev={DTR}#{DTR}':raise SystemExit('Unexpected DTR source')
-    package=ROOT/'vendor/dtr/dtr-timeline-runtime-0.15.0.tgz'
+    package=ROOT/'vendor/dtr/dtr-timeline-runtime-0.16.0.tgz'
     if sha(package)!=PACKAGE_SHA:raise SystemExit('Unexpected packaged DTR identity')
     npm=json.loads((ROOT/'package-lock.json').read_text())['packages']['node_modules/@dtr/timeline-runtime']
     if npm['version']!='0.15.0' or json.loads((ROOT/'node_modules/@dtr/timeline-runtime/package.json').read_text())['version']!='0.15.0':raise SystemExit('Run npm ci --ignore-scripts with the committed lock')
@@ -52,7 +52,7 @@ def main():
         args=['node','tools/prepare_s14_init.mjs','--output',str(out/'init.did'),'--world-output',str(out/'world.bin'),'--profile-output',str(out/'launch.json')]
         if a.event_horizon:args+=['--event-horizon',a.event_horizon]
         run(*args)
-    paths=['Cargo.lock','native/Cargo.lock','canisters/runtime-lab/Cargo.lock','tools/s09-integration/Cargo.lock','tools/fixtures/dtr-consumer-rust/Cargo.lock','package-lock.json','vendor/dtr/dtr-timeline-runtime-0.15.0.tgz','dfx.json','config/economics/prelaunch.json','config/rules/v6.json','config/rules/v7-entry.json','apps/b2z-observer/configuration-entry.bin','packages/kernels/b2z/economics.generated.mjs','native/b2z-native/src/economics_generated.rs','apps/b2z-observer/configuration-playability.bin']
+    paths=['Cargo.lock','native/Cargo.lock','canisters/runtime-lab/Cargo.lock','tools/s09-integration/Cargo.lock','tools/fixtures/dtr-consumer-rust/Cargo.lock','package-lock.json','vendor/dtr/dtr-timeline-runtime-0.16.0.tgz','dfx.json','config/economics/prelaunch.json','config/rules/v6.json','config/rules/v7-entry.json','apps/b2z-observer/configuration-entry.bin','packages/kernels/b2z/economics.generated.mjs','native/b2z-native/src/economics_generated.rs','apps/b2z-observer/configuration-playability.bin']
     if run('git','rev-parse','HEAD')!=source_commit or run('git','status','--porcelain'):
         raise SystemExit('Source changed during preparation; outputs retained but not a verified release. Use a new output directory.')
     result={'status':'PASS','source_commit':source_commit,'source_tree':source_tree,

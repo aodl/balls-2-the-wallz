@@ -130,6 +130,16 @@ fn deploy_ledger_options(
     fee: u64,
     icrc2: bool,
 ) -> Principal {
+    deploy_ledger_options_balance(pic, ledger_wasm, payers, fee, icrc2, 5_000_000_000)
+}
+fn deploy_ledger_options_balance(
+    pic: &PocketIc,
+    ledger_wasm: &[u8],
+    payers: &[Principal],
+    fee: u64,
+    icrc2: bool,
+    primary_balance: u64,
+) -> Principal {
     let ledger = create_controlled(pic);
     let minting = AccountIdentifier::new(
         &Principal::self_authenticating([88; 32]),
@@ -137,10 +147,15 @@ fn deploy_ledger_options(
     );
     let initial_values = payers
         .iter()
-        .map(|payer| {
+        .enumerate()
+        .map(|(n, payer)| {
             (
                 AccountIdentifier::new(payer, &DEFAULT_SUBACCOUNT).to_hex(),
-                Tokens::from_e8s(5_000_000_000),
+                Tokens::from_e8s(if n == 0 {
+                    primary_balance
+                } else {
+                    5_000_000_000
+                }),
             )
         })
         .collect();
@@ -3298,6 +3313,25 @@ fn arena_setup_world_fee_clock_payers_options(
     extra_payers: &[Principal],
     icrc2: bool,
 ) -> (PocketIc, Principal, Principal, Principal) {
+    arena_setup_world_fee_clock_payers_balance(
+        wasm,
+        initial,
+        fee,
+        seconds_ago,
+        extra_payers,
+        icrc2,
+        5_000_000_000,
+    )
+}
+fn arena_setup_world_fee_clock_payers_balance(
+    wasm: Vec<u8>,
+    initial: Vec<u8>,
+    fee: u64,
+    seconds_ago: u64,
+    extra_payers: &[Principal],
+    icrc2: bool,
+    primary_balance: u64,
+) -> (PocketIc, Principal, Principal, Principal) {
     let builder = PocketIcBuilder::new()
         .with_nns_subnet()
         .with_application_subnet();
@@ -3323,7 +3357,14 @@ fn arena_setup_world_fee_clock_payers_options(
     let mut payers = vec![payer];
     payers.extend_from_slice(extra_payers);
     assert!(payers.len() <= 5); // Four ordinary agents plus the retained fixture payer.
-    let ledger = deploy_ledger_options(&pic, &bytes("ICP_LEDGER_WASM"), &payers, fee, icrc2);
+    let ledger = deploy_ledger_options_balance(
+        &pic,
+        &bytes("ICP_LEDGER_WASM"),
+        &payers,
+        fee,
+        icrc2,
+        primary_balance,
+    );
     let index = create_controlled(&pic);
     let id = create_controlled(&pic);
     for c in [id, index] {

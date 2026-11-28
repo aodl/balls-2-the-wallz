@@ -1,5 +1,8 @@
+import {successorFormulaStart} from './economy20.mjs';
 import {DELEGATION_ADAPTER,DELEGATION_LIFETIME_NS} from '../../protocol/delegation.mjs';
 import {emptyAuthorization,validateAuthorization} from './delegation-v18.mjs';
+import {authorizationV3FromV2,validateAuthorizationV3} from './delegation-v20.mjs';
+import {validatePassage} from './passage-v20.mjs';
 import {ECONOMY_ADAPTER,ECONOMY_PAYMENT} from '../../protocol/economy17.mjs';
 import {BALL_BASE_E8S,CANNON_BASE_E8S,DIVERTER_BASE_E8S,RESERVOIR_PRICE_E8S as ECONOMY_RESERVOIR_PRICE,FIXED_ACTION_E8S,DAY_NS,GRACE_NS} from '../../protocol/economy17.generated.mjs';
 import {validateEconomy} from './economy17.mjs';
@@ -104,9 +107,46 @@ export const COMPACT_RESERVOIR_IDENTITY=Object.freeze({
   schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_11_CANONICAL_RESERVOIR_RANGES')),
   config_hash:sha256(encodeCanonical(COMPACT_RESERVOIR_CONFIG)),
 });
+export const RECOVERY_IDENTITY=Object.freeze({...COMPACT_RESERVOIR_IDENTITY,
+  rules_hash:sha256(new TextEncoder().encode('B2Z_RULES_19_AUTH_RECOVERY_01')),
+  schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_11_AUTH_ROWS_RECOVERY_01')),
+});
+export function recoverAuthorizationRows(predecessor){
+  if(predecessor.version!==11||predecessor.authorization?.version!==2)throw Error('AUTH_RECOVERY_PREDECESSOR');
+  const next=cloneCanonical(validateWorld(predecessor));
+  next.authorization=authorizationV3FromV2(next.authorization);
+  return validateWorld(next);
+}
+// Rules20 changes canonical state and contact/pricing semantics. The adapter
+// and memo grammar remain those of the installed Rules19 predecessor.
+export const RULES20_CONFIG=Object.freeze({
+  ...COMPACT_RESERVOIR_CONFIG,version:12,rules_version:20,
+  authorization_registry:'sorted-grant-rows-3',
+  construction_ball_passage:'individual-first-traversal-1',
+  corner_capture:'canonical-checkerboard-single-contact-1',
+  population_price:'linear-through-1000-exponential-above-1',
+});
+export const RULES20_IDENTITY=Object.freeze({
+  rules_hash:sha256(new TextEncoder().encode('B2Z_RULES_20')),
+  schema_hash:sha256(new TextEncoder().encode('B2Z_STATE_12_AUTH_ROWS_PASSAGE_TARIFF')),
+  config_hash:sha256(encodeCanonical(RULES20_CONFIG)),
+});
 export function migrateCompactReservoirs(predecessor) {
   if(predecessor.version!==10)throw Error('RESERVOIR_COMPACT_PREDECESSOR');
   return validateWorld(migrateReservoirEncoding(cloneCanonical(validateWorld(predecessor))));
+}
+
+/** State-only Schema12 conversion; authenticated activation belongs to the host. */
+export function migrateAuthorizationRows(predecessor,activationNs=predecessor.playability?.elapsed_ns) {
+  if(predecessor.version!==11)throw Error('AUTH_V3_PREDECESSOR');
+  const next=cloneCanonical(validateWorld(predecessor));
+  if(next.authorization?.version===2)next.authorization=authorizationV3FromV2(next.authorization);
+  else validateAuthorizationV3(next.authorization);
+  // Existing announced prices stay linear. The first successor observation
+  // occurs at the next midnight and takes effect at the midnight after it.
+  next.economy_formula_start_ns=successorFormulaStart(next.playability.elapsed_ns,activationNs);
+  next.version=12;
+  return validateWorld(next);
 }
 
 /** Exact predecessor migration. Only the authenticated transition may call this in production. */
@@ -196,7 +236,7 @@ export function connected(cells, width, height, owner, anchor, torus=false) {
 }
 /** Validate fully resolved states only; intermediate capture scratch may deliberately violate connectivity. */
 export function validateWorld(w) {
-  if (![3,4,5,6,7,8,9,10,11].includes(w.version)) throw new Error('B2Z state version');
+  if (![3,4,5,6,7,8,9,10,11,12].includes(w.version)) throw new Error('B2Z state version');
   if(w.version===4&&(w.width!==32||w.height!==32))throw new Error('torus dimensions');
   if(w.version>=5&&(w.width!==1000||w.height!==1000))throw new Error('million dimensions');
   if((w.version>=6)!==(w.playability!==undefined))throw new Error('B2Z lifecycle version');
@@ -271,8 +311,16 @@ export function validateWorld(w) {
   if(w.version>=7)validateDeflectorState(w);else if(w.deflectors!==undefined||w.next_deflector_id!==undefined)throw Error('historical structure extension');
   validateReservoirs(w);
   validateEconomy(w);
-  if(w.version>=10)validateAuthorization(w.authorization);
+  if(w.version===12){
+    if(typeof w.economy_formula_start_ns!=='bigint'||w.economy_formula_start_ns<0n||
+       w.economy_formula_start_ns>18446744073709551615n||w.economy_formula_start_ns%DAY_NS!==0n)
+      throw Error('successor tariff formula boundary');
+  }else if(w.economy_formula_start_ns!==undefined)throw Error('successor tariff formula boundary');
+  if(w.version===11&&w.authorization?.version===3)validateAuthorizationV3(w.authorization);
+  else if(w.version>=10&&w.version<=11)validateAuthorization(w.authorization);
+  else if(w.version===12)validateAuthorizationV3(w.authorization);
   else if(w.authorization!==undefined)throw Error('authorization schema');
+  validatePassage(w);
   return w;
 }
 export function encodeWorld(w) { validateWorld(w); return encodeCanonical(w); }

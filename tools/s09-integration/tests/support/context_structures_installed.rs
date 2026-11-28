@@ -1697,7 +1697,9 @@ fn reservoir_then_economy(successor_economy: bool, recover_times: bool, delegati
                 owned_balls + 2
             );
             assert_eq!(after.reservoirs, result.reservoirs);
-            assert!(after.authorization.as_ref().unwrap().grants.is_empty());
+            assert!(
+                matches!(after.authorization.as_ref().unwrap(), b2z_native::delegation_v20::AuthorizationState::Historical(registry) if registry.grants.is_empty())
+            );
             assert_eq!(status(&pic, id).source.admitted_to_exclusive, last + 1);
             if std::env::var_os("B2Z_QUALIFY_COMPACT_RESERVOIR").is_some() {
                 let cannon = after

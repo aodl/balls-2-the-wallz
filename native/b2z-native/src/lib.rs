@@ -9,11 +9,13 @@ mod cursor_v6;
 pub mod deflector_boundary;
 pub mod deflectors_v12;
 pub mod delegation_v18;
+pub mod delegation_v20;
 mod economics_generated;
 pub mod entry_v7;
 pub mod geometry;
 pub mod lifecycle_v6;
 pub mod migration;
+pub mod passage_v20;
 pub mod playability;
 mod playability_generated;
 pub mod pricing_v6;
@@ -32,3 +34,4 @@ pub use cursor::{identity, million_identity, torus_identity, Cursor, Input, Outp
 pub mod host;
 
 pub mod economy17;
+pub mod economy20;

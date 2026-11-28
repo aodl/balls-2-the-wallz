@@ -1,0 +1,50 @@
+{
+  "scope": "Disposable PocketIC immediate canister total-balance deltas around exact same-ID upgrade and controller commitment calls; pending-input execution, source reconciliation and ongoing gameplay are separate costs. These are measurements, not production guarantees.",
+  "installed_rules19_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+  "rules20_candidate_sha256": "5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18",
+  "test_source": "add690ab1dbb557683d092fee6f3a90e2d2ff661",
+  "raw_local_evidence": ".work/rules19-recovery/installed-budget-1",
+  "cases": {
+    "healthy": {
+      "successor_install": {
+        "before_cycles": "199917006083853",
+        "after_cycles": "199892509584783",
+        "debit_cycles": "24496499070"
+      },
+      "rules20_commit": {
+        "before_cycles": "199851030936844",
+        "after_cycles": "199850737657164",
+        "debit_cycles": "293279680"
+      },
+      "compatible_reinstall": {
+        "before_cycles": "199840129789664",
+        "after_cycles": "199829578084836",
+        "debit_cycles": "10551704828"
+      }
+    },
+    "obstructed": {
+      "recovery_capable_install": {
+        "before_cycles": "199891478658302",
+        "after_cycles": "199867048495782",
+        "debit_cycles": "24430162520"
+      },
+      "recovery_commit": {
+        "before_cycles": "199866645608508",
+        "after_cycles": "199866387494954",
+        "debit_cycles": "258113554"
+      },
+      "rules20_commit": {
+        "before_cycles": "199834393486622",
+        "after_cycles": "199834073148108",
+        "debit_cycles": "320338514"
+      },
+      "compatible_reinstall": {
+        "before_cycles": "199856307541770",
+        "after_cycles": "199845770121704",
+        "debit_cycles": "10537420066"
+      }
+    }
+  },
+  "frontend_same_id_disposable_install_debit_cycles": "184608842985",
+  "frontend_restore_manufacturing_debit_cycles": "185524918518"
+}

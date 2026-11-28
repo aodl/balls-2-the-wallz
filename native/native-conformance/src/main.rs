@@ -136,6 +136,96 @@ fn main_inner() -> Result<()> {
         }
         return Ok(());
     }
+    if matches!(
+        args.get(1).map(String::as_str),
+        Some("rules20-corner" | "rules20-corner-matrix" | "rules20-passage")
+    ) {
+        let mode = args[1].as_str();
+        let fixture = match mode {
+            "rules20-corner" => "rules20-corner-public-equality.json",
+            "rules20-corner-matrix" => "rules20-corner-matrix-public-equality.json",
+            _ => "rules20-passage-public-equality.json",
+        };
+        let data = load(&root, fixture)?;
+        for row in data["rows"].as_array().ok_or("Rules20 rows")? {
+            let mut cursor = begin(row)?;
+            let mut slices = 0usize;
+            loop {
+                let (_, done) = cursor.step(31)?;
+                if done {
+                    break;
+                }
+                slices += 1;
+                if slices > 100_000 {
+                    return Err("Rules20 work bound".into());
+                }
+                let snapshot = cursor.snapshot()?;
+                cursor = Cursor::restore(&snapshot, &hash(&snapshot))?;
+            }
+            cursor.finalize_elapsed(
+                row["observed_ns"]
+                    .as_str()
+                    .ok_or("Rules20 elapsed")?
+                    .parse()
+                    .map_err(|_| "Rules20 elapsed")?,
+            )?;
+            check_output(&cursor.result()?, &row["outputs"])?;
+            println!("{mode}\t{}", row["name"].as_str().ok_or("Rules20 name")?);
+        }
+        if mode == "rules20-passage" {
+            let orbit = &data["orbit"];
+            let base = data["rows"]
+                .as_array()
+                .and_then(|rows| rows.iter().find(|row| row["name"] == orbit["initial_row"]))
+                .ok_or("Rules20 orbit initial state")?;
+            let mut state = bytes(&base["initial_hex"])?;
+            let mut context: Value = decode(&bytes(&base["context_hex"])?)?;
+            let observed_ns = base["observed_ns"]
+                .as_str()
+                .ok_or("Rules20 orbit elapsed")?
+                .parse()
+                .map_err(|_| "Rules20 orbit elapsed")?;
+            for (tick, expected) in orbit["steps"]
+                .as_array()
+                .ok_or("Rules20 orbit steps")?
+                .iter()
+                .enumerate()
+            {
+                context["logical_start"] = serde_json::json!(dtr_wire::Int(tick.into()));
+                context["logical_end"] = serde_json::json!(dtr_wire::Int((tick + 1).into()));
+                let mut cursor = Cursor::begin(&state, vec![], &context)?;
+                // Interrupt every interval while it still has work.
+                if cursor.step(1)?.1 {
+                    return Err(format!(
+                        "Rules20 orbit tick {tick} finished before interruption"
+                    ));
+                }
+                let saved = cursor.snapshot()?;
+                cursor = Cursor::restore(&saved, &hash(&saved))?;
+                let mut slices = 0;
+                while !cursor.step(127)?.1 {
+                    slices += 1;
+                    if slices > 1000 {
+                        return Err(format!("Rules20 orbit work bound at tick {tick}"));
+                    }
+                }
+                cursor.finalize_elapsed(observed_ns)?;
+                let out = cursor.result()?;
+                for (kind, actual) in [
+                    ("state", &out.state),
+                    ("events", &out.events),
+                    ("scores", &out.scores),
+                ] {
+                    if expected[kind] != hash(actual) {
+                        return Err(format!("Rules20 orbit tick {tick} {kind} mismatch"));
+                    }
+                }
+                state = out.state;
+            }
+            println!("{mode}\tcontinuous-toroidal-return");
+        }
+        return Ok(());
+    }
     let golden = load(&root, "b2z-v3-golden.json")?;
     let cases = golden["cases"].as_array().ok_or("golden cases")?;
     if args.get(1).map(String::as_str) == Some("export") {

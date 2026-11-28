@@ -18,9 +18,21 @@ function structure(view,d){
 }
 export function validateDeflectorSnapshot(view,w){
  check(Array.isArray(w.deflectors)&&(w.version>=9||w.deflectors.length<=256)&&Number.isSafeInteger(w.next_deflector_id)&&w.next_deflector_id>0&&w.next_deflector_id<=4294967295,'capacity');
+ const passage=w.passage_exceptions??[];
+ if(w.version<12)check(w.passage_exceptions===undefined,'historical passage');
+ else{
+  check(Array.isArray(passage)&&passage.length<=w.balls.length,'passage bound');let priorBall=0;
+  for(const row of passage){
+   check(row&&Object.keys(row).sort().join(',')==='ball,cell,kind,structure'&&Number.isSafeInteger(row.ball)&&row.ball>priorBall&&Number.isSafeInteger(row.structure)&&row.structure>0&&Number.isSafeInteger(row.cell)&&row.cell>=0&&row.cell<1000000&&['cannon','deflector'].includes(row.kind),'passage row');priorBall=row.ball;
+   const ball=w.balls.find(b=>b.id===row.ball),entity=row.kind==='cannon'?w.cannons.find(c=>c.id===row.structure):w.deflectors.find(d=>d.id===row.structure);
+   check(ball&&entity?.cell===row.cell,'passage binding');
+   const dx=Math.abs(ball.cell%1000-row.cell%1000),dy=Math.abs(Math.floor(ball.cell/1000)-Math.floor(row.cell/1000));
+   check(Math.min(dx,1000-dx)<=1&&Math.min(dy,1000-dy)<=1,'passage proximity');
+  }
+ }
  const cells=new Set(w.deflectors.map(d=>d.cell));for(const d of w.deflectors)for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++)if(dx||dy)check(!cells.has(((Math.floor(d.cell/1000)+dy+1000)%1000)*1000+(d.cell%1000+dx+1000)%1000),'spacing');
- const ids=new Set(),counts=new Map(),ballCells=new Set(w.balls.map(b=>b.cell));let prior=-1;
- for(const d of w.deflectors){structure(view,d);check(d.cell>prior&&!ids.has(d.id)&&d.id<w.next_deflector_id,'order/counter');prior=d.cell;ids.add(d.id);counts.set(d.owner,(counts.get(d.owner)??0)+1);check(w.version>=9||counts.get(d.owner)<=16,'player capacity');check(!ballCells.has(d.cell),'ball in structure');}
+ const ids=new Set(),counts=new Map();let prior=-1;
+ for(const d of w.deflectors){structure(view,d);check(d.cell>prior&&!ids.has(d.id)&&d.id<w.next_deflector_id,'order/counter');prior=d.cell;ids.add(d.id);counts.set(d.owner,(counts.get(d.owner)??0)+1);check(w.version>=9||counts.get(d.owner)<=16,'player capacity');for(const b of w.balls)if(b.cell===d.cell)check(w.version>=12&&w.passage_exceptions?.some(row=>row.ball===b.id&&row.kind==='deflector'&&row.structure===d.id&&row.cell===d.cell),'ball in structure');}
 }
 export function applyDeflectorBuilt(view,e){
  if(e.kind!=='deflector_built')return false;

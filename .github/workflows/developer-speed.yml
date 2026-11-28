@@ -158,6 +158,8 @@ jobs:
           cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle
           cp "$wasm" .work/prelaunch-trickle.wasm
           python -B tools/check_prelaunch_wasm.py prelaunch-trickle .work/prelaunch-trickle.wasm > .work/prelaunch-trickle-interface.json
+          python -B tools/verify_runtime_candid.py --profile prelaunch-trickle --output .work/prelaunch-trickle.did
+          cmp .work/prelaunch-trickle.did canisters/runtime-lab/runtime-lab-prelaunch.did
           cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle,test-hooks
           cp "$wasm" .work/prelaunch-trickle-probe.wasm
           cargo test --manifest-path "$manifest" --locked --offline --features prelaunch-trickle prelaunch_tests
@@ -174,6 +176,17 @@ jobs:
             --measure-wasm .work/prelaunch-trickle.wasm --prelaunch-test-wasm .work/prelaunch-trickle-probe.wasm \
             --prelaunch-frontend "$(dirname "${frontend[0]}")" --case two_ball --browser-python "$(command -v python)" \
             --output .work/ci-prelaunch-trickle
+      - name: Execute Rules20-specific exact installed, payment and replay cases
+        run: |
+          curl --fail --location --retry 3 --max-time 120 \
+            https://github.com/aodl/balls-2-the-wallz/releases/download/production%2Feurope-rules19-prelaunch-trickle/europe-rules19-prelaunch-trickle.zip \
+            --output .work/rules19-installed-release.zip
+          unzip -p .work/rules19-installed-release.zip prelaunch-trickle.wasm > .work/rules19-installed.wasm
+          python -B tools/verify_rules20_installed.py \
+            --installed .work/rules19-installed.wasm --compact .work/rules19-production.wasm \
+            --profile .work/rules19-profile.wasm --candidate .work/prelaunch-trickle.wasm \
+            --protection-probe .work/prelaunch-trickle-probe.wasm \
+            --world .work/rules19-paid-world.bin --output .work/ci-rules20-installed
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -185,7 +198,9 @@ jobs:
             .work/developer-speed-interface.json
             .work/prelaunch-trickle.wasm
             .work/prelaunch-trickle-interface.json
+            .work/prelaunch-trickle.did
             .work/prelaunch-public-guard.log
+            .work/ci-rules20-installed/**
             .work/ci-prelaunch-trickle/**
             !.work/ci-prelaunch-trickle/two_ball/browser/assets/**
             !.work/ci-prelaunch-trickle/two_ball/browser/mainnet-assets/**

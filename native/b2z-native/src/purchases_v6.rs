@@ -99,10 +99,7 @@ pub fn adjacent_sites(world: &World, player: u32) -> Result<Vec<usize>> {
         .collect())
 }
 pub(crate) fn occupied_cells(world: &World) -> Result<BTreeSet<usize>> {
-    let mut blocked: BTreeSet<_> = world.cannons.iter().map(|c| c.cell).collect();
-    if let Some(ds) = &world.deflectors {
-        blocked.extend(ds.iter().map(|d| d.cell));
-    }
+    let mut blocked = occupied_structures(world);
     for b in &world.balls {
         let [x, y] = position(b, &world.time)?;
         let cx = (b.cell % world.width) as i64;
@@ -126,6 +123,14 @@ pub(crate) fn occupied_cells(world: &World) -> Result<BTreeSet<usize>> {
         }
     }
     Ok(blocked)
+}
+pub(crate) fn occupied_structures(world: &World) -> BTreeSet<usize> {
+    world
+        .cannons
+        .iter()
+        .map(|c| c.cell)
+        .chain(world.deflectors.iter().flatten().map(|d| d.cell))
+        .collect()
 }
 
 /// An isolated bounded proposal; errors never partially mutate the paid world.
@@ -159,7 +164,7 @@ pub fn place_new_with_policy(
         account,
         PurchaseTerms {
             amount,
-            multiplier: None,
+            tariff: None,
         },
         plan,
         placement,
@@ -170,7 +175,7 @@ pub fn place_new_with_policy(
 
 pub(crate) struct PurchaseTerms {
     pub amount: u64,
-    pub multiplier: Option<u32>,
+    pub tariff: Option<crate::economy20::Tariff>,
 }
 
 #[derive(Clone, Copy, PartialEq, Eq)]
@@ -237,7 +242,13 @@ pub(crate) fn place_new_with_context(
         }
         vec![placement.cell]
     };
-    let blocked = occupied_cells(world)?;
+    // Only an explicit successor construction may overlap a live Ball.
+    // Automatic first Join and relocation retain closed-footprint safety.
+    let blocked = if world.version >= 12 && *explicit && !*first {
+        occupied_structures(world)
+    } else {
+        occupied_cells(world)?
+    };
     if patch
         .iter()
         .any(|&c| blocked.contains(&c) || crate::reservoirs::has(world, c))
@@ -303,6 +314,14 @@ pub(crate) fn place_new_with_context(
         ownership_ops.push(json!({"kind":"set","cell":c,"owner":territory}));
     }
     next.cannons.push(cannon.clone());
+    if next.version >= 12 && *explicit && !*first {
+        crate::passage_v20::register(
+            &mut next,
+            crate::passage_v20::Kind::Cannon,
+            cannon.id,
+            cannon.cell,
+        )?;
+    }
     let ball = crate::cursor::launch(&mut next, &cannon, *angle)?;
     let reactivated = revive_territory(&mut next, territory)?;
     next.validate()?;
@@ -366,7 +385,7 @@ pub fn prepare(
         account,
         PurchaseTerms {
             amount,
-            multiplier: None,
+            tariff: None,
         },
         memo,
         moved,
@@ -384,12 +403,12 @@ pub(crate) fn prepare_with_context(
     context_rules: bool,
     spacing: bool,
 ) -> Result<Plan> {
-    let PurchaseTerms { amount, multiplier } = terms;
+    let PurchaseTerms { amount, tariff } = terms;
     if world.version < 6 {
         return Err("EXPECTED_V6".into());
     }
     let capped = world.version < 9;
-    if capped == multiplier.is_some() {
+    if capped == tariff.is_some() {
         return Err("ECONOMY_PURCHASE_CONTEXT".into());
     }
     if world.version >= 7 && memo.first() == Some(&0xb7) {
@@ -460,8 +479,11 @@ pub(crate) fn prepare_with_context(
             if !capped && mine.is_empty() && state.next_territory_id == u32::MAX {
                 return Ok(reject("TERRITORY_ID_EXHAUSTED"));
             }
-            let price = if let Some(p) = multiplier {
-                let Some(price) = tariff::marginal(tariff::CANNON_BASE_E8S, p, mine.len()) else {
+            let price = if let Some(rate) = tariff {
+                let Some(price) = u32::try_from(mine.len())
+                    .ok()
+                    .and_then(|held| rate.price(tariff::CANNON_BASE_E8S, held))
+                else {
                     return Ok(reject("PRICE_OVERFLOW"));
                 };
                 price
@@ -537,9 +559,10 @@ pub(crate) fn prepare_with_context(
                 return Ok(reject("NOT_OWNER"));
             }
             let pool = world.territory_ball_count(cannon);
-            let price = if let Some(p) = multiplier {
-                let Some(price) =
-                    tariff::marginal(tariff::BALL_BASE_E8S, p, player_balls(world, account))
+            let price = if let Some(rate) = tariff {
+                let Some(price) = u32::try_from(player_balls(world, account))
+                    .ok()
+                    .and_then(|held| rate.price(tariff::BALL_BASE_E8S, held))
                 else {
                     return Ok(reject("PRICE_OVERFLOW"));
                 };
@@ -657,6 +680,8 @@ pub struct Batch {
     pub stop_reason: Option<String>,
     #[serde(default, skip_serializing_if = "Option::is_none")]
     pub economy_multiplier: Option<u32>,
+    #[serde(default, skip_serializing_if = "Option::is_none")]
+    pub economy_tariff20: Option<crate::economy20::TariffWire>,
 }
 pub struct Launch {
     pub ball: Ball,
@@ -688,6 +713,7 @@ impl Batch {
             remainder: Int(amount.into()),
             stop_reason: None,
             economy_multiplier: None,
+            economy_tariff20: None,
         })
     }
     pub fn after_new(account: String, amount: u64, cannon: u32, plan: &Plan) -> Result<Self> {
@@ -717,12 +743,15 @@ impl Batch {
             remainder: Int(num_bigint::BigInt::from(amount) - &price.0),
             stop_reason: (*quantity == 1).then(|| "quantity_limit".into()),
             economy_multiplier: None,
+            economy_tariff20: None,
         })
     }
     pub fn validate(&self, world: &World) -> Result<()> {
         if world.version < 6
-            || (world.version >= 9) != self.economy_multiplier.is_some()
+            || (world.version >= 9 && world.version < 12) != self.economy_multiplier.is_some()
+            || (world.version >= 12) != self.economy_tariff20.is_some()
             || self.economy_multiplier == Some(0)
+            || self.economy_tariff20.as_ref().is_some_and(|t| !t.valid())
             || !(1..=b2z_protocol::v6::MAX_QUANTITY).contains(&self.requested)
             || self.prices.len() > usize::from(self.requested)
             || !world
@@ -765,6 +794,7 @@ impl Batch {
         }
         let pool = world.territory_ball_count(self.cannon);
         if self.economy_multiplier.is_none()
+            && self.economy_tariff20.is_none()
             && (pool >= MAX_PURCHASE_BALLS_PER_ISLAND || world.balls.len() >= MAX_BALLS)
         {
             self.stop_reason = Some("capacity".into());
@@ -774,7 +804,16 @@ impl Batch {
             self.stop_reason = Some("ball_id_exhausted".into());
             return Ok(None);
         }
-        let price = if let Some(p) = self.economy_multiplier {
+        let price = if let Some(t) = &self.economy_tariff20 {
+            let Some(price) = t.rate().price(
+                tariff::BALL_BASE_E8S,
+                player_balls(world, &self.account) as u32,
+            ) else {
+                self.stop_reason = Some("insufficient_payment".into());
+                return Ok(None);
+            };
+            price
+        } else if let Some(p) = self.economy_multiplier {
             let Some(price) =
                 tariff::marginal(tariff::BALL_BASE_E8S, p, player_balls(world, &self.account))
             else {

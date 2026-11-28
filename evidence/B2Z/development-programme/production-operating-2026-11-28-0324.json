@@ -1,0 +1,54 @@
+{
+  "observed_at": "2026-11-28T03:24:40.457Z",
+  "scope": "Read-only certified public and signed operational queries",
+  "backend": {
+    "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "total_cycles": "2136408339113",
+    "liquid_cycles": "2078474361983",
+    "freezing_estimate_cycles": "57933977130"
+  },
+  "frontend": {
+    "id": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+    "total_cycles": "768951663935",
+    "freezing_estimate_cycles": "203716879590",
+    "headroom_beyond_450b_cycles": "115234784345"
+  },
+  "publication": {
+    "head": "19643",
+    "logical_time": "19625",
+    "source_cursor": "40647923",
+    "source_binding_checked": true,
+    "run_error": [],
+    "source_error": [],
+    "pace": {
+      "nominal_milli": 10,
+      "supported_milli": 10,
+      "mode": "Trickle",
+      "admission_open": true,
+      "performance_limited": false
+    }
+  },
+  "settlement": {
+    "settled": true,
+    "management_before": "2136408339113",
+    "management_after": "2136408339113",
+    "management_gap": "0",
+    "health_gap": "57933977130",
+    "estimated_freezing": "57933977130",
+    "unexpected_gap": "0"
+  },
+  "runway": {
+    "measurement_kind": "Observed settled net decline over 01:30\u201303:24 comparable workload; unknown intervening credits possible",
+    "elapsed_ns": "6868782512761",
+    "elapsed_seconds": 6868,
+    "liquid_decline_cycles": "46474018228",
+    "net_cycles_per_day": "584580333914",
+    "publication_delta": "69",
+    "seconds_to_reserve_protection": "159396",
+    "seconds_to_full_speed_floor": "1252",
+    "full_speed_cycle_floor_met": true
+  },
+  "raw_local_evidence": ".work/rules19-recovery/production-observation-0330.json"
+}

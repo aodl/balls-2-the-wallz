@@ -39,7 +39,7 @@ def main():
                     "s5ir5-gqaaa-aaaas-amyna-cai", "--output", str(refresh)], cwd=ROOT, check=True)
     updated = []
     review = json.loads(REVIEW_ASSETS.read_text())
-    if not review or not set(review) <= {"app.mjs", "index.html", "style.css"} or "app.mjs" not in review:
+    if not review or not set(review) <= {"app.mjs", "backend.did", "configuration-rules20.bin", "index.html", "style.css"} or "app.mjs" not in review:
         raise ValueError("Unexpected prelaunch review asset override")
     for name, checksum in review.items():
         source = refresh / name

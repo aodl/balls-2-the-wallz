@@ -328,8 +328,10 @@ fn cannon(w: &World, id: u32) -> Result<Option<CannonView>> {
 pub fn game_info() -> Result<GameInfo> {
     let (r, p, w) = load()?;
     let configuration = if p.identity.config_hash
-        == b2z_native::reservoirs::compact_identity()["config_hash"]
+        == b2z_native::delegation_v20::identity()["config_hash"]
     {
+        b2z_native::delegation_v20::configuration()
+    } else if p.identity.config_hash == b2z_native::reservoirs::compact_identity()["config_hash"] {
         b2z_native::reservoirs::compact_configuration()
     } else if p.identity.config_hash == b2z_native::delegation_v18::identity()["config_hash"] {
         b2z_native::delegation_v18::configuration()
@@ -699,7 +701,9 @@ pub fn action_quote(funding_account: String, action: QuoteAction) -> Result<Quot
     let context_rules = spacing
         || p.identity.config_hash == b2z_native::context_structures::configuration_hash()
         || p.identity.config_hash == b2z_native::shout::configuration_hash();
-    let prices = if w.version >= 9 {
+    let prices = if w.version >= 12 {
+        b2z_native::economy20::quote_items(&w, &funding_account, &memo, ic_cdk::api::time())?
+    } else if w.version >= 9 {
         b2z_native::economy17::quote_items(&w, &funding_account, &memo, ic_cdk::api::time())?
     } else {
         quote_items_with_rules(

@@ -1,0 +1,163 @@
+[
+  {
+    "name": "empty",
+    "base": "1000000",
+    "population": 0,
+    "held": 0,
+    "amount": "1000000"
+  },
+  {
+    "name": "first",
+    "base": "1000000",
+    "population": 1,
+    "held": 0,
+    "amount": "1000000"
+  },
+  {
+    "name": "linear-999",
+    "base": "1000000",
+    "population": 999,
+    "held": 0,
+    "amount": "999000000"
+  },
+  {
+    "name": "threshold",
+    "base": "1000000",
+    "population": 1000,
+    "held": 0,
+    "amount": "1000000000"
+  },
+  {
+    "name": "first-doubling",
+    "base": "1000000",
+    "population": 1001,
+    "held": 0,
+    "amount": "2000000000"
+  },
+  {
+    "name": "second-doubling",
+    "base": "1000000",
+    "population": 1002,
+    "held": 0,
+    "amount": "4000000000"
+  },
+  {
+    "name": "third-doubling",
+    "base": "1000000",
+    "population": 1003,
+    "held": 0,
+    "amount": "8000000000"
+  },
+  {
+    "name": "tenth-doubling",
+    "base": "1000000",
+    "population": 1010,
+    "held": 0,
+    "amount": "1024000000000"
+  },
+  {
+    "name": "last-first-cannon",
+    "base": "1000000",
+    "population": 1034,
+    "held": 0,
+    "amount": "17179869184000000000"
+  },
+  {
+    "name": "first-unrepresentable-cannon",
+    "base": "1000000",
+    "population": 1035,
+    "held": 0,
+    "amount": null
+  },
+  {
+    "name": "last-first-diverter",
+    "base": "100000",
+    "population": 1037,
+    "held": 0,
+    "amount": "13743895347200000000"
+  },
+  {
+    "name": "first-unrepresentable-diverter",
+    "base": "100000",
+    "population": 1038,
+    "held": 0,
+    "amount": null
+  },
+  {
+    "name": "last-first-additional-ball",
+    "base": "10000",
+    "population": 1040,
+    "held": 0,
+    "amount": "10995116277760000000"
+  },
+  {
+    "name": "first-unrepresentable-ball",
+    "base": "10000",
+    "population": 1041,
+    "held": 0,
+    "amount": null
+  },
+  {
+    "name": "retained-cannons",
+    "base": "1000000",
+    "population": 1003,
+    "held": 4,
+    "amount": "200000000000"
+  },
+  {
+    "name": "current-diverters",
+    "base": "100000",
+    "population": 1002,
+    "held": 3,
+    "amount": "6400000000"
+  },
+  {
+    "name": "personal-balls",
+    "base": "10000",
+    "population": 1001,
+    "held": 9,
+    "amount": "2000000000"
+  },
+  {
+    "name": "near-bound-higher-inventory",
+    "base": "1000000",
+    "population": 1034,
+    "held": 1,
+    "amount": null
+  },
+  {
+    "name": "million-cell-upper-bound",
+    "base": "1000000",
+    "population": 1000000,
+    "held": 0,
+    "amount": null
+  },
+  {
+    "name": "maximum-encoded-population",
+    "base": "10000",
+    "population": 4294967295,
+    "held": 0,
+    "amount": null
+  },
+  {
+    "name": "maximum-encoded-inventory",
+    "base": "10000",
+    "population": 1,
+    "held": 4294967295,
+    "amount": null
+  },
+  {
+    "name": "ledger-amount-limit",
+    "base": "18446744073709551615",
+    "population": 0,
+    "held": 0,
+    "amount": "18446744073709551615"
+  },
+  {
+    "name": "base-policy-must-not-be-free",
+    "base": "0",
+    "population": 1000,
+    "held": 1000,
+    "amount": null
+  }
+]

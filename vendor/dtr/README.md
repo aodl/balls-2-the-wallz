@@ -1,4 +1,16 @@
-# Current generic application-checkpoint package
+# Current generic recovery package
+
+`dtr-timeline-runtime-0.16.0.tgz` is packed from immutable published source
+https://github.com/aodl/dtr.git at `1c7fa8b3bd2c3973a9dc6525b2fe8bb744f21e2e`
+(tree `87df48cfa2278ec9d3afa75d480e97459ffb0c31`). SHA-256:
+`c19e6e31db3f56aed51c693b3ce1413c2887ec5fdb8c1d9f6fee3f3a76342f22`.
+The v4 recovery epoch retains exact pending source obligations. The package
+and clean remote consumers are checked by `tools/verify_dtr_consumers.py`.
+The 0.15.0 package below remains historical application-checkpoint evidence.
+
+---
+
+# Historical generic application-checkpoint package
 
 `dtr-timeline-runtime-0.15.0.tgz` is packed from immutable published source
 https://github.com/aodl/dtr.git at `282d709143dacb4bca769a4d6e72b97fc93ef518`
