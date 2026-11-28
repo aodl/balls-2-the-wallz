@@ -543,3 +543,17 @@ Its [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/4
 was still running at this review point. The delayed Index and interrupted
 purchase cases are newer local source and therefore are not included in those
 20 hosted results.
+
+The historical installed Copy acceptance carried into this branch referenced
+`__b2zExperience.arcade.paymentInstructions()`, but the maintained page does
+not expose `arcade` on that diagnostic object. Telemetry source `fc1b6546`
+demonstrated the resulting standard-workflow timeout before any clipboard
+attempt in [run 46078855786](https://github.com/aodl/balls-2-the-wallz/actions/runs/46078855786).
+The same predicate on Rules20 source `d18efb56` made its still-running
+[standard run 46079629851](https://github.com/aodl/balls-2-the-wallz/actions/runs/46079629851)
+known invalid; cancellation was requested before its long integration step
+finished. The corrected wait reads the exposed `status.canPrepare`, the
+pending-authority fence and the transfer panel's `data-payment-ready` flag.
+Exact memo, native clipboard write and wrong-byte assertions remain strict.
+This is a browser gate correction; the succeeding source requires a fresh
+standard run.

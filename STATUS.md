@@ -135,7 +135,9 @@ three hosted workflows. Later published source `d18efb56` passed its
 [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/46079629817)
 and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/46079629827)
 workflows; its [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46079629851)
-remains in progress. The later developer artifact records **20 named installed
+was superseded and cancellation requested after the same historical browser
+predicate failed on the telemetry branch. The corrected standard gate needs
+fresh exact-source execution. The later developer artifact records **20 named installed
 PASS cases**, including recovery, interrupted passage and paid tariffs. The later
 thirteen-row active-owner corner matrix passed 31 native Rules20 public-output
 comparisons and focused JavaScript tests; exact-source hosted qualification
