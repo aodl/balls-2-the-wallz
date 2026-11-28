@@ -97,8 +97,11 @@ Certified operational burn remains **disabled in normal release profiles**.
 The optional branch's replicated self-status meter passed the established
 active Trickle, shifted Index phases, held reservation/refund, bounded Full
 Speed, identified treasury credit and ReserveProtection comparisons. Exact
-source `f504ec08` passed hosted financial and developer/prelaunch workflows;
-its standard installed-IC job remains active. The maintained live browser
+source `f504ec08` passed hosted
+[standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/46086469128),
+[financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/46086469228)
+and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/46086469194)
+workflows. The maintained live browser
 and agent accepted direct and composed roots. Dormant operation, prolonged
 unavailability, wider concurrent reservations and a compatible release
 profile remain open. Unknown external credits cannot be reconstructed;

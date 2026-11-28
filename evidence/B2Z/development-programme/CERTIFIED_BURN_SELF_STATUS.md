@@ -367,3 +367,12 @@ historical vectors, Node tests, source structure, documentation links and
 Python tool tests. This validates the new phase-runner option and maintained
 source checks locally; it does not replace the still-running exact-source
 hosted standard workflow.
+
+At the later observation, published source `f504ec083932350b7c5bbcc385230a9d02f0306b`
+also passed [standard run 46086469128](https://github.com/aodl/balls-2-the-wallz/actions/runs/46086469128),
+completing its three hosted historical workflows. The earlier local browser
+dependency failure remains environment-blocked and was not converted into a
+browser PASS; the hosted browser HTTP/Web Crypto and separate live consumer
+gates supply their own positive evidence. The newer locally committed
+ReserveProtection runner and second-phase measurements require a fresh
+exact-source hosted run after publication.
