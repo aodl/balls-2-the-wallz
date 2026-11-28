@@ -209,6 +209,11 @@ The separate reproduced Rules20 public frontend candidate is
 Its disposable same-ID installation over the exact installed manufacturing
 frontend and restoration of that frontend passed certified asset/route checks;
 the respective PocketIC debits were **184.609B** and **185.525B cycles**.
+Separate exact-installed backend rehearsals measured **24.430–24.496B**
+cycles for the successor install, **0.258B** for the exceptional recovery
+commitment, **0.293–0.320B** for the ordinary Rules20 commitment and
+**10.537–10.552B** for a compatible reinstall. Pending-input execution,
+source reconciliation and operating burn remain separate costs.
 The [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123070)
 also passed, completing all three hosted historical workflows on `adc5a8e1`.
 The later `16ed339d` source is published with fresh workflows in progress;

@@ -51,8 +51,19 @@ disabled in this backend candidate, so publication uses the direct root.
    the backend identity requires it. Confirm publication, receipts, source
    health and independent replay after each boundary.
 
-Installation, recovery and operating cycle budgets require separate fresh
-measurement. Source `adc5a8e1` passed standard, financial and developer
+Immediate disposable backend budgets were measured separately on the same
+exact candidate. The healthy Rules19 path debited **24.496B cycles** for the
+same-ID successor install, **0.293B** for the ordinary Rules20 commitment
+and **10.552B** for a compatible candidate reinstall after activation. The
+obstructed path debited **24.430B** for the recovery-capable install,
+**0.258B** for the authenticated recovery commitment, **10.537B** for a
+compatible reinstall after recovery and **0.320B** for the subsequent
+ordinary Rules20 commitment. These immediate PocketIC balance deltas exclude
+pending-input execution, source reconciliation and ongoing play. Retain
+separate live installation and recovery headroom, freezing and operating
+preflight before any authorized production action. [Exact measurements](../../evidence/B2Z/development-programme/RULES20_RELEASE_BUDGET_2026-11-28.json).
+
+Source `adc5a8e1` passed standard, financial and developer
 workflows, but additional destruction topologies and adversarial
 recovery acceptance remains open. The local continuation has **28 named
 installed cases**, including positive prepared-arrival recovery and

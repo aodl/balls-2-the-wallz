@@ -741,3 +741,15 @@ destruction route, not every possible destruction topology. The
 release runner now names **28 installed successor cases**. Remaining
 destruction topologies and adversarial recovery interruptions still require
 qualification.
+
+The healthy and obstructed exact-installed transition cases passed again
+with balance snapshots around the same-ID backend install, authenticated
+commitment and compatible reinstall calls under
+`.work/rules19-recovery/installed-budget-1/`. The healthy route measured
+24.496B, 0.293B and 10.552B cycles for those three steps. The obstructed
+route measured 24.430B for install, 0.258B for the recovery boundary,
+10.537B for the compatible reinstall and 0.320B for the later Rules20
+boundary. These are immediate disposable debits; pending-input retirement,
+source reconciliation and ongoing operation are separate. The exact pairs
+of before/after balances are in
+`evidence/B2Z/development-programme/RULES20_RELEASE_BUDGET_2026-11-28.json`.
