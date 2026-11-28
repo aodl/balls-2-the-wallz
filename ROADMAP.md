@@ -63,7 +63,10 @@ a 120-second disposable Full Speed burst with 119 publications, a matched
 active-Trickle operating-cost comparison and hosted live browser/agent
 consumption passed. Exact-window comparisons differed from settled management
 rates by 0.053% during the Full Speed mix and 0.342% during ordinary Trickle.
-Confirm broader concurrent checkpoint reservations, dormant and protected
-operating modes, prolonged unavailability and the complete compatible release
+At a second **47.777-second** Index phase, stopped and held Index, Full Speed,
+an identified CMC credit and ReserveProtection variants also passed; the
+held-response refund exceeded 82.593B cycles and its settled comparison
+differed by 1.33%. Confirm broader concurrent checkpoint reservations,
+dormant and prolonged-unavailability modes and the complete compatible release
 profile. Unknown external credits remain an explicit measurement limitation.
 The capability remains disabled and is independent of the authorization repair.
