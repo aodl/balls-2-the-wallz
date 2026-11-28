@@ -406,7 +406,7 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
 #board-compass button[aria-pressed=true]::before{border-color:#c5d8db;box-shadow:0 0 0 2px #1c292c,0 2px 4px #0007}
 .short-edit #board-compass{visibility:hidden}
 @media(max-width:700px){#arena{--overview-width:108px;--overview-height:62.35px}}
-@media(max-width:375px){#arena{--overview-width:92px;--overview-height:53.12px}#cycles-display{width:152px;padding-inline:6px;bottom:max(60px,calc(env(safe-area-inset-bottom) + 54px))}}
+@media(max-width:375px){#arena{--overview-width:92px;--overview-height:53.12px}#cycles-display{width:112px;padding-inline:6px;font-size:10px;bottom:max(60px,calc(env(safe-area-inset-bottom) + 54px))}}
 @media(max-height:500px){
  #arena{--overview-width:80px;--overview-height:46.19px}
  #cycles-display{bottom:max(10px,env(safe-area-inset-bottom));left:max(159px,env(safe-area-inset-left))}

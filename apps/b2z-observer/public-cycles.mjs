@@ -26,23 +26,26 @@ export function formatCycles(n){
 export function cycleReadout(value){
  const balance=typeof value.balance==='bigint'?formatCycles(value.balance):null;
  const burn=value.verifiedBurn;
- const rate=typeof burn?.cyclesPerDay==='bigint'&&burn.cyclesPerDay>=0n?'(~'+formatCycles(burn.cyclesPerDay).replace(/\.00(?=[TBM]$)/,'')+'/day)':'';
+ const fullRate=typeof burn?.cyclesPerDay==='bigint'&&burn.cyclesPerDay>=0n?formatCycles(burn.cyclesPerDay):null;
+ const rate=fullRate?'~'+fullRate.replace(/\.\d{2}(?=[TBM]$)/,'')+'/d':'';
  let detail='Cycle data temporarily unavailable';
+ if(balance===null&&rate)detail=`Certified approximate net-balance burn: ~${fullRate}/day. Total cycle balance unavailable. ${burn.detail}`;
  if(balance!==null){
   detail='Management total cycles. Certified daily burn is unavailable on this backend.';
-  if(rate)detail='Management total cycles. '+burn.detail;
+  if(rate)detail=`Management total cycles. Certified approximate net-balance burn: ~${fullRate}/day. ${burn.detail}`;
   if(value.label==='Stale')detail='Last known management total cycles. '+detail;
  }
  return {balance:balance??'Unavailable',burn:rate,detail};
 }
 export function renderCycleReadout(doc,value){
- const v=cycleReadout(value),unavailable=v.balance==='Unavailable';
+ const v=cycleReadout(value),unavailable=v.balance==='Unavailable'&&!v.burn;
  doc.getElementById('cycle-unavailable').hidden=!unavailable;
  doc.getElementById('cycle-values').hidden=unavailable;
  doc.getElementById('cycles-burn').hidden=!v.burn;
  for(const [id,key] of [['cycles-balance','balance'],['cycles-burn','burn'],['cycle-detail','detail']]){
   const node=doc.getElementById(id);
-  if(node.textContent!==v[key])node.textContent=v[key];
+  const shown=id==='cycles-balance'&&v.balance==='Unavailable'&&v.burn?'':v[key];
+  if(node.textContent!==shown)node.textContent=shown;
  }
 }
 export function publicCycleMonitor({read,onState,now=()=>performance.now(),hidden=()=>document.hidden,schedule=setTimeout,cancel=clearTimeout,interval=60000,timeout=12000}={}){

@@ -35,7 +35,7 @@ fn seed(case: &str) -> World {
             b2z_native::reservoirs::place(&mut world, cell).unwrap();
         }
     }
-    if case == "idle" {
+    if case == "idle" || case == "empty" {
         let elapsed = world.playability.as_ref().unwrap().elapsed_ns.clone();
         let deadline = Int(&elapsed.0 + playability::DORMANCY_GRACE_NS);
         let anchors = world
@@ -57,6 +57,23 @@ fn seed(case: &str) -> World {
         for life in &mut world.playability.as_mut().unwrap().lifecycle {
             life.dormant_since_ns = Some(elapsed.clone());
             life.deadline_ns = Some(deadline.clone());
+        }
+        if case == "empty" {
+            for (cell, _) in world
+                .cannons
+                .iter()
+                .map(|c| (c.cell, c.id))
+                .collect::<Vec<_>>()
+            {
+                let owner = world.owner(cell).unwrap();
+                world.set_owner_range(cell, cell + 1, owner, 0).unwrap();
+            }
+            world.cannons.clear();
+            let play = world.playability.as_mut().unwrap();
+            play.players.clear();
+            play.territories.clear();
+            play.lifecycle.clear();
+            world.validate().unwrap();
         }
     }
     let (players, balls_per_player) = match case {
@@ -292,7 +309,14 @@ fn capture(pic: &PocketIc, id: Principal, out: &Path, ordinal: u64) -> (Observat
         ],
     )
     .unwrap();
-    assert_eq!(certified, unhex(&dtr_wire::hash(&obs.publication)).unwrap());
+    let mut expected = unhex(&dtr_wire::hash(&obs.publication)).unwrap();
+    if let Some(record) = &obs.operational_burn {
+        let mut envelope = b"B2Z-CERTIFIED-OPERATIONAL-01".to_vec();
+        envelope.extend(&expected);
+        envelope.extend(unhex(&dtr_wire::hash(record)).unwrap());
+        expected = unhex(&dtr_wire::hash(&envelope)).unwrap();
+    }
+    assert_eq!(certified, expected);
     std::fs::write(
         out.join(format!("{ordinal}-publication.bin")),
         &obs.publication,
@@ -5307,6 +5331,863 @@ fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool, multipl
             "multiple_overlap":multiple_overlap,
         }))
         .unwrap(),
+    )
+    .unwrap();
+}
+
+// Enter the successor epoch through the real Ledger/Index fence before measuring it.
+fn activate_rules20_for_burn(pic: &PocketIc, id: Principal) {
+    pause(pic, id);
+    playability_installed::prepare(pic, id, "prepare_rules20_transition");
+    for _ in 0..1800 {
+        let raw: Vec<u8> = get_query(
+            pic,
+            id,
+            "rules20_transition_status",
+            encode_args(()).unwrap(),
+        );
+        let view: Value = dtr_wire::decode(&raw).unwrap();
+        if view["transition"]["phase"] == "ready" && transition_drained(pic, id) {
+            let predecessor: Publication = decode(&observe(pic, id).0.publication).unwrap();
+            let _: Vec<u8> = get_result(
+                pic,
+                id,
+                "commit_rules20_transition",
+                candid::encode_one(predecessor.head.manifest_hash).unwrap(),
+            );
+            assert_eq!(arena_world(pic, id).version, 12);
+            return;
+        }
+        advance(pic, 1000);
+    }
+    panic!("Rules20 telemetry fixture did not reach its authenticated cutoff");
+}
+
+#[test]
+#[ignore = "explicit same-ID PocketIC operational certification rehearsal"]
+fn certified_operational_burn_roundtrip() {
+    #[derive(CandidType, Deserialize)]
+    struct CertifiedObservation {
+        publication: Vec<u8>,
+        certificate: Option<Vec<u8>>,
+        operational_burn: Option<Vec<u8>>,
+    }
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let dormant_world = std::env::var_os("B2Z_BURN_DORMANT_WORLD_PROBE").is_some();
+    let empty_world = std::env::var_os("B2Z_BURN_EMPTY_WORLD_PROBE").is_some();
+    assert!(!(dormant_world && empty_world));
+    let (pic, id, ledger, payer) = arena_setup_world(
+        bytes("B2Z_COST_PROFILE_WASM"),
+        seed(if empty_world {
+            "empty"
+        } else if dormant_world {
+            "idle"
+        } else {
+            "two_ball"
+        })
+        .encode()
+        .unwrap(),
+    );
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    compact_cutover(&pic, id, ledger, &compact, &out);
+    if dormant_world || empty_world {
+        // An input aimed at a nonexistent Cannon lets the idle predecessor
+        // publish an interval without introducing game work for measurement.
+        let position = transfer_text(&pic, ledger, payer, id, 1_000_000, b"FIRE 999999 0 1");
+        for _ in 0..180 {
+            if status(&pic, id).source.admitted_to_exclusive > position {
+                break;
+            }
+            advance(&pic, 1000);
+        }
+        assert!(status(&pic, id).source.admitted_to_exclusive > position);
+    }
+    playability_installed::one_tick(&pic, id);
+    if dormant_world || empty_world {
+        assert!(arena_world(&pic, id).balls.is_empty());
+    }
+    upgrade_during_recovery(&pic, id, &bytes("B2Z_BURN_PRIOR_WASM")).unwrap();
+    let witness = |name: &str| {
+        let reply = pic
+            .query_call(
+                id,
+                Principal::anonymous(),
+                "observation",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        let observation = decode_one::<Result<CertifiedObservation, String>>(&reply)
+            .unwrap()
+            .unwrap();
+        let path = out.join(format!("{name}.json"));
+        let fixture = json!({
+            "id": id.to_text(),
+            "at": pic.get_time().as_nanos_since_unix_epoch().to_string(),
+            "root_key": hex(&pic.root_key().unwrap()),
+            "publication": hex(&observation.publication),
+            "certificate": hex(&observation.certificate.expect("certified query evidence")),
+            "record": observation.operational_burn.as_ref().map(|bytes| hex(bytes)),
+        });
+        std::fs::write(&path, serde_json::to_vec(&fixture).unwrap()).unwrap();
+        let verified = std::process::Command::new("node")
+            .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+            .arg("tools/verify_operational_burn_fixture.mjs")
+            .arg(path)
+            .output()
+            .unwrap();
+        assert!(
+            verified.status.success(),
+            "{}",
+            String::from_utf8_lossy(&verified.stderr)
+        );
+        serde_json::from_slice::<Value>(&verified.stdout).unwrap()
+    };
+    let prior = witness("prior");
+    assert!(prior["burn"].is_null());
+    let paid_world = arena_world(&pic, id);
+    // Shift the Index timer relative to the candidate's five-minute
+    // self-status timer. The default is the historical zero-offset fixture.
+    let index_phase_ms = std::env::var("B2Z_BURN_INDEX_PHASE_MS")
+        .ok()
+        .map(|value| value.parse::<u64>().unwrap())
+        .unwrap_or(0);
+    assert!(index_phase_ms < 60_000);
+    if index_phase_ms > 0 {
+        advance(&pic, index_phase_ms);
+    }
+    let candidate = bytes("B2Z_BURN_CANDIDATE_WASM");
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    assert_eq!(arena_world(&pic, id), paid_world);
+    let first = witness("initial");
+    assert_eq!(first["publication"], prior["publication"]);
+    assert!(first["burn"].is_null());
+    for _ in 0..18 {
+        advance(&pic, 60_000);
+    }
+    let partial = witness("partial");
+    assert_eq!(partial["burn"]["quality"], "preliminary");
+    assert_eq!(partial["publication"], prior["publication"]);
+    for _ in 0..60 {
+        advance(&pic, 60_000);
+    }
+    let full = witness("full");
+    assert_eq!(full["burn"]["quality"], "established");
+    assert_eq!(full["publication"], prior["publication"]);
+    pic.add_cycles(id, 100_000_000_000);
+    for _ in 0..6 {
+        advance(&pic, 60_000);
+    }
+    let stale = witness("top-up");
+    assert_eq!(stale["burn"]["quality"], "stale");
+    assert_eq!(stale["burn"]["cyclesPerDay"], full["burn"]["cyclesPerDay"]);
+    assert_eq!(stale["publication"], prior["publication"]);
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    assert_eq!(witness("restart")["burn"]["quality"], "stale");
+    upgrade_during_recovery(&pic, id, &bytes("B2Z_BURN_PRIOR_WASM")).unwrap();
+    assert_eq!(witness("recovery"), prior);
+    assert_eq!(arena_world(&pic, id), paid_world);
+    // Sampling is independent of a browser session and of the game
+    // publication cadence. The prelaunch profile caps the effective ordinary
+    // cadence to 100 seconds while the unchanged public RunConfig remains
+    // within its 1–60 second validation range. Exercise that active window,
+    // including the 60-second source fallback, after the paused
+    // certification and recovery checks above.
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    activate_rules20_for_burn(&pic, id);
+    let _: Status = get_result(
+        &pic,
+        id,
+        "start_autonomous",
+        candid::encode_one(RunConfig {
+            segment_ticks: 1,
+            pacing_seconds: 1,
+            work_budget: 512,
+        })
+        .unwrap(),
+    );
+    let mut active_samples = Vec::new();
+    let slow_index = std::env::var_os("B2Z_BURN_SLOW_INDEX_PROBE").is_some();
+    let full_speed_probe = std::env::var_os("B2Z_BURN_FULL_SPEED_PROBE").is_some();
+    let mut full_speed_start = None;
+    let mut full_speed_end = None;
+    let mut source_trace = Vec::new();
+    let index = status(&pic, id).source.index;
+    for minute in 1..=65 {
+        if slow_index && minute == 20 {
+            pic.stop_canister(index, Some(controller())).unwrap();
+        }
+        if slow_index && minute == 30 {
+            pic.start_canister(index, Some(controller())).unwrap();
+        }
+        if full_speed_probe && minute == 20 {
+            let operator = Principal::self_authenticating([27; 32]);
+            super::dev_speed_installed::bind(&pic, id, Some(operator));
+            let speed =
+                super::dev_speed_installed::switch(&pic, id, operator, true, Some(120u16)).unwrap();
+            assert_eq!(speed.mode, "Full Speed");
+            full_speed_start = Some(status(&pic, id).run.completed_segments);
+        }
+        if full_speed_probe && (minute == 20 || minute == 21) {
+            for _ in 0..60 {
+                advance(&pic, 1_000);
+            }
+        } else {
+            advance(&pic, 60_000);
+        }
+        if full_speed_probe && minute == 22 {
+            let speed: super::dev_speed_installed::DevSpeed =
+                get_query(&pic, id, "dev_simulation_speed", encode_args(()).unwrap());
+            assert_eq!(speed.mode, "Adaptive");
+            full_speed_end = Some(status(&pic, id).run.completed_segments);
+        }
+        if slow_index {
+            let run = status(&pic, id);
+            source_trace.push(json!({"minute":minute,"index_calls":run.source.index_calls,
+                "in_flight":run.source.scan_in_flight,"pending":run.source.pending_records,
+                "error":run.source.last_error}));
+        }
+        if minute % 5 == 0 {
+            let verified = witness(&format!("active-{minute:02}"));
+            let cycles = pic.canister_status(id, Some(controller())).unwrap().cycles;
+            let run = status(&pic, id);
+            active_samples.push(json!({
+                "minute":minute,
+                "cycles":cycles.to_string(),
+                "treasury_credits":funding_tests::full_finance(&pic, id)["total_cycles_reported"],
+                "source_in_flight":run.source.scan_in_flight,
+                "source_pending":run.source.pending_records,
+                "verified":verified,
+            }));
+        }
+    }
+    let active = witness(if full_speed_probe {
+        "active-full-speed-burst"
+    } else {
+        "active-trickle"
+    });
+    let full_speed = if full_speed_probe {
+        let delta = full_speed_end.unwrap() - full_speed_start.unwrap();
+        assert!(delta >= 5, "Full Speed must publish multiple checkpoints");
+        json!({"duration_seconds":120,"publication_delta":delta})
+    } else {
+        Value::Null
+    };
+    std::fs::write(
+        out.join("active-samples.json"),
+        serde_json::to_vec_pretty(&active_samples).unwrap(),
+    )
+    .unwrap();
+    if slow_index {
+        std::fs::write(
+            out.join("slow-index-source-trace.json"),
+            serde_json::to_vec_pretty(&source_trace).unwrap(),
+        )
+        .unwrap();
+    }
+    if dormant_world || empty_world {
+        assert!(arena_world(&pic, id).balls.is_empty());
+        if empty_world {
+            assert!(arena_world(&pic, id).cannons.is_empty());
+            assert!(
+                arena_world(&pic, id)
+                    .playability
+                    .as_ref()
+                    .unwrap()
+                    .players
+                    .is_empty()
+            );
+        }
+    } else {
+        assert_ne!(active["publication"], prior["publication"]);
+    }
+    assert_eq!(active["burn"]["quality"], "established");
+    let certified = active["burn"]["cyclesPerDay"]
+        .as_str()
+        .unwrap()
+        .parse::<u128>()
+        .unwrap();
+    let management_cycles = |index: usize| {
+        active_samples[index]["cycles"]
+            .as_str()
+            .unwrap()
+            .replace('_', "")
+            .parse::<u128>()
+            .unwrap()
+    };
+    let start_ns = active["burn"]["startNs"].as_str().unwrap();
+    let end_ns = active["burn"]["endNs"].as_str().unwrap();
+    let first_index = active_samples
+        .iter()
+        .position(|row| row["verified"]["burn"]["endNs"].as_str() == Some(start_ns))
+        .expect("settled management sample at certified rolling-window start");
+    let final_index = active_samples
+        .iter()
+        .position(|row| row["verified"]["burn"]["endNs"].as_str() == Some(end_ns))
+        .expect("settled management sample at certified rolling-window end");
+    let first = management_cycles(first_index);
+    let final_balance = management_cycles(final_index);
+    assert!(first > final_balance && certified > 0);
+    assert!(
+        active_samples
+            .iter()
+            .all(|row| row["source_pending"] == 0 && row["treasury_credits"] == "0")
+    );
+    if full_speed_probe {
+        assert_eq!(active_samples.first().unwrap()["source_in_flight"], false);
+        assert_eq!(active_samples.last().unwrap()["source_in_flight"], false);
+    } else if !slow_index {
+        assert!(
+            active_samples
+                .iter()
+                .all(|row| row["source_in_flight"] == false)
+        );
+    }
+    // Compare the exact rolling interval named by the certified record.
+    // A mixed workload makes a neighbouring five-minute interval material.
+    let span_ns = end_ns.parse::<u128>().unwrap() - start_ns.parse::<u128>().unwrap();
+    let external_rate = (first - final_balance) * 86_400_000_000_000u128 / span_ns;
+    assert!(
+        certified.abs_diff(external_rate) * 100 <= external_rate * 5,
+        "certified {certified} versus settled management {external_rate} cycles/day"
+    );
+    let long_outage = if std::env::var_os("B2Z_BURN_LONG_OUTAGE_PROBE").is_some() {
+        assert!(!status(&pic, id).source.scan_in_flight);
+        pause(&pic, id);
+        let paused_publication = observe(&pic, id).0.publication;
+        let old_end = active["burn"]["endNs"].clone();
+        let old_rate = active["burn"]["cyclesPerDay"].clone();
+        pic.stop_canister(id, Some(controller())).unwrap();
+        advance(&pic, 70 * 60_000);
+        pic.start_canister(id, Some(controller())).unwrap();
+        let resumed = witness("long-outage-resumed");
+        assert_eq!(resumed["burn"]["quality"], "stale");
+        assert_eq!(resumed["burn"]["endNs"], old_end);
+        assert_eq!(resumed["burn"]["cyclesPerDay"], old_rate);
+        let mut samples = Vec::new();
+        for minute in 1..=70 {
+            advance(&pic, 60_000);
+            if minute % 5 == 0 {
+                let verified = witness(&format!("long-outage-{minute:02}"));
+                samples.push(json!({"minute":minute,
+                    "cycles":pic.canister_status(id, Some(controller())).unwrap().cycles.to_string(),
+                    "verified":verified}));
+            }
+        }
+        let recovered = witness("long-outage-reestablished");
+        assert_eq!(recovered["burn"]["quality"], "established");
+        assert_ne!(recovered["burn"]["endNs"], old_end);
+        let start = recovered["burn"]["startNs"].as_str().unwrap();
+        let end = recovered["burn"]["endNs"].as_str().unwrap();
+        let balance_at = |endpoint: &str| {
+            samples
+                .iter()
+                .find(|row| row["verified"]["burn"]["endNs"].as_str() == Some(endpoint))
+                .expect("matched resumed rolling-window management endpoint")["cycles"]
+                .as_str()
+                .unwrap()
+                .replace('_', "")
+                .parse::<u128>()
+                .unwrap()
+        };
+        let span = end.parse::<u128>().unwrap() - start.parse::<u128>().unwrap();
+        let settled = (balance_at(start) - balance_at(end)) * 86_400_000_000_000u128 / span;
+        let reported = recovered["burn"]["cyclesPerDay"]
+            .as_str()
+            .unwrap()
+            .parse::<u128>()
+            .unwrap();
+        assert!(
+            reported.abs_diff(settled) * 100 <= settled * 5,
+            "resumed certified {reported} versus settled management {settled} cycles/day"
+        );
+        assert_eq!(resumed["publication"], dtr_wire::hash(&paused_publication));
+        assert_eq!(recovered["publication"], resumed["publication"]);
+        std::fs::write(
+            out.join("long-outage-samples.json"),
+            serde_json::to_vec_pretty(&samples).unwrap(),
+        )
+        .unwrap();
+        json!({"stale_after_70_minute_stop":resumed["burn"],
+            "reestablished":recovered["burn"],
+            "external_settled_cycles_per_day":settled.to_string()})
+    } else {
+        Value::Null
+    };
+    let held_index = if std::env::var_os("B2Z_BURN_HELD_INDEX_PROBE").is_some() {
+        assert!(
+            !slow_index,
+            "held and stopped Index use separate disposable fixtures"
+        );
+        let source_before = status(&pic, id).source.admitted_to_exclusive;
+        let history_query = candid::encode_one(source::HistoryArgs {
+            account_identifier: source::receiving_account(id, 0).to_hex(),
+            start: None,
+            max_results: 64,
+        })
+        .unwrap();
+        let original_reply = pic
+            .query_call(
+                index,
+                Principal::anonymous(),
+                "get_account_identifier_transactions",
+                history_query,
+            )
+            .unwrap();
+        let _: source::HistoryResult = decode_one(&original_reply).unwrap();
+        // The first certified rolling endpoint during this hold is reserved.
+        // Keep the independent management bracket outside the reservation.
+        let start_cycles = pic.canister_status(id, Some(controller())).unwrap().cycles;
+        pic.reinstall_canister(
+            index,
+            bytes("S14_SLOW_INDEX_WASM"),
+            encode_args((ledger, 1u32, original_reply.clone())).unwrap(),
+            Some(controller()),
+        )
+        .unwrap();
+        pic.start_canister(index, Some(controller())).unwrap();
+        let mut held_trace = Vec::new();
+        let mut held_request = None;
+        for minute in 1..=60 {
+            advance(&pic, 60_000);
+            if minute <= 10 {
+                let requests = pic.get_canister_http();
+                if !requests.is_empty() {
+                    assert_eq!(requests.len(), 1);
+                    held_request = Some((requests[0].subnet_id, requests[0].request_id));
+                }
+            }
+            if minute % 5 == 0 {
+                let verified = witness(&format!("held-index-{minute:02}"));
+                let cycles = pic.canister_status(id, Some(controller())).unwrap().cycles;
+                let source = status(&pic, id).source;
+                held_trace.push(json!({"minute":minute,"cycles":cycles.to_string(),
+                    "burn":verified["burn"],"in_flight":source.scan_in_flight,
+                    "cursor":source.admitted_to_exclusive}));
+            }
+            if minute == 10 {
+                let (subnet_id, request_id) = held_request.expect("real held Index HTTP await");
+                assert!(
+                    status(&pic, id).source.scan_in_flight,
+                    "source call must remain reserved during held response"
+                );
+                pic.mock_canister_http_response(
+                    pocket_ic::common::rest::MockCanisterHttpResponse {
+                        subnet_id,
+                        request_id,
+                        response: pocket_ic::common::rest::CanisterHttpResponse::CanisterHttpReply(
+                            pocket_ic::common::rest::CanisterHttpReply {
+                                status: 200,
+                                headers: vec![],
+                                body: vec![],
+                            },
+                        ),
+                        additional_responses: vec![],
+                    },
+                );
+                pic.update_call(
+                    index,
+                    controller(),
+                    "set_reply",
+                    encode_args((0u32, original_reply.clone())).unwrap(),
+                )
+                .unwrap();
+            }
+        }
+        assert_eq!(status(&pic, id).source.admitted_to_exclusive, source_before);
+        assert!(!status(&pic, id).source.scan_in_flight);
+        let end_cycles = pic.canister_status(id, Some(controller())).unwrap().cycles;
+        let final_burn = witness("held-index-final");
+        assert_eq!(final_burn["burn"]["quality"], "established");
+        let reported = final_burn["burn"]["cyclesPerDay"]
+            .as_str()
+            .unwrap()
+            .parse::<u128>()
+            .unwrap();
+        let settled = (start_cycles - end_cycles)
+            .0
+            .to_string()
+            .parse::<u128>()
+            .unwrap()
+            * 24;
+        assert_eq!(held_trace[0]["in_flight"], true);
+        assert_eq!(held_trace[1]["in_flight"], true);
+        assert_eq!(held_trace[2]["in_flight"], false);
+        let balance_at = |n: usize| {
+            held_trace[n]["cycles"]
+                .as_str()
+                .unwrap()
+                .replace('_', "")
+                .parse::<u128>()
+                .unwrap()
+        };
+        let reservation_refund = balance_at(2)
+            .checked_sub(balance_at(1))
+            .expect("released Index reservation must rebound in settled balance");
+        assert!(
+            reservation_refund > 40_000_000_000,
+            "held Index must expose a material reservation/refund offset"
+        );
+        for sample in &held_trace[..2] {
+            assert_eq!(sample["burn"]["quality"], "established");
+            let during = sample["burn"]["cyclesPerDay"]
+                .as_str()
+                .unwrap()
+                .parse::<u128>()
+                .unwrap();
+            assert!(
+                during.abs_diff(settled) * 100 <= settled * 5,
+                "certified rate during held reservation {during} versus settled {settled}"
+            );
+        }
+        assert!(
+            reported.abs_diff(settled) * 100 <= settled * 5,
+            "held Index certified {reported} versus management {settled} cycles/day"
+        );
+        std::fs::write(
+            out.join("held-index-trace.json"),
+            serde_json::to_vec_pretty(&held_trace).unwrap(),
+        )
+        .unwrap();
+        json!({"certified_cycles_per_day":reported.to_string(),
+            "external_settled_cycles_per_day":settled.to_string(),
+            "held_samples":held_trace,"source_cursor_preserved":source_before,
+            "observed_reservation_refund_cycles":reservation_refund.to_string()})
+    } else {
+        Value::Null
+    };
+    let protected = if std::env::var_os("B2Z_BURN_PROTECTION_PROBE").is_some() {
+        let target = 100_000_000_000u64;
+        let _: Status = get_result(
+            &pic,
+            id,
+            "test_liquid_budget",
+            candid::encode_one(target).unwrap(),
+        );
+        for _ in 0..15 {
+            advance(&pic, 60_000);
+        }
+        let stale = witness("reserve-protection");
+        assert_eq!(stale["publication"], active["publication"]);
+        assert_eq!(stale["burn"]["quality"], "stale");
+        assert_eq!(stale["burn"]["endNs"], active["burn"]["endNs"]);
+        assert_eq!(
+            stale["burn"]["cyclesPerDay"],
+            active["burn"]["cyclesPerDay"]
+        );
+        stale
+    } else {
+        Value::Null
+    };
+    let treasury_credit = if std::env::var_os("B2Z_BURN_TREASURY_CREDIT_PROBE").is_some() {
+        assert!(
+            protected.is_null(),
+            "credit and protection use separate disposable cases"
+        );
+        // A genuine Ledger transfer and local CMC notification create an
+        // identified treasury credit. The meter must invalidate the old
+        // established window instead of treating that credit as negative burn.
+        let cmc = Principal::from_text("rkp4c-7iaaa-aaaaa-aaaca-cai").unwrap();
+        pic.create_canister_with_id(
+            Some(controller()),
+            Some(CanisterSettings {
+                controllers: Some(vec![controller()]),
+                ..Default::default()
+            }),
+            cmc,
+        )
+        .unwrap();
+        pic.install_canister(
+            cmc,
+            bytes("B2Z_CMC_MOCK_WASM"),
+            encode_args((id, ledger)).unwrap(),
+            Some(controller()),
+        );
+        playability_installed::funding_paused(&pic, id, false);
+        super::operation_cost::prepare_notify_pending(&pic, id, ledger, payer);
+        let world_before_credit = arena_world(&pic, id);
+        let publication_before_credit = observe(&pic, id).0.publication;
+        pic.start_canister(cmc, Some(controller())).unwrap();
+        for _ in 0..3 {
+            advance(&pic, 300_000);
+            if funding_tests::full_finance(&pic, id)["phase"] == "Idle" {
+                break;
+            }
+        }
+        assert_eq!(funding_tests::full_finance(&pic, id)["phase"], "Idle");
+        assert_eq!(
+            funding_tests::full_finance(&pic, id)["total_cycles_reported"],
+            "1000000000000"
+        );
+        assert_eq!(arena_world(&pic, id), world_before_credit);
+        assert_eq!(observe(&pic, id).0.publication, publication_before_credit);
+        let mut after = witness("treasury-credit-0");
+        for minute in 1..=5 {
+            if after["burn"]["quality"] == "stale" {
+                break;
+            }
+            advance(&pic, 60_000);
+            after = witness(&format!("treasury-credit-{minute}"));
+        }
+        assert_eq!(after["burn"]["quality"], "stale");
+        assert_eq!(
+            after["burn"]["cyclesPerDay"],
+            active["burn"]["cyclesPerDay"]
+        );
+        assert_eq!(after["burn"]["endNs"], active["burn"]["endNs"]);
+        after
+    } else {
+        Value::Null
+    };
+    std::fs::write(out.join("result.json"), serde_json::to_vec_pretty(&json!({
+        "status":"PASS","index_phase_ms":index_phase_ms,"slow_index":slow_index,
+        "dormant_world":dormant_world,"empty_world":empty_world,
+        "long_outage":long_outage,
+        "partial":partial,"full":full,"stale":stale,"active":active,
+        "external_settled_cycles_per_day":external_rate.to_string(),"reserve_protection":protected,
+        "treasury_credit":treasury_credit,"held_index":held_index,"full_speed":full_speed,
+        "scope":"disposable Rules19 same-ID certificate, recovery and capped ordinary checkpoints"
+    })).unwrap()).unwrap();
+}
+
+#[test]
+#[ignore = "live read-only browser and maintained agent against a disposable certified burn canister"]
+fn certified_operational_burn_live_consumers() {
+    #[derive(CandidType, Deserialize)]
+    struct CertifiedObservation {
+        publication: Vec<u8>,
+        certificate: Option<Vec<u8>>,
+        operational_burn: Option<Vec<u8>>,
+    }
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let (pic, id, ledger, payer) = arena_setup_world(
+        bytes("B2Z_COST_PROFILE_WASM"),
+        seed("two_ball").encode().unwrap(),
+    );
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    compact_cutover(&pic, id, ledger, &compact, &out);
+    playability_installed::one_tick(&pic, id);
+    let prior = bytes("B2Z_BURN_PRIOR_WASM");
+    upgrade_during_recovery(&pic, id, &prior).unwrap();
+    let candidate = bytes("B2Z_BURN_CANDIDATE_WASM");
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    activate_rules20_for_burn(&pic, id);
+    let _: Status = get_result(
+        &pic,
+        id,
+        "start_autonomous",
+        candid::encode_one(RunConfig {
+            segment_ticks: 1,
+            pacing_seconds: 1,
+            work_budget: 512,
+        })
+        .unwrap(),
+    );
+    for _ in 0..65 {
+        advance(&pic, 60_000);
+    }
+    let received_before = arena_world(&pic, id).received_e8s;
+    let payment = transfer_text(&pic, ledger, payer, id, 100_000_000, b"NEW 0 1");
+    for _ in 0..6 {
+        advance(&pic, 60_000);
+        if status(&pic, id).source.admitted_to_exclusive > payment && transition_drained(&pic, id) {
+            break;
+        }
+    }
+    assert!(status(&pic, id).source.admitted_to_exclusive > payment);
+    assert!(transition_drained(&pic, id));
+    assert_eq!(
+        arena_world(&pic, id).received_e8s.0,
+        &received_before.0 + 100_000_000u64
+    );
+    let observation = |pic: &PocketIc| {
+        let reply = pic
+            .query_call(
+                id,
+                Principal::anonymous(),
+                "observation",
+                encode_args(()).unwrap(),
+            )
+            .unwrap();
+        decode_one::<Result<CertifiedObservation, String>>(&reply)
+            .unwrap()
+            .unwrap()
+    };
+    assert!(observation(&pic).operational_burn.is_some());
+    let wall = pocket_ic::Time::from(std::time::SystemTime::now());
+    if wall > pic.get_time() {
+        pic.set_time(wall);
+        for _ in 0..4 {
+            pic.tick();
+        }
+    }
+    let root_key = pic.root_key().unwrap();
+    std::fs::write(out.join("root-key.der"), &root_key).unwrap();
+    std::fs::write(out.join("metadata.json"), b"{}").unwrap();
+    let repo = Path::new(env!("CARGO_MANIFEST_DIR")).join("../..");
+    let run_live = |pic: &PocketIc, label: &str, expect_burn: bool| {
+        let mut live =
+            PocketIc::new_from_existing_instance(pic.get_server_url(), pic.instance_id(), None);
+        let gateway = live.make_live(None);
+        let configuration = out.join("configuration.json");
+        std::fs::write(
+            &configuration,
+            serde_json::to_vec(&json!({
+                "network":"pocketic-local","host":gateway.as_str(),"canister_id":id.to_text(),
+                "ledger":ledger.to_text(),"index":status(pic,id).source.index.to_text(),
+                "recipient":source::receiving_account(id,0).to_hex(),
+                "listening_account":AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex(),
+                "receipt_position":payment,
+                "root_key_hex":hex(&root_key),
+            }))
+            .unwrap(),
+        )
+        .unwrap();
+        let mut command = std::process::Command::new(
+            std::env::var_os("B2Z_BURN_BROWSER_PYTHON").unwrap_or_else(|| "python3.11".into()),
+        );
+        command
+            .current_dir(&repo)
+            .args([
+                "-B",
+                "tools/verify_certified_burn_live.py",
+                "--configuration",
+            ])
+            .arg(&configuration)
+            .arg("--output")
+            .arg(out.join(label));
+        if expect_burn {
+            command.arg("--expect-burn");
+        }
+        if std::env::var_os("B2Z_BURN_AGENT_ONLY").is_some() {
+            command.arg("--agent-only");
+        }
+        let output = command.output().unwrap();
+        std::fs::write(
+            out.join(format!("{label}.log")),
+            [&output.stdout[..], &output.stderr[..]].concat(),
+        )
+        .unwrap();
+        live.stop_live();
+        assert!(
+            output.status.success(),
+            "live consumer {label}: {}",
+            String::from_utf8_lossy(&output.stderr)
+        );
+    };
+    run_live(&pic, "composed", true);
+    let committed = observation(&pic).publication;
+    upgrade_during_recovery(&pic, id, &bytes("B2Z_BURN_DIRECT_WASM")).unwrap();
+    assert_eq!(observation(&pic).publication, committed);
+    assert!(observation(&pic).operational_burn.is_none());
+    run_live(&pic, "direct", false);
+}
+
+#[test]
+#[ignore = "matched disposable active-Trickle cost of the optional certified operational meter"]
+fn certified_operational_burn_matched_cost() {
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
+    std::fs::create_dir_all(&out).unwrap();
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    let run = |label: &str, module: &[u8]| {
+        let case_out = out.join(label);
+        std::fs::create_dir_all(&case_out).unwrap();
+        let (pic, id, ledger, _) = arena_setup_world(
+            bytes("B2Z_COST_PROFILE_WASM"),
+            seed("two_ball").encode().unwrap(),
+        );
+        compact_cutover(&pic, id, ledger, &compact, &case_out);
+        playability_installed::one_tick(&pic, id);
+        upgrade_during_recovery(&pic, id, module).unwrap();
+        activate_rules20_for_burn(&pic, id);
+        let _: Status = get_result(
+            &pic,
+            id,
+            "start_autonomous",
+            candid::encode_one(RunConfig {
+                segment_ticks: 1,
+                pacing_seconds: 1,
+                work_budget: 512,
+            })
+            .unwrap(),
+        );
+        let mut first = None;
+        let mut last = None;
+        for minute in 1..=65 {
+            advance(&pic, 60_000);
+            if minute == 5 || minute == 65 {
+                let management = pic.canister_status(id, Some(controller())).unwrap();
+                let runtime = status(&pic, id);
+                let row = json!({
+                    "minute":minute,
+                    "cycles":management.cycles.to_string(),
+                    "memory_bytes":management.memory_size.0.to_string(),
+                    "publications":runtime.run.completed_segments,
+                    "callbacks":runtime.run.callback_count,
+                    "index_calls":runtime.source.index_calls,
+                    "treasury_credits":funding_tests::full_finance(&pic,id)["total_cycles_reported"],
+                });
+                if minute == 5 {
+                    first = Some(row);
+                } else {
+                    last = Some(row);
+                }
+            }
+        }
+        let first = first.unwrap();
+        let last = last.unwrap();
+        assert_eq!(first["treasury_credits"], "0");
+        assert_eq!(last["treasury_credits"], "0");
+        let before = first["cycles"]
+            .as_str()
+            .unwrap()
+            .replace('_', "")
+            .parse::<u128>()
+            .unwrap();
+        let after = last["cycles"]
+            .as_str()
+            .unwrap()
+            .replace('_', "")
+            .parse::<u128>()
+            .unwrap();
+        assert!(before > after);
+        let publication_delta =
+            last["publications"].as_u64().unwrap() - first["publications"].as_u64().unwrap();
+        let index_delta =
+            last["index_calls"].as_u64().unwrap() - first["index_calls"].as_u64().unwrap();
+        let callback_delta =
+            last["callbacks"].as_u64().unwrap() - first["callbacks"].as_u64().unwrap();
+        let query_before = pic.canister_status(id, Some(controller())).unwrap().cycles;
+        for _ in 0..100 {
+            let _ = pic
+                .query_call(
+                    id,
+                    Principal::anonymous(),
+                    "observation",
+                    encode_args(()).unwrap(),
+                )
+                .unwrap();
+        }
+        let query_after = pic.canister_status(id, Some(controller())).unwrap().cycles;
+        assert!(query_before >= query_after);
+        json!({"module_sha256":dtr_wire::hash(module),"first":first,"last":last,
+            "settled_cycles_per_day":(before-after)*24,
+            "publications":publication_delta,"game_callbacks":callback_delta,"index_calls":index_delta,
+            "one_hundred_observation_queries_cycles":query_before-query_after})
+    };
+    let prior = run("prior", &bytes("B2Z_BURN_DIRECT_WASM"));
+    let candidate = run("candidate", &bytes("B2Z_BURN_CANDIDATE_WASM"));
+    assert_eq!(prior["publications"], candidate["publications"]);
+    assert_eq!(prior["index_calls"], candidate["index_calls"]);
+    let prior_rate = prior["settled_cycles_per_day"].as_u64().unwrap() as i128;
+    let candidate_rate = candidate["settled_cycles_per_day"].as_u64().unwrap() as i128;
+    let report = json!({"status":"PASS","prior":prior,"candidate":candidate,
+        "incremental_cycles_per_day":candidate_rate-prior_rate,
+        "scope":"matched 60-minute active Trickle; raw settled balance movement includes all feature costs"});
+    std::fs::write(
+        out.join("matched-cost.json"),
+        serde_json::to_vec_pretty(&report).unwrap(),
     )
     .unwrap();
 }

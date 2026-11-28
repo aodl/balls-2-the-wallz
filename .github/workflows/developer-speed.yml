@@ -182,40 +182,146 @@ jobs:
             https://github.com/aodl/balls-2-the-wallz/releases/download/production%2Feurope-rules19-prelaunch-trickle/europe-rules19-prelaunch-trickle.zip \
             --output .work/rules19-installed-release.zip
           unzip -p .work/rules19-installed-release.zip prelaunch-trickle.wasm > .work/rules19-installed.wasm
+          printf '%s  %s\n' b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90 .work/rules19-installed.wasm | sha256sum --check
+          export CARGO_TARGET_DIR="$PWD/.work/dev-target"
+          manifest=canisters/runtime-lab/Cargo.toml
+          wasm="$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm"
+          cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle,certified-operational-burn
+          cp "$wasm" .work/combined-prelaunch.wasm
+          python -B tools/check_prelaunch_wasm.py prelaunch-trickle .work/combined-prelaunch.wasm > .work/combined-prelaunch-exports.json
+          python -B tools/verify_runtime_candid.py --profile prelaunch-telemetry --output .work/combined-prelaunch.did
+          cmp .work/combined-prelaunch.did canisters/runtime-lab/runtime-lab-telemetry.did
+          sha256sum .work/combined-prelaunch.wasm > .work/combined-prelaunch.sha256
+          cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle,certified-operational-burn,test-hooks
+          cp "$wasm" .work/combined-prelaunch-probe.wasm
           python -B tools/verify_rules20_installed.py \
             --installed .work/rules19-installed.wasm --compact .work/rules19-production.wasm \
-            --profile .work/rules19-profile.wasm --candidate .work/prelaunch-trickle.wasm \
-            --protection-probe .work/prelaunch-trickle-probe.wasm \
+            --profile .work/rules19-profile.wasm --candidate .work/combined-prelaunch.wasm \
+            --protection-probe .work/combined-prelaunch-probe.wasm \
             --world .work/rules19-paid-world.bin --output .work/ci-rules20-installed
+      - name: Rehearse exact combined frontend upgrade and manufacturing recovery
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          gh release download candidate/europe-prelaunch-frontend-manufacturing-2026-11-26 \
+            --repo "$GITHUB_REPOSITORY" --dir .work/manufacturing-recovery
+          (cd .work/manufacturing-recovery && sha256sum -c SHA256SUMS)
+          printf '%s  %s\n' 1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5 .work/manufacturing-recovery/frontend.wasm | sha256sum --check
+          export CARGO_TARGET_DIR="$PWD/.work/dev-target"
+          export B2Z_DEV_SPEED_FRONTEND="$PWD/.work/qualified-dev-frontend/ci-dev-a/release"
+          export B2Z_DEV_FRONTEND_RECOVERY="$PWD/.work/manufacturing-recovery"
+          PYTHONPATH=tools python -B - <<'PY_CODE'
+          import os
+          from pathlib import Path
+          from profile_rules18_cost import checked_artifacts, harness
+          from verify_s09_local import execute, start_pocketic, stop_pocketic
+
+          output = Path(".work/ci-combined-frontend-recovery").resolve()
+          output.mkdir()
+          env = {**checked_artifacts(Path("/home/runner/dtr-s09-artifacts")),
+                 "DFX_IDENTITY": "codex_local", "S14_DEPLOYMENT_OUTPUT": str(output)}
+          binary = harness(output, env)
+          server = start_pocketic(env["POCKET_IC_BIN"], output, hard_ttl_seconds=900, idle_ttl_seconds=120)
+          try:
+              case = "dev_speed_installed::dev_frontend_same_id_recovery"
+              report = execute(case, [binary, "--ignored", "--exact", case, "--nocapture"],
+                               output, 800, {**env, "POCKET_IC_SERVER_URL": server[3]})
+              transcript = (output / report["log"]).read_text()
+              if report["status"] != "PASS" or "test result: ok. 1 passed;" not in transcript:
+                  raise SystemExit(transcript)
+          finally:
+              stop_pocketic(*server[:3])
+          PY_CODE
+      - name: Verify combined live consumers and matched Rules20 overhead
+        run: |
+          export CARGO_TARGET_DIR="$PWD/.work/dev-target"
+          inputs=(--profile .work/rules19-profile.wasm --compact .work/rules19-production.wasm
+            --prior .work/rules19-installed.wasm --candidate .work/combined-prelaunch.wasm
+            --world .work/rules19-paid-world.bin --artifacts /home/runner/dtr-s09-artifacts)
+          python -B tools/run_certified_burn_live.py "${inputs[@]}" --direct .work/prelaunch-trickle.wasm \
+            --browser-python "$(command -v python)" --output .work/ci-certified-burn-live
+          python -B tools/run_certified_burn_live.py "${inputs[@]}" --direct .work/prelaunch-trickle.wasm \
+            --browser-python "$(command -v python)" --cost --output .work/ci-certified-burn-cost
+      - name: Measure combined Rules20 telemetry across the reviewed operating cases
+        run: |
+          export CARGO_TARGET_DIR="$PWD/.work/dev-target"
+          inputs=(--profile .work/rules19-profile.wasm --compact .work/rules19-production.wasm
+            --prior .work/rules19-installed.wasm --world .work/rules19-paid-world.bin
+            --artifacts /home/runner/dtr-s09-artifacts)
+          cargo build --manifest-path tools/s14-index-fixture/Cargo.toml --release --target wasm32-unknown-unknown --locked --offline
+          gzip -dc vendor/b2z/cmc-funding-fixture-d336165b.wasm.gz > .work/cmc-funding-fixture.wasm
+          run_case() {
+            local name="$1" module="$2"
+            shift 2
+            python -B tools/verify_certified_burn_phases.py "${inputs[@]}" \
+              --candidate "$module" --output ".work/ci-certified-burn-$name" "$@"
+          }
+          exact=.work/combined-prelaunch.wasm
+          run_case active "$exact" --phase-ms 17321 --phase-ms 32321 --phase-ms 47777
+          run_case held "$exact" --phase-ms 17321 --held-index --index-fixture "$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/s14_index_fixture.wasm"
+          run_case full "$exact" --phase-ms 47777 --full-speed
+          run_case dormant "$exact" --phase-ms 17321 --dormant-world
+          run_case empty "$exact" --phase-ms 17321 --empty-world
+          run_case outage "$exact" --phase-ms 47777 --long-outage
+          run_case credit "$exact" --phase-ms 47777 --treasury-credit --cmc .work/cmc-funding-fixture.wasm
+          run_case protection .work/combined-prelaunch-probe.wasm --phase-ms 47777 --reserve-protection
+      - name: Package backend binaries and raw qualification evidence
+        if: always()
+        run: |
+          python -B - <<'PY_CODE'
+          from pathlib import Path
+          import shutil
+          import tarfile
+
+          work = Path(".work")
+          upload = work / "developer-backend-upload"
+          upload.mkdir()
+          for name in (
+              "developer-speed-release.wasm", "developer-speed-release.sha256",
+              "developer-speed-interface.json", "combined-prelaunch.wasm",
+              "combined-prelaunch.sha256", "combined-prelaunch.did",
+              "combined-prelaunch-exports.json", "prelaunch-trickle.wasm",
+              "prelaunch-trickle-interface.json", "prelaunch-trickle.did",
+          ):
+              if (work / name).is_file():
+                  shutil.copyfile(work / name, upload / name)
+          evidence = (
+              "dev-public-backend.log", "prelaunch-public-guard.log",
+              "ci-combined-frontend-recovery/**/*.json",
+              "ci-combined-frontend-recovery/logs/**/*",
+              "ci-certified-burn-*/**/*.json", "ci-certified-burn-*/**/*.log",
+              "ci-certified-burn-live/evidence/*/*.png",
+              "ci-rules20-installed/**/*", "ci-prelaunch-trickle/**/*",
+              "ci-dev-isolated/results.json", "ci-dev-isolated/deployment/dev-speed.json",
+              "ci-dev-isolated/logs/**/*",
+              "ci-rules19-cost/**/*", "ci-rules19-scale/**/*", "ci-rules19-browser/**/*",
+              "ci-dev-rules18/results.json",
+              "ci-dev-rules18/deployment/reservoir/developer-speed-rules18.json",
+              "ci-dev-rules18/deployment/reservoir/developer-speed-certified-frontend.json",
+              "ci-dev-rules18/deployment/reservoir/authenticated/result.json",
+              "ci-dev-rules18/logs/**/*",
+          )
+          excluded = {
+              work / case / "two_ball" / "browser" / folder
+              for case in ("ci-prelaunch-trickle", "ci-rules19-browser")
+              for folder in ("assets", "mainnet-assets")
+          }
+          files = {
+              path for pattern in evidence for path in work.glob(pattern)
+              if path.is_file() and not path.is_symlink()
+              and not excluded.intersection(path.parents)
+          }
+          # GitHub artifact entry names cannot contain the Rust test separator ::.
+          # Preserve those names and their report references inside the archive.
+          with tarfile.open(upload / "developer-replay-evidence.tar.gz", "w:gz") as archive:
+              for path in sorted(files):
+                  archive.add(path, arcname=path.relative_to(work), recursive=False)
+          PY_CODE
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
           name: developer-speed-backend-and-replay
-          path: |
-            .work/developer-speed-release.wasm
-            .work/developer-speed-release.sha256
-            .work/dev-public-backend.log
-            .work/developer-speed-interface.json
-            .work/prelaunch-trickle.wasm
-            .work/prelaunch-trickle-interface.json
-            .work/prelaunch-trickle.did
-            .work/prelaunch-public-guard.log
-            .work/ci-rules20-installed/**
-            .work/ci-prelaunch-trickle/**
-            !.work/ci-prelaunch-trickle/two_ball/browser/assets/**
-            !.work/ci-prelaunch-trickle/two_ball/browser/mainnet-assets/**
-            .work/ci-dev-isolated/results.json
-            .work/ci-dev-isolated/deployment/dev-speed.json
-            .work/ci-dev-isolated/logs/**
-            .work/ci-rules19-cost/**
-            .work/ci-rules19-scale/**
-            .work/ci-rules19-browser/**
-            !.work/ci-rules19-browser/two_ball/browser/assets/**
-            !.work/ci-rules19-browser/two_ball/browser/mainnet-assets/**
-            .work/ci-dev-rules18/results.json
-            .work/ci-dev-rules18/deployment/reservoir/developer-speed-rules18.json
-            .work/ci-dev-rules18/deployment/reservoir/developer-speed-certified-frontend.json
-            .work/ci-dev-rules18/deployment/reservoir/authenticated/result.json
-            .work/ci-dev-rules18/logs/**
-          if-no-files-found: warn
+          include-hidden-files: true
+          path: .work/developer-backend-upload/*
+          if-no-files-found: error
           retention-days: 14

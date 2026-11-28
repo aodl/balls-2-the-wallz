@@ -34,3 +34,12 @@ The temporary developer-speed installed rehearsal also uses two exact predecesso
 The installed test runner verifies each raw hash. These archives keep the
 rehearsal repeatable after the hosted artifacts expire. The temporary developer
 predecessor is only used by the developer-speed qualification.
+
+The compressed `cmc-funding-fixture-d336165b.wasm.gz` is the exact
+disposable CMC double used for the independently qualified treasury-credit
+probe. Its source and Cargo lock are in `tools/cmc-funding-fixture`, with
+the same inputs as telemetry source `21a35f76`. The phase verifier requires
+decompressed SHA-256
+`d336165b2f81ca4e587ed5e749dbda69717c941c33c3c1086f667f3d706f7cb5`.
+Hosted Rust path remapping changes the fixture bytes, so this test uses
+the retained artifact. The production build does not use this fixture.

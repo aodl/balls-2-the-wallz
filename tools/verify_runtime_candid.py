@@ -34,11 +34,12 @@ def run(command: list[str], timeout: int = 600) -> subprocess.CompletedProcess[s
 def main() -> int:
     parser = argparse.ArgumentParser()
     parser.add_argument("--output", type=Path, default=ROOT / ".work/runtime-lab.generated.did")
-    parser.add_argument("--profile", choices=("public-launch", "prelaunch-trickle"), default="public-launch")
+    parser.add_argument("--profile", choices=("public-launch", "prelaunch-trickle", "prelaunch-telemetry"), default="public-launch")
     args = parser.parse_args()
     generated = run([
         "cargo", "test", "--manifest-path", str(MANIFEST), "--locked", "--offline",
-        "--features", args.profile,
+        "--features", ("prelaunch-trickle,certified-operational-burn"
+                       if args.profile == "prelaunch-telemetry" else args.profile),
         "tests::print_generated_candid", "--", "--exact", "--nocapture",
     ])
     if generated.returncode:
@@ -46,7 +47,7 @@ def main() -> int:
         return generated.returncode
     try:
         candid = extract(generated.stdout + generated.stderr)
-        reject_test_exports(candid, allow_developer=args.profile == "prelaunch-trickle")
+        reject_test_exports(candid, allow_developer=args.profile != "public-launch")
     except ValueError as error:
         print(f"FAIL: {error}", file=sys.stderr)
         return 1

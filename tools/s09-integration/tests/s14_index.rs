@@ -302,6 +302,7 @@ struct RunConfig {
 struct Observation {
     publication: Vec<u8>,
     certificate: Option<Vec<u8>>,
+    operational_burn: Option<Vec<u8>>,
 }
 #[derive(CandidType)]
 enum IndexArg {
