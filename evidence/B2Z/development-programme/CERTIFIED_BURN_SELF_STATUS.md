@@ -313,3 +313,23 @@ integration-harness build. The browser launch then stopped because this Linux
 host lacks `libatk-1.0.so.0` for the available Playwright Chromium. Raw
 results are under `.work/burn-balance-probe/entry-copy-local-1/`; the browser
 check is environment-blocked locally and supplied no acceptance result.
+
+## Second Index timer phase with outage and held reservation
+
+The exact `81e6a31` candidate was exercised again with the Index timer phase
+shifted to **47.777 seconds**. The ten-minute stopped-Index variant passed
+under `.work/burn-balance-probe/slow-index-phase-47777-1/`: its established
+12-sample certified rate was **394,728,749,258 cycles/day** against a
+settled management comparison of **396,055,008,685 cycles/day** (**0.335%**
+relative difference). The record became stale during the outage and
+re-established after Index work resumed.
+
+The held-response variant at the same phase passed under
+`.work/burn-balance-probe/held-index-phase-47777-1/`. Its final certified
+rate was **396,603,975,748 cycles/day** versus the **401,963,361,024
+cycles/day** settled management bracket (**1.33%** relative difference).
+Established samples were retained during the in-flight hold, and release
+returned **82,593,481,811 cycles** of reservation. The comparison uses
+settled endpoints around the hold because the in-flight management balance
+is not a settled baseline. This is a second genuine timer phase; it does not
+prove arbitrary reservation overlap or unknown external credits.
