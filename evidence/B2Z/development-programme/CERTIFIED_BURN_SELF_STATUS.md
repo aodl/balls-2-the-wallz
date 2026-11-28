@@ -351,3 +351,12 @@ The maintained funding record identified **1T cycles** of treasury credit.
 The meter marked the prior window **stale** rather than reporting a false
 negative burn; the authoritative game publication and world were unchanged.
 Unknown external credits remain outside this guarantee.
+
+The separate disposable ReserveProtection variant passed at the same timer
+phase under `.work/burn-balance-probe/protection-phase-47777-1/`. Its
+pre-protection established rate was **396,134,725,986 cycles/day** versus
+**397,495,432,464 cycles/day** over matched settled management samples.
+After the test-only liquid budget selected protection, the old rate became
+**stale** and the game publication stayed fixed. The runner now has an
+explicit `--reserve-protection` option; it rejects combinations with the
+other active variants so this is a separately interpretable result.
