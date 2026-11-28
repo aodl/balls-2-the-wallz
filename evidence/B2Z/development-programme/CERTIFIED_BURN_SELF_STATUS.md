@@ -446,3 +446,14 @@ original unfiltered samples under
 This closes the named concurrent ordinary-checkpoint and held-reservation
 case for that schedule. Wider overlap phases and workload combinations
 remain separate optional telemetry gates.
+
+The same held-response test passed at a second Index phase of **17.321
+seconds** under `.work/burn-balance-probe/held-index-phase-17321-1/`.
+Two certified five-minute samples occurred while the Index request was
+still in flight. The genuine response then refunded **82,593,477,536
+cycles**. The final 12-sample rate was **396,603,551,315 cycles/day**
+against **401,962,655,256 cycles/day** of matched settled management
+decline, a **1.33%** relative difference under the predeclared 5% target.
+No sample was removed or corrected. This establishes the reservation and
+refund behavior at two distinct timer phases; it does not establish every
+possible overlap schedule or reconstruct unknown external credits.

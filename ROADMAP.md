@@ -66,7 +66,9 @@ rates by 0.053% during the Full Speed mix and 0.342% during ordinary Trickle.
 At a second **47.777-second** Index phase, stopped and held Index, Full Speed,
 an identified CMC credit and ReserveProtection variants also passed; the
 held-response refund exceeded 82.593B cycles and its settled comparison
-differed by 1.33%. A separate 70-minute stopped-backend outage retained a
+differed by 1.33%. A second held-response case at a distinct 17.321-second Index phase also
+passed two in-flight samples, the refund and a 1.33% settled comparison. A
+separate 70-minute stopped-backend outage retained a
 stale certified rate, then established paused burn within 0.0071% of
 settled management without publishing gameplay. A dormant zero-Ball world
 held its game publication and measured within 0.414% of settled management.
