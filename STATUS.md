@@ -1,7 +1,8 @@
 # B2Z current status
 
-Operational observation **2026-11-27 12:23:11 UTC**. The maintained
-[master](https://github.com/aodl/balls-2-the-wallz/commits/master/) verifier source
+Latest settled operational observation **2026-11-28 00:29:56 UTC**. Published
+[master](https://github.com/aodl/balls-2-the-wallz/commits/master/) remains
+`cf6605efecd0115b1faebaec37f5efafedad3a40`; its qualified implementation/tooling ancestor
 [`ae734acdc431adf69978ab41be07a8222139c69d`](https://github.com/aodl/balls-2-the-wallz/commit/ae734acdc431adf69978ab41be07a8222139c69d)
 passed the [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45923880788),
 [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45923880915)
@@ -16,27 +17,31 @@ qualification. The paid backend runs Rules19 / Schema11 / Adapter12
 
 ## Operating position
 
-- Authenticated head **19,102**, logical time **19,085** and source cursor
+- Authenticated head **19,538**, logical time **19,520** and source cursor
   **40,647,923**. The world contained two Cannons under one funding account,
   two Balls, one Diverter and four Reservoir tiles.
 - Gameplay and admission were active at **0.01 ticks/s** with one tick per
   checkpoint. The official Index was bound, with zero pending records and
   no signed source error. Event Horizon was disabled in the installed
   configuration.
-- Settled backend total was **2.496T**, liquid **2.438T** and estimated
-  freezing reserve **0.058T**. Frontend total was **0.773T**, with a
-  **0.204T** estimated freezing reserve and **0.569T** above freezing.
-  Conservative frontend installation/recovery headroom was **0.119T**.
-- Across 146 publications and 14,584 seconds since the 08:20 UTC sample,
-  settled backend liquidity declined **0.567T/day**. At the observed workload
-  and without intervening credits, the conditional projection was
-  **15.6 hours** to the 2.07T default Full Speed cycle floor and **2.54 days**
-  to the 1T protection boundary. The
-  balance floor is one of the owner's Full Speed eligibility checks.
-  An earlier bracket rebounded by 83.7B cycles in 34 seconds. The projection
-  uses the repeated comparable observations.
+- Settled backend total was **2.207T**, liquid **2.149T** and estimated
+  freezing reserve **0.058T**. Frontend total was **0.770T**, with a
+  **0.204T** estimated freezing reserve and **0.566T** above freezing.
+  Conservative frontend installation/recovery headroom was **0.1160T**.
+- Across comparable settled observations at 23:29 and 00:29 UTC,
+  backend liquidity declined **24.705B cycles** in 3,632 seconds across
+  37 publications, approximately **0.588T/day**. At that workload, the
+  conditional intervals from the 00:29 balance are **3.23 hours** to the
+  2.07T default Full Speed cycle floor and **1.96 days** to the 1T
+  protection boundary, absent credits or a workload change. The
+  balance floor is one of the owner's Full Speed eligibility checks; crossing
+  it does not by itself stop ordinary Trickle operation.
+  An earlier bracket rebounded by 83.7B cycles in 34 seconds. The 20:27
+  observation was unsettled and excluded; this projection uses settled
+  comparable observations. Funding before any desired
+  future Full Speed window is an owner decision; no funding was performed.
 
-[Preflight, installation, browser and later observation](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json)
+[Preflight, installation and browser](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json) · [Latest reviewed operating observation](evidence/B2Z/development-programme/production-operating-2026-11-28-0029.json)
 
 ## Qualification and acceptance
 
@@ -81,16 +86,26 @@ origin and read-only desktop/390/320 browser acceptance passed. The earlier
 capped Trickle frontend is retained for exact compatible recovery.
 
 Rules20 development implements Schema12 authorization, initial passage,
-checkerboard corners and symbolic tariffs. Qualification remains blocked by
-recovery of an already obstructed Rules19 predecessor. The updated source
-`95a439e3` passed [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043400),
-[financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043269)
-and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043439)
-hosted jobs, including the named installed successor gates. Four local
-authenticated high-population payment cases passed. The certified burn
-meter remains disabled and is tracked separately. Sustained Full Speed throughput,
-physical devices, dense-scene P09
-qualification and wider-launch readiness remain open. Automatic player payouts
-and refunds are unavailable.
+checkerboard corners and symbolic tariffs. The separate successor branch now
+has a positive exact-installed recovery from the obstructed Rules19 journal.
+Published `adc5a8e1` passed financial and developer/prelaunch workflows with
+22 named installed successor cases; its standard workflow remains active.
+Further installed destruction, corner and adversarial recovery gates keep
+Rules20 off production.
+
+Certified operational burn remains **disabled in normal release profiles**.
+The optional branch's replicated self-status meter passed the established
+active Trickle, shifted Index phases, held reservation/refund, bounded Full
+Speed, identified treasury credit and ReserveProtection comparisons. Exact
+source `f504ec08` passed hosted financial and developer/prelaunch workflows;
+its standard installed-IC job remains active. The maintained live browser
+and agent accepted direct and composed roots. Dormant operation, prolonged
+unavailability, wider concurrent reservations and a compatible release
+profile remain open. Unknown external credits cannot be reconstructed;
+the display is an approximate settled net-balance rate. [Detailed burn
+evidence](evidence/B2Z/development-programme/CERTIFIED_BURN_SELF_STATUS.md)
+records the actual tolerances and limitations. Sustained Full Speed
+throughput, physical devices, dense-scene P09 and wider-launch readiness
+remain open. Automatic player payouts and refunds are unavailable.
 
 [Outstanding-work register](ROADMAP.md) · [Repository consolidation](evidence/B2Z/repository-consolidation/REPORT.md) · [Historical status](https://github.com/aodl/balls-2-the-wallz/blob/315fe2ff1ff873c16e8f693025cc625b0ae59cab/STATUS.md)
