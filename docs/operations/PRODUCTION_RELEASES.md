@@ -40,3 +40,15 @@ directory. The permanent public bundles contain the required production
 executables and selected provenance. Qualification and installation records
 are under [capped Trickle acceptance](../../evidence/B2Z/prelaunch-trickle/PRODUCTION.md)
 and [historical Rules19 trial](../../evidence/B2Z/rules19-compact-reservoirs/PRODUCTION_TRIAL.md).
+
+
+## Rules20 combined prelaunch candidate
+
+The [immutable combined bundle](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-prelaunch-combined-2026-11-28) contains the exact successor
+pair and the current Rules19 and manufacturing executables for the compatible
+pre-boundary state. The successor pair is also the exact recovery software
+after an incompatible Rules19 recovery or Rules20 commitment. The
+manufacturing frontend and Rules19 backend remain installed as of the
+dated closeout. The direct-root developer fallback and public-launch
+candidate retain their separate tags.
+[Current closeout](../../evidence/B2Z/development-programme/RULES20_COMBINED_RELEASE_2026-11-28.md).

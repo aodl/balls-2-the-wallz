@@ -1,0 +1,113 @@
+{
+  "observed_at": "2026-11-28T12:51:54.977Z",
+  "scope": "Certified public module and publication plus signed public management, runtime and source queries. Controller preflight blocked.",
+  "backend": {
+    "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "module_certificate_verified": true,
+    "status": {
+      "running": null
+    },
+    "cycles": "1905874064473",
+    "settings": {
+      "freezing_threshold": "2592000"
+    },
+    "idle_cycles_burned_per_day": "1931132571",
+    "reserved_cycles": "0"
+  },
+  "frontend": {
+    "id": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+    "module_certificate_verified": true,
+    "status": {
+      "running": null
+    },
+    "cycles": "766337297372",
+    "settings": {
+      "freezing_threshold": "2592000"
+    },
+    "idle_cycles_burned_per_day": "6790562653",
+    "reserved_cycles": "0"
+  },
+  "publication": {
+    "root": "585c6a04a64f3ef108a08931c81804dad9645102dfe6365fac79ba8ffa7bfa22",
+    "head": "19982",
+    "logical_time": "19964",
+    "source_cursor": "40647923",
+    "identity": {
+      "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+      "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+      "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "certified_operational_burn": null,
+    "state_sha256": "60d634b85d4b366c66202b8d299c37444fca6e52714862df20d2ede146196984",
+    "accounts_with_cannons": 1,
+    "cannons": 2,
+    "balls": 2,
+    "diverters": 1,
+    "reservoirs": 4,
+    "source": {
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "subaccount": "0",
+      "network": "ic"
+    }
+  },
+  "signed_status": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "1",
+      "publication_ticks": "1",
+      "completed_segments": "19964",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40647923"
+    }
+  },
+  "settlement": {
+    "settled": true,
+    "management_before": "1905874489143",
+    "management_after": "1905874064473",
+    "management_gap": "424670",
+    "health_gap": "57933977130",
+    "estimated_freezing": "57933977130",
+    "unexpected_gap": "0"
+  },
+  "runway": {
+    "backend_freezing_estimate_cycles": "57933977130",
+    "frontend_freezing_estimate_cycles": "203716879590",
+    "frontend_install_recovery_headroom_cycles": "112620417782",
+    "backend_liquid_cycles": "1847940087343",
+    "full_speed_cycle_floor_met": false,
+    "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+    "elapsed_ns": "3608714971245",
+    "elapsed_seconds": 3608,
+    "liquid_decline_cycles": "24646873625",
+    "net_cycles_per_day": "590096446565",
+    "publication_delta": "36",
+    "seconds_to_reserve_protection": "124152",
+    "seconds_to_full_speed_floor": "0"
+  },
+  "public_allowance_comparison": {
+    "backend_headroom_after_reserve_and_allowance": "787940087343",
+    "frontend_headroom_after_freezing_and_allowance": "112620417782",
+    "indicated_shortfall": {
+      "backend_cycles": 0,
+      "frontend_cycles": 0
+    }
+  }
+}

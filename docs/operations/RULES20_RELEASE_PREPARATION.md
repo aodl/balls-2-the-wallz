@@ -1,5 +1,17 @@
 # Rules20 European release preparation
 
+For the preferred **combined developer prelaunch release**, use the exact
+published bundle. It contains its two successor modules, the compatible
+pre-boundary Rules19 backend and manufacturing frontend, exact inventories,
+disposable cycle budgets and secure controller procedure. The latter gates
+both installations. Re-evaluate paid state, resources and compatibility
+against the actual live journals before any mutation.
+[Immutable combined bundle](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-prelaunch-combined-2026-11-28) ·
+[Exact installation and recovery procedure](https://github.com/aodl/balls-2-the-wallz/releases/download/candidate/europe-rules20-prelaunch-combined-2026-11-28/installation-and-recovery.md) ·
+[Qualification and current production hold](../../evidence/B2Z/development-programme/RULES20_COMBINED_RELEASE_2026-11-28.md).
+
+## Historical separate direct-root candidate
+
 This is a candidate procedure, **not production authorization**. Refresh every
 identity and budget against the live canisters before a later owner decision.
 The installed paid backend remains Rules19; the installed frontend remains the

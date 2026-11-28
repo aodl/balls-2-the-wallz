@@ -1,0 +1,295 @@
+{
+  "scope": "Hosted disposable evidence on combined production-profile bytes; protection injection uses a separate test-hooks probe.",
+  "no_gameplay_mutation_mainnet": true,
+  "live_consumers": {
+    "status": "PASS",
+    "modules": {
+      "profile": "01ae2e5acb185f5e6287b5601ac488d9dfff7068ad9b03546ba682c22f44ba74",
+      "compact": "b258ec234b9abd7db9e7b170c14e432b4d1ef2d9b2545632bddb58668a6095de",
+      "prior": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+      "candidate": "e81268c53bb0937e4e3adc99f36b34da10cd5762419e2e61f48fb8595359ce1d",
+      "direct": "eb8430abf2ac105144d4e21fe1a4f8fbdbd027588b04d2816d2c476096c90596",
+      "world": "25c2bb87e0ebeabd2f93bd4295e3296fb2e7ffba26b6a2c5cd3dc420f1bf3f10"
+    }
+  },
+  "matched_overhead": {
+    "candidate": {
+      "first": {
+        "callbacks": 3,
+        "cycles": "199_911_715_214_124",
+        "index_calls": 13,
+        "memory_bytes": "55158610",
+        "minute": 5,
+        "publications": 5,
+        "treasury_credits": "0"
+      },
+      "game_callbacks": 30,
+      "index_calls": 60,
+      "last": {
+        "callbacks": 33,
+        "cycles": "199_894_632_686_094",
+        "index_calls": 73,
+        "memory_bytes": "55289682",
+        "minute": 65,
+        "publications": 35,
+        "treasury_credits": "0"
+      },
+      "module_sha256": "e81268c53bb0937e4e3adc99f36b34da10cd5762419e2e61f48fb8595359ce1d",
+      "one_hundred_observation_queries_cycles": [
+        1566000
+      ],
+      "publications": 30,
+      "settled_cycles_per_day": 409980672720
+    },
+    "incremental_cycles_per_day": 1703157816,
+    "prior": {
+      "first": {
+        "callbacks": 3,
+        "cycles": "199_911_853_406_424",
+        "index_calls": 13,
+        "memory_bytes": "46741707",
+        "minute": 5,
+        "publications": 5,
+        "treasury_credits": "0"
+      },
+      "game_callbacks": 30,
+      "index_calls": 60,
+      "last": {
+        "callbacks": 33,
+        "cycles": "199_894_841_843_303",
+        "index_calls": 73,
+        "memory_bytes": "46872779",
+        "minute": 65,
+        "publications": 35,
+        "treasury_credits": "0"
+      },
+      "module_sha256": "eb8430abf2ac105144d4e21fe1a4f8fbdbd027588b04d2816d2c476096c90596",
+      "one_hundred_observation_queries_cycles": [
+        1566000
+      ],
+      "publications": 30,
+      "settled_cycles_per_day": 408277514904
+    },
+    "scope": "matched 60-minute active Trickle; raw settled balance movement includes all feature costs",
+    "status": "PASS"
+  },
+  "phases": {
+    "active": {
+      "17321": {
+        "external_settled_cycles_per_day": "403965574145",
+        "dormant_world": false,
+        "empty_world": false,
+        "certified": {
+          "cyclesPerDay": "403312822695",
+          "detail": "55-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Established estimate.",
+          "endNs": "1795552009871000581",
+          "quality": "established",
+          "sampleCount": 12,
+          "startNs": "1795548709871000405"
+        },
+        "relative_difference_percent": 0.161586,
+        "after_interruption_quality": "stale"
+      },
+      "32321": {
+        "external_settled_cycles_per_day": "403963713691",
+        "dormant_world": false,
+        "empty_world": false,
+        "certified": {
+          "cyclesPerDay": "403311121217",
+          "detail": "55-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Established estimate.",
+          "endNs": "1795552024871000581",
+          "quality": "established",
+          "sampleCount": 12,
+          "startNs": "1795548724871000405"
+        },
+        "relative_difference_percent": 0.161547,
+        "after_interruption_quality": "stale"
+      },
+      "47777": {
+        "external_settled_cycles_per_day": "403967122538",
+        "dormant_world": false,
+        "empty_world": false,
+        "certified": {
+          "cyclesPerDay": "403314506736",
+          "detail": "55-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Established estimate.",
+          "endNs": "1795552040327000581",
+          "quality": "established",
+          "sampleCount": 12,
+          "startNs": "1795548740327000405"
+        },
+        "relative_difference_percent": 0.161552,
+        "after_interruption_quality": "stale"
+      }
+    },
+    "held": {
+      "17321": {
+        "external_settled_cycles_per_day": "403965574145",
+        "dormant_world": false,
+        "empty_world": false,
+        "certified": {
+          "cyclesPerDay": "403312822695",
+          "detail": "55-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Established estimate.",
+          "endNs": "1795552009871000581",
+          "quality": "established",
+          "sampleCount": 12,
+          "startNs": "1795548709871000405"
+        },
+        "relative_difference_percent": 0.161586,
+        "after_interruption_quality": "stale",
+        "held_index": {
+          "certified_cycles_per_day": "403127243271",
+          "external_settled_cycles_per_day": "408045874320",
+          "observed_reservation_refund_cycles": "82576000489",
+          "source_cursor_preserved": 0
+        }
+      }
+    },
+    "full": {
+      "47777": {
+        "external_settled_cycles_per_day": "1620836177079",
+        "full_speed": {
+          "duration_seconds": 120,
+          "publication_delta": 119
+        },
+        "dormant_world": false,
+        "empty_world": false,
+        "certified": {
+          "cyclesPerDay": "1619502275285",
+          "detail": "55-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Established estimate.",
+          "endNs": "1795552040327000937",
+          "quality": "established",
+          "sampleCount": 12,
+          "startNs": "1795548740327000405"
+        },
+        "relative_difference_percent": 0.082297,
+        "after_interruption_quality": "stale"
+      }
+    },
+    "dormant": {
+      "17321": {
+        "external_settled_cycles_per_day": "119660051801",
+        "dormant_world": true,
+        "empty_world": false,
+        "certified": {
+          "cyclesPerDay": "120042627336",
+          "detail": "55-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Established estimate.",
+          "endNs": "1795552086871000819",
+          "quality": "established",
+          "sampleCount": 12,
+          "startNs": "1795548786871000643"
+        },
+        "relative_difference_percent": 0.319719,
+        "after_interruption_quality": "stale"
+      }
+    },
+    "empty": {
+      "17321": {
+        "external_settled_cycles_per_day": "119962024252",
+        "dormant_world": false,
+        "empty_world": true,
+        "certified": {
+          "cyclesPerDay": "120300952994",
+          "detail": "55-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Established estimate.",
+          "endNs": "1795552086871000819",
+          "quality": "established",
+          "sampleCount": 12,
+          "startNs": "1795548786871000643"
+        },
+        "relative_difference_percent": 0.28253,
+        "after_interruption_quality": "stale"
+      }
+    },
+    "outage": {
+      "47777": {
+        "external_settled_cycles_per_day": "403967122538",
+        "long_outage": {
+          "external_settled_cycles_per_day": "133995002392",
+          "reestablished": {
+            "cyclesPerDay": "133986215853",
+            "detail": "55-minute sample window ending 0 minutes before certification. Approximate settled net balance decline. Established estimate.",
+            "endNs": "1795560680327000823",
+            "quality": "established",
+            "sampleCount": 12,
+            "startNs": "1795557380327000647"
+          },
+          "stale_after_70_minute_stop": {
+            "cyclesPerDay": "403314506736",
+            "detail": "55-minute sample window ending 74 minutes before certification. Approximate settled net balance decline. Last valid measurement is stale.",
+            "endNs": "1795552040327000581",
+            "quality": "stale",
+            "sampleCount": 12,
+            "startNs": "1795548740327000405"
+          }
+        },
+        "dormant_world": false,
+        "empty_world": false,
+        "certified": {
+          "cyclesPerDay": "403314506736",
+          "detail": "55-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Established estimate.",
+          "endNs": "1795552040327000581",
+          "quality": "established",
+          "sampleCount": 12,
+          "startNs": "1795548740327000405"
+        },
+        "relative_difference_percent": 0.161552,
+        "after_interruption_quality": "stale"
+      }
+    },
+    "credit": {
+      "47777": {
+        "external_settled_cycles_per_day": "403967122538",
+        "treasury_credit": {
+          "burn": {
+            "cyclesPerDay": "403314506736",
+            "detail": "55-minute sample window ending 14 minutes before certification. Approximate settled net balance decline. Last valid measurement is stale.",
+            "endNs": "1795552040327000581",
+            "quality": "stale",
+            "sampleCount": 12,
+            "startNs": "1795548740327000405"
+          },
+          "publication": "6b42adf855f9da6f72896255c7e0c12d4ab986d3dd961d74761367e3fd04ecd7"
+        },
+        "dormant_world": false,
+        "empty_world": false,
+        "certified": {
+          "cyclesPerDay": "403314506736",
+          "detail": "55-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Established estimate.",
+          "endNs": "1795552040327000581",
+          "quality": "established",
+          "sampleCount": 12,
+          "startNs": "1795548740327000405"
+        },
+        "relative_difference_percent": 0.161552,
+        "after_interruption_quality": "stale"
+      }
+    },
+    "protection": {
+      "47777": {
+        "external_settled_cycles_per_day": "404041759414",
+        "reserve_protection": {
+          "burn": {
+            "cyclesPerDay": "403356501456",
+            "detail": "55-minute sample window ending 19 minutes before certification. Approximate settled net balance decline. Last valid measurement is stale.",
+            "endNs": "1795552040327000581",
+            "quality": "stale",
+            "sampleCount": 12,
+            "startNs": "1795548740327000405"
+          },
+          "publication": "6b42adf855f9da6f72896255c7e0c12d4ab986d3dd961d74761367e3fd04ecd7"
+        },
+        "dormant_world": false,
+        "empty_world": false,
+        "certified": {
+          "cyclesPerDay": "403356501456",
+          "detail": "55-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Established estimate.",
+          "endNs": "1795552040327000581",
+          "quality": "established",
+          "sampleCount": 12,
+          "startNs": "1795548740327000405"
+        },
+        "relative_difference_percent": 0.169601,
+        "after_interruption_quality": "stale"
+      }
+    }
+  }
+}

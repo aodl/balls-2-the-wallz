@@ -1,0 +1,56 @@
+{
+  "source": "42190e82880bde75cb6517f7fa229fccf077aa8c",
+  "original_tested_source": "2cb1c0369d9a8e198085e8dadc102c7ad3df8e6c",
+  "upload_only_intermediate_source": "4330af66f842675f07801ac5c8e710db5e5d3235",
+  "build_profile": "Rules20 Schema12 Adapter12 capped Trickle with certified burn and developer prelaunch frontend",
+  "tree": "7f480d793d7ae99f14bfc07ccfa58e26fdd44856",
+  "runs": {
+    "standard": 46140060003,
+    "financial": 46140060007,
+    "developer_prelaunch": 46140060023
+  },
+  "developer_artifacts": {
+    "developer-speed-backend-and-replay": {
+      "id": 15262634449,
+      "archive_digest": "sha256:450bd1b267c373e976e23ec41542514362fd7e2d19d19a4daec8cc98d03a188d"
+    },
+    "developer-speed-frontend": {
+      "id": 15261766084,
+      "archive_digest": "sha256:050e6d49803fdc433e85b4db2bba3fd8db52f3fbab120cb457581da6cfd212fe"
+    }
+  },
+  "backend_sha256": "e81268c53bb0937e4e3adc99f36b34da10cd5762419e2e61f48fb8595359ce1d",
+  "developer_frontend_sha256": "be06c1aa6d8234b6b69075bc875873846c1c16e7252521799a032bc5f423c298",
+  "frontend_inventory_sha256": "8796768fc501b80c67067f6484cdcc577f085e1093f9459aa91b409ec621cf69",
+  "frontend_public_assets": 92,
+  "dtr_source": "1c7fa8b3bd2c3973a9dc6525b2fe8bb744f21e2e",
+  "dtr_package": "0.16.0",
+  "dtr_archive_sha256": "c19e6e31db3f56aed51c693b3ce1413c2887ec5fdb8c1d9f6fee3f3a76342f22",
+  "locked_inputs": {
+    "Cargo.lock": "1af7c1ca769bda7de699ffb26904f56fbe9bb45436445f542d27754d1394f54d",
+    "canisters/runtime-lab/Cargo.lock": "ae55a474a6b447918c6981fa9cc0ca7fc3458a563ee4d0bb7ae69da1babb9c12",
+    "canisters/frontend/Cargo.lock": "ed1cde67575433135bf1db6f2ba026d6222a5e3c4f334172e686302172c48e98",
+    "package-lock.json": "4e69f5532248cf0b684ad945f308260b7e9a5ea6a3d83823fed6bf41062efd5f",
+    "tools/s09-integration/Cargo.lock": "65609284a76ccf0683abfb9d2e2cdbfb272d9e360d98389e0187169190bc01b1"
+  },
+  "recovery": {
+    "pre_boundary_rules19_backend_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "pre_frontend_install_manufacturing_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+    "pre_boundary_rules19_backend_asset": "pre-boundary-rules19-backend.wasm",
+    "pre_boundary_manufacturing_frontend_asset": "pre-boundary-manufacturing-frontend.wasm",
+    "pre_boundary_manufacturing_inventory_sha256": "addbee9e943b06b26226f0894f74ba39be0dad680ae48770fc4ff2c7c363bc2e",
+    "post_boundary_backend_sha256": "e81268c53bb0937e4e3adc99f36b34da10cd5762419e2e61f48fb8595359ce1d",
+    "post_boundary_frontend_sha256": "be06c1aa6d8234b6b69075bc875873846c1c16e7252521799a032bc5f423c298",
+    "installed_rules19_release": "production/europe-rules19-prelaunch-trickle",
+    "installed_manufacturing_release": "candidate/europe-prelaunch-frontend-manufacturing-2026-11-26",
+    "direct_root_fallback_release": "candidate/europe-rules20-prelaunch-direct-2026-11-28"
+  },
+  "qualification_complete": true,
+  "production": {
+    "installed": false,
+    "preflight": "Existing secure controller access and fresh authenticated checks required",
+    "frontend_canister": "s2jxj-liaaa-aaaas-amynq-cai",
+    "backend_canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "permanent_origin": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io"
+  }
+}

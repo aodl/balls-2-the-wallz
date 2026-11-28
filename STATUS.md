@@ -1,33 +1,52 @@
 # B2Z current status
 
-**28 November 2026.** Rules20 source
-`995bbb962c3fe01da98775bbadffc2ba7491f4d1` is qualified and merged
-as master `114f81a7808732e42624c7251456a19fa7979b1f`; their Git trees
-are identical. The paid backend still runs Rules19. The manufacturing
-frontend is still installed. The conditional Rules20 release is held at
-controller preflight while combined qualification continues.
-[Current prelaunch continuation](evidence/B2Z/development-programme/RULES20_COMBINED_PREFLIGHT_2026-11-28.md).
+**28 November 2026.** Combined Rules20 source `42190e82880bde75cb6517f7fa229fccf077aa8c`
+passed exact-source qualification and is published on master. The frozen
+prelaunch release pairs capped Trickle and certified operational burn with
+the 92-asset developer frontend. The paid European backend continues to
+run Rules19 with the installed manufacturing frontend. The deployment is
+blocked because DFX rejects the only locally available matching controller
+identity for mainnet signing.
+[Immutable combined candidate](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-prelaunch-combined-2026-11-28) ·
+[Qualification and production hold](evidence/B2Z/development-programme/RULES20_COMBINED_RELEASE_2026-11-28.md) ·
+[Secure controller preflight](docs/operations/RULES20_SECURE_CONTROLLER_PREFLIGHT.md).
 
 | Role | Canister | Installed source | Certified raw Wasm SHA-256 |
 | --- | --- | --- | --- |
 | Paid Rules19 / Schema11 / Adapter12 capped-Trickle backend | `s5ir5-gqaaa-aaaas-amyna-cai` | `741dbf898ade58ed2fa3a064d8bbe1acb577ed4a` | `b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90` |
 | Manufacturing frontend at the permanent `https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io` origin | `s2jxj-liaaa-aaaas-amynq-cai` | `0855896239ba222892a372e6eeba22530fa59afc` | `1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5` |
 
-The 09:16 UTC settled read verified **1.936T liquid backend cycles** and
-**0.767T frontend cycles**. The frontend had **0.114T** after estimated
-freezing and a 450B installation and recovery allowance. Signed status showed
-healthy capped Trickle at **0.01 ticks/s**, source cursor **40,647,923** and
-zero pending records. The 3,621-second settled comparison measured
-**0.585T/day** net decline. At that workload the conditional runway to 1T
-ReserveProtection was **1.60 days**. Full Speed remains below its 2.07T
-balance floor. [Certified observation](evidence/B2Z/development-programme/production-operating-2026-11-28-0916.json).
+The 12:51:54 UTC settled read verified **1.848T liquid backend cycles**
+and **0.766T frontend cycles**. The frontend had **112.620B** beyond
+estimated freezing and the installation and recovery allowance. Signed
+public status showed healthy capped Trickle at **0.01 ticks/s**, source
+cursor **40,647,923** and zero pending records. Observed backend net
+decline was **0.590T/day**, giving **1.44 days** conditional runway to 1T
+ReserveProtection. Full Speed remains below its 2.07T balance floor.
+[Public observation](evidence/B2Z/development-programme/RULES20_COMBINED_RELEASE_2026-11-28_OPERATING.json).
+
+## Qualified combined developer prelaunch candidate
+
+- Capped-Trickle backend `e81268c53bb0937e4e3adc99f36b34da10cd5762419e2e61f48fb8595359ce1d`.
+- Developer frontend `be06c1aa6d8234b6b69075bc875873846c1c16e7252521799a032bc5f423c298`, with owner Full
+  Speed controls and direct/composed-root verification.
+- [Standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/46140060003),
+  [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/46140060007) and
+  [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/46140060023)
+  passed. The latter ran all 28 named Rules20 installed cases, both exact
+  transition paths, replay, frontend recovery and live telemetry consumers.
+- Exact-hosted active Trickle phase comparisons were within **0.162%**
+  of settled observations against the predeclared 5% target. Measured
+  incremental cost was **1.703B cycles/day**. This is approximate
+  settled net burn. Unknown external credits can understate gross burn.
+  [Complete disposition](evidence/B2Z/development-programme/RULES20_COMBINED_RELEASE_2026-11-28.md).
 
 The qualified direct-root fallback pairs the frozen Rules20 capped-Trickle
 backend with the exact 92-asset developer frontend. It preserves the temporary
 owner interface. The public frontend remains separately frozen.
 [Verified fallback release](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-prelaunch-direct-2026-11-28).
 
-## Qualified Rules20 candidate
+## Qualified separate direct-root candidate
 
 The [frozen production review candidate](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-recovery-2026-11-28)
 contains the exact capped-Trickle Rules20 backend
@@ -59,23 +78,23 @@ interrupted/restart cases also passed.
 [release and compatibility procedure](docs/operations/RULES20_RELEASE_PREPARATION.md) ·
 [dated closeout](evidence/B2Z/development-programme/FINAL_QUALIFICATION_2026-11-28.md).
 
-A future authorized production operation must start with a fresh certified
-paid-state, source and resource preflight. Install the compatible Rules20
-frontend first. A healthy drained Rules19 predecessor uses the ordinary
-transition; the specifically obstructed predecessor uses the authenticated
-recovery checkpoint and old-policy drain before ordinary activation. The
-installed Rules19 backend is compatible only before the first durable
-successor boundary. After that boundary the exact Rules20 backend and
-frontend are their own compatible recovery executables. No frontend or
-backend module was installed under this development instruction.
+The authorized combined operation starts with secure controller, paid-state,
+source and resource preflight. Install the compatible developer frontend
+first. A healthy drained Rules19 predecessor uses the ordinary transition.
+The specifically supported obstruction uses authenticated recovery and
+Rules19-policy processing before ordinary activation. The old backend and
+manufacturing frontend are recovery executables for their compatible
+pre-boundary state. After the first incompatible commitment, recover with
+the exact combined pair.
+[Installation and recovery](docs/operations/RULES20_RELEASE_PREPARATION.md).
 
-## Optional certified operational burn
+## Independently qualified Rules19 telemetry
 
 Separate telemetry source `21a35f7643611fd947ffe6a0bf431874c2387ed8`
 uses the existing Rules19 backend lineage and an older DTR pin. Its exact
 optional backend is `076b62a2e82123dccca9e73fa64471e071ed997b556cde6a0b07a42103910edd`;
-it is **not** in the Rules20 release. On those hosted bytes, active Trickle
-estimated **395.617B/day** versus **396.930B/day** settled movement
+the combined release uses a separately qualified Rules20 build. Active
+Trickle on the standalone Rules19 hosted bytes estimated **395.617B/day** versus **396.930B/day** settled movement
 (0.331% difference, below the predeclared 5% target), and the measured
 matched incremental cost was **5.008B cycles/day**. Different Index phases,
 a held response and refund, Full Speed, known credits, stale state and
@@ -86,10 +105,8 @@ passed [developer/prelaunch 46118611056](https://github.com/aodl/balls-2-the-wal
 passed, and [standard 46118611065](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611065)
 also passed its installed S14/million-cell and official Ledger/Index jobs.
 The source-specific evidence update is published as `e928e973` on the
-telemetry branch, with no runtime or test-input change. Unknown external credits can
-understate this **net**
-balance decline estimate; gross burn is not established. A combined
-Rules20/composed-root release requires separate exact-source qualification.
+telemetry branch. The estimate measures approximate settled net decline
+and is affected by unknown external credits.
 [Concise telemetry manifest](evidence/B2Z/development-programme/CERTIFIED_BURN_QUALIFICATION_2026-11-28.json) ·
 [full telemetry evidence](https://github.com/aodl/balls-2-the-wallz/blob/codex/certified-burn-integration/evidence/B2Z/development-programme/CERTIFIED_BURN_SELF_STATUS.md).
 

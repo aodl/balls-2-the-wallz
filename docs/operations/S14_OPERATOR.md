@@ -26,14 +26,14 @@ verified compatible executable.
 
 ## Rules20 prelaunch release
 
-Use an embedded developer frontend with the owner Full Speed interface.
-The direct-root fallback is frozen independently of the public-launch
-frontend. The combined profile requires its own exact backend and frontend
-qualification and budgets. Check controller signing access before
-starting the frontend-first operation. Use the [secure signer verification](RULES20_SECURE_CONTROLLER_PREFLIGHT.md).
-A failed controller preflight holds
-both installations. Read the [current preflight and artifact evidence](../../evidence/B2Z/development-programme/RULES20_COMBINED_PREFLIGHT_2026-11-28.md)
-and the [Rules20 epoch and recovery procedure](RULES20_RELEASE_PREPARATION.md).
+The preferred exact combined release uses the embedded developer frontend
+with the temporary owner Full Speed interface. The direct-root developer
+fallback and public-launch frontend have separate releases. Check secure
+controller access before the frontend-first operation. A failed controller
+preflight holds both installations.
+[Immutable combined candidate](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-prelaunch-combined-2026-11-28) ·
+[Secure signer verification](RULES20_SECURE_CONTROLLER_PREFLIGHT.md) ·
+[Epoch and recovery procedure](RULES20_RELEASE_PREPARATION.md).
 
 ## Backend and epoch changes
 

@@ -42,8 +42,9 @@ The 27 November installation log confirms a successful same-ID frontend
 upgrade. It contains no signer identification. The adjacent historical
 European controller script identifies `codex_local` and suppresses the
 DFX plaintext warning. The current CLI rejects that plaintext identity
-before sending the controller query. The default local identity resolves
-to a different principal and is not a controller. No approved secure
-controller session has been identified in this workspace. If neither
+before sending the controller query. Public principals from all 15 configured DFX identities were checked.
+Only `codex_local` matched either controller. The final authenticated
+management status attempt also failed before submission. No approved
+secure controller session has been identified in this workspace. If neither
 registered principal has an available approved secure signer, the
 controller gate remains blocked.
