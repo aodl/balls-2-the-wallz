@@ -4314,6 +4314,241 @@ fn rules20_paid_multiple_overlapping_balls() {
 }
 
 #[test]
+#[ignore = "disposable installed paid structure and Ball destruction by genuine collision annihilation"]
+fn rules20_paid_passage_topology_destruction() {
+    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
+        .join("rules20-passage-topology-destruction");
+    std::fs::create_dir_all(&out).unwrap();
+    let payer = Principal::self_authenticating([9; 32]);
+    let payer_account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
+    let foreign_account = "02".repeat(32);
+    let mut initial = seed("two_ball");
+    let time = initial.time.0.to_integer();
+    let width = initial.width;
+    let cell = |x: usize, y: usize| y * width + x;
+    let site = cell(500, 500);
+    initial.ownership =
+        Some(world::ScaledOwnership::from_32x32(vec![0; 1024], width, initial.height).unwrap());
+    initial.deflectors.as_mut().unwrap().clear();
+    for y in 490..=500 {
+        initial.set_owner(cell(500, y), 1).unwrap();
+    }
+    for y in 492..=495 {
+        for x in 496..=499 {
+            initial.set_owner(cell(x, y), 2).unwrap();
+        }
+    }
+    initial.cannons[0].cell = cell(500, 490);
+    initial.cannons[0].account = payer_account.clone();
+    initial.cannons[1].cell = cell(496, 492);
+    initial.cannons[1].account = foreign_account.clone();
+    let play = initial.playability.as_mut().unwrap();
+    play.players[0].account = payer_account;
+    play.players.push(playability::Player {
+        id: 2,
+        account: foreign_account,
+    });
+    play.territories.push(Territory { id: 2, player: 2 });
+    play.next_player_id = 3;
+    play.next_territory_id = 3;
+    play.lifecycle[1].player = 2;
+    let defender = &mut initial.balls[0];
+    defender.cell = site;
+    defender.vx = 1;
+    defender.vy = 0;
+    defender.den = Some(Int(1.into()));
+    defender.x0 = Int(Int((500 * 1024 + 512).into()).0 - &time);
+    defender.y0 = Int((500 * 1024 + 512).into());
+    let attacker = &mut initial.balls[1];
+    attacker.owner = 2;
+    attacker.cell = cell(496, 495);
+    attacker.vx = 256;
+    attacker.vy = 0;
+    attacker.den = Some(Int(1.into()));
+    attacker.x0 = Int(Int((496 * 1024 + 512).into()).0 - &time * 256u32);
+    attacker.y0 = Int((495 * 1024 + 512).into());
+    initial.validate().unwrap();
+
+    let (pic, id, ledger, actual_payer) = arena_setup_world_fee_clock_payers_options(
+        bytes("B2Z_COST_PROFILE_WASM"),
+        initial.encode().unwrap(),
+        10_000,
+        0,
+        &[],
+        true,
+    );
+    assert_eq!(actual_payer, payer);
+    let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
+    compact_cutover(&pic, id, ledger, &compact, &out);
+    playability_installed::one_tick(&pic, id);
+    let installed = bytes("B2Z_RULES20_INSTALLED_WASM");
+    let candidate = bytes("B2Z_RULES20_CANDIDATE_WASM");
+    upgrade_during_recovery(&pic, id, &installed).unwrap();
+    upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    playability_installed::prepare(&pic, id, "prepare_rules20_transition");
+    let mut ready = false;
+    for _ in 0..1800 {
+        let raw: Vec<u8> = get_query(
+            &pic,
+            id,
+            "rules20_transition_status",
+            encode_args(()).unwrap(),
+        );
+        let view: Value = dtr_wire::decode(&raw).unwrap();
+        if view["transition"]["phase"] == "ready" && transition_drained(&pic, id) {
+            ready = true;
+            break;
+        }
+        advance(&pic, 1000);
+    }
+    assert!(ready);
+    let (_, predecessor) = capture(&pic, id, &out, 0);
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_rules20_transition",
+        candid::encode_one(predecessor.head.manifest_hash).unwrap(),
+    );
+    assert_eq!(arena_world(&pic, id).version, 12);
+    let (_, epoch) = capture(&pic, id, &out, 1);
+    pause(&pic, id);
+    let payment = transfer_text(
+        &pic,
+        ledger,
+        payer,
+        id,
+        10_000_000,
+        format!("DEFLECT {site} N").as_bytes(),
+    );
+    for _ in 0..300 {
+        advance(&pic, 1000);
+        if status(&pic, id).source.admitted_to_exclusive > payment {
+            break;
+        }
+    }
+    assert!(status(&pic, id).source.admitted_to_exclusive > payment);
+    playability_installed::configuration(&pic, id, 512);
+    let mut built = false;
+    for _ in 0..300 {
+        advance(&pic, 1000);
+        let w = arena_world(&pic, id);
+        if w.deflectors.iter().flatten().any(|d| d.cell == site) {
+            built = true;
+            break;
+        }
+    }
+    assert!(
+        built,
+        "genuine Diverter payment must build on the existing Ball"
+    );
+    let after_build = arena_world(&pic, id);
+    assert!(
+        after_build
+            .passage_exceptions
+            .iter()
+            .any(|row| row.ball == 1 && row.cell == site)
+    );
+    let (_, built_publication) = capture(&pic, id, &out, 2);
+    assert_eq!(
+        built_publication.head.segment_id.as_ref().unwrap().0,
+        &epoch.head.segment_id.as_ref().unwrap().0 + 1u32
+    );
+    let expected = BTreeMap::from([(payment, ("ACCEPTED".into(), 0, None))]);
+    let inputs = super::delegation_installed::official_inputs(&pic, id, &expected)
+        .into_iter()
+        .map(|(payment, _)| b2z_native::Input {
+            position: Int(payment.position.into()),
+            payload_hex: hex(&payment.encode().unwrap()),
+        })
+        .collect::<Vec<_>>();
+    std::fs::write(out.join("2-inputs.bin"), dtr_wire::encode(&inputs).unwrap()).unwrap();
+    let mut ordinal = 2u64;
+    let mut previous = status(&pic, id).run.completed_segments;
+    let mut destroyed = false;
+    for _ in 0..100 {
+        advance(&pic, 100_000);
+        let run = status(&pic, id).run;
+        assert!(run.last_error.is_none(), "{:?}", run.last_error);
+        if run.completed_segments > previous {
+            assert_eq!(run.completed_segments, previous + 1);
+            previous = run.completed_segments;
+            ordinal += 1;
+            capture(&pic, id, &out, ordinal);
+            std::fs::write(
+                out.join(format!("{ordinal}-inputs.bin")),
+                dtr_wire::encode(&Vec::<b2z_native::Input>::new()).unwrap(),
+            )
+            .unwrap();
+            let w = arena_world(&pic, id);
+            if !w.balls.iter().any(|b| b.id == 1)
+                && !w.deflectors.iter().flatten().any(|d| d.cell == site)
+            {
+                assert!(
+                    !w.passage_exceptions
+                        .iter()
+                        .any(|row| row.ball == 1 || row.cell == site)
+                );
+                destroyed = true;
+                break;
+            }
+        }
+    }
+    assert!(
+        destroyed,
+        "opposing Ball collision must remove the paid Diverter and original Ball"
+    );
+    let final_events: Value =
+        dtr_wire::decode(&std::fs::read(out.join(format!("{ordinal}-events.bin"))).unwrap())
+            .unwrap();
+    let annihilation = final_events["events"]
+        .as_array()
+        .unwrap()
+        .iter()
+        .find(|event| event["kind"] == "capture_annihilation")
+        .expect("final publication must report collision annihilation");
+    assert!(
+        annihilation["pairs"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|pair| pair["balls"] == json!([2, 1]) || pair["balls"] == json!([1, 2]))
+    );
+    assert!(
+        annihilation["removed_deflectors"]
+            .as_array()
+            .unwrap()
+            .iter()
+            .any(|row| row["cell"] == site)
+    );
+    let independent = std::process::Command::new("node")
+        .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
+        .arg("tools/verify_rules20_installed_replay.mjs")
+        .arg(&out)
+        .arg(ordinal.to_string())
+        .output()
+        .unwrap();
+    assert!(
+        independent.status.success(),
+        "independent destruction replay: {}{}",
+        String::from_utf8_lossy(&independent.stdout),
+        String::from_utf8_lossy(&independent.stderr)
+    );
+    std::fs::write(
+        out.join("results.json"),
+        serde_json::to_vec_pretty(&json!({
+            "status":"PASS","installed_sha256":dtr_wire::hash(&installed),
+            "candidate_sha256":dtr_wire::hash(&candidate),"payment_position":payment,
+            "paid_structure_cell":site,"final_capture_ordinal":ordinal,
+            "destroyed_original_ball":true,"destroyed_paid_structure":true,
+            "retired_passage_exception":true,"destruction_kind":"capture_annihilation",
+            "independent_replay":true,
+        }))
+        .unwrap(),
+    )
+    .unwrap();
+}
+
+#[test]
 #[ignore = "installed mixed-owner Rules20 corner survives interrupted checkpoint and same-ID restart"]
 fn rules20_installed_corner_restart() {
     run_rules20_installed_corner_restart(false, false);

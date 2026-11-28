@@ -67,12 +67,16 @@ in installed disposable tests with exact receipts, frontend quotes and replay.
 A further paid installed case retained three existing Balls, including two
 overlapping at one Cannon site, with three separate passage rows and exact
 independent replay.
+An additional paid installed Diverter was removed by a genuine opposing-Ball
+`capture_annihilation`; the event named both Balls and the removed structure,
+its passage row retired, and thirteen consecutive publications matched
+independent public replay.
 Additional seam and equal-time corner outputs passed in source conformance.
 An installed mixed-owner corner capture survived a partially stepped
 checkpoint and same-ID restart with exact independent replay. Complete
 foreign-Cannon and Diverter installed corner obstructions also survived the
 same restart route and matched independent replay. Complete structure and
-Ball destruction and adversarial recovery cases, any unexecuted financial
+Other destruction topologies and adversarial recovery cases, any unexecuted financial
 edge cases, and final
 exact-source hosted qualification before freezing a release. The successor
 frontend has a dedicated configuration and inventory.

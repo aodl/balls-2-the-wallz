@@ -1,6 +1,6 @@
 # B2Z current status
 
-Latest settled operational observation **2026-11-28 03:00:08 UTC**. Published
+Latest settled operational observation **2026-11-28 03:24:40 UTC**. Published
 [master](https://github.com/aodl/balls-2-the-wallz/commits/master/) remains
 `cf6605efecd0115b1faebaec37f5efafedad3a40`; its qualified implementation/tooling ancestor
 [`ae734acdc431adf69978ab41be07a8222139c69d`](https://github.com/aodl/balls-2-the-wallz/commit/ae734acdc431adf69978ab41be07a8222139c69d)
@@ -17,22 +17,22 @@ qualification. The paid backend runs Rules19 / Schema11 / Adapter12
 
 ## Operating position
 
-- Authenticated head **19,628**, logical time **19,610** and source cursor
+- Authenticated head **19,643**, logical time **19,625** and source cursor
   **40,647,923**. The world contained two Cannons under one funding account,
   two Balls, one Diverter and four Reservoir tiles.
 - Gameplay and admission were active at **0.01 ticks/s** with one tick per
   checkpoint. The official Index was bound, with zero pending records and
   no signed source error. Event Horizon was disabled in the installed
   configuration.
-- Settled backend total was **2.147T**, liquid **2.089T** and estimated
+- Settled backend total was **2.136T**, liquid **2.078T** and estimated
   freezing reserve **0.058T**. Frontend total was **0.769T**, with a
   **0.204T** estimated freezing reserve and **0.565T** above freezing.
-  Conservative frontend installation/recovery headroom was **0.1153T**.
-- Across comparable settled observations at 01:30 and 03:00 UTC,
-  backend liquidity declined **36.331B cycles** in 5,396 seconds across
-  54 publications, approximately **0.582T/day**. At that workload, the
-  conditional intervals from the 03:00 balance are **46 minutes** to the
-  2.07T default Full Speed cycle floor and **1.87 days** to the 1T
+  Conservative frontend installation/recovery headroom was **0.1152T**.
+- Across comparable settled observations at 01:30 and 03:24 UTC,
+  backend liquidity declined **46.474B cycles** in 6,869 seconds across
+  69 publications, approximately **0.585T/day**. At that workload, the
+  conditional intervals from the 03:24 balance are **21 minutes** to the
+  2.07T default Full Speed cycle floor and **1.84 days** to the 1T
   protection boundary, absent credits or a workload change. The
   balance floor is one of the owner's Full Speed eligibility checks; crossing
   it does not by itself stop ordinary Trickle operation.
@@ -41,7 +41,7 @@ qualification. The paid backend runs Rules19 / Schema11 / Adapter12
   comparable observations. Funding before any desired
   future Full Speed window is an owner decision; no funding was performed.
 
-[Preflight, installation and browser](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json) · [Latest reviewed operating observation](evidence/B2Z/development-programme/production-operating-2026-11-28-0300.json)
+[Preflight, installation and browser](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json) · [Latest reviewed operating observation](evidence/B2Z/development-programme/production-operating-2026-11-28-0324.json)
 
 ## Qualification and acceptance
 
@@ -180,7 +180,10 @@ continuation and later paid relocation matched independent replay.
 Another genuine paid installed case built over two simultaneous overlapping
 Balls plus a third Ball at a Diverter site; all three retained exact motion,
 received separate passage rows and matched independent replay. Structure
-and Ball destruction remain separate passage gates. A separate
+and Ball destruction through collision annihilation also passed: the
+authoritative event removed the paid Diverter and both colliding Balls,
+retired the passage row and matched 13 consecutive independent public
+replays. Other destruction topologies remain open. A separate
 installed corner case crossed the ordinary Rules20 epoch, interrupted a
 sealed motion checkpoint, restarted the same candidate module and captured
 the one eligible checkerboard tile across mixed ownership. Independent replay
@@ -208,10 +211,10 @@ frontend and restoration of that frontend passed certified asset/route checks;
 the respective PocketIC debits were **184.609B** and **185.525B cycles**.
 The [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123070)
 also passed, completing all three hosted historical workflows on `adc5a8e1`.
-The later `2365ab49` source is published with fresh workflows in progress;
-the local release runner now names **27 installed successor cases**, including
+The later `16ed339d` source is published with fresh workflows in progress;
+the local release runner now names **28 installed successor cases**, including
 the payment-arrival recovery fence and interrupted mixed-owner, Cannon and
-Diverter corner routes. Those later cases still need exact-source hosted
+Diverter corner routes and collision-annihilation cleanup. Those later cases still need exact-source hosted
 execution. The
 [candidate release procedure](docs/operations/RULES20_RELEASE_PREPARATION.md)
 keeps installation conditional on all remaining gates.

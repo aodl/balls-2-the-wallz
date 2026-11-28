@@ -722,3 +722,19 @@ destruction remain separate gates.
 The original two-site paid construction case also passed after the shared
 fixture change under `.work/rules19-recovery/installed-construction-refactor-1/`
 (58.386 seconds), retaining its exact independent replay check.
+
+A genuine paid installed Diverter over an existing Ball then survived until
+an opposing Ball collision. The authoritative `capture_annihilation` event
+named both Balls and the removed paid Diverter at cell 500500; the final
+public world contained neither Ball, the Diverter nor its passage exception.
+Thirteen consecutive successor publications matched independent JavaScript
+state, event and score replay. The final exact-event fixture passed in
+`.work/rules19-recovery/installed-topology-destruction-4/` (62.437 seconds).
+An initial compiler assertion error and an interrupted Cannon topology
+attempt are retained under `installed-topology-destruction-{1,2}/`; the
+earlier successful Diverter run without the exact event assertion is under
+`installed-topology-destruction-3/`. This proves the collision-annihilation
+destruction route, not every possible territory-disconnection route. The
+release runner now names **28 installed successor cases**. Remaining
+destruction topologies and adversarial recovery interruptions still require
+qualification.
