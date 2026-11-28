@@ -158,6 +158,8 @@ jobs:
           cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle
           cp "$wasm" .work/prelaunch-trickle.wasm
           python -B tools/check_prelaunch_wasm.py prelaunch-trickle .work/prelaunch-trickle.wasm > .work/prelaunch-trickle-interface.json
+          python -B tools/verify_runtime_candid.py --profile prelaunch-trickle --output .work/prelaunch-trickle.did
+          cmp .work/prelaunch-trickle.did canisters/runtime-lab/runtime-lab-prelaunch.did
           cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle,test-hooks
           cp "$wasm" .work/prelaunch-trickle-probe.wasm
           cargo test --manifest-path "$manifest" --locked --offline --features prelaunch-trickle prelaunch_tests
@@ -196,6 +198,7 @@ jobs:
             .work/developer-speed-interface.json
             .work/prelaunch-trickle.wasm
             .work/prelaunch-trickle-interface.json
+            .work/prelaunch-trickle.did
             .work/prelaunch-public-guard.log
             .work/ci-rules20-installed/**
             .work/ci-prelaunch-trickle/**

@@ -10,11 +10,20 @@ manufacturing build at the permanent
 | --- | --- | --- |
 | Installed Rules19 backend | `b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90` | Current paid state; valid rollback only before the first durable Rules19 recovery or Rules20 transition boundary. |
 | Installed manufacturing frontend | `1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5` | Immediate frontend rollback candidate before backend identity changes, subject to a fresh same-ID preflight. |
-| Rules20 capped-Trickle backend candidate | `5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18` | Published B2Z `adc5a8e1`, pinned DTR 0.16.0 at `1c7fa8b3bd2c3973a9dc6525b2fe8bb744f21e2e`; 22 named installed cases PASS in developer run 46087123064. The same executable supports the dedicated obstructed Rules19 recovery epoch and subsequent Rules20 identity. |
+| Rules20 capped-Trickle backend candidate | `5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18` | Published B2Z `adc5a8e1`, pinned DTR 0.16.0 at `1c7fa8b3bd2c3973a9dc6525b2fe8bb744f21e2e`; 27 named installed cases PASS in developer run 46101370397. The same executable supports the dedicated obstructed Rules19 recovery epoch and subsequent Rules20 identity. |
 | Rules20 public frontend candidate | `c029a5b5d52ba132dcc8981e98bf5445218cc75075a4dea8e6b37c5b6da2fc6c` | Published B2Z `adc5a8e1`; 91 public assets and matching independent build. It must be retained as its own recovery executable after a Rules20 backend boundary. |
 
 The backend candidate and frontend candidate above are downloadable from the
 named hosted runs; neither has been installed or declared a final release.
+The generated public Candid interface is
+`canisters/runtime-lab/runtime-lab.did` (SHA-256
+`3e243e3ea0266ae37b4b131527547ce72e9e88e883765ca142b1db9611ae77ce`).
+The distinct capped-Trickle profile declares
+`canisters/runtime-lab/runtime-lab-prelaunch.did` (SHA-256
+`bd76d4b63c1987a5f64de187d4b779379cb86ad8b1392fe89b8255bee2b9f815`).
+Both match generated interfaces byte for byte; the public declaration's
+correction from the preceding revision changes comments only. The hosted
+developer workflow regenerates and compares the prelaunch declaration.
 The exact installed manufacturing frontend remains the immediate same-ID
 rollback for a frontend-only change while Rules19 is still the backend. A
 Rules19-only frontend is not an acceptable recovery target after a Rules20
