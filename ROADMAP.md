@@ -70,7 +70,8 @@ differed by 1.33%. A separate 70-minute stopped-backend outage retained a
 stale certified rate, then established paused burn within 0.0071% of
 settled management without publishing gameplay. A dormant zero-Ball world
 held its game publication and measured within 0.414% of settled management.
-Confirm broader concurrent checkpoint reservations, a literally player-free
-world and the compatible release
-profile. Unknown external credits remain an explicit measurement limitation.
+An empty player-free world at a third Index phase held its publication and
+measured within 0.426% of settled management. Confirm broader overlapping
+checkpoint reservations and the compatible optional release profile.
+Unknown external credits remain an explicit measurement limitation.
 The capability remains disabled and is independent of the authorization repair.

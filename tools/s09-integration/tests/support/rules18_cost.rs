@@ -35,7 +35,7 @@ fn seed(case: &str) -> World {
             b2z_native::reservoirs::place(&mut world, cell).unwrap();
         }
     }
-    if case == "idle" {
+    if case == "idle" || case == "empty" {
         let elapsed = world.playability.as_ref().unwrap().elapsed_ns.clone();
         let deadline = Int(&elapsed.0 + playability::DORMANCY_GRACE_NS);
         let anchors = world
@@ -57,6 +57,22 @@ fn seed(case: &str) -> World {
         for life in &mut world.playability.as_mut().unwrap().lifecycle {
             life.dormant_since_ns = Some(elapsed.clone());
             life.deadline_ns = Some(deadline.clone());
+        }
+        if case == "empty" {
+            for (cell, _) in world
+                .cannons
+                .iter()
+                .map(|c| (c.cell, c.id))
+                .collect::<Vec<_>>()
+            {
+                world.set_owner(cell, 0).unwrap();
+            }
+            world.cannons.clear();
+            let play = world.playability.as_mut().unwrap();
+            play.players.clear();
+            play.territories.clear();
+            play.lifecycle.clear();
+            world.validate().unwrap();
         }
     }
     let (players, balls_per_player) = match case {
@@ -1403,11 +1419,19 @@ fn certified_operational_burn_roundtrip() {
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
     let dormant_world = std::env::var_os("B2Z_BURN_DORMANT_WORLD_PROBE").is_some();
+    let empty_world = std::env::var_os("B2Z_BURN_EMPTY_WORLD_PROBE").is_some();
+    assert!(!(dormant_world && empty_world));
     let (pic, id, ledger, payer) = arena_setup_world(
         bytes("B2Z_COST_PROFILE_WASM"),
-        seed(if dormant_world { "idle" } else { "two_ball" })
-            .encode()
-            .unwrap(),
+        seed(if empty_world {
+            "empty"
+        } else if dormant_world {
+            "idle"
+        } else {
+            "two_ball"
+        })
+        .encode()
+        .unwrap(),
     );
     let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
     compact_cutover(&pic, id, ledger, &compact, &out);
@@ -1588,8 +1612,19 @@ fn certified_operational_burn_roundtrip() {
         )
         .unwrap();
     }
-    if dormant_world {
+    if dormant_world || empty_world {
         assert!(arena_world(&pic, id).balls.is_empty());
+        if empty_world {
+            assert!(arena_world(&pic, id).cannons.is_empty());
+            assert!(
+                arena_world(&pic, id)
+                    .playability
+                    .as_ref()
+                    .unwrap()
+                    .players
+                    .is_empty()
+            );
+        }
     } else {
         assert_ne!(active["publication"], prior["publication"]);
     }
@@ -1672,18 +1707,34 @@ fn certified_operational_burn_roundtrip() {
         let start = recovered["burn"]["startNs"].as_str().unwrap();
         let end = recovered["burn"]["endNs"].as_str().unwrap();
         let balance_at = |endpoint: &str| {
-            samples.iter().find(|row| row["verified"]["burn"]["endNs"].as_str() == Some(endpoint))
+            samples
+                .iter()
+                .find(|row| row["verified"]["burn"]["endNs"].as_str() == Some(endpoint))
                 .expect("matched resumed rolling-window management endpoint")["cycles"]
-                .as_str().unwrap().replace('_', "").parse::<u128>().unwrap()
+                .as_str()
+                .unwrap()
+                .replace('_', "")
+                .parse::<u128>()
+                .unwrap()
         };
         let span = end.parse::<u128>().unwrap() - start.parse::<u128>().unwrap();
         let settled = (balance_at(start) - balance_at(end)) * 86_400_000_000_000u128 / span;
-        let reported = recovered["burn"]["cyclesPerDay"].as_str().unwrap().parse::<u128>().unwrap();
-        assert!(reported.abs_diff(settled) * 100 <= settled * 5,
-            "resumed certified {reported} versus settled management {settled} cycles/day");
+        let reported = recovered["burn"]["cyclesPerDay"]
+            .as_str()
+            .unwrap()
+            .parse::<u128>()
+            .unwrap();
+        assert!(
+            reported.abs_diff(settled) * 100 <= settled * 5,
+            "resumed certified {reported} versus settled management {settled} cycles/day"
+        );
         assert_eq!(resumed["publication"], dtr_wire::hash(&paused_publication));
         assert_eq!(recovered["publication"], resumed["publication"]);
-        std::fs::write(out.join("long-outage-samples.json"), serde_json::to_vec_pretty(&samples).unwrap()).unwrap();
+        std::fs::write(
+            out.join("long-outage-samples.json"),
+            serde_json::to_vec_pretty(&samples).unwrap(),
+        )
+        .unwrap();
         json!({"stale_after_70_minute_stop":resumed["burn"],
             "reestablished":recovered["burn"],
             "external_settled_cycles_per_day":settled.to_string()})
@@ -1917,7 +1968,7 @@ fn certified_operational_burn_roundtrip() {
     };
     std::fs::write(out.join("result.json"), serde_json::to_vec_pretty(&json!({
         "status":"PASS","index_phase_ms":index_phase_ms,"slow_index":slow_index,
-        "dormant_world":dormant_world,
+        "dormant_world":dormant_world,"empty_world":empty_world,
         "long_outage":long_outage,
         "partial":partial,"full":full,"stale":stale,"active":active,
         "external_settled_cycles_per_day":external_rate.to_string(),"reserve_protection":protected,

@@ -414,3 +414,16 @@ not reach a measurement. The disposable build-cache cleanup restored space
 before the successful rerun. A literally player-free world, broader
 concurrent reservation schedules and a compatible optional release profile
 remain open.
+
+## Player-free empty world, 28 November
+
+The same exact candidate `81e6a31b…58f7f6b` ran on a validated disposable
+world with no players, Cannons or Balls. At a third Index phase of 32.321
+seconds, its 12-sample established certified rate was **115,352,798,996
+cycles/day** against **115,846,286,917 cycles/day** of matched settled
+management balance movement, a **0.426%** relative difference under the
+predeclared 5% tolerance. The game publication did not change during the
+measured hour. Raw source, authenticated certificates and result are under
+`.work/burn-balance-probe/empty-world-phase-32321-1/`. This closes the
+player-free operating case. Wider overlapping reservations and an optional
+release profile remain open; the meter remains disabled in ordinary builds.
