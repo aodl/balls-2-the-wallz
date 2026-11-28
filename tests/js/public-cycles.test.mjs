@@ -18,7 +18,7 @@ test('a certified estimate remains visible when a local browser has no public ba
  renderCycleReadout({getElementById:id=>nodes.get(id)}, {verifiedBurn:{cyclesPerDay:403851000000n,detail:'Established window.'}});
  assert.equal(nodes.get('cycle-unavailable').hidden,true);
  assert.equal(nodes.get('cycle-values').hidden,false);
- assert.equal(nodes.get('cycles-balance').textContent,'Unavailable');
+ assert.equal(nodes.get('cycles-balance').textContent,'');
  assert.equal(nodes.get('cycles-burn').textContent,'(~403.85B/day)');
  assert.equal(nodes.get('cycles-burn').hidden,false);
  assert.match(nodes.get('cycle-detail').textContent,/Total cycle balance unavailable/);

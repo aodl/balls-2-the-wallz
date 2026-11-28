@@ -89,28 +89,33 @@ with (out / "server.log").open("w") as log:
             context.route("**/*", query_only)
             page = context.new_page()
             page.on("pageerror", lambda error: errors.append(str(error)))
+            measure = """()=>{
+                const s=__b2zExperience.session;
+                const values=document.getElementById('cycle-values');
+                const burn=document.getElementById('cycles-burn');
+                const display=document.getElementById('cycles-display');
+                return {root:s.sequence.last.root_hash,head:String(s.sequence.last.publication.head.segment_id),
+                    quality:s.verifiedBurn?.quality??null,rate:s.verifiedBurn?.cyclesPerDay?.toString()??null,
+                    burnEndNs:s.verifiedBurn?.endNs?.toString()??null,
+                    line:values.innerText.replace(/\\s+/g,' ').trim(),
+                    burnText:burn.innerText.replace(/\\s+/g,' ').trim(),valuesVisible:!values.hidden,
+                    burnVisible:!burn.hidden,displayHeight:display.getBoundingClientRect().height,
+                    valueHeight:values.getBoundingClientRect().height,
+                    valueClientWidth:values.clientWidth,valueScrollWidth:values.scrollWidth};
+            }"""
             for attempt in range(2):
                 if attempt:
                     page.reload(wait_until="domcontentloaded")
                 else:
                     page.goto(url, wait_until="domcontentloaded")
                 page.wait_for_function("()=>__b2zExperience?.session?.ready", timeout=90000)
-                row = page.evaluate("""()=>{
-                    const s=__b2zExperience.session;
-                    const values=document.getElementById('cycle-values');
-                    const burn=document.getElementById('cycles-burn');
-                    const display=document.getElementById('cycles-display');
-                    return {root:s.sequence.last.root_hash,head:String(s.sequence.last.publication.head.segment_id),
-                        quality:s.verifiedBurn?.quality??null,rate:s.verifiedBurn?.cyclesPerDay?.toString()??null,
-                        burnEndNs:s.verifiedBurn?.endNs?.toString()??null,
-                        line:display.textContent.replace(/\\s+/g,' ').trim(),valuesVisible:!values.hidden,
-                        burnVisible:!burn.hidden,displayHeight:display.getBoundingClientRect().height,
-                        valueHeight:values.getBoundingClientRect().height};
-                }""")
+                row = page.evaluate(measure)
                 if args.expect_burn:
                     assert row["quality"] == "established" and int(row["rate"]) > 0, row
                     assert row["valuesVisible"] and row["burnVisible"], row
-                    assert "/day" in row["line"] and "Cycles" in row["line"], row
+                    assert row["burnText"] in row["line"] and row["line"].startswith("Cycles"), row
+                    assert "Unavailable" not in row["line"], row
+                    assert row["valueScrollWidth"] <= row["valueClientWidth"] + 1, row
                     assert row["valueHeight"] <= row["displayHeight"] + 1, row
                 else:
                     assert row["quality"] is None and not row["burnVisible"], row
@@ -126,9 +131,17 @@ with (out / "server.log").open("w") as log:
                     assert observations[0]["rate"] == observations[1]["rate"], observations
             assert not mutations and not errors, (mutations, errors)
             page.screenshot(path=out / "live-observer.png")
+            page.set_viewport_size({"width": 320, "height": 640})
+            compact = page.evaluate(measure)
+            if args.expect_burn:
+                assert compact["burnText"] in compact["line"] and "Unavailable" not in compact["line"], compact
+                assert compact["valueScrollWidth"] <= compact["valueClientWidth"] + 1, compact
+            assert compact["valueHeight"] <= compact["displayHeight"] + 1, compact
+            page.screenshot(path=out / "live-observer-320.png")
             context.close()
             browser.close()
-        result = {"status": "PASS", "browser": observations, "agent": agent_result,
+        result = {"status": "PASS", "browser": observations, "browser_320": compact,
+                  "agent": agent_result,
                   "inspection": inspection_result}
         (out / "results.json").write_text(json.dumps(result, indent=2) + "\n")
     finally:

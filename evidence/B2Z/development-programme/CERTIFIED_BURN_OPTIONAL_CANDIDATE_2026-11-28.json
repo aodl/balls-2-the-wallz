@@ -57,8 +57,19 @@
     ".work/burn-balance-probe/hosted-normal-42f/certified-burn-normal.wasm",
     ".work/burn-balance-probe/hosted-normal-phase-32321-1/",
     ".work/burn-balance-probe/hosted-normal-cost-1/",
-    ".work/burn-balance-probe/hosted-normal-receipt-1/"
+    ".work/burn-balance-probe/hosted-normal-receipt-1/",
+    ".work/burn-balance-probe/hosted-normal-full-speed-1/",
+    ".work/burn-balance-probe/hosted-normal-held-index-1/"
   ],
   "hosted_candidate_build_environment": "GitHub Actions exact source; CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUSTFLAGS path remapping; candidate distinct from local no-remap build",
-  "hosted_live_browser_status": "PENDING exact-source rerun after correcting artifact pin"
+  "hosted_live_browser_status": "PENDING exact-source rerun after correcting artifact pin",
+  "hosted_full_speed_certified_cycles_per_day": 1599936282174,
+  "hosted_full_speed_settled_cycles_per_day": 1600732361851,
+  "hosted_full_speed_relative_difference_percent": 0.05,
+  "hosted_full_speed_publications_in_120_seconds": 119,
+  "hosted_held_index_certified_cycles_per_day": 396091703106,
+  "hosted_held_index_settled_cycles_per_day": 401439447240,
+  "hosted_held_index_relative_difference_percent": 1.332,
+  "hosted_held_index_refund_cycles": 82596503047,
+  "hosted_held_index_inflight_samples": 2
 }

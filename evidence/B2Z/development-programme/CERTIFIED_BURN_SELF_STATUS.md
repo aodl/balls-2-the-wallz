@@ -551,6 +551,29 @@ inspection tool under `.work/burn-balance-probe/hosted-normal-receipt-1/`.
 Both composed and restored direct roots authenticated head 39 and verified
 one genuine disposable 1 ICP **Applied** canonical receipt at Ledger
 position 1. The same-ID reinstall retained the publication and receipt.
+At a separate 47.777-second timer phase, the exact hosted module produced
+119 publications during a 120-second disposable Full Speed burst. Its
+certified **1,599,936,282,174 cycles/day** estimate was **0.050%** from
+the matched settled **1,600,732,361,851 cycles/day** observation under
+`.work/burn-balance-probe/hosted-normal-full-speed-1/`.
+The hosted module also passed a 17.321-second held-Index phase. Two samples
+were retained while the Index response was in flight; the response refunded
+**82,596,503,047 cycles**. The final certified **396,091,703,106/day**
+estimate was **1.332%** from the settled **401,439,447,240/day** bracket
+under `.work/burn-balance-probe/hosted-normal-held-index-1/`. Neither
+sample was discarded or offset-corrected.
 Hosted native browser acceptance on this exact executable remains open
 until the corrected workflow completes. The optional feature remains
 disabled.
+
+The corrected artifact-pin developer workflow `46110531132` passed its
+live disposable browser, agent and receipt step on the hosted executable.
+Its 390px screenshot exposed a presentation defect beyond the old gate:
+the visible chip showed `Cycles Unavailable (~4…`, clipping the verified
+daily rate after the unavailable balance label. The browser result proved
+certificate, head and one-line geometry, but **did not** prove readable
+compact rate text. The continuation omits the unavailable balance word from
+the chip only when a verified rate exists; the full balance limitation
+remains in the detail panel. The native browser gate now inspects visible
+text and overflow at both 390px and 320px. This new visual gate requires an
+exact-source hosted pass before optional telemetry is qualified.

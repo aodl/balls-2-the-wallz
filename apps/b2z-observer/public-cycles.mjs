@@ -43,7 +43,8 @@ export function renderCycleReadout(doc,value){
  doc.getElementById('cycles-burn').hidden=!v.burn;
  for(const [id,key] of [['cycles-balance','balance'],['cycles-burn','burn'],['cycle-detail','detail']]){
   const node=doc.getElementById(id);
-  if(node.textContent!==v[key])node.textContent=v[key];
+  const shown=id==='cycles-balance'&&v.balance==='Unavailable'&&v.burn?'':v[key];
+  if(node.textContent!==shown)node.textContent=shown;
  }
 }
 export function publicCycleMonitor({read,onState,now=()=>performance.now(),hidden=()=>document.hidden,schedule=setTimeout,cancel=clearTimeout,interval=60000,timeout=12000}={}){
