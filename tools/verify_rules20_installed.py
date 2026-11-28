@@ -24,6 +24,7 @@ CASES = (
     "rules20_paid_epoch_and_recovery",
     "rules20_paid_construction_over_existing_balls",
     "rules20_paid_passage_restart",
+    "rules20_paid_multiple_overlapping_balls",
     "rules20_installed_corner_restart",
     "rules20_installed_cannon_corner_restart",
     "rules20_installed_diverter_corner_restart",

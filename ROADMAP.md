@@ -64,6 +64,9 @@ structure relocation passed. Authenticated 1,000–1,002-account tariffs,
 personal Cannon and Diverter scaling, partial and overflowing Ball batches,
 delayed Index grace selection and interrupted purchase continuation passed
 in installed disposable tests with exact receipts, frontend quotes and replay.
+A further paid installed case retained three existing Balls, including two
+overlapping at one Cannon site, with three separate passage rows and exact
+independent replay.
 Additional seam and equal-time corner outputs passed in source conformance.
 An installed mixed-owner corner capture survived a partially stepped
 checkpoint and same-ID restart with exact independent replay. Complete

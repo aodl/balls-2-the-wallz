@@ -4298,13 +4298,19 @@ fn run_rules20_paid_symbolic_population_mode(
 #[test]
 #[ignore = "disposable exact Rules19 to Rules20 paid construction over Balls"]
 fn rules20_paid_construction_over_existing_balls() {
-    run_rules20_paid_construction_over_existing_balls(false);
+    run_rules20_paid_construction_over_existing_balls(false, false);
 }
 
 #[test]
 #[ignore = "disposable installed passage exception survives same-ID restart"]
 fn rules20_paid_passage_restart() {
-    run_rules20_paid_construction_over_existing_balls(true);
+    run_rules20_paid_construction_over_existing_balls(true, false);
+}
+
+#[test]
+#[ignore = "disposable installed paid construction gives each overlapping Ball its own passage row"]
+fn rules20_paid_multiple_overlapping_balls() {
+    run_rules20_paid_construction_over_existing_balls(false, true);
 }
 
 #[test]
@@ -4548,9 +4554,12 @@ fn run_rules20_installed_corner_restart(cannon_corner: bool, diverter_corner: bo
     .unwrap();
 }
 
-fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool) {
+fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool, multiple_overlap: bool) {
+    assert!(!(slow_passage && multiple_overlap));
     let out =
-        PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join(if slow_passage {
+        PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join(if multiple_overlap {
+            "rules20-multiple-overlapping-balls"
+        } else if slow_passage {
             "rules20-passage-restart"
         } else {
             "rules20-construction"
@@ -4569,7 +4578,7 @@ fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool) {
             player.account = account.clone();
         }
     }
-    if slow_passage {
+    if slow_passage || multiple_overlap {
         let time = initial.time.0.to_integer();
         for ball in &mut initial.balls {
             let x = ball.cell % initial.width;
@@ -4579,6 +4588,12 @@ fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool) {
             ball.y0 = Int((y * 1024 + 512).into());
             ball.vx = 1;
             ball.vy = 0;
+        }
+        if multiple_overlap {
+            let mut third = initial.balls[0].clone();
+            third.id = initial.next_ball_id;
+            initial.next_ball_id += 1;
+            initial.balls.push(third);
         }
         initial.validate().unwrap();
     }
@@ -4645,8 +4660,11 @@ fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool) {
             (ball.id, ball.cell)
         })
         .collect::<Vec<_>>();
-    assert_eq!(ball_sites.len(), 2);
+    assert_eq!(ball_sites.len(), if multiple_overlap { 3 } else { 2 });
     assert_ne!(ball_sites[0].1, ball_sites[1].1);
+    if multiple_overlap {
+        assert_eq!(ball_sites[0].1, ball_sites[2].1);
+    }
     let buy = format!("NEW 0 1 {}", ball_sites[0].1);
     let diverter = format!("DEFLECT {} N", ball_sites[1].1);
     let first = transfer_text(&pic, ledger, payer, id, 100_000_000, buy.as_bytes());
@@ -4738,6 +4756,31 @@ fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool) {
         String::from_utf8_lossy(&independent.stdout),
         String::from_utf8_lossy(&independent.stderr)
     );
+    if multiple_overlap {
+        assert_eq!(final_world.passage_exceptions.len(), 3);
+        assert_eq!(
+            final_world
+                .passage_exceptions
+                .iter()
+                .map(|row| (row.ball, row.cell))
+                .collect::<Vec<_>>(),
+            ball_sites,
+            "each existing overlapping Ball must retain its own exception"
+        );
+        let before = &migrated.balls;
+        let after = &final_world.balls;
+        assert_eq!(
+            after.len(),
+            before.len() + 1,
+            "the paid Cannon also creates its requested new Ball"
+        );
+        for (a, b) in after.iter().take(before.len()).zip(before) {
+            assert_eq!(
+                (a.id, a.cell, a.vx, a.vy, &a.x0, &a.y0),
+                (b.id, b.cell, b.vx, b.vy, &b.x0, &b.y0)
+            );
+        }
+    }
     if slow_passage {
         assert_eq!(final_world.passage_exceptions.len(), 2);
         assert_eq!(
@@ -4967,6 +5010,7 @@ fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool) {
             "diverter_payment_position":second,
             "final_publication":final_publication.head.segment_id,
             "passage_restart":slow_passage,
+            "multiple_overlap":multiple_overlap,
         }))
         .unwrap(),
     )

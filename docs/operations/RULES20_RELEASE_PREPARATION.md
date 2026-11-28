@@ -54,9 +54,10 @@ disabled in this backend candidate, so publication uses the direct root.
 Installation, recovery and operating cycle budgets require separate fresh
 measurement. Source `adc5a8e1` passed standard, financial and developer
 workflows, but additional installed construction-destruction and adversarial
-recovery acceptance remains open. The local continuation has **26 named
+recovery acceptance remains open. The local continuation has **27 named
 installed cases**, including positive prepared-arrival recovery and
-interrupted eligible, Cannon and Diverter corner routes. These later cases
+interrupted eligible, Cannon and Diverter corner routes plus paid construction
+over simultaneous overlapping Balls. These later cases
 require exact-source hosted qualification before any final freeze. The
 complete 28-row local corner public-output matrix passed both implementations;
 construction-destruction cases remain open.

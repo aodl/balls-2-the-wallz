@@ -177,7 +177,10 @@ the same authoritative segment retired both rows, recorded exact receipts
 and matched independent replay. A sealed, partially stepped checkpoint
 with both exceptions active survived a same-ID upgrade; autonomous
 continuation and later paid relocation matched independent replay.
-Structure and Ball destruction remain separate passage gates. A separate
+Another genuine paid installed case built over two simultaneous overlapping
+Balls plus a third Ball at a Diverter site; all three retained exact motion,
+received separate passage rows and matched independent replay. Structure
+and Ball destruction remain separate passage gates. A separate
 installed corner case crossed the ordinary Rules20 epoch, interrupted a
 sealed motion checkpoint, restarted the same candidate module and captured
 the one eligible checkerboard tile across mixed ownership. Independent replay
@@ -206,7 +209,7 @@ the respective PocketIC debits were **184.609B** and **185.525B cycles**.
 The [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123070)
 also passed, completing all three hosted historical workflows on `adc5a8e1`.
 The later `2365ab49` source is published with fresh workflows in progress;
-the local release runner now names **26 installed successor cases**, including
+the local release runner now names **27 installed successor cases**, including
 the payment-arrival recovery fence and interrupted mixed-owner, Cannon and
 Diverter corner routes. Those later cases still need exact-source hosted
 execution. The

@@ -700,7 +700,25 @@ scores, including final motion and cell membership. The three genuine
 installed restart variants separately prove eligible capture and Cannon
 and Diverter obstruction. Historical Rules19 contact law remains in the
 focused suite and the full source vectors. This closes the local corner
-feature gate; the **26-case final-source hosted installed run** is still
+feature gate; the final-source hosted installed run is still
 required before release.
 The complete local source suite after the installed structure-corner tests
 passed under `.work/rules19-recovery/source-after-structure-corners-1/`.
+
+An additional genuine paid installed case placed two preexisting Balls at
+the same Cannon site and a third at the separate Diverter site. Both
+Ledger/Index construction payments applied under Rules20. The final
+authoritative world retained the exact preexisting cell, heading, speed
+and motion intercept of all three Balls, gave each its own initial-passage
+exception, and created the paid Cannon's requested fourth Ball. Independent
+JavaScript replay matched the full paid public state, event and score bytes.
+The case **PASS** is under
+`.work/rules19-recovery/installed-overlapping-balls-2/` (58.449 seconds).
+The first attempt reached the correct paid publication but incorrectly
+expected the Ball count to remain three; it is retained as a failed test
+assertion under `installed-overlapping-balls-1/`. The release runner now
+names **27 installed successor cases**. Installed structure and Ball
+destruction remain separate gates.
+The original two-site paid construction case also passed after the shared
+fixture change under `.work/rules19-recovery/installed-construction-refactor-1/`
+(58.386 seconds), retaining its exact independent replay check.
