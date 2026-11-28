@@ -48,7 +48,14 @@ Rules20 implements the new canonical authorization registry, construction
 over Balls with a first-passage exception, checkerboard corner handling and
 symbolic tariffs. The integrated recovery branch pins published DTR 0.16.0.
 Source `b0c93c7f` passed standard, financial and developer/prelaunch hosted
-qualification with 18 named installed successor cases. The draft qualifies
+qualification with 18 named installed successor cases.
+Published source `adc5a8e1` additionally passed financial and
+developer/prelaunch workflows with **22 named installed successor cases**;
+its standard workflow remains in installed-IC qualification. The exact
+backend and public frontend candidate hashes are recorded in
+[release preparation](docs/operations/RULES20_RELEASE_PREPARATION.md). The
+local continuation after that source passed the full source suite but still
+requires publication and hosted qualification. The implementation qualifies
 healthy and obstructed Rules19 predecessors, including six ordered pending
 inputs, an overdue lifecycle barrier, reserved and partially executed stages,
 UTC crossing and exact independent replay. Genuine paid Cannon and Diverter
@@ -59,9 +66,9 @@ delayed Index grace selection and interrupted purchase continuation passed
 in installed disposable tests with exact receipts, frontend quotes and replay.
 Additional seam and equal-time corner outputs passed in source conformance.
 Complete structure and Ball destruction, remaining installed corner and
-adversarial recovery cases, the remaining tariff matrix, and final exact-source
-hosted qualification before freezing a release. The successor frontend has a
-dedicated configuration and inventory.
+adversarial recovery cases, any unexecuted financial edge cases, and final
+exact-source hosted qualification before freezing a release. The successor
+frontend has a dedicated configuration and inventory.
 
 Certified burn has a promising replicated self-status sampling point.
 Two shifted Index phases, a stopped Index, an identified 1T treasury credit,
