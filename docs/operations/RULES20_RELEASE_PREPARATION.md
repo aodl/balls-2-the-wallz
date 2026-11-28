@@ -17,13 +17,14 @@ The backend candidate and frontend candidate above are downloadable from the
 named hosted runs; neither has been installed or declared a final release.
 The generated public Candid interface is
 `canisters/runtime-lab/runtime-lab.did` (SHA-256
-`3e243e3ea0266ae37b4b131527547ce72e9e88e883765ca142b1db9611ae77ce`).
+`07e00f7484e24dfd498d9bcb4322db44a54f9e3bbdc6f37420fca56058249ae9`).
 The distinct capped-Trickle profile declares
 `canisters/runtime-lab/runtime-lab-prelaunch.did` (SHA-256
 `bd76d4b63c1987a5f64de187d4b779379cb86ad8b1392fe89b8255bee2b9f815`).
-Both match generated interfaces byte for byte; the public declaration's
-correction from the preceding revision changes comments only. The hosted
-developer workflow regenerates and compares the prelaunch declaration.
+The capped-Trickle declaration matches its generated interface byte for
+byte. The public declaration retains its frozen frontend asset bytes; its
+generated comparison differs only in comment placement. The hosted developer
+workflow regenerates and compares the capped-Trickle declaration.
 The exact installed manufacturing frontend remains the immediate same-ID
 rollback for a frontend-only change while Rules19 is still the backend. A
 Rules19-only frontend is not an acceptable recovery target after a Rules20

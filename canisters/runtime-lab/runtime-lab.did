@@ -331,8 +331,8 @@ service : (blob, nat64, IndexConfig) -> {
   commit_clearance_transition : (text) -> (Result_2);
   // Derives the combined rules-11 metadata once. No caller-supplied world, time or identities.
   commit_combined_transition : (text) -> (Result_2);
-  commit_compact_reservoir_transition : (text) -> (Result_2);
   // Derives the Rules13 metadata once. No caller-supplied world, time or identities.
+  commit_compact_reservoir_transition : (text) -> (Result_2);
   commit_context_transition : (text) -> (Result_2);
   // Derives the Deflector rules-12 metadata once. No caller-supplied world, time or identities.
   commit_deflector_transition : (text) -> (Result_2);
@@ -347,6 +347,8 @@ service : (blob, nat64, IndexConfig) -> {
   commit_playability_transition : (text) -> (Result_2);
   commit_reservoir_transition : (text) -> (Result_2);
   commit_rules19_recovery : (text) -> (Result_2);
+  // Paused and drained Rules19→20 commit; the caller supplies only the
+  // expected predecessor manifest, never replacement state or tariff data.
   commit_rules20_transition : (text) -> (Result_2);
   commit_shout_transition : (text) -> (Result_2);
   commit_spacing_transition : (text) -> (Result_2);
@@ -367,8 +369,6 @@ service : (blob, nat64, IndexConfig) -> {
   // Content-addressed application metadata. Hash against the independently
   // authenticated epoch.metadata_hash; this convenience reply is not certified.
   epoch_metadata : (text) -> (Result_2) query;
-  // Finish only after the fenced Index prefix and every DTR obligation have
-  // retired. Later Ledger records remain behind the fence until Rules20 commits.
   finish_rules19_recovery : () -> (Result_2);
   game_info : () -> (Result_7) query;
   get_api_doc : () -> (text) query;
@@ -401,8 +401,6 @@ service : (blob, nat64, IndexConfig) -> {
   // The existing fenced source worker obtains its own Ledger/Index watermarks.
   prepare_playability_transition : () -> (Result_2);
   prepare_reservoir_transition : () -> (Result_2);
-  // This is only available while the exact Rules19 sealed grant failure is
-  // durable. The Ledger/Index cutover is measured by the existing worker.
   prepare_rules19_recovery : () -> (Result_2);
   prepare_rules20_transition : () -> (Result_2);
   prepare_shout_transition : () -> (Result_2);
