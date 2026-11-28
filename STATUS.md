@@ -1,6 +1,6 @@
 # B2Z current status
 
-Latest settled operational observation **2026-11-28 03:24:40 UTC**. Published
+Latest settled operational observation **2026-11-28 03:46:36 UTC**. Published
 [master](https://github.com/aodl/balls-2-the-wallz/commits/master/) remains
 `cf6605efecd0115b1faebaec37f5efafedad3a40`; its qualified implementation/tooling ancestor
 [`ae734acdc431adf69978ab41be07a8222139c69d`](https://github.com/aodl/balls-2-the-wallz/commit/ae734acdc431adf69978ab41be07a8222139c69d)
@@ -17,31 +17,31 @@ qualification. The paid backend runs Rules19 / Schema11 / Adapter12
 
 ## Operating position
 
-- Authenticated head **19,643**, logical time **19,625** and source cursor
+- Authenticated head **19,656**, logical time **19,638** and source cursor
   **40,647,923**. The world contained two Cannons under one funding account,
   two Balls, one Diverter and four Reservoir tiles.
 - Gameplay and admission were active at **0.01 ticks/s** with one tick per
   checkpoint. The official Index was bound, with zero pending records and
   no signed source error. Event Horizon was disabled in the installed
   configuration.
-- Settled backend total was **2.136T**, liquid **2.078T** and estimated
+- Settled backend total was **2.128T**, liquid **2.070T** and estimated
   freezing reserve **0.058T**. Frontend total was **0.769T**, with a
   **0.204T** estimated freezing reserve and **0.565T** above freezing.
-  Conservative frontend installation/recovery headroom was **0.1152T**.
-- Across comparable settled observations at 01:30 and 03:24 UTC,
-  backend liquidity declined **46.474B cycles** in 6,869 seconds across
-  69 publications, approximately **0.585T/day**. At that workload, the
-  conditional intervals from the 03:24 balance are **21 minutes** to the
-  2.07T default Full Speed cycle floor and **1.84 days** to the 1T
-  protection boundary, absent credits or a workload change. The
-  balance floor is one of the owner's Full Speed eligibility checks; crossing
-  it does not by itself stop ordinary Trickle operation.
+  Conservative frontend installation/recovery headroom was **0.1151T**.
+- Across comparable settled observations at 02:28 and 03:46 UTC,
+  backend liquidity declined **31.687B cycles** in 4,671 seconds across
+  47 publications, approximately **0.586T/day**. At that workload, the
+  conditional interval from the 03:46 balance is **1.83 days** to the 1T
+  protection boundary, absent credits or a workload change. Backend liquid
+  balance **2,069,672,857,166 cycles** is just below the 2.07T default
+  Full Speed eligibility floor; crossing it does not by itself stop
+  ordinary Trickle operation.
   An earlier bracket rebounded by 83.7B cycles in 34 seconds. The 20:27
-  observation was unsettled and excluded; this projection uses settled
+  and 03:44 observations were unsettled and excluded; this projection uses settled
   comparable observations. Funding before any desired
   future Full Speed window is an owner decision; no funding was performed.
 
-[Preflight, installation and browser](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json) · [Latest reviewed operating observation](evidence/B2Z/development-programme/production-operating-2026-11-28-0324.json)
+[Preflight, installation and browser](evidence/B2Z/development-programme/production-manufacturing-2026-11-27.json) · [Latest reviewed operating observation](evidence/B2Z/development-programme/production-operating-2026-11-28-0346.json)
 
 ## Qualification and acceptance
 
