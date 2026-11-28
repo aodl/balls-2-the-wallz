@@ -9,6 +9,8 @@ import {liveClient,certificateVerifier} from '@dtr/timeline-runtime/client/ic-ce
 import {verifyCertificatePublication,ArtifactAssembler} from '@dtr/timeline-runtime/client/verification';
 import {decodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {certifiedSource,operationalReader} from '../apps/b2z-observer/mainnet.mjs';
+import {boundedObservationClient} from '../apps/b2z-observer/bounded-observation.mjs';
+import {bindOperationalBurn} from '../apps/b2z-observer/operational-burn.mjs';
 
 const {values}=parseArgs({options:{output:{type:'string'},baseline:{type:'string'}}});
 if(!values.output)throw Error('Use --output with a new local observation path.');
@@ -27,13 +29,19 @@ const status=async id=>{
  return {id,module_sha256:module.get('module_hash'),module_certificate_verified:true,...current};
 };
 const state=async()=>{
- const client=await liveClient(policy), observation=await client.observation();
- const ticket=await verifyCertificatePublication(observation.publication,observation.certificate,{...policy,now_ns:BigInt(Date.now())*1000000n,max_age_ns:300000000000n,max_future_ns:30000000000n},certificateVerifier({network:'ic'}));
+ const client=await liveClient(policy), observation=await (await boundedObservationClient(policy,{agent})).observation();
+ let certifiedBurn=null;
+ const verify=certificateVerifier({network:'ic'});
+ const ticket=await verifyCertificatePublication(observation.publication,observation.certificate,{...policy,now_ns:BigInt(Date.now())*1000000n,max_age_ns:300000000000n,max_future_ns:30000000000n},async(certificate,deployment)=>{
+  const bound=await bindOperationalBurn(observation.publication,observation.operationalBurn,await verify(certificate,deployment));
+  certifiedBurn=bound.burn;
+  return bound.claim;
+ });
  const p=ticket.publication, index=p.artifacts.findIndex(a=>a.kind==='state'), assembler=new ArtifactAssembler(ticket,'state');
  for(let n=0;n<p.artifacts[index].chunks.length;n++) await assembler.accept(n,await client.chunk(Number(p.head.segment_id),ticket.root_hash,index,n));
  const w=decodeCanonical(await assembler.finish());
  const s=await certifiedSource(policy,ticket,{agent});
- return {root:ticket.root_hash,head:p.head.segment_id,logical_time:p.head.logical_end,source_cursor:p.head.source_to_exclusive,identity:p.identity,
+ return {root:ticket.root_hash,head:p.head.segment_id,logical_time:p.head.logical_end,source_cursor:p.head.source_to_exclusive,identity:p.identity,certified_operational_burn:certifiedBurn,
   state_sha256:p.head.state_hash,accounts_with_cannons:new Set(w.cannons.map(c=>c.account)).size,cannons:w.cannons.length,
   balls:w.balls.length,diverters:w.deflectors.length,reservoirs:w.reservoir_ranges.reduce((n,[a,b])=>n+Number(b)-Number(a),0),
   source:{index:s.index,ledger:s.ledger,subaccount:s.subaccount,network:s.network}};

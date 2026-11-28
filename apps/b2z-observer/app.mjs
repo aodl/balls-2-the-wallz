@@ -6,6 +6,7 @@ import {audioPose} from './audio-visibility.mjs';
 import {startupPlayback} from './startup-playback.mjs';
 import {elasticPlayback} from './elastic-playback.mjs';
 import {publicCycleMonitor,renderCycleReadout} from './public-cycles.mjs';
+import {bindOperationalBurn} from './operational-burn.mjs';
 import {replayTools} from './replay-tools.mjs';
 import {recentPresentationPoint,retainLatestVerifiedInterval,bridgeVerifiedPresentation,resumeVerifiedClock,assertForwardPresentation,canRetainAcrossResync,freshObservation,acceptObservationFreshness,operationalReplyCurrent} from './warm-return.mjs';
 import {observationLoop} from './observation-loop.mjs';
@@ -124,10 +125,21 @@ async function startLocal(recording){
 }
 async function certifiedTicket(s,response){
   if(!response.certificate)throw new Error('live IC certificate missing');
+  let authenticatedBurn=null;
   const ticket=await verifyCertificatePublication(response.publication,response.certificate,{
     canister_id:s.recording.canister_id,network:s.recording.network,now_ns:BigInt(Date.now())*1000000n,
     max_age_ns:300000000000n,max_future_ns:30000000000n,
-  },s.verifyCertificate);
+  },async(certificate,deployment)=>{
+    const claim=await s.verifyCertificate(certificate,deployment);
+    const bound=await bindOperationalBurn(response.publication,response.operationalBurn,claim);
+    authenticatedBurn=bound.burn;
+    return bound.claim;
+  });
+  if(active(s)&&ticket.certificate_time_ns>(s.burnCertificateTime??-1n)){
+    s.burnCertificateTime=ticket.certificate_time_ns;
+    s.verifiedBurn=authenticatedBurn;
+    renderCycleReadout(document,{...s.publicCycles,verifiedBurn:s.verifiedBurn});
+  }
   return ticket;
 }
 async function liveArtifacts(s,ticket){
@@ -233,7 +245,7 @@ async function acquireLive(s,startupRetries=0){
       const module=await import('./mainnet.mjs');
       if(!s.client){const connection=await deploymentConnection(recording.deployment,{signal:s.abort.signal});
        s.verifyCertificate=connection.verifyCertificate;s.client=connection.client;s.readStatus=connection.readStatus;s.readSource=connection.readSource;
-       if(connection.readCycles)cycleMonitor=publicCycleMonitor({read:connection.readCycles,onState(value){if(active(s)){s.publicCycles=value;s.publicCyclesAt=performance.now();renderCycleReadout(document,value);}}});
+       if(connection.readCycles)cycleMonitor=publicCycleMonitor({read:connection.readCycles,onState(value){if(active(s)){s.publicCycles=value;s.publicCyclesAt=performance.now();renderCycleReadout(document,{...value,verifiedBurn:s.verifiedBurn});}}});
       }
       void refreshOperational(performance.now());
       ticket=await certifiedTicket(s,await s.client.observation());
@@ -477,7 +489,7 @@ function updateHud(){
  const certifiedPricingTime=s?.mode==='live'&&s.root===s.freshnessRoot&&fresh&&/^\d{1,20}$/.test(s.certificateTimeNs??'')
    ?BigInt(s.certificateTimeNs):null;
  arcade.status({resolved,worldReady:Boolean(s?.ready&&!s.error&&fresh),certifiedPricingTime});document.body.dataset.phase=p;$('retry').hidden=!Boolean(bootError||s?.error);$('retry').textContent='Retry verification';
- const data={trust:s?.mode==='live'?'IC certificates, catalog and artifact verification':s?.mode==='local'?'Pinned disposable IC certificate':'Offline content consistency only',backend:s?.recording.canister_id,source:s?.source,root:s?.root,head:s?.sequence.last?.publication.head,identity:s?.sequence.last?.publication.identity,producer:s?.operational,cycles:s?.publicCycles,operational_fresh:operationalFresh,operational_failures:s?.statusFailures??0,operational_failure_kind:s?.statusFailureKind,operational_age_ms:Number.isFinite(s?.lastOperationalAt??s?.operationalAt)?Math.max(0,now-(s.lastOperationalAt??s.operationalAt)):null,presentation:s?.clock.state(),delivery:s?.deliveryDiagnostics};
+ const data={trust:s?.mode==='live'?'IC certificates, catalog and artifact verification':s?.mode==='local'?'Pinned disposable IC certificate':'Offline content consistency only',backend:s?.recording.canister_id,source:s?.source,root:s?.root,head:s?.sequence.last?.publication.head,identity:s?.sequence.last?.publication.identity,producer:s?.operational,cycles:s?.publicCycles,verified_burn:s?.verifiedBurn,operational_fresh:operationalFresh,operational_failures:s?.statusFailures??0,operational_failure_kind:s?.statusFailureKind,operational_age_ms:Number.isFinite(s?.lastOperationalAt??s?.operationalAt)?Math.max(0,now-(s.lastOperationalAt??s.operationalAt)):null,presentation:s?.clock.state(),delivery:s?.deliveryDiagnostics};
  const detailsKey=[s?.root,p,resolved.kind,resolved.canPrepare,operationalFresh,s?.publicCyclesAt,$('status-view').hidden,$('status-view').hidden?0:Math.floor(now/1000)].join('/');
  if(detailsKey!==lastDetailsKey){lastDetailsKey=detailsKey;const details=JSON.stringify(data,(_,v)=>typeof v==='bigint'?String(v):v,2);if($('status-details').textContent!==details)$('status-details').textContent=details;}
  updateOptionalPayments(s);

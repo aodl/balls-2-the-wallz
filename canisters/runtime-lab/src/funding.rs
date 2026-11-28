@@ -205,6 +205,11 @@ fn validate(s: &State) -> Result<(), String> {
     };
     Ok(())
 }
+#[cfg(feature = "certified-operational-burn")]
+pub(crate) fn busy() -> bool {
+    BUSY.with(Cell::get)
+}
+
 pub fn read() -> Result<State, String> {
     let b = STORE.with(|s| s.borrow().get().clone());
     if b.is_empty() {

@@ -21,6 +21,8 @@ mod dev_speed;
 mod funding;
 mod health;
 mod operation_kernel;
+#[cfg(feature = "certified-operational-burn")]
+mod operational_burn;
 mod pace;
 mod playability_runtime;
 mod player_api;
@@ -101,6 +103,14 @@ fn test_trap_next_index_reply() {
     assert!(ic_cdk::api::is_controller(&ic_cdk::api::msg_caller()));
     TRAP_NEXT_INDEX_REPLY.with(|flag| flag.set(true));
 }
+fn set_observation_root(publication: &[u8]) {
+    #[cfg(feature = "certified-operational-burn")]
+    let composed = operational_burn::certified_root(publication);
+    #[cfg(feature = "certified-operational-burn")]
+    let publication = &composed;
+    ic_cdk::api::certified_data_set(publication);
+}
+
 fn memory(id: u8) -> Memory {
     MANAGER.with(|m| m.borrow().get(MemoryId::new(id)))
 }
@@ -263,6 +273,8 @@ struct Status {
 struct Observation {
     publication: Vec<u8>,
     certificate: Option<Vec<u8>>,
+    #[cfg(feature = "certified-operational-burn")]
+    operational_burn: Option<Vec<u8>>,
 }
 #[derive(CandidType, Deserialize)]
 struct ObservationBundle {
@@ -1263,10 +1275,7 @@ fn persist_inner(
     persistence_fault("after-root", publication_changed);
     ARENA_IDLE.with(|flag| flag.set(idle));
     if update_certified_data {
-        measure_cost!(
-            "persist.certify",
-            ic_cdk::api::certified_data_set(certified_root)
-        );
+        measure_cost!("persist.certify", set_observation_root(&certified_root));
         #[cfg(feature = "test-hooks")]
         persistence_fault("after-certification", publication_changed);
     }
@@ -1413,6 +1422,12 @@ fn install_source_timer() {
         let _span = cost_profile::span("source.fallback");
         SOURCE_TIMER.with(|slot| slot.borrow_mut().take());
         install_source_timer(); // independent of any await or poke retry chain
+        #[cfg(feature = "certified-operational-burn")]
+        {
+            // This fallback also fires during Trickle, pause and protection.
+            // Sample before the Index call reserves temporary cycles.
+            ic_cdk::futures::spawn(operational_burn::sample());
+        }
         let _ = request_reconciliation();
     });
     SOURCE_TIMER.with(|slot| *slot.borrow_mut() = Some(timer));
@@ -1934,7 +1949,7 @@ fn post_upgrade() {
             r.run.last_error = None;
         }
         save_root_only(&r)?;
-        ic_cdk::api::certified_data_set(unhex(&r.publication_hash)?);
+        set_observation_root(&unhex(&r.publication_hash)?);
         cache_poke_policy(&r.source);
         refresh_pace();
         install_source_timer();
@@ -2041,6 +2056,8 @@ fn observation() -> std::result::Result<Observation, String> {
     Ok(Observation {
         publication: unhex(&r.publication_hex)?,
         certificate: ic_cdk::api::data_certificate(),
+        #[cfg(feature = "certified-operational-burn")]
+        operational_burn: Some(operational_burn::current_record().to_vec()),
     })
 }
 /// Returns one atomic certified snapshot and its small public artifacts. The
@@ -2086,6 +2103,8 @@ fn observation_bundle() -> std::result::Result<ObservationBundle, String> {
         observation: Observation {
             publication: publication_bytes,
             certificate: ic_cdk::api::data_certificate(),
+            #[cfg(feature = "certified-operational-burn")]
+            operational_burn: Some(operational_burn::current_record().to_vec()),
         },
         artifacts,
     })
@@ -2682,6 +2701,8 @@ async fn reconcile() -> AppResult<()> {
         let trap_after_reply = TRAP_NEXT_INDEX_REPLY.with(|flag| flag.replace(false));
         #[cfg(feature = "cost-profile")]
         cost_profile::volume("source.index_request", 1, 0);
+        #[cfg(all(feature = "certified-operational-burn", feature = "test-hooks"))]
+        operational_burn::balance_probe("index-send", r.source.in_flight, false);
         let response = Call::bounded_wait(lease.index, "get_account_identifier_transactions")
             .change_timeout(SCAN_CALL_TIMEOUT_SECONDS)
             .with_arg(source::HistoryArgs {
@@ -2689,8 +2710,16 @@ async fn reconcile() -> AppResult<()> {
                 start: lease.before,
                 max_results: source::PAGE,
             })
-            .await
-            .map_err(|e| format!("index unavailable: {e}"))?;
+            .await;
+        // A call-perform failure can complete without a reply/reject callback.
+        #[cfg(all(feature = "certified-operational-burn", feature = "test-hooks"))]
+        if matches!(
+            response,
+            Ok(_) | Err(ic_cdk::call::CallFailed::CallRejected(_))
+        ) {
+            operational_burn::balance_probe("index-reply", r.source.in_flight, true);
+        }
+        let response = response.map_err(|e| format!("index unavailable: {e}"))?;
         #[cfg(feature = "test-hooks")]
         if trap_after_reply {
             ic_cdk::trap("S14 injected B2Z response-handler trap after index await");

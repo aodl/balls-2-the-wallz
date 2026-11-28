@@ -182,11 +182,56 @@ jobs:
             https://github.com/aodl/balls-2-the-wallz/releases/download/production%2Feurope-rules19-prelaunch-trickle/europe-rules19-prelaunch-trickle.zip \
             --output .work/rules19-installed-release.zip
           unzip -p .work/rules19-installed-release.zip prelaunch-trickle.wasm > .work/rules19-installed.wasm
+          printf '%s  %s\n' b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90 .work/rules19-installed.wasm | sha256sum --check
+          export CARGO_TARGET_DIR="$PWD/.work/dev-target"
+          manifest=canisters/runtime-lab/Cargo.toml
+          wasm="$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm"
+          cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle,certified-operational-burn
+          cp "$wasm" .work/combined-prelaunch.wasm
+          python -B tools/check_prelaunch_wasm.py prelaunch-trickle .work/combined-prelaunch.wasm > .work/combined-prelaunch-exports.json
+          python -B tools/verify_runtime_candid.py --profile prelaunch-telemetry --output .work/combined-prelaunch.did
+          cmp .work/combined-prelaunch.did canisters/runtime-lab/runtime-lab-telemetry.did
+          sha256sum .work/combined-prelaunch.wasm > .work/combined-prelaunch.sha256
+          cargo build --manifest-path "$manifest" --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle,certified-operational-burn,test-hooks
+          cp "$wasm" .work/combined-prelaunch-probe.wasm
           python -B tools/verify_rules20_installed.py \
             --installed .work/rules19-installed.wasm --compact .work/rules19-production.wasm \
-            --profile .work/rules19-profile.wasm --candidate .work/prelaunch-trickle.wasm \
-            --protection-probe .work/prelaunch-trickle-probe.wasm \
+            --profile .work/rules19-profile.wasm --candidate .work/combined-prelaunch.wasm \
+            --protection-probe .work/combined-prelaunch-probe.wasm \
             --world .work/rules19-paid-world.bin --output .work/ci-rules20-installed
+      - name: Verify combined live consumers and matched Rules20 overhead
+        run: |
+          export CARGO_TARGET_DIR="$PWD/.work/dev-target"
+          inputs=(--profile .work/rules19-profile.wasm --compact .work/rules19-production.wasm
+            --prior .work/rules19-installed.wasm --candidate .work/combined-prelaunch.wasm
+            --world .work/rules19-paid-world.bin --artifacts /home/runner/dtr-s09-artifacts)
+          python -B tools/run_certified_burn_live.py "${inputs[@]}" --direct .work/prelaunch-trickle.wasm \
+            --browser-python "$(command -v python)" --output .work/ci-certified-burn-live
+          python -B tools/run_certified_burn_live.py "${inputs[@]}" --direct .work/prelaunch-trickle.wasm \
+            --browser-python "$(command -v python)" --cost --output .work/ci-certified-burn-cost
+      - name: Measure combined Rules20 telemetry across the reviewed operating cases
+        run: |
+          export CARGO_TARGET_DIR="$PWD/.work/dev-target"
+          inputs=(--profile .work/rules19-profile.wasm --compact .work/rules19-production.wasm
+            --prior .work/rules19-installed.wasm --world .work/rules19-paid-world.bin
+            --artifacts /home/runner/dtr-s09-artifacts)
+          cargo build --manifest-path tools/s14-index-fixture/Cargo.toml --release --target wasm32-unknown-unknown --locked --offline
+          cargo build --manifest-path tools/cmc-funding-fixture/Cargo.toml --release --target wasm32-unknown-unknown --locked --offline
+          run_case() {
+            local name="$1" module="$2"
+            shift 2
+            python -B tools/verify_certified_burn_phases.py "${inputs[@]}" \
+              --candidate "$module" --output ".work/ci-certified-burn-$name" "$@"
+          }
+          exact=.work/combined-prelaunch.wasm
+          run_case active "$exact" --phase-ms 17321 --phase-ms 32321 --phase-ms 47777
+          run_case held "$exact" --phase-ms 17321 --held-index --index-fixture "$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/s14_index_fixture.wasm"
+          run_case full "$exact" --phase-ms 47777 --full-speed
+          run_case dormant "$exact" --phase-ms 17321 --dormant-world
+          run_case empty "$exact" --phase-ms 17321 --empty-world
+          run_case outage "$exact" --phase-ms 47777 --long-outage
+          run_case credit "$exact" --phase-ms 47777 --treasury-credit --cmc "$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm"
+          run_case protection .work/combined-prelaunch-probe.wasm --phase-ms 47777 --reserve-protection
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
         with:
@@ -196,6 +241,13 @@ jobs:
             .work/developer-speed-release.sha256
             .work/dev-public-backend.log
             .work/developer-speed-interface.json
+            .work/combined-prelaunch.wasm
+            .work/combined-prelaunch.sha256
+            .work/combined-prelaunch.did
+            .work/combined-prelaunch-exports.json
+            .work/ci-certified-burn-*/**/*.json
+            .work/ci-certified-burn-*/**/*.log
+            .work/ci-certified-burn-live/evidence/*/*.png
             .work/prelaunch-trickle.wasm
             .work/prelaunch-trickle-interface.json
             .work/prelaunch-trickle.did
