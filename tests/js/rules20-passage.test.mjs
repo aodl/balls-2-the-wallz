@@ -4,7 +4,7 @@ import {readFileSync} from 'node:fs';
 import {decodeCanonical,encodeCanonical} from '@dtr/timeline-runtime/runtime/canonical';
 import {sha256} from '@dtr/timeline-runtime/runtime/seal';
 import {decodeWorld,encodeWorld,migrateCompactReservoirs,migrateAuthorizationRows,validateWorld,setOwner} from '../../packages/kernels/b2z/world.mjs';
-import {registerPassage,exempts,retireAfterContact,pruneRemoved} from '../../packages/kernels/b2z/passage-v20.mjs';
+import {registerPassage,exempts,retireAfterContact,pruneRemoved,validatePassage} from '../../packages/kernels/b2z/passage-v20.mjs';
 import {B2zKernel,classify,passage} from '../../packages/kernels/b2z/kernel.mjs';
 import {nextCrossing} from '../../packages/kernels/b2z/geometry.mjs';
 import {prepareDeflectorPurchase} from '../../packages/kernels/b2z/deflectors-v12.mjs';
@@ -85,6 +85,23 @@ test('multiple existing overlapping Balls receive separate bounded passage rows'
  first.cell=500499;retireAfterContact(w,first.id);
  assert.deepEqual(w.passage_exceptions.map(row=>row.ball),[second.id]);
  assert.equal(exempts(w,first.id,'deflector',d.id,d.cell),false);
+});
+test('destroyed structure or Ball retires its bound passage exception',()=>{
+ const destroyedStructure=world(),d=structure(destroyedStructure),b=destroyedStructure.balls[0];
+ registerPassage(destroyedStructure,'deflector',d.id,d.cell);
+ assert.equal(exempts(destroyedStructure,b.id,'deflector',d.id,d.cell),true);
+ destroyedStructure.deflectors=destroyedStructure.deflectors.filter(row=>row.id!==d.id);
+ pruneRemoved(destroyedStructure);
+ assert.equal(destroyedStructure.passage_exceptions,undefined);
+ assert.doesNotThrow(()=>validateWorld(destroyedStructure));
+
+ const destroyedBall=world(),other=structure(destroyedBall),original=destroyedBall.balls[0];
+ registerPassage(destroyedBall,'deflector',other.id,other.cell);
+ assert.equal(exempts(destroyedBall,original.id,'deflector',other.id,other.cell),true);
+ destroyedBall.balls=destroyedBall.balls.filter(row=>row.id!==original.id);
+ pruneRemoved(destroyedBall);
+ assert.equal(destroyedBall.passage_exceptions,undefined);
+ assert.doesNotThrow(()=>validatePassage(destroyedBall));
 });
 test('an exact corner tangency does not grant passage through a side tile',()=>{
  const w=world(),d=structure(w),b=w.balls[0];

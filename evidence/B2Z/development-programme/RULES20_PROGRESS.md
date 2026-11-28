@@ -557,3 +557,23 @@ pending-authority fence and the transfer panel's `data-payment-ready` flag.
 Exact memo, native clipboard write and wrong-byte assertions remain strict.
 This is a browser gate correction; the succeeding source requires a fresh
 standard run.
+
+## 28 November source export inventory and passage cleanup
+
+The fresh developer workflow on `f2bf124f` failed its source-structure gate
+before installed execution because the exact export inventory omitted the new
+test-only `test_purchase_progress` query and the existing
+`reservoir_transition_status` query. This is a real release gate failure, not
+an installed successor result. The corrected inventory passed
+`python3.11 -B tools/check_source.py` locally and was published as `adc5a8e1`.
+The normal executable check continues to reject test-only exports. Fresh
+standard, financial and developer workflows are running on that source;
+their conclusions must be recorded separately when complete.
+
+A focused source test now verifies that an exception bound to a destroyed
+Diverter or removed Ball is pruned. All 12 passage tests pass locally,
+including the continuous 33-interval return. The direct Ball removal in this
+unit test does not model a complete paid-world lifecycle; installed Ball
+destruction and genuine structure destruction remain distinct qualification
+gates. This additional test is locally committed while the current hosted
+runs complete; it requires a later exact-source hosted run after publication.
