@@ -1,5 +1,11 @@
 # Secure controller preflight for European Rules20
 
+This record describes the earlier signer hold and the secure procedure.
+The owner subsequently authorized the existing controller and a
+command-scoped DFX warning acknowledgement for the exact 28 November
+production operation. Its authenticated preflight and activation completed.
+[Production activation](../../evidence/B2Z/development-programme/RULES20_EUROPE_PRODUCTION_2026-11-28.md)
+
 The owner can run these checks in a local terminal with their existing
 approved secure DFX identity. Use the usual hardware signer or protected
 identity unlock on that device. The identity must already map to a

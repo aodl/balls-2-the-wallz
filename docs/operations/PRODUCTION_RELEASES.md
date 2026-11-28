@@ -1,5 +1,14 @@
 # European executable retention
 
+The current European backend and frontend are the exact combined Rules20
+developer prelaunch pair. Their source and recovery identities are in the
+immutable bundle. Use that same exact pair after the production Rules20
+commitment.
+[Production activation](../../evidence/B2Z/development-programme/RULES20_EUROPE_PRODUCTION_2026-11-28.md) ·
+[Immutable release](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-prelaunch-combined-2026-11-28).
+
+## Historical Rules19
+
 The capped Trickle installation of 25 November 2026 and its compatible
 same-epoch recovery pair are retained as public-safe executable bundles.
 Both annotated tags identify the exact hosted build source. The binaries
@@ -42,13 +51,6 @@ are under [capped Trickle acceptance](../../evidence/B2Z/prelaunch-trickle/PRODU
 and [historical Rules19 trial](../../evidence/B2Z/rules19-compact-reservoirs/PRODUCTION_TRIAL.md).
 
 
-## Rules20 combined prelaunch candidate
-
-The [immutable combined bundle](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-prelaunch-combined-2026-11-28) contains the exact successor
-pair and the current Rules19 and manufacturing executables for the compatible
-pre-boundary state. The successor pair is also the exact recovery software
-after an incompatible Rules19 recovery or Rules20 commitment. The
-manufacturing frontend and Rules19 backend remain installed as of the
-dated closeout. The direct-root developer fallback and public-launch
-candidate retain their separate tags.
-[Current closeout](../../evidence/B2Z/development-programme/RULES20_COMBINED_RELEASE_2026-11-28.md).
+The historical direct-root developer fallback and public-launch candidate
+retain their separate tags. The current combined release preserves their
+provenance and the original Rules19 pre-boundary executables.

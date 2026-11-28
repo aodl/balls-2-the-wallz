@@ -1,7 +1,10 @@
 # Rules20 European release preparation
 
-For the preferred **combined developer prelaunch release**, use the exact
-published bundle. It contains its two successor modules, the compatible
+The **combined developer prelaunch release** was installed on 28 November
+2026 through the ordinary drained transition. Use the installed combined
+pair for post-boundary software recovery. [Production activation](../../evidence/B2Z/development-programme/RULES20_EUROPE_PRODUCTION_2026-11-28.md)
+
+The exact published bundle retains the completed installation procedure. It contains its two successor modules, the compatible
 pre-boundary Rules19 backend and manufacturing frontend, exact inventories,
 disposable cycle budgets and secure controller procedure. The latter gates
 both installations. Re-evaluate paid state, resources and compatibility

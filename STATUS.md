@@ -1,31 +1,29 @@
 # B2Z current status
 
-**28 November 2026.** Combined Rules20 source `42190e82880bde75cb6517f7fa229fccf077aa8c`
-passed exact-source qualification and is published on master. The frozen
-prelaunch release pairs capped Trickle and certified operational burn with
-the 92-asset developer frontend. The paid European backend continues to
-run Rules19 with the installed manufacturing frontend. The deployment is
-blocked because DFX rejects the only locally available matching controller
-identity for mainnet signing.
-[Immutable combined candidate](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-prelaunch-combined-2026-11-28) ·
-[Qualification and production hold](evidence/B2Z/development-programme/RULES20_COMBINED_RELEASE_2026-11-28.md) ·
-[Secure controller preflight](docs/operations/RULES20_SECURE_CONTROLLER_PREFLIGHT.md).
+**28 November 2026.** The exact combined Rules20 prelaunch release is
+installed. Production uses Rules20, Schema12 and Adapter12 with certified
+operational burn and the 92-asset developer frontend. Both modules are
+from source `42190e82880bde75cb6517f7fa229fccf077aa8c`.
+[Production activation](evidence/B2Z/development-programme/RULES20_EUROPE_PRODUCTION_2026-11-28.md) ·
+[Immutable release](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-prelaunch-combined-2026-11-28).
 
-| Role | Canister | Installed source | Certified raw Wasm SHA-256 |
-| --- | --- | --- | --- |
-| Paid Rules19 / Schema11 / Adapter12 capped-Trickle backend | `s5ir5-gqaaa-aaaas-amyna-cai` | `741dbf898ade58ed2fa3a064d8bbe1acb577ed4a` | `b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90` |
-| Manufacturing frontend at the permanent `https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io` origin | `s2jxj-liaaa-aaaas-amynq-cai` | `0855896239ba222892a372e6eeba22530fa59afc` | `1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5` |
+| Role | Canister | Certified raw Wasm SHA-256 |
+| --- | --- | --- |
+| Rules20 capped-Trickle backend | `s5ir5-gqaaa-aaaas-amyna-cai` | `e81268c53bb0937e4e3adc99f36b34da10cd5762419e2e61f48fb8595359ce1d` |
+| Developer frontend at the permanent `https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io` origin | `s2jxj-liaaa-aaaas-amynq-cai` | `be06c1aa6d8234b6b69075bc875873846c1c16e7252521799a032bc5f423c298` |
 
-The 12:51:54 UTC settled read verified **1.848T liquid backend cycles**
-and **0.766T frontend cycles**. The frontend had **112.620B** beyond
-estimated freezing and the installation and recovery allowance. Signed
-public status showed healthy capped Trickle at **0.01 ticks/s**, source
-cursor **40,647,923** and zero pending records. Observed backend net
-decline was **0.590T/day**, giving **1.44 days** conditional runway to 1T
-ReserveProtection. Full Speed remains below its 2.07T balance floor.
-[Public observation](evidence/B2Z/development-programme/RULES20_COMBINED_RELEASE_2026-11-28_OPERATING.json).
+The ordinary drained transition committed at segment **20,079**, preserving
+**108,100,000 e8s** received and source frontier **40,647,923**. Capped
+Trickle resumed at 15:33:26 UTC at **0.01 ticks/s**. The exact combined
+pair is the post-boundary recovery software. The owner UI remains
+available. The heap-only application binding awaits the verified owner
+principal, and Full Speed is inactive.
 
-## Qualified combined developer prelaunch candidate
+The first post-activation settled bracket recorded **1.750T liquid
+backend cycles** and **0.580T frontend cycles**. The production burn
+observation window is developing.
+
+## Qualification for the installed combined release
 
 - Capped-Trickle backend `e81268c53bb0937e4e3adc99f36b34da10cd5762419e2e61f48fb8595359ce1d`.
 - Developer frontend `be06c1aa6d8234b6b69075bc875873846c1c16e7252521799a032bc5f423c298`, with owner Full
@@ -78,14 +76,9 @@ interrupted/restart cases also passed.
 [release and compatibility procedure](docs/operations/RULES20_RELEASE_PREPARATION.md) ·
 [dated closeout](evidence/B2Z/development-programme/FINAL_QUALIFICATION_2026-11-28.md).
 
-The authorized combined operation starts with secure controller, paid-state,
-source and resource preflight. Install the compatible developer frontend
-first. A healthy drained Rules19 predecessor uses the ordinary transition.
-The specifically supported obstruction uses authenticated recovery and
-Rules19-policy processing before ordinary activation. The old backend and
-manufacturing frontend are recovery executables for their compatible
-pre-boundary state. After the first incompatible commitment, recover with
-the exact combined pair.
+The combined release is active. Its recovery software is the exact
+installed backend and developer frontend. The prior paid Rules19
+executables and direct-root candidate retain their release history.
 [Installation and recovery](docs/operations/RULES20_RELEASE_PREPARATION.md).
 
 ## Independently qualified Rules19 telemetry

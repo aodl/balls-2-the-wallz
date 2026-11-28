@@ -26,23 +26,21 @@ verified compatible executable.
 
 ## Rules20 prelaunch release
 
-The preferred exact combined release uses the embedded developer frontend
-with the temporary owner Full Speed interface. The direct-root developer
-fallback and public-launch frontend have separate releases. Check secure
-controller access before the frontend-first operation. A failed controller
-preflight holds both installations.
-[Immutable combined candidate](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-prelaunch-combined-2026-11-28) ·
-[Secure signer verification](RULES20_SECURE_CONTROLLER_PREFLIGHT.md) ·
-[Epoch and recovery procedure](RULES20_RELEASE_PREPARATION.md).
+The exact combined Rules20 capped-Trickle backend and embedded developer
+frontend are installed. The ordinary drained transition is complete. The
+post-boundary recovery pair is the same exact installed Rules20 software.
+Both the direct-root developer fallback and public-launch frontend remain
+separately frozen.
+[Production activation](../../evidence/B2Z/development-programme/RULES20_EUROPE_PRODUCTION_2026-11-28.md) ·
+[Recovery procedure](RULES20_RELEASE_PREPARATION.md).
 
 ## Backend and epoch changes
 
 Use separate approval and an exact same-canister rehearsal. Preserve the
 paid head, authorization registry, receipts, source position, historical
 publication bytes and ordered payment inputs. A durable transition record
-can change which decoder is allowed to recover. The Rules19 public pair
-understands the current committed compact epoch. A pre-compact predecessor
-belongs to an earlier boundary. A Wasm file restores executable software.
+can change which decoder is allowed to recover. The current epoch requires the exact compatible Rules20 pair.
+Keep the older executables with their historical compatibility boundaries. A Wasm file restores executable software.
 Recovery of lost heap or stable memory requires its own verified state
 recovery mechanism. Create a production snapshot only on explicit owner
 request. Never reinstall a paid canister.
