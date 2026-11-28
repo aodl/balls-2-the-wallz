@@ -427,3 +427,6 @@ measured hour. Raw source, authenticated certificates and result are under
 `.work/burn-balance-probe/empty-world-phase-32321-1/`. This closes the
 player-free operating case. Wider overlapping reservations and an optional
 release profile remain open; the meter remains disabled in ordinary builds.
+The complete local source suite on the player-free continuation passed under
+`.work/burn-balance-probe/source-after-empty-world-1/`, including historical
+vectors, Node tests, source structure, documentation links and Python tools.
