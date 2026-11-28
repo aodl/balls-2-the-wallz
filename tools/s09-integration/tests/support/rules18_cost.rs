@@ -4310,13 +4310,45 @@ fn rules20_paid_passage_restart() {
 #[test]
 #[ignore = "installed mixed-owner Rules20 corner survives interrupted checkpoint and same-ID restart"]
 fn rules20_installed_corner_restart() {
-    let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
-        .join("rules20-corner-restart");
+    run_rules20_installed_corner_restart(false, false);
+}
+
+#[test]
+#[ignore = "installed genuine foreign Cannon corner survives interrupted checkpoint and same-ID restart"]
+fn rules20_installed_cannon_corner_restart() {
+    run_rules20_installed_corner_restart(true, false);
+}
+
+#[test]
+#[ignore = "installed genuine foreign Diverter corner survives interrupted checkpoint and same-ID restart"]
+fn rules20_installed_diverter_corner_restart() {
+    run_rules20_installed_corner_restart(false, true);
+}
+
+fn run_rules20_installed_corner_restart(cannon_corner: bool, diverter_corner: bool) {
+    assert!(!(cannon_corner && diverter_corner));
+    let out =
+        PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap()).join(if cannon_corner {
+            "rules20-cannon-corner-restart"
+        } else if diverter_corner {
+            "rules20-diverter-corner-restart"
+        } else {
+            "rules20-corner-restart"
+        });
     std::fs::create_dir_all(&out).unwrap();
     let mut initial = seed("two_ball");
     let time = initial.time.0.to_integer();
     let foreign_account = "02".repeat(32);
     initial.cannons[1].account = foreign_account.clone();
+    if cannon_corner {
+        initial.cannons[1].cell = 98007;
+    }
+    if diverter_corner {
+        let deflector = &mut initial.deflectors.as_mut().unwrap()[0];
+        deflector.cell = 98007;
+        deflector.owner = 2;
+        deflector.orientation = "NE".to_owned();
+    }
     let play = initial.playability.as_mut().unwrap();
     play.players.push(playability::Player {
         id: 2,
@@ -4352,7 +4384,14 @@ fn rules20_installed_corner_restart() {
         (99008, 1),
         (98009, 1),
         (98008, 1),
-        (98007, 0),
+        (
+            98007,
+            if cannon_corner || diverter_corner {
+                2
+            } else {
+                0
+            },
+        ),
         (97008, 2),
         (97007, 1),
     ] {
@@ -4462,7 +4501,19 @@ fn rules20_installed_corner_restart() {
         .filter(|row| row["kind"] == "capture")
         .map(|row| row["target"].as_u64().unwrap())
         .collect::<Vec<_>>();
-    assert_eq!(captures, [98007]);
+    if cannon_corner || diverter_corner {
+        assert!(
+            captures.is_empty(),
+            "the genuine structure must obstruct territory capture"
+        );
+        let current = arena_world(&pic, id);
+        assert!(
+            current.balls[0].vx > 0 && current.balls[0].vy > 0,
+            "the attacking Ball must reflect at the structure corner"
+        );
+    } else {
+        assert_eq!(captures, [98007]);
+    }
     std::fs::write(
         out.join("2-inputs.bin"),
         dtr_wire::encode(&Vec::<b2z_native::Input>::new()).unwrap(),
@@ -4485,7 +4536,10 @@ fn rules20_installed_corner_restart() {
         out.join("results.json"),
         serde_json::to_vec_pretty(&json!({
             "status":"PASS","installed_sha256":dtr_wire::hash(&installed),
-            "candidate_sha256":dtr_wire::hash(&candidate),"captured_tile":98007,
+            "candidate_sha256":dtr_wire::hash(&candidate),
+            "captured_tile":if cannon_corner || diverter_corner {None} else {Some(98007)},
+            "genuine_cannon_corner":cannon_corner,
+            "genuine_diverter_corner":diverter_corner,
             "interrupted_checkpoint":true,"same_id_restart":true,
             "replayed_public_state_events_scores":true
         }))

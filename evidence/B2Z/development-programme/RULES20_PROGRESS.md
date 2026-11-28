@@ -672,3 +672,19 @@ passed under `.work/rules19-recovery/unauthorized-recovery-2/`. The full
 local source suite passed under
 `.work/rules19-recovery/source-after-installed-cases-1/`. This is a
 test-only continuation: the executable remains `5c373613…7c61a18`.
+
+Two more installed interrupted-checkpoint corner cases passed with the
+same exact candidate and installed predecessor. A genuine foreign Cannon
+at the ambiguous tile blocked territory capture, reflected the attacking
+Ball and survived a partly stepped checkpoint plus same-ID restart. A
+genuine foreign Diverter with `NE` orientation did the same. Both cases
+compared all public state, event and score bytes with independent JavaScript
+replay. Raw results are under
+`.work/rules19-recovery/installed-cannon-corner-1/` and
+`.work/rules19-recovery/installed-diverter-corner-1/` (57.366 and 76.748
+seconds). The installed release runner now names **26** cases; the two
+structure cases require exact-source hosted qualification after publication.
+The broader protected and mixed-ownership matrix remains separately scoped.
+The original eligible neutral-corner case also passed again after the
+shared fixture refactor under
+`.work/rules19-recovery/installed-corner-refactor-1/`.
