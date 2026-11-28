@@ -35,6 +35,8 @@ jobs:
       - run: python -B tools/check.py source --output .work/ci-dev-source
       - name: Run desktop and mobile developer control tests
         run: python -B tools/verify_dev_speed_browser.py --output .work/ci-dev-ui
+      - name: Reproduce the live Rules20 Fire pose and balance-plus-rate layout
+        run: python -B tools/verify_quantity_browser.py --mobile-correction --output .work/ci-mobile-correction
       - name: Build exact embedded frontend twice and verify public-launch exclusion
         run: |
           for build in a b; do
@@ -49,6 +51,7 @@ jobs:
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         with:
           name: developer-speed-frontend
+          include-hidden-files: true
           path: |
             .work/ci-dev-a/release/frontend.wasm
             .work/ci-dev-a/release/module.json
@@ -56,6 +59,8 @@ jobs:
             .work/ci-dev-ui/result.json
             .work/ci-dev-ui/ii-gateway.json
             .work/ci-dev-ui/*.png
+            .work/ci-mobile-correction/results.json
+            .work/ci-mobile-correction/mobile-*-fire.png
             .work/ci-dev-public-guard.log
           if-no-files-found: error
           retention-days: 14
@@ -199,17 +204,20 @@ jobs:
             --profile .work/rules19-profile.wasm --candidate .work/combined-prelaunch.wasm \
             --protection-probe .work/combined-prelaunch-probe.wasm \
             --world .work/rules19-paid-world.bin --output .work/ci-rules20-installed
-      - name: Rehearse exact combined frontend upgrade and manufacturing recovery
+      - name: Rehearse exact combined frontend upgrade and Rules20 frontend recovery
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          gh release download candidate/europe-prelaunch-frontend-manufacturing-2026-11-26 \
-            --repo "$GITHUB_REPOSITORY" --dir .work/manufacturing-recovery
-          (cd .work/manufacturing-recovery && sha256sum -c SHA256SUMS)
-          printf '%s  %s\n' 1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5 .work/manufacturing-recovery/frontend.wasm | sha256sum --check
+          gh release download candidate/europe-rules20-prelaunch-combined-2026-11-28 \
+            --repo "$GITHUB_REPOSITORY" --dir .work/rules20-installed-pair
+          (cd .work/rules20-installed-pair && sha256sum -c SHA256SUMS)
+          printf '%s  %s\n' be06c1aa6d8234b6b69075bc875873846c1c16e7252521799a032bc5f423c298 .work/rules20-installed-pair/rules20-combined-developer-frontend.wasm | sha256sum --check
+          printf '%s  %s\n' e81268c53bb0937e4e3adc99f36b34da10cd5762419e2e61f48fb8595359ce1d .work/rules20-installed-pair/rules20-combined-capped-trickle-backend.wasm | sha256sum --check
+          cp .work/rules20-installed-pair/{rules20-combined-developer-frontend.wasm,frontend.wasm}
+          cp .work/rules20-installed-pair/{frontend-module.json,module.json}
           export CARGO_TARGET_DIR="$PWD/.work/dev-target"
           export B2Z_DEV_SPEED_FRONTEND="$PWD/.work/qualified-dev-frontend/ci-dev-a/release"
-          export B2Z_DEV_FRONTEND_RECOVERY="$PWD/.work/manufacturing-recovery"
+          export B2Z_DEV_FRONTEND_RECOVERY="$PWD/.work/rules20-installed-pair"
           PYTHONPATH=tools python -B - <<'PY_CODE'
           import os
           from pathlib import Path
@@ -236,7 +244,7 @@ jobs:
         run: |
           export CARGO_TARGET_DIR="$PWD/.work/dev-target"
           inputs=(--profile .work/rules19-profile.wasm --compact .work/rules19-production.wasm
-            --prior .work/rules19-installed.wasm --candidate .work/combined-prelaunch.wasm
+            --prior .work/rules19-installed.wasm --candidate .work/rules20-installed-pair/rules20-combined-capped-trickle-backend.wasm
             --world .work/rules19-paid-world.bin --artifacts /home/runner/dtr-s09-artifacts)
           python -B tools/run_certified_burn_live.py "${inputs[@]}" --direct .work/prelaunch-trickle.wasm \
             --browser-python "$(command -v python)" --output .work/ci-certified-burn-live

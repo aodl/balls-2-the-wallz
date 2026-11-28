@@ -406,7 +406,18 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
 #board-compass button[aria-pressed=true]::before{border-color:#c5d8db;box-shadow:0 0 0 2px #1c292c,0 2px 4px #0007}
 .short-edit #board-compass{visibility:hidden}
 @media(max-width:700px){#arena{--overview-width:108px;--overview-height:62.35px}}
-@media(max-width:375px){#arena{--overview-width:92px;--overview-height:53.12px}#cycles-display{width:112px;padding-inline:6px;font-size:10px;bottom:max(60px,calc(env(safe-area-inset-bottom) + 54px))}}
+@media(max-width:375px){
+ #arena{--overview-width:92px;--overview-height:53.12px}
+ /* Use the lane beside the real compass hit targets, without reserving
+    any additional vertical space from the payment scrollport. */
+ #cycles-display{left:max(4px,env(safe-area-inset-left));width:118px;padding-inline:2px;font-size:10px;bottom:max(62px,calc(env(safe-area-inset-bottom) + 56px))}
+ /* Stack the Shout field under the quantity editor. A full-width rail
+    leaves no aiming lane beside the normal payment pane. */
+ .quantity-rail #launch-editors:not([data-first]):has(#quantity-controls:not([hidden])):has(#war-cry-editor:not([hidden])){
+  max-width:130px;gap:4px
+ }
+ .quantity-rail #launch-editors:not([data-first]):has(#quantity-controls:not([hidden])) #war-cry-editor{width:130px}
+}
 @media(max-height:500px){
  #arena{--overview-width:80px;--overview-height:46.19px}
  #cycles-display{bottom:max(10px,env(safe-area-inset-bottom));left:max(159px,env(safe-area-inset-left))}
@@ -415,10 +426,9 @@ canvas[data-cursor=tile],canvas[data-cursor=deflector]{cursor:pointer}
   left:calc(max(10px,env(safe-area-inset-left)) + 52px);
   top:66px;bottom:auto
  }
- .short-edit.quantity-constrained #cycles-burn{display:none}
  .short-edit.quantity-constrained #cycles-display{
   left:calc(max(8px,env(safe-area-inset-left)) + 148px);
-  top:10px;width:96px
+  top:10px;width:118px;padding-inline:2px
  }
  .short-edit.quantity-constrained:has(#war-cry-editor:not([hidden])) #cycles-display{
   left:max(10px,env(safe-area-inset-left));top:auto;
