@@ -115,7 +115,8 @@ The final-source hosted developer/prelaunch run 46118611056 passed live
 composed/direct-root browsers, maintained agent, operator receipt and native
 certificate checks at 390px and 320px; the labels were fully visible with
 no compass overlap. Financial run 46118611068 passed. Its standard run
-46118611065 remains in progress. Telemetry stays disabled in the Rules20
+46118611065 also passed its installed S14/million-cell and official
+Ledger/Index jobs. Telemetry stays disabled in the Rules20
 profile.
 [Measurement and limitations](CERTIFIED_BURN_SELF_STATUS.md).
 
@@ -152,6 +153,20 @@ time to 1T ReserveProtection was **140,837 seconds (1.63 days)**; the
 This is a dated conditional projection; no funding or settings changed.
 [Reviewed observation](production-operating-2026-11-28-0748.json).
 
+## 08:15 UTC — read-only final operating check
+
+The installed module hashes remained unchanged. Certified head 19,817,
+source cursor 40,647,923 and zero pending records showed healthy open
+Trickle and Index admission. Settled backend liquid was
+**1,960,545,644,365 cycles**; frontend total was **767,608,641,574**,
+with **113,891,761,984** above estimated freezing and the conservative
+450B installation/recovery allowance. This shorter bracket did not
+establish a new rate. At the last eligible 07:48 settled rate, conditional
+time from the current balance to 1T protection is **1.61 days** without
+credits or workload changes. Full Speed eligibility remains below its
+default floor; ordinary Trickle remains open. No production changes were
+made. [Reviewed observation](production-operating-2026-11-28-0815.json).
+
 ## Exact release boundary and remaining hosted gates
 
 The Rules20 capped-Trickle backend and public frontend have raw SHA-256
@@ -177,14 +192,88 @@ passed [standard 46115172981](https://github.com/aodl/balls-2-the-wallz/actions/
 and [developer/prelaunch 46115172920](https://github.com/aodl/balls-2-the-wallz/actions/runs/46115172920).
 The standard run passed source, native, Wasm, browser, packaged DTR and
 clean-consumer, S14/million-cell installed-IC and official Ledger/Index
-jobs. The developer run executed **28/28 named installed successor cases**.
+jobs. Its separately named `BLOCKED production inventory (not a pass)`
+job remains a production-authority boundary. The developer run executed
+**28/28 named installed successor cases**.
 The exact [candidate release](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-recovery-2026-11-28)
 was downloaded back and all 13 assets passed its `SHA256SUMS` check.
 [PR #25](https://github.com/aodl/balls-2-the-wallz/pull/25) merged source
-`995bbb96` into master `114f81a7` with an identical Git tree. The
-telemetry [standard 46118611065](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611065)
-remains in progress; its
+`995bbb96` into master `114f81a7` with an identical Git tree. The independent telemetry
+[standard 46118611065](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611065),
 [financial 46118611068](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611068)
 and [developer/prelaunch 46118611056](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611056)
-passed. No production frontend/backend installation or gameplay transaction
+all passed on source `21a35f76`. Its evidence-only follow-up `e928e973`
+preserves identical runtime and test inputs. No production frontend/backend installation or gameplay transaction
 is authorized by this continuation.
+
+## 08:15 UTC — final qualification and release disposition
+
+The selected recovery architecture is one generic DTR epoch-v4 obligation
+version 2 for an unreserved, unretired suffix, plus the existing version-1
+sealed-stage obligation. Both bind the original committed predecessor and
+ordered work facts; the ordinary drained-epoch contract remains unchanged.
+B2Z's dedicated Rules19-recovery identity executes the fenced prefix with
+Rules19 gameplay, tariff and block-time policy while correcting only the
+invalid authorization representation. The old public history stays byte
+identical. Exact installed Rules19 obstruction, two-, four- and six-input
+prefixes, subsequent payments, interruption, restart, stale/conflicting
+operations and independent Rust/JavaScript replay passed. The old executable
+is incompatible after the first durable recovery boundary; the exact
+Rules20 executable is the post-boundary recovery backend.
+
+Construction passage qualification includes genuine Cannon/Diverter
+payments over Balls, overlapping Balls, interrupted active exceptions,
+actual later encounters, structure destruction/relocation, Ball cleanup
+and 33 continuous toroidal-return intervals. The corner matrix includes
+protected and mixed ownership, structure obstructions, equal-time multiple
+Balls, both seams and installed restart. Public motion, state, events and
+scores agree across Rust and JavaScript, with historical Rules19 outputs
+retained. Genuine authenticated Ledger/Index tariff cases cover 10/20/40
+ICP, inventory scaling, partial and overflowing batches, grace, delayed
+admission, population decline and interrupted purchase, with exact
+receipt/quote agreement.
+
+Rules20 source `995bbb96` passed the full applicable hosted suite and is
+frozen in the [13-asset checksum-verified candidate](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-recovery-2026-11-28):
+backend `5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18`,
+frontend `c029a5b5d52ba132dcc8981e98bf5445218cc75075a4dea8e6b37c5b6da2fc6c`.
+It includes interfaces, export and 91-asset inventories, DTR 0.16.0
+package, release manifest, procedure and measured budgets. B2Z locks the
+published DTR source `1c7fa8b3` by immutable Git revision and the exact
+vendored JavaScript tarball; no external npm registry release is required
+for these clean consumers. The healthy path uses an ordinary drained
+Rules19 transition. The obstructed path uses the authenticated recovery
+checkpoint, exact old-policy drain, then ordinary Rules20 transition.
+A future operation must install the compatible frontend first and recheck
+paid state, source and resources. After backend activation, the old
+Rules19-only frontend and backend are not compatible recovery targets.
+No production installation is authorized here.
+
+Certified operational burn source `21a35f76` independently passed all
+three hosted workflows; evidence-only follow-up `e928e973` records its
+exact optional backend `076b62a2e82123dccca9e73fa64471e071ed997b556cde6a0b07a42103910edd`
+and frontend `daec27efd156dae92fa5555a8db41d9a6f061a257e69218cf08827e53fd1b0c9`.
+Active Trickle differs from settled management by **0.331%**, held Index
+by **1.332%**, and a 119-publication Full Speed burst by **0.050%**;
+matched incremental cost is **5.008B cycles/day**. The maintained live
+browser, agent, operator and receipt paths passed on composed and direct
+roots. The figure remains an approximate settled **net** decline; unknown
+external credits can reduce it. The optional feature is disabled in the
+Rules20 candidate. A combined Rules20 plus telemetry build and compatible
+composed-root frontend remain a separate integration and qualification
+boundary. [Concise telemetry manifest](CERTIFIED_BURN_QUALIFICATION_2026-11-28.json).
+
+At the final settled production read at 08:15 UTC, backend liquid was
+**1.961T**, frontend total **0.768T** and conservative frontend recovery
+headroom **0.114T** cycles. Capped Trickle and Index admission were healthy,
+with zero pending records. The last eligible 07:48 observed net decline
+was **0.596T/day** and the conditional time to 1T ReserveProtection at
+the latest balance was
+**1.61 days**; Full Speed
+eligibility was already below its default balance floor, but ordinary
+Trickle continued. Funding and owner authentication remain owner decisions.
+Master merged the exact Rules20 tree as `114f81a7`; later status and
+evidence commits do not change its runtime inputs. The Rules20, certified
+burn and DTR recovery branches are retained. A lightweight committed-tree
+review ZIP is regenerated and verified after the final evidence commit;
+its source commit, size and SHA-256 are reported with the delivery.

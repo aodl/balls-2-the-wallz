@@ -12,21 +12,23 @@ change has been authorized.
 | Paid Rules19 / Schema11 / Adapter12 capped-Trickle backend | `s5ir5-gqaaa-aaaas-amyna-cai` | `741dbf898ade58ed2fa3a064d8bbe1acb577ed4a` | `b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90` |
 | Manufacturing frontend at the permanent `https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io` origin | `s2jxj-liaaa-aaaas-amynq-cai` | `0855896239ba222892a372e6eeba22530fa59afc` | `1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5` |
 
-The last read-only certified settled observation at **07:48:32 UTC** found
-unchanged module identities, authenticated head **19,801**, logical time
-**19,783**, source cursor **40,647,923**, zero pending records, no signed
+The last read-only certified settled observation at **08:15:57 UTC** found
+unchanged module identities, authenticated head **19,817**, logical time
+**19,799**, source cursor **40,647,923**, zero pending records, no signed
 source or run error, and open **0.01 tick/s** capped Trickle. Backend total
-was **2,029,366,230,528 cycles** and liquid **1,971,432,253,398 cycles**;
-frontend total was **767,735,571,649 cycles**. Frontend headroom after
+was **2,018,479,621,495 cycles** and liquid **1,960,545,644,365 cycles**;
+frontend total was **767,608,641,574 cycles**. Frontend headroom after
 estimated freezing and a conservative 450B installation/recovery allowance
-was **114,018,692,059 cycles**. Over **3,618 comparable settled seconds**
-and 37 publications, backend liquidity declined **24,960,461,719 cycles**,
-or **595,947,449,743 cycles/day** net. At this observed workload and
-without intervening credits, the conditional time to the 1T backend
-ReserveProtection level is **140,837 seconds (1.63 days)**. The backend is
-below the 2.07T Full Speed eligibility floor; this does not stop ordinary
-Trickle. Funding, owner sign-in and any Full Speed decision remain owner
-tasks. [Read-only observation](evidence/B2Z/development-programme/production-operating-2026-11-28-0748.json).
+was **113,891,761,984 cycles**. The new balance bracket was shorter than one
+hour, so it did not establish a new rate. The latest eligible 07:48 settled
+bracket measured **595,947,449,743 cycles/day** net over 3,618 seconds.
+Applying that dated rate to the 08:15 liquid balance yields a conditional
+**1.61 days** to the 1T backend ReserveProtection level, absent credits or
+a workload change. The backend is below the 2.07T Full Speed eligibility
+floor; this does not stop ordinary Trickle. Funding, owner sign-in and any
+Full Speed decision remain owner tasks.
+[Latest read-only position](evidence/B2Z/development-programme/production-operating-2026-11-28-0815.json) ·
+[eligible rate bracket](evidence/B2Z/development-programme/production-operating-2026-11-28-0748.json).
 
 ## Qualified Rules20 candidate
 
@@ -43,7 +45,10 @@ telemetry is disabled in this release profile.
 [Standard 46115172981](https://github.com/aodl/balls-2-the-wallz/actions/runs/46115172981),
 [financial 46115172970](https://github.com/aodl/balls-2-the-wallz/actions/runs/46115172970)
 and [developer/prelaunch 46115172920](https://github.com/aodl/balls-2-the-wallz/actions/runs/46115172920)
-all passed on the exact source. The developer run executed **28/28** named
+all passed on the exact source. The standard workflow's deliberately named
+`BLOCKED production inventory (not a pass)` job remains an informational
+production-authority boundary, not installed production acceptance. The
+developer run executed **28/28** named
 installed successor cases. The exact installed Rules19 executable was
 reproduced in a disposable environment with a valid digit-leading grant
 and later payment durably pending. The versioned DTR recovery boundary
@@ -81,11 +86,15 @@ restart were qualified in disposable cases. Live composed/direct-root
 browser, maintained agent, read-only operator and genuine receipt acceptance
 passed [developer/prelaunch 46118611056](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611056);
 [financial 46118611068](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611068)
-passed. Its full [standard 46118611065](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611065)
-remains in progress. Unknown external credits can understate this **net**
+passed, and [standard 46118611065](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611065)
+also passed its installed S14/million-cell and official Ledger/Index jobs.
+The source-specific evidence update is published as `e928e973` on the
+telemetry branch, with no runtime or test-input change. Unknown external credits can
+understate this **net**
 balance decline estimate; gross burn is not established. A combined
 Rules20/composed-root release requires separate exact-source qualification.
-[Telemetry evidence](https://github.com/aodl/balls-2-the-wallz/blob/codex/certified-burn-integration/evidence/B2Z/development-programme/CERTIFIED_BURN_SELF_STATUS.md).
+[Concise telemetry manifest](evidence/B2Z/development-programme/CERTIFIED_BURN_QUALIFICATION_2026-11-28.json) ·
+[full telemetry evidence](https://github.com/aodl/balls-2-the-wallz/blob/codex/certified-burn-integration/evidence/B2Z/development-programme/CERTIFIED_BURN_SELF_STATUS.md).
 
 Owner physical-device review, actual owner sign-in, sustained Full Speed
 throughput and wider-launch capacity remain separate. Automatic player

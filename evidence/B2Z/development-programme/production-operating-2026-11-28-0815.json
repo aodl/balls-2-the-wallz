@@ -1,0 +1,51 @@
+{
+  "observed_at": "2026-11-28T08:15:57.786Z",
+  "scope": "Read-only certified installed identities, signed health and settled resources",
+  "backend": {
+    "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "total_cycles": "2018479621495",
+    "liquid_cycles": "1960545644365",
+    "freezing_estimate_cycles": "57933977130"
+  },
+  "frontend": {
+    "id": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+    "total_cycles": "767608641574",
+    "freezing_estimate_cycles": "203716879590",
+    "headroom_beyond_450b_cycles": "113891761984"
+  },
+  "publication": {
+    "head": "19817",
+    "logical_time": "19799",
+    "source_cursor": "40647923",
+    "pending_records": 0,
+    "source_binding_checked": true,
+    "run_error": [],
+    "source_error": [],
+    "pace": {
+      "nominal_milli": 10,
+      "supported_milli": 10,
+      "mode": "Trickle",
+      "admission_open": true,
+      "performance_limited": false
+    }
+  },
+  "settlement": {
+    "settled": true,
+    "management_before": "2018479621495",
+    "management_after": "2018479621495",
+    "management_gap": "0",
+    "health_gap": "57933977130",
+    "estimated_freezing": "57933977130",
+    "unexpected_gap": "0"
+  },
+  "conditional_runway": {
+    "basis": "Latest eligible 07:48:32 UTC 3,618-second settled net decline, not a new 08:15 rate",
+    "net_cycles_per_day": "595947449743",
+    "seconds_from_current_liquid_to_1t_at_basis_rate": "139259",
+    "days_from_current_liquid_to_1t_at_basis_rate": 1.612,
+    "full_speed_cycle_floor_met": false
+  },
+  "raw_local_evidence": ".work/development-programme/rules20-identity/.work/rules19-recovery/production-observation-0817.json"
+}
