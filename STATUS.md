@@ -141,8 +141,8 @@ fresh exact-source execution. The later developer artifact records **20 named in
 PASS cases**, including recovery, interrupted passage and paid tariffs. The later
 thirteen-row active-owner corner matrix passed 31 native Rules20 public-output
 comparisons and focused JavaScript tests; exact-source hosted qualification
-is pending. The recovery branch is **not** a
-production release candidate. Four local
+subsequently passed in the `adc5a8e1` developer workflow. The recovery branch
+is **not yet a final production release**. Four local
 authenticated high-population payment cases passed. A subsequent genuine
 1,000-account Fire batch paid for the first two of three symbolic Ball
 prices; its receipt, frontend quote and independent public replay agree.
@@ -163,7 +163,7 @@ An installed partial Fire batch also survived a same-ID restart after its
 private cursor had durably priced exactly one Ball from the original sealed
 payment. The earlier publication remained identical; the final two-of-three
 receipt and independent replay passed. This case is in the named release
-suite and awaits hosted execution on the committed source.
+suite and passed in the `adc5a8e1` hosted developer workflow.
 An installed paid Cannon/Diverter case kept two first-passage exceptions
 active through a same-ID restart and subsequent tick. Both pre-existing Balls
 kept their exact cells and headings; independent replay matched the public
@@ -178,8 +178,21 @@ Structure and Ball destruction remain separate passage gates. A separate
 authenticated 1,001-account fixture paid for the first and second personal
 Diverters at 2 and 8 ICP with exact receipts, frontend wallet quotes and
 independent public replay; the refactored original first-Cannon case passed
-again. Mid-batch overflow and interrupted purchase acceptance remain
-financial gates, and the new Diverter case needs hosted execution.
+again. The named mid-batch overflow, interrupted purchase and Diverter cases
+passed in the same hosted developer workflow.
+Published Rules20 source `adc5a8e1` passed
+[financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123057)
+and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123064),
+the latter executing all **22 named installed successor cases**. Its exact
+backend candidate raw Wasm SHA-256 is
+`5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18`.
+The separate reproduced Rules20 public frontend candidate is
+`c029a5b5d52ba132dcc8981e98bf5445218cc75075a4dea8e6b37c5b6da2fc6c`.
+The [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123070)
+is still in installed-IC qualification. The newer local continuation passed
+the complete source suite but has not been published or hosted; the
+[candidate release procedure](docs/operations/RULES20_RELEASE_PREPARATION.md)
+keeps installation conditional on all remaining gates.
 The certified burn
 meter remains disabled and is tracked separately. Sustained Full Speed throughput,
 physical devices, dense-scene P09
