@@ -188,7 +188,8 @@ jobs:
           python -B tools/check_prelaunch_wasm.py prelaunch-trickle .work/certified-burn-normal.wasm > .work/certified-burn-normal-interface.json
           python -B tools/verify_runtime_candid.py --profile prelaunch-telemetry --output .work/certified-burn-normal.did
           cmp .work/certified-burn-normal.did canisters/runtime-lab/runtime-lab-telemetry.did
-          printf '%s  %s\n' 3bb76656d3c903e858c9b9e373d9baab311b930e0dcb78d19a5807ff5e78376d .work/certified-burn-normal.wasm | sha256sum --check
+          # Pin the hosted executable built with this job's reviewed path remapping.
+          printf '%s  %s\n' 076b62a2e82123dccca9e73fa64471e071ed997b556cde6a0b07a42103910edd .work/certified-burn-normal.wasm | sha256sum --check
           sha256sum .work/certified-burn-normal.wasm > .work/certified-burn-normal.sha256
           python -B tools/run_certified_burn_live.py \
             --profile .work/rules19-profile.wasm --compact .work/prelaunch-trickle.wasm \

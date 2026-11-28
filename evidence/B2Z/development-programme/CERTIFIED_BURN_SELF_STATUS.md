@@ -516,3 +516,41 @@ storage, so it is not an isolated storage charge. Raw matched evidence is
 under `.work/burn-balance-probe/optional-normal-cost-1/`.
 The feature remains disabled in ordinary release profiles and is not part
 of the Rules20 backend candidate.
+
+## Exact hosted optional executable, 28 November
+
+The first final-source hosted live step on B2Z `42f1f571` stopped at its
+fixed local-build SHA check, before starting the browser journey. Its
+GitHub-built no-test-hooks executable was independently retrieved and
+rehash-verified as
+`076b62a2e82123dccca9e73fa64471e071ed997b556cde6a0b07a42103910edd`
+(4,426,899 bytes). The earlier local executable
+`3bb76656d3c903e858c9b9e373d9baab311b930e0dcb78d19a5807ff5e78376d`
+is 4,430,227 bytes. The hosted workflow uses reviewed source-path remapping;
+cross-environment byte identity was never established. The hosted module's
+exports and feature-specific generated Candid passed their exact checks.
+The workflow now pins the **actual hosted executable**; the first failed
+run is retained as an artifact-identity failure, not a browser result.
+
+The hosted bytes then passed a genuine disposable 32.321-second phase
+comparison under `.work/burn-balance-probe/hosted-normal-phase-32321-1/`:
+12 established samples estimated **395,616,770,762 cycles/day** against
+**396,930,222,070 cycles/day** settled management decline, **0.331%**
+relative difference under the original 5% target. Matched 60-minute
+feature-on/off operation on those exact bytes measured
+**408,274,287,192** versus **403,266,506,616 cycles/day**, an incremental
+**5,007,780,576 cycles/day** under
+`.work/burn-balance-probe/hosted-normal-cost-1/`. Both legs had 30 game
+publications and callbacks, 60 Index calls and the same 1,566,000-cycle
+charge for 100 observation queries. The optional module was 28,161 bytes
+larger than the exact installed Rules19 executable; measured runtime memory
+also includes code and heap, so it is not an isolated stable-storage cost.
+
+The same hosted bytes passed the live maintained agent and read-only
+inspection tool under `.work/burn-balance-probe/hosted-normal-receipt-1/`.
+Both composed and restored direct roots authenticated head 39 and verified
+one genuine disposable 1 ICP **Applied** canonical receipt at Ledger
+position 1. The same-ID reinstall retained the publication and receipt.
+Hosted native browser acceptance on this exact executable remains open
+until the corrected workflow completes. The optional feature remains
+disabled.
