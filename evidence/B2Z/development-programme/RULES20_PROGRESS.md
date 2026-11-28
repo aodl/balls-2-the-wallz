@@ -597,3 +597,15 @@ The standard workflow `46087123070` remained in its installed-IC job at
 this observation. This hosted success does not execute the newer local
 passage-cleanup source test or close the separately identified destruction,
 installed corner and adversarial recovery gates.
+
+The still-running standard workflow's completed public-frontend job supplied
+its exact Rules20 public-launch frontend artifact under
+`.work/rules19-recovery/hosted-adc-public-frontend/`. The uncompressed raw
+Wasm SHA-256 is `c029a5b5d52ba132dcc8981e98bf5445218cc75075a4dea8e6b37c5b6da2fc6c`;
+`module.json` records 91 public assets, 75,654,748 identity asset bytes and
+embedded-inventory SHA-256
+`757d8b5703ece0d82ca199c20adaf22a6bf3e02fa317803c845c5228fb4d4057`.
+Its separate clean-build reproduction reports PASS with the same executable
+SHA-256. This frontend is a distinct candidate from the already installed
+manufacturing frontend. The unfinished standard workflow and release-specific
+compatibility/install budget remain gates before any production proposal.
