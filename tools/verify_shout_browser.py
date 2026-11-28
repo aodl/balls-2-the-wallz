@@ -86,7 +86,14 @@ with (out / "server.log").open("w") as log:
                 page.wait_for_function("()=>__b2zExperience.visible?.deflectors.get(2)?.cell===4006")
                 # Frame the observed structure in the fixture. Selection itself
                 # follows the ordinary board input and uses the verified model.
-                point = page.evaluate("()=>{__b2zCamera.frameCell(4006);return __b2zCamera.cellPoint(4006)}")
+                point = page.evaluate("""mobile=>{
+                    __b2zCamera.frameCell(4006);
+                    // At 320px, the neighbouring Cannon can share the touch
+                    // halo at the normal framing scale. Keep the target under
+                    // the pointer while separating the displayed structures.
+                    if (mobile) __b2zCamera.zoom(2);
+                    return __b2zCamera.cellPoint(4006);
+                }""", width < 400)
                 page.wait_for_function(
                     "p=>document.elementFromPoint(p.sx,p.sy)?.id==='board'", arg=point
                 )
