@@ -13,14 +13,14 @@ controller preflight while combined qualification continues.
 | Paid Rules19 / Schema11 / Adapter12 capped-Trickle backend | `s5ir5-gqaaa-aaaas-amyna-cai` | `741dbf898ade58ed2fa3a064d8bbe1acb577ed4a` | `b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90` |
 | Manufacturing frontend at the permanent `https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io` origin | `s2jxj-liaaa-aaaas-amynq-cai` | `0855896239ba222892a372e6eeba22530fa59afc` | `1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5` |
 
-The 08:48 UTC settled read verified **1.947T liquid backend cycles** and
+The 09:16 UTC settled read verified **1.936T liquid backend cycles** and
 **0.767T frontend cycles**. The frontend had **0.114T** after estimated
 freezing and a 450B installation and recovery allowance. Signed status showed
 healthy capped Trickle at **0.01 ticks/s**, source cursor **40,647,923** and
-zero pending records. The 7,224-second settled comparison measured
-**0.591T/day** net decline. At that workload the conditional runway to 1T
+zero pending records. The 3,621-second settled comparison measured
+**0.585T/day** net decline. At that workload the conditional runway to 1T
 ReserveProtection was **1.60 days**. Full Speed remains below its 2.07T
-balance floor. [Certified observation](evidence/B2Z/development-programme/production-operating-2026-11-28-0848.json).
+balance floor. [Certified observation](evidence/B2Z/development-programme/production-operating-2026-11-28-0916.json).
 
 The qualified direct-root fallback pairs the frozen Rules20 capped-Trickle
 backend with the exact 92-asset developer frontend. It preserves the temporary

@@ -86,3 +86,69 @@ combined release freeze and production acceptance remain pending. The
 qualifying workflows for `c2fa5825` are standard 46128567112, financial
 46128566815 and developer/prelaunch 46128566848.
 [Combined integration](https://github.com/aodl/balls-2-the-wallz/pull/27)
+
+## Focused local continuation
+
+The no-test-hooks combined Wasm
+`b67905f86bbd05c1c3c44f0fc4cd24beac3cc21250b66d6b35d4ab5976018d11`
+passed the actual installed Rules19 healthy and obstructed transition probes.
+The obstructed case retained two original inputs, recovered them in order,
+and subsequently applied the successor payment. Received value was
+208,100,000 e8s at transition and 508,100,000 e8s after the subsequent
+disposable payment. Independent replay passed.
+
+On that local executable, active Rules20 Trickle at the 32.321-second
+Index phase produced a certified estimate of **403.380B cycles/day**
+against **403.993B/day** settled management observation. The difference
+was **0.15%** against the unchanged 5% target. Dormant and empty worlds
+also passed their separate 17.321-second phase probes. The initial dormant
+fixture payment created a Ball. The corrected fixture sends an input
+targeting a nonexistent Cannon and checks that the world remains idle.
+The previously verified CMC fixture is pinned as a test input because
+hosted path remapping changed the checksum of a local rebuild. These
+corrections change test inputs and leave the runtime and frontend source
+unchanged. The exact hosted combined release suites remain required.
+
+The 09:16 UTC production refresh verified 1.936031T liquid backend
+cycles, 0.767331T frontend cycles, and 113.614B frontend headroom after
+estimated freezing and the 450B allowance. The latest comparable
+3,621-second settled bracket measured 0.584887T/day net decline.
+Conditional runway from this balance was 1.60 days to 1T protection.
+Full Speed was 133.969B below its default balance floor.
+[Latest settled bracket](production-operating-2026-11-28-0916.json)
+
+The local matched enabled/disabled Rules20 comparison measured
+**1.691B cycles/day** incremental at the tested workload. Each side
+produced 30 gameplay publications in the measured hour. The disabled
+executable was built from the same runtime inputs with the burn feature
+omitted. A local Full Speed probe produced 119 publications in 120 seconds
+and returned to capped Trickle. Its established certified estimate was
+1.619237T/day against 1.620705T/day settled management observation.
+The genuine disposable treasury-credit probe invalidated the prior
+window as stale. Across the held Index response and 82.574B-cycle
+reservation refund, the combined certified rate was 403.233B/day
+against 408.175B/day settled management observation. The maintained
+agent and operator passed both roots
+on disposable Rules20 and verified the Applied receipt after a same-ID
+change to the compatible direct-root executable. Local Chromium startup
+is blocked by missing `libatk-1.0.so.0`, leaving the exact combined live
+browser gate to hosted qualification.
+
+The developer frontend job on `2cb1c036` reproduced and tested the
+owner interface. Retrieved artifact 15257461168 has raw Wasm SHA-256
+`be06c1aa6d8234b6b69075bc875873846c1c16e7252521799a032bc5f423c298`
+and 92-asset inventory SHA-256
+`8796768fc501b80c67067f6484cdcc577f085e1093f9459aa91b409ec621cf69`.
+The exact-source financial workflow passed. The standard integration
+and developer backend workflows still have active gates. The combined
+backend has no production release tag or authorization through this
+partial qualification. The already frozen direct-root prelaunch pair
+is ready for a fresh controller preflight.
+
+## Remote retention
+
+The combined branch remains open as draft PR 27. The independently
+qualified telemetry and Rules20 direct-root branches remain available.
+The prototype references were audited and retained. Some have unique
+patches or associated local work, and combined qualification remains
+open. Master retains its deletion and non-fast-forward protection.

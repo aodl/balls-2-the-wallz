@@ -1,0 +1,104 @@
+{
+  "observed_at": "2026-11-28T09:16:18.973Z",
+  "backend": {
+    "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "module_certificate_verified": true,
+    "status": {
+      "running": null
+    },
+    "cycles": "1993965163017",
+    "settings": {
+      "freezing_threshold": "2592000"
+    },
+    "idle_cycles_burned_per_day": "1931132571",
+    "reserved_cycles": "0"
+  },
+  "frontend": {
+    "id": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+    "module_certificate_verified": true,
+    "status": {
+      "running": null
+    },
+    "cycles": "767330810110",
+    "settings": {
+      "freezing_threshold": "2592000"
+    },
+    "idle_cycles_burned_per_day": "6790562653",
+    "reserved_cycles": "0"
+  },
+  "publication": {
+    "root": "754eff2f1cbc56e27e85b5c9fce79d5239eb76b1f1cdde1d2cbbb94b557d8bd9",
+    "head": "19853",
+    "logical_time": "19835",
+    "source_cursor": "40647923",
+    "identity": {
+      "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+      "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+      "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "certified_operational_burn": null,
+    "state_sha256": "3b109cef883e0079f10796579fc872359eef97d2f190bb9ed0bac8bb2f5ab3d2",
+    "accounts_with_cannons": 1,
+    "cannons": 2,
+    "balls": 2,
+    "diverters": 1,
+    "reservoirs": 4,
+    "source": {
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "subaccount": "0",
+      "network": "ic"
+    }
+  },
+  "signed_status": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "1",
+      "publication_ticks": "1",
+      "completed_segments": "19835",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40647923"
+    }
+  },
+  "settlement": {
+    "settled": true,
+    "management_before": "1993965163017",
+    "management_after": "1993965163017",
+    "management_gap": "0",
+    "health_gap": "57933977130",
+    "estimated_freezing": "57933977130",
+    "unexpected_gap": "0"
+  },
+  "runway": {
+    "backend_freezing_estimate_cycles": "57933977130",
+    "frontend_freezing_estimate_cycles": "203716879590",
+    "frontend_install_recovery_headroom_cycles": "113613930520",
+    "backend_liquid_cycles": "1936031185887",
+    "full_speed_cycle_floor_met": false,
+    "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+    "elapsed_ns": "3621297453229",
+    "elapsed_seconds": 3621,
+    "liquid_decline_cycles": "24514458478",
+    "net_cycles_per_day": "584886836791",
+    "publication_delta": "36",
+    "seconds_to_reserve_protection": "138271",
+    "seconds_to_full_speed_floor": "0"
+  }
+}
