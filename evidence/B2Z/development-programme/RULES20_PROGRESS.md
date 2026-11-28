@@ -645,3 +645,21 @@ second was interrupted by a full host filesystem; both failures remain raw
 evidence. The correction adds a **23rd named installed case** to the release
 runner. It is local source after `2365ab49` and requires its own hosted
 exact-source qualification.
+
+A genuine installed mixed-owner checkerboard corner then passed under
+`.work/rules19-recovery/installed-corner-restart-3/`. The disposable world
+was valid Rules19 state before the exact installed module ran its predecessor
+interval. An ordinary authenticated Rules20 epoch followed. The attacking
+Ball remained in cell 98,008 until the successor checkpoint. A test-hook
+module sealed and partly stepped that zero-input checkpoint, after which
+the exact candidate was reinstalled on the same canister ID. The predecessor
+publication and pending stage survived. Resumed execution captured the
+preferred eligible tile **98,007** across mixed neutral and foreign side
+ownership, and independent JavaScript replay matched the exact public state,
+event and score bytes. The candidate backend hash was `5c373613…7c61a18`.
+The first fixture attempt failed a native ownership-count precondition; the
+second correctly exposed an unintended Rules19 contact before transition.
+Both failures remain raw evidence. The correction adds a **24th named
+installed case** to the release runner. It does not replace the broader
+thirteen-row source/native contact matrix or prove every structure corner
+through a disposable installed restart.

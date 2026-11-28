@@ -65,7 +65,9 @@ personal Cannon and Diverter scaling, partial and overflowing Ball batches,
 delayed Index grace selection and interrupted purchase continuation passed
 in installed disposable tests with exact receipts, frontend quotes and replay.
 Additional seam and equal-time corner outputs passed in source conformance.
-Complete structure and Ball destruction, remaining installed corner and
+An installed mixed-owner corner capture survived a partially stepped
+checkpoint and same-ID restart with exact independent replay. Complete
+structure and Ball destruction, genuine installed structure-corner cases and
 adversarial recovery cases, any unexecuted financial edge cases, and final
 exact-source hosted qualification before freezing a release. The successor
 frontend has a dedicated configuration and inventory.

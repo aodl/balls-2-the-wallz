@@ -178,6 +178,11 @@ and matched independent replay. A sealed, partially stepped checkpoint
 with both exceptions active survived a same-ID upgrade; autonomous
 continuation and later paid relocation matched independent replay.
 Structure and Ball destruction remain separate passage gates. A separate
+installed corner case crossed the ordinary Rules20 epoch, interrupted a
+sealed motion checkpoint, restarted the same candidate module and captured
+the one eligible checkerboard tile across mixed ownership. Independent replay
+matched public state, events and scores. Genuine installed structure-corner
+restarts remain separate from the source/native contact matrix. A separate
 authenticated 1,001-account fixture paid for the first and second personal
 Diverters at 2 and 8 ICP with exact receipts, frontend wallet quotes and
 independent public replay; the refactored original first-Cannon case passed
@@ -196,8 +201,9 @@ frontend and restoration of that frontend passed certified asset/route checks;
 the respective PocketIC debits were **184.609B** and **185.525B cycles**.
 The [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123070)
 also passed, completing all three hosted historical workflows on `adc5a8e1`.
-The newer local continuation passed
-the complete source suite but has not been published or hosted; the
+The later `2365ab49` source is published with fresh workflows in progress;
+its successor test continuation is locally qualified and still needs hosted
+execution. The
 [candidate release procedure](docs/operations/RULES20_RELEASE_PREPARATION.md)
 keeps installation conditional on all remaining gates.
 The certified burn

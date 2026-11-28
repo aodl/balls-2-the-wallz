@@ -24,6 +24,7 @@ CASES = (
     "rules20_paid_epoch_and_recovery",
     "rules20_paid_construction_over_existing_balls",
     "rules20_paid_passage_restart",
+    "rules20_installed_corner_restart",
     "rules20_paid_threshold_population",
     "rules20_paid_symbolic_population",
     "rules20_paid_diverter_inventory",
