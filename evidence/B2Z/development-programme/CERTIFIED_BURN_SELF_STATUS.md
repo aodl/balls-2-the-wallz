@@ -577,3 +577,11 @@ the chip only when a verified rate exists; the full balance limitation
 remains in the detail panel. The native browser gate now inspects visible
 text and overflow at both 390px and 320px. This new visual gate requires an
 exact-source hosted pass before optional telemetry is qualified.
+The first visual-fix developer run stopped earlier at the deliberate
+frontend freeze: the changed renderer produced a new bundled `app.mjs`
+while its old review hash was still pinned. The reviewed asset hash is now
+`8a5560acd9ec36b6512142f370726dabee3c39508238b61b041407c2b00c6626`;
+the other reviewed asset hashes are unchanged. The local frontend freeze
+builder passed with 91 assets under
+`.work/burn-balance-probe/compact-cycles-frontend-1/`. The failed hosted
+attempt did not reach browser acceptance and remains historical evidence.

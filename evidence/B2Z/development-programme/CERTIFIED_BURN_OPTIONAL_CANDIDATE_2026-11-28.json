@@ -71,5 +71,9 @@
   "hosted_held_index_settled_cycles_per_day": 401439447240,
   "hosted_held_index_relative_difference_percent": 1.332,
   "hosted_held_index_refund_cycles": 82596503047,
-  "hosted_held_index_inflight_samples": 2
+  "hosted_held_index_inflight_samples": 2,
+  "compact_frontend_review_app_sha256": "8a5560acd9ec36b6512142f370726dabee3c39508238b61b041407c2b00c6626",
+  "local_compact_frontend_raw_wasm_sha256": "85e187bfa4bd5f339dc417838af0155c622843cee4363773bfa7b950f00b2fac",
+  "compact_frontend_local_evidence": ".work/burn-balance-probe/compact-cycles-frontend-1/",
+  "compact_browser_390_and_320_status": "PENDING hosted visual gate"
 }
