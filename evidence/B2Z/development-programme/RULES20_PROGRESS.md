@@ -581,3 +581,19 @@ The complete local `tools/check.py source` run on the locally committed
 continuation passed under
 `.work/rules19-recovery/source-after-passage-cleanup-1/`, including all Node
 tests, source structure, documentation links and Python tool tests.
+
+Published source `adc5a8e104b372d94b09fdc39de179725a000d00` passed
+[financial run 46087123057](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123057)
+and [developer/prelaunch run 46087123064](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123064).
+The downloaded developer artifact under `.work/rules19-recovery/hosted-adc/`
+reports **22 separately executed installed PASS cases** on exactly that
+source, including all nine named obstructed-recovery cases, genuine paid
+construction and passage restart, delayed Index admission, interrupted
+purchase and the symbolic tariff cases. Its capped-Trickle backend raw Wasm
+SHA-256 is `5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18`;
+the exact installed Rules19 predecessor is
+`b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90`.
+The standard workflow `46087123070` remained in its installed-IC job at
+this observation. This hosted success does not execute the newer local
+passage-cleanup source test or close the separately identified destruction,
+installed corner and adversarial recovery gates.
