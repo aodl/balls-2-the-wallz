@@ -643,3 +643,64 @@ frontend built 91 assets and raw Wasm SHA-256
 under `.work/burn-balance-probe/compact-cycles-frontend-3/`. Fresh hosted
 live and full standard acceptance are still required before telemetry can
 be considered qualified.
+
+## Final compact-lane live acceptance, 28 November
+
+Published telemetry source `21a35f7643611fd947ffe6a0bf431874c2387ed8`
+passed [financial run 46118611068](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611068)
+and [developer/prelaunch run 46118611056](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611056).
+The latter executed the maintained live PocketIC browser on both the
+composed-root optional backend and the restored direct-root installed
+Rules19 executable. Both legs passed native certificate verification,
+maintained agent reads, read-only operator inspection, a genuine 1 ICP
+**Applied** receipt and same-ID restart with unchanged publication. The
+exact hosted optional backend remained raw Wasm SHA-256
+`076b62a2e82123dccca9e73fa64471e071ed997b556cde6a0b07a42103910edd`.
+The hosted frontend was byte identical to the 91-asset reviewed local
+build: raw Wasm SHA-256
+`daec27efd156dae92fa5555a8db41d9a6f061a257e69218cf08827e53fd1b0c9`,
+embedded inventory SHA-256
+`bae4e396b08f29dc4dee3c76d4ece86798b8ef95c37d8151c14e241150c71e48`.
+At 390px and 320px, the composed leg visibly showed the complete
+`Cycles ~404B/d` label. The direct-root leg showed the full
+`Cycles Unavailable` label. Rectangle and screenshot review found no
+compass overlap at either width. The standard browser job also passed the
+320px payment scrollport and tactical journey on this exact source.
+The [full standard run 46118611065](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611065)
+subsequently passed its source, native, Wasm, frontend, browser, clean DTR
+consumer, S14/million-cell installed and official Ledger/Index jobs. Its
+separately named `BLOCKED production inventory (not a pass)` job records
+the production authority boundary. The optional feature stays disabled in
+the Rules20 release candidate pending a separately qualified combined
+backend and compatible frontend decision.
+
+## Independent qualification disposition, 28 November
+
+All three complete hosted workflows passed on the same published source
+`21a35f7643611fd947ffe6a0bf431874c2387ed8`: [standard
+46118611065](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611065),
+[financial 46118611068](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611068)
+and [developer/prelaunch
+46118611056](https://github.com/aodl/balls-2-the-wallz/actions/runs/46118611056).
+The exact optional backend and 91-asset frontend hashes are retained in the
+[concise qualification manifest](CERTIFIED_BURN_QUALIFICATION_2026-11-28.json).
+The backend uses replicated self-status sampling with no fixed offset and
+no extra gameplay publication. The 12-sample active Trickle estimate differs
+from settled management by **0.331%** under the predeclared **5%** target;
+the held-Index case retains its two in-flight samples across an 82.597B
+refund and differs by **1.332%**; the 119-publication Full Speed burst
+differs by **0.050%**. Matched enabled-versus-disabled cost is
+**5,007,780,576 cycles/day** for the tested hour. Paused, dormant, empty,
+protection, identified credit, external top-up, restart and prolonged
+unavailable cases retain their documented stale/discontinuity semantics.
+Unknown external credits are not inferred, so the displayed figure remains
+an approximate settled **net** balance decline, never gross expenditure.
+
+This qualifies the optional Rules19-lineage capability and its maintained
+composed/direct-root consumers in disposable fixtures. It is **not** a
+qualified Rules20 plus telemetry executable: the Rules20 release pins a
+newer DTR recovery coordinator, uses a direct root and has its own frozen
+frontend. A combined backend and compatible frontend need deliberate
+integration, exact artifacts and full requalification before any later
+production decision. The optional feature remains disabled in the
+published Rules20 profile.

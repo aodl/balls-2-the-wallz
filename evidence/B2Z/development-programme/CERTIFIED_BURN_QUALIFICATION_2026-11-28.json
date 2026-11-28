@@ -1,0 +1,52 @@
+{
+  "scope": "Independent disposable optional certified operational burn qualification; not a combined Rules20 release or production installation",
+  "qualified_source": "21a35f7643611fd947ffe6a0bf431874c2387ed8",
+  "exact_optional_backend_raw_wasm_sha256": "076b62a2e82123dccca9e73fa64471e071ed997b556cde6a0b07a42103910edd",
+  "exact_frontend_raw_wasm_sha256": "daec27efd156dae92fa5555a8db41d9a6f061a257e69218cf08827e53fd1b0c9",
+  "frontend_assets": 91,
+  "frontend_inventory_sha256": "bae4e396b08f29dc4dee3c76d4ece86798b8ef95c37d8151c14e241150c71e48",
+  "hosted_runs": {
+    "standard": {
+      "id": 46118611065,
+      "result": "PASS"
+    },
+    "financial": {
+      "id": 46118611068,
+      "result": "PASS"
+    },
+    "developer_prelaunch": {
+      "id": 46118611056,
+      "result": "PASS",
+      "live_composed_direct_browser_agent_receipt": "PASS"
+    }
+  },
+  "measurements": {
+    "active_trickle": {
+      "samples": 12,
+      "certified_cycles_per_day": "395616770762",
+      "settled_cycles_per_day": "396930222070",
+      "relative_difference_percent": 0.331,
+      "predeclared_target_percent": 5
+    },
+    "held_index": {
+      "in_flight_samples": 2,
+      "refund_cycles": "82596503047",
+      "certified_cycles_per_day": "396091703106",
+      "settled_cycles_per_day": "401439447240",
+      "relative_difference_percent": 1.332
+    },
+    "full_speed": {
+      "publications_in_120_seconds": 119,
+      "certified_cycles_per_day": "1599936282174",
+      "settled_cycles_per_day": "1600732361851",
+      "relative_difference_percent": 0.05
+    },
+    "matched_incremental_cycles_per_day": "5007780576",
+    "additional_gameplay_publications": 0,
+    "observation_query_cycles_per_100": 1566000
+  },
+  "limitation": "Approximate settled net-balance decline; unknown external credits can understate gross expenditure.",
+  "rules20_combined_release_qualified": false,
+  "normal_rules20_profile_enabled": false,
+  "production_inventory": "BLOCKED, not a pass"
+}
