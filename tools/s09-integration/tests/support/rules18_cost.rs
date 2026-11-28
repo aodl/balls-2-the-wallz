@@ -5391,6 +5391,19 @@ fn certified_operational_burn_roundtrip() {
     );
     let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
     compact_cutover(&pic, id, ledger, &compact, &out);
+    if dormant_world || empty_world {
+        // Idle worlds require an admitted input to publish the predecessor
+        // interval. This underpriced disposable payment creates no Cannon.
+        let position = transfer_text(&pic, ledger, payer, id, 1_000_000, b"NEW 0 1");
+        for _ in 0..180 {
+            if status(&pic, id).source.admitted_to_exclusive > position {
+                break;
+            }
+            advance(&pic, 1000);
+        }
+        assert!(status(&pic, id).source.admitted_to_exclusive > position);
+    }
+    playability_installed::one_tick(&pic, id);
     upgrade_during_recovery(&pic, id, &bytes("B2Z_BURN_PRIOR_WASM")).unwrap();
     let witness = |name: &str| {
         let reply = pic
@@ -5951,6 +5964,7 @@ fn certified_operational_burn_live_consumers() {
     );
     let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
     compact_cutover(&pic, id, ledger, &compact, &out);
+    playability_installed::one_tick(&pic, id);
     let prior = bytes("B2Z_BURN_PRIOR_WASM");
     upgrade_during_recovery(&pic, id, &prior).unwrap();
     let candidate = bytes("B2Z_BURN_CANDIDATE_WASM");
@@ -6081,6 +6095,7 @@ fn certified_operational_burn_matched_cost() {
             seed("two_ball").encode().unwrap(),
         );
         compact_cutover(&pic, id, ledger, &compact, &case_out);
+        playability_installed::one_tick(&pic, id);
         upgrade_during_recovery(&pic, id, module).unwrap();
         activate_rules20_for_burn(&pic, id);
         let _: Status = get_result(
