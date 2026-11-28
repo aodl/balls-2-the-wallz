@@ -577,3 +577,7 @@ unit test does not model a complete paid-world lifecycle; installed Ball
 destruction and genuine structure destruction remain distinct qualification
 gates. This additional test is locally committed while the current hosted
 runs complete; it requires a later exact-source hosted run after publication.
+The complete local `tools/check.py source` run on the locally committed
+continuation passed under
+`.work/rules19-recovery/source-after-passage-cleanup-1/`, including all Node
+tests, source structure, documentation links and Python tool tests.
