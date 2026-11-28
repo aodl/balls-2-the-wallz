@@ -5392,9 +5392,9 @@ fn certified_operational_burn_roundtrip() {
     let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
     compact_cutover(&pic, id, ledger, &compact, &out);
     if dormant_world || empty_world {
-        // Idle worlds require an admitted input to publish the predecessor
-        // interval. This underpriced disposable payment creates no Cannon.
-        let position = transfer_text(&pic, ledger, payer, id, 1_000_000, b"NEW 0 1");
+        // An input aimed at a nonexistent Cannon lets the idle predecessor
+        // publish an interval without introducing game work for measurement.
+        let position = transfer_text(&pic, ledger, payer, id, 1_000_000, b"FIRE 999999 0 1");
         for _ in 0..180 {
             if status(&pic, id).source.admitted_to_exclusive > position {
                 break;
@@ -5404,6 +5404,9 @@ fn certified_operational_burn_roundtrip() {
         assert!(status(&pic, id).source.admitted_to_exclusive > position);
     }
     playability_installed::one_tick(&pic, id);
+    if dormant_world || empty_world {
+        assert!(arena_world(&pic, id).balls.is_empty());
+    }
     upgrade_during_recovery(&pic, id, &bytes("B2Z_BURN_PRIOR_WASM")).unwrap();
     let witness = |name: &str| {
         let reply = pic

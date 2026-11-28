@@ -249,7 +249,7 @@ jobs:
             --prior .work/rules19-installed.wasm --world .work/rules19-paid-world.bin
             --artifacts /home/runner/dtr-s09-artifacts)
           cargo build --manifest-path tools/s14-index-fixture/Cargo.toml --release --target wasm32-unknown-unknown --locked --offline
-          cargo build --manifest-path tools/cmc-funding-fixture/Cargo.toml --release --target wasm32-unknown-unknown --locked --offline
+          gzip -dc vendor/b2z/cmc-funding-fixture-d336165b.wasm.gz > .work/cmc-funding-fixture.wasm
           run_case() {
             local name="$1" module="$2"
             shift 2
@@ -263,7 +263,7 @@ jobs:
           run_case dormant "$exact" --phase-ms 17321 --dormant-world
           run_case empty "$exact" --phase-ms 17321 --empty-world
           run_case outage "$exact" --phase-ms 47777 --long-outage
-          run_case credit "$exact" --phase-ms 47777 --treasury-credit --cmc "$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/cmc_funding_fixture.wasm"
+          run_case credit "$exact" --phase-ms 47777 --treasury-credit --cmc .work/cmc-funding-fixture.wasm
           run_case protection .work/combined-prelaunch-probe.wasm --phase-ms 47777 --reserve-protection
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
         if: always()
