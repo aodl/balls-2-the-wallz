@@ -18,7 +18,8 @@ export function decodeBurnRecord(record,certifiedAt){
  const stale=quality===3||certifiedAt-end>12n*MINUTE;
  const kind=stale?'stale':quality===1?'preliminary':'established';
  return {quality:kind,cyclesPerDay:perDay,sampleCount,startNs:start,endNs:end,
-  detail:'Certified settled net estimate. '+(stale?'Last valid measurement is stale.':kind==='preliminary'?'Preliminary window.':'Established rolling window.')};
+  detail:`${span/MINUTE}-minute sample window ending ${(certifiedAt-end)/MINUTE} minutes before certification. Approximate settled net balance decline. `+
+   (stale?'Last valid measurement is stale.':kind==='preliminary'?'Preliminary estimate.':'Established estimate.')};
 }
 
 export async function bindOperationalBurn(publication,record,claim){

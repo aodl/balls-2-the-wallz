@@ -29,7 +29,7 @@ export function cycleReadout(value){
  const fullRate=typeof burn?.cyclesPerDay==='bigint'&&burn.cyclesPerDay>=0n?formatCycles(burn.cyclesPerDay):null;
  const rate=fullRate?'~'+fullRate.replace(/\.\d{2}(?=[TBM]$)/,'')+'/d':'';
  let detail='Cycle data temporarily unavailable';
- if(balance===null&&rate)detail=`Certified approximate net-balance burn: ~${fullRate}/day. Total cycle balance unavailable.`;
+ if(balance===null&&rate)detail=`Certified approximate net-balance burn: ~${fullRate}/day. Total cycle balance unavailable. ${burn.detail}`;
  if(balance!==null){
   detail='Management total cycles. Certified daily burn is unavailable on this backend.';
   if(rate)detail=`Management total cycles. Certified approximate net-balance burn: ~${fullRate}/day. ${burn.detail}`;
