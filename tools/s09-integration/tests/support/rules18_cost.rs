@@ -2164,12 +2164,19 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
 
     // Positive route: the same durable obstructed journal, without test_apply
     // or input mutation, crosses the authenticated DTR recovery boundary.
-    let _: Vec<u8> = get_result(
+    let first_preparation: Vec<u8> = get_result(
         &pic,
         id,
         "prepare_rules19_recovery",
         encode_args(()).unwrap(),
     );
+    let identical_preparation: Vec<u8> = get_result(
+        &pic,
+        id,
+        "prepare_rules19_recovery",
+        encode_args(()).unwrap(),
+    );
+    assert_eq!(identical_preparation, first_preparation);
     let mut recovery_ready = false;
     for _ in 0..180 {
         advance(&pic, 1000);
@@ -2285,6 +2292,24 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
     );
     let recovery_commit_after_cycles = pic.cycle_balance(id);
     let (recovered_observation, recovered_publication) = capture(&pic, id, &out, 1);
+    let conflicting_retry = pic
+        .update_call(
+            id,
+            controller(),
+            "commit_rules19_recovery",
+            candid::encode_one("00".repeat(32)).unwrap(),
+        )
+        .unwrap();
+    assert_eq!(
+        decode_one::<Result<Vec<u8>, String>>(&conflicting_retry)
+            .unwrap()
+            .unwrap_err(),
+        "conflicting Rules19 recovery retry"
+    );
+    assert_eq!(
+        observe(&pic, id).0.publication,
+        recovered_observation.publication
+    );
     assert_eq!(recovered_publication.version, 10);
     assert_eq!(recovered_publication.epoch.as_ref().unwrap().version, 4);
     assert_eq!(

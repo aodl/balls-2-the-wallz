@@ -753,3 +753,10 @@ boundary. These are immediate disposable debits; pending-input retirement,
 source reconciliation and ongoing operation are separate. The exact pairs
 of before/after balances are in
 `evidence/B2Z/development-programme/RULES20_RELEASE_BUDGET_2026-11-28.json`.
+The original two-input installed obstruction passed once more with an
+identical preparation retry and a conflicting post-commit manifest retry.
+The former retained the same prepared operation; the latter failed without
+changing the committed recovery publication. Raw evidence is under
+`.work/rules19-recovery/installed-retry-1/` (208.993 seconds). Generic
+DTR sealed and unreserved recovery tests independently reject a tampered
+pending root without modifying committed state.

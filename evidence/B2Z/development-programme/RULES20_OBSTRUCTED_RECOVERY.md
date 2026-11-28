@@ -432,5 +432,17 @@ first invocation used an absent local candidate path and failed before a
 disposable test began; it is retained under `unauthorized-recovery-1/`.
 This strengthens controller-fence acceptance without changing the backend
 module. The complete local source suite also passed under
-`.work/rules19-recovery/source-after-installed-cases-1/`. Pending-input
-tamper and broader lifecycle adversarial cases remain release gates.
+`.work/rules19-recovery/source-after-installed-cases-1/`. Broader lifecycle
+adversarial cases remain release gates.
+
+The exact original two-input obstruction passed again with additional
+controller retry assertions under `.work/rules19-recovery/installed-retry-1/`
+(208.993 seconds). Repeating recovery preparation returned the identical
+prepared operation. A stale predecessor manifest was rejected before
+commitment; after the authenticated boundary, a conflicting manifest retry
+was rejected while the committed recovery publication stayed byte identical.
+The exact identical commitment retry remained idempotent, both original
+inputs retired once under Rules19 policy, and independent successor replay
+passed. DTR's separate sealed and unreserved generic tests reject a
+tampered pending root atomically; direct mutation of a paid canister's
+stable inbox is outside the maintained controller interface.

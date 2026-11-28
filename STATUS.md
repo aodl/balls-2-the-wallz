@@ -123,8 +123,11 @@ admits that identified error without relaxing ordinary transitions. Exact
 independent replay passed. A separate installed case sent a genuine later
 Join while recovery was prepared. It remained behind the authenticated
 old-policy fence and applied once after ordinary Rules20 activation, with
-exact independent public replay. Remaining mutation and lifecycle
-interruption cases are release gates. The earlier source
+exact independent public replay. Additional lifecycle interruption cases
+remain release gates. Generic DTR recovery already rejects
+tampered pending roots; an installed two-input rerun also passed identical
+preparation and commitment retries and rejected a conflicting post-commit
+manifest without changing publication. The earlier source
 `95a439e3` passed [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043400),
 [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043269)
 and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043439)
