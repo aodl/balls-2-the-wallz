@@ -1,0 +1,64 @@
+{
+  "scope": "Rules20 production review candidate; no production installation authorization",
+  "b2z_source": "995bbb962c3fe01da98775bbadffc2ba7491f4d1",
+  "b2z_tree": "2a26b2ec7f21b577da3215b287a855d362a512fe",
+  "dtr_source": "1c7fa8b3bd2c3973a9dc6525b2fe8bb744f21e2e",
+  "dtr_package_version": "0.16.0",
+  "locked_input_sha256": {
+    "Cargo.lock": "1af7c1ca769bda7de699ffb26904f56fbe9bb45436445f542d27754d1394f54d",
+    "native/Cargo.lock": "83c1d83b41f544bf6f2be0a338c0244906c02120850cb41fc27ea2e2eca07d96",
+    "canisters/runtime-lab/Cargo.lock": "ae55a474a6b447918c6981fa9cc0ca7fc3458a563ee4d0bb7ae69da1babb9c12",
+    "tools/s09-integration/Cargo.lock": "65609284a76ccf0683abfb9d2e2cdbfb272d9e360d98389e0187169190bc01b1",
+    "tools/fixtures/dtr-consumer-rust/Cargo.lock": "660e4604a184f888d704ff48980a0641c80b13eb72cbc64f23c8fb84de5167ad",
+    "package-lock.json": "4e69f5532248cf0b684ad945f308260b7e9a5ea6a3d83823fed6bf41062efd5f",
+    "vendor/dtr/dtr-timeline-runtime-0.16.0.tgz": "c19e6e31db3f56aed51c693b3ce1413c2887ec5fdb8c1d9f6fee3f3a76342f22"
+  },
+  "executables": {
+    "installed_rules19_backend": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "installed_manufacturing_frontend": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+    "rules20_capped_trickle_backend": "5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18",
+    "rules20_public_frontend": "c029a5b5d52ba132dcc8981e98bf5445218cc75075a4dea8e6b37c5b6da2fc6c"
+  },
+  "interfaces": {
+    "runtime_prelaunch_did": "bd76d4b63c1987a5f64de187d4b779379cb86ad8b1392fe89b8255bee2b9f815",
+    "runtime_public_did": "07e00f7484e24dfd498d9bcb4322db44a54f9e3bbdc6f37420fca56058249ae9",
+    "frontend_did": "9c5d4382d7dc279ab1fbd63de66311e3d9a38bc7e2562501861701b26f60c141"
+  },
+  "frontend_embedded_inventory_sha256": "757d8b5703ece0d82ca199c20adaf22a6bf3e02fa317803c845c5228fb4d4057",
+  "direct_certification_root": true,
+  "optional_certified_burn_enabled": false,
+  "healthy_path": "ordinary drained Rules19 to Rules20 authenticated transition",
+  "obstructed_path": "authenticated Rules19-recovery checkpoint; exact old-policy prefix; ordinary Rules20 transition",
+  "post_boundary_recovery_executable": "same exact Rules20 candidate backend and frontend",
+  "hosted_workflows": {
+    "standard": 46115172981,
+    "financial": 46115172970,
+    "developer_prelaunch": 46115172920,
+    "status": "standard PASS; financial PASS; developer/prelaunch PASS with 28 named installed cases"
+  },
+  "hosted_frontend_artifact": {
+    "run": 46115172981,
+    "raw_sha256": "c029a5b5d52ba132dcc8981e98bf5445218cc75075a4dea8e6b37c5b6da2fc6c",
+    "module_json_sha256": "b378344f89238bd4edea7894b8733584172b570a0180c8d9ae08e86dfe11a994",
+    "embedded_inventory_sha256": "757d8b5703ece0d82ca199c20adaf22a6bf3e02fa317803c845c5228fb4d4057",
+    "public_assets": 91
+  },
+  "hosted_backend_artifact": {
+    "run": 46115172920,
+    "raw_sha256": "5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18",
+    "prelaunch_candid_sha256": "bd76d4b63c1987a5f64de187d4b779379cb86ad8b1392fe89b8255bee2b9f815",
+    "installed_cases": 28,
+    "all_installed_cases_pass": true
+  },
+  "retained_pre_boundary_sources": {
+    "rules19_backend_release": "https://github.com/aodl/balls-2-the-wallz/releases/tag/production/europe-rules19-prelaunch-trickle",
+    "manufacturing_frontend_release": "https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-prelaunch-frontend-manufacturing-2026-11-26"
+  },
+  "post_boundary_recovery": {
+    "backend_same_executable_sha256": "5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18",
+    "frontend_same_executable_sha256": "c029a5b5d52ba132dcc8981e98bf5445218cc75075a4dea8e6b37c5b6da2fc6c",
+    "frontend_origin": "https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io",
+    "backend_canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "frontend_canister": "s2jxj-liaaa-aaaas-amynq-cai"
+  }
+}

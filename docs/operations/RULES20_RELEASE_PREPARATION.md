@@ -10,11 +10,11 @@ manufacturing build at the permanent
 | --- | --- | --- |
 | Installed Rules19 backend | `b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90` | Current paid state; valid rollback only before the first durable Rules19 recovery or Rules20 transition boundary. |
 | Installed manufacturing frontend | `1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5` | Immediate frontend rollback candidate before backend identity changes, subject to a fresh same-ID preflight. |
-| Rules20 capped-Trickle backend candidate | `5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18` | Published B2Z `adc5a8e1`, pinned DTR 0.16.0 at `1c7fa8b3bd2c3973a9dc6525b2fe8bb744f21e2e`; 27 named installed cases PASS in developer run 46101370397. The same executable supports the dedicated obstructed Rules19 recovery epoch and subsequent Rules20 identity. |
-| Rules20 public frontend candidate | `c029a5b5d52ba132dcc8981e98bf5445218cc75075a4dea8e6b37c5b6da2fc6c` | Published B2Z `adc5a8e1`; 91 public assets and matching independent build. It must be retained as its own recovery executable after a Rules20 backend boundary. |
+| Rules20 capped-Trickle backend candidate | `5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18` | Frozen B2Z `995bbb962c3fe01da98775bbadffc2ba7491f4d1`, pinned DTR 0.16.0 at `1c7fa8b3bd2c3973a9dc6525b2fe8bb744f21e2e`; all 28 named installed cases PASS in developer run 46115172920. The same executable supports the dedicated obstructed Rules19 recovery epoch and subsequent Rules20 identity. |
+| Rules20 public frontend candidate | `c029a5b5d52ba132dcc8981e98bf5445218cc75075a4dea8e6b37c5b6da2fc6c` | Frozen B2Z `995bbb962c3fe01da98775bbadffc2ba7491f4d1`; 91 public assets and matching independent build. It must be retained as its own recovery executable after a Rules20 backend boundary. |
 
-The backend candidate and frontend candidate above are downloadable from the
-named hosted runs; neither has been installed or declared a final release.
+The backend and frontend above were retrieved from the named hosted runs,
+rehash-verified and published in the [frozen candidate](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-recovery-2026-11-28). All release assets were downloaded again and passed `SHA256SUMS`. Neither module has been installed on production.
 The generated public Candid interface is
 `canisters/runtime-lab/runtime-lab.did` (SHA-256
 `07e00f7484e24dfd498d9bcb4322db44a54f9e3bbdc6f37420fca56058249ae9`).
@@ -73,16 +73,16 @@ pending-input execution, source reconciliation and ongoing play. Retain
 separate live installation and recovery headroom, freezing and operating
 preflight before any authorized production action. [Exact measurements](../../evidence/B2Z/development-programme/RULES20_RELEASE_BUDGET_2026-11-28.json).
 
-Source `adc5a8e1` passed standard, financial and developer
-workflows. The identified obstruction's recovery, passage lifecycle,
-checkerboard corner and authenticated tariff gates now pass locally. The
-continuation has **28 named
-installed cases**, including positive prepared-arrival recovery and
-interrupted eligible, Cannon and Diverter corner routes plus paid construction
-over simultaneous overlapping Balls and genuine corridor-capture annihilation
-cleanup of a paid Diverter and its passage row. These later cases
-require exact-source hosted qualification before any final freeze. The
-complete 28-row local corner public-output matrix passed both implementations.
+Frozen source `995bbb962c3fe01da98775bbadffc2ba7491f4d1` passed
+financial run 46115172970 and developer/prelaunch run 46115172920;
+the latter executed **all 28 named installed cases**. The final standard
+run 46115172981 passed its source, native, Wasm, browser, clean DTR
+consumer and installed-IC jobs.
+The reviewed cases include positive obstructed recovery, prepared-arrival
+and interrupted work, initial passage over multiple existing Balls,
+paid structure destruction and corridor-capture cleanup, exact corner
+resolution across both seams, and genuine authenticated tariff payments.
+The 28-row local corner public-output matrix passed both implementations.
 
 One disposable same-ID frontend rehearsal used the exact installed
 manufacturing module and the public Rules20 candidate. It certified all 91
