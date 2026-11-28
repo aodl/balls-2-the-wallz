@@ -16,8 +16,9 @@ The ordinary drained transition committed at segment **20,079**, preserving
 **108,100,000 e8s** received and source frontier **40,647,923**. Capped
 Trickle resumed at 15:33:26 UTC at **0.01 ticks/s**. The exact combined
 pair is the post-boundary recovery software. The owner UI remains
-available. The heap-only application binding awaits the verified owner
-principal, and Full Speed is inactive.
+available. The controller restored the previously verified owner binding
+at 17:09:52 UTC. Full Speed remains inactive. Real Internet Identity
+sign-in is an owner acceptance task.
 
 At 16:34:35 UTC, the backend held **1.724T
 liquid cycles** and the frontend held **0.580T

@@ -40,8 +40,8 @@ The capped-Trickle declaration matches its generated interface byte for
 byte. The public declaration retains its frozen frontend asset bytes; its
 generated comparison differs only in comment placement. The hosted developer
 workflow regenerates and compares the capped-Trickle declaration.
-The exact installed manufacturing frontend remains the immediate same-ID
-rollback for a frontend-only change while Rules19 is still the backend. A
+The manufacturing frontend was the immediate same-ID rollback while
+Rules19 was installed. A
 Rules19-only frontend is not an acceptable recovery target after a Rules20
 backend identity is committed. The optional certified burn feature remains
 disabled in this backend candidate, so publication uses the direct root.
