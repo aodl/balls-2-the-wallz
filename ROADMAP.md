@@ -74,8 +74,13 @@ settled management without publishing gameplay. A dormant zero-Ball world
 held its game publication and measured within 0.414% of settled management.
 An empty player-free world at a third Index phase held its publication and
 measured within 0.426% of settled management. Confirm broader overlapping
-checkpoint and Index schedules and the compatible optional release profile.
+checkpoint and Index schedules, then qualify the optional normal profile
+through its remaining hosted gates.
 The held-Index evidence already includes 27 advancing game heads and two
 meter samples during an in-flight source call.
+The exact no-test-hooks optional prelaunch executable passed export identity,
+an installed 0.331%-error settled hour and direct/composed maintained-agent
+consumption. Matched incremental cost was 5.030B cycles/day; its exact-module
+hosted browser gate remains pending.
 Unknown external credits remain an explicit measurement limitation.
 The capability remains disabled and is independent of the authorization repair.

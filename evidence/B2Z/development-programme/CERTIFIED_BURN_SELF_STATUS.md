@@ -457,3 +457,39 @@ decline, a **1.33%** relative difference under the predeclared 5% target.
 No sample was removed or corrected. This establishes the reservation and
 refund behavior at two distinct timer phases; it does not establish every
 possible overlap schedule or reconstruct unknown external credits.
+
+## Optional normal executable, 28 November
+
+The pinned Rules19 telemetry source built with the ordinary
+`prelaunch-trickle,certified-operational-burn` feature set, committed locks
+and no test hooks. The raw executable SHA-256 is
+`3bb76656d3c903e858c9b9e373d9baab311b930e0dcb78d19a5807ff5e78376d`.
+Its complete exported interface matched the installed prelaunch profile;
+there are no synthetic test exports. A genuine disposable same-ID upgrade at
+the 32.321-second Index phase established **395,639,123,935 cycles/day**
+versus **396,952,610,797 cycles/day** of matched settled management decline,
+a **0.331%** difference. Raw results are under
+`.work/burn-balance-probe/optional-normal-phase-32321-1/`.
+
+The maintained agent consumed this exact normal executable on a live
+disposable canister with composed and direct certification roots; both legs
+passed under `.work/burn-balance-probe/optional-normal-agent-1/`. The local
+browser launcher remains blocked by its unchanged sandbox policy in this
+host. The hosted developer workflow has been prepared to run the maintained
+browser against this exact no-test-hooks executable and publish its raw Wasm,
+hash and interface inventory. That new exact-source run is still required.
+Matched 60-minute ordinary Trickle on this exact module measured
+**408,298,851,408 cycles/day** enabled versus **403,268,643,768
+cycles/day** disabled, an incremental **5,030,207,640 cycles/day**.
+Each leg had 30 game publications, 30 game callbacks and 60 Index calls;
+the certified lane uses the existing source fallback timer and at most
+one replicated self-status call plus callback every five minutes. Its
+versioned operational record is 35 bytes in a separate stable slot; changed
+samples update the composed certificate root without another gameplay
+publication. One hundred observation queries cost 1,566,000 cycles in
+both measured legs. The feature-enabled module was 31,489 bytes larger;
+the measured runtime memory difference also includes code, heap and stable
+storage, so it is not an isolated storage charge. Raw matched evidence is
+under `.work/burn-balance-probe/optional-normal-cost-1/`.
+The feature remains disabled in ordinary release profiles and is not part
+of the Rules20 backend candidate.

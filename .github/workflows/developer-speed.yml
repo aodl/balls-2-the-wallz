@@ -183,12 +183,14 @@ jobs:
           unzip -p .work/rules19-installed-release.zip prelaunch-trickle.wasm > .work/rules19-installed.wasm
           printf '%s  %s\n' b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90 .work/rules19-installed.wasm | sha256sum --check
           export CARGO_TARGET_DIR="$PWD/.work/dev-target"
-          cargo build --manifest-path canisters/runtime-lab/Cargo.toml --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle,certified-operational-burn,test-hooks
-          cp "$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm" .work/certified-burn-test.wasm
-          sha256sum .work/certified-burn-test.wasm > .work/certified-burn-test.sha256
+          cargo build --manifest-path canisters/runtime-lab/Cargo.toml --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle,certified-operational-burn
+          cp "$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm" .work/certified-burn-normal.wasm
+          python -B tools/check_prelaunch_wasm.py prelaunch-trickle .work/certified-burn-normal.wasm > .work/certified-burn-normal-interface.json
+          printf '%s  %s\n' 3bb76656d3c903e858c9b9e373d9baab311b930e0dcb78d19a5807ff5e78376d .work/certified-burn-normal.wasm | sha256sum --check
+          sha256sum .work/certified-burn-normal.wasm > .work/certified-burn-normal.sha256
           python -B tools/run_certified_burn_live.py \
             --profile .work/rules19-profile.wasm --compact .work/prelaunch-trickle.wasm \
-            --prior .work/rules19-installed.wasm --candidate .work/certified-burn-test.wasm \
+            --prior .work/rules19-installed.wasm --candidate .work/certified-burn-normal.wasm \
             --world .work/rules19-paid-world.bin --artifacts /home/runner/dtr-s09-artifacts \
             --browser-python "$(command -v python)" --output .work/ci-certified-burn-live
       - uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02
@@ -219,7 +221,9 @@ jobs:
             .work/ci-dev-rules18/deployment/reservoir/developer-speed-certified-frontend.json
             .work/ci-dev-rules18/deployment/reservoir/authenticated/result.json
             .work/ci-dev-rules18/logs/**
-            .work/certified-burn-test.sha256
+            .work/certified-burn-normal.wasm
+            .work/certified-burn-normal.sha256
+            .work/certified-burn-normal-interface.json
             .work/ci-certified-burn-live/results.json
             .work/ci-certified-burn-live/logs/**
             .work/ci-certified-burn-live/evidence/*.json
