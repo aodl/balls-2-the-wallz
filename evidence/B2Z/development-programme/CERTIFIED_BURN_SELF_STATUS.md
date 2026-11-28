@@ -376,3 +376,41 @@ browser PASS; the hosted browser HTTP/Web Crypto and separate live consumer
 gates supply their own positive evidence. The newer locally committed
 ReserveProtection runner and second-phase measurements require a fresh
 exact-source hosted run after publication.
+
+## Prolonged backend unavailability and paused re-establishment
+
+At the 47.777-second Index phase, a separate disposable run established an
+active Trickle rate, paused gameplay, stopped the backend for **70 virtual
+minutes**, then restarted the same module. The independent certificate
+consumer reported the unchanged prior **396,134,725,986 cycles/day** rate as
+**stale** after restart. A new 12-sample window then established a paused
+rate of **129,916,009,721 cycles/day** versus **129,906,820,007 cycles/day**
+from management balances at the exact certified endpoints, a **0.0071%**
+relative difference. The authoritative game publication stayed unchanged
+through the paused restart and fresh meter samples. Raw results are under
+`.work/burn-balance-probe/long-outage-phase-47777-2/`.
+
+The first attempt under `long-outage-phase-47777-1/` failed an invalid test
+assumption: autonomous gameplay naturally published after a stopped canister
+resumed. Its stale and re-established rates had passed. The second run
+paused gameplay before the outage so publication constancy tests the
+meter rather than normal gameplay. This closes the prolonged unavailable
+sampling and paused restart case; dormant or empty-world operation and
+wider concurrent reservation schedules remain open at that point.
+
+## Dormant zero-Ball world
+
+A separate genuine installed variant used the retained dormant-world seed:
+no Balls, dormant Cannons, and no gameplay publication during the measured
+active-Trickle hour. At the 17.321-second Index phase, the 12-sample
+certified rate was **115,723,113,899 cycles/day** versus
+**116,204,174,332 cycles/day** from matched settled management balances,
+a **0.414%** relative difference under the predeclared 5% tolerance.
+The prior and final game publication hashes were equal. Raw positive
+results are under `.work/burn-balance-probe/dormant-world-phase-17321-2/`.
+The first attempt under `dormant-world-phase-17321-1/` was interrupted by
+the host filesystem filling during PocketIC module serialization and did
+not reach a measurement. The disposable build-cache cleanup restored space
+before the successful rerun. A literally player-free world, broader
+concurrent reservation schedules and a compatible optional release profile
+remain open.

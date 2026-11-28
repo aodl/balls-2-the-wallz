@@ -1402,9 +1402,12 @@ fn certified_operational_burn_roundtrip() {
     }
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
+    let dormant_world = std::env::var_os("B2Z_BURN_DORMANT_WORLD_PROBE").is_some();
     let (pic, id, ledger, payer) = arena_setup_world(
         bytes("B2Z_COST_PROFILE_WASM"),
-        seed("two_ball").encode().unwrap(),
+        seed(if dormant_world { "idle" } else { "two_ball" })
+            .encode()
+            .unwrap(),
     );
     let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
     compact_cutover(&pic, id, ledger, &compact, &out);
@@ -1585,7 +1588,11 @@ fn certified_operational_burn_roundtrip() {
         )
         .unwrap();
     }
-    assert_ne!(active["publication"], prior["publication"]);
+    if dormant_world {
+        assert!(arena_world(&pic, id).balls.is_empty());
+    } else {
+        assert_ne!(active["publication"], prior["publication"]);
+    }
     assert_eq!(active["burn"]["quality"], "established");
     let certified = active["burn"]["cyclesPerDay"]
         .as_str()
@@ -1636,6 +1643,53 @@ fn certified_operational_burn_roundtrip() {
         certified.abs_diff(external_rate) * 100 <= external_rate * 5,
         "certified {certified} versus settled management {external_rate} cycles/day"
     );
+    let long_outage = if std::env::var_os("B2Z_BURN_LONG_OUTAGE_PROBE").is_some() {
+        assert!(!status(&pic, id).source.scan_in_flight);
+        pause(&pic, id);
+        let paused_publication = observe(&pic, id).0.publication;
+        let old_end = active["burn"]["endNs"].clone();
+        let old_rate = active["burn"]["cyclesPerDay"].clone();
+        pic.stop_canister(id, Some(controller())).unwrap();
+        advance(&pic, 70 * 60_000);
+        pic.start_canister(id, Some(controller())).unwrap();
+        let resumed = witness("long-outage-resumed");
+        assert_eq!(resumed["burn"]["quality"], "stale");
+        assert_eq!(resumed["burn"]["endNs"], old_end);
+        assert_eq!(resumed["burn"]["cyclesPerDay"], old_rate);
+        let mut samples = Vec::new();
+        for minute in 1..=70 {
+            advance(&pic, 60_000);
+            if minute % 5 == 0 {
+                let verified = witness(&format!("long-outage-{minute:02}"));
+                samples.push(json!({"minute":minute,
+                    "cycles":pic.canister_status(id, Some(controller())).unwrap().cycles.to_string(),
+                    "verified":verified}));
+            }
+        }
+        let recovered = witness("long-outage-reestablished");
+        assert_eq!(recovered["burn"]["quality"], "established");
+        assert_ne!(recovered["burn"]["endNs"], old_end);
+        let start = recovered["burn"]["startNs"].as_str().unwrap();
+        let end = recovered["burn"]["endNs"].as_str().unwrap();
+        let balance_at = |endpoint: &str| {
+            samples.iter().find(|row| row["verified"]["burn"]["endNs"].as_str() == Some(endpoint))
+                .expect("matched resumed rolling-window management endpoint")["cycles"]
+                .as_str().unwrap().replace('_', "").parse::<u128>().unwrap()
+        };
+        let span = end.parse::<u128>().unwrap() - start.parse::<u128>().unwrap();
+        let settled = (balance_at(start) - balance_at(end)) * 86_400_000_000_000u128 / span;
+        let reported = recovered["burn"]["cyclesPerDay"].as_str().unwrap().parse::<u128>().unwrap();
+        assert!(reported.abs_diff(settled) * 100 <= settled * 5,
+            "resumed certified {reported} versus settled management {settled} cycles/day");
+        assert_eq!(resumed["publication"], dtr_wire::hash(&paused_publication));
+        assert_eq!(recovered["publication"], resumed["publication"]);
+        std::fs::write(out.join("long-outage-samples.json"), serde_json::to_vec_pretty(&samples).unwrap()).unwrap();
+        json!({"stale_after_70_minute_stop":resumed["burn"],
+            "reestablished":recovered["burn"],
+            "external_settled_cycles_per_day":settled.to_string()})
+    } else {
+        Value::Null
+    };
     let held_index = if std::env::var_os("B2Z_BURN_HELD_INDEX_PROBE").is_some() {
         assert!(
             !slow_index,
@@ -1863,6 +1917,8 @@ fn certified_operational_burn_roundtrip() {
     };
     std::fs::write(out.join("result.json"), serde_json::to_vec_pretty(&json!({
         "status":"PASS","index_phase_ms":index_phase_ms,"slow_index":slow_index,
+        "dormant_world":dormant_world,
+        "long_outage":long_outage,
         "partial":partial,"full":full,"stale":stale,"active":active,
         "external_settled_cycles_per_day":external_rate.to_string(),"reserve_protection":protected,
         "treasury_credit":treasury_credit,"held_index":held_index,"full_speed":full_speed,

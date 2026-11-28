@@ -102,8 +102,11 @@ source `f504ec08` passed hosted
 [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/46086469228)
 and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/46086469194)
 workflows. The maintained live browser
-and agent accepted direct and composed roots. Dormant operation, prolonged
-unavailability, wider concurrent reservations and a compatible release
+and agent accepted direct and composed roots. A 70-minute stopped-backend
+outage became stale and then re-established a paused rate within 0.0071% of
+settled management, without a game publication. A dormant zero-Ball world
+also held its game publication and measured within 0.414% of settled
+management. A literally player-free world, wider concurrent reservations and a compatible release
 profile remain open. Unknown external credits cannot be reconstructed;
 the display is an approximate settled net-balance rate. [Detailed burn
 evidence](evidence/B2Z/development-programme/CERTIFIED_BURN_SELF_STATUS.md)
