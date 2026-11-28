@@ -56,3 +56,13 @@ measurement. Source `adc5a8e1` still awaits its standard workflow conclusion,
 and additional installed construction-destruction, corner and adversarial
 recovery acceptance remains open. The local continuation after `adc5a8e1`
 also requires exact-source hosted qualification before any final freeze.
+
+One disposable same-ID frontend rehearsal used the exact installed
+manufacturing module and the public Rules20 candidate. It certified all 91
+assets and 28 alternate routes before upgrade, after upgrade and after
+recovery. PocketIC debited **184,608,842,985 cycles** for installation and
+**185,524,918,518 cycles** to restore the manufacturing executable. Raw
+results are under `.work/rules19-recovery/frontend-budget-1/`. These
+measurements do not replace the fresh settled mainnet cycle and freezing
+preflight or establish frontend recovery compatibility after Rules20 backend
+activation.

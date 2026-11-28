@@ -188,6 +188,9 @@ backend candidate raw Wasm SHA-256 is
 `5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18`.
 The separate reproduced Rules20 public frontend candidate is
 `c029a5b5d52ba132dcc8981e98bf5445218cc75075a4dea8e6b37c5b6da2fc6c`.
+Its disposable same-ID installation over the exact installed manufacturing
+frontend and restoration of that frontend passed certified asset/route checks;
+the respective PocketIC debits were **184.609B** and **185.525B cycles**.
 The [standard workflow](https://github.com/aodl/balls-2-the-wallz/actions/runs/46087123070)
 is still in installed-IC qualification. The newer local continuation passed
 the complete source suite but has not been published or hosted; the

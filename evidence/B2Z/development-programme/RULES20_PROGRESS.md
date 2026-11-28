@@ -609,3 +609,17 @@ Its separate clean-build reproduction reports PASS with the same executable
 SHA-256. This frontend is a distinct candidate from the already installed
 manufacturing frontend. The unfinished standard workflow and release-specific
 compatibility/install budget remain gates before any production proposal.
+
+An existing disposable same-ID frontend upgrade test was then run with the
+**exact installed manufacturing frontend** as its starting and recovery
+module (`1a22f9ac…`) and the hosted Rules20 public frontend (`c029a5b5…`)
+as the candidate. The test passed in 191.63 seconds, certified the installed,
+candidate and recovered module hashes, and checked **91 actual GET/HEAD asset
+responses plus 28 alternate routes** for each state. The measured disposable
+upgrade debit was **184,608,842,985 cycles**; restoring the exact manufacturing
+module cost **185,524,918,518 cycles**. The generic frontend harness was the
+already compiled maintained test in the certified-burn worktree; the exact
+frontend bytes and raw reports were copied to
+`.work/rules19-recovery/frontend-budget-1/`. These are PocketIC measurements,
+not a mainnet cost guarantee or proof that the current manufacturing frontend
+is a safe recovery target after a Rules20 backend identity is activated.
