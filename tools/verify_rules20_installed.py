@@ -20,6 +20,7 @@ CASES = (
     "rules19_partial_stage_recovery",
     "rules19_expired_delegation_recovery",
     "rules19_overdue_lifecycle_barrier_recovery",
+    "rules19_prepared_recovery_later_arrival",
     "rules20_paid_epoch_and_recovery",
     "rules20_paid_construction_over_existing_balls",
     "rules20_paid_passage_restart",

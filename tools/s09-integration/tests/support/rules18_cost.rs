@@ -1726,7 +1726,15 @@ fn rules19_expired_delegation_recovery() {
 #[ignore = "overdue Rules19 lifecycle barrier and pending grant through authenticated recovery"]
 fn rules19_overdue_lifecycle_barrier_recovery() {
     run_rules19_digit_leading_grant_wire_boundary_seed(
-        false, false, false, false, false, false, false, true,
+        false, false, false, false, false, false, false, true, false,
+    );
+}
+
+#[test]
+#[ignore = "later Ledger payment arriving during prepared recovery remains behind its source fence"]
+fn rules19_prepared_recovery_later_arrival() {
+    run_rules19_digit_leading_grant_wire_boundary_seed(
+        false, false, false, false, false, false, false, false, true,
     );
 }
 
@@ -1748,6 +1756,7 @@ fn run_rules19_digit_leading_grant_wire_boundary(
         partial_stage,
         expired_delegate,
         false,
+        false,
     );
 }
 
@@ -1760,12 +1769,14 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
     partial_stage: bool,
     expired_delegate: bool,
     barrier_due: bool,
+    prepared_arrival: bool,
 ) {
     assert!(!revoke_pending || extra_pending);
     assert!(!cross_utc || revoke_pending);
     assert!(!partial_stage || reserved_stage);
     assert!(!expired_delegate || !reserved_stage);
     assert!(!barrier_due || !reserved_stage);
+    assert!(!prepared_arrival || !extra_pending && !barrier_due);
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap());
     std::fs::create_dir_all(&out).unwrap();
     let payer = (0..=u8::MAX)
@@ -2150,6 +2161,24 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
         }
     }
     assert!(recovery_ready, "measured recovery Ledger/Index fence");
+    let precommitted_successor_payment = prepared_arrival.then(|| {
+        let payment = transfer_text(&pic, ledger, third, id, 300_000_000, b"NEW 0 1");
+        assert!(payment > last_old_position);
+        for _ in 0..5 {
+            advance(&pic, 1000);
+        }
+        assert_eq!(status(&pic, id).source.admitted_to_exclusive, last_old_position + 1);
+        assert_eq!(observe(&pic, id).0.publication, prior.publication);
+        let raw: Vec<u8> = get_query(
+            &pic,
+            id,
+            "rules19_recovery_status",
+            encode_args(()).unwrap(),
+        );
+        let view: serde_json::Value = decode(&raw).unwrap();
+        assert_eq!(view["transition"]["phase"], "ready");
+        payment
+    });
     let day_ns = b2z_protocol::economy17::DAY_NS;
     let preparation_utc_day = pic.get_time().as_nanos_since_unix_epoch() / day_ns;
     if cross_utc {
@@ -2305,14 +2334,16 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
     // successor. It must not enter the retained Rules19 execution prefix.
     let expected_other_cannon = arena_world(&pic, id).next_cannon_id;
     let successor_command = format!("FIRE {expected_other_cannon} 0 1");
-    let successor_payment = transfer_text(
-        &pic,
-        ledger,
-        other,
-        id,
-        300_000_000,
-        successor_command.as_bytes(),
-    );
+    let successor_payment = precommitted_successor_payment.unwrap_or_else(|| {
+        transfer_text(
+            &pic,
+            ledger,
+            other,
+            id,
+            300_000_000,
+            successor_command.as_bytes(),
+        )
+    });
     assert!(successor_payment > last_old_position);
     let digit_account = AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex();
     let mut settled = false;
@@ -2913,7 +2944,14 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
         .expect("one later Rules20 receipt");
     assert_eq!(successor_receipt["status"], "applied");
     assert_eq!(successor_receipt["actual_quantity"], 1);
-    assert_eq!(successor_receipt["cannon"], expected_other_cannon);
+    assert_eq!(
+        successor_receipt["cannon"],
+        if prepared_arrival {
+            successor.next_cannon_id
+        } else {
+            expected_other_cannon
+        }
+    );
     assert!(successor_receipt["amount_used"]["$integer"] != "0");
     let expected_later =
         BTreeMap::from([(successor_payment, ("ACCEPTED".into(), 300_000_000, None))]);
@@ -2949,6 +2987,7 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
             "preparation_utc_day":preparation_utc_day,"commit_utc_day":commit_utc_day,
             "cross_utc":cross_utc,"resource_protection_checked":protect,
             "reserved_stage":reserved_stage,"partial_stage":partial_stage,
+            "payment_arrived_during_prepared_recovery":prepared_arrival,
             "expired_delegate":expired_delegate,"expired_payment_position":expired_position,
             "resource_protection_probe_sha256":protect.then(|| dtr_wire::hash(&bytes("B2Z_RULES20_PROTECTION_PROBE_WASM"))),
             "recovery_manifest":recovered_publication.head.manifest_hash,

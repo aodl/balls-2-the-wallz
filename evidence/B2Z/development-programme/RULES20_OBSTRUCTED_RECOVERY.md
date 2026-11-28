@@ -386,3 +386,34 @@ the ordinary transition refusal, and the stale-manifest compare-and-swap.
 They are not positive recovery results. The final fixture uses only the
 actual same-ID upgrade, authenticated recovery and ordinary successor
 transition for the positive path.
+
+## Payment arriving after recovery preparation, 28 November
+
+A separate exact-installed Rules19 disposable case reproduced the valid
+digit-leading grant at Ledger position 3 and an unrelated paid command at
+position 4. Both remained pending after Rules19 publication failed. The
+recovery operation then reached its authenticated `ready` source fence.
+Before committing that boundary, a third payer sent a genuine 3 ICP Join
+payment at position 5. The admitted source cursor stayed at 5 and the old
+publication stayed byte identical while recovery was prepared; the new
+payment did not enter the retained Rules19 prefix.
+
+The controller committed the identified recovery, retired the two old
+inputs in order under Rules19 policy and then committed the ordinary
+Rules20 epoch. The fenced new payment entered at source position 5 only
+after the successor transition, received one applied receipt and created
+its own Cannon. Received value was 208,100,000 e8s at successor activation
+and 508,100,000 e8s after that payment; the source cursor advanced to 6.
+Independent JavaScript replay matched the recovered two-input publication
+and the one-input successor publication, including public state, event and
+score bytes. The installed case **PASS** is under
+`.work/rules19-recovery/prepared-arrival-3/`, using the published backend
+candidate `5c373613320ce733de51da958a1cf16f0e1febc8b788791afe0fc312d7c61a18`.
+
+The first attempt reached the final valid receipt but expected the prior
+payer's Cannon ID for the new payer's Join. The second was interrupted by a
+full local filesystem during PocketIC serialization. Both raw failures are
+retained under `prepared-arrival-1/` and `prepared-arrival-2/`; neither is
+counted as positive evidence. The third passed after correcting the test
+assertion and clearing disposable build caches. Remaining adversarial
+mutation and installed gameplay gates are tracked separately.

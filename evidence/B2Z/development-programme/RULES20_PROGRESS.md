@@ -632,3 +632,16 @@ installed-IC jobs all completed successfully. The local passage-cleanup
 test and updated release procedure are later source; they require a fresh
 exact-source hosted run after publication. The separately listed installed
 destruction, corner and adversarial recovery gates remain release blockers.
+
+The installed prepared-arrival recovery case then passed under
+`.work/rules19-recovery/prepared-arrival-3/`. A genuine post-cutoff 3 ICP
+Join arrived while recovery was `ready`, before the controller committed.
+The source cursor and old publication held at the authenticated fence; two
+Rules19 pending inputs retired in order, the ordinary Rules20 epoch
+committed, and the later payment applied once at position 5 with its own
+Cannon. Independent JavaScript replay matched the recovered and later
+publications. The first run had a wrong test Cannon-ID expectation, and the
+second was interrupted by a full host filesystem; both failures remain raw
+evidence. The correction adds a **23rd named installed case** to the release
+runner. It is local source after `2365ab49` and requires its own hosted
+exact-source qualification.

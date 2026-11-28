@@ -120,8 +120,11 @@ spender under Rules19 policy, preserved its received value, then applied an
 unrelated old-policy payment and a later Rules20 payment. This case exposed
 the overdue lifecycle timer's exact wait error; the exceptional recovery now
 admits that identified error without relaxing ordinary transitions. Exact
-independent replay passed. Additional tamper and arrival combinations remain
-release gates. The earlier source
+independent replay passed. A separate installed case sent a genuine later
+Join while recovery was prepared. It remained behind the authenticated
+old-policy fence and applied once after ordinary Rules20 activation, with
+exact independent public replay. Remaining mutation and lifecycle
+interruption cases are release gates. The earlier source
 `95a439e3` passed [standard](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043400),
 [financial](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043269)
 and [developer/prelaunch](https://github.com/aodl/balls-2-the-wallz/actions/runs/45964043439)
