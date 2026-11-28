@@ -43,7 +43,9 @@
   "runtime_memory_delta_bytes_including_code_heap_and_stable": 8420097,
   "certification_updates": "one composed-root update per changed 35-byte sample; gameplay publication unchanged",
   "telemetry_candid_sha256": "2bad61c6b3e72b1020bad0e480a1bc8f17ff4e40fbd5253cbcf214d99047252d",
-  "ordinary_public_launch_candid_sha256": "f954658e76fd2ec676545ba1edcfc2f410882fce77865de9bf0c69f0c876ef1b",
+  "ordinary_public_launch_candid_sha256": "5df05657f861b399bb7a3b3278f94a6bb3ae67b3b6cb46aa7d1b1bd1f37477d8",
+  "ordinary_generated_public_launch_candid_sha256": "f954658e76fd2ec676545ba1edcfc2f410882fce77865de9bf0c69f0c876ef1b",
   "telemetry_candid_generated_exact_match": true,
-  "ordinary_public_launch_candid_generated_exact_match": true
+  "ordinary_public_launch_candid_generated_exact_match": false,
+  "ordinary_public_launch_candid_difference": "Comment placement only; retained exact frozen embedded frontend asset"
 }

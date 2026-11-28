@@ -469,8 +469,9 @@ there are no synthetic test exports. The feature-specific generated Candid
 matches [the declared optional interface](../../../canisters/runtime-lab/runtime-lab-telemetry.did),
 which adds the optional certified record to `observation` and
 `observation_bundle` without changing the ordinary public-launch service.
-The ordinary declared file received a comment-only generated-order correction;
-both declared services now match their generated files byte for byte.
+The ordinary public declaration retains its frozen frontend asset bytes;
+its generated comparison differs only in comment placement. The optional
+telemetry declaration matches its generated service byte for byte.
 A genuine disposable same-ID upgrade at
 the 32.321-second Index phase established **395,639,123,935 cycles/day**
 versus **396,952,610,797 cycles/day** of matched settled management decline,
