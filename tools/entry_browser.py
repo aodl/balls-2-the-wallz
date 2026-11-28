@@ -49,10 +49,10 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
         old_packet={'memo':page.locator('#text-memo').inner_text(),'amount':page.locator('#transfer-amount').inner_text()}
         assert '|'not in old_packet['memo']and page.locator('#war-cry-editor').is_hidden()
         # The visible button can briefly precede the separate latest-head
-        # payment fence. Require the actual handoff predicate, then retry only
+        # payment fence. Require the public status and panel readiness, then retry only
         # when the handler made no native clipboard attempt at all.
         for attempt in range(3):
-            wait_until(page,lambda:page.evaluate('__b2zExperience.arcade.paymentInstructions()!==null')
+            wait_until(page,lambda:page.evaluate('''()=>{const e=__b2zExperience;return e?.status?.canPrepare===true&&e.session?.pendingAuthorityHead===undefined&&document.querySelector('#transfer-controls')?.dataset.paymentReady==='true'&&!document.querySelector('[data-copy=text]')?.disabled}''')
                        and page.locator('#text-memo').inner_text()==old_packet['memo'],30000)
             page.locator('[data-copy=text]').click()
             try:
@@ -61,7 +61,7 @@ def verify_entry_scene(page,context,out,configuration,record,report,save):
             except TimeoutError as error:
                 state=page.evaluate('''()=>({attempt:globalThis.combinedCopyAttempt??null,
                   copied:globalThis.combinedCopied??null,error:globalThis.combinedCopyError??null,
-                  handoff:__b2zExperience.arcade.paymentInstructions()!==null,
+                  handoff:__b2zExperience?.status?.canPrepare===true&&__b2zExperience.session?.pendingAuthorityHead===undefined&&document.querySelector('#transfer-controls')?.dataset.paymentReady==='true',
                   disabled:document.querySelector('[data-copy=text]').disabled,
                   feedback:document.querySelector('#copy-feedback')?.textContent??null,
                   memo:document.querySelector('#text-memo')?.textContent??null})''')

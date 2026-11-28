@@ -285,3 +285,17 @@ Further concurrent checkpoint schedules, prolonged unavailable sampling,
 dormant and empty-world operation, and broader protected and Full Speed
 mixes remain open. Unknown external credits cannot be reconstructed. The
 optional meter remains disabled in ordinary release profiles.
+
+## Hosted historical browser predicate correction
+
+The exact-source [standard workflow on `fc1b6546`](https://github.com/aodl/balls-2-the-wallz/actions/runs/46078855786)
+failed its installed `entry_installed::combined_clearance_on_normal_installed_module`
+case after source, native, browser HTTP, Wasm, frontend and packaged-consumer
+jobs passed. The previous focused Copy wait referenced
+`__b2zExperience.arcade.paymentInstructions()`, but the maintained page
+does not expose `arcade` on that diagnostic object. It timed out before a
+clipboard attempt. The wait now reads the exposed `status.canPrepare`, the
+session's pending-authority fence and the transfer panel's
+`data-payment-ready` flag, while preserving the exact memo, native-write
+and wrong-byte assertions. This is a browser test correction, not burn-meter
+evidence. The corrected source requires another hosted standard run.
