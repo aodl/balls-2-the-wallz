@@ -663,3 +663,12 @@ Both failures remain raw evidence. The correction adds a **24th named
 installed case** to the release runner. It does not replace the broader
 thirteen-row source/native contact matrix or prove every structure corner
 through a disposable installed restart.
+
+The original two-input obstruction was rerun with an anonymous recovery
+preparation attempt. The attempt was rejected, leaving the old publication
+and pending count unchanged; controller preparation then recovered the same
+queue and ordinary Rules20 activation completed. The exact installed case
+passed under `.work/rules19-recovery/unauthorized-recovery-2/`. The full
+local source suite passed under
+`.work/rules19-recovery/source-after-installed-cases-1/`. This is a
+test-only continuation: the executable remains `5c373613…7c61a18`.

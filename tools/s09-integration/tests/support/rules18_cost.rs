@@ -2137,6 +2137,29 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
         );
     }
 
+    // The exceptional boundary is controller-only even while the old
+    // interpreter remains unable to retire its admitted prefix.
+    let unauthorized = pic.update_call(
+        id,
+        Principal::anonymous(),
+        "prepare_rules19_recovery",
+        encode_args(()).unwrap(),
+    );
+    if let Ok(reply) = unauthorized {
+        assert!(
+            decode_one::<Result<Vec<u8>, String>>(&reply)
+                .unwrap()
+                .is_err(),
+            "anonymous recovery preparation must be rejected"
+        );
+    }
+    assert_eq!(observe(&pic, id).0.publication, prior.publication);
+    assert_eq!(
+        get_query::<PendingWork>(&pic, id, "controller_work", encode_args(()).unwrap())
+            .pending_inputs,
+        pending_count
+    );
+
     // Positive route: the same durable obstructed journal, without test_apply
     // or input mutation, crosses the authenticated DTR recovery boundary.
     let _: Vec<u8> = get_result(
@@ -2167,7 +2190,10 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
         for _ in 0..5 {
             advance(&pic, 1000);
         }
-        assert_eq!(status(&pic, id).source.admitted_to_exclusive, last_old_position + 1);
+        assert_eq!(
+            status(&pic, id).source.admitted_to_exclusive,
+            last_old_position + 1
+        );
         assert_eq!(observe(&pic, id).0.publication, prior.publication);
         let raw: Vec<u8> = get_query(
             &pic,
@@ -4299,7 +4325,11 @@ fn rules20_installed_corner_restart() {
     play.territories.push(Territory { id: 2, player: 2 });
     play.next_player_id = 3;
     play.next_territory_id = 3;
-    play.lifecycle.iter_mut().find(|row| row.cannon == 2).unwrap().player = 2;
+    play.lifecycle
+        .iter_mut()
+        .find(|row| row.cannon == 2)
+        .unwrap()
+        .player = 2;
     let foreign = &mut initial.balls[1];
     foreign.owner = 2;
     foreign.cell = 5;
@@ -4315,28 +4345,42 @@ fn rules20_installed_corner_restart() {
     attacker.den = Some(Int(1.into()));
     attacker.x0 = Int(Int(9692.into()).0 + &time * 600u32);
     attacker.y0 = Int(Int((98 * 1024 + 1500).into()).0 + &time * 600u32);
-    for (cell, owner) in [(4, 2), (5, 2), (99009, 1), (99008, 1), (98009, 1),
-        (98008, 1), (98007, 0), (97008, 2), (97007, 1)] {
+    for (cell, owner) in [
+        (4, 2),
+        (5, 2),
+        (99009, 1),
+        (99008, 1),
+        (98009, 1),
+        (98008, 1),
+        (98007, 0),
+        (97008, 2),
+        (97007, 1),
+    ] {
         initial.set_owner(cell, owner).unwrap();
     }
     initial.validate().unwrap();
-    let (pic, id, ledger, _) = arena_setup_world(
-        bytes("B2Z_COST_PROFILE_WASM"),
-        initial.encode().unwrap(),
-    );
+    let (pic, id, ledger, _) =
+        arena_setup_world(bytes("B2Z_COST_PROFILE_WASM"), initial.encode().unwrap());
     let compact = PathBuf::from(std::env::var("B2Z_COST_COMPACT_WASM").unwrap());
     compact_cutover(&pic, id, ledger, &compact, &out);
     playability_installed::one_tick(&pic, id);
     let installed = bytes("B2Z_RULES20_INSTALLED_WASM");
-    assert_eq!(dtr_wire::hash(&installed),
-        "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90");
+    assert_eq!(
+        dtr_wire::hash(&installed),
+        "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90"
+    );
     let candidate = bytes("B2Z_RULES20_CANDIDATE_WASM");
     upgrade_during_recovery(&pic, id, &installed).unwrap();
     upgrade_during_recovery(&pic, id, &candidate).unwrap();
     playability_installed::prepare(&pic, id, "prepare_rules20_transition");
     let mut ready = false;
     for _ in 0..1800 {
-        let raw: Vec<u8> = get_query(&pic, id, "rules20_transition_status", encode_args(()).unwrap());
+        let raw: Vec<u8> = get_query(
+            &pic,
+            id,
+            "rules20_transition_status",
+            encode_args(()).unwrap(),
+        );
         let view: serde_json::Value = dtr_wire::decode(&raw).unwrap();
         if view["transition"]["phase"] == "ready" && transition_drained(&pic, id) {
             ready = true;
@@ -4346,23 +4390,50 @@ fn rules20_installed_corner_restart() {
     }
     assert!(ready);
     let (_, predecessor) = capture(&pic, id, &out, 0);
-    let _: Vec<u8> = get_result(&pic, id, "commit_rules20_transition",
-        candid::encode_one(predecessor.head.manifest_hash).unwrap());
+    let _: Vec<u8> = get_result(
+        &pic,
+        id,
+        "commit_rules20_transition",
+        candid::encode_one(predecessor.head.manifest_hash).unwrap(),
+    );
     let migrated = arena_world(&pic, id);
     assert_eq!(migrated.version, 12);
-    assert_eq!((migrated.balls[0].cell, migrated.balls[0].vx, migrated.balls[0].vy),
-        (98008, -600, -600));
+    assert_eq!(
+        (
+            migrated.balls[0].cell,
+            migrated.balls[0].vx,
+            migrated.balls[0].vy
+        ),
+        (98008, -600, -600)
+    );
     let (before_obs, before) = capture(&pic, id, &out, 1);
     pause(&pic, id);
     upgrade_during_recovery(&pic, id, &bytes("B2Z_COST_PROFILE_WASM")).unwrap();
     let revision = status(&pic, id).revision;
-    let _: Status = get_result(&pic, id, "test_apply", encode_args((revision,
-        dtr_wire::encode(&Action::Seal {
-            logical_end: Int(&before.head.logical_end.0 + 1u32),
-        }).unwrap())).unwrap());
+    let _: Status = get_result(
+        &pic,
+        id,
+        "test_apply",
+        encode_args((
+            revision,
+            dtr_wire::encode(&Action::Seal {
+                logical_end: Int(&before.head.logical_end.0 + 1u32),
+            })
+            .unwrap(),
+        ))
+        .unwrap(),
+    );
     let revision = status(&pic, id).revision;
-    let _: Status = get_result(&pic, id, "test_apply", encode_args((revision,
-        dtr_wire::encode(&Action::Step { budget: 1 }).unwrap())).unwrap());
+    let _: Status = get_result(
+        &pic,
+        id,
+        "test_apply",
+        encode_args((
+            revision,
+            dtr_wire::encode(&Action::Step { budget: 1 }).unwrap(),
+        ))
+        .unwrap(),
+    );
     upgrade_during_recovery(&pic, id, &candidate).unwrap();
     assert_eq!(observe(&pic, id).0.publication, before_obs.publication);
     assert_eq!(arena_world(&pic, id), migrated);
@@ -4372,33 +4443,55 @@ fn rules20_installed_corner_restart() {
         advance(&pic, 1000);
         let run = status(&pic, id).run;
         assert!(run.last_error.is_none(), "{:?}", run.last_error);
-        if run.completed_segments >= next { break; }
+        if run.completed_segments >= next {
+            break;
+        }
     }
     pause(&pic, id);
     assert_eq!(status(&pic, id).run.completed_segments, next);
     let (_, published) = capture(&pic, id, &out, 2);
-    assert_eq!(published.head.segment_id.as_ref().unwrap().0,
-        &before.head.segment_id.as_ref().unwrap().0 + 1u32);
+    assert_eq!(
+        published.head.segment_id.as_ref().unwrap().0,
+        &before.head.segment_id.as_ref().unwrap().0 + 1u32
+    );
     let events: Value = decode(&std::fs::read(out.join("2-events.bin")).unwrap()).unwrap();
-    let captures = events["events"].as_array().unwrap().iter()
+    let captures = events["events"]
+        .as_array()
+        .unwrap()
+        .iter()
         .filter(|row| row["kind"] == "capture")
-        .map(|row| row["target"].as_u64().unwrap()).collect::<Vec<_>>();
+        .map(|row| row["target"].as_u64().unwrap())
+        .collect::<Vec<_>>();
     assert_eq!(captures, [98007]);
-    std::fs::write(out.join("2-inputs.bin"),
-        dtr_wire::encode(&Vec::<b2z_native::Input>::new()).unwrap()).unwrap();
+    std::fs::write(
+        out.join("2-inputs.bin"),
+        dtr_wire::encode(&Vec::<b2z_native::Input>::new()).unwrap(),
+    )
+    .unwrap();
     let independent = std::process::Command::new("node")
         .current_dir(Path::new(env!("CARGO_MANIFEST_DIR")).join("../.."))
         .arg("tools/verify_rules20_installed_replay.mjs")
-        .arg(&out).arg("2").output().unwrap();
-    assert!(independent.status.success(), "independent corner replay: {}{}",
+        .arg(&out)
+        .arg("2")
+        .output()
+        .unwrap();
+    assert!(
+        independent.status.success(),
+        "independent corner replay: {}{}",
         String::from_utf8_lossy(&independent.stdout),
-        String::from_utf8_lossy(&independent.stderr));
-    std::fs::write(out.join("results.json"), serde_json::to_vec_pretty(&json!({
-        "status":"PASS","installed_sha256":dtr_wire::hash(&installed),
-        "candidate_sha256":dtr_wire::hash(&candidate),"captured_tile":98007,
-        "interrupted_checkpoint":true,"same_id_restart":true,
-        "replayed_public_state_events_scores":true
-    })).unwrap()).unwrap();
+        String::from_utf8_lossy(&independent.stderr)
+    );
+    std::fs::write(
+        out.join("results.json"),
+        serde_json::to_vec_pretty(&json!({
+            "status":"PASS","installed_sha256":dtr_wire::hash(&installed),
+            "candidate_sha256":dtr_wire::hash(&candidate),"captured_tile":98007,
+            "interrupted_checkpoint":true,"same_id_restart":true,
+            "replayed_public_state_events_scores":true
+        }))
+        .unwrap(),
+    )
+    .unwrap();
 }
 
 fn run_rules20_paid_construction_over_existing_balls(slow_passage: bool) {

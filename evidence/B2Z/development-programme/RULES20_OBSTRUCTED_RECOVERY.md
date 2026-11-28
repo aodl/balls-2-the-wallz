@@ -417,3 +417,20 @@ retained under `prepared-arrival-1/` and `prepared-arrival-2/`; neither is
 counted as positive evidence. The third passed after correcting the test
 assertion and clearing disposable build caches. Remaining adversarial
 mutation and installed gameplay gates are tracked separately.
+
+## Exceptional controller fence, 28 November
+
+The original two-input exact-installed Rules19 obstruction was repeated with
+the same Rules20 recovery executable `5c373613…7c61a18`. An anonymous
+`prepare_rules19_recovery` call was rejected before controller preparation;
+the prior public bytes and durable pending count remained unchanged. The
+controller then completed authenticated preparation, retired both original
+inputs under Rules19 policy, and committed the ordinary Rules20 transition.
+The installed case **PASS** is under
+`.work/rules19-recovery/unauthorized-recovery-2/` (365.63 seconds). Its
+first invocation used an absent local candidate path and failed before a
+disposable test began; it is retained under `unauthorized-recovery-1/`.
+This strengthens controller-fence acceptance without changing the backend
+module. The complete local source suite also passed under
+`.work/rules19-recovery/source-after-installed-cases-1/`. Pending-input
+tamper and broader lifecycle adversarial cases remain release gates.
