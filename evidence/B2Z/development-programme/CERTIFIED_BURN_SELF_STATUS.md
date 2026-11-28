@@ -360,3 +360,10 @@ After the test-only liquid budget selected protection, the old rate became
 **stale** and the game publication stayed fixed. The runner now has an
 explicit `--reserve-protection` option; it rejects combinations with the
 other active variants so this is a separately interpretable result.
+
+The complete local source suite on the committed telemetry continuation
+passed under `.work/burn-balance-probe/source-after-phase-variants-1/`:
+historical vectors, Node tests, source structure, documentation links and
+Python tool tests. This validates the new phase-runner option and maintained
+source checks locally; it does not replace the still-running exact-source
+hosted standard workflow.
