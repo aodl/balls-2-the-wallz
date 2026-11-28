@@ -299,3 +299,17 @@ session's pending-authority fence and the transfer panel's
 `data-payment-ready` flag, while preserving the exact memo, native-write
 and wrong-byte assertions. This is a browser test correction, not burn-meter
 evidence. The corrected source requires another hosted standard run.
+
+The corrected `f504ec08` source subsequently passed hosted financial run
+`46086469228` and developer/prelaunch run `46086469194`. Its standard run
+`46086469128` passed source, native, frontend, browser HTTP/Web Crypto and
+packaged DTR consumer jobs, while the installed-IC job remained in progress
+at this observation. These are exact-source workflow conclusions, not proof
+of the remaining meter-specific workload and compatibility gates.
+
+A focused local installed Copy acceptance on `f504ec08` passed its normal
+Wasm, test-hook Wasm, 61 host tests, disposable Index and CMC builds, and
+integration-harness build. The browser launch then stopped because this Linux
+host lacks `libatk-1.0.so.0` for the available Playwright Chromium. Raw
+results are under `.work/burn-balance-probe/entry-copy-local-1/`; the browser
+check is environment-blocked locally and supplied no acceptance result.
