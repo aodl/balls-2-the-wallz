@@ -19,11 +19,16 @@ pair is the post-boundary recovery software. The owner UI remains
 available. The heap-only application binding awaits the verified owner
 principal, and Full Speed is inactive.
 
-The first post-activation settled bracket recorded **1.750T liquid
-backend cycles** and **0.580T frontend cycles**. The production burn
-observation window is developing. Live 320px acceptance found clipped
-Cycles text and a short Fire payment scrollport. The complete rate
-remains visible in the status detail.
+At 16:34:35 UTC, the backend held **1.724T
+liquid cycles** and the frontend held **0.580T
+total cycles**. The established production meter reported **605.139B
+cycles/day**, within **0.312%** of the matched independent
+settled observation. The independent full-window rate was
+**601.642B/day**, giving **1.20 days** of conditional runway to
+ReserveProtection. At 320px the compact Cycles
+line clips and the Fire payment scrollport is short. The complete rate
+remains available in the status detail.
+[Production operating observation](evidence/B2Z/development-programme/RULES20_EUROPE_PRODUCTION_2026-11-28_OPERATING.json).
 
 ## Qualification for the installed combined release
 

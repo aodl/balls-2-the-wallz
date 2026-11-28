@@ -115,7 +115,34 @@ historically compatible state. [Operating and recovery procedure](../../../docs/
 
 ## Certified operational burn
 
-The production observation window is developing under ordinary capped
-Trickle. The initial composed root and unavailable presentation are
-authenticated. Final settled comparison and established-rate browser
-acceptance are pending.
+The backend certified **605.139B cycles/day** from 12 samples spanning
+55.18 minutes. Independent settled management readings measured
+**607.036B cycles/day** over the matched 55.00-minute interval, a
+**0.312%** relative difference. The management reads were 15.7 and 26.3
+seconds before the certified interval endpoints. The complete
+independent window measured **601.642B cycles/day** over 60.72 minutes
+and 36 ordinary publications. The 63 observations included 62 settled
+brackets. The unsettled bracket is retained with the raw observations.
+Both rates estimate net balance decline. Unknown external credits can
+reduce an observed decline.
+
+The live window progressed from unavailable to preliminary to established.
+The maintained agent authenticated the established record and rejected a
+changed or missing record and wrong canister. New browsers read the
+established value directly, including a 320px reload. Desktop and 390px
+showed the complete compact line. At 320px the rate clipped while the full
+status detail remained readable. No compass overlap was observed. The
+sample record stayed available throughout the established acceptance;
+stale behavior remains supported by the separate hosted qualification.
+
+At **16:34:35 UTC**, certified module identities matched the immutable
+release. The backend held **1.724T liquid cycles**. The frontend held
+**0.580T total cycles**, with **375.956B** above estimated freezing.
+Capped Trickle remained effective at 0.01 ticks/s. Publication 20,115
+showed retired source frontier 40,647,923, and signed source status
+reported zero pending records. Conditional runway to 1T ReserveProtection
+was **1.20 days** at the full-window rate. Full Speed was 345.726B
+below its balance floor. Final controller reads confirmed both controller
+sets and freezing thresholds, empty chunk stores and unchanged treasury
+conversion totals.
+[Measured results](RULES20_EUROPE_PRODUCTION_2026-11-28_OPERATING.json)

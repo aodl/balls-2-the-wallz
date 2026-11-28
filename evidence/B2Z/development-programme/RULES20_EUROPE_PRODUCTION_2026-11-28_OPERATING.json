@@ -1,0 +1,311 @@
+{
+  "status": "PASS",
+  "scope": "Production read-only certified estimate and separate settled management balance comparison",
+  "observation_count": 63,
+  "settled_count": 62,
+  "observed_qualities": [
+    "established",
+    "preliminary",
+    "unavailable"
+  ],
+  "certified": {
+    "quality": "established",
+    "cyclesPerDay": "605139188931",
+    "sampleCount": 12,
+    "startNs": "1795880286543517746",
+    "endNs": "1795883597202186236",
+    "detail": "55-minute sample window ending 1 minutes before certification. Approximate settled net balance decline. Established estimate.",
+    "start_utc": "2026-11-28T15:38:06+00:00",
+    "end_utc": "2026-11-28T16:33:17+00:00",
+    "span_seconds": 3310.659
+  },
+  "matched_settled": {
+    "first": "004.json",
+    "last": "059.json",
+    "start_utc": "2026-11-28T15:37:50+00:00",
+    "end_utc": "2026-11-28T16:32:50+00:00",
+    "span_seconds": 3300.042,
+    "balance_start_cycles": 1812777794908,
+    "balance_end_cycles": 1789592104382,
+    "net_cycles_per_day": 607035776526,
+    "publication_delta": 33,
+    "endpoint_offsets_seconds": [
+      -15.717,
+      -26.334
+    ]
+  },
+  "established_difference_percent": 0.3124,
+  "settled_full_window": {
+    "first": "000.json",
+    "last": "062.json",
+    "start_utc": "2026-11-28T15:33:51+00:00",
+    "end_utc": "2026-11-28T16:34:34+00:00",
+    "span_seconds": 3643.348,
+    "balance_start_cycles": 1814225195388,
+    "balance_end_cycles": 1788854947640,
+    "net_cycles_per_day": 601641592543,
+    "publication_delta": 36
+  },
+  "latest_operating": {
+    "observed_at": "2026-11-28T16:34:35.695Z",
+    "backend_liquid_cycles": 1724273826560,
+    "backend_management_cycles": 1788854947640,
+    "backend_estimated_freezing_cycles": 64581121080,
+    "frontend_total_cycles": 579692994644,
+    "frontend_estimated_freezing_cycles": 203736846930,
+    "frontend_above_freezing_cycles": 375956147714,
+    "seconds_to_reserve_protection": 104010,
+    "full_speed_balance_floor_met": false,
+    "backend_sha256": "e81268c53bb0937e4e3adc99f36b34da10cd5762419e2e61f48fb8595359ce1d",
+    "frontend_sha256": "be06c1aa6d8234b6b69075bc875873846c1c16e7252521799a032bc5f423c298",
+    "publication": "20115",
+    "source_cursor": "40647923",
+    "pending_records": 0,
+    "pace": {
+      "nominal_milli": 10,
+      "supported_milli": 10,
+      "mode": "Trickle",
+      "admission_open": true,
+      "performance_limited": false
+    }
+  },
+  "production_browser": {
+    "initial_unavailable": "witnessed on activation",
+    "preliminary": {
+      "status": "FAIL_RATE_CLIPS",
+      "rows": [
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "observations": [
+            {
+              "line": "Cycles 1.81T ~628B/d",
+              "burn": "~628B/d",
+              "width": 122,
+              "scroll": 122,
+              "visible": true,
+              "within": true,
+              "clipped_pixels": 0,
+              "overflow": "hidden",
+              "overlap": false,
+              "unclipped": true,
+              "detail": "Management total cycles. Certified approximate net-balance burn: ~628.82B/day. 5-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Preliminary estimate."
+            }
+          ]
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "observations": [
+            {
+              "line": "Cycles 1.81T ~628B/d",
+              "burn": "~628B/d",
+              "width": 122,
+              "scroll": 122,
+              "visible": true,
+              "within": true,
+              "clipped_pixels": 0,
+              "overflow": "hidden",
+              "overlap": false,
+              "unclipped": true,
+              "detail": "Management total cycles. Certified approximate net-balance burn: ~628.82B/day. 5-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Preliminary estimate."
+            }
+          ]
+        },
+        {
+          "viewport": [
+            320,
+            640
+          ],
+          "observations": [
+            {
+              "line": "Cycles 1.81T ~628B/d",
+              "burn": "~628B/d",
+              "width": 98,
+              "scroll": 111,
+              "visible": true,
+              "within": false,
+              "clipped_pixels": 14,
+              "overflow": "hidden",
+              "overlap": false,
+              "unclipped": false,
+              "detail": "Management total cycles. Certified approximate net-balance burn: ~628.82B/day. 5-minute sample window ending 4 minutes before certification. Approximate settled net balance decline. Preliminary estimate."
+            }
+          ]
+        }
+      ]
+    },
+    "established": {
+      "status": "FAIL_RATE_CLIPS",
+      "rows": [
+        {
+          "viewport": [
+            1440,
+            900
+          ],
+          "observations": [
+            {
+              "line": "Cycles 1.70T ~607B/d",
+              "burn": "~607B/d",
+              "width": 122,
+              "scroll": 122,
+              "visible": true,
+              "within": true,
+              "clipped_pixels": 0,
+              "overflow": "hidden",
+              "overlap": false,
+              "unclipped": true,
+              "detail": "Management total cycles. Certified approximate net-balance burn: ~607.25B/day. 55-minute sample window ending 1 minutes before certification. Approximate settled net balance decline. Established estimate."
+            }
+          ]
+        },
+        {
+          "viewport": [
+            390,
+            844
+          ],
+          "observations": [
+            {
+              "line": "Cycles 1.79T ~607B/d",
+              "burn": "~607B/d",
+              "width": 122,
+              "scroll": 122,
+              "visible": true,
+              "within": true,
+              "clipped_pixels": 0,
+              "overflow": "hidden",
+              "overlap": false,
+              "unclipped": true,
+              "detail": "Management total cycles. Certified approximate net-balance burn: ~607.25B/day. 55-minute sample window ending 1 minutes before certification. Approximate settled net balance decline. Established estimate."
+            }
+          ]
+        },
+        {
+          "viewport": [
+            320,
+            640
+          ],
+          "observations": [
+            {
+              "line": "Cycles 1.79T ~607B/d",
+              "burn": "~607B/d",
+              "width": 98,
+              "scroll": 111,
+              "visible": true,
+              "within": false,
+              "clipped_pixels": 14,
+              "overflow": "hidden",
+              "overlap": false,
+              "unclipped": false,
+              "detail": "Management total cycles. Certified approximate net-balance burn: ~607.25B/day. 55-minute sample window ending 1 minutes before certification. Approximate settled net balance decline. Established estimate."
+            },
+            {
+              "line": "Cycles 1.79T ~607B/d",
+              "burn": "~607B/d",
+              "width": 98,
+              "scroll": 111,
+              "visible": true,
+              "within": false,
+              "clipped_pixels": 14,
+              "overflow": "hidden",
+              "overlap": false,
+              "unclipped": false,
+              "detail": "Management total cycles. Certified approximate net-balance burn: ~607.25B/day. 55-minute sample window ending 1 minutes before certification. Approximate settled net balance decline. Established estimate."
+            }
+          ]
+        }
+      ]
+    },
+    "stale": "covered by hosted qualification; did not occur during production observation",
+    "payment_scrollport_320": {
+      "status": "FAIL_MINIMUM_HEIGHT",
+      "viewport": [
+        320,
+        640
+      ],
+      "fire_quote": "0.0009 ICP",
+      "scrollport": {
+        "client": 138,
+        "natural": 312,
+        "width": 304,
+        "scroll": 304,
+        "height": 640,
+        "visualHeight": 640,
+        "classes": "quantity-rail cannon-context",
+        "card": {
+          "x": 8,
+          "y": 64,
+          "width": 304,
+          "height": 192,
+          "top": 64,
+          "right": 312,
+          "bottom": 256,
+          "left": 8
+        },
+        "bodySpace": "138px",
+        "actions": [
+          {
+            "name": "amount",
+            "enabled": true
+          },
+          {
+            "name": "owner",
+            "enabled": true
+          },
+          {
+            "name": "text",
+            "enabled": true
+          }
+        ]
+      },
+      "scrolled_to_bottom": 312,
+      "write_attempts": 0
+    }
+  },
+  "maintained_agent": {
+    "status": "PASS",
+    "identity": {
+      "config_hash": "cc9a7925c7818976750738aa614d2df6d2972aa5efe57080c4fa021832912f4c",
+      "rules_hash": "4e5ddc6f2108115e567894c5827047d76915d84c74d797f951a518390d62cc21",
+      "schema_hash": "efedaa4a8350dcc126369de4c911c564abc0b61b79d64ddb7a18e43788958778",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "head": "20112",
+    "burn": {
+      "quality": "established",
+      "cyclesPerDay": "607258230280",
+      "sampleCount": 12,
+      "startNs": "1795879985489371536",
+      "endNs": "1795883296313286807",
+      "detail": "55-minute sample window ending 0 minutes before certification. Approximate settled net balance decline. Established estimate."
+    },
+    "negatives": [
+      "altered operational record",
+      "missing operational record",
+      "wrong canister"
+    ]
+  },
+  "independent_replay": {
+    "status": "PASS",
+    "predecessor_manifest": "b5765d5eb87f3241140dab23a95996c50d13b03cde1c5c4b9335b16014cfc378",
+    "successor_manifest": "80278f006ddbf198a1a6d188604fba192cdfb689cf04677292e961714fafd4be",
+    "rows": [
+      {
+        "segment": "20080",
+        "source_from": "40647923",
+        "source_to_exclusive": "40647923",
+        "inputs": 0
+      },
+      {
+        "segment": "20081",
+        "source_from": "40647923",
+        "source_to_exclusive": "40647923",
+        "inputs": 0
+      }
+    ]
+  }
+}
