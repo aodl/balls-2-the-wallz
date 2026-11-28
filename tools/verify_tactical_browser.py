@@ -31,8 +31,11 @@ with sync_playwright() as pw:
     chosen=page.locator('#text-memo').text_content()
     point=page.evaluate("""()=>{
       const board=document.getElementById('board');
-      for(const v of [.72,.8,.27,.42,.52,.6])for(const u of [.25,.5,.75]){
-       const sx=Math.round(innerWidth*u),sy=Math.round(innerHeight*v);
+      // The compact Cycles chip and compass occupy different narrow-screen
+      // corners. Search the actual clear board area rather than a few fixed
+      // fractions that can all land on controls at 320px.
+      for(let sy=Math.round(innerHeight*.55);sy<innerHeight-60;sy+=12)
+      for(let sx=24;sx<innerWidth-24;sx+=12){
        if([[0,0],[-12,0],[12,0],[0,-12],[0,12]].every(([dx,dy])=>document.elementFromPoint(sx+dx,sy+dy)===board)){
         const cell=fixture.camera.cell(sx,sy);
         if(cell!==null)return {sx,sy,cell};

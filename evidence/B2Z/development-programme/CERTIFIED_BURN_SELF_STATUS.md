@@ -602,5 +602,24 @@ checks their actual rectangles at both widths and for both certificate
 roots. A local exact-asset frontend build passed with 91 files and raw Wasm
 SHA-256 `45d9c09243d13ccf9a6f290a84b7d8c1560dc0da9b4f6c2e39718ab3a043899e`
 under `.work/burn-balance-probe/compact-cycles-frontend-2/`. The corrected
-visual acceptance still requires a fresh hosted live run; telemetry remains
-disabled in normal release profiles.
+[developer/prelaunch run 46115275892](https://github.com/aodl/balls-2-the-wallz/actions/runs/46115275892)
+then passed live composed-root and direct-root browser, agent, operator and
+receipt checks on the same hosted backend bytes. Its 390px and 320px chips
+both displayed the complete `Cycles (~408.28B/day)` text, with no measured
+compass overlap. The 320px screenshot was reviewed separately under
+`.work/burn-balance-probe/hosted-final-36b/ci-certified-burn-live/`.
+Telemetry remains disabled in normal release profiles.
+
+The standard browser workflow for this layout,
+[46115275914](https://github.com/aodl/balls-2-the-wallz/actions/runs/46115275914),
+failed a historical tactical test at 320px before its installed suite ended.
+The test searched only 18 fixed screen points and found no board point clear
+of its own panel and the relocated Cycles chip. The downloaded exact hosted
+fixture retained an open board area. A bounded scan for an actual clear
+pointer target now passes the complete tactical journey locally at desktop,
+390px and 320px, including hover, payment memo stability and genuine board
+clicks. Raw before/after browser evidence is under
+`.work/burn-balance-probe/standard-36-browser/` and
+`.work/burn-balance-probe/tactical-grid-search-local/`. This fixture
+correction requires a fresh exact-source standard workflow; it does not
+qualify the live telemetry display by itself.

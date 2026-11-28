@@ -62,7 +62,7 @@
     ".work/burn-balance-probe/hosted-normal-held-index-1/"
   ],
   "hosted_candidate_build_environment": "GitHub Actions exact source; CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUSTFLAGS path remapping; candidate distinct from local no-remap build",
-  "hosted_live_browser_status": "46112951214 passed certificate, agent and receipt; 320px screenshot exposed compass overlap; corrected visual gate pending",
+  "hosted_live_browser_status": "46115275892 PASS composed/direct certificates, maintained browser/agent/operator and genuine Applied receipt",
   "hosted_full_speed_certified_cycles_per_day": 1599936282174,
   "hosted_full_speed_settled_cycles_per_day": 1600732361851,
   "hosted_full_speed_relative_difference_percent": 0.05,
@@ -75,5 +75,6 @@
   "compact_frontend_review_app_sha256": "8a5560acd9ec36b6512142f370726dabee3c39508238b61b041407c2b00c6626",
   "local_compact_frontend_raw_wasm_sha256": "45d9c09243d13ccf9a6f290a84b7d8c1560dc0da9b4f6c2e39718ab3a043899e",
   "compact_frontend_local_evidence": ".work/burn-balance-probe/compact-cycles-frontend-2/",
-  "compact_browser_390_and_320_status": "PENDING hosted visual gate with compass rectangle assertion"
+  "compact_browser_390_and_320_status": "PASS hosted 46115275892; full Cycles (~408.28B/day) visible at both widths with no compass overlap",
+  "full_standard_status": "46115275914 failed historical tactical fixed-point test; corrected fixture passed local 1440/390/320; exact-source hosted standard rerun pending"
 }
