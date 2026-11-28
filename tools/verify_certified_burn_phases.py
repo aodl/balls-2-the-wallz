@@ -21,6 +21,7 @@ def main():
     parser.add_argument("--world", type=Path, required=True)
     parser.add_argument("--phase-ms", type=int, action="append", required=True)
     parser.add_argument("--slow-index", action="store_true", help="stop the disposable Index for active minutes 20–30")
+    parser.add_argument("--full-speed", action="store_true", help="exercise a bounded disposable Full Speed burst inside the measured hour")
     parser.add_argument("--held-index", action="store_true", help="hold a real disposable Index response across active meter samples")
     parser.add_argument("--index-fixture", type=Path, help="test-only Index response-hold Wasm, required by --held-index")
     parser.add_argument("--treasury-credit", action="store_true", help="exercise a genuine Ledger/CMC treasury credit after the established window")
@@ -34,6 +35,8 @@ def main():
         parser.error("treasury credit requires --cmc and --cmc requires --treasury-credit")
     if args.held_index != bool(args.index_fixture) or args.held_index and args.slow_index:
         parser.error("held Index requires --index-fixture and cannot combine with --slow-index")
+    if args.full_speed and (args.slow_index or args.held_index or args.treasury_credit):
+        parser.error("Full Speed uses its own comparable disposable measurement")
     if args.cmc and sha256(args.cmc) != "d336165b2f81ca4e587ed5e749dbda69717c941c33c3c1086f667f3d706f7cb5":
         parser.error("disposable CMC fixture checksum mismatch")
     output = args.output.resolve()
@@ -75,6 +78,7 @@ def main():
                 {**env, "B2Z_BURN_INDEX_PHASE_MS": str(phase),
                  **({"B2Z_BURN_SLOW_INDEX_PROBE": "1"} if args.slow_index else {}),
                  **({"B2Z_BURN_HELD_INDEX_PROBE": "1"} if args.held_index else {}),
+                 **({"B2Z_BURN_FULL_SPEED_PROBE": "1"} if args.full_speed else {}),
                  **({"B2Z_BURN_TREASURY_CREDIT_PROBE": "1"} if args.treasury_credit else {}),
                  "POCKET_IC_SERVER_URL": server[3],
                  "S14_DEPLOYMENT_OUTPUT": str(location / "evidence")},
@@ -84,6 +88,7 @@ def main():
                 if (result["status"] != "PASS" or result["index_phase_ms"] != phase
                         or result["slow_index"] != args.slow_index
                         or bool(result["held_index"]) != args.held_index
+                        or bool(result["full_speed"]) != args.full_speed
                         or bool(result["treasury_credit"]) != args.treasury_credit):
                     row.update(status="FAIL", reason="phase evidence mismatch")
             report["checks"].append(row)

@@ -1508,6 +1508,9 @@ fn certified_operational_burn_roundtrip() {
     );
     let mut active_samples = Vec::new();
     let slow_index = std::env::var_os("B2Z_BURN_SLOW_INDEX_PROBE").is_some();
+    let full_speed_probe = std::env::var_os("B2Z_BURN_FULL_SPEED_PROBE").is_some();
+    let mut full_speed_start = None;
+    let mut full_speed_end = None;
     let mut source_trace = Vec::new();
     let index = status(&pic, id).source.index;
     for minute in 1..=65 {
@@ -1517,7 +1520,27 @@ fn certified_operational_burn_roundtrip() {
         if slow_index && minute == 30 {
             pic.start_canister(index, Some(controller())).unwrap();
         }
-        advance(&pic, 60_000);
+        if full_speed_probe && minute == 20 {
+            let operator = Principal::self_authenticating([27; 32]);
+            super::dev_speed_installed::bind(&pic, id, Some(operator));
+            let speed =
+                super::dev_speed_installed::switch(&pic, id, operator, true, Some(120u16)).unwrap();
+            assert_eq!(speed.mode, "Full Speed");
+            full_speed_start = Some(status(&pic, id).run.completed_segments);
+        }
+        if full_speed_probe && (minute == 20 || minute == 21) {
+            for _ in 0..60 {
+                advance(&pic, 1_000);
+            }
+        } else {
+            advance(&pic, 60_000);
+        }
+        if full_speed_probe && minute == 22 {
+            let speed: super::dev_speed_installed::DevSpeed =
+                get_query(&pic, id, "dev_simulation_speed", encode_args(()).unwrap());
+            assert_eq!(speed.mode, "Adaptive");
+            full_speed_end = Some(status(&pic, id).run.completed_segments);
+        }
         if slow_index {
             let run = status(&pic, id);
             source_trace.push(json!({"minute":minute,"index_calls":run.source.index_calls,
@@ -1538,7 +1561,18 @@ fn certified_operational_burn_roundtrip() {
             }));
         }
     }
-    let active = witness("active-trickle");
+    let active = witness(if full_speed_probe {
+        "active-full-speed-burst"
+    } else {
+        "active-trickle"
+    });
+    let full_speed = if full_speed_probe {
+        let delta = full_speed_end.unwrap() - full_speed_start.unwrap();
+        assert!(delta >= 5, "Full Speed must publish multiple checkpoints");
+        json!({"duration_seconds":120,"publication_delta":delta})
+    } else {
+        Value::Null
+    };
     std::fs::write(
         out.join("active-samples.json"),
         serde_json::to_vec_pretty(&active_samples).unwrap(),
@@ -1566,24 +1600,38 @@ fn certified_operational_burn_roundtrip() {
             .parse::<u128>()
             .unwrap()
     };
-    let first = management_cycles(0);
-    let final_balance = management_cycles(active_samples.len() - 1);
+    let start_ns = active["burn"]["startNs"].as_str().unwrap();
+    let end_ns = active["burn"]["endNs"].as_str().unwrap();
+    let first_index = active_samples
+        .iter()
+        .position(|row| row["verified"]["burn"]["endNs"].as_str() == Some(start_ns))
+        .expect("settled management sample at certified rolling-window start");
+    let final_index = active_samples
+        .iter()
+        .position(|row| row["verified"]["burn"]["endNs"].as_str() == Some(end_ns))
+        .expect("settled management sample at certified rolling-window end");
+    let first = management_cycles(first_index);
+    let final_balance = management_cycles(final_index);
     assert!(first > final_balance && certified > 0);
     assert!(
         active_samples
             .iter()
             .all(|row| row["source_pending"] == 0 && row["treasury_credits"] == "0")
     );
-    if !slow_index {
+    if full_speed_probe {
+        assert_eq!(active_samples.first().unwrap()["source_in_flight"], false);
+        assert_eq!(active_samples.last().unwrap()["source_in_flight"], false);
+    } else if !slow_index {
         assert!(
             active_samples
                 .iter()
                 .all(|row| row["source_in_flight"] == false)
         );
     }
-    // A separate between-message management bracket covers 60 minutes of
-    // the same active fixture. Compare the estimators without adjusting either.
-    let external_rate = (first - final_balance) * 24;
+    // Compare the exact rolling interval named by the certified record.
+    // A mixed workload makes a neighbouring five-minute interval material.
+    let span_ns = end_ns.parse::<u128>().unwrap() - start_ns.parse::<u128>().unwrap();
+    let external_rate = (first - final_balance) * 86_400_000_000_000u128 / span_ns;
     assert!(
         certified.abs_diff(external_rate) * 100 <= external_rate * 5,
         "certified {certified} versus settled management {external_rate} cycles/day"
@@ -1609,6 +1657,8 @@ fn certified_operational_burn_roundtrip() {
             )
             .unwrap();
         let _: source::HistoryResult = decode_one(&original_reply).unwrap();
+        // The first certified rolling endpoint during this hold is reserved.
+        // Keep the independent management bracket outside the reservation.
         let start_cycles = pic.canister_status(id, Some(controller())).unwrap().cycles;
         pic.reinstall_canister(
             index,
@@ -1815,7 +1865,7 @@ fn certified_operational_burn_roundtrip() {
         "status":"PASS","index_phase_ms":index_phase_ms,"slow_index":slow_index,
         "partial":partial,"full":full,"stale":stale,"active":active,
         "external_settled_cycles_per_day":external_rate.to_string(),"reserve_protection":protected,
-        "treasury_credit":treasury_credit,"held_index":held_index,
+        "treasury_credit":treasury_credit,"held_index":held_index,"full_speed":full_speed,
         "scope":"disposable Rules19 same-ID certificate, recovery and capped ordinary checkpoints"
     })).unwrap()).unwrap();
 }

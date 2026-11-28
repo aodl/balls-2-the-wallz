@@ -59,8 +59,11 @@ configuration and inventory.
 Certified burn has a promising replicated self-status sampling point.
 Two shifted Index phases, a stopped Index, a genuine identified treasury
 credit, a held Index response with an 82.593B-cycle reservation refund,
-a matched active-Trickle operating-cost comparison and hosted live
-browser/agent consumption passed. Confirm broader concurrent checkpoint
-reservations and other operating modes, smaller unknown external
-credits, prolonged unavailability and the complete compatible release profile.
+a 120-second disposable Full Speed burst with 119 publications, a matched
+active-Trickle operating-cost comparison and hosted live browser/agent
+consumption passed. Exact-window comparisons differed from settled management
+rates by 0.053% during the Full Speed mix and 0.342% during ordinary Trickle.
+Confirm broader concurrent checkpoint reservations, dormant and protected
+operating modes, prolonged unavailability and the complete compatible release
+profile. Unknown external credits remain an explicit measurement limitation.
 The capability remains disabled and is independent of the authorization repair.

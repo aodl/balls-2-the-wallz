@@ -236,7 +236,52 @@ positive result before the explicit reservation/refund assertions were
 added. Neither is substituted for the final tightened test.
 
 This qualifies one controlled ten-minute reservation and refund at one
-active-Trickle schedule. Additional concurrent checkpoint patterns, Full
-Speed, prolonged unavailable sampling and production workload diversity
-remain open. No fixed offset was subtracted, and unknown external credits
-remain unobservable. The optional meter stays disabled in normal profiles.
+active-Trickle schedule. At this point, Full Speed and additional concurrent
+checkpoint patterns, prolonged unavailable sampling and production workload
+diversity remained open. No fixed offset was subtracted, and unknown external
+credits remain unobservable. The optional meter stays disabled in normal
+profiles.
+
+## Full Speed and exact-window comparison, 28 November
+
+The meter uses the latest bounded rolling window, which can be **55 minutes**
+at an established minute-65 sample. The original active-workload test compared
+that certified interval against a neighbouring **60-minute** management
+bracket. Steady Trickle tolerated the mismatch, but a two-minute Full Speed
+burst made it material. In `full-speed-2`, certified burn was
+**1,600,656,804,003/day** versus **1,505,108,835,912/day** over the wrong
+management interval: a genuine **6.35% gate failure**, not a reason to relax
+the predeclared 5% tolerance. The first `full-speed-1` attempt stopped at
+the prelaunch operator authorization requirement; the corrected disposable
+fixture binds an operator and uses the maintained Full Speed switch.
+
+The acceptance now selects management samples at the certified record's
+exact `startNs` and `endNs`. The same Full Speed burst produced **119
+authoritative publications in 120 seconds** and passed under
+`.work/burn-balance-probe/full-speed-3/`: certified
+**1,600,656,804,003/day**, matched settled management
+**1,601,507,529,769/day**, **0.053%** difference. The ordinary shifted-phase
+Trickle nonregression passed under
+`.work/burn-balance-probe/window-comparison-regression-1/` at certified
+**396,135,269,442/day** versus matched settled management
+**397,496,287,300/day**, **0.342%** difference. Neither test adjusts the
+meter's samples or subtracts an assumed reservation offset.
+
+The held-Index window has a different accounting boundary: its certified
+start falls **inside a live reservation**, so the simultaneous management
+balance is not settled. Attempting exact timestamp matching in
+`held-index-window-1` produced a negative management movement when the
+**82,593,477,536-cycle** reservation refunded; the attempted subtraction
+failed and is retained as a failed comparison design. The retained acceptance
+uses settled management endpoints before the hold and after release, and
+checks each certified observation during the hold against that independent
+rate. The corrected code passed under `held-index-window-2/` with the same
+certified **396,603,551,315/day** and settled **401,962,655,256/day**
+(**1.33%** difference). This bracket is 60 minutes while the final certified
+record spans 55 minutes; the workload was steady apart from the deliberately
+held reservation, and the comparison's scope is explicit.
+
+Further concurrent checkpoint schedules, prolonged unavailable sampling,
+dormant and empty-world operation, and broader protected and Full Speed
+mixes remain open. Unknown external credits cannot be reconstructed. The
+optional meter remains disabled in ordinary release profiles.
