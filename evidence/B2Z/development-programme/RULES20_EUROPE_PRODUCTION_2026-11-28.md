@@ -74,17 +74,30 @@ still in the bounded catalog immediately after activation also matched
 byte-for-byte. Independent JavaScript replay matched public state,
 events and scores at the checkpoint and in the first two ordinary
 Rules20 publications, segments 20,080 and 20,081. Those seals retired
-zero new inputs.
+zero new inputs. At head 20,082, a separate read-only inspection matched
+the browser Fire quote against the authenticated state and the live
+typed quote. The amount was 90,000 e8s (0.0009 ICP), with no request
+submitted to the Ledger.
 
 The integrated mainnet observer and independent maintained agent
-authenticated the composed root. The agent rejected altered and
-missing operational records. Read-only Chromium passed at desktop,
+authenticated the composed root. The agent rejected altered and missing
+operational records and a wrong-canister verification request. Read-only
+Chromium gameplay checks passed at desktop,
 390px and 320px with zero gameplay write attempts. Desktop exercised
 Cannon and Diverter previews. Both narrow viewports exercised Diverter
 and Fire payment preparation. The live board determined available
 placement. All three verified the manual payment fields, camera, sound
 controls and the developer owner panel. The permanent Internet Identity
 origin remains `https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io`.
+
+Full narrow-screen layout acceptance has two observed failures at
+320×640. With live balance and a certified preliminary rate present,
+the one-line Cycles content measured 111 px in a 98 px clip region.
+There was no compass overlap. The status detail showed the complete
+rate. The live Fire payment scrollport settled at 138 px of 312 px
+content, below the 240 px normal-view minimum. Its fields and bottom
+remained reachable. Both findings were observed in a query-only
+browser and leave the production software identities intact.
 
 ## Owner control and recovery boundary
 

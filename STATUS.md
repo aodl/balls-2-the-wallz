@@ -21,7 +21,9 @@ principal, and Full Speed is inactive.
 
 The first post-activation settled bracket recorded **1.750T liquid
 backend cycles** and **0.580T frontend cycles**. The production burn
-observation window is developing.
+observation window is developing. Live 320px acceptance found clipped
+Cycles text and a short Fire payment scrollport. The complete rate
+remains visible in the status detail.
 
 ## Qualification for the installed combined release
 
