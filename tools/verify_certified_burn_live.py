@@ -32,9 +32,14 @@ if agent.returncode:
     raise RuntimeError(f"live maintained agent failed: {agent.stderr}")
 agent_result = json.loads(agent.stdout)
 (out / "agent.json").write_text(json.dumps(agent_result, indent=2) + "\n")
+inspection_command = [
+    "node", "tools/inspect_b2z_player.mjs", "--account", config["listening_account"],
+    "--local-config", str(args.configuration),
+]
+if "receipt_position" in config:
+    inspection_command.extend(["--receipt", str(config["receipt_position"])])
 inspection = subprocess.run(
-    ["node", "tools/inspect_b2z_player.mjs", "--account", config["listening_account"],
-     "--local-config", str(args.configuration)],
+    inspection_command,
     capture_output=True, text=True,
 )
 (out / "inspection.log").write_text(inspection.stdout + inspection.stderr)
@@ -44,6 +49,10 @@ inspection_result = json.loads(inspection.stdout)
 assert inspection_result["publication_hash"] == agent_result["root"]
 assert inspection_result["observed_head"]["$integer"] == agent_result["head"]
 assert inspection_result["public_inspection"]["game_info"] == "independently matched"
+if "receipt_position" in config:
+    receipt = inspection_result["receipt"]
+    assert receipt["status"] in ("Applied", "PartiallyApplied"), receipt
+    assert receipt["verified_canonical_outcome"]["position"]["$integer"] == str(config["receipt_position"])
 (out / "inspection.json").write_text(json.dumps(inspection_result, indent=2) + "\n")
 if args.agent_only:
     (out / "results.json").write_text(json.dumps({"status": "PASS", "browser": None,

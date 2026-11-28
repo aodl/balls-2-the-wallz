@@ -488,6 +488,14 @@ earlier attempts stopped at a local Python environment missing Playwright
 and a test assertion that treated a tagged integer as a string; neither
 was an operational-record failure. The hosted final-source live gate now
 executes this inspection alongside the browser and agent.
+The stronger `.work/burn-balance-probe/optional-normal-receipt-1/` journey
+sent a genuine disposable 1 ICP `NEW 0 1` Ledger payment after the burn
+window established. Both the composed-root optional module and the restored
+direct-root Rules19 module authenticated head 39 and the same publication
+root. The operator tool independently matched the public state and verified
+the **Applied** canonical receipt at Ledger position 1 against the retained
+event artifact on both legs. Received value increased exactly once before
+recovery; the public publication survived the same-ID reinstall unchanged.
 The local browser launcher remains blocked by its unchanged sandbox policy in this
 host. The hosted developer workflow has been prepared to run the maintained
 browser against this exact no-test-hooks executable and publish its raw Wasm,

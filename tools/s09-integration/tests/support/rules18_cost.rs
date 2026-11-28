@@ -2012,6 +2012,20 @@ fn certified_operational_burn_live_consumers() {
     for _ in 0..65 {
         advance(&pic, 60_000);
     }
+    let received_before = arena_world(&pic, id).received_e8s;
+    let payment = transfer_text(&pic, ledger, payer, id, 100_000_000, b"NEW 0 1");
+    for _ in 0..6 {
+        advance(&pic, 60_000);
+        if status(&pic, id).source.admitted_to_exclusive > payment && transition_drained(&pic, id) {
+            break;
+        }
+    }
+    assert!(status(&pic, id).source.admitted_to_exclusive > payment);
+    assert!(transition_drained(&pic, id));
+    assert_eq!(
+        arena_world(&pic, id).received_e8s.0,
+        &received_before.0 + 100_000_000u64
+    );
     let observation = |pic: &PocketIc| {
         let reply = pic
             .query_call(
@@ -2049,6 +2063,7 @@ fn certified_operational_burn_live_consumers() {
                 "ledger":ledger.to_text(),"index":status(pic,id).source.index.to_text(),
                 "recipient":source::receiving_account(id,0).to_hex(),
                 "listening_account":AccountIdentifier::new(&payer, &DEFAULT_SUBACCOUNT).to_hex(),
+                "receipt_position":payment,
                 "root_key_hex":hex(&root_key),
             }))
             .unwrap(),
