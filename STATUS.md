@@ -4,31 +4,28 @@
 `995bbb962c3fe01da98775bbadffc2ba7491f4d1` is qualified and merged
 as master `114f81a7808732e42624c7251456a19fa7979b1f`; their Git trees
 are identical. The paid backend still runs Rules19. The manufacturing
-frontend is still installed. No Rules20 production installation or operating
-change has been authorized.
+frontend is still installed. The conditional Rules20 release is held at
+controller preflight while combined qualification continues.
+[Current prelaunch continuation](evidence/B2Z/development-programme/RULES20_COMBINED_PREFLIGHT_2026-11-28.md).
 
 | Role | Canister | Installed source | Certified raw Wasm SHA-256 |
 | --- | --- | --- | --- |
 | Paid Rules19 / Schema11 / Adapter12 capped-Trickle backend | `s5ir5-gqaaa-aaaas-amyna-cai` | `741dbf898ade58ed2fa3a064d8bbe1acb577ed4a` | `b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90` |
 | Manufacturing frontend at the permanent `https://s2jxj-liaaa-aaaas-amynq-cai.icp0.io` origin | `s2jxj-liaaa-aaaas-amynq-cai` | `0855896239ba222892a372e6eeba22530fa59afc` | `1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5` |
 
-The last read-only certified settled observation at **08:15:57 UTC** found
-unchanged module identities, authenticated head **19,817**, logical time
-**19,799**, source cursor **40,647,923**, zero pending records, no signed
-source or run error, and open **0.01 tick/s** capped Trickle. Backend total
-was **2,018,479,621,495 cycles** and liquid **1,960,545,644,365 cycles**;
-frontend total was **767,608,641,574 cycles**. Frontend headroom after
-estimated freezing and a conservative 450B installation/recovery allowance
-was **113,891,761,984 cycles**. The new balance bracket was shorter than one
-hour, so it did not establish a new rate. The latest eligible 07:48 settled
-bracket measured **595,947,449,743 cycles/day** net over 3,618 seconds.
-Applying that dated rate to the 08:15 liquid balance yields a conditional
-**1.61 days** to the 1T backend ReserveProtection level, absent credits or
-a workload change. The backend is below the 2.07T Full Speed eligibility
-floor; this does not stop ordinary Trickle. Funding, owner sign-in and any
-Full Speed decision remain owner tasks.
-[Latest read-only position](evidence/B2Z/development-programme/production-operating-2026-11-28-0815.json) ·
-[eligible rate bracket](evidence/B2Z/development-programme/production-operating-2026-11-28-0748.json).
+The 08:48 UTC settled read verified **1.947T liquid backend cycles** and
+**0.767T frontend cycles**. The frontend had **0.114T** after estimated
+freezing and a 450B installation and recovery allowance. Signed status showed
+healthy capped Trickle at **0.01 ticks/s**, source cursor **40,647,923** and
+zero pending records. The 7,224-second settled comparison measured
+**0.591T/day** net decline. At that workload the conditional runway to 1T
+ReserveProtection was **1.60 days**. Full Speed remains below its 2.07T
+balance floor. [Certified observation](evidence/B2Z/development-programme/production-operating-2026-11-28-0848.json).
+
+The qualified direct-root fallback pairs the frozen Rules20 capped-Trickle
+backend with the exact 92-asset developer frontend. It preserves the temporary
+owner interface. The public frontend remains separately frozen.
+[Verified fallback release](https://github.com/aodl/balls-2-the-wallz/releases/tag/candidate/europe-rules20-prelaunch-direct-2026-11-28).
 
 ## Qualified Rules20 candidate
 

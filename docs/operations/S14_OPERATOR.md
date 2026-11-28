@@ -24,6 +24,16 @@ and paid backend continuity. Keep the backend operating during ordinary
 frontend-only maintenance. Recovery uses the same-ID upgrade with the
 verified compatible executable.
 
+## Rules20 prelaunch release
+
+Use an embedded developer frontend with the owner Full Speed interface.
+The direct-root fallback is frozen independently of the public-launch
+frontend. The combined profile requires its own exact backend and frontend
+qualification and budgets. Check controller signing access before
+starting the frontend-first operation. A failed controller preflight holds
+both installations. Read the [current preflight and artifact evidence](../../evidence/B2Z/development-programme/RULES20_COMBINED_PREFLIGHT_2026-11-28.md)
+and the [Rules20 epoch and recovery procedure](RULES20_RELEASE_PREPARATION.md).
+
 ## Backend and epoch changes
 
 Use separate approval and an exact same-canister rehearsal. Preserve the

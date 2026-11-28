@@ -1,0 +1,199 @@
+{
+  "observed_at": "2026-11-28T08:48:38.865Z",
+  "backend": {
+    "id": "s5ir5-gqaaa-aaaas-amyna-cai",
+    "module_sha256": "b19e4ba3a11339b71dc20134bcfac525f63530461f11a593d7d880eb86b5bc90",
+    "module_certificate_verified": true,
+    "status": {
+      "running": null
+    },
+    "cycles": "2004892314895",
+    "settings": {
+      "freezing_threshold": "2592000"
+    },
+    "idle_cycles_burned_per_day": "1931132571",
+    "reserved_cycles": "0"
+  },
+  "frontend": {
+    "id": "s2jxj-liaaa-aaaas-amynq-cai",
+    "module_sha256": "1a22f9aca323738492db1df02acf021753b665dd468c9d3b916d23289057dff5",
+    "module_certificate_verified": true,
+    "status": {
+      "running": null
+    },
+    "cycles": "767459233480",
+    "settings": {
+      "freezing_threshold": "2592000"
+    },
+    "idle_cycles_burned_per_day": "6790562653",
+    "reserved_cycles": "0"
+  },
+  "publication": {
+    "root": "9b82a0f50ea850d275a24284ddceb8e14472d149f4925947324b7ce260c4b17c",
+    "head": "19836",
+    "logical_time": "19818",
+    "source_cursor": "40647923",
+    "identity": {
+      "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+      "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+      "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "certified_operational_burn": null,
+    "state_sha256": "e1d9412114e7268425b2d06b8b210d26ccd72d1ed67cbf180d6e89486dfb3e90",
+    "accounts_with_cannons": 1,
+    "cannons": 2,
+    "balls": 2,
+    "diverters": 1,
+    "reservoirs": 4,
+    "source": {
+      "index": "qhbym-qaaaa-aaaaa-aaafq-cai",
+      "ledger": "ryjl3-tyaaa-aaaaa-aaaba-cai",
+      "subaccount": "0",
+      "network": "ic"
+    }
+  },
+  "signed_status": {
+    "run": {
+      "last_error": [],
+      "world_transition": false,
+      "idle": false,
+      "pace": {
+        "nominal_milli": 10,
+        "supported_milli": 10,
+        "mode": "Trickle",
+        "admission_open": true,
+        "performance_limited": false
+      },
+      "segment_ticks": "1",
+      "publication_ticks": "1",
+      "completed_segments": "19819",
+      "running": true
+    },
+    "source": {
+      "last_error": [],
+      "binding_checked": true,
+      "pending_records": 0,
+      "admitted_to_exclusive": "40647923"
+    }
+  },
+  "settlement": {
+    "settled": true,
+    "management_before": "2005386432986",
+    "management_after": "2004892314895",
+    "management_gap": "494118091",
+    "health_gap": "57933977130",
+    "estimated_freezing": "57933977130",
+    "unexpected_gap": "0"
+  },
+  "runway": {
+    "backend_freezing_estimate_cycles": "57933977130",
+    "frontend_freezing_estimate_cycles": "203716879590",
+    "frontend_install_recovery_headroom_cycles": "113742353890",
+    "backend_liquid_cycles": "1946958337765",
+    "full_speed_cycle_floor_met": false,
+    "measurement_kind": "Observed settled net decline, with unknown intervening credits possible",
+    "elapsed_ns": "7224432770316",
+    "elapsed_seconds": 7224,
+    "liquid_decline_cycles": "49434377352",
+    "net_cycles_per_day": "591206304910",
+    "publication_delta": "72",
+    "seconds_to_reserve_protection": "138390",
+    "seconds_to_full_speed_floor": "0"
+  },
+  "proof": {
+    "paid_head": {
+      "network": "ic",
+      "canister": "s5ir5-gqaaa-aaaas-amyna-cai",
+      "head": "19836",
+      "logical_time": "19818",
+      "root": "9b82a0f50ea850d275a24284ddceb8e14472d149f4925947324b7ce260c4b17c",
+      "manifest": "5613a287b701fedfe7bf778094d74522a0018673ee5f0a7b2e1e3986e09d1438",
+      "state": "e1d9412114e7268425b2d06b8b210d26ccd72d1ed67cbf180d6e89486dfb3e90",
+      "epoch": "614c4a80a4e8639fee10bad5aa85c75b2d195a0b966408562078eacba48fb5f9",
+      "epoch_index": "19",
+      "source_cursor": "40647923",
+      "config_hash": "79f182f812a2556cbd1e7d960dc8717440eb65239d9856ca227074963cceea39",
+      "rules_hash": "5312b93341d5f2a3958187a496631b643572d70a893e3c3ffb479896327c78e7",
+      "schema_hash": "f9d567927ac1f62f2ffedd3f5672c4c1c4e0eb574a277b9dc5c4fc33415a08ae",
+      "source_id": "54d927b945f7f0e99f40544e8e909eb10a3adf93d66d59467f68c5880b3d4125"
+    },
+    "received_e8s": "108100000",
+    "score_rows": 1,
+    "authorization_version": 2,
+    "retained_publications": [
+      {
+        "segment": 19824,
+        "sha256": "2dfbd3cf0c24877964716719a14a44a8d139fd936a8ccb103e50cdfcff6728bc"
+      },
+      {
+        "segment": 19825,
+        "sha256": "7a1a4b6da44482cfdb9ee51b600e93951ca073fbee19c996c486250f5c7da529"
+      },
+      {
+        "segment": 19826,
+        "sha256": "92f0a69262956a6e3cd7e7c25c137e9aa7b3ee426785041a67580811c9c8e0ed"
+      },
+      {
+        "segment": 19827,
+        "sha256": "9b9eb87352eeb38248c3ada05acaee9bf92a2802d6e99d8ff4bc178246367707"
+      },
+      {
+        "segment": 19828,
+        "sha256": "b9869068a37cdd2a4b12cfb89d05c79809f80b8955fc49f6aa13f0de06afab05"
+      },
+      {
+        "segment": 19829,
+        "sha256": "d1bf6baea5d368479698b5ed47fab754770406a1b59c94539f3208c1ffac3a8f"
+      },
+      {
+        "segment": 19830,
+        "sha256": "b8d211804333dd4f06c2576d694bf22362747c38eb3ad1fc38d0ba23fbd014f4"
+      },
+      {
+        "segment": 19831,
+        "sha256": "267509f6b340ce29ffe57f65960de755698a79d886677eeff7439a7ca2e9793b"
+      },
+      {
+        "segment": 19832,
+        "sha256": "94ad32777c9b6093c6861073b89f302382b4888da064daa1a94296a5701e9cea"
+      },
+      {
+        "segment": 19833,
+        "sha256": "93d0a541f38c8f951046bd04ab009510975a581906c53d856ebb4f4b7227e2cd"
+      },
+      {
+        "segment": 19834,
+        "sha256": "7e319062985c55125601aa4ef311e5658f386b00f2be3b5607bc7e69cc35dd1b"
+      },
+      {
+        "segment": 19835,
+        "sha256": "0581f0c28b43665b82b593df774eb49759bff6eae721ed330fd99be5acb431ac"
+      },
+      {
+        "segment": 19836,
+        "sha256": "9b82a0f50ea850d275a24284ddceb8e14472d149f4925947324b7ce260c4b17c"
+      },
+      {
+        "segment": 19837,
+        "sha256": "6513e22f69fdaae57cdcdd33dc3717e35a2021a485dd56e86416188bedb41c34"
+      },
+      {
+        "segment": 19838,
+        "sha256": "d933f6b0d23cf9e1380a090b280b9cf0bbb6ba9a632a24e24e1311278e9895cd"
+      }
+    ],
+    "retention_note": "15 publications and state, events and scores verified before the oldest publication rotated out",
+    "current_authorization_grants": 0
+  },
+  "controller_signing": "BLOCKED: DFX refuses active plaintext identity on mainnet. Both public controller sets include its principal.",
+  "execution": "Read-only. No production mutation.",
+  "source_index_read": {
+    "num_blocks_synced": 40761220,
+    "observed_at": "2026-11-28T09:00Z",
+    "canister_id": "qhbym-qaaaa-aaaaa-aaafq-cai",
+    "scope": "Official Index status query. Distinct from the paid account source frontier."
+  },
+  "controller_work": "Anonymous controller_work returned controller only; reservation and maintenance verification awaits controller access.",
+  "owner_query": "Anonymous dev_simulation_speed returned developer speed operator only."
+}
