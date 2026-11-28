@@ -186,6 +186,8 @@ jobs:
           cargo build --manifest-path canisters/runtime-lab/Cargo.toml --release --target wasm32-unknown-unknown --locked --offline --features prelaunch-trickle,certified-operational-burn
           cp "$CARGO_TARGET_DIR/wasm32-unknown-unknown/release/dtr_runtime_lab.wasm" .work/certified-burn-normal.wasm
           python -B tools/check_prelaunch_wasm.py prelaunch-trickle .work/certified-burn-normal.wasm > .work/certified-burn-normal-interface.json
+          python -B tools/verify_runtime_candid.py --profile prelaunch-telemetry --output .work/certified-burn-normal.did
+          cmp .work/certified-burn-normal.did canisters/runtime-lab/runtime-lab-telemetry.did
           printf '%s  %s\n' 3bb76656d3c903e858c9b9e373d9baab311b930e0dcb78d19a5807ff5e78376d .work/certified-burn-normal.wasm | sha256sum --check
           sha256sum .work/certified-burn-normal.wasm > .work/certified-burn-normal.sha256
           python -B tools/run_certified_burn_live.py \
@@ -224,6 +226,7 @@ jobs:
             .work/certified-burn-normal.wasm
             .work/certified-burn-normal.sha256
             .work/certified-burn-normal-interface.json
+            .work/certified-burn-normal.did
             .work/ci-certified-burn-live/results.json
             .work/ci-certified-burn-live/logs/**
             .work/ci-certified-burn-live/evidence/*.json

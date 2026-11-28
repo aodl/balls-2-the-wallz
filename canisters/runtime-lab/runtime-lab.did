@@ -331,8 +331,8 @@ service : (blob, nat64, IndexConfig) -> {
   commit_clearance_transition : (text) -> (Result_2);
   // Derives the combined rules-11 metadata once. No caller-supplied world, time or identities.
   commit_combined_transition : (text) -> (Result_2);
-  // Derives the Rules13 metadata once. No caller-supplied world, time or identities.
   commit_compact_reservoir_transition : (text) -> (Result_2);
+  // Derives the Rules13 metadata once. No caller-supplied world, time or identities.
   commit_context_transition : (text) -> (Result_2);
   // Derives the Deflector rules-12 metadata once. No caller-supplied world, time or identities.
   commit_deflector_transition : (text) -> (Result_2);

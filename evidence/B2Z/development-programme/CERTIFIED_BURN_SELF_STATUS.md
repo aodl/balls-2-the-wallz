@@ -465,7 +465,13 @@ The pinned Rules19 telemetry source built with the ordinary
 and no test hooks. The raw executable SHA-256 is
 `3bb76656d3c903e858c9b9e373d9baab311b930e0dcb78d19a5807ff5e78376d`.
 Its complete exported interface matched the installed prelaunch profile;
-there are no synthetic test exports. A genuine disposable same-ID upgrade at
+there are no synthetic test exports. The feature-specific generated Candid
+matches [the declared optional interface](../../../canisters/runtime-lab/runtime-lab-telemetry.did),
+which adds the optional certified record to `observation` and
+`observation_bundle` without changing the ordinary public-launch service.
+The ordinary declared file received a comment-only generated-order correction;
+both declared services now match their generated files byte for byte.
+A genuine disposable same-ID upgrade at
 the 32.321-second Index phase established **395,639,123,935 cycles/day**
 versus **396,952,610,797 cycles/day** of matched settled management decline,
 a **0.331%** difference. Raw results are under

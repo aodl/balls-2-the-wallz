@@ -26,6 +26,12 @@ class TestGeneratedCandidExtraction(unittest.TestCase):
             with self.assertRaises(ValueError):
                 reject_test_exports(f'service : {{ {name}: () -> (); }}')
 
+    def test_prelaunch_telemetry_allows_developer_controls_but_rejects_test_hooks(self):
+        reject_test_exports('service : { dev_simulation_speed: () -> (); }', allow_developer=True)
+        for name in ('__canbench__dense', '__tracing__dense', 'test_metrics'):
+            with self.assertRaises(ValueError):
+                reject_test_exports(f'service : {{ {name}: () -> (); }}', allow_developer=True)
+
 
 if __name__ == "__main__":
     unittest.main()
