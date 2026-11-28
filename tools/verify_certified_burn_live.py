@@ -32,9 +32,23 @@ if agent.returncode:
     raise RuntimeError(f"live maintained agent failed: {agent.stderr}")
 agent_result = json.loads(agent.stdout)
 (out / "agent.json").write_text(json.dumps(agent_result, indent=2) + "\n")
+inspection = subprocess.run(
+    ["node", "tools/inspect_b2z_player.mjs", "--account", config["listening_account"],
+     "--local-config", str(args.configuration)],
+    capture_output=True, text=True,
+)
+(out / "inspection.log").write_text(inspection.stdout + inspection.stderr)
+if inspection.returncode:
+    raise RuntimeError(f"read-only operational inspection failed: {inspection.stderr}")
+inspection_result = json.loads(inspection.stdout)
+assert inspection_result["publication_hash"] == agent_result["root"]
+assert inspection_result["observed_head"]["$integer"] == agent_result["head"]
+assert inspection_result["public_inspection"]["game_info"] == "independently matched"
+(out / "inspection.json").write_text(json.dumps(inspection_result, indent=2) + "\n")
 if args.agent_only:
     (out / "results.json").write_text(json.dumps({"status": "PASS", "browser": None,
-                                                  "agent": agent_result}, indent=2) + "\n")
+                                                  "agent": agent_result,
+                                                  "inspection": inspection_result}, indent=2) + "\n")
     sys.exit(0)
 subprocess.run(["node", "tools/build_observer_playability.mjs", "--local-test-config",
                 str(policy), "--output", str(out / "assets")], check=True)
@@ -105,7 +119,8 @@ with (out / "server.log").open("w") as log:
             page.screenshot(path=out / "live-observer.png")
             context.close()
             browser.close()
-        result = {"status": "PASS", "browser": observations, "agent": agent_result}
+        result = {"status": "PASS", "browser": observations, "agent": agent_result,
+                  "inspection": inspection_result}
         (out / "results.json").write_text(json.dumps(result, indent=2) + "\n")
     finally:
         server.terminate()

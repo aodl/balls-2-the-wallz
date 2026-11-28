@@ -232,9 +232,11 @@ jobs:
             .work/ci-certified-burn-live/evidence/*.json
             .work/ci-certified-burn-live/evidence/composed/results.json
             .work/ci-certified-burn-live/evidence/composed/agent.json
+            .work/ci-certified-burn-live/evidence/composed/inspection.json
             .work/ci-certified-burn-live/evidence/composed/live-observer.png
             .work/ci-certified-burn-live/evidence/direct/results.json
             .work/ci-certified-burn-live/evidence/direct/agent.json
+            .work/ci-certified-burn-live/evidence/direct/inspection.json
             .work/ci-certified-burn-live/evidence/direct/live-observer.png
           if-no-files-found: warn
           retention-days: 14

@@ -480,7 +480,15 @@ a **0.331%** difference. Raw results are under
 The maintained agent consumed this exact normal executable on a live
 disposable canister with composed and direct certification roots; both legs
 passed under `.work/burn-balance-probe/optional-normal-agent-1/`. The local
-browser launcher remains blocked by its unchanged sandbox policy in this
+read-only operator inspection tool was then run against both live roots in
+`.work/burn-balance-probe/optional-normal-inspection-3/`. It authenticated
+head 37 and the same publication root as the maintained agent, independently
+matched `game_info` and `player_state`, and submitted no command. The two
+earlier attempts stopped at a local Python environment missing Playwright
+and a test assertion that treated a tagged integer as a string; neither
+was an operational-record failure. The hosted final-source live gate now
+executes this inspection alongside the browser and agent.
+The local browser launcher remains blocked by its unchanged sandbox policy in this
 host. The hosted developer workflow has been prepared to run the maintained
 browser against this exact no-test-hooks executable and publish its raw Wasm,
 hash and interface inventory. That new exact-source run is still required.
