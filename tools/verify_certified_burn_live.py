@@ -94,12 +94,17 @@ with (out / "server.log").open("w") as log:
                 const values=document.getElementById('cycle-values');
                 const burn=document.getElementById('cycles-burn');
                 const display=document.getElementById('cycles-display');
+                const chip=display.getBoundingClientRect();
+                const compassOverlaps=[...document.querySelectorAll('#board-compass button')]
+                    .filter(button=>{const r=button.getBoundingClientRect();
+                        return chip.left<r.right&&r.left<chip.right&&chip.top<r.bottom&&r.top<chip.bottom;})
+                    .map(button=>button.textContent.trim());
                 return {root:s.sequence.last.root_hash,head:String(s.sequence.last.publication.head.segment_id),
                     quality:s.verifiedBurn?.quality??null,rate:s.verifiedBurn?.cyclesPerDay?.toString()??null,
                     burnEndNs:s.verifiedBurn?.endNs?.toString()??null,
                     line:values.innerText.replace(/\\s+/g,' ').trim(),
                     burnText:burn.innerText.replace(/\\s+/g,' ').trim(),valuesVisible:!values.hidden,
-                    burnVisible:!burn.hidden,displayHeight:display.getBoundingClientRect().height,
+                    burnVisible:!burn.hidden,displayHeight:chip.height,compassOverlaps,
                     valueHeight:values.getBoundingClientRect().height,
                     valueClientWidth:values.clientWidth,valueScrollWidth:values.scrollWidth};
             }"""
@@ -119,6 +124,7 @@ with (out / "server.log").open("w") as log:
                     assert row["valueHeight"] <= row["displayHeight"] + 1, row
                 else:
                     assert row["quality"] is None and not row["burnVisible"], row
+                assert not row["compassOverlaps"], row
                 observations.append(row)
             assert int(observations[1]["head"]) >= int(observations[0]["head"]), observations
             if observations[0]["head"] == observations[1]["head"] and (
@@ -136,6 +142,7 @@ with (out / "server.log").open("w") as log:
             if args.expect_burn:
                 assert compact["burnText"] in compact["line"] and "Unavailable" not in compact["line"], compact
                 assert compact["valueScrollWidth"] <= compact["valueClientWidth"] + 1, compact
+            assert not compact["compassOverlaps"], compact
             assert compact["valueHeight"] <= compact["displayHeight"] + 1, compact
             page.screenshot(path=out / "live-observer-320.png")
             context.close()

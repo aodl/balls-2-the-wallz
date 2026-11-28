@@ -585,3 +585,22 @@ the other reviewed asset hashes are unchanged. The local frontend freeze
 builder passed with 91 assets under
 `.work/burn-balance-probe/compact-cycles-frontend-1/`. The failed hosted
 attempt did not reach browser acceptance and remains historical evidence.
+
+The next exact-source developer run
+[46112951214](https://github.com/aodl/balls-2-the-wallz/actions/runs/46112951214)
+passed its live composed-root and restored direct-root browser, maintained
+agent, read-only operator inspection and genuine Applied receipt checks.
+The raw optional backend remained SHA-256
+`076b62a2e82123dccca9e73fa64471e071ed997b556cde6a0b07a42103910edd`.
+At 390px the compact chip displayed `Cycles (~406.41B/day)` in one line.
+The 320px screenshot revealed that the compass W control covered the end of
+the same text even though the DOM scroll-width check passed. This is a
+visual **FAIL**, retained under
+`.work/burn-balance-probe/hosted-final-6a4/ci-certified-burn-live/`.
+The narrow-width Cycles chip now sits above the compass, and the live gate
+checks their actual rectangles at both widths and for both certificate
+roots. A local exact-asset frontend build passed with 91 files and raw Wasm
+SHA-256 `45d9c09243d13ccf9a6f290a84b7d8c1560dc0da9b4f6c2e39718ab3a043899e`
+under `.work/burn-balance-probe/compact-cycles-frontend-2/`. The corrected
+visual acceptance still requires a fresh hosted live run; telemetry remains
+disabled in normal release profiles.
