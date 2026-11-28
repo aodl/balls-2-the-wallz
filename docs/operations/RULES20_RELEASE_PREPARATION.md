@@ -57,7 +57,7 @@ workflows, but additional destruction topologies and adversarial
 recovery acceptance remains open. The local continuation has **28 named
 installed cases**, including positive prepared-arrival recovery and
 interrupted eligible, Cannon and Diverter corner routes plus paid construction
-over simultaneous overlapping Balls and genuine collision-annihilation
+over simultaneous overlapping Balls and genuine corridor-capture annihilation
 cleanup of a paid Diverter and its passage row. These later cases
 require exact-source hosted qualification before any final freeze. The
 complete 28-row local corner public-output matrix passed both implementations;

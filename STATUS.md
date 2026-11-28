@@ -180,8 +180,8 @@ continuation and later paid relocation matched independent replay.
 Another genuine paid installed case built over two simultaneous overlapping
 Balls plus a third Ball at a Diverter site; all three retained exact motion,
 received separate passage rows and matched independent replay. Structure
-and Ball destruction through collision annihilation also passed: the
-authoritative event removed the paid Diverter and both colliding Balls,
+and Ball destruction through corridor capture annihilation also passed: the
+authoritative event removed the paid Diverter and both affected Balls,
 retired the passage row and matched 13 consecutive independent public
 replays. Other destruction topologies remain open. A separate
 installed corner case crossed the ordinary Rules20 epoch, interrupted a
@@ -214,7 +214,7 @@ also passed, completing all three hosted historical workflows on `adc5a8e1`.
 The later `16ed339d` source is published with fresh workflows in progress;
 the local release runner now names **28 installed successor cases**, including
 the payment-arrival recovery fence and interrupted mixed-owner, Cannon and
-Diverter corner routes and collision-annihilation cleanup. Those later cases still need exact-source hosted
+Diverter corner routes and corridor-severance cleanup. Those later cases still need exact-source hosted
 execution. The
 [candidate release procedure](docs/operations/RULES20_RELEASE_PREPARATION.md)
 keeps installation conditional on all remaining gates.

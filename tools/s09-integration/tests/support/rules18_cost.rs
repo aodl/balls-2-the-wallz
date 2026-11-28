@@ -4314,7 +4314,7 @@ fn rules20_paid_multiple_overlapping_balls() {
 }
 
 #[test]
-#[ignore = "disposable installed paid structure and Ball destruction by genuine collision annihilation"]
+#[ignore = "disposable installed paid structure and Ball destruction by corridor capture annihilation"]
 fn rules20_paid_passage_topology_destruction() {
     let out = PathBuf::from(std::env::var("S14_DEPLOYMENT_OUTPUT").unwrap())
         .join("rules20-passage-topology-destruction");
@@ -4495,7 +4495,7 @@ fn rules20_paid_passage_topology_destruction() {
     }
     assert!(
         destroyed,
-        "opposing Ball collision must remove the paid Diverter and original Ball"
+        "corridor capture must remove the paid Diverter and original Ball"
     );
     let final_events: Value =
         dtr_wire::decode(&std::fs::read(out.join(format!("{ordinal}-events.bin"))).unwrap())
@@ -4505,7 +4505,9 @@ fn rules20_paid_passage_topology_destruction() {
         .unwrap()
         .iter()
         .find(|event| event["kind"] == "capture_annihilation")
-        .expect("final publication must report collision annihilation");
+        .expect("final publication must report capture annihilation");
+    assert_eq!(annihilation["target"], cell(500, 495));
+    assert_eq!(annihilation["attacker"], 2);
     assert!(
         annihilation["pairs"]
             .as_array()

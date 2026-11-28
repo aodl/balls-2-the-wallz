@@ -67,8 +67,9 @@ in installed disposable tests with exact receipts, frontend quotes and replay.
 A further paid installed case retained three existing Balls, including two
 overlapping at one Cannon site, with three separate passage rows and exact
 independent replay.
-An additional paid installed Diverter was removed by a genuine opposing-Ball
-`capture_annihilation`; the event named both Balls and the removed structure,
+An additional paid installed Diverter was removed after an opposing Ball
+captured its corridor. The `capture_annihilation` event named both Balls
+and the removed structure,
 its passage row retired, and thirteen consecutive publications matched
 independent public replay.
 Additional seam and equal-time corner outputs passed in source conformance.
