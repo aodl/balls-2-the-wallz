@@ -446,3 +446,34 @@ inputs retired once under Rules19 policy, and independent successor replay
 passed. DTR's separate sealed and unreserved generic tests reject a
 tampered pending root atomically; direct mutation of a paid canister's
 stable inbox is outside the maintained controller interface.
+
+## 28 November local recovery qualification decision
+
+The reported obstructed-predecessor condition has a **positive local
+recovery proof** on the exact installed Rules19 Wasm and the exact
+`5c373613…7c61a18` successor Wasm. The two-, four- and six-input cases
+retain their original ordered Ledger payloads, source frontiers, received
+value and Rules19 receipts. The reserved and partially stepped cases bind
+the original seal and staged-work hash; the unreserved case binds the entire
+admitted suffix before any input retires. The prepared-arrival case keeps a
+later official payment behind the old-policy fence. UTC crossing, original
+block-time grant expiry, overdue lifecycle barrier, resource protection and
+subsequent ordinary Rules20 payments have separate installed positives.
+Every captured committed predecessor publication remains byte identical;
+independent JavaScript replay matches the recovered and successor public
+state, event and score bytes.
+
+DTR's generic sealed and unreserved recovery tests reject altered pending
+roots before changing their snapshots, reject stale coordinator proposals,
+and preserve sparse source positions and exact retained seals across restore.
+Its shared chunk-store fault tests cover interruption before and after the
+atomic root swap used by the recovery operation. The B2Z installed route
+rejects anonymous preparation, a stale pre-commit manifest, a conflicting
+post-commit retry, the old executable after the first recovery boundary and
+resource-short commitment; identical retries are idempotent. It restarts
+before commitment, after commitment and during old-prefix continuation.
+
+This closes the *local* P0 recovery gate for the identified Rules19
+obstruction. The complete **28-case exact-source hosted installed suite**
+on the final test and documentation revision remains a separate release
+gate. No production recovery or backend installation is authorized.

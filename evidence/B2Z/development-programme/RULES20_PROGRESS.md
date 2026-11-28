@@ -737,10 +737,12 @@ attempt are retained under `installed-topology-destruction-{1,2}/`; the
 earlier successful Diverter run without the exact event assertion is under
 `installed-topology-destruction-3/`; run 4 asserted the annihilation event
 before the corridor target was added. This proves a genuine corridor-severance
-destruction route, not every possible destruction topology. The
-release runner now names **28 installed successor cases**. Remaining
-destruction topologies and adversarial recovery interruptions still require
-qualification.
+destruction route, not every possible destruction topology. Together with
+the paid active-exception restart, partial checkpoint, later toroidal
+encounter, simultaneous overlap, relocation, Ball cleanup and focused
+boundary/corner cases, this closes the specified local passage lifecycle
+gate. The release runner now names **28 installed successor cases**;
+final-source hosted execution remains required.
 
 The healthy and obstructed exact-installed transition cases passed again
 with balance snapshots around the same-ID backend install, authenticated
@@ -760,3 +762,5 @@ changing the committed recovery publication. Raw evidence is under
 `.work/rules19-recovery/installed-retry-1/` (208.993 seconds). Generic
 DTR sealed and unreserved recovery tests independently reject a tampered
 pending root without modifying committed state.
+The separately reviewed recovery matrix closes the identified obstruction's
+local P0 gate. Its complete exact-source hosted run is still pending.

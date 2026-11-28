@@ -64,15 +64,15 @@ separate live installation and recovery headroom, freezing and operating
 preflight before any authorized production action. [Exact measurements](../../evidence/B2Z/development-programme/RULES20_RELEASE_BUDGET_2026-11-28.json).
 
 Source `adc5a8e1` passed standard, financial and developer
-workflows, but additional destruction topologies and adversarial
-recovery acceptance remains open. The local continuation has **28 named
+workflows. The identified obstruction's recovery, passage lifecycle,
+checkerboard corner and authenticated tariff gates now pass locally. The
+continuation has **28 named
 installed cases**, including positive prepared-arrival recovery and
 interrupted eligible, Cannon and Diverter corner routes plus paid construction
 over simultaneous overlapping Balls and genuine corridor-capture annihilation
 cleanup of a paid Diverter and its passage row. These later cases
 require exact-source hosted qualification before any final freeze. The
-complete 28-row local corner public-output matrix passed both implementations;
-other destruction topologies remain open.
+complete 28-row local corner public-output matrix passed both implementations.
 
 One disposable same-ID frontend rehearsal used the exact installed
 manufacturing module and the public Rules20 candidate. It certified all 91

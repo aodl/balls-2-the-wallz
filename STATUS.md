@@ -92,8 +92,8 @@ disposable installed test, preserving its complete ordered pending prefix and
 historical Rules19 policy. Exact Rust/JavaScript replay and subsequent ordinary
 Rules20 activation passed with the pinned candidate. A second installed case
 retired four genuine pending inputs in order, including two grants and two
-paid commands at Rules19 prices, with independent replay. The adversarial recovery
-matrix and other feature-specific gates remain open. A further installed case
+paid commands at Rules19 prices, with independent replay. Later cases below
+close the identified local recovery matrix. A further installed case
 retired six pending grants, a revoke and paid inputs in original order. A
 fresh six-input rerun also applied a valid post-fence Rules20 Fire payment
 to the Cannon created by the retained prefix, with exact replay. A
@@ -123,8 +123,9 @@ admits that identified error without relaxing ordinary transitions. Exact
 independent replay passed. A separate installed case sent a genuine later
 Join while recovery was prepared. It remained behind the authenticated
 old-policy fence and applied once after ordinary Rules20 activation, with
-exact independent public replay. Additional lifecycle interruption cases
-remain release gates. Generic DTR recovery already rejects
+exact independent public replay. The identified obstruction's local P0
+recovery gate is complete; final-source hosted installed qualification
+remains. Generic DTR recovery already rejects
 tampered pending roots; an installed two-input rerun also passed identical
 preparation and commitment retries and rejected a conflicting post-commit
 manifest without changing publication. The earlier source
@@ -186,7 +187,7 @@ received separate passage rows and matched independent replay. Structure
 and Ball destruction through corridor capture annihilation also passed: the
 authoritative event removed the paid Diverter and both affected Balls,
 retired the passage row and matched 13 consecutive independent public
-replays. Other destruction topologies remain open. A separate
+replays. Other destruction topologies were not exercised. A separate
 installed corner case crossed the ordinary Rules20 epoch, interrupted a
 sealed motion checkpoint, restarted the same candidate module and captured
 the one eligible checkerboard tile across mixed ownership. Independent replay
