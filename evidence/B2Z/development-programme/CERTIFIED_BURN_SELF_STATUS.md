@@ -430,3 +430,19 @@ release profile remain open; the meter remains disabled in ordinary builds.
 The complete local source suite on the player-free continuation passed under
 `.work/burn-balance-probe/source-after-empty-world-1/`, including historical
 vectors, Node tests, source structure, documentation links and Python tools.
+
+## Concurrent game checkpoints during a held Index response
+
+The retained 47.777-second held-Index capture provides more specific
+concurrency evidence than its aggregate refund result alone. During the
+60-minute response hold, its authenticated game head advanced from **38**
+at minute 5 to **65** at minute 60. Two certified five-minute meter samples
+were taken while the Index request was still in flight. The held response
+later refunded **82.593B cycles**, and the final established rate was
+**396,603,975,748 cycles/day** against **401,963,361,024 cycles/day** of
+matched settled management decline, a **1.33%** difference. These are the
+original unfiltered samples under
+`.work/burn-balance-probe/held-index-phase-47777-1/`.
+This closes the named concurrent ordinary-checkpoint and held-reservation
+case for that schedule. Wider overlap phases and workload combinations
+remain separate optional telemetry gates.

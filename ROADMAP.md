@@ -72,6 +72,8 @@ settled management without publishing gameplay. A dormant zero-Ball world
 held its game publication and measured within 0.414% of settled management.
 An empty player-free world at a third Index phase held its publication and
 measured within 0.426% of settled management. Confirm broader overlapping
-checkpoint reservations and the compatible optional release profile.
+checkpoint and Index schedules and the compatible optional release profile.
+The held-Index evidence already includes 27 advancing game heads and two
+meter samples during an in-flight source call.
 Unknown external credits remain an explicit measurement limitation.
 The capability remains disabled and is independent of the authorization repair.

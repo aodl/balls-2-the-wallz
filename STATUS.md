@@ -108,7 +108,10 @@ settled management, without a game publication. A dormant zero-Ball world
 also held its game publication and measured within 0.414% of settled
 management. A player-free empty world at a third Index phase also kept its
 publication unchanged and measured within 0.426% of settled management.
-Wider overlapping reservations and a compatible optional release profile
+The held-Index capture also includes 27 advancing game heads while two
+five-minute meter samples had an in-flight source reservation; its settled
+comparison differed by 1.33%. Wider overlap schedules and a compatible
+optional release profile
 remain open. Unknown external credits cannot be reconstructed;
 the display is an approximate settled net-balance rate. [Detailed burn
 evidence](evidence/B2Z/development-programme/CERTIFIED_BURN_SELF_STATUS.md)
