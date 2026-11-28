@@ -85,4 +85,11 @@ retired.balls.pop();
 const changed=structuredClone(tactical);
 changed.reservoirs=reservoirPut(changed.reservoirs,4005);
 cases.tactical={initial:tacticalHex,retired:hex(encodeWorld(retired)),blocked:hex(encodeWorld(changed))};
-fs.writeFileSync(process.argv[2],JSON.stringify({economy_config:hex(encodeCanonical(ECONOMY_CONFIG)),reservoir_config:hex(encodeCanonical(RESERVOIR_CONFIG)),spacing_config:hex(encodeCanonical(SPACING_CONFIG)),shout_config:hex(encodeCanonical(SHOUT_CONFIG)),qualification:'Synthetic widget/presentation data; not IC authentication or installed upgrade evidence',config:hex(encodeCanonical({...V6_POLICY,...PRICING})),entry_config:hex(encodeCanonical(ENTRY_CONFIG)),war_cry_config:hex(encodeCanonical(WAR_CRY_CONFIG)),combined_config:hex(encodeCanonical(COMBINED_CONFIG)),deflector_config:hex(encodeCanonical(DEFLECTOR_CONFIG)),cases,sequences,capacity_events}));
+const mobile=process.env.B2Z_MOBILE_CAPTURE
+ ? fs.readFileSync(process.env.B2Z_MOBILE_CAPTURE)
+ : bytesHex(JSON.parse(fs.readFileSync(new URL('../../tests/fixtures/rules20-passage-public-equality.json',import.meta.url))).rows[0].initial_hex);
+const mobileWorld=decodeWorld(mobile);
+if(mobileWorld.version!==12||mobileWorld.width!==1000||mobileWorld.height!==1000)throw Error('Rules20 mobile fixture world');
+cases.rules20Mobile={initial:hex(mobile)};
+const rules20_config=hex(fs.readFileSync(new URL('../../apps/b2z-observer/configuration-rules20.bin',import.meta.url)));
+fs.writeFileSync(process.argv[2],JSON.stringify({rules20_config,economy_config:hex(encodeCanonical(ECONOMY_CONFIG)),reservoir_config:hex(encodeCanonical(RESERVOIR_CONFIG)),spacing_config:hex(encodeCanonical(SPACING_CONFIG)),shout_config:hex(encodeCanonical(SHOUT_CONFIG)),qualification:'Synthetic widget/presentation data; not IC authentication or installed upgrade evidence',config:hex(encodeCanonical({...V6_POLICY,...PRICING})),entry_config:hex(encodeCanonical(ENTRY_CONFIG)),war_cry_config:hex(encodeCanonical(WAR_CRY_CONFIG)),combined_config:hex(encodeCanonical(COMBINED_CONFIG)),deflector_config:hex(encodeCanonical(DEFLECTOR_CONFIG)),cases,sequences,capacity_events}));

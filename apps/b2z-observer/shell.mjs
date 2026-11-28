@@ -411,13 +411,32 @@ export function createShell(doc,camera,arcade,onPick){
   if(quantityReservation==='inline')y=top;
   else if(quantityReserved&&short){y=Math.max(strip?strip.bottom+8:top,Math.min(y,bottom-m.headerHeight-96));}
   for(const obstacle of(short||movement?[]:lowerObstacles))if(obstacle.width&&x+cw>obstacle.left&&x<obstacle.right)bottom=Math.min(bottom,obstacle.top-8);
+  let fireFrame=null;
   if(!movement&&narrow&&at&&!short){
    // The collapsed toolbar and its expanded actions share an anchor. The
    // quantity rail can shorten the scrollport without moving that anchor.
    const panelBottom=Math.min(bounds.top+H-72,...[minimapArea(m.mini),m.buttons].filter(r=>r.width&&x+cw>r.left&&x<r.right).map(r=>r.top-8));
+   const unobstructedBottom=bottom;
    bottom=Math.min(bottom,narrowAimBottom);
    const clear=Math.min(Math.max(narrowAimClearance,narrowAimTop),bottom-m.headerHeight-96);
    y=Math.max(top,clear,Math.min(y,Math.min(panelBottom,narrowAimBottom)-m.headerHeight-240));
+   const useful=Math.min(240,Math.max(0,m.desired-m.headerHeight));
+   if(quantityReservation==='rail'&&aim&&arcade.mode()==='ball'&&arcade.structureContexts?.()
+      && bottom-y-m.headerHeight<useful){
+    // Reserve the normal payment pane before framing the Cannon. The old
+    // orbit can otherwise consume the pane's scrollport; the HUD and quantity
+    // rail retain their measured footprints below the pane.
+    const paneBottom=top+m.headerHeight+useful;
+    const rail=quantityRail(m,bounds);
+    const left=rail.right+4,right=bounds.left+W-8,frameTop=paneBottom+1;
+    const frameBottom=Math.min(bounds.top+H-8,...[m.mini,...compassRects(m),m.cycles,m.buttons,m.sound,rail]
+      .filter(r=>r.width&&r.right>left&&r.left<right&&r.bottom>frameTop)
+      .map(r=>r.top));
+    if(paneBottom<=unobstructedBottom&&right-left>=120&&frameBottom-frameTop>=120){
+     fireFrame={left,right,top:frameTop,bottom:frameBottom};
+     y=top;bottom=paneBottom;
+    }
+   }
   }else if(quantityReserved&&!short){
    const useful=Math.min(240,Math.max(0,m.desired-m.headerHeight));
    y=Math.max(top,Math.min(y,bottom-m.headerHeight-useful));
@@ -426,7 +445,7 @@ export function createShell(doc,camera,arcade,onPick){
   const minimum=movement?0:quantityReserved?Math.min(96,Math.max(0,bottom-top-m.headerHeight)):96,room=Math.floor(Math.max(minimum,bottom-y-m.headerHeight)),bodyHeight=context==='inspect'?0:Math.min(room,Math.max(0,m.desired-m.headerHeight)),next=[Math.round(x),Math.round(y),Math.round(cw),Math.round(room),Math.ceil(bodyHeight)].join('/');
   if(next!==positionKey){audioMask=null;positionKey=next;card.style.left=`${Math.round(x)}px`;card.style.top=`${Math.round(y)}px`;card.style.width=`${cw}px`;card.style.maxHeight='none';card.style.setProperty('--body-space',`${Math.floor(room)}px`);card.style.setProperty('--body-height',`${Math.ceil(bodyHeight)}px`);}
   cardBounds={left:x,right:x+cw,top:y,bottom:y+m.headerHeight+bodyHeight};
-  const site=aim?.cannon.cell??arcade.moveSelection()?.cell??c?.cell,compose=[context,arcade.mode(),c?.id,c?.cell,site,W,H,short,locateGeneration].join('/');
+  const site=aim?.cannon.cell??arcade.moveSelection()?.cell??c?.cell,compose=[context,arcade.mode(),c?.id,c?.cell,site,W,H,short,locateGeneration,fireFrame?narrowQuarter:''].join('/');
   if(compose!==compositionKey){compositionKey=compose;if(!movement&&narrow&&c&&expanded&&!pointers.size&&!arcade.structureContexts?.()){
    const intended=motion.animation?.owner==='focus'?Object.assign(Object.create(Object.getPrototypeOf(camera)),camera,motion.animation.to):camera;
    // The dock can sit where a keyboard-contracted shot used to frame the cannon.
@@ -434,6 +453,9 @@ export function createShell(doc,camera,arcade,onPick){
    const clearTop=Math.max(m.headerBottom+(fitInteractive?0:8),strip?strip.bottom+4:0);
    const target=previewComposition(intended,c.cell,site,{left:8,right:W-8,top:clearTop,bottom:y-(fitInteractive?0:6)},{interactive,fitInteractive});
    if(target){if(short){motion.cancel();Object.assign(camera,target);if(contractedCamera)contractedCamera.applied=cameraPose();}else motion.go(target,{owner:'composition'});}
+  }else if(fireFrame&&!pointers.size){
+   const target=previewComposition(camera,c.cell,site,fireFrame,{fitInteractive:true});
+   if(target)motion.go(target,{owner:'composition'});
   }}
   positionQuantity();committedLayoutRevision=layoutRevision;
  }
