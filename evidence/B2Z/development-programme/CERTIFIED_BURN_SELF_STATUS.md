@@ -597,7 +597,7 @@ The 320px screenshot revealed that the compass W control covered the end of
 the same text even though the DOM scroll-width check passed. This is a
 visual **FAIL**, retained under
 `.work/burn-balance-probe/hosted-final-6a4/ci-certified-burn-live/`.
-The narrow-width Cycles chip now sits above the compass, and the live gate
+The narrow-width Cycles chip was moved above the compass, and the live gate
 checks their actual rectangles at both widths and for both certificate
 roots. A local exact-asset frontend build passed with 91 files and raw Wasm
 SHA-256 `45d9c09243d13ccf9a6f290a84b7d8c1560dc0da9b4f6c2e39718ab3a043899e`
@@ -623,3 +623,23 @@ clicks. Raw before/after browser evidence is under
 `.work/burn-balance-probe/tactical-grid-search-local/`. This fixture
 correction requires a fresh exact-source standard workflow; it does not
 qualify the live telemetry display by itself.
+
+The subsequent exact-source standard workflow on `0478f8d6` passed that
+tactical journey but failed the 320px player-refinement payment scrollport:
+the elevated Cycles chip reduced its measured height to **189px**, below
+the existing **240px** minimum. Its desktop and 390px cases passed. This
+is a real layout **FAIL**, retained under
+`.work/burn-balance-probe/hosted-standard-047-browser-failure.log`.
+The revised candidate restores the original lower Cycles lane, uses a
+112px chip at 320px and displays the approximate rate as `~408B/d`;
+the detail panel retains `~408.28B/day`. Local browser measurement found
+no compass overlap, and the unchanged `Cycles unavailable` label fits
+at the 10px narrow-width font. The focused player-refinement browser
+journey then passed at desktop, 390px and 320px, with the 320px payment
+scrollport measuring exactly **240px** under
+`.work/burn-balance-probe/refinement-compact-3/`. The exact reviewed
+frontend built 91 assets and raw Wasm SHA-256
+`daec27efd156dae92fa5555a8db41d9a6f061a257e69218cf08827e53fd1b0c9`
+under `.work/burn-balance-probe/compact-cycles-frontend-3/`. Fresh hosted
+live and full standard acceptance are still required before telemetry can
+be considered qualified.

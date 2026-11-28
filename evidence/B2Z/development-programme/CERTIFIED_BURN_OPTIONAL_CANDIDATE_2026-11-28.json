@@ -62,7 +62,7 @@
     ".work/burn-balance-probe/hosted-normal-held-index-1/"
   ],
   "hosted_candidate_build_environment": "GitHub Actions exact source; CARGO_TARGET_WASM32_UNKNOWN_UNKNOWN_RUSTFLAGS path remapping; candidate distinct from local no-remap build",
-  "hosted_live_browser_status": "46115275892 PASS composed/direct certificates, maintained browser/agent/operator and genuine Applied receipt",
+  "hosted_live_browser_status": "46115275892 PASS with earlier elevated chip; restored compact lower lane pending exact-source hosted acceptance",
   "hosted_full_speed_certified_cycles_per_day": 1599936282174,
   "hosted_full_speed_settled_cycles_per_day": 1600732361851,
   "hosted_full_speed_relative_difference_percent": 0.05,
@@ -72,9 +72,9 @@
   "hosted_held_index_relative_difference_percent": 1.332,
   "hosted_held_index_refund_cycles": 82596503047,
   "hosted_held_index_inflight_samples": 2,
-  "compact_frontend_review_app_sha256": "8a5560acd9ec36b6512142f370726dabee3c39508238b61b041407c2b00c6626",
-  "local_compact_frontend_raw_wasm_sha256": "45d9c09243d13ccf9a6f290a84b7d8c1560dc0da9b4f6c2e39718ab3a043899e",
-  "compact_frontend_local_evidence": ".work/burn-balance-probe/compact-cycles-frontend-2/",
-  "compact_browser_390_and_320_status": "PASS hosted 46115275892; full Cycles (~408.28B/day) visible at both widths with no compass overlap",
-  "full_standard_status": "46115275914 failed historical tactical fixed-point test; corrected fixture passed local 1440/390/320; exact-source hosted standard rerun pending"
+  "compact_frontend_review_app_sha256": "3822a4b35e9a4ab94536280a4698ac63ea5a9f69990ea3ca57e3d07ea0a9727f",
+  "local_compact_frontend_raw_wasm_sha256": "daec27efd156dae92fa5555a8db41d9a6f061a257e69218cf08827e53fd1b0c9",
+  "compact_frontend_local_evidence": ".work/burn-balance-probe/compact-cycles-frontend-3/",
+  "compact_browser_390_and_320_status": "earlier elevated layout passed live 46115275892 but failed payment scrollport; restored compact lower lane passed focused local refinement and awaits hosted live gate",
+  "full_standard_status": "46117056093 passed tactical but failed 320px payment scrollport; corrected layout passed local 1440/390/320; exact-source hosted standard pending"
 }

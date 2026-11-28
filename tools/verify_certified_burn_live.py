@@ -92,6 +92,7 @@ with (out / "server.log").open("w") as log:
             measure = """()=>{
                 const s=__b2zExperience.session;
                 const values=document.getElementById('cycle-values');
+                const unavailable=document.getElementById('cycle-unavailable');
                 const burn=document.getElementById('cycles-burn');
                 const display=document.getElementById('cycles-display');
                 const chip=display.getBoundingClientRect();
@@ -106,7 +107,9 @@ with (out / "server.log").open("w") as log:
                     burnText:burn.innerText.replace(/\\s+/g,' ').trim(),valuesVisible:!values.hidden,
                     burnVisible:!burn.hidden,displayHeight:chip.height,compassOverlaps,
                     valueHeight:values.getBoundingClientRect().height,
-                    valueClientWidth:values.clientWidth,valueScrollWidth:values.scrollWidth};
+                    valueClientWidth:values.clientWidth,valueScrollWidth:values.scrollWidth,
+                    unavailableClientWidth:unavailable.clientWidth,
+                    unavailableScrollWidth:unavailable.scrollWidth};
             }"""
             for attempt in range(2):
                 if attempt:
@@ -124,6 +127,7 @@ with (out / "server.log").open("w") as log:
                     assert row["valueHeight"] <= row["displayHeight"] + 1, row
                 else:
                     assert row["quality"] is None and not row["burnVisible"], row
+                    assert row["unavailableScrollWidth"] <= row["unavailableClientWidth"] + 1, row
                 assert not row["compassOverlaps"], row
                 observations.append(row)
             assert int(observations[1]["head"]) >= int(observations[0]["head"]), observations
@@ -142,6 +146,8 @@ with (out / "server.log").open("w") as log:
             if args.expect_burn:
                 assert compact["burnText"] in compact["line"] and "Unavailable" not in compact["line"], compact
                 assert compact["valueScrollWidth"] <= compact["valueClientWidth"] + 1, compact
+            else:
+                assert compact["unavailableScrollWidth"] <= compact["unavailableClientWidth"] + 1, compact
             assert not compact["compassOverlaps"], compact
             assert compact["valueHeight"] <= compact["displayHeight"] + 1, compact
             page.screenshot(path=out / "live-observer-320.png")
