@@ -2004,7 +2004,9 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
     assert_eq!(final_observation.publication, prior.publication);
 
     let candidate = bytes("B2Z_RULES20_CANDIDATE_WASM");
+    let recovery_install_before_cycles = pic.cycle_balance(id);
     upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    let recovery_install_after_cycles = pic.cycle_balance(id);
     let prepare = || -> Result<Vec<u8>, String> {
         let reply = pic
             .update_call(
@@ -2274,12 +2276,14 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
             .is_err()
     );
     assert_eq!(observe(&pic, id).0.publication, prior.publication);
+    let recovery_commit_before_cycles = pic.cycle_balance(id);
     let _: Vec<u8> = get_result(
         &pic,
         id,
         "commit_rules19_recovery",
         candid::encode_one(publication.head.manifest_hash.clone()).unwrap(),
     );
+    let recovery_commit_after_cycles = pic.cycle_balance(id);
     let (recovered_observation, recovered_publication) = capture(&pic, id, &out, 1);
     assert_eq!(recovered_publication.version, 10);
     assert_eq!(recovered_publication.epoch.as_ref().unwrap().version, 4);
@@ -2351,7 +2355,9 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
         recovery_module_hash,
         "Rules19 must reject the first durable recovery boundary"
     );
+    let recovery_reinstall_before_cycles = pic.cycle_balance(id);
     upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    let recovery_reinstall_after_cycles = pic.cycle_balance(id);
     assert_eq!(
         observe(&pic, id).0.publication,
         recovered_observation.publication
@@ -2890,12 +2896,14 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
         successor_ordinal += 1;
     }
     before_successor_pub = current_pub;
+    let rules20_commit_before_cycles = pic.cycle_balance(id);
     let _: Vec<u8> = get_result(
         &pic,
         id,
         "commit_rules20_transition",
         candid::encode_one(before_successor_pub.head.manifest_hash).unwrap(),
     );
+    let rules20_commit_after_cycles = pic.cycle_balance(id);
     let successor = arena_world(&pic, id);
     assert_eq!(successor.version, 12);
     assert_eq!(successor.received_e8s, final_world.received_e8s);
@@ -3024,7 +3032,17 @@ fn run_rules19_digit_leading_grant_wire_boundary_seed(
             "successor_payment_position":successor_payment,
             "successor_payment_applied":true,
             "received_e8s_after_successor_payment":arena_world(&pic, id).received_e8s,
-            "successor_version":successor.version
+            "successor_version":successor.version,
+            "disposable_cycle_budget":{
+                "recovery_capable_install_before":recovery_install_before_cycles,
+                "recovery_capable_install_after":recovery_install_after_cycles,
+                "recovery_commit_before":recovery_commit_before_cycles,
+                "recovery_commit_after":recovery_commit_after_cycles,
+                "compatible_reinstall_before":recovery_reinstall_before_cycles,
+                "compatible_reinstall_after":recovery_reinstall_after_cycles,
+                "rules20_commit_before":rules20_commit_before_cycles,
+                "rules20_commit_after":rules20_commit_after_cycles
+            }
         }))
         .unwrap(),
     )
@@ -3074,7 +3092,9 @@ fn rules20_paid_epoch_and_recovery() {
     let predecessor_publication = observe(&pic, id).0.publication;
     upgrade_during_recovery(&pic, id, &installed).unwrap();
     assert_eq!(observe(&pic, id).0.publication, predecessor_publication);
+    let healthy_install_before_cycles = pic.cycle_balance(id);
     upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    let healthy_install_after_cycles = pic.cycle_balance(id);
     assert_eq!(observe(&pic, id).0.publication, predecessor_publication);
     // Before the durable epoch, the exact installed module remains a valid
     // recovery target; after activation it must fail rather than misdecode.
@@ -3127,12 +3147,14 @@ fn rules20_paid_epoch_and_recovery() {
     let prepared_ns = pic.get_time().as_nanos_since_unix_epoch();
     let midnight = (prepared_ns / day + 1) * day;
     pic.advance_time(Duration::from_nanos(midnight - prepared_ns + 1_000_000_000));
+    let healthy_commit_before_cycles = pic.cycle_balance(id);
     let _: Vec<u8> = get_result(
         &pic,
         id,
         "commit_rules20_transition",
         candid::encode_one(before_pub.head.manifest_hash.clone()).unwrap(),
     );
+    let healthy_commit_after_cycles = pic.cycle_balance(id);
     let after = arena_world(&pic, id);
     let (after_obs, after_pub) = capture(&pic, id, &out, 1);
     assert_eq!(
@@ -3186,7 +3208,9 @@ fn rules20_paid_epoch_and_recovery() {
         current_hash
     );
     assert_eq!(observe(&pic, id).0.publication, after_obs.publication);
+    let healthy_reinstall_before_cycles = pic.cycle_balance(id);
     upgrade_during_recovery(&pic, id, &candidate).unwrap();
+    let healthy_reinstall_after_cycles = pic.cycle_balance(id);
     assert_eq!(observe(&pic, id).0.publication, after_obs.publication);
     // Midnight crossed while the predecessor clock was paused. Observe and
     // independently verify the first successor economy checkpoint in order.
@@ -3336,6 +3360,14 @@ fn rules20_paid_epoch_and_recovery() {
             "later_unrelated_publication":later_pub.head.segment_id,
             "old_module_rejected_after_epoch":true,
             "same_candidate_recovery":true,
+            "disposable_cycle_budget":{
+                "successor_install_before":healthy_install_before_cycles,
+                "successor_install_after":healthy_install_after_cycles,
+                "rules20_commit_before":healthy_commit_before_cycles,
+                "rules20_commit_after":healthy_commit_after_cycles,
+                "compatible_reinstall_before":healthy_reinstall_before_cycles,
+                "compatible_reinstall_after":healthy_reinstall_after_cycles
+            },
         })).unwrap(),
     ).unwrap();
 }
