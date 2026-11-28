@@ -53,12 +53,13 @@ disabled in this backend candidate, so publication uses the direct root.
 
 Installation, recovery and operating cycle budgets require separate fresh
 measurement. Source `adc5a8e1` passed standard, financial and developer
-workflows, but additional installed construction-destruction, corner and adversarial
+workflows, but additional installed construction-destruction and adversarial
 recovery acceptance remains open. The local continuation has **26 named
 installed cases**, including positive prepared-arrival recovery and
 interrupted eligible, Cannon and Diverter corner routes. These later cases
-require exact-source hosted qualification before any final freeze. Broader
-ownership and construction-destruction cases remain open.
+require exact-source hosted qualification before any final freeze. The
+complete 28-row local corner public-output matrix passed both implementations;
+construction-destruction cases remain open.
 
 One disposable same-ID frontend rehearsal used the exact installed
 manufacturing module and the public Rules20 candidate. It certified all 91

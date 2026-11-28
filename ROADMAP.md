@@ -69,8 +69,8 @@ An installed mixed-owner corner capture survived a partially stepped
 checkpoint and same-ID restart with exact independent replay. Complete
 foreign-Cannon and Diverter installed corner obstructions also survived the
 same restart route and matched independent replay. Complete structure and
-Ball destruction, broader mixed-ownership corner cases and
-adversarial recovery cases, any unexecuted financial edge cases, and final
+Ball destruction and adversarial recovery cases, any unexecuted financial
+edge cases, and final
 exact-source hosted qualification before freezing a release. The successor
 frontend has a dedicated configuration and inventory.
 

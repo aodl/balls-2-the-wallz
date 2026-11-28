@@ -684,7 +684,23 @@ replay. Raw results are under
 `.work/rules19-recovery/installed-diverter-corner-1/` (57.366 and 76.748
 seconds). The installed release runner now names **26** cases; the two
 structure cases require exact-source hosted qualification after publication.
-The broader protected and mixed-ownership matrix remains separately scoped.
 The original eligible neutral-corner case also passed again after the
 shared fixture refactor under
 `.work/rules19-recovery/installed-corner-refactor-1/`.
+
+The local checkerboard feature matrix is now **complete for the specified
+contact classes**. The independent JavaScript suite passed all nine focused
+tests; the native runner passed all **15 original plus 13 active-owner**
+public-output rows on the same fixtures. Together the rows exercise all
+eight diagonal directions/parities, both toroidal seams, Cannon and Diverter
+side/diagonal obstructions, protected territory, two distinct opponents,
+friendly side cells with a foreign diagonal, equal-time ownership changes
+and simultaneous Balls. They compare complete public state, events and
+scores, including final motion and cell membership. The three genuine
+installed restart variants separately prove eligible capture and Cannon
+and Diverter obstruction. Historical Rules19 contact law remains in the
+focused suite and the full source vectors. This closes the local corner
+feature gate; the **26-case final-source hosted installed run** is still
+required before release.
+The complete local source suite after the installed structure-corner tests
+passed under `.work/rules19-recovery/source-after-structure-corners-1/`.

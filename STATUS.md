@@ -184,7 +184,9 @@ the one eligible checkerboard tile across mixed ownership. Independent replay
 matched public state, events and scores. Genuine installed structure-corner
 restarts also passed for a foreign Cannon and Diverter: each obstructed the
 ambiguous capture, reflected the Ball and matched independent public replay.
-The broader source/native contact matrix remains separately scoped. A separate
+The 15 original and 13 active-owner exact public-output contact rows also
+passed independent native and JavaScript checks, closing the local corner
+matrix pending final-source hosted confirmation. A separate
 authenticated 1,001-account fixture paid for the first and second personal
 Diverters at 2 and 8 ICP with exact receipts, frontend wallet quotes and
 independent public replay; the refactored original first-Cannon case passed
