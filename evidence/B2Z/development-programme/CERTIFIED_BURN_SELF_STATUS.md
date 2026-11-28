@@ -342,3 +342,12 @@ cycles/day** over the exact matched management window (**0.053%** relative
 difference). Thus the shifted timer phase did not expose the earlier
 wrong-window comparison error. It remains a disposable two-minute burst,
 not a general Full Speed operating bound.
+
+The genuine CMC credit variant also passed at the **47.777-second** phase
+under `.work/burn-balance-probe/treasury-credit-phase-47777-1/`. Its
+pre-credit established rate was **396,134,725,986 cycles/day**, against
+**397,495,432,464 cycles/day** over matched management samples (**0.342%**).
+The maintained funding record identified **1T cycles** of treasury credit.
+The meter marked the prior window **stale** rather than reporting a false
+negative burn; the authoritative game publication and world were unchanged.
+Unknown external credits remain outside this guarantee.
